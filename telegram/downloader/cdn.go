@@ -41,6 +41,13 @@ func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 		return nil, xerrors.Errorf("create cipher: %w", err)
 	}
 
+	if block.BlockSize() != len(c.redirect.EncryptionIv) {
+		return nil, xerrors.Errorf(
+			"invalid IV or key length, block size %d != IV %d",
+			block.BlockSize(), len(c.redirect.EncryptionIv),
+		)
+	}
+
 	// Copy IV to buffer from Pool.
 	iv := c.pool.GetSize(len(c.redirect.EncryptionIv))
 	defer c.pool.Put(iv)
