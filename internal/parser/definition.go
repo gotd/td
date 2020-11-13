@@ -26,18 +26,18 @@ func parseDefinition(line string) (Definition, error) {
 	d := Definition{}
 	// peerUser#9db1bc6d user_id:int = Peer;
 	// name#ID flags = Interface;
-	parts := strings.Split(line, " ")
-	if len(parts) < 2 {
+	parts := strings.Split(line, "=")
+	if len(parts) != 2 {
 		return Definition{}, xerrors.New("unexpected line elems")
 	}
-	{
-		// Parsing interface name.
-		last := parts[len(parts)-1]
-		d.Interface = last
-	}
+	d.Interface = strings.TrimSpace(parts[1])
+	var (
+		left      = strings.TrimSpace(parts[0])
+		leftParts = strings.Split(left, " ")
+	)
 	{
 		// Parsing definition name and id.
-		first := parts[0]
+		first := leftParts[0]
 		nameParts := strings.SplitN(first, tokID, 2)
 		d.Name = nameParts[0]
 		if len(nameParts) > 1 {
@@ -52,16 +52,18 @@ func parseDefinition(line string) (Definition, error) {
 			d.ID = crc32.ChecksumIEEE([]byte(line))
 		}
 	}
-	for i, f := range parts[1 : len(parts)-2] {
+	for _, f := range leftParts[1:] {
 		// Parsing fields.
-		fieldParts := strings.SplitN(f, ":", 2)
-		if len(fieldParts) != 2 {
-			return d, xerrors.Errorf("field %i: unexpected parts count", i)
+		if f == "?" {
+			// Special case.
+			continue
 		}
-		d.Fields = append(d.Fields, Field{
-			Name: fieldParts[0],
-			Type: fieldParts[1],
-		})
+		field := Field{Type: f}
+		if fieldParts := strings.SplitN(f, ":", 2); len(fieldParts) == 2 {
+			field.Name = fieldParts[0]
+			field.Type = fieldParts[1]
+		}
+		d.Fields = append(d.Fields, field)
 	}
 	return d, nil
 }

@@ -54,6 +54,27 @@ func TestParseDefinition(t *testing.T) {
 				},
 			},
 		},
+		{
+			Case:  "OK",
+			Input: "ok = Ok;",
+			Definition: Definition{
+				ID:        0xd4edbe69,
+				Interface: "Ok",
+				Name:      "ok",
+			},
+		},
+		{
+			Case:  "GroupWithoutFieldNames",
+			Input: "group int string string = Group;",
+			Definition: Definition{
+				ID:        0x60fc45e0,
+				Interface: "Group",
+				Name:      "group",
+				Fields: []Field{
+					{Type: "int"}, {Type: "string"}, {Type: "string"},
+				},
+			},
+		},
 	} {
 		var (
 			input       = tt.Input
