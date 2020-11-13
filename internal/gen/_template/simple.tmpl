@@ -1,0 +1,18 @@
+{{ define "simple" }}
+{{ $pkg := $.Config.Package }}
+{{ template "header" $ }}
+
+{{ range $n := $.Types }}
+// {{ $n.Comment }}
+type {{ $n.Name }} struct {
+{{- range $f := $n.Fields }}
+    // {{ $f.Comment }}
+    {{ $f.Name }} {{ $f.Type }}
+{{ end -}}
+}
+
+// TelegramTypeID returns TL type ID.
+func ({{ $n.Name }}) TelegramTypeID() uint32 { return 0x{{ $n.HexID }} }
+{{ end }}
+
+{{ end }}

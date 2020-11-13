@@ -21,8 +21,14 @@ type Type struct {
 	Kind        Kind
 }
 
+type Class struct {
+	Name        string
+	Description string
+}
+
 type Schema struct {
-	Types map[string]Type
+	Types   []Type
+	Classes []Class
 }
 
 type section byte
@@ -34,18 +40,18 @@ const (
 )
 
 func Parse(reader io.Reader) (*Schema, error) {
-	scanner := bufio.NewScanner(reader)
 	var (
-		typ  Type
-		line int
-		sec  section
+		typ  Type    // current type
+		line int     // current line
+		sec  section // current section
+
+		schema  = &Schema{}
+		scanner = bufio.NewScanner(reader)
 	)
-	schema := &Schema{
-		Types: map[string]Type{},
-	}
 	for scanner.Scan() {
 		line++
 		s := strings.TrimSpace(scanner.Text())
+		s = strings.ReplaceAll(s, "///", "//") // normalize comments
 		switch s {
 		case "":
 			continue
@@ -64,22 +70,28 @@ func Parse(reader io.Reader) (*Schema, error) {
 			if err != nil {
 				return nil, xerrors.Errorf("failed to parse line %d: %w", line, err)
 			}
+			if strings.HasPrefix(s, "//@class") {
+				var class Class
+				for _, a := range ann {
+					if a.Key == "class" {
+						class.Name = a.Value
+					}
+					if a.Key == "description" {
+						class.Description = a.Value
+					}
+				}
+				if class.Name != "" {
+					schema.Classes = append(schema.Classes, class)
+				}
+				// Reset annotations so we don't include them to next type.
+				ann = ann[:0]
+			}
+
 			typ.Annotations = append(typ.Annotations, ann...)
 			continue
 		}
 		if strings.HasPrefix(s, "//") {
 			continue
-		}
-
-		// New type definition.
-		if typ.Definition.ID != 0 {
-			schema.Types[typ.Definition.Name] = typ
-			typ = Type{
-				Kind: map[section]Kind{
-					sectionTypes:     KindType,
-					sectionFunctions: KindFunction,
-				}[sec],
-			}
 		}
 
 		def, err := parseDefinition(s)
@@ -88,11 +100,21 @@ func Parse(reader io.Reader) (*Schema, error) {
 		}
 
 		typ.Definition = def
+		schema.Types = append(schema.Types, typ)
+		typ = Type{
+			Kind: map[section]Kind{
+				sectionTypes:     KindType,
+				sectionFunctions: KindFunction,
+			}[sec],
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, xerrors.Errorf("failed to scan: %w", err)
 	}
 
-	// Last type.
+	// Remeaning type.
 	if typ.Definition.ID != 0 {
-		schema.Types[typ.Definition.Name] = typ
+		schema.Types = append(schema.Types, typ)
 	}
 
 	return schema, nil

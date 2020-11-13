@@ -1,4 +1,4 @@
-package _testdata
+package td
 
 /*
 inputReportReasonSpam#58dbcab8 = ReportReason;
