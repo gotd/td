@@ -24,7 +24,6 @@ type Definition struct {
 	ID        uint32      // crc32(definition) or explicitly specified
 	Params    []Parameter // can be empty
 	Type      Type        // type of definition
-	Category  Category    // category of definition (function or type)
 	Base      bool        // base type?
 }
 

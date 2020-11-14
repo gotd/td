@@ -48,7 +48,7 @@ func Generate(w io.Writer, t *template.Template, s *parser.Schema) error {
 	renderCtx := Context{
 		Config: cfg,
 	}
-	for _, typ := range s.Types {
+	for _, typ := range s.Definitions {
 		switch typ.Kind {
 		case parser.KindFunction:
 			m := Method{

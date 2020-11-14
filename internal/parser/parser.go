@@ -8,17 +8,11 @@ import (
 	"golang.org/x/xerrors"
 )
 
-type Kind byte
-
-const (
-	KindFunction Kind = iota
-	KindType
-)
-
-type SchemaType struct {
-	Annotations []Annotation
-	Definition  Definition
-	Kind        Kind
+// SchemaDefinition is annotated Definition with Category.
+type SchemaDefinition struct {
+	Annotations []Annotation // annotations (comments)
+	Definition  Definition   // definition
+	Category    Category     // category of definition (function or type)
 }
 
 type Class struct {
@@ -27,22 +21,15 @@ type Class struct {
 }
 
 type Schema struct {
-	Types   []SchemaType
-	Classes []Class
+	Definitions []SchemaDefinition
+	Classes     []Class
 }
-
-type section byte
-
-const (
-	sectionTypes section = iota
-	sectionFunctions
-)
 
 func Parse(reader io.Reader) (*Schema, error) {
 	var (
-		typ  SchemaType // current type
-		line int        // current line
-		sec  section    // current section
+		def      SchemaDefinition
+		line     int
+		category Category
 
 		schema  = &Schema{}
 		scanner = bufio.NewScanner(reader)
@@ -55,10 +42,10 @@ func Parse(reader io.Reader) (*Schema, error) {
 		case "":
 			continue
 		case tokFunctions:
-			sec = sectionFunctions
+			category = CategoryFunction
 			continue
 		case tokTypes:
-			sec = sectionTypes
+			category = CategoryType
 			continue
 		case "vector {t:Type} # [ t ] = Vector t;":
 			// Special case for vector
@@ -86,25 +73,19 @@ func Parse(reader io.Reader) (*Schema, error) {
 				ann = ann[:0]
 			}
 
-			typ.Annotations = append(typ.Annotations, ann...)
+			def.Annotations = append(def.Annotations, ann...)
 			continue
 		}
 		if strings.HasPrefix(s, "//") {
 			continue
 		}
-
-		var def Definition
-		if err := def.Parse(s); err != nil {
+		if err := def.Definition.Parse(s); err != nil {
 			return nil, xerrors.Errorf("failed to parse line %d: definition: %w", line, err)
 		}
 
-		typ.Definition = def
-		schema.Types = append(schema.Types, typ)
-		typ = SchemaType{
-			Kind: map[section]Kind{
-				sectionTypes:     KindType,
-				sectionFunctions: KindFunction,
-			}[sec],
+		schema.Definitions = append(schema.Definitions, def)
+		def = SchemaDefinition{
+			Category: category,
 		}
 	}
 	if err := scanner.Err(); err != nil {
@@ -112,8 +93,8 @@ func Parse(reader io.Reader) (*Schema, error) {
 	}
 
 	// Remaining type.
-	if typ.Definition.ID != 0 {
-		schema.Types = append(schema.Types, typ)
+	if def.Definition.ID != 0 {
+		schema.Definitions = append(schema.Definitions, def)
 	}
 
 	return schema, nil
