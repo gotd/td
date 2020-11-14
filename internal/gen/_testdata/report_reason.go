@@ -1,5 +1,7 @@
 package td
 
+import "context"
+
 /*
 inputReportReasonSpam#58dbcab8 = ReportReason;
 inputReportReasonViolence#1e22c78d = ReportReason;
@@ -27,3 +29,9 @@ type InputReportReasonOther struct {
 }
 
 func (InputReportReasonOther) reportReason() {}
+
+type SomeInterface interface {
+	// If Ok -> return nil
+	// If Error -> return error
+	Ping(ctx context.Context, id int) error
+}

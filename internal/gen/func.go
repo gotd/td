@@ -39,6 +39,21 @@ func pascal(s string) string {
 	return pascalWords(words)
 }
 
+// camel converts the given name into a camelCase.
+//
+//	user_info  => userInfo
+//	full_name  => fullName
+//	user_id    => userID
+//	full-admin => fullAdmin
+//
+func camel(s string) string {
+	words := strings.FieldsFunc(s, isSeparator)
+	if len(words) == 1 {
+		return strings.ToLower(words[0])
+	}
+	return strings.ToLower(words[0]) + pascalWords(words[1:])
+}
+
 func ruleset() *inflect.Ruleset {
 	rules := inflect.NewDefaultRuleset()
 	// Add common initialisms from golint and more.

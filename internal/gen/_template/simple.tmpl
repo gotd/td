@@ -15,4 +15,19 @@ type {{ $n.Name }} struct {
 func ({{ $n.Name }}) TelegramTypeID() uint32 { return 0x{{ $n.HexID }} }
 {{ end }}
 
+type Client interface {
+{{ range $m := $.Methods }}
+    // {{ $m.Comment }}.
+    {{ $m.Name }} (
+        ctx context.Context,
+        {{ range $a := $m.Arguments }}
+            {{ $a.Name }} {{ $a.Type }},
+        {{ end }}
+    ) (
+    {{ with $m.Output }}{{ . }}{{ end }}
+    error,
+    )
+{{ end }}
+}
+
 {{ end }}
