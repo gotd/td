@@ -15,7 +15,7 @@ const (
 	KindType
 )
 
-type Type struct {
+type SchemaType struct {
 	Annotations []Annotation
 	Definition  Definition
 	Kind        Kind
@@ -27,23 +27,22 @@ type Class struct {
 }
 
 type Schema struct {
-	Types   []Type
+	Types   []SchemaType
 	Classes []Class
 }
 
 type section byte
 
 const (
-	sectionDefinitions section = iota
+	sectionTypes section = iota
 	sectionFunctions
-	sectionTypes
 )
 
 func Parse(reader io.Reader) (*Schema, error) {
 	var (
-		typ  Type    // current type
-		line int     // current line
-		sec  section // current section
+		typ  SchemaType // current type
+		line int        // current line
+		sec  section    // current section
 
 		schema  = &Schema{}
 		scanner = bufio.NewScanner(reader)
@@ -101,7 +100,7 @@ func Parse(reader io.Reader) (*Schema, error) {
 
 		typ.Definition = def
 		schema.Types = append(schema.Types, typ)
-		typ = Type{
+		typ = SchemaType{
 			Kind: map[section]Kind{
 				sectionTypes:     KindType,
 				sectionFunctions: KindFunction,
@@ -112,7 +111,7 @@ func Parse(reader io.Reader) (*Schema, error) {
 		return nil, xerrors.Errorf("failed to scan: %w", err)
 	}
 
-	// Remeaning type.
+	// Remaining type.
 	if typ.Definition.ID != 0 {
 		schema.Types = append(schema.Types, typ)
 	}

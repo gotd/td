@@ -10,7 +10,7 @@ type Annotation struct {
 }
 
 func parseAnnotation(line string) ([]Annotation, error) {
-	//@name The name of the option @value The new value of the option
+	//@name The name of the option @parserValue The new parserValue of the option
 	line = strings.TrimLeft(line, "/")
 	var annotations []Annotation
 	for _, p := range strings.Split(line, "@") {
