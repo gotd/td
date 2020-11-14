@@ -1,0 +1,1 @@
+pageBlockSlideshow page_blocks:vector<PageBlock> caption:pageBlockCaption = PageBlock

@@ -1,0 +1,1 @@
+help.userInfo#1eb3758 message:string entities:Vector<MessageEntity> author:string date:int = help.UserInfo

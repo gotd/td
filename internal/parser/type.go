@@ -44,6 +44,9 @@ func (p Type) String() string {
 }
 
 func (p *Type) Parse(s string) error {
+	if strings.HasPrefix(s, ".") {
+		return xerrors.New("type can't start with dot")
+	}
 	if strings.HasPrefix(s, "!") {
 		p.GenericRef = true
 		s = s[1:]
@@ -71,6 +74,14 @@ func (p *Type) Parse(s string) error {
 	}
 	if p.Name == "" {
 		return xerrors.New("blank name")
+	}
+	if !isValidName(p.Name) {
+		return xerrors.Errorf("invalid name %q", p.Name)
+	}
+	for _, ns := range p.Namespace {
+		if !isValidName(ns) {
+			return xerrors.Errorf("invalid namespace part %q", ns)
+		}
 	}
 
 	// Bare types are always lowercase.

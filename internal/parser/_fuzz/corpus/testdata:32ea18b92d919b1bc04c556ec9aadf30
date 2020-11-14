@@ -1,0 +1,1 @@
+getArchivedStickerSets is_masks:Bool offset_sticker_set_id:int64 limit:int32 = StickerSets

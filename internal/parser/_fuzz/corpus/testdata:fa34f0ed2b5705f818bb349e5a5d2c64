@@ -1,0 +1,1 @@
+messageGameScore game_message_id:int53 game_id:int64 score:int32 = MessageContent

@@ -1,0 +1,1 @@
+paymentResult success:Bool verification_url:string = PaymentResult

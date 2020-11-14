@@ -1,0 +1,1 @@
+getSupergroupFullInfo supergroup_id:int32 = SupergroupFullInfo

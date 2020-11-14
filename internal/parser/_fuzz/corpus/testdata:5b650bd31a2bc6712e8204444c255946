@@ -1,0 +1,1 @@
+foundMessages total_count:int32 messages:vector<message> next_offset:string = FoundMessages

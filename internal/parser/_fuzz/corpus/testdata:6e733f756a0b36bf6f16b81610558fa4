@@ -1,0 +1,1 @@
+maskPosition point:MaskPoint x_shift:double y_shift:double scale:double = MaskPosition

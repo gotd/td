@@ -1,0 +1,1 @@
+messageVideoNote video_note:videoNote is_viewed:Bool is_secret:Bool = MessageContent

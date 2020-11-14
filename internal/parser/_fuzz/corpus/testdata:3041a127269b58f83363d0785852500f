@@ -1,0 +1,1 @@
+deleteChatMessagesFromUser chat_id:int53 user_id:int32 = Ok

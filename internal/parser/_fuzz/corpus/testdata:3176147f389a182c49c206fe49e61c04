@@ -1,0 +1,1 @@
+pushMessageContentSticker sticker:sticker emoji:string is_pinned:Bool = PushMessageContent

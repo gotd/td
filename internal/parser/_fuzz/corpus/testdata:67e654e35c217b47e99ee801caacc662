@@ -1,0 +1,1 @@
+checkDatabaseEncryptionKey encryption_key:bytes = Ok

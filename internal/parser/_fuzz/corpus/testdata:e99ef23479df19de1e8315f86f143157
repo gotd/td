@@ -1,0 +1,1 @@
+getGroupsInCommon user_id:int32 offset_chat_id:int53 limit:int32 = Chats

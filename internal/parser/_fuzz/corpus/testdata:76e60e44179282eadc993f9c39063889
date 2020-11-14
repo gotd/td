@@ -1,0 +1,1 @@
+saveApplicationLogEvent type:string chat_id:int53 data:JsonValue = Ok

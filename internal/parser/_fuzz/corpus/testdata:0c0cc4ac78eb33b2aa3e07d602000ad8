@@ -1,0 +1,1 @@
+pushMessageContentChatDeleteMember member_name:string is_current_user:Bool is_left:Bool = PushMessageContent

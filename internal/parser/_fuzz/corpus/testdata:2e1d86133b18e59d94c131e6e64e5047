@@ -1,0 +1,1 @@
+recommendedChatFilter filter:chatFilter description:string = RecommendedChatFilter

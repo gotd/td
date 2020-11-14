@@ -1,0 +1,1 @@
+getSecretChat secret_chat_id:int32 = SecretChat

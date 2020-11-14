@@ -1,0 +1,1 @@
+messageVoiceNote voice_note:voiceNote caption:formattedText is_listened:Bool = MessageContent

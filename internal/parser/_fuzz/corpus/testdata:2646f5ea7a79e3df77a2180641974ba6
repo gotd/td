@@ -1,0 +1,1 @@
+callStateDiscarded reason:CallDiscardReason need_rating:Bool need_debug_information:Bool = CallState

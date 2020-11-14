@@ -1,0 +1,1 @@
+answerPreCheckoutQuery pre_checkout_query_id:int64 error_message:string = Ok

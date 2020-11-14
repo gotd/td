@@ -1,0 +1,1 @@
+game id:int64 short_name:string title:string text:formattedText description:string photo:photo animation:animation = Game

@@ -1,0 +1,1 @@
+deleteLanguagePack language_pack_id:string = Ok

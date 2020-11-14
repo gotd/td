@@ -93,8 +93,8 @@ func Parse(reader io.Reader) (*Schema, error) {
 			continue
 		}
 
-		def, err := parseDefinition(s)
-		if err != nil {
+		var def Definition
+		if err := def.Parse(s); err != nil {
 			return nil, xerrors.Errorf("failed to parse line %d: definition: %w", line, err)
 		}
 

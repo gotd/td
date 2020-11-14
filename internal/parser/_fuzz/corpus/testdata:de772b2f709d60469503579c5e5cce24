@@ -1,0 +1,1 @@
+getTrendingStickerSets offset:int32 limit:int32 = StickerSets

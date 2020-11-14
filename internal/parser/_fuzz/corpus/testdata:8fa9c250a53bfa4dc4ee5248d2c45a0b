@@ -1,0 +1,1 @@
+updateChatUserTyping#9a65ea1f chat_id:int user_id:int action:SendMessageAction = Update

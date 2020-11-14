@@ -1,0 +1,1 @@
+changeImportedContacts contacts:vector<contact> = ImportedContacts

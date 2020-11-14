@@ -1,0 +1,1 @@
+clearAllDraftMessages exclude_secret_chats:Bool = Ok

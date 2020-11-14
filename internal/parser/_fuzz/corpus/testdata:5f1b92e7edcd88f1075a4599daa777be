@@ -1,0 +1,1 @@
+messagePassportDataReceived elements:vector<encryptedPassportElement> credentials:encryptedCredentials = MessageContent

@@ -1,0 +1,1 @@
+addChatToList chat_id:int53 chat_list:ChatList = Ok

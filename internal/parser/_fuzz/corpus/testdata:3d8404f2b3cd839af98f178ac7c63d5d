@@ -1,0 +1,1 @@
+updateChatNotificationSettings chat_id:int53 notification_settings:chatNotificationSettings = Update

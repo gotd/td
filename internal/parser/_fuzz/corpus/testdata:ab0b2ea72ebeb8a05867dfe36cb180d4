@@ -1,0 +1,1 @@
+deleteProfilePhoto profile_photo_id:int64 = Ok

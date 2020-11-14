@@ -1,0 +1,1 @@
+cancelUploadFile file_id:int32 = Ok

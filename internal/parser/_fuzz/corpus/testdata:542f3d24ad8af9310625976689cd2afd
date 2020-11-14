@@ -1,0 +1,1 @@
+chatEventMemberInvited user_id:int32 status:ChatMemberStatus = ChatEventAction

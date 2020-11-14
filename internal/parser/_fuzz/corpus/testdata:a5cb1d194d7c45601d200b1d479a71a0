@@ -1,0 +1,1 @@
+editInlineMessageReplyMarkup inline_message_id:string reply_markup:ReplyMarkup = Ok

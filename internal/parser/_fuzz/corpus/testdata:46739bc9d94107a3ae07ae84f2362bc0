@@ -1,0 +1,1 @@
+checkChatInviteLink invite_link:string = ChatInviteLinkInfo

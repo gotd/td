@@ -1,0 +1,1 @@
+shippingOption id:string title:string price_parts:vector<labeledPricePart> = ShippingOption

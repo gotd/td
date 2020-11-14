@@ -1,0 +1,1 @@
+inputChatPhotoPrevious chat_photo_id:int64 = InputChatPhoto

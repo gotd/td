@@ -1,0 +1,1 @@
+messages.getGameHighScores#e822649d peer:InputPeer id:int user_id:InputUser = messages.HighScores

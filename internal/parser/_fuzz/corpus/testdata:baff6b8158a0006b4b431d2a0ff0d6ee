@@ -1,0 +1,1 @@
+checkAuthenticationCode code:string = Ok

@@ -1,0 +1,1 @@
+chatActionUploadingDocument progress:int32 = ChatAction

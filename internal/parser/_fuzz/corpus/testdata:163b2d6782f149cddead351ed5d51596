@@ -1,0 +1,1 @@
+messages.addChatUser#f9a0aa09 chat_id:int user_id:InputUser fwd_limit:int = Updates

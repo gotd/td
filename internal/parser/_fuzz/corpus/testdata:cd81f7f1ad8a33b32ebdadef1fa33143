@@ -1,0 +1,1 @@
+chatMemberStatusBanned banned_until_date:int32 = ChatMemberStatus

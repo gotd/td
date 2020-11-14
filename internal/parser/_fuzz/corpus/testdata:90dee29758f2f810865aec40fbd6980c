@@ -1,0 +1,1 @@
+messageLinkInfo is_public:Bool chat_id:int53 message:message for_album:Bool for_comment:Bool = MessageLinkInfo

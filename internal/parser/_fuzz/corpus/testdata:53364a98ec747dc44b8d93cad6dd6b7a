@@ -1,0 +1,1 @@
+updateUserPhoto#95313b0c user_id:int date:int photo:UserProfilePhoto previous:Bool = Update

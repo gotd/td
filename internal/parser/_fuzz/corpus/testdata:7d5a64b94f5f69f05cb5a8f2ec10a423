@@ -1,0 +1,1 @@
+callServer id:int64 ip_address:string ipv6_address:string port:int32 type:CallServerType = CallServer

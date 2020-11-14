@@ -36,8 +36,11 @@ func (p Parameter) Conditional() bool {
 
 func (p Parameter) String() string {
 	var b strings.Builder
-	b.WriteString(p.Name)
-	b.WriteRune(':')
+	if p.Name != "" {
+		// Anonymous parameter.
+		b.WriteString(p.Name)
+		b.WriteRune(':')
+	}
 	if p.Flags {
 		b.WriteRune('#')
 		return b.String()
@@ -55,12 +58,14 @@ func (p *Parameter) Parse(s string) error {
 		return xerrors.New("{foo:Type} definitions not supported")
 	}
 	parts := strings.SplitN(s, ":", 2)
-	if len(parts) != 2 {
-		return xerrors.New("invalid parameter syntax (expected foo:bar)")
+	if len(parts) == 2 {
+		p.Name = parts[0]
+		s = parts[1]
+	} else {
+		// Anonymous parameter.
+		s = parts[0]
 	}
-	p.Name = parts[0]
 
-	s = parts[1]
 	if s == "#" {
 		p.Flags = true
 		return nil

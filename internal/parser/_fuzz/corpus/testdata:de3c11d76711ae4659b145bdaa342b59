@@ -1,0 +1,1 @@
+account.verifyEmail#ecba39db email:string code:string = Bool

@@ -1,0 +1,1 @@
+chatPosition list:ChatList order:int64 is_pinned:Bool source:ChatSource = ChatPosition

@@ -1,0 +1,1 @@
+cancelDownloadFile file_id:int32 only_if_pending:Bool = Ok

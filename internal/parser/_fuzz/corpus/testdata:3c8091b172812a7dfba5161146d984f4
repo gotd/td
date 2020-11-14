@@ -1,0 +1,1 @@
+updateChatReplyMarkup chat_id:int53 reply_markup_message_id:int53 = Update

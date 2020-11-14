@@ -1,0 +1,1 @@
+confirmQrCodeAuthentication link:string = Session

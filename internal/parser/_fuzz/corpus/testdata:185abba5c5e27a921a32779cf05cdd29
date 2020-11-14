@@ -1,0 +1,1 @@
+inlineQueryResultAnimation id:string animation:animation title:string = InlineQueryResult

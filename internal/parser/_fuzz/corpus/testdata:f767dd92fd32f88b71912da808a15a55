@@ -1,0 +1,1 @@
+getUserFullInfo user_id:int32 = UserFullInfo

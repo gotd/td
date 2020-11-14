@@ -1,0 +1,1 @@
+terminateSession session_id:int64 = Ok

@@ -1,0 +1,1 @@
+messageForwardOriginUser sender_user_id:int32 = MessageForwardOrigin

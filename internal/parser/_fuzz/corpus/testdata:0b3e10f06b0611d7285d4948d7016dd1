@@ -1,0 +1,1 @@
+messageSendingStateFailed error_code:int32 error_message:string can_retry:Bool retry_after:double = MessageSendingState

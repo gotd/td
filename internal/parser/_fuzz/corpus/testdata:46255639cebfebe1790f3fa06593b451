@@ -1,0 +1,1 @@
+pageBlockDetails header:RichText page_blocks:vector<PageBlock> is_open:Bool = PageBlock

@@ -1,0 +1,1 @@
+getStorageStatistics chat_limit:int32 = StorageStatistics

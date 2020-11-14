@@ -1,0 +1,1 @@
+authorizationStateWaitEncryptionKey is_encrypted:Bool = AuthorizationState

@@ -1,0 +1,1 @@
+connectedWebsites websites:vector<connectedWebsite> = ConnectedWebsites

@@ -1,0 +1,1 @@
+getUserProfilePhotos user_id:int32 offset:int32 limit:int32 = ChatPhotos

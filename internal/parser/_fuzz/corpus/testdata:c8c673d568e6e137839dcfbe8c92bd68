@@ -1,0 +1,1 @@
+inputStickerStatic sticker:InputFile emojis:string mask_position:maskPosition = InputSticker

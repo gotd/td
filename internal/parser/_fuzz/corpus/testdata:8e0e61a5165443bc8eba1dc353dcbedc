@@ -1,0 +1,1 @@
+setFileGenerationProgress generation_id:int64 expected_size:int32 local_prefix_size:int32 = Ok

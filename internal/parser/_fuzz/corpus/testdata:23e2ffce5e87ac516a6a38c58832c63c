@@ -1,0 +1,1 @@
+messages.highScores#9a3bfd99 scores:Vector<HighScore> users:Vector<User> = messages.HighScores

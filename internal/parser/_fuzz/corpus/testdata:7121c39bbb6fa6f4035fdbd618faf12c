@@ -1,0 +1,1 @@
+backgroundFillGradient top_color:int32 bottom_color:int32 rotation_angle:int32 = BackgroundFill

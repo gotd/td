@@ -1,0 +1,1 @@
+removeRecentSticker is_attached:Bool sticker:InputFile = Ok

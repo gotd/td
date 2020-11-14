@@ -1,0 +1,1 @@
+httpUrl url:string = HttpUrl

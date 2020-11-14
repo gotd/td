@@ -1,0 +1,1 @@
+messages.readDiscussion#f731a9f4 peer:InputPeer msg_id:int read_max_id:int = Bool

@@ -1,0 +1,1 @@
+getChatMessageCount chat_id:int53 filter:SearchMessagesFilter return_local:Bool = Count

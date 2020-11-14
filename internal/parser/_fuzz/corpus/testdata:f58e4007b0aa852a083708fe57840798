@@ -1,0 +1,1 @@
+inputCredentialsNew data:string allow_save:Bool = InputCredentials

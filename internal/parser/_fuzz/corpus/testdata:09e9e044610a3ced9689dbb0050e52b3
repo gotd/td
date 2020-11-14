@@ -1,0 +1,1 @@
+addStickerToSet user_id:int32 name:string sticker:InputSticker = StickerSet

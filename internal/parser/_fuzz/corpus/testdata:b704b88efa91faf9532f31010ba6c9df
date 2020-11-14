@@ -1,0 +1,1 @@
+payments.getPaymentReceipt#a092a980 msg_id:int = payments.PaymentReceipt

@@ -1,0 +1,1 @@
+replyMarkupRemoveKeyboard is_personal:Bool = ReplyMarkup

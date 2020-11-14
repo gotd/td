@@ -1,0 +1,1 @@
+stickerSets total_count:int32 sets:vector<stickerSetInfo> = StickerSets

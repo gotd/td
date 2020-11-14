@@ -1,0 +1,1 @@
+pushMessageContentMessageForwards total_count:int32 = PushMessageContent

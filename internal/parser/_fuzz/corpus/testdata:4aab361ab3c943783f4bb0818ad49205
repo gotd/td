@@ -1,0 +1,1 @@
+removeRecentHashtag hashtag:string = Ok

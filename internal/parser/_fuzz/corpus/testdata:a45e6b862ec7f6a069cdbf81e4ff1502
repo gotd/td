@@ -1,0 +1,1 @@
+messageCall is_video:Bool discard_reason:CallDiscardReason duration:int32 = MessageContent

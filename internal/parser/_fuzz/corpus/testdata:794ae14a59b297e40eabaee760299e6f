@@ -1,0 +1,1 @@
+chatActionUploadingVoiceNote progress:int32 = ChatAction

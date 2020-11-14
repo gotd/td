@@ -1,0 +1,1 @@
+joinChatByInviteLink invite_link:string = Chat

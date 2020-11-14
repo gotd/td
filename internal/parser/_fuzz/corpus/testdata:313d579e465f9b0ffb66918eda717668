@@ -1,0 +1,1 @@
+channels.editLocation#58e63f6d channel:InputChannel geo_point:InputGeoPoint address:string = Bool

@@ -1,0 +1,1 @@
+animatedChatPhoto length:int32 file:file main_frame_timestamp:double = AnimatedChatPhoto

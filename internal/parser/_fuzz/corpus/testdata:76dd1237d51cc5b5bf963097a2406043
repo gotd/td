@@ -1,0 +1,1 @@
+pollTypeRegular allow_multiple_answers:Bool = PollType

@@ -1,0 +1,1 @@
+testCallVectorIntObject x:vector<testInt> = TestVectorIntObject

@@ -27,6 +27,13 @@ func TestParameter(t *testing.T) {
 				Type: Type{Name: "Code"},
 			},
 		},
+		{
+			String: "int",
+			Value: Parameter{
+				Name: "",
+				Type: Type{Name: "int", Bare: true},
+			},
+		},
 	} {
 		t.Run(tt.String, func(t *testing.T) {
 			t.Run("String", func(t *testing.T) {
@@ -46,9 +53,7 @@ func TestParameter(t *testing.T) {
 	t.Run("Error", func(t *testing.T) {
 		for _, s := range []string{
 			".1",
-			"flag",
 			"",
-			"foo.bar",
 			"{a:b}",
 			"{c",
 		} {

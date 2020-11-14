@@ -1,0 +1,1 @@
+chatEventPhotoChanged old_photo:chatPhoto new_photo:chatPhoto = ChatEventAction

@@ -1,0 +1,1 @@
+deleteSupergroup supergroup_id:int32 = Ok

@@ -1,0 +1,1 @@
+textEntity offset:int32 length:int32 type:TextEntityType = TextEntity

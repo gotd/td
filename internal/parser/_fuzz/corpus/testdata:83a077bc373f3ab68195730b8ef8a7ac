@@ -1,0 +1,1 @@
+inputPersonalDocument files:vector<InputFile> translation:vector<InputFile> = InputPersonalDocument

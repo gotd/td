@@ -1,0 +1,1 @@
+updateChatUnreadMentionCount chat_id:int53 unread_mention_count:int32 = Update

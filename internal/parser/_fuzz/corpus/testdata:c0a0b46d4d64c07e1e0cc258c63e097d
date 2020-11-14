@@ -1,0 +1,1 @@
+getInlineGameHighScores inline_message_id:string user_id:int32 = GameHighScores

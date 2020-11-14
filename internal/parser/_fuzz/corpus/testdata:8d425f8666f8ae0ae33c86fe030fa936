@@ -1,0 +1,1 @@
+sendCallDebugInformation call_id:int32 debug_information:string = Ok

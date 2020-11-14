@@ -1,0 +1,1 @@
+editProxy proxy_id:int32 server:string port:int32 enable:Bool type:ProxyType = Proxy

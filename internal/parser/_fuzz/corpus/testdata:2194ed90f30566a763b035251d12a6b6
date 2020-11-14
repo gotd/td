@@ -1,0 +1,1 @@
+pushMessageContentLocation is_live:Bool is_pinned:Bool = PushMessageContent

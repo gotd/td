@@ -1,0 +1,1 @@
+auth.loginTokenMigrateTo#68e9916 dc_id:int token:bytes = auth.LoginToken

@@ -1,0 +1,1 @@
+reportSupergroupSpam supergroup_id:int32 user_id:int32 message_ids:vector<int53> = Ok

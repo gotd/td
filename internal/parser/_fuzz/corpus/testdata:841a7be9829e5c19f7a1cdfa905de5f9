@@ -1,0 +1,1 @@
+chatEventIsAllHistoryAvailableToggled is_all_history_available:Bool = ChatEventAction

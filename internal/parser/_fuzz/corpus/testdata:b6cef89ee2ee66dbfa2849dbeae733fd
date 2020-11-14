@@ -1,0 +1,1 @@
+chatEventUsernameChanged old_username:string new_username:string = ChatEventAction

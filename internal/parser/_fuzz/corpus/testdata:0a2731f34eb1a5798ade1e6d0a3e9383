@@ -1,0 +1,1 @@
+messageProximityAlertTriggered traveler:MessageSender watcher:MessageSender distance:int32 = MessageContent

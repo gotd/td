@@ -1,0 +1,1 @@
+pollTypeQuiz correct_option_id:int32 explanation:formattedText = PollType

@@ -1,0 +1,1 @@
+getBackgroundUrl name:string type:BackgroundType = HttpUrl

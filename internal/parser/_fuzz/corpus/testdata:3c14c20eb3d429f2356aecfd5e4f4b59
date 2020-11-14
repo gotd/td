@@ -1,0 +1,1 @@
+reportChat chat_id:int53 reason:ChatReportReason message_ids:vector<int53> = Ok

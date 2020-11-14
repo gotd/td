@@ -1,0 +1,1 @@
+photo has_stickers:Bool minithumbnail:minithumbnail sizes:vector<photoSize> = Photo

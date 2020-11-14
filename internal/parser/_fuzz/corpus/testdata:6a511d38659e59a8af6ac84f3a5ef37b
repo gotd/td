@@ -1,0 +1,1 @@
+proxyTypeHttp username:string password:string http_only:Bool = ProxyType

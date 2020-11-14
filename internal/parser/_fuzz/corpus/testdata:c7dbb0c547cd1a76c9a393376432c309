@@ -1,0 +1,1 @@
+pushMessageContentGame title:string is_pinned:Bool = PushMessageContent

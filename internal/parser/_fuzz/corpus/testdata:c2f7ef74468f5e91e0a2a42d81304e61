@@ -1,0 +1,1 @@
+getTextEntities text:string = TextEntities

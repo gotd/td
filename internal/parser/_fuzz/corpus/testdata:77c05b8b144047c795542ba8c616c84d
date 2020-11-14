@@ -1,0 +1,1 @@
+authenticationCodeTypeFlashCall pattern:string = AuthenticationCodeType

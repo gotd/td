@@ -6,7 +6,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestParseDefinition(t *testing.T) {
+var bareString = Type{
+	Name: "string",
+	Bare: true,
+}
+
+var bareLong = Type{
+	Name: "long",
+	Bare: true,
+}
+
+func TestDefinition(t *testing.T) {
 	for _, tt := range []struct {
 		Case       string
 		Input      string
@@ -16,41 +26,32 @@ func TestParseDefinition(t *testing.T) {
 			Case:  "inputPhoneCall",
 			Input: "inputPhoneCall#1e36fded id:long access_hash:long = InputPhoneCall;",
 			Definition: Definition{
-				ID:        0x1e36fded,
-				Name:      "inputPhoneCall",
-				Interface: "InputPhoneCall",
-				Fields: []Field{
+				ID:   0x1e36fded,
+				Name: "inputPhoneCall",
+				Params: []Parameter{
 					{
 						Name: "id",
-						Type: "long",
+						Type: bareLong,
 					},
 					{
 						Name: "access_hash",
-						Type: "long",
+						Type: bareLong,
 					},
 				},
+				Type: Type{Name: "InputPhoneCall"},
 			},
 		},
 		{
 			Case:  "userWithoutCRC",
 			Input: "user id:int first_name:string last_name:string = User;",
 			Definition: Definition{
-				ID:        0xd23c81a3,
-				Name:      "user",
-				Interface: "User",
-				Fields: []Field{
-					{
-						Name: "id",
-						Type: "int",
-					},
-					{
-						Name: "first_name",
-						Type: "string",
-					},
-					{
-						Name: "last_name",
-						Type: "string",
-					},
+				ID:   0xd23c81a3,
+				Name: "user",
+				Type: Type{Name: "User"},
+				Params: []Parameter{
+					{Name: "id", Type: Type{Name: "int", Bare: true}},
+					{Name: "first_name", Type: bareString},
+					{Name: "last_name", Type: bareString},
 				},
 			},
 		},
@@ -58,21 +59,32 @@ func TestParseDefinition(t *testing.T) {
 			Case:  "OK",
 			Input: "ok = Ok;",
 			Definition: Definition{
-				ID:        0xd4edbe69,
-				Interface: "Ok",
-				Name:      "ok",
+				ID:   0xd4edbe69,
+				Name: "ok",
+				Type: Type{Name: "Ok"},
 			},
 		},
 		{
 			Case:  "GroupWithoutFieldNames",
 			Input: "group int string string = Group;",
 			Definition: Definition{
-				ID:        0x60fc45e0,
-				Interface: "Group",
-				Name:      "group",
-				Fields: []Field{
-					{Type: "int"}, {Type: "string"}, {Type: "string"},
+				ID:   0x60fc45e0,
+				Name: "group",
+				Type: Type{Name: "Group"},
+				Params: []Parameter{
+					{Type: Type{Name: "int", Bare: true}},
+					{Type: bareString},
+					{Type: bareString},
 				},
+			},
+		},
+		{
+			Case:  "Zero",
+			Input: "0=0",
+			Definition: Definition{
+				Name: "0",
+				ID:   0x971b4490,
+				Type: Type{Name: "0", Bare: true},
 			},
 		},
 	} {
@@ -81,11 +93,24 @@ func TestParseDefinition(t *testing.T) {
 			expectedDef = tt.Definition
 		)
 		t.Run(tt.Case, func(t *testing.T) {
-			d, err := parseDefinition(input)
-			if err != nil {
+			var d Definition
+			if err := d.Parse(input); err != nil {
 				t.Fatal(err)
 			}
 			require.Equal(t, expectedDef, d)
 		})
 	}
+	t.Run("Error", func(t *testing.T) {
+		for _, invalid := range []string{
+			"=0",
+		} {
+			t.Run(invalid, func(t *testing.T) {
+				var d Definition
+				if err := d.Parse(invalid); err == nil {
+					t.Error("should error")
+				}
+			})
+
+		}
+	})
 }

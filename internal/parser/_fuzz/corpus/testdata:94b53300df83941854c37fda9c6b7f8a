@@ -1,0 +1,1 @@
+pushMessageContentChatAddMembers member_name:string is_current_user:Bool is_returned:Bool = PushMessageContent

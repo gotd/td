@@ -1,0 +1,1 @@
+toggleChatIsPinned chat_list:ChatList chat_id:int53 is_pinned:Bool = Ok

@@ -1,0 +1,1 @@
+inlineQueryResultSticker id:string sticker:sticker = InlineQueryResult

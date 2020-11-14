@@ -1,0 +1,1 @@
+deleteChatHistory chat_id:int53 remove_from_chat_list:Bool revoke:Bool = Ok

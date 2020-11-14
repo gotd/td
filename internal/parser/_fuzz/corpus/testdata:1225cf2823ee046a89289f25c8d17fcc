@@ -1,0 +1,1 @@
+proxyTypeSocks5 username:string password:string = ProxyType

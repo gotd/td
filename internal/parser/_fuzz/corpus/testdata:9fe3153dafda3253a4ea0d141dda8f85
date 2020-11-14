@@ -1,0 +1,1 @@
+inputThumbnail thumbnail:InputFile width:int32 height:int32 = InputThumbnail

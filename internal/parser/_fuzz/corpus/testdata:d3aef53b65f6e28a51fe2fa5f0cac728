@@ -1,0 +1,1 @@
+inlineQueryResultPhoto id:string photo:photo title:string description:string = InlineQueryResult

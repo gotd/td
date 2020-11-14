@@ -1,0 +1,1 @@
+sendBotStartMessage bot_user_id:int32 chat_id:int53 parameter:string = Message

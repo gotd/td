@@ -1,0 +1,1 @@
+updateLanguagePackStrings localization_target:string language_pack_id:string strings:vector<languagePackString> = Update

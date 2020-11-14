@@ -1,0 +1,1 @@
+updateChatFilters chat_filters:vector<chatFilterInfo> = Update

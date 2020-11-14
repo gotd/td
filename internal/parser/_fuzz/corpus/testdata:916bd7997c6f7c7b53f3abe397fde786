@@ -1,0 +1,1 @@
+changeStickerSet set_id:int64 is_installed:Bool is_archived:Bool = Ok

@@ -1,0 +1,1 @@
+sendPassportAuthorizationForm autorization_form_id:int32 types:vector<PassportElementType> = Ok

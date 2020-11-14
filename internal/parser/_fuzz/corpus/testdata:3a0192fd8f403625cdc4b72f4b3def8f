@@ -1,0 +1,1 @@
+account.changePhone#70c32edb phone_number:string phone_code_hash:string phone_code:string = User

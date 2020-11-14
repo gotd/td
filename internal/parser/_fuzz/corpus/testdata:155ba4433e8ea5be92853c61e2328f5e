@@ -1,0 +1,1 @@
+canTransferOwnershipResultSessionTooFresh retry_after:int32 = CanTransferOwnershipResult

@@ -1,0 +1,1 @@
+chatPhoto id:int64 added_date:int32 minithumbnail:minithumbnail sizes:vector<photoSize> animation:animatedChatPhoto = ChatPhoto

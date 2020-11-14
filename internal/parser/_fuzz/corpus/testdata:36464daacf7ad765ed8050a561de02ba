@@ -1,0 +1,1 @@
+updateUserFullInfo user_id:int32 user_full_info:userFullInfo = Update

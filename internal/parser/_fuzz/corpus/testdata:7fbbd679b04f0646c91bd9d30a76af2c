@@ -1,0 +1,1 @@
+toggleMessageSenderIsBlocked sender:MessageSender is_blocked:Bool = Ok

@@ -1,0 +1,1 @@
+getAttachedStickerSets file_id:int32 = StickerSets

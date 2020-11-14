@@ -1,0 +1,1 @@
+recommendedChatFilters chat_filters:vector<recommendedChatFilter> = RecommendedChatFilters

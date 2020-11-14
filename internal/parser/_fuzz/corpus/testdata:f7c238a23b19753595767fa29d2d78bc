@@ -1,0 +1,1 @@
+auth.sentCodeTypeSms#c000bba2 length:int = auth.SentCodeType

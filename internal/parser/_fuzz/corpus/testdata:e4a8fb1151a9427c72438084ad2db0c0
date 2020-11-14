@@ -1,0 +1,1 @@
+chatTypeSecret secret_chat_id:int32 user_id:int32 = ChatType

@@ -1,0 +1,1 @@
+chatParticipants#3f460fed chat_id:int participants:Vector<ChatParticipant> version:int = ChatParticipants

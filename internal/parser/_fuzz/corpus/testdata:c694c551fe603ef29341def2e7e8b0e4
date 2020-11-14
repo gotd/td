@@ -1,0 +1,1 @@
+getStickerEmojis sticker:InputFile = Emojis

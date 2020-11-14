@@ -1,0 +1,1 @@
+chats total_count:int32 chat_ids:vector<int53> = Chats

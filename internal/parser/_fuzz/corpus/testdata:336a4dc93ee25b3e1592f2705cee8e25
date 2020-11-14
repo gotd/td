@@ -1,0 +1,1 @@
+networkStatistics since_date:int32 entries:vector<NetworkStatisticsEntry> = NetworkStatistics

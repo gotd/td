@@ -1,0 +1,1 @@
+chatStatisticsInviterInfo user_id:int32 added_member_count:int32 = ChatStatisticsInviterInfo

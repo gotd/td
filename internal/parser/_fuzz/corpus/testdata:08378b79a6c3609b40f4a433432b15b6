@@ -1,0 +1,1 @@
+auth.resendCode#3ef1a9bf phone_number:string phone_code_hash:string = auth.SentCode

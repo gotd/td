@@ -1,0 +1,1 @@
+pushMessageContentHidden is_pinned:Bool = PushMessageContent

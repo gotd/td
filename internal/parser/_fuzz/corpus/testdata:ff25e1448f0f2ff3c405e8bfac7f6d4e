@@ -1,0 +1,1 @@
+messageCopyOptions send_copy:Bool replace_caption:Bool new_caption:formattedText = MessageCopyOptions

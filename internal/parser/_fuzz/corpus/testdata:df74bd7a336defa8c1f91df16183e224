@@ -1,0 +1,1 @@
+deviceTokenApplePush device_token:string is_app_sandbox:Bool = DeviceToken

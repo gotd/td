@@ -1,0 +1,1 @@
+authenticationCodeTypeSms length:int32 = AuthenticationCodeType

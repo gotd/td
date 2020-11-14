@@ -1,0 +1,1 @@
+pushMessageContentDocument document:document is_pinned:Bool = PushMessageContent

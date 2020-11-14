@@ -1,0 +1,1 @@
+orderInfo name:string phone_number:string email_address:string shipping_address:address = OrderInfo

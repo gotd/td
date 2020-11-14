@@ -1,0 +1,1 @@
+backgroundTypePattern fill:BackgroundFill intensity:int32 is_moving:Bool = BackgroundType

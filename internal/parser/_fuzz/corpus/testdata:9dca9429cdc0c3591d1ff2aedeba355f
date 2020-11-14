@@ -1,0 +1,1 @@
+updateChannelMessageForwards#6e8a84df channel_id:int id:int forwards:int = Update

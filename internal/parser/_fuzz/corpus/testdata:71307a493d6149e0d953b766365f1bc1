@@ -1,0 +1,1 @@
+chatFilterInfo id:int32 title:string icon_name:string = ChatFilterInfo

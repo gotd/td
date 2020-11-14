@@ -1,0 +1,1 @@
+chatEventSignMessagesToggled sign_messages:Bool = ChatEventAction

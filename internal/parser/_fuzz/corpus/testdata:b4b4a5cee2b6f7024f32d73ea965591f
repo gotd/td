@@ -1,0 +1,1 @@
+updateNewInlineQuery id:int64 sender_user_id:int32 user_location:location query:string offset:string = Update

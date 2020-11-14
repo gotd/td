@@ -1,0 +1,1 @@
+uploadStickerFile user_id:int32 png_sticker:InputFile = File

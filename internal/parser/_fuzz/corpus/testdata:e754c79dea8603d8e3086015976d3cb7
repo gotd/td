@@ -1,0 +1,1 @@
+addChatMembers chat_id:int53 user_ids:vector<int32> = Ok

@@ -1,0 +1,1 @@
+addRecentSticker is_attached:Bool sticker:InputFile = Stickers

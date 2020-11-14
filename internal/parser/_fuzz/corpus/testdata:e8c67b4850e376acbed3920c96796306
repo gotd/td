@@ -1,0 +1,1 @@
+chatPhotos total_count:int32 photos:vector<chatPhoto> = ChatPhotos

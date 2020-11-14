@@ -1,0 +1,1 @@
+messageChatUpgradeFrom title:string basic_group_id:int32 = MessageContent

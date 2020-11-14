@@ -1,0 +1,1 @@
+pushMessageContentText text:string is_pinned:Bool = PushMessageContent
