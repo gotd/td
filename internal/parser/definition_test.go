@@ -124,6 +124,25 @@ func TestDefinition(t *testing.T) {
 				},
 			},
 		},
+		{
+			Case:  "invokeWithLayer",
+			Input: "invokeWithLayer#da9b0d0d {X:Type} layer:int query:!X = X",
+			Definition: Definition{
+				Name: "invokeWithLayer",
+				ID:   0xda9b0d0d,
+				Type: Type{Name: "X"},
+				Params: []Parameter{
+					{
+						Name: "layer",
+						Type: Type{Name: "int", Bare: true},
+					},
+					{
+						Name: "query",
+						Type: Type{Name: "X", GenericRef: true},
+					},
+				},
+			},
+		},
 	} {
 		var (
 			input       = tt.Input

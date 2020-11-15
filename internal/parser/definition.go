@@ -41,15 +41,19 @@ func (d Definition) String() string {
 	return b.String()
 }
 
+// Parse TL definition line like `foo#123 code:int name:string = Message;`.
 func (d *Definition) Parse(line string) error {
 	line = strings.TrimRight(line, ";")
 	parts := strings.Split(line, "=")
 	if len(parts) != 2 {
 		return xerrors.New("unexpected definition elements")
 	}
+	// Splitting definition line into left and right parts.
+	// Example: `foo#123 code:int name:string = Message`
 	var (
-		left      = strings.TrimSpace(parts[0])
-		right     = strings.TrimSpace(parts[1])
+		left  = strings.TrimSpace(parts[0]) // `foo#123 code:int name:string`
+		right = strings.TrimSpace(parts[1]) // `Message`
+		// Divided left part elements, like []{"foo#123", "code:int", "name:string"}
 		leftParts = strings.Split(left, " ")
 	)
 	if left == "" || right == "" {
@@ -67,6 +71,7 @@ func (d *Definition) Parse(line string) error {
 			return xerrors.New("blank name")
 		}
 		if len(nameParts) > 1 {
+			// Parsing definition id as hex to uint32.
 			idHex := nameParts[1]
 			id, err := strconv.ParseUint(idHex, 16, 32)
 			if err != nil {
@@ -78,6 +83,7 @@ func (d *Definition) Parse(line string) error {
 			d.ID = crc32.ChecksumIEEE([]byte(line))
 		}
 		if nsParts := strings.Split(d.Name, "."); len(nsParts) > 1 {
+			// Handling definition namespace.
 			d.Name = nsParts[len(nsParts)-1]
 			d.Namespace = nsParts[:len(nsParts)-1]
 		}
@@ -87,8 +93,9 @@ func (d *Definition) Parse(line string) error {
 			}
 		}
 	}
+	genericParams := map[string]struct{}{}
 	for _, f := range leftParts[1:] {
-		// Parsing fields.
+		// Parsing parameters.
 		if f == "?" {
 			// Special case.
 			d.Base = true
@@ -97,6 +104,22 @@ func (d *Definition) Parse(line string) error {
 		var param Parameter
 		if err := param.Parse(f); err != nil {
 			return xerrors.Errorf("failed to parse param: %w", err)
+		}
+		// Handling generics.
+		// Example:
+		// `t#1 {X:Type} x:!X = X;` is valid type definition with generic type "X".
+		// Type of parameter "x" is {Name: "X", GenericRef: true}.
+		if param.typeDefinition {
+			// Parameter is generic type definition like {T:Type}.
+			genericParams[param.Name] = struct{}{}
+			continue // not adding generic to actual params
+		}
+		// Checking that type of generic parameter was defined.
+		// E.g. `t#1 {Y:Type} x:!X = X;` is invalid, because X was not defined.
+		if param.Type.GenericRef {
+			if _, ok := genericParams[param.Type.Name]; !ok {
+				return xerrors.Errorf("undefined generic parameter type %s", param.Type.Name)
+			}
 		}
 		d.Params = append(d.Params, param)
 	}

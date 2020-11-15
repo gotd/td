@@ -55,9 +55,10 @@ func TestParser(t *testing.T) {
 	for _, v := range []string{
 		"td_api.tl",
 		"telegram_api.tl",
+		"telegram_api_header.tl",
 	} {
 		t.Run(v, func(t *testing.T) {
-			data, err := ioutil.ReadFile("_testdata/td_api.tl")
+			data, err := ioutil.ReadFile(filepath.Join("_testdata", v))
 			if err != nil {
 				t.Fatal(err)
 			}

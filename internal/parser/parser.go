@@ -20,9 +20,11 @@ type Class struct {
 	Description string
 }
 
+// Schema represents single TL file with information about definitions and
+// so called "Classes" aka non-bare types with one or multiple constructors.
 type Schema struct {
 	Definitions []SchemaDefinition `json:"definitions"`
-	Classes     []Class            `json:"classes"`
+	Classes     []Class            `json:"classes,omitempty"`
 }
 
 const (
