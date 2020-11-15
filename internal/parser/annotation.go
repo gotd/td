@@ -39,27 +39,40 @@ func parseAnnotation(line string) ([]Annotation, error) {
 	if !strings.HasPrefix(line, "//") {
 		return nil, xerrors.New("annotation should be comment")
 	}
-	line = strings.TrimLeft(line, "/")
+	line = strings.TrimSpace(strings.TrimLeft(line, "/"))
 	if line == "" {
 		return nil, xerrors.New("blank comment")
 	}
+	if !strings.HasPrefix(line, "@") {
+		return nil, xerrors.New("invalid annotation start")
+	}
 	var annotations []Annotation
-	for _, p := range strings.Split(line, "@") {
-		if p == "" {
-			continue
+	for line != "" {
+		nameEnd := strings.Index(line, " ")
+		if nameEnd <= 1 {
+			return nil, xerrors.New("failed to find name end")
 		}
-		parts := strings.SplitN(p, " ", 2)
-		if len(parts) < 2 {
-			continue
+		name := line[1:nameEnd]
+		if !isValidName(name) {
+			return nil, xerrors.New("invalid annotation name")
 		}
-		a := Annotation{
-			Name:  strings.TrimSpace(parts[0]),
-			Value: strings.TrimSpace(parts[1]),
+
+		line = line[nameEnd:]
+		nextAnnotationPos := strings.Index(line, "@")
+		if nextAnnotationPos < 0 {
+			// No more annotations.
+			annotations = append(annotations, Annotation{
+				Name:  name,
+				Value: strings.TrimSpace(line),
+			})
+			break
 		}
-		if !isValidName(a.Name) {
-			return annotations, xerrors.Errorf("annotation name %q is invalid", a.Name)
-		}
-		annotations = append(annotations, a)
+		// There will be more.
+		annotations = append(annotations, Annotation{
+			Name:  name,
+			Value: strings.TrimSpace(line[:nextAnnotationPos]),
+		})
+		line = line[nextAnnotationPos:]
 	}
 	return annotations, nil
 }

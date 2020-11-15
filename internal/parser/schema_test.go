@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -207,5 +208,47 @@ func TestParserStrict(t *testing.T) {
 				require.Equal(t, schema, parsedSchema, "parsed schema should be equal to written")
 			})
 		})
+	}
+}
+
+func TestParserFailures(t *testing.T) {
+	for _, tt := range []string{
+		"//@0 @0\n0=0",
+		"//@\xef\f\f\f\f/@class Stat" +
+			"isticsGraph@descript" +
+			"ion /@r a@n a@a t@n " +
+			"h\ng=StatisticsGra00",
+	} {
+		if _, err := Parse(strings.NewReader(tt)); err == nil {
+			t.Error("should error")
+		}
+	}
+}
+
+func TestParserConsistent(t *testing.T) {
+	for _, tt := range []string{
+		"//@0 ////\\n0=0",
+	} {
+		parsed, err := Parse(strings.NewReader(tt))
+		if err != nil {
+			t.Fatal(err)
+		}
+		first := new(bytes.Buffer)
+		if _, err := parsed.WriteTo(first); err != nil {
+			t.Fatal(err)
+		}
+		secondParsed, err := Parse(bytes.NewReader(first.Bytes()))
+		if err != nil {
+			t.Fatal(err)
+		}
+		second := new(bytes.Buffer)
+		if _, err := secondParsed.WriteTo(second); err != nil {
+			t.Fatal(err)
+		}
+		if !bytes.Equal(first.Bytes(), second.Bytes()) {
+			t.Logf("%s", first)
+			t.Logf("%s", second)
+			t.Error("mismatch")
+		}
 	}
 }

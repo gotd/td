@@ -56,6 +56,7 @@ func TestParseAnnotation(t *testing.T) {
 			"//@{} test",
 			"//",
 			"1",
+			"//@\xef\f\f\f\f/@class StatisticsGraph@description /@r a@n a@a t@n h",
 		} {
 			if _, err := parseAnnotation(input); err == nil {
 				t.Errorf("expected error on %q", input)
