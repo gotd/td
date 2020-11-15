@@ -11,9 +11,12 @@ type {{ $s.Name }} struct {
 {{ end -}}
 }
 
+// {{ $s.Name }}TypeID is TL type id of {{ $s.Name }}.
+const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
+
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} {{ $s.Name }}) Encode(b *bin.Buffer) {
-    b.PutID(0x{{ $s.HexID }})
+    b.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
     {{- if $f.PutEncoder }}
     {{ $s.Receiver }}.{{ $f.Name }}.Encode(b)

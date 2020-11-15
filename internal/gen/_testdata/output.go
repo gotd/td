@@ -12,9 +12,12 @@ var _ = bin.Buffer{}
 // Int32 represents TL type int32#5cb934fa.
 type Int32 struct{}
 
+// Int32TypeID is TL type id of Int32.
+const Int32TypeID = 0x5cb934fa
+
 // Encode implements bin.Encoder.
 func (i Int32) Encode(b *bin.Buffer) {
-	b.PutID(0x5cb934fa)
+	b.PutID(Int32TypeID)
 }
 
 var _ bin.Encoder = Int32{}
@@ -22,9 +25,12 @@ var _ bin.Encoder = Int32{}
 // String represents TL type string#b5286e24.
 type String struct{}
 
+// StringTypeID is TL type id of String.
+const StringTypeID = 0xb5286e24
+
 // Encode implements bin.Encoder.
 func (s String) Encode(b *bin.Buffer) {
-	b.PutID(0xb5286e24)
+	b.PutID(StringTypeID)
 }
 
 var _ bin.Encoder = String{}
@@ -38,9 +44,12 @@ type Error struct {
 	Message string
 }
 
+// ErrorTypeID is TL type id of Error.
+const ErrorTypeID = 0x9bdd8f1a
+
 // Encode implements bin.Encoder.
 func (e Error) Encode(b *bin.Buffer) {
-	b.PutID(0x9bdd8f1a)
+	b.PutID(ErrorTypeID)
 	b.PutInt32(e.Code)
 	b.PutString(e.Message)
 }
@@ -50,9 +59,12 @@ var _ bin.Encoder = Error{}
 // can be returned by functions as result.
 type Ok struct{}
 
+// OkTypeID is TL type id of Ok.
+const OkTypeID = 0xd4edbe69
+
 // Encode implements bin.Encoder.
 func (o Ok) Encode(b *bin.Buffer) {
-	b.PutID(0xd4edbe69)
+	b.PutID(OkTypeID)
 }
 
 var _ bin.Encoder = Ok{}
@@ -63,9 +75,12 @@ type Message struct {
 	Err Error
 }
 
+// MessageTypeID is TL type id of Message.
+const MessageTypeID = 0xec200d96
+
 // Encode implements bin.Encoder.
 func (m Message) Encode(b *bin.Buffer) {
-	b.PutID(0xec200d96)
+	b.PutID(MessageTypeID)
 	m.Err.Encode(b)
 }
 
