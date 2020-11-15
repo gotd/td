@@ -7,9 +7,7 @@
         "params": [
           {
             "name": "flags",
-            "type": {
-              "name": ""
-            },
+            "type": {},
             "flags": true
           },
           {
