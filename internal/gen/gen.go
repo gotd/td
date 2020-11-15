@@ -19,6 +19,7 @@ type Struct struct {
 	Comment  string
 	Receiver string
 	HexID    string
+	BufArg   string
 
 	Fields []Field
 }
@@ -60,6 +61,11 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				Name:     pascal(d.Definition.Name),
 				Receiver: strings.ToLower(d.Definition.Name[0:1]),
 				HexID:    fmt.Sprintf("%x", d.Definition.ID),
+				BufArg:   "b",
+			}
+			if s.Receiver == "b" {
+				// bin.Buffer argument collides with reciever.
+				s.BufArg = "buf"
 			}
 			for _, a := range d.Annotations {
 				if a.Name == tl.AnnotationDescription {
@@ -90,6 +96,9 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.PutFunc = "PutInt32"
 				case "string":
 					f.PutFunc = "PutString"
+				case "Bool":
+					f.PutFunc = "PutBool"
+					f.Type = "bool"
 				default:
 					f.PutEncoder = true
 				}

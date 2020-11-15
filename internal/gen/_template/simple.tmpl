@@ -8,20 +8,20 @@ type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
     // {{ $f.Comment }}
     {{ $f.Name }} {{ $f.Type }}
-{{ end -}}
+{{- end }}
 }
 
 // {{ $s.Name }}TypeID is TL type id of {{ $s.Name }}.
 const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 
 // Encode implements bin.Encoder.
-func ({{ $s.Receiver }} {{ $s.Name }}) Encode(b *bin.Buffer) {
-    b.PutID({{ $s.Name }}TypeID)
+func ({{ $s.Receiver }} {{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) {
+{{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
     {{- if $f.PutEncoder }}
-    {{ $s.Receiver }}.{{ $f.Name }}.Encode(b)
+    {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }})
     {{- else }}
-    b.{{ $f.PutFunc }}({{ $s.Receiver }}.{{ $f.Name }})
+    {{ $s.BufArg }}.{{ $f.PutFunc }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
 {{- end }}
 }

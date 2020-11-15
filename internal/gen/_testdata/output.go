@@ -10,7 +10,8 @@ import (
 var _ = bin.Buffer{}
 
 // Int32 represents TL type int32#5cb934fa.
-type Int32 struct{}
+type Int32 struct {
+}
 
 // Int32TypeID is TL type id of Int32.
 const Int32TypeID = 0x5cb934fa
@@ -23,7 +24,8 @@ func (i Int32) Encode(b *bin.Buffer) {
 var _ bin.Encoder = Int32{}
 
 // String represents TL type string#b5286e24.
-type String struct{}
+type String struct {
+}
 
 // StringTypeID is TL type id of String.
 const StringTypeID = 0xb5286e24
@@ -35,29 +37,60 @@ func (s String) Encode(b *bin.Buffer) {
 
 var _ bin.Encoder = String{}
 
+// BoolFalse represents TL type boolFalse#bc799737.
+type BoolFalse struct {
+}
+
+// BoolFalseTypeID is TL type id of BoolFalse.
+const BoolFalseTypeID = 0xbc799737
+
+// Encode implements bin.Encoder.
+func (b BoolFalse) Encode(buf *bin.Buffer) {
+	buf.PutID(BoolFalseTypeID)
+}
+
+var _ bin.Encoder = BoolFalse{}
+
+// BoolTrue represents TL type boolTrue#997275b5.
+type BoolTrue struct {
+}
+
+// BoolTrueTypeID is TL type id of BoolTrue.
+const BoolTrueTypeID = 0x997275b5
+
+// Encode implements bin.Encoder.
+func (b BoolTrue) Encode(buf *bin.Buffer) {
+	buf.PutID(BoolTrueTypeID)
+}
+
+var _ bin.Encoder = BoolTrue{}
+
 // An object of this type can be returned on every function call, in case of an error
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
 	Code int32
-
 	// Error message; subject to future changes
 	Message string
+	// Temporary field of Error.
+	Temporary bool
 }
 
 // ErrorTypeID is TL type id of Error.
-const ErrorTypeID = 0x9bdd8f1a
+const ErrorTypeID = 0x14feebbc
 
 // Encode implements bin.Encoder.
 func (e Error) Encode(b *bin.Buffer) {
 	b.PutID(ErrorTypeID)
 	b.PutInt32(e.Code)
 	b.PutString(e.Message)
+	b.PutBool(e.Temporary)
 }
 
 var _ bin.Encoder = Error{}
 
 // can be returned by functions as result.
-type Ok struct{}
+type Ok struct {
+}
 
 // OkTypeID is TL type id of Ok.
 const OkTypeID = 0xd4edbe69
