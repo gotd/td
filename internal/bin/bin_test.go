@@ -18,7 +18,7 @@ func TestStringDecodeEncode(t *testing.T) {
 		"what are you doing?",
 		"кек",
 	} {
-		buf := EncodeString(nil, s)
+		buf := encodeString(nil, s)
 		if len(buf)%4 != 0 {
 			t.Error("bad align")
 		}

@@ -1,6 +1,6 @@
 package bin
 
-func EncodeString(b []byte, v string) []byte {
+func encodeString(b []byte, v string) []byte {
 	l := len([]byte(v))
 	if l <= 253 {
 		// If L <= 253, the serialization contains one byte with the value of L,
