@@ -1,33 +1,25 @@
 {{ define "simple" }}
-{{ $pkg := $.Config.Package }}
+{{ $pkg := $.Package }}
 {{ template "header" $ }}
 
-{{ range $n := $.Types }}
-// {{ $n.Comment }}
-type {{ $n.Name }} struct {
-{{- range $f := $n.Fields }}
+{{ range $s:= $.Structs }}
+// {{ $s.Comment }}
+type {{ $s.Name }} struct {
+{{- range $f := $s.Fields }}
     // {{ $f.Comment }}
     {{ $f.Name }} {{ $f.Type }}
 {{ end -}}
 }
 
-// TelegramTypeID returns TL type ID.
-func ({{ $n.Name }}) TelegramTypeID() uint32 { return 0x{{ $n.HexID }} }
-{{ end }}
-
-type Client interface {
-{{ range $m := $.Methods }}
-    // {{ $m.Comment }}.
-    {{ $m.Name }} (
-        ctx context.Context,
-        {{ range $a := $m.Arguments }}
-            {{ $a.Name }} {{ $a.Type }},
-        {{ end }}
-    ) (
-    {{ with $m.Output }}{{ . }}{{ end }}
-    error,
-    )
-{{ end }}
+// Encode implements bin.Encoder.
+func ({{ $s.Receiver }} {{ $s.Name }}) Encode(b *bin.Buffer) {
+    b.PutID(0x{{ $s.HexID }})
+{{- range $f := $s.Fields }}
+    b.{{ $f.PutFunc }}({{ $s.Receiver }}.{{ $f.Name }})
+{{- end }}
 }
+
+var _ bin.Encoder = {{ $s.Name }}{}
+{{ end }}
 
 {{ end }}

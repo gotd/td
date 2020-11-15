@@ -13,7 +13,7 @@ type Message struct {
 }
 
 // EncodeTo implements bin.Encoder.
-func (m Message) EncodeTo(b *Buffer) {
+func (m Message) Encode(b *Buffer) {
 	b.PutID(0x9bdd8f1a)
 	b.PutInt32(m.Code)
 	b.PutString(m.Message)
@@ -25,7 +25,7 @@ func TestEncodeMessage(t *testing.T) {
 		Message: "Wake up, Neo",
 	}
 	b := new(Buffer)
-	m.EncodeTo(b)
+	m.Encode(b)
 	expected := []byte{
 		// Type ID.
 		0x1a, 0x8f, 0xdd, 0x9b,

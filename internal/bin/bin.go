@@ -24,5 +24,5 @@ func nearestPaddedValueLength(l int) int {
 
 // Encoder can encode it's binary form to Buffer.
 type Encoder interface {
-	EncodeTo(b *Buffer)
+	Encode(b *Buffer)
 }
