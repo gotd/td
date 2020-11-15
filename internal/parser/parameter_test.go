@@ -34,6 +34,13 @@ func TestParameter(t *testing.T) {
 				Type: Type{Name: "int", Bare: true},
 			},
 		},
+		{
+			String: "{X:Type}",
+			Value: Parameter{
+				Name:           "X",
+				typeDefinition: true,
+			},
+		},
 	} {
 		t.Run(tt.String, func(t *testing.T) {
 			t.Run("String", func(t *testing.T) {

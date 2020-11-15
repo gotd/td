@@ -19,6 +19,10 @@ type Parameter struct {
 	//
 	// If true, Type and Flag are blank.
 	Flags bool `json:"flags,omitempty"`
+
+	// special case for {X:Type} definitions aka generic parameters,
+	// only "Name" field is populated.
+	typeDefinition bool
 }
 
 func (p Parameter) Conditional() bool {
@@ -27,10 +31,17 @@ func (p Parameter) Conditional() bool {
 
 func (p Parameter) String() string {
 	var b strings.Builder
+	if p.typeDefinition {
+		b.WriteRune('{')
+	}
 	if p.Name != "" {
 		// Anonymous parameter.
 		b.WriteString(p.Name)
 		b.WriteRune(':')
+	}
+	if p.typeDefinition {
+		b.WriteString("Type}")
+		return b.String()
 	}
 	if p.Flags {
 		b.WriteRune('#')
@@ -46,7 +57,12 @@ func (p Parameter) String() string {
 
 func (p *Parameter) Parse(s string) error {
 	if strings.HasPrefix(s, "{") {
-		return xerrors.New("{foo:Type} definitions not supported")
+		if !strings.HasSuffix(s, ":Type}") {
+			return xerrors.Errorf("unexpected generic %s", s)
+		}
+		p.typeDefinition = true
+		p.Name = strings.SplitN(s[1:], ":", 2)[0]
+		return nil
 	}
 	parts := strings.SplitN(s, ":", 2)
 	if len(parts) == 2 {
