@@ -142,10 +142,7 @@ func Parse(reader io.Reader) (*Schema, error) {
 			return nil, xerrors.Errorf("failed to parse line %d: definition: %w", line, err)
 		}
 		schema.Definitions = append(schema.Definitions, def)
-
-		def = SchemaDefinition{
-			Category: category,
-		}
+		def = SchemaDefinition{} // reset definition
 	}
 	if err := scanner.Err(); err != nil {
 		return nil, xerrors.Errorf("failed to scan: %w", err)
