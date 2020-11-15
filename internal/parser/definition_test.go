@@ -87,6 +87,43 @@ func TestDefinition(t *testing.T) {
 				Type: Type{Name: "0", Bare: true},
 			},
 		},
+		{
+			Case:  "inputMediaUploadedPhoto",
+			Input: "inputMediaUploadedPhoto#1e287d04 flags:# file:InputFile stickers:flags.0?Vector<InputDocument> ttl_seconds:flags.1?int = InputMedia",
+			Definition: Definition{
+				Name: "inputMediaUploadedPhoto",
+				ID:   0x1e287d04,
+				Type: Type{Name: "InputMedia"},
+				Params: []Parameter{
+					{Flags: true, Name: "flags"},
+					{Name: "file", Type: Type{Name: "InputFile"}},
+					{
+						Name: "stickers",
+						Flag: &Flag{
+							Name:  "flags",
+							Index: 0,
+						},
+						Type: Type{
+							Name: "Vector",
+							GenericArg: &Type{
+								Name: "InputDocument",
+							},
+						},
+					},
+					{
+						Name: "ttl_seconds",
+						Flag: &Flag{
+							Name:  "flags",
+							Index: 1,
+						},
+						Type: Type{
+							Name: "int",
+							Bare: true,
+						},
+					},
+				},
+			},
+		},
 	} {
 		var (
 			input       = tt.Input

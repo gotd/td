@@ -16,14 +16,6 @@ type Flag struct {
 	Index int `json:"index"`
 }
 
-func (f Flag) MarshalText() (text []byte, err error) {
-	return []byte(f.String()), nil
-}
-
-func (f *Flag) UnmarshalText(text []byte) (err error) {
-	return f.Parse(string(text))
-}
-
 func (f Flag) String() string {
 	return fmt.Sprintf("%s.%d", f.Name, f.Index)
 }
