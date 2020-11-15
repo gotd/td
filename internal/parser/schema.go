@@ -113,15 +113,17 @@ func Parse(reader io.Reader) (*Schema, error) {
 			category = CategoryType
 			continue
 		case vectorDefinition, vectorDefinitionWithID:
-			// Special case for vector
+			// Special case for vector.
 			continue
 		}
 		if strings.HasPrefix(s, "//@") {
+			// Found annotation.
 			ann, err := parseAnnotation(s)
 			if err != nil {
 				return nil, xerrors.Errorf("failed to parse line %d: %w", line, err)
 			}
 			if strings.HasPrefix(s, "//@class") {
+				// Handling class annotation as special case.
 				var class Class
 				for _, a := range ann {
 					if a.Name == "class" {
@@ -139,12 +141,13 @@ func Parse(reader io.Reader) (*Schema, error) {
 			}
 
 			def.Annotations = append(def.Annotations, ann...)
-			continue
+			continue // annotation is parsed, moving to next line
 		}
 		if strings.HasPrefix(s, "//") {
-			continue
+			continue // skip comments
 		}
 
+		// Type definition started.
 		def.Category = category
 		if err := def.Definition.Parse(s); err != nil {
 			return nil, xerrors.Errorf("failed to parse line %d: definition: %w", line, err)
