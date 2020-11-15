@@ -1,1 +1,0 @@
-replyMarkupShowKeyboard rows:vector<vector<keyboardButton>> resize_keyboard:Bool one_time:Bool is_personal:Bool = ReplyMarkup

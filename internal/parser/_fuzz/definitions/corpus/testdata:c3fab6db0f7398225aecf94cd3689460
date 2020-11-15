@@ -1,1 +1,0 @@
-updateChannelReadMessagesContents#89893b45 channel_id:int messages:Vector<int> = Update

@@ -1,3 +1,0 @@
-g _token:string = StatisticsGraph
-atisticsGraphAsync token:string = StatisticsGraph
-statisticsGraphError error_message:string = StatisticsGra

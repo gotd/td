@@ -1,1 +1,0 @@
-checkAuthenticationPassword password:string = Ok

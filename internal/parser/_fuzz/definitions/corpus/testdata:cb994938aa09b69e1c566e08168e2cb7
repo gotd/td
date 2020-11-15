@@ -1,1 +1,0 @@
-countries countries:vector<countryInfo> = Countries

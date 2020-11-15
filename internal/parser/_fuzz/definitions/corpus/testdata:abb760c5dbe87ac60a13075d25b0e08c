@@ -1,1 +1,0 @@
-updateNotification notification_group_id:int32 notification:notification = Update

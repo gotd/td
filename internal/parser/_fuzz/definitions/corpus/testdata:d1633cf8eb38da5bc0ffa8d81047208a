@@ -1,1 +1,0 @@
-setAuthenticationPhoneNumber phone_number:string settings:phoneNumberAuthenticationSettings = Ok

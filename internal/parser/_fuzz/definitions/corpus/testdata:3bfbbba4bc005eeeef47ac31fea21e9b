@@ -1,1 +1,0 @@
-userPrivacySettingRuleRestrictChatMembers chat_ids:vector<int53> = UserPrivacySettingRule

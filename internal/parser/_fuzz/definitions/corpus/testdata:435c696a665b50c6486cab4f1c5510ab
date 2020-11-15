@@ -1,1 +1,0 @@
-getRemoteFile remote_file_id:string file_type:FileType = File

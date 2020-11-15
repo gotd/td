@@ -1,1 +1,0 @@
-getChatStatistics chat_id:int53 is_dark:Bool = ChatStatistics

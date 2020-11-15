@@ -1,1 +1,0 @@
-getLanguagePackInfo language_pack_id:string = LanguagePackInfo

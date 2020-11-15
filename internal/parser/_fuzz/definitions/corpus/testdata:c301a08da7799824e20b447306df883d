@@ -1,1 +1,0 @@
-getPreferredCountryLanguage country_code:string = Text

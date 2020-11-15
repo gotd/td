@@ -1,1 +1,0 @@
-createSupergroupChat supergroup_id:int32 force:Bool = Chat

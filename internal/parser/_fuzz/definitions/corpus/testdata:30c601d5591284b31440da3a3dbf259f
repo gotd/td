@@ -1,1 +1,0 @@
-notification id:int32 date:int32 is_silent:Bool type:NotificationType = Notification

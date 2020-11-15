@@ -1,1 +1,0 @@
-createSecretChat secret_chat_id:int32 = Chat

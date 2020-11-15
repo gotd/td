@@ -1,1 +1,0 @@
-messages.editChatAdmin#a9e69f2e chat_id:int user_id:InputUser is_admin:Bool = Bool

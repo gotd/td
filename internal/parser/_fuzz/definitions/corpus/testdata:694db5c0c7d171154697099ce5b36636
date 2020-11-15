@@ -1,1 +1,0 @@
-importedContacts user_ids:vector<int32> importer_count:vector<int32> = ImportedContacts

@@ -1,1 +1,0 @@
-removeContacts user_ids:vector<int32> = Ok

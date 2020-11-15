@@ -1,1 +1,0 @@
-getWebPageInstantView url:string force_full:Bool = WebPageInstantView

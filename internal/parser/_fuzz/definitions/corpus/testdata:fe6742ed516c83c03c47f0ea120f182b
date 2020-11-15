@@ -1,1 +1,0 @@
-logStreamFile path:string max_file_size:int53 redirect_stderr:Bool = LogStream

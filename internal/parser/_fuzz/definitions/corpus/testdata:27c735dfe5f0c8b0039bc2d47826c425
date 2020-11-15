@@ -1,1 +1,0 @@
-getSupergroup supergroup_id:int32 = Supergroup

@@ -1,1 +1,0 @@
-storageStatisticsByFileType file_type:FileType size:int53 count:int32 = StorageStatisticsByFileType

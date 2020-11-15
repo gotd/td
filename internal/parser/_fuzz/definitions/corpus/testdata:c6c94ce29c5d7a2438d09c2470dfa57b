@@ -1,1 +1,0 @@
-pageBlockPhoto photo:photo caption:pageBlockCaption url:string = PageBlock

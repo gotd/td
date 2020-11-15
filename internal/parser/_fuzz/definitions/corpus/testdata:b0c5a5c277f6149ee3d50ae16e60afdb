@@ -1,1 +1,0 @@
-botInfo#98e81d3a user_id:int description:string commands:Vector<BotCommand> = BotInfo

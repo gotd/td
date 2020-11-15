@@ -7,7 +7,7 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/ernado/td/internal/parser"
+	"github.com/ernado/tl"
 )
 
 func TestGen(t *testing.T) {
@@ -24,7 +24,7 @@ func TestGen(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	schema, err := parser.Parse(bytes.NewReader(data))
+	schema, err := tl.Parse(bytes.NewReader(data))
 	if err != nil {
 		t.Fatal(err)
 	}

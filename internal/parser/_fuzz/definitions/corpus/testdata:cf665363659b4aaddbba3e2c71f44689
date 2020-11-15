@@ -1,1 +1,0 @@
-chatAdministrator user_id:int32 custom_title:string is_owner:Bool = ChatAdministrator

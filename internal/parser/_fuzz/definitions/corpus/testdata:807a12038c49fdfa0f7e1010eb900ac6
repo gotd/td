@@ -1,1 +1,0 @@
-termsOfService text:formattedText min_user_age:int32 show_popup:Bool = TermsOfService

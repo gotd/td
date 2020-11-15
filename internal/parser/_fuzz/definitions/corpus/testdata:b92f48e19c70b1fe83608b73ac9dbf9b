@@ -1,1 +1,0 @@
-gameHighScores scores:vector<gameHighScore> = GameHighScores

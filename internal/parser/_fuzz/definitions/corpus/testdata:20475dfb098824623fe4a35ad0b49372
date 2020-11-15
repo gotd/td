@@ -1,1 +1,0 @@
-inlineQueryResultLocation id:string location:location title:string thumbnail:thumbnail = InlineQueryResult

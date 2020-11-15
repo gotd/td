@@ -1,1 +1,0 @@
-messageLink link:string is_public:Bool = MessageLink

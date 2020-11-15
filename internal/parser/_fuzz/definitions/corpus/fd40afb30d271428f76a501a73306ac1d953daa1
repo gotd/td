@@ -1,1 +1,0 @@
-s.s s:Vector<Dialog> s:Vector<Message> s:Vector<Chat> s:Vector<User> e:sState=sPeerDialogs

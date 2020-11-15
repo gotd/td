@@ -1,1 +1,0 @@
-pushMessageContentVideo video:video caption:string is_secret:Bool is_pinned:Bool = PushMessageContent

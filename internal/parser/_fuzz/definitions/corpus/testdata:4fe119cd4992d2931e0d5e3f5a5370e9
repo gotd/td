@@ -1,1 +1,0 @@
-searchChats query:string limit:int32 = Chats

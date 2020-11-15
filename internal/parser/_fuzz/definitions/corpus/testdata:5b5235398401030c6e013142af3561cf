@@ -1,1 +1,0 @@
-chatActionBarReportAddBlock can_unarchive:Bool distance:int32 = ChatActionBar

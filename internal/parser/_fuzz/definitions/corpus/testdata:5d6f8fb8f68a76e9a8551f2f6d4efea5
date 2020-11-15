@@ -1,1 +1,0 @@
-testCallVectorInt x:vector<int32> = TestVectorInt

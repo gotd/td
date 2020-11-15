@@ -1,1 +1,0 @@
-assword password:string valid_for:int32 = TemporaryPasswordState

@@ -1,1 +1,0 @@
-thumbnail format:ThumbnailFormat width:int32 height:int32 file:file = Thumbnail

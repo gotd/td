@@ -1,1 +1,0 @@
-messageChatUpgradeTo supergroup_id:int32 = MessageContent

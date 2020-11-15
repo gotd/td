@@ -1,1 +1,0 @@
-getPassportAuthorizationFormAvailableElements autorization_form_id:int32 password:string = PassportElementsWithErrors

@@ -1,1 +1,0 @@
-updateChatDefaultDisableNotification chat_id:int53 default_disable_notification:Bool = Update

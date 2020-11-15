@@ -1,1 +1,0 @@
-userPrivacySettingRuleAllowUsers user_ids:vector<int32> = UserPrivacySettingRule

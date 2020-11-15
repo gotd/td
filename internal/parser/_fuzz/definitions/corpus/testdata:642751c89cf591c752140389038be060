@@ -1,1 +1,0 @@
-updateUnreadMessageCount chat_list:ChatList unread_count:int32 unread_unmuted_count:int32 = Update

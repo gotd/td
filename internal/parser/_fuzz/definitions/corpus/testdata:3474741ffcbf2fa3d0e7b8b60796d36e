@@ -1,1 +1,0 @@
-gameHighScore position:int32 user_id:int32 score:int32 = GameHighScore

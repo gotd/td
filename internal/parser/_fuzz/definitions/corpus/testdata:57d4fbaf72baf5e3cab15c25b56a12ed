@@ -1,1 +1,0 @@
-uploadFile file:InputFile file_type:FileType priority:int32 = File

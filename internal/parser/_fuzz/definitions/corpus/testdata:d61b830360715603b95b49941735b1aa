@@ -1,1 +1,0 @@
-deviceTokenFirebaseCloudMessaging token:string encrypt:Bool = DeviceToken

@@ -1,1 +1,0 @@
-keyboardButtonTypeRequestPoll force_regular:Bool force_quiz:Bool = KeyboardButtonType

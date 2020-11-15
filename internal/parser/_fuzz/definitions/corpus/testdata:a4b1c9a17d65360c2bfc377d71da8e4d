@@ -1,1 +1,0 @@
-deepLinkInfo text:formattedText need_update_application:Bool = DeepLinkInfo

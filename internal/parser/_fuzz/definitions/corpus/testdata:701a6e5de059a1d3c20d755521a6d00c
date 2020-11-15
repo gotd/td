@@ -1,1 +1,0 @@
-addContact contact:contact share_phone_number:Bool = Ok

@@ -1,1 +1,0 @@
-logVerbosityLevel verbosity_level:int32 = LogVerbosityLevel

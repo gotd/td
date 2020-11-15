@@ -1,1 +1,0 @@
-getStickers emoji:string limit:int32 = Stickers

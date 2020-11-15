@@ -1,1 +1,0 @@
-shippingOption#b6213cdf id:string title:string prices:Vector<LabeledPrice> = ShippingOption

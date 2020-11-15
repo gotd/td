@@ -1,1 +1,0 @@
-messages.receivedMessages#5a954c0 max_id:int = Vector<ReceivedNotifyMessage>

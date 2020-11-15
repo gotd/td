@@ -1,1 +1,0 @@
-searchChatsOnServer query:string limit:int32 = Chats

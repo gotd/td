@@ -1,1 +1,0 @@
-profilePhoto id:int64 small:file big:file has_animation:Bool = ProfilePhoto

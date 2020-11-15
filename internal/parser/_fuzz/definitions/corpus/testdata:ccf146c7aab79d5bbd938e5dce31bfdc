@@ -1,1 +1,0 @@
-setBotUpdatesStatus pending_update_count:int32 error_message:string = Ok

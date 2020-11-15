@@ -1,1 +1,0 @@
-notificationTypeNewCall call_id:int32 = NotificationType

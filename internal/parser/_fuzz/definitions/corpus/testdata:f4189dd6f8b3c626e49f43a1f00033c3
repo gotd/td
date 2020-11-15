@@ -1,1 +1,0 @@
-updateRecentStickers is_attached:Bool sticker_ids:vector<int32> = Update

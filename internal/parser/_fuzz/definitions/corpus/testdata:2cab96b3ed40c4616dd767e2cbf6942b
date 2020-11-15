@@ -1,1 +1,0 @@
-searchChatRecentLocationMessages chat_id:int53 limit:int32 = Messages

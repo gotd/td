@@ -1,1 +1,0 @@
-call id:int32 user_id:int32 is_outgoing:Bool is_video:Bool state:CallState = Call

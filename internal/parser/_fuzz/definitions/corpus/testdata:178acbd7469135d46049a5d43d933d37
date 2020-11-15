@@ -1,1 +1,0 @@
-inputMessageGame bot_user_id:int32 game_short_name:string = InputMessageContent

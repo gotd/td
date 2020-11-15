@@ -1,1 +1,0 @@
-messages total_count:int32 messages:vector<message> = Messages

@@ -1,1 +1,0 @@
-recoverAuthenticationPassword recovery_code:string = Ok

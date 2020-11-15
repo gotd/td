@@ -1,1 +1,0 @@
-deviceTokenWebPush endpoint:string p256dh_base64url:string auth_base64url:string = DeviceToken

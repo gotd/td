@@ -1,1 +1,0 @@
-setSupergroupStickerSet supergroup_id:int32 sticker_set_id:int64 = Ok

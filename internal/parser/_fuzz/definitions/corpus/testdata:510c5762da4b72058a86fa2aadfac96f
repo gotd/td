@@ -1,1 +1,0 @@
-chatEventLocationChanged old_location:chatLocation new_location:chatLocation = ChatEventAction

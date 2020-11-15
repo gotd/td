@@ -1,1 +1,0 @@
-getStatisticsGraph chat_id:int53 token:string x:int53 = StatisticsGraph

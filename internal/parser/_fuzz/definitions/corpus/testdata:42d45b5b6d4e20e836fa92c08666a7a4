@@ -1,1 +1,0 @@
-updateInstalledStickerSets is_masks:Bool sticker_set_ids:vector<int64> = Update

@@ -1,1 +1,0 @@
-getLanguagePackStrings language_pack_id:string keys:vector<string> = LanguagePackStrings

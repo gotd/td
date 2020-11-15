@@ -1,1 +1,0 @@
-chatEvent id:int64 date:int32 user_id:int32 action:ChatEventAction = ChatEvent

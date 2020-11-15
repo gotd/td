@@ -1,1 +1,0 @@
-updateFileGenerationStop generation_id:int64 = Update

@@ -1,1 +1,0 @@
-messagePaymentSuccessful invoice_message_id:int53 currency:string total_amount:int53 = MessageContent

@@ -1,1 +1,0 @@
-addChatMember chat_id:int53 user_id:int32 forward_limit:int32 = Ok

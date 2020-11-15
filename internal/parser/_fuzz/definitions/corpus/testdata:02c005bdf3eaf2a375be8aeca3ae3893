@@ -1,1 +1,0 @@
-messages.getCommonChats#d0a48c4 user_id:InputUser max_id:int limit:int = messages.Chats

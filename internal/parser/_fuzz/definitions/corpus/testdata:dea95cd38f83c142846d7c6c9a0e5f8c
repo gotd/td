@@ -1,1 +1,0 @@
-createBasicGroupChat basic_group_id:int32 force:Bool = Chat

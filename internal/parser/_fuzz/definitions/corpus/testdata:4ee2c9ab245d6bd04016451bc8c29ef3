@@ -1,1 +1,0 @@
-setStickerSetThumbnail user_id:int32 name:string thumbnail:InputFile = StickerSet

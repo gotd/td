@@ -1,1 +1,0 @@
-sendChatSetTtlMessage chat_id:int53 ttl:int32 = Message

@@ -1,1 +1,0 @@
-getChatMessageByDate chat_id:int53 date:int32 = Message

@@ -1,1 +1,0 @@
-addProxy server:string port:int32 enable:Bool type:ProxyType = Proxy

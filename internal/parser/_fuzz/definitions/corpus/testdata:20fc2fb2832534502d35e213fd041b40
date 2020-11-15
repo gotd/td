@@ -1,1 +1,0 @@
-formattedText text:string entities:vector<textEntity> = FormattedText

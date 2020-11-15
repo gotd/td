@@ -1,1 +1,0 @@
-messages.getRecentLocations#bbc45b09 peer:InputPeer limit:int hash:int = messages.Messages

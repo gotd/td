@@ -1,1 +1,0 @@
-registerDevice device_token:DeviceToken other_user_ids:vector<int32> = PushReceiverId

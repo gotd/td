@@ -1,1 +1,0 @@
-searchEmojis text:string exact_match:Bool input_language_codes:vector<string> = Emojis

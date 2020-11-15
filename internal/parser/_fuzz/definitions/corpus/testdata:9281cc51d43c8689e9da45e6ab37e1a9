@@ -1,1 +1,0 @@
-botCommand command:string description:string = BotCommand

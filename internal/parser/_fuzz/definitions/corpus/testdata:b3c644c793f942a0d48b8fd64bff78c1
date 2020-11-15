@@ -1,1 +1,0 @@
-pushMessageContentAnimation animation:animation caption:string is_pinned:Bool = PushMessageContent

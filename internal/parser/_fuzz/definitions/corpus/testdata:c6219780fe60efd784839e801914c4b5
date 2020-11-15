@@ -1,1 +1,0 @@
-pushMessageContentPoll question:string is_regular:Bool is_pinned:Bool = PushMessageContent

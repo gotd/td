@@ -1,1 +1,0 @@
-addLogMessage verbosity_level:int32 text:string = Ok

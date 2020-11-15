@@ -1,1 +1,0 @@
-searchHashtags prefix:string limit:int32 = Hashtags

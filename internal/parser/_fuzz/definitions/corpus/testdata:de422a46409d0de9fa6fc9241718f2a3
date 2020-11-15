@@ -1,1 +1,0 @@
-getAllPassportElements password:string = PassportElements

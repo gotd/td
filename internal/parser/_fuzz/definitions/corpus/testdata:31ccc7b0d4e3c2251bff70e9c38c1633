@@ -1,1 +1,0 @@
-toggleChatIsMarkedAsUnread chat_id:int53 is_marked_as_unread:Bool = Ok

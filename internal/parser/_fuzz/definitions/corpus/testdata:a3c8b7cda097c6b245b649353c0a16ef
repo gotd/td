@@ -1,1 +1,0 @@
-checkPhoneNumberConfirmationCode code:string = Ok

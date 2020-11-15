@@ -1,1 +1,0 @@
-removeNotificationGroup notification_group_id:int32 max_notification_id:int32 = Ok

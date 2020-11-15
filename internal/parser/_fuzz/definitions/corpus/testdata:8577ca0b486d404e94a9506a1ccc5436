@@ -1,1 +1,0 @@
-help.setBotUpdatesStatus#ec22cfcd pending_updates_count:int message:string = Bool

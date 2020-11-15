@@ -1,1 +1,0 @@
-pushMessageContentInvoice price:string is_pinned:Bool = PushMessageContent

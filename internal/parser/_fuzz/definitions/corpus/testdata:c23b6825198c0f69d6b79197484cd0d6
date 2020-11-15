@@ -1,1 +1,0 @@
-toggleSupergroupSignMessages supergroup_id:int32 sign_messages:Bool = Ok

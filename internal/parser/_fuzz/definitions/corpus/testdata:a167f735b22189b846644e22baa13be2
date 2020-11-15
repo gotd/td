@@ -1,1 +1,0 @@
-storageStatistics size:int53 count:int32 by_chat:vector<storageStatisticsByChat> = StorageStatistics

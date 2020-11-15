@@ -1,1 +1,0 @@
-g d:int53 y:string d:int64 t:int32 s:chatEventLogFilters s:vector<int32>=ChatEvents

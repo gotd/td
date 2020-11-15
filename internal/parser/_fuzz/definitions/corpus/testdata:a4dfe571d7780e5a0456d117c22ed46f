@@ -1,1 +1,0 @@
-messageSenderUser user_id:int32 = MessageSender

@@ -1,1 +1,0 @@
-editChatFilter chat_filter_id:int32 filter:chatFilter = ChatFilterInfo

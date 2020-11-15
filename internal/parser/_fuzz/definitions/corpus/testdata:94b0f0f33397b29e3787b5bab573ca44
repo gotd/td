@@ -1,1 +1,0 @@
-pageBlockChatLink title:string photo:chatPhotoInfo username:string = PageBlock

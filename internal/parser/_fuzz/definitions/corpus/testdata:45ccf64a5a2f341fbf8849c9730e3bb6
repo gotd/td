@@ -1,1 +1,0 @@
-sendCustomRequest method:string parameters:string = CustomRequestResult

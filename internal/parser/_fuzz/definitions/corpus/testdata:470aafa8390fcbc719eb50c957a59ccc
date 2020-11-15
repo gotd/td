@@ -1,1 +1,0 @@
-checkEmailAddressVerificationCode code:string = Ok

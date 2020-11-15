@@ -1,1 +1,0 @@
-updateSupergroupFullInfo supergroup_id:int32 supergroup_full_info:supergroupFullInfo = Update

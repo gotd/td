@@ -1,1 +1,0 @@
-callStatePending is_created:Bool is_received:Bool = CallState

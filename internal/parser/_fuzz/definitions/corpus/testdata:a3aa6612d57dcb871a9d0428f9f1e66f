@@ -1,1 +1,0 @@
-checkChatUsername chat_id:int53 username:string = CheckChatUsernameResult

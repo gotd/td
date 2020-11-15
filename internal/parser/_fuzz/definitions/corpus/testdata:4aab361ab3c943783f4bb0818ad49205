@@ -1,1 +1,0 @@
-removeRecentHashtag hashtag:string = Ok

@@ -1,1 +1,0 @@
-voiceNote duration:int32 waveform:bytes mime_type:string voice:file = VoiceNote

@@ -1,1 +1,0 @@
-chatMemberStatusCreator custom_title:string is_anonymous:Bool is_member:Bool = ChatMemberStatus

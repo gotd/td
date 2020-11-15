@@ -1,1 +1,0 @@
-messageBasicGroupChatCreate title:string member_user_ids:vector<int32> = MessageContent

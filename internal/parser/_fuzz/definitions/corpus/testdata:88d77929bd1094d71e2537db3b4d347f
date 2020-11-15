@@ -1,1 +1,0 @@
-inlineQueryResultDocument id:string document:document title:string description:string = InlineQueryResult

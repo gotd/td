@@ -1,1 +1,0 @@
-deleteMessages chat_id:int53 message_ids:vector<int53> revoke:Bool = Ok

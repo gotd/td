@@ -1,1 +1,0 @@
-temporaryPasswordState has_password:Bool valid_for:int32 = TemporaryPasswordState

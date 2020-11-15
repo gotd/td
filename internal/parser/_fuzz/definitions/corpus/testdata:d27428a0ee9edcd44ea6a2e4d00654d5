@@ -1,1 +1,0 @@
-updateNewShippingQuery id:int64 sender_user_id:int32 invoice_payload:string shipping_address:address = Update

@@ -1,1 +1,0 @@
-getChatFilter chat_filter_id:int32 = ChatFilter

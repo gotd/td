@@ -1,1 +1,0 @@
-loginUrlInfoOpen url:string skip_confirm:Bool = LoginUrlInfo

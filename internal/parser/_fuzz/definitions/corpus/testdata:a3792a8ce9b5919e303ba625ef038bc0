@@ -1,1 +1,0 @@
-updatePollAnswer poll_id:int64 user_id:int32 option_ids:vector<int32> = Update

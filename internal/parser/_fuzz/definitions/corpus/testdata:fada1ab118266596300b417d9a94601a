@@ -1,1 +1,0 @@
-account.sentEmailCode#811f854f email_pattern:string length:int = account.SentEmailCode

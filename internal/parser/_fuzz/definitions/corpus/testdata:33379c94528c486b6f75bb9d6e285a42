@@ -1,1 +1,0 @@
-getBankCardInfo bank_card_number:string = BankCardInfo

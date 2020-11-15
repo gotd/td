@@ -1,1 +1,0 @@
-messageAnimation animation:animation caption:formattedText is_secret:Bool = MessageContent

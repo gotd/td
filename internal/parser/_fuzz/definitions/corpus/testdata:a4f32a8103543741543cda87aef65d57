@@ -1,1 +1,0 @@
-parseTextEntities text:string parse_mode:TextParseMode = FormattedText

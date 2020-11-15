@@ -1,1 +1,0 @@
-pingProxy proxy_id:int32 = Seconds

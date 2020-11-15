@@ -1,1 +1,0 @@
-getUser user_id:int32 = User

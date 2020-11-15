@@ -1,1 +1,0 @@
-searchChatMembers chat_id:int53 query:string limit:int32 filter:ChatMembersFilter = ChatMembers

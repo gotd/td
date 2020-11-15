@@ -1,1 +1,0 @@
-updateFavoriteStickers sticker_ids:vector<int32> = Update

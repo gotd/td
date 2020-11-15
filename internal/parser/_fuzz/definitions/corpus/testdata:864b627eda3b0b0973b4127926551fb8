@@ -1,1 +1,0 @@
-getStickerSet set_id:int64 = StickerSet

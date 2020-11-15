@@ -1,1 +1,0 @@
-getPushReceiverId payload:string = PushReceiverId

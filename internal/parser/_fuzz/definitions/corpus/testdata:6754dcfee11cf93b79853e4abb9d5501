@@ -1,1 +1,0 @@
-setDatabaseEncryptionKey new_encryption_key:bytes = Ok

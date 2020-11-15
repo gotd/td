@@ -1,1 +1,0 @@
-setPassportElementErrors user_id:int32 errors:vector<inputPassportElementError> = Ok

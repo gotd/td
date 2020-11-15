@@ -1,1 +1,0 @@
-testProxy server:string port:int32 type:ProxyType dc_id:int32 timeout:double = Ok

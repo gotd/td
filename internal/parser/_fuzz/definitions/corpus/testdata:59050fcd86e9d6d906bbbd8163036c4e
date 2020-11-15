@@ -1,1 +1,0 @@
-callbackQueryPayloadGame game_short_name:string = CallbackQueryPayload

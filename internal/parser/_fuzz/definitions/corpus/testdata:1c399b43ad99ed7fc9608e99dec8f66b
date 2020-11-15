@@ -1,1 +1,0 @@
-pushMessageContentVoiceNote voice_note:voiceNote is_pinned:Bool = PushMessageContent

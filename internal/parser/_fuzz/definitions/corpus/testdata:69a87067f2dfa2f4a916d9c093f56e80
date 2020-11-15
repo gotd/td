@@ -1,1 +1,0 @@
-updateTermsOfService terms_of_service_id:string terms_of_service:termsOfService = Update

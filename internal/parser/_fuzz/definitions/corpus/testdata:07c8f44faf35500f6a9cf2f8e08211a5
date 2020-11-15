@@ -1,1 +1,0 @@
-auth.signIn#bcd51581 phone_number:string phone_code_hash:string phone_code:string = auth.Authorization

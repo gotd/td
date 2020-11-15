@@ -1,1 +1,0 @@
-setLogTagVerbosityLevel tag:string new_verbosity_level:int32 = Ok

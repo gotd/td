@@ -1,1 +1,0 @@
-getDeepLinkInfo link:string = DeepLinkInfo

@@ -1,1 +1,0 @@
-updateUsersNearby users_nearby:vector<chatNearby> = Update

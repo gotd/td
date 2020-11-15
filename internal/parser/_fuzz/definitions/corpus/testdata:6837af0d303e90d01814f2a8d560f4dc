@@ -1,1 +1,0 @@
-location latitude:double longitude:double horizontal_accuracy:double = Location

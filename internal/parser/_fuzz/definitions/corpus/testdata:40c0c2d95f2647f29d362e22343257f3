@@ -1,1 +1,0 @@
-setSupergroupUsername supergroup_id:int32 username:string = Ok

@@ -1,1 +1,0 @@
-inlineQueryResultVoiceNote id:string voice_note:voiceNote title:string = InlineQueryResult

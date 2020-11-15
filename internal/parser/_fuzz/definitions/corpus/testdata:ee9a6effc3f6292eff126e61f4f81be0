@@ -1,1 +1,0 @@
-downloadFile file_id:int32 priority:int32 offset:int32 limit:int32 synchronous:Bool = File

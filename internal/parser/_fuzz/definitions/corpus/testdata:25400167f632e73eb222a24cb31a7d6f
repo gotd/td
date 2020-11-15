@@ -1,1 +1,0 @@
-chatMembers total_count:int32 members:vector<chatMember> = ChatMembers

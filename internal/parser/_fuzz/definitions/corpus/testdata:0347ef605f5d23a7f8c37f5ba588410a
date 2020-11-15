@@ -1,1 +1,0 @@
-labeledPricePart label:string amount:int53 = LabeledPricePart

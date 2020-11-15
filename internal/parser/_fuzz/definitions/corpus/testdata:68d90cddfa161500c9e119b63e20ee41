@@ -1,1 +1,0 @@
-answerShippingQuery shipping_query_id:int64 shipping_options:vector<shippingOption> error_message:string = Ok

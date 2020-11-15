@@ -1,1 +1,0 @@
-validatedOrderInfo order_info_id:string shipping_options:vector<shippingOption> = ValidatedOrderInfo

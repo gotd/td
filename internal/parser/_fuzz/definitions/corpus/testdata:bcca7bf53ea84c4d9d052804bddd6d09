@@ -1,1 +1,0 @@
-updateMessagePollVote#42f88f2c poll_id:long user_id:int options:Vector<bytes> = Update

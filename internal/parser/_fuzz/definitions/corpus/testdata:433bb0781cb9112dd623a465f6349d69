@@ -1,1 +1,0 @@
-inlineQueryResultContact id:string contact:contact thumbnail:thumbnail = InlineQueryResult

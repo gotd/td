@@ -1,1 +1,0 @@
-background id:int64 is_default:Bool is_dark:Bool name:string document:document type:BackgroundType = Background
