@@ -43,7 +43,7 @@ func (p *Type) Parse(s string) error {
 		s = s[1:]
 	}
 
-	// Parse `type<generic_arg>`
+	// Parse `type<generic_arg>`.
 	if pos := strings.Index(s, "<"); pos >= 0 {
 		if !strings.HasSuffix(s, ">") {
 			return xerrors.New("invalid generic")
@@ -55,7 +55,7 @@ func (p *Type) Parse(s string) error {
 		s = s[:pos]
 	}
 
-	// Parse `ns1.ns2.name`
+	// Parse `ns1.ns2.name`.
 	ns := strings.Split(s, ".")
 	if len(ns) == 1 {
 		p.Name = ns[0]
