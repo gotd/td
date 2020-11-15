@@ -1,0 +1,32 @@
+t _id:int53 message_id:int53 new_content:MessageContent = Update
+d 3ge_id:int53 edit_date:int32 reply_markup:ReplyMarkup = Update
+eIsPinned chat_id:int53 message_id:int53 is_pinned:Bool = Update
+//
+o 3age_id:int53 interaction_info:messageInteractionInfo = Update
+//
+dateMessageContentOpened chat_id:int53 message_id:int53 = Update
+//
+d _id:int53 message_id:int53 unread_mention_count:int32 = Update
+//
+dateMessageContentOpened chat_id:int53 message_id:int53 = Update
+//
+d _id:int53 message_id:int53 unread_mention_count:int32 = Update
+//
+essageLiveLocationViewed chat_id:int53 message_id:int53 = Update
+//
+d 3ge_id:int53 edit_date:int32 reply_markup:ReplyMarkup = Update
+//
+eIsPinned chat_id:int53 message_id:int53 is_pinned:Bool = Update
+//
+o 3age_id:int53 interaction_info:messageInteractionInfo = Update
+//
+dateMessageContentOpened chat_id:int53 message_id:int53 = Update
+//
+d _id:int53 message_id:int53 unread_mention_count:int32 = Update
+//
+dateMessageContentOpened chat_id:int53 message_id:int53 = Update
+//
+d _id:int53 message_id:int53 unread_mention_count:int32 = Update
+//
+essageLiveLocationViewed chat_id:int53 message_id:int53 = Update
+//

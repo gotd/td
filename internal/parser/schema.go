@@ -15,6 +15,9 @@ type SchemaDefinition struct {
 	Category    Category     `json:"category"`              // category of definition (function or type)
 }
 
+// Class describes a non-bare Type with one or more constructors.
+//
+// Example: `//@class InputChatPhoto @description Describes input chat photo`.
 type Class struct {
 	Name        string
 	Description string
@@ -82,6 +85,9 @@ const (
 	vectorDefinitionWithID = "vector#1cb5c415 {t:Type} # [ t ] = Vector t;"
 )
 
+// Parse reads Schema from reader.
+//
+// Can return i/o or validation error.
 func Parse(reader io.Reader) (*Schema, error) {
 	var (
 		def  SchemaDefinition
@@ -94,7 +100,9 @@ func Parse(reader io.Reader) (*Schema, error) {
 	for scanner.Scan() {
 		line++
 		s := strings.TrimSpace(scanner.Text())
-		s = strings.ReplaceAll(s, "///", "//") // normalize comments
+		if strings.HasPrefix(s, "///") {
+			s = s[1:] // normalize comments
+		}
 		switch s {
 		case "":
 			continue
@@ -123,7 +131,7 @@ func Parse(reader io.Reader) (*Schema, error) {
 						class.Description = a.Value
 					}
 				}
-				if class.Name != "" {
+				if class.Name != "" && class.Description != "" {
 					schema.Classes = append(schema.Classes, class)
 				}
 				// Reset annotations so we don't include them to next type.
@@ -141,6 +149,30 @@ func Parse(reader io.Reader) (*Schema, error) {
 		if err := def.Definition.Parse(s); err != nil {
 			return nil, xerrors.Errorf("failed to parse line %d: definition: %w", line, err)
 		}
+
+		// Validating annotations.
+		paramExist := map[string]struct{}{}
+		for _, p := range def.Definition.Params {
+			paramExist[p.Name] = struct{}{}
+		}
+		for _, ann := range def.Annotations {
+			if ann.Name == "description" {
+				continue
+			}
+			searchFor := ann.Name
+			if ann.Name == "param_description" {
+				// Special case for "description" parameter name that collides
+				// with global description.
+				searchFor = "description"
+			}
+			if _, ok := paramExist[searchFor]; !ok {
+				// Probably such errors can be just skipped, but seems like it
+				// is OK to consider this as hard failure.
+				return nil, xerrors.Errorf("failed to parse line %d: "+
+					"can't find param for annotation %q", line, ann.Name)
+			}
+		}
+
 		schema.Definitions = append(schema.Definitions, def)
 		def = SchemaDefinition{} // reset definition
 	}

@@ -25,6 +25,28 @@ func TestParseAnnotation(t *testing.T) {
 				},
 			},
 		},
+		{
+			Case:  "Slashes",
+			Input: "//@cwass StatisticsGraph@description /////@description t@description h",
+			Result: []Annotation{
+				{
+					Name:  "cwass",
+					Value: "StatisticsGraph",
+				},
+				{
+					Name:  "description",
+					Value: "/////",
+				},
+				{
+					Name:  "description",
+					Value: "t",
+				},
+				{
+					Name:  "description",
+					Value: "h",
+				},
+			},
+		},
 	} {
 		t.Run(tt.Case, func(t *testing.T) {
 			ann, err := parseAnnotation(tt.Input)
@@ -43,6 +65,7 @@ func TestParseAnnotation(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
+			t.Logf("%#v", ann)
 			if len(ann) != 1 {
 				t.Fatal("bad len")
 			}
@@ -57,6 +80,7 @@ func TestParseAnnotation(t *testing.T) {
 			"//",
 			"1",
 			"//@\xef\f\f\f\f/@class StatisticsGraph@description /@r a@n a@a t@n h",
+			"//@0 0@0 @0 0",
 		} {
 			if _, err := parseAnnotation(input); err == nil {
 				t.Errorf("expected error on %q", input)

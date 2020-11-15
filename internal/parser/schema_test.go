@@ -218,6 +218,12 @@ func TestParserFailures(t *testing.T) {
 			"isticsGraph@descript" +
 			"ion /@r a@n a@a t@n " +
 			"h\ng=StatisticsGra00",
+		"//@cwass StatisticsG" +
+			"raph@description ///" +
+			"//@description t@des" +
+			"cription h\ng=Statist" +
+			"icsGraph",
+		"//@0 0@class 0\n0=0",
 	} {
 		if _, err := Parse(strings.NewReader(tt)); err == nil {
 			t.Error("should error")
@@ -228,6 +234,9 @@ func TestParserFailures(t *testing.T) {
 func TestParserConsistent(t *testing.T) {
 	for _, tt := range []string{
 		"//@0 ////\\n0=0",
+		"//@class StatisticsG" +
+			"raph\n0=StatisticsGra" +
+			"ph",
 	} {
 		parsed, err := Parse(strings.NewReader(tt))
 		if err != nil {
@@ -239,6 +248,8 @@ func TestParserConsistent(t *testing.T) {
 		}
 		secondParsed, err := Parse(bytes.NewReader(first.Bytes()))
 		if err != nil {
+			t.Logf("%q", tt)
+			t.Logf("%q", first)
 			t.Fatal(err)
 		}
 		second := new(bytes.Buffer)

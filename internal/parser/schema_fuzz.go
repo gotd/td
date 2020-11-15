@@ -28,9 +28,9 @@ func Fuzz(data []byte) int {
 		panic(err)
 	}
 	if !bytes.Equal(b.Bytes(), newBuf.Bytes()) {
-		fmt.Printf("first cycle: %q", b)
-		fmt.Printf("second cycle: %q", newBuf)
-		fmt.Printf("input: %q", data)
+		fmt.Printf("first cycle: %q\n", b)
+		fmt.Printf("second cycle: %q\n", newBuf)
+		fmt.Printf("input: %q\n", data)
 		panic("parse-writeTo-parse-writeTo cycle deviated")
 	}
 	return 1

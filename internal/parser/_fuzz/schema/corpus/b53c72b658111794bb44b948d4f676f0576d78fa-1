@@ -1,0 +1,14 @@
+//@description t@chat_id r@message_id r@edit_date d@reply_markup l
+d chat_id:3 message_id:3 edit_date:2 reply_markup:p=e
+//@description d@chat_id r@message_id r@is_pinned d
+d chat_id:3 message_id:3 is_pinned:l=e
+//@description r@message_id r@description d@chat_id r@message_id r@unread_mention_count t
+d chat_id:3 message_id:3 unread_mention_count:2=e
+//@description n@chat_id e@message_id n@description d@chat_id r@message_id r@interaction_info l
+o chat_id:3 message_id:3 interaction_info:o=e
+//@description s@chat_id r@message_id r@description d@chat_id r@message_id r@unread_mention_count t
+d chat_id:3 message_id:3 unread_mention_count:2=e
+//@description n@chat_id e@message_id n
+d chat_id:3 message_id:3=e
+//@description s@chat t
+t chat:t=U
