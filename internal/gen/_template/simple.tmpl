@@ -15,7 +15,11 @@ type {{ $s.Name }} struct {
 func ({{ $s.Receiver }} {{ $s.Name }}) Encode(b *bin.Buffer) {
     b.PutID(0x{{ $s.HexID }})
 {{- range $f := $s.Fields }}
+    {{- if $f.PutEncoder }}
+    {{ $s.Receiver }}.{{ $f.Name }}.Encode(b)
+    {{- else }}
     b.{{ $f.PutFunc }}({{ $s.Receiver }}.{{ $f.Name }})
+    {{- end }}
 {{- end }}
 }
 

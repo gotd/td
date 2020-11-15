@@ -24,16 +24,35 @@ type Struct struct {
 }
 
 type Field struct {
-	Name    string
-	Comment string
-	Type    string
-	PutFunc string
+	Name       string
+	Comment    string
+	Type       string
+	PutFunc    string
+	PutEncoder bool
 }
 
 func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 	cfg := Config{
 		Package: "td",
 	}
+
+	// Searching for all types with single constructor.
+	// This can be used to reduce interfaces.
+	constructors := map[string]int{}
+	for _, d := range s.Definitions {
+		if d.Category != tl.CategoryType {
+			continue
+		}
+		// TODO: Namespaces?
+		constructors[d.Definition.Type.Name] += 1
+	}
+	singular := map[string]struct{}{}
+	for k, v := range constructors {
+		if v == 1 {
+			singular[k] = struct{}{}
+		}
+	}
+
 	for _, d := range s.Definitions {
 		switch d.Category {
 		case tl.CategoryType:
@@ -71,6 +90,8 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.PutFunc = "PutInt32"
 				case "string":
 					f.PutFunc = "PutString"
+				default:
+					f.PutEncoder = true
 				}
 				if f.Comment == "" {
 					f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)

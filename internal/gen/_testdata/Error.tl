@@ -9,6 +9,8 @@ error code:int32 message:string = Error;
 //@description can be returned by functions as result.
 ok = Ok;
 
+message err:Error = Message;
+
 ---functions---
 
 //@description check that server is live

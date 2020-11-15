@@ -56,3 +56,17 @@ func (o Ok) Encode(b *bin.Buffer) {
 }
 
 var _ bin.Encoder = Ok{}
+
+// Message represents TL type message#ec200d96.
+type Message struct {
+	// Err field of Message.
+	Err Error
+}
+
+// Encode implements bin.Encoder.
+func (m Message) Encode(b *bin.Buffer) {
+	b.PutID(0xec200d96)
+	m.Err.Encode(b)
+}
+
+var _ bin.Encoder = Message{}
