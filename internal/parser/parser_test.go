@@ -49,29 +49,25 @@ func TestParserError(t *testing.T) {
 }
 
 func TestParser(t *testing.T) {
-	data, err := ioutil.ReadFile("_testdata/td_api.tl")
-	if err != nil {
-		t.Fatal(err)
+	for _, v := range []string{
+		"td_api.tl",
+		"telegram_api.tl",
+	} {
+		t.Run(v, func(t *testing.T) {
+			data, err := ioutil.ReadFile("_testdata/td_api.tl")
+			if err != nil {
+				t.Fatal(err)
+			}
+			schema, err := Parse(bytes.NewReader(data))
+			if err != nil {
+				t.Fatal(err)
+			}
+			g := goldie.New(t,
+				goldie.WithFixtureDir("_golden"),
+				goldie.WithDiffEngine(goldie.ColoredDiff),
+				goldie.WithNameSuffix(".golden.json"),
+			)
+			g.AssertJson(t, v, schema)
+		})
 	}
-	schema, err := Parse(bytes.NewReader(data))
-	if err != nil {
-		t.Fatal(err)
-	}
-	for _, c := range schema.Classes {
-		t.Logf("Class %s: %s", c.Name, c.Description)
-	}
-	for _, d := range schema.Definitions {
-		t.Logf("%s = %s", d.Definition.Name, d.Definition.Type)
-		for _, a := range d.Annotations {
-			t.Logf(" %s: %s", a.Key, a.Value)
-		}
-	}
-	t.Run("Golden", func(t *testing.T) {
-		g := goldie.New(t,
-			goldie.WithFixtureDir("_golden"),
-			goldie.WithDiffEngine(goldie.ColoredDiff),
-			goldie.WithNameSuffix(".golden.json"),
-		)
-		g.AssertJson(t, "td_api", schema)
-	})
 }
