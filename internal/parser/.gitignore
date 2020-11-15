@@ -1,4 +1,4 @@
 # fuzzing-related thingis
 parser-fuzz.zip
-_fuzz/crashers
-_fuzz/suppressions
+_fuzz/*/crashers
+_fuzz/*/suppressions

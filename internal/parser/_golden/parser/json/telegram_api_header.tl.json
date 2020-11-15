@@ -1,0 +1,280 @@
+{
+  "definitions": [
+    {
+      "definition": {
+        "name": "int",
+        "id": 2823855066,
+        "type": {
+          "name": "Int"
+        },
+        "base": true
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "long",
+        "id": 570911930,
+        "type": {
+          "name": "Long"
+        },
+        "base": true
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "double",
+        "id": 571523412,
+        "type": {
+          "name": "Double"
+        },
+        "base": true
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "string",
+        "id": 3039325732,
+        "type": {
+          "name": "String"
+        },
+        "base": true
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "bytes",
+        "id": 3912743810,
+        "type": {
+          "name": "Bytes"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "true",
+        "id": 1072550713,
+        "type": {
+          "name": "True"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "boolFalse",
+        "id": 3162085175,
+        "type": {
+          "name": "Bool"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "boolTrue",
+        "id": 2574415285,
+        "type": {
+          "name": "Bool"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "error",
+        "id": 3300522427,
+        "params": [
+          {
+            "name": "code",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "text",
+            "type": {
+              "name": "string",
+              "bare": true
+            }
+          }
+        ],
+        "type": {
+          "name": "Error"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "ipPort",
+        "id": 3560156531,
+        "params": [
+          {
+            "name": "ipv4",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "port",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          }
+        ],
+        "type": {
+          "name": "IpPort"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "ipPortSecret",
+        "id": 932718150,
+        "params": [
+          {
+            "name": "ipv4",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "port",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "secret",
+            "type": {
+              "name": "bytes",
+              "bare": true
+            }
+          }
+        ],
+        "type": {
+          "name": "IpPort"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "accessPointRule",
+        "id": 1182381663,
+        "params": [
+          {
+            "name": "phone_prefix_rules",
+            "type": {
+              "name": "string",
+              "bare": true
+            }
+          },
+          {
+            "name": "dc_id",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "ips",
+            "type": {
+              "name": "vector",
+              "bare": true,
+              "generic_arg": {
+                "name": "IpPort"
+              }
+            }
+          }
+        ],
+        "type": {
+          "name": "AccessPointRule"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "namespace": [
+          "help"
+        ],
+        "name": "configSimple",
+        "id": 1515793004,
+        "params": [
+          {
+            "name": "date",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "expires",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          },
+          {
+            "name": "rules",
+            "type": {
+              "name": "vector",
+              "bare": true,
+              "generic_arg": {
+                "name": "AccessPointRule"
+              }
+            }
+          }
+        ],
+        "type": {
+          "namespace": [
+            "help"
+          ],
+          "name": "ConfigSimple"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "namespace": [
+          "test"
+        ],
+        "name": "useError",
+        "id": 4000689921,
+        "type": {
+          "name": "Error"
+        }
+      },
+      "category": "function"
+    },
+    {
+      "definition": {
+        "namespace": [
+          "test"
+        ],
+        "name": "useConfigSimple",
+        "id": 4189565501,
+        "type": {
+          "namespace": [
+            "help"
+          ],
+          "name": "ConfigSimple"
+        }
+      },
+      "category": "function"
+    }
+  ]
+}

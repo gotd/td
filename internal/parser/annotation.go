@@ -22,6 +22,18 @@ func (a Annotation) String() string {
 	return b.String()
 }
 
+func singleLineAnnotations(a []Annotation) string {
+	var b strings.Builder
+	for i, ann := range a {
+		str := ann.String()
+		if i > 0 {
+			str = strings.Replace(str, "//", " ", 1)
+		}
+		b.WriteString(str)
+	}
+	return b.String()
+}
+
 func parseAnnotation(line string) ([]Annotation, error) {
 	//@name The name of the option @parserValue The new parserValue of the option
 	if !strings.HasPrefix(line, "//") {

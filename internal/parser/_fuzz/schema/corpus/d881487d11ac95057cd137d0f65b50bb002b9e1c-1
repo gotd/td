@@ -1,0 +1,17 @@
+//class StatisticsGraph @description Describes a statistics graph
+//ormat @zoom_token Wf non-empty, a token which can be d in graph
+csGraphData json_data:string zoom_token:string = StatisticsGraph;
+// was edited @reply_markup New message reply markup; may be null
+d 3ge_id:int53 edit_date:int32 reply_markup:ReplyMarkup = Update;
+//he message identifier @is_pinned True, if the message is pinned
+eIsPinned chat_id:int53 message_id:int53 is_pinned:Bool = Update;
+//ew information about interactions with the message; may be null
+o 3age_id:int53 interaction_info:messageInteractionInfo = Update;
+//essages @chat_id Chat identifier @message_id Message identifier
+dateMessageContentOpened chat_id:int53 message_id:int53 = Update;
+//ount The new number of unread mention messages left in the chat
+d _id:int53 message_id:int53 unread_mention_count:int32 = Update;
+//ceived, the application is supposed to update the live location
+//essage @message_id Identifier of the message with live location
+essageLiveLocationViewed chat_id:int53 message_id:int53 = Update;
+//@description A new chat has been loaded/created. This update is

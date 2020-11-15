@@ -1,0 +1,5 @@
+d t53 message_id:in53 unread_mention_count:int32 = Update
+ned chat_id:int53 messaplyMarkup = Update
+o 3id:int53 interaction_info:messageInteractionInfo =date
+ned chat_id:int53 messge_id:int53 is_pinned:Bool = Update
+3e_id:int53 interaction_info:messageInteractionInfo =date

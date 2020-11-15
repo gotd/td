@@ -62,4 +62,12 @@ func TestParseAnnotation(t *testing.T) {
 			}
 		}
 	})
+	t.Run("SingleLine", func(t *testing.T) {
+		if str := singleLineAnnotations([]Annotation{
+			{Name: "class", Value: "foo"},
+			{Name: "desc", Value: "bar"},
+		}); str != "//@class foo @desc bar" {
+			t.Error(str)
+		}
+	})
 }

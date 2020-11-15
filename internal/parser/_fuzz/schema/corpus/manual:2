@@ -1,0 +1,10 @@
+//@class StatisticsGraph @description Describes a statistics graph
+
+//@description A graph data @json_data Graph data in JSON format @zoom_token If non-empty, a token which can be used to receive a zoomed in graph
+statisticsGraphData json_data:string zoom_token:string = StatisticsGraph;
+
+//@description The graph data to be asynchronously loaded through getStatisticsGraph @token The token to use for data loading
+statisticsGraphAsync token:string = StatisticsGraph;
+
+//@description An error message to be shown to the user instead of the graph @error_message The error message
+statisticsGraphError error_message:string = StatisticsGraph;

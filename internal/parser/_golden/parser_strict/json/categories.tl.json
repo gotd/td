@@ -1,0 +1,62 @@
+{
+  "definitions": [
+    {
+      "definition": {
+        "name": "first",
+        "id": 1,
+        "type": {
+          "name": "Foo"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "func",
+        "id": 6,
+        "params": [
+          {
+            "name": "id",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          }
+        ],
+        "type": {
+          "name": "Call"
+        }
+      },
+      "category": "function"
+    },
+    {
+      "definition": {
+        "name": "second",
+        "id": 2,
+        "type": {
+          "name": "Foo"
+        }
+      },
+      "category": "type"
+    },
+    {
+      "definition": {
+        "name": "secFunc",
+        "id": 4,
+        "params": [
+          {
+            "name": "id",
+            "type": {
+              "name": "int",
+              "bare": true
+            }
+          }
+        ],
+        "type": {
+          "name": "Foo"
+        }
+      },
+      "category": "function"
+    }
+  ]
+}

@@ -3,6 +3,7 @@ module github.com/ernado/td
 go 1.15
 
 require (
+	github.com/dvyukov/go-fuzz v0.0.0-20201114070042-d9fd8180255a // indirect
 	github.com/go-openapi/inflect v0.19.0
 	github.com/sebdah/goldie/v2 v2.5.1
 	github.com/sergi/go-diff v1.1.0 // indirect

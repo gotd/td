@@ -1,0 +1,10 @@
+//class StatisticsGraph @description Describes a statistics graph
+
+//ormat @zoom_token Wf non-empty, a token which can be d in graph
+csGraphData json_data:string zoom_token:string = StatisticsGraph;
+
+//ugh getStatisticsGraph @token The token to use for data loading
+
+
+//ser instead of the graph @error_message The error messar messge
+statisticsGraphEÁ�ϋrrror error_message:string = StatisticsGraph
