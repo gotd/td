@@ -25,6 +25,11 @@ type Schema struct {
 	Classes     []Class
 }
 
+const (
+	vectorDefinition       = "vector {t:Type} # [ t ] = Vector t;"
+	vectorDefinitionWithID = "vector#1cb5c415 {t:Type} # [ t ] = Vector t;"
+)
+
 func Parse(reader io.Reader) (*Schema, error) {
 	var (
 		def      SchemaDefinition
@@ -47,7 +52,7 @@ func Parse(reader io.Reader) (*Schema, error) {
 		case tokTypes:
 			category = CategoryType
 			continue
-		case "vector {t:Type} # [ t ] = Vector t;":
+		case vectorDefinition, vectorDefinitionWithID:
 			// Special case for vector
 			continue
 		}
