@@ -8,6 +8,15 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func BenchmarkBuffer_PutString(b *testing.B) {
+	b.ReportAllocs()
+	buf := new(Buffer)
+	for i := 0; i < b.N; i++ {
+		buf.PutString("Foo bar baz")
+		buf.Reset()
+	}
+}
+
 func BenchmarkBuffer_PutID(b *testing.B) {
 	b.ReportAllocs()
 	buf := new(Buffer)
@@ -23,7 +32,7 @@ func BenchmarkBufferMultiplePuts(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		buf.PutID(0xbadbad)
 		buf.PutBool(true)
-		buf.PutBareString("foo")
+		buf.PutString("foo")
 		buf.PutLong(12345)
 		buf.PutDouble(10.55)
 		buf.PutInt(10)

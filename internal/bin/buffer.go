@@ -19,8 +19,8 @@ func (b *Buffer) Put(raw []byte) {
 	b.buf = append(b.buf, raw...)
 }
 
-// PutBareString serializes bare string.
-func (b *Buffer) PutBareString(s string) {
+// PutString serializes bare string.
+func (b *Buffer) PutString(s string) {
 	b.buf = encodeString(b.buf, s)
 }
 

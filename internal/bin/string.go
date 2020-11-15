@@ -1,7 +1,7 @@
 package bin
 
 func encodeString(b []byte, v string) []byte {
-	l := len([]byte(v))
+	l := len(v)
 	if l <= 253 {
 		// If L <= 253, the serialization contains one byte with the value of L,
 		// then L bytes of the string followed by 0 to 3 characters containing 0,
@@ -25,7 +25,7 @@ func encodeString(b []byte, v string) []byte {
 	return b
 }
 
-func DecodeString(b []byte) (n int, v string, err error) {
+func decodeString(b []byte) (n int, v string, err error) {
 	if b[0] == 254 {
 		strLen := uint32(b[1]) | uint32(b[2])<<8 | uint32(b[3])<<16
 		return int(strLen) + 4, string(b[4 : strLen+4]), nil

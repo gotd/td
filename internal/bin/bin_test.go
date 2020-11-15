@@ -22,7 +22,7 @@ func TestStringDecodeEncode(t *testing.T) {
 		if len(buf)%4 != 0 {
 			t.Error("bad align")
 		}
-		n, v, err := DecodeString(buf)
+		n, v, err := decodeString(buf)
 		if err != nil {
 			t.Error(err)
 		}
