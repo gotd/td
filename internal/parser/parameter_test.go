@@ -23,7 +23,7 @@ func TestParameter(t *testing.T) {
 			String: "status_code:f.1?Code",
 			Value: Parameter{
 				Name: "status_code",
-				Flag: Flag{Name: "f", Index: 1},
+				Flag: &Flag{Name: "f", Index: 1},
 				Type: Type{Name: "Code"},
 			},
 		},
@@ -67,7 +67,7 @@ func TestParameter(t *testing.T) {
 		for _, conditional := range []Parameter{
 			{
 				Name: "Foo",
-				Flag: Flag{Name: "flags", Index: 1},
+				Flag: &Flag{Name: "flags", Index: 1},
 			},
 		} {
 			t.Run(conditional.Name, func(t *testing.T) {
@@ -79,7 +79,6 @@ func TestParameter(t *testing.T) {
 		for _, nonConditional := range []Parameter{
 			{
 				Name: "Bar",
-				Flag: Flag{},
 			},
 		} {
 			t.Run(nonConditional.Name, func(t *testing.T) {

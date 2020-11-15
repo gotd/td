@@ -5,8 +5,8 @@ import (
 )
 
 type Annotation struct {
-	Key   string
-	Value string
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 func parseAnnotation(line string) ([]Annotation, error) {

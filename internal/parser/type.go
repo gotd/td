@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"encoding"
 	"fmt"
 	"strings"
 
@@ -10,19 +9,11 @@ import (
 
 // Type of a Definition or a Parameter.
 type Type struct {
-	Namespace  []string // namespace components of the type
-	Name       string   // the name of the type
-	Bare       bool     // whether this type is bare or boxed
-	GenericRef bool     // whether the type name refers to a generic definition
-	GenericArg *Type    // generic arguments of the type
-}
-
-func (p *Type) UnmarshalText(text []byte) error {
-	return p.Parse(string(text))
-}
-
-func (p Type) MarshalText() (text []byte, err error) {
-	return []byte(p.String()), nil
+	Namespace  []string `json:"namespace,omitempty"`   // namespace components of the type
+	Name       string   `json:"name"`                  // the name of the type
+	Bare       bool     `json:"bare,omitempty"`        // whether this type is bare or boxed
+	GenericRef bool     `json:"generic_ref,omitempty"` // whether the type name refers to a generic definition
+	GenericArg *Type    `json:"generic_arg,omitempty"` // generic arguments of the type
 }
 
 func (p Type) String() string {
@@ -91,7 +82,5 @@ func (p *Type) Parse(s string) error {
 
 // Compile-time interface implementation assertion.
 var (
-	_ encoding.TextMarshaler   = Type{}
-	_ encoding.TextUnmarshaler = &Type{}
-	_ fmt.Stringer             = Type{}
+	_ fmt.Stringer = Type{}
 )

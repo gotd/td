@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"encoding"
 	"fmt"
 	"strings"
 
@@ -11,27 +10,19 @@ import (
 // Parameter with Name and Type.
 type Parameter struct {
 	// Name of Parameter.
-	Name string
+	Name string `json:"name,omitempty"`
 	// Type of Parameter.
-	Type Type
+	Type Type `json:"type"`
 	// Flag specifies flag name and index if parameter is conditional.
-	Flag Flag
+	Flag *Flag `json:"flag,omitempty"`
 	// Flags denotes whether Parameter is flags field (uint32).
 	//
 	// If true, Type and Flag are blank.
-	Flags bool
-}
-
-func (p *Parameter) UnmarshalText(text []byte) error {
-	return p.Parse(string(text))
-}
-
-func (p Parameter) MarshalText() (text []byte, err error) {
-	return []byte(p.String()), nil
+	Flags bool `json:"flags,omitempty"`
 }
 
 func (p Parameter) Conditional() bool {
-	return p.Flag.Name != ""
+	return p.Flag != nil
 }
 
 func (p Parameter) String() string {
@@ -71,6 +62,7 @@ func (p *Parameter) Parse(s string) error {
 		return nil
 	}
 	if pos := strings.Index(s, "?"); pos >= 0 {
+		p.Flag = &Flag{}
 		if err := p.Flag.Parse(s[:pos]); err != nil {
 			return xerrors.Errorf("failed to parse flag: %w", err)
 		}
@@ -84,7 +76,5 @@ func (p *Parameter) Parse(s string) error {
 
 // Compile-time interface implementation assertion.
 var (
-	_ encoding.TextMarshaler   = Parameter{}
-	_ encoding.TextUnmarshaler = &Parameter{}
-	_ fmt.Stringer             = Parameter{}
+	_ fmt.Stringer = Parameter{}
 )

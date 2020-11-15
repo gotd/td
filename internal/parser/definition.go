@@ -10,21 +10,16 @@ import (
 	"golang.org/x/xerrors"
 )
 
-type Field struct {
-	Name string
-	Type string
-}
-
 // Definition represents "Type Language" definition.
 //
 // See https://core.telegram.org/mtproto/TL for reference.
 type Definition struct {
-	Namespace []string    // blank if global
-	Name      string      // name of definition, aka "predicate" or "method"
-	ID        uint32      // crc32(definition) or explicitly specified
-	Params    []Parameter // can be empty
-	Type      Type        // type of definition
-	Base      bool        // base type?
+	Namespace []string    `json:"namespace,omitempty"` // blank if global
+	Name      string      `json:"name"`                // name of definition, aka "predicate" or "method"
+	ID        uint32      `json:"id"`                  // crc32(definition) or explicitly specified
+	Params    []Parameter `json:"params,omitempty"`    // can be empty
+	Type      Type        `json:"type"`                // type of definition
+	Base      bool        `json:"base,omitempty"`      // base type?
 }
 
 func (d Definition) String() string {

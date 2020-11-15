@@ -10,9 +10,9 @@ import (
 
 // SchemaDefinition is annotated Definition with Category.
 type SchemaDefinition struct {
-	Annotations []Annotation // annotations (comments)
-	Definition  Definition   // definition
-	Category    Category     // category of definition (function or type)
+	Annotations []Annotation `json:"annotations,omitempty"` // annotations (comments)
+	Definition  Definition   `json:"definition"`            // definition
+	Category    Category     `json:"category"`              // category of definition (function or type)
 }
 
 type Class struct {
@@ -21,8 +21,8 @@ type Class struct {
 }
 
 type Schema struct {
-	Definitions []SchemaDefinition
-	Classes     []Class
+	Definitions []SchemaDefinition `json:"definitions"`
+	Classes     []Class            `json:"classes"`
 }
 
 const (

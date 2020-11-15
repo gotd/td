@@ -11,9 +11,9 @@ import (
 // Flag describes conditional parameter.
 type Flag struct {
 	// Name of the parameter.
-	Name string
+	Name string `json:"name"`
 	// Index represent bit index.
-	Index int
+	Index int `json:"index"`
 }
 
 func (f Flag) MarshalText() (text []byte, err error) {
