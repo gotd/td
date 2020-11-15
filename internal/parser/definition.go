@@ -14,12 +14,13 @@ import (
 //
 // See https://core.telegram.org/mtproto/TL for reference.
 type Definition struct {
-	Namespace []string    `json:"namespace,omitempty"` // blank if global
-	Name      string      `json:"name"`                // name of definition, aka "predicate" or "method"
-	ID        uint32      `json:"id"`                  // crc32(definition) or explicitly specified
-	Params    []Parameter `json:"params,omitempty"`    // can be empty
-	Type      Type        `json:"type"`                // type of definition
-	Base      bool        `json:"base,omitempty"`      // base type?
+	Namespace     []string    `json:"namespace,omitempty"`      // blank if global
+	Name          string      `json:"name"`                     // name of definition, aka "predicate" or "method"
+	ID            uint32      `json:"id"`                       // crc32(definition) or explicitly specified
+	Params        []Parameter `json:"params,omitempty"`         // can be empty
+	Type          Type        `json:"type"`                     // type of definition
+	Base          bool        `json:"base,omitempty"`           // base type?
+	GenericParams []string    `json:"generic_params,omitempty"` // like {T:Type}
 }
 
 func (d Definition) String() string {
@@ -29,6 +30,11 @@ func (d Definition) String() string {
 		b.WriteRune('.')
 	}
 	b.WriteString(fmt.Sprintf("%s#%x", d.Name, d.ID))
+	for _, param := range d.GenericParams {
+		b.WriteString(" {")
+		b.WriteString(param)
+		b.WriteString(":Type}")
+	}
 	for _, param := range d.Params {
 		b.WriteRune(' ')
 		b.WriteString(param.String())
@@ -36,7 +42,7 @@ func (d Definition) String() string {
 	if d.Base {
 		b.WriteString(" ?")
 	}
-	b.WriteString(" =")
+	b.WriteString(" = ")
 	b.WriteString(d.Type.String())
 	return b.String()
 }
@@ -112,6 +118,7 @@ func (d *Definition) Parse(line string) error {
 		if param.typeDefinition {
 			// Parameter is generic type definition like {T:Type}.
 			genericParams[param.Name] = struct{}{}
+			d.GenericParams = append(d.GenericParams, param.Name)
 			continue // not adding generic to actual params
 		}
 		// Checking that type of generic parameter was defined.

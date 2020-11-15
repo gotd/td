@@ -30323,7 +30323,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "type"
     },
@@ -30352,7 +30355,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },
@@ -30445,7 +30451,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },
@@ -30471,7 +30480,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },
@@ -30490,7 +30502,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },
@@ -30515,7 +30530,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },
@@ -30541,7 +30559,10 @@
         ],
         "type": {
           "name": "X"
-        }
+        },
+        "generic_params": [
+          "X"
+        ]
       },
       "category": "function"
     },

@@ -20,11 +20,12 @@ func TestDefinition(t *testing.T) {
 	for _, tt := range []struct {
 		Case       string
 		Input      string
+		String     string
 		Definition Definition
 	}{
 		{
 			Case:  "inputPhoneCall",
-			Input: "inputPhoneCall#1e36fded id:long access_hash:long = InputPhoneCall;",
+			Input: "inputPhoneCall#1e36fded id:long access_hash:long = InputPhoneCall",
 			Definition: Definition{
 				ID:   0x1e36fded,
 				Name: "inputPhoneCall",
@@ -42,8 +43,9 @@ func TestDefinition(t *testing.T) {
 			},
 		},
 		{
-			Case:  "userWithoutCRC",
-			Input: "user id:int first_name:string last_name:string = User;",
+			Case:   "userWithoutCRC",
+			Input:  "user id:int first_name:string last_name:string = User;",
+			String: "user#d23c81a3 id:int first_name:string last_name:string = User",
 			Definition: Definition{
 				ID:   0xd23c81a3,
 				Name: "user",
@@ -56,8 +58,9 @@ func TestDefinition(t *testing.T) {
 			},
 		},
 		{
-			Case:  "OK",
-			Input: "ok = Ok;",
+			Case:   "OK",
+			Input:  "ok = Ok;",
+			String: "ok#d4edbe69 = Ok",
 			Definition: Definition{
 				ID:   0xd4edbe69,
 				Name: "ok",
@@ -65,8 +68,9 @@ func TestDefinition(t *testing.T) {
 			},
 		},
 		{
-			Case:  "GroupWithoutFieldNames",
-			Input: "group int string string = Group;",
+			Case:   "GroupWithoutFieldNames",
+			String: "group#60fc45e0 int string string = Group",
+			Input:  "group int string string = Group",
 			Definition: Definition{
 				ID:   0x60fc45e0,
 				Name: "group",
@@ -79,8 +83,9 @@ func TestDefinition(t *testing.T) {
 			},
 		},
 		{
-			Case:  "Zero",
-			Input: "0=0",
+			Case:   "Zero",
+			Input:  "0=0",
+			String: "0#971b4490 = 0",
 			Definition: Definition{
 				Name: "0",
 				ID:   0x971b4490,
@@ -128,9 +133,10 @@ func TestDefinition(t *testing.T) {
 			Case:  "invokeWithLayer",
 			Input: "invokeWithLayer#da9b0d0d {X:Type} layer:int query:!X = X",
 			Definition: Definition{
-				Name: "invokeWithLayer",
-				ID:   0xda9b0d0d,
-				Type: Type{Name: "X"},
+				Name:          "invokeWithLayer",
+				ID:            0xda9b0d0d,
+				Type:          Type{Name: "X"},
+				GenericParams: []string{"X"},
 				Params: []Parameter{
 					{
 						Name: "layer",
@@ -147,13 +153,18 @@ func TestDefinition(t *testing.T) {
 		var (
 			input       = tt.Input
 			expectedDef = tt.Definition
+			expectedStr = tt.Input
 		)
+		if tt.String != "" {
+			expectedStr = tt.String
+		}
 		t.Run(tt.Case, func(t *testing.T) {
 			var d Definition
 			if err := d.Parse(input); err != nil {
 				t.Fatal(err)
 			}
 			require.Equal(t, expectedDef, d)
+			require.Equal(t, expectedStr, d.String())
 		})
 	}
 	t.Run("Error", func(t *testing.T) {
