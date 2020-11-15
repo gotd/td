@@ -10,7 +10,7 @@ import (
 // Type of a Definition or a Parameter.
 type Type struct {
 	Namespace  []string `json:"namespace,omitempty"`   // namespace components of the type
-	Name       string   `json:"name"`                  // the name of the type
+	Name       string   `json:"name,omitempty"`        // the name of the type
 	Bare       bool     `json:"bare,omitempty"`        // whether this type is bare or boxed
 	GenericRef bool     `json:"generic_ref,omitempty"` // whether the type name refers to a generic definition
 	GenericArg *Type    `json:"generic_arg,omitempty"` // generic arguments of the type
