@@ -6,4 +6,4 @@ fuzz-definitions-build:
 
 fuzz-definitions-clear:
 	rm -f _fuzz/crashers/*
-	rm -f _fuzz/supressions/*
+	rm -f _fuzz/suppressions/*

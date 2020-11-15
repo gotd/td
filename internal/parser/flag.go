@@ -26,6 +26,9 @@ func (f *Flag) Parse(s string) error {
 		return xerrors.New("bad flag")
 	}
 	f.Name = s[:pos]
+	if !isValidName(f.Name) {
+		return xerrors.Errorf("name %q is invalid", f.Name)
+	}
 	idx, err := strconv.Atoi(s[pos+1:])
 	if err != nil {
 		return xerrors.New("bad index")

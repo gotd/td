@@ -1,0 +1,1 @@
+paymentReceipt e:int32 d:int32 e:invoice o:orderInfo n:shippingOption e:string=PaymentReceipt

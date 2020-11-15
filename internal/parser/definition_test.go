@@ -170,6 +170,7 @@ func TestDefinition(t *testing.T) {
 	t.Run("Error", func(t *testing.T) {
 		for _, invalid := range []string{
 			"=0",
+			"0 :{.0?InputFi00=0",
 		} {
 			t.Run(invalid, func(t *testing.T) {
 				var d Definition
