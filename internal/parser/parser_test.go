@@ -26,7 +26,7 @@ func TestParserBase(t *testing.T) {
 	for _, d := range schema.Definitions {
 		t.Logf("%s = %s (0x%x)", d.Definition.Name, d.Definition.Type, d.Definition.ID)
 		for _, a := range d.Annotations {
-			t.Logf(" %s: %s", a.Key, a.Value)
+			t.Logf(" %s: %s", a.Name, a.Value)
 		}
 	}
 }
@@ -46,7 +46,7 @@ func TestParserError(t *testing.T) {
 	for _, d := range schema.Definitions {
 		t.Logf("%s = %s", d.Definition.Name, d.Definition.Type)
 		for _, a := range d.Annotations {
-			t.Logf(" %s: %s", a.Key, a.Value)
+			t.Logf(" %s: %s", a.Name, a.Value)
 		}
 	}
 }

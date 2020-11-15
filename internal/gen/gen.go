@@ -61,10 +61,10 @@ func Generate(w io.Writer, t *template.Template, s *parser.Schema) error {
 			}
 			argComments := make(map[string]string)
 			for _, a := range typ.Annotations {
-				if a.Key == "description" {
+				if a.Name == "description" {
 					m.Comment = a.Value
 				} else {
-					argComments[a.Key] = a.Value
+					argComments[a.Name] = a.Value
 				}
 			}
 			for _, f := range typ.Definition.Fields {
@@ -89,10 +89,10 @@ func Generate(w io.Writer, t *template.Template, s *parser.Schema) error {
 			}
 			fieldComments := make(map[string]string)
 			for _, a := range typ.Annotations {
-				if a.Key == "description" {
+				if a.Name == "description" {
 					t.Comment = a.Value
 				} else {
-					fieldComments[a.Key] = a.Value
+					fieldComments[a.Name] = a.Value
 				}
 			}
 			for _, f := range typ.Definition.Fields {

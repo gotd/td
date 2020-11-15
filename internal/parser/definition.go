@@ -147,6 +147,9 @@ func isValidName(name string) bool {
 		if unicode.IsLetter(s) {
 			continue
 		}
+		if s == '_' {
+			continue
+		}
 		return false
 	}
 	return true

@@ -66,10 +66,10 @@ func Parse(reader io.Reader) (*Schema, error) {
 			if strings.HasPrefix(s, "//@class") {
 				var class Class
 				for _, a := range ann {
-					if a.Key == "class" {
+					if a.Name == "class" {
 						class.Name = a.Value
 					}
-					if a.Key == "description" {
+					if a.Name == "description" {
 						class.Description = a.Value
 					}
 				}
