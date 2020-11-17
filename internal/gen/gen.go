@@ -20,16 +20,31 @@ type Struct struct {
 	Receiver string
 	HexID    string
 	BufArg   string
+	TLType   string
 
 	Fields []Field
 }
 
 type Field struct {
-	Name       string
-	Comment    string
-	Type       string
-	PutFunc    string
-	PutEncoder bool
+	Name    string
+	Comment string
+	Type    string
+	Func    string
+	Encoder bool
+	TLName  string
+}
+
+type Argument struct {
+	Name string
+	Type string
+}
+
+type Result struct {
+}
+
+type Method struct {
+	Name      string
+	Arguments []Argument
 }
 
 func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
@@ -62,6 +77,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				Receiver: strings.ToLower(d.Definition.Name[0:1]),
 				HexID:    fmt.Sprintf("%x", d.Definition.ID),
 				BufArg:   "b",
+				TLType:   fmt.Sprintf("%s#%x", d.Definition.Name, d.Definition.ID),
 			}
 			if s.Receiver == "b" {
 				// bin.Buffer argument collides with reciever.
@@ -81,8 +97,9 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 			}
 			for _, param := range d.Definition.Params {
 				f := Field{
-					Name: pascal(param.Name),
-					Type: param.Type.Name,
+					Name:   pascal(param.Name),
+					Type:   param.Type.Name,
+					TLName: param.Name,
 				}
 				for _, a := range d.Annotations {
 					if a.Name == param.Name {
@@ -91,16 +108,16 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				}
 				switch param.Type.Name {
 				case "int":
-					f.PutFunc = "PutInt"
+					f.Func = "Int"
 				case "int32":
-					f.PutFunc = "PutInt32"
+					f.Func = "Int32"
 				case "string":
-					f.PutFunc = "PutString"
+					f.Func = "String"
 				case "Bool":
-					f.PutFunc = "PutBool"
+					f.Func = "Bool"
 					f.Type = "bool"
 				default:
-					f.PutEncoder = true
+					f.Encoder = true
 				}
 				if f.Comment == "" {
 					f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)

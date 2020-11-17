@@ -15,7 +15,7 @@ func TestGen(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f, err := os.Create("_testdata/output.go")
+	f, err := os.Create("example/example_gen.go")
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -18,15 +18,42 @@ const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 func ({{ $s.Receiver }} {{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) {
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
-    {{- if $f.PutEncoder }}
+    {{- if $f.Encoder }}
     {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }})
     {{- else }}
-    {{ $s.BufArg }}.{{ $f.PutFunc }}({{ $s.Receiver }}.{{ $f.Name }})
+    {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
 {{- end }}
 }
 
-var _ bin.Encoder = {{ $s.Name }}{}
+// Decode implements bin.Decoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
+    if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
+        return fmt.Errorf("unable to decode {{ $s.TLType }}: %w", err)
+    }
+{{- range $f := $s.Fields }}
+    {
+        {{- if $f.Encoder }}
+            if err := {{ $s.Receiver }}.{{ $f.Name }}.Decode({{ $s.BufArg }}); err != nil {
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+            }
+        {{- else }}
+            v, err := {{ $s.BufArg }}.{{ $f.Func }}()
+            if err != nil {
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+            }
+            {{ $s.Receiver }}.{{ $f.Name }} = v
+        {{- end }}
+    }
+{{- end }}
+    return nil
+}
+
+// Ensuring interfaces in compile-time for {{ $s.Name }}.
+var (
+_ bin.Encoder = {{ $s.Name }}{}
+_ bin.Decoder = &{{ $s.Name }}{}
+)
 {{ end }}
 
 {{ end }}

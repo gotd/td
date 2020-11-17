@@ -62,7 +62,7 @@ func ruleset() *inflect.Ruleset {
 		"HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "KB", "LHS", "MAC", "MB",
 		"QPS", "RAM", "RHS", "RPC", "SLA", "SMTP", "SQL", "SSH", "SSO", "TCP",
 		"TLS", "TTL", "UDP", "UI", "UID", "URI", "URL", "UTF8", "UUID", "VM",
-		"XML", "XMPP", "XSRF", "XSS",
+		"XML", "XMPP", "XSRF", "XSS", "SMS",
 	} {
 		acronyms[w] = struct{}{}
 		rules.AddAcronym(w)

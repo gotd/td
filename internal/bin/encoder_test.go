@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"encoding/hex"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 // error code:int32 message:string = Error;
@@ -17,6 +19,27 @@ func (m Message) Encode(b *Buffer) {
 	b.PutID(0x9bdd8f1a)
 	b.PutInt32(m.Code)
 	b.PutString(m.Message)
+}
+
+func (m *Message) Decode(b *Buffer) error {
+	if err := b.ConsumeID(0x9bdd8f1a); err != nil {
+		return err
+	}
+	{
+		v, err := b.Int32()
+		if err != nil {
+			return err
+		}
+		m.Code = v
+	}
+	{
+		v, err := b.String()
+		if err != nil {
+			return err
+		}
+		m.Message = v
+	}
+	return nil
 }
 
 func TestEncodeMessage(t *testing.T) {
@@ -45,4 +68,9 @@ func TestEncodeMessage(t *testing.T) {
 	if !bytes.Equal(expected, b.buf) {
 		t.Log(hex.Dump(b.buf))
 	}
+	var decoded Message
+	if err := decoded.Decode(b); err != nil {
+		t.Fatal(err)
+	}
+	require.Equal(t, m, decoded)
 }

@@ -13,7 +13,11 @@ ok = Ok;
 
 message err:Error = Message;
 
+sms text:string = SMS;
+
 ---functions---
 
 //@description check that server is live
 ping id:int32 = Ok;
+
+send msg:SMS = SMS;

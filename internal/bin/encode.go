@@ -7,6 +7,14 @@ type Buffer struct {
 	buf []byte
 }
 
+func (b Buffer) Bytes() []byte {
+	return b.buf
+}
+
+func (b *Buffer) ResetTo(buf []byte) {
+	b.buf = buf
+}
+
 // PutID serializes type definition id, like a8509bda.
 func (b *Buffer) PutID(id uint32) {
 	b.PutUint32(id)
