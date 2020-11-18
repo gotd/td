@@ -1,9 +1,6 @@
 package bin
 
-import (
-	"fmt"
-	"io"
-)
+import "io"
 
 func encodeString(b []byte, v string) []byte {
 	l := len(v)
@@ -37,7 +34,6 @@ func decodeString(b []byte) (n int, v string, err error) {
 	}
 	strLen := b[0]
 	if len(b) < (int(strLen) + 1) {
-		fmt.Println("buf", b, "len", strLen)
 		return 0, "", io.ErrUnexpectedEOF
 	}
 	return int(strLen) + 1, string(b[1 : strLen+1]), nil
