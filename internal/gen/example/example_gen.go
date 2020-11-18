@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/ernado/td/internal/bin"
+	"golang.org/x/xerrors"
 )
 
 // No-op definition for keeping imports.
@@ -83,10 +84,15 @@ func (b *BoolFalse) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
+// construct implements constructor of Bool.
+func (b BoolFalse) construct() Bool { return &b }
+
 // Ensuring interfaces in compile-time for BoolFalse.
 var (
 	_ bin.Encoder = BoolFalse{}
 	_ bin.Decoder = &BoolFalse{}
+
+	_ Bool = &BoolFalse{}
 )
 
 // BoolTrue represents TL type boolTrue#997275b5.
@@ -109,10 +115,15 @@ func (b *BoolTrue) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
+// construct implements constructor of Bool.
+func (b BoolTrue) construct() Bool { return &b }
+
 // Ensuring interfaces in compile-time for BoolTrue.
 var (
 	_ bin.Encoder = BoolTrue{}
 	_ bin.Decoder = &BoolTrue{}
+
+	_ Bool = &BoolTrue{}
 )
 
 // An object of this type can be returned on every function call, in case of an error
@@ -266,3 +277,48 @@ var (
 	_ bin.Encoder = SMS{}
 	_ bin.Decoder = &SMS{}
 )
+
+// Bool represents Bool generic type.
+//
+// Example:
+//  g, err := DecodeBool(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *BoolFalse: // boolFalse#bc799737
+//  case *BoolTrue: // boolTrue#997275b5
+//  default: panic(v)
+//  }
+type Bool interface {
+	bin.Encoder
+	bin.Decoder
+	construct() Bool
+}
+
+// DecodeBool implements binary de-serialization for Bool.
+func DecodeBool(buf *bin.Buffer) (Bool, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+
+	case 0xbc799737:
+		v := BoolFalse{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode Bool: %w", err)
+		}
+		return &v, nil
+
+	case 0x997275b5:
+		v := BoolTrue{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode Bool: %w", err)
+		}
+		return &v, nil
+
+	default:
+		return nil, xerrors.Errorf("unable to decode Bool: %w", bin.NewUnexpectedID(id))
+	}
+}

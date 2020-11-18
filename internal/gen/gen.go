@@ -10,8 +10,9 @@ import (
 )
 
 type Config struct {
-	Package string
-	Structs []Struct
+	Package    string
+	Structs    []Struct
+	Interfaces []Class
 }
 
 type Struct struct {
@@ -21,6 +22,9 @@ type Struct struct {
 	HexID    string
 	BufArg   string
 	TLType   string
+
+	Interface   string
+	Constructor bool
 
 	Fields []Field
 }
@@ -47,6 +51,11 @@ type Method struct {
 	Arguments []Argument
 }
 
+type Class struct {
+	Name         string
+	Constructors []Struct
+}
+
 func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 	cfg := Config{
 		Package: "td",
@@ -69,6 +78,8 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 		}
 	}
 
+	classes := map[string][]Struct{}
+	var classNames []string
 	for _, d := range s.Definitions {
 		switch d.Category {
 		case tl.CategoryType:
@@ -124,8 +135,23 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				}
 				s.Fields = append(s.Fields, f)
 			}
+			if _, ok := singular[d.Definition.Type.Name]; !ok {
+				name := d.Definition.Type.Name
+				if _, ok := classes[name]; !ok {
+					classNames = append(classNames, name)
+				}
+				classes[name] = append(classes[name], s)
+				s.Constructor = true
+				s.Interface = pascal(name)
+			}
 			cfg.Structs = append(cfg.Structs, s)
 		}
+	}
+	for _, name := range classNames {
+		cfg.Interfaces = append(cfg.Interfaces, Class{
+			Name:         pascal(name),
+			Constructors: classes[name],
+		})
 	}
 	return t.ExecuteTemplate(w, "simple", cfg)
 }

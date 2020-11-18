@@ -66,3 +66,28 @@ func TestMessage(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func BenchmarkDecodeBool(b *testing.B) {
+	b.ReportAllocs()
+
+	encodeBuf := new(bin.Buffer)
+	BoolTrue{}.Encode(encodeBuf)
+	raw := encodeBuf.Bytes()
+	b.SetBytes(int64(len(raw)))
+
+	buf := new(bin.Buffer)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		buf.ResetTo(raw)
+		v, err := DecodeBool(buf)
+		if err != nil {
+			b.Fatal(err)
+		}
+		switch v.(type) {
+		case *BoolTrue: // ok
+		default:
+			b.Fatalf("Unexpected %T", v)
+		}
+	}
+}

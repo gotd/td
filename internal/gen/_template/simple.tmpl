@@ -49,11 +49,61 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     return nil
 }
 
+{{ if $s.Constructor }}
+// construct implements constructor of {{ $s.Interface }}.
+func ({{ $s.Receiver }} {{ $s.Name }}) construct() {{ $s.Interface }} { return &{{ $s.Receiver }} }
+{{ end }}
+
 // Ensuring interfaces in compile-time for {{ $s.Name }}.
 var (
 _ bin.Encoder = {{ $s.Name }}{}
 _ bin.Decoder = &{{ $s.Name }}{}
+{{ if $s.Constructor }}
+_ {{ $s.Interface }} = &{{ $s.Name }}{}
+{{ end }}
 )
+{{ end }}
+
+{{ range $f:= $.Interfaces }}
+// {{ $f.Name }} represents {{ $f.Name }} generic type.
+//
+// Example:
+//  g, err := Decode{{ $f.Name }}(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+{{ range $c := $f.Constructors -}}
+//  case *{{ $c.Name }}: // {{ $c.TLType }}
+{{ end -}}
+//  default: panic(v)
+//  }
+type {{ $f.Name }} interface {
+    bin.Encoder
+    bin.Decoder
+    construct() {{ $f.Name }}
+}
+
+// Decode{{ $f.Name }} implements binary de-serialization for {{ $f.Name }}.
+func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
+    id, err := buf.PeekID()
+    if err != nil {
+        return nil, err
+    }
+    switch id {
+    {{ range $c := $f.Constructors }}
+    case 0x{{ $c.HexID }}:
+        v := {{ $c.Name }}{}
+        if err := v.Decode(buf); err != nil {
+            return nil, xerrors.Errorf("unable to decode {{ $f.Name }}: %w", err)
+        }
+        return &v, nil
+    {{ end }}
+    default:
+        return nil, xerrors.Errorf("unable to decode {{ $f.Name }}: %w", bin.NewUnexpectedID(id))
+    }
+}
+
 {{ end }}
 
 {{ end }}
