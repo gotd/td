@@ -15,44 +15,74 @@ type Config struct {
 	Interfaces []Class
 }
 
+// Struct represents go structure definition.
 type Struct struct {
-	Name     string
-	Comment  string
+	// Name of struct, just like that: `type Name struct {`.
+	Name string
+	// Comment for struct, in one line.
+	Comment string
+	// Receiver name. E.g. "m" for Message.
 	Receiver string
-	HexID    string
-	BufArg   string
-	TLType   string
+	// HexID is hex-encoded id, like 1ef134.
+	HexID string
+	// BufArg is name of Encode and Decode argument of bin.Buffer type
+	// that is used in those functions.
+	//
+	// Should not equal to Name.
+	BufArg string
+	// TLType is type name from TL schema.
+	TLType string
 
-	Interface   string
+	// Interface refers to interface of generic type.
+	Interface string
+	// Constructor denotes whether Struct is constructor for some
+	// generic type. If false, Interface is blank.
 	Constructor bool
 
+	// Fields of structure.
 	Fields []Field
 }
 
+// Field represents go Struct field.
 type Field struct {
-	Name    string
+	// Name of field. Should be in camel case.
+	Name string
+	// Comment for field. Currently only one-line.
 	Comment string
-	Type    string
-	Func    string
+	// Type is go type for field.
+	Type string
+	// Func is name for bin.* functions, e.g. String will render
+	// to bin.Buffer.String and bin.Buffer.PutString.
+	Func string
+	// Encoder denotes whether Field implements bin.Encoder and bin.Decoder.
 	Encoder bool
-	TLName  string
+	// TLName is raw name from TL Schema.
+	TLName string
 }
 
+// Argument of interface method.
 type Argument struct {
 	Name string
 	Type string
 }
 
+// Result of Method.
 type Result struct {
+	Blank bool
 }
 
+// Method represents RPC method with Name, Arguments and Result.
 type Method struct {
 	Name      string
 	Arguments []Argument
+	Result    Result
 }
 
+// Class represents generic interface, type which has multiple constructors.
 type Class struct {
-	Name         string
+	// Name of interface.
+	Name string
+	// Constructors of interface.
 	Constructors []Struct
 }
 
