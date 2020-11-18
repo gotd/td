@@ -15,6 +15,9 @@ message err:Error = Message;
 
 sms text:string = SMS;
 
+responseID id:int32 = Response;
+responseText text:string = Response;
+
 ---functions---
 
 //@description check that server is live

@@ -91,3 +91,28 @@ func BenchmarkDecodeBool(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkDecodeResponse(b *testing.B) {
+	b.ReportAllocs()
+
+	encodeBuf := new(bin.Buffer)
+	ResponseID{ID: 13}.Encode(encodeBuf)
+	raw := encodeBuf.Bytes()
+	b.SetBytes(int64(len(raw)))
+
+	buf := new(bin.Buffer)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		buf.ResetTo(raw)
+		v, err := DecodeResponse(buf)
+		if err != nil {
+			b.Fatal(err)
+		}
+		switch v.(type) {
+		case *ResponseID: // ok
+		default:
+			b.Fatalf("Unexpected %T", v)
+		}
+	}
+}

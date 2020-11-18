@@ -278,6 +278,88 @@ var (
 	_ bin.Decoder = &SMS{}
 )
 
+// ResponseID represents TL type responseID#85d7fd8b.
+type ResponseID struct {
+	// ID field of ResponseID.
+	ID int32
+}
+
+// ResponseIDTypeID is TL type id of ResponseID.
+const ResponseIDTypeID = 0x85d7fd8b
+
+// Encode implements bin.Encoder.
+func (r ResponseID) Encode(b *bin.Buffer) {
+	b.PutID(ResponseIDTypeID)
+	b.PutInt32(r.ID)
+}
+
+// Decode implements bin.Decoder.
+func (r *ResponseID) Decode(b *bin.Buffer) error {
+	if err := b.ConsumeID(ResponseIDTypeID); err != nil {
+		return fmt.Errorf("unable to decode responseID#85d7fd8b: %w", err)
+	}
+	{
+		v, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode responseID#85d7fd8b: field id: %w", err)
+		}
+		r.ID = v
+	}
+	return nil
+}
+
+// construct implements constructor of Response.
+func (r ResponseID) construct() Response { return &r }
+
+// Ensuring interfaces in compile-time for ResponseID.
+var (
+	_ bin.Encoder = ResponseID{}
+	_ bin.Decoder = &ResponseID{}
+
+	_ Response = &ResponseID{}
+)
+
+// ResponseText represents TL type responseText#cb0244f2.
+type ResponseText struct {
+	// Text field of ResponseText.
+	Text string
+}
+
+// ResponseTextTypeID is TL type id of ResponseText.
+const ResponseTextTypeID = 0xcb0244f2
+
+// Encode implements bin.Encoder.
+func (r ResponseText) Encode(b *bin.Buffer) {
+	b.PutID(ResponseTextTypeID)
+	b.PutString(r.Text)
+}
+
+// Decode implements bin.Decoder.
+func (r *ResponseText) Decode(b *bin.Buffer) error {
+	if err := b.ConsumeID(ResponseTextTypeID); err != nil {
+		return fmt.Errorf("unable to decode responseText#cb0244f2: %w", err)
+	}
+	{
+		v, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode responseText#cb0244f2: field text: %w", err)
+		}
+		r.Text = v
+	}
+	return nil
+}
+
+// construct implements constructor of Response.
+func (r ResponseText) construct() Response { return &r }
+
+// Ensuring interfaces in compile-time for ResponseText.
+var (
+	_ bin.Encoder = ResponseText{}
+	_ bin.Decoder = &ResponseText{}
+
+	_ Response = &ResponseText{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:
@@ -320,5 +402,50 @@ func DecodeBool(buf *bin.Buffer) (Bool, error) {
 
 	default:
 		return nil, xerrors.Errorf("unable to decode Bool: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// Response represents Response generic type.
+//
+// Example:
+//  g, err := DecodeResponse(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *ResponseID: // responseID#85d7fd8b
+//  case *ResponseText: // responseText#cb0244f2
+//  default: panic(v)
+//  }
+type Response interface {
+	bin.Encoder
+	bin.Decoder
+	construct() Response
+}
+
+// DecodeResponse implements binary de-serialization for Response.
+func DecodeResponse(buf *bin.Buffer) (Response, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+
+	case 0x85d7fd8b:
+		v := ResponseID{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode Response: %w", err)
+		}
+		return &v, nil
+
+	case 0xcb0244f2:
+		v := ResponseText{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode Response: %w", err)
+		}
+		return &v, nil
+
+	default:
+		return nil, xerrors.Errorf("unable to decode Response: %w", bin.NewUnexpectedID(id))
 	}
 }
