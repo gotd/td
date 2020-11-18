@@ -386,14 +386,14 @@ func DecodeBool(buf *bin.Buffer) (Bool, error) {
 		return nil, err
 	}
 	switch id {
-	case 0xbc799737:
+	case BoolFalseTypeID:
 		// Decoding boolFalse#bc799737.
 		v := BoolFalse{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode Bool: %w", err)
 		}
 		return &v, nil
-	case 0x997275b5:
+	case BoolTrueTypeID:
 		// Decoding boolTrue#997275b5.
 		v := BoolTrue{}
 		if err := v.Decode(buf); err != nil {
@@ -430,14 +430,14 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 		return nil, err
 	}
 	switch id {
-	case 0x85d7fd8b:
+	case ResponseIDTypeID:
 		// Decoding responseID#85d7fd8b.
 		v := ResponseID{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode Response: %w", err)
 		}
 		return &v, nil
-	case 0xcb0244f2:
+	case ResponseTextTypeID:
 		// Decoding responseText#cb0244f2.
 		v := ResponseText{}
 		if err := v.Decode(buf); err != nil {

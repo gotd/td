@@ -92,7 +92,7 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
     }
     switch id {
     {{- range $c := $f.Constructors }}
-    case 0x{{ $c.HexID }}:
+    case {{ $c.Name }}TypeID:
         // Decoding {{ $c.TLType }}.
         v := {{ $c.Name }}{}
         if err := v.Decode(buf); err != nil {
