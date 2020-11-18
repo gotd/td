@@ -3,6 +3,7 @@
 package td
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/internal/bin"
@@ -448,4 +449,10 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 	default:
 		return nil, xerrors.Errorf("unable to decode Response: %w", bin.NewUnexpectedID(id))
 	}
+}
+
+// Client describes RPC methods of TL schema.
+type Client interface {
+	Ping(ctx context.Context, id int32) error
+	Send(ctx context.Context, msg SMS) (SMS, error)
 }

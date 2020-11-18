@@ -13,6 +13,7 @@ type Config struct {
 	Package    string
 	Structs    []Struct
 	Interfaces []Class
+	Methods    []Method
 }
 
 // Struct represents go structure definition.
@@ -68,7 +69,9 @@ type Argument struct {
 
 // Result of Method.
 type Result struct {
-	Blank bool
+	Blank     bool
+	Type      string
+	Interface bool
 }
 
 // Method represents RPC method with Name, Arguments and Result.
@@ -113,6 +116,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 	for _, d := range s.Definitions {
 		switch d.Category {
 		case tl.CategoryType:
+			// Type definition.
 			s := Struct{
 				Name:     pascal(d.Definition.Name),
 				Receiver: strings.ToLower(d.Definition.Name[0:1]),
@@ -121,7 +125,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				TLType:   fmt.Sprintf("%s#%x", d.Definition.Name, d.Definition.ID),
 			}
 			if s.Receiver == "b" {
-				// bin.Buffer argument collides with reciever.
+				// bin.Buffer argument collides with receiver.
 				s.BufArg = "buf"
 			}
 			for _, a := range d.Annotations {
@@ -175,6 +179,40 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				s.Interface = pascal(name)
 			}
 			cfg.Structs = append(cfg.Structs, s)
+		case tl.CategoryFunction:
+			// RPC call definition.
+			m := Method{
+				Name:   pascal(d.Definition.Name),
+				Result: Result{},
+			}
+			if d.Definition.Type.Name == "Ok" {
+				m.Result.Blank = true
+			} else {
+				m.Result.Type = pascal(d.Definition.Type.Name)
+				if _, ok := singular[d.Definition.Type.Name]; !ok {
+					m.Result.Interface = true
+				}
+			}
+			// Arguments of definition.
+			for _, param := range d.Definition.Params {
+				arg := Argument{
+					Name: camel(param.Name),
+				}
+				switch param.Type.Name {
+				case "int":
+					arg.Type = "int"
+				case "int32":
+					arg.Type = "int32"
+				case "string":
+					arg.Type = "string"
+				case "Bool":
+					arg.Type = "bool"
+				default:
+					arg.Type = pascal(param.Type.Name)
+				}
+				m.Arguments = append(m.Arguments, arg)
+			}
+			cfg.Methods = append(cfg.Methods, m)
 		}
 	}
 	for _, name := range classNames {

@@ -106,4 +106,17 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 
 {{ end }}
 
+// Client describes RPC methods of TL schema.
+type Client interface {
+{{ range $m := $.Methods }}
+{{ $m.Name }} (ctx context.Context
+{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
+({{ $m.Result.Type }}, error)
+{{- else -}}
+error
+{{- end -}}
+{{ end }}
+}
+
+
 {{ end }}
