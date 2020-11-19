@@ -6,6 +6,7 @@ import (
 	"io"
 )
 
+// PeekID returns next type id in Buffer, but does not consume it.
 func (b *Buffer) PeekID() (uint32, error) {
 	if len(b.buf) < word {
 		return 0, io.ErrUnexpectedEOF
@@ -14,12 +15,14 @@ func (b *Buffer) PeekID() (uint32, error) {
 	return v, nil
 }
 
+// ID decodes type id from Buffer.
 func (b *Buffer) ID() (uint32, error) {
 	return b.Uint32()
 }
 
 const word = 4
 
+// Uint32 decodes unsigned 32-bit integer from Buffer.
 func (b *Buffer) Uint32() (uint32, error) {
 	v, err := b.PeekID()
 	if err != nil {
@@ -29,6 +32,7 @@ func (b *Buffer) Uint32() (uint32, error) {
 	return v, nil
 }
 
+// Int32 decodes signed 32-bit integer from Buffer.
 func (b *Buffer) Int32() (int32, error) {
 	if len(b.buf) < word {
 		return 0, io.ErrUnexpectedEOF
@@ -38,6 +42,7 @@ func (b *Buffer) Int32() (int32, error) {
 	return int32(v), nil
 }
 
+// UnexpectedIDErr means that unknown or unexpected type id was decoded.
 type UnexpectedIDErr struct {
 	ID uint32
 }
@@ -46,10 +51,12 @@ func (e UnexpectedIDErr) Error() string {
 	return fmt.Sprintf("unexpected id 0x%x", e.ID)
 }
 
+// NewUnexpectedID return new UnexpectedIDErr.
 func NewUnexpectedID(id uint32) error {
 	return &UnexpectedIDErr{ID: id}
 }
 
+// Bool decodes bare boolean from Buffer.
 func (b *Buffer) Bool() (bool, error) {
 	v, err := b.PeekID()
 	if err != nil {
@@ -67,6 +74,9 @@ func (b *Buffer) Bool() (bool, error) {
 	}
 }
 
+// ConsumeID decodes type id from Buffer. If id differs from provided,
+// the *UnexpectedIDErr{ID: gotID} will be returned and buffer will be
+// not consumed.
 func (b *Buffer) ConsumeID(id uint32) error {
 	v, err := b.PeekID()
 	if err != nil {
@@ -79,6 +89,7 @@ func (b *Buffer) ConsumeID(id uint32) error {
 	return nil
 }
 
+// VectorHeader decodes vector length from Buffer.
 func (b *Buffer) VectorHeader() (int, error) {
 	id, err := b.PeekID()
 	if err != nil {
@@ -95,6 +106,7 @@ func (b *Buffer) VectorHeader() (int, error) {
 	return int(n), nil
 }
 
+// String decodes string from Buffer.
 func (b *Buffer) String() (string, error) {
 	n, v, err := decodeString(b.buf)
 	if err != nil {
