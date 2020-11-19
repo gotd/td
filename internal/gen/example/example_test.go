@@ -3,6 +3,8 @@ package td
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/ernado/td/internal/bin"
 )
 
@@ -65,6 +67,19 @@ func TestMessage(t *testing.T) {
 	if err := result.Decode(b); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestTargetsMessage_Encode(t *testing.T) {
+	b := new(bin.Buffer)
+	msg := TargetsMessage{
+		Targets: []int32{1, 2, 3},
+	}
+	msg.Encode(b)
+	decoded := TargetsMessage{}
+	if err := decoded.Decode(b); err != nil {
+		t.Fatal(err)
+	}
+	require.Equal(t, msg, decoded)
 }
 
 func BenchmarkDecodeBool(b *testing.B) {

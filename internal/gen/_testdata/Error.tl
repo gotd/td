@@ -3,6 +3,8 @@ string ? = String;
 boolFalse#bc799737 = Bool;
 boolTrue#997275b5 = Bool;
 
+vector#1cb5c415 {t:Type} # [ t ] = Vector t;
+
 ///@description An object of this type can be returned on every function call, in case of an error
 //@code Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
 //@message Error message; subject to future changes
@@ -22,6 +24,8 @@ responseText text:string = Response;
 bigMessage id:int32 count:int32 targetId:int32 escape:bool summary:bool = AbstractMessage;
 
 noMessage = AbstractMessage;
+
+targetsMessage targets:vector<int32> = AbstractMessage;
 
 ---functions---
 

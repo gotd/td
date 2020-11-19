@@ -7,7 +7,11 @@
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
     // {{ $f.Comment }}
+    {{- if $f.Vector }}
+    {{ $f.Name }} []{{ $f.Type }}
+    {{- else }}
     {{ $f.Name }} {{ $f.Type }}
+    {{- end }}
 {{- end }}
 }
 
@@ -18,11 +22,22 @@ const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 func ({{ $s.Receiver }} {{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) {
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
+    {{- if $f.Vector }}
+    {{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }}))
+    for _, v := range {{ $s.Receiver }}.{{ $f.Name }} {
+    {{- if $f.Encoder }}
+        v.Encode({{ $s.BufArg }})
+    {{- else }}
+        {{ $s.BufArg }}.Put{{ $f.Func }}(v)
+    {{- end }}
+    }
+    {{- else }}
     {{- if $f.Encoder }}
     {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }})
     {{- else }}
     {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
+    {{- end}}
 {{- end }}
 }
 
@@ -33,17 +48,39 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     }
 {{- range $f := $s.Fields }}
     {
+        {{- if $f.Vector }}
+            headerLen, err := {{ $s.BufArg }}.VectorHeader()
+            if err != nil {
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+            }
+            for idx := 0; idx < headerLen; idx++ {
+            {{- if $f.Encoder }}
+                var value {{ $f.Type }}
+                if err := value.Decode({{ $s.BufArg }}); err != nil {
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                }
+                {{ $s.Receiver }}.{{ $f.Name }} = append({{ $s.Receiver }}.{{ $f.Name }}, value)
+            {{- else }}
+                value, err := {{ $s.BufArg }}.{{ $f.Func }}()
+                if err != nil {
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                }
+                {{ $s.Receiver }}.{{ $f.Name }} = append({{ $s.Receiver }}.{{ $f.Name }}, value)
+            {{- end }}
+            }
+        {{- else }}
         {{- if $f.Encoder }}
             if err := {{ $s.Receiver }}.{{ $f.Name }}.Decode({{ $s.BufArg }}); err != nil {
                 return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
         {{- else }}
-            v, err := {{ $s.BufArg }}.{{ $f.Func }}()
+            value, err := {{ $s.BufArg }}.{{ $f.Func }}()
             if err != nil {
                 return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
-            {{ $s.Receiver }}.{{ $f.Name }} = v
+            {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- end }}
+        {{- end}}
     }
 {{- end }}
     return nil

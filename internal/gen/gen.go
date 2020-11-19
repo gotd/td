@@ -59,6 +59,8 @@ type Field struct {
 	Encoder bool
 	// TLName is raw name from TL Schema.
 	TLName string
+	// Vector denotes whether Field is vector (i.e. slice).
+	Vector bool
 }
 
 // Argument of interface method.
@@ -151,7 +153,11 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 						f.Comment = a.Value
 					}
 				}
-				switch param.Type.Name {
+				if f.Type == "vector" {
+					f.Type = param.Type.GenericArg.Name
+					f.Vector = true
+				}
+				switch f.Type {
 				case "int":
 					f.Func = "Int"
 				case "int32":

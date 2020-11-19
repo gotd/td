@@ -79,6 +79,22 @@ func (b *Buffer) ConsumeID(id uint32) error {
 	return nil
 }
 
+func (b *Buffer) VectorHeader() (int, error) {
+	id, err := b.PeekID()
+	if err != nil {
+		return 0, err
+	}
+	if id != TypeVector {
+		return 0, NewUnexpectedID(id)
+	}
+	b.buf = b.buf[word:]
+	n, err := b.Int32()
+	if err != nil {
+		return 0, err
+	}
+	return int(n), nil
+}
+
 func (b *Buffer) String() (string, error) {
 	n, v, err := decodeString(b.buf)
 	if err != nil {
