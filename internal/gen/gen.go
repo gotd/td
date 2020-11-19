@@ -61,6 +61,8 @@ type Field struct {
 	TLName string
 	// Vector denotes whether Field is vector (i.e. slice).
 	Vector bool
+	// Generic denotes whether Field Type has generic constructors.
+	Generic bool
 }
 
 // Argument of interface method.
@@ -169,6 +171,9 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Type = "bool"
 				default:
 					f.Encoder = true
+					if _, ok := singular[param.Type.Name]; !ok {
+						f.Generic = true
+					}
 				}
 				if f.Comment == "" {
 					f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)

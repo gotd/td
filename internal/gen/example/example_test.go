@@ -82,6 +82,23 @@ func TestTargetsMessage_Encode(t *testing.T) {
 	require.Equal(t, msg, decoded)
 }
 
+func TestGetUpdatesResp(t *testing.T) {
+	b := new(bin.Buffer)
+	v := GetUpdatesResp{
+		Updates: []AbstractMessage{
+			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
+			&NoMessage{},
+			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},
+		},
+	}
+	v.Encode(b)
+	decoded := GetUpdatesResp{}
+	if err := decoded.Decode(b); err != nil {
+		t.Fatal(err)
+	}
+	require.Equal(t, v, decoded)
+}
+
 func BenchmarkDecodeBool(b *testing.B) {
 	b.ReportAllocs()
 

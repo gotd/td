@@ -27,6 +27,10 @@ noMessage = AbstractMessage;
 
 targetsMessage targets:vector<int32> = AbstractMessage;
 
+update msg:AbstractMessage delay:int32 = Update;
+
+getUpdatesResp updates:vector<AbstractMessage> = GetUpdatesResp;
+
 ---functions---
 
 //@description check that server is live

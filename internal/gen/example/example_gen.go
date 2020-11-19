@@ -523,6 +523,97 @@ var (
 	_ AbstractMessage = &TargetsMessage{}
 )
 
+// Update represents TL type update#b03e2ef8.
+type Update struct {
+	// Msg field of Update.
+	Msg AbstractMessage
+	// Delay field of Update.
+	Delay int32
+}
+
+// UpdateTypeID is TL type id of Update.
+const UpdateTypeID = 0xb03e2ef8
+
+// Encode implements bin.Encoder.
+func (u Update) Encode(b *bin.Buffer) {
+	b.PutID(UpdateTypeID)
+	u.Msg.Encode(b)
+	b.PutInt32(u.Delay)
+}
+
+// Decode implements bin.Decoder.
+func (u *Update) Decode(b *bin.Buffer) error {
+	if err := b.ConsumeID(UpdateTypeID); err != nil {
+		return fmt.Errorf("unable to decode update#b03e2ef8: %w", err)
+	}
+	{
+		value, err := DecodeAbstractMessage(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode update#b03e2ef8: field msg: %w", err)
+		}
+		u.Msg = value
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode update#b03e2ef8: field delay: %w", err)
+		}
+		u.Delay = value
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for Update.
+var (
+	_ bin.Encoder = Update{}
+	_ bin.Decoder = &Update{}
+)
+
+// GetUpdatesResp represents TL type getUpdatesResp#2b4b45c.
+type GetUpdatesResp struct {
+	// Updates field of GetUpdatesResp.
+	Updates []AbstractMessage
+}
+
+// GetUpdatesRespTypeID is TL type id of GetUpdatesResp.
+const GetUpdatesRespTypeID = 0x2b4b45c
+
+// Encode implements bin.Encoder.
+func (g GetUpdatesResp) Encode(b *bin.Buffer) {
+	b.PutID(GetUpdatesRespTypeID)
+	b.PutVectorHeader(len(g.Updates))
+	for _, v := range g.Updates {
+		v.Encode(b)
+	}
+}
+
+// Decode implements bin.Decoder.
+func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
+	if err := b.ConsumeID(GetUpdatesRespTypeID); err != nil {
+		return fmt.Errorf("unable to decode getUpdatesResp#2b4b45c: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode getUpdatesResp#2b4b45c: field updates: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeAbstractMessage(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode getUpdatesResp#2b4b45c: field updates: %w", err)
+			}
+			g.Updates = append(g.Updates, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for GetUpdatesResp.
+var (
+	_ bin.Encoder = GetUpdatesResp{}
+	_ bin.Decoder = &GetUpdatesResp{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:
