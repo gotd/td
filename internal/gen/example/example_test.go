@@ -116,3 +116,54 @@ func BenchmarkDecodeResponse(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkDecodeAbstractMessage(b *testing.B) {
+	b.Run("NoMessage", func(b *testing.B) {
+		b.ReportAllocs()
+
+		encodeBuf := new(bin.Buffer)
+		NoMessage{}.Encode(encodeBuf)
+		raw := encodeBuf.Bytes()
+		b.SetBytes(int64(len(raw)))
+
+		buf := new(bin.Buffer)
+		b.ResetTimer()
+
+		for i := 0; i < b.N; i++ {
+			buf.ResetTo(raw)
+			v, err := DecodeAbstractMessage(buf)
+			if err != nil {
+				b.Fatal(err)
+			}
+			switch v.(type) {
+			case *NoMessage: // ok
+			default:
+				b.Fatalf("Unexpected %T", v)
+			}
+		}
+	})
+	b.Run("BigMessage", func(b *testing.B) {
+		b.ReportAllocs()
+
+		encodeBuf := new(bin.Buffer)
+		BigMessage{}.Encode(encodeBuf)
+		raw := encodeBuf.Bytes()
+		b.SetBytes(int64(len(raw)))
+
+		buf := new(bin.Buffer)
+		b.ResetTimer()
+
+		for i := 0; i < b.N; i++ {
+			buf.ResetTo(raw)
+			v, err := DecodeAbstractMessage(buf)
+			if err != nil {
+				b.Fatal(err)
+			}
+			switch v.(type) {
+			case *BigMessage: // ok
+			default:
+				b.Fatalf("Unexpected %T", v)
+			}
+		}
+	})
+}

@@ -361,6 +361,118 @@ var (
 	_ Response = &ResponseText{}
 )
 
+// Message
+type BigMessage struct {
+	// ID field of BigMessage.
+	ID int32
+	// Count field of BigMessage.
+	Count int32
+	// TargetId field of BigMessage.
+	TargetId int32
+	// Escape field of BigMessage.
+	Escape bool
+	// Summary field of BigMessage.
+	Summary bool
+}
+
+// BigMessageTypeID is TL type id of BigMessage.
+const BigMessageTypeID = 0x7490dcc5
+
+// Encode implements bin.Encoder.
+func (b BigMessage) Encode(buf *bin.Buffer) {
+	buf.PutID(BigMessageTypeID)
+	buf.PutInt32(b.ID)
+	buf.PutInt32(b.Count)
+	buf.PutInt32(b.TargetId)
+	buf.PutBool(b.Escape)
+	buf.PutBool(b.Summary)
+}
+
+// Decode implements bin.Decoder.
+func (b *BigMessage) Decode(buf *bin.Buffer) error {
+	if err := buf.ConsumeID(BigMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode bigMessage#7490dcc5: %w", err)
+	}
+	{
+		v, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field id: %w", err)
+		}
+		b.ID = v
+	}
+	{
+		v, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field count: %w", err)
+		}
+		b.Count = v
+	}
+	{
+		v, err := buf.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field targetId: %w", err)
+		}
+		b.TargetId = v
+	}
+	{
+		v, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field escape: %w", err)
+		}
+		b.Escape = v
+	}
+	{
+		v, err := buf.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field summary: %w", err)
+		}
+		b.Summary = v
+	}
+	return nil
+}
+
+// construct implements constructor of AbstractMessage.
+func (b BigMessage) construct() AbstractMessage { return &b }
+
+// Ensuring interfaces in compile-time for BigMessage.
+var (
+	_ bin.Encoder = BigMessage{}
+	_ bin.Decoder = &BigMessage{}
+
+	_ AbstractMessage = &BigMessage{}
+)
+
+// NoMessage represents TL type noMessage#ee6324c4.
+type NoMessage struct {
+}
+
+// NoMessageTypeID is TL type id of NoMessage.
+const NoMessageTypeID = 0xee6324c4
+
+// Encode implements bin.Encoder.
+func (n NoMessage) Encode(b *bin.Buffer) {
+	b.PutID(NoMessageTypeID)
+}
+
+// Decode implements bin.Decoder.
+func (n *NoMessage) Decode(b *bin.Buffer) error {
+	if err := b.ConsumeID(NoMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode noMessage#ee6324c4: %w", err)
+	}
+	return nil
+}
+
+// construct implements constructor of AbstractMessage.
+func (n NoMessage) construct() AbstractMessage { return &n }
+
+// Ensuring interfaces in compile-time for NoMessage.
+var (
+	_ bin.Encoder = NoMessage{}
+	_ bin.Decoder = &NoMessage{}
+
+	_ AbstractMessage = &NoMessage{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:
@@ -446,6 +558,50 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 		return &v, nil
 	default:
 		return nil, xerrors.Errorf("unable to decode Response: %w", bin.NewUnexpectedID(id))
+	}
+}
+
+// AbstractMessage represents AbstractMessage generic type.
+//
+// Example:
+//  g, err := DecodeAbstractMessage(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *BigMessage: // bigMessage#7490dcc5
+//  case *NoMessage: // noMessage#ee6324c4
+//  default: panic(v)
+//  }
+type AbstractMessage interface {
+	bin.Encoder
+	bin.Decoder
+	construct() AbstractMessage
+}
+
+// DecodeAbstractMessage implements binary de-serialization for AbstractMessage.
+func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessage, error) {
+	id, err := buf.PeekID()
+	if err != nil {
+		return nil, err
+	}
+	switch id {
+	case BigMessageTypeID:
+		// Decoding bigMessage#7490dcc5.
+		v := BigMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", err)
+		}
+		return &v, nil
+	case NoMessageTypeID:
+		// Decoding noMessage#ee6324c4.
+		v := NoMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", err)
+		}
+		return &v, nil
+	default:
+		return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", bin.NewUnexpectedID(id))
 	}
 }
 

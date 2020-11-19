@@ -158,7 +158,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Func = "Int32"
 				case "string":
 					f.Func = "String"
-				case "Bool":
+				case "Bool", "bool":
 					f.Func = "Bool"
 					f.Type = "bool"
 				default:
@@ -205,7 +205,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					arg.Type = "int32"
 				case "string":
 					arg.Type = "string"
-				case "Bool":
+				case "Bool", "bool":
 					arg.Type = "bool"
 				default:
 					arg.Type = pascal(param.Type.Name)

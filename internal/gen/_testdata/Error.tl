@@ -18,6 +18,11 @@ sms text:string = SMS;
 responseID id:int32 = Response;
 responseText text:string = Response;
 
+//@description Message
+bigMessage id:int32 count:int32 targetId:int32 escape:bool summary:bool = AbstractMessage;
+
+noMessage = AbstractMessage;
+
 ---functions---
 
 //@description check that server is live
