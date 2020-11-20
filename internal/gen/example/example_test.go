@@ -52,6 +52,27 @@ func BenchmarkMessage_Decode(b *testing.B) {
 	}
 }
 
+func BenchmarkID_Decode(b *testing.B) {
+	b.ReportAllocs()
+
+	encodeBuf := new(bin.Buffer)
+	msg := ResponseID{ID: 1}
+	_ = msg.Encode(encodeBuf)
+	raw := encodeBuf.Bytes()
+	b.SetBytes(int64(len(raw)))
+
+	buf := new(bin.Buffer)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		var decoded ResponseID
+		buf.ResetTo(raw)
+		if err := decoded.Decode(buf); err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
 func TestMessage(t *testing.T) {
 	b := new(bin.Buffer)
 	msg := Message{
@@ -99,11 +120,38 @@ func TestGetUpdatesResp(t *testing.T) {
 	require.Equal(t, v, decoded)
 }
 
+func TestDecodeToNil(t *testing.T) {
+	b := new(bin.Buffer)
+	if err := (&TargetsMessage{}).Encode(b); err != nil {
+		t.Fatal(err)
+	}
+	var msg *TargetsMessage
+	if err := msg.Decode(b); err == nil {
+		t.Fatal("unexpected success")
+	}
+}
+
+func TestGetUpdatesRespNilElem(t *testing.T) {
+	b := new(bin.Buffer)
+	var tMessage *TargetsMessage
+	v := GetUpdatesResp{
+		Updates: []AbstractMessage{
+			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
+			&NoMessage{},
+			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},
+			tMessage,
+		},
+	}
+	if err := v.Encode(b); err == nil {
+		t.Fatal("unexpected success")
+	}
+}
+
 func BenchmarkDecodeBool(b *testing.B) {
 	b.ReportAllocs()
 
 	encodeBuf := new(bin.Buffer)
-	BoolTrue{}.Encode(encodeBuf)
+	(&BoolTrue{}).Encode(encodeBuf)
 	raw := encodeBuf.Bytes()
 	b.SetBytes(int64(len(raw)))
 
@@ -128,7 +176,7 @@ func BenchmarkDecodeResponse(b *testing.B) {
 	b.ReportAllocs()
 
 	encodeBuf := new(bin.Buffer)
-	ResponseID{ID: 13}.Encode(encodeBuf)
+	(&ResponseID{ID: 13}).Encode(encodeBuf)
 	raw := encodeBuf.Bytes()
 	b.SetBytes(int64(len(raw)))
 
@@ -154,7 +202,7 @@ func BenchmarkDecodeAbstractMessage(b *testing.B) {
 		b.ReportAllocs()
 
 		encodeBuf := new(bin.Buffer)
-		NoMessage{}.Encode(encodeBuf)
+		(&NoMessage{}).Encode(encodeBuf)
 		raw := encodeBuf.Bytes()
 		b.SetBytes(int64(len(raw)))
 
@@ -178,7 +226,7 @@ func BenchmarkDecodeAbstractMessage(b *testing.B) {
 		b.ReportAllocs()
 
 		encodeBuf := new(bin.Buffer)
-		BigMessage{}.Encode(encodeBuf)
+		(&BigMessage{}).Encode(encodeBuf)
 		raw := encodeBuf.Bytes()
 		b.SetBytes(int64(len(raw)))
 
