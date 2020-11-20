@@ -31,7 +31,7 @@ func (i *Int32) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (i *Int32) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return xerrors.Errorf("can't encode int32#5cb934fa to nil")
+		return xerrors.Errorf("can't decode int32#5cb934fa to nil")
 	}
 	if err := b.ConsumeID(Int32TypeID); err != nil {
 		return xerrors.Errorf("unable to decode int32#5cb934fa: %w", err)
@@ -64,7 +64,7 @@ func (s *String) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *String) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return xerrors.Errorf("can't encode string#b5286e24 to nil")
+		return xerrors.Errorf("can't decode string#b5286e24 to nil")
 	}
 	if err := b.ConsumeID(StringTypeID); err != nil {
 		return xerrors.Errorf("unable to decode string#b5286e24: %w", err)
@@ -97,7 +97,7 @@ func (b *BoolFalse) Encode(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BoolFalse) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return xerrors.Errorf("can't encode boolFalse#bc799737 to nil")
+		return xerrors.Errorf("can't decode boolFalse#bc799737 to nil")
 	}
 	if err := buf.ConsumeID(BoolFalseTypeID); err != nil {
 		return xerrors.Errorf("unable to decode boolFalse#bc799737: %w", err)
@@ -135,7 +135,7 @@ func (b *BoolTrue) Encode(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BoolTrue) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return xerrors.Errorf("can't encode boolTrue#997275b5 to nil")
+		return xerrors.Errorf("can't decode boolTrue#997275b5 to nil")
 	}
 	if err := buf.ConsumeID(BoolTrueTypeID); err != nil {
 		return xerrors.Errorf("unable to decode boolTrue#997275b5: %w", err)
@@ -182,7 +182,7 @@ func (e *Error) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (e *Error) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return xerrors.Errorf("can't encode error#14feebbc to nil")
+		return xerrors.Errorf("can't decode error#14feebbc to nil")
 	}
 	if err := b.ConsumeID(ErrorTypeID); err != nil {
 		return xerrors.Errorf("unable to decode error#14feebbc: %w", err)
@@ -236,7 +236,7 @@ func (o *Ok) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (o *Ok) Decode(b *bin.Buffer) error {
 	if o == nil {
-		return xerrors.Errorf("can't encode ok#d4edbe69 to nil")
+		return xerrors.Errorf("can't decode ok#d4edbe69 to nil")
 	}
 	if err := b.ConsumeID(OkTypeID); err != nil {
 		return xerrors.Errorf("unable to decode ok#d4edbe69: %w", err)
@@ -274,7 +274,7 @@ func (m *Message) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return xerrors.Errorf("can't encode message#ec200d96 to nil")
+		return xerrors.Errorf("can't decode message#ec200d96 to nil")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
 		return xerrors.Errorf("unable to decode message#ec200d96: %w", err)
@@ -315,7 +315,7 @@ func (s *SMS) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (s *SMS) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return xerrors.Errorf("can't encode sms#ed8bebfe to nil")
+		return xerrors.Errorf("can't decode sms#ed8bebfe to nil")
 	}
 	if err := b.ConsumeID(SMSTypeID); err != nil {
 		return xerrors.Errorf("unable to decode sms#ed8bebfe: %w", err)
@@ -358,7 +358,7 @@ func (r *ResponseID) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ResponseID) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return xerrors.Errorf("can't encode responseID#85d7fd8b to nil")
+		return xerrors.Errorf("can't decode responseID#85d7fd8b to nil")
 	}
 	if err := b.ConsumeID(ResponseIDTypeID); err != nil {
 		return xerrors.Errorf("unable to decode responseID#85d7fd8b: %w", err)
@@ -406,7 +406,7 @@ func (r *ResponseText) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (r *ResponseText) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return xerrors.Errorf("can't encode responseText#cb0244f2 to nil")
+		return xerrors.Errorf("can't decode responseText#cb0244f2 to nil")
 	}
 	if err := b.ConsumeID(ResponseTextTypeID); err != nil {
 		return xerrors.Errorf("unable to decode responseText#cb0244f2: %w", err)
@@ -466,7 +466,7 @@ func (b *BigMessage) Encode(buf *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (b *BigMessage) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return xerrors.Errorf("can't encode bigMessage#7490dcc5 to nil")
+		return xerrors.Errorf("can't decode bigMessage#7490dcc5 to nil")
 	}
 	if err := buf.ConsumeID(BigMessageTypeID); err != nil {
 		return xerrors.Errorf("unable to decode bigMessage#7490dcc5: %w", err)
@@ -539,7 +539,7 @@ func (n *NoMessage) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (n *NoMessage) Decode(b *bin.Buffer) error {
 	if n == nil {
-		return xerrors.Errorf("can't encode noMessage#ee6324c4 to nil")
+		return xerrors.Errorf("can't decode noMessage#ee6324c4 to nil")
 	}
 	if err := b.ConsumeID(NoMessageTypeID); err != nil {
 		return xerrors.Errorf("unable to decode noMessage#ee6324c4: %w", err)
@@ -583,7 +583,7 @@ func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 	if t == nil {
-		return xerrors.Errorf("can't encode targetsMessage#cc6136f1 to nil")
+		return xerrors.Errorf("can't decode targetsMessage#cc6136f1 to nil")
 	}
 	if err := b.ConsumeID(TargetsMessageTypeID); err != nil {
 		return xerrors.Errorf("unable to decode targetsMessage#cc6136f1: %w", err)
@@ -645,7 +645,7 @@ func (u *Update) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (u *Update) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return xerrors.Errorf("can't encode update#b03e2ef8 to nil")
+		return xerrors.Errorf("can't decode update#b03e2ef8 to nil")
 	}
 	if err := b.ConsumeID(UpdateTypeID); err != nil {
 		return xerrors.Errorf("unable to decode update#b03e2ef8: %w", err)
@@ -703,7 +703,7 @@ func (g *GetUpdatesResp) Encode(b *bin.Buffer) error {
 // Decode implements bin.Decoder.
 func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return xerrors.Errorf("can't encode getUpdatesResp#2b4b45c to nil")
+		return xerrors.Errorf("can't decode getUpdatesResp#2b4b45c to nil")
 	}
 	if err := b.ConsumeID(GetUpdatesRespTypeID); err != nil {
 		return xerrors.Errorf("unable to decode getUpdatesResp#2b4b45c: %w", err)

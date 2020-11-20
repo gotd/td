@@ -62,7 +62,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
 // Decode implements bin.Decoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
-        return xerrors.Errorf("can't encode {{ $s.TLType }} to nil")
+        return xerrors.Errorf("can't decode {{ $s.TLType }} to nil")
     }
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
         return xerrors.Errorf("unable to decode {{ $s.TLType }}: %w", err)
