@@ -157,29 +157,29 @@ func (b *Buffer) Long() (int64, error) {
 	return int64(v), nil
 }
 
-// Uint128 decodes 128-bit unsigned integer from Buffer.
-func (b *Buffer) Uint128() (Uint128, error) {
+// Int128 decodes 128-bit signed integer from Buffer.
+func (b *Buffer) Int128() (Int128, error) {
 	if len(b.buf) < Word*4 {
-		return Uint128{}, io.ErrUnexpectedEOF
+		return Int128{}, io.ErrUnexpectedEOF
 	}
-	v := Uint128{
-		binary.LittleEndian.Uint64(b.buf[:Word*2]),
-		binary.LittleEndian.Uint64(b.buf[Word*2 : Word*4]),
+	v := Int128{
+		int64(binary.LittleEndian.Uint64(b.buf[:Word*2])),
+		int64(binary.LittleEndian.Uint64(b.buf[Word*2 : Word*4])),
 	}
 	b.buf = b.buf[Word*4:]
 	return v, nil
 }
 
-// Uint128 decodes 128-bit unsigned integer from Buffer.
-func (b *Buffer) Uint256() (Uint256, error) {
+// Int128 decodes 128-bit unsigned integer from Buffer.
+func (b *Buffer) Int256() (Int256, error) {
 	if len(b.buf) < Word*8 {
-		return Uint256{}, io.ErrUnexpectedEOF
+		return Int256{}, io.ErrUnexpectedEOF
 	}
-	v := Uint256{
-		binary.LittleEndian.Uint64(b.buf[0 : Word*4]),
-		binary.LittleEndian.Uint64(b.buf[Word*2 : Word*4]),
-		binary.LittleEndian.Uint64(b.buf[Word*4 : Word*6]),
-		binary.LittleEndian.Uint64(b.buf[Word*6 : Word*8]),
+	v := Int256{
+		int64(binary.LittleEndian.Uint64(b.buf[0 : Word*4])),
+		int64(binary.LittleEndian.Uint64(b.buf[Word*2 : Word*4])),
+		int64(binary.LittleEndian.Uint64(b.buf[Word*4 : Word*6])),
+		int64(binary.LittleEndian.Uint64(b.buf[Word*6 : Word*8])),
 	}
 	b.buf = b.buf[Word*8:]
 	return v, nil

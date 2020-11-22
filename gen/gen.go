@@ -199,6 +199,12 @@ func Generate(fs FS, t *template.Template, s *tl.Schema) error {
 					f.Func = "Int"
 				case "int32":
 					f.Func = "Int32"
+				case "int128":
+					f.Func = "Int128"
+					f.Type = "bin.Int128"
+				case "int256":
+					f.Func = "Int256"
+					f.Type = "bin.Int256"
 				case "double":
 					f.Func = "Double"
 					f.Type = "float64"

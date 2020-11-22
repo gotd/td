@@ -116,6 +116,8 @@ testVectorBytes value:vector<bytes> = TestVectorBytes;
 
 testVectorVector value:vector<vector<string>> = TestVectorVector;
 
+client_DH_inner_data#6643b654 nonce:int128 server_nonce:int128 retry_id:long g_b:string = Client_DH_Inner_Data;
+
 ---functions---
 
 //@description check that server is live
