@@ -100,7 +100,7 @@ jobs:
       - name: Run tests with coverage
         run: make coverage
       - name: Convert coverage.out to coverage.lcov
-        uses: jandelgado/gcov2lcov-action@v1.0.7
+        uses: jandelgado/gcov2lcov-action@v1.0.8
       - name: Coveralls
         uses: coverallsapp/github-action@v1.1.2
         with:
