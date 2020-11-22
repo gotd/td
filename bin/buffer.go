@@ -1,6 +1,6 @@
 package bin
 
-// Buffer implements binary serialization for TL.
+// Buffer implements low level binary (de-)serialization for TL.
 type Buffer struct {
 	buf []byte
 }
