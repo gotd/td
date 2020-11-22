@@ -30,6 +30,9 @@ func encodeString(b []byte, v string) []byte {
 func decodeString(b []byte) (n int, v string, err error) {
 	if b[0] == 254 {
 		strLen := uint32(b[1]) | uint32(b[2])<<8 | uint32(b[3])<<16
+		if len(b) < (int(strLen) + 4) {
+			return 0, "", io.ErrUnexpectedEOF
+		}
 		return nearestPaddedValueLength(int(strLen) + 4), string(b[4 : strLen+4]), nil
 	}
 	strLen := b[0]

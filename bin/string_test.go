@@ -1,6 +1,7 @@
 package bin
 
 import (
+	"io"
 	"strings"
 	"testing"
 )
@@ -33,4 +34,12 @@ func TestStringDecodeEncode(t *testing.T) {
 			t.Error("zero bytes read return")
 		}
 	}
+	t.Run("ErrUnexpectedEOF", func(t *testing.T) {
+		if _, _, err := decodeString(encodeString(nil, "foo bar")[:2]); err != io.ErrUnexpectedEOF {
+			t.Fatal("error expected")
+		}
+		if _, _, err := decodeString(encodeString(nil, strings.Repeat("b", 105))[:10]); err != io.ErrUnexpectedEOF {
+			t.Fatal("error expected")
+		}
+	})
 }
