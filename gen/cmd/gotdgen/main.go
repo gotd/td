@@ -4,8 +4,9 @@ import (
 	"flag"
 	"os"
 
-	"github.com/ernado/td/gen"
 	"github.com/ernado/tl"
+
+	"github.com/ernado/td/gen"
 )
 
 func main() {
