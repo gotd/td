@@ -1,3 +1,11 @@
+// Package bin implements binary serialization and deserialization for TL,
+// providing Buffer that can decode and encode basic Type Language types.
+//
+// This package is not intended to be used directly.
+//
+// Ref:
+//	* https://core.telegram.org/mtproto/serialize
+//	* https://core.telegram.org/mtproto/TL-abstract-types
 package bin
 
 const padding = 4
