@@ -59,8 +59,10 @@ type Field struct {
 	Encoder bool
 	// TLName is raw name from TL Schema.
 	TLName string
-	// Vector denotes whether Field is vector (i.e. slice).
+	// Vector denotes whether Field TL type is vector.
 	Vector bool
+	// Slice denotes whether slice should be used for this field.
+	Slice bool
 	// Generic denotes whether Field Type has generic constructors.
 	Generic bool
 	// Conditional denotes whether Field is conditional.
@@ -169,6 +171,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				if f.Type == "vector" {
 					f.Type = param.Type.GenericArg.Name
 					f.Vector = true
+					f.Slice = true
 				}
 				if param.Flags {
 					f.Type = "bin.Fields"
@@ -183,6 +186,10 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				case "Bool", "bool", "true", "false":
 					f.Func = "Bool"
 					f.Type = "bool"
+				case "bytes":
+					f.Func = "Bytes"
+					f.Type = "byte"
+					f.Slice = true
 				default:
 					f.Encoder = true
 					if _, ok := singular[param.Type.Name]; !ok && !param.Flags {

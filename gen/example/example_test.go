@@ -109,6 +109,7 @@ func TestGetUpdatesResp(t *testing.T) {
 		Updates: []AbstractMessage{
 			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
 			&NoMessage{},
+			&BytesMessage{Data: []byte{0x1, 0xf3, 104, 205}},
 			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},
 		},
 	}

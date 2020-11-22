@@ -4,7 +4,7 @@
 
 - [x] Vector
 - [x] Fields
-- [ ] bytes type
+- [x] bytes type
 - [ ] Namespaces
 - [ ] Multiple output files
 - [ ] Tests

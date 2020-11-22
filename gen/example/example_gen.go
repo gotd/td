@@ -154,6 +154,39 @@ var (
 	_ Bool = &True{}
 )
 
+// Bytes represents TL type bytes#e937bb82.
+type Bytes struct {
+}
+
+// BytesTypeID is TL type id of Bytes.
+const BytesTypeID = 0xe937bb82
+
+// Encode implements bin.Encoder.
+func (b *Bytes) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
+	}
+	buf.PutID(BytesTypeID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *Bytes) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
+	}
+	if err := buf.ConsumeID(BytesTypeID); err != nil {
+		return fmt.Errorf("unable to decode bytes#e937bb82: %w", err)
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for Bytes.
+var (
+	_ bin.Encoder = &Bytes{}
+	_ bin.Decoder = &Bytes{}
+)
+
 // An object of this type can be returned on every function call, in case of an error
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
@@ -819,6 +852,54 @@ var (
 	_ AbstractMessage = &FieldsMessage{}
 )
 
+// BytesMessage represents TL type bytesMessage#f990a67d.
+type BytesMessage struct {
+	// Data field of BytesMessage.
+	Data []byte
+}
+
+// BytesMessageTypeID is TL type id of BytesMessage.
+const BytesMessageTypeID = 0xf990a67d
+
+// Encode implements bin.Encoder.
+func (b *BytesMessage) Encode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bytesMessage#f990a67d as nil")
+	}
+	buf.PutID(BytesMessageTypeID)
+	buf.PutBytes(b.Data)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (b *BytesMessage) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bytesMessage#f990a67d to nil")
+	}
+	if err := buf.ConsumeID(BytesMessageTypeID); err != nil {
+		return fmt.Errorf("unable to decode bytesMessage#f990a67d: %w", err)
+	}
+	{
+		value, err := buf.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode bytesMessage#f990a67d: field data: %w", err)
+		}
+		b.Data = value
+	}
+	return nil
+}
+
+// construct implements constructor of AbstractMessage.
+func (b BytesMessage) construct() AbstractMessage { return &b }
+
+// Ensuring interfaces in compile-time for BytesMessage.
+var (
+	_ bin.Encoder = &BytesMessage{}
+	_ bin.Decoder = &BytesMessage{}
+
+	_ AbstractMessage = &BytesMessage{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:
@@ -919,6 +1000,7 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 //  case *NoMessage: // noMessage#ee6324c4
 //  case *TargetsMessage: // targetsMessage#cc6136f1
 //  case *FieldsMessage: // fieldsMessage#947225b5
+//  case *BytesMessage: // bytesMessage#f990a67d
 //  default: panic(v)
 //  }
 type AbstractMessage interface {
@@ -958,6 +1040,13 @@ func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessage, error) {
 	case FieldsMessageTypeID:
 		// Decoding fieldsMessage#947225b5.
 		v := FieldsMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode AbstractMessage: %w", err)
+		}
+		return &v, nil
+	case BytesMessageTypeID:
+		// Decoding bytesMessage#f990a67d.
+		v := BytesMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AbstractMessage: %w", err)
 		}

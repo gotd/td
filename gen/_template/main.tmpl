@@ -11,7 +11,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{- if $f.Vector }}
+    {{- if $f.Slice }}
     {{ $f.Name }} []{{ $f.Type }}
     {{- else }}
     {{ $f.Name }} {{ $f.Type }}
