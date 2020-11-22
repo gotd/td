@@ -3,7 +3,6 @@ package gen
 import (
 	"bytes"
 	"io/ioutil"
-	"os"
 	"path/filepath"
 	"testing"
 	"text/template"
@@ -24,11 +23,6 @@ func TestGen(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f, err := os.Create("example/example_gen.go")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer func() { _ = f.Close() }()
 	data, err := ioutil.ReadFile("_testdata/Error.tl")
 	if err != nil {
 		t.Fatal(err)
