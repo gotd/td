@@ -116,6 +116,12 @@ func (b *Buffer) PutUint128(v Uint128) {
 	)
 }
 
+// PutUint128 serializes v as 256-bit unsigned integer.
+func (b *Buffer) PutUint256(v Uint256) {
+	b.PutUint128([2]uint64{v[0], v[1]})
+	b.PutUint128([2]uint64{v[2], v[3]})
+}
+
 // Reset buffer to zero length.
 func (b *Buffer) Reset() {
 	b.buf = b.buf[:0]
