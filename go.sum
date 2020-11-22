@@ -2,8 +2,6 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dvyukov/go-fuzz v0.0.0-20201114070042-d9fd8180255a h1:uRXC/hit8o+gLs3NvJC671rHnXKNlcTwiEokDr+1WEM=
-github.com/dvyukov/go-fuzz v0.0.0-20201114070042-d9fd8180255a/go.mod h1:11Gm+ccJnvAhCNLlf5+cS9KjtbaD5I5zaZpFMsTHWTw=
 github.com/ernado/tl v0.1.0 h1:fdgBsqVYP5nAsZpkNATePi34i+666ScfW2Xk6H9VBj8=
 github.com/ernado/tl v0.1.0/go.mod h1:0JfPavfUXM2dqUCWhv2JP19XyfB3unJOcYj7otqNs4E=
 github.com/go-openapi/inflect v0.19.0 h1:9jCH9scKIbHeV9m12SmPilScz6krDxKRasNNSNPXu/4=
