@@ -78,80 +78,80 @@ var (
 	_ bin.Decoder = &String{}
 )
 
-// BoolFalse represents TL type boolFalse#bc799737.
-type BoolFalse struct {
+// False represents TL type false#bc799737.
+type False struct {
 }
 
-// BoolFalseTypeID is TL type id of BoolFalse.
-const BoolFalseTypeID = 0xbc799737
+// FalseTypeID is TL type id of False.
+const FalseTypeID = 0xbc799737
 
 // Encode implements bin.Encoder.
-func (b *BoolFalse) Encode(buf *bin.Buffer) error {
-	if b == nil {
-		return xerrors.Errorf("can't encode boolFalse#bc799737 as nil")
+func (f *False) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return xerrors.Errorf("can't encode false#bc799737 as nil")
 	}
-	buf.PutID(BoolFalseTypeID)
+	b.PutID(FalseTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (b *BoolFalse) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return xerrors.Errorf("can't decode boolFalse#bc799737 to nil")
+func (f *False) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return xerrors.Errorf("can't decode false#bc799737 to nil")
 	}
-	if err := buf.ConsumeID(BoolFalseTypeID); err != nil {
-		return xerrors.Errorf("unable to decode boolFalse#bc799737: %w", err)
+	if err := b.ConsumeID(FalseTypeID); err != nil {
+		return xerrors.Errorf("unable to decode false#bc799737: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of Bool.
-func (b BoolFalse) construct() Bool { return &b }
+func (f False) construct() Bool { return &f }
 
-// Ensuring interfaces in compile-time for BoolFalse.
+// Ensuring interfaces in compile-time for False.
 var (
-	_ bin.Encoder = &BoolFalse{}
-	_ bin.Decoder = &BoolFalse{}
+	_ bin.Encoder = &False{}
+	_ bin.Decoder = &False{}
 
-	_ Bool = &BoolFalse{}
+	_ Bool = &False{}
 )
 
-// BoolTrue represents TL type boolTrue#997275b5.
-type BoolTrue struct {
+// True represents TL type true#997275b5.
+type True struct {
 }
 
-// BoolTrueTypeID is TL type id of BoolTrue.
-const BoolTrueTypeID = 0x997275b5
+// TrueTypeID is TL type id of True.
+const TrueTypeID = 0x997275b5
 
 // Encode implements bin.Encoder.
-func (b *BoolTrue) Encode(buf *bin.Buffer) error {
-	if b == nil {
-		return xerrors.Errorf("can't encode boolTrue#997275b5 as nil")
+func (t *True) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return xerrors.Errorf("can't encode true#997275b5 as nil")
 	}
-	buf.PutID(BoolTrueTypeID)
+	b.PutID(TrueTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (b *BoolTrue) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return xerrors.Errorf("can't decode boolTrue#997275b5 to nil")
+func (t *True) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return xerrors.Errorf("can't decode true#997275b5 to nil")
 	}
-	if err := buf.ConsumeID(BoolTrueTypeID); err != nil {
-		return xerrors.Errorf("unable to decode boolTrue#997275b5: %w", err)
+	if err := b.ConsumeID(TrueTypeID); err != nil {
+		return xerrors.Errorf("unable to decode true#997275b5: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of Bool.
-func (b BoolTrue) construct() Bool { return &b }
+func (t True) construct() Bool { return &t }
 
-// Ensuring interfaces in compile-time for BoolTrue.
+// Ensuring interfaces in compile-time for True.
 var (
-	_ bin.Encoder = &BoolTrue{}
-	_ bin.Decoder = &BoolTrue{}
+	_ bin.Encoder = &True{}
+	_ bin.Decoder = &True{}
 
-	_ Bool = &BoolTrue{}
+	_ Bool = &True{}
 )
 
 // An object of this type can be returned on every function call, in case of an error
@@ -827,8 +827,8 @@ var (
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BoolFalse: // boolFalse#bc799737
-//  case *BoolTrue: // boolTrue#997275b5
+//  case *False: // false#bc799737
+//  case *True: // true#997275b5
 //  default: panic(v)
 //  }
 type Bool interface {
@@ -844,16 +844,16 @@ func DecodeBool(buf *bin.Buffer) (Bool, error) {
 		return nil, err
 	}
 	switch id {
-	case BoolFalseTypeID:
-		// Decoding boolFalse#bc799737.
-		v := BoolFalse{}
+	case FalseTypeID:
+		// Decoding false#bc799737.
+		v := False{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode Bool: %w", err)
 		}
 		return &v, nil
-	case BoolTrueTypeID:
-		// Decoding boolTrue#997275b5.
-		v := BoolTrue{}
+	case TrueTypeID:
+		// Decoding true#997275b5.
+		v := True{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode Bool: %w", err)
 		}

@@ -1,7 +1,7 @@
 int32 = Int32;
 string ? = String;
-boolFalse#bc799737 = Bool;
-boolTrue#997275b5 = Bool;
+false#bc799737 = Bool;
+true#997275b5 = Bool;
 
 vector#1cb5c415 {t:Type} # [ t ] = Vector t;
 
@@ -31,7 +31,7 @@ update msg:AbstractMessage delay:int32 = Update;
 
 getUpdatesResp updates:vector<AbstractMessage> = GetUpdatesResp;
 
-fieldsMessage#947225b5 flags:# escape:flags.0?bool ttl_seconds:flags.1?int = AbstractMessage;
+fieldsMessage#947225b5 flags:# escape:flags.0?true ttl_seconds:flags.1?int = AbstractMessage;
 
 ---functions---
 
