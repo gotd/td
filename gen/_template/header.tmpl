@@ -4,8 +4,11 @@
 package {{ $.Package }}
 
 import (
-{{ if $.RPC }}"context"{{ end }}
+{{ if $.RPC }}
+"context"
+{{ else }}
 "fmt"
+{{ end }}
 
 "github.com/ernado/td/bin"
 )
