@@ -5,7 +5,7 @@ package td
 import (
 	"context"
 
-	"github.com/ernado/td/internal/bin"
+	"github.com/ernado/td/bin"
 	"golang.org/x/xerrors"
 )
 
