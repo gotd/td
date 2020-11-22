@@ -37,7 +37,7 @@ func BenchmarkMessage_Decode(b *testing.B) {
 		},
 	}
 	msg.Encode(encodeBuf)
-	raw := encodeBuf.Bytes()
+	raw := encodeBuf.Raw()
 	b.SetBytes(int64(len(raw)))
 
 	buf := new(bin.Buffer)
@@ -58,7 +58,7 @@ func BenchmarkID_Decode(b *testing.B) {
 	encodeBuf := new(bin.Buffer)
 	msg := ResponseID{ID: 1}
 	_ = msg.Encode(encodeBuf)
-	raw := encodeBuf.Bytes()
+	raw := encodeBuf.Raw()
 	b.SetBytes(int64(len(raw)))
 
 	buf := new(bin.Buffer)
@@ -152,7 +152,7 @@ func BenchmarkDecodeBool(b *testing.B) {
 
 	encodeBuf := new(bin.Buffer)
 	(&True{}).Encode(encodeBuf)
-	raw := encodeBuf.Bytes()
+	raw := encodeBuf.Raw()
 	b.SetBytes(int64(len(raw)))
 
 	buf := new(bin.Buffer)
@@ -177,7 +177,7 @@ func BenchmarkDecodeResponse(b *testing.B) {
 
 	encodeBuf := new(bin.Buffer)
 	(&ResponseID{ID: 13}).Encode(encodeBuf)
-	raw := encodeBuf.Bytes()
+	raw := encodeBuf.Raw()
 	b.SetBytes(int64(len(raw)))
 
 	buf := new(bin.Buffer)
@@ -203,7 +203,7 @@ func BenchmarkDecodeAbstractMessage(b *testing.B) {
 
 		encodeBuf := new(bin.Buffer)
 		(&NoMessage{}).Encode(encodeBuf)
-		raw := encodeBuf.Bytes()
+		raw := encodeBuf.Raw()
 		b.SetBytes(int64(len(raw)))
 
 		buf := new(bin.Buffer)
@@ -227,7 +227,7 @@ func BenchmarkDecodeAbstractMessage(b *testing.B) {
 
 		encodeBuf := new(bin.Buffer)
 		(&BigMessage{}).Encode(encodeBuf)
-		raw := encodeBuf.Bytes()
+		raw := encodeBuf.Raw()
 		b.SetBytes(int64(len(raw)))
 
 		buf := new(bin.Buffer)

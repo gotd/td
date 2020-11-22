@@ -116,6 +116,19 @@ func (b *Buffer) String() (string, error) {
 	return v, nil
 }
 
+// Bytes decodes byte slice from Buffer.
+//
+// NB: returning value is slice of buffer, it is not safe
+// to retain or modify. User should copy value if needed.
+func (b *Buffer) Bytes() ([]byte, error) {
+	n, v, err := decodeBytes(b.buf)
+	if err != nil {
+		return nil, err
+	}
+	b.buf = b.buf[n:]
+	return v, nil
+}
+
 // Int decodes integer from Buffer.
 func (b *Buffer) Int() (int, error) {
 	v, err := b.Int32()

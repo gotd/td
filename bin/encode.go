@@ -2,19 +2,6 @@ package bin
 
 import "math"
 
-// Buffer implements binary serialization for TL.
-type Buffer struct {
-	buf []byte
-}
-
-func (b Buffer) Bytes() []byte {
-	return b.buf
-}
-
-func (b *Buffer) ResetTo(buf []byte) {
-	b.buf = buf
-}
-
 // PutID serializes type definition id, like a8509bda.
 func (b *Buffer) PutID(id uint32) {
 	b.PutUint32(id)
@@ -30,6 +17,11 @@ func (b *Buffer) Put(raw []byte) {
 // PutString serializes bare string.
 func (b *Buffer) PutString(s string) {
 	b.buf = encodeString(b.buf, s)
+}
+
+// PutBytes serializes bare byte string.
+func (b *Buffer) PutBytes(v []byte) {
+	b.buf = encodeBytes(b.buf, v)
 }
 
 // PutVectorHeader serializes vector header with provided length.

@@ -9,9 +9,10 @@ const (
 	TypeDoubleID = 0x2210c154 // double = Double (0x2210c154)
 	TypeStringID = 0xb5286e24 // string = String (0xb5286e24)
 	TypeVector   = 0x1cb5c415 // vector {t:Type} # [ t ] = Vector t
+	TypeBytes    = 0xe937bb82 // bytes#e937bb82 = Bytes
 
-	TypeTrue  = 0x997275b5 // boolTrue#997275b5 = Bool;
-	TypeFalse = 0xbc799737 // boolFalse#bc799737 = Bool;
+	TypeTrue  = 0x997275b5 // boolTrue#997275b5 = Bool
+	TypeFalse = 0xbc799737 // boolFalse#bc799737 = Bool
 )
 
 func nearestPaddedValueLength(l int) int {

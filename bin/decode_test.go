@@ -1,6 +1,9 @@
 package bin
 
-import "testing"
+import (
+	"bytes"
+	"testing"
+)
 
 func TestDecoder_ID(t *testing.T) {
 	var b Buffer
@@ -8,6 +11,7 @@ func TestDecoder_ID(t *testing.T) {
 	b.PutID(id)
 	b.PutString("foo bar")
 	b.PutBool(true)
+	b.PutBytes([]byte{1, 2, 3, 4})
 	b.PutInt32(-150)
 	gotID, err := b.ID()
 	if err != nil {
@@ -28,6 +32,13 @@ func TestDecoder_ID(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !gotBool {
+		t.Fatal("mismatch")
+	}
+	gotBytes, err := b.Bytes()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(gotBytes, []byte{1, 2, 3, 4}) {
 		t.Fatal("mismatch")
 	}
 	gotInt32, err := b.Int32()
