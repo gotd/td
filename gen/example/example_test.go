@@ -151,7 +151,7 @@ func BenchmarkDecodeBool(b *testing.B) {
 	b.ReportAllocs()
 
 	encodeBuf := new(bin.Buffer)
-	(&BoolTrue{}).Encode(encodeBuf)
+	(&True{}).Encode(encodeBuf)
 	raw := encodeBuf.Bytes()
 	b.SetBytes(int64(len(raw)))
 
@@ -165,7 +165,7 @@ func BenchmarkDecodeBool(b *testing.B) {
 			b.Fatal(err)
 		}
 		switch v.(type) {
-		case *BoolTrue: // ok
+		case *True: // ok
 		default:
 			b.Fatalf("Unexpected %T", v)
 		}
