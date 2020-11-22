@@ -13,6 +13,8 @@ func TestDecoder_ID(t *testing.T) {
 	b.PutBool(true)
 	b.PutBytes([]byte{1, 2, 3, 4})
 	b.PutInt32(-150)
+	b.PutLong(100)
+	b.PutDouble(1.5)
 	gotID, err := b.ID()
 	if err != nil {
 		t.Fatal(err)
@@ -47,5 +49,19 @@ func TestDecoder_ID(t *testing.T) {
 	}
 	if gotInt32 != -150 {
 		t.Fatal(gotInt32)
+	}
+	gotLong, err := b.Long()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if gotLong != 100 {
+		t.Fatal(gotLong)
+	}
+	gotDouble, err := b.Double()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if gotDouble != 1.5 {
+		t.Fatal(gotDouble)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"math"
 )
 
 // PeekID returns next type id in Buffer, but does not consume it.
@@ -134,4 +135,24 @@ func (b *Buffer) Int() (int, error) {
 		return 0, err
 	}
 	return int(v), nil
+}
+
+// Double decodes 64-bit floating point from Buffer.
+func (b *Buffer) Double() (float64, error) {
+	v, err := b.Long()
+	if err != nil {
+		return 0, err
+	}
+	return math.Float64frombits(uint64(v)), nil
+}
+
+// Long decodes 64-bit signed integer from Buffer.
+func (b *Buffer) Long() (int64, error) {
+	const size = Word * 2
+	if len(b.buf) < size {
+		return 0, io.ErrUnexpectedEOF
+	}
+	v := binary.LittleEndian.Uint64(b.buf)
+	b.buf = b.buf[size:]
+	return int64(v), nil
 }
