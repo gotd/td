@@ -8,8 +8,6 @@
 //	* https://core.telegram.org/mtproto/TL-abstract-types
 package bin
 
-const padding = 4
-
 // Basic TL types.
 const (
 	TypeIntID    = 0xa8509bda // int = Int (0xa8509bda)
@@ -23,10 +21,14 @@ const (
 	TypeFalse = 0xbc799737 // boolFalse#bc799737 = Bool
 )
 
+// Word represents 4-byte sequence.
+// Values in TL are generally aligned to Word.
+const Word = 4
+
 func nearestPaddedValueLength(l int) int {
-	n := padding * (l / padding)
+	n := Word * (l / Word)
 	if n < l {
-		n += padding
+		n += Word
 	}
 	return n
 }

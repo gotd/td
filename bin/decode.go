@@ -8,7 +8,7 @@ import (
 
 // PeekID returns next type id in Buffer, but does not consume it.
 func (b *Buffer) PeekID() (uint32, error) {
-	if len(b.buf) < word {
+	if len(b.buf) < Word {
 		return 0, io.ErrUnexpectedEOF
 	}
 	v := binary.LittleEndian.Uint32(b.buf)
@@ -20,25 +20,23 @@ func (b *Buffer) ID() (uint32, error) {
 	return b.Uint32()
 }
 
-const word = 4
-
 // Uint32 decodes unsigned 32-bit integer from Buffer.
 func (b *Buffer) Uint32() (uint32, error) {
 	v, err := b.PeekID()
 	if err != nil {
 		return 0, err
 	}
-	b.buf = b.buf[word:]
+	b.buf = b.buf[Word:]
 	return v, nil
 }
 
 // Int32 decodes signed 32-bit integer from Buffer.
 func (b *Buffer) Int32() (int32, error) {
-	if len(b.buf) < word {
+	if len(b.buf) < Word {
 		return 0, io.ErrUnexpectedEOF
 	}
 	v := binary.LittleEndian.Uint32(b.buf)
-	b.buf = b.buf[word:]
+	b.buf = b.buf[Word:]
 	return int32(v), nil
 }
 
@@ -64,10 +62,10 @@ func (b *Buffer) Bool() (bool, error) {
 	}
 	switch v {
 	case TypeTrue:
-		b.buf = b.buf[word:]
+		b.buf = b.buf[Word:]
 		return true, nil
 	case TypeFalse:
-		b.buf = b.buf[word:]
+		b.buf = b.buf[Word:]
 		return false, nil
 	default:
 		return false, NewUnexpectedID(v)
@@ -85,7 +83,7 @@ func (b *Buffer) ConsumeID(id uint32) error {
 	if v != id {
 		return NewUnexpectedID(v)
 	}
-	b.buf = b.buf[word:]
+	b.buf = b.buf[Word:]
 	return nil
 }
 
@@ -98,7 +96,7 @@ func (b *Buffer) VectorHeader() (int, error) {
 	if id != TypeVector {
 		return 0, NewUnexpectedID(id)
 	}
-	b.buf = b.buf[word:]
+	b.buf = b.buf[Word:]
 	n, err := b.Int32()
 	if err != nil {
 		return 0, err
