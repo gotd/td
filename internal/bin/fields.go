@@ -1,0 +1,32 @@
+package bin
+
+// Fields represent a bitfield value that compactly encodes
+// information about provided conditional fields, e.g. says
+// that fields "1", "5" and "10" were set.
+type Fields uint32
+
+// Decode implements Decoder.
+func (f *Fields) Decode(b *Buffer) error {
+	v, err := b.Int32()
+	if err != nil {
+		return err
+	}
+	*f = Fields(v)
+	return nil
+}
+
+// Encode implements Encoder.
+func (f Fields) Encode(b *Buffer) error {
+	b.PutUint32(uint32(f))
+	return nil
+}
+
+// Has reports whether field with index n was set.
+func (f Fields) Has(n int) bool {
+	return f&(1<<n) != 0
+}
+
+// Set sets field with index n.
+func (f *Fields) Set(n int) {
+	*f = *f | (1 << n)
+}
