@@ -31,7 +31,7 @@ update msg:AbstractMessage delay:int32 = Update;
 
 getUpdatesResp updates:vector<AbstractMessage> = GetUpdatesResp;
 
-fieldsMessage#997275b5 flags:# escape:flags.0?bool ttl_seconds:flags.1?int = AbstractMessage;
+fieldsMessage#947225b5 flags:# escape:flags.0?bool ttl_seconds:flags.1?int = AbstractMessage;
 
 ---functions---
 

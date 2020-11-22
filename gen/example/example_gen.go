@@ -730,7 +730,7 @@ var (
 	_ bin.Decoder = &GetUpdatesResp{}
 )
 
-// FieldsMessage represents TL type fieldsMessage#997275b5.
+// FieldsMessage represents TL type fieldsMessage#947225b5.
 type FieldsMessage struct {
 	// Flags field of FieldsMessage.
 	Flags bin.Fields
@@ -743,16 +743,16 @@ type FieldsMessage struct {
 }
 
 // FieldsMessageTypeID is TL type id of FieldsMessage.
-const FieldsMessageTypeID = 0x997275b5
+const FieldsMessageTypeID = 0x947225b5
 
 // Encode implements bin.Encoder.
 func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 	if f == nil {
-		return xerrors.Errorf("can't encode fieldsMessage#997275b5 as nil")
+		return xerrors.Errorf("can't encode fieldsMessage#947225b5 as nil")
 	}
 	b.PutID(FieldsMessageTypeID)
 	if err := f.Flags.Encode(b); err != nil {
-		return xerrors.Errorf("unable to encode fieldsMessage#997275b5: field flags: %w", err)
+		return xerrors.Errorf("unable to encode fieldsMessage#947225b5: field flags: %w", err)
 	}
 	if f.Flags.Has(1) {
 		b.PutInt(f.TTLSeconds)
@@ -787,21 +787,21 @@ func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 	if f == nil {
-		return xerrors.Errorf("can't decode fieldsMessage#997275b5 to nil")
+		return xerrors.Errorf("can't decode fieldsMessage#947225b5 to nil")
 	}
 	if err := b.ConsumeID(FieldsMessageTypeID); err != nil {
-		return xerrors.Errorf("unable to decode fieldsMessage#997275b5: %w", err)
+		return xerrors.Errorf("unable to decode fieldsMessage#947225b5: %w", err)
 	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
-			return xerrors.Errorf("unable to decode fieldsMessage#997275b5: field flags: %w", err)
+			return xerrors.Errorf("unable to decode fieldsMessage#947225b5: field flags: %w", err)
 		}
 	}
 	f.Escape = f.Flags.Has(0)
 	if f.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return xerrors.Errorf("unable to decode fieldsMessage#997275b5: field ttl_seconds: %w", err)
+			return xerrors.Errorf("unable to decode fieldsMessage#947225b5: field ttl_seconds: %w", err)
 		}
 		f.TTLSeconds = value
 	}
@@ -918,7 +918,7 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 //  case *BigMessage: // bigMessage#7490dcc5
 //  case *NoMessage: // noMessage#ee6324c4
 //  case *TargetsMessage: // targetsMessage#cc6136f1
-//  case *FieldsMessage: // fieldsMessage#997275b5
+//  case *FieldsMessage: // fieldsMessage#947225b5
 //  default: panic(v)
 //  }
 type AbstractMessage interface {
@@ -956,7 +956,7 @@ func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessage, error) {
 		}
 		return &v, nil
 	case FieldsMessageTypeID:
-		// Decoding fieldsMessage#997275b5.
+		// Decoding fieldsMessage#947225b5.
 		v := FieldsMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", err)
