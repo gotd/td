@@ -93,6 +93,29 @@ func (b *Buffer) PutDouble(v float64) {
 	b.PutUint64(math.Float64bits(v))
 }
 
+// PutUint128 serializes v as 128-bit unsigned integer.
+func (b *Buffer) PutUint128(v Uint128) {
+	b.buf = append(b.buf,
+		byte(v[0]),
+		byte(v[0]>>8),
+		byte(v[0]>>16),
+		byte(v[0]>>24),
+		byte(v[0]>>32),
+		byte(v[0]>>40),
+		byte(v[0]>>48),
+		byte(v[0]>>56),
+
+		byte(v[1]),
+		byte(v[1]>>8),
+		byte(v[1]>>16),
+		byte(v[1]>>24),
+		byte(v[1]>>32),
+		byte(v[1]>>40),
+		byte(v[1]>>48),
+		byte(v[1]>>56),
+	)
+}
+
 // Reset buffer to zero length.
 func (b *Buffer) Reset() {
 	b.buf = b.buf[:0]

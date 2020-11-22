@@ -156,3 +156,16 @@ func (b *Buffer) Long() (int64, error) {
 	b.buf = b.buf[size:]
 	return int64(v), nil
 }
+
+// Uint128 decodes 128-bit unsigned integer from Buffer.
+func (b *Buffer) Uint128() (Uint128, error) {
+	if len(b.buf) < 4*Word {
+		return Uint128{}, io.ErrUnexpectedEOF
+	}
+	v := Uint128{
+		binary.LittleEndian.Uint64(b.buf),
+		binary.LittleEndian.Uint64(b.buf),
+	}
+	b.buf = b.buf[4*Word:]
+	return v, nil
+}
