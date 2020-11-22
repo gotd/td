@@ -11,7 +11,9 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{- if $f.Slice }}
+    {{- if $f.DoubleSlice }}
+    {{ $f.Name }} [][]{{ $f.Type }}
+    {{- else if $f.Slice }}
     {{ $f.Name }} []{{ $f.Type }}
     {{- else }}
     {{ $f.Name }} {{ $f.Type }}
@@ -35,7 +37,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     {{- end }}
     {{- if $f.Vector }}
     {{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }}))
-    for {{ if $f.Encoder }}idx{{ else }}_{{ end }}, v := range {{ $s.Receiver }}.{{ $f.Name }} {
+    for {{ if $f.Encoder }}idx{{ else }}_{{ end }}, {{- if $f.DoubleVector }}row{{else}}v{{end}} := range {{ $s.Receiver }}.{{ $f.Name }} {
+    {{- if $f.DoubleVector }}
+        {{ $s.BufArg }}.PutVectorHeader(len(row))
+        for _, v := range row {
+    {{- end }}
     {{- if $f.Encoder }}
         {{- if $f.Generic }}
             if v == nil {
@@ -47,6 +53,9 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
         }
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
+    {{- end }}
+    {{- if $f.DoubleVector }}
+        }
     {{- end }}
     }
     {{- else }}
@@ -126,6 +135,14 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
             }
             for idx := 0; idx < headerLen; idx++ {
 
+            {{- if $f.DoubleVector }}
+                innerLen, err := {{ $s.BufArg }}.VectorHeader()
+                if err != nil {
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                }
+                var row []{{ $f.Type }}
+                for innerIndex := 0; innerIndex < innerLen; innerLen++ {
+            {{- end }}
             {{- if $f.Generic }}
                 value, err := Decode{{ $f.Type }}({{ $s.BufArg }})
                 if err != nil {
@@ -142,7 +159,13 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
                     return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
                 }
             {{- end }}
+                {{- if $f.DoubleVector }}
+                    row = append(row, value)
+                }
+                {{ $s.Receiver }}.{{ $f.Name }} = append({{ $s.Receiver }}.{{ $f.Name }}, row)
+                {{- else }}
                 {{ $s.Receiver }}.{{ $f.Name }} = append({{ $s.Receiver }}.{{ $f.Name }}, value)
+                {{- end }}
             }
         {{- else }}
         {{- if $f.Generic }}

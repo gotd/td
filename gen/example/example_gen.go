@@ -1698,6 +1698,462 @@ var (
 	_ bin.Decoder = &TextEntities{}
 )
 
+// A simple object containing a number; for testing only
+type TestInt struct {
+	// Number
+	Value int32
+}
+
+// TestIntTypeID is TL type id of TestInt.
+const TestIntTypeID = 0xddbd2c09
+
+// Encode implements bin.Encoder.
+func (t *TestInt) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testInt#ddbd2c09 as nil")
+	}
+	b.PutID(TestIntTypeID)
+	b.PutInt32(t.Value)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestInt) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testInt#ddbd2c09 to nil")
+	}
+	if err := b.ConsumeID(TestIntTypeID); err != nil {
+		return fmt.Errorf("unable to decode testInt#ddbd2c09: %w", err)
+	}
+	{
+		value, err := b.Int32()
+		if err != nil {
+			return fmt.Errorf("unable to decode testInt#ddbd2c09: field value: %w", err)
+		}
+		t.Value = value
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestInt.
+var (
+	_ bin.Encoder = &TestInt{}
+	_ bin.Decoder = &TestInt{}
+)
+
+// A simple object containing a string; for testing only
+type TestString struct {
+	// String
+	Value string
+}
+
+// TestStringTypeID is TL type id of TestString.
+const TestStringTypeID = 0xfe56688c
+
+// Encode implements bin.Encoder.
+func (t *TestString) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testString#fe56688c as nil")
+	}
+	b.PutID(TestStringTypeID)
+	b.PutString(t.Value)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestString) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testString#fe56688c to nil")
+	}
+	if err := b.ConsumeID(TestStringTypeID); err != nil {
+		return fmt.Errorf("unable to decode testString#fe56688c: %w", err)
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode testString#fe56688c: field value: %w", err)
+		}
+		t.Value = value
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestString.
+var (
+	_ bin.Encoder = &TestString{}
+	_ bin.Decoder = &TestString{}
+)
+
+// A simple object containing a sequence of bytes; for testing only
+type TestBytes struct {
+	// Bytes
+	Value []byte
+}
+
+// TestBytesTypeID is TL type id of TestBytes.
+const TestBytesTypeID = 0xa422c4de
+
+// Encode implements bin.Encoder.
+func (t *TestBytes) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testBytes#a422c4de as nil")
+	}
+	b.PutID(TestBytesTypeID)
+	b.PutBytes(t.Value)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestBytes) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testBytes#a422c4de to nil")
+	}
+	if err := b.ConsumeID(TestBytesTypeID); err != nil {
+		return fmt.Errorf("unable to decode testBytes#a422c4de: %w", err)
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode testBytes#a422c4de: field value: %w", err)
+		}
+		t.Value = value
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestBytes.
+var (
+	_ bin.Encoder = &TestBytes{}
+	_ bin.Decoder = &TestBytes{}
+)
+
+// A simple object containing a vector of numbers; for testing only
+type TestVectorInt struct {
+	// Vector of numbers
+	Value []int32
+}
+
+// TestVectorIntTypeID is TL type id of TestVectorInt.
+const TestVectorIntTypeID = 0xdf9eb113
+
+// Encode implements bin.Encoder.
+func (t *TestVectorInt) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorInt#df9eb113 as nil")
+	}
+	b.PutID(TestVectorIntTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for _, v := range t.Value {
+		b.PutInt32(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorInt) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorInt#df9eb113 to nil")
+	}
+	if err := b.ConsumeID(TestVectorIntTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorInt#df9eb113: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorInt#df9eb113: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int32()
+			if err != nil {
+				return fmt.Errorf("unable to decode testVectorInt#df9eb113: field value: %w", err)
+			}
+			t.Value = append(t.Value, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorInt.
+var (
+	_ bin.Encoder = &TestVectorInt{}
+	_ bin.Decoder = &TestVectorInt{}
+)
+
+// A simple object containing a vector of objects that hold a number; for testing only
+type TestVectorIntObject struct {
+	// Vector of objects
+	Value []TestInt
+}
+
+// TestVectorIntObjectTypeID is TL type id of TestVectorIntObject.
+const TestVectorIntObjectTypeID = 0xf152999b
+
+// Encode implements bin.Encoder.
+func (t *TestVectorIntObject) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorIntObject#f152999b as nil")
+	}
+	b.PutID(TestVectorIntObjectTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for idx, v := range t.Value {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode testVectorIntObject#f152999b: field value element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorIntObject) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorIntObject#f152999b to nil")
+	}
+	if err := b.ConsumeID(TestVectorIntObjectTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorIntObject#f152999b: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorIntObject#f152999b: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value TestInt
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode testVectorIntObject#f152999b: field value: %w", err)
+			}
+			t.Value = append(t.Value, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorIntObject.
+var (
+	_ bin.Encoder = &TestVectorIntObject{}
+	_ bin.Decoder = &TestVectorIntObject{}
+)
+
+// A simple object containing a vector of strings; for testing only
+type TestVectorString struct {
+	// Vector of strings
+	Value []string
+}
+
+// TestVectorStringTypeID is TL type id of TestVectorString.
+const TestVectorStringTypeID = 0x5d6f85bc
+
+// Encode implements bin.Encoder.
+func (t *TestVectorString) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorString#5d6f85bc as nil")
+	}
+	b.PutID(TestVectorStringTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for _, v := range t.Value {
+		b.PutString(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorString) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorString#5d6f85bc to nil")
+	}
+	if err := b.ConsumeID(TestVectorStringTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorString#5d6f85bc: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorString#5d6f85bc: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.String()
+			if err != nil {
+				return fmt.Errorf("unable to decode testVectorString#5d6f85bc: field value: %w", err)
+			}
+			t.Value = append(t.Value, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorString.
+var (
+	_ bin.Encoder = &TestVectorString{}
+	_ bin.Decoder = &TestVectorString{}
+)
+
+// A simple object containing a vector of objects that hold a string; for testing only
+type TestVectorStringObject struct {
+	// Vector of objects
+	Value []TestString
+}
+
+// TestVectorStringObjectTypeID is TL type id of TestVectorStringObject.
+const TestVectorStringObjectTypeID = 0xe5ecc0d
+
+// Encode implements bin.Encoder.
+func (t *TestVectorStringObject) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorStringObject#e5ecc0d as nil")
+	}
+	b.PutID(TestVectorStringObjectTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for idx, v := range t.Value {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode testVectorStringObject#e5ecc0d: field value element with index %d: %w", idx, err)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorStringObject#e5ecc0d to nil")
+	}
+	if err := b.ConsumeID(TestVectorStringObjectTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value TestString
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
+			}
+			t.Value = append(t.Value, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorStringObject.
+var (
+	_ bin.Encoder = &TestVectorStringObject{}
+	_ bin.Decoder = &TestVectorStringObject{}
+)
+
+// A simple object containing a vector of bytes.
+type TestVectorBytes struct {
+	// Value field of TestVectorBytes.
+	Value [][]byte
+}
+
+// TestVectorBytesTypeID is TL type id of TestVectorBytes.
+const TestVectorBytesTypeID = 0xa590fb25
+
+// Encode implements bin.Encoder.
+func (t *TestVectorBytes) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorBytes#a590fb25 as nil")
+	}
+	b.PutID(TestVectorBytesTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for _, v := range t.Value {
+		b.PutBytes(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorBytes#a590fb25 to nil")
+	}
+	if err := b.ConsumeID(TestVectorBytesTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorBytes#a590fb25: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Bytes()
+			if err != nil {
+				return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
+			}
+			t.Value = append(t.Value, value)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorBytes.
+var (
+	_ bin.Encoder = &TestVectorBytes{}
+	_ bin.Decoder = &TestVectorBytes{}
+)
+
+// TestVectorVector represents TL type testVectorVector#69e8846c.
+type TestVectorVector struct {
+	// Value field of TestVectorVector.
+	Value [][]string
+}
+
+// TestVectorVectorTypeID is TL type id of TestVectorVector.
+const TestVectorVectorTypeID = 0x69e8846c
+
+// Encode implements bin.Encoder.
+func (t *TestVectorVector) Encode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorVector#69e8846c as nil")
+	}
+	b.PutID(TestVectorVectorTypeID)
+	b.PutVectorHeader(len(t.Value))
+	for _, row := range t.Value {
+		b.PutVectorHeader(len(row))
+		for _, v := range row {
+			b.PutString(v)
+		}
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (t *TestVectorVector) Decode(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorVector#69e8846c to nil")
+	}
+	if err := b.ConsumeID(TestVectorVectorTypeID); err != nil {
+		return fmt.Errorf("unable to decode testVectorVector#69e8846c: %w", err)
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			innerLen, err := b.VectorHeader()
+			if err != nil {
+				return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+			}
+			var row []string
+			for innerIndex := 0; innerIndex < innerLen; innerLen++ {
+				value, err := b.String()
+				if err != nil {
+					return fmt.Errorf("unable to decode testVectorVector#69e8846c: field value: %w", err)
+				}
+				row = append(row, value)
+			}
+			t.Value = append(t.Value, row)
+		}
+	}
+	return nil
+}
+
+// Ensuring interfaces in compile-time for TestVectorVector.
+var (
+	_ bin.Encoder = &TestVectorVector{}
+	_ bin.Decoder = &TestVectorVector{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:

@@ -61,8 +61,12 @@ type Field struct {
 	TLName string
 	// Vector denotes whether Field TL type is vector.
 	Vector bool
+	// DoubleVector denotes whether Field TL type is vector of vectors.
+	DoubleVector bool
 	// Slice denotes whether slice should be used for this field.
 	Slice bool
+	// DoubleSlice denotes whether double slicing should be used, e.g. [][]bytes.
+	DoubleSlice bool
 	// Generic denotes whether Field Type has generic constructors.
 	Generic bool
 	// Conditional denotes whether Field is conditional.
@@ -175,6 +179,11 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Vector = true
 					f.Slice = true
 				}
+				if f.Type == "vector" {
+					f.Type = param.Type.GenericArg.GenericArg.Name
+					f.DoubleSlice = true
+					f.DoubleVector = true
+				}
 				if param.Flags {
 					f.Type = "bin.Fields"
 				}
@@ -198,6 +207,10 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Func = "Bytes"
 					f.Type = "byte"
 					f.Slice = true
+					if param.Type.Name == "vector" {
+						f.DoubleSlice = true
+						f.Vector = true
+					}
 				default:
 					f.Encoder = true
 					if _, ok := singular[param.Type.Name]; !ok && !param.Flags {

@@ -95,6 +95,27 @@ textEntity offset:int32 length:int32 type:TextEntityType = TextEntity;
 //@description Contains a list of text entities @entities List of text entities
 textEntities entities:vector<textEntity> = TextEntities;
 
+
+//@description A simple object containing a number; for testing only @value Number
+testInt value:int32 = TestInt;
+//@description A simple object containing a string; for testing only @value String
+testString value:string = TestString;
+//@description A simple object containing a sequence of bytes; for testing only @value Bytes
+testBytes value:bytes = TestBytes;
+//@description A simple object containing a vector of numbers; for testing only @value Vector of numbers
+testVectorInt value:vector<int32> = TestVectorInt;
+//@description A simple object containing a vector of objects that hold a number; for testing only @value Vector of objects
+testVectorIntObject value:vector<testInt> = TestVectorIntObject;
+//@description A simple object containing a vector of strings; for testing only @value Vector of strings
+testVectorString value:vector<string> = TestVectorString;
+//@description A simple object containing a vector of objects that hold a string; for testing only @value Vector of objects
+testVectorStringObject value:vector<testString> = TestVectorStringObject;
+
+//@description A simple object containing a vector of bytes.
+testVectorBytes value:vector<bytes> = TestVectorBytes;
+
+testVectorVector value:vector<vector<string>> = TestVectorVector;
+
 ---functions---
 
 //@description check that server is live
