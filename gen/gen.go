@@ -362,7 +362,7 @@ func Generate(fs FS, t *template.Template, s *tl.Schema) error {
 		Methods: cfg.Methods,
 		RPC:     true,
 	}
-	name := "tl_rpc_gen.go"
+	name := "rpc_gen.go"
 	buf := new(bytes.Buffer)
 	if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
 		return err

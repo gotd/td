@@ -56,7 +56,7 @@ func main() {
 			if !strings.HasSuffix(name, "_gen.go") {
 				continue
 			}
-			if !strings.HasPrefix(name, "tl_") {
+			if !strings.HasPrefix(name, "tl_") || name != "rpc_gen.go" {
 				continue
 			}
 			if err := os.Remove(filepath.Join(*targetDir, name)); err != nil {
