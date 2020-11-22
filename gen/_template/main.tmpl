@@ -25,7 +25,7 @@ const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
-        return xerrors.Errorf("can't encode {{ $s.TLType }} as nil")
+        return fmt.Errorf("can't encode {{ $s.TLType }} as nil")
     }
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
@@ -39,11 +39,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     {{- if $f.Encoder }}
         {{- if $f.Generic }}
             if v == nil {
-            return xerrors.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d is nil", idx)
+            return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d is nil", idx)
             }
         {{- end}}
         if err := v.Encode({{ $s.BufArg }}); err != nil {
-            return xerrors.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d: %w", idx, err)
+            return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d: %w", idx, err)
         }
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
@@ -53,11 +53,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     {{- if $f.Encoder }}
     {{- if $f.Generic }}
     if {{ $s.Receiver }}.{{ $f.Name }} == nil {
-        return xerrors.New("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} is nil")
+        return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} is nil")
     }
     {{- end}}
     if err := {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }}); err != nil {
-        return xerrors.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+        return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
     }
     {{- else }}
     {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
@@ -105,10 +105,10 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ $f.Type }},
 // Decode implements bin.Decoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
-        return xerrors.Errorf("can't decode {{ $s.TLType }} to nil")
+        return fmt.Errorf("can't decode {{ $s.TLType }} to nil")
     }
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
-        return xerrors.Errorf("unable to decode {{ $s.TLType }}: %w", err)
+        return fmt.Errorf("unable to decode {{ $s.TLType }}: %w", err)
     }
 {{- range $f := $s.Fields }}
     {{- if $f.ConditionalBool }}
@@ -122,24 +122,24 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
         {{- if $f.Vector }}
             headerLen, err := {{ $s.BufArg }}.VectorHeader()
             if err != nil {
-                return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
             for idx := 0; idx < headerLen; idx++ {
 
             {{- if $f.Generic }}
                 value, err := Decode{{ $f.Type }}({{ $s.BufArg }})
                 if err != nil {
-                    return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
                 }
             {{- else if $f.Encoder }}
                 var value {{ $f.Type }}
                 if err := value.Decode({{ $s.BufArg }}); err != nil {
-                    return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
                 }
             {{- else}}
                 value, err := {{ $s.BufArg }}.{{ $f.Func }}()
                 if err != nil {
-                    return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
                 }
             {{- end }}
                 {{ $s.Receiver }}.{{ $f.Name }} = append({{ $s.Receiver }}.{{ $f.Name }}, value)
@@ -148,17 +148,17 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
         {{- if $f.Generic }}
             value, err := Decode{{ $f.Type }}({{ $s.BufArg }})
             if err != nil {
-                return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- else if $f.Encoder }}
             if err := {{ $s.Receiver }}.{{ $f.Name }}.Decode({{ $s.BufArg }}); err != nil {
-                return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
         {{- else }}
             value, err := {{ $s.BufArg }}.{{ $f.Func }}()
             if err != nil {
-                return xerrors.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- end }}
@@ -216,12 +216,12 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
         // Decoding {{ $c.TLType }}.
         v := {{ $c.Name }}{}
         if err := v.Decode(buf); err != nil {
-            return nil, xerrors.Errorf("unable to decode {{ $f.Name }}: %w", err)
+            return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", err)
         }
         return &v, nil
     {{- end }}
     default:
-        return nil, xerrors.Errorf("unable to decode {{ $f.Name }}: %w", bin.NewUnexpectedID(id))
+        return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", bin.NewUnexpectedID(id))
     }
 }
 
