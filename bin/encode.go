@@ -40,7 +40,7 @@ func (b *Buffer) PutVectorHeader(length int) {
 
 // PutInt serializes v as signed 32-bit integer.
 //
-// If v is bigger than 32-bit, behaviour is undefined.
+// If v is bigger than 32-bit, `behavior` is undefined.
 func (b *Buffer) PutInt(v int) {
 	b.PutInt32(int32(v))
 }

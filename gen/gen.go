@@ -63,6 +63,14 @@ type Field struct {
 	Vector bool
 	// Generic denotes whether Field Type has generic constructors.
 	Generic bool
+	// Conditional denotes whether Field is conditional.
+	Conditional bool
+	// ConditionalField if name of bitset param.
+	ConditionalField string
+	// ConditionalIndex is Field bit in ConditionalField.
+	ConditionalIndex int
+	// ConditionalBool denotes whether value is fully encoded in ConditionalField as bit.
+	ConditionalBool bool
 }
 
 // Argument of interface method.
@@ -93,6 +101,9 @@ type Class struct {
 	Constructors []Struct
 }
 
+// Generate generates go code based on provided TL schema.
+//
+// nolint:goconst,gocognit,gocyclo
 func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 	cfg := Config{
 		Package: "td",
@@ -106,7 +117,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 			continue
 		}
 		// TODO: Namespaces?
-		constructors[d.Definition.Type.Name] += 1
+		constructors[d.Definition.Type.Name]++
 	}
 	singular := map[string]struct{}{}
 	for k, v := range constructors {
@@ -159,6 +170,9 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Type = param.Type.GenericArg.Name
 					f.Vector = true
 				}
+				if param.Flags {
+					f.Type = "bin.Fields"
+				}
 				switch f.Type {
 				case "int":
 					f.Func = "Int"
@@ -171,12 +185,20 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Type = "bool"
 				default:
 					f.Encoder = true
-					if _, ok := singular[param.Type.Name]; !ok {
+					if _, ok := singular[param.Type.Name]; !ok && !param.Flags {
 						f.Generic = true
 					}
 				}
 				if f.Comment == "" {
 					f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
+				}
+				if flag := param.Flag; flag != nil {
+					f.Conditional = true
+					f.ConditionalIndex = flag.Index
+					f.ConditionalField = pascal(flag.Name)
+					if f.Type == "bool" && !f.Vector {
+						f.ConditionalBool = true
+					}
 				}
 				s.Fields = append(s.Fields, f)
 			}

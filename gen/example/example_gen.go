@@ -730,6 +730,95 @@ var (
 	_ bin.Decoder = &GetUpdatesResp{}
 )
 
+// FieldsMessage represents TL type fieldsMessage#997275b5.
+type FieldsMessage struct {
+	// Flags field of FieldsMessage.
+	Flags bin.Fields
+	// Escape field of FieldsMessage.
+	Escape bool
+	// TTLSeconds field of FieldsMessage.
+	//
+	// Use SetTTLSeconds and GetTTLSeconds helpers.
+	TTLSeconds int
+}
+
+// FieldsMessageTypeID is TL type id of FieldsMessage.
+const FieldsMessageTypeID = 0x997275b5
+
+// Encode implements bin.Encoder.
+func (f *FieldsMessage) Encode(b *bin.Buffer) error {
+	if f == nil {
+		return xerrors.Errorf("can't encode fieldsMessage#997275b5 as nil")
+	}
+	b.PutID(FieldsMessageTypeID)
+	if err := f.Flags.Encode(b); err != nil {
+		return xerrors.Errorf("unable to encode fieldsMessage#997275b5: field flags: %w", err)
+	}
+	if f.Flags.Has(1) {
+		b.PutInt(f.TTLSeconds)
+	}
+	return nil
+}
+
+// SetEscape sets value of Escape conditional field.
+func (f *FieldsMessage) SetEscape(value bool) {
+	if value {
+		f.Flags.Set(0)
+	} else {
+		f.Flags.Unset(0)
+	}
+}
+
+// SetTTLSeconds sets value of TTLSeconds conditional field.
+func (f *FieldsMessage) SetTTLSeconds(value int) {
+	f.Flags.Set(1)
+	f.TTLSeconds = value
+}
+
+// GetTTLSeconds returns value of TTLSeconds conditional field and
+// boolean which is true if field was set.
+func (f *FieldsMessage) GetTTLSeconds() (value int, ok bool) {
+	if !f.Flags.Has(1) {
+		return value, false
+	}
+	return f.TTLSeconds, true
+}
+
+// Decode implements bin.Decoder.
+func (f *FieldsMessage) Decode(b *bin.Buffer) error {
+	if f == nil {
+		return xerrors.Errorf("can't decode fieldsMessage#997275b5 to nil")
+	}
+	if err := b.ConsumeID(FieldsMessageTypeID); err != nil {
+		return xerrors.Errorf("unable to decode fieldsMessage#997275b5: %w", err)
+	}
+	{
+		if err := f.Flags.Decode(b); err != nil {
+			return xerrors.Errorf("unable to decode fieldsMessage#997275b5: field flags: %w", err)
+		}
+	}
+	f.Escape = f.Flags.Has(0)
+	if f.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return xerrors.Errorf("unable to decode fieldsMessage#997275b5: field ttl_seconds: %w", err)
+		}
+		f.TTLSeconds = value
+	}
+	return nil
+}
+
+// construct implements constructor of AbstractMessage.
+func (f FieldsMessage) construct() AbstractMessage { return &f }
+
+// Ensuring interfaces in compile-time for FieldsMessage.
+var (
+	_ bin.Encoder = &FieldsMessage{}
+	_ bin.Decoder = &FieldsMessage{}
+
+	_ AbstractMessage = &FieldsMessage{}
+)
+
 // Bool represents Bool generic type.
 //
 // Example:
@@ -829,6 +918,7 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 //  case *BigMessage: // bigMessage#7490dcc5
 //  case *NoMessage: // noMessage#ee6324c4
 //  case *TargetsMessage: // targetsMessage#cc6136f1
+//  case *FieldsMessage: // fieldsMessage#997275b5
 //  default: panic(v)
 //  }
 type AbstractMessage interface {
@@ -861,6 +951,13 @@ func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessage, error) {
 	case TargetsMessageTypeID:
 		// Decoding targetsMessage#cc6136f1.
 		v := TargetsMessage{}
+		if err := v.Decode(buf); err != nil {
+			return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", err)
+		}
+		return &v, nil
+	case FieldsMessageTypeID:
+		// Decoding fieldsMessage#997275b5.
+		v := FieldsMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, xerrors.Errorf("unable to decode AbstractMessage: %w", err)
 		}

@@ -115,3 +115,12 @@ func (b *Buffer) String() (string, error) {
 	b.buf = b.buf[n:]
 	return v, nil
 }
+
+// Int decodes integer from Buffer.
+func (b *Buffer) Int() (int, error) {
+	v, err := b.Int32()
+	if err != nil {
+		return 0, err
+	}
+	return int(v), nil
+}

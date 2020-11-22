@@ -26,7 +26,12 @@ func (f Fields) Has(n int) bool {
 	return f&(1<<n) != 0
 }
 
+// Unset unsets field with index n.
+func (f *Fields) Unset(n int) {
+	*f &= ^(1 << n)
+}
+
 // Set sets field with index n.
 func (f *Fields) Set(n int) {
-	*f = *f | (1 << n)
+	*f |= 1 << n
 }

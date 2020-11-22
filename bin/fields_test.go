@@ -10,11 +10,14 @@ func TestFields(t *testing.T) {
 	var f Fields
 	f.Set(1)
 	f.Set(0)
+	f.Set(10)
+	f.Unset(10)
 	f.Set(5)
 	require.True(t, f.Has(1))
 	require.True(t, f.Has(5))
 	require.True(t, f.Has(0))
 	require.False(t, f.Has(2))
+	require.False(t, f.Has(10))
 	t.Run("Encode", func(t *testing.T) {
 		var b Buffer
 		require.NoError(t, f.Encode(&b))

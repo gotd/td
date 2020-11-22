@@ -7,6 +7,10 @@
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
     // {{ $f.Comment }}
+{{- if and ($f.Conditional) (not $f.ConditionalBool) }}
+//
+// Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
+{{- end }}
     {{- if $f.Vector }}
     {{ $f.Name }} []{{ $f.Type }}
     {{- else }}
@@ -25,6 +29,10 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     }
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
+    {{- if not $f.ConditionalBool }}
+    {{- if $f.Conditional }}
+    if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
+    {{- end }}
     {{- if $f.Vector }}
     {{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }}))
     for {{ if $f.Generic }}idx{{ else }}_{{ end }}, v := range {{ $s.Receiver }}.{{ $f.Name }} {
@@ -54,10 +62,45 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     {{- else }}
     {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
-    {{- end}}
+    {{- end }}
+    {{- if $f.Conditional }}
+    }
+    {{- end }}
+    {{- end }}
 {{- end }}
     return nil
 }
+
+{{- range $f := $s.Fields }}
+{{ if $f.Conditional }}
+// Set{{ $f.Name }} sets value of {{ $f.Name }} conditional field.
+func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ $f.Type }}) {
+{{- if $f.ConditionalBool }}
+    if value {
+        {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
+    } else {
+        {{ $s.Receiver }}.{{ $f.ConditionalField }}.Unset({{ $f.ConditionalIndex }})
+    }
+{{- else }}
+    {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
+    {{ $s.Receiver }}.{{ $f.Name }} = value
+{{- end }}
+}
+
+{{- if not $f.ConditionalBool }}
+// Get{{ $f.Name }} returns value of {{ $f.Name }} conditional field and
+// boolean which is true if field was set.
+func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ $f.Type }}, ok bool) {
+    if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
+        return value, false
+    }
+    return {{ $s.Receiver }}.{{ $f.Name }}, true
+}
+
+{{- end }}
+
+{{- end }}
+{{- end }}
 
 // Decode implements bin.Decoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
@@ -68,7 +111,14 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
         return xerrors.Errorf("unable to decode {{ $s.TLType }}: %w", err)
     }
 {{- range $f := $s.Fields }}
-    {
+    {{- if $f.ConditionalBool }}
+        {{ $s.Receiver }}.{{ $f.Name }} = {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }})
+    {{- else }}
+        {{- if $f.Conditional}}
+            if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
+        {{- else}}
+            {
+        {{- end }}
         {{- if $f.Vector }}
             headerLen, err := {{ $s.BufArg }}.VectorHeader()
             if err != nil {
@@ -112,8 +162,9 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- end }}
-        {{- end}}
+        {{- end }}
     }
+    {{- end }}
 {{- end }}
     return nil
 }
