@@ -1,8 +1,8 @@
 package gen
 
 import (
+	"bytes"
 	"fmt"
-	"io"
 	"strings"
 	"text/template"
 
@@ -10,6 +10,8 @@ import (
 )
 
 type Config struct {
+	RPC bool
+
 	Package    string
 	Structs    []Struct
 	Interfaces []Class
@@ -110,10 +112,14 @@ type Class struct {
 	Constructors []Struct
 }
 
+type FS interface {
+	WriteFile(name string, content []byte) error
+}
+
 // Generate generates go code based on provided TL schema.
 //
 // nolint:goconst,gocognit,gocyclo
-func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
+func Generate(fs FS, t *template.Template, s *tl.Schema) error {
 	cfg := Config{
 		Package: "td",
 	}
@@ -245,9 +251,9 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				if _, ok := classes[name]; !ok {
 					classNames = append(classNames, name)
 				}
-				classes[name] = append(classes[name], s)
 				s.Constructor = true
 				s.Interface = pascal(name)
+				classes[name] = append(classes[name], s)
 			}
 			cfg.Structs = append(cfg.Structs, s)
 		case tl.CategoryFunction:
@@ -313,5 +319,57 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 			Constructors: classes[name],
 		})
 	}
-	return t.ExecuteTemplate(w, "simple", cfg)
+
+	wroteConstructors := make(map[string]struct{})
+	for _, class := range cfg.Interfaces {
+		subConfig := Config{
+			Package:    cfg.Package,
+			Interfaces: []Class{class},
+			Structs:    class.Constructors,
+		}
+		for _, s := range subConfig.Structs {
+			wroteConstructors[s.Name] = struct{}{}
+		}
+		name := fmt.Sprintf("tl_%s_gen.go", strings.ToLower(class.Name))
+		buf := new(bytes.Buffer)
+		if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
+			return err
+		}
+		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+			return err
+		}
+	}
+	for _, s := range cfg.Structs {
+		subConfig := Config{
+			Package: cfg.Package,
+			Structs: []Struct{s},
+		}
+		if _, ok := wroteConstructors[s.Name]; ok {
+			continue
+		}
+		name := fmt.Sprintf("tl_%s_gen.go", strings.ToLower(s.Name))
+		buf := new(bytes.Buffer)
+		if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
+			return err
+		}
+		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+			return err
+		}
+	}
+
+	subConfig := Config{
+		Package: cfg.Package,
+		Methods: cfg.Methods,
+		RPC:     true,
+	}
+	name := fmt.Sprintf("tl_rpc_gen.go")
+	buf := new(bytes.Buffer)
+	if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
+		return err
+	}
+	if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -4,7 +4,7 @@
 package {{ $.Package }}
 
 import (
-"context"
+{{ if $.RPC }}"context"{{ end }}
 "fmt"
 
 "github.com/ernado/td/bin"

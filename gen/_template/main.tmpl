@@ -1,4 +1,4 @@
-{{ define "simple" }}
+{{ define "main" }}
 {{ $pkg := $.Package }}
 {{ template "header" $ }}
 
@@ -250,6 +250,7 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 
 {{ end }}
 
+{{ if $.RPC }}
 // Client describes RPC methods of TL schema.
 type Client interface {
 {{ range $m := $.Methods }}
@@ -262,5 +263,7 @@ error
 {{ end }}
 }
 
+
+{{ end }}
 
 {{ end }}
