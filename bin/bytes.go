@@ -3,7 +3,7 @@ package bin
 import "io"
 
 // encodeBytes is same as encodeString, but for bytes.
-func encodeBytes(b []byte, v []byte) []byte {
+func encodeBytes(b, v []byte) []byte {
 	l := len(v)
 	if l <= 253 {
 		b = append(b, byte(l))
