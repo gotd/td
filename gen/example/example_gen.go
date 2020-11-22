@@ -2478,4 +2478,5 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityType, error) {
 type Client interface {
 	Ping(ctx context.Context, id int32) error
 	Send(ctx context.Context, msg SMS) (SMS, error)
+	SendMultipleSMS(ctx context.Context, messages []SMS) error
 }

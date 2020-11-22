@@ -122,3 +122,5 @@ testVectorVector value:vector<vector<string>> = TestVectorVector;
 ping id:int32 = Ok;
 
 send msg:SMS = SMS;
+
+sendMultipleSMS messages:vector<SMS> = Ok;

@@ -254,7 +254,7 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 type Client interface {
 {{ range $m := $.Methods }}
 {{ $m.Name }} (ctx context.Context
-{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ if $a.Slice }}[]{{ end }}{{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
+{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ if $a.DoubleSlice }}[][]{{ else if $a.Slice }}[]{{ end }}{{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
 ({{- if $m.Result.Slice }}[]{{ end }}{{ $m.Result.Type }}, error)
 {{- else -}}
 error

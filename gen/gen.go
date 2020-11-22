@@ -81,9 +81,10 @@ type Field struct {
 
 // Argument of interface method.
 type Argument struct {
-	Name  string
-	Type  string
-	Slice bool
+	Name        string
+	Type        string
+	Slice       bool
+	DoubleSlice bool
 }
 
 // Result of Method.
@@ -281,6 +282,10 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					arg.Type = param.Type.GenericArg.Name
 					arg.Slice = true
 				}
+				if arg.Type == "vector" {
+					arg.Type = param.Type.GenericArg.GenericArg.Name
+					arg.DoubleSlice = true
+				}
 				switch arg.Type {
 				case "int":
 					arg.Type = "int"
@@ -295,7 +300,7 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				case "Bool", "bool", "true", "false":
 					arg.Type = "bool"
 				default:
-					arg.Type = pascal(param.Type.Name)
+					arg.Type = pascal(arg.Type)
 				}
 				m.Arguments = append(m.Arguments, arg)
 			}
