@@ -35,7 +35,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     {{- end }}
     {{- if $f.Vector }}
     {{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }}))
-    for {{ if $f.Generic }}idx{{ else }}_{{ end }}, v := range {{ $s.Receiver }}.{{ $f.Name }} {
+    for {{ if $f.Encoder }}idx{{ else }}_{{ end }}, v := range {{ $s.Receiver }}.{{ $f.Name }} {
     {{- if $f.Encoder }}
         {{- if $f.Generic }}
             if v == nil {
@@ -231,8 +231,8 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 type Client interface {
 {{ range $m := $.Methods }}
 {{ $m.Name }} (ctx context.Context
-{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
-({{ $m.Result.Type }}, error)
+{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ if $a.Slice }}[]{{ end }}{{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
+({{- if $m.Result.Slice }}[]{{ end }}{{ $m.Result.Type }}, error)
 {{- else -}}
 error
 {{- end -}}

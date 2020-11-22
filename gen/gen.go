@@ -77,8 +77,9 @@ type Field struct {
 
 // Argument of interface method.
 type Argument struct {
-	Name string
-	Type string
+	Name  string
+	Type  string
+	Slice bool
 }
 
 // Result of Method.
@@ -86,6 +87,7 @@ type Result struct {
 	Blank     bool
 	Type      string
 	Interface bool
+	Slice     bool
 }
 
 // Method represents RPC method with Name, Arguments and Result.
@@ -181,6 +183,12 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Func = "Int"
 				case "int32":
 					f.Func = "Int32"
+				case "double":
+					f.Func = "Double"
+					f.Type = "float64"
+				case "long", "int53":
+					f.Func = "Long"
+					f.Type = "int64"
 				case "string":
 					f.Func = "String"
 				case "Bool", "bool", "true", "false":
@@ -194,6 +202,15 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 					f.Encoder = true
 					if _, ok := singular[param.Type.Name]; !ok && !param.Flags {
 						f.Generic = true
+					}
+					if param.Type.Name == "vector" {
+						if param.Type.GenericArg.Bare {
+							f.Type = pascal(f.Type)
+							f.Generic = false
+						}
+					} else if param.Type.Bare {
+						f.Type = pascal(f.Type)
+						f.Generic = false
 					}
 				}
 				if f.Comment == "" {
@@ -229,6 +246,10 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 				m.Result.Blank = true
 			} else {
 				m.Result.Type = pascal(d.Definition.Type.Name)
+				if m.Result.Type == "vector" {
+					m.Result.Type = pascal(d.Definition.Type.GenericArg.Name)
+					m.Result.Slice = true
+				}
 				if _, ok := singular[d.Definition.Type.Name]; !ok {
 					m.Result.Interface = true
 				}
@@ -237,14 +258,27 @@ func Generate(w io.Writer, t *template.Template, s *tl.Schema) error {
 			for _, param := range d.Definition.Params {
 				arg := Argument{
 					Name: camel(param.Name),
+					Type: param.Type.Name,
 				}
-				switch param.Type.Name {
+				switch arg.Name {
+				case "type":
+					arg.Name = "typ"
+				}
+				if arg.Type == "vector" {
+					arg.Type = param.Type.GenericArg.Name
+					arg.Slice = true
+				}
+				switch arg.Type {
 				case "int":
 					arg.Type = "int"
 				case "int32":
 					arg.Type = "int32"
 				case "string":
 					arg.Type = "string"
+				case "long", "int53":
+					arg.Type = "int64"
+				case "double":
+					arg.Type = "float64"
 				case "Bool", "bool", "true", "false":
 					arg.Type = "bool"
 				default:
