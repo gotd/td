@@ -55,7 +55,7 @@ func TestGAB(t *testing.T) {
 			"10D12A8C9E355D765F2B7BBB7B4CA9360083435523CB0D57D2B106FD14F94B4EEE79D8AC131CA56AD389C84FE279716F8124A54"+
 			"3337FB9EA3D988EC5FA63D90A4BA3970E7A39E5C0DE5", 16)
 		require.True(t, ok)
-		gB, gAB := gab(g, gA, b, dhPrime)
+		gB, gAB := gab(dhPrime, b, g, gA)
 
 		if err := CheckGAB(dhPrime, g, gA, gB); err != nil {
 			t.Fatal(err)
@@ -92,8 +92,22 @@ func TestGAB(t *testing.T) {
 		if err := CheckGAB(dhPrime, g, gA, gB); err != nil {
 			t.Fatal(err)
 		}
-		if b == nil || gAB == nil {
-			t.Fatal("nil")
-		}
+		bExpected, ok := big.NewInt(0).SetString("f6850b9cff75091df2d4d02d068868e95c0ec92e07c0dcee572705fcc"+
+			"3ac766370b6a8d4fa17bf628247135c962156aa4ab6e173b699e2fa6cb607a0b3d35205ffd36635dd37572d132f7f16952c"+
+			"0feb626be13e5165fae18d10cee45ecc9c83883a039903d354e46492d011953ddd8b619dbd4ad6c8fc9f3fab2d0cbcfacea"+
+			"d28fc18fd7ee1310e9c0f98066204648ba1296e82c691cf87eaa9c2ef0d2775fb4c5d41432d77028c5640ae91e2d8b0033a7"+
+			"dd4cee0aa87b57798b5afecee8c35a08ca9adcd3a753b3937f21b5363938e6efa5cca7ae45710c874a9b180a634eb2d6f7f7"+
+			"7cd3e93418a5badfe2cea621a5f3e85f9bea16273b9dbf1924a6eb845", 16)
+		require.True(t, ok)
+		require.Zero(t, bExpected.Cmp(b), "b mismatch")
+
+		gABExpected, ok := big.NewInt(0).SetString("35cc5280773903e351c5991b3dbbae8677cf73ea16fe08d2b52c88bac"+
+			"5aa883f16d30013c55379419aac65487dc3e97afada383afcb41c424e393cf1acc7c347202ba74a94cf049c26639016f1dc60"+
+			"6c0d29e31bf147f13528e34183a9ad26a4c6537cff68bd0e82bff69b9fbe118bba3732581fa9f372ef5228a8529fc5f4ed8ff"+
+			"2fe0c5877e42ab45efaa9da36f1d2c6ffbd4c8d32f34a20579405ddc867b6da09f52499c20ac7def55938bfbcbe0b0047e5c1"+
+			"d241cc83c65bab84f4997a5025b447d15e57f9a7b13ed9397de0d236ce50da1b55c51d91ed1214de5cad9654129b1ada3caf8"+
+			"8028510209a30aa37ab81fdc7eb17160ba54c772a888fcd2549", 16)
+		require.True(t, ok)
+		require.Zero(t, gABExpected.Cmp(gAB), "g_ab mismatch")
 	})
 }

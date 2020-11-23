@@ -21,11 +21,11 @@ func GAB(dhPrime, g, gA *big.Int, randSource io.Reader) (b, gB, gAB *big.Int, er
 	if b, err = rand.Int(randSource, randMax); err != nil {
 		return nil, nil, nil, err
 	}
-	gB, gAB = gab(g, gA, b, dhPrime)
+	gB, gAB = gab(dhPrime, b, g, gA)
 	return b, gB, gAB, nil
 }
 
-func gab(g, gA, b, dhPrime *big.Int) (gB, gAB *big.Int) {
+func gab(dhPrime, b, g, gA *big.Int) (gB, gAB *big.Int) {
 	gB = big.NewInt(0).Exp(g, b, dhPrime)
 	gAB = big.NewInt(0).Exp(gA, b, dhPrime)
 	return gB, gAB
