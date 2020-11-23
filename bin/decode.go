@@ -2,6 +2,7 @@ package bin
 
 import (
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -50,9 +51,23 @@ func (b *Buffer) ConsumeN(target []byte, n int) error {
 	return nil
 }
 
+// ErrNonZeroPadding means that padding value contained non-zero byte which
+// is unexpected and can be a sign of incorrect protocol implementation or
+// data loss.
+var ErrNonZeroPadding = errors.New("bin: non-zero byte in padding")
+
+// ConsumePadding consumes n zero bytes from buffer.
+//
+// If consumed value is non-zero, ErrNonZeroPadding is returned.
+// If not enough bytes to consume, io.ErrUnexpectedEOF is returned.
 func (b *Buffer) ConsumePadding(n int) error {
 	if len(b.buf) < n {
 		return io.ErrUnexpectedEOF
+	}
+	for _, v := range b.buf[:n] {
+		if v != 0 {
+			return ErrNonZeroPadding
+		}
 	}
 	// Probably we should check that padding is actually zeroes.
 	b.buf = b.buf[n:]

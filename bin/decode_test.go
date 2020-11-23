@@ -3,6 +3,8 @@ package bin
 import (
 	"bytes"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestDecoder_ID(t *testing.T) {
@@ -15,6 +17,7 @@ func TestDecoder_ID(t *testing.T) {
 	b.PutInt32(-150)
 	b.PutLong(100)
 	b.PutDouble(1.5)
+	b.PutPadding(100)
 	gotID, err := b.ID()
 	if err != nil {
 		t.Fatal(err)
@@ -64,4 +67,8 @@ func TestDecoder_ID(t *testing.T) {
 	if gotDouble != 1.5 {
 		t.Fatal(gotDouble)
 	}
+	if err := b.ConsumePadding(100); err != nil {
+		t.Fatal(err)
+	}
+	require.Zero(t, b.Len(), "buffer should be fully consumed")
 }
