@@ -82,16 +82,16 @@ func (id MessageID) Type() MessageType {
 
 // NewMessageID returns new message id for provided time and type.
 func NewMessageID(now time.Time, typ MessageID) MessageID {
-	var modulo int
+	var yield int
 	switch typ {
 	case MessageFromClient:
-		modulo = yieldClient
+		yield = yieldClient
 	case MessageFromServer:
-		modulo = yieldFromServer
+		yield = yieldFromServer
 	case MessageServerResponse:
-		modulo = yieldServerResponse
+		yield = yieldServerResponse
 	default:
-		modulo = yieldClient
+		yield = yieldClient
 	}
-	return MessageID(newMessageID(now, modulo))
+	return MessageID(newMessageID(now, yield))
 }
