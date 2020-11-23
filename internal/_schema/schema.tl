@@ -1,6 +1,8 @@
 // NB: string types intentionaly changed to bytes
 
-req_pq#60469778 nonce:int128 = ResPQ;
+req_pq_multi#be7e8ef1 nonce:int128 = ReqPQMulti;
+
+resPQ#05162463 nonce:int128 server_nonce:int128 pq:bytes server_public_key_fingerprints:vector<long> = ResPQ;
 
 p_q_inner_data_const#83c95aec pq:bytes p:bytes q:bytes nonce:int128 server_nonce:int128 new_nonce:int256 = P_Q_inner_data;
 
