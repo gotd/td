@@ -1,13 +1,9 @@
 package crypto
 
 import (
+	"crypto/rand"
+	"io"
 	"math/big"
-
-	// #nosec
-	//
-	// We are explicitly allowing math/rand here, because integer factorisation
-	// does not require cryptographical entropy source, so it is OK.
-	"math/rand"
 )
 
 // This piece of software can be found in multiple projects, referenced as "splitPQ":
@@ -29,10 +25,7 @@ import (
 // TODO(ernado): Try https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm
 
 // DecomposePQ decomposes pq into prime factors such that p < q.
-//
-// General recommendation for rnd is to initialize it from some bytes
-// from crypto/rand.
-func DecomposePQ(pq *big.Int, rnd *rand.Rand) (p, q *big.Int) { // nolint:gocognit
+func DecomposePQ(pq *big.Int, randSource io.Reader) (p, q *big.Int, err error) { // nolint:gocognit
 	value0 := big.NewInt(0)
 	value1 := big.NewInt(1)
 	value15 := big.NewInt(15)
@@ -43,14 +36,20 @@ func DecomposePQ(pq *big.Int, rnd *rand.Rand) (p, q *big.Int) { // nolint:gocogn
 	g := big.NewInt(0)
 	i := 0
 	for !(g.Cmp(value1) == 1 && g.Cmp(what) == -1) {
-		v := big.NewInt(0).Rand(rnd, rndMax)
+		v, err := rand.Int(randSource, rndMax)
+		if err != nil {
+			return nil, nil, err
+		}
 		v = v.And(v, value15)
 		v = v.Add(v, value17)
 		v = v.Mod(v, what)
 
-		x := big.NewInt(0).Rand(rnd, rndMax)
-		whatnext := big.NewInt(0).Sub(what, value1)
-		x = x.Mod(x, whatnext)
+		x, err := rand.Int(randSource, rndMax)
+		if err != nil {
+			return nil, nil, err
+		}
+		whatNext := big.NewInt(0).Sub(what, value1)
+		x = x.Mod(x, whatNext)
 		x = x.Add(x, value1)
 
 		y := big.NewInt(0).Set(x)
@@ -107,5 +106,5 @@ func DecomposePQ(pq *big.Int, rnd *rand.Rand) (p, q *big.Int) { // nolint:gocogn
 		p, q = q, p
 	}
 
-	return p, q
+	return p, q, nil
 }
