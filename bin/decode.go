@@ -41,6 +41,24 @@ func (b *Buffer) Int32() (int32, error) {
 	return int32(v), nil
 }
 
+func (b *Buffer) ConsumeN(target []byte, n int) error {
+	if len(b.buf) < n {
+		return io.ErrUnexpectedEOF
+	}
+	copy(target, b.buf[:n])
+	b.buf = b.buf[n:]
+	return nil
+}
+
+func (b *Buffer) ConsumePadding(n int) error {
+	if len(b.buf) < n {
+		return io.ErrUnexpectedEOF
+	}
+	// Probably we should check that padding is actually zeroes.
+	b.buf = b.buf[n:]
+	return nil
+}
+
 // UnexpectedIDErr means that unknown or unexpected type id was decoded.
 type UnexpectedIDErr struct {
 	ID uint32

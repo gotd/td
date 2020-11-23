@@ -81,6 +81,9 @@ issues:
     - linters: [gocyclo, gocognit]
       text: "Parse"
 
+    - path: "intermediate\\.go"
+      linters: [gochecknoglobals]
+
     # Disable linters that are annoying in tests.
     - path: _test\.go
       linters:

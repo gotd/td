@@ -10,6 +10,11 @@ func (b Buffer) Raw() []byte {
 	return b.buf
 }
 
+// Len returns length of internal buffer.
+func (b Buffer) Len() int {
+	return len(b.buf)
+}
+
 // ResetTo sets internal buffer exactly to provided value.
 //
 // Buffer will retain buf, so user should not modify or read it

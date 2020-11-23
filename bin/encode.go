@@ -14,6 +14,11 @@ func (b *Buffer) Put(raw []byte) {
 	b.buf = append(b.buf, raw...)
 }
 
+// PutPadding appends zeroes to buffer as padding.
+func (b *Buffer) PutPadding(n int) {
+	b.buf = append(b.buf, make([]byte, n)...)
+}
+
 // PutString serializes bare string.
 func (b *Buffer) PutString(s string) {
 	b.buf = encodeString(b.buf, s)
