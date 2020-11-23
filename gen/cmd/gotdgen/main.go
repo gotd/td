@@ -23,6 +23,7 @@ func (t fs) WriteFile(name string, content []byte) error {
 func main() {
 	schemaPath := flag.String("schema", "", "Path to .tl file")
 	targetDir := flag.String("target", "td", "Path to target dir")
+	packageName := flag.String("package", "td", "Target package name")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
 	flag.Parse()
 	if *schemaPath == "" {
@@ -64,7 +65,7 @@ func main() {
 			}
 		}
 	}
-	if err := gen.Generate(fs{Root: *targetDir}, gen.Template(), schema); err != nil {
+	if err := gen.Generate(fs{Root: *targetDir}, *packageName, gen.Template(), schema); err != nil {
 		panic(err)
 	}
 }

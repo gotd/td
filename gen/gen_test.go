@@ -31,7 +31,7 @@ func TestGen(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := Generate(TestFS{Root: "example"}, tp, schema); err != nil {
+	if err := Generate(TestFS{Root: "example"}, "td", tp, schema); err != nil {
 		t.Fatal(err)
 	}
 }

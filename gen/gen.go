@@ -119,9 +119,9 @@ type FS interface {
 // Generate generates go code based on provided TL schema.
 //
 // nolint:goconst,gocognit,gocyclo
-func Generate(fs FS, t *template.Template, s *tl.Schema) error {
+func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) error {
 	cfg := Config{
-		Package: "td",
+		Package: packageName,
 	}
 
 	// Searching for all types with single constructor.
