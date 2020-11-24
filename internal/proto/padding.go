@@ -1,6 +1,6 @@
 package proto
 
-const padding = 1024
+const padding = 16
 
 func paddedLen(l int) int {
 	n := padding * (l / padding)
