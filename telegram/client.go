@@ -155,12 +155,11 @@ Loop:
 		return err
 	}
 
-	dataWithHash, err := newDataWithHash(b.Buf)
+	// `encrypted_data := RSA (data_with_hash, server_public_key);`
+	encryptedData, err := crypto.EncryptHashed(b.Buf, selectedPubKey, rand.Reader)
 	if err != nil {
 		return err
 	}
-	// `encrypted_data := RSA (data_with_hash, server_public_key);`
-	encryptedData := crypto.RSAEncrypt(dataWithHash, selectedPubKey)
 	reqDHParams := &mt.ReqDHParams{
 		Nonce:                nonce,
 		ServerNonce:          res.ServerNonce,

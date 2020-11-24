@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/ernado/td/telegram"
 )
@@ -74,10 +75,12 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	start := time.Now()
 	if err := client.Connect(ctx); err != nil {
 		panic(err)
 	}
 	if err := client.CreateAuthKey(ctx); err != nil {
 		panic(err)
 	}
+	fmt.Println("OK", time.Since(start))
 }

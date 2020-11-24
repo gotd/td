@@ -1,11 +1,11 @@
 package crypto
 
 import (
+	"bytes"
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
-	"io"
 	mathrand "math/rand"
 	"testing"
 )
@@ -23,18 +23,21 @@ BSqi+FEREW/2aWSgSwIDAQAB
 		t.Fatal(err)
 	}
 	key := keyParsed.(*rsa.PublicKey)
-	block := [255]byte{}
 	rnd := mathrand.New(mathrand.NewSource(239))
-	if _, err := io.ReadFull(rnd, block[:]); err != nil {
+	result, err := EncryptHashed([]byte("hello world"), key, rnd)
+	if err != nil {
 		t.Fatal(err)
 	}
-	copy(block[:], "hello world")
-	result := RSAEncrypt(block, key)
-	expectedBase64 := "GdYr3j/iIAYlM5Mn8Qzbpvr3oVcQ2Q0eUSBwAm1gkI2r3jQSy7Zg2a7FhOktDDh+a+A1rsVc+degM6a+d454XOzVaTDpK" +
-		"Qdp8odBToE6nvhmux0fhCrrexLjWnoIjdl759Mf+bd2v0Db15LNoII8uI73Cnv8dQXCLgd4Mjqf/fAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
-	if expectedBase64 != base64.StdEncoding.EncodeToString(result) {
-		t.Error("encryption mismatch")
+	expectedBase64 := "fxiV3AFhhauM5Dfgo50VzYBS9TxTMWPymU+cKt1HBwg9wPtIcXj3B2csCRSdCSCcjpBWJ" +
+		"6NLk2QFsv+7IEeVHKXekpVBQ1aU4p52jPYSlqQZs0/BzYKxnexwD6qjYqvXJi60LD4S3fl7eCQnVoiL25vh" +
+		"64F3a2cdYoiFQXgx7t4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+		"AAAAAAAAAAAAAAAAAAAAAA=="
+	gotBase64 := base64.StdEncoding.EncodeToString(result)
+	if expectedBase64 != gotBase64 {
+		t.Error(gotBase64)
+	}
+	if _, err := EncryptHashed(bytes.Repeat([]byte{1, 2, 3}, 1000), key, rnd); err == nil {
+		t.Error("should error")
 	}
 }
