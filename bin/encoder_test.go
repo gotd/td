@@ -66,8 +66,8 @@ func TestEncodeMessage(t *testing.T) {
 		0x2c, 0x20, 0x4e, 0x65,
 		0x6f, 0x00, 0x00, 0x00,
 	}
-	if !bytes.Equal(expected, b.buf) {
-		t.Log(hex.Dump(b.buf))
+	if !bytes.Equal(expected, b.Buf) {
+		t.Log(hex.Dump(b.Buf))
 	}
 	var decoded Message
 	if err := decoded.Decode(b); err != nil {

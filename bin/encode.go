@@ -11,22 +11,22 @@ func (b *Buffer) PutID(id uint32) {
 //
 // Buffer does not retain raw.
 func (b *Buffer) Put(raw []byte) {
-	b.buf = append(b.buf, raw...)
+	b.Buf = append(b.Buf, raw...)
 }
 
 // PutPadding appends zeroes to buffer as padding.
 func (b *Buffer) PutPadding(n int) {
-	b.buf = append(b.buf, make([]byte, n)...)
+	b.Buf = append(b.Buf, make([]byte, n)...)
 }
 
 // PutString serializes bare string.
 func (b *Buffer) PutString(s string) {
-	b.buf = encodeString(b.buf, s)
+	b.Buf = encodeString(b.Buf, s)
 }
 
 // PutBytes serializes bare byte string.
 func (b *Buffer) PutBytes(v []byte) {
-	b.buf = encodeBytes(b.buf, v)
+	b.Buf = encodeBytes(b.Buf, v)
 }
 
 // PutVectorHeader serializes vector header with provided length.
@@ -54,20 +54,20 @@ func (b *Buffer) PutBool(v bool) {
 
 // PutInt32 serializes signed 32-bit integer.
 func (b *Buffer) PutInt32(v int32) {
-	b.buf = append(b.buf,
+	b.Buf = append(b.Buf,
 		byte(v), byte(v>>8), byte(v>>16), byte(v>>24),
 	)
 }
 
 func (b *Buffer) PutUint32(v uint32) {
-	b.buf = append(b.buf,
+	b.Buf = append(b.Buf,
 		byte(v), byte(v>>8), byte(v>>16), byte(v>>24),
 	)
 }
 
 // PutLong serializes v as signed integer.
 func (b *Buffer) PutLong(v int64) {
-	b.buf = append(b.buf,
+	b.Buf = append(b.Buf,
 		byte(v),
 		byte(v>>8),
 		byte(v>>16),
@@ -81,7 +81,7 @@ func (b *Buffer) PutLong(v int64) {
 
 // PutUint64 serializes v as unsigned 64-bit integer.
 func (b *Buffer) PutUint64(v uint64) {
-	b.buf = append(b.buf,
+	b.Buf = append(b.Buf,
 		byte(v),
 		byte(v>>8),
 		byte(v>>16),
@@ -100,7 +100,7 @@ func (b *Buffer) PutDouble(v float64) {
 
 // PutInt128 serializes v as 128-bit signed integer.
 func (b *Buffer) PutInt128(v Int128) {
-	b.buf = append(b.buf,
+	b.Buf = append(b.Buf,
 		byte(v[0]),
 		byte(v[0]>>8),
 		byte(v[0]>>16),
@@ -129,5 +129,5 @@ func (b *Buffer) PutInt256(v Int256) {
 
 // Reset buffer to zero length.
 func (b *Buffer) Reset() {
-	b.buf = b.buf[:0]
+	b.Buf = b.Buf[:0]
 }

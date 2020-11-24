@@ -68,12 +68,12 @@ func TestBuffer_PutInt32(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", tt.Integer), func(t *testing.T) {
 			var b Buffer
 			b.PutInt32(tt.Integer)
-			require.Equal(t, tt.Value, b.buf)
+			require.Equal(t, tt.Value, b.Buf)
 
 			t.Run("Int", func(t *testing.T) {
 				b.Reset()
 				b.PutInt(int(tt.Integer))
-				require.Equal(t, tt.Value, b.buf)
+				require.Equal(t, tt.Value, b.Buf)
 			})
 		})
 	}
@@ -91,7 +91,7 @@ func TestBuffer_PutUint32(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", tt.Integer), func(t *testing.T) {
 			var b Buffer
 			b.PutUint32(tt.Integer)
-			require.Equal(t, tt.Value, b.buf)
+			require.Equal(t, tt.Value, b.Buf)
 		})
 	}
 }
@@ -110,7 +110,7 @@ func TestBuffer_PutLong(t *testing.T) {
 		t.Run(fmt.Sprintf("%d", tt.Integer), func(t *testing.T) {
 			var b Buffer
 			b.PutLong(tt.Integer)
-			require.Equal(t, tt.Value, b.buf)
+			require.Equal(t, tt.Value, b.Buf)
 		})
 	}
 }
@@ -129,7 +129,7 @@ func TestBuffer_PutDouble(t *testing.T) {
 		t.Run(fmt.Sprintf("%f", tt.Float), func(t *testing.T) {
 			var b Buffer
 			b.PutDouble(tt.Float)
-			require.Equal(t, tt.Value, b.buf)
+			require.Equal(t, tt.Value, b.Buf)
 		})
 	}
 }
@@ -147,7 +147,7 @@ func TestBuffer_PutVectorHeader(t *testing.T) {
 		t.Run(fmt.Sprintf("Vec[%d]", tt.Len), func(t *testing.T) {
 			var b Buffer
 			b.PutVectorHeader(tt.Len)
-			require.Equal(t, tt.Value, b.buf)
+			require.Equal(t, tt.Value, b.Buf)
 		})
 	}
 }
