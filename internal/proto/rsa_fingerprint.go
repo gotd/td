@@ -2,7 +2,7 @@ package proto
 
 import (
 	"crypto/rsa"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec
 	"encoding/binary"
 	"math/big"
 
@@ -20,7 +20,7 @@ func RSAFingerprint(key *rsa.PublicKey) int64 {
 	buf.PutBytes(key.N.Bytes())
 	buf.PutBytes(e.Bytes())
 
-	h := sha1.New()
+	h := sha1.New() // #nosec
 	_, _ = h.Write(buf.Buf)
 	result := h.Sum(nil)[12:sha1.Size]
 	return int64(binary.LittleEndian.Uint64(result))

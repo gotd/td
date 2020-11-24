@@ -4,10 +4,8 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
-	"crypto/sha1"
 	"errors"
 	"fmt"
-	"io"
 	"math/big"
 	"net"
 	"time"
@@ -139,7 +137,8 @@ Loop:
 	}
 
 	// 4. Client sends query to server.
-	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params
+	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string q:string
+	//   public_key_fingerprint:long encrypted_data:string = Server_DH_Params
 	newNonce, err := crypto.RandInt256(rand.Reader)
 	if err != nil {
 		return fmt.Errorf("failed to generate new nonce: %w", err)
@@ -156,19 +155,11 @@ Loop:
 		return err
 	}
 
-	// data_with_hash := SHA1(data) + data + (any random bytes); such that the length equals 255 bytes;
-	var dataWithHash = [255]byte{}
-	if _, err := io.ReadFull(rand.Reader, dataWithHash[:]); err != nil {
+	dataWithHash, err := newDataWithHash(b.Buf)
+	if err != nil {
 		return err
 	}
-	h := sha1.New()
-	if _, err := h.Write(b.Buf); err != nil {
-		return err
-	}
-	copy(dataWithHash[:sha1.Size], h.Sum(nil))
-	copy(dataWithHash[sha1.Size:], b.Buf)
-
-	// encrypted_data := RSA (data_with_hash, server_public_key);
+	// `encrypted_data := RSA (data_with_hash, server_public_key);`
 	encryptedData := crypto.RSAEncrypt(dataWithHash, selectedPubKey)
 	reqDHParams := &mt.ReqDHParams{
 		Nonce:                nonce,

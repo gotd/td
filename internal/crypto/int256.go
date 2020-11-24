@@ -16,5 +16,4 @@ func RandInt256(randSource io.Reader) (bin.Int256, error) {
 	}
 	b := &bin.Buffer{Buf: buf}
 	return b.Int256()
-
 }
