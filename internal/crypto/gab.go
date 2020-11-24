@@ -54,7 +54,7 @@ func CheckGAB(dhPrime, g, gA, gB *big.Int) error {
 	// dh_prime - 2^{2048-64} as well.
 
 	// 2^{2048-64}
-	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2048-64), big.NewInt(2), nil)
+	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(2048-64), nil)
 	safetyRangeMax := big.NewInt(0).Sub(dhPrime, safetyRangeMin)
 	if !inRange(gA, safetyRangeMin, safetyRangeMax) {
 		return errors.New("kex: bad g_a")
