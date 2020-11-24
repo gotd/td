@@ -6,14 +6,15 @@ import (
 	"github.com/ernado/td/bin"
 )
 
-// RandInt128 generates and returns new random 128-bit integer.
+// RandInt256 generates and returns new random 256-bit integer.
 //
 // Use crypto/rand.Reader as randSource in production.
-func RandInt128(randSource io.Reader) (bin.Int128, error) {
-	buf := make([]byte, bin.Word*4)
+func RandInt256(randSource io.Reader) (bin.Int256, error) {
+	buf := make([]byte, bin.Word*8)
 	if _, err := io.ReadFull(randSource, buf); err != nil {
-		return bin.Int128{}, err
+		return bin.Int256{}, err
 	}
 	b := &bin.Buffer{Buf: buf}
-	return b.Int128()
+	return b.Int256()
+
 }
