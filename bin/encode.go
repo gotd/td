@@ -1,6 +1,8 @@
 package bin
 
-import "math"
+import (
+	"math"
+)
 
 // PutID serializes type definition id, like a8509bda.
 func (b *Buffer) PutID(id uint32) {
@@ -100,31 +102,12 @@ func (b *Buffer) PutDouble(v float64) {
 
 // PutInt128 serializes v as 128-bit signed integer.
 func (b *Buffer) PutInt128(v Int128) {
-	b.Buf = append(b.Buf,
-		byte(v[0]),
-		byte(v[0]>>8),
-		byte(v[0]>>16),
-		byte(v[0]>>24),
-		byte(v[0]>>32),
-		byte(v[0]>>40),
-		byte(v[0]>>48),
-		byte(v[0]>>56),
-
-		byte(v[1]),
-		byte(v[1]>>8),
-		byte(v[1]>>16),
-		byte(v[1]>>24),
-		byte(v[1]>>32),
-		byte(v[1]>>40),
-		byte(v[1]>>48),
-		byte(v[1]>>56),
-	)
+	b.Buf = append(b.Buf, v[:]...)
 }
 
 // PutInt256 serializes v as 256-bit signed integer.
 func (b *Buffer) PutInt256(v Int256) {
-	b.PutInt128([2]int64{v[0], v[1]})
-	b.PutInt128([2]int64{v[2], v[3]})
+	b.Buf = append(b.Buf, v[:]...)
 }
 
 // Reset buffer to zero length.

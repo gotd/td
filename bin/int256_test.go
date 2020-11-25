@@ -7,7 +7,7 @@ import (
 )
 
 func TestInt256_Encode(t *testing.T) {
-	v := Int256{1043532, 12466515, 858123, 12865761}
+	v := Int256{4, 3, 1, 2}
 	b := Buffer{}
 	if err := v.Encode(&b); err != nil {
 		t.Fatal(err)
@@ -21,7 +21,7 @@ func TestInt256_Encode(t *testing.T) {
 
 func BenchmarkBuffer_PutInt256(b *testing.B) {
 	b.ReportAllocs()
-	v := Int256{1043532, 12466515, 858123, 12865761}
+	v := Int256{1, 4, 4, 6}
 	buf := new(Buffer)
 	for i := 0; i < b.N; i++ {
 		buf.PutInt256(v)
