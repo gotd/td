@@ -1,6 +1,7 @@
 package bin
 
 import (
+	"encoding/binary"
 	"math"
 )
 
@@ -56,43 +57,25 @@ func (b *Buffer) PutBool(v bool) {
 
 // PutInt32 serializes signed 32-bit integer.
 func (b *Buffer) PutInt32(v int32) {
-	b.Buf = append(b.Buf,
-		byte(v), byte(v>>8), byte(v>>16), byte(v>>24),
-	)
+	b.PutUint32(uint32(v))
 }
 
 func (b *Buffer) PutUint32(v uint32) {
-	b.Buf = append(b.Buf,
-		byte(v), byte(v>>8), byte(v>>16), byte(v>>24),
-	)
+	t := make([]byte, Word)
+	binary.LittleEndian.PutUint32(t, v)
+	b.Buf = append(b.Buf, t...)
 }
 
 // PutLong serializes v as signed integer.
 func (b *Buffer) PutLong(v int64) {
-	b.Buf = append(b.Buf,
-		byte(v),
-		byte(v>>8),
-		byte(v>>16),
-		byte(v>>24),
-		byte(v>>32),
-		byte(v>>40),
-		byte(v>>48),
-		byte(v>>56),
-	)
+	b.PutUint64(uint64(v))
 }
 
 // PutUint64 serializes v as unsigned 64-bit integer.
 func (b *Buffer) PutUint64(v uint64) {
-	b.Buf = append(b.Buf,
-		byte(v),
-		byte(v>>8),
-		byte(v>>16),
-		byte(v>>24),
-		byte(v>>32),
-		byte(v>>40),
-		byte(v>>48),
-		byte(v>>56),
-	)
+	t := make([]byte, Word*2)
+	binary.LittleEndian.PutUint64(t, v)
+	b.Buf = append(b.Buf, t...)
 }
 
 // PutDouble serializes v as 64-bit floating point.
