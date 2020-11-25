@@ -3,6 +3,7 @@ package crypto
 import (
 	"crypto/sha256"
 	"hash"
+	"io"
 	"sync"
 )
 
@@ -39,7 +40,11 @@ func getSHA256() hash.Hash {
 	return h
 }
 
-func MsgKeyLarge(b, authKey, plaintextPadded []byte, mode Mode) []byte {
+// Message keys are defined here:
+// * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
+
+// msgKeyLarge appends msg_key_large value to b.
+func msgKeyLarge(b, authKey, plaintextPadded []byte, mode Mode) []byte {
 	h := getSHA256()
 	defer sha256Pool.Put(h)
 
@@ -49,14 +54,15 @@ func MsgKeyLarge(b, authKey, plaintextPadded []byte, mode Mode) []byte {
 	return h.Sum(b)
 }
 
-func MsgKey(msgKey []byte) []byte {
-	return msgKey[8 : 16+8]
+// messageKey returns msg_key = substr (msg_key_large, 8, 16).
+func messageKey(messageKeyLarge []byte) []byte {
+	return messageKeyLarge[8 : 16+8]
 }
 
-// SHA256A appends sha256_a value to b.
+// sha256a appends sha256_a value to b.
 //
 // sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));
-func SHA256A(b, authKey, msgKey []byte, mode Mode) []byte {
+func sha256a(b, authKey, msgKey []byte, mode Mode) []byte {
 	h := getSHA256()
 	defer sha256Pool.Put(h)
 
@@ -66,10 +72,10 @@ func SHA256A(b, authKey, msgKey []byte, mode Mode) []byte {
 	return h.Sum(b)
 }
 
-// SHA256B appends sha256_b value to b.
+// sha256b appends sha256_b value to b.
 //
 // sha256_b = SHA256 (substr (auth_key, 40+x, 36) + msg_key);
-func SHA256B(b, authKey, msgKey []byte, mode Mode) []byte {
+func sha256b(b, authKey, msgKey []byte, mode Mode) []byte {
 	h := getSHA256()
 	defer sha256Pool.Put(h)
 
@@ -79,20 +85,60 @@ func SHA256B(b, authKey, msgKey []byte, mode Mode) []byte {
 	return h.Sum(b)
 }
 
-// AESKey appends aes_key to b.
+// aesKey appends aes_key to b.
 //
 // aes_key = substr (sha256_a, 0, 8) + substr (sha256_b, 8, 16) + substr (sha256_a, 24, 8);
-func AESKey(b, sha256a, sha256b []byte) []byte {
+func aesKey(b, sha256a, sha256b []byte) []byte {
 	b = append(b, sha256a[:8]...)
 	b = append(b, sha256b[8:16+8]...)
 	b = append(b, sha256a[24:24+8]...)
 	return b
 }
 
-// AESIV appends aes_iv to b.
+// aesIV appends aes_iv to b.
 //
 // aes_iv = substr (sha256_b, 0, 8) + substr (sha256_a, 8, 16) + substr (sha256_b, 24, 8);
-func AESIV(b, sha256a, sha256b []byte) []byte {
+func aesIV(b, sha256a, sha256b []byte) []byte {
 	// Same as aes_key, but with swapped params.
-	return AESKey(b, sha256b, sha256a)
+	return aesKey(b, sha256b, sha256a)
+}
+
+// Keys for message.
+type Keys struct {
+	MessageKey []byte // msg_key
+	Key        []byte // aes_key
+	IV         []byte // aes_iv
+}
+
+// MessageKeys returns aes_key and aes_iv for plaintext message.
+// Basically it is "KDF" in diagram.
+//
+// Reference:
+// * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
+func MessageKeys(authKey, plaintext []byte, mode Mode, randomSource io.Reader) (*Keys, error) {
+	plaintextPadded := make([]byte, paddedLen16(len(plaintext)))
+	copy(plaintextPadded, plaintext)
+	if _, err := io.ReadFull(randomSource, plaintext[len(plaintext):]); err != nil {
+		return nil, err
+	}
+	// `msg_key_large = SHA256 (substr (auth_key, 88+x, 32) + plaintext + random_padding);`
+	msgKeyLarge := msgKeyLarge(nil, authKey, plaintextPadded, mode)
+	// `msg_key = substr (msg_key_large, 8, 16);`
+	msgKey := messageKey(msgKeyLarge)
+
+	// `sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));`
+	a := sha256a(nil, authKey, msgKey, mode)
+	// `sha256_b = SHA256 (substr (auth_key, 40+x, 36) + msg_key);`
+	b := sha256b(nil, authKey, msgKey, mode)
+
+	// `aes_key = substr (sha256_a, 0, 8) + substr (sha256_b, 8, 16) + substr (sha256_a, 24, 8);`
+	key := aesKey(nil, a, b)
+	// `aes_iv = substr (sha256_b, 0, 8) + substr (sha256_a, 8, 16) + substr (sha256_b, 24, 8);`
+	iv := aesIV(nil, a, b)
+
+	return &Keys{
+		Key:        key,
+		IV:         iv,
+		MessageKey: msgKey,
+	}, nil
 }

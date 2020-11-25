@@ -13,7 +13,7 @@ func BenchmarkSHA256A(b *testing.B) {
 	)
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
-		buf = SHA256A(buf, authKey, msgKey, ModeServer)
+		buf = sha256a(buf, authKey, msgKey, ModeServer)
 		buf = buf[:0]
 	}
 }
