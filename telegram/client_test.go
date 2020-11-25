@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"math/rand"
 	"net"
 	"testing"
 	"time"
@@ -31,6 +32,7 @@ func TestClient_Connect(t *testing.T) {
 	client, err := Dial(ctx, Options{
 		Addr:    listener.Addr().String(),
 		Network: listener.Addr().Network(),
+		Random:  rand.New(rand.NewSource(249)),
 	})
 	if err != nil {
 		t.Fatal(err)
