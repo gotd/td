@@ -10,15 +10,13 @@ import (
 
 // EncryptedMessageData is stored in EncryptedMessage.EncryptedData.
 type EncryptedMessageData struct {
-	Salt        int64
-	SessionID   int64
-	MessageID   crypto.MessageID
-	SeqNo       int32
-	MessageData []byte
+	Salt                   int64
+	SessionID              int64
+	MessageID              crypto.MessageID
+	SeqNo                  int32
+	MessageDataLen         int32
+	MessageDataWithPadding []byte
 }
-
-// encryptedMessageDataHeader is 3 int64 + 2 int32.
-const encryptedMessageDataHeader = 3*2*bin.Word + 2*bin.Word
 
 // Encode implements bin.Encoder.
 func (e EncryptedMessageData) Encode(b *bin.Buffer) error {
@@ -26,9 +24,8 @@ func (e EncryptedMessageData) Encode(b *bin.Buffer) error {
 	b.PutLong(e.SessionID)
 	b.PutLong(int64(e.MessageID))
 	b.PutInt32(e.SeqNo)
-	b.PutInt32(int32(len(e.MessageData)))
-	b.Put(e.MessageData)
-	b.PutPadding(paddingRequired(len(e.MessageData) + encryptedMessageDataHeader))
+	b.PutInt32(e.MessageDataLen)
+	b.Put(e.MessageDataWithPadding)
 	return nil
 }
 
@@ -62,18 +59,17 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 		}
 		e.SeqNo = v
 	}
-
-	// Reading data.
-	dataLen, err := b.Int32()
-	if err != nil {
-		return err
+	{
+		v, err := b.Int32()
+		if err != nil {
+			return err
+		}
+		e.MessageDataLen = v
 	}
-	e.MessageData = append(e.MessageData[:0], make([]byte, dataLen)...)
-	if err := b.ConsumeN(e.MessageData, int(dataLen)); err != nil {
+	expectedLength := paddedLen(int(e.MessageDataLen))
+	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], make([]byte, expectedLength)...)
+	if err := b.ConsumeN(e.MessageDataWithPadding, expectedLength); err != nil {
 		return fmt.Errorf("failed to consume payload: %w", err)
-	}
-	if err := b.ConsumePadding(paddingRequired(int(dataLen) + encryptedMessageDataHeader)); err != nil {
-		return fmt.Errorf("failed to consume padding: %w", err)
 	}
 	return nil
 }

@@ -7,7 +7,6 @@ type EncryptedMessage struct {
 	AuthKeyID int64
 	MsgKey    bin.Int128
 
-	// EncryptedData stores the cipher text of EncryptedMessageData.
 	EncryptedData []byte
 }
 
