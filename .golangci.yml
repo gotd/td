@@ -81,6 +81,10 @@ issues:
     - linters: [gocyclo, gocognit]
       text: "(Parse|CreateAuthKey)"
 
+    - linters: [gocritic]
+      text: "commentedOutCode"
+      source: "SHA1"
+
     - path: "intermediate\\.go"
       linters: [gochecknoglobals]
 
