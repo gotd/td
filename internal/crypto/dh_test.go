@@ -1,12 +1,39 @@
 package crypto
 
 import (
+	"crypto/rand"
+	"io"
 	"math/big"
-	"math/rand"
+	mathrand "math/rand"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 )
+
+// genGAB is part of Diffie-Hellman key exchange.
+//
+// See https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
+//
+// Values:
+//	gA is g_a
+//	dhPrime is dh_prime
+//	gB is g_b
+//	gAB is gab.
+func genGAB(dhPrime, g, gA *big.Int, randSource io.Reader) (b, gB, gAB *big.Int, err error) {
+	randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
+	// 6. Random number b is computed:
+	if b, err = rand.Int(randSource, randMax); err != nil {
+		return nil, nil, nil, err
+	}
+	gB, gAB = gab(dhPrime, b, g, gA)
+	return b, gB, gAB, nil
+}
+
+func gab(dhPrime, b, g, gA *big.Int) (gB, gAB *big.Int) {
+	gB = big.NewInt(0).Exp(g, b, dhPrime)
+	gAB = big.NewInt(0).Exp(gA, b, dhPrime)
+	return gB, gAB
+}
 
 func TestGAB(t *testing.T) {
 	// https://core.telegram.org/mtproto/samples-auth_key#server-dh-inner-data-decomposition-using-the-following-formula
@@ -57,7 +84,7 @@ func TestGAB(t *testing.T) {
 		require.True(t, ok)
 		gB, gAB := gab(dhPrime, b, g, gA)
 
-		if err := CheckGAB(dhPrime, g, gA, gB); err != nil {
+		if err := CheckDHParams(dhPrime, g, gA, gB); err != nil {
 			t.Fatal(err)
 		}
 		if b == nil || gAB == nil {
@@ -85,11 +112,11 @@ func TestGAB(t *testing.T) {
 		}
 	})
 	t.Run("Random", func(t *testing.T) {
-		b, gB, gAB, err := GAB(dhPrime, g, gA, rand.New(rand.NewSource(239)))
+		b, gB, gAB, err := genGAB(dhPrime, g, gA, mathrand.New(mathrand.NewSource(239)))
 		if err != nil {
 			t.Fatal(err)
 		}
-		if err := CheckGAB(dhPrime, g, gA, gB); err != nil {
+		if err := CheckDHParams(dhPrime, g, gA, gB); err != nil {
 			t.Fatal(err)
 		}
 		bExpected, ok := big.NewInt(0).SetString("f6850b9cff75091df2d4d02d068868e95c0ec92e07c0dcee572705fcc"+

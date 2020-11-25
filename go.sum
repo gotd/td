@@ -2,8 +2,8 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/ernado/tl v0.1.1 h1:D7YC0VAMehmNokFTz4zAZ042HHUC99AXxw0WeAfkF6s=
-github.com/ernado/tl v0.1.1/go.mod h1:XJHNo5n5fafquXVxSwMYWKO22x9d0aEwpCC9r+S5n04=
+github.com/ernado/ige v0.1.1 h1:iFeXpAomVvT4Xw3uvzprkXpvH0BIiHXgudDle0Qhcpg=
+github.com/ernado/ige v0.1.1/go.mod h1:+gbBDg70watSVAcCnvdNUcloW5yu3gHqCqZUTT5h0ws=
 github.com/ernado/tl v0.1.2 h1:el9U1Yskc36TRwM3hhGaTUQdluu91umGVlGe/Z7Wl+k=
 github.com/ernado/tl v0.1.2/go.mod h1:XJHNo5n5fafquXVxSwMYWKO22x9d0aEwpCC9r+S5n04=
 github.com/go-bindata/go-bindata v3.1.2+incompatible h1:5vjJMVhowQdPzjE1LdxyFF7YFTXg5IgGVW4gBr5IbvE=

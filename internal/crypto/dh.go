@@ -1,40 +1,14 @@
 package crypto
 
 import (
-	"crypto/rand"
 	"errors"
-	"io"
 	"math/big"
 )
 
-// GAB is part of Diffie-Hellman key exchange.
-//
-// See https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-//
-// Values:
-//	gA is g_a
-//	dhPrime is dh_prime
-//	gB is g_b
-//	gAB is gab.
-func GAB(dhPrime, g, gA *big.Int, randSource io.Reader) (b, gB, gAB *big.Int, err error) {
-	randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
-	if b, err = rand.Int(randSource, randMax); err != nil {
-		return nil, nil, nil, err
-	}
-	gB, gAB = gab(dhPrime, b, g, gA)
-	return b, gB, gAB, nil
-}
-
-func gab(dhPrime, b, g, gA *big.Int) (gB, gAB *big.Int) {
-	gB = big.NewInt(0).Exp(g, b, dhPrime)
-	gAB = big.NewInt(0).Exp(gA, b, dhPrime)
-	return gB, gAB
-}
-
-// CheckGAB checks that g_a, g_b and g params meet key exchange conditions.
+// CheckDHParams checks that g_a, g_b and g params meet key exchange conditions.
 //
 // https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete
-func CheckGAB(dhPrime, g, gA, gB *big.Int) error {
+func CheckDHParams(dhPrime, g, gA, gB *big.Int) error {
 	one := big.NewInt(1)
 	dhPrimeMinusOne := big.NewInt(0).Sub(dhPrime, one)
 	if !inRange(g, one, dhPrimeMinusOne) {
