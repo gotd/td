@@ -230,7 +230,7 @@ Loop:
 		}
 
 		// 7. Computing auth_key using formula (g_a)^b mod dh_prime
-		authKey := big.NewInt(0).Exp(gA, bParam, dhPrime).Bytes()
+		authKey := big.NewInt(0).Exp(gA, bParam, dhPrime)
 
 		b.Reset()
 		if err := proto.ReadIntermediate(c.conn, b); err != nil {
@@ -246,7 +246,21 @@ Loop:
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
-			c.authKey = authKey
+			authKey.FillBytes(c.authKey[:])
+			c.authKeyID = c.authKey.ID()
+
+			sessionID, err := crypto.NewSessionID(c.rand)
+			if err != nil {
+				return err
+			}
+			salt, err := crypto.NewSessionID(c.rand)
+			if err != nil {
+				return err
+			}
+
+			c.session = sessionID
+			c.salt = salt
+
 			return nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
 			return xerrors.Errorf("retry required: %x", v.NewNonceHash2)

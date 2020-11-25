@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/rsa"
 	"crypto/x509"
-	"encoding/hex"
 	"encoding/pem"
 	"fmt"
 	"io/ioutil"
@@ -83,5 +82,9 @@ func main() {
 	if err := client.CreateAuthKey(ctx); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
-	fmt.Println("OK", time.Since(start), hex.Dump(client.AuthKey()))
+	fmt.Println("OK", time.Since(start))
+
+	if err := client.Ping(ctx); err != nil {
+		panic(err)
+	}
 }

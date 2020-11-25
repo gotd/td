@@ -17,10 +17,13 @@ import (
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	conn    net.Conn
-	clock   func() time.Time
-	authKey []byte
-	rand    io.Reader
+	conn      net.Conn
+	clock     func() time.Time
+	authKey   crypto.AuthKey
+	authKeyID int64
+	salt      int64
+	session   int64
+	rand      io.Reader
 
 	rsaPublicKeys []*rsa.PublicKey
 }
@@ -64,7 +67,7 @@ func (c Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error 
 	return msg.Encode(b)
 }
 
-func (c Client) AuthKey() []byte {
+func (c Client) AuthKey() crypto.AuthKey {
 	return c.authKey
 }
 
