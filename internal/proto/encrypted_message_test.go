@@ -11,7 +11,7 @@ import (
 func TestEncryptedMessage_Encode(t *testing.T) {
 	d := EncryptedMessage{
 		EncryptedData: []byte{1, 2, 0x1, 0xff, 0xee},
-		MsgKey:        [2]int64{100, 200},
+		MsgKey:        bin.Int128{1, 5, 0, 9},
 		AuthKeyID:     101561413,
 	}
 	b := new(bin.Buffer)
