@@ -51,8 +51,5 @@ jobs:
           # Prefix the list here with "+" to use these queries and those in the config file.
           # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
-      # Use manual build instead of auto build
-      - run: make test
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
