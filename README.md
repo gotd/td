@@ -1,9 +1,15 @@
 # td
 
-MTProto encoding and decoding, based on [TL parser](https://github.com/ernado/tl) and inspired by
+Telegram protocol implementation based on [TL parser](https://github.com/ernado/tl) and inspired by
 [grammers](https://github.com/Lonami/grammers).
 
-Work in progress.
+## Status
+
+Work in progress. Only go1.15 is supported.
+
+Goal of this project is to implement Telegram client while
+providing building blocks for the other client or even server
+implementation without performance bottlenecks.
 
 ## Reference
 
