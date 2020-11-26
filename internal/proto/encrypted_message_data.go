@@ -1,8 +1,6 @@
 package proto
 
 import (
-	"fmt"
-
 	"github.com/ernado/td/internal/crypto"
 
 	"github.com/ernado/td/bin"
@@ -66,10 +64,6 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 		}
 		e.MessageDataLen = v
 	}
-	expectedLength := paddedLen(int(e.MessageDataLen))
-	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], make([]byte, expectedLength)...)
-	if err := b.ConsumeN(e.MessageDataWithPadding, expectedLength); err != nil {
-		return fmt.Errorf("failed to consume payload: %w", err)
-	}
+	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], b.Buf...)
 	return nil
 }

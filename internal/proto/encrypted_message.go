@@ -4,19 +4,15 @@ import "github.com/ernado/td/bin"
 
 // EncryptedMessage of protocol.
 type EncryptedMessage struct {
-	AuthKeyID int64
+	AuthKeyID [8]byte
 	MsgKey    bin.Int128
 
 	EncryptedData []byte
 }
 
 func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
-	{
-		v, err := b.Long()
-		if err != nil {
-			return err
-		}
-		e.AuthKeyID = v
+	if err := b.ConsumeN(e.AuthKeyID[:], 8); err != nil {
+		return err
 	}
 	{
 		v, err := b.Int128()
@@ -34,7 +30,7 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 }
 
 func (e EncryptedMessage) Encode(b *bin.Buffer) error {
-	b.PutLong(e.AuthKeyID)
+	b.Put(e.AuthKeyID[:])
 	b.PutInt128(e.MsgKey)
 	b.Put(e.EncryptedData)
 	return nil

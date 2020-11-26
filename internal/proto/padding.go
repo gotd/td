@@ -11,5 +11,5 @@ func paddedLen(l int) int {
 }
 
 func paddingRequired(l int) int {
-	return paddedLen(l) - l
+	return 16 + (16 - (l % 16))
 }

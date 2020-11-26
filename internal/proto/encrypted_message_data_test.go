@@ -28,5 +28,4 @@ func TestEncryptedMessageData_Encode(t *testing.T) {
 	}
 	decoded.MessageDataWithPadding = decoded.MessageDataWithPadding[:decoded.MessageDataLen]
 	require.Equal(t, d, decoded)
-	require.Zero(t, b.Len(), "buffer should be consumed")
 }
