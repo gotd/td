@@ -1,10 +1,11 @@
 package telegram
 
 import (
+	"bytes"
 	"context"
 	"crypto/aes"
 	"crypto/rand"
-	"crypto/rsa"
+	"crypto/rsa" // #nosec
 	"errors"
 	"math/big"
 
@@ -247,8 +248,23 @@ Loop:
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
 			authKey.FillBytes(c.authKey[:])
-			c.authKeyID = c.authKey.ID()
+			authKeyID := sha(c.authKey[:])[12:20]
 
+			// Checking received hash.
+			var buf []byte
+			buf = append(buf, newNonce[:]...)
+			buf = append(buf, 1)
+			buf = append(buf, sha(c.authKey[:])[0:8]...)
+			nonceHash1 := sha(buf)[4:20]
+			serverSalt := make([]byte, 8)
+			copy(serverSalt, newNonce[:8])
+			xor(serverSalt, v.ServerNonce[:8])
+
+			if !bytes.Equal(nonceHash1, v.NewNonceHash1[:]) {
+				return xerrors.New("key exchange verification failed: hash mismatch")
+			}
+
+			// Generating new session id and salt.
 			sessionID, err := crypto.NewSessionID(c.rand)
 			if err != nil {
 				return err
@@ -258,6 +274,7 @@ Loop:
 				return err
 			}
 
+			copy(c.authKeyID[:], authKeyID)
 			c.session = sessionID
 			c.salt = salt
 

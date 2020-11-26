@@ -20,10 +20,11 @@ type Client struct {
 	conn      net.Conn
 	clock     func() time.Time
 	authKey   crypto.AuthKey
-	authKeyID int64
+	authKeyID [8]byte
 	salt      int64
 	session   int64
 	rand      io.Reader
+	seq       int
 
 	rsaPublicKeys []*rsa.PublicKey
 }
@@ -60,8 +61,8 @@ func (c Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error 
 		return err
 	}
 	msg := proto.UnencryptedMessage{
-		MessageID:   crypto.NewMessageID(c.clock(), crypto.ModeClient),
-		MessageData: append([]byte(nil), b.Buf...),
+		MessageID:   crypto.NewMessageID(c.clock(), crypto.Client),
+		MessageData: b.Copy(),
 	}
 	b.Reset()
 	return msg.Encode(b)

@@ -84,7 +84,15 @@ func main() {
 	}
 	fmt.Println("OK", time.Since(start))
 
+	if err := client.InitConnection(ctx); err != nil {
+		panic(err)
+	}
+
+	fmt.Println("initialized")
+
 	if err := client.Ping(ctx); err != nil {
 		panic(err)
 	}
+
+	fmt.Println("ping")
 }
