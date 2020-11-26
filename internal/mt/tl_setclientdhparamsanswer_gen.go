@@ -3,6 +3,7 @@
 package mt
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // DhGenOk represents TL type dh_gen_ok#3bcbf734.
 type DhGenOk struct {

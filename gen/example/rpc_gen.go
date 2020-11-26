@@ -4,12 +4,15 @@ package td
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/ernado/td/bin"
 )
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // Client describes RPC methods of TL schema.
 type Client interface {

@@ -3,6 +3,7 @@
 package td
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // A simple object containing a vector of objects that hold a string; for testing only
 type TestVectorStringObject struct {

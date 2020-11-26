@@ -3,6 +3,7 @@
 package mt
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // PQInnerDataConst represents TL type p_q_inner_data_const#83c95aec.
 type PQInnerDataConst struct {

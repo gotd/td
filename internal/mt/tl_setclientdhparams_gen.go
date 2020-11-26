@@ -3,6 +3,7 @@
 package mt
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // SetClientDHParams represents TL type set_client_DH_params#f5045f1f.
 type SetClientDHParams struct {

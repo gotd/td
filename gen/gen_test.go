@@ -2,8 +2,8 @@ package gen
 
 import (
 	"bytes"
+	"io"
 	"io/ioutil"
-	"path/filepath"
 	"testing"
 	"text/template"
 
@@ -15,7 +15,10 @@ type TestFS struct {
 }
 
 func (t TestFS) WriteFile(name string, content []byte) error {
-	return ioutil.WriteFile(filepath.Join(t.Root, name), content, 0600)
+	if len(content) == 0 {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 
 func TestGen(t *testing.T) {

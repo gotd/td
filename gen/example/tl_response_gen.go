@@ -3,6 +3,7 @@
 package td
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // ResponseID represents TL type responseID#85d7fd8b.
 type ResponseID struct {

@@ -3,6 +3,7 @@
 package mt
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/ernado/td/bin"
@@ -10,6 +11,8 @@ import (
 
 // No-op definition for keeping imports.
 var _ = bin.Buffer{}
+var _ = context.Background()
+var _ = fmt.Stringer(nil)
 
 // ServerDHParamsFail represents TL type server_DH_params_fail#79cb045d.
 type ServerDHParamsFail struct {

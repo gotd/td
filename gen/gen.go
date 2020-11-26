@@ -3,8 +3,11 @@ package gen
 import (
 	"bytes"
 	"fmt"
+	"go/format"
 	"strings"
 	"text/template"
+
+	"golang.org/x/xerrors"
 
 	"github.com/ernado/tl"
 )
@@ -341,7 +344,11 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 		if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
 			return err
 		}
-		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		out, err := format.Source(buf.Bytes())
+		if err != nil {
+			return xerrors.Errorf("failed to format: %w", err)
+		}
+		if err := fs.WriteFile(name, out); err != nil {
 			return err
 		}
 	}
@@ -358,7 +365,11 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 		if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
 			return err
 		}
-		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		out, err := format.Source(buf.Bytes())
+		if err != nil {
+			return xerrors.Errorf("failed to format: %w", err)
+		}
+		if err := fs.WriteFile(name, out); err != nil {
 			return err
 		}
 	}
@@ -373,9 +384,13 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 	if err := t.ExecuteTemplate(buf, "main", subConfig); err != nil {
 		return err
 	}
-	if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+
+	out, err := format.Source(buf.Bytes())
+	if err != nil {
+		return xerrors.Errorf("failed to format: %w", err)
+	}
+	if err := fs.WriteFile(name, out); err != nil {
 		return err
 	}
-
 	return nil
 }
