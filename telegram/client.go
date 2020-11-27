@@ -108,16 +108,29 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
 	}
+	if len(opt.PublicKeys) == 0 {
+		// Using public keys that are included with distribution if not
+		// provided.
+		//
+		// This should never fail and keys should be valid for recent
+		// library versions.
+		keys, err := vendoredKeys()
+		if err != nil {
+			return nil, xerrors.Errorf("failed to load vendored keys: %w", err)
+		}
+		opt.PublicKeys = keys
+	}
 	conn, err := opt.Dialer.DialContext(ctx, "tcp", opt.Addr)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to dial: %w", err)
 	}
 	client := &Client{
-		conn:          conn,
-		clock:         time.Now,
+		conn:  conn,
+		clock: time.Now,
+		rand:  opt.Random,
+		log:   opt.Logger,
+
 		rsaPublicKeys: opt.PublicKeys,
-		rand:          opt.Random,
-		log:           opt.Logger,
 	}
 	return client, nil
 }
