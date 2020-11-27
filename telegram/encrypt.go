@@ -13,7 +13,7 @@ import (
 func padding(l int) int { return 16 + (16 - (l % 16)) }
 
 // encrypt encrypts plaintext using AES-IGE.
-func (c Client) encrypt(plaintext []byte) (*proto.EncryptedMessage, error) {
+func (c *Client) encrypt(plaintext []byte) (*proto.EncryptedMessage, error) {
 	plaintextPadded := make([]byte, len(plaintext)+padding(len(plaintext)))
 	copy(plaintextPadded, plaintext)
 	if _, err := io.ReadFull(c.rand, plaintextPadded[len(plaintext):]); err != nil {

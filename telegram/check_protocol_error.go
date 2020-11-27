@@ -1,11 +1,27 @@
 package telegram
 
 import (
-	"golang.org/x/xerrors"
+	"fmt"
 
 	"github.com/ernado/td/bin"
 	"github.com/ernado/td/internal/proto"
 )
+
+// ProtocolErr represents protocol level error.
+type ProtocolErr struct {
+	Code int32
+}
+
+func (p ProtocolErr) Error() string {
+	switch p.Code {
+	case proto.CodeAuthKeyNotFound:
+		return "auth key not found"
+	case proto.CodeTransportFlood:
+		return "transport flood"
+	default:
+		return fmt.Sprintf("protocol error %d", p.Code)
+	}
+}
 
 func (c *Client) checkProtocolError(b *bin.Buffer) error {
 	if b.Len() != bin.Word {
@@ -15,13 +31,5 @@ func (c *Client) checkProtocolError(b *bin.Buffer) error {
 	if err != nil {
 		return err
 	}
-	code *= -1
-	switch code {
-	case proto.CodeAuthKeyNotFound:
-		return xerrors.New("protocol error: auth key not found")
-	case proto.CodeTransportFlood:
-		return xerrors.New("protocol error: transport flood")
-	default:
-		return xerrors.Errorf("protocol erorr: code %d", code)
-	}
+	return &ProtocolErr{Code: code}
 }

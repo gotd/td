@@ -6,6 +6,7 @@ import (
 	"crypto/rsa"
 	"io"
 	"net"
+	"sync"
 	"time"
 
 	"go.uber.org/zap"
@@ -28,12 +29,20 @@ type Client struct {
 	seq       int
 	log       *zap.Logger
 
+	// callbacks for rpc requests
+	rpcMux sync.Mutex
+	rpc    map[crypto.MessageID]func(b *bin.Buffer, rpcErr error)
+
+	// callbacks for ping results protected by pingMux
+	pingMux sync.Mutex
+	ping    map[int64]func()
+
 	rsaPublicKeys []*rsa.PublicKey
 }
 
 const defaultTimeout = time.Second * 10
 
-func (c Client) startIntermediateMode(deadline time.Time) error {
+func (c *Client) startIntermediateMode(deadline time.Time) error {
 	if err := c.conn.SetDeadline(deadline); err != nil {
 		return xerrors.Errorf("failed to set deadline: %w", err)
 	}
@@ -46,18 +55,18 @@ func (c Client) startIntermediateMode(deadline time.Time) error {
 	return nil
 }
 
-func (c Client) resetDeadline() error {
+func (c *Client) resetDeadline() error {
 	return c.conn.SetDeadline(time.Time{})
 }
 
-func (c Client) deadline(ctx context.Context) time.Time {
+func (c *Client) deadline(ctx context.Context) time.Time {
 	if deadline, ok := ctx.Deadline(); ok {
 		return deadline
 	}
 	return c.clock().Add(defaultTimeout)
 }
 
-func (c Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error {
+func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error {
 	b.Reset()
 	if err := payload.Encode(b); err != nil {
 		return err
@@ -70,7 +79,7 @@ func (c Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error 
 	return msg.Encode(b)
 }
 
-func (c Client) AuthKey() crypto.AuthKey {
+func (c *Client) AuthKey() crypto.AuthKey {
 	return c.authKey
 }
 
@@ -95,6 +104,9 @@ type Options struct {
 	Logger *zap.Logger
 }
 
+// Dial initializes Client and creates connection to Telegram.
+//
+// Note that no data is send or received during this process.
 func Dial(ctx context.Context, opt Options) (*Client, error) {
 	if opt.Dialer == nil {
 		opt.Dialer = &net.Dialer{}
@@ -129,20 +141,42 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		clock: time.Now,
 		rand:  opt.Random,
 		log:   opt.Logger,
+		ping:  map[int64]func(){},
+		rpc:   map[crypto.MessageID]func(b *bin.Buffer, rpcErr error){},
 
 		rsaPublicKeys: opt.PublicKeys,
 	}
 	return client, nil
 }
 
-// Connect establishes connection in intermediate mode.
+// Connect establishes connection in intermediate mode, creating new auth key
+// if needed.
 func (c *Client) Connect(ctx context.Context) error {
 	deadline := c.clock().Add(defaultTimeout)
 	if ctxDeadline, ok := ctx.Deadline(); ok {
 		deadline = ctxDeadline
 	}
 	if err := c.startIntermediateMode(deadline); err != nil {
+		return xerrors.Errorf("failed to initialize intermediate protocol: %w", err)
+	}
+	if c.authKey.Zero() {
+		c.log.Info("Generating new auth key")
+		start := c.clock()
+		if err := c.createAuthKey(ctx); err != nil {
+			return xerrors.Errorf("unable to create auth key: %w", err)
+		}
+		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("Auth key generated")
+	}
+
+	// Spawning reading goroutine.
+	// Probably we should use another ctx here.
+	go c.readLoop(ctx)
+
+	// Simple way to test that everything is ok.
+	// Blocks until pong is received.
+	if err := c.Ping(ctx); err != nil {
 		return err
 	}
+
 	return nil
 }

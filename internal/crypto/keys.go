@@ -14,6 +14,10 @@ import (
 // AuthKey represents 2048-bit authorization key.
 type AuthKey [256]byte
 
+func (k AuthKey) Zero() bool {
+	return k == AuthKey{}
+}
+
 // ID returns auth_key_id.
 func (k AuthKey) ID() [8]byte {
 	raw := sha1.Sum(k[:]) // #nosec

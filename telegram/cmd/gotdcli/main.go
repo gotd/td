@@ -3,39 +3,55 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+	"strconv"
 
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/telegram"
 )
 
-func main() {
-	ctx := context.Background()
-	logger, _ := zap.NewDevelopment()
+func run(ctx context.Context) error {
+	logger, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
 	defer func() { _ = logger.Sync() }()
 
+	// Reading app id from env (never hardcode it!).
+	appID, err := strconv.Atoi(os.Getenv("APP_ID"))
+	if err != nil {
+		return xerrors.Errorf("APP_ID not set or invalid: %w", err)
+	}
+
+	// Creating connection.
 	client, err := telegram.Dial(ctx, telegram.Options{
 		Addr:   "149.154.167.40:443",
 		Logger: logger,
 	})
 	if err != nil {
-		panic(err)
+		return xerrors.Errorf("failed to dial: %w", err)
 	}
+
+	// Connecting. This will execute key exchange and start read loop.
 	if err := client.Connect(ctx); err != nil {
-		panic(err)
+		return xerrors.Errorf("failed to connect: %w", err)
 	}
-	if err := client.CreateAuthKey(ctx); err != nil {
-		panic(fmt.Sprintf("%+v", err))
-	}
-	logger.Info("Created auth key")
+	logger.Info("ok")
 
-	if err := client.Ping(ctx); err != nil {
-		panic(fmt.Sprintf("%+v", err))
+	// Initialize connection via initConnection rpc call.
+	if err := client.InitConnection(ctx, telegram.Init{
+		AppID: appID,
+	}); err != nil {
+		return xerrors.Errorf("failed to init connection: %w", err)
 	}
-	logger.Info("Ping ok")
+	return nil
+}
 
-	if err := client.InitConnection(ctx); err != nil {
-		panic(fmt.Sprintf("%+v", err))
+func main() {
+	ctx := context.Background()
+
+	if err := run(ctx); err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "%+v\n", err)
+		os.Exit(2)
 	}
-	logger.Info("Connection initialized")
 }

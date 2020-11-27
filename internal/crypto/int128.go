@@ -17,3 +17,12 @@ func RandInt128(randSource io.Reader) (bin.Int128, error) {
 	b := &bin.Buffer{Buf: buf}
 	return b.Int128()
 }
+
+func RandInt64(randSource io.Reader) (int64, error) {
+	buf := make([]byte, bin.Word*4)
+	if _, err := io.ReadFull(randSource, buf); err != nil {
+		return 0, err
+	}
+	b := &bin.Buffer{Buf: buf}
+	return b.Long()
+}

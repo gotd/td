@@ -3,6 +3,8 @@ package telegram
 import (
 	"crypto/aes"
 
+	"go.uber.org/zap"
+
 	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
 
@@ -11,7 +13,7 @@ import (
 	"github.com/ernado/td/internal/proto"
 )
 
-func (c Client) decrypt(encrypted *proto.EncryptedMessage) ([]byte, error) {
+func (c *Client) decrypt(encrypted *proto.EncryptedMessage) ([]byte, error) {
 	if c.authKeyID != encrypted.AuthKeyID {
 		return nil, xerrors.New("unknown auth key id")
 	}
@@ -31,7 +33,7 @@ func (c Client) decrypt(encrypted *proto.EncryptedMessage) ([]byte, error) {
 	return plaintext, nil
 }
 
-func (c Client) decryptData(encrypted *proto.EncryptedMessage) (*proto.EncryptedMessageData, error) {
+func (c *Client) decryptData(encrypted *proto.EncryptedMessage) (*proto.EncryptedMessageData, error) {
 	plaintext, err := c.decrypt(encrypted)
 	if err != nil {
 		return nil, err
@@ -43,7 +45,13 @@ func (c Client) decryptData(encrypted *proto.EncryptedMessage) (*proto.Encrypted
 	}
 	n := int(msg.MessageDataLen)
 	if (n + padding(n)) != len(msg.MessageDataWithPadding) {
-		return nil, xerrors.New("invalid padding")
+		// Probably we don't care?
+		c.log.With(
+			zap.Int32("message_data_len", msg.MessageDataLen),
+			zap.Int("len", len(msg.MessageDataWithPadding)),
+			zap.Int("expected_padding", padding(n)),
+			zap.Int("expected_length", padding(n)+n),
+		).Debug("Invalid padding")
 	}
 
 	return msg, nil

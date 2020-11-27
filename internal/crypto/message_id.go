@@ -50,7 +50,7 @@ type MessageType byte
 const (
 	// MessageUnknown reports that message id has unknown time and probably
 	// should be ignored.
-	MessageUnknown = iota
+	MessageUnknown MessageType = iota
 	// MessageFromClient is client message identifiers.
 	MessageFromClient
 	// MessageServerResponse is a response to a client message.
@@ -81,7 +81,7 @@ func (id MessageID) Type() MessageType {
 }
 
 // NewMessageID returns new message id for provided time and type.
-func NewMessageID(now time.Time, typ MessageID) MessageID {
+func NewMessageID(now time.Time, typ MessageType) MessageID {
 	var yield int
 	switch typ {
 	case MessageFromClient:

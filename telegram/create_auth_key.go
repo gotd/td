@@ -19,9 +19,9 @@ import (
 	"github.com/ernado/td/internal/proto"
 )
 
-// CreateAuthKey generates new authorization key.
-func (c *Client) CreateAuthKey(ctx context.Context) error {
-	// NOTE: Currently WIP.
+// createAuthKey generates new authorization key.
+func (c *Client) createAuthKey(ctx context.Context) error {
+	// Using conn exclusively.
 
 	if err := c.conn.SetDeadline(c.deadline(ctx)); err != nil {
 		return err

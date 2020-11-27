@@ -2,47 +2,67 @@ package telegram
 
 import (
 	"context"
-	"runtime"
 
-	"github.com/ernado/td/bin"
+	"go.uber.org/zap"
+
+	"github.com/ernado/td/internal/mt"
+
+	"golang.org/x/xerrors"
+
 	"github.com/ernado/td/internal/proto"
 )
 
-func (c *Client) InitConnection(ctx context.Context) error {
-	b := new(bin.Buffer)
-	if err := c.newEncryptedMessage(proto.InvokeWithLayer{
-		Layer: 121,
+// Init represents init connection.
+type Init struct {
+	// AppID is app api_id from `https://my.telegram.org/apps`.
+	AppID int
+
+	SystemVersion string
+	AppVersion    string // like v0.1.2
+	DeviceModel   string
+}
+
+const notAvailable = "n/a"
+
+// InitConnection initializes connection.
+//
+// Corresponding method is `initConnection#c1cd5ea9`.
+func (c *Client) InitConnection(ctx context.Context, opt Init) error {
+	if opt.AppID == 0 {
+		return xerrors.New("no api_id provided: ")
+	}
+	if opt.DeviceModel == "" {
+		opt.DeviceModel = notAvailable
+	}
+	if opt.SystemVersion == "" {
+		opt.SystemVersion = notAvailable
+	}
+	if opt.AppVersion == "" {
+		opt.AppVersion = notAvailable
+	}
+	var response mt.Config
+	if err := c.do(ctx, proto.InvokeWithLayer{
+		Layer: proto.Layer,
 		Query: proto.InitConnection{
-			ID:             0,
+			ID:             opt.AppID,
 			SystemLangCode: "en",
 			LangCode:       "en",
-			SystemVersion:  runtime.GOOS + "/" + runtime.GOARCH,
-			DeviceModel:    "PC",
-			AppVersion:     "v0.0.0",
+			SystemVersion:  opt.SystemVersion,
+			DeviceModel:    opt.DeviceModel,
+			AppVersion:     opt.AppVersion,
 			LangPack:       "",
 			Query:          proto.GetConfig{},
 		},
-	}, b); err != nil {
-		return err
-	}
-	if err := proto.WriteIntermediate(c.conn, b); err != nil {
-		return err
+	}, &response); err != nil {
+		return xerrors.Errorf("failed to perform request: %w", err)
 	}
 
-	b.Reset()
-	if err := proto.ReadIntermediate(c.conn, b); err != nil {
-		return err
+	c.log.Debug("Got config")
+	for _, dc := range response.DCOptions {
+		c.log.With(
+			zap.String("ip", dc.IPAddress),
+			zap.Int("port", dc.Port),
+		).Debug("DC option")
 	}
-	if err := c.checkProtocolError(b); err != nil {
-		return err
-	}
-
-	encMessage := proto.EncryptedMessage{}
-	if err := encMessage.Decode(b); err != nil {
-		return err
-	}
-
-	// TODO(ernado): decode received config.
-
 	return nil
 }
