@@ -9,7 +9,8 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"time"
+
+	"go.uber.org/zap"
 
 	"github.com/ernado/td/telegram"
 )
@@ -60,6 +61,9 @@ func parseRSAFromPEM(data []byte) (*rsa.PublicKey, error) {
 
 func main() {
 	ctx := context.Background()
+	logger, _ := zap.NewDevelopment()
+	defer func() { _ = logger.Sync() }()
+
 	home, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
@@ -71,28 +75,28 @@ func main() {
 	client, err := telegram.Dial(ctx, telegram.Options{
 		Addr:       "149.154.167.40:443",
 		PublicKeys: keys,
+		Logger:     logger,
 	})
 	if err != nil {
 		panic(err)
 	}
-	start := time.Now()
 	if err := client.Connect(ctx); err != nil {
 		panic(err)
 	}
 	if err := client.CreateAuthKey(ctx); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
-	fmt.Println("OK", time.Since(start))
-
-	if err := client.InitConnection(ctx); err != nil {
-		panic(err)
-	}
-
-	fmt.Println("initialized")
+	logger.Info("Created auth key")
 
 	if err := client.Ping(ctx); err != nil {
 		panic(err)
 	}
 
-	fmt.Println("ping")
+	logger.Info("Ping ok")
+
+	if err := client.InitConnection(ctx); err != nil {
+		panic(err)
+	}
+
+	logger.Info("Connection initialized")
 }

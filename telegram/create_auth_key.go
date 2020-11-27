@@ -6,6 +6,7 @@ import (
 	"crypto/aes"
 	"crypto/rand"
 	"crypto/rsa" // #nosec
+	"encoding/binary"
 	"errors"
 	"math/big"
 
@@ -269,14 +270,10 @@ Loop:
 			if err != nil {
 				return err
 			}
-			salt, err := crypto.NewSessionID(c.rand)
-			if err != nil {
-				return err
-			}
 
 			copy(c.authKeyID[:], authKeyID)
 			c.session = sessionID
-			c.salt = salt
+			c.salt = int64(binary.LittleEndian.Uint64(serverSalt))
 
 			return nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9

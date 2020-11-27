@@ -19,15 +19,17 @@ func (c Client) encrypt(plaintext []byte) (*proto.EncryptedMessage, error) {
 	if _, err := io.ReadFull(c.rand, plaintextPadded[len(plaintext):]); err != nil {
 		return nil, err
 	}
-	keys := crypto.MessageKeys(c.authKey, plaintextPadded, crypto.Client)
-	cipher, err := aes.NewCipher(keys.Key[:])
+
+	messageKey := crypto.MessageKey(c.authKey, plaintextPadded, crypto.Client)
+	key, iv := crypto.Keys(c.authKey, messageKey, crypto.Client)
+	cipher, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
 	}
-	encryptor := ige.NewIGEEncrypter(cipher, keys.IV[:])
+	encryptor := ige.NewIGEEncrypter(cipher, iv[:])
 	msg := &proto.EncryptedMessage{
 		AuthKeyID:     c.authKeyID,
-		MsgKey:        keys.MessageKey,
+		MsgKey:        messageKey,
 		EncryptedData: make([]byte, len(plaintextPadded)),
 	}
 	encryptor.CryptBlocks(msg.EncryptedData, plaintextPadded)

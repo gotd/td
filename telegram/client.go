@@ -8,6 +8,7 @@ import (
 	"net"
 	"time"
 
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/bin"
@@ -25,6 +26,7 @@ type Client struct {
 	session   int64
 	rand      io.Reader
 	seq       int
+	log       *zap.Logger
 
 	rsaPublicKeys []*rsa.PublicKey
 }
@@ -89,6 +91,8 @@ type Options struct {
 	Network string
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
+	// Logger is instance of zap.Logger. No logs by default.
+	Logger *zap.Logger
 }
 
 func Dial(ctx context.Context, opt Options) (*Client, error) {
@@ -101,6 +105,9 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	if opt.Random == nil {
 		opt.Random = rand.Reader
 	}
+	if opt.Logger == nil {
+		opt.Logger = zap.NewNop()
+	}
 	conn, err := opt.Dialer.DialContext(ctx, "tcp", opt.Addr)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to dial: %w", err)
@@ -110,6 +117,7 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		clock:         time.Now,
 		rsaPublicKeys: opt.PublicKeys,
 		rand:          opt.Random,
+		log:           opt.Logger,
 	}
 	return client, nil
 }
