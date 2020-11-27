@@ -2,9 +2,14 @@ package telegram
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
+	"time"
+
+	"go.uber.org/zap"
 
 	"github.com/ernado/td/bin"
+	"github.com/ernado/td/internal/crypto"
 )
 
 type Zero struct{}
@@ -14,6 +19,7 @@ func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 func TestEncryption(t *testing.T) {
 	c := &Client{
 		rand: Zero{},
+		log:  zap.NewNop(),
 	}
 	for i := 0; i < 256; i++ {
 		c.authKey[i] = byte(i)
@@ -39,5 +45,58 @@ func TestEncryption(t *testing.T) {
 	}
 	if !bytes.Equal(b.Buf, expected) {
 		t.Error("mismatch")
+	}
+}
+
+type testPayload struct {
+	Size int
+}
+
+func (t testPayload) Encode(b *bin.Buffer) error {
+	b.Buf = append(b.Buf, make([]byte, t.Size)...)
+	return nil
+}
+
+func benchPayload(b *testing.B, c *Client, n int) {
+	b.Helper()
+
+	now := time.Date(1984, 10, 10, 00, 01, 02, 1249, time.UTC)
+
+	buf := new(bin.Buffer)
+	p := testPayload{Size: n}
+	if err := c.newEncryptedMessage(crypto.NewMessageID(now, crypto.MessageFromClient), p, buf); err != nil {
+		b.Fatal(err)
+	}
+	b.ReportAllocs()
+	b.SetBytes(int64(buf.Len()))
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		buf.Reset()
+		id := crypto.NewMessageID(now, crypto.MessageFromClient)
+		if err := c.newEncryptedMessage(id, p, buf); err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func BenchmarkEncryption(b *testing.B) {
+	c := &Client{
+		rand: Zero{},
+		log:  zap.NewNop(),
+	}
+	for i := 0; i < 256; i++ {
+		c.authKey[i] = byte(i)
+	}
+	c.authKeyID = c.authKey.ID()
+
+	for _, payload := range []int{
+		128,
+		1024,
+		5000,
+	} {
+		b.Run(fmt.Sprintf("%d", payload), func(b *testing.B) {
+			benchPayload(b, c, payload)
+		})
 	}
 }
