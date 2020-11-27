@@ -2,10 +2,7 @@ package crypto
 
 import (
 	"bytes"
-	"crypto/rsa"
-	"crypto/x509"
 	"encoding/base64"
-	"encoding/pem"
 	mathrand "math/rand"
 	"testing"
 )
@@ -17,12 +14,11 @@ bdxo7XH5DDKgFvXPDDe8cQINO3/kFat7KlpC2n2sS8ApZQkmREANg0XpImL9lCHB
 v1FgQmL0xtnaURKo7FzaoaL4jCf5556NQr1th9F3oeN67mR4+BF0vPP9Gu6GY5Z1
 BSqi+FEREW/2aWSgSwIDAQAB
 -----END PUBLIC KEY-----`)
-	b, _ := pem.Decode(testKey)
-	keyParsed, err := x509.ParsePKIXPublicKey(b.Bytes)
+	keys, err := ParseRSAPublicKeys(testKey)
 	if err != nil {
 		t.Fatal(err)
 	}
-	key := keyParsed.(*rsa.PublicKey)
+	key := keys[0]
 	rnd := mathrand.New(mathrand.NewSource(239))
 	result, err := EncryptHashed([]byte("hello world"), key, rnd)
 	if err != nil {
