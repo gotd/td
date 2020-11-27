@@ -83,7 +83,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
 {{- range $f := $s.Fields }}
 {{ if $f.Conditional }}
 // Set{{ $f.Name }} sets value of {{ $f.Name }} conditional field.
-func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ $f.Type }}) {
+func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ if $f.DoubleSlice }}[][]{{ else if $f.Slice }}[]{{ end }} {{ $f.Type }}) {
 {{- if $f.ConditionalBool }}
     if value {
         {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
@@ -99,7 +99,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ $f.Type }}) {
 {{- if not $f.ConditionalBool }}
 // Get{{ $f.Name }} returns value of {{ $f.Name }} conditional field and
 // boolean which is true if field was set.
-func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ $f.Type }}, ok bool) {
+func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ if $f.DoubleSlice }}[][]{{ else if $f.Slice }}[]{{ end }}{{ $f.Type }}, ok bool) {
     if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
         return value, false
     }

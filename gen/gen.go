@@ -184,12 +184,12 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 						f.Comment = a.Value
 					}
 				}
-				if f.Type == "vector" {
+				if f.Type == "vector" || f.Type == "Vector" {
 					f.Type = param.Type.GenericArg.Name
 					f.Vector = true
 					f.Slice = true
 				}
-				if f.Type == "vector" {
+				if f.Type == "vector" || f.Type == "Vector" {
 					f.Type = param.Type.GenericArg.GenericArg.Name
 					f.DoubleSlice = true
 					f.DoubleVector = true
@@ -223,7 +223,7 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 					f.Func = "Bytes"
 					f.Type = "byte"
 					f.Slice = true
-					if param.Type.Name == "vector" {
+					if param.Type.Name == "vector" || param.Type.Name == "Vector" {
 						f.DoubleSlice = true
 						f.Vector = true
 					}
@@ -232,9 +232,12 @@ func Generate(fs FS, packageName string, t *template.Template, s *tl.Schema) err
 					if _, ok := singular[param.Type.Name]; !ok && !param.Flags {
 						f.Generic = true
 					}
-					if param.Type.Name == "vector" {
+					if param.Type.Name == "vector" || param.Type.Name == "Vector" {
 						if param.Type.GenericArg.Bare {
 							f.Type = pascal(f.Type)
+							f.Generic = false
+						}
+						if _, ok := singular[param.Type.GenericArg.Name]; ok {
 							f.Generic = false
 						}
 					} else if param.Type.Bare {
