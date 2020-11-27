@@ -31,7 +31,7 @@ func TestCalcKey(t *testing.T) {
 	}
 
 	t.Run("Client", func(t *testing.T) {
-		key, iv := calcKeys(k, m, Client)
+		key, iv := Keys(k, m, Client)
 		if key != [32]byte{
 			112, 78, 208, 156, 139, 65, 102, 138, 232, 249, 157, 36, 71, 56, 247, 29,
 			189, 220, 68, 70, 155, 107, 189, 74, 168, 87, 61, 208, 66, 189, 5, 158,
@@ -46,7 +46,7 @@ func TestCalcKey(t *testing.T) {
 		}
 	})
 	t.Run("Server", func(t *testing.T) {
-		key, iv := calcKeys(k, m, Server)
+		key, iv := Keys(k, m, Server)
 		if key != [32]byte{
 			33, 119, 37, 121, 155, 36, 88, 6, 69, 129, 116, 161, 252, 251, 200, 131, 144, 104,
 			7, 177, 80, 51, 253, 208, 234, 43, 77, 105, 207, 156, 54, 78,
