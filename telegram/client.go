@@ -72,7 +72,7 @@ func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error
 		return err
 	}
 	msg := proto.UnencryptedMessage{
-		MessageID:   crypto.NewMessageID(c.clock(), crypto.Client),
+		MessageID:   crypto.NewMessageID(c.clock(), crypto.MessageFromClient),
 		MessageData: b.Copy(),
 	}
 	b.Reset()

@@ -38,9 +38,9 @@ type Side byte
 
 const (
 	// Client side of encryption (e.g. messages from client).
-	Client = 0
+	Client Side = 0
 	// Server side of encryption (e.g. RPC responses).
-	Server = 1
+	Server Side = 1
 )
 
 func getX(mode Side) int {
