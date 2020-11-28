@@ -10,3 +10,5 @@
 - [x] Multiple output files
 - [ ] Tests
 - [ ] Examples
+- [ ] Boxes for class decode
+- [ ] RPC Requests
