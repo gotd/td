@@ -5,7 +5,6 @@ import (
 	"sync"
 
 	"go.uber.org/zap"
-
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/bin"

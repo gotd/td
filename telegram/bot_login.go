@@ -5,7 +5,6 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
 	"github.com/ernado/td/tg"
 )
 
@@ -19,22 +18,9 @@ type BotLogin struct {
 	Token string
 }
 
-type authBox struct {
-	Auth tg.AuthAuthorizationClass
-}
-
-func (a *authBox) Decode(b *bin.Buffer) error {
-	v, err := tg.DecodeAuthAuthorization(b)
-	if err != nil {
-		return err
-	}
-	a.Auth = v
-	return nil
-}
-
 // BotLogin performs bot authorization request.
 func (c *Client) BotLogin(ctx context.Context, login BotLogin) error {
-	var res authBox
+	var res tg.AuthAuthorizationBox
 	if err := c.do(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        login.ID,
 		APIHash:      login.Hash,
@@ -42,11 +28,11 @@ func (c *Client) BotLogin(ctx context.Context, login BotLogin) error {
 	}, &res); err != nil {
 		return xerrors.Errorf("failed to do request: %w", err)
 	}
-	switch res.Auth.(type) {
+	switch res.AuthAuthorization.(type) {
 	case *tg.AuthAuthorization:
 		// Ok.
 		return nil
 	default:
-		return xerrors.Errorf("got unexpected response %T", res.Auth)
+		return xerrors.Errorf("got unexpected response %T", res.AuthAuthorization)
 	}
 }
