@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ernado/td/internal/crypto"
+	"github.com/ernado/td/crypto"
 
 	"github.com/ernado/td/bin"
 )

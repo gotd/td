@@ -37,12 +37,13 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 		return err
 	}
 	if id == proto.GZIPTypeID {
-		var content proto.GZIP
-		if err := content.Decode(b); err != nil {
-			return xerrors.Errorf("failed to decode: %w", err)
+		content, err := c.gzip(b)
+		if err != nil {
+			return xerrors.Errorf("failed to decompres: %w", err)
 		}
+
 		// Replacing buffer so callback will deal with uncompressed data.
-		b = &bin.Buffer{Buf: content.Data}
+		b = content
 
 		// Replacing id with inner id if error is compressed for any reason.
 		if id, err = b.PeekID(); err != nil {

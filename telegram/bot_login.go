@@ -6,7 +6,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/tg"
+	"github.com/ernado/td/tg"
 )
 
 // BotLogin wraps credentials that are required to login as bot.

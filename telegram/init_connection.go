@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"github.com/ernado/td/internal/tg"
+	"github.com/ernado/td/tg"
 
 	"go.uber.org/zap"
 

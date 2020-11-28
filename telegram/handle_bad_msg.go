@@ -3,7 +3,7 @@ package telegram
 import (
 	"fmt"
 
-	"github.com/ernado/td/internal/crypto"
+	"github.com/ernado/td/crypto"
 
 	"golang.org/x/xerrors"
 

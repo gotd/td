@@ -2,7 +2,7 @@ package proto
 
 import (
 	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/crypto"
+	"github.com/ernado/td/crypto"
 )
 
 const ResultTypeID = 0xf35c6d01

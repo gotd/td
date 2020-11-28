@@ -4,6 +4,8 @@ import (
 	"context"
 	"sync"
 
+	"go.uber.org/zap"
+
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/bin"
@@ -11,6 +13,9 @@ import (
 
 func (c *Client) do(ctx context.Context, req bin.Encoder, res bin.Decoder) error {
 	id := c.newMessageID()
+
+	log := c.log.With(zap.Int("message_id", int(id)))
+	log.Debug("Do")
 
 	// Creating "done" channel and ensuring that it will be closed before
 	// method returns and only once.

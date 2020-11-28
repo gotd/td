@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/rand"
 	"fmt"
 	"os"
 	"strconv"
@@ -10,7 +11,9 @@ import (
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/xerrors"
 
+	"github.com/ernado/td/crypto"
 	"github.com/ernado/td/telegram"
+	"github.com/ernado/td/tg"
 )
 
 func run(ctx context.Context) error {
@@ -50,6 +53,53 @@ func run(ctx context.Context) error {
 		return xerrors.Errorf("failed to init connection: %w", err)
 	}
 
+	client.SetUpdateHandler(func(updates *tg.Updates) error {
+		// This wll be required to send message back.
+		users := map[int]*tg.User{}
+		for _, u := range updates.Users {
+			user, ok := u.(*tg.User)
+			if !ok {
+				continue
+			}
+			users[user.ID] = user
+		}
+
+		for _, update := range updates.Updates {
+			switch u := update.(type) {
+			case *tg.UpdateNewMessage:
+				switch m := u.Message.(type) {
+				case *tg.Message:
+					switch peer := m.PeerID.(type) {
+					case *tg.PeerUser:
+						user := users[peer.UserID]
+						logger.With(
+							zap.String("text", m.Message),
+							zap.Int("user_id", user.ID),
+							zap.String("user_first_name", user.FirstName),
+							zap.String("username", user.Username),
+						).Info("Got message")
+
+						randomID, err := crypto.RandInt64(rand.Reader)
+						if err != nil {
+							return err
+						}
+						return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+							RandomID: randomID,
+							Message:  m.Message,
+							Peer: &tg.InputPeerUser{
+								UserID:     user.ID,
+								AccessHash: user.AccessHash,
+							},
+						})
+					}
+				}
+			default:
+				logger.With(zap.String("update_type", fmt.Sprintf("%T", u))).Info("Ignoring update")
+			}
+		}
+		return nil
+	})
+
 	// Trying to log in as bot.
 	if err := client.BotLogin(ctx, telegram.BotLogin{
 		ID:    appID,
@@ -59,7 +109,8 @@ func run(ctx context.Context) error {
 		return xerrors.Errorf("failed to perform bot login: %w", err)
 	}
 
-	return nil
+	// Just reading updates.
+	select {}
 }
 
 func main() {

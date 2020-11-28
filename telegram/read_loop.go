@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net"
 	"time"
 
 	"go.uber.org/zap"
@@ -13,6 +14,7 @@ import (
 	"github.com/ernado/td/bin"
 	"github.com/ernado/td/internal/mt"
 	"github.com/ernado/td/internal/proto"
+	"github.com/ernado/td/tg"
 )
 
 func (c *Client) handlePong(b *bin.Buffer) error {
@@ -59,6 +61,7 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		// Empty body.
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
+	c.log.With(zap.String("type_id", fmt.Sprintf("0x%x", id))).Debug("HandleMessage")
 	switch id {
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)
@@ -72,6 +75,10 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		return c.handlePong(b)
 	case mt.MsgsAckTypeID:
 		return c.handleAck(b)
+	case proto.GZIPTypeID:
+		return c.handleGZIP(b)
+	case tg.UpdatesTypeID:
+		return c.handleUpdates(b)
 	default:
 		return c.handleUnknown(b)
 	}
@@ -138,12 +145,21 @@ func (c *Client) readLoop(ctx context.Context) {
 	for {
 		err := c.read(ctx, b)
 		if err == nil {
-			// Reading ok.
-			log.Debug("Read message")
+			// Reading ok. )
 			continue
 		}
+
 		if errors.Is(err, io.EOF) {
 			// Nothing was received.
+			c.log.Debug("EOF")
+			continue
+		}
+
+		// Checking for read timeout.
+		var syscall *net.OpError
+		if errors.As(err, &syscall) && syscall.Timeout() {
+			// We call SetReadDeadline so such error is expected.
+			c.log.Debug("No updates")
 			continue
 		}
 

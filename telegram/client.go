@@ -13,8 +13,9 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/crypto"
+	"github.com/ernado/td/crypto"
 	"github.com/ernado/td/internal/proto"
+	"github.com/ernado/td/tg"
 )
 
 // Client represents a MTProto client to Telegram.
@@ -28,6 +29,8 @@ type Client struct {
 	rand      io.Reader
 	seq       int
 	log       *zap.Logger
+
+	updateHandler func(u *tg.Updates) error
 
 	// callbacks for rpc requests
 	rpcMux sync.Mutex
