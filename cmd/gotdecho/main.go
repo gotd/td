@@ -5,7 +5,11 @@ import (
 	"crypto/rand"
 	"fmt"
 	"os"
+	"os/signal"
+	"path"
 	"strconv"
+	"syscall"
+	"time"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -31,29 +35,7 @@ func run(ctx context.Context) error {
 		return xerrors.New("no APP_HASH provided")
 	}
 
-	// Creating connection.
-	client, err := telegram.Dial(ctx, telegram.Options{
-		Addr:   "149.154.167.50:443",
-		Logger: logger,
-	})
-	if err != nil {
-		return xerrors.Errorf("failed to dial: %w", err)
-	}
-
-	// Connecting. This will execute key exchange and start read loop.
-	if err := client.Connect(ctx); err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
-	}
-	logger.Info("ok")
-
-	// Initialize connection via initConnection rpc call.
-	if err := client.InitConnection(ctx, telegram.Init{
-		AppID: appID,
-	}); err != nil {
-		return xerrors.Errorf("failed to init connection: %w", err)
-	}
-
-	client.SetUpdateHandler(func(updates *tg.Updates) error {
+	updateHandler := func(ctx context.Context, c *telegram.Client, updates *tg.Updates) error {
 		// This wll be required to send message back.
 		users := map[int]*tg.User{}
 		for _, u := range updates.Users {
@@ -83,7 +65,7 @@ func run(ctx context.Context) error {
 						if err != nil {
 							return err
 						}
-						return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+						return c.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 							RandomID: randomID,
 							Message:  m.Message,
 							Peer: &tg.InputPeerUser{
@@ -97,20 +79,66 @@ func run(ctx context.Context) error {
 				logger.With(zap.String("update_type", fmt.Sprintf("%T", u))).Info("Ignoring update")
 			}
 		}
-		return nil
-	})
 
-	// Trying to log in as bot.
-	if err := client.BotLogin(ctx, telegram.BotLogin{
+		return nil
+	}
+
+	// Setting up session storage.
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	sessionDir := path.Join(home, ".td")
+	if err := os.MkdirAll(sessionDir, 0600); err != nil {
+		return err
+	}
+
+	// Creating connection.
+	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
+	defer cancel()
+	client, err := telegram.Dial(dialCtx, telegram.Options{
+		Addr:           "149.154.167.50:443",
+		Logger:         logger,
+		UpdateHandler:  updateHandler,
+		SessionStorage: &telegram.FileSessionStorage{Path: path.Join(sessionDir, "session.json")},
+	})
+	if err != nil {
+		return xerrors.Errorf("failed to dial: %w", err)
+	}
+	logger.Info("Dialed")
+
+	if err := client.InitConnection(dialCtx, telegram.Init{
+		AppID: appID,
+	}); err != nil {
+		return xerrors.Errorf("failed to init connection: %w", err)
+	}
+	if err := client.BotLogin(dialCtx, telegram.BotLogin{
 		ID:    appID,
 		Hash:  appHash,
 		Token: os.Getenv("BOT_TOKEN"),
 	}); err != nil {
 		return xerrors.Errorf("failed to perform bot login: %w", err)
 	}
+	logger.Info("Bot login ok")
 
-	// Just reading updates.
-	select {}
+	// Getting state is required to get updates.
+	state, err := client.GetState(dialCtx)
+	if err != nil {
+		return xerrors.Errorf("failed to get state: %w", err)
+	}
+	logger.Sugar().Infof("Got state: %+v", state)
+
+	// Reading updates until SIGTERM.
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+
+	<-c
+	logger.Info("Shutting down")
+	if err := client.Close(ctx); err != nil {
+		return err
+	}
+	logger.Info("Graceful shutdown completed")
+	return nil
 }
 
 func main() {

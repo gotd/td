@@ -66,6 +66,9 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 
 		return nil
 	}
+	if id == mt.PongTypeID {
+		return c.handlePong(b)
+	}
 
 	c.rpcMux.Lock()
 	f, ok := c.rpc[res.RequestMessageID]

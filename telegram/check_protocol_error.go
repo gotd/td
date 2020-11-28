@@ -31,5 +31,5 @@ func (c *Client) checkProtocolError(b *bin.Buffer) error {
 	if err != nil {
 		return err
 	}
-	return &ProtocolErr{Code: code}
+	return &ProtocolErr{Code: -code}
 }

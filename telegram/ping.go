@@ -7,6 +7,7 @@ import (
 
 	"github.com/ernado/td/bin"
 	"github.com/ernado/td/crypto"
+	"github.com/ernado/td/internal/mt"
 )
 
 type pingMessage struct {
@@ -53,4 +54,20 @@ func (c *Client) Ping(ctx context.Context) error {
 		// Something gone really bad.
 		return ctx.Err()
 	}
+}
+
+func (c *Client) handlePong(b *bin.Buffer) error {
+	var pong mt.Pong
+	if err := pong.Decode(b); err != nil {
+		return xerrors.Errorf("failed to decode: %x", err)
+	}
+	c.log.Info("Pong")
+
+	c.pingMux.Lock()
+	f, ok := c.ping[pong.PingID]
+	c.pingMux.Unlock()
+	if ok {
+		f()
+	}
+	return nil
 }

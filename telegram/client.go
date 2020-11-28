@@ -29,8 +29,12 @@ type Client struct {
 	rand      io.Reader
 	seq       int
 	log       *zap.Logger
+	ctx       context.Context
+	cancel    context.CancelFunc
+	wg        sync.WaitGroup
 
-	updateHandler func(u *tg.Updates) error
+	updateHandler  func(ctx context.Context, c *Client, u *tg.Updates) error
+	sessionStorage SessionStorage
 
 	// callbacks for rpc requests
 	rpcMux sync.Mutex
@@ -105,6 +109,14 @@ type Options struct {
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
 	Logger *zap.Logger
+	// SessionStorage will be used to load and save session data.
+	// NB: Very sensitive data, save with care.
+	SessionStorage SessionStorage
+	// UpdateHandler will be called if update is received.
+	//
+	// On handler error no ACK is sent to Telegram.
+	// If handler is not set, updates will be ignored and ACK is sent.
+	UpdateHandler func(ctx context.Context, client *Client, updates *tg.Updates) error
 }
 
 // Dial initializes Client and creates connection to Telegram.
@@ -139,6 +151,7 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	if err != nil {
 		return nil, xerrors.Errorf("failed to dial: %w", err)
 	}
+	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
 		conn:  conn,
 		clock: time.Now,
@@ -147,14 +160,39 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		ping:  map[int64]func(){},
 		rpc:   map[crypto.MessageID]func(b *bin.Buffer, rpcErr error){},
 
-		rsaPublicKeys: opt.PublicKeys,
+		ctx:    clientCtx,
+		cancel: clientCancel,
+
+		sessionStorage: opt.SessionStorage,
+		rsaPublicKeys:  opt.PublicKeys,
+		updateHandler:  opt.UpdateHandler,
 	}
+
+	// Loading session from storage if provided.
+	if err := client.loadSession(ctx); err != nil {
+		// TODO: Add opt-in config to ignore session load failures.
+		return nil, xerrors.Errorf("failed to load session: %w", err)
+	}
+
+	// Starting connection.
+	//
+	// This will send initial packet to telegram and perform key exchange
+	// if needed.
+	if err := client.connect(ctx); err != nil {
+		return nil, xerrors.Errorf("failed to start connection: %w", err)
+	}
+
 	return client, nil
 }
 
-// Connect establishes connection in intermediate mode, creating new auth key
+// Authenticated returns true of already authenticated.
+func (c *Client) Authenticated() bool {
+	return !c.authKey.Zero()
+}
+
+// connect establishes connection in intermediate mode, creating new auth key
 // if needed.
-func (c *Client) Connect(ctx context.Context) error {
+func (c *Client) connect(ctx context.Context) error {
 	deadline := c.clock().Add(defaultTimeout)
 	if ctxDeadline, ok := ctx.Deadline(); ok {
 		deadline = ctxDeadline
@@ -173,10 +211,11 @@ func (c *Client) Connect(ctx context.Context) error {
 
 	// Spawning reading goroutine.
 	// Probably we should use another ctx here.
-	go c.readLoop(ctx)
+	go c.readLoop(c.ctx)
 
 	// Simple way to test that everything is ok.
 	// Blocks until pong is received.
+	c.log.Info("Sending ping")
 	if err := c.Ping(ctx); err != nil {
 		return err
 	}

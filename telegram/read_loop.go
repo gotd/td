@@ -17,22 +17,6 @@ import (
 	"github.com/ernado/td/tg"
 )
 
-func (c *Client) handlePong(b *bin.Buffer) error {
-	var pong mt.Pong
-	if err := pong.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode: %x", err)
-	}
-	c.log.Info("Pong")
-
-	c.pingMux.Lock()
-	f, ok := c.ping[pong.PingID]
-	c.pingMux.Unlock()
-	if ok {
-		f()
-	}
-	return nil
-}
-
 func (c *Client) handleSessionCreated(b *bin.Buffer) error {
 	var ns mt.NewSessionCreated
 	if err := ns.Decode(b); err != nil {
@@ -142,6 +126,9 @@ func (c *Client) readLoop(ctx context.Context) {
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
 
+	c.wg.Add(1)
+	defer c.wg.Done()
+
 	for {
 		err := c.read(ctx, b)
 		if err == nil {
@@ -163,7 +150,25 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		// Handling possible errors.
-		log.With(zap.Error(err)).Error("Read returned error")
+		var protoErr *ProtocolErr
+		if errors.As(err, &protoErr) && protoErr.Code == proto.CodeAuthKeyNotFound {
+			c.log.Warn("Re-generating keys (server not found key that we provided)")
+			if err := c.createAuthKey(ctx); err != nil {
+				// Probably fatal error.
+				c.log.With(zap.Error(err)).Error("Unable to create auth key")
+			}
+
+			c.log.Info("Created auth keys")
+			continue
+		}
+
+		select {
+		case <-ctx.Done():
+			c.log.Debug("Read loop done (closing)")
+			return
+		default:
+			// Notifying about possible errors.
+			log.With(zap.Error(err)).Error("Read returned error")
+		}
 	}
 }

@@ -3,13 +3,10 @@ package telegram
 import (
 	"context"
 
-	"github.com/ernado/td/tg"
-
-	"go.uber.org/zap"
-
 	"golang.org/x/xerrors"
 
 	"github.com/ernado/td/internal/proto"
+	"github.com/ernado/td/tg"
 )
 
 // Init represents init connection.
@@ -58,11 +55,5 @@ func (c *Client) InitConnection(ctx context.Context, opt Init) error {
 	}
 
 	c.log.Debug("Got config")
-	for _, dc := range response.DCOptions {
-		c.log.With(
-			zap.String("ip", dc.IPAddress),
-			zap.Int("port", dc.Port),
-		).Debug("DC option")
-	}
 	return nil
 }

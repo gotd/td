@@ -22,7 +22,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 				return
 			}
 			// We should send ACK here.
-			if err := c.updateHandler(u); err != nil {
+			if err := c.updateHandler(c.ctx, c, u); err != nil {
 				c.log.With(zap.Error(err)).Error("Update handler returning error")
 			}
 		}()
@@ -39,11 +39,4 @@ func (c *Client) handleUpdates(b *bin.Buffer) error {
 		return xerrors.Errorf("failed to decode updates: %w", err)
 	}
 	return c.processUpdates(updates)
-}
-
-// SetUpdateHandler sets handler as default update handler.
-//
-// Provided handler will be called on received update.
-func (c *Client) SetUpdateHandler(handler func(u *tg.Updates) error) {
-	c.updateHandler = handler
 }
