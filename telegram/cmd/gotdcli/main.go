@@ -23,9 +23,14 @@ func run(ctx context.Context) error {
 		return xerrors.Errorf("APP_ID not set or invalid: %w", err)
 	}
 
+	appHash := os.Getenv("APP_HASH")
+	if appHash == "" {
+		return xerrors.New("no APP_HASH provided")
+	}
+
 	// Creating connection.
 	client, err := telegram.Dial(ctx, telegram.Options{
-		Addr:   "149.154.167.40:443",
+		Addr:   "149.154.167.50:443",
 		Logger: logger,
 	})
 	if err != nil {
@@ -44,6 +49,16 @@ func run(ctx context.Context) error {
 	}); err != nil {
 		return xerrors.Errorf("failed to init connection: %w", err)
 	}
+
+	// Trying to log in as bot.
+	if err := client.BotLogin(ctx, telegram.BotLogin{
+		ID:    appID,
+		Hash:  appHash,
+		Token: os.Getenv("BOT_TOKEN"),
+	}); err != nil {
+		return xerrors.Errorf("failed to perform bot login: %w", err)
+	}
+
 	return nil
 }
 

@@ -35,6 +35,5 @@ func (c *Client) newEncryptedMessage(id crypto.MessageID, payload bin.Encoder, b
 
 	c.log.With(zap.Int64("request_id", int64(d.MessageID))).Debug("Request")
 
-	c.seq++
 	return nil
 }

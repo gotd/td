@@ -51,6 +51,9 @@ func (c *Client) do(ctx context.Context, req bin.Encoder, res bin.Decoder) error
 		return xerrors.Errorf("failed to write: %w", err)
 	}
 
+	// Ack is required.
+	c.seq += 2
+
 	select {
 	case <-ctx.Done():
 		return ctx.Err()

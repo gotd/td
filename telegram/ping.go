@@ -41,6 +41,9 @@ func (c *Client) Ping(ctx context.Context) error {
 		return xerrors.Errorf("failed to write: %w", err)
 	}
 
+	// Ack is not required.
+	c.seq++
+
 	// Waiting for result.
 	select {
 	case <-result:

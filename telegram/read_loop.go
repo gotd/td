@@ -70,6 +70,8 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		return c.handleResult(b)
 	case mt.PongTypeID:
 		return c.handlePong(b)
+	case mt.MsgsAckTypeID:
+		return c.handleAck(b)
 	default:
 		return c.handleUnknown(b)
 	}
