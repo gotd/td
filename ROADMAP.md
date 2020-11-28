@@ -11,4 +11,4 @@
 - [ ] Tests
 - [ ] Examples
 - [ ] Boxes for class decode
-- [ ] RPC Requests
+- [x] RPC Requests

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ernado/tl"
 	"golang.org/x/xerrors"
 )
 
@@ -42,9 +41,6 @@ type structDef struct {
 // makeStructures generates go structure definition representations.
 func (g *Generator) makeStructures() error {
 	for _, sd := range g.schema.Definitions {
-		if sd.Category != tl.CategoryType {
-			continue
-		}
 		var (
 			d       = sd.Definition
 			typeKey = definitionType(d)
@@ -52,6 +48,11 @@ func (g *Generator) makeStructures() error {
 		t, ok := g.types[typeKey]
 		if !ok {
 			return xerrors.Errorf("failed to find type binding for %q", typeKey)
+		}
+		if len(sd.Definition.GenericParams) > 0 {
+			// TODO(ernado): Support generic params.
+			// Such definitions are rare and can be implemented manually.
+			continue
 		}
 		s := structDef{
 			Namespace: t.Namespace,

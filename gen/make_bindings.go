@@ -13,6 +13,7 @@ type typeBinding struct {
 	Name          string // go type name, like in type Name struct{}
 	Interface     string // go type interface, like UserAuthClass
 	InterfaceFunc string // go encoding/decoding function postfix, like UserAuth in DecodeUserAuth
+	Method        bool   // is method
 }
 
 type classBinding struct {
@@ -61,10 +62,6 @@ func (g *Generator) makeBindings() error {
 
 	// 2) Binding TL types to structures and interfaces.
 	for _, sd := range g.schema.Definitions {
-		if sd.Category != tl.CategoryType {
-			// Skipping everything except types for now.
-			continue
-		}
 		var (
 			d        = sd.Definition
 			classKey = d.Type.String()
@@ -73,51 +70,56 @@ func (g *Generator) makeBindings() error {
 		)
 
 		// Binding bare type.
-		// fmt.Println("bind bare type", dk, "for class", k, "->", goName)
 		tb := typeBinding{
 			Namespace: d.Namespace,
 			Class:     classKey,
 			Name:      goName,
 		}
 
-		constructorsCount, ok := constructors[classKey]
-		if constructorsCount == 0 || !ok {
-			return xerrors.Errorf("constructors[%s] not found", classKey)
-		}
-		if constructorsCount == 1 {
-			// Using this constructor instead of generic class for all definitions
-			// that depends on that class.
-			b := classBinding{
-				Namespace: d.Namespace,
-				Singular:  true,
-				Name:      goName,
-				BaseName:  d.Type.Name,
+		switch sd.Category {
+		case tl.CategoryType:
+			constructorsCount, ok := constructors[classKey]
+			if constructorsCount == 0 || !ok {
+				return xerrors.Errorf("constructors[%s] not found", classKey)
 			}
-			g.classes[classKey] = b
-			g.types[typeKey] = tb
-			continue
-		}
-
-		if _, ok := g.classes[classKey]; !ok {
-			// interfaceDef has multiple constructors and is new.
-			className := namespacedName(d.Type.Name, d.Type.Namespace)
-			g.classes[classKey] = classBinding{
-				Namespace: d.Namespace,
-				Singular:  false,
-				Func:      className,
-				Name:      className + "Class",
-				BaseName:  d.Type.Name,
-				RawType:   d.Type.String(),
+			if constructorsCount == 1 {
+				// Using this constructor instead of generic class for all definitions
+				// that depends on that class.
+				b := classBinding{
+					Namespace: d.Namespace,
+					Singular:  true,
+					Name:      goName,
+					BaseName:  d.Type.Name,
+				}
+				g.classes[classKey] = b
+				g.types[typeKey] = tb
+				continue
 			}
+
+			if _, ok := g.classes[classKey]; !ok {
+				// interfaceDef has multiple constructors and is new.
+				className := namespacedName(d.Type.Name, d.Type.Namespace)
+				g.classes[classKey] = classBinding{
+					Namespace: d.Namespace,
+					Singular:  false,
+					Func:      className,
+					Name:      className + "Class",
+					BaseName:  d.Type.Name,
+					RawType:   d.Type.String(),
+				}
+			}
+
+			c := g.classes[classKey]
+			c.Constructors = append(c.Constructors, goName)
+			g.classes[classKey] = c
+
+			tb.Interface = c.Name
+			tb.InterfaceFunc = c.Func
+		case tl.CategoryFunction:
+			// Just creating new bare type.
+			tb.Name += "Request"
+			tb.Method = true
 		}
-
-		c := g.classes[classKey]
-		c.Constructors = append(c.Constructors, goName)
-		g.classes[classKey] = c
-
-		tb.Interface = c.Name
-		tb.InterfaceFunc = c.Func
-
 		g.types[typeKey] = tb
 	}
 
