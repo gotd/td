@@ -3,9 +3,9 @@ package telegram
 import (
 	"context"
 
-	"go.uber.org/zap"
+	"github.com/ernado/td/internal/tg"
 
-	"github.com/ernado/td/internal/mt"
+	"go.uber.org/zap"
 
 	"golang.org/x/xerrors"
 
@@ -40,7 +40,7 @@ func (c *Client) InitConnection(ctx context.Context, opt Init) error {
 	if opt.AppVersion == "" {
 		opt.AppVersion = notAvailable
 	}
-	var response mt.Config
+	var response tg.Config
 	if err := c.do(ctx, proto.InvokeWithLayer{
 		Layer: proto.Layer,
 		Query: proto.InitConnection{
