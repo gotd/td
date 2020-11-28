@@ -7,6 +7,7 @@ require (
 	github.com/ernado/tl v0.1.2
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
 	github.com/go-openapi/inflect v0.19.0
+	github.com/go-playground/validator/v10 v10.4.1
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0

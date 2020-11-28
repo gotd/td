@@ -56,7 +56,7 @@ func camel(s string) string {
 }
 
 func ruleset() *inflect.Ruleset {
-	rules := inflect.NewDefaultRuleset()
+	r := inflect.NewDefaultRuleset()
 	// Add common initialisms from golint and more.
 	for _, w := range []string{
 		"ACL", "API", "ASCII", "AWS", "CPU", "CSS", "DNS", "EOF", "GB", "GUID",
@@ -67,7 +67,7 @@ func ruleset() *inflect.Ruleset {
 		"P2P",
 	} {
 		acronyms[w] = struct{}{}
-		rules.AddAcronym(w)
+		r.AddAcronym(w)
 	}
-	return rules
+	return r
 }

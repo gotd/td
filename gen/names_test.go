@@ -4,6 +4,9 @@ import "testing"
 
 func TestNames(t *testing.T) {
 	if pascal("Id") != "ID" {
-		t.Fatal("bad name")
+		t.Fatal("mismatch")
+	}
+	if camel("user_id") != "userID" {
+		t.Fatal("mismatch")
 	}
 }

@@ -77,14 +77,13 @@ func main() {
 		}
 	}
 
-	g, err := gen.NewGenerator(schema)
-	if err != nil {
-		panic(err)
-	}
-
 	fs := formattedSource{
 		Root:   *targetDir,
 		Format: *performFormat,
+	}
+	g, err := gen.NewGenerator(schema)
+	if err != nil {
+		panic(err)
 	}
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(err)

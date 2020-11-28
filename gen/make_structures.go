@@ -48,8 +48,11 @@ func (g *Generator) makeStructures() error {
 		var (
 			d       = sd.Definition
 			typeKey = definitionType(d)
-			t       = g.types[typeKey]
 		)
+		t, ok := g.types[typeKey]
+		if !ok {
+			return xerrors.Errorf("failed to find type binding for %q", typeKey)
+		}
 		s := structDef{
 			Namespace: t.Namespace,
 			Name:      t.Name,
@@ -75,14 +78,14 @@ func (g *Generator) makeStructures() error {
 		for _, param := range d.Params {
 			f, err := g.makeField(param, sd.Annotations)
 			if err != nil {
-				return xerrors.Errorf("failed to make field: %w", err)
+				return xerrors.Errorf("failed to make field %s: %w", param.Name, err)
 			}
 			if f.Comment == "" {
 				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
 			}
 			s.Fields = append(s.Fields, f)
 		}
-		// pp.Println(s)
+
 		g.structs = append(g.structs, s)
 	}
 

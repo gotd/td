@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/ernado/tl"
+	"golang.org/x/xerrors"
 )
 
 type typeBinding struct {
@@ -57,10 +58,6 @@ func (g *Generator) makeBindings() error {
 		}
 		constructors[d.Definition.Type.String()]++
 	}
-	singular := map[string]bool{}
-	for k, v := range constructors {
-		singular[k] = v == 1
-	}
 
 	// 2) Binding TL types to structures and interfaces.
 	for _, sd := range g.schema.Definitions {
@@ -83,11 +80,13 @@ func (g *Generator) makeBindings() error {
 			Name:      goName,
 		}
 
-		if singular[classKey] {
-			// interfaceDef has single constructor.
+		constructorsCount, ok := constructors[classKey]
+		if constructorsCount == 0 || !ok {
+			return xerrors.Errorf("constructors[%s] not found", classKey)
+		}
+		if constructorsCount == 1 {
 			// Using this constructor instead of generic class for all definitions
 			// that depends on that class.
-			// fmt.Println("new singular class", k)
 			b := classBinding{
 				Namespace: d.Namespace,
 				Singular:  true,

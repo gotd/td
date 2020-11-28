@@ -1,6 +1,9 @@
 package gen
 
-import "github.com/ernado/tl"
+import (
+	"github.com/ernado/tl"
+	"golang.org/x/xerrors"
+)
 
 // fieldDef represents structDef field.
 type fieldDef struct {
@@ -41,6 +44,9 @@ type fieldDef struct {
 	ConditionalBool bool
 }
 
+// nolint:gocognit,gocyclo
+//
+// TODO(ernado) Split into multiple sections: base type, encoder and conditional.
 func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (fieldDef, error) {
 	f := fieldDef{
 		Name:    pascal(param.Name),
@@ -99,22 +105,30 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 		f.Slice = true
 	default:
 		f.Encoder = true
+		if param.Flags {
+			f.Type = "bin.Fields"
+			break
+		}
+
 		if baseType.Bare {
 			// Using exact go type for bare types.
-			t := g.types[baseType.String()]
+			t, ok := g.types[baseType.String()]
+			if !ok {
+				return fieldDef{}, xerrors.Errorf("types[%s] not found", baseType)
+			}
 			f.Type = t.Name
 		} else {
 			// Type is generic.
-			t := g.classes[baseType.String()]
+			t, ok := g.classes[baseType.String()]
+			if !ok {
+				return fieldDef{}, xerrors.Errorf("classes[%s] not found", baseType)
+			}
 			f.Type = t.Name
 			if !t.Singular {
 				f.Interface = t.Name
 				f.InterfaceFunc = t.Func
 			}
 		}
-	}
-	if param.Flags {
-		f.Type = "bin.Fields"
 	}
 	if flag := param.Flag; flag != nil {
 		f.Conditional = true
