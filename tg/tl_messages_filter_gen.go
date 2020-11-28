@@ -845,3 +845,29 @@ func DecodeMessagesFilter(buf *bin.Buffer) (MessagesFilterClass, error) {
 		return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesFilter boxes the MessagesFilterClass providing a helper.
+type MessagesFilterBox struct {
+	MessagesFilter MessagesFilterClass
+}
+
+// Decode implements bin.Decoder for MessagesFilterBox.
+func (b *MessagesFilterBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesFilterBox to nil")
+	}
+	v, err := DecodeMessagesFilter(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesFilter = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesFilterBox.
+func (b *MessagesFilterBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesFilter == nil {
+		return fmt.Errorf("unable to encode MessagesFilterClass as nil")
+	}
+	return b.MessagesFilter.Encode(buf)
+}

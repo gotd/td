@@ -889,3 +889,29 @@ func DecodePhoneCall(buf *bin.Buffer) (PhoneCallClass, error) {
 		return nil, fmt.Errorf("unable to decode PhoneCallClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PhoneCall boxes the PhoneCallClass providing a helper.
+type PhoneCallBox struct {
+	PhoneCall PhoneCallClass
+}
+
+// Decode implements bin.Decoder for PhoneCallBox.
+func (b *PhoneCallBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PhoneCallBox to nil")
+	}
+	v, err := DecodePhoneCall(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PhoneCall = v
+	return nil
+}
+
+// Encode implements bin.Encode for PhoneCallBox.
+func (b *PhoneCallBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PhoneCall == nil {
+		return fmt.Errorf("unable to encode PhoneCallClass as nil")
+	}
+	return b.PhoneCall.Encode(buf)
+}

@@ -281,3 +281,29 @@ func DecodeContactsBlocked(buf *bin.Buffer) (ContactsBlockedClass, error) {
 		return nil, fmt.Errorf("unable to decode ContactsBlockedClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ContactsBlocked boxes the ContactsBlockedClass providing a helper.
+type ContactsBlockedBox struct {
+	ContactsBlocked ContactsBlockedClass
+}
+
+// Decode implements bin.Decoder for ContactsBlockedBox.
+func (b *ContactsBlockedBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ContactsBlockedBox to nil")
+	}
+	v, err := DecodeContactsBlocked(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ContactsBlocked = v
+	return nil
+}
+
+// Encode implements bin.Encode for ContactsBlockedBox.
+func (b *ContactsBlockedBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ContactsBlocked == nil {
+		return fmt.Errorf("unable to encode ContactsBlockedClass as nil")
+	}
+	return b.ContactsBlocked.Encode(buf)
+}

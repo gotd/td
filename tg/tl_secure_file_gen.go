@@ -203,3 +203,29 @@ func DecodeSecureFile(buf *bin.Buffer) (SecureFileClass, error) {
 		return nil, fmt.Errorf("unable to decode SecureFileClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SecureFile boxes the SecureFileClass providing a helper.
+type SecureFileBox struct {
+	SecureFile SecureFileClass
+}
+
+// Decode implements bin.Decoder for SecureFileBox.
+func (b *SecureFileBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecureFileBox to nil")
+	}
+	v, err := DecodeSecureFile(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecureFile = v
+	return nil
+}
+
+// Encode implements bin.Encode for SecureFileBox.
+func (b *SecureFileBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SecureFile == nil {
+		return fmt.Errorf("unable to encode SecureFileClass as nil")
+	}
+	return b.SecureFile.Encode(buf)
+}

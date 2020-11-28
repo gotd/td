@@ -192,3 +192,29 @@ func DecodeInputGeoPoint(buf *bin.Buffer) (InputGeoPointClass, error) {
 		return nil, fmt.Errorf("unable to decode InputGeoPointClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputGeoPoint boxes the InputGeoPointClass providing a helper.
+type InputGeoPointBox struct {
+	InputGeoPoint InputGeoPointClass
+}
+
+// Decode implements bin.Decoder for InputGeoPointBox.
+func (b *InputGeoPointBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputGeoPointBox to nil")
+	}
+	v, err := DecodeInputGeoPoint(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputGeoPoint = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputGeoPointBox.
+func (b *InputGeoPointBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputGeoPoint == nil {
+		return fmt.Errorf("unable to encode InputGeoPointClass as nil")
+	}
+	return b.InputGeoPoint.Encode(buf)
+}

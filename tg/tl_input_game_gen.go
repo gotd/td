@@ -178,3 +178,29 @@ func DecodeInputGame(buf *bin.Buffer) (InputGameClass, error) {
 		return nil, fmt.Errorf("unable to decode InputGameClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputGame boxes the InputGameClass providing a helper.
+type InputGameBox struct {
+	InputGame InputGameClass
+}
+
+// Decode implements bin.Decoder for InputGameBox.
+func (b *InputGameBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputGameBox to nil")
+	}
+	v, err := DecodeInputGame(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputGame = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputGameBox.
+func (b *InputGameBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputGame == nil {
+		return fmt.Errorf("unable to encode InputGameClass as nil")
+	}
+	return b.InputGame.Encode(buf)
+}

@@ -277,3 +277,29 @@ func DecodePhoneConnection(buf *bin.Buffer) (PhoneConnectionClass, error) {
 		return nil, fmt.Errorf("unable to decode PhoneConnectionClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PhoneConnection boxes the PhoneConnectionClass providing a helper.
+type PhoneConnectionBox struct {
+	PhoneConnection PhoneConnectionClass
+}
+
+// Decode implements bin.Decoder for PhoneConnectionBox.
+func (b *PhoneConnectionBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PhoneConnectionBox to nil")
+	}
+	v, err := DecodePhoneConnection(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PhoneConnection = v
+	return nil
+}
+
+// Encode implements bin.Encode for PhoneConnectionBox.
+func (b *PhoneConnectionBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PhoneConnection == nil {
+		return fmt.Errorf("unable to encode PhoneConnectionClass as nil")
+	}
+	return b.PhoneConnection.Encode(buf)
+}

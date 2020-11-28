@@ -234,3 +234,29 @@ func DecodeInputChannel(buf *bin.Buffer) (InputChannelClass, error) {
 		return nil, fmt.Errorf("unable to decode InputChannelClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputChannel boxes the InputChannelClass providing a helper.
+type InputChannelBox struct {
+	InputChannel InputChannelClass
+}
+
+// Decode implements bin.Decoder for InputChannelBox.
+func (b *InputChannelBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputChannelBox to nil")
+	}
+	v, err := DecodeInputChannel(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputChannel = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputChannelBox.
+func (b *InputChannelBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputChannel == nil {
+		return fmt.Errorf("unable to encode InputChannelClass as nil")
+	}
+	return b.InputChannel.Encode(buf)
+}

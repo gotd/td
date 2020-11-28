@@ -158,3 +158,29 @@ func DecodeInputDialogPeer(buf *bin.Buffer) (InputDialogPeerClass, error) {
 		return nil, fmt.Errorf("unable to decode InputDialogPeerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputDialogPeer boxes the InputDialogPeerClass providing a helper.
+type InputDialogPeerBox struct {
+	InputDialogPeer InputDialogPeerClass
+}
+
+// Decode implements bin.Decoder for InputDialogPeerBox.
+func (b *InputDialogPeerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputDialogPeerBox to nil")
+	}
+	v, err := DecodeInputDialogPeer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputDialogPeer = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputDialogPeerBox.
+func (b *InputDialogPeerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputDialogPeer == nil {
+		return fmt.Errorf("unable to encode InputDialogPeerClass as nil")
+	}
+	return b.InputDialogPeer.Encode(buf)
+}

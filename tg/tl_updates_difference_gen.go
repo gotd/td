@@ -515,3 +515,29 @@ func DecodeUpdatesDifference(buf *bin.Buffer) (UpdatesDifferenceClass, error) {
 		return nil, fmt.Errorf("unable to decode UpdatesDifferenceClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UpdatesDifference boxes the UpdatesDifferenceClass providing a helper.
+type UpdatesDifferenceBox struct {
+	UpdatesDifference UpdatesDifferenceClass
+}
+
+// Decode implements bin.Decoder for UpdatesDifferenceBox.
+func (b *UpdatesDifferenceBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UpdatesDifferenceBox to nil")
+	}
+	v, err := DecodeUpdatesDifference(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UpdatesDifference = v
+	return nil
+}
+
+// Encode implements bin.Encode for UpdatesDifferenceBox.
+func (b *UpdatesDifferenceBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UpdatesDifference == nil {
+		return fmt.Errorf("unable to encode UpdatesDifferenceClass as nil")
+	}
+	return b.UpdatesDifference.Encode(buf)
+}

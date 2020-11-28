@@ -272,3 +272,29 @@ func DecodeHelpAppUpdate(buf *bin.Buffer) (HelpAppUpdateClass, error) {
 		return nil, fmt.Errorf("unable to decode HelpAppUpdateClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// HelpAppUpdate boxes the HelpAppUpdateClass providing a helper.
+type HelpAppUpdateBox struct {
+	HelpAppUpdate HelpAppUpdateClass
+}
+
+// Decode implements bin.Decoder for HelpAppUpdateBox.
+func (b *HelpAppUpdateBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode HelpAppUpdateBox to nil")
+	}
+	v, err := DecodeHelpAppUpdate(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.HelpAppUpdate = v
+	return nil
+}
+
+// Encode implements bin.Encode for HelpAppUpdateBox.
+func (b *HelpAppUpdateBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.HelpAppUpdate == nil {
+		return fmt.Errorf("unable to encode HelpAppUpdateClass as nil")
+	}
+	return b.HelpAppUpdate.Encode(buf)
+}

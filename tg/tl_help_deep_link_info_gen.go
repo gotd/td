@@ -208,3 +208,29 @@ func DecodeHelpDeepLinkInfo(buf *bin.Buffer) (HelpDeepLinkInfoClass, error) {
 		return nil, fmt.Errorf("unable to decode HelpDeepLinkInfoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// HelpDeepLinkInfo boxes the HelpDeepLinkInfoClass providing a helper.
+type HelpDeepLinkInfoBox struct {
+	HelpDeepLinkInfo HelpDeepLinkInfoClass
+}
+
+// Decode implements bin.Decoder for HelpDeepLinkInfoBox.
+func (b *HelpDeepLinkInfoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode HelpDeepLinkInfoBox to nil")
+	}
+	v, err := DecodeHelpDeepLinkInfo(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.HelpDeepLinkInfo = v
+	return nil
+}
+
+// Encode implements bin.Encode for HelpDeepLinkInfoBox.
+func (b *HelpDeepLinkInfoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.HelpDeepLinkInfo == nil {
+		return fmt.Errorf("unable to encode HelpDeepLinkInfoClass as nil")
+	}
+	return b.HelpDeepLinkInfo.Encode(buf)
+}

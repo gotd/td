@@ -265,3 +265,29 @@ func DecodeInputMessage(buf *bin.Buffer) (InputMessageClass, error) {
 		return nil, fmt.Errorf("unable to decode InputMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputMessage boxes the InputMessageClass providing a helper.
+type InputMessageBox struct {
+	InputMessage InputMessageClass
+}
+
+// Decode implements bin.Decoder for InputMessageBox.
+func (b *InputMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputMessageBox to nil")
+	}
+	v, err := DecodeInputMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputMessageBox.
+func (b *InputMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputMessage == nil {
+		return fmt.Errorf("unable to encode InputMessageClass as nil")
+	}
+	return b.InputMessage.Encode(buf)
+}

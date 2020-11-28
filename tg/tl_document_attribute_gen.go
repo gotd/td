@@ -652,3 +652,29 @@ func DecodeDocumentAttribute(buf *bin.Buffer) (DocumentAttributeClass, error) {
 		return nil, fmt.Errorf("unable to decode DocumentAttributeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// DocumentAttribute boxes the DocumentAttributeClass providing a helper.
+type DocumentAttributeBox struct {
+	DocumentAttribute DocumentAttributeClass
+}
+
+// Decode implements bin.Decoder for DocumentAttributeBox.
+func (b *DocumentAttributeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DocumentAttributeBox to nil")
+	}
+	v, err := DecodeDocumentAttribute(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.DocumentAttribute = v
+	return nil
+}
+
+// Encode implements bin.Encode for DocumentAttributeBox.
+func (b *DocumentAttributeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.DocumentAttribute == nil {
+		return fmt.Errorf("unable to encode DocumentAttributeClass as nil")
+	}
+	return b.DocumentAttribute.Encode(buf)
+}

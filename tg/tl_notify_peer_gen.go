@@ -240,3 +240,29 @@ func DecodeNotifyPeer(buf *bin.Buffer) (NotifyPeerClass, error) {
 		return nil, fmt.Errorf("unable to decode NotifyPeerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// NotifyPeer boxes the NotifyPeerClass providing a helper.
+type NotifyPeerBox struct {
+	NotifyPeer NotifyPeerClass
+}
+
+// Decode implements bin.Decoder for NotifyPeerBox.
+func (b *NotifyPeerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode NotifyPeerBox to nil")
+	}
+	v, err := DecodeNotifyPeer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.NotifyPeer = v
+	return nil
+}
+
+// Encode implements bin.Encode for NotifyPeerBox.
+func (b *NotifyPeerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.NotifyPeer == nil {
+		return fmt.Errorf("unable to encode NotifyPeerClass as nil")
+	}
+	return b.NotifyPeer.Encode(buf)
+}

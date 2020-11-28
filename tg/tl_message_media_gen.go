@@ -1220,3 +1220,29 @@ func DecodeMessageMedia(buf *bin.Buffer) (MessageMediaClass, error) {
 		return nil, fmt.Errorf("unable to decode MessageMediaClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessageMedia boxes the MessageMediaClass providing a helper.
+type MessageMediaBox struct {
+	MessageMedia MessageMediaClass
+}
+
+// Decode implements bin.Decoder for MessageMediaBox.
+func (b *MessageMediaBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageMediaBox to nil")
+	}
+	v, err := DecodeMessageMedia(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageMedia = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageMediaBox.
+func (b *MessageMediaBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessageMedia == nil {
+		return fmt.Errorf("unable to encode MessageMediaClass as nil")
+	}
+	return b.MessageMedia.Encode(buf)
+}

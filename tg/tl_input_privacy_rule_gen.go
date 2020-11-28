@@ -495,3 +495,29 @@ func DecodeInputPrivacyRule(buf *bin.Buffer) (InputPrivacyRuleClass, error) {
 		return nil, fmt.Errorf("unable to decode InputPrivacyRuleClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputPrivacyRule boxes the InputPrivacyRuleClass providing a helper.
+type InputPrivacyRuleBox struct {
+	InputPrivacyRule InputPrivacyRuleClass
+}
+
+// Decode implements bin.Decoder for InputPrivacyRuleBox.
+func (b *InputPrivacyRuleBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputPrivacyRuleBox to nil")
+	}
+	v, err := DecodeInputPrivacyRule(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputPrivacyRule = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputPrivacyRuleBox.
+func (b *InputPrivacyRuleBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputPrivacyRule == nil {
+		return fmt.Errorf("unable to encode InputPrivacyRuleClass as nil")
+	}
+	return b.InputPrivacyRule.Encode(buf)
+}

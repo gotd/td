@@ -286,3 +286,29 @@ func DecodeDraftMessage(buf *bin.Buffer) (DraftMessageClass, error) {
 		return nil, fmt.Errorf("unable to decode DraftMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// DraftMessage boxes the DraftMessageClass providing a helper.
+type DraftMessageBox struct {
+	DraftMessage DraftMessageClass
+}
+
+// Decode implements bin.Decoder for DraftMessageBox.
+func (b *DraftMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DraftMessageBox to nil")
+	}
+	v, err := DecodeDraftMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.DraftMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for DraftMessageBox.
+func (b *DraftMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.DraftMessage == nil {
+		return fmt.Errorf("unable to encode DraftMessageClass as nil")
+	}
+	return b.DraftMessage.Encode(buf)
+}

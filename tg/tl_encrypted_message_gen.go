@@ -228,3 +228,29 @@ func DecodeEncryptedMessage(buf *bin.Buffer) (EncryptedMessageClass, error) {
 		return nil, fmt.Errorf("unable to decode EncryptedMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// EncryptedMessage boxes the EncryptedMessageClass providing a helper.
+type EncryptedMessageBox struct {
+	EncryptedMessage EncryptedMessageClass
+}
+
+// Decode implements bin.Decoder for EncryptedMessageBox.
+func (b *EncryptedMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode EncryptedMessageBox to nil")
+	}
+	v, err := DecodeEncryptedMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.EncryptedMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for EncryptedMessageBox.
+func (b *EncryptedMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.EncryptedMessage == nil {
+		return fmt.Errorf("unable to encode EncryptedMessageClass as nil")
+	}
+	return b.EncryptedMessage.Encode(buf)
+}

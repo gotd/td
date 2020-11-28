@@ -816,3 +816,29 @@ func DecodeBotInlineMessage(buf *bin.Buffer) (BotInlineMessageClass, error) {
 		return nil, fmt.Errorf("unable to decode BotInlineMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// BotInlineMessage boxes the BotInlineMessageClass providing a helper.
+type BotInlineMessageBox struct {
+	BotInlineMessage BotInlineMessageClass
+}
+
+// Decode implements bin.Decoder for BotInlineMessageBox.
+func (b *BotInlineMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode BotInlineMessageBox to nil")
+	}
+	v, err := DecodeBotInlineMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.BotInlineMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for BotInlineMessageBox.
+func (b *BotInlineMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.BotInlineMessage == nil {
+		return fmt.Errorf("unable to encode BotInlineMessageClass as nil")
+	}
+	return b.BotInlineMessage.Encode(buf)
+}

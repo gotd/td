@@ -1731,3 +1731,29 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		return nil, fmt.Errorf("unable to decode InputMediaClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputMedia boxes the InputMediaClass providing a helper.
+type InputMediaBox struct {
+	InputMedia InputMediaClass
+}
+
+// Decode implements bin.Decoder for InputMediaBox.
+func (b *InputMediaBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputMediaBox to nil")
+	}
+	v, err := DecodeInputMedia(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputMedia = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputMediaBox.
+func (b *InputMediaBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputMedia == nil {
+		return fmt.Errorf("unable to encode InputMediaClass as nil")
+	}
+	return b.InputMedia.Encode(buf)
+}

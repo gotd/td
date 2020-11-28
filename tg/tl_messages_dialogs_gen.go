@@ -391,3 +391,29 @@ func DecodeMessagesDialogs(buf *bin.Buffer) (MessagesDialogsClass, error) {
 		return nil, fmt.Errorf("unable to decode MessagesDialogsClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesDialogs boxes the MessagesDialogsClass providing a helper.
+type MessagesDialogsBox struct {
+	MessagesDialogs MessagesDialogsClass
+}
+
+// Decode implements bin.Decoder for MessagesDialogsBox.
+func (b *MessagesDialogsBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesDialogsBox to nil")
+	}
+	v, err := DecodeMessagesDialogs(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesDialogs = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesDialogsBox.
+func (b *MessagesDialogsBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesDialogs == nil {
+		return fmt.Errorf("unable to encode MessagesDialogsClass as nil")
+	}
+	return b.MessagesDialogs.Encode(buf)
+}

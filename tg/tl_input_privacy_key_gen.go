@@ -409,3 +409,29 @@ func DecodeInputPrivacyKey(buf *bin.Buffer) (InputPrivacyKeyClass, error) {
 		return nil, fmt.Errorf("unable to decode InputPrivacyKeyClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputPrivacyKey boxes the InputPrivacyKeyClass providing a helper.
+type InputPrivacyKeyBox struct {
+	InputPrivacyKey InputPrivacyKeyClass
+}
+
+// Decode implements bin.Decoder for InputPrivacyKeyBox.
+func (b *InputPrivacyKeyBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputPrivacyKeyBox to nil")
+	}
+	v, err := DecodeInputPrivacyKey(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputPrivacyKey = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputPrivacyKeyBox.
+func (b *InputPrivacyKeyBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputPrivacyKey == nil {
+		return fmt.Errorf("unable to encode InputPrivacyKeyClass as nil")
+	}
+	return b.InputPrivacyKey.Encode(buf)
+}

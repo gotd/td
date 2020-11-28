@@ -209,3 +209,29 @@ func DecodePeer(buf *bin.Buffer) (PeerClass, error) {
 		return nil, fmt.Errorf("unable to decode PeerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Peer boxes the PeerClass providing a helper.
+type PeerBox struct {
+	Peer PeerClass
+}
+
+// Decode implements bin.Decoder for PeerBox.
+func (b *PeerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PeerBox to nil")
+	}
+	v, err := DecodePeer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Peer = v
+	return nil
+}
+
+// Encode implements bin.Encode for PeerBox.
+func (b *PeerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Peer == nil {
+		return fmt.Errorf("unable to encode PeerClass as nil")
+	}
+	return b.Peer.Encode(buf)
+}

@@ -307,3 +307,29 @@ func DecodeInputPaymentCredentials(buf *bin.Buffer) (InputPaymentCredentialsClas
 		return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputPaymentCredentials boxes the InputPaymentCredentialsClass providing a helper.
+type InputPaymentCredentialsBox struct {
+	InputPaymentCredentials InputPaymentCredentialsClass
+}
+
+// Decode implements bin.Decoder for InputPaymentCredentialsBox.
+func (b *InputPaymentCredentialsBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputPaymentCredentialsBox to nil")
+	}
+	v, err := DecodeInputPaymentCredentials(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputPaymentCredentials = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputPaymentCredentialsBox.
+func (b *InputPaymentCredentialsBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputPaymentCredentials == nil {
+		return fmt.Errorf("unable to encode InputPaymentCredentialsClass as nil")
+	}
+	return b.InputPaymentCredentials.Encode(buf)
+}

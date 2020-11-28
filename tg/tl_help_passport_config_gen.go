@@ -153,3 +153,29 @@ func DecodeHelpPassportConfig(buf *bin.Buffer) (HelpPassportConfigClass, error) 
 		return nil, fmt.Errorf("unable to decode HelpPassportConfigClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// HelpPassportConfig boxes the HelpPassportConfigClass providing a helper.
+type HelpPassportConfigBox struct {
+	HelpPassportConfig HelpPassportConfigClass
+}
+
+// Decode implements bin.Decoder for HelpPassportConfigBox.
+func (b *HelpPassportConfigBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode HelpPassportConfigBox to nil")
+	}
+	v, err := DecodeHelpPassportConfig(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.HelpPassportConfig = v
+	return nil
+}
+
+// Encode implements bin.Encode for HelpPassportConfigBox.
+func (b *HelpPassportConfigBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.HelpPassportConfig == nil {
+		return fmt.Errorf("unable to encode HelpPassportConfigClass as nil")
+	}
+	return b.HelpPassportConfig.Encode(buf)
+}

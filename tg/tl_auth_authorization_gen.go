@@ -226,3 +226,29 @@ func DecodeAuthAuthorization(buf *bin.Buffer) (AuthAuthorizationClass, error) {
 		return nil, fmt.Errorf("unable to decode AuthAuthorizationClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// AuthAuthorization boxes the AuthAuthorizationClass providing a helper.
+type AuthAuthorizationBox struct {
+	AuthAuthorization AuthAuthorizationClass
+}
+
+// Decode implements bin.Decoder for AuthAuthorizationBox.
+func (b *AuthAuthorizationBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AuthAuthorizationBox to nil")
+	}
+	v, err := DecodeAuthAuthorization(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AuthAuthorization = v
+	return nil
+}
+
+// Encode implements bin.Encode for AuthAuthorizationBox.
+func (b *AuthAuthorizationBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.AuthAuthorization == nil {
+		return fmt.Errorf("unable to encode AuthAuthorizationClass as nil")
+	}
+	return b.AuthAuthorization.Encode(buf)
+}

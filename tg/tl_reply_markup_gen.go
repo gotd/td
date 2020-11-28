@@ -369,3 +369,29 @@ func DecodeReplyMarkup(buf *bin.Buffer) (ReplyMarkupClass, error) {
 		return nil, fmt.Errorf("unable to decode ReplyMarkupClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ReplyMarkup boxes the ReplyMarkupClass providing a helper.
+type ReplyMarkupBox struct {
+	ReplyMarkup ReplyMarkupClass
+}
+
+// Decode implements bin.Decoder for ReplyMarkupBox.
+func (b *ReplyMarkupBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ReplyMarkupBox to nil")
+	}
+	v, err := DecodeReplyMarkup(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ReplyMarkup = v
+	return nil
+}
+
+// Encode implements bin.Encode for ReplyMarkupBox.
+func (b *ReplyMarkupBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ReplyMarkup == nil {
+		return fmt.Errorf("unable to encode ReplyMarkupClass as nil")
+	}
+	return b.ReplyMarkup.Encode(buf)
+}

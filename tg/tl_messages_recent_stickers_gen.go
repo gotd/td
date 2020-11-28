@@ -207,3 +207,29 @@ func DecodeMessagesRecentStickers(buf *bin.Buffer) (MessagesRecentStickersClass,
 		return nil, fmt.Errorf("unable to decode MessagesRecentStickersClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesRecentStickers boxes the MessagesRecentStickersClass providing a helper.
+type MessagesRecentStickersBox struct {
+	MessagesRecentStickers MessagesRecentStickersClass
+}
+
+// Decode implements bin.Decoder for MessagesRecentStickersBox.
+func (b *MessagesRecentStickersBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesRecentStickersBox to nil")
+	}
+	v, err := DecodeMessagesRecentStickers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesRecentStickers = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesRecentStickersBox.
+func (b *MessagesRecentStickersBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesRecentStickers == nil {
+		return fmt.Errorf("unable to encode MessagesRecentStickersClass as nil")
+	}
+	return b.MessagesRecentStickers.Encode(buf)
+}

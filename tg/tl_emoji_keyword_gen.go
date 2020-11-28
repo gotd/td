@@ -191,3 +191,29 @@ func DecodeEmojiKeyword(buf *bin.Buffer) (EmojiKeywordClass, error) {
 		return nil, fmt.Errorf("unable to decode EmojiKeywordClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// EmojiKeyword boxes the EmojiKeywordClass providing a helper.
+type EmojiKeywordBox struct {
+	EmojiKeyword EmojiKeywordClass
+}
+
+// Decode implements bin.Decoder for EmojiKeywordBox.
+func (b *EmojiKeywordBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode EmojiKeywordBox to nil")
+	}
+	v, err := DecodeEmojiKeyword(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.EmojiKeyword = v
+	return nil
+}
+
+// Encode implements bin.Encode for EmojiKeywordBox.
+func (b *EmojiKeywordBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.EmojiKeyword == nil {
+		return fmt.Errorf("unable to encode EmojiKeywordClass as nil")
+	}
+	return b.EmojiKeyword.Encode(buf)
+}

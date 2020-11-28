@@ -167,3 +167,29 @@ func DecodeAccountWallPapers(buf *bin.Buffer) (AccountWallPapersClass, error) {
 		return nil, fmt.Errorf("unable to decode AccountWallPapersClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// AccountWallPapers boxes the AccountWallPapersClass providing a helper.
+type AccountWallPapersBox struct {
+	AccountWallPapers AccountWallPapersClass
+}
+
+// Decode implements bin.Decoder for AccountWallPapersBox.
+func (b *AccountWallPapersBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AccountWallPapersBox to nil")
+	}
+	v, err := DecodeAccountWallPapers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AccountWallPapers = v
+	return nil
+}
+
+// Encode implements bin.Encode for AccountWallPapersBox.
+func (b *AccountWallPapersBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.AccountWallPapers == nil {
+		return fmt.Errorf("unable to encode AccountWallPapersClass as nil")
+	}
+	return b.AccountWallPapers.Encode(buf)
+}

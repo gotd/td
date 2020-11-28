@@ -798,3 +798,29 @@ func DecodeSecureValueError(buf *bin.Buffer) (SecureValueErrorClass, error) {
 		return nil, fmt.Errorf("unable to decode SecureValueErrorClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SecureValueError boxes the SecureValueErrorClass providing a helper.
+type SecureValueErrorBox struct {
+	SecureValueError SecureValueErrorClass
+}
+
+// Decode implements bin.Decoder for SecureValueErrorBox.
+func (b *SecureValueErrorBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecureValueErrorBox to nil")
+	}
+	v, err := DecodeSecureValueError(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecureValueError = v
+	return nil
+}
+
+// Encode implements bin.Encode for SecureValueErrorBox.
+func (b *SecureValueErrorBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SecureValueError == nil {
+		return fmt.Errorf("unable to encode SecureValueErrorClass as nil")
+	}
+	return b.SecureValueError.Encode(buf)
+}

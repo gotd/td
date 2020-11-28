@@ -218,3 +218,29 @@ func DecodeInputWebFileLocation(buf *bin.Buffer) (InputWebFileLocationClass, err
 		return nil, fmt.Errorf("unable to decode InputWebFileLocationClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputWebFileLocation boxes the InputWebFileLocationClass providing a helper.
+type InputWebFileLocationBox struct {
+	InputWebFileLocation InputWebFileLocationClass
+}
+
+// Decode implements bin.Decoder for InputWebFileLocationBox.
+func (b *InputWebFileLocationBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputWebFileLocationBox to nil")
+	}
+	v, err := DecodeInputWebFileLocation(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputWebFileLocation = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputWebFileLocationBox.
+func (b *InputWebFileLocationBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputWebFileLocation == nil {
+		return fmt.Errorf("unable to encode InputWebFileLocationClass as nil")
+	}
+	return b.InputWebFileLocation.Encode(buf)
+}

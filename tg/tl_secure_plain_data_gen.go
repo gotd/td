@@ -153,3 +153,29 @@ func DecodeSecurePlainData(buf *bin.Buffer) (SecurePlainDataClass, error) {
 		return nil, fmt.Errorf("unable to decode SecurePlainDataClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SecurePlainData boxes the SecurePlainDataClass providing a helper.
+type SecurePlainDataBox struct {
+	SecurePlainData SecurePlainDataClass
+}
+
+// Decode implements bin.Decoder for SecurePlainDataBox.
+func (b *SecurePlainDataBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecurePlainDataBox to nil")
+	}
+	v, err := DecodeSecurePlainData(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecurePlainData = v
+	return nil
+}
+
+// Encode implements bin.Encode for SecurePlainDataBox.
+func (b *SecurePlainDataBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SecurePlainData == nil {
+		return fmt.Errorf("unable to encode SecurePlainDataClass as nil")
+	}
+	return b.SecurePlainData.Encode(buf)
+}

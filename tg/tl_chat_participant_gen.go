@@ -249,3 +249,29 @@ func DecodeChatParticipant(buf *bin.Buffer) (ChatParticipantClass, error) {
 		return nil, fmt.Errorf("unable to decode ChatParticipantClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChatParticipant boxes the ChatParticipantClass providing a helper.
+type ChatParticipantBox struct {
+	ChatParticipant ChatParticipantClass
+}
+
+// Decode implements bin.Decoder for ChatParticipantBox.
+func (b *ChatParticipantBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatParticipantBox to nil")
+	}
+	v, err := DecodeChatParticipant(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatParticipant = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChatParticipantBox.
+func (b *ChatParticipantBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChatParticipant == nil {
+		return fmt.Errorf("unable to encode ChatParticipantClass as nil")
+	}
+	return b.ChatParticipant.Encode(buf)
+}

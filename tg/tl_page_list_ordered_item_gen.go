@@ -192,3 +192,29 @@ func DecodePageListOrderedItem(buf *bin.Buffer) (PageListOrderedItemClass, error
 		return nil, fmt.Errorf("unable to decode PageListOrderedItemClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PageListOrderedItem boxes the PageListOrderedItemClass providing a helper.
+type PageListOrderedItemBox struct {
+	PageListOrderedItem PageListOrderedItemClass
+}
+
+// Decode implements bin.Decoder for PageListOrderedItemBox.
+func (b *PageListOrderedItemBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PageListOrderedItemBox to nil")
+	}
+	v, err := DecodePageListOrderedItem(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PageListOrderedItem = v
+	return nil
+}
+
+// Encode implements bin.Encode for PageListOrderedItemBox.
+func (b *PageListOrderedItemBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PageListOrderedItem == nil {
+		return fmt.Errorf("unable to encode PageListOrderedItemClass as nil")
+	}
+	return b.PageListOrderedItem.Encode(buf)
+}

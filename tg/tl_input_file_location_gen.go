@@ -767,3 +767,29 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 		return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputFileLocation boxes the InputFileLocationClass providing a helper.
+type InputFileLocationBox struct {
+	InputFileLocation InputFileLocationClass
+}
+
+// Decode implements bin.Decoder for InputFileLocationBox.
+func (b *InputFileLocationBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputFileLocationBox to nil")
+	}
+	v, err := DecodeInputFileLocation(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputFileLocation = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputFileLocationBox.
+func (b *InputFileLocationBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputFileLocation == nil {
+		return fmt.Errorf("unable to encode InputFileLocationClass as nil")
+	}
+	return b.InputFileLocation.Encode(buf)
+}

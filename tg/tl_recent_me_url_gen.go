@@ -371,3 +371,29 @@ func DecodeRecentMeUrl(buf *bin.Buffer) (RecentMeUrlClass, error) {
 		return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// RecentMeUrl boxes the RecentMeUrlClass providing a helper.
+type RecentMeUrlBox struct {
+	RecentMeUrl RecentMeUrlClass
+}
+
+// Decode implements bin.Decoder for RecentMeUrlBox.
+func (b *RecentMeUrlBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode RecentMeUrlBox to nil")
+	}
+	v, err := DecodeRecentMeUrl(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.RecentMeUrl = v
+	return nil
+}
+
+// Encode implements bin.Encode for RecentMeUrlBox.
+func (b *RecentMeUrlBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.RecentMeUrl == nil {
+		return fmt.Errorf("unable to encode RecentMeUrlClass as nil")
+	}
+	return b.RecentMeUrl.Encode(buf)
+}

@@ -888,3 +888,29 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 		return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// KeyboardButton boxes the KeyboardButtonClass providing a helper.
+type KeyboardButtonBox struct {
+	KeyboardButton KeyboardButtonClass
+}
+
+// Decode implements bin.Decoder for KeyboardButtonBox.
+func (b *KeyboardButtonBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode KeyboardButtonBox to nil")
+	}
+	v, err := DecodeKeyboardButton(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.KeyboardButton = v
+	return nil
+}
+
+// Encode implements bin.Encode for KeyboardButtonBox.
+func (b *KeyboardButtonBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.KeyboardButton == nil {
+		return fmt.Errorf("unable to encode KeyboardButtonClass as nil")
+	}
+	return b.KeyboardButton.Encode(buf)
+}

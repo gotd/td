@@ -526,3 +526,29 @@ func DecodePhotoSize(buf *bin.Buffer) (PhotoSizeClass, error) {
 		return nil, fmt.Errorf("unable to decode PhotoSizeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PhotoSize boxes the PhotoSizeClass providing a helper.
+type PhotoSizeBox struct {
+	PhotoSize PhotoSizeClass
+}
+
+// Decode implements bin.Decoder for PhotoSizeBox.
+func (b *PhotoSizeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PhotoSizeBox to nil")
+	}
+	v, err := DecodePhotoSize(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PhotoSize = v
+	return nil
+}
+
+// Encode implements bin.Encode for PhotoSizeBox.
+func (b *PhotoSizeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PhotoSize == nil {
+		return fmt.Errorf("unable to encode PhotoSizeClass as nil")
+	}
+	return b.PhotoSize.Encode(buf)
+}

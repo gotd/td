@@ -176,3 +176,29 @@ func DecodeChannelMessagesFilter(buf *bin.Buffer) (ChannelMessagesFilterClass, e
 		return nil, fmt.Errorf("unable to decode ChannelMessagesFilterClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChannelMessagesFilter boxes the ChannelMessagesFilterClass providing a helper.
+type ChannelMessagesFilterBox struct {
+	ChannelMessagesFilter ChannelMessagesFilterClass
+}
+
+// Decode implements bin.Decoder for ChannelMessagesFilterBox.
+func (b *ChannelMessagesFilterBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChannelMessagesFilterBox to nil")
+	}
+	v, err := DecodeChannelMessagesFilter(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChannelMessagesFilter = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChannelMessagesFilterBox.
+func (b *ChannelMessagesFilterBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChannelMessagesFilter == nil {
+		return fmt.Errorf("unable to encode ChannelMessagesFilterClass as nil")
+	}
+	return b.ChannelMessagesFilter.Encode(buf)
+}

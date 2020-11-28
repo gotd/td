@@ -192,3 +192,29 @@ func DecodeStickerSetCovered(buf *bin.Buffer) (StickerSetCoveredClass, error) {
 		return nil, fmt.Errorf("unable to decode StickerSetCoveredClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// StickerSetCovered boxes the StickerSetCoveredClass providing a helper.
+type StickerSetCoveredBox struct {
+	StickerSetCovered StickerSetCoveredClass
+}
+
+// Decode implements bin.Decoder for StickerSetCoveredBox.
+func (b *StickerSetCoveredBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StickerSetCoveredBox to nil")
+	}
+	v, err := DecodeStickerSetCovered(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StickerSetCovered = v
+	return nil
+}
+
+// Encode implements bin.Encode for StickerSetCoveredBox.
+func (b *StickerSetCoveredBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.StickerSetCovered == nil {
+		return fmt.Errorf("unable to encode StickerSetCoveredClass as nil")
+	}
+	return b.StickerSetCovered.Encode(buf)
+}

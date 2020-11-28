@@ -163,3 +163,29 @@ func DecodeInputTheme(buf *bin.Buffer) (InputThemeClass, error) {
 		return nil, fmt.Errorf("unable to decode InputThemeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputTheme boxes the InputThemeClass providing a helper.
+type InputThemeBox struct {
+	InputTheme InputThemeClass
+}
+
+// Decode implements bin.Decoder for InputThemeBox.
+func (b *InputThemeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputThemeBox to nil")
+	}
+	v, err := DecodeInputTheme(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputTheme = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputThemeBox.
+func (b *InputThemeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputTheme == nil {
+		return fmt.Errorf("unable to encode InputThemeClass as nil")
+	}
+	return b.InputTheme.Encode(buf)
+}

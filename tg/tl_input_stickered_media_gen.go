@@ -163,3 +163,29 @@ func DecodeInputStickeredMedia(buf *bin.Buffer) (InputStickeredMediaClass, error
 		return nil, fmt.Errorf("unable to decode InputStickeredMediaClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputStickeredMedia boxes the InputStickeredMediaClass providing a helper.
+type InputStickeredMediaBox struct {
+	InputStickeredMedia InputStickeredMediaClass
+}
+
+// Decode implements bin.Decoder for InputStickeredMediaBox.
+func (b *InputStickeredMediaBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputStickeredMediaBox to nil")
+	}
+	v, err := DecodeInputStickeredMedia(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputStickeredMedia = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputStickeredMediaBox.
+func (b *InputStickeredMediaBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputStickeredMedia == nil {
+		return fmt.Errorf("unable to encode InputStickeredMediaClass as nil")
+	}
+	return b.InputStickeredMedia.Encode(buf)
+}

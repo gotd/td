@@ -271,3 +271,29 @@ func DecodeBaseTheme(buf *bin.Buffer) (BaseThemeClass, error) {
 		return nil, fmt.Errorf("unable to decode BaseThemeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// BaseTheme boxes the BaseThemeClass providing a helper.
+type BaseThemeBox struct {
+	BaseTheme BaseThemeClass
+}
+
+// Decode implements bin.Decoder for BaseThemeBox.
+func (b *BaseThemeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode BaseThemeBox to nil")
+	}
+	v, err := DecodeBaseTheme(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.BaseTheme = v
+	return nil
+}
+
+// Encode implements bin.Encode for BaseThemeBox.
+func (b *BaseThemeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.BaseTheme == nil {
+		return fmt.Errorf("unable to encode BaseThemeClass as nil")
+	}
+	return b.BaseTheme.Encode(buf)
+}

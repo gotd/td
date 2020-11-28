@@ -392,3 +392,29 @@ func DecodeJSONValue(buf *bin.Buffer) (JSONValueClass, error) {
 		return nil, fmt.Errorf("unable to decode JSONValueClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// JSONValue boxes the JSONValueClass providing a helper.
+type JSONValueBox struct {
+	JSONValue JSONValueClass
+}
+
+// Decode implements bin.Decoder for JSONValueBox.
+func (b *JSONValueBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode JSONValueBox to nil")
+	}
+	v, err := DecodeJSONValue(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.JSONValue = v
+	return nil
+}
+
+// Encode implements bin.Encode for JSONValueBox.
+func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.JSONValue == nil {
+		return fmt.Errorf("unable to encode JSONValueClass as nil")
+	}
+	return b.JSONValue.Encode(buf)
+}

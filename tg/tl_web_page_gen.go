@@ -771,3 +771,29 @@ func DecodeWebPage(buf *bin.Buffer) (WebPageClass, error) {
 		return nil, fmt.Errorf("unable to decode WebPageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// WebPage boxes the WebPageClass providing a helper.
+type WebPageBox struct {
+	WebPage WebPageClass
+}
+
+// Decode implements bin.Decoder for WebPageBox.
+func (b *WebPageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode WebPageBox to nil")
+	}
+	v, err := DecodeWebPage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.WebPage = v
+	return nil
+}
+
+// Encode implements bin.Encode for WebPageBox.
+func (b *WebPageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.WebPage == nil {
+		return fmt.Errorf("unable to encode WebPageClass as nil")
+	}
+	return b.WebPage.Encode(buf)
+}

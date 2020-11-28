@@ -2403,3 +2403,29 @@ func DecodePageBlock(buf *bin.Buffer) (PageBlockClass, error) {
 		return nil, fmt.Errorf("unable to decode PageBlockClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PageBlock boxes the PageBlockClass providing a helper.
+type PageBlockBox struct {
+	PageBlock PageBlockClass
+}
+
+// Decode implements bin.Decoder for PageBlockBox.
+func (b *PageBlockBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PageBlockBox to nil")
+	}
+	v, err := DecodePageBlock(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PageBlock = v
+	return nil
+}
+
+// Encode implements bin.Encode for PageBlockBox.
+func (b *PageBlockBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PageBlock == nil {
+		return fmt.Errorf("unable to encode PageBlockClass as nil")
+	}
+	return b.PageBlock.Encode(buf)
+}

@@ -251,3 +251,29 @@ func DecodeWebDocument(buf *bin.Buffer) (WebDocumentClass, error) {
 		return nil, fmt.Errorf("unable to decode WebDocumentClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// WebDocument boxes the WebDocumentClass providing a helper.
+type WebDocumentBox struct {
+	WebDocument WebDocumentClass
+}
+
+// Decode implements bin.Decoder for WebDocumentBox.
+func (b *WebDocumentBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode WebDocumentBox to nil")
+	}
+	v, err := DecodeWebDocument(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.WebDocument = v
+	return nil
+}
+
+// Encode implements bin.Encode for WebDocumentBox.
+func (b *WebDocumentBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.WebDocument == nil {
+		return fmt.Errorf("unable to encode WebDocumentClass as nil")
+	}
+	return b.WebDocument.Encode(buf)
+}

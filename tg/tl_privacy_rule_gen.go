@@ -485,3 +485,29 @@ func DecodePrivacyRule(buf *bin.Buffer) (PrivacyRuleClass, error) {
 		return nil, fmt.Errorf("unable to decode PrivacyRuleClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PrivacyRule boxes the PrivacyRuleClass providing a helper.
+type PrivacyRuleBox struct {
+	PrivacyRule PrivacyRuleClass
+}
+
+// Decode implements bin.Decoder for PrivacyRuleBox.
+func (b *PrivacyRuleBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PrivacyRuleBox to nil")
+	}
+	v, err := DecodePrivacyRule(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PrivacyRule = v
+	return nil
+}
+
+// Encode implements bin.Encode for PrivacyRuleBox.
+func (b *PrivacyRuleBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PrivacyRule == nil {
+		return fmt.Errorf("unable to encode PrivacyRuleClass as nil")
+	}
+	return b.PrivacyRule.Encode(buf)
+}

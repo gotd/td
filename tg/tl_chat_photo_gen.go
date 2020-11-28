@@ -185,3 +185,29 @@ func DecodeChatPhoto(buf *bin.Buffer) (ChatPhotoClass, error) {
 		return nil, fmt.Errorf("unable to decode ChatPhotoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChatPhoto boxes the ChatPhotoClass providing a helper.
+type ChatPhotoBox struct {
+	ChatPhoto ChatPhotoClass
+}
+
+// Decode implements bin.Decoder for ChatPhotoBox.
+func (b *ChatPhotoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatPhotoBox to nil")
+	}
+	v, err := DecodeChatPhoto(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatPhoto = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChatPhotoBox.
+func (b *ChatPhotoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChatPhoto == nil {
+		return fmt.Errorf("unable to encode ChatPhotoClass as nil")
+	}
+	return b.ChatPhoto.Encode(buf)
+}

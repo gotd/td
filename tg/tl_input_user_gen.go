@@ -280,3 +280,29 @@ func DecodeInputUser(buf *bin.Buffer) (InputUserClass, error) {
 		return nil, fmt.Errorf("unable to decode InputUserClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputUser boxes the InputUserClass providing a helper.
+type InputUserBox struct {
+	InputUser InputUserClass
+}
+
+// Decode implements bin.Decoder for InputUserBox.
+func (b *InputUserBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputUserBox to nil")
+	}
+	v, err := DecodeInputUser(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputUser = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputUserBox.
+func (b *InputUserBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputUser == nil {
+		return fmt.Errorf("unable to encode InputUserClass as nil")
+	}
+	return b.InputUser.Encode(buf)
+}

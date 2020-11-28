@@ -501,3 +501,29 @@ func DecodeStorageFileType(buf *bin.Buffer) (StorageFileTypeClass, error) {
 		return nil, fmt.Errorf("unable to decode StorageFileTypeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// StorageFileType boxes the StorageFileTypeClass providing a helper.
+type StorageFileTypeBox struct {
+	StorageFileType StorageFileTypeClass
+}
+
+// Decode implements bin.Decoder for StorageFileTypeBox.
+func (b *StorageFileTypeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StorageFileTypeBox to nil")
+	}
+	v, err := DecodeStorageFileType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StorageFileType = v
+	return nil
+}
+
+// Encode implements bin.Encode for StorageFileTypeBox.
+func (b *StorageFileTypeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.StorageFileType == nil {
+		return fmt.Errorf("unable to encode StorageFileTypeClass as nil")
+	}
+	return b.StorageFileType.Encode(buf)
+}

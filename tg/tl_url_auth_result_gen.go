@@ -236,3 +236,29 @@ func DecodeUrlAuthResult(buf *bin.Buffer) (UrlAuthResultClass, error) {
 		return nil, fmt.Errorf("unable to decode UrlAuthResultClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UrlAuthResult boxes the UrlAuthResultClass providing a helper.
+type UrlAuthResultBox struct {
+	UrlAuthResult UrlAuthResultClass
+}
+
+// Decode implements bin.Decoder for UrlAuthResultBox.
+func (b *UrlAuthResultBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UrlAuthResultBox to nil")
+	}
+	v, err := DecodeUrlAuthResult(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UrlAuthResult = v
+	return nil
+}
+
+// Encode implements bin.Encode for UrlAuthResultBox.
+func (b *UrlAuthResultBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UrlAuthResult == nil {
+		return fmt.Errorf("unable to encode UrlAuthResultClass as nil")
+	}
+	return b.UrlAuthResult.Encode(buf)
+}

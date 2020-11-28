@@ -133,3 +133,29 @@ func DecodeBool(buf *bin.Buffer) (BoolClass, error) {
 		return nil, fmt.Errorf("unable to decode BoolClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Bool boxes the BoolClass providing a helper.
+type BoolBox struct {
+	Bool BoolClass
+}
+
+// Decode implements bin.Decoder for BoolBox.
+func (b *BoolBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode BoolBox to nil")
+	}
+	v, err := DecodeBool(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Bool = v
+	return nil
+}
+
+// Encode implements bin.Encode for BoolBox.
+func (b *BoolBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Bool == nil {
+		return fmt.Errorf("unable to encode BoolClass as nil")
+	}
+	return b.Bool.Encode(buf)
+}

@@ -337,3 +337,29 @@ func DecodeUserStatus(buf *bin.Buffer) (UserStatusClass, error) {
 		return nil, fmt.Errorf("unable to decode UserStatusClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UserStatus boxes the UserStatusClass providing a helper.
+type UserStatusBox struct {
+	UserStatus UserStatusClass
+}
+
+// Decode implements bin.Decoder for UserStatusBox.
+func (b *UserStatusBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UserStatusBox to nil")
+	}
+	v, err := DecodeUserStatus(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UserStatus = v
+	return nil
+}
+
+// Encode implements bin.Encode for UserStatusBox.
+func (b *UserStatusBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UserStatus == nil {
+		return fmt.Errorf("unable to encode UserStatusClass as nil")
+	}
+	return b.UserStatus.Encode(buf)
+}

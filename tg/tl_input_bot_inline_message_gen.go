@@ -906,3 +906,29 @@ func DecodeInputBotInlineMessage(buf *bin.Buffer) (InputBotInlineMessageClass, e
 		return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputBotInlineMessage boxes the InputBotInlineMessageClass providing a helper.
+type InputBotInlineMessageBox struct {
+	InputBotInlineMessage InputBotInlineMessageClass
+}
+
+// Decode implements bin.Decoder for InputBotInlineMessageBox.
+func (b *InputBotInlineMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputBotInlineMessageBox to nil")
+	}
+	v, err := DecodeInputBotInlineMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputBotInlineMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputBotInlineMessageBox.
+func (b *InputBotInlineMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputBotInlineMessage == nil {
+		return fmt.Errorf("unable to encode InputBotInlineMessageClass as nil")
+	}
+	return b.InputBotInlineMessage.Encode(buf)
+}

@@ -373,3 +373,29 @@ func DecodeReportReason(buf *bin.Buffer) (ReportReasonClass, error) {
 		return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ReportReason boxes the ReportReasonClass providing a helper.
+type ReportReasonBox struct {
+	ReportReason ReportReasonClass
+}
+
+// Decode implements bin.Decoder for ReportReasonBox.
+func (b *ReportReasonBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ReportReasonBox to nil")
+	}
+	v, err := DecodeReportReason(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ReportReason = v
+	return nil
+}
+
+// Encode implements bin.Encode for ReportReasonBox.
+func (b *ReportReasonBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ReportReason == nil {
+		return fmt.Errorf("unable to encode ReportReasonClass as nil")
+	}
+	return b.ReportReason.Encode(buf)
+}

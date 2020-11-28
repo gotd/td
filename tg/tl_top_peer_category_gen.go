@@ -409,3 +409,29 @@ func DecodeTopPeerCategory(buf *bin.Buffer) (TopPeerCategoryClass, error) {
 		return nil, fmt.Errorf("unable to decode TopPeerCategoryClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// TopPeerCategory boxes the TopPeerCategoryClass providing a helper.
+type TopPeerCategoryBox struct {
+	TopPeerCategory TopPeerCategoryClass
+}
+
+// Decode implements bin.Decoder for TopPeerCategoryBox.
+func (b *TopPeerCategoryBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode TopPeerCategoryBox to nil")
+	}
+	v, err := DecodeTopPeerCategory(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.TopPeerCategory = v
+	return nil
+}
+
+// Encode implements bin.Encode for TopPeerCategoryBox.
+func (b *TopPeerCategoryBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.TopPeerCategory == nil {
+		return fmt.Errorf("unable to encode TopPeerCategoryClass as nil")
+	}
+	return b.TopPeerCategory.Encode(buf)
+}

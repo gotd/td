@@ -1055,3 +1055,29 @@ func DecodeChatFull(buf *bin.Buffer) (ChatFullClass, error) {
 		return nil, fmt.Errorf("unable to decode ChatFullClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChatFull boxes the ChatFullClass providing a helper.
+type ChatFullBox struct {
+	ChatFull ChatFullClass
+}
+
+// Decode implements bin.Decoder for ChatFullBox.
+func (b *ChatFullBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatFullBox to nil")
+	}
+	v, err := DecodeChatFull(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatFull = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChatFullBox.
+func (b *ChatFullBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChatFull == nil {
+		return fmt.Errorf("unable to encode ChatFullClass as nil")
+	}
+	return b.ChatFull.Encode(buf)
+}

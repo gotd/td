@@ -239,3 +239,29 @@ func DecodePhotosPhotos(buf *bin.Buffer) (PhotosPhotosClass, error) {
 		return nil, fmt.Errorf("unable to decode PhotosPhotosClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PhotosPhotos boxes the PhotosPhotosClass providing a helper.
+type PhotosPhotosBox struct {
+	PhotosPhotos PhotosPhotosClass
+}
+
+// Decode implements bin.Decoder for PhotosPhotosBox.
+func (b *PhotosPhotosBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PhotosPhotosBox to nil")
+	}
+	v, err := DecodePhotosPhotos(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PhotosPhotos = v
+	return nil
+}
+
+// Encode implements bin.Encode for PhotosPhotosBox.
+func (b *PhotosPhotosBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PhotosPhotos == nil {
+		return fmt.Errorf("unable to encode PhotosPhotosClass as nil")
+	}
+	return b.PhotosPhotos.Encode(buf)
+}

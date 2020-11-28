@@ -1227,3 +1227,29 @@ func DecodeUpdates(buf *bin.Buffer) (UpdatesClass, error) {
 		return nil, fmt.Errorf("unable to decode UpdatesClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Updates boxes the UpdatesClass providing a helper.
+type UpdatesBox struct {
+	Updates UpdatesClass
+}
+
+// Decode implements bin.Decoder for UpdatesBox.
+func (b *UpdatesBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UpdatesBox to nil")
+	}
+	v, err := DecodeUpdates(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Updates = v
+	return nil
+}
+
+// Encode implements bin.Encode for UpdatesBox.
+func (b *UpdatesBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Updates == nil {
+		return fmt.Errorf("unable to encode UpdatesClass as nil")
+	}
+	return b.Updates.Encode(buf)
+}

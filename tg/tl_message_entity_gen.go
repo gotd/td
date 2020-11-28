@@ -1340,3 +1340,29 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 		return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessageEntity boxes the MessageEntityClass providing a helper.
+type MessageEntityBox struct {
+	MessageEntity MessageEntityClass
+}
+
+// Decode implements bin.Decoder for MessageEntityBox.
+func (b *MessageEntityBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageEntityBox to nil")
+	}
+	v, err := DecodeMessageEntity(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageEntity = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageEntityBox.
+func (b *MessageEntityBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessageEntity == nil {
+		return fmt.Errorf("unable to encode MessageEntityClass as nil")
+	}
+	return b.MessageEntity.Encode(buf)
+}

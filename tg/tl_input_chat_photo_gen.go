@@ -301,3 +301,29 @@ func DecodeInputChatPhoto(buf *bin.Buffer) (InputChatPhotoClass, error) {
 		return nil, fmt.Errorf("unable to decode InputChatPhotoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputChatPhoto boxes the InputChatPhotoClass providing a helper.
+type InputChatPhotoBox struct {
+	InputChatPhoto InputChatPhotoClass
+}
+
+// Decode implements bin.Decoder for InputChatPhotoBox.
+func (b *InputChatPhotoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputChatPhotoBox to nil")
+	}
+	v, err := DecodeInputChatPhoto(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputChatPhoto = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputChatPhotoBox.
+func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputChatPhoto == nil {
+		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
+	}
+	return b.InputChatPhoto.Encode(buf)
+}

@@ -164,3 +164,29 @@ func DecodeMessagesAllStickers(buf *bin.Buffer) (MessagesAllStickersClass, error
 		return nil, fmt.Errorf("unable to decode MessagesAllStickersClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesAllStickers boxes the MessagesAllStickersClass providing a helper.
+type MessagesAllStickersBox struct {
+	MessagesAllStickers MessagesAllStickersClass
+}
+
+// Decode implements bin.Decoder for MessagesAllStickersBox.
+func (b *MessagesAllStickersBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesAllStickersBox to nil")
+	}
+	v, err := DecodeMessagesAllStickers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesAllStickers = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesAllStickersBox.
+func (b *MessagesAllStickersBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesAllStickers == nil {
+		return fmt.Errorf("unable to encode MessagesAllStickersClass as nil")
+	}
+	return b.MessagesAllStickers.Encode(buf)
+}

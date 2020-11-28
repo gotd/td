@@ -153,3 +153,29 @@ func DecodeResponse(buf *bin.Buffer) (ResponseClass, error) {
 		return nil, fmt.Errorf("unable to decode ResponseClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Response boxes the ResponseClass providing a helper.
+type ResponseBox struct {
+	Response ResponseClass
+}
+
+// Decode implements bin.Decoder for ResponseBox.
+func (b *ResponseBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ResponseBox to nil")
+	}
+	v, err := DecodeResponse(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Response = v
+	return nil
+}
+
+// Encode implements bin.Encode for ResponseBox.
+func (b *ResponseBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Response == nil {
+		return fmt.Errorf("unable to encode ResponseClass as nil")
+	}
+	return b.Response.Encode(buf)
+}

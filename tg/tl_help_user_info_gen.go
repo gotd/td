@@ -187,3 +187,29 @@ func DecodeHelpUserInfo(buf *bin.Buffer) (HelpUserInfoClass, error) {
 		return nil, fmt.Errorf("unable to decode HelpUserInfoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// HelpUserInfo boxes the HelpUserInfoClass providing a helper.
+type HelpUserInfoBox struct {
+	HelpUserInfo HelpUserInfoClass
+}
+
+// Decode implements bin.Decoder for HelpUserInfoBox.
+func (b *HelpUserInfoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode HelpUserInfoBox to nil")
+	}
+	v, err := DecodeHelpUserInfo(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.HelpUserInfo = v
+	return nil
+}
+
+// Encode implements bin.Encode for HelpUserInfoBox.
+func (b *HelpUserInfoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.HelpUserInfo == nil {
+		return fmt.Errorf("unable to encode HelpUserInfoClass as nil")
+	}
+	return b.HelpUserInfo.Encode(buf)
+}

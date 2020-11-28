@@ -191,3 +191,29 @@ func DecodeMessagesChats(buf *bin.Buffer) (MessagesChatsClass, error) {
 		return nil, fmt.Errorf("unable to decode MessagesChatsClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesChats boxes the MessagesChatsClass providing a helper.
+type MessagesChatsBox struct {
+	MessagesChats MessagesChatsClass
+}
+
+// Decode implements bin.Decoder for MessagesChatsBox.
+func (b *MessagesChatsBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesChatsBox to nil")
+	}
+	v, err := DecodeMessagesChats(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesChats = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesChatsBox.
+func (b *MessagesChatsBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesChats == nil {
+		return fmt.Errorf("unable to encode MessagesChatsClass as nil")
+	}
+	return b.MessagesChats.Encode(buf)
+}

@@ -1636,3 +1636,29 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 		return nil, fmt.Errorf("unable to decode MessageActionClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessageAction boxes the MessageActionClass providing a helper.
+type MessageActionBox struct {
+	MessageAction MessageActionClass
+}
+
+// Decode implements bin.Decoder for MessageActionBox.
+func (b *MessageActionBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageActionBox to nil")
+	}
+	v, err := DecodeMessageAction(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageAction = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageActionBox.
+func (b *MessageActionBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessageAction == nil {
+		return fmt.Errorf("unable to encode MessageActionClass as nil")
+	}
+	return b.MessageAction.Encode(buf)
+}

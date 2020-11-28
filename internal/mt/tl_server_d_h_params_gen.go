@@ -193,3 +193,29 @@ func DecodeServerDHParams(buf *bin.Buffer) (ServerDHParamsClass, error) {
 		return nil, fmt.Errorf("unable to decode ServerDHParamsClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ServerDHParams boxes the ServerDHParamsClass providing a helper.
+type ServerDHParamsBox struct {
+	ServerDHParams ServerDHParamsClass
+}
+
+// Decode implements bin.Decoder for ServerDHParamsBox.
+func (b *ServerDHParamsBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ServerDHParamsBox to nil")
+	}
+	v, err := DecodeServerDHParams(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ServerDHParams = v
+	return nil
+}
+
+// Encode implements bin.Encode for ServerDHParamsBox.
+func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ServerDHParams == nil {
+		return fmt.Errorf("unable to encode ServerDHParamsClass as nil")
+	}
+	return b.ServerDHParams.Encode(buf)
+}

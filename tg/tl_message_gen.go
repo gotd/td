@@ -993,3 +993,29 @@ func DecodeMessage(buf *bin.Buffer) (MessageClass, error) {
 		return nil, fmt.Errorf("unable to decode MessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Message boxes the MessageClass providing a helper.
+type MessageBox struct {
+	Message MessageClass
+}
+
+// Decode implements bin.Decoder for MessageBox.
+func (b *MessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageBox to nil")
+	}
+	v, err := DecodeMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Message = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageBox.
+func (b *MessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Message == nil {
+		return fmt.Errorf("unable to encode MessageClass as nil")
+	}
+	return b.Message.Encode(buf)
+}

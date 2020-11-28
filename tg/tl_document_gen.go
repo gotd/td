@@ -330,3 +330,29 @@ func DecodeDocument(buf *bin.Buffer) (DocumentClass, error) {
 		return nil, fmt.Errorf("unable to decode DocumentClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Document boxes the DocumentClass providing a helper.
+type DocumentBox struct {
+	Document DocumentClass
+}
+
+// Decode implements bin.Decoder for DocumentBox.
+func (b *DocumentBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DocumentBox to nil")
+	}
+	v, err := DecodeDocument(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Document = v
+	return nil
+}
+
+// Encode implements bin.Encode for DocumentBox.
+func (b *DocumentBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Document == nil {
+		return fmt.Errorf("unable to encode DocumentClass as nil")
+	}
+	return b.Document.Encode(buf)
+}

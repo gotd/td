@@ -268,3 +268,29 @@ func DecodeMessageUserVote(buf *bin.Buffer) (MessageUserVoteClass, error) {
 		return nil, fmt.Errorf("unable to decode MessageUserVoteClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessageUserVote boxes the MessageUserVoteClass providing a helper.
+type MessageUserVoteBox struct {
+	MessageUserVote MessageUserVoteClass
+}
+
+// Decode implements bin.Decoder for MessageUserVoteBox.
+func (b *MessageUserVoteBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessageUserVoteBox to nil")
+	}
+	v, err := DecodeMessageUserVote(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessageUserVote = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessageUserVoteBox.
+func (b *MessageUserVoteBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessageUserVote == nil {
+		return fmt.Errorf("unable to encode MessageUserVoteClass as nil")
+	}
+	return b.MessageUserVote.Encode(buf)
+}

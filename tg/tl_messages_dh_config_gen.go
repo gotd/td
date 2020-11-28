@@ -183,3 +183,29 @@ func DecodeMessagesDhConfig(buf *bin.Buffer) (MessagesDhConfigClass, error) {
 		return nil, fmt.Errorf("unable to decode MessagesDhConfigClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesDhConfig boxes the MessagesDhConfigClass providing a helper.
+type MessagesDhConfigBox struct {
+	MessagesDhConfig MessagesDhConfigClass
+}
+
+// Decode implements bin.Decoder for MessagesDhConfigBox.
+func (b *MessagesDhConfigBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesDhConfigBox to nil")
+	}
+	v, err := DecodeMessagesDhConfig(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesDhConfig = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesDhConfigBox.
+func (b *MessagesDhConfigBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesDhConfig == nil {
+		return fmt.Errorf("unable to encode MessagesDhConfigClass as nil")
+	}
+	return b.MessagesDhConfig.Encode(buf)
+}

@@ -158,3 +158,29 @@ func DecodeDialogPeer(buf *bin.Buffer) (DialogPeerClass, error) {
 		return nil, fmt.Errorf("unable to decode DialogPeerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// DialogPeer boxes the DialogPeerClass providing a helper.
+type DialogPeerBox struct {
+	DialogPeer DialogPeerClass
+}
+
+// Decode implements bin.Decoder for DialogPeerBox.
+func (b *DialogPeerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DialogPeerBox to nil")
+	}
+	v, err := DecodeDialogPeer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.DialogPeer = v
+	return nil
+}
+
+// Encode implements bin.Encode for DialogPeerBox.
+func (b *DialogPeerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.DialogPeer == nil {
+		return fmt.Errorf("unable to encode DialogPeerClass as nil")
+	}
+	return b.DialogPeer.Encode(buf)
+}

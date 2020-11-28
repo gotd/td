@@ -209,3 +209,29 @@ func DecodeInputWallPaper(buf *bin.Buffer) (InputWallPaperClass, error) {
 		return nil, fmt.Errorf("unable to decode InputWallPaperClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputWallPaper boxes the InputWallPaperClass providing a helper.
+type InputWallPaperBox struct {
+	InputWallPaper InputWallPaperClass
+}
+
+// Decode implements bin.Decoder for InputWallPaperBox.
+func (b *InputWallPaperBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputWallPaperBox to nil")
+	}
+	v, err := DecodeInputWallPaper(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputWallPaper = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputWallPaperBox.
+func (b *InputWallPaperBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputWallPaper == nil {
+		return fmt.Errorf("unable to encode InputWallPaperClass as nil")
+	}
+	return b.InputWallPaper.Encode(buf)
+}

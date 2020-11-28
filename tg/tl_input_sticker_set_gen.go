@@ -311,3 +311,29 @@ func DecodeInputStickerSet(buf *bin.Buffer) (InputStickerSetClass, error) {
 		return nil, fmt.Errorf("unable to decode InputStickerSetClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputStickerSet boxes the InputStickerSetClass providing a helper.
+type InputStickerSetBox struct {
+	InputStickerSet InputStickerSetClass
+}
+
+// Decode implements bin.Decoder for InputStickerSetBox.
+func (b *InputStickerSetBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputStickerSetBox to nil")
+	}
+	v, err := DecodeInputStickerSet(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputStickerSet = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputStickerSetBox.
+func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputStickerSet == nil {
+		return fmt.Errorf("unable to encode InputStickerSetClass as nil")
+	}
+	return b.InputStickerSet.Encode(buf)
+}

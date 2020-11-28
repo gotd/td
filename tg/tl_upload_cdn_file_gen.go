@@ -153,3 +153,29 @@ func DecodeUploadCdnFile(buf *bin.Buffer) (UploadCdnFileClass, error) {
 		return nil, fmt.Errorf("unable to decode UploadCdnFileClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UploadCdnFile boxes the UploadCdnFileClass providing a helper.
+type UploadCdnFileBox struct {
+	UploadCdnFile UploadCdnFileClass
+}
+
+// Decode implements bin.Decoder for UploadCdnFileBox.
+func (b *UploadCdnFileBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UploadCdnFileBox to nil")
+	}
+	v, err := DecodeUploadCdnFile(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UploadCdnFile = v
+	return nil
+}
+
+// Encode implements bin.Encode for UploadCdnFileBox.
+func (b *UploadCdnFileBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UploadCdnFile == nil {
+		return fmt.Errorf("unable to encode UploadCdnFileClass as nil")
+	}
+	return b.UploadCdnFile.Encode(buf)
+}

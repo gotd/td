@@ -218,3 +218,29 @@ func DecodeSecureRequiredType(buf *bin.Buffer) (SecureRequiredTypeClass, error) 
 		return nil, fmt.Errorf("unable to decode SecureRequiredTypeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SecureRequiredType boxes the SecureRequiredTypeClass providing a helper.
+type SecureRequiredTypeBox struct {
+	SecureRequiredType SecureRequiredTypeClass
+}
+
+// Decode implements bin.Decoder for SecureRequiredTypeBox.
+func (b *SecureRequiredTypeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecureRequiredTypeBox to nil")
+	}
+	v, err := DecodeSecureRequiredType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecureRequiredType = v
+	return nil
+}
+
+// Encode implements bin.Encode for SecureRequiredTypeBox.
+func (b *SecureRequiredTypeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SecureRequiredType == nil {
+		return fmt.Errorf("unable to encode SecureRequiredTypeClass as nil")
+	}
+	return b.SecureRequiredType.Encode(buf)
+}

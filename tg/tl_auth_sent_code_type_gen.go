@@ -265,3 +265,29 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 		return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// AuthSentCodeType boxes the AuthSentCodeTypeClass providing a helper.
+type AuthSentCodeTypeBox struct {
+	AuthSentCodeType AuthSentCodeTypeClass
+}
+
+// Decode implements bin.Decoder for AuthSentCodeTypeBox.
+func (b *AuthSentCodeTypeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AuthSentCodeTypeBox to nil")
+	}
+	v, err := DecodeAuthSentCodeType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AuthSentCodeType = v
+	return nil
+}
+
+// Encode implements bin.Encode for AuthSentCodeTypeBox.
+func (b *AuthSentCodeTypeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.AuthSentCodeType == nil {
+		return fmt.Errorf("unable to encode AuthSentCodeTypeClass as nil")
+	}
+	return b.AuthSentCodeType.Encode(buf)
+}

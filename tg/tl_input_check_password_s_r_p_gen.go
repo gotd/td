@@ -163,3 +163,29 @@ func DecodeInputCheckPasswordSRP(buf *bin.Buffer) (InputCheckPasswordSRPClass, e
 		return nil, fmt.Errorf("unable to decode InputCheckPasswordSRPClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputCheckPasswordSRP boxes the InputCheckPasswordSRPClass providing a helper.
+type InputCheckPasswordSRPBox struct {
+	InputCheckPasswordSRP InputCheckPasswordSRPClass
+}
+
+// Decode implements bin.Decoder for InputCheckPasswordSRPBox.
+func (b *InputCheckPasswordSRPBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputCheckPasswordSRPBox to nil")
+	}
+	v, err := DecodeInputCheckPasswordSRP(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputCheckPasswordSRP = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputCheckPasswordSRPBox.
+func (b *InputCheckPasswordSRPBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputCheckPasswordSRP == nil {
+		return fmt.Errorf("unable to encode InputCheckPasswordSRPClass as nil")
+	}
+	return b.InputCheckPasswordSRP.Encode(buf)
+}

@@ -671,3 +671,29 @@ func DecodeUser(buf *bin.Buffer) (UserClass, error) {
 		return nil, fmt.Errorf("unable to decode UserClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// User boxes the UserClass providing a helper.
+type UserBox struct {
+	User UserClass
+}
+
+// Decode implements bin.Decoder for UserBox.
+func (b *UserBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UserBox to nil")
+	}
+	v, err := DecodeUser(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.User = v
+	return nil
+}
+
+// Encode implements bin.Encode for UserBox.
+func (b *UserBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.User == nil {
+		return fmt.Errorf("unable to encode UserClass as nil")
+	}
+	return b.User.Encode(buf)
+}

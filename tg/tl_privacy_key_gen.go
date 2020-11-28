@@ -409,3 +409,29 @@ func DecodePrivacyKey(buf *bin.Buffer) (PrivacyKeyClass, error) {
 		return nil, fmt.Errorf("unable to decode PrivacyKeyClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PrivacyKey boxes the PrivacyKeyClass providing a helper.
+type PrivacyKeyBox struct {
+	PrivacyKey PrivacyKeyClass
+}
+
+// Decode implements bin.Decoder for PrivacyKeyBox.
+func (b *PrivacyKeyBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PrivacyKeyBox to nil")
+	}
+	v, err := DecodePrivacyKey(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PrivacyKey = v
+	return nil
+}
+
+// Encode implements bin.Encode for PrivacyKeyBox.
+func (b *PrivacyKeyBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PrivacyKey == nil {
+		return fmt.Errorf("unable to encode PrivacyKeyClass as nil")
+	}
+	return b.PrivacyKey.Encode(buf)
+}

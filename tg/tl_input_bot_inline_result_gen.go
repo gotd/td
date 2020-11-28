@@ -618,3 +618,29 @@ func DecodeInputBotInlineResult(buf *bin.Buffer) (InputBotInlineResultClass, err
 		return nil, fmt.Errorf("unable to decode InputBotInlineResultClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputBotInlineResult boxes the InputBotInlineResultClass providing a helper.
+type InputBotInlineResultBox struct {
+	InputBotInlineResult InputBotInlineResultClass
+}
+
+// Decode implements bin.Decoder for InputBotInlineResultBox.
+func (b *InputBotInlineResultBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputBotInlineResultBox to nil")
+	}
+	v, err := DecodeInputBotInlineResult(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputBotInlineResult = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputBotInlineResultBox.
+func (b *InputBotInlineResultBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputBotInlineResult == nil {
+		return fmt.Errorf("unable to encode InputBotInlineResultClass as nil")
+	}
+	return b.InputBotInlineResult.Encode(buf)
+}

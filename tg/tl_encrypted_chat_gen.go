@@ -510,3 +510,29 @@ func DecodeEncryptedChat(buf *bin.Buffer) (EncryptedChatClass, error) {
 		return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// EncryptedChat boxes the EncryptedChatClass providing a helper.
+type EncryptedChatBox struct {
+	EncryptedChat EncryptedChatClass
+}
+
+// Decode implements bin.Decoder for EncryptedChatBox.
+func (b *EncryptedChatBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode EncryptedChatBox to nil")
+	}
+	v, err := DecodeEncryptedChat(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.EncryptedChat = v
+	return nil
+}
+
+// Encode implements bin.Encode for EncryptedChatBox.
+func (b *EncryptedChatBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.EncryptedChat == nil {
+		return fmt.Errorf("unable to encode EncryptedChatClass as nil")
+	}
+	return b.EncryptedChat.Encode(buf)
+}

@@ -172,3 +172,29 @@ func DecodePageListItem(buf *bin.Buffer) (PageListItemClass, error) {
 		return nil, fmt.Errorf("unable to decode PageListItemClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PageListItem boxes the PageListItemClass providing a helper.
+type PageListItemBox struct {
+	PageListItem PageListItemClass
+}
+
+// Decode implements bin.Decoder for PageListItemBox.
+func (b *PageListItemBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PageListItemBox to nil")
+	}
+	v, err := DecodePageListItem(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PageListItem = v
+	return nil
+}
+
+// Encode implements bin.Encode for PageListItemBox.
+func (b *PageListItemBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PageListItem == nil {
+		return fmt.Errorf("unable to encode PageListItemClass as nil")
+	}
+	return b.PageListItem.Encode(buf)
+}

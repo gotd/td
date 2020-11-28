@@ -161,3 +161,29 @@ func DecodeMessagesStickerSetInstallResult(buf *bin.Buffer) (MessagesStickerSetI
 		return nil, fmt.Errorf("unable to decode MessagesStickerSetInstallResultClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesStickerSetInstallResult boxes the MessagesStickerSetInstallResultClass providing a helper.
+type MessagesStickerSetInstallResultBox struct {
+	MessagesStickerSetInstallResult MessagesStickerSetInstallResultClass
+}
+
+// Decode implements bin.Decoder for MessagesStickerSetInstallResultBox.
+func (b *MessagesStickerSetInstallResultBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesStickerSetInstallResultBox to nil")
+	}
+	v, err := DecodeMessagesStickerSetInstallResult(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesStickerSetInstallResult = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesStickerSetInstallResultBox.
+func (b *MessagesStickerSetInstallResultBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesStickerSetInstallResult == nil {
+		return fmt.Errorf("unable to encode MessagesStickerSetInstallResultClass as nil")
+	}
+	return b.MessagesStickerSetInstallResult.Encode(buf)
+}

@@ -384,3 +384,29 @@ func DecodeLangPackString(buf *bin.Buffer) (LangPackStringClass, error) {
 		return nil, fmt.Errorf("unable to decode LangPackStringClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// LangPackString boxes the LangPackStringClass providing a helper.
+type LangPackStringBox struct {
+	LangPackString LangPackStringClass
+}
+
+// Decode implements bin.Decoder for LangPackStringBox.
+func (b *LangPackStringBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode LangPackStringBox to nil")
+	}
+	v, err := DecodeLangPackString(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.LangPackString = v
+	return nil
+}
+
+// Encode implements bin.Encode for LangPackStringBox.
+func (b *LangPackStringBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.LangPackString == nil {
+		return fmt.Errorf("unable to encode LangPackStringClass as nil")
+	}
+	return b.LangPackString.Encode(buf)
+}

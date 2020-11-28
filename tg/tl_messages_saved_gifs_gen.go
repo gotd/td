@@ -167,3 +167,29 @@ func DecodeMessagesSavedGifs(buf *bin.Buffer) (MessagesSavedGifsClass, error) {
 		return nil, fmt.Errorf("unable to decode MessagesSavedGifsClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesSavedGifs boxes the MessagesSavedGifsClass providing a helper.
+type MessagesSavedGifsBox struct {
+	MessagesSavedGifs MessagesSavedGifsClass
+}
+
+// Decode implements bin.Decoder for MessagesSavedGifsBox.
+func (b *MessagesSavedGifsBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesSavedGifsBox to nil")
+	}
+	v, err := DecodeMessagesSavedGifs(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesSavedGifs = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesSavedGifsBox.
+func (b *MessagesSavedGifsBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesSavedGifs == nil {
+		return fmt.Errorf("unable to encode MessagesSavedGifsClass as nil")
+	}
+	return b.MessagesSavedGifs.Encode(buf)
+}

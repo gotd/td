@@ -1429,3 +1429,29 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 		return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChannelAdminLogEventAction boxes the ChannelAdminLogEventActionClass providing a helper.
+type ChannelAdminLogEventActionBox struct {
+	ChannelAdminLogEventAction ChannelAdminLogEventActionClass
+}
+
+// Decode implements bin.Decoder for ChannelAdminLogEventActionBox.
+func (b *ChannelAdminLogEventActionBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChannelAdminLogEventActionBox to nil")
+	}
+	v, err := DecodeChannelAdminLogEventAction(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChannelAdminLogEventAction = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChannelAdminLogEventActionBox.
+func (b *ChannelAdminLogEventActionBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChannelAdminLogEventAction == nil {
+		return fmt.Errorf("unable to encode ChannelAdminLogEventActionClass as nil")
+	}
+	return b.ChannelAdminLogEventAction.Encode(buf)
+}

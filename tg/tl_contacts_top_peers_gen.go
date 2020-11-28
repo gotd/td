@@ -248,3 +248,29 @@ func DecodeContactsTopPeers(buf *bin.Buffer) (ContactsTopPeersClass, error) {
 		return nil, fmt.Errorf("unable to decode ContactsTopPeersClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ContactsTopPeers boxes the ContactsTopPeersClass providing a helper.
+type ContactsTopPeersBox struct {
+	ContactsTopPeers ContactsTopPeersClass
+}
+
+// Decode implements bin.Decoder for ContactsTopPeersBox.
+func (b *ContactsTopPeersBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ContactsTopPeersBox to nil")
+	}
+	v, err := DecodeContactsTopPeers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ContactsTopPeers = v
+	return nil
+}
+
+// Encode implements bin.Encode for ContactsTopPeersBox.
+func (b *ContactsTopPeersBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ContactsTopPeers == nil {
+		return fmt.Errorf("unable to encode ContactsTopPeersClass as nil")
+	}
+	return b.ContactsTopPeers.Encode(buf)
+}

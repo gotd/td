@@ -1071,3 +1071,29 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 		return nil, fmt.Errorf("unable to decode RichTextClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// RichText boxes the RichTextClass providing a helper.
+type RichTextBox struct {
+	RichText RichTextClass
+}
+
+// Decode implements bin.Decoder for RichTextBox.
+func (b *RichTextBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode RichTextBox to nil")
+	}
+	v, err := DecodeRichText(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.RichText = v
+	return nil
+}
+
+// Encode implements bin.Encode for RichTextBox.
+func (b *RichTextBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.RichText == nil {
+		return fmt.Errorf("unable to encode RichTextClass as nil")
+	}
+	return b.RichText.Encode(buf)
+}

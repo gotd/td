@@ -188,3 +188,29 @@ func DecodeMessagesFavedStickers(buf *bin.Buffer) (MessagesFavedStickersClass, e
 		return nil, fmt.Errorf("unable to decode MessagesFavedStickersClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// MessagesFavedStickers boxes the MessagesFavedStickersClass providing a helper.
+type MessagesFavedStickersBox struct {
+	MessagesFavedStickers MessagesFavedStickersClass
+}
+
+// Decode implements bin.Decoder for MessagesFavedStickersBox.
+func (b *MessagesFavedStickersBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode MessagesFavedStickersBox to nil")
+	}
+	v, err := DecodeMessagesFavedStickers(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.MessagesFavedStickers = v
+	return nil
+}
+
+// Encode implements bin.Encode for MessagesFavedStickersBox.
+func (b *MessagesFavedStickersBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.MessagesFavedStickers == nil {
+		return fmt.Errorf("unable to encode MessagesFavedStickersClass as nil")
+	}
+	return b.MessagesFavedStickers.Encode(buf)
+}

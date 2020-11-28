@@ -315,3 +315,29 @@ func DecodeInputEncryptedFile(buf *bin.Buffer) (InputEncryptedFileClass, error) 
 		return nil, fmt.Errorf("unable to decode InputEncryptedFileClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputEncryptedFile boxes the InputEncryptedFileClass providing a helper.
+type InputEncryptedFileBox struct {
+	InputEncryptedFile InputEncryptedFileClass
+}
+
+// Decode implements bin.Decoder for InputEncryptedFileBox.
+func (b *InputEncryptedFileBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputEncryptedFileBox to nil")
+	}
+	v, err := DecodeInputEncryptedFile(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputEncryptedFile = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputEncryptedFileBox.
+func (b *InputEncryptedFileBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputEncryptedFile == nil {
+		return fmt.Errorf("unable to encode InputEncryptedFileClass as nil")
+	}
+	return b.InputEncryptedFile.Encode(buf)
+}

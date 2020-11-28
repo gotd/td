@@ -401,3 +401,29 @@ func DecodeAbstractMessage(buf *bin.Buffer) (AbstractMessageClass, error) {
 		return nil, fmt.Errorf("unable to decode AbstractMessageClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// AbstractMessage boxes the AbstractMessageClass providing a helper.
+type AbstractMessageBox struct {
+	AbstractMessage AbstractMessageClass
+}
+
+// Decode implements bin.Decoder for AbstractMessageBox.
+func (b *AbstractMessageBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AbstractMessageBox to nil")
+	}
+	v, err := DecodeAbstractMessage(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AbstractMessage = v
+	return nil
+}
+
+// Encode implements bin.Encode for AbstractMessageBox.
+func (b *AbstractMessageBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.AbstractMessage == nil {
+		return fmt.Errorf("unable to encode AbstractMessageClass as nil")
+	}
+	return b.AbstractMessage.Encode(buf)
+}

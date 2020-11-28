@@ -639,3 +639,29 @@ func DecodeSecureValueType(buf *bin.Buffer) (SecureValueTypeClass, error) {
 		return nil, fmt.Errorf("unable to decode SecureValueTypeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SecureValueType boxes the SecureValueTypeClass providing a helper.
+type SecureValueTypeBox struct {
+	SecureValueType SecureValueTypeClass
+}
+
+// Decode implements bin.Decoder for SecureValueTypeBox.
+func (b *SecureValueTypeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SecureValueTypeBox to nil")
+	}
+	v, err := DecodeSecureValueType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SecureValueType = v
+	return nil
+}
+
+// Encode implements bin.Encode for SecureValueTypeBox.
+func (b *SecureValueTypeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SecureValueType == nil {
+		return fmt.Errorf("unable to encode SecureValueTypeClass as nil")
+	}
+	return b.SecureValueType.Encode(buf)
+}

@@ -158,3 +158,29 @@ func DecodeChannelLocation(buf *bin.Buffer) (ChannelLocationClass, error) {
 		return nil, fmt.Errorf("unable to decode ChannelLocationClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChannelLocation boxes the ChannelLocationClass providing a helper.
+type ChannelLocationBox struct {
+	ChannelLocation ChannelLocationClass
+}
+
+// Decode implements bin.Decoder for ChannelLocationBox.
+func (b *ChannelLocationBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChannelLocationBox to nil")
+	}
+	v, err := DecodeChannelLocation(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChannelLocation = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChannelLocationBox.
+func (b *ChannelLocationBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChannelLocation == nil {
+		return fmt.Errorf("unable to encode ChannelLocationClass as nil")
+	}
+	return b.ChannelLocation.Encode(buf)
+}

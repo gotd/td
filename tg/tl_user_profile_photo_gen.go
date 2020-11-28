@@ -195,3 +195,29 @@ func DecodeUserProfilePhoto(buf *bin.Buffer) (UserProfilePhotoClass, error) {
 		return nil, fmt.Errorf("unable to decode UserProfilePhotoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UserProfilePhoto boxes the UserProfilePhotoClass providing a helper.
+type UserProfilePhotoBox struct {
+	UserProfilePhoto UserProfilePhotoClass
+}
+
+// Decode implements bin.Decoder for UserProfilePhotoBox.
+func (b *UserProfilePhotoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UserProfilePhotoBox to nil")
+	}
+	v, err := DecodeUserProfilePhoto(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UserProfilePhoto = v
+	return nil
+}
+
+// Encode implements bin.Encode for UserProfilePhotoBox.
+func (b *UserProfilePhotoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UserProfilePhoto == nil {
+		return fmt.Errorf("unable to encode UserProfilePhotoClass as nil")
+	}
+	return b.UserProfilePhoto.Encode(buf)
+}

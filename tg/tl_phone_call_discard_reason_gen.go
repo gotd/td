@@ -225,3 +225,29 @@ func DecodePhoneCallDiscardReason(buf *bin.Buffer) (PhoneCallDiscardReasonClass,
 		return nil, fmt.Errorf("unable to decode PhoneCallDiscardReasonClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PhoneCallDiscardReason boxes the PhoneCallDiscardReasonClass providing a helper.
+type PhoneCallDiscardReasonBox struct {
+	PhoneCallDiscardReason PhoneCallDiscardReasonClass
+}
+
+// Decode implements bin.Decoder for PhoneCallDiscardReasonBox.
+func (b *PhoneCallDiscardReasonBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PhoneCallDiscardReasonBox to nil")
+	}
+	v, err := DecodePhoneCallDiscardReason(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PhoneCallDiscardReason = v
+	return nil
+}
+
+// Encode implements bin.Encode for PhoneCallDiscardReasonBox.
+func (b *PhoneCallDiscardReasonBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PhoneCallDiscardReason == nil {
+		return fmt.Errorf("unable to encode PhoneCallDiscardReasonClass as nil")
+	}
+	return b.PhoneCallDiscardReason.Encode(buf)
+}

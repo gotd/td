@@ -143,3 +143,29 @@ func DecodeExportedChatInvite(buf *bin.Buffer) (ExportedChatInviteClass, error) 
 		return nil, fmt.Errorf("unable to decode ExportedChatInviteClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ExportedChatInvite boxes the ExportedChatInviteClass providing a helper.
+type ExportedChatInviteBox struct {
+	ExportedChatInvite ExportedChatInviteClass
+}
+
+// Decode implements bin.Decoder for ExportedChatInviteBox.
+func (b *ExportedChatInviteBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ExportedChatInviteBox to nil")
+	}
+	v, err := DecodeExportedChatInvite(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ExportedChatInvite = v
+	return nil
+}
+
+// Encode implements bin.Encode for ExportedChatInviteBox.
+func (b *ExportedChatInviteBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ExportedChatInvite == nil {
+		return fmt.Errorf("unable to encode ExportedChatInviteClass as nil")
+	}
+	return b.ExportedChatInvite.Encode(buf)
+}

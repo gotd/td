@@ -269,3 +269,29 @@ func DecodeSetClientDHParamsAnswer(buf *bin.Buffer) (SetClientDHParamsAnswerClas
 		return nil, fmt.Errorf("unable to decode SetClientDHParamsAnswerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// SetClientDHParamsAnswer boxes the SetClientDHParamsAnswerClass providing a helper.
+type SetClientDHParamsAnswerBox struct {
+	SetClientDHParamsAnswer SetClientDHParamsAnswerClass
+}
+
+// Decode implements bin.Decoder for SetClientDHParamsAnswerBox.
+func (b *SetClientDHParamsAnswerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode SetClientDHParamsAnswerBox to nil")
+	}
+	v, err := DecodeSetClientDHParamsAnswer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.SetClientDHParamsAnswer = v
+	return nil
+}
+
+// Encode implements bin.Encode for SetClientDHParamsAnswerBox.
+func (b *SetClientDHParamsAnswerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.SetClientDHParamsAnswer == nil {
+		return fmt.Errorf("unable to encode SetClientDHParamsAnswerClass as nil")
+	}
+	return b.SetClientDHParamsAnswer.Encode(buf)
+}

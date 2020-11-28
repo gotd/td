@@ -175,3 +175,29 @@ func DecodePasswordKdfAlgo(buf *bin.Buffer) (PasswordKdfAlgoClass, error) {
 		return nil, fmt.Errorf("unable to decode PasswordKdfAlgoClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PasswordKdfAlgo boxes the PasswordKdfAlgoClass providing a helper.
+type PasswordKdfAlgoBox struct {
+	PasswordKdfAlgo PasswordKdfAlgoClass
+}
+
+// Decode implements bin.Decoder for PasswordKdfAlgoBox.
+func (b *PasswordKdfAlgoBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PasswordKdfAlgoBox to nil")
+	}
+	v, err := DecodePasswordKdfAlgo(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PasswordKdfAlgo = v
+	return nil
+}
+
+// Encode implements bin.Encode for PasswordKdfAlgoBox.
+func (b *PasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PasswordKdfAlgo == nil {
+		return fmt.Errorf("unable to encode PasswordKdfAlgoClass as nil")
+	}
+	return b.PasswordKdfAlgo.Encode(buf)
+}

@@ -355,3 +355,29 @@ func DecodeChatInvite(buf *bin.Buffer) (ChatInviteClass, error) {
 		return nil, fmt.Errorf("unable to decode ChatInviteClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChatInvite boxes the ChatInviteClass providing a helper.
+type ChatInviteBox struct {
+	ChatInvite ChatInviteClass
+}
+
+// Decode implements bin.Decoder for ChatInviteBox.
+func (b *ChatInviteBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChatInviteBox to nil")
+	}
+	v, err := DecodeChatInvite(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChatInvite = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChatInviteBox.
+func (b *ChatInviteBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChatInvite == nil {
+		return fmt.Errorf("unable to encode ChatInviteClass as nil")
+	}
+	return b.ChatInvite.Encode(buf)
+}

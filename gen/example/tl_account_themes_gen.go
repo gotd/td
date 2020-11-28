@@ -164,3 +164,29 @@ func DecodeAccountThemes(buf *bin.Buffer) (AccountThemesClass, error) {
 		return nil, fmt.Errorf("unable to decode AccountThemesClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// AccountThemes boxes the AccountThemesClass providing a helper.
+type AccountThemesBox struct {
+	AccountThemes AccountThemesClass
+}
+
+// Decode implements bin.Decoder for AccountThemesBox.
+func (b *AccountThemesBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode AccountThemesBox to nil")
+	}
+	v, err := DecodeAccountThemes(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.AccountThemes = v
+	return nil
+}
+
+// Encode implements bin.Encode for AccountThemesBox.
+func (b *AccountThemesBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.AccountThemes == nil {
+		return fmt.Errorf("unable to encode AccountThemesClass as nil")
+	}
+	return b.AccountThemes.Encode(buf)
+}

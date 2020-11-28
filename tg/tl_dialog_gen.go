@@ -431,3 +431,29 @@ func DecodeDialog(buf *bin.Buffer) (DialogClass, error) {
 		return nil, fmt.Errorf("unable to decode DialogClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// Dialog boxes the DialogClass providing a helper.
+type DialogBox struct {
+	Dialog DialogClass
+}
+
+// Decode implements bin.Decoder for DialogBox.
+func (b *DialogBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode DialogBox to nil")
+	}
+	v, err := DecodeDialog(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.Dialog = v
+	return nil
+}
+
+// Encode implements bin.Encode for DialogBox.
+func (b *DialogBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.Dialog == nil {
+		return fmt.Errorf("unable to encode DialogClass as nil")
+	}
+	return b.Dialog.Encode(buf)
+}

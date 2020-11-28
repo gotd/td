@@ -229,3 +229,29 @@ func DecodeUploadFile(buf *bin.Buffer) (UploadFileClass, error) {
 		return nil, fmt.Errorf("unable to decode UploadFileClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// UploadFile boxes the UploadFileClass providing a helper.
+type UploadFileBox struct {
+	UploadFile UploadFileClass
+}
+
+// Decode implements bin.Decoder for UploadFileBox.
+func (b *UploadFileBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode UploadFileBox to nil")
+	}
+	v, err := DecodeUploadFile(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.UploadFile = v
+	return nil
+}
+
+// Encode implements bin.Encode for UploadFileBox.
+func (b *UploadFileBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.UploadFile == nil {
+		return fmt.Errorf("unable to encode UploadFileClass as nil")
+	}
+	return b.UploadFile.Encode(buf)
+}

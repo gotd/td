@@ -853,3 +853,29 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 		return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// TextEntityType boxes the TextEntityTypeClass providing a helper.
+type TextEntityTypeBox struct {
+	TextEntityType TextEntityTypeClass
+}
+
+// Decode implements bin.Decoder for TextEntityTypeBox.
+func (b *TextEntityTypeBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode TextEntityTypeBox to nil")
+	}
+	v, err := DecodeTextEntityType(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.TextEntityType = v
+	return nil
+}
+
+// Encode implements bin.Encode for TextEntityTypeBox.
+func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.TextEntityType == nil {
+		return fmt.Errorf("unable to encode TextEntityTypeClass as nil")
+	}
+	return b.TextEntityType.Encode(buf)
+}

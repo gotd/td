@@ -164,3 +164,29 @@ func DecodeHelpCountriesList(buf *bin.Buffer) (HelpCountriesListClass, error) {
 		return nil, fmt.Errorf("unable to decode HelpCountriesListClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// HelpCountriesList boxes the HelpCountriesListClass providing a helper.
+type HelpCountriesListBox struct {
+	HelpCountriesList HelpCountriesListClass
+}
+
+// Decode implements bin.Decoder for HelpCountriesListBox.
+func (b *HelpCountriesListBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode HelpCountriesListBox to nil")
+	}
+	v, err := DecodeHelpCountriesList(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.HelpCountriesList = v
+	return nil
+}
+
+// Encode implements bin.Encode for HelpCountriesListBox.
+func (b *HelpCountriesListBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.HelpCountriesList == nil {
+		return fmt.Errorf("unable to encode HelpCountriesListClass as nil")
+	}
+	return b.HelpCountriesList.Encode(buf)
+}

@@ -483,3 +483,29 @@ func DecodeInputPeer(buf *bin.Buffer) (InputPeerClass, error) {
 		return nil, fmt.Errorf("unable to decode InputPeerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// InputPeer boxes the InputPeerClass providing a helper.
+type InputPeerBox struct {
+	InputPeer InputPeerClass
+}
+
+// Decode implements bin.Decoder for InputPeerBox.
+func (b *InputPeerBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode InputPeerBox to nil")
+	}
+	v, err := DecodeInputPeer(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.InputPeer = v
+	return nil
+}
+
+// Encode implements bin.Encode for InputPeerBox.
+func (b *InputPeerBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.InputPeer == nil {
+		return fmt.Errorf("unable to encode InputPeerClass as nil")
+	}
+	return b.InputPeer.Encode(buf)
+}

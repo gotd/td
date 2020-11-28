@@ -517,3 +517,29 @@ func DecodeChannelParticipantsFilter(buf *bin.Buffer) (ChannelParticipantsFilter
 		return nil, fmt.Errorf("unable to decode ChannelParticipantsFilterClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// ChannelParticipantsFilter boxes the ChannelParticipantsFilterClass providing a helper.
+type ChannelParticipantsFilterBox struct {
+	ChannelParticipantsFilter ChannelParticipantsFilterClass
+}
+
+// Decode implements bin.Decoder for ChannelParticipantsFilterBox.
+func (b *ChannelParticipantsFilterBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode ChannelParticipantsFilterBox to nil")
+	}
+	v, err := DecodeChannelParticipantsFilter(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.ChannelParticipantsFilter = v
+	return nil
+}
+
+// Encode implements bin.Encode for ChannelParticipantsFilterBox.
+func (b *ChannelParticipantsFilterBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.ChannelParticipantsFilter == nil {
+		return fmt.Errorf("unable to encode ChannelParticipantsFilterClass as nil")
+	}
+	return b.ChannelParticipantsFilter.Encode(buf)
+}

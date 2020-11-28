@@ -178,3 +178,29 @@ func DecodePeerLocated(buf *bin.Buffer) (PeerLocatedClass, error) {
 		return nil, fmt.Errorf("unable to decode PeerLocatedClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// PeerLocated boxes the PeerLocatedClass providing a helper.
+type PeerLocatedBox struct {
+	PeerLocated PeerLocatedClass
+}
+
+// Decode implements bin.Decoder for PeerLocatedBox.
+func (b *PeerLocatedBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode PeerLocatedBox to nil")
+	}
+	v, err := DecodePeerLocated(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.PeerLocated = v
+	return nil
+}
+
+// Encode implements bin.Encode for PeerLocatedBox.
+func (b *PeerLocatedBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.PeerLocated == nil {
+		return fmt.Errorf("unable to encode PeerLocatedClass as nil")
+	}
+	return b.PeerLocated.Encode(buf)
+}

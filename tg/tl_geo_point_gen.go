@@ -202,3 +202,29 @@ func DecodeGeoPoint(buf *bin.Buffer) (GeoPointClass, error) {
 		return nil, fmt.Errorf("unable to decode GeoPointClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// GeoPoint boxes the GeoPointClass providing a helper.
+type GeoPointBox struct {
+	GeoPoint GeoPointClass
+}
+
+// Decode implements bin.Decoder for GeoPointBox.
+func (b *GeoPointBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode GeoPointBox to nil")
+	}
+	v, err := DecodeGeoPoint(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.GeoPoint = v
+	return nil
+}
+
+// Encode implements bin.Encode for GeoPointBox.
+func (b *GeoPointBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.GeoPoint == nil {
+		return fmt.Errorf("unable to encode GeoPointClass as nil")
+	}
+	return b.GeoPoint.Encode(buf)
+}

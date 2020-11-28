@@ -248,3 +248,29 @@ func DecodeStatsGraph(buf *bin.Buffer) (StatsGraphClass, error) {
 		return nil, fmt.Errorf("unable to decode StatsGraphClass: %w", bin.NewUnexpectedID(id))
 	}
 }
+
+// StatsGraph boxes the StatsGraphClass providing a helper.
+type StatsGraphBox struct {
+	StatsGraph StatsGraphClass
+}
+
+// Decode implements bin.Decoder for StatsGraphBox.
+func (b *StatsGraphBox) Decode(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("unable to decode StatsGraphBox to nil")
+	}
+	v, err := DecodeStatsGraph(buf)
+	if err != nil {
+		return fmt.Errorf("unable to decode boxed value: %w", err)
+	}
+	b.StatsGraph = v
+	return nil
+}
+
+// Encode implements bin.Encode for StatsGraphBox.
+func (b *StatsGraphBox) Encode(buf *bin.Buffer) error {
+	if b == nil || b.StatsGraph == nil {
+		return fmt.Errorf("unable to encode StatsGraphClass as nil")
+	}
+	return b.StatsGraph.Encode(buf)
+}
