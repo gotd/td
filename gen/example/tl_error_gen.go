@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// An object of this type can be returned on every function call, in case of an error
+// Error represents TL type `error#14feebbc`.
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
 	Code int32

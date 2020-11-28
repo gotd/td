@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Bytes represents TL type bytes#e937bb82.
+// Bytes represents TL type `bytes#e937bb82`.
 type Bytes struct {
 }
 

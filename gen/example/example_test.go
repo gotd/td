@@ -106,7 +106,7 @@ func TestTargetsMessage_Encode(t *testing.T) {
 func TestGetUpdatesResp(t *testing.T) {
 	b := new(bin.Buffer)
 	v := GetUpdatesResp{
-		Updates: []AbstractMessage{
+		Updates: []AbstractMessageClass{
 			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
 			&NoMessage{},
 			&BytesMessage{Data: []byte{0x1, 0xf3, 104, 205}},
@@ -136,7 +136,7 @@ func TestGetUpdatesRespNilElem(t *testing.T) {
 	b := new(bin.Buffer)
 	var tMessage *TargetsMessage
 	v := GetUpdatesResp{
-		Updates: []AbstractMessage{
+		Updates: []AbstractMessageClass{
 			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
 			&NoMessage{},
 			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},

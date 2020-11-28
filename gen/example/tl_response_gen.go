@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// ResponseID represents TL type responseID#85d7fd8b.
+// ResponseID represents TL type `responseID#85d7fd8b`.
 type ResponseID struct {
 	// ID field of ResponseID.
 	ID int32
@@ -51,18 +51,18 @@ func (r *ResponseID) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of Response.
-func (r ResponseID) construct() Response { return &r }
+// construct implements constructor of ResponseClass.
+func (r ResponseID) construct() ResponseClass { return &r }
 
 // Ensuring interfaces in compile-time for ResponseID.
 var (
 	_ bin.Encoder = &ResponseID{}
 	_ bin.Decoder = &ResponseID{}
 
-	_ Response = &ResponseID{}
+	_ ResponseClass = &ResponseID{}
 )
 
-// ResponseText represents TL type responseText#cb0244f2.
+// ResponseText represents TL type `responseText#cb0244f2`.
 type ResponseText struct {
 	// Text field of ResponseText.
 	Text string
@@ -99,18 +99,18 @@ func (r *ResponseText) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of Response.
-func (r ResponseText) construct() Response { return &r }
+// construct implements constructor of ResponseClass.
+func (r ResponseText) construct() ResponseClass { return &r }
 
 // Ensuring interfaces in compile-time for ResponseText.
 var (
 	_ bin.Encoder = &ResponseText{}
 	_ bin.Decoder = &ResponseText{}
 
-	_ Response = &ResponseText{}
+	_ ResponseClass = &ResponseText{}
 )
 
-// Response represents Response generic type.
+// ResponseClass represents Response generic type.
 //
 // Example:
 //  g, err := DecodeResponse(buf)
@@ -122,14 +122,14 @@ var (
 //  case *ResponseText: // responseText#cb0244f2
 //  default: panic(v)
 //  }
-type Response interface {
+type ResponseClass interface {
 	bin.Encoder
 	bin.Decoder
-	construct() Response
+	construct() ResponseClass
 }
 
-// DecodeResponse implements binary de-serialization for Response.
-func DecodeResponse(buf *bin.Buffer) (Response, error) {
+// DecodeResponse implements binary de-serialization for ResponseClass.
+func DecodeResponse(buf *bin.Buffer) (ResponseClass, error) {
 	id, err := buf.PeekID()
 	if err != nil {
 		return nil, err
@@ -139,17 +139,17 @@ func DecodeResponse(buf *bin.Buffer) (Response, error) {
 		// Decoding responseID#85d7fd8b.
 		v := ResponseID{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode Response: %w", err)
+			return nil, fmt.Errorf("unable to decode ResponseClass: %w", err)
 		}
 		return &v, nil
 	case ResponseTextTypeID:
 		// Decoding responseText#cb0244f2.
 		v := ResponseText{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode Response: %w", err)
+			return nil, fmt.Errorf("unable to decode ResponseClass: %w", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode Response: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode ResponseClass: %w", bin.NewUnexpectedID(id))
 	}
 }

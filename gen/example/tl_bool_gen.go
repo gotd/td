@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// False represents TL type false#bc799737.
+// False represents TL type `false#bc799737`.
 type False struct {
 }
 
@@ -41,18 +41,18 @@ func (f *False) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of Bool.
-func (f False) construct() Bool { return &f }
+// construct implements constructor of BoolClass.
+func (f False) construct() BoolClass { return &f }
 
 // Ensuring interfaces in compile-time for False.
 var (
 	_ bin.Encoder = &False{}
 	_ bin.Decoder = &False{}
 
-	_ Bool = &False{}
+	_ BoolClass = &False{}
 )
 
-// True represents TL type true#997275b5.
+// True represents TL type `true#997275b5`.
 type True struct {
 }
 
@@ -79,18 +79,18 @@ func (t *True) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of Bool.
-func (t True) construct() Bool { return &t }
+// construct implements constructor of BoolClass.
+func (t True) construct() BoolClass { return &t }
 
 // Ensuring interfaces in compile-time for True.
 var (
 	_ bin.Encoder = &True{}
 	_ bin.Decoder = &True{}
 
-	_ Bool = &True{}
+	_ BoolClass = &True{}
 )
 
-// Bool represents Bool generic type.
+// BoolClass represents Bool generic type.
 //
 // Example:
 //  g, err := DecodeBool(buf)
@@ -102,14 +102,14 @@ var (
 //  case *True: // true#997275b5
 //  default: panic(v)
 //  }
-type Bool interface {
+type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
-	construct() Bool
+	construct() BoolClass
 }
 
-// DecodeBool implements binary de-serialization for Bool.
-func DecodeBool(buf *bin.Buffer) (Bool, error) {
+// DecodeBool implements binary de-serialization for BoolClass.
+func DecodeBool(buf *bin.Buffer) (BoolClass, error) {
 	id, err := buf.PeekID()
 	if err != nil {
 		return nil, err
@@ -119,17 +119,17 @@ func DecodeBool(buf *bin.Buffer) (Bool, error) {
 		// Decoding false#bc799737.
 		v := False{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode Bool: %w", err)
+			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
 		}
 		return &v, nil
 	case TrueTypeID:
 		// Decoding true#997275b5.
 		v := True{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode Bool: %w", err)
+			return nil, fmt.Errorf("unable to decode BoolClass: %w", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode Bool: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode BoolClass: %w", bin.NewUnexpectedID(id))
 	}
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"go/format"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -12,18 +13,28 @@ import (
 	"github.com/ernado/td/gen"
 )
 
-type fs struct {
-	Root string
+type formattedSource struct {
+	Format bool
+	Root   string
 }
 
-func (t fs) WriteFile(name string, content []byte) error {
-	return ioutil.WriteFile(filepath.Join(t.Root, name), content, 0600)
+func (t formattedSource) WriteFile(name string, content []byte) error {
+	out := content
+	if t.Format {
+		buf, err := format.Source(content)
+		if err != nil {
+			return err
+		}
+		out = buf
+	}
+	return ioutil.WriteFile(filepath.Join(t.Root, name), out, 0600)
 }
 
 func main() {
 	schemaPath := flag.String("schema", "", "Path to .tl file")
 	targetDir := flag.String("target", "td", "Path to target dir")
 	packageName := flag.String("package", "td", "Target package name")
+	performFormat := flag.Bool("format", true, "perform code formatting")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
 	flag.Parse()
 	if *schemaPath == "" {
@@ -65,7 +76,17 @@ func main() {
 			}
 		}
 	}
-	if err := gen.Generate(fs{Root: *targetDir}, *packageName, gen.Template(), schema); err != nil {
+
+	g, err := gen.NewGenerator(schema)
+	if err != nil {
+		panic(err)
+	}
+
+	fs := formattedSource{
+		Root:   *targetDir,
+		Format: *performFormat,
+	}
+	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(err)
 	}
 }

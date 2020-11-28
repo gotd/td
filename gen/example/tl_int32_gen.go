@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Int32 represents TL type int32#5cb934fa.
+// Int32 represents TL type `int32#5cb934fa`.
 type Int32 struct {
 }
 

@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Config represents TL type config#330b4067.
+// Config represents TL type `config#330b4067`.
 type Config struct {
 	// Flags field of Config.
 	Flags bin.Fields

@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// can be returned by functions as result.
+// Ok represents TL type `ok#d4edbe69`.
 type Ok struct {
 }
 

@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Message represents TL type message#ec200d96.
+// Message represents TL type `message#ec200d96`.
 type Message struct {
 	// Err field of Message.
 	Err Error

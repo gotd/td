@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// SMS represents TL type sms#ed8bebfe.
+// SMS represents TL type `sms#ed8bebfe`.
 type SMS struct {
 	// Text field of SMS.
 	Text string

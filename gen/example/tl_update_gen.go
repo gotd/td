@@ -14,10 +14,10 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Update represents TL type update#b03e2ef8.
+// Update represents TL type `update#b03e2ef8`.
 type Update struct {
 	// Msg field of Update.
-	Msg AbstractMessage
+	Msg AbstractMessageClass
 	// Delay field of Update.
 	Delay int32
 }

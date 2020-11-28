@@ -27,7 +27,7 @@ const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
-        return fmt.Errorf("can't encode {{ $s.TLType }} as nil")
+        return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
     }
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- range $f := $s.Fields }}
@@ -43,13 +43,13 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
         for _, v := range row {
     {{- end }}
     {{- if $f.Encoder }}
-        {{- if $f.Generic }}
+        {{- if $f.Interface }}
             if v == nil {
-            return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d is nil", idx)
+            return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d is nil", idx)
             }
         {{- end}}
         if err := v.Encode({{ $s.BufArg }}); err != nil {
-            return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} element with index %d: %w", idx, err)
+            return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
         }
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
@@ -60,13 +60,13 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     }
     {{- else }}
     {{- if $f.Encoder }}
-    {{- if $f.Generic }}
+    {{- if $f.Interface }}
     if {{ $s.Receiver }}.{{ $f.Name }} == nil {
-        return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }} is nil")
+        return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} is nil")
     }
     {{- end}}
     if err := {{ $s.Receiver }}.{{ $f.Name }}.Encode({{ $s.BufArg }}); err != nil {
-        return fmt.Errorf("unable to encode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+        return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
     }
     {{- else }}
     {{ $s.BufArg }}.Put{{ $f.Func }}({{ $s.Receiver }}.{{ $f.Name }})
@@ -114,10 +114,10 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ if $f.Doubl
 // Decode implements bin.Decoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
-        return fmt.Errorf("can't decode {{ $s.TLType }} to nil")
+        return fmt.Errorf("can't decode {{ $s.RawType }} to nil")
     }
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
-        return fmt.Errorf("unable to decode {{ $s.TLType }}: %w", err)
+        return fmt.Errorf("unable to decode {{ $s.RawType }}: %w", err)
     }
 {{- range $f := $s.Fields }}
     {{- if $f.ConditionalBool }}
@@ -131,32 +131,32 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
         {{- if $f.Vector }}
             headerLen, err := {{ $s.BufArg }}.VectorHeader()
             if err != nil {
-                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
             for idx := 0; idx < headerLen; idx++ {
 
             {{- if $f.DoubleVector }}
                 innerLen, err := {{ $s.BufArg }}.VectorHeader()
                 if err != nil {
-                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
                 var row []{{ $f.Type }}
                 for innerIndex := 0; innerIndex < innerLen; innerLen++ {
             {{- end }}
-            {{- if $f.Generic }}
-                value, err := Decode{{ $f.Type }}({{ $s.BufArg }})
+            {{- if $f.Interface }}
+                value, err := Decode{{ $f.InterfaceFunc }}({{ $s.BufArg }})
                 if err != nil {
-                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
             {{- else if $f.Encoder }}
                 var value {{ $f.Type }}
                 if err := value.Decode({{ $s.BufArg }}); err != nil {
-                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
             {{- else}}
                 value, err := {{ $s.BufArg }}.{{ $f.Func }}()
                 if err != nil {
-                    return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                    return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
             {{- end }}
                 {{- if $f.DoubleVector }}
@@ -168,20 +168,20 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
                 {{- end }}
             }
         {{- else }}
-        {{- if $f.Generic }}
-            value, err := Decode{{ $f.Type }}({{ $s.BufArg }})
+        {{- if $f.Interface }}
+            value, err := Decode{{ $f.InterfaceFunc }}({{ $s.BufArg }})
             if err != nil {
-                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- else if $f.Encoder }}
             if err := {{ $s.Receiver }}.{{ $f.Name }}.Decode({{ $s.BufArg }}); err != nil {
-                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
         {{- else }}
             value, err := {{ $s.BufArg }}.{{ $f.Func }}()
             if err != nil {
-                return fmt.Errorf("unable to decode {{ $s.TLType }}: field {{ $f.TLName }}: %w", err)
+                return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
             {{ $s.Receiver }}.{{ $f.Name }} = value
         {{- end }}
@@ -192,7 +192,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     return nil
 }
 
-{{ if $s.Constructor }}
+{{ if $s.Interface }}
 // construct implements constructor of {{ $s.Interface }}.
 func ({{ $s.Receiver }} {{ $s.Name }}) construct() {{ $s.Interface }} { return &{{ $s.Receiver }} }
 {{ end }}
@@ -201,23 +201,23 @@ func ({{ $s.Receiver }} {{ $s.Name }}) construct() {{ $s.Interface }} { return &
 var (
 _ bin.Encoder = &{{ $s.Name }}{}
 _ bin.Decoder = &{{ $s.Name }}{}
-{{ if $s.Constructor }}
+{{ if $s.Interface }}
 _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{ end }}
 )
 {{ end }}
 
 {{ range $f:= $.Interfaces }}
-// {{ $f.Name }} represents {{ $f.Name }} generic type.
+// {{ $f.Name }} represents {{ $f.RawType }} generic type.
 //
 // Example:
-//  g, err := Decode{{ $f.Name }}(buf)
+//  g, err := Decode{{ $f.Func }}(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
 {{ range $c := $f.Constructors -}}
-//  case *{{ $c.Name }}: // {{ $c.TLType }}
+//  case *{{ $c.Name }}: // {{ $c.RawType }}
 {{ end -}}
 //  default: panic(v)
 //  }
@@ -227,8 +227,8 @@ type {{ $f.Name }} interface {
     construct() {{ $f.Name }}
 }
 
-// Decode{{ $f.Name }} implements binary de-serialization for {{ $f.Name }}.
-func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
+// Decode{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
+func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
     id, err := buf.PeekID()
     if err != nil {
         return nil, err
@@ -236,7 +236,7 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
     switch id {
     {{- range $c := $f.Constructors }}
     case {{ $c.Name }}TypeID:
-        // Decoding {{ $c.TLType }}.
+        // Decoding {{ $c.RawType }}.
         v := {{ $c.Name }}{}
         if err := v.Decode(buf); err != nil {
             return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", err)
@@ -247,22 +247,6 @@ func Decode{{ $f.Name }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
         return nil, fmt.Errorf("unable to decode {{ $f.Name }}: %w", bin.NewUnexpectedID(id))
     }
 }
-
-{{ end }}
-
-{{ if $.RPC }}
-// Client describes RPC methods of TL schema.
-type Client interface {
-{{ range $m := $.Methods }}
-{{ $m.Name }} (ctx context.Context
-{{- range $a := $m.Arguments  -}}, {{ $a.Name }} {{ if $a.DoubleSlice }}[][]{{ else if $a.Slice }}[]{{ end }}{{ $a.Type }}{{- end -}}) {{- if not $m.Result.Blank -}}
-({{- if $m.Result.Slice }}[]{{ end }}{{ $m.Result.Type }}, error)
-{{- else -}}
-error
-{{- end -}}
-{{ end }}
-}
-
 
 {{ end }}
 
