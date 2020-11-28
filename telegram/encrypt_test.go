@@ -60,7 +60,7 @@ func (t testPayload) Encode(b *bin.Buffer) error {
 func benchPayload(b *testing.B, c *Client, n int) {
 	b.Helper()
 
-	now := time.Date(1984, 10, 10, 00, 01, 02, 1249, time.UTC)
+	now := time.Date(1984, 10, 10, 0, 1, 2, 1249, time.UTC)
 
 	buf := new(bin.Buffer)
 	p := testPayload{Size: n}
