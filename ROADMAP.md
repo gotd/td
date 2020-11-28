@@ -6,7 +6,7 @@
 - [x] Fields
 - [x] bytes type
 - [ ] Non-bare vectors
-- [ ] Namespaces
+- [x] Namespaces
 - [x] Multiple output files
 - [ ] Tests
 - [ ] Examples
