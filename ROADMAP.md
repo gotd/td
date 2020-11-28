@@ -12,3 +12,8 @@
 - [ ] Examples
 - [ ] Boxes for class decode
 - [x] RPC Requests
+
+## Client
+
+- [ ] Handle "bad server salt" error
+- [ ] Session storage
