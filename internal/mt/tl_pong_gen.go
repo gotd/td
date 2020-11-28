@@ -14,7 +14,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-// Pong represents TL type pong#347773c5.
+// Pong represents TL type `pong#347773c5`.
 type Pong struct {
 	// MsgID field of Pong.
 	MsgID int64
