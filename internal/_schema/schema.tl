@@ -31,3 +31,7 @@ bad_msg_notification#a7eff811 bad_msg_id:long bad_msg_seqno:int error_code:int =
 bad_server_salt#edab447b bad_msg_id:long bad_msg_seqno:int error_code:int new_server_salt:long = BadServerSalt;
 
 new_session_created#9ec20908 first_msg_id:long unique_id:long server_salt:long = NewSessionCreated;
+
+msgs_ack#62d6b459 msg_ids:Vector<long> = MsgsAck;
+
+rpc_error#2144ca19 error_code:int error_message:string = RpcError;
