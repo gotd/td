@@ -9,6 +9,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"math/big"
+	"sync/atomic"
 
 	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
@@ -272,8 +273,8 @@ Loop:
 			}
 
 			copy(c.authKeyID[:], authKeyID)
-			c.session = sessionID
-			c.salt = int64(binary.LittleEndian.Uint64(serverSalt))
+			atomic.StoreInt64(&c.session, sessionID)
+			atomic.StoreInt64(&c.salt, int64(binary.LittleEndian.Uint64(serverSalt)))
 
 			return nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9

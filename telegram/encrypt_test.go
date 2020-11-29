@@ -12,10 +12,6 @@ import (
 	"github.com/ernado/td/crypto"
 )
 
-type Zero struct{}
-
-func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
-
 func TestEncryption(t *testing.T) {
 	c := &Client{
 		rand: Zero{},
@@ -64,7 +60,7 @@ func benchPayload(b *testing.B, c *Client, n int) {
 
 	buf := new(bin.Buffer)
 	p := testPayload{Size: n}
-	if err := c.newEncryptedMessage(crypto.NewMessageID(now, crypto.MessageFromClient), p, buf); err != nil {
+	if err := c.newEncryptedMessage(crypto.NewMessageID(now, crypto.MessageFromClient), 0, p, buf); err != nil {
 		b.Fatal(err)
 	}
 	b.ReportAllocs()
@@ -74,7 +70,7 @@ func benchPayload(b *testing.B, c *Client, n int) {
 	for i := 0; i < b.N; i++ {
 		buf.Reset()
 		id := crypto.NewMessageID(now, crypto.MessageFromClient)
-		if err := c.newEncryptedMessage(id, p, buf); err != nil {
+		if err := c.newEncryptedMessage(id, 0, p, buf); err != nil {
 			b.Fatal(err)
 		}
 	}

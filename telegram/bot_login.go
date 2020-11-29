@@ -8,23 +8,13 @@ import (
 	"github.com/ernado/td/tg"
 )
 
-// BotLogin wraps credentials that are required to login as bot.
-type BotLogin struct {
-	// ID is api_id.
-	ID int
-	// Hash is api_hash.
-	Hash string
-	// Token is bot auth token.
-	Token string
-}
-
 // BotLogin performs bot authorization request.
-func (c *Client) BotLogin(ctx context.Context, login BotLogin) error {
+func (c *Client) BotLogin(ctx context.Context, token string) error {
 	var res tg.AuthAuthorizationBox
-	if err := c.do(ctx, &tg.AuthImportBotAuthorizationRequest{
-		APIID:        login.ID,
-		APIHash:      login.Hash,
-		BotAuthToken: login.Token,
+	if err := c.rpcAck(ctx, &tg.AuthImportBotAuthorizationRequest{
+		APIID:        c.appID,
+		APIHash:      c.appHash,
+		BotAuthToken: token,
 	}, &res); err != nil {
 		return xerrors.Errorf("failed to do request: %w", err)
 	}

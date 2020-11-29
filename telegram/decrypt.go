@@ -3,8 +3,6 @@ package telegram
 import (
 	"crypto/aes"
 
-	"go.uber.org/zap"
-
 	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
 
@@ -43,16 +41,14 @@ func (c *Client) decryptData(encrypted *proto.EncryptedMessage) (*proto.Encrypte
 	if err := msg.Decode(b); err != nil {
 		return nil, err
 	}
-	n := int(msg.MessageDataLen)
-	if (n + padding(n)) != len(msg.MessageDataWithPadding) {
-		// Probably we don't care?
-		c.log.With(
-			zap.Int32("message_data_len", msg.MessageDataLen),
-			zap.Int("len", len(msg.MessageDataWithPadding)),
-			zap.Int("expected_padding", padding(n)),
-			zap.Int("expected_length", padding(n)+n),
-		).Debug("Invalid padding")
+	{
+		// Checking that padding of decrypted message is not too big.
+		const maxPadding = 1024
+		n := int(msg.MessageDataLen)
+		paddingLen := len(msg.MessageDataWithPadding) - n
+		if paddingLen > maxPadding {
+			return nil, xerrors.Errorf("padding %d of message is too big", paddingLen)
+		}
 	}
-
 	return msg, nil
 }

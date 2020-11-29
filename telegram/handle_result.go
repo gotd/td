@@ -1,8 +1,6 @@
 package telegram
 
 import (
-	"fmt"
-
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -10,16 +8,6 @@ import (
 	"github.com/ernado/td/internal/mt"
 	"github.com/ernado/td/internal/proto"
 )
-
-// Error represents RPC error returned to request.
-type Error struct {
-	Code    int
-	Message string
-}
-
-func (e Error) Error() string {
-	return fmt.Sprintf("rpc error code %d: %s", e.Code, e.Message)
-}
 
 func (c *Client) handleResult(b *bin.Buffer) error {
 	// Response to an RPC query.

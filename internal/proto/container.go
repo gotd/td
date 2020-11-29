@@ -1,6 +1,8 @@
 package proto
 
 import (
+	"errors"
+
 	"github.com/ernado/td/bin"
 	"github.com/ernado/td/crypto"
 
@@ -59,6 +61,9 @@ func (m *Message) Decode(b *bin.Buffer) error {
 			return err
 		}
 		m.Bytes = v
+	}
+	if m.Bytes < 0 || m.Bytes > 1024*1024 {
+		return errors.New("message length is too big")
 	}
 	m.Body = make([]byte, m.Bytes)
 	return b.ConsumeN(m.Body, m.Bytes)

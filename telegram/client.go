@@ -18,32 +18,53 @@ import (
 	"github.com/ernado/td/tg"
 )
 
+type UpdateClient interface {
+	SendMessage(ctx context.Context, m *tg.MessagesSendMessageRequest) error
+}
+
+// UpdateHandler will be called on received updates from Telegram.
+type UpdateHandler func(ctx context.Context, c UpdateClient, u *tg.Updates) error
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	conn      net.Conn
-	clock     func() time.Time
+	// conn is owned by Client and not exposed.
+	// Currently immutable.
+	conn net.Conn
+
+	// Wrappers for external world, like current time, logs or PRNG.
+	// Should be immutable.
+	clock func() time.Time
+	rand  io.Reader
+	log   *zap.Logger
+
+	// Access to authKey and authKeyID is not synchronized because
+	// serial access ensured in Dial (i.e. no concurrent access possible).
 	authKey   crypto.AuthKey
 	authKeyID [8]byte
-	salt      int64
-	session   int64
-	rand      io.Reader
-	seq       int
-	log       *zap.Logger
-	ctx       context.Context
-	cancel    context.CancelFunc
-	wg        sync.WaitGroup
 
-	updateHandler  func(ctx context.Context, c *Client, u *tg.Updates) error
-	sessionStorage SessionStorage
+	salt    int64 // atomic access only
+	session int64 // atomic access only
+	seq     int32 // atomic access only
 
-	// callbacks for rpc requests
-	rpcMux sync.Mutex
+	ctx    context.Context
+	cancel context.CancelFunc
+	wg     sync.WaitGroup
+
+	appID   int    // immutable
+	appHash string // immutable
+
+	updateHandler  UpdateHandler  // immutable
+	sessionStorage SessionStorage // immutable
+
+	// callbacks for RPC requests, protected by rpcMux
 	rpc    map[crypto.MessageID]func(b *bin.Buffer, rpcErr error)
+	rpcMux sync.Mutex
 
 	// callbacks for ping results protected by pingMux
-	pingMux sync.Mutex
 	ping    map[int64]func()
+	pingMux sync.Mutex
 
+	// immutable
 	rsaPublicKeys []*rsa.PublicKey
 }
 
@@ -99,6 +120,15 @@ type Options struct {
 	// Addr to connect.
 	Addr string
 
+	// AppID is api_id of your application.
+	///
+	// Can be found on https://my.telegram.org/apps.
+	AppID int
+	// AppHash is api_hash of your application.
+	//
+	// Can be found on https://my.telegram.org/apps.
+	AppHash string
+
 	// Optional:
 
 	// Dialer to use. Default dialer will be used if not provided.
@@ -112,11 +142,8 @@ type Options struct {
 	// SessionStorage will be used to load and save session data.
 	// NB: Very sensitive data, save with care.
 	SessionStorage SessionStorage
-	// UpdateHandler will be called if update is received.
-	//
-	// On handler error no ACK is sent to Telegram.
-	// If handler is not set, updates will be ignored and ACK is sent.
-	UpdateHandler func(ctx context.Context, client *Client, updates *tg.Updates) error
+	// UpdateHandler will be called on received update.
+	UpdateHandler UpdateHandler
 }
 
 // Dial initializes Client and creates connection to Telegram.
@@ -147,6 +174,13 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		}
 		opt.PublicKeys = keys
 	}
+	if opt.AppHash == "" {
+		return nil, xerrors.New("no AppHash provided")
+	}
+	if opt.AppID == 0 {
+		return nil, xerrors.New("no AppID provided")
+	}
+
 	conn, err := opt.Dialer.DialContext(ctx, "tcp", opt.Addr)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to dial: %w", err)
@@ -162,6 +196,9 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 
 		ctx:    clientCtx,
 		cancel: clientCancel,
+
+		appID:   opt.AppID,
+		appHash: opt.AppHash,
 
 		sessionStorage: opt.SessionStorage,
 		rsaPublicKeys:  opt.PublicKeys,
@@ -180,6 +217,10 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	// if needed.
 	if err := client.connect(ctx); err != nil {
 		return nil, xerrors.Errorf("failed to start connection: %w", err)
+	}
+
+	if err := client.initConnection(ctx); err != nil {
+		return nil, xerrors.Errorf("failed to init connection: %w", err)
 	}
 
 	return client, nil
@@ -212,13 +253,6 @@ func (c *Client) connect(ctx context.Context) error {
 	// Spawning reading goroutine.
 	// Probably we should use another ctx here.
 	go c.readLoop(c.ctx)
-
-	// Simple way to test that everything is ok.
-	// Blocks until pong is received.
-	c.log.Info("Sending ping")
-	if err := c.Ping(ctx); err != nil {
-		return err
-	}
 
 	return nil
 }

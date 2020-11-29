@@ -6,6 +6,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"os"
+	"sync/atomic"
 
 	"golang.org/x/xerrors"
 
@@ -66,7 +67,7 @@ func (c *Client) saveSession(ctx context.Context) error {
 	}
 
 	sess := jsonSession{
-		Salt:      c.salt,
+		Salt:      atomic.LoadInt64(&c.salt),
 		AuthKeyID: c.authKeyID[:],
 		AuthKey:   c.authKey[:],
 	}
@@ -113,7 +114,7 @@ func (c *Client) loadSession(ctx context.Context) error {
 	// Success.
 	c.authKey = authKey
 	c.authKeyID = authKeyID
-	c.salt = sess.Salt
+	atomic.StoreInt64(&c.salt, sess.Salt)
 	c.log.Info("Session loaded from storage")
 
 	// Generating new session id.
@@ -121,7 +122,7 @@ func (c *Client) loadSession(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	c.session = sessID
+	atomic.StoreInt64(&c.session, sessID)
 
 	return nil
 }

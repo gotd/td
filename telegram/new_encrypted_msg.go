@@ -1,6 +1,8 @@
 package telegram
 
 import (
+	"sync/atomic"
+
 	"go.uber.org/zap"
 
 	"github.com/ernado/td/bin"
@@ -8,18 +10,19 @@ import (
 	"github.com/ernado/td/internal/proto"
 )
 
-func (c *Client) newEncryptedMessage(id crypto.MessageID, payload bin.Encoder, b *bin.Buffer) error {
+func (c *Client) newEncryptedMessage(id crypto.MessageID, seq int32, payload bin.Encoder, b *bin.Buffer) error {
 	if err := payload.Encode(b); err != nil {
 		return err
 	}
 	d := proto.EncryptedMessageData{
-		SessionID:              c.session,
-		Salt:                   c.salt,
+		SessionID:              atomic.LoadInt64(&c.session),
+		Salt:                   atomic.LoadInt64(&c.salt),
 		MessageID:              id,
-		SeqNo:                  int32(c.seq),
+		SeqNo:                  seq,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 	}
+
 	b.Reset()
 	if err := d.Encode(b); err != nil {
 		return err
@@ -28,6 +31,7 @@ func (c *Client) newEncryptedMessage(id crypto.MessageID, payload bin.Encoder, b
 	if err != nil {
 		return err
 	}
+
 	b.Reset()
 	if err := msg.Encode(b); err != nil {
 		return err

@@ -9,7 +9,7 @@ import (
 // SendMessage sends message to peer.
 func (c *Client) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
 	var res tg.UpdatesBox
-	if err := c.do(ctx, req, &res); err != nil {
+	if err := c.rpcAck(ctx, req, &res); err != nil {
 		return err
 	}
 	return c.processUpdates(res.Updates)

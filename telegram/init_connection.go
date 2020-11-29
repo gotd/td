@@ -9,44 +9,23 @@ import (
 	"github.com/ernado/td/tg"
 )
 
-// Init represents init connection.
-type Init struct {
-	// AppID is app api_id from `https://my.telegram.org/apps`.
-	AppID int
-
-	SystemVersion string
-	AppVersion    string // like v0.1.2
-	DeviceModel   string
-}
-
-const notAvailable = "n/a"
-
-// InitConnection initializes connection.
+// initConnection initializes connection.
 //
 // Corresponding method is `initConnection#c1cd5ea9`.
-func (c *Client) InitConnection(ctx context.Context, opt Init) error {
-	if opt.AppID == 0 {
-		return xerrors.New("no api_id provided: ")
-	}
-	if opt.DeviceModel == "" {
-		opt.DeviceModel = notAvailable
-	}
-	if opt.SystemVersion == "" {
-		opt.SystemVersion = notAvailable
-	}
-	if opt.AppVersion == "" {
-		opt.AppVersion = notAvailable
-	}
+func (c *Client) initConnection(ctx context.Context) error {
+	// TODO(ernado): Make versions configurable.
+	const notAvailable = "n/a"
+
 	var response tg.Config
-	if err := c.do(ctx, proto.InvokeWithLayer{
+	if err := c.rpcNoAck(ctx, proto.InvokeWithLayer{
 		Layer: proto.Layer,
 		Query: proto.InitConnection{
-			ID:             opt.AppID,
+			ID:             c.appID,
 			SystemLangCode: "en",
 			LangCode:       "en",
-			SystemVersion:  opt.SystemVersion,
-			DeviceModel:    opt.DeviceModel,
-			AppVersion:     opt.AppVersion,
+			SystemVersion:  notAvailable,
+			DeviceModel:    notAvailable,
+			AppVersion:     notAvailable,
 			LangPack:       "",
 			Query:          proto.GetConfig{},
 		},

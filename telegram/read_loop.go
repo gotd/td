@@ -132,7 +132,7 @@ func (c *Client) readLoop(ctx context.Context) {
 	for {
 		err := c.read(ctx, b)
 		if err == nil {
-			// Reading ok. )
+			// Reading ok.
 			continue
 		}
 

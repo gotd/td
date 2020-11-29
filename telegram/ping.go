@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"sync/atomic"
 
 	"golang.org/x/xerrors"
 
@@ -38,12 +39,12 @@ func (c *Client) Ping(ctx context.Context) error {
 	}
 	c.pingMux.Unlock()
 
-	if err := c.write(c.newMessageID(), pingMessage{id: pingID}); err != nil {
+	// Ack is not required.
+	seq := atomic.AddInt32(&c.seq, 1)
+
+	if err := c.write(c.newMessageID(), seq, pingMessage{id: pingID}); err != nil {
 		return xerrors.Errorf("failed to write: %w", err)
 	}
-
-	// Ack is not required.
-	c.seq++
 
 	// Waiting for result.
 	select {

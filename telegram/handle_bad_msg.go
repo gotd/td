@@ -11,20 +11,22 @@ import (
 	"github.com/ernado/td/internal/mt"
 )
 
-type CodeErr struct {
-	Code int
+type badMessageError struct {
+	Code    int
+	NewSalt int64
 }
 
 const (
-	CodeMessageIDTooLow  = 16
-	CodeMessageIDTooHigh = 17
+	codeMessageIDTooLow     = 16
+	codeMessageIDTooHigh    = 17
+	codeIncorrectServerSalt = 48
 )
 
-func (c CodeErr) Error() string {
+func (c badMessageError) Error() string {
 	switch c.Code {
-	case CodeMessageIDTooLow:
+	case codeMessageIDTooLow:
 		return "msg_id too low"
-	case CodeMessageIDTooHigh:
+	case codeMessageIDTooHigh:
 		return "msg_id too high"
 	case 18:
 		return "incorrect two lower order msg_id bits"
@@ -42,7 +44,7 @@ func (c CodeErr) Error() string {
 		return "even msg_seqno expected, but odd received"
 	case 35:
 		return "odd msg_seqno expected, but even received"
-	case 48:
+	case codeIncorrectServerSalt:
 		return "incorrect server salt"
 	default:
 		return fmt.Sprintf("rpc error code %d", c.Code)
@@ -65,7 +67,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		f, ok := c.rpc[crypto.MessageID(bad.BadMsgID)]
 		c.rpcMux.Unlock()
 		if ok {
-			f(b, &CodeErr{Code: bad.ErrorCode})
+			f(b, &badMessageError{Code: bad.ErrorCode})
 		}
 
 		return nil
@@ -79,7 +81,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		f, ok := c.rpc[crypto.MessageID(bad.BadMsgID)]
 		c.rpcMux.Unlock()
 		if ok {
-			f(b, &CodeErr{Code: bad.ErrorCode})
+			f(b, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		}
 
 		return nil

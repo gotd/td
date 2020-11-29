@@ -20,6 +20,57 @@ import (
 	"github.com/ernado/td/tg"
 )
 
+type updateHandler struct {
+	log *zap.Logger
+}
+
+func (h updateHandler) handle(ctx context.Context, client telegram.UpdateClient, updates *tg.Updates) error {
+	// This wll be required to send message back.
+	users := map[int]*tg.User{}
+	for _, u := range updates.Users {
+		user, ok := u.(*tg.User)
+		if !ok {
+			continue
+		}
+		users[user.ID] = user
+	}
+
+	for _, update := range updates.Updates {
+		switch u := update.(type) {
+		case *tg.UpdateNewMessage:
+			switch m := u.Message.(type) {
+			case *tg.Message:
+				switch peer := m.PeerID.(type) {
+				case *tg.PeerUser:
+					user := users[peer.UserID]
+					h.log.With(
+						zap.String("text", m.Message),
+						zap.Int("user_id", user.ID),
+						zap.String("user_first_name", user.FirstName),
+						zap.String("username", user.Username),
+					).Info("Got message")
+
+					randomID, err := crypto.RandInt64(rand.Reader)
+					if err != nil {
+						return err
+					}
+					return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+						RandomID: randomID,
+						Message:  m.Message,
+						Peer: &tg.InputPeerUser{
+							UserID:     user.ID,
+							AccessHash: user.AccessHash,
+						},
+					})
+				}
+			}
+		default:
+			h.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Info("Ignoring update")
+		}
+	}
+	return nil
+}
+
 func run(ctx context.Context) error {
 	logger, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
 	defer func() { _ = logger.Sync() }()
@@ -33,54 +84,6 @@ func run(ctx context.Context) error {
 	appHash := os.Getenv("APP_HASH")
 	if appHash == "" {
 		return xerrors.New("no APP_HASH provided")
-	}
-
-	updateHandler := func(ctx context.Context, c *telegram.Client, updates *tg.Updates) error {
-		// This wll be required to send message back.
-		users := map[int]*tg.User{}
-		for _, u := range updates.Users {
-			user, ok := u.(*tg.User)
-			if !ok {
-				continue
-			}
-			users[user.ID] = user
-		}
-
-		for _, update := range updates.Updates {
-			switch u := update.(type) {
-			case *tg.UpdateNewMessage:
-				switch m := u.Message.(type) {
-				case *tg.Message:
-					switch peer := m.PeerID.(type) {
-					case *tg.PeerUser:
-						user := users[peer.UserID]
-						logger.With(
-							zap.String("text", m.Message),
-							zap.Int("user_id", user.ID),
-							zap.String("user_first_name", user.FirstName),
-							zap.String("username", user.Username),
-						).Info("Got message")
-
-						randomID, err := crypto.RandInt64(rand.Reader)
-						if err != nil {
-							return err
-						}
-						return c.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-							RandomID: randomID,
-							Message:  m.Message,
-							Peer: &tg.InputPeerUser{
-								UserID:     user.ID,
-								AccessHash: user.AccessHash,
-							},
-						})
-					}
-				}
-			default:
-				logger.With(zap.String("update_type", fmt.Sprintf("%T", u))).Info("Ignoring update")
-			}
-		}
-
-		return nil
 	}
 
 	// Setting up session storage.
@@ -97,31 +100,39 @@ func run(ctx context.Context) error {
 	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
 	defer cancel()
 	client, err := telegram.Dial(dialCtx, telegram.Options{
-		Addr:           "149.154.167.50:443",
-		Logger:         logger,
-		UpdateHandler:  updateHandler,
-		SessionStorage: &telegram.FileSessionStorage{Path: path.Join(sessionDir, "session.json")},
+		Addr:   "149.154.167.50:443",
+		Logger: logger,
+		SessionStorage: &telegram.FileSessionStorage{
+			Path: path.Join(sessionDir, "session.json"),
+		},
+
+		// Grab these from https://my.telegram.org/apps.
+		// Never share it or hardcode!
+		AppID:   appID,
+		AppHash: appHash,
+
+		UpdateHandler: updateHandler{log: logger}.handle,
 	})
 	if err != nil {
 		return xerrors.Errorf("failed to dial: %w", err)
 	}
 	logger.Info("Dialed")
 
-	if err := client.InitConnection(dialCtx, telegram.Init{
-		AppID: appID,
-	}); err != nil {
-		return xerrors.Errorf("failed to init connection: %w", err)
+	auth, err := client.AuthStatus(dialCtx)
+	if err != nil {
+		return xerrors.Errorf("failed to get auth status: %w", err)
 	}
-	if err := client.BotLogin(dialCtx, telegram.BotLogin{
-		ID:    appID,
-		Hash:  appHash,
-		Token: os.Getenv("BOT_TOKEN"),
-	}); err != nil {
-		return xerrors.Errorf("failed to perform bot login: %w", err)
+	logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+	if !auth.Authorized {
+		if err := client.BotLogin(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
+			return xerrors.Errorf("failed to perform bot login: %w", err)
+		}
+		logger.Info("Bot login ok")
 	}
-	logger.Info("Bot login ok")
 
-	// Getting state is required to get updates.
+	// Getting state is required to process updates in your code.
+	// Currently missed updates are not processed, so only new
+	// messages will be handled.
 	state, err := client.GetState(dialCtx)
 	if err != nil {
 		return xerrors.Errorf("failed to get state: %w", err)
