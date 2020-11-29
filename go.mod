@@ -3,7 +3,6 @@ module github.com/ernado/td
 go 1.15
 
 require (
-	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d // indirect
 	github.com/ernado/ige v0.1.1
 	github.com/ernado/tl v0.1.2
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
