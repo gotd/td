@@ -144,6 +144,9 @@ func (b *Buffer) String() (string, error) {
 	if err != nil {
 		return "", err
 	}
+	if len(b.Buf) < n {
+		return "", io.ErrUnexpectedEOF
+	}
 	b.Buf = b.Buf[n:]
 	return v, nil
 }
@@ -156,6 +159,9 @@ func (b *Buffer) Bytes() ([]byte, error) {
 	n, v, err := decodeBytes(b.Buf)
 	if err != nil {
 		return nil, err
+	}
+	if len(b.Buf) < n {
+		return nil, io.ErrUnexpectedEOF
 	}
 	b.Buf = b.Buf[n:]
 	return v, nil

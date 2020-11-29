@@ -1,6 +1,9 @@
 package bin
 
-import "io"
+import (
+	"errors"
+	"io"
+)
 
 // encodeBytes is same as encodeString, but for bytes.
 func encodeBytes(b, v []byte) []byte {
@@ -25,7 +28,13 @@ func encodeBytes(b, v []byte) []byte {
 //
 // NB: v is slice of b.
 func decodeBytes(b []byte) (n int, v []byte, err error) {
+	if len(b) == 0 {
+		return 0, nil, io.ErrUnexpectedEOF
+	}
 	if b[0] == firstLongStringByte {
+		if len(b) < 4 {
+			return 0, nil, io.ErrUnexpectedEOF
+		}
 		vLen := uint32(b[1]) | uint32(b[2])<<8 | uint32(b[3])<<16
 		if len(b) < (int(vLen) + 4) {
 			return 0, nil, io.ErrUnexpectedEOF
@@ -35,6 +44,12 @@ func decodeBytes(b []byte) (n int, v []byte, err error) {
 	vLen := b[0]
 	if len(b) < (int(vLen) + 1) {
 		return 0, nil, io.ErrUnexpectedEOF
+	}
+	if len(b[1:]) < int(vLen) {
+		return 0, nil, io.ErrUnexpectedEOF
+	}
+	if vLen >= maxSmallStringLength {
+		return 0, nil, errors.New("invalid length")
 	}
 	return nearestPaddedValueLength(int(vLen) + 1), b[1 : vLen+1], nil
 }
