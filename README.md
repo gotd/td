@@ -2,6 +2,9 @@
 
 Telegram client implementation in go.
 
+* [Security policy](.github/SECURITY.md)
+* [Support](.github/SUPPORT.md)
+
 ## Status
 
 Work in progress. Only go1.15 is supported and no backward compatibility is provided.
