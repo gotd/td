@@ -1,0 +1,2 @@
+paths-ignore:
+  - '**/tl_*_gen.go'
