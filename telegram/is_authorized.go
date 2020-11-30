@@ -18,7 +18,7 @@ type AuthStatus struct {
 // AuthStatus gets authorization status of client.
 func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 	var res tg.UpdatesState
-	if err := c.rpcNoAck(ctx, &tg.UpdatesGetStateRequest{}, &res); err != nil {
+	if err := c.rpcContent(ctx, &tg.UpdatesGetStateRequest{}, &res); err != nil {
 		var rpcErr *Error
 		if errors.As(err, &rpcErr) {
 			// Not authorized.
@@ -29,5 +29,5 @@ func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 		}
 		return nil, xerrors.Errorf("failed to perform request: %w", err)
 	}
-	return &AuthStatus{Authorized: true}, nil
+	return &AuthStatus{Authorized: false}, nil
 }

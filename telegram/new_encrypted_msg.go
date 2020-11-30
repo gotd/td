@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"fmt"
 	"sync/atomic"
 
 	"go.uber.org/zap"
@@ -13,6 +14,16 @@ import (
 func (c *Client) newEncryptedMessage(id crypto.MessageID, seq int32, payload bin.Encoder, b *bin.Buffer) error {
 	if err := payload.Encode(b); err != nil {
 		return err
+	}
+	{
+		typeID, err := b.PeekID()
+		if err == nil {
+			c.log.With(
+				zap.Int64("message_id", int64(id)),
+				zap.String("message_type", fmt.Sprintf("0x%x", typeID)),
+				zap.String("message_type_str", c.types.Get(typeID)),
+			).Debug("Request")
+		}
 	}
 	d := proto.EncryptedMessageData{
 		SessionID:              atomic.LoadInt64(&c.session),

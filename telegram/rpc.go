@@ -13,13 +13,21 @@ import (
 	"github.com/ernado/td/crypto"
 )
 
-func (c *Client) rpcDo(ctx context.Context, seqDelta int32, in bin.Encoder, out bin.Decoder) error {
+func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
 	req := request{
-		ID:       c.newMessageID(),
-		Sequence: atomic.AddInt32(&c.seq, seqDelta),
-		Input:    in,
-		Output:   out,
+		ID:     c.newMessageID(),
+		Input:  in,
+		Output: out,
 	}
+
+	c.sentContentMessagesMux.Lock()
+	// Atomically calculating and updating sequence number.
+	req.Sequence = c.sentContentMessages * 2
+	if contentMsg {
+		req.Sequence++
+		c.sentContentMessages++
+	}
+	c.sentContentMessagesMux.Unlock()
 
 	if err := c.rpcDoRequest(ctx, req); err != nil {
 		var badMsgErr *badMessageError
@@ -35,20 +43,10 @@ func (c *Client) rpcDo(ctx context.Context, seqDelta int32, in bin.Encoder, out 
 	return nil
 }
 
-const (
-	seqDeltaAck   = 2
-	seqDeltaNoAck = 1
-)
-
-// rpcAck should be called for RPC requests that require acknowledgement, like
+// rpcContent should be called for RPC requests that require acknowledgement, like
 // content requests (send message, etc).
-func (c *Client) rpcAck(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
-	return c.rpcDo(ctx, seqDeltaAck, in, out)
-}
-
-// rpcNoAck should be called for RPC requests that does not require acknowledgement.
-func (c *Client) rpcNoAck(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
-	return c.rpcDo(ctx, seqDeltaNoAck, in, out)
+func (c *Client) rpcContent(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
+	return c.rpcDo(ctx, true, in, out)
 }
 
 type request struct {

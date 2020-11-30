@@ -11,7 +11,7 @@ import (
 // BotLogin performs bot authorization request.
 func (c *Client) BotLogin(ctx context.Context, token string) error {
 	var res tg.AuthAuthorizationBox
-	if err := c.rpcAck(ctx, &tg.AuthImportBotAuthorizationRequest{
+	if err := c.rpcContent(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
 		APIHash:      c.appHash,
 		BotAuthToken: token,

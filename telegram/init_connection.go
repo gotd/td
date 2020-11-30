@@ -17,7 +17,7 @@ func (c *Client) initConnection(ctx context.Context) error {
 	const notAvailable = "n/a"
 
 	var response tg.Config
-	if err := c.rpcNoAck(ctx, proto.InvokeWithLayer{
+	if err := c.rpcContent(ctx, proto.InvokeWithLayer{
 		Layer: proto.Layer,
 		Query: proto.InitConnection{
 			ID:             c.appID,

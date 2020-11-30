@@ -46,7 +46,13 @@ type Client struct {
 
 	salt    int64 // atomic access only
 	session int64 // atomic access only
-	seq     int32 // atomic access only
+
+	// sentContentMessages is count of created content messages, used to
+	// compute sequence number within session.
+	//
+	// protected by sentContentMessagesMux.
+	sentContentMessages    int32
+	sentContentMessagesMux sync.Mutex
 
 	ctx    context.Context
 	cancel context.CancelFunc
