@@ -6,8 +6,6 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/ernado/ige v0.1.1 h1:iFeXpAomVvT4Xw3uvzprkXpvH0BIiHXgudDle0Qhcpg=
 github.com/ernado/ige v0.1.1/go.mod h1:+gbBDg70watSVAcCnvdNUcloW5yu3gHqCqZUTT5h0ws=
-github.com/ernado/tl v0.1.2 h1:el9U1Yskc36TRwM3hhGaTUQdluu91umGVlGe/Z7Wl+k=
-github.com/ernado/tl v0.1.2/go.mod h1:XJHNo5n5fafquXVxSwMYWKO22x9d0aEwpCC9r+S5n04=
 github.com/go-bindata/go-bindata v3.1.2+incompatible h1:5vjJMVhowQdPzjE1LdxyFF7YFTXg5IgGVW4gBr5IbvE=
 github.com/go-bindata/go-bindata v3.1.2+incompatible/go.mod h1:xK8Dsgwmeed+BBsSy2XTopBn/8uK2HWuGSnA11C3Joo=
 github.com/go-openapi/inflect v0.19.0 h1:9jCH9scKIbHeV9m12SmPilScz6krDxKRasNNSNPXu/4=
