@@ -2,7 +2,7 @@
 // sources:
 // _template/header.tmpl
 // _template/main.tmpl
-// _template/test.tmpl
+// _template/registry.tmpl
 package internal
 
 import (
@@ -119,22 +119,22 @@ func _templateMainTmpl() (*asset, error) {
 	return a, nil
 }
 
-var __templateTestTmpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x01\x00\x00\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00")
+var __templateRegistryTmpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x6c\x8f\x31\x4b\x04\x31\x14\x84\xfb\xfc\x8a\x21\x6c\xa1\xa0\x7b\xa2\xdd\x81\x9d\x85\x82\x82\x1c\xd7\x89\xc5\xe3\x76\x36\x86\xbb\xe4\x42\x92\xc5\x5b\x42\xfe\xbb\xc4\x5d\xac\x2c\xdf\x0c\xf3\xf1\xbe\x52\x30\x70\xb4\x9e\xd0\x91\xc6\xa6\x1c\x67\x8d\x5a\x55\x29\xe8\xc2\xd1\x60\xfb\x88\xae\x7f\x97\xc3\x51\x0c\xd7\x3c\xd3\x85\x93\x64\x42\x7f\x51\x06\x46\x8d\xae\x35\x6a\xb3\xc1\x7e\x0e\x4c\x88\xcc\x53\xf4\x09\x4e\x42\xb0\xde\x60\x8c\x67\x87\x3c\x07\xc2\x0e\x09\xf9\x8c\xfd\xeb\x72\x7a\x71\x4c\xbd\x1a\x27\x7f\x58\xa6\x6f\x12\xae\xae\xdb\xee\x63\xb2\x3e\x3f\xdc\x7f\xa6\x1c\x1b\xa1\x28\xac\xd4\x7f\xcb\x52\x6e\x11\xc5\x1b\xa2\xe3\x89\x6e\x79\x7a\xb7\xea\xb4\xdf\x00\xe0\xee\xd2\x9c\x5a\xdf\x3f\xf3\xf2\xf2\x84\x5a\xb7\xd0\x7f\xd9\x4e\xbe\x51\xab\xbe\xf9\x85\xd1\x0f\xcb\xac\xaa\xaa\x9a\xf3\x1a\xfc\x04\x00\x00\xff\xff\x97\x1b\x2c\x20\x2e\x01\x00\x00")
 
-func _templateTestTmplBytes() ([]byte, error) {
+func _templateRegistryTmplBytes() ([]byte, error) {
 	return bindataRead(
-		__templateTestTmpl,
-		"_template/test.tmpl",
+		__templateRegistryTmpl,
+		"_template/registry.tmpl",
 	)
 }
 
-func _templateTestTmpl() (*asset, error) {
-	bytes, err := _templateTestTmplBytes()
+func _templateRegistryTmpl() (*asset, error) {
+	bytes, err := _templateRegistryTmplBytes()
 	if err != nil {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "_template/test.tmpl", size: 0, mode: os.FileMode(420), modTime: time.Unix(1, 0)}
+	info := bindataFileInfo{name: "_template/registry.tmpl", size: 302, mode: os.FileMode(420), modTime: time.Unix(1, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -191,9 +191,9 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"_template/header.tmpl": _templateHeaderTmpl,
-	"_template/main.tmpl":   _templateMainTmpl,
-	"_template/test.tmpl":   _templateTestTmpl,
+	"_template/header.tmpl":   _templateHeaderTmpl,
+	"_template/main.tmpl":     _templateMainTmpl,
+	"_template/registry.tmpl": _templateRegistryTmpl,
 }
 
 // AssetDir returns the file names below a certain
@@ -238,9 +238,9 @@ type bintree struct {
 
 var _bintree = &bintree{nil, map[string]*bintree{
 	"_template": &bintree{nil, map[string]*bintree{
-		"header.tmpl": &bintree{_templateHeaderTmpl, map[string]*bintree{}},
-		"main.tmpl":   &bintree{_templateMainTmpl, map[string]*bintree{}},
-		"test.tmpl":   &bintree{_templateTestTmpl, map[string]*bintree{}},
+		"header.tmpl":   &bintree{_templateHeaderTmpl, map[string]*bintree{}},
+		"main.tmpl":     &bintree{_templateMainTmpl, map[string]*bintree{}},
+		"registry.tmpl": &bintree{_templateRegistryTmpl, map[string]*bintree{}},
 	}},
 }}
 

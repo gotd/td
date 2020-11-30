@@ -30,6 +30,9 @@ type Generator struct {
 	structs []structDef
 	// interfaces definitions.
 	interfaces []interfaceDef
+
+	// registry of type ids
+	registry []bindingDef
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.

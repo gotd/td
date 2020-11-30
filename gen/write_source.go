@@ -13,6 +13,7 @@ type config struct {
 	Package    string
 	Structs    []structDef
 	Interfaces []interfaceDef
+	Registry   []bindingDef
 }
 
 // FileSystem represents a directory of generated package.
@@ -72,6 +73,19 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
 			return err
 		}
+	}
+
+	cfg := config{
+		Package:  pkgName,
+		Registry: g.registry,
+	}
+	name := "tl_registry_gen.go"
+	buf := new(bytes.Buffer)
+	if err := t.ExecuteTemplate(buf, "registry", cfg); err != nil {
+		return err
+	}
+	if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		return err
 	}
 
 	return nil

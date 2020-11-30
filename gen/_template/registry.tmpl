@@ -1,0 +1,14 @@
+{{ define "registry" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+// Types returns mapping from type ids to TL type names.
+func TypesMap() map[uint32]string {
+  return map[uint32]string {
+{{- range $elem := $.Registry }}
+    0x{{ $elem.HexID }}: "{{ $elem.Raw }}",
+{{- end }}
+  }
+}
+
+{{ end }}

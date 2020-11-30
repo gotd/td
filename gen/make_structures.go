@@ -38,6 +38,11 @@ type structDef struct {
 	BaseName string
 }
 
+type bindingDef struct {
+	HexID string // id in hex
+	Raw   string // raw tl type
+}
+
 // makeStructures generates go structure definition representations.
 func (g *Generator) makeStructures() error {
 	for _, sd := range g.schema.Definitions {
@@ -88,6 +93,10 @@ func (g *Generator) makeStructures() error {
 		}
 
 		g.structs = append(g.structs, s)
+		g.registry = append(g.registry, bindingDef{
+			HexID: s.HexID,
+			Raw:   s.RawType,
+		})
 	}
 
 	return nil
