@@ -45,7 +45,14 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		// Empty body.
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
-	c.log.With(zap.String("type_id", fmt.Sprintf("0x%x", id))).Debug("HandleMessage")
+	typeStr := "unknown"
+	if s := c.types.Get(id); s != "" {
+		typeStr = s
+	}
+	c.log.With(
+		zap.String("type_id", fmt.Sprintf("0x%x", id)),
+		zap.String("type_str", typeStr),
+	).Debug("HandleMessage")
 	switch id {
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)

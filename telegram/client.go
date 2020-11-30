@@ -14,7 +14,9 @@ import (
 
 	"github.com/ernado/td/bin"
 	"github.com/ernado/td/crypto"
+	"github.com/ernado/td/internal/mt"
 	"github.com/ernado/td/internal/proto"
+	"github.com/ernado/td/internal/tmap"
 	"github.com/ernado/td/tg"
 )
 
@@ -66,6 +68,8 @@ type Client struct {
 
 	// immutable
 	rsaPublicKeys []*rsa.PublicKey
+
+	types *tmap.Map
 }
 
 const defaultTimeout = time.Second * 10
@@ -203,6 +207,12 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		sessionStorage: opt.SessionStorage,
 		rsaPublicKeys:  opt.PublicKeys,
 		updateHandler:  opt.UpdateHandler,
+
+		types: tmap.New(
+			mt.TypesMap(),
+			tg.TypesMap(),
+			proto.TypesMap(),
+		),
 	}
 
 	// Loading session from storage if provided.
