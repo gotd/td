@@ -1,2 +1,8 @@
+paths:
+  - 'bin'
+  - 'crypto'
+  - 'cmd'
+  - 'internal'
+  - 'telegram'
 paths-ignore:
   - 'tg/'
