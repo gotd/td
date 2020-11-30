@@ -1,8 +1,9 @@
 package gen
 
 import (
-	"github.com/gotd/tl"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/tl"
 )
 
 // fieldDef represents structDef field.

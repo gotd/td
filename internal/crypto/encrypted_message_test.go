@@ -1,10 +1,8 @@
-package proto
+package crypto
 
 import (
 	"math/big"
 	"testing"
-
-	"github.com/gotd/td/crypto"
 
 	"github.com/gotd/td/bin"
 )
@@ -17,7 +15,7 @@ func TestEncryptedMessage_Encode(t *testing.T) {
 
 	payload := []byte{1, 2, 3, 4}
 
-	var authKey crypto.AuthKey
+	var authKey AuthKey
 	k.FillBytes(authKey[:])
 
 	d := EncryptedMessage{

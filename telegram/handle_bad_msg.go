@@ -3,8 +3,6 @@ package telegram
 import (
 	"fmt"
 
-	"github.com/gotd/td/crypto"
-
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -64,7 +62,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		}
 
 		c.rpcMux.Lock()
-		f, ok := c.rpc[crypto.MessageID(bad.BadMsgID)]
+		f, ok := c.rpc[bad.BadMsgID]
 		c.rpcMux.Unlock()
 		if ok {
 			f(b, &badMessageError{Code: bad.ErrorCode})
@@ -78,7 +76,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		}
 
 		c.rpcMux.Lock()
-		f, ok := c.rpc[crypto.MessageID(bad.BadMsgID)]
+		f, ok := c.rpc[bad.BadMsgID]
 		c.rpcMux.Unlock()
 		if ok {
 			f(b, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})

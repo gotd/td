@@ -10,7 +10,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
 )
 
 func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
@@ -50,7 +49,7 @@ func (c *Client) rpcContent(ctx context.Context, in bin.Encoder, out bin.Decoder
 }
 
 type request struct {
-	ID       crypto.MessageID
+	ID       int64
 	Sequence int32
 	Input    bin.Encoder
 	Output   bin.Decoder

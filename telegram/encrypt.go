@@ -6,14 +6,13 @@ import (
 
 	"github.com/ernado/ige"
 
-	"github.com/gotd/td/crypto"
-	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/crypto"
 )
 
 func padding(l int) int { return 16 + (16 - (l % 16)) }
 
 // encrypt encrypts plaintext using AES-IGE.
-func (c *Client) encrypt(plaintext []byte) (*proto.EncryptedMessage, error) {
+func (c *Client) encrypt(plaintext []byte) (*crypto.EncryptedMessage, error) {
 	plaintextPadded := make([]byte, len(plaintext)+padding(len(plaintext)))
 	copy(plaintextPadded, plaintext)
 	if _, err := io.ReadFull(c.rand, plaintextPadded[len(plaintext):]); err != nil {
@@ -27,7 +26,7 @@ func (c *Client) encrypt(plaintext []byte) (*proto.EncryptedMessage, error) {
 		return nil, err
 	}
 	encryptor := ige.NewIGEEncrypter(cipher, iv[:])
-	msg := &proto.EncryptedMessage{
+	msg := &crypto.EncryptedMessage{
 		AuthKeyID:     c.authKeyID,
 		MsgKey:        messageKey,
 		EncryptedData: make([]byte, len(plaintextPadded)),

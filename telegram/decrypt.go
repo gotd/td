@@ -7,11 +7,10 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
-	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/crypto"
 )
 
-func (c *Client) decrypt(encrypted *proto.EncryptedMessage) ([]byte, error) {
+func (c *Client) decrypt(encrypted *crypto.EncryptedMessage) ([]byte, error) {
 	if c.authKeyID != encrypted.AuthKeyID {
 		return nil, xerrors.New("unknown auth key id")
 	}
@@ -31,13 +30,13 @@ func (c *Client) decrypt(encrypted *proto.EncryptedMessage) ([]byte, error) {
 	return plaintext, nil
 }
 
-func (c *Client) decryptData(encrypted *proto.EncryptedMessage) (*proto.EncryptedMessageData, error) {
+func (c *Client) decryptData(encrypted *crypto.EncryptedMessage) (*crypto.EncryptedMessageData, error) {
 	plaintext, err := c.decrypt(encrypted)
 	if err != nil {
 		return nil, err
 	}
 	b := &bin.Buffer{Buf: plaintext}
-	msg := &proto.EncryptedMessageData{}
+	msg := &crypto.EncryptedMessageData{}
 	if err := msg.Decode(b); err != nil {
 		return nil, err
 	}

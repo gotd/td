@@ -2,13 +2,12 @@ package proto
 
 import (
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
 )
 
 const ResultTypeID = 0xf35c6d01
 
 type Result struct {
-	RequestMessageID crypto.MessageID
+	RequestMessageID int64
 	Result           []byte
 }
 
@@ -21,7 +20,7 @@ func (r *Result) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return err
 		}
-		r.RequestMessageID = crypto.MessageID(v)
+		r.RequestMessageID = v
 	}
 	r.Result = append(r.Result[:0], b.Buf...)
 	return nil

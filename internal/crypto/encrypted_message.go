@@ -1,4 +1,4 @@
-package proto
+package crypto
 
 import "github.com/gotd/td/bin"
 

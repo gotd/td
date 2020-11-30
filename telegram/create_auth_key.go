@@ -15,7 +15,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 )
@@ -67,7 +67,7 @@ func (c *Client) createAuthKey(ctx context.Context) error {
 Loop:
 	for _, fingerprint := range res.ServerPublicKeyFingerprints {
 		for _, key := range c.rsaPublicKeys {
-			if fingerprint == proto.RSAFingerprint(key) {
+			if fingerprint == crypto.RSAFingerprint(key) {
 				selectedPubKey = key
 				break Loop
 			}
@@ -122,7 +122,7 @@ Loop:
 		ServerNonce:          res.ServerNonce,
 		P:                    p.Bytes(),
 		Q:                    q.Bytes(),
-		PublicKeyFingerprint: proto.RSAFingerprint(selectedPubKey),
+		PublicKeyFingerprint: crypto.RSAFingerprint(selectedPubKey),
 		EncryptedData:        encryptedData,
 	}
 	if err := c.newUnencryptedMessage(reqDHParams, b); err != nil {

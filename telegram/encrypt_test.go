@@ -4,12 +4,10 @@ import (
 	"bytes"
 	"fmt"
 	"testing"
-	"time"
 
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
 )
 
 func TestEncryption(t *testing.T) {
@@ -56,11 +54,9 @@ func (t testPayload) Encode(b *bin.Buffer) error {
 func benchPayload(b *testing.B, c *Client, n int) {
 	b.Helper()
 
-	now := time.Date(1984, 10, 10, 0, 1, 2, 1249, time.UTC)
-
 	buf := new(bin.Buffer)
 	p := testPayload{Size: n}
-	if err := c.newEncryptedMessage(crypto.NewMessageID(now, crypto.MessageFromClient), 0, p, buf); err != nil {
+	if err := c.newEncryptedMessage(12345, 0, p, buf); err != nil {
 		b.Fatal(err)
 	}
 	b.ReportAllocs()
@@ -69,8 +65,7 @@ func benchPayload(b *testing.B, c *Client, n int) {
 
 	for i := 0; i < b.N; i++ {
 		buf.Reset()
-		id := crypto.NewMessageID(now, crypto.MessageFromClient)
-		if err := c.newEncryptedMessage(id, 0, p, buf); err != nil {
+		if err := c.newEncryptedMessage(12345, 0, p, buf); err != nil {
 			b.Fatal(err)
 		}
 	}

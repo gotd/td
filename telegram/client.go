@@ -13,7 +13,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
@@ -21,6 +21,7 @@ import (
 )
 
 type UpdateClient interface {
+	RandInt64() (int64, error)
 	SendMessage(ctx context.Context, m *tg.MessagesSendMessageRequest) error
 }
 
@@ -65,7 +66,7 @@ type Client struct {
 	sessionStorage SessionStorage // immutable
 
 	// callbacks for RPC requests, protected by rpcMux
-	rpc    map[crypto.MessageID]func(b *bin.Buffer, rpcErr error)
+	rpc    map[int64]func(b *bin.Buffer, rpcErr error)
 	rpcMux sync.Mutex
 
 	// callbacks for ping results protected by pingMux
@@ -110,7 +111,7 @@ func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error
 		return err
 	}
 	msg := proto.UnencryptedMessage{
-		MessageID:   crypto.NewMessageID(c.clock(), crypto.MessageFromClient),
+		MessageID:   c.newMessageID(),
 		MessageData: b.Copy(),
 	}
 	b.Reset()
@@ -202,7 +203,7 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		rand:  opt.Random,
 		log:   opt.Logger,
 		ping:  map[int64]func(){},
-		rpc:   map[crypto.MessageID]func(b *bin.Buffer, rpcErr error){},
+		rpc:   map[int64]func(b *bin.Buffer, rpcErr error){},
 
 		ctx:    clientCtx,
 		cancel: clientCancel,

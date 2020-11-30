@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/rand"
 	"fmt"
 	"os"
 	"os/signal"
@@ -15,7 +14,6 @@ import (
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/crypto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
@@ -50,7 +48,7 @@ func (h updateHandler) handle(ctx context.Context, client telegram.UpdateClient,
 						zap.String("username", user.Username),
 					).Info("Got message")
 
-					randomID, err := crypto.RandInt64(rand.Reader)
+					randomID, err := client.RandInt64()
 					if err != nil {
 						return err
 					}

@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/gotd/td/internal/crypto"
+
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto"
 )
 
 func TestDecrypt(t *testing.T) {
@@ -32,7 +33,7 @@ func TestDecrypt(t *testing.T) {
 	}
 	c.authKeyID = c.authKey.ID()
 
-	var msg proto.EncryptedMessage
+	var msg crypto.EncryptedMessage
 	b := &bin.Buffer{Buf: []byte{
 		122, 113, 131, 194, 193, 14, 79, 77, 249, 69, 250, 154, 154, 189, 53, 231, 195, 132,
 		11, 97, 240, 69, 48, 79, 57, 103, 76, 25, 192, 226, 9, 120, 79, 80, 246, 34, 106, 7,

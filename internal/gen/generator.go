@@ -5,8 +5,9 @@ import (
 	"strings"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/gotd/tl"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/tl"
 )
 
 func definitionType(d tl.Definition) string {

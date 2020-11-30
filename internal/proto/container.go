@@ -3,10 +3,9 @@ package proto
 import (
 	"errors"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
-
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/bin"
 )
 
 const MessageContainerTypeID = 0x73f1f8dc
@@ -34,7 +33,7 @@ func (m *MessageContainer) Decode(b *bin.Buffer) error {
 }
 
 type Message struct {
-	ID    crypto.MessageID
+	ID    int64
 	SeqNo int
 	Bytes int
 	Body  []byte
@@ -46,7 +45,7 @@ func (m *Message) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return err
 		}
-		m.ID = crypto.MessageID(v)
+		m.ID = v
 	}
 	{
 		v, err := b.Int()

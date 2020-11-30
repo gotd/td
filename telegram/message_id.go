@@ -1,7 +1,9 @@
 package telegram
 
-import "github.com/gotd/td/crypto"
+import (
+	"github.com/gotd/td/internal/proto"
+)
 
-func (c *Client) newMessageID() crypto.MessageID {
-	return crypto.NewMessageID(c.clock(), crypto.MessageFromClient)
+func (c *Client) newMessageID() int64 {
+	return int64(proto.NewMessageID(c.clock(), proto.MessageFromClient))
 }

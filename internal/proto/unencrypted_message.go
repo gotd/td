@@ -4,12 +4,11 @@ import (
 	"fmt"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/crypto"
 )
 
 // UnencryptedMessage is plaintext message.
 type UnencryptedMessage struct {
-	MessageID   crypto.MessageID
+	MessageID   int64
 	MessageData []byte
 }
 
@@ -28,7 +27,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return err
 		}
-		u.MessageID = crypto.MessageID(v)
+		u.MessageID = v
 	}
 
 	// Reading data.
@@ -46,7 +45,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 
 func (u UnencryptedMessage) Encode(b *bin.Buffer) error {
 	b.PutLong(0)
-	b.PutLong(int64(u.MessageID))
+	b.PutLong(u.MessageID)
 	b.PutInt32(int32(len(u.MessageData)))
 	b.Put(u.MessageData)
 	return nil

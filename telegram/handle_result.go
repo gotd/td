@@ -16,7 +16,7 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 		return xerrors.Errorf("failed to decode: %x", err)
 	}
 	c.log.With(
-		zap.Int64("request_id", int64(res.RequestMessageID)),
+		zap.Int64("request_id", res.RequestMessageID),
 	).Debug("Handle result")
 
 	// Handling gzipped results.

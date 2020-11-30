@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/crypto"
 )
 
 // SessionStorage is secure persistent storage for client session.

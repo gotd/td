@@ -3,8 +3,9 @@ package gen
 import (
 	"strings"
 
-	"github.com/gotd/tl"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/tl"
 )
 
 type typeBinding struct {

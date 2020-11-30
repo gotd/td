@@ -8,6 +8,8 @@ import (
 	"net"
 	"time"
 
+	"github.com/gotd/td/internal/crypto"
+
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -110,7 +112,7 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 	}
 
 	// Decrypting.
-	encMessage := &proto.EncryptedMessage{}
+	encMessage := &crypto.EncryptedMessage{}
 	if err := encMessage.Decode(b); err != nil {
 		return xerrors.Errorf("failed to decode encrypted message: %w", err)
 	}

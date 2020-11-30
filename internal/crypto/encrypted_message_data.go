@@ -1,8 +1,6 @@
-package proto
+package crypto
 
 import (
-	"github.com/gotd/td/crypto"
-
 	"github.com/gotd/td/bin"
 )
 
@@ -10,7 +8,7 @@ import (
 type EncryptedMessageData struct {
 	Salt                   int64
 	SessionID              int64
-	MessageID              crypto.MessageID
+	MessageID              int64
 	SeqNo                  int32
 	MessageDataLen         int32
 	MessageDataWithPadding []byte
@@ -20,7 +18,7 @@ type EncryptedMessageData struct {
 func (e EncryptedMessageData) Encode(b *bin.Buffer) error {
 	b.PutLong(e.Salt)
 	b.PutLong(e.SessionID)
-	b.PutLong(int64(e.MessageID))
+	b.PutLong(e.MessageID)
 	b.PutInt32(e.SeqNo)
 	b.PutInt32(e.MessageDataLen)
 	b.Put(e.MessageDataWithPadding)
@@ -48,7 +46,7 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return err
 		}
-		e.MessageID = crypto.MessageID(v)
+		e.MessageID = v
 	}
 	{
 		v, err := b.Int32()

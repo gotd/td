@@ -1,4 +1,4 @@
-package proto
+package crypto
 
 const padding = 16
 
