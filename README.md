@@ -20,7 +20,7 @@ implementation without performance bottlenecks.
 
 ## Example
 
-You can see `cmd/gotdecho` for echo bot example with
+You can see `cmd/gotdecho` for echo bot example.
 
 ## Reference
 
