@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // No-op definition for keeping imports.

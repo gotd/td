@@ -3,7 +3,7 @@ package gen
 import (
 	"strings"
 
-	"github.com/ernado/tl"
+	"github.com/gotd/tl"
 	"golang.org/x/xerrors"
 )
 

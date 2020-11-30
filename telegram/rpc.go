@@ -9,8 +9,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
 )
 
 func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {

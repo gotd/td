@@ -5,7 +5,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/tg"
 )
 
 // BotLogin performs bot authorization request.

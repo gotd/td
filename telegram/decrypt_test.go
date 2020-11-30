@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/proto"
 )
 
 func TestDecrypt(t *testing.T) {

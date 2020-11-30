@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/tg"
 )
 
 // SendMessage sends message to peer.

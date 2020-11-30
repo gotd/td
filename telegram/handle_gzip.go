@@ -3,8 +3,8 @@ package telegram
 import (
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/proto"
 )
 
 func (c *Client) gzip(b *bin.Buffer) (*bin.Buffer, error) {

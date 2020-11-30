@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // The Intermediate version of MTproto.

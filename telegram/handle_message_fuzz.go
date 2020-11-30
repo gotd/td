@@ -5,7 +5,7 @@ package telegram
 import (
 	"go.uber.org/zap"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 type Zero struct{}

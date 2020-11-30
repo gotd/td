@@ -6,9 +6,9 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/proto"
 )
 
 func (c *Client) newEncryptedMessage(id crypto.MessageID, seq int32, payload bin.Encoder, b *bin.Buffer) error {

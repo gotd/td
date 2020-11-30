@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 
 	"go.uber.org/zap"
 )

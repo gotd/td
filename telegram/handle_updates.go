@@ -6,8 +6,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tg"
 )
 
 func (c *Client) processUpdates(updates tg.UpdatesClass) error {

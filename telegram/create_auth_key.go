@@ -14,10 +14,10 @@ import (
 	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/internal/mt"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
 )
 
 // createAuthKey generates new authorization key.

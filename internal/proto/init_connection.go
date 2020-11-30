@@ -1,6 +1,6 @@
 package proto
 
-import "github.com/ernado/td/bin"
+import "github.com/gotd/td/bin"
 
 // initConnection#c1cd5ea9 {X:Type} flags:# api_id:int device_model:string system_version:string
 // app_version:string system_lang_code:string lang_pack:string lang_code:string

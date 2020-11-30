@@ -6,8 +6,8 @@ import (
 
 	"github.com/ernado/ige"
 
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/proto"
 )
 
 func padding(l int) int { return 16 + (16 - (l % 16)) }

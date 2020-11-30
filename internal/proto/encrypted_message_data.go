@@ -1,9 +1,9 @@
 package proto
 
 import (
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/crypto"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // EncryptedMessageData is stored in EncryptedMessage.EncryptedData.

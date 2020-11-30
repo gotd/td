@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ernado/tl"
 	"github.com/go-playground/validator/v10"
+	"github.com/gotd/tl"
 	"golang.org/x/xerrors"
 )
 

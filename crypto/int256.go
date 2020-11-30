@@ -3,7 +3,7 @@ package crypto
 import (
 	"io"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // RandInt256 generates and returns new random 256-bit integer.

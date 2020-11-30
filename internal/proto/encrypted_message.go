@@ -1,6 +1,6 @@
 package proto
 
-import "github.com/ernado/td/bin"
+import "github.com/gotd/td/bin"
 
 // EncryptedMessage of protocol.
 type EncryptedMessage struct {

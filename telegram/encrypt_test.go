@@ -8,8 +8,8 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
 )
 
 func TestEncryption(t *testing.T) {

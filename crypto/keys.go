@@ -6,7 +6,7 @@ import (
 	"hash"
 	"sync"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // See https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector

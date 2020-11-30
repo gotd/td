@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 func BenchmarkMessage_Encode(b *testing.B) {

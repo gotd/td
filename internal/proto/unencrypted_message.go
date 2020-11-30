@@ -3,8 +3,8 @@ package proto
 import (
 	"fmt"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
 )
 
 // UnencryptedMessage is plaintext message.

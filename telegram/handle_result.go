@@ -4,9 +4,9 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/mt"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
 )
 
 func (c *Client) handleResult(b *bin.Buffer) error {

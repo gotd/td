@@ -3,7 +3,7 @@ package crypto
 import (
 	"testing"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 func TestAuthKeyID(t *testing.T) {

@@ -3,8 +3,8 @@ package telegram
 import (
 	"fmt"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/proto"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/proto"
 )
 
 // ProtocolErr represents protocol level error.

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 func BenchmarkWriteIntermediate(b *testing.B) {

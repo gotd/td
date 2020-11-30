@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/telegram/internal"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/telegram/internal"
 )
 
 //go:generate go run github.com/go-bindata/go-bindata/go-bindata -pkg=internal -o=internal/bindata.go -mode=420 -modtime=1 ./_data/...

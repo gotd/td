@@ -3,12 +3,12 @@ package telegram
 import (
 	"fmt"
 
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/crypto"
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/internal/mt"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/mt"
 )
 
 type badMessageError struct {

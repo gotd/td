@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/internal/proto"
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/tg"
 )
 
 // initConnection initializes connection.

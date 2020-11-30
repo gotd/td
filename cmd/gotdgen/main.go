@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ernado/tl"
+	"github.com/gotd/tl"
 
-	"github.com/ernado/td/gen"
+	"github.com/gotd/td/gen"
 )
 
 type formattedSource struct {

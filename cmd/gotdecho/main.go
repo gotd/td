@@ -15,9 +15,9 @@ import (
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/telegram"
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/tg"
 )
 
 type updateHandler struct {

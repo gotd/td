@@ -8,7 +8,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/tl"
+	"github.com/gotd/tl"
 )
 
 type formattedSource struct{}

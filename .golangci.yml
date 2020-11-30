@@ -17,7 +17,7 @@ linters-settings:
   lll:
     line-length: 140
   goimports:
-    local-prefixes: github.com/ernado/td
+    local-prefixes: github.com/gotd/td
   gocritic:
     enabled-tags:
       - diagnostic

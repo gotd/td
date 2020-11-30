@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/tg"
 )
 
 // AuthStatus represents authorization status.

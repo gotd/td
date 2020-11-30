@@ -3,7 +3,7 @@ package gen
 import (
 	"text/template"
 
-	"github.com/ernado/td/gen/internal"
+	"github.com/gotd/td/gen/internal"
 )
 
 func Template() *template.Template {

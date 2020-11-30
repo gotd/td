@@ -6,7 +6,7 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 // RSAFingerprint returns fingerprint of RSA public key as defined in MTProto.

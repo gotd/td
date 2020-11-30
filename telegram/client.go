@@ -12,12 +12,12 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/ernado/td/bin"
-	"github.com/ernado/td/crypto"
-	"github.com/ernado/td/internal/mt"
-	"github.com/ernado/td/internal/proto"
-	"github.com/ernado/td/internal/tmap"
-	"github.com/ernado/td/tg"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/crypto"
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/tg"
 )
 
 type UpdateClient interface {

@@ -4,9 +4,9 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ernado/td/crypto"
+	"github.com/gotd/td/crypto"
 
-	"github.com/ernado/td/bin"
+	"github.com/gotd/td/bin"
 )
 
 func TestEncryptedMessage_Encode(t *testing.T) {
