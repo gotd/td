@@ -29,6 +29,7 @@ func (c *Client) rpcDo(ctx context.Context, seqDelta int32, in bin.Encoder, out 
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
 			return c.rpcDoRequest(ctx, req)
 		}
+		return xerrors.Errorf("rpcDoRequest filed: %w", err)
 	}
 
 	return nil
@@ -76,18 +77,18 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Will write error to that variable.
 	var resultErr error
-
-	// Setting callback that will be called if message is received.
-	c.rpcMux.Lock()
-	c.rpc[req.ID] = func(rpcBuff *bin.Buffer, rpcErr error) {
+	handler := func(rpcBuff *bin.Buffer, rpcErr error) {
 		if rpcErr != nil {
-			// Not calling f, just returning error.
 			resultErr = rpcErr
 		} else {
 			resultErr = req.Output.Decode(rpcBuff)
 		}
 		closeDone()
 	}
+
+	// Setting callback that will be called if message is received.
+	c.rpcMux.Lock()
+	c.rpc[req.ID] = handler
 	c.rpcMux.Unlock()
 
 	defer func() {
