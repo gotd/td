@@ -112,3 +112,12 @@ var (
 	_ bin.Encoder = &ContactsGetLocatedRequest{}
 	_ bin.Decoder = &ContactsGetLocatedRequest{}
 )
+
+// ContactsGetLocated invokes method contacts.getLocated#d348bc44 returning error if any.
+func (c *Client) ContactsGetLocated(ctx context.Context, request *ContactsGetLocatedRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

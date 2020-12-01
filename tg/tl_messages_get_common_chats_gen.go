@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &MessagesGetCommonChatsRequest{}
 	_ bin.Decoder = &MessagesGetCommonChatsRequest{}
 )
+
+// MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.
+func (c *Client) MessagesGetCommonChats(ctx context.Context, request *MessagesGetCommonChatsRequest) (MessagesChatsClass, error) {
+	var result MessagesChatsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Chats, nil
+}

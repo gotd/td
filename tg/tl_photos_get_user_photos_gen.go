@@ -91,3 +91,12 @@ var (
 	_ bin.Encoder = &PhotosGetUserPhotosRequest{}
 	_ bin.Decoder = &PhotosGetUserPhotosRequest{}
 )
+
+// PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.
+func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {
+	var result PhotosPhotosBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Photos, nil
+}

@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesGetMessageEditDataRequest{}
 	_ bin.Decoder = &MessagesGetMessageEditDataRequest{}
 )
+
+// MessagesGetMessageEditData invokes method messages.getMessageEditData#fda68d36 returning error if any.
+func (c *Client) MessagesGetMessageEditData(ctx context.Context, request *MessagesGetMessageEditDataRequest) (*MessagesMessageEditData, error) {
+	var result MessagesMessageEditData
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -218,3 +218,12 @@ var (
 	_ bin.Encoder = &MessagesEditInlineBotMessageRequest{}
 	_ bin.Decoder = &MessagesEditInlineBotMessageRequest{}
 )
+
+// MessagesEditInlineBotMessage invokes method messages.editInlineBotMessage#83557dba returning error if any.
+func (c *Client) MessagesEditInlineBotMessage(ctx context.Context, request *MessagesEditInlineBotMessageRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -116,3 +116,12 @@ var (
 	_ bin.Encoder = &MessagesToggleStickerSetsRequest{}
 	_ bin.Decoder = &MessagesToggleStickerSetsRequest{}
 )
+
+// MessagesToggleStickerSets invokes method messages.toggleStickerSets#b5052fea returning error if any.
+func (c *Client) MessagesToggleStickerSets(ctx context.Context, request *MessagesToggleStickerSetsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

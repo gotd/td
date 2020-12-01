@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesHidePeerSettingsBarRequest{}
 	_ bin.Decoder = &MessagesHidePeerSettingsBarRequest{}
 )
+
+// MessagesHidePeerSettingsBar invokes method messages.hidePeerSettingsBar#4facb138 returning error if any.
+func (c *Client) MessagesHidePeerSettingsBar(ctx context.Context, request *MessagesHidePeerSettingsBarRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AuthExportAuthorizationRequest{}
 	_ bin.Decoder = &AuthExportAuthorizationRequest{}
 )
+
+// AuthExportAuthorization invokes method auth.exportAuthorization#e5bfffcd returning error if any.
+func (c *Client) AuthExportAuthorization(ctx context.Context, request *AuthExportAuthorizationRequest) (*AuthExportedAuthorization, error) {
+	var result AuthExportedAuthorization
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

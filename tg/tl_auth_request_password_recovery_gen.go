@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AuthRequestPasswordRecoveryRequest{}
 	_ bin.Decoder = &AuthRequestPasswordRecoveryRequest{}
 )
+
+// AuthRequestPasswordRecovery invokes method auth.requestPasswordRecovery#d897bc66 returning error if any.
+func (c *Client) AuthRequestPasswordRecovery(ctx context.Context, request *AuthRequestPasswordRecoveryRequest) (*AuthPasswordRecovery, error) {
+	var result AuthPasswordRecovery
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -157,3 +157,12 @@ var (
 	_ bin.Encoder = &AccountInitTakeoutSessionRequest{}
 	_ bin.Decoder = &AccountInitTakeoutSessionRequest{}
 )
+
+// AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
+func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {
+	var result AccountTakeout
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -86,3 +86,12 @@ var (
 	_ bin.Encoder = &MessagesGetGameHighScoresRequest{}
 	_ bin.Decoder = &MessagesGetGameHighScoresRequest{}
 )
+
+// MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.
+func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {
+	var result MessagesHighScores
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -170,3 +170,12 @@ var (
 	_ bin.Encoder = &StickersCreateStickerSetRequest{}
 	_ bin.Decoder = &StickersCreateStickerSetRequest{}
 )
+
+// StickersCreateStickerSet invokes method stickers.createStickerSet#f1036780 returning error if any.
+func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error) {
+	var result MessagesStickerSet
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

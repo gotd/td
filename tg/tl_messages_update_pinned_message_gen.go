@@ -117,3 +117,12 @@ var (
 	_ bin.Encoder = &MessagesUpdatePinnedMessageRequest{}
 	_ bin.Decoder = &MessagesUpdatePinnedMessageRequest{}
 )
+
+// MessagesUpdatePinnedMessage invokes method messages.updatePinnedMessage#d2aaf7ec returning error if any.
+func (c *Client) MessagesUpdatePinnedMessage(ctx context.Context, request *MessagesUpdatePinnedMessageRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

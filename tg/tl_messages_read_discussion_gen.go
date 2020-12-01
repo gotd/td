@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &MessagesReadDiscussionRequest{}
 	_ bin.Decoder = &MessagesReadDiscussionRequest{}
 )
+
+// MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.
+func (c *Client) MessagesReadDiscussion(ctx context.Context, request *MessagesReadDiscussionRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

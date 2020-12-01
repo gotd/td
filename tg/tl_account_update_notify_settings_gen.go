@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &AccountUpdateNotifySettingsRequest{}
 	_ bin.Decoder = &AccountUpdateNotifySettingsRequest{}
 )
+
+// AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.
+func (c *Client) AccountUpdateNotifySettings(ctx context.Context, request *AccountUpdateNotifySettingsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

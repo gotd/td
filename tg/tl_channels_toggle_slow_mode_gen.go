@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &ChannelsToggleSlowModeRequest{}
 	_ bin.Decoder = &ChannelsToggleSlowModeRequest{}
 )
+
+// ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.
+func (c *Client) ChannelsToggleSlowMode(ctx context.Context, request *ChannelsToggleSlowModeRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

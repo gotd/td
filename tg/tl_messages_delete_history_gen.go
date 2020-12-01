@@ -105,3 +105,12 @@ var (
 	_ bin.Encoder = &MessagesDeleteHistoryRequest{}
 	_ bin.Decoder = &MessagesDeleteHistoryRequest{}
 )
+
+// MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
+func (c *Client) MessagesDeleteHistory(ctx context.Context, request *MessagesDeleteHistoryRequest) (*MessagesAffectedHistory, error) {
+	var result MessagesAffectedHistory
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

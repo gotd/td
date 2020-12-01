@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &ChannelsReadHistoryRequest{}
 	_ bin.Decoder = &ChannelsReadHistoryRequest{}
 )
+
+// ChannelsReadHistory invokes method channels.readHistory#cc104937 returning error if any.
+func (c *Client) ChannelsReadHistory(ctx context.Context, request *ChannelsReadHistoryRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

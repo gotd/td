@@ -68,3 +68,12 @@ var (
 	_ bin.Encoder = &AccountSetContentSettingsRequest{}
 	_ bin.Decoder = &AccountSetContentSettingsRequest{}
 )
+
+// AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.
+func (c *Client) AccountSetContentSettings(ctx context.Context, request *AccountSetContentSettingsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

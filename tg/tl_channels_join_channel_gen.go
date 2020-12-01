@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &ChannelsJoinChannelRequest{}
 	_ bin.Decoder = &ChannelsJoinChannelRequest{}
 )
+
+// ChannelsJoinChannel invokes method channels.joinChannel#24b524c5 returning error if any.
+func (c *Client) ChannelsJoinChannel(ctx context.Context, request *ChannelsJoinChannelRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

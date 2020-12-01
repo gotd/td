@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountDeleteAccountRequest{}
 	_ bin.Decoder = &AccountDeleteAccountRequest{}
 )
+
+// AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.
+func (c *Client) AccountDeleteAccount(ctx context.Context, request *AccountDeleteAccountRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

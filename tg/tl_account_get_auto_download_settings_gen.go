@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountGetAutoDownloadSettingsRequest{}
 	_ bin.Decoder = &AccountGetAutoDownloadSettingsRequest{}
 )
+
+// AccountGetAutoDownloadSettings invokes method account.getAutoDownloadSettings#56da0b3f returning error if any.
+func (c *Client) AccountGetAutoDownloadSettings(ctx context.Context, request *AccountGetAutoDownloadSettingsRequest) (*AccountAutoDownloadSettings, error) {
+	var result AccountAutoDownloadSettings
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

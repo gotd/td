@@ -83,3 +83,12 @@ var (
 	_ bin.Encoder = &StatsGetMegagroupStatsRequest{}
 	_ bin.Decoder = &StatsGetMegagroupStatsRequest{}
 )
+
+// StatsGetMegagroupStats invokes method stats.getMegagroupStats#dcdf8607 returning error if any.
+func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {
+	var result StatsMegagroupStats
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -103,3 +103,12 @@ var (
 	_ bin.Encoder = &MessagesAcceptUrlAuthRequest{}
 	_ bin.Decoder = &MessagesAcceptUrlAuthRequest{}
 )
+
+// MessagesAcceptUrlAuth invokes method messages.acceptUrlAuth#f729ea98 returning error if any.
+func (c *Client) MessagesAcceptUrlAuth(ctx context.Context, request *MessagesAcceptUrlAuthRequest) (UrlAuthResultClass, error) {
+	var result UrlAuthResultBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.UrlAuthResult, nil
+}

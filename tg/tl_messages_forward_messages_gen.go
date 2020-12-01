@@ -189,3 +189,12 @@ var (
 	_ bin.Encoder = &MessagesForwardMessagesRequest{}
 	_ bin.Decoder = &MessagesForwardMessagesRequest{}
 )
+
+// MessagesForwardMessages invokes method messages.forwardMessages#d9fee60e returning error if any.
+func (c *Client) MessagesForwardMessages(ctx context.Context, request *MessagesForwardMessagesRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

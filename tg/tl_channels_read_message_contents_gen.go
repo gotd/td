@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &ChannelsReadMessageContentsRequest{}
 	_ bin.Decoder = &ChannelsReadMessageContentsRequest{}
 )
+
+// ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
+func (c *Client) ChannelsReadMessageContents(ctx context.Context, request *ChannelsReadMessageContentsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

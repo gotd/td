@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountGetPasswordRequest{}
 	_ bin.Decoder = &AccountGetPasswordRequest{}
 )
+
+// AccountGetPassword invokes method account.getPassword#548a30f5 returning error if any.
+func (c *Client) AccountGetPassword(ctx context.Context, request *AccountGetPasswordRequest) (*AccountPassword, error) {
+	var result AccountPassword
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &ContactsToggleTopPeersRequest{}
 	_ bin.Decoder = &ContactsToggleTopPeersRequest{}
 )
+
+// ContactsToggleTopPeers invokes method contacts.toggleTopPeers#8514bdda returning error if any.
+func (c *Client) ContactsToggleTopPeers(ctx context.Context, request *ContactsToggleTopPeersRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

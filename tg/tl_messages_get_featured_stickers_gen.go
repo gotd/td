@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesGetFeaturedStickersRequest{}
 	_ bin.Decoder = &MessagesGetFeaturedStickersRequest{}
 )
+
+// MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#2dacca4f returning error if any.
+func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, request *MessagesGetFeaturedStickersRequest) (MessagesFeaturedStickersClass, error) {
+	var result MessagesFeaturedStickersBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.FeaturedStickers, nil
+}

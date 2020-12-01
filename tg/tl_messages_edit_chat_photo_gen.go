@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesEditChatPhotoRequest{}
 	_ bin.Decoder = &MessagesEditChatPhotoRequest{}
 )
+
+// MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.
+func (c *Client) MessagesEditChatPhoto(ctx context.Context, request *MessagesEditChatPhotoRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

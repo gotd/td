@@ -131,3 +131,12 @@ var (
 	_ bin.Encoder = &AccountInstallThemeRequest{}
 	_ bin.Decoder = &AccountInstallThemeRequest{}
 )
+
+// AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.
+func (c *Client) AccountInstallTheme(ctx context.Context, request *AccountInstallThemeRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

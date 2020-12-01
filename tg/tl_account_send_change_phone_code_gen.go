@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &AccountSendChangePhoneCodeRequest{}
 	_ bin.Decoder = &AccountSendChangePhoneCodeRequest{}
 )
+
+// AccountSendChangePhoneCode invokes method account.sendChangePhoneCode#82574ae5 returning error if any.
+func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error) {
+	var result AuthSentCode
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountResetWallPapersRequest{}
 	_ bin.Decoder = &AccountResetWallPapersRequest{}
 )
+
+// AccountResetWallPapers invokes method account.resetWallPapers#bb3b9804 returning error if any.
+func (c *Client) AccountResetWallPapers(ctx context.Context, request *AccountResetWallPapersRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &MessagesSendEncryptedServiceRequest{}
 	_ bin.Decoder = &MessagesSendEncryptedServiceRequest{}
 )
+
+// MessagesSendEncryptedService invokes method messages.sendEncryptedService#32d439a4 returning error if any.
+func (c *Client) MessagesSendEncryptedService(ctx context.Context, request *MessagesSendEncryptedServiceRequest) (MessagesSentEncryptedMessageClass, error) {
+	var result MessagesSentEncryptedMessageBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.SentEncryptedMessage, nil
+}

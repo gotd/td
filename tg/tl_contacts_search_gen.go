@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &ContactsSearchRequest{}
 	_ bin.Decoder = &ContactsSearchRequest{}
 )
+
+// ContactsSearch invokes method contacts.search#11f812d8 returning error if any.
+func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {
+	var result ContactsFound
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

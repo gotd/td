@@ -615,7 +615,7 @@ func DecodeMessagesMessages(buf *bin.Buffer) (MessagesMessagesClass, error) {
 
 // MessagesMessages boxes the MessagesMessagesClass providing a helper.
 type MessagesMessagesBox struct {
-	MessagesMessages MessagesMessagesClass
+	Messages MessagesMessagesClass
 }
 
 // Decode implements bin.Decoder for MessagesMessagesBox.
@@ -627,14 +627,14 @@ func (b *MessagesMessagesBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesMessages = v
+	b.Messages = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesMessagesBox.
 func (b *MessagesMessagesBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesMessages == nil {
+	if b == nil || b.Messages == nil {
 		return fmt.Errorf("unable to encode MessagesMessagesClass as nil")
 	}
-	return b.MessagesMessages.Encode(buf)
+	return b.Messages.Encode(buf)
 }

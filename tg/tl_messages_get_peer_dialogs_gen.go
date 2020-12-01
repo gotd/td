@@ -70,3 +70,12 @@ var (
 	_ bin.Encoder = &MessagesGetPeerDialogsRequest{}
 	_ bin.Decoder = &MessagesGetPeerDialogsRequest{}
 )
+
+// MessagesGetPeerDialogs invokes method messages.getPeerDialogs#e470bcfd returning error if any.
+func (c *Client) MessagesGetPeerDialogs(ctx context.Context, request *MessagesGetPeerDialogsRequest) (*MessagesPeerDialogs, error) {
+	var result MessagesPeerDialogs
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

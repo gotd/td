@@ -67,3 +67,12 @@ var (
 	_ bin.Encoder = &HelpSaveAppLogRequest{}
 	_ bin.Decoder = &HelpSaveAppLogRequest{}
 )
+
+// HelpSaveAppLog invokes method help.saveAppLog#6f02f748 returning error if any.
+func (c *Client) HelpSaveAppLog(ctx context.Context, request *HelpSaveAppLogRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

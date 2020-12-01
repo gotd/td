@@ -105,3 +105,12 @@ var (
 	_ bin.Encoder = &ChannelsExportMessageLinkRequest{}
 	_ bin.Decoder = &ChannelsExportMessageLinkRequest{}
 )
+
+// ChannelsExportMessageLink invokes method channels.exportMessageLink#e63fadeb returning error if any.
+func (c *Client) ChannelsExportMessageLink(ctx context.Context, request *ChannelsExportMessageLinkRequest) (*ExportedMessageLink, error) {
+	var result ExportedMessageLink
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -107,3 +107,12 @@ var (
 	_ bin.Encoder = &AccountAcceptAuthorizationRequest{}
 	_ bin.Decoder = &AccountAcceptAuthorizationRequest{}
 )
+
+// AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
+func (c *Client) AccountAcceptAuthorization(ctx context.Context, request *AccountAcceptAuthorizationRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

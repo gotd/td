@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &StickersRemoveStickerFromSetRequest{}
 	_ bin.Decoder = &StickersRemoveStickerFromSetRequest{}
 )
+
+// StickersRemoveStickerFromSet invokes method stickers.removeStickerFromSet#f7760f51 returning error if any.
+func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, request *StickersRemoveStickerFromSetRequest) (*MessagesStickerSet, error) {
+	var result MessagesStickerSet
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

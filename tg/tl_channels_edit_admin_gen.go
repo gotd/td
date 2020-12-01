@@ -96,3 +96,12 @@ var (
 	_ bin.Encoder = &ChannelsEditAdminRequest{}
 	_ bin.Decoder = &ChannelsEditAdminRequest{}
 )
+
+// ChannelsEditAdmin invokes method channels.editAdmin#d33c8902 returning error if any.
+func (c *Client) ChannelsEditAdmin(ctx context.Context, request *ChannelsEditAdminRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

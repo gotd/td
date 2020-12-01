@@ -85,3 +85,12 @@ var (
 	_ bin.Encoder = &UsersSetSecureValueErrorsRequest{}
 	_ bin.Decoder = &UsersSetSecureValueErrorsRequest{}
 )
+
+// UsersSetSecureValueErrors invokes method users.setSecureValueErrors#90c894b5 returning error if any.
+func (c *Client) UsersSetSecureValueErrors(ctx context.Context, request *UsersSetSecureValueErrorsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

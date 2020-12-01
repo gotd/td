@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &ChannelsGetInactiveChannelsRequest{}
 	_ bin.Decoder = &ChannelsGetInactiveChannelsRequest{}
 )
+
+// ChannelsGetInactiveChannels invokes method channels.getInactiveChannels#11e831ee returning error if any.
+func (c *Client) ChannelsGetInactiveChannels(ctx context.Context, request *ChannelsGetInactiveChannelsRequest) (*MessagesInactiveChats, error) {
+	var result MessagesInactiveChats
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

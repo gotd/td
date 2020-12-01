@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesGetPeerSettingsRequest{}
 	_ bin.Decoder = &MessagesGetPeerSettingsRequest{}
 )
+
+// MessagesGetPeerSettings invokes method messages.getPeerSettings#3672e09c returning error if any.
+func (c *Client) MessagesGetPeerSettings(ctx context.Context, request *MessagesGetPeerSettingsRequest) (*PeerSettings, error) {
+	var result PeerSettings
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

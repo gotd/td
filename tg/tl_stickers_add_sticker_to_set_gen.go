@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &StickersAddStickerToSetRequest{}
 	_ bin.Decoder = &StickersAddStickerToSetRequest{}
 )
+
+// StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
+func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
+	var result MessagesStickerSet
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -504,7 +504,7 @@ func DecodeStorageFileType(buf *bin.Buffer) (StorageFileTypeClass, error) {
 
 // StorageFileType boxes the StorageFileTypeClass providing a helper.
 type StorageFileTypeBox struct {
-	StorageFileType StorageFileTypeClass
+	FileType StorageFileTypeClass
 }
 
 // Decode implements bin.Decoder for StorageFileTypeBox.
@@ -516,14 +516,14 @@ func (b *StorageFileTypeBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.StorageFileType = v
+	b.FileType = v
 	return nil
 }
 
 // Encode implements bin.Encode for StorageFileTypeBox.
 func (b *StorageFileTypeBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.StorageFileType == nil {
+	if b == nil || b.FileType == nil {
 		return fmt.Errorf("unable to encode StorageFileTypeClass as nil")
 	}
-	return b.StorageFileType.Encode(buf)
+	return b.FileType.Encode(buf)
 }

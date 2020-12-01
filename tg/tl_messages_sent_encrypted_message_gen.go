@@ -171,7 +171,7 @@ func DecodeMessagesSentEncryptedMessage(buf *bin.Buffer) (MessagesSentEncryptedM
 
 // MessagesSentEncryptedMessage boxes the MessagesSentEncryptedMessageClass providing a helper.
 type MessagesSentEncryptedMessageBox struct {
-	MessagesSentEncryptedMessage MessagesSentEncryptedMessageClass
+	SentEncryptedMessage MessagesSentEncryptedMessageClass
 }
 
 // Decode implements bin.Decoder for MessagesSentEncryptedMessageBox.
@@ -183,14 +183,14 @@ func (b *MessagesSentEncryptedMessageBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesSentEncryptedMessage = v
+	b.SentEncryptedMessage = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesSentEncryptedMessageBox.
 func (b *MessagesSentEncryptedMessageBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesSentEncryptedMessage == nil {
+	if b == nil || b.SentEncryptedMessage == nil {
 		return fmt.Errorf("unable to encode MessagesSentEncryptedMessageClass as nil")
 	}
-	return b.MessagesSentEncryptedMessage.Encode(buf)
+	return b.SentEncryptedMessage.Encode(buf)
 }

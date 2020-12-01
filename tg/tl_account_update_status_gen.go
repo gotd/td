@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountUpdateStatusRequest{}
 	_ bin.Decoder = &AccountUpdateStatusRequest{}
 )
+
+// AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.
+func (c *Client) AccountUpdateStatus(ctx context.Context, request *AccountUpdateStatusRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

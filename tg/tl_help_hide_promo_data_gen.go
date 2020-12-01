@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &HelpHidePromoDataRequest{}
 	_ bin.Decoder = &HelpHidePromoDataRequest{}
 )
+
+// HelpHidePromoData invokes method help.hidePromoData#1e251c95 returning error if any.
+func (c *Client) HelpHidePromoData(ctx context.Context, request *HelpHidePromoDataRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

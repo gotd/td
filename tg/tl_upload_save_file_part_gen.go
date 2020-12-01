@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &UploadSaveFilePartRequest{}
 	_ bin.Decoder = &UploadSaveFilePartRequest{}
 )
+
+// UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
+func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

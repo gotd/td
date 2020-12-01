@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &ChannelsGetParticipantRequest{}
 	_ bin.Decoder = &ChannelsGetParticipantRequest{}
 )
+
+// ChannelsGetParticipant invokes method channels.getParticipant#546dd7a6 returning error if any.
+func (c *Client) ChannelsGetParticipant(ctx context.Context, request *ChannelsGetParticipantRequest) (*ChannelsChannelParticipant, error) {
+	var result ChannelsChannelParticipant
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

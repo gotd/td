@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &PaymentsGetSavedInfoRequest{}
 	_ bin.Decoder = &PaymentsGetSavedInfoRequest{}
 )
+
+// PaymentsGetSavedInfo invokes method payments.getSavedInfo#227d824b returning error if any.
+func (c *Client) PaymentsGetSavedInfo(ctx context.Context, request *PaymentsGetSavedInfoRequest) (*PaymentsSavedInfo, error) {
+	var result PaymentsSavedInfo
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

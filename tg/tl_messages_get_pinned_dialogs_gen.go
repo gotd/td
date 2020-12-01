@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesGetPinnedDialogsRequest{}
 	_ bin.Decoder = &MessagesGetPinnedDialogsRequest{}
 )
+
+// MessagesGetPinnedDialogs invokes method messages.getPinnedDialogs#d6b94df2 returning error if any.
+func (c *Client) MessagesGetPinnedDialogs(ctx context.Context, request *MessagesGetPinnedDialogsRequest) (*MessagesPeerDialogs, error) {
+	var result MessagesPeerDialogs
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

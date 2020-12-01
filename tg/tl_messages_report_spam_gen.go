@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesReportSpamRequest{}
 	_ bin.Decoder = &MessagesReportSpamRequest{}
 )
+
+// MessagesReportSpam invokes method messages.reportSpam#cf1592db returning error if any.
+func (c *Client) MessagesReportSpam(ctx context.Context, request *MessagesReportSpamRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

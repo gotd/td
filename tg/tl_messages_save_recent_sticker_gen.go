@@ -93,3 +93,12 @@ var (
 	_ bin.Encoder = &MessagesSaveRecentStickerRequest{}
 	_ bin.Decoder = &MessagesSaveRecentStickerRequest{}
 )
+
+// MessagesSaveRecentSticker invokes method messages.saveRecentSticker#392718f8 returning error if any.
+func (c *Client) MessagesSaveRecentSticker(ctx context.Context, request *MessagesSaveRecentStickerRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

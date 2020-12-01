@@ -266,7 +266,7 @@ func DecodePQInnerData(buf *bin.Buffer) (PQInnerDataClass, error) {
 
 // PQInnerData boxes the PQInnerDataClass providing a helper.
 type PQInnerDataBox struct {
-	PQInnerData PQInnerDataClass
+	P_Q_inner_data PQInnerDataClass
 }
 
 // Decode implements bin.Decoder for PQInnerDataBox.
@@ -278,14 +278,14 @@ func (b *PQInnerDataBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.PQInnerData = v
+	b.P_Q_inner_data = v
 	return nil
 }
 
 // Encode implements bin.Encode for PQInnerDataBox.
 func (b *PQInnerDataBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.PQInnerData == nil {
+	if b == nil || b.P_Q_inner_data == nil {
 		return fmt.Errorf("unable to encode PQInnerDataClass as nil")
 	}
-	return b.PQInnerData.Encode(buf)
+	return b.P_Q_inner_data.Encode(buf)
 }

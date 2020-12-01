@@ -167,7 +167,7 @@ func DecodeMessagesAllStickers(buf *bin.Buffer) (MessagesAllStickersClass, error
 
 // MessagesAllStickers boxes the MessagesAllStickersClass providing a helper.
 type MessagesAllStickersBox struct {
-	MessagesAllStickers MessagesAllStickersClass
+	AllStickers MessagesAllStickersClass
 }
 
 // Decode implements bin.Decoder for MessagesAllStickersBox.
@@ -179,14 +179,14 @@ func (b *MessagesAllStickersBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesAllStickers = v
+	b.AllStickers = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesAllStickersBox.
 func (b *MessagesAllStickersBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesAllStickers == nil {
+	if b == nil || b.AllStickers == nil {
 		return fmt.Errorf("unable to encode MessagesAllStickersClass as nil")
 	}
-	return b.MessagesAllStickers.Encode(buf)
+	return b.AllStickers.Encode(buf)
 }

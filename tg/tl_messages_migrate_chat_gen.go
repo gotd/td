@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesMigrateChatRequest{}
 	_ bin.Decoder = &MessagesMigrateChatRequest{}
 )
+
+// MessagesMigrateChat invokes method messages.migrateChat#15a3b8e3 returning error if any.
+func (c *Client) MessagesMigrateChat(ctx context.Context, request *MessagesMigrateChatRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

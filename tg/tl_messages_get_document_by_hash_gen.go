@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &MessagesGetDocumentByHashRequest{}
 	_ bin.Decoder = &MessagesGetDocumentByHashRequest{}
 )
+
+// MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.
+func (c *Client) MessagesGetDocumentByHash(ctx context.Context, request *MessagesGetDocumentByHashRequest) (DocumentClass, error) {
+	var result DocumentBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Document, nil
+}

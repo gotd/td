@@ -102,3 +102,12 @@ var (
 	_ bin.Encoder = &ContactsBlockFromRepliesRequest{}
 	_ bin.Decoder = &ContactsBlockFromRepliesRequest{}
 )
+
+// ContactsBlockFromReplies invokes method contacts.blockFromReplies#29a8962c returning error if any.
+func (c *Client) ContactsBlockFromReplies(ctx context.Context, request *ContactsBlockFromRepliesRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

@@ -86,3 +86,12 @@ var (
 	_ bin.Encoder = &PhoneConfirmCallRequest{}
 	_ bin.Decoder = &PhoneConfirmCallRequest{}
 )
+
+// PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.
+func (c *Client) PhoneConfirmCall(ctx context.Context, request *PhoneConfirmCallRequest) (*PhonePhoneCall, error) {
+	var result PhonePhoneCall
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

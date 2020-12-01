@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpGetRecentMeUrlsRequest{}
 	_ bin.Decoder = &HelpGetRecentMeUrlsRequest{}
 )
+
+// HelpGetRecentMeUrls invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
+func (c *Client) HelpGetRecentMeUrls(ctx context.Context, request *HelpGetRecentMeUrlsRequest) (*HelpRecentMeUrls, error) {
+	var result HelpRecentMeUrls
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

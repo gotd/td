@@ -65,3 +65,12 @@ var (
 	_ bin.Encoder = &MessagesReadFeaturedStickersRequest{}
 	_ bin.Decoder = &MessagesReadFeaturedStickersRequest{}
 )
+
+// MessagesReadFeaturedStickers invokes method messages.readFeaturedStickers#5b118126 returning error if any.
+func (c *Client) MessagesReadFeaturedStickers(ctx context.Context, request *MessagesReadFeaturedStickersRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

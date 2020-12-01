@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &HelpGetUserInfoRequest{}
 	_ bin.Decoder = &HelpGetUserInfoRequest{}
 )
+
+// HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.
+func (c *Client) HelpGetUserInfo(ctx context.Context, request *HelpGetUserInfoRequest) (HelpUserInfoClass, error) {
+	var result HelpUserInfoBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.UserInfo, nil
+}

@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &UploadGetCdnFileRequest{}
 	_ bin.Decoder = &UploadGetCdnFileRequest{}
 )
+
+// UploadGetCdnFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
+func (c *Client) UploadGetCdnFile(ctx context.Context, request *UploadGetCdnFileRequest) (UploadCdnFileClass, error) {
+	var result UploadCdnFileBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.CdnFile, nil
+}

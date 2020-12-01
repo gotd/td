@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetNearestDcRequest{}
 	_ bin.Decoder = &HelpGetNearestDcRequest{}
 )
+
+// HelpGetNearestDc invokes method help.getNearestDc#1fb33026 returning error if any.
+func (c *Client) HelpGetNearestDc(ctx context.Context, request *HelpGetNearestDcRequest) (*NearestDc, error) {
+	var result NearestDc
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

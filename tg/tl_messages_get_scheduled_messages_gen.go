@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &MessagesGetScheduledMessagesRequest{}
 	_ bin.Decoder = &MessagesGetScheduledMessagesRequest{}
 )
+
+// MessagesGetScheduledMessages invokes method messages.getScheduledMessages#bdbb0464 returning error if any.
+func (c *Client) MessagesGetScheduledMessages(ctx context.Context, request *MessagesGetScheduledMessagesRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

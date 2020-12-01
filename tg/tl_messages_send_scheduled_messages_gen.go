@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &MessagesSendScheduledMessagesRequest{}
 	_ bin.Decoder = &MessagesSendScheduledMessagesRequest{}
 )
+
+// MessagesSendScheduledMessages invokes method messages.sendScheduledMessages#bd38850a returning error if any.
+func (c *Client) MessagesSendScheduledMessages(ctx context.Context, request *MessagesSendScheduledMessagesRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

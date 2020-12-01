@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountResetNotifySettingsRequest{}
 	_ bin.Decoder = &AccountResetNotifySettingsRequest{}
 )
+
+// AccountResetNotifySettings invokes method account.resetNotifySettings#db7e1747 returning error if any.
+func (c *Client) AccountResetNotifySettings(ctx context.Context, request *AccountResetNotifySettingsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

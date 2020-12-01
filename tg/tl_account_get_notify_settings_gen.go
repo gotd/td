@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &AccountGetNotifySettingsRequest{}
 	_ bin.Decoder = &AccountGetNotifySettingsRequest{}
 )
+
+// AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.
+func (c *Client) AccountGetNotifySettings(ctx context.Context, request *AccountGetNotifySettingsRequest) (*PeerNotifySettings, error) {
+	var result PeerNotifySettings
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

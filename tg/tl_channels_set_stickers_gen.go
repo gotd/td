@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &ChannelsSetStickersRequest{}
 	_ bin.Decoder = &ChannelsSetStickersRequest{}
 )
+
+// ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.
+func (c *Client) ChannelsSetStickers(ctx context.Context, request *ChannelsSetStickersRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

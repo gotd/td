@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &LangpackGetLangPackRequest{}
 	_ bin.Decoder = &LangpackGetLangPackRequest{}
 )
+
+// LangpackGetLangPack invokes method langpack.getLangPack#f2f2330a returning error if any.
+func (c *Client) LangpackGetLangPack(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error) {
+	var result LangPackDifference
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

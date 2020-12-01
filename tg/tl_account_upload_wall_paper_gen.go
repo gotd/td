@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &AccountUploadWallPaperRequest{}
 	_ bin.Decoder = &AccountUploadWallPaperRequest{}
 )
+
+// AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
+func (c *Client) AccountUploadWallPaper(ctx context.Context, request *AccountUploadWallPaperRequest) (WallPaperClass, error) {
+	var result WallPaperBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.WallPaper, nil
+}

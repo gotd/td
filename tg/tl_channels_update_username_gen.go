@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &ChannelsUpdateUsernameRequest{}
 	_ bin.Decoder = &ChannelsUpdateUsernameRequest{}
 )
+
+// ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.
+func (c *Client) ChannelsUpdateUsername(ctx context.Context, request *ChannelsUpdateUsernameRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

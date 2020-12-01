@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountUpdateDeviceLockedRequest{}
 	_ bin.Decoder = &AccountUpdateDeviceLockedRequest{}
 )
+
+// AccountUpdateDeviceLocked invokes method account.updateDeviceLocked#38df3532 returning error if any.
+func (c *Client) AccountUpdateDeviceLocked(ctx context.Context, request *AccountUpdateDeviceLockedRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

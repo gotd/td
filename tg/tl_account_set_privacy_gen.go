@@ -85,3 +85,12 @@ var (
 	_ bin.Encoder = &AccountSetPrivacyRequest{}
 	_ bin.Decoder = &AccountSetPrivacyRequest{}
 )
+
+// AccountSetPrivacy invokes method account.setPrivacy#c9f81ce8 returning error if any.
+func (c *Client) AccountSetPrivacy(ctx context.Context, request *AccountSetPrivacyRequest) (*AccountPrivacyRules, error) {
+	var result AccountPrivacyRules
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetAppConfigRequest{}
 	_ bin.Decoder = &HelpGetAppConfigRequest{}
 )
+
+// HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.
+func (c *Client) HelpGetAppConfig(ctx context.Context, request *HelpGetAppConfigRequest) (JSONValueClass, error) {
+	var result JSONValueBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.JSONValue, nil
+}

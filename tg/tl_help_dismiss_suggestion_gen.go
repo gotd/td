@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpDismissSuggestionRequest{}
 	_ bin.Decoder = &HelpDismissSuggestionRequest{}
 )
+
+// HelpDismissSuggestion invokes method help.dismissSuggestion#77fa99f returning error if any.
+func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

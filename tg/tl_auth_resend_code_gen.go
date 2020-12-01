@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &AuthResendCodeRequest{}
 	_ bin.Decoder = &AuthResendCodeRequest{}
 )
+
+// AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
+func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error) {
+	var result AuthSentCode
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

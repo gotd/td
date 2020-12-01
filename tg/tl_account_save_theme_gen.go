@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &AccountSaveThemeRequest{}
 	_ bin.Decoder = &AccountSaveThemeRequest{}
 )
+
+// AccountSaveTheme invokes method account.saveTheme#f257106c returning error if any.
+func (c *Client) AccountSaveTheme(ctx context.Context, request *AccountSaveThemeRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

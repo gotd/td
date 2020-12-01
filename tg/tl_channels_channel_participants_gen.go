@@ -196,7 +196,7 @@ func DecodeChannelsChannelParticipants(buf *bin.Buffer) (ChannelsChannelParticip
 
 // ChannelsChannelParticipants boxes the ChannelsChannelParticipantsClass providing a helper.
 type ChannelsChannelParticipantsBox struct {
-	ChannelsChannelParticipants ChannelsChannelParticipantsClass
+	ChannelParticipants ChannelsChannelParticipantsClass
 }
 
 // Decode implements bin.Decoder for ChannelsChannelParticipantsBox.
@@ -208,14 +208,14 @@ func (b *ChannelsChannelParticipantsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.ChannelsChannelParticipants = v
+	b.ChannelParticipants = v
 	return nil
 }
 
 // Encode implements bin.Encode for ChannelsChannelParticipantsBox.
 func (b *ChannelsChannelParticipantsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.ChannelsChannelParticipants == nil {
+	if b == nil || b.ChannelParticipants == nil {
 		return fmt.Errorf("unable to encode ChannelsChannelParticipantsClass as nil")
 	}
-	return b.ChannelsChannelParticipants.Encode(buf)
+	return b.ChannelParticipants.Encode(buf)
 }

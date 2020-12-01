@@ -161,7 +161,7 @@ func DecodePaymentsPaymentResult(buf *bin.Buffer) (PaymentsPaymentResultClass, e
 
 // PaymentsPaymentResult boxes the PaymentsPaymentResultClass providing a helper.
 type PaymentsPaymentResultBox struct {
-	PaymentsPaymentResult PaymentsPaymentResultClass
+	PaymentResult PaymentsPaymentResultClass
 }
 
 // Decode implements bin.Decoder for PaymentsPaymentResultBox.
@@ -173,14 +173,14 @@ func (b *PaymentsPaymentResultBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.PaymentsPaymentResult = v
+	b.PaymentResult = v
 	return nil
 }
 
 // Encode implements bin.Encode for PaymentsPaymentResultBox.
 func (b *PaymentsPaymentResultBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.PaymentsPaymentResult == nil {
+	if b == nil || b.PaymentResult == nil {
 		return fmt.Errorf("unable to encode PaymentsPaymentResultClass as nil")
 	}
-	return b.PaymentsPaymentResult.Encode(buf)
+	return b.PaymentResult.Encode(buf)
 }

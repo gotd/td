@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &ContactsGetContactsRequest{}
 	_ bin.Decoder = &ContactsGetContactsRequest{}
 )
+
+// ContactsGetContacts invokes method contacts.getContacts#c023849f returning error if any.
+func (c *Client) ContactsGetContacts(ctx context.Context, request *ContactsGetContactsRequest) (ContactsContactsClass, error) {
+	var result ContactsContactsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Contacts, nil
+}

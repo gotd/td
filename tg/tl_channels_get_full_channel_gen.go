@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &ChannelsGetFullChannelRequest{}
 	_ bin.Decoder = &ChannelsGetFullChannelRequest{}
 )
+
+// ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.
+func (c *Client) ChannelsGetFullChannel(ctx context.Context, request *ChannelsGetFullChannelRequest) (*MessagesChatFull, error) {
+	var result MessagesChatFull
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

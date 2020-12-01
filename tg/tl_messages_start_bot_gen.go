@@ -96,3 +96,12 @@ var (
 	_ bin.Encoder = &MessagesStartBotRequest{}
 	_ bin.Decoder = &MessagesStartBotRequest{}
 )
+
+// MessagesStartBot invokes method messages.startBot#e6df7378 returning error if any.
+func (c *Client) MessagesStartBot(ctx context.Context, request *MessagesStartBotRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

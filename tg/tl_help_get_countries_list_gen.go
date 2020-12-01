@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &HelpGetCountriesListRequest{}
 	_ bin.Decoder = &HelpGetCountriesListRequest{}
 )
+
+// HelpGetCountriesList invokes method help.getCountriesList#735787a8 returning error if any.
+func (c *Client) HelpGetCountriesList(ctx context.Context, request *HelpGetCountriesListRequest) (HelpCountriesListClass, error) {
+	var result HelpCountriesListBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.CountriesList, nil
+}

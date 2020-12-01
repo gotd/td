@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AuthImportLoginTokenRequest{}
 	_ bin.Decoder = &AuthImportLoginTokenRequest{}
 )
+
+// AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.
+func (c *Client) AuthImportLoginToken(ctx context.Context, request *AuthImportLoginTokenRequest) (AuthLoginTokenClass, error) {
+	var result AuthLoginTokenBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.LoginToken, nil
+}

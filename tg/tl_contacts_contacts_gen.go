@@ -191,7 +191,7 @@ func DecodeContactsContacts(buf *bin.Buffer) (ContactsContactsClass, error) {
 
 // ContactsContacts boxes the ContactsContactsClass providing a helper.
 type ContactsContactsBox struct {
-	ContactsContacts ContactsContactsClass
+	Contacts ContactsContactsClass
 }
 
 // Decode implements bin.Decoder for ContactsContactsBox.
@@ -203,14 +203,14 @@ func (b *ContactsContactsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.ContactsContacts = v
+	b.Contacts = v
 	return nil
 }
 
 // Encode implements bin.Encode for ContactsContactsBox.
 func (b *ContactsContactsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.ContactsContacts == nil {
+	if b == nil || b.Contacts == nil {
 		return fmt.Errorf("unable to encode ContactsContactsClass as nil")
 	}
-	return b.ContactsContacts.Encode(buf)
+	return b.Contacts.Encode(buf)
 }

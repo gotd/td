@@ -95,3 +95,12 @@ var (
 	_ bin.Encoder = &HelpEditUserInfoRequest{}
 	_ bin.Decoder = &HelpEditUserInfoRequest{}
 )
+
+// HelpEditUserInfo invokes method help.editUserInfo#66b91b70 returning error if any.
+func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {
+	var result HelpUserInfoBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.UserInfo, nil
+}

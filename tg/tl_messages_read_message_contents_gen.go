@@ -65,3 +65,12 @@ var (
 	_ bin.Encoder = &MessagesReadMessageContentsRequest{}
 	_ bin.Decoder = &MessagesReadMessageContentsRequest{}
 )
+
+// MessagesReadMessageContents invokes method messages.readMessageContents#36a73f77 returning error if any.
+func (c *Client) MessagesReadMessageContents(ctx context.Context, request *MessagesReadMessageContentsRequest) (*MessagesAffectedMessages, error) {
+	var result MessagesAffectedMessages
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

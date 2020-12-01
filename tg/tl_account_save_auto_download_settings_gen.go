@@ -90,3 +90,12 @@ var (
 	_ bin.Encoder = &AccountSaveAutoDownloadSettingsRequest{}
 	_ bin.Decoder = &AccountSaveAutoDownloadSettingsRequest{}
 )
+
+// AccountSaveAutoDownloadSettings invokes method account.saveAutoDownloadSettings#76f36233 returning error if any.
+func (c *Client) AccountSaveAutoDownloadSettings(ctx context.Context, request *AccountSaveAutoDownloadSettingsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

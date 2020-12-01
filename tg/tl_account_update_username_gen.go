@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountUpdateUsernameRequest{}
 	_ bin.Decoder = &AccountUpdateUsernameRequest{}
 )
+
+// AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.
+func (c *Client) AccountUpdateUsername(ctx context.Context, request *AccountUpdateUsernameRequest) (UserClass, error) {
+	var result UserBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.User, nil
+}

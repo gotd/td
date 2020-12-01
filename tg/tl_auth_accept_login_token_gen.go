@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AuthAcceptLoginTokenRequest{}
 	_ bin.Decoder = &AuthAcceptLoginTokenRequest{}
 )
+
+// AuthAcceptLoginToken invokes method auth.acceptLoginToken#e894ad4d returning error if any.
+func (c *Client) AuthAcceptLoginToken(ctx context.Context, request *AuthAcceptLoginTokenRequest) (*Authorization, error) {
+	var result Authorization
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

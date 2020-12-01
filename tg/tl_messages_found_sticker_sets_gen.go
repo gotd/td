@@ -170,7 +170,7 @@ func DecodeMessagesFoundStickerSets(buf *bin.Buffer) (MessagesFoundStickerSetsCl
 
 // MessagesFoundStickerSets boxes the MessagesFoundStickerSetsClass providing a helper.
 type MessagesFoundStickerSetsBox struct {
-	MessagesFoundStickerSets MessagesFoundStickerSetsClass
+	FoundStickerSets MessagesFoundStickerSetsClass
 }
 
 // Decode implements bin.Decoder for MessagesFoundStickerSetsBox.
@@ -182,14 +182,14 @@ func (b *MessagesFoundStickerSetsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesFoundStickerSets = v
+	b.FoundStickerSets = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesFoundStickerSetsBox.
 func (b *MessagesFoundStickerSetsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesFoundStickerSets == nil {
+	if b == nil || b.FoundStickerSets == nil {
 		return fmt.Errorf("unable to encode MessagesFoundStickerSetsClass as nil")
 	}
-	return b.MessagesFoundStickerSets.Encode(buf)
+	return b.FoundStickerSets.Encode(buf)
 }

@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetTermsOfServiceUpdateRequest{}
 	_ bin.Decoder = &HelpGetTermsOfServiceUpdateRequest{}
 )
+
+// HelpGetTermsOfServiceUpdate invokes method help.getTermsOfServiceUpdate#2ca51fd1 returning error if any.
+func (c *Client) HelpGetTermsOfServiceUpdate(ctx context.Context, request *HelpGetTermsOfServiceUpdateRequest) (HelpTermsOfServiceUpdateClass, error) {
+	var result HelpTermsOfServiceUpdateBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.TermsOfServiceUpdate, nil
+}

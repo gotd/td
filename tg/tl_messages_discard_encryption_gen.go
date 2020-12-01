@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesDiscardEncryptionRequest{}
 	_ bin.Decoder = &MessagesDiscardEncryptionRequest{}
 )
+
+// MessagesDiscardEncryption invokes method messages.discardEncryption#edd923c5 returning error if any.
+func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

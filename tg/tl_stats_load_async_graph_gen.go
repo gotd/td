@@ -95,3 +95,12 @@ var (
 	_ bin.Encoder = &StatsLoadAsyncGraphRequest{}
 	_ bin.Decoder = &StatsLoadAsyncGraphRequest{}
 )
+
+// StatsLoadAsyncGraph invokes method stats.loadAsyncGraph#621d5fa0 returning error if any.
+func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {
+	var result StatsGraphBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.StatsGraph, nil
+}

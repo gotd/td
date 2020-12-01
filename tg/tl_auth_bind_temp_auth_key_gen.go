@@ -86,3 +86,12 @@ var (
 	_ bin.Encoder = &AuthBindTempAuthKeyRequest{}
 	_ bin.Decoder = &AuthBindTempAuthKeyRequest{}
 )
+
+// AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.
+func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

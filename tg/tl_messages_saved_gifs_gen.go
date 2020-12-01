@@ -170,7 +170,7 @@ func DecodeMessagesSavedGifs(buf *bin.Buffer) (MessagesSavedGifsClass, error) {
 
 // MessagesSavedGifs boxes the MessagesSavedGifsClass providing a helper.
 type MessagesSavedGifsBox struct {
-	MessagesSavedGifs MessagesSavedGifsClass
+	SavedGifs MessagesSavedGifsClass
 }
 
 // Decode implements bin.Decoder for MessagesSavedGifsBox.
@@ -182,14 +182,14 @@ func (b *MessagesSavedGifsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesSavedGifs = v
+	b.SavedGifs = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesSavedGifsBox.
 func (b *MessagesSavedGifsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesSavedGifs == nil {
+	if b == nil || b.SavedGifs == nil {
 		return fmt.Errorf("unable to encode MessagesSavedGifsClass as nil")
 	}
-	return b.MessagesSavedGifs.Encode(buf)
+	return b.SavedGifs.Encode(buf)
 }

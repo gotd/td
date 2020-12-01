@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesEditChatDefaultBannedRightsRequest{}
 	_ bin.Decoder = &MessagesEditChatDefaultBannedRightsRequest{}
 )
+
+// MessagesEditChatDefaultBannedRights invokes method messages.editChatDefaultBannedRights#a5866b41 returning error if any.
+func (c *Client) MessagesEditChatDefaultBannedRights(ctx context.Context, request *MessagesEditChatDefaultBannedRightsRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

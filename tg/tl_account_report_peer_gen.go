@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &AccountReportPeerRequest{}
 	_ bin.Decoder = &AccountReportPeerRequest{}
 )
+
+// AccountReportPeer invokes method account.reportPeer#ae189d5f returning error if any.
+func (c *Client) AccountReportPeer(ctx context.Context, request *AccountReportPeerRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

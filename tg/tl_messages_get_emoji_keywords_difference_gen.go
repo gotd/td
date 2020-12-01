@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
 	_ bin.Decoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
 )
+
+// MessagesGetEmojiKeywordsDifference invokes method messages.getEmojiKeywordsDifference#1508b6af returning error if any.
+func (c *Client) MessagesGetEmojiKeywordsDifference(ctx context.Context, request *MessagesGetEmojiKeywordsDifferenceRequest) (*EmojiKeywordsDifference, error) {
+	var result EmojiKeywordsDifference
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

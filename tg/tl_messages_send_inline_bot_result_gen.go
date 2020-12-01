@@ -207,3 +207,12 @@ var (
 	_ bin.Encoder = &MessagesSendInlineBotResultRequest{}
 	_ bin.Decoder = &MessagesSendInlineBotResultRequest{}
 )
+
+// MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#220815b0 returning error if any.
+func (c *Client) MessagesSendInlineBotResult(ctx context.Context, request *MessagesSendInlineBotResultRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

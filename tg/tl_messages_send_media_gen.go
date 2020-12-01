@@ -277,3 +277,12 @@ var (
 	_ bin.Encoder = &MessagesSendMediaRequest{}
 	_ bin.Decoder = &MessagesSendMediaRequest{}
 )
+
+// MessagesSendMedia invokes method messages.sendMedia#3491eba9 returning error if any.
+func (c *Client) MessagesSendMedia(ctx context.Context, request *MessagesSendMediaRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

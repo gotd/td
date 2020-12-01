@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountResendPasswordEmailRequest{}
 	_ bin.Decoder = &AccountResendPasswordEmailRequest{}
 )
+
+// AccountResendPasswordEmail invokes method account.resendPasswordEmail#7a7f2a15 returning error if any.
+func (c *Client) AccountResendPasswordEmail(ctx context.Context, request *AccountResendPasswordEmailRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

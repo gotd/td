@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &ChannelsSetDiscussionGroupRequest{}
 	_ bin.Decoder = &ChannelsSetDiscussionGroupRequest{}
 )
+
+// ChannelsSetDiscussionGroup invokes method channels.setDiscussionGroup#40582bb2 returning error if any.
+func (c *Client) ChannelsSetDiscussionGroup(ctx context.Context, request *ChannelsSetDiscussionGroupRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -85,3 +85,12 @@ var (
 	_ bin.Encoder = &AccountUnregisterDeviceRequest{}
 	_ bin.Decoder = &AccountUnregisterDeviceRequest{}
 )
+
+// AccountUnregisterDevice invokes method account.unregisterDevice#3076c4bf returning error if any.
+func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

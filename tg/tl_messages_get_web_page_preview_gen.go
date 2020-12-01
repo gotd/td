@@ -109,3 +109,12 @@ var (
 	_ bin.Encoder = &MessagesGetWebPagePreviewRequest{}
 	_ bin.Decoder = &MessagesGetWebPagePreviewRequest{}
 )
+
+// MessagesGetWebPagePreview invokes method messages.getWebPagePreview#8b68b0cc returning error if any.
+func (c *Client) MessagesGetWebPagePreview(ctx context.Context, request *MessagesGetWebPagePreviewRequest) (MessageMediaClass, error) {
+	var result MessageMediaBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.MessageMedia, nil
+}

@@ -70,3 +70,12 @@ var (
 	_ bin.Encoder = &AccountDeleteSecureValueRequest{}
 	_ bin.Decoder = &AccountDeleteSecureValueRequest{}
 )
+
+// AccountDeleteSecureValue invokes method account.deleteSecureValue#b880bc4b returning error if any.
+func (c *Client) AccountDeleteSecureValue(ctx context.Context, request *AccountDeleteSecureValueRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

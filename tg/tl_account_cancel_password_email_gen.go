@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountCancelPasswordEmailRequest{}
 	_ bin.Decoder = &AccountCancelPasswordEmailRequest{}
 )
+
+// AccountCancelPasswordEmail invokes method account.cancelPasswordEmail#c1cbd5b6 returning error if any.
+func (c *Client) AccountCancelPasswordEmail(ctx context.Context, request *AccountCancelPasswordEmailRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

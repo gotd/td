@@ -274,3 +274,12 @@ var (
 	_ bin.Encoder = &MessagesSendMessageRequest{}
 	_ bin.Decoder = &MessagesSendMessageRequest{}
 )
+
+// MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.
+func (c *Client) MessagesSendMessage(ctx context.Context, request *MessagesSendMessageRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

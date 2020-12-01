@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &ContactsGetBlockedRequest{}
 	_ bin.Decoder = &ContactsGetBlockedRequest{}
 )
+
+// ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.
+func (c *Client) ContactsGetBlocked(ctx context.Context, request *ContactsGetBlockedRequest) (ContactsBlockedClass, error) {
+	var result ContactsBlockedBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Blocked, nil
+}

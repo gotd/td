@@ -83,3 +83,12 @@ var (
 	_ bin.Encoder = &MessagesToggleDialogPinRequest{}
 	_ bin.Decoder = &MessagesToggleDialogPinRequest{}
 )
+
+// MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.
+func (c *Client) MessagesToggleDialogPin(ctx context.Context, request *MessagesToggleDialogPinRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

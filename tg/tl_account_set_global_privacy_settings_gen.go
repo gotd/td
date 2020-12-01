@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountSetGlobalPrivacySettingsRequest{}
 	_ bin.Decoder = &AccountSetGlobalPrivacySettingsRequest{}
 )
+
+// AccountSetGlobalPrivacySettings invokes method account.setGlobalPrivacySettings#1edaaac2 returning error if any.
+func (c *Client) AccountSetGlobalPrivacySettings(ctx context.Context, request *AccountSetGlobalPrivacySettingsRequest) (*GlobalPrivacySettings, error) {
+	var result GlobalPrivacySettings
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

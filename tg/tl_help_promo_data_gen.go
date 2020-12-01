@@ -299,7 +299,7 @@ func DecodeHelpPromoData(buf *bin.Buffer) (HelpPromoDataClass, error) {
 
 // HelpPromoData boxes the HelpPromoDataClass providing a helper.
 type HelpPromoDataBox struct {
-	HelpPromoData HelpPromoDataClass
+	PromoData HelpPromoDataClass
 }
 
 // Decode implements bin.Decoder for HelpPromoDataBox.
@@ -311,14 +311,14 @@ func (b *HelpPromoDataBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.HelpPromoData = v
+	b.PromoData = v
 	return nil
 }
 
 // Encode implements bin.Encode for HelpPromoDataBox.
 func (b *HelpPromoDataBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.HelpPromoData == nil {
+	if b == nil || b.PromoData == nil {
 		return fmt.Errorf("unable to encode HelpPromoDataClass as nil")
 	}
-	return b.HelpPromoData.Encode(buf)
+	return b.PromoData.Encode(buf)
 }

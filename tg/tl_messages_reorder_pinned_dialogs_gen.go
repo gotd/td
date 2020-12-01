@@ -102,3 +102,12 @@ var (
 	_ bin.Encoder = &MessagesReorderPinnedDialogsRequest{}
 	_ bin.Decoder = &MessagesReorderPinnedDialogsRequest{}
 )
+
+// MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.
+func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

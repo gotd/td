@@ -65,3 +65,12 @@ var (
 	_ bin.Encoder = &MessagesUpdateDialogFiltersOrderRequest{}
 	_ bin.Decoder = &MessagesUpdateDialogFiltersOrderRequest{}
 )
+
+// MessagesUpdateDialogFiltersOrder invokes method messages.updateDialogFiltersOrder#c563c1e4 returning error if any.
+func (c *Client) MessagesUpdateDialogFiltersOrder(ctx context.Context, request *MessagesUpdateDialogFiltersOrderRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

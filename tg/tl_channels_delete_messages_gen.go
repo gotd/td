@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &ChannelsDeleteMessagesRequest{}
 	_ bin.Decoder = &ChannelsDeleteMessagesRequest{}
 )
+
+// ChannelsDeleteMessages invokes method channels.deleteMessages#84c1fd4e returning error if any.
+func (c *Client) ChannelsDeleteMessages(ctx context.Context, request *ChannelsDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
+	var result MessagesAffectedMessages
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

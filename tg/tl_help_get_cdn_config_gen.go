@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetCdnConfigRequest{}
 	_ bin.Decoder = &HelpGetCdnConfigRequest{}
 )
+
+// HelpGetCdnConfig invokes method help.getCdnConfig#52029342 returning error if any.
+func (c *Client) HelpGetCdnConfig(ctx context.Context, request *HelpGetCdnConfigRequest) (*CdnConfig, error) {
+	var result CdnConfig
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -209,7 +209,7 @@ func DecodeMessagesFeaturedStickers(buf *bin.Buffer) (MessagesFeaturedStickersCl
 
 // MessagesFeaturedStickers boxes the MessagesFeaturedStickersClass providing a helper.
 type MessagesFeaturedStickersBox struct {
-	MessagesFeaturedStickers MessagesFeaturedStickersClass
+	FeaturedStickers MessagesFeaturedStickersClass
 }
 
 // Decode implements bin.Decoder for MessagesFeaturedStickersBox.
@@ -221,14 +221,14 @@ func (b *MessagesFeaturedStickersBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesFeaturedStickers = v
+	b.FeaturedStickers = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesFeaturedStickersBox.
 func (b *MessagesFeaturedStickersBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesFeaturedStickers == nil {
+	if b == nil || b.FeaturedStickers == nil {
 		return fmt.Errorf("unable to encode MessagesFeaturedStickersClass as nil")
 	}
-	return b.MessagesFeaturedStickers.Encode(buf)
+	return b.FeaturedStickers.Encode(buf)
 }

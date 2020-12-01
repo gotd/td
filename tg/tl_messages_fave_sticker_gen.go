@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesFaveStickerRequest{}
 	_ bin.Decoder = &MessagesFaveStickerRequest{}
 )
+
+// MessagesFaveSticker invokes method messages.faveSticker#b9ffc55b returning error if any.
+func (c *Client) MessagesFaveSticker(ctx context.Context, request *MessagesFaveStickerRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

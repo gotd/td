@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesReadMentionsRequest{}
 	_ bin.Decoder = &MessagesReadMentionsRequest{}
 )
+
+// MessagesReadMentions invokes method messages.readMentions#f0189d3 returning error if any.
+func (c *Client) MessagesReadMentions(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error) {
+	var result MessagesAffectedHistory
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

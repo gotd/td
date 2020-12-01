@@ -65,3 +65,12 @@ var (
 	_ bin.Encoder = &AuthDropTempAuthKeysRequest{}
 	_ bin.Decoder = &AuthDropTempAuthKeysRequest{}
 )
+
+// AuthDropTempAuthKeys invokes method auth.dropTempAuthKeys#8e48a188 returning error if any.
+func (c *Client) AuthDropTempAuthKeys(ctx context.Context, request *AuthDropTempAuthKeysRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

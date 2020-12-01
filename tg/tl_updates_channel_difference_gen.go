@@ -538,7 +538,7 @@ func DecodeUpdatesChannelDifference(buf *bin.Buffer) (UpdatesChannelDifferenceCl
 
 // UpdatesChannelDifference boxes the UpdatesChannelDifferenceClass providing a helper.
 type UpdatesChannelDifferenceBox struct {
-	UpdatesChannelDifference UpdatesChannelDifferenceClass
+	ChannelDifference UpdatesChannelDifferenceClass
 }
 
 // Decode implements bin.Decoder for UpdatesChannelDifferenceBox.
@@ -550,14 +550,14 @@ func (b *UpdatesChannelDifferenceBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.UpdatesChannelDifference = v
+	b.ChannelDifference = v
 	return nil
 }
 
 // Encode implements bin.Encode for UpdatesChannelDifferenceBox.
 func (b *UpdatesChannelDifferenceBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.UpdatesChannelDifference == nil {
+	if b == nil || b.ChannelDifference == nil {
 		return fmt.Errorf("unable to encode UpdatesChannelDifferenceClass as nil")
 	}
-	return b.UpdatesChannelDifference.Encode(buf)
+	return b.ChannelDifference.Encode(buf)
 }

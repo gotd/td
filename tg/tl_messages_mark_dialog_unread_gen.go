@@ -83,3 +83,12 @@ var (
 	_ bin.Encoder = &MessagesMarkDialogUnreadRequest{}
 	_ bin.Decoder = &MessagesMarkDialogUnreadRequest{}
 )
+
+// MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.
+func (c *Client) MessagesMarkDialogUnread(ctx context.Context, request *MessagesMarkDialogUnreadRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &HelpSetBotUpdatesStatusRequest{}
 	_ bin.Decoder = &HelpSetBotUpdatesStatusRequest{}
 )
+
+// HelpSetBotUpdatesStatus invokes method help.setBotUpdatesStatus#ec22cfcd returning error if any.
+func (c *Client) HelpSetBotUpdatesStatus(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

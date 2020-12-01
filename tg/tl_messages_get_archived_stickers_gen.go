@@ -88,3 +88,12 @@ var (
 	_ bin.Encoder = &MessagesGetArchivedStickersRequest{}
 	_ bin.Decoder = &MessagesGetArchivedStickersRequest{}
 )
+
+// MessagesGetArchivedStickers invokes method messages.getArchivedStickers#57f17692 returning error if any.
+func (c *Client) MessagesGetArchivedStickers(ctx context.Context, request *MessagesGetArchivedStickersRequest) (*MessagesArchivedStickers, error) {
+	var result MessagesArchivedStickers
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

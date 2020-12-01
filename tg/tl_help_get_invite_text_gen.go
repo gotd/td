@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetInviteTextRequest{}
 	_ bin.Decoder = &HelpGetInviteTextRequest{}
 )
+
+// HelpGetInviteText invokes method help.getInviteText#4d392343 returning error if any.
+func (c *Client) HelpGetInviteText(ctx context.Context, request *HelpGetInviteTextRequest) (*HelpInviteText, error) {
+	var result HelpInviteText
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

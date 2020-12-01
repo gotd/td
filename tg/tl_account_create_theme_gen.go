@@ -139,3 +139,12 @@ var (
 	_ bin.Encoder = &AccountCreateThemeRequest{}
 	_ bin.Decoder = &AccountCreateThemeRequest{}
 )
+
+// AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.
+func (c *Client) AccountCreateTheme(ctx context.Context, request *AccountCreateThemeRequest) (*Theme, error) {
+	var result Theme
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

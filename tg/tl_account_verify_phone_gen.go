@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &AccountVerifyPhoneRequest{}
 	_ bin.Decoder = &AccountVerifyPhoneRequest{}
 )
+
+// AccountVerifyPhone invokes method account.verifyPhone#4dd3a7f6 returning error if any.
+func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

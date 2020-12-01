@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetSupportRequest{}
 	_ bin.Decoder = &HelpGetSupportRequest{}
 )
+
+// HelpGetSupport invokes method help.getSupport#9cdf08cd returning error if any.
+func (c *Client) HelpGetSupport(ctx context.Context, request *HelpGetSupportRequest) (*HelpSupport, error) {
+	var result HelpSupport
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

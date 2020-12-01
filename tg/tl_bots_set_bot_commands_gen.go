@@ -67,3 +67,12 @@ var (
 	_ bin.Encoder = &BotsSetBotCommandsRequest{}
 	_ bin.Decoder = &BotsSetBotCommandsRequest{}
 )
+
+// BotsSetBotCommands invokes method bots.setBotCommands#805d46f6 returning error if any.
+func (c *Client) BotsSetBotCommands(ctx context.Context, request *BotsSetBotCommandsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &AccountSaveSecureValueRequest{}
 	_ bin.Decoder = &AccountSaveSecureValueRequest{}
 )
+
+// AccountSaveSecureValue invokes method account.saveSecureValue#899fe31d returning error if any.
+func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {
+	var result SecureValue
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

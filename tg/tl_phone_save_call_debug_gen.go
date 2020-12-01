@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &PhoneSaveCallDebugRequest{}
 	_ bin.Decoder = &PhoneSaveCallDebugRequest{}
 )
+
+// PhoneSaveCallDebug invokes method phone.saveCallDebug#277add7e returning error if any.
+func (c *Client) PhoneSaveCallDebug(ctx context.Context, request *PhoneSaveCallDebugRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &ChannelsGetGroupsForDiscussionRequest{}
 	_ bin.Decoder = &ChannelsGetGroupsForDiscussionRequest{}
 )
+
+// ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.
+func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context, request *ChannelsGetGroupsForDiscussionRequest) (MessagesChatsClass, error) {
+	var result MessagesChatsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Chats, nil
+}

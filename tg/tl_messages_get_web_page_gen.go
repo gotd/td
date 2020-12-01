@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &MessagesGetWebPageRequest{}
 	_ bin.Decoder = &MessagesGetWebPageRequest{}
 )
+
+// MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.
+func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {
+	var result WebPageBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.WebPage, nil
+}

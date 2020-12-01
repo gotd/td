@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &FoldersDeleteFolderRequest{}
 	_ bin.Decoder = &FoldersDeleteFolderRequest{}
 )
+
+// FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.
+func (c *Client) FoldersDeleteFolder(ctx context.Context, request *FoldersDeleteFolderRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

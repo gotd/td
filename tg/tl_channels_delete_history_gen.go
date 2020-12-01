@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &ChannelsDeleteHistoryRequest{}
 	_ bin.Decoder = &ChannelsDeleteHistoryRequest{}
 )
+
+// ChannelsDeleteHistory invokes method channels.deleteHistory#af369d42 returning error if any.
+func (c *Client) ChannelsDeleteHistory(ctx context.Context, request *ChannelsDeleteHistoryRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -95,3 +95,12 @@ var (
 	_ bin.Encoder = &ChannelsReportSpamRequest{}
 	_ bin.Decoder = &ChannelsReportSpamRequest{}
 )
+
+// ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
+func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

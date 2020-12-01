@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &PhoneSendSignalingDataRequest{}
 	_ bin.Decoder = &PhoneSendSignalingDataRequest{}
 )
+
+// PhoneSendSignalingData invokes method phone.sendSignalingData#ff7a9383 returning error if any.
+func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

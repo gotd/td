@@ -143,3 +143,12 @@ var (
 	_ bin.Encoder = &AccountUpdateProfileRequest{}
 	_ bin.Decoder = &AccountUpdateProfileRequest{}
 )
+
+// AccountUpdateProfile invokes method account.updateProfile#78515775 returning error if any.
+func (c *Client) AccountUpdateProfile(ctx context.Context, request *AccountUpdateProfileRequest) (UserClass, error) {
+	var result UserBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.User, nil
+}

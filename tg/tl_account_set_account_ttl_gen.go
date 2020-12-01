@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountSetAccountTTLRequest{}
 	_ bin.Decoder = &AccountSetAccountTTLRequest{}
 )
+
+// AccountSetAccountTTL invokes method account.setAccountTTL#2442485e returning error if any.
+func (c *Client) AccountSetAccountTTL(ctx context.Context, request *AccountSetAccountTTLRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

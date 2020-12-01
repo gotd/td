@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpGetAppChangelogRequest{}
 	_ bin.Decoder = &HelpGetAppChangelogRequest{}
 )
+
+// HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.
+func (c *Client) HelpGetAppChangelog(ctx context.Context, request *HelpGetAppChangelogRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesGetFavedStickersRequest{}
 	_ bin.Decoder = &MessagesGetFavedStickersRequest{}
 )
+
+// MessagesGetFavedStickers invokes method messages.getFavedStickers#21ce0b0e returning error if any.
+func (c *Client) MessagesGetFavedStickers(ctx context.Context, request *MessagesGetFavedStickersRequest) (MessagesFavedStickersClass, error) {
+	var result MessagesFavedStickersBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.FavedStickers, nil
+}

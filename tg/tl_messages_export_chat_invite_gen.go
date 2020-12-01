@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesExportChatInviteRequest{}
 	_ bin.Decoder = &MessagesExportChatInviteRequest{}
 )
+
+// MessagesExportChatInvite invokes method messages.exportChatInvite#df7534c returning error if any.
+func (c *Client) MessagesExportChatInvite(ctx context.Context, request *MessagesExportChatInviteRequest) (ExportedChatInviteClass, error) {
+	var result ExportedChatInviteBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.ExportedChatInvite, nil
+}

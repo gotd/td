@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &ContactsResolveUsernameRequest{}
 	_ bin.Decoder = &ContactsResolveUsernameRequest{}
 )
+
+// ContactsResolveUsername invokes method contacts.resolveUsername#f93ccba3 returning error if any.
+func (c *Client) ContactsResolveUsername(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error) {
+	var result ContactsResolvedPeer
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

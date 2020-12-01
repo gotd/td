@@ -182,3 +182,12 @@ var (
 	_ bin.Encoder = &ContactsGetTopPeersRequest{}
 	_ bin.Decoder = &ContactsGetTopPeersRequest{}
 )
+
+// ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.
+func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {
+	var result ContactsTopPeersBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.TopPeers, nil
+}

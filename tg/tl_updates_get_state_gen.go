@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &UpdatesGetStateRequest{}
 	_ bin.Decoder = &UpdatesGetStateRequest{}
 )
+
+// UpdatesGetState invokes method updates.getState#edd4882a returning error if any.
+func (c *Client) UpdatesGetState(ctx context.Context, request *UpdatesGetStateRequest) (*UpdatesState, error) {
+	var result UpdatesState
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

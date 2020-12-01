@@ -88,3 +88,12 @@ var (
 	_ bin.Encoder = &PaymentsValidateRequestedInfoRequest{}
 	_ bin.Decoder = &PaymentsValidateRequestedInfoRequest{}
 )
+
+// PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#770a8e74 returning error if any.
+func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {
+	var result PaymentsValidatedRequestedInfo
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

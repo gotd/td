@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpAcceptTermsOfServiceRequest{}
 	_ bin.Decoder = &HelpAcceptTermsOfServiceRequest{}
 )
+
+// HelpAcceptTermsOfService invokes method help.acceptTermsOfService#ee72f79a returning error if any.
+func (c *Client) HelpAcceptTermsOfService(ctx context.Context, request *HelpAcceptTermsOfServiceRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

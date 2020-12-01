@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesReadHistoryRequest{}
 	_ bin.Decoder = &MessagesReadHistoryRequest{}
 )
+
+// MessagesReadHistory invokes method messages.readHistory#e306d3a returning error if any.
+func (c *Client) MessagesReadHistory(ctx context.Context, request *MessagesReadHistoryRequest) (*MessagesAffectedMessages, error) {
+	var result MessagesAffectedMessages
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

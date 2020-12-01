@@ -113,3 +113,12 @@ var (
 	_ bin.Encoder = &PhoneDiscardCallRequest{}
 	_ bin.Decoder = &PhoneDiscardCallRequest{}
 )
+
+// PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.
+func (c *Client) PhoneDiscardCall(ctx context.Context, request *PhoneDiscardCallRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

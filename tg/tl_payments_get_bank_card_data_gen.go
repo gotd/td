@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &PaymentsGetBankCardDataRequest{}
 	_ bin.Decoder = &PaymentsGetBankCardDataRequest{}
 )
+
+// PaymentsGetBankCardData invokes method payments.getBankCardData#2e79d779 returning error if any.
+func (c *Client) PaymentsGetBankCardData(ctx context.Context, request *PaymentsGetBankCardDataRequest) (*PaymentsBankCardData, error) {
+	var result PaymentsBankCardData
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -86,3 +86,12 @@ var (
 	_ bin.Encoder = &ChannelsEditBannedRequest{}
 	_ bin.Decoder = &ChannelsEditBannedRequest{}
 )
+
+// ChannelsEditBanned invokes method channels.editBanned#72796912 returning error if any.
+func (c *Client) ChannelsEditBanned(ctx context.Context, request *ChannelsEditBannedRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

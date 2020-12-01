@@ -87,3 +87,12 @@ var (
 	_ bin.Encoder = &MessagesDeleteMessagesRequest{}
 	_ bin.Decoder = &MessagesDeleteMessagesRequest{}
 )
+
+// MessagesDeleteMessages invokes method messages.deleteMessages#e58e95d2 returning error if any.
+func (c *Client) MessagesDeleteMessages(ctx context.Context, request *MessagesDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
+	var result MessagesAffectedMessages
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

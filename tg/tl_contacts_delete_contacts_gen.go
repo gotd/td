@@ -70,3 +70,12 @@ var (
 	_ bin.Encoder = &ContactsDeleteContactsRequest{}
 	_ bin.Decoder = &ContactsDeleteContactsRequest{}
 )
+
+// ContactsDeleteContacts invokes method contacts.deleteContacts#96a0e00 returning error if any.
+func (c *Client) ContactsDeleteContacts(ctx context.Context, request *ContactsDeleteContactsRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

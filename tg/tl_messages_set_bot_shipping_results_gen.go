@@ -135,3 +135,12 @@ var (
 	_ bin.Encoder = &MessagesSetBotShippingResultsRequest{}
 	_ bin.Decoder = &MessagesSetBotShippingResultsRequest{}
 )
+
+// MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
+func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

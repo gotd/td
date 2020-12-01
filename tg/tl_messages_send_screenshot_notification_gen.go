@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &MessagesSendScreenshotNotificationRequest{}
 	_ bin.Decoder = &MessagesSendScreenshotNotificationRequest{}
 )
+
+// MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.
+func (c *Client) MessagesSendScreenshotNotification(ctx context.Context, request *MessagesSendScreenshotNotificationRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

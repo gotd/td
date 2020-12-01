@@ -239,3 +239,12 @@ var (
 	_ bin.Encoder = &MessagesSearchRequest{}
 	_ bin.Decoder = &MessagesSearchRequest{}
 )
+
+// MessagesSearch invokes method messages.search#c352eec returning error if any.
+func (c *Client) MessagesSearch(ctx context.Context, request *MessagesSearchRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

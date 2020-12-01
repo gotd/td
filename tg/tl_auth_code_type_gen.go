@@ -182,7 +182,7 @@ func DecodeAuthCodeType(buf *bin.Buffer) (AuthCodeTypeClass, error) {
 
 // AuthCodeType boxes the AuthCodeTypeClass providing a helper.
 type AuthCodeTypeBox struct {
-	AuthCodeType AuthCodeTypeClass
+	CodeType AuthCodeTypeClass
 }
 
 // Decode implements bin.Decoder for AuthCodeTypeBox.
@@ -194,14 +194,14 @@ func (b *AuthCodeTypeBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.AuthCodeType = v
+	b.CodeType = v
 	return nil
 }
 
 // Encode implements bin.Encode for AuthCodeTypeBox.
 func (b *AuthCodeTypeBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.AuthCodeType == nil {
+	if b == nil || b.CodeType == nil {
 		return fmt.Errorf("unable to encode AuthCodeTypeClass as nil")
 	}
-	return b.AuthCodeType.Encode(buf)
+	return b.CodeType.Encode(buf)
 }

@@ -237,7 +237,7 @@ func DecodeAuthLoginToken(buf *bin.Buffer) (AuthLoginTokenClass, error) {
 
 // AuthLoginToken boxes the AuthLoginTokenClass providing a helper.
 type AuthLoginTokenBox struct {
-	AuthLoginToken AuthLoginTokenClass
+	LoginToken AuthLoginTokenClass
 }
 
 // Decode implements bin.Decoder for AuthLoginTokenBox.
@@ -249,14 +249,14 @@ func (b *AuthLoginTokenBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.AuthLoginToken = v
+	b.LoginToken = v
 	return nil
 }
 
 // Encode implements bin.Encode for AuthLoginTokenBox.
 func (b *AuthLoginTokenBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.AuthLoginToken == nil {
+	if b == nil || b.LoginToken == nil {
 		return fmt.Errorf("unable to encode AuthLoginTokenClass as nil")
 	}
-	return b.AuthLoginToken.Encode(buf)
+	return b.LoginToken.Encode(buf)
 }

@@ -107,3 +107,12 @@ var (
 	_ bin.Encoder = &MessagesSetBotPrecheckoutResultsRequest{}
 	_ bin.Decoder = &MessagesSetBotPrecheckoutResultsRequest{}
 )
+
+// MessagesSetBotPrecheckoutResults invokes method messages.setBotPrecheckoutResults#9c2dd95 returning error if any.
+func (c *Client) MessagesSetBotPrecheckoutResults(ctx context.Context, request *MessagesSetBotPrecheckoutResultsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

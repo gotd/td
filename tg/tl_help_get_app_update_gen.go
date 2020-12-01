@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpGetAppUpdateRequest{}
 	_ bin.Decoder = &HelpGetAppUpdateRequest{}
 )
+
+// HelpGetAppUpdate invokes method help.getAppUpdate#522d5a7d returning error if any.
+func (c *Client) HelpGetAppUpdate(ctx context.Context, request *HelpGetAppUpdateRequest) (HelpAppUpdateClass, error) {
+	var result HelpAppUpdateBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.AppUpdate, nil
+}

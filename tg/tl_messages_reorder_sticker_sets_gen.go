@@ -87,3 +87,12 @@ var (
 	_ bin.Encoder = &MessagesReorderStickerSetsRequest{}
 	_ bin.Decoder = &MessagesReorderStickerSetsRequest{}
 )
+
+// MessagesReorderStickerSets invokes method messages.reorderStickerSets#78337739 returning error if any.
+func (c *Client) MessagesReorderStickerSets(ctx context.Context, request *MessagesReorderStickerSetsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

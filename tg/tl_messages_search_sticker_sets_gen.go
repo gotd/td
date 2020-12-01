@@ -88,3 +88,12 @@ var (
 	_ bin.Encoder = &MessagesSearchStickerSetsRequest{}
 	_ bin.Decoder = &MessagesSearchStickerSetsRequest{}
 )
+
+// MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.
+func (c *Client) MessagesSearchStickerSets(ctx context.Context, request *MessagesSearchStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {
+	var result MessagesFoundStickerSetsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.FoundStickerSets, nil
+}

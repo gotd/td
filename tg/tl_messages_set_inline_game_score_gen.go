@@ -115,3 +115,12 @@ var (
 	_ bin.Encoder = &MessagesSetInlineGameScoreRequest{}
 	_ bin.Decoder = &MessagesSetInlineGameScoreRequest{}
 )
+
+// MessagesSetInlineGameScore invokes method messages.setInlineGameScore#15ad9f64 returning error if any.
+func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

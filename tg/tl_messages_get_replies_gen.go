@@ -141,3 +141,12 @@ var (
 	_ bin.Encoder = &MessagesGetRepliesRequest{}
 	_ bin.Decoder = &MessagesGetRepliesRequest{}
 )
+
+// MessagesGetReplies invokes method messages.getReplies#24b581ba returning error if any.
+func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

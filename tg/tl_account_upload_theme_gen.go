@@ -125,3 +125,12 @@ var (
 	_ bin.Encoder = &AccountUploadThemeRequest{}
 	_ bin.Decoder = &AccountUploadThemeRequest{}
 )
+
+// AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.
+func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {
+	var result DocumentBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Document, nil
+}

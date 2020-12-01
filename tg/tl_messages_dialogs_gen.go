@@ -394,7 +394,7 @@ func DecodeMessagesDialogs(buf *bin.Buffer) (MessagesDialogsClass, error) {
 
 // MessagesDialogs boxes the MessagesDialogsClass providing a helper.
 type MessagesDialogsBox struct {
-	MessagesDialogs MessagesDialogsClass
+	Dialogs MessagesDialogsClass
 }
 
 // Decode implements bin.Decoder for MessagesDialogsBox.
@@ -406,14 +406,14 @@ func (b *MessagesDialogsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesDialogs = v
+	b.Dialogs = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesDialogsBox.
 func (b *MessagesDialogsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesDialogs == nil {
+	if b == nil || b.Dialogs == nil {
 		return fmt.Errorf("unable to encode MessagesDialogsClass as nil")
 	}
-	return b.MessagesDialogs.Encode(buf)
+	return b.Dialogs.Encode(buf)
 }

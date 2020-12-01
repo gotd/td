@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &ChannelsEditPhotoRequest{}
 	_ bin.Decoder = &ChannelsEditPhotoRequest{}
 )
+
+// ChannelsEditPhoto invokes method channels.editPhoto#f12e57c9 returning error if any.
+func (c *Client) ChannelsEditPhoto(ctx context.Context, request *ChannelsEditPhotoRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

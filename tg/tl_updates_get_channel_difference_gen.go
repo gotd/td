@@ -118,3 +118,12 @@ var (
 	_ bin.Encoder = &UpdatesGetChannelDifferenceRequest{}
 	_ bin.Decoder = &UpdatesGetChannelDifferenceRequest{}
 )
+
+// UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
+func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {
+	var result UpdatesChannelDifferenceBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.ChannelDifference, nil
+}

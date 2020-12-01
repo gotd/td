@@ -90,3 +90,12 @@ var (
 	_ bin.Encoder = &MessagesSendVoteRequest{}
 	_ bin.Decoder = &MessagesSendVoteRequest{}
 )
+
+// MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.
+func (c *Client) MessagesSendVote(ctx context.Context, request *MessagesSendVoteRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

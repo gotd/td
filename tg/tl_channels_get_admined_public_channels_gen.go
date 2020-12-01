@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &ChannelsGetAdminedPublicChannelsRequest{}
 	_ bin.Decoder = &ChannelsGetAdminedPublicChannelsRequest{}
 )
+
+// ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
+func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {
+	var result MessagesChatsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Chats, nil
+}

@@ -153,3 +153,12 @@ var (
 	_ bin.Encoder = &PhotosUploadProfilePhotoRequest{}
 	_ bin.Decoder = &PhotosUploadProfilePhotoRequest{}
 )
+
+// PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.
+func (c *Client) PhotosUploadProfilePhoto(ctx context.Context, request *PhotosUploadProfilePhotoRequest) (*PhotosPhoto, error) {
+	var result PhotosPhoto
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &AccountInstallWallPaperRequest{}
 	_ bin.Decoder = &AccountInstallWallPaperRequest{}
 )
+
+// AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.
+func (c *Client) AccountInstallWallPaper(ctx context.Context, request *AccountInstallWallPaperRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &AccountGetPrivacyRequest{}
 	_ bin.Decoder = &AccountGetPrivacyRequest{}
 )
+
+// AccountGetPrivacy invokes method account.getPrivacy#dadbc950 returning error if any.
+func (c *Client) AccountGetPrivacy(ctx context.Context, request *AccountGetPrivacyRequest) (*AccountPrivacyRules, error) {
+	var result AccountPrivacyRules
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

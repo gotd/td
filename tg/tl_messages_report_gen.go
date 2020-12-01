@@ -95,3 +95,12 @@ var (
 	_ bin.Encoder = &MessagesReportRequest{}
 	_ bin.Decoder = &MessagesReportRequest{}
 )
+
+// MessagesReport invokes method messages.report#bd82b658 returning error if any.
+func (c *Client) MessagesReport(ctx context.Context, request *MessagesReportRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

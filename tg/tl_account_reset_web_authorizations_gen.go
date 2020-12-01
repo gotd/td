@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountResetWebAuthorizationsRequest{}
 	_ bin.Decoder = &AccountResetWebAuthorizationsRequest{}
 )
+
+// AccountResetWebAuthorizations invokes method account.resetWebAuthorizations#682d2594 returning error if any.
+func (c *Client) AccountResetWebAuthorizations(ctx context.Context, request *AccountResetWebAuthorizationsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesGetScheduledHistoryRequest{}
 	_ bin.Decoder = &MessagesGetScheduledHistoryRequest{}
 )
+
+// MessagesGetScheduledHistory invokes method messages.getScheduledHistory#e2c2685b returning error if any.
+func (c *Client) MessagesGetScheduledHistory(ctx context.Context, request *MessagesGetScheduledHistoryRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

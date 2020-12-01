@@ -196,7 +196,7 @@ func DecodeServerDHParams(buf *bin.Buffer) (ServerDHParamsClass, error) {
 
 // ServerDHParams boxes the ServerDHParamsClass providing a helper.
 type ServerDHParamsBox struct {
-	ServerDHParams ServerDHParamsClass
+	Server_DH_Params ServerDHParamsClass
 }
 
 // Decode implements bin.Decoder for ServerDHParamsBox.
@@ -208,14 +208,14 @@ func (b *ServerDHParamsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.ServerDHParams = v
+	b.Server_DH_Params = v
 	return nil
 }
 
 // Encode implements bin.Encode for ServerDHParamsBox.
 func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.ServerDHParams == nil {
+	if b == nil || b.Server_DH_Params == nil {
 		return fmt.Errorf("unable to encode ServerDHParamsClass as nil")
 	}
-	return b.ServerDHParams.Encode(buf)
+	return b.Server_DH_Params.Encode(buf)
 }

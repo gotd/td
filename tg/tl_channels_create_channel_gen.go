@@ -163,3 +163,12 @@ var (
 	_ bin.Encoder = &ChannelsCreateChannelRequest{}
 	_ bin.Decoder = &ChannelsCreateChannelRequest{}
 )
+
+// ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.
+func (c *Client) ChannelsCreateChannel(ctx context.Context, request *ChannelsCreateChannelRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

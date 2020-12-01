@@ -78,3 +78,12 @@ var (
 	_ bin.Encoder = &MessagesGetRecentStickersRequest{}
 	_ bin.Decoder = &MessagesGetRecentStickersRequest{}
 )
+
+// MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.
+func (c *Client) MessagesGetRecentStickers(ctx context.Context, request *MessagesGetRecentStickersRequest) (MessagesRecentStickersClass, error) {
+	var result MessagesRecentStickersBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.RecentStickers, nil
+}

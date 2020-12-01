@@ -68,3 +68,12 @@ var (
 	_ bin.Encoder = &AccountFinishTakeoutSessionRequest{}
 	_ bin.Decoder = &AccountFinishTakeoutSessionRequest{}
 )
+
+// AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
+func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

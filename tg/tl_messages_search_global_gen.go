@@ -175,3 +175,12 @@ var (
 	_ bin.Encoder = &MessagesSearchGlobalRequest{}
 	_ bin.Decoder = &MessagesSearchGlobalRequest{}
 )
+
+// MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.
+func (c *Client) MessagesSearchGlobal(ctx context.Context, request *MessagesSearchGlobalRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

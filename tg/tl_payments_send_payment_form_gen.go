@@ -139,3 +139,12 @@ var (
 	_ bin.Encoder = &PaymentsSendPaymentFormRequest{}
 	_ bin.Decoder = &PaymentsSendPaymentFormRequest{}
 )
+
+// PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2b8879b3 returning error if any.
+func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {
+	var result PaymentsPaymentResultBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.PaymentResult, nil
+}

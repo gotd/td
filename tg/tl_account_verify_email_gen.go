@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &AccountVerifyEmailRequest{}
 	_ bin.Decoder = &AccountVerifyEmailRequest{}
 )
+
+// AccountVerifyEmail invokes method account.verifyEmail#ecba39db returning error if any.
+func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

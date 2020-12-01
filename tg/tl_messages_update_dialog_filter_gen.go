@@ -95,3 +95,12 @@ var (
 	_ bin.Encoder = &MessagesUpdateDialogFilterRequest{}
 	_ bin.Decoder = &MessagesUpdateDialogFilterRequest{}
 )
+
+// MessagesUpdateDialogFilter invokes method messages.updateDialogFilter#1ad4a04a returning error if any.
+func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &StickersSetStickerSetThumbRequest{}
 	_ bin.Decoder = &StickersSetStickerSetThumbRequest{}
 )
+
+// StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
+func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error) {
+	var result MessagesStickerSet
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

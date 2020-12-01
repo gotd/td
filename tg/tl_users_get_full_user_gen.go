@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &UsersGetFullUserRequest{}
 	_ bin.Decoder = &UsersGetFullUserRequest{}
 )
+
+// UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.
+func (c *Client) UsersGetFullUser(ctx context.Context, request *UsersGetFullUserRequest) (*UserFull, error) {
+	var result UserFull
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

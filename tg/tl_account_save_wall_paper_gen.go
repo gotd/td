@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &AccountSaveWallPaperRequest{}
 	_ bin.Decoder = &AccountSaveWallPaperRequest{}
 )
+
+// AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
+func (c *Client) AccountSaveWallPaper(ctx context.Context, request *AccountSaveWallPaperRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

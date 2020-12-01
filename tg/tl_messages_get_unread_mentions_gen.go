@@ -111,3 +111,12 @@ var (
 	_ bin.Encoder = &MessagesGetUnreadMentionsRequest{}
 	_ bin.Decoder = &MessagesGetUnreadMentionsRequest{}
 )
+
+// MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
+func (c *Client) MessagesGetUnreadMentions(ctx context.Context, request *MessagesGetUnreadMentionsRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

@@ -113,3 +113,12 @@ var (
 	_ bin.Encoder = &PhoneRequestCallRequest{}
 	_ bin.Decoder = &PhoneRequestCallRequest{}
 )
+
+// PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.
+func (c *Client) PhoneRequestCall(ctx context.Context, request *PhoneRequestCallRequest) (*PhonePhoneCall, error) {
+	var result PhonePhoneCall
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesSaveGifRequest{}
 	_ bin.Decoder = &MessagesSaveGifRequest{}
 )
+
+// MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.
+func (c *Client) MessagesSaveGif(ctx context.Context, request *MessagesSaveGifRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

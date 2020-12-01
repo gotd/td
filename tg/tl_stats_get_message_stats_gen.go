@@ -93,3 +93,12 @@ var (
 	_ bin.Encoder = &StatsGetMessageStatsRequest{}
 	_ bin.Decoder = &StatsGetMessageStatsRequest{}
 )
+
+// StatsGetMessageStats invokes method stats.getMessageStats#b6e0a3f5 returning error if any.
+func (c *Client) StatsGetMessageStats(ctx context.Context, request *StatsGetMessageStatsRequest) (*StatsMessageStats, error) {
+	var result StatsMessageStats
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

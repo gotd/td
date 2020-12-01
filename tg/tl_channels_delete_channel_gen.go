@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &ChannelsDeleteChannelRequest{}
 	_ bin.Decoder = &ChannelsDeleteChannelRequest{}
 )
+
+// ChannelsDeleteChannel invokes method channels.deleteChannel#c0111fe3 returning error if any.
+func (c *Client) ChannelsDeleteChannel(ctx context.Context, request *ChannelsDeleteChannelRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &PhoneReceivedCallRequest{}
 	_ bin.Decoder = &PhoneReceivedCallRequest{}
 )
+
+// PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
+func (c *Client) PhoneReceivedCall(ctx context.Context, request *PhoneReceivedCallRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

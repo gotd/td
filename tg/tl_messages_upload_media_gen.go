@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &MessagesUploadMediaRequest{}
 	_ bin.Decoder = &MessagesUploadMediaRequest{}
 )
+
+// MessagesUploadMedia invokes method messages.uploadMedia#519bc2b1 returning error if any.
+func (c *Client) MessagesUploadMedia(ctx context.Context, request *MessagesUploadMediaRequest) (MessageMediaClass, error) {
+	var result MessageMediaBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.MessageMedia, nil
+}

@@ -130,3 +130,12 @@ var (
 	_ bin.Encoder = &MessagesSetGameScoreRequest{}
 	_ bin.Decoder = &MessagesSetGameScoreRequest{}
 )
+
+// MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
+func (c *Client) MessagesSetGameScore(ctx context.Context, request *MessagesSetGameScoreRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

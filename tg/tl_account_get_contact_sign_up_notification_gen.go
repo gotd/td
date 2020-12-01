@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountGetContactSignUpNotificationRequest{}
 	_ bin.Decoder = &AccountGetContactSignUpNotificationRequest{}
 )
+
+// AccountGetContactSignUpNotification invokes method account.getContactSignUpNotification#9f07c728 returning error if any.
+func (c *Client) AccountGetContactSignUpNotification(ctx context.Context, request *AccountGetContactSignUpNotificationRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

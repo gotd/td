@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &MessagesCreateChatRequest{}
 	_ bin.Decoder = &MessagesCreateChatRequest{}
 )
+
+// MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
+func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

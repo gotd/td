@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesGetOnlinesRequest{}
 	_ bin.Decoder = &MessagesGetOnlinesRequest{}
 )
+
+// MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.
+func (c *Client) MessagesGetOnlines(ctx context.Context, request *MessagesGetOnlinesRequest) (*ChatOnlines, error) {
+	var result ChatOnlines
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

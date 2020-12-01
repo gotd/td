@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &PaymentsClearSavedInfoRequest{}
 	_ bin.Decoder = &PaymentsClearSavedInfoRequest{}
 )
+
+// PaymentsClearSavedInfo invokes method payments.clearSavedInfo#d83d70c1 returning error if any.
+func (c *Client) PaymentsClearSavedInfo(ctx context.Context, request *PaymentsClearSavedInfoRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

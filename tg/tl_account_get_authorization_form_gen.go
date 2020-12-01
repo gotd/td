@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &AccountGetAuthorizationFormRequest{}
 	_ bin.Decoder = &AccountGetAuthorizationFormRequest{}
 )
+
+// AccountGetAuthorizationForm invokes method account.getAuthorizationForm#b86ba8e1 returning error if any.
+func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {
+	var result AccountAuthorizationForm
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

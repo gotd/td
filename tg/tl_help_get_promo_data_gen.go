@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetPromoDataRequest{}
 	_ bin.Decoder = &HelpGetPromoDataRequest{}
 )
+
+// HelpGetPromoData invokes method help.getPromoData#c0977421 returning error if any.
+func (c *Client) HelpGetPromoData(ctx context.Context, request *HelpGetPromoDataRequest) (HelpPromoDataClass, error) {
+	var result HelpPromoDataBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.PromoData, nil
+}

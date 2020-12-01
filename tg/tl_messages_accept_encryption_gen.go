@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &MessagesAcceptEncryptionRequest{}
 	_ bin.Decoder = &MessagesAcceptEncryptionRequest{}
 )
+
+// MessagesAcceptEncryption invokes method messages.acceptEncryption#3dbc0415 returning error if any.
+func (c *Client) MessagesAcceptEncryption(ctx context.Context, request *MessagesAcceptEncryptionRequest) (EncryptedChatClass, error) {
+	var result EncryptedChatBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.EncryptedChat, nil
+}

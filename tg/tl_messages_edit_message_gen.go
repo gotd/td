@@ -262,3 +262,12 @@ var (
 	_ bin.Encoder = &MessagesEditMessageRequest{}
 	_ bin.Decoder = &MessagesEditMessageRequest{}
 )
+
+// MessagesEditMessage invokes method messages.editMessage#48f71778 returning error if any.
+func (c *Client) MessagesEditMessage(ctx context.Context, request *MessagesEditMessageRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

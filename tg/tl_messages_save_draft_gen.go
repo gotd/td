@@ -165,3 +165,12 @@ var (
 	_ bin.Encoder = &MessagesSaveDraftRequest{}
 	_ bin.Decoder = &MessagesSaveDraftRequest{}
 )
+
+// MessagesSaveDraft invokes method messages.saveDraft#bc39e14b returning error if any.
+func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &MessagesSetEncryptedTypingRequest{}
 	_ bin.Decoder = &MessagesSetEncryptedTypingRequest{}
 )
+
+// MessagesSetEncryptedTyping invokes method messages.setEncryptedTyping#791451ed returning error if any.
+func (c *Client) MessagesSetEncryptedTyping(ctx context.Context, request *MessagesSetEncryptedTypingRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

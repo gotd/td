@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &MessagesGetAllDraftsRequest{}
 	_ bin.Decoder = &MessagesGetAllDraftsRequest{}
 )
+
+// MessagesGetAllDrafts invokes method messages.getAllDrafts#6a3f8d65 returning error if any.
+func (c *Client) MessagesGetAllDrafts(ctx context.Context, request *MessagesGetAllDraftsRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

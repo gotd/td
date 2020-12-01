@@ -268,7 +268,7 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 
 // AuthSentCodeType boxes the AuthSentCodeTypeClass providing a helper.
 type AuthSentCodeTypeBox struct {
-	AuthSentCodeType AuthSentCodeTypeClass
+	SentCodeType AuthSentCodeTypeClass
 }
 
 // Decode implements bin.Decoder for AuthSentCodeTypeBox.
@@ -280,14 +280,14 @@ func (b *AuthSentCodeTypeBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.AuthSentCodeType = v
+	b.SentCodeType = v
 	return nil
 }
 
 // Encode implements bin.Encode for AuthSentCodeTypeBox.
 func (b *AuthSentCodeTypeBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.AuthSentCodeType == nil {
+	if b == nil || b.SentCodeType == nil {
 		return fmt.Errorf("unable to encode AuthSentCodeTypeClass as nil")
 	}
-	return b.AuthSentCodeType.Encode(buf)
+	return b.SentCodeType.Encode(buf)
 }

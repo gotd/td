@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &PhoneAcceptCallRequest{}
 	_ bin.Decoder = &PhoneAcceptCallRequest{}
 )
+
+// PhoneAcceptCall invokes method phone.acceptCall#3bd2b4a0 returning error if any.
+func (c *Client) PhoneAcceptCall(ctx context.Context, request *PhoneAcceptCallRequest) (*PhonePhoneCall, error) {
+	var result PhonePhoneCall
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

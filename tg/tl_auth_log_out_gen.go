@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AuthLogOutRequest{}
 	_ bin.Decoder = &AuthLogOutRequest{}
 )
+
+// AuthLogOut invokes method auth.logOut#5717da40 returning error if any.
+func (c *Client) AuthLogOut(ctx context.Context, request *AuthLogOutRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

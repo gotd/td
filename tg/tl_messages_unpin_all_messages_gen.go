@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &MessagesUnpinAllMessagesRequest{}
 	_ bin.Decoder = &MessagesUnpinAllMessagesRequest{}
 )
+
+// MessagesUnpinAllMessages invokes method messages.unpinAllMessages#f025bc8b returning error if any.
+func (c *Client) MessagesUnpinAllMessages(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error) {
+	var result MessagesAffectedHistory
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

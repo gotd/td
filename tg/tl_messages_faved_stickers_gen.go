@@ -191,7 +191,7 @@ func DecodeMessagesFavedStickers(buf *bin.Buffer) (MessagesFavedStickersClass, e
 
 // MessagesFavedStickers boxes the MessagesFavedStickersClass providing a helper.
 type MessagesFavedStickersBox struct {
-	MessagesFavedStickers MessagesFavedStickersClass
+	FavedStickers MessagesFavedStickersClass
 }
 
 // Decode implements bin.Decoder for MessagesFavedStickersBox.
@@ -203,14 +203,14 @@ func (b *MessagesFavedStickersBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesFavedStickers = v
+	b.FavedStickers = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesFavedStickersBox.
 func (b *MessagesFavedStickersBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesFavedStickers == nil {
+	if b == nil || b.FavedStickers == nil {
 		return fmt.Errorf("unable to encode MessagesFavedStickersClass as nil")
 	}
-	return b.MessagesFavedStickers.Encode(buf)
+	return b.FavedStickers.Encode(buf)
 }

@@ -183,3 +183,12 @@ var (
 	_ bin.Encoder = &ChannelsGetAdminLogRequest{}
 	_ bin.Decoder = &ChannelsGetAdminLogRequest{}
 )
+
+// ChannelsGetAdminLog invokes method channels.getAdminLog#33ddf480 returning error if any.
+func (c *Client) ChannelsGetAdminLog(ctx context.Context, request *ChannelsGetAdminLogRequest) (*ChannelsAdminLogResults, error) {
+	var result ChannelsAdminLogResults
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -115,3 +115,12 @@ var (
 	_ bin.Encoder = &UploadGetFileRequest{}
 	_ bin.Decoder = &UploadGetFileRequest{}
 )
+
+// UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.
+func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {
+	var result UploadFileBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.File, nil
+}

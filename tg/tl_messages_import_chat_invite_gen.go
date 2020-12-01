@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesImportChatInviteRequest{}
 	_ bin.Decoder = &MessagesImportChatInviteRequest{}
 )
+
+// MessagesImportChatInvite invokes method messages.importChatInvite#6c50051c returning error if any.
+func (c *Client) MessagesImportChatInvite(ctx context.Context, request *MessagesImportChatInviteRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

@@ -194,7 +194,7 @@ func DecodeMessagesChats(buf *bin.Buffer) (MessagesChatsClass, error) {
 
 // MessagesChats boxes the MessagesChatsClass providing a helper.
 type MessagesChatsBox struct {
-	MessagesChats MessagesChatsClass
+	Chats MessagesChatsClass
 }
 
 // Decode implements bin.Decoder for MessagesChatsBox.
@@ -206,14 +206,14 @@ func (b *MessagesChatsBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.MessagesChats = v
+	b.Chats = v
 	return nil
 }
 
 // Encode implements bin.Encode for MessagesChatsBox.
 func (b *MessagesChatsBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.MessagesChats == nil {
+	if b == nil || b.Chats == nil {
 		return fmt.Errorf("unable to encode MessagesChatsClass as nil")
 	}
-	return b.MessagesChats.Encode(buf)
+	return b.Chats.Encode(buf)
 }

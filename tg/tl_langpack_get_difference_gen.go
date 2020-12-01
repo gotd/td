@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &LangpackGetDifferenceRequest{}
 	_ bin.Decoder = &LangpackGetDifferenceRequest{}
 )
+
+// LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.
+func (c *Client) LangpackGetDifference(ctx context.Context, request *LangpackGetDifferenceRequest) (*LangPackDifference, error) {
+	var result LangPackDifference
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

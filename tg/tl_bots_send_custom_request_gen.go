@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &BotsSendCustomRequestRequest{}
 	_ bin.Decoder = &BotsSendCustomRequestRequest{}
 )
+
+// BotsSendCustomRequest invokes method bots.sendCustomRequest#aa2769ed returning error if any.
+func (c *Client) BotsSendCustomRequest(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error) {
+	var result DataJSON
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -68,3 +68,12 @@ var (
 	_ bin.Encoder = &MessagesClearRecentStickersRequest{}
 	_ bin.Decoder = &MessagesClearRecentStickersRequest{}
 )
+
+// MessagesClearRecentStickers invokes method messages.clearRecentStickers#8999602d returning error if any.
+func (c *Client) MessagesClearRecentStickers(ctx context.Context, request *MessagesClearRecentStickersRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

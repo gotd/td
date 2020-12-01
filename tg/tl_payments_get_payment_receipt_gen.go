@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &PaymentsGetPaymentReceiptRequest{}
 	_ bin.Decoder = &PaymentsGetPaymentReceiptRequest{}
 )
+
+// PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#a092a980 returning error if any.
+func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error) {
+	var result PaymentsPaymentReceipt
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -202,3 +202,12 @@ var (
 	_ bin.Encoder = &AccountUpdateThemeRequest{}
 	_ bin.Decoder = &AccountUpdateThemeRequest{}
 )
+
+// AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.
+func (c *Client) AccountUpdateTheme(ctx context.Context, request *AccountUpdateThemeRequest) (*Theme, error) {
+	var result Theme
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &ContactsResetSavedRequest{}
 	_ bin.Decoder = &ContactsResetSavedRequest{}
 )
+
+// ContactsResetSaved invokes method contacts.resetSaved#879537f1 returning error if any.
+func (c *Client) ContactsResetSaved(ctx context.Context, request *ContactsResetSavedRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

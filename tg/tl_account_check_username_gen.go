@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountCheckUsernameRequest{}
 	_ bin.Decoder = &AccountCheckUsernameRequest{}
 )
+
+// AccountCheckUsername invokes method account.checkUsername#2714d86c returning error if any.
+func (c *Client) AccountCheckUsername(ctx context.Context, request *AccountCheckUsernameRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

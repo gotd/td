@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &MessagesGetStickersRequest{}
 	_ bin.Decoder = &MessagesGetStickersRequest{}
 )
+
+// MessagesGetStickers invokes method messages.getStickers#43d4f2c returning error if any.
+func (c *Client) MessagesGetStickers(ctx context.Context, request *MessagesGetStickersRequest) (MessagesStickersClass, error) {
+	var result MessagesStickersBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Stickers, nil
+}

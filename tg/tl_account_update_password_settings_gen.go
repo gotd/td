@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &AccountUpdatePasswordSettingsRequest{}
 	_ bin.Decoder = &AccountUpdatePasswordSettingsRequest{}
 )
+
+// AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.
+func (c *Client) AccountUpdatePasswordSettings(ctx context.Context, request *AccountUpdatePasswordSettingsRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

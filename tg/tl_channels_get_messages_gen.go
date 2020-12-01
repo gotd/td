@@ -85,3 +85,12 @@ var (
 	_ bin.Encoder = &ChannelsGetMessagesRequest{}
 	_ bin.Decoder = &ChannelsGetMessagesRequest{}
 )
+
+// ChannelsGetMessages invokes method channels.getMessages#ad8c9a23 returning error if any.
+func (c *Client) ChannelsGetMessages(ctx context.Context, request *ChannelsGetMessagesRequest) (MessagesMessagesClass, error) {
+	var result MessagesMessagesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Messages, nil
+}

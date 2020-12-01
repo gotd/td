@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesCheckChatInviteRequest{}
 	_ bin.Decoder = &MessagesCheckChatInviteRequest{}
 )
+
+// MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.
+func (c *Client) MessagesCheckChatInvite(ctx context.Context, request *MessagesCheckChatInviteRequest) (ChatInviteClass, error) {
+	var result ChatInviteBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.ChatInvite, nil
+}

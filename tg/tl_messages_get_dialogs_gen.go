@@ -152,3 +152,12 @@ var (
 	_ bin.Encoder = &MessagesGetDialogsRequest{}
 	_ bin.Decoder = &MessagesGetDialogsRequest{}
 )
+
+// MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
+func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
+	var result MessagesDialogsBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Dialogs, nil
+}

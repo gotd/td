@@ -156,3 +156,12 @@ var (
 	_ bin.Encoder = &MessagesGetBotCallbackAnswerRequest{}
 	_ bin.Decoder = &MessagesGetBotCallbackAnswerRequest{}
 )
+
+// MessagesGetBotCallbackAnswer invokes method messages.getBotCallbackAnswer#9342ca07 returning error if any.
+func (c *Client) MessagesGetBotCallbackAnswer(ctx context.Context, request *MessagesGetBotCallbackAnswerRequest) (*MessagesBotCallbackAnswer, error) {
+	var result MessagesBotCallbackAnswer
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

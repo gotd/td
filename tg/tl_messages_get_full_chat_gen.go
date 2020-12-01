@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesGetFullChatRequest{}
 	_ bin.Decoder = &MessagesGetFullChatRequest{}
 )
+
+// MessagesGetFullChat invokes method messages.getFullChat#3b831c66 returning error if any.
+func (c *Client) MessagesGetFullChat(ctx context.Context, request *MessagesGetFullChatRequest) (*MessagesChatFull, error) {
+	var result MessagesChatFull
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

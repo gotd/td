@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &ContactsResetTopPeerRatingRequest{}
 	_ bin.Decoder = &ContactsResetTopPeerRatingRequest{}
 )
+
+// ContactsResetTopPeerRating invokes method contacts.resetTopPeerRating#1ae373ac returning error if any.
+func (c *Client) ContactsResetTopPeerRating(ctx context.Context, request *ContactsResetTopPeerRatingRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

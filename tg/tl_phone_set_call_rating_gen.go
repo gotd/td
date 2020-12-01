@@ -98,3 +98,12 @@ var (
 	_ bin.Encoder = &PhoneSetCallRatingRequest{}
 	_ bin.Decoder = &PhoneSetCallRatingRequest{}
 )
+
+// PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
+func (c *Client) PhoneSetCallRating(ctx context.Context, request *PhoneSetCallRatingRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

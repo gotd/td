@@ -66,3 +66,12 @@ var (
 	_ bin.Encoder = &MessagesGetDhConfigRequest{}
 	_ bin.Decoder = &MessagesGetDhConfigRequest{}
 )
+
+// MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.
+func (c *Client) MessagesGetDhConfig(ctx context.Context, request *MessagesGetDhConfigRequest) (MessagesDhConfigClass, error) {
+	var result MessagesDhConfigBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.DhConfig, nil
+}

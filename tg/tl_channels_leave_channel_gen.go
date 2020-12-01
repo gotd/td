@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &ChannelsLeaveChannelRequest{}
 	_ bin.Decoder = &ChannelsLeaveChannelRequest{}
 )
+
+// ChannelsLeaveChannel invokes method channels.leaveChannel#f836aa95 returning error if any.
+func (c *Client) ChannelsLeaveChannel(ctx context.Context, request *ChannelsLeaveChannelRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

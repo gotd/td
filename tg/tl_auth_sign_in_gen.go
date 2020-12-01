@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &AuthSignInRequest{}
 	_ bin.Decoder = &AuthSignInRequest{}
 )
+
+// AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {
+	var result AuthAuthorizationBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Authorization, nil
+}

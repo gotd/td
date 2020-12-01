@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &AccountGetTmpPasswordRequest{}
 	_ bin.Decoder = &AccountGetTmpPasswordRequest{}
 )
+
+// AccountGetTmpPassword invokes method account.getTmpPassword#449e0b51 returning error if any.
+func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {
+	var result AccountTmpPassword
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

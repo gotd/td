@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &AccountGetWallPaperRequest{}
 	_ bin.Decoder = &AccountGetWallPaperRequest{}
 )
+
+// AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.
+func (c *Client) AccountGetWallPaper(ctx context.Context, request *AccountGetWallPaperRequest) (WallPaperClass, error) {
+	var result WallPaperBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.WallPaper, nil
+}

@@ -86,3 +86,12 @@ var (
 	_ bin.Encoder = &ChannelsEditLocationRequest{}
 	_ bin.Decoder = &ChannelsEditLocationRequest{}
 )
+
+// ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
+func (c *Client) ChannelsEditLocation(ctx context.Context, request *ChannelsEditLocationRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

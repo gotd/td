@@ -115,3 +115,12 @@ var (
 	_ bin.Encoder = &UpdatesGetDifferenceRequest{}
 	_ bin.Decoder = &UpdatesGetDifferenceRequest{}
 )
+
+// UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
+func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {
+	var result UpdatesDifferenceBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Difference, nil
+}

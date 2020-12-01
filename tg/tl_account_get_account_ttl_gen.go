@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &AccountGetAccountTTLRequest{}
 	_ bin.Decoder = &AccountGetAccountTTLRequest{}
 )
+
+// AccountGetAccountTTL invokes method account.getAccountTTL#8fc711d returning error if any.
+func (c *Client) AccountGetAccountTTL(ctx context.Context, request *AccountGetAccountTTLRequest) (*AccountDaysTTL, error) {
+	var result AccountDaysTTL
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

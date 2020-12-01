@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &MessagesAddChatUserRequest{}
 	_ bin.Decoder = &MessagesAddChatUserRequest{}
 )
+
+// MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.
+func (c *Client) MessagesAddChatUser(ctx context.Context, request *MessagesAddChatUserRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &MessagesGetEmojiURLRequest{}
 	_ bin.Decoder = &MessagesGetEmojiURLRequest{}
 )
+
+// MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.
+func (c *Client) MessagesGetEmojiURL(ctx context.Context, request *MessagesGetEmojiURLRequest) (*EmojiURL, error) {
+	var result EmojiURL
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

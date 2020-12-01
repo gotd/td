@@ -166,7 +166,7 @@ func DecodeHelpTermsOfServiceUpdate(buf *bin.Buffer) (HelpTermsOfServiceUpdateCl
 
 // HelpTermsOfServiceUpdate boxes the HelpTermsOfServiceUpdateClass providing a helper.
 type HelpTermsOfServiceUpdateBox struct {
-	HelpTermsOfServiceUpdate HelpTermsOfServiceUpdateClass
+	TermsOfServiceUpdate HelpTermsOfServiceUpdateClass
 }
 
 // Decode implements bin.Decoder for HelpTermsOfServiceUpdateBox.
@@ -178,14 +178,14 @@ func (b *HelpTermsOfServiceUpdateBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.HelpTermsOfServiceUpdate = v
+	b.TermsOfServiceUpdate = v
 	return nil
 }
 
 // Encode implements bin.Encode for HelpTermsOfServiceUpdateBox.
 func (b *HelpTermsOfServiceUpdateBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.HelpTermsOfServiceUpdate == nil {
+	if b == nil || b.TermsOfServiceUpdate == nil {
 		return fmt.Errorf("unable to encode HelpTermsOfServiceUpdateClass as nil")
 	}
-	return b.HelpTermsOfServiceUpdate.Encode(buf)
+	return b.TermsOfServiceUpdate.Encode(buf)
 }

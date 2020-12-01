@@ -81,3 +81,12 @@ var (
 	_ bin.Encoder = &MessagesEditChatAdminRequest{}
 	_ bin.Decoder = &MessagesEditChatAdminRequest{}
 )
+
+// MessagesEditChatAdmin invokes method messages.editChatAdmin#a9e69f2e returning error if any.
+func (c *Client) MessagesEditChatAdmin(ctx context.Context, request *MessagesEditChatAdminRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

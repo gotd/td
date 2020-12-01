@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &MessagesGetPollResultsRequest{}
 	_ bin.Decoder = &MessagesGetPollResultsRequest{}
 )
+
+// MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.
+func (c *Client) MessagesGetPollResults(ctx context.Context, request *MessagesGetPollResultsRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

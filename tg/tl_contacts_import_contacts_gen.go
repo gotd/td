@@ -67,3 +67,12 @@ var (
 	_ bin.Encoder = &ContactsImportContactsRequest{}
 	_ bin.Decoder = &ContactsImportContactsRequest{}
 )
+
+// ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.
+func (c *Client) ContactsImportContacts(ctx context.Context, request *ContactsImportContactsRequest) (*ContactsImportedContacts, error) {
+	var result ContactsImportedContacts
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

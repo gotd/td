@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &AccountSendVerifyEmailCodeRequest{}
 	_ bin.Decoder = &AccountSendVerifyEmailCodeRequest{}
 )
+
+// AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.
+func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {
+	var result AccountSentEmailCode
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

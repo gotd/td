@@ -251,7 +251,7 @@ func DecodeContactsTopPeers(buf *bin.Buffer) (ContactsTopPeersClass, error) {
 
 // ContactsTopPeers boxes the ContactsTopPeersClass providing a helper.
 type ContactsTopPeersBox struct {
-	ContactsTopPeers ContactsTopPeersClass
+	TopPeers ContactsTopPeersClass
 }
 
 // Decode implements bin.Decoder for ContactsTopPeersBox.
@@ -263,14 +263,14 @@ func (b *ContactsTopPeersBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.ContactsTopPeers = v
+	b.TopPeers = v
 	return nil
 }
 
 // Encode implements bin.Encode for ContactsTopPeersBox.
 func (b *ContactsTopPeersBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.ContactsTopPeers == nil {
+	if b == nil || b.TopPeers == nil {
 		return fmt.Errorf("unable to encode ContactsTopPeersClass as nil")
 	}
-	return b.ContactsTopPeers.Encode(buf)
+	return b.TopPeers.Encode(buf)
 }

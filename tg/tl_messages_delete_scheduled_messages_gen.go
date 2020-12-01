@@ -80,3 +80,12 @@ var (
 	_ bin.Encoder = &MessagesDeleteScheduledMessagesRequest{}
 	_ bin.Decoder = &MessagesDeleteScheduledMessagesRequest{}
 )
+
+// MessagesDeleteScheduledMessages invokes method messages.deleteScheduledMessages#59ae2b16 returning error if any.
+func (c *Client) MessagesDeleteScheduledMessages(ctx context.Context, request *MessagesDeleteScheduledMessagesRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

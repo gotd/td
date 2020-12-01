@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &HelpGetDeepLinkInfoRequest{}
 	_ bin.Decoder = &HelpGetDeepLinkInfoRequest{}
 )
+
+// HelpGetDeepLinkInfo invokes method help.getDeepLinkInfo#3fedc75f returning error if any.
+func (c *Client) HelpGetDeepLinkInfo(ctx context.Context, request *HelpGetDeepLinkInfoRequest) (HelpDeepLinkInfoClass, error) {
+	var result HelpDeepLinkInfoBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.DeepLinkInfo, nil
+}

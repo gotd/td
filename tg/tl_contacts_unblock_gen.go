@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &ContactsUnblockRequest{}
 	_ bin.Decoder = &ContactsUnblockRequest{}
 )
+
+// ContactsUnblock invokes method contacts.unblock#bea65d50 returning error if any.
+func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (BoolClass, error) {
+	var result BoolBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Bool, nil
+}

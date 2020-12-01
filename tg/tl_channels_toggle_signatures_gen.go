@@ -71,3 +71,12 @@ var (
 	_ bin.Encoder = &ChannelsToggleSignaturesRequest{}
 	_ bin.Decoder = &ChannelsToggleSignaturesRequest{}
 )
+
+// ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.
+func (c *Client) ChannelsToggleSignatures(ctx context.Context, request *ChannelsToggleSignaturesRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

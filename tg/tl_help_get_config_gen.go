@@ -46,3 +46,12 @@ var (
 	_ bin.Encoder = &HelpGetConfigRequest{}
 	_ bin.Decoder = &HelpGetConfigRequest{}
 )
+
+// HelpGetConfig invokes method help.getConfig#c4f9186b returning error if any.
+func (c *Client) HelpGetConfig(ctx context.Context, request *HelpGetConfigRequest) (*Config, error) {
+	var result Config
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

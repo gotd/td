@@ -83,3 +83,12 @@ var (
 	_ bin.Encoder = &StatsGetBroadcastStatsRequest{}
 	_ bin.Decoder = &StatsGetBroadcastStatsRequest{}
 )
+
+// StatsGetBroadcastStats invokes method stats.getBroadcastStats#ab42441a returning error if any.
+func (c *Client) StatsGetBroadcastStats(ctx context.Context, request *StatsGetBroadcastStatsRequest) (*StatsBroadcastStats, error) {
+	var result StatsBroadcastStats
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

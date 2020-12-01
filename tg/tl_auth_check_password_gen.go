@@ -61,3 +61,12 @@ var (
 	_ bin.Encoder = &AuthCheckPasswordRequest{}
 	_ bin.Decoder = &AuthCheckPasswordRequest{}
 )
+
+// AuthCheckPassword invokes method auth.checkPassword#d18b4d16 returning error if any.
+func (c *Client) AuthCheckPassword(ctx context.Context, request *AuthCheckPasswordRequest) (AuthAuthorizationClass, error) {
+	var result AuthAuthorizationBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Authorization, nil
+}

@@ -242,7 +242,7 @@ func DecodePhotosPhotos(buf *bin.Buffer) (PhotosPhotosClass, error) {
 
 // PhotosPhotos boxes the PhotosPhotosClass providing a helper.
 type PhotosPhotosBox struct {
-	PhotosPhotos PhotosPhotosClass
+	Photos PhotosPhotosClass
 }
 
 // Decode implements bin.Decoder for PhotosPhotosBox.
@@ -254,14 +254,14 @@ func (b *PhotosPhotosBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.PhotosPhotos = v
+	b.Photos = v
 	return nil
 }
 
 // Encode implements bin.Encode for PhotosPhotosBox.
 func (b *PhotosPhotosBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.PhotosPhotos == nil {
+	if b == nil || b.Photos == nil {
 		return fmt.Errorf("unable to encode PhotosPhotosClass as nil")
 	}
-	return b.PhotosPhotos.Encode(buf)
+	return b.Photos.Encode(buf)
 }

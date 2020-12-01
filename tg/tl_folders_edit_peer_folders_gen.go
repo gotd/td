@@ -67,3 +67,12 @@ var (
 	_ bin.Encoder = &FoldersEditPeerFoldersRequest{}
 	_ bin.Decoder = &FoldersEditPeerFoldersRequest{}
 )
+
+// FoldersEditPeerFolders invokes method folders.editPeerFolders#6847d0ab returning error if any.
+func (c *Client) FoldersEditPeerFolders(ctx context.Context, request *FoldersEditPeerFoldersRequest) (UpdatesClass, error) {
+	var result UpdatesBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Updates, nil
+}

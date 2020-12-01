@@ -76,3 +76,12 @@ var (
 	_ bin.Encoder = &AccountChangePhoneRequest{}
 	_ bin.Decoder = &AccountChangePhoneRequest{}
 )
+
+// AccountChangePhone invokes method account.changePhone#70c32edb returning error if any.
+func (c *Client) AccountChangePhone(ctx context.Context, request *AccountChangePhoneRequest) (UserClass, error) {
+	var result UserBox
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.User, nil
+}
