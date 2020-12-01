@@ -15,5 +15,5 @@
 
 ## Client
 
-- [ ] Handle "bad server salt" error
+- [x] Handle "bad server salt" error
 - [x] Session storage
