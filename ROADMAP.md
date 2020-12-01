@@ -13,6 +13,7 @@
 - [x] Boxes for class decode
 - [x] RPC Requests
 - [ ] Reduce signature of RPC requests with zero methods
+- [ ] Vector as RPC Result
 
 ## Client
 
