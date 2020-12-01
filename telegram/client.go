@@ -160,9 +160,8 @@ type Options struct {
 	UpdateHandler UpdateHandler
 }
 
-// Dial initializes Client and creates connection to Telegram.
-//
-// Note that no data is send or received during this process.
+// Dial initializes Client and creates connection to Telegram, initializing
+// new or loading session from provided storage.
 func Dial(ctx context.Context, opt Options) (*Client, error) {
 	if opt.Dialer == nil {
 		opt.Dialer = &net.Dialer{}
