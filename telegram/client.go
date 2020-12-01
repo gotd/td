@@ -30,6 +30,9 @@ type UpdateHandler func(ctx context.Context, c UpdateClient, u *tg.Updates) erro
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
+	// tg provides RPC calls via Client.
+	tg *tg.Client
+
 	// conn is owned by Client and not exposed.
 	// Currently immutable.
 	conn net.Conn
@@ -221,6 +224,9 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 			proto.TypesMap(),
 		),
 	}
+
+	// Initializing internal RPC caller.
+	client.tg = tg.NewClient(client)
 
 	// Loading session from storage if provided.
 	if err := client.loadSession(ctx); err != nil {

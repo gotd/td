@@ -128,10 +128,13 @@ func run(ctx context.Context) error {
 		logger.Info("Bot login ok")
 	}
 
+	// Using tg.Client for directly calling RPC.
+	raw := tg.NewClient(client)
+
 	// Getting state is required to process updates in your code.
 	// Currently missed updates are not processed, so only new
 	// messages will be handled.
-	state, err := client.GetState(dialCtx)
+	state, err := raw.UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
 	if err != nil {
 		return xerrors.Errorf("failed to get state: %w", err)
 	}

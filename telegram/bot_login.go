@@ -10,19 +10,19 @@ import (
 
 // BotLogin performs bot authorization request.
 func (c *Client) BotLogin(ctx context.Context, token string) error {
-	var res tg.AuthAuthorizationBox
-	if err := c.rpcContent(ctx, &tg.AuthImportBotAuthorizationRequest{
+	auth, err := c.tg.AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
 		APIHash:      c.appHash,
 		BotAuthToken: token,
-	}, &res); err != nil {
-		return xerrors.Errorf("failed to do request: %w", err)
+	})
+	if err != nil {
+		return err
 	}
-	switch res.AuthAuthorization.(type) {
+	switch auth.(type) {
 	case *tg.AuthAuthorization:
 		// Ok.
 		return nil
 	default:
-		return xerrors.Errorf("got unexpected response %T", res.AuthAuthorization)
+		return xerrors.Errorf("got unexpected response %T", auth)
 	}
 }

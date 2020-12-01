@@ -25,6 +25,32 @@ implementation without performance bottlenecks.
 
 You can see `cmd/gotdecho` for echo bot example.
 
+### Calling MTProto directly
+
+You can use generated `tg.Client` that allows calling any MTProto methods
+directly.
+
+```go
+client, err := telegram.Dial(dialCtx, telegram.Options{
+    Addr:   "149.154.167.40:443",
+
+    // Grab these from https://my.telegram.org/apps.
+    // Never share it or hardcode!
+    AppID:   appID,
+    AppHash: appHash,
+})
+if err != nil {
+    panic(err)
+}
+
+// updates.getState#edd4882a
+state, err := tg.NewClient(client).UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
+if err != nil {
+    panic(err)
+}
+// Got state: &{Pts:197 Qts:0 Date:1606855030 Seq:1 UnreadCount:106}
+```
+
 ## Reference
 
 The MTProto protocol description is [hosted](https://core.telegram.org/mtproto#general-description) by Telegram.
