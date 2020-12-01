@@ -17,3 +17,7 @@
 
 - [x] Handle "bad server salt" error
 - [x] Session storage
+
+## Testing
+- [ ] tgtest, like http test
+- [ ] e2e tests
