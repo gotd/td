@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &SendRequest{}
 	_ bin.Decoder = &SendRequest{}
 )
+
+// Send invokes method send#f74488a returning error if any.
+func (c *Client) Send(ctx context.Context, request *SendRequest) (*SMS, error) {
+	var result SMS
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

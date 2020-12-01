@@ -142,3 +142,5 @@ ping id:int32 = Ok;
 send msg:SMS = SMS;
 
 sendMultipleSMS messages:vector<SMS> = Ok;
+
+doAuth = Auth;

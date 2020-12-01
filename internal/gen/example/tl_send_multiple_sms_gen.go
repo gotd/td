@@ -67,3 +67,12 @@ var (
 	_ bin.Encoder = &SendMultipleSMSRequest{}
 	_ bin.Decoder = &SendMultipleSMSRequest{}
 )
+
+// SendMultipleSMS invokes method sendMultipleSMS#df18e5ca returning error if any.
+func (c *Client) SendMultipleSMS(ctx context.Context, request *SendMultipleSMSRequest) error {
+	var ok Ok
+	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
+		return err
+	}
+	return nil
+}

@@ -156,7 +156,7 @@ func DecodeUserAuth(buf *bin.Buffer) (UserAuthClass, error) {
 
 // UserAuth boxes the UserAuthClass providing a helper.
 type UserAuthBox struct {
-	UserAuth UserAuthClass
+	Auth UserAuthClass
 }
 
 // Decode implements bin.Decoder for UserAuthBox.
@@ -168,14 +168,14 @@ func (b *UserAuthBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.UserAuth = v
+	b.Auth = v
 	return nil
 }
 
 // Encode implements bin.Encode for UserAuthBox.
 func (b *UserAuthBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.UserAuth == nil {
+	if b == nil || b.Auth == nil {
 		return fmt.Errorf("unable to encode UserAuthClass as nil")
 	}
-	return b.UserAuth.Encode(buf)
+	return b.Auth.Encode(buf)
 }

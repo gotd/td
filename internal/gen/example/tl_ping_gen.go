@@ -56,3 +56,12 @@ var (
 	_ bin.Encoder = &PingRequest{}
 	_ bin.Decoder = &PingRequest{}
 )
+
+// Ping invokes method ping#ce73048f returning error if any.
+func (c *Client) Ping(ctx context.Context, request *PingRequest) error {
+	var ok Ok
+	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
+		return err
+	}
+	return nil
+}

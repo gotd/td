@@ -167,7 +167,7 @@ func DecodeAccountThemes(buf *bin.Buffer) (AccountThemesClass, error) {
 
 // AccountThemes boxes the AccountThemesClass providing a helper.
 type AccountThemesBox struct {
-	AccountThemes AccountThemesClass
+	Themes AccountThemesClass
 }
 
 // Decode implements bin.Decoder for AccountThemesBox.
@@ -179,14 +179,14 @@ func (b *AccountThemesBox) Decode(buf *bin.Buffer) error {
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
-	b.AccountThemes = v
+	b.Themes = v
 	return nil
 }
 
 // Encode implements bin.Encode for AccountThemesBox.
 func (b *AccountThemesBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.AccountThemes == nil {
+	if b == nil || b.Themes == nil {
 		return fmt.Errorf("unable to encode AccountThemesClass as nil")
 	}
-	return b.AccountThemes.Encode(buf)
+	return b.Themes.Encode(buf)
 }

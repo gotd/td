@@ -1,0 +1,21 @@
+{{ define "client" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+// Invoker can invoke raw MTProto rpc calls.
+type Invoker interface {
+  InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+}
+
+// Client implement methods for calling functions from TL schema via Invoker.
+type Client struct {
+  rpc Invoker
+}
+
+func NewClient(invoker Invoker) *Client {
+  return &Client{
+    rpc: invoker,
+  }
+}
+
+{{ end }}

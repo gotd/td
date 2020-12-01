@@ -29,6 +29,17 @@ type structDef struct {
 	Interface     string
 	InterfaceFunc string
 
+	// Method name if function definition.
+	Method string
+	// Result type name.
+	Result string
+	// ResultSingular denotes whether Result is singular type an can be used
+	// directly.
+	ResultSingular bool
+	// ResultBaseName is BaseName of result interface.
+	ResultBaseName string
+	ResultFunc     string
+
 	// Fields of structure.
 	Fields []fieldDef
 
@@ -70,6 +81,8 @@ func (g *Generator) makeStructures() error {
 
 			Interface:     t.Interface,
 			InterfaceFunc: t.InterfaceFunc,
+
+			Method: t.Method,
 		}
 		// Selecting receiver based on non-namespaced type.
 		s.Receiver = strings.ToLower(d.Name[:1])
@@ -90,6 +103,20 @@ func (g *Generator) makeStructures() error {
 				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
 			}
 			s.Fields = append(s.Fields, f)
+		}
+
+		if s.Method != "" && t.Class != "Ok" {
+			// RPC call.
+			class, ok := g.classes[t.Class]
+			if ok {
+				s.Result = class.Name
+				s.ResultSingular = class.Singular
+				s.ResultBaseName = class.BaseName
+				s.ResultFunc = class.Func
+			} else {
+				// Not implemented.
+				s.Method = ""
+			}
 		}
 
 		g.structs = append(g.structs, s)

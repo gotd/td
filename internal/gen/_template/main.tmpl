@@ -205,6 +205,37 @@ _ bin.Decoder = &{{ $s.Name }}{}
 _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{ end }}
 )
+
+{{- if $s.Method }}
+// {{ $s.Method }} invokes method {{ $s.RawType }} returning error if any.
+{{- if $s.Result }}
+{{- if $s.ResultSingular }}
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) (*{{ $s.Result }}, error) {
+    var result {{ $s.Result }}
+    if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+        return nil, err
+    }
+    return &result, nil
+}
+{{- else }}
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ $s.Result }}, error) {
+    var result {{ $s.ResultFunc }}Box
+    if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+        return nil, err
+    }
+    return result.{{ $s.ResultBaseName }}, nil
+}
+{{- end }}
+{{- else }}
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) error {
+    var ok Ok
+    if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
+        return err
+    }
+    return nil
+}
+{{- end }}
+{{- end }}
 {{ end }}
 
 {{ range $f:= $.Interfaces }}
@@ -250,7 +281,7 @@ func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {
 
 // {{ $f.Func }} boxes the {{ $f.Name }} providing a helper.
 type {{ $f.Func }}Box struct {
-    {{ $f.Func }} {{ $f.Name }}
+    {{ $f.BaseName }} {{ $f.Name }}
 }
 
 // Decode implements bin.Decoder for {{ $f.Func }}Box.
@@ -262,16 +293,16 @@ func (b *{{ $f.Func }}Box) Decode(buf *bin.Buffer) error {
     if err != nil {
         return fmt.Errorf("unable to decode boxed value: %w", err)
     }
-    b.{{ $f.Func }} = v
+    b.{{ $f.BaseName }} = v
     return nil
 }
 
 // Encode implements bin.Encode for {{ $f.Func }}Box.
 func (b *{{ $f.Func }}Box) Encode(buf *bin.Buffer) error {
-    if b == nil || b.{{ $f.Func }} == nil {
+    if b == nil || b.{{ $f.BaseName }} == nil {
         return fmt.Errorf("unable to encode {{ $f.Name }} as nil")
     }
-    return b.{{ $f.Func }}.Encode(buf)
+    return b.{{ $f.BaseName }}.Encode(buf)
 }
 {{ end }}
 

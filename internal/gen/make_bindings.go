@@ -14,7 +14,7 @@ type typeBinding struct {
 	Name          string // go type name, like in type Name struct{}
 	Interface     string // go type interface, like UserAuthClass
 	InterfaceFunc string // go encoding/decoding function postfix, like UserAuth in DecodeUserAuth
-	Method        bool   // is method
+	Method        string // go method name if function
 }
 
 type classBinding struct {
@@ -118,8 +118,8 @@ func (g *Generator) makeBindings() error {
 			tb.InterfaceFunc = c.Func
 		case tl.CategoryFunction:
 			// Just creating new bare type.
+			tb.Method = tb.Name
 			tb.Name += "Request"
-			tb.Method = true
 		}
 		g.types[typeKey] = tb
 	}
