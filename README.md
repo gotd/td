@@ -13,6 +13,9 @@ Goal of this project is to implement Telegram client while
 providing building blocks for the other client or even server
 implementation without performance bottlenecks.
 
+This project is fully non-commercial and not affiliated with any commercial organization
+(including Telegram LLC).
+
 ## Features
 
 * Full MTProto 2.0 implementation in go
@@ -67,5 +70,8 @@ as reference or for testing.
 * [sdidyk/mtproto](https://github.com/sdidyk/mtproto), [cjongseok/mtproto](https://github.com/cjongseok/mtproto), [xelaj/mtproto](https://github.com/xelaj/mtproto)  (MTProto 1.0 in go)
 
 ## License
+MIT License
 
-MIT License, created by Aleksandr (ernado) Razumov in 2020
+Created by Aleksandr (ernado) Razumov
+
+2020
