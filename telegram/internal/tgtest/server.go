@@ -158,6 +158,7 @@ func (s *Server) serve() {
 			return
 		}
 		go func() {
+			defer func() { recover() }()
 			if err := s.serveConn(conn); err != nil {
 				s.tb.Log(err)
 			}
