@@ -34,7 +34,7 @@ You can use generated `tg.Client` that allows calling any MTProto methods
 directly.
 
 ```go
-client, err := telegram.Dial(dialCtx, telegram.Options{
+client, err := telegram.Dial(ctx, telegram.Options{
     Addr:   "149.154.167.40:443",
 
     // Grab these from https://my.telegram.org/apps.
@@ -45,7 +45,10 @@ client, err := telegram.Dial(dialCtx, telegram.Options{
 if err != nil {
     panic(err)
 }
-
+// Grab token from @BotFather.
+if err := client.BotLogin(ctx, "token:12345"); err != nil {
+    panic(err)
+}
 // updates.getState#edd4882a
 state, err := tg.NewClient(client).UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
 if err != nil {
