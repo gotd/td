@@ -70,7 +70,7 @@ func getSHA256() hash.Hash {
 // Message keys are defined here:
 // * https://core.telegram.org/mtproto/description#defining-aes-key-and-initialization-vector
 
-// msgKeyLarge appends msg_key_large value to b.
+// msgKeyLarge returns msg_key_large value.
 func msgKeyLarge(authKey AuthKey, plaintextPadded []byte, mode Side) []byte {
 	h := getSHA256()
 	defer sha256Pool.Put(h)
@@ -89,7 +89,7 @@ func messageKey(messageKeyLarge []byte) bin.Int128 {
 	return v
 }
 
-// sha256a appends sha256_a value to b.
+// sha256a returns sha256_a value.
 //
 // sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));
 func sha256a(authKey AuthKey, msgKey bin.Int128, x int) []byte {
@@ -102,7 +102,7 @@ func sha256a(authKey AuthKey, msgKey bin.Int128, x int) []byte {
 	return h.Sum(nil)
 }
 
-// sha256b appends sha256_b value to b.
+// sha256b returns sha256_b value.
 //
 // sha256_b = SHA256 (substr (auth_key, 40+x, 36) + msg_key);
 func sha256b(authKey AuthKey, msgKey bin.Int128, x int) []byte {
@@ -115,7 +115,7 @@ func sha256b(authKey AuthKey, msgKey bin.Int128, x int) []byte {
 	return h.Sum(nil)
 }
 
-// aesKey appends aes_key to b.
+// aesKey returns aes_key value.
 //
 // aes_key = substr (sha256_a, 0, 8) + substr (sha256_b, 8, 16) + substr (sha256_a, 24, 8);
 func aesKey(sha256a, sha256b []byte) bin.Int256 {
@@ -126,7 +126,7 @@ func aesKey(sha256a, sha256b []byte) bin.Int256 {
 	return v
 }
 
-// aesIV appends aes_iv to b.
+// aesIV returns aes_iv value.
 //
 // aes_iv = substr (sha256_b, 0, 8) + substr (sha256_a, 8, 16) + substr (sha256_b, 24, 8);
 func aesIV(sha256a, sha256b []byte) bin.Int256 {
