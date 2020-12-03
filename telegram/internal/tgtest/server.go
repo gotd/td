@@ -26,12 +26,12 @@ type Server struct {
 	Listener net.Listener
 
 	key *rsa.PrivateKey
-	tb  TB
 
 	wg sync.WaitGroup
 
-	closedMux sync.Mutex // guards closed
-	closed    bool
+	mux    sync.Mutex // guards closed and tb
+	tb     TB
+	closed bool
 }
 
 func (s *Server) Key() *rsa.PublicKey {
@@ -44,9 +44,9 @@ func (s *Server) Start() {
 }
 
 func (s *Server) Close() {
-	s.closedMux.Lock()
+	s.mux.Lock()
 	s.closed = true
-	s.closedMux.Unlock()
+	s.mux.Unlock()
 	_ = s.Listener.Close()
 	s.wg.Wait()
 }
@@ -170,15 +170,19 @@ func (s *Server) serve() {
 		if err != nil {
 			return
 		}
-		s.closedMux.Lock()
+		s.mux.Lock()
 		closed := s.closed
-		s.closedMux.Unlock()
+		s.mux.Unlock()
 		if closed {
 			break
 		}
 		go func() {
 			if err := s.serveConn(conn); err != nil {
-				s.tb.Log(err)
+				s.mux.Lock()
+				if !s.closed {
+					s.tb.Log(err)
+				}
+				s.mux.Unlock()
 			}
 		}()
 	}
