@@ -59,6 +59,42 @@ if err != nil {
 // Got state: &{Pts:197 Qts:0 Date:1606855030 Seq:1 UnreadCount:106}
 ```
 
+### Generated code
+
+Code output of `gotdgen` contains references to TL types, examples and URL to
+official documentation.
+
+For example, the [auth.Authorization](https://core.telegram.org/type/auth.Authorization) type.
+
+```go
+// AuthAuthorizationClass represents auth.Authorization generic type.
+//
+// See https://core.telegram.org/type/auth.Authorization for reference.
+//
+// Example:
+//  g, err := DecodeAuthAuthorization(buf)
+//  if err != nil {
+//      panic(err)
+//  }
+//  switch v := g.(type) {
+//  case *AuthAuthorization: // auth.authorization#cd050916
+//  case *AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
+//  default: panic(v)
+//  }
+type AuthAuthorizationClass interface {
+	bin.Encoder
+	bin.Decoder
+	construct() AuthAuthorizationClass
+}
+```
+Also, the corresponding [auth.signIn](https://core.telegram.org/method/auth.signIn) method:
+```go
+// AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+//
+// See https://core.telegram.org/method/auth.signIn for reference.
+func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {}
+```
+
 ## Reference
 
 The MTProto protocol description is [hosted](https://core.telegram.org/mtproto#general-description) by Telegram.
