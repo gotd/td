@@ -19,6 +19,8 @@
 
 - [x] Handle "bad server salt" error
 - [x] Session storage
+- [ ] Automatic reconnect handling
+- [ ] Background pings
 
 ## Testing
 - [ ] tgtest, like http test
