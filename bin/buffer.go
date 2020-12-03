@@ -1,10 +1,25 @@
 package bin
 
-import "io"
+import (
+	"io"
+)
 
 // Buffer implements low level binary (de-)serialization for TL.
 type Buffer struct {
 	Buf []byte
+}
+
+// Read implements io.Reader.
+func (b *Buffer) Read(p []byte) (n int, err error) {
+	if len(p) == 0 {
+		return 0, nil
+	}
+	if len(b.Buf) == 0 {
+		return 0, io.EOF
+	}
+	n = copy(p, b.Buf)
+	b.Buf = b.Buf[n:]
+	return n, nil
 }
 
 func (b *Buffer) Copy() []byte {

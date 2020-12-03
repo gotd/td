@@ -1,6 +1,7 @@
 package proto
 
 import (
+	"errors"
 	"fmt"
 	"io"
 
@@ -18,6 +19,10 @@ var IntermediateClientStart = []byte{0xee, 0xee, 0xee, 0xee}
 
 // EncodeIntermediate encodes b as payload to w.
 func WriteIntermediate(w io.Writer, b *bin.Buffer) error {
+	if b.Len() > maxMessageSize {
+		return ErrMessageTooBig
+	}
+
 	// Re-using b.Buf if possible to reduce allocations.
 	buf := append(b.Buf[len(b.Buf):], make([]byte, 0, 4)...)
 	inner := bin.Buffer{Buf: buf}
@@ -31,6 +36,11 @@ func WriteIntermediate(w io.Writer, b *bin.Buffer) error {
 	return nil
 }
 
+// ErrMessageTooBig means that message length is too big to be handled.
+var ErrMessageTooBig = errors.New("message is too big")
+
+const maxMessageSize = 1024 * 1024 // 1mb
+
 // ReadIntermediate reads payload from r to b.
 func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
 	b.Buf = append(b.Buf[:0], make([]byte, 4)...)
@@ -40,6 +50,9 @@ func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
 	dataLen, err := b.Int32()
 	if err != nil {
 		return err
+	}
+	if dataLen > maxMessageSize {
+		return ErrMessageTooBig
 	}
 	b.Buf = append(b.Buf[:0], make([]byte, int(dataLen))...)
 	if _, err := r.Read(b.Buf); err != nil {
