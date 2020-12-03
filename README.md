@@ -23,6 +23,8 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * Pluggable session storage
 * Vendored Telegram public keys that are kept up-to-date
 * Testing and fuzzing applied to improve durability
+* No runtime reflection overhead
+* Secure PRNG used for crypto
 
 ## Example
 
