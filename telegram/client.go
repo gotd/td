@@ -35,7 +35,9 @@ type Client struct {
 
 	// conn is owned by Client and not exposed.
 	// Currently immutable.
-	conn net.Conn
+	conn   net.Conn
+	addr   string
+	dialer *net.Dialer
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -200,7 +202,10 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		conn:  conn,
+		conn:   conn,
+		addr:   opt.Addr,
+		dialer: opt.Dialer,
+
 		clock: time.Now,
 		rand:  opt.Random,
 		log:   opt.Logger,
@@ -241,6 +246,9 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		return nil, xerrors.Errorf("failed to start connection: %w", err)
 	}
 
+	// Spawning reading goroutine.
+	go client.readLoop(client.ctx)
+
 	if err := client.initConnection(ctx); err != nil {
 		return nil, xerrors.Errorf("failed to init connection: %w", err)
 	}
@@ -271,10 +279,5 @@ func (c *Client) connect(ctx context.Context) error {
 		}
 		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("Auth key generated")
 	}
-
-	// Spawning reading goroutine.
-	// Probably we should use another ctx here.
-	go c.readLoop(c.ctx)
-
 	return nil
 }
