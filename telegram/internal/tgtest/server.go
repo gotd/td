@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"math/big"
 	"net"
+	"sync"
 	"time"
 
 	"github.com/gotd/td/bin"
@@ -26,18 +27,28 @@ type Server struct {
 
 	key *rsa.PrivateKey
 	tb  TB
+
+	wg sync.WaitGroup
+
+	closedMux sync.Mutex // guards closed
+	closed    bool
 }
 
-func (s Server) Key() *rsa.PublicKey {
+func (s *Server) Key() *rsa.PublicKey {
 	return &s.key.PublicKey
 }
 
 func (s *Server) Start() {
+	s.wg.Add(1)
 	go s.serve()
 }
 
-func (s Server) Close() {
+func (s *Server) Close() {
+	s.closedMux.Lock()
+	s.closed = true
+	s.closedMux.Unlock()
 	_ = s.Listener.Close()
+	s.wg.Wait()
 }
 
 func NewServer(tb TB) *Server {
@@ -70,7 +81,7 @@ func newLocalListener() net.Listener {
 	return l
 }
 
-func (s Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
+func (s *Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
 	b := &bin.Buffer{}
 	if err := data.Encode(b); err != nil {
 		return err
@@ -87,7 +98,7 @@ func (s Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
 	return proto.WriteIntermediate(conn, b)
 }
 
-func (s Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
+func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
 	b := &bin.Buffer{}
 	if err := proto.ReadIntermediate(conn, b); err != nil {
 		return err
@@ -152,13 +163,20 @@ func (s *Server) checkMsgID(id int64) error {
 }
 
 func (s *Server) serve() {
+	defer s.wg.Done()
+
 	for {
 		conn, err := s.Listener.Accept()
 		if err != nil {
 			return
 		}
+		s.closedMux.Lock()
+		closed := s.closed
+		s.closedMux.Unlock()
+		if closed {
+			break
+		}
 		go func() {
-			defer func() { recover() }()
 			if err := s.serveConn(conn); err != nil {
 				s.tb.Log(err)
 			}
