@@ -64,7 +64,7 @@ if err != nil {
 Code output of `gotdgen` contains references to TL types, examples and URL to
 official documentation.
 
-For example, the [auth.Authorization](https://core.telegram.org/type/auth.Authorization) type.
+For example, the [auth.Authorization](https://core.telegram.org/type/auth.Authorization) type in `tg/tl_auth_authorization_gen.go`.
 
 ```go
 // AuthAuthorizationClass represents auth.Authorization generic type.
