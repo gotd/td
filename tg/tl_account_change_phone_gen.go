@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountChangePhoneRequest represents TL type `account.changePhone#70c32edb`.
+//
+// See https://core.telegram.org/method/account.changePhone for reference.
 type AccountChangePhoneRequest struct {
 	// PhoneNumber field of AccountChangePhoneRequest.
 	PhoneNumber string
@@ -78,6 +80,8 @@ var (
 )
 
 // AccountChangePhone invokes method account.changePhone#70c32edb returning error if any.
+//
+// See https://core.telegram.org/method/account.changePhone for reference.
 func (c *Client) AccountChangePhone(ctx context.Context, request *AccountChangePhoneRequest) (UserClass, error) {
 	var result UserBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollAnswer represents TL type `pollAnswer#6ca9c2e9`.
+//
+// See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
 	// Text field of PollAnswer.
 	Text string

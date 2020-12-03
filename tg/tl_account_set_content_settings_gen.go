@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetContentSettingsRequest represents TL type `account.setContentSettings#b574b16b`.
+//
+// See https://core.telegram.org/method/account.setContentSettings for reference.
 type AccountSetContentSettingsRequest struct {
 	// Flags field of AccountSetContentSettingsRequest.
 	Flags bin.Fields
@@ -70,6 +72,8 @@ var (
 )
 
 // AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.
+//
+// See https://core.telegram.org/method/account.setContentSettings for reference.
 func (c *Client) AccountSetContentSettings(ctx context.Context, request *AccountSetContentSettingsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

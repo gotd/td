@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetOldFeaturedStickersRequest represents TL type `messages.getOldFeaturedStickers#5fe7025b`.
+//
+// See https://core.telegram.org/method/messages.getOldFeaturedStickers for reference.
 type MessagesGetOldFeaturedStickersRequest struct {
 	// Offset field of MessagesGetOldFeaturedStickersRequest.
 	Offset int
@@ -78,6 +80,8 @@ var (
 )
 
 // MessagesGetOldFeaturedStickers invokes method messages.getOldFeaturedStickers#5fe7025b returning error if any.
+//
+// See https://core.telegram.org/method/messages.getOldFeaturedStickers for reference.
 func (c *Client) MessagesGetOldFeaturedStickers(ctx context.Context, request *MessagesGetOldFeaturedStickersRequest) (MessagesFeaturedStickersClass, error) {
 	var result MessagesFeaturedStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

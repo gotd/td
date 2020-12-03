@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentResult represents TL type `payments.paymentResult#4e5f810d`.
+//
+// See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
 	// Updates field of PaymentsPaymentResult.
 	Updates UpdatesClass
@@ -68,6 +70,8 @@ var (
 )
 
 // PaymentsPaymentVerificationNeeded represents TL type `payments.paymentVerificationNeeded#d8411139`.
+//
+// See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
 	// URL field of PaymentsPaymentVerificationNeeded.
 	URL string
@@ -116,6 +120,8 @@ var (
 )
 
 // PaymentsPaymentResultClass represents payments.PaymentResult generic type.
+//
+// See https://core.telegram.org/type/payments.PaymentResult for reference.
 //
 // Example:
 //  g, err := DecodePaymentsPaymentResult(buf)

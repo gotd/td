@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountRegisterDeviceRequest represents TL type `account.registerDevice#68976c6f`.
+//
+// See https://core.telegram.org/method/account.registerDevice for reference.
 type AccountRegisterDeviceRequest struct {
 	// Flags field of AccountRegisterDeviceRequest.
 	Flags bin.Fields
@@ -129,6 +131,8 @@ var (
 )
 
 // AccountRegisterDevice invokes method account.registerDevice#68976c6f returning error if any.
+//
+// See https://core.telegram.org/method/account.registerDevice for reference.
 func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

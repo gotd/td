@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditInlineBotMessageRequest represents TL type `messages.editInlineBotMessage#83557dba`.
+//
+// See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
 type MessagesEditInlineBotMessageRequest struct {
 	// Flags field of MessagesEditInlineBotMessageRequest.
 	Flags bin.Fields
@@ -220,6 +222,8 @@ var (
 )
 
 // MessagesEditInlineBotMessage invokes method messages.editInlineBotMessage#83557dba returning error if any.
+//
+// See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
 func (c *Client) MessagesEditInlineBotMessage(ctx context.Context, request *MessagesEditInlineBotMessageRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

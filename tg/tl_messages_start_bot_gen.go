@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStartBotRequest represents TL type `messages.startBot#e6df7378`.
+//
+// See https://core.telegram.org/method/messages.startBot for reference.
 type MessagesStartBotRequest struct {
 	// Bot field of MessagesStartBotRequest.
 	Bot InputUserClass
@@ -98,6 +100,8 @@ var (
 )
 
 // MessagesStartBot invokes method messages.startBot#e6df7378 returning error if any.
+//
+// See https://core.telegram.org/method/messages.startBot for reference.
 func (c *Client) MessagesStartBot(ctx context.Context, request *MessagesStartBotRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelParticipant represents TL type `channelParticipant#15ebac1d`.
+//
+// See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
 	// UserID field of ChannelParticipant.
 	UserID int
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelParticipantSelf represents TL type `channelParticipantSelf#a3289a6d`.
+//
+// See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
 	// UserID field of ChannelParticipantSelf.
 	UserID int
@@ -141,6 +145,8 @@ var (
 )
 
 // ChannelParticipantCreator represents TL type `channelParticipantCreator#447dca4b`.
+//
+// See https://core.telegram.org/constructor/channelParticipantCreator for reference.
 type ChannelParticipantCreator struct {
 	// Flags field of ChannelParticipantCreator.
 	Flags bin.Fields
@@ -238,6 +244,8 @@ var (
 )
 
 // ChannelParticipantAdmin represents TL type `channelParticipantAdmin#ccbebbaf`.
+//
+// See https://core.telegram.org/constructor/channelParticipantAdmin for reference.
 type ChannelParticipantAdmin struct {
 	// Flags field of ChannelParticipantAdmin.
 	Flags bin.Fields
@@ -408,6 +416,8 @@ var (
 )
 
 // ChannelParticipantBanned represents TL type `channelParticipantBanned#1c0facaf`.
+//
+// See https://core.telegram.org/constructor/channelParticipantBanned for reference.
 type ChannelParticipantBanned struct {
 	// Flags field of ChannelParticipantBanned.
 	Flags bin.Fields
@@ -508,6 +518,8 @@ var (
 )
 
 // ChannelParticipantLeft represents TL type `channelParticipantLeft#c3c6796b`.
+//
+// See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
 	// UserID field of ChannelParticipantLeft.
 	UserID int
@@ -556,6 +568,8 @@ var (
 )
 
 // ChannelParticipantClass represents ChannelParticipant generic type.
+//
+// See https://core.telegram.org/type/ChannelParticipant for reference.
 //
 // Example:
 //  g, err := DecodeChannelParticipant(buf)

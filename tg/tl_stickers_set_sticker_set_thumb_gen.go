@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#9a364e30`.
+//
+// See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
 	// Stickerset field of StickersSetStickerSetThumbRequest.
 	Stickerset InputStickerSetClass
@@ -78,6 +80,8 @@ var (
 )
 
 // StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
+//
+// See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

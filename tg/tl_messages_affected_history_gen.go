@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAffectedHistory represents TL type `messages.affectedHistory#b45c69d1`.
+//
+// See https://core.telegram.org/constructor/messages.affectedHistory for reference.
 type MessagesAffectedHistory struct {
 	// Pts field of MessagesAffectedHistory.
 	Pts int

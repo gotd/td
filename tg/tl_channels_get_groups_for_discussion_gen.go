@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetGroupsForDiscussionRequest represents TL type `channels.getGroupsForDiscussion#f5dad378`.
+//
+// See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 type ChannelsGetGroupsForDiscussionRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.
+//
+// See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context, request *ChannelsGetGroupsForDiscussionRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

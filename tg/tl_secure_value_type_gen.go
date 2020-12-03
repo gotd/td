@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValueTypePersonalDetails represents TL type `secureValueTypePersonalDetails#9d2a81e3`.
+//
+// See https://core.telegram.org/constructor/secureValueTypePersonalDetails for reference.
 type SecureValueTypePersonalDetails struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // SecureValueTypePassport represents TL type `secureValueTypePassport#3dac6a00`.
+//
+// See https://core.telegram.org/constructor/secureValueTypePassport for reference.
 type SecureValueTypePassport struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // SecureValueTypeDriverLicense represents TL type `secureValueTypeDriverLicense#6e425c4`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeDriverLicense for reference.
 type SecureValueTypeDriverLicense struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // SecureValueTypeIdentityCard represents TL type `secureValueTypeIdentityCard#a0d0744b`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeIdentityCard for reference.
 type SecureValueTypeIdentityCard struct {
 }
 
@@ -167,6 +175,8 @@ var (
 )
 
 // SecureValueTypeInternalPassport represents TL type `secureValueTypeInternalPassport#99a48f23`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeInternalPassport for reference.
 type SecureValueTypeInternalPassport struct {
 }
 
@@ -205,6 +215,8 @@ var (
 )
 
 // SecureValueTypeAddress represents TL type `secureValueTypeAddress#cbe31e26`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeAddress for reference.
 type SecureValueTypeAddress struct {
 }
 
@@ -243,6 +255,8 @@ var (
 )
 
 // SecureValueTypeUtilityBill represents TL type `secureValueTypeUtilityBill#fc36954e`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeUtilityBill for reference.
 type SecureValueTypeUtilityBill struct {
 }
 
@@ -281,6 +295,8 @@ var (
 )
 
 // SecureValueTypeBankStatement represents TL type `secureValueTypeBankStatement#89137c0d`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeBankStatement for reference.
 type SecureValueTypeBankStatement struct {
 }
 
@@ -319,6 +335,8 @@ var (
 )
 
 // SecureValueTypeRentalAgreement represents TL type `secureValueTypeRentalAgreement#8b883488`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeRentalAgreement for reference.
 type SecureValueTypeRentalAgreement struct {
 }
 
@@ -357,6 +375,8 @@ var (
 )
 
 // SecureValueTypePassportRegistration represents TL type `secureValueTypePassportRegistration#99e3806a`.
+//
+// See https://core.telegram.org/constructor/secureValueTypePassportRegistration for reference.
 type SecureValueTypePassportRegistration struct {
 }
 
@@ -395,6 +415,8 @@ var (
 )
 
 // SecureValueTypeTemporaryRegistration represents TL type `secureValueTypeTemporaryRegistration#ea02ec33`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration for reference.
 type SecureValueTypeTemporaryRegistration struct {
 }
 
@@ -433,6 +455,8 @@ var (
 )
 
 // SecureValueTypePhone represents TL type `secureValueTypePhone#b320aadb`.
+//
+// See https://core.telegram.org/constructor/secureValueTypePhone for reference.
 type SecureValueTypePhone struct {
 }
 
@@ -471,6 +495,8 @@ var (
 )
 
 // SecureValueTypeEmail represents TL type `secureValueTypeEmail#8e3ca7ee`.
+//
+// See https://core.telegram.org/constructor/secureValueTypeEmail for reference.
 type SecureValueTypeEmail struct {
 }
 
@@ -509,6 +535,8 @@ var (
 )
 
 // SecureValueTypeClass represents SecureValueType generic type.
+//
+// See https://core.telegram.org/type/SecureValueType for reference.
 //
 // Example:
 //  g, err := DecodeSecureValueType(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetInactiveChannelsRequest represents TL type `channels.getInactiveChannels#11e831ee`.
+//
+// See https://core.telegram.org/method/channels.getInactiveChannels for reference.
 type ChannelsGetInactiveChannelsRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // ChannelsGetInactiveChannels invokes method channels.getInactiveChannels#11e831ee returning error if any.
+//
+// See https://core.telegram.org/method/channels.getInactiveChannels for reference.
 func (c *Client) ChannelsGetInactiveChannels(ctx context.Context, request *ChannelsGetInactiveChannelsRequest) (*MessagesInactiveChats, error) {
 	var result MessagesInactiveChats
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

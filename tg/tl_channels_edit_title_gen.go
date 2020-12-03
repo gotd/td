@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditTitleRequest represents TL type `channels.editTitle#566decd0`.
+//
+// See https://core.telegram.org/method/channels.editTitle for reference.
 type ChannelsEditTitleRequest struct {
 	// Channel field of ChannelsEditTitleRequest.
 	Channel InputChannelClass
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelsEditTitle invokes method channels.editTitle#566decd0 returning error if any.
+//
+// See https://core.telegram.org/method/channels.editTitle for reference.
 func (c *Client) ChannelsEditTitle(ctx context.Context, request *ChannelsEditTitleRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
+//
+// See https://core.telegram.org/constructor/urlAuthResultRequest for reference.
 type UrlAuthResultRequest struct {
 	// Flags field of UrlAuthResultRequest.
 	Flags bin.Fields
@@ -100,6 +102,8 @@ var (
 )
 
 // UrlAuthResultAccepted represents TL type `urlAuthResultAccepted#8f8c0e4e`.
+//
+// See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type UrlAuthResultAccepted struct {
 	// URL field of UrlAuthResultAccepted.
 	URL string
@@ -148,6 +152,8 @@ var (
 )
 
 // UrlAuthResultDefault represents TL type `urlAuthResultDefault#a9d6db1f`.
+//
+// See https://core.telegram.org/constructor/urlAuthResultDefault for reference.
 type UrlAuthResultDefault struct {
 }
 
@@ -186,6 +192,8 @@ var (
 )
 
 // UrlAuthResultClass represents UrlAuthResult generic type.
+//
+// See https://core.telegram.org/type/UrlAuthResult for reference.
 //
 // Example:
 //  g, err := DecodeUrlAuthResult(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageUserVote represents TL type `messageUserVote#a28e5559`.
+//
+// See https://core.telegram.org/constructor/messageUserVote for reference.
 type MessageUserVote struct {
 	// UserID field of MessageUserVote.
 	UserID int
@@ -83,6 +85,8 @@ var (
 )
 
 // MessageUserVoteInputOption represents TL type `messageUserVoteInputOption#36377430`.
+//
+// See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
 	// UserID field of MessageUserVoteInputOption.
 	UserID int
@@ -141,6 +145,8 @@ var (
 )
 
 // MessageUserVoteMultiple represents TL type `messageUserVoteMultiple#e8fe0de`.
+//
+// See https://core.telegram.org/constructor/messageUserVoteMultiple for reference.
 type MessageUserVoteMultiple struct {
 	// UserID field of MessageUserVoteMultiple.
 	UserID int
@@ -218,6 +224,8 @@ var (
 )
 
 // MessageUserVoteClass represents MessageUserVote generic type.
+//
+// See https://core.telegram.org/type/MessageUserVote for reference.
 //
 // Example:
 //  g, err := DecodeMessageUserVote(buf)

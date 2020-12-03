@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateThemeRequest represents TL type `account.updateTheme#5cb367d5`.
+//
+// See https://core.telegram.org/method/account.updateTheme for reference.
 type AccountUpdateThemeRequest struct {
 	// Flags field of AccountUpdateThemeRequest.
 	Flags bin.Fields
@@ -204,6 +206,8 @@ var (
 )
 
 // AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.
+//
+// See https://core.telegram.org/method/account.updateTheme for reference.
 func (c *Client) AccountUpdateTheme(ctx context.Context, request *AccountUpdateThemeRequest) (*Theme, error) {
 	var result Theme
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

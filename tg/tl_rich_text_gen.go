@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TextEmpty represents TL type `textEmpty#dc3d824f`.
+//
+// See https://core.telegram.org/constructor/textEmpty for reference.
 type TextEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // TextPlain represents TL type `textPlain#744694e0`.
+//
+// See https://core.telegram.org/constructor/textPlain for reference.
 type TextPlain struct {
 	// Text field of TextPlain.
 	Text string
@@ -101,6 +105,8 @@ var (
 )
 
 // TextBold represents TL type `textBold#6724abc4`.
+//
+// See https://core.telegram.org/constructor/textBold for reference.
 type TextBold struct {
 	// Text field of TextBold.
 	Text RichTextClass
@@ -154,6 +160,8 @@ var (
 )
 
 // TextItalic represents TL type `textItalic#d912a59c`.
+//
+// See https://core.telegram.org/constructor/textItalic for reference.
 type TextItalic struct {
 	// Text field of TextItalic.
 	Text RichTextClass
@@ -207,6 +215,8 @@ var (
 )
 
 // TextUnderline represents TL type `textUnderline#c12622c4`.
+//
+// See https://core.telegram.org/constructor/textUnderline for reference.
 type TextUnderline struct {
 	// Text field of TextUnderline.
 	Text RichTextClass
@@ -260,6 +270,8 @@ var (
 )
 
 // TextStrike represents TL type `textStrike#9bf8bb95`.
+//
+// See https://core.telegram.org/constructor/textStrike for reference.
 type TextStrike struct {
 	// Text field of TextStrike.
 	Text RichTextClass
@@ -313,6 +325,8 @@ var (
 )
 
 // TextFixed represents TL type `textFixed#6c3f19b9`.
+//
+// See https://core.telegram.org/constructor/textFixed for reference.
 type TextFixed struct {
 	// Text field of TextFixed.
 	Text RichTextClass
@@ -366,6 +380,8 @@ var (
 )
 
 // TextUrl represents TL type `textUrl#3c2884c1`.
+//
+// See https://core.telegram.org/constructor/textUrl for reference.
 type TextUrl struct {
 	// Text field of TextUrl.
 	Text RichTextClass
@@ -439,6 +455,8 @@ var (
 )
 
 // TextEmail represents TL type `textEmail#de5a0dd6`.
+//
+// See https://core.telegram.org/constructor/textEmail for reference.
 type TextEmail struct {
 	// Text field of TextEmail.
 	Text RichTextClass
@@ -502,6 +520,8 @@ var (
 )
 
 // TextConcat represents TL type `textConcat#7e6260d7`.
+//
+// See https://core.telegram.org/constructor/textConcat for reference.
 type TextConcat struct {
 	// Texts field of TextConcat.
 	Texts []RichTextClass
@@ -564,6 +584,8 @@ var (
 )
 
 // TextSubscript represents TL type `textSubscript#ed6a8504`.
+//
+// See https://core.telegram.org/constructor/textSubscript for reference.
 type TextSubscript struct {
 	// Text field of TextSubscript.
 	Text RichTextClass
@@ -617,6 +639,8 @@ var (
 )
 
 // TextSuperscript represents TL type `textSuperscript#c7fb5e01`.
+//
+// See https://core.telegram.org/constructor/textSuperscript for reference.
 type TextSuperscript struct {
 	// Text field of TextSuperscript.
 	Text RichTextClass
@@ -670,6 +694,8 @@ var (
 )
 
 // TextMarked represents TL type `textMarked#34b8621`.
+//
+// See https://core.telegram.org/constructor/textMarked for reference.
 type TextMarked struct {
 	// Text field of TextMarked.
 	Text RichTextClass
@@ -723,6 +749,8 @@ var (
 )
 
 // TextPhone represents TL type `textPhone#1ccb966a`.
+//
+// See https://core.telegram.org/constructor/textPhone for reference.
 type TextPhone struct {
 	// Text field of TextPhone.
 	Text RichTextClass
@@ -786,6 +814,8 @@ var (
 )
 
 // TextImage represents TL type `textImage#81ccf4f`.
+//
+// See https://core.telegram.org/constructor/textImage for reference.
 type TextImage struct {
 	// DocumentID field of TextImage.
 	DocumentID int64
@@ -854,6 +884,8 @@ var (
 )
 
 // TextAnchor represents TL type `textAnchor#35553762`.
+//
+// See https://core.telegram.org/constructor/textAnchor for reference.
 type TextAnchor struct {
 	// Text field of TextAnchor.
 	Text RichTextClass
@@ -917,6 +949,8 @@ var (
 )
 
 // RichTextClass represents RichText generic type.
+//
+// See https://core.telegram.org/type/RichText for reference.
 //
 // Example:
 //  g, err := DecodeRichText(buf)

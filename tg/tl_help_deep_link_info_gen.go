@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpDeepLinkInfoEmpty represents TL type `help.deepLinkInfoEmpty#66afa166`.
+//
+// See https://core.telegram.org/constructor/help.deepLinkInfoEmpty for reference.
 type HelpDeepLinkInfoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // HelpDeepLinkInfo represents TL type `help.deepLinkInfo#6a4ee832`.
+//
+// See https://core.telegram.org/constructor/help.deepLinkInfo for reference.
 type HelpDeepLinkInfo struct {
 	// Flags field of HelpDeepLinkInfo.
 	Flags bin.Fields
@@ -166,6 +170,8 @@ var (
 )
 
 // HelpDeepLinkInfoClass represents help.DeepLinkInfo generic type.
+//
+// See https://core.telegram.org/type/help.DeepLinkInfo for reference.
 //
 // Example:
 //  g, err := DecodeHelpDeepLinkInfo(buf)

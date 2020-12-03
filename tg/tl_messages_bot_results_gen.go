@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesBotResults represents TL type `messages.botResults#947ca848`.
+//
+// See https://core.telegram.org/constructor/messages.botResults for reference.
 type MessagesBotResults struct {
 	// Flags field of MessagesBotResults.
 	Flags bin.Fields

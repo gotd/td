@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetAccountTTLRequest represents TL type `account.setAccountTTL#2442485e`.
+//
+// See https://core.telegram.org/method/account.setAccountTTL for reference.
 type AccountSetAccountTTLRequest struct {
 	// TTL field of AccountSetAccountTTLRequest.
 	TTL AccountDaysTTL
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountSetAccountTTL invokes method account.setAccountTTL#2442485e returning error if any.
+//
+// See https://core.telegram.org/method/account.setAccountTTL for reference.
 func (c *Client) AccountSetAccountTTL(ctx context.Context, request *AccountSetAccountTTLRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

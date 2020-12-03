@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Auth represents TL type `auth#f8bb4a38`.
+//
+// See https://localhost:80/doc/constructor/auth for reference.
 type Auth struct {
 	// Name field of Auth.
 	Name string
@@ -63,6 +65,8 @@ var (
 )
 
 // AuthPassword represents TL type `authPassword#29bacabb`.
+//
+// See https://localhost:80/doc/constructor/authPassword for reference.
 type AuthPassword struct {
 	// Name field of AuthPassword.
 	Name string
@@ -121,6 +125,8 @@ var (
 )
 
 // AuthClass represents Auth generic type.
+//
+// See https://localhost:80/doc/type/Auth for reference.
 //
 // Example:
 //  g, err := DecodeAuth(buf)

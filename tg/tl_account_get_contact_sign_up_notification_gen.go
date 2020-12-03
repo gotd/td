@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetContactSignUpNotificationRequest represents TL type `account.getContactSignUpNotification#9f07c728`.
+//
+// See https://core.telegram.org/method/account.getContactSignUpNotification for reference.
 type AccountGetContactSignUpNotificationRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountGetContactSignUpNotification invokes method account.getContactSignUpNotification#9f07c728 returning error if any.
+//
+// See https://core.telegram.org/method/account.getContactSignUpNotification for reference.
 func (c *Client) AccountGetContactSignUpNotification(ctx context.Context, request *AccountGetContactSignUpNotificationRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountReportPeerRequest represents TL type `account.reportPeer#ae189d5f`.
+//
+// See https://core.telegram.org/method/account.reportPeer for reference.
 type AccountReportPeerRequest struct {
 	// Peer field of AccountReportPeerRequest.
 	Peer InputPeerClass
@@ -78,6 +80,8 @@ var (
 )
 
 // AccountReportPeer invokes method account.reportPeer#ae189d5f returning error if any.
+//
+// See https://core.telegram.org/method/account.reportPeer for reference.
 func (c *Client) AccountReportPeer(ctx context.Context, request *AccountReportPeerRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

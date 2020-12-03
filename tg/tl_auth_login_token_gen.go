@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthLoginToken represents TL type `auth.loginToken#629f1980`.
+//
+// See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
 	// Expires field of AuthLoginToken.
 	Expires int
@@ -73,6 +75,8 @@ var (
 )
 
 // AuthLoginTokenMigrateTo represents TL type `auth.loginTokenMigrateTo#68e9916`.
+//
+// See https://core.telegram.org/constructor/auth.loginTokenMigrateTo for reference.
 type AuthLoginTokenMigrateTo struct {
 	// DCID field of AuthLoginTokenMigrateTo.
 	DCID int
@@ -131,6 +135,8 @@ var (
 )
 
 // AuthLoginTokenSuccess represents TL type `auth.loginTokenSuccess#390d5c5e`.
+//
+// See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {
 	// Authorization field of AuthLoginTokenSuccess.
 	Authorization AuthAuthorizationClass
@@ -184,6 +190,8 @@ var (
 )
 
 // AuthLoginTokenClass represents auth.LoginToken generic type.
+//
+// See https://core.telegram.org/type/auth.LoginToken for reference.
 //
 // Example:
 //  g, err := DecodeAuthLoginToken(buf)

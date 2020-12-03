@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPaymentCredentialsSaved represents TL type `inputPaymentCredentialsSaved#c10eb2cf`.
+//
+// See https://core.telegram.org/constructor/inputPaymentCredentialsSaved for reference.
 type InputPaymentCredentialsSaved struct {
 	// ID field of InputPaymentCredentialsSaved.
 	ID string
@@ -73,6 +75,8 @@ var (
 )
 
 // InputPaymentCredentials represents TL type `inputPaymentCredentials#3417d728`.
+//
+// See https://core.telegram.org/constructor/inputPaymentCredentials for reference.
 type InputPaymentCredentials struct {
 	// Flags field of InputPaymentCredentials.
 	Flags bin.Fields
@@ -143,6 +147,8 @@ var (
 )
 
 // InputPaymentCredentialsApplePay represents TL type `inputPaymentCredentialsApplePay#aa1c39f`.
+//
+// See https://core.telegram.org/constructor/inputPaymentCredentialsApplePay for reference.
 type InputPaymentCredentialsApplePay struct {
 	// PaymentData field of InputPaymentCredentialsApplePay.
 	PaymentData DataJSON
@@ -191,6 +197,8 @@ var (
 )
 
 // InputPaymentCredentialsAndroidPay represents TL type `inputPaymentCredentialsAndroidPay#ca05d50e`.
+//
+// See https://core.telegram.org/constructor/inputPaymentCredentialsAndroidPay for reference.
 type InputPaymentCredentialsAndroidPay struct {
 	// PaymentToken field of InputPaymentCredentialsAndroidPay.
 	PaymentToken DataJSON
@@ -249,6 +257,8 @@ var (
 )
 
 // InputPaymentCredentialsClass represents InputPaymentCredentials generic type.
+//
+// See https://core.telegram.org/type/InputPaymentCredentials for reference.
 //
 // Example:
 //  g, err := DecodeInputPaymentCredentials(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
+//
+// See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
 	// Peer field of PhoneReceivedCallRequest.
 	Peer InputPhoneCall
@@ -58,6 +60,8 @@ var (
 )
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
+//
+// See https://core.telegram.org/method/phone.receivedCall for reference.
 func (c *Client) PhoneReceivedCall(ctx context.Context, request *PhoneReceivedCallRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

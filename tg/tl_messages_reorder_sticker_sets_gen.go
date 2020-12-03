@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReorderStickerSetsRequest represents TL type `messages.reorderStickerSets#78337739`.
+//
+// See https://core.telegram.org/method/messages.reorderStickerSets for reference.
 type MessagesReorderStickerSetsRequest struct {
 	// Flags field of MessagesReorderStickerSetsRequest.
 	Flags bin.Fields
@@ -89,6 +91,8 @@ var (
 )
 
 // MessagesReorderStickerSets invokes method messages.reorderStickerSets#78337739 returning error if any.
+//
+// See https://core.telegram.org/method/messages.reorderStickerSets for reference.
 func (c *Client) MessagesReorderStickerSets(ctx context.Context, request *MessagesReorderStickerSetsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCheckUsernameRequest represents TL type `account.checkUsername#2714d86c`.
+//
+// See https://core.telegram.org/method/account.checkUsername for reference.
 type AccountCheckUsernameRequest struct {
 	// Username field of AccountCheckUsernameRequest.
 	Username string
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountCheckUsername invokes method account.checkUsername#2714d86c returning error if any.
+//
+// See https://core.telegram.org/method/account.checkUsername for reference.
 func (c *Client) AccountCheckUsername(ctx context.Context, request *AccountCheckUsernameRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

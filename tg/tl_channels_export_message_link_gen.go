@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsExportMessageLinkRequest represents TL type `channels.exportMessageLink#e63fadeb`.
+//
+// See https://core.telegram.org/method/channels.exportMessageLink for reference.
 type ChannelsExportMessageLinkRequest struct {
 	// Flags field of ChannelsExportMessageLinkRequest.
 	Flags bin.Fields
@@ -107,6 +109,8 @@ var (
 )
 
 // ChannelsExportMessageLink invokes method channels.exportMessageLink#e63fadeb returning error if any.
+//
+// See https://core.telegram.org/method/channels.exportMessageLink for reference.
 func (c *Client) ChannelsExportMessageLink(ctx context.Context, request *ChannelsExportMessageLinkRequest) (*ExportedMessageLink, error) {
 	var result ExportedMessageLink
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatOnlines represents TL type `chatOnlines#f041e250`.
+//
+// See https://core.telegram.org/constructor/chatOnlines for reference.
 type ChatOnlines struct {
 	// Onlines field of ChatOnlines.
 	Onlines int

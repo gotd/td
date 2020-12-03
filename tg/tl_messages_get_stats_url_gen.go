@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetStatsURLRequest represents TL type `messages.getStatsURL#812c2ae6`.
+//
+// See https://core.telegram.org/method/messages.getStatsURL for reference.
 type MessagesGetStatsURLRequest struct {
 	// Flags field of MessagesGetStatsURLRequest.
 	Flags bin.Fields
@@ -95,6 +97,8 @@ var (
 )
 
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getStatsURL for reference.
 func (c *Client) MessagesGetStatsURL(ctx context.Context, request *MessagesGetStatsURLRequest) (*StatsURL, error) {
 	var result StatsURL
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

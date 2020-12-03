@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d9fee60e`.
+//
+// See https://core.telegram.org/method/messages.forwardMessages for reference.
 type MessagesForwardMessagesRequest struct {
 	// Flags field of MessagesForwardMessagesRequest.
 	Flags bin.Fields
@@ -191,6 +193,8 @@ var (
 )
 
 // MessagesForwardMessages invokes method messages.forwardMessages#d9fee60e returning error if any.
+//
+// See https://core.telegram.org/method/messages.forwardMessages for reference.
 func (c *Client) MessagesForwardMessages(ctx context.Context, request *MessagesForwardMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

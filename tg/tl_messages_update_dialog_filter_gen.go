@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUpdateDialogFilterRequest represents TL type `messages.updateDialogFilter#1ad4a04a`.
+//
+// See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 type MessagesUpdateDialogFilterRequest struct {
 	// Flags field of MessagesUpdateDialogFilterRequest.
 	Flags bin.Fields
@@ -97,6 +99,8 @@ var (
 )
 
 // MessagesUpdateDialogFilter invokes method messages.updateDialogFilter#1ad4a04a returning error if any.
+//
+// See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetFileHashesRequest represents TL type `upload.getFileHashes#c7025931`.
+//
+// See https://core.telegram.org/constructor/upload.getFileHashes for reference.
 type UploadGetFileHashesRequest struct {
 	// Location field of UploadGetFileHashesRequest.
 	Location InputFileLocationClass

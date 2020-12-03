@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetSupportRequest represents TL type `help.getSupport#9cdf08cd`.
+//
+// See https://core.telegram.org/method/help.getSupport for reference.
 type HelpGetSupportRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // HelpGetSupport invokes method help.getSupport#9cdf08cd returning error if any.
+//
+// See https://core.telegram.org/method/help.getSupport for reference.
 func (c *Client) HelpGetSupport(ctx context.Context, request *HelpGetSupportRequest) (*HelpSupport, error) {
 	var result HelpSupport
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

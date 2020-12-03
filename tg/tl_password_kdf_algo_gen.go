@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
+//
+// See https://core.telegram.org/constructor/passwordKdfAlgoUnknown for reference.
 type PasswordKdfAlgoUnknown struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow represents TL type `passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a`.
+//
+// See https://core.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow for reference.
 type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 	// Salt1 field of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
 	Salt1 []byte
@@ -133,6 +137,8 @@ var (
 )
 
 // PasswordKdfAlgoClass represents PasswordKdfAlgo generic type.
+//
+// See https://core.telegram.org/type/PasswordKdfAlgo for reference.
 //
 // Example:
 //  g, err := DecodePasswordKdfAlgo(buf)

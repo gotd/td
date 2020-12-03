@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ReceivedNotifyMessage represents TL type `receivedNotifyMessage#a384b779`.
+//
+// See https://core.telegram.org/constructor/receivedNotifyMessage for reference.
 type ReceivedNotifyMessage struct {
 	// ID field of ReceivedNotifyMessage.
 	ID int

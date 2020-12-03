@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
+//
+// See https://core.telegram.org/method/account.deleteSecureValue for reference.
 type AccountDeleteSecureValueRequest struct {
 	// Types field of AccountDeleteSecureValueRequest.
 	Types []SecureValueTypeClass
@@ -72,6 +74,8 @@ var (
 )
 
 // AccountDeleteSecureValue invokes method account.deleteSecureValue#b880bc4b returning error if any.
+//
+// See https://core.telegram.org/method/account.deleteSecureValue for reference.
 func (c *Client) AccountDeleteSecureValue(ctx context.Context, request *AccountDeleteSecureValueRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

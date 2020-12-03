@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetInlineGameHighScoresRequest represents TL type `messages.getInlineGameHighScores#f635e1b`.
+//
+// See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 type MessagesGetInlineGameHighScoresRequest struct {
 	// ID field of MessagesGetInlineGameHighScoresRequest.
 	ID InputBotInlineMessageID
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesGetInlineGameHighScores invokes method messages.getInlineGameHighScores#f635e1b returning error if any.
+//
+// See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 func (c *Client) MessagesGetInlineGameHighScores(ctx context.Context, request *MessagesGetInlineGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

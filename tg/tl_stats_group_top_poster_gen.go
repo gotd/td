@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopPoster represents TL type `statsGroupTopPoster#18f3d0f7`.
+//
+// See https://core.telegram.org/constructor/statsGroupTopPoster for reference.
 type StatsGroupTopPoster struct {
 	// UserID field of StatsGroupTopPoster.
 	UserID int

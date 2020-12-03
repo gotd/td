@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneSendSignalingDataRequest represents TL type `phone.sendSignalingData#ff7a9383`.
+//
+// See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
 	// Peer field of PhoneSendSignalingDataRequest.
 	Peer InputPhoneCall
@@ -68,6 +70,8 @@ var (
 )
 
 // PhoneSendSignalingData invokes method phone.sendSignalingData#ff7a9383 returning error if any.
+//
+// See https://core.telegram.org/method/phone.sendSignalingData for reference.
 func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

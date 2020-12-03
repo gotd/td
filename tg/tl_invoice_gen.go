@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Invoice represents TL type `invoice#c30aa358`.
+//
+// See https://core.telegram.org/constructor/invoice for reference.
 type Invoice struct {
 	// Flags field of Invoice.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCancelCodeRequest represents TL type `auth.cancelCode#1f040578`.
+//
+// See https://core.telegram.org/method/auth.cancelCode for reference.
 type AuthCancelCodeRequest struct {
 	// PhoneNumber field of AuthCancelCodeRequest.
 	PhoneNumber string
@@ -68,6 +70,8 @@ var (
 )
 
 // AuthCancelCode invokes method auth.cancelCode#1f040578 returning error if any.
+//
+// See https://core.telegram.org/method/auth.cancelCode for reference.
 func (c *Client) AuthCancelCode(ctx context.Context, request *AuthCancelCodeRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

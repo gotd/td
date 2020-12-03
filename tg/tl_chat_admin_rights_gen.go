@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
+//
+// See https://core.telegram.org/constructor/chatAdminRights for reference.
 type ChatAdminRights struct {
 	// Flags field of ChatAdminRights.
 	Flags bin.Fields

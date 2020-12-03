@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // CodeSettings represents TL type `codeSettings#debebe83`.
+//
+// See https://core.telegram.org/constructor/codeSettings for reference.
 type CodeSettings struct {
 	// Flags field of CodeSettings.
 	Flags bin.Fields

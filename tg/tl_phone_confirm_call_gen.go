@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneConfirmCallRequest represents TL type `phone.confirmCall#2efe1722`.
+//
+// See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
 	// Peer field of PhoneConfirmCallRequest.
 	Peer InputPhoneCall
@@ -88,6 +90,8 @@ var (
 )
 
 // PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.
+//
+// See https://core.telegram.org/method/phone.confirmCall for reference.
 func (c *Client) PhoneConfirmCall(ctx context.Context, request *PhoneConfirmCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
+//
+// See https://core.telegram.org/method/updates.getChannelDifference for reference.
 type UpdatesGetChannelDifferenceRequest struct {
 	// Flags field of UpdatesGetChannelDifferenceRequest.
 	Flags bin.Fields
@@ -120,6 +122,8 @@ var (
 )
 
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
+//
+// See https://core.telegram.org/method/updates.getChannelDifference for reference.
 func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {
 	var result UpdatesChannelDifferenceBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

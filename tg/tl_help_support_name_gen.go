@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpSupportName represents TL type `help.supportName#8c05f1c9`.
+//
+// See https://core.telegram.org/constructor/help.supportName for reference.
 type HelpSupportName struct {
 	// Name field of HelpSupportName.
 	Name string

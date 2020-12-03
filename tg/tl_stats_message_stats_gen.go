@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsMessageStats represents TL type `stats.messageStats#8999f295`.
+//
+// See https://core.telegram.org/constructor/stats.messageStats for reference.
 type StatsMessageStats struct {
 	// ViewsGraph field of StatsMessageStats.
 	ViewsGraph StatsGraphClass

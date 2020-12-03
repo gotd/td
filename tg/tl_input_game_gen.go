@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputGameID represents TL type `inputGameID#32c3e77`.
+//
+// See https://core.telegram.org/constructor/inputGameID for reference.
 type InputGameID struct {
 	// ID field of InputGameID.
 	ID int64
@@ -73,6 +75,8 @@ var (
 )
 
 // InputGameShortName represents TL type `inputGameShortName#c331e80a`.
+//
+// See https://core.telegram.org/constructor/inputGameShortName for reference.
 type InputGameShortName struct {
 	// BotID field of InputGameShortName.
 	BotID InputUserClass
@@ -136,6 +140,8 @@ var (
 )
 
 // InputGameClass represents InputGame generic type.
+//
+// See https://core.telegram.org/type/InputGame for reference.
 //
 // Example:
 //  g, err := DecodeInputGame(buf)

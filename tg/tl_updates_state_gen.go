@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesState represents TL type `updates.state#a56c2a3e`.
+//
+// See https://core.telegram.org/constructor/updates.state for reference.
 type UpdatesState struct {
 	// Pts field of UpdatesState.
 	Pts int

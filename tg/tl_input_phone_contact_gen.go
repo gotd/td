@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
+//
+// See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
 	// ClientID field of InputPhoneContact.
 	ClientID int64

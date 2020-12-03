@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateNotifySettingsRequest represents TL type `account.updateNotifySettings#84be5b93`.
+//
+// See https://core.telegram.org/method/account.updateNotifySettings for reference.
 type AccountUpdateNotifySettingsRequest struct {
 	// Peer field of AccountUpdateNotifySettingsRequest.
 	Peer InputNotifyPeerClass
@@ -73,6 +75,8 @@ var (
 )
 
 // AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.
+//
+// See https://core.telegram.org/method/account.updateNotifySettings for reference.
 func (c *Client) AccountUpdateNotifySettings(ctx context.Context, request *AccountUpdateNotifySettingsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

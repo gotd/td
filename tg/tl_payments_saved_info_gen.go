@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsSavedInfo represents TL type `payments.savedInfo#fb8fe43c`.
+//
+// See https://core.telegram.org/constructor/payments.savedInfo for reference.
 type PaymentsSavedInfo struct {
 	// Flags field of PaymentsSavedInfo.
 	Flags bin.Fields

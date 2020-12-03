@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
+//
+// See https://core.telegram.org/constructor/chatBannedRights for reference.
 type ChatBannedRights struct {
 	// Flags field of ChatBannedRights.
 	Flags bin.Fields

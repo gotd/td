@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FoldersDeleteFolderRequest represents TL type `folders.deleteFolder#1c295881`.
+//
+// See https://core.telegram.org/method/folders.deleteFolder for reference.
 type FoldersDeleteFolderRequest struct {
 	// FolderID field of FoldersDeleteFolderRequest.
 	FolderID int
@@ -58,6 +60,8 @@ var (
 )
 
 // FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.
+//
+// See https://core.telegram.org/method/folders.deleteFolder for reference.
 func (c *Client) FoldersDeleteFolder(ctx context.Context, request *FoldersDeleteFolderRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

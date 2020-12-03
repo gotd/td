@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InlineBotSwitchPM represents TL type `inlineBotSwitchPM#3c20629f`.
+//
+// See https://core.telegram.org/constructor/inlineBotSwitchPM for reference.
 type InlineBotSwitchPM struct {
 	// Text field of InlineBotSwitchPM.
 	Text string

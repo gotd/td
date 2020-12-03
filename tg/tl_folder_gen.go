@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Folder represents TL type `folder#ff544e65`.
+//
+// See https://core.telegram.org/constructor/folder for reference.
 type Folder struct {
 	// Flags field of Folder.
 	Flags bin.Fields

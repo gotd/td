@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetBroadcastStatsRequest represents TL type `stats.getBroadcastStats#ab42441a`.
+//
+// See https://core.telegram.org/method/stats.getBroadcastStats for reference.
 type StatsGetBroadcastStatsRequest struct {
 	// Flags field of StatsGetBroadcastStatsRequest.
 	Flags bin.Fields
@@ -85,6 +87,8 @@ var (
 )
 
 // StatsGetBroadcastStats invokes method stats.getBroadcastStats#ab42441a returning error if any.
+//
+// See https://core.telegram.org/method/stats.getBroadcastStats for reference.
 func (c *Client) StatsGetBroadcastStats(ctx context.Context, request *StatsGetBroadcastStatsRequest) (*StatsBroadcastStats, error) {
 	var result StatsBroadcastStats
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

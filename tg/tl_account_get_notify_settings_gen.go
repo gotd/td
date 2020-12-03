@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetNotifySettingsRequest represents TL type `account.getNotifySettings#12b3ad31`.
+//
+// See https://core.telegram.org/method/account.getNotifySettings for reference.
 type AccountGetNotifySettingsRequest struct {
 	// Peer field of AccountGetNotifySettingsRequest.
 	Peer InputNotifyPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.
+//
+// See https://core.telegram.org/method/account.getNotifySettings for reference.
 func (c *Client) AccountGetNotifySettings(ctx context.Context, request *AccountGetNotifySettingsRequest) (*PeerNotifySettings, error) {
 	var result PeerNotifySettings
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

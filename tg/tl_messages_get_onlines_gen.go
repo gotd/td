@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetOnlinesRequest represents TL type `messages.getOnlines#6e2be050`.
+//
+// See https://core.telegram.org/method/messages.getOnlines for reference.
 type MessagesGetOnlinesRequest struct {
 	// Peer field of MessagesGetOnlinesRequest.
 	Peer InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getOnlines for reference.
 func (c *Client) MessagesGetOnlines(ctx context.Context, request *MessagesGetOnlinesRequest) (*ChatOnlines, error) {
 	var result ChatOnlines
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

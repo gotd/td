@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadMentionsRequest represents TL type `messages.readMentions#f0189d3`.
+//
+// See https://core.telegram.org/method/messages.readMentions for reference.
 type MessagesReadMentionsRequest struct {
 	// Peer field of MessagesReadMentionsRequest.
 	Peer InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesReadMentions invokes method messages.readMentions#f0189d3 returning error if any.
+//
+// See https://core.telegram.org/method/messages.readMentions for reference.
 func (c *Client) MessagesReadMentions(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

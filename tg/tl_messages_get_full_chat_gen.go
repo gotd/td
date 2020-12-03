@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetFullChatRequest represents TL type `messages.getFullChat#3b831c66`.
+//
+// See https://core.telegram.org/method/messages.getFullChat for reference.
 type MessagesGetFullChatRequest struct {
 	// ChatID field of MessagesGetFullChatRequest.
 	ChatID int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetFullChat invokes method messages.getFullChat#3b831c66 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getFullChat for reference.
 func (c *Client) MessagesGetFullChat(ctx context.Context, request *MessagesGetFullChatRequest) (*MessagesChatFull, error) {
 	var result MessagesChatFull
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

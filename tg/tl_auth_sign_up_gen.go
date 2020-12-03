@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSignUpRequest represents TL type `auth.signUp#80eee427`.
+//
+// See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
 	// PhoneNumber field of AuthSignUpRequest.
 	PhoneNumber string
@@ -88,6 +90,8 @@ var (
 )
 
 // AuthSignUp invokes method auth.signUp#80eee427 returning error if any.
+//
+// See https://core.telegram.org/method/auth.signUp for reference.
 func (c *Client) AuthSignUp(ctx context.Context, request *AuthSignUpRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

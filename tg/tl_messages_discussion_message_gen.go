@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDiscussionMessage represents TL type `messages.discussionMessage#f5dd8f9d`.
+//
+// See https://core.telegram.org/constructor/messages.discussionMessage for reference.
 type MessagesDiscussionMessage struct {
 	// Flags field of MessagesDiscussionMessage.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SendMessageTypingAction represents TL type `sendMessageTypingAction#16bf744e`.
+//
+// See https://core.telegram.org/constructor/sendMessageTypingAction for reference.
 type SendMessageTypingAction struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // SendMessageCancelAction represents TL type `sendMessageCancelAction#fd5ec8f5`.
+//
+// See https://core.telegram.org/constructor/sendMessageCancelAction for reference.
 type SendMessageCancelAction struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // SendMessageRecordVideoAction represents TL type `sendMessageRecordVideoAction#a187d66f`.
+//
+// See https://core.telegram.org/constructor/sendMessageRecordVideoAction for reference.
 type SendMessageRecordVideoAction struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // SendMessageUploadVideoAction represents TL type `sendMessageUploadVideoAction#e9763aec`.
+//
+// See https://core.telegram.org/constructor/sendMessageUploadVideoAction for reference.
 type SendMessageUploadVideoAction struct {
 	// Progress field of SendMessageUploadVideoAction.
 	Progress int
@@ -177,6 +185,8 @@ var (
 )
 
 // SendMessageRecordAudioAction represents TL type `sendMessageRecordAudioAction#d52f73f7`.
+//
+// See https://core.telegram.org/constructor/sendMessageRecordAudioAction for reference.
 type SendMessageRecordAudioAction struct {
 }
 
@@ -215,6 +225,8 @@ var (
 )
 
 // SendMessageUploadAudioAction represents TL type `sendMessageUploadAudioAction#f351d7ab`.
+//
+// See https://core.telegram.org/constructor/sendMessageUploadAudioAction for reference.
 type SendMessageUploadAudioAction struct {
 	// Progress field of SendMessageUploadAudioAction.
 	Progress int
@@ -263,6 +275,8 @@ var (
 )
 
 // SendMessageUploadPhotoAction represents TL type `sendMessageUploadPhotoAction#d1d34a26`.
+//
+// See https://core.telegram.org/constructor/sendMessageUploadPhotoAction for reference.
 type SendMessageUploadPhotoAction struct {
 	// Progress field of SendMessageUploadPhotoAction.
 	Progress int
@@ -311,6 +325,8 @@ var (
 )
 
 // SendMessageUploadDocumentAction represents TL type `sendMessageUploadDocumentAction#aa0cd9e4`.
+//
+// See https://core.telegram.org/constructor/sendMessageUploadDocumentAction for reference.
 type SendMessageUploadDocumentAction struct {
 	// Progress field of SendMessageUploadDocumentAction.
 	Progress int
@@ -359,6 +375,8 @@ var (
 )
 
 // SendMessageGeoLocationAction represents TL type `sendMessageGeoLocationAction#176f8ba1`.
+//
+// See https://core.telegram.org/constructor/sendMessageGeoLocationAction for reference.
 type SendMessageGeoLocationAction struct {
 }
 
@@ -397,6 +415,8 @@ var (
 )
 
 // SendMessageChooseContactAction represents TL type `sendMessageChooseContactAction#628cbc6f`.
+//
+// See https://core.telegram.org/constructor/sendMessageChooseContactAction for reference.
 type SendMessageChooseContactAction struct {
 }
 
@@ -435,6 +455,8 @@ var (
 )
 
 // SendMessageGamePlayAction represents TL type `sendMessageGamePlayAction#dd6a8f48`.
+//
+// See https://core.telegram.org/constructor/sendMessageGamePlayAction for reference.
 type SendMessageGamePlayAction struct {
 }
 
@@ -473,6 +495,8 @@ var (
 )
 
 // SendMessageRecordRoundAction represents TL type `sendMessageRecordRoundAction#88f27fbc`.
+//
+// See https://core.telegram.org/constructor/sendMessageRecordRoundAction for reference.
 type SendMessageRecordRoundAction struct {
 }
 
@@ -511,6 +535,8 @@ var (
 )
 
 // SendMessageUploadRoundAction represents TL type `sendMessageUploadRoundAction#243e1c66`.
+//
+// See https://core.telegram.org/constructor/sendMessageUploadRoundAction for reference.
 type SendMessageUploadRoundAction struct {
 	// Progress field of SendMessageUploadRoundAction.
 	Progress int
@@ -559,6 +585,8 @@ var (
 )
 
 // SendMessageActionClass represents SendMessageAction generic type.
+//
+// See https://core.telegram.org/type/SendMessageAction for reference.
 //
 // Example:
 //  g, err := DecodeSendMessageAction(buf)

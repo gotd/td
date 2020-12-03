@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUploadWallPaperRequest represents TL type `account.uploadWallPaper#dd853661`.
+//
+// See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
 	// File field of AccountUploadWallPaperRequest.
 	File InputFileClass
@@ -83,6 +85,8 @@ var (
 )
 
 // AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.
+//
+// See https://core.telegram.org/method/account.uploadWallPaper for reference.
 func (c *Client) AccountUploadWallPaper(ctx context.Context, request *AccountUploadWallPaperRequest) (WallPaperClass, error) {
 	var result WallPaperBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

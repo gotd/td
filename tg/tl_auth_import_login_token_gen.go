@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
+//
+// See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
 	// Token field of AuthImportLoginTokenRequest.
 	Token []byte
@@ -58,6 +60,8 @@ var (
 )
 
 // AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.
+//
+// See https://core.telegram.org/method/auth.importLoginToken for reference.
 func (c *Client) AuthImportLoginToken(ctx context.Context, request *AuthImportLoginTokenRequest) (AuthLoginTokenClass, error) {
 	var result AuthLoginTokenBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageListOrderedItemText represents TL type `pageListOrderedItemText#5e068047`.
+//
+// See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
 	// Num field of PageListOrderedItemText.
 	Num string
@@ -78,6 +80,8 @@ var (
 )
 
 // PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
+//
+// See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
 	// Num field of PageListOrderedItemBlocks.
 	Num string
@@ -150,6 +154,8 @@ var (
 )
 
 // PageListOrderedItemClass represents PageListOrderedItem generic type.
+//
+// See https://core.telegram.org/type/PageListOrderedItem for reference.
 //
 // Example:
 //  g, err := DecodePageListOrderedItem(buf)

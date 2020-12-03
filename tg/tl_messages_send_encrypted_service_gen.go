@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendEncryptedServiceRequest represents TL type `messages.sendEncryptedService#32d439a4`.
+//
+// See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 type MessagesSendEncryptedServiceRequest struct {
 	// Peer field of MessagesSendEncryptedServiceRequest.
 	Peer InputEncryptedChat
@@ -78,6 +80,8 @@ var (
 )
 
 // MessagesSendEncryptedService invokes method messages.sendEncryptedService#32d439a4 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 func (c *Client) MessagesSendEncryptedService(ctx context.Context, request *MessagesSendEncryptedServiceRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

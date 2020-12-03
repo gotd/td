@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetMegagroupStatsRequest represents TL type `stats.getMegagroupStats#dcdf8607`.
+//
+// See https://core.telegram.org/method/stats.getMegagroupStats for reference.
 type StatsGetMegagroupStatsRequest struct {
 	// Flags field of StatsGetMegagroupStatsRequest.
 	Flags bin.Fields
@@ -85,6 +87,8 @@ var (
 )
 
 // StatsGetMegagroupStats invokes method stats.getMegagroupStats#dcdf8607 returning error if any.
+//
+// See https://core.telegram.org/method/stats.getMegagroupStats for reference.
 func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {
 	var result StatsMegagroupStats
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

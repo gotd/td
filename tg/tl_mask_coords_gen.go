@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MaskCoords represents TL type `maskCoords#aed6dbb2`.
+//
+// See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {
 	// N field of MaskCoords.
 	N int

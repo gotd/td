@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesToggleDialogPinRequest represents TL type `messages.toggleDialogPin#a731e257`.
+//
+// See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 type MessagesToggleDialogPinRequest struct {
 	// Flags field of MessagesToggleDialogPinRequest.
 	Flags bin.Fields
@@ -85,6 +87,8 @@ var (
 )
 
 // MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.
+//
+// See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 func (c *Client) MessagesToggleDialogPin(ctx context.Context, request *MessagesToggleDialogPinRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

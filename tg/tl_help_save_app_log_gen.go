@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpSaveAppLogRequest represents TL type `help.saveAppLog#6f02f748`.
+//
+// See https://core.telegram.org/method/help.saveAppLog for reference.
 type HelpSaveAppLogRequest struct {
 	// Events field of HelpSaveAppLogRequest.
 	Events []InputAppEvent
@@ -69,6 +71,8 @@ var (
 )
 
 // HelpSaveAppLog invokes method help.saveAppLog#6f02f748 returning error if any.
+//
+// See https://core.telegram.org/method/help.saveAppLog for reference.
 func (c *Client) HelpSaveAppLog(ctx context.Context, request *HelpSaveAppLogRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

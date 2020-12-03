@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // GlobalPrivacySettings represents TL type `globalPrivacySettings#bea2f424`.
+//
+// See https://core.telegram.org/constructor/globalPrivacySettings for reference.
 type GlobalPrivacySettings struct {
 	// Flags field of GlobalPrivacySettings.
 	Flags bin.Fields

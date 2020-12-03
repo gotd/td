@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
+//
+// See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
 	// Token field of StatsGraphAsync.
 	Token string
@@ -63,6 +65,8 @@ var (
 )
 
 // StatsGraphError represents TL type `statsGraphError#bedc9822`.
+//
+// See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
 	// Error field of StatsGraphError.
 	Error string
@@ -111,6 +115,8 @@ var (
 )
 
 // StatsGraph represents TL type `statsGraph#8ea464b6`.
+//
+// See https://core.telegram.org/constructor/statsGraph for reference.
 type StatsGraph struct {
 	// Flags field of StatsGraph.
 	Flags bin.Fields
@@ -198,6 +204,8 @@ var (
 )
 
 // StatsGraphClass represents StatsGraph generic type.
+//
+// See https://core.telegram.org/type/StatsGraph for reference.
 //
 // Example:
 //  g, err := DecodeStatsGraph(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetSavedGifsRequest represents TL type `messages.getSavedGifs#83bf3d52`.
+//
+// See https://core.telegram.org/method/messages.getSavedGifs for reference.
 type MessagesGetSavedGifsRequest struct {
 	// Hash field of MessagesGetSavedGifsRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetSavedGifs invokes method messages.getSavedGifs#83bf3d52 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getSavedGifs for reference.
 func (c *Client) MessagesGetSavedGifs(ctx context.Context, request *MessagesGetSavedGifsRequest) (MessagesSavedGifsClass, error) {
 	var result MessagesSavedGifsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

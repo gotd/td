@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TextEntityTypeMention represents TL type `textEntityTypeMention#37b3df65`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeMention for reference.
 type TextEntityTypeMention struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // TextEntityTypeHashtag represents TL type `textEntityTypeHashtag#c2f7a2dd`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeHashtag for reference.
 type TextEntityTypeHashtag struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // TextEntityTypeCashtag represents TL type `textEntityTypeCashtag#48e4374b`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeCashtag for reference.
 type TextEntityTypeCashtag struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // TextEntityTypeBotCommand represents TL type `textEntityTypeBotCommand#bb652bb3`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeBotCommand for reference.
 type TextEntityTypeBotCommand struct {
 }
 
@@ -167,6 +175,8 @@ var (
 )
 
 // TextEntityTypeUrl represents TL type `textEntityTypeUrl#b1c0d47c`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeUrl for reference.
 type TextEntityTypeUrl struct {
 }
 
@@ -205,6 +215,8 @@ var (
 )
 
 // TextEntityTypeEmailAddress represents TL type `textEntityTypeEmailAddress#54f81821`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeEmailAddress for reference.
 type TextEntityTypeEmailAddress struct {
 }
 
@@ -243,6 +255,8 @@ var (
 )
 
 // TextEntityTypePhoneNumber represents TL type `textEntityTypePhoneNumber#bad9aa2a`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypePhoneNumber for reference.
 type TextEntityTypePhoneNumber struct {
 }
 
@@ -281,6 +295,8 @@ var (
 )
 
 // TextEntityTypeBankCardNumber represents TL type `textEntityTypeBankCardNumber#6513910`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeBankCardNumber for reference.
 type TextEntityTypeBankCardNumber struct {
 }
 
@@ -319,6 +335,8 @@ var (
 )
 
 // TextEntityTypeBold represents TL type `textEntityTypeBold#bcc0e1b0`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeBold for reference.
 type TextEntityTypeBold struct {
 }
 
@@ -357,6 +375,8 @@ var (
 )
 
 // TextEntityTypeItalic represents TL type `textEntityTypeItalic#f8f3965d`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeItalic for reference.
 type TextEntityTypeItalic struct {
 }
 
@@ -395,6 +415,8 @@ var (
 )
 
 // TextEntityTypeUnderline represents TL type `textEntityTypeUnderline#2f39cf92`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeUnderline for reference.
 type TextEntityTypeUnderline struct {
 }
 
@@ -433,6 +455,8 @@ var (
 )
 
 // TextEntityTypeStrikethrough represents TL type `textEntityTypeStrikethrough#394fc4fa`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeStrikethrough for reference.
 type TextEntityTypeStrikethrough struct {
 }
 
@@ -471,6 +495,8 @@ var (
 )
 
 // TextEntityTypeCode represents TL type `textEntityTypeCode#c5e9c94a`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeCode for reference.
 type TextEntityTypeCode struct {
 }
 
@@ -509,6 +535,8 @@ var (
 )
 
 // TextEntityTypePre represents TL type `textEntityTypePre#62491c8e`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypePre for reference.
 type TextEntityTypePre struct {
 }
 
@@ -547,6 +575,8 @@ var (
 )
 
 // TextEntityTypePreCode represents TL type `textEntityTypePreCode#c7a77aab`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypePreCode for reference.
 type TextEntityTypePreCode struct {
 	// Programming language of the code; as defined by the sender
 	Language string
@@ -595,6 +625,8 @@ var (
 )
 
 // TextEntityTypeTextUrl represents TL type `textEntityTypeTextUrl#1a912463`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeTextUrl for reference.
 type TextEntityTypeTextUrl struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
 	URL string
@@ -643,6 +675,8 @@ var (
 )
 
 // TextEntityTypeMentionName represents TL type `textEntityTypeMentionName#d0d2685d`.
+//
+// See https://localhost:80/doc/constructor/textEntityTypeMentionName for reference.
 type TextEntityTypeMentionName struct {
 	// Identifier of the mentioned user
 	UserID int32
@@ -691,6 +725,8 @@ var (
 )
 
 // TextEntityTypeClass represents TextEntityType generic type.
+//
+// See https://localhost:80/doc/type/TextEntityType for reference.
 //
 // Example:
 //  g, err := DecodeTextEntityType(buf)

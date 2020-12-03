@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSingleMedia represents TL type `inputSingleMedia#1cc6e91f`.
+//
+// See https://core.telegram.org/constructor/inputSingleMedia for reference.
 type InputSingleMedia struct {
 	// Flags field of InputSingleMedia.
 	Flags bin.Fields

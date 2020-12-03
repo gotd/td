@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountVerifyPhoneRequest represents TL type `account.verifyPhone#4dd3a7f6`.
+//
+// See https://core.telegram.org/method/account.verifyPhone for reference.
 type AccountVerifyPhoneRequest struct {
 	// PhoneNumber field of AccountVerifyPhoneRequest.
 	PhoneNumber string
@@ -78,6 +80,8 @@ var (
 )
 
 // AccountVerifyPhone invokes method account.verifyPhone#4dd3a7f6 returning error if any.
+//
+// See https://core.telegram.org/method/account.verifyPhone for reference.
 func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureRequiredType represents TL type `secureRequiredType#829d99da`.
+//
+// See https://core.telegram.org/constructor/secureRequiredType for reference.
 type SecureRequiredType struct {
 	// Flags field of SecureRequiredType.
 	Flags bin.Fields
@@ -114,6 +116,8 @@ var (
 )
 
 // SecureRequiredTypeOneOf represents TL type `secureRequiredTypeOneOf#27477b4`.
+//
+// See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
 	// Types field of SecureRequiredTypeOneOf.
 	Types []SecureRequiredTypeClass
@@ -176,6 +180,8 @@ var (
 )
 
 // SecureRequiredTypeClass represents SecureRequiredType generic type.
+//
+// See https://core.telegram.org/type/SecureRequiredType for reference.
 //
 // Example:
 //  g, err := DecodeSecureRequiredType(buf)

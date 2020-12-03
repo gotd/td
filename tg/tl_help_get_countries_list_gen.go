@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetCountriesListRequest represents TL type `help.getCountriesList#735787a8`.
+//
+// See https://core.telegram.org/method/help.getCountriesList for reference.
 type HelpGetCountriesListRequest struct {
 	// LangCode field of HelpGetCountriesListRequest.
 	LangCode string
@@ -68,6 +70,8 @@ var (
 )
 
 // HelpGetCountriesList invokes method help.getCountriesList#735787a8 returning error if any.
+//
+// See https://core.telegram.org/method/help.getCountriesList for reference.
 func (c *Client) HelpGetCountriesList(ctx context.Context, request *HelpGetCountriesListRequest) (HelpCountriesListClass, error) {
 	var result HelpCountriesListBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
+//
+// See https://core.telegram.org/method/account.installTheme for reference.
 type AccountInstallThemeRequest struct {
 	// Flags field of AccountInstallThemeRequest.
 	Flags bin.Fields
@@ -133,6 +135,8 @@ var (
 )
 
 // AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.
+//
+// See https://core.telegram.org/method/account.installTheme for reference.
 func (c *Client) AccountInstallTheme(ctx context.Context, request *AccountInstallThemeRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

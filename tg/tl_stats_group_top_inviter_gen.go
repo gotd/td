@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopInviter represents TL type `statsGroupTopInviter#31962a4c`.
+//
+// See https://core.telegram.org/constructor/statsGroupTopInviter for reference.
 type StatsGroupTopInviter struct {
 	// UserID field of StatsGroupTopInviter.
 	UserID int

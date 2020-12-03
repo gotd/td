@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
+//
+// See https://core.telegram.org/method/phone.setCallRating for reference.
 type PhoneSetCallRatingRequest struct {
 	// Flags field of PhoneSetCallRatingRequest.
 	Flags bin.Fields
@@ -100,6 +102,8 @@ var (
 )
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
+//
+// See https://core.telegram.org/method/phone.setCallRating for reference.
 func (c *Client) PhoneSetCallRating(ctx context.Context, request *PhoneSetCallRatingRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

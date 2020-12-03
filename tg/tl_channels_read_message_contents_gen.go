@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsReadMessageContentsRequest represents TL type `channels.readMessageContents#eab5dc38`.
+//
+// See https://core.telegram.org/method/channels.readMessageContents for reference.
 type ChannelsReadMessageContentsRequest struct {
 	// Channel field of ChannelsReadMessageContentsRequest.
 	Channel InputChannelClass
@@ -82,6 +84,8 @@ var (
 )
 
 // ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
+//
+// See https://core.telegram.org/method/channels.readMessageContents for reference.
 func (c *Client) ChannelsReadMessageContents(ctx context.Context, request *ChannelsReadMessageContentsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

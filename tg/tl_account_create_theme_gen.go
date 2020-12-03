@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCreateThemeRequest represents TL type `account.createTheme#8432c21f`.
+//
+// See https://core.telegram.org/method/account.createTheme for reference.
 type AccountCreateThemeRequest struct {
 	// Flags field of AccountCreateThemeRequest.
 	Flags bin.Fields
@@ -141,6 +143,8 @@ var (
 )
 
 // AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.
+//
+// See https://core.telegram.org/method/account.createTheme for reference.
 func (c *Client) AccountCreateTheme(ctx context.Context, request *AccountCreateThemeRequest) (*Theme, error) {
 	var result Theme
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsToggleSignaturesRequest represents TL type `channels.toggleSignatures#1f69b606`.
+//
+// See https://core.telegram.org/method/channels.toggleSignatures for reference.
 type ChannelsToggleSignaturesRequest struct {
 	// Channel field of ChannelsToggleSignaturesRequest.
 	Channel InputChannelClass
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.
+//
+// See https://core.telegram.org/method/channels.toggleSignatures for reference.
 func (c *Client) ChannelsToggleSignatures(ctx context.Context, request *ChannelsToggleSignaturesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

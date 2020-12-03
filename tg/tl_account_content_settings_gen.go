@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountContentSettings represents TL type `account.contentSettings#57e28221`.
+//
+// See https://core.telegram.org/constructor/account.contentSettings for reference.
 type AccountContentSettings struct {
 	// Flags field of AccountContentSettings.
 	Flags bin.Fields

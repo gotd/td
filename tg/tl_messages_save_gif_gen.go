@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSaveGifRequest represents TL type `messages.saveGif#327a30cb`.
+//
+// See https://core.telegram.org/method/messages.saveGif for reference.
 type MessagesSaveGifRequest struct {
 	// ID field of MessagesSaveGifRequest.
 	ID InputDocumentClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.
+//
+// See https://core.telegram.org/method/messages.saveGif for reference.
 func (c *Client) MessagesSaveGif(ctx context.Context, request *MessagesSaveGifRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

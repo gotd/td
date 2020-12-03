@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetPasswordRequest represents TL type `account.getPassword#548a30f5`.
+//
+// See https://core.telegram.org/method/account.getPassword for reference.
 type AccountGetPasswordRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountGetPassword invokes method account.getPassword#548a30f5 returning error if any.
+//
+// See https://core.telegram.org/method/account.getPassword for reference.
 func (c *Client) AccountGetPassword(ctx context.Context, request *AccountGetPasswordRequest) (*AccountPassword, error) {
 	var result AccountPassword
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

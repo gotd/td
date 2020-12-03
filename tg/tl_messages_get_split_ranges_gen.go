@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
+//
+// See https://core.telegram.org/constructor/messages.getSplitRanges for reference.
 type MessagesGetSplitRangesRequest struct {
 }
 

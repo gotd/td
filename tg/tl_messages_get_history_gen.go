@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetHistoryRequest represents TL type `messages.getHistory#dcbb8260`.
+//
+// See https://core.telegram.org/method/messages.getHistory for reference.
 type MessagesGetHistoryRequest struct {
 	// Peer field of MessagesGetHistoryRequest.
 	Peer InputPeerClass
@@ -133,6 +135,8 @@ var (
 )
 
 // MessagesGetHistory invokes method messages.getHistory#dcbb8260 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getHistory for reference.
 func (c *Client) MessagesGetHistory(ctx context.Context, request *MessagesGetHistoryRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

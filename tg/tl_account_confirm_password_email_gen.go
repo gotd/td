@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountConfirmPasswordEmailRequest represents TL type `account.confirmPasswordEmail#8fdf1920`.
+//
+// See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 type AccountConfirmPasswordEmailRequest struct {
 	// Code field of AccountConfirmPasswordEmailRequest.
 	Code string
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountConfirmPasswordEmail invokes method account.confirmPasswordEmail#8fdf1920 returning error if any.
+//
+// See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, request *AccountConfirmPasswordEmailRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

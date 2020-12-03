@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPeerEmpty represents TL type `inputPeerEmpty#7f3b18ea`.
+//
+// See https://core.telegram.org/constructor/inputPeerEmpty for reference.
 type InputPeerEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputPeerSelf represents TL type `inputPeerSelf#7da07ec9`.
+//
+// See https://core.telegram.org/constructor/inputPeerSelf for reference.
 type InputPeerSelf struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // InputPeerChat represents TL type `inputPeerChat#179be863`.
+//
+// See https://core.telegram.org/constructor/inputPeerChat for reference.
 type InputPeerChat struct {
 	// ChatID field of InputPeerChat.
 	ChatID int
@@ -139,6 +145,8 @@ var (
 )
 
 // InputPeerUser represents TL type `inputPeerUser#7b8e7de6`.
+//
+// See https://core.telegram.org/constructor/inputPeerUser for reference.
 type InputPeerUser struct {
 	// UserID field of InputPeerUser.
 	UserID int
@@ -197,6 +205,8 @@ var (
 )
 
 // InputPeerChannel represents TL type `inputPeerChannel#20adaef8`.
+//
+// See https://core.telegram.org/constructor/inputPeerChannel for reference.
 type InputPeerChannel struct {
 	// ChannelID field of InputPeerChannel.
 	ChannelID int
@@ -255,6 +265,8 @@ var (
 )
 
 // InputPeerUserFromMessage represents TL type `inputPeerUserFromMessage#17bae2e6`.
+//
+// See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
 	// Peer field of InputPeerUserFromMessage.
 	Peer InputPeerClass
@@ -328,6 +340,8 @@ var (
 )
 
 // InputPeerChannelFromMessage represents TL type `inputPeerChannelFromMessage#9c95f7bb`.
+//
+// See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {
 	// Peer field of InputPeerChannelFromMessage.
 	Peer InputPeerClass
@@ -401,6 +415,8 @@ var (
 )
 
 // InputPeerClass represents InputPeer generic type.
+//
+// See https://core.telegram.org/type/InputPeer for reference.
 //
 // Example:
 //  g, err := DecodeInputPeer(buf)

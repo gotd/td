@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsSearchRequest represents TL type `contacts.search#11f812d8`.
+//
+// See https://core.telegram.org/method/contacts.search for reference.
 type ContactsSearchRequest struct {
 	// Q field of ContactsSearchRequest.
 	Q string
@@ -68,6 +70,8 @@ var (
 )
 
 // ContactsSearch invokes method contacts.search#11f812d8 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.search for reference.
 func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {
 	var result ContactsFound
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

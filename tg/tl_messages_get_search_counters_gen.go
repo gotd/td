@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetSearchCountersRequest represents TL type `messages.getSearchCounters#732eef00`.
+//
+// See https://core.telegram.org/constructor/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
 	// Peer field of MessagesGetSearchCountersRequest.
 	Peer InputPeerClass

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsTogglePreHistoryHiddenRequest represents TL type `channels.togglePreHistoryHidden#eabbb94c`.
+//
+// See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 type ChannelsTogglePreHistoryHiddenRequest struct {
 	// Channel field of ChannelsTogglePreHistoryHiddenRequest.
 	Channel InputChannelClass
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelsTogglePreHistoryHidden invokes method channels.togglePreHistoryHidden#eabbb94c returning error if any.
+//
+// See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 func (c *Client) ChannelsTogglePreHistoryHidden(ctx context.Context, request *ChannelsTogglePreHistoryHiddenRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

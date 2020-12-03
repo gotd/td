@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUpdatePinnedMessageRequest represents TL type `messages.updatePinnedMessage#d2aaf7ec`.
+//
+// See https://core.telegram.org/method/messages.updatePinnedMessage for reference.
 type MessagesUpdatePinnedMessageRequest struct {
 	// Flags field of MessagesUpdatePinnedMessageRequest.
 	Flags bin.Fields
@@ -119,6 +121,8 @@ var (
 )
 
 // MessagesUpdatePinnedMessage invokes method messages.updatePinnedMessage#d2aaf7ec returning error if any.
+//
+// See https://core.telegram.org/method/messages.updatePinnedMessage for reference.
 func (c *Client) MessagesUpdatePinnedMessage(ctx context.Context, request *MessagesUpdatePinnedMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

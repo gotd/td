@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpTermsOfService represents TL type `help.termsOfService#780a0310`.
+//
+// See https://core.telegram.org/constructor/help.termsOfService for reference.
 type HelpTermsOfService struct {
 	// Flags field of HelpTermsOfService.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDocumentByHashRequest represents TL type `messages.getDocumentByHash#338e2464`.
+//
+// See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 type MessagesGetDocumentByHashRequest struct {
 	// Sha256 field of MessagesGetDocumentByHashRequest.
 	Sha256 []byte
@@ -78,6 +80,8 @@ var (
 )
 
 // MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 func (c *Client) MessagesGetDocumentByHash(ctx context.Context, request *MessagesGetDocumentByHashRequest) (DocumentClass, error) {
 	var result DocumentBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

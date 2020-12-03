@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotsAnswerWebhookJSONQueryRequest represents TL type `bots.answerWebhookJSONQuery#e6213f4d`.
+//
+// See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 type BotsAnswerWebhookJSONQueryRequest struct {
 	// QueryID field of BotsAnswerWebhookJSONQueryRequest.
 	QueryID int64
@@ -68,6 +70,8 @@ var (
 )
 
 // BotsAnswerWebhookJSONQuery invokes method bots.answerWebhookJSONQuery#e6213f4d returning error if any.
+//
+// See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 func (c *Client) BotsAnswerWebhookJSONQuery(ctx context.Context, request *BotsAnswerWebhookJSONQueryRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

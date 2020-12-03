@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadMessageContentsRequest represents TL type `messages.readMessageContents#36a73f77`.
+//
+// See https://core.telegram.org/method/messages.readMessageContents for reference.
 type MessagesReadMessageContentsRequest struct {
 	// ID field of MessagesReadMessageContentsRequest.
 	ID []int
@@ -67,6 +69,8 @@ var (
 )
 
 // MessagesReadMessageContents invokes method messages.readMessageContents#36a73f77 returning error if any.
+//
+// See https://core.telegram.org/method/messages.readMessageContents for reference.
 func (c *Client) MessagesReadMessageContents(ctx context.Context, request *MessagesReadMessageContentsRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

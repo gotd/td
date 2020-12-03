@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactStatus represents TL type `contactStatus#d3680c61`.
+//
+// See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// UserID field of ContactStatus.
 	UserID int

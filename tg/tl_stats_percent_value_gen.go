@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsPercentValue represents TL type `statsPercentValue#cbce2fe0`.
+//
+// See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {
 	// Part field of StatsPercentValue.
 	Part float64

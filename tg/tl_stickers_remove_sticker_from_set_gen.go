@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersRemoveStickerFromSetRequest represents TL type `stickers.removeStickerFromSet#f7760f51`.
+//
+// See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
 	// Sticker field of StickersRemoveStickerFromSetRequest.
 	Sticker InputDocumentClass
@@ -63,6 +65,8 @@ var (
 )
 
 // StickersRemoveStickerFromSet invokes method stickers.removeStickerFromSet#f7760f51 returning error if any.
+//
+// See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, request *StickersRemoveStickerFromSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

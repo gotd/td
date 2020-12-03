@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatPhotoEmpty represents TL type `chatPhotoEmpty#37c1011c`.
+//
+// See https://core.telegram.org/constructor/chatPhotoEmpty for reference.
 type ChatPhotoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ChatPhoto represents TL type `chatPhoto#d20b9f3c`.
+//
+// See https://core.telegram.org/constructor/chatPhoto for reference.
 type ChatPhoto struct {
 	// Flags field of ChatPhoto.
 	Flags bin.Fields
@@ -143,6 +147,8 @@ var (
 )
 
 // ChatPhotoClass represents ChatPhoto generic type.
+//
+// See https://core.telegram.org/type/ChatPhoto for reference.
 //
 // Example:
 //  g, err := DecodeChatPhoto(buf)

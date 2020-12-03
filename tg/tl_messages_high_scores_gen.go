@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesHighScores represents TL type `messages.highScores#9a3bfd99`.
+//
+// See https://core.telegram.org/constructor/messages.highScores for reference.
 type MessagesHighScores struct {
 	// Scores field of MessagesHighScores.
 	Scores []HighScore

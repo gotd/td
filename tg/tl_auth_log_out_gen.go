@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthLogOutRequest represents TL type `auth.logOut#5717da40`.
+//
+// See https://core.telegram.org/method/auth.logOut for reference.
 type AuthLogOutRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AuthLogOut invokes method auth.logOut#5717da40 returning error if any.
+//
+// See https://core.telegram.org/method/auth.logOut for reference.
 func (c *Client) AuthLogOut(ctx context.Context, request *AuthLogOutRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

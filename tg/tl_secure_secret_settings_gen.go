@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureSecretSettings represents TL type `secureSecretSettings#1527bcac`.
+//
+// See https://core.telegram.org/constructor/secureSecretSettings for reference.
 type SecureSecretSettings struct {
 	// SecureAlgo field of SecureSecretSettings.
 	SecureAlgo SecurePasswordKdfAlgoClass

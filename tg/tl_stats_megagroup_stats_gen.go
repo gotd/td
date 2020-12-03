@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
+//
+// See https://core.telegram.org/constructor/stats.megagroupStats for reference.
 type StatsMegagroupStats struct {
 	// Period field of StatsMegagroupStats.
 	Period StatsDateRangeDays

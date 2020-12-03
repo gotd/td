@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BankCardOpenUrl represents TL type `bankCardOpenUrl#f568028a`.
+//
+// See https://core.telegram.org/constructor/bankCardOpenUrl for reference.
 type BankCardOpenUrl struct {
 	// URL field of BankCardOpenUrl.
 	URL string

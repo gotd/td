@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // NotifyPeer represents TL type `notifyPeer#9fd40bd8`.
+//
+// See https://core.telegram.org/constructor/notifyPeer for reference.
 type NotifyPeer struct {
 	// Peer field of NotifyPeer.
 	Peer PeerClass
@@ -68,6 +70,8 @@ var (
 )
 
 // NotifyUsers represents TL type `notifyUsers#b4c83b4c`.
+//
+// See https://core.telegram.org/constructor/notifyUsers for reference.
 type NotifyUsers struct {
 }
 
@@ -106,6 +110,8 @@ var (
 )
 
 // NotifyChats represents TL type `notifyChats#c007cec3`.
+//
+// See https://core.telegram.org/constructor/notifyChats for reference.
 type NotifyChats struct {
 }
 
@@ -144,6 +150,8 @@ var (
 )
 
 // NotifyBroadcasts represents TL type `notifyBroadcasts#d612e8ef`.
+//
+// See https://core.telegram.org/constructor/notifyBroadcasts for reference.
 type NotifyBroadcasts struct {
 }
 
@@ -182,6 +190,8 @@ var (
 )
 
 // NotifyPeerClass represents NotifyPeer generic type.
+//
+// See https://core.telegram.org/type/NotifyPeer for reference.
 //
 // Example:
 //  g, err := DecodeNotifyPeer(buf)

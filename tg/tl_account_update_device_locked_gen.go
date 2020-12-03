@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateDeviceLockedRequest represents TL type `account.updateDeviceLocked#38df3532`.
+//
+// See https://core.telegram.org/method/account.updateDeviceLocked for reference.
 type AccountUpdateDeviceLockedRequest struct {
 	// Period field of AccountUpdateDeviceLockedRequest.
 	Period int
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountUpdateDeviceLocked invokes method account.updateDeviceLocked#38df3532 returning error if any.
+//
+// See https://core.telegram.org/method/account.updateDeviceLocked for reference.
 func (c *Client) AccountUpdateDeviceLocked(ctx context.Context, request *AccountUpdateDeviceLockedRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatFull represents TL type `chatFull#1b7c9db3`.
+//
+// See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
 	// Flags field of ChatFull.
 	Flags bin.Fields
@@ -279,6 +281,8 @@ var (
 )
 
 // ChannelFull represents TL type `channelFull#f0e6672a`.
+//
+// See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
 	// Flags field of ChannelFull.
 	Flags bin.Fields
@@ -1013,6 +1017,8 @@ var (
 )
 
 // ChatFullClass represents ChatFull generic type.
+//
+// See https://core.telegram.org/type/ChatFull for reference.
 //
 // Example:
 //  g, err := DecodeChatFull(buf)

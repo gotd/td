@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputStickeredMediaPhoto represents TL type `inputStickeredMediaPhoto#4a992157`.
+//
+// See https://core.telegram.org/constructor/inputStickeredMediaPhoto for reference.
 type InputStickeredMediaPhoto struct {
 	// ID field of InputStickeredMediaPhoto.
 	ID InputPhotoClass
@@ -68,6 +70,8 @@ var (
 )
 
 // InputStickeredMediaDocument represents TL type `inputStickeredMediaDocument#438865b`.
+//
+// See https://core.telegram.org/constructor/inputStickeredMediaDocument for reference.
 type InputStickeredMediaDocument struct {
 	// ID field of InputStickeredMediaDocument.
 	ID InputDocumentClass
@@ -121,6 +125,8 @@ var (
 )
 
 // InputStickeredMediaClass represents InputStickeredMedia generic type.
+//
+// See https://core.telegram.org/type/InputStickeredMedia for reference.
 //
 // Example:
 //  g, err := DecodeInputStickeredMedia(buf)

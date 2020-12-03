@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetInlineGameScoreRequest represents TL type `messages.setInlineGameScore#15ad9f64`.
+//
+// See https://core.telegram.org/method/messages.setInlineGameScore for reference.
 type MessagesSetInlineGameScoreRequest struct {
 	// Flags field of MessagesSetInlineGameScoreRequest.
 	Flags bin.Fields
@@ -117,6 +119,8 @@ var (
 )
 
 // MessagesSetInlineGameScore invokes method messages.setInlineGameScore#15ad9f64 returning error if any.
+//
+// See https://core.telegram.org/method/messages.setInlineGameScore for reference.
 func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

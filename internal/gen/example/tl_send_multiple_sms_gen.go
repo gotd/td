@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SendMultipleSMSRequest represents TL type `sendMultipleSMS#df18e5ca`.
+//
+// See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 type SendMultipleSMSRequest struct {
 	// Messages field of SendMultipleSMSRequest.
 	Messages []SMS
@@ -69,6 +71,8 @@ var (
 )
 
 // SendMultipleSMS invokes method sendMultipleSMS#df18e5ca returning error if any.
+//
+// See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 func (c *Client) SendMultipleSMS(ctx context.Context, request *SendMultipleSMSRequest) error {
 	var ok Ok
 	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {

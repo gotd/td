@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SMS represents TL type `sms#ed8bebfe`.
+//
+// See https://localhost:80/doc/constructor/sms for reference.
 type SMS struct {
 	// Text field of SMS.
 	Text string

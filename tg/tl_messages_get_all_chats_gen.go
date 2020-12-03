@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetAllChatsRequest represents TL type `messages.getAllChats#eba80ff0`.
+//
+// See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
 	// ExceptIds field of MessagesGetAllChatsRequest.
 	ExceptIds []int
@@ -67,6 +69,8 @@ var (
 )
 
 // MessagesGetAllChats invokes method messages.getAllChats#eba80ff0 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getAllChats for reference.
 func (c *Client) MessagesGetAllChats(ctx context.Context, request *MessagesGetAllChatsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteUserHistoryRequest represents TL type `channels.deleteUserHistory#d10dd71b`.
+//
+// See https://core.telegram.org/method/channels.deleteUserHistory for reference.
 type ChannelsDeleteUserHistoryRequest struct {
 	// Channel field of ChannelsDeleteUserHistoryRequest.
 	Channel InputChannelClass
@@ -78,6 +80,8 @@ var (
 )
 
 // ChannelsDeleteUserHistory invokes method channels.deleteUserHistory#d10dd71b returning error if any.
+//
+// See https://core.telegram.org/method/channels.deleteUserHistory for reference.
 func (c *Client) ChannelsDeleteUserHistory(ctx context.Context, request *ChannelsDeleteUserHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

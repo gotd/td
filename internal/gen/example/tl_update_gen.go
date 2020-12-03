@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Update represents TL type `update#b03e2ef8`.
+//
+// See https://localhost:80/doc/constructor/update for reference.
 type Update struct {
 	// Msg field of Update.
 	Msg AbstractMessageClass

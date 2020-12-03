@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageEmpty represents TL type `messageEmpty#83e5de54`.
+//
+// See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
 	// ID field of MessageEmpty.
 	ID int
@@ -63,6 +65,8 @@ var (
 )
 
 // Message represents TL type `message#58ae39c9`.
+//
+// See https://core.telegram.org/constructor/message for reference.
 type Message struct {
 	// Flags field of Message.
 	Flags bin.Fields
@@ -710,6 +714,8 @@ var (
 )
 
 // MessageService represents TL type `messageService#286fa604`.
+//
+// See https://core.telegram.org/constructor/messageService for reference.
 type MessageService struct {
 	// Flags field of MessageService.
 	Flags bin.Fields
@@ -943,6 +949,8 @@ var (
 )
 
 // MessageClass represents Message generic type.
+//
+// See https://core.telegram.org/type/Message for reference.
 //
 // Example:
 //  g, err := DecodeMessage(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMarkDialogUnreadRequest represents TL type `messages.markDialogUnread#c286d98f`.
+//
+// See https://core.telegram.org/method/messages.markDialogUnread for reference.
 type MessagesMarkDialogUnreadRequest struct {
 	// Flags field of MessagesMarkDialogUnreadRequest.
 	Flags bin.Fields
@@ -85,6 +87,8 @@ var (
 )
 
 // MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.
+//
+// See https://core.telegram.org/method/messages.markDialogUnread for reference.
 func (c *Client) MessagesMarkDialogUnread(ctx context.Context, request *MessagesMarkDialogUnreadRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
+//
+// See https://core.telegram.org/method/updates.getDifference for reference.
 type UpdatesGetDifferenceRequest struct {
 	// Flags field of UpdatesGetDifferenceRequest.
 	Flags bin.Fields
@@ -117,6 +119,8 @@ var (
 )
 
 // UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
+//
+// See https://core.telegram.org/method/updates.getDifference for reference.
 func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {
 	var result UpdatesDifferenceBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

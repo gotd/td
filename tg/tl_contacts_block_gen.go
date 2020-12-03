@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsBlockRequest represents TL type `contacts.block#68cc1411`.
+//
+// See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
 	// ID field of ContactsBlockRequest.
 	ID InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ContactsBlock invokes method contacts.block#68cc1411 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.block for reference.
 func (c *Client) ContactsBlock(ctx context.Context, request *ContactsBlockRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

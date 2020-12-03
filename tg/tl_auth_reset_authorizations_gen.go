@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthResetAuthorizationsRequest represents TL type `auth.resetAuthorizations#9fab0d1a`.
+//
+// See https://core.telegram.org/method/auth.resetAuthorizations for reference.
 type AuthResetAuthorizationsRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AuthResetAuthorizations invokes method auth.resetAuthorizations#9fab0d1a returning error if any.
+//
+// See https://core.telegram.org/method/auth.resetAuthorizations for reference.
 func (c *Client) AuthResetAuthorizations(ctx context.Context, request *AuthResetAuthorizationsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

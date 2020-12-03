@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesDifferenceEmpty represents TL type `updates.differenceEmpty#5d75a138`.
+//
+// See https://core.telegram.org/constructor/updates.differenceEmpty for reference.
 type UpdatesDifferenceEmpty struct {
 	// Date field of UpdatesDifferenceEmpty.
 	Date int
@@ -73,6 +75,8 @@ var (
 )
 
 // UpdatesDifference represents TL type `updates.difference#f49ca0`.
+//
+// See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
 	// NewMessages field of UpdatesDifference.
 	NewMessages []MessageClass
@@ -241,6 +245,8 @@ var (
 )
 
 // UpdatesDifferenceSlice represents TL type `updates.differenceSlice#a8fb1981`.
+//
+// See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
 	// NewMessages field of UpdatesDifferenceSlice.
 	NewMessages []MessageClass
@@ -409,6 +415,8 @@ var (
 )
 
 // UpdatesDifferenceTooLong represents TL type `updates.differenceTooLong#4afe8f6d`.
+//
+// See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
 	// Pts field of UpdatesDifferenceTooLong.
 	Pts int
@@ -457,6 +465,8 @@ var (
 )
 
 // UpdatesDifferenceClass represents updates.Difference generic type.
+//
+// See https://core.telegram.org/type/updates.Difference for reference.
 //
 // Example:
 //  g, err := DecodeUpdatesDifference(buf)

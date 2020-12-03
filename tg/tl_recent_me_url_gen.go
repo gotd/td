@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
+//
+// See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
 	// URL field of RecentMeUrlUnknown.
 	URL string
@@ -63,6 +65,8 @@ var (
 )
 
 // RecentMeUrlUser represents TL type `recentMeUrlUser#8dbc3336`.
+//
+// See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
 	// URL field of RecentMeUrlUser.
 	URL string
@@ -121,6 +125,8 @@ var (
 )
 
 // RecentMeUrlChat represents TL type `recentMeUrlChat#a01b22f9`.
+//
+// See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
 	// URL field of RecentMeUrlChat.
 	URL string
@@ -179,6 +185,8 @@ var (
 )
 
 // RecentMeUrlChatInvite represents TL type `recentMeUrlChatInvite#eb49081d`.
+//
+// See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
 	// URL field of RecentMeUrlChatInvite.
 	URL string
@@ -242,6 +250,8 @@ var (
 )
 
 // RecentMeUrlStickerSet represents TL type `recentMeUrlStickerSet#bc0a57dc`.
+//
+// See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
 	// URL field of RecentMeUrlStickerSet.
 	URL string
@@ -305,6 +315,8 @@ var (
 )
 
 // RecentMeUrlClass represents RecentMeUrl generic type.
+//
+// See https://core.telegram.org/type/RecentMeUrl for reference.
 //
 // Example:
 //  g, err := DecodeRecentMeUrl(buf)

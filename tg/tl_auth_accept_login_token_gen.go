@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthAcceptLoginTokenRequest represents TL type `auth.acceptLoginToken#e894ad4d`.
+//
+// See https://core.telegram.org/method/auth.acceptLoginToken for reference.
 type AuthAcceptLoginTokenRequest struct {
 	// Token field of AuthAcceptLoginTokenRequest.
 	Token []byte
@@ -58,6 +60,8 @@ var (
 )
 
 // AuthAcceptLoginToken invokes method auth.acceptLoginToken#e894ad4d returning error if any.
+//
+// See https://core.telegram.org/method/auth.acceptLoginToken for reference.
 func (c *Client) AuthAcceptLoginToken(ctx context.Context, request *AuthAcceptLoginTokenRequest) (*Authorization, error) {
 	var result Authorization
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

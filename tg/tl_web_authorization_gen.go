@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebAuthorization represents TL type `webAuthorization#cac943f2`.
+//
+// See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {
 	// Hash field of WebAuthorization.
 	Hash int64

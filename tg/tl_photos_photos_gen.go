@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosPhotos represents TL type `photos.photos#8dca6aa5`.
+//
+// See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
 	// Photos field of PhotosPhotos.
 	Photos []PhotoClass
@@ -101,6 +103,8 @@ var (
 )
 
 // PhotosPhotosSlice represents TL type `photos.photosSlice#15051f54`.
+//
+// See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
 	// Count field of PhotosPhotosSlice.
 	Count int
@@ -197,6 +201,8 @@ var (
 )
 
 // PhotosPhotosClass represents photos.Photos generic type.
+//
+// See https://core.telegram.org/type/photos.Photos for reference.
 //
 // Example:
 //  g, err := DecodePhotosPhotos(buf)

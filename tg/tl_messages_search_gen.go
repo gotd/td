@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchRequest represents TL type `messages.search#c352eec`.
+//
+// See https://core.telegram.org/method/messages.search for reference.
 type MessagesSearchRequest struct {
 	// Flags field of MessagesSearchRequest.
 	Flags bin.Fields
@@ -241,6 +243,8 @@ var (
 )
 
 // MessagesSearch invokes method messages.search#c352eec returning error if any.
+//
+// See https://core.telegram.org/method/messages.search for reference.
 func (c *Client) MessagesSearch(ctx context.Context, request *MessagesSearchRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

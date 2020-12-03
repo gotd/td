@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsBankCardData represents TL type `payments.bankCardData#3e24e573`.
+//
+// See https://core.telegram.org/constructor/payments.bankCardData for reference.
 type PaymentsBankCardData struct {
 	// Title field of PaymentsBankCardData.
 	Title string

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DocumentEmpty represents TL type `documentEmpty#36f8c871`.
+//
+// See https://core.telegram.org/constructor/documentEmpty for reference.
 type DocumentEmpty struct {
 	// ID field of DocumentEmpty.
 	ID int64
@@ -63,6 +65,8 @@ var (
 )
 
 // Document represents TL type `document#1e87342b`.
+//
+// See https://core.telegram.org/constructor/document for reference.
 type Document struct {
 	// Flags field of Document.
 	Flags bin.Fields
@@ -288,6 +292,8 @@ var (
 )
 
 // DocumentClass represents Document generic type.
+//
+// See https://core.telegram.org/type/Document for reference.
 //
 // Example:
 //  g, err := DecodeDocument(buf)

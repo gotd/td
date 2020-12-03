@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PingRequest represents TL type `ping#ce73048f`.
+//
+// See https://localhost:80/doc/constructor/ping for reference.
 type PingRequest struct {
 	// ID field of PingRequest.
 	ID int32
@@ -58,6 +60,8 @@ var (
 )
 
 // Ping invokes method ping#ce73048f returning error if any.
+//
+// See https://localhost:80/doc/constructor/ping for reference.
 func (c *Client) Ping(ctx context.Context, request *PingRequest) error {
 	var ok Ok
 	if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {

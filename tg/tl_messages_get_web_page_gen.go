@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetWebPageRequest represents TL type `messages.getWebPage#32ca8f91`.
+//
+// See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
 	// URL field of MessagesGetWebPageRequest.
 	URL string
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getWebPage for reference.
 func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {
 	var result WebPageBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotCommand represents TL type `botCommand#c27ac8c7`.
+//
+// See https://core.telegram.org/constructor/botCommand for reference.
 type BotCommand struct {
 	// Command field of BotCommand.
 	Command string

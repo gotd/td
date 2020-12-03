@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWebDocument represents TL type `inputWebDocument#9bed434d`.
+//
+// See https://core.telegram.org/constructor/inputWebDocument for reference.
 type InputWebDocument struct {
 	// URL field of InputWebDocument.
 	URL string

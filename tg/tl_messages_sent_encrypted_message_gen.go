@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSentEncryptedMessage represents TL type `messages.sentEncryptedMessage#560f8935`.
+//
+// See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {
 	// Date field of MessagesSentEncryptedMessage.
 	Date int
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesSentEncryptedFile represents TL type `messages.sentEncryptedFile#9493ff32`.
+//
+// See https://core.telegram.org/constructor/messages.sentEncryptedFile for reference.
 type MessagesSentEncryptedFile struct {
 	// Date field of MessagesSentEncryptedFile.
 	Date int
@@ -126,6 +130,8 @@ var (
 )
 
 // MessagesSentEncryptedMessageClass represents messages.SentEncryptedMessage generic type.
+//
+// See https://core.telegram.org/type/messages.SentEncryptedMessage for reference.
 //
 // Example:
 //  g, err := DecodeMessagesSentEncryptedMessage(buf)

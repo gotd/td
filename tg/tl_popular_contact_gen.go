@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PopularContact represents TL type `popularContact#5ce14175`.
+//
+// See https://core.telegram.org/constructor/popularContact for reference.
 type PopularContact struct {
 	// ClientID field of PopularContact.
 	ClientID int64

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAddChatUserRequest represents TL type `messages.addChatUser#f9a0aa09`.
+//
+// See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
 	// ChatID field of MessagesAddChatUserRequest.
 	ChatID int
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.
+//
+// See https://core.telegram.org/method/messages.addChatUser for reference.
 func (c *Client) MessagesAddChatUser(ctx context.Context, request *MessagesAddChatUserRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

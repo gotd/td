@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // False represents TL type `false#bc799737`.
+//
+// See https://localhost:80/doc/constructor/false for reference.
 type False struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // True represents TL type `true#997275b5`.
+//
+// See https://localhost:80/doc/constructor/true for reference.
 type True struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // BoolClass represents Bool generic type.
+//
+// See https://localhost:80/doc/type/Bool for reference.
 //
 // Example:
 //  g, err := DecodeBool(buf)

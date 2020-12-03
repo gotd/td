@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#6014f412`.
+//
+// See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
 	// UserID field of StatsGroupTopAdmin.
 	UserID int

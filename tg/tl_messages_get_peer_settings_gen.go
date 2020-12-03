@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPeerSettingsRequest represents TL type `messages.getPeerSettings#3672e09c`.
+//
+// See https://core.telegram.org/method/messages.getPeerSettings for reference.
 type MessagesGetPeerSettingsRequest struct {
 	// Peer field of MessagesGetPeerSettingsRequest.
 	Peer InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesGetPeerSettings invokes method messages.getPeerSettings#3672e09c returning error if any.
+//
+// See https://core.telegram.org/method/messages.getPeerSettings for reference.
 func (c *Client) MessagesGetPeerSettings(ctx context.Context, request *MessagesGetPeerSettingsRequest) (*PeerSettings, error) {
 	var result PeerSettings
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

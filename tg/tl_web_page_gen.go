@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebPageEmpty represents TL type `webPageEmpty#eb1477e8`.
+//
+// See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
 	// ID field of WebPageEmpty.
 	ID int64
@@ -63,6 +65,8 @@ var (
 )
 
 // WebPagePending represents TL type `webPagePending#c586da1c`.
+//
+// See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
 	// ID field of WebPagePending.
 	ID int64
@@ -121,6 +125,8 @@ var (
 )
 
 // WebPage represents TL type `webPage#e89c45b2`.
+//
+// See https://core.telegram.org/constructor/webPage for reference.
 type WebPage struct {
 	// Flags field of WebPage.
 	Flags bin.Fields
@@ -636,6 +642,8 @@ var (
 )
 
 // WebPageNotModified represents TL type `webPageNotModified#7311ca11`.
+//
+// See https://core.telegram.org/constructor/webPageNotModified for reference.
 type WebPageNotModified struct {
 	// Flags field of WebPageNotModified.
 	Flags bin.Fields
@@ -713,6 +721,8 @@ var (
 )
 
 // WebPageClass represents WebPage generic type.
+//
+// See https://core.telegram.org/type/WebPage for reference.
 //
 // Example:
 //  g, err := DecodeWebPage(buf)

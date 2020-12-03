@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetPrivacyRequest represents TL type `account.setPrivacy#c9f81ce8`.
+//
+// See https://core.telegram.org/method/account.setPrivacy for reference.
 type AccountSetPrivacyRequest struct {
 	// Key field of AccountSetPrivacyRequest.
 	Key InputPrivacyKeyClass
@@ -87,6 +89,8 @@ var (
 )
 
 // AccountSetPrivacy invokes method account.setPrivacy#c9f81ce8 returning error if any.
+//
+// See https://core.telegram.org/method/account.setPrivacy for reference.
 func (c *Client) AccountSetPrivacy(ctx context.Context, request *AccountSetPrivacyRequest) (*AccountPrivacyRules, error) {
 	var result AccountPrivacyRules
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

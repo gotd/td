@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAcceptEncryptionRequest represents TL type `messages.acceptEncryption#3dbc0415`.
+//
+// See https://core.telegram.org/method/messages.acceptEncryption for reference.
 type MessagesAcceptEncryptionRequest struct {
 	// Peer field of MessagesAcceptEncryptionRequest.
 	Peer InputEncryptedChat
@@ -78,6 +80,8 @@ var (
 )
 
 // MessagesAcceptEncryption invokes method messages.acceptEncryption#3dbc0415 returning error if any.
+//
+// See https://core.telegram.org/method/messages.acceptEncryption for reference.
 func (c *Client) MessagesAcceptEncryption(ctx context.Context, request *MessagesAcceptEncryptionRequest) (EncryptedChatClass, error) {
 	var result EncryptedChatBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

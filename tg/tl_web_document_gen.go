@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebDocument represents TL type `webDocument#1c570ed1`.
+//
+// See https://core.telegram.org/constructor/webDocument for reference.
 type WebDocument struct {
 	// URL field of WebDocument.
 	URL string
@@ -117,6 +119,8 @@ var (
 )
 
 // WebDocumentNoProxy represents TL type `webDocumentNoProxy#f9c8bcc6`.
+//
+// See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
 	// URL field of WebDocumentNoProxy.
 	URL string
@@ -209,6 +213,8 @@ var (
 )
 
 // WebDocumentClass represents WebDocument generic type.
+//
+// See https://core.telegram.org/type/WebDocument for reference.
 //
 // Example:
 //  g, err := DecodeWebDocument(buf)

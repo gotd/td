@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Ok represents TL type `ok#d4edbe69`.
+//
+// See https://localhost:80/doc/constructor/ok for reference.
 type Ok struct {
 }
 

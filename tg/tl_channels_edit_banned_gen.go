@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditBannedRequest represents TL type `channels.editBanned#72796912`.
+//
+// See https://core.telegram.org/method/channels.editBanned for reference.
 type ChannelsEditBannedRequest struct {
 	// Channel field of ChannelsEditBannedRequest.
 	Channel InputChannelClass
@@ -88,6 +90,8 @@ var (
 )
 
 // ChannelsEditBanned invokes method channels.editBanned#72796912 returning error if any.
+//
+// See https://core.telegram.org/method/channels.editBanned for reference.
 func (c *Client) ChannelsEditBanned(ctx context.Context, request *ChannelsEditBannedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

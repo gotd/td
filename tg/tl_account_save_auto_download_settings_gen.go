@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSaveAutoDownloadSettingsRequest represents TL type `account.saveAutoDownloadSettings#76f36233`.
+//
+// See https://core.telegram.org/method/account.saveAutoDownloadSettings for reference.
 type AccountSaveAutoDownloadSettingsRequest struct {
 	// Flags field of AccountSaveAutoDownloadSettingsRequest.
 	Flags bin.Fields
@@ -92,6 +94,8 @@ var (
 )
 
 // AccountSaveAutoDownloadSettings invokes method account.saveAutoDownloadSettings#76f36233 returning error if any.
+//
+// See https://core.telegram.org/method/account.saveAutoDownloadSettings for reference.
 func (c *Client) AccountSaveAutoDownloadSettings(ctx context.Context, request *AccountSaveAutoDownloadSettingsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

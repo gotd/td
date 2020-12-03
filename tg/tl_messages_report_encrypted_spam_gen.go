@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReportEncryptedSpamRequest represents TL type `messages.reportEncryptedSpam#4b0c8c0f`.
+//
+// See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
 type MessagesReportEncryptedSpamRequest struct {
 	// Peer field of MessagesReportEncryptedSpamRequest.
 	Peer InputEncryptedChat
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesReportEncryptedSpam invokes method messages.reportEncryptedSpam#4b0c8c0f returning error if any.
+//
+// See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
 func (c *Client) MessagesReportEncryptedSpam(ctx context.Context, request *MessagesReportEncryptedSpamRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

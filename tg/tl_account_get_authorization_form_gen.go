@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetAuthorizationFormRequest represents TL type `account.getAuthorizationForm#b86ba8e1`.
+//
+// See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 type AccountGetAuthorizationFormRequest struct {
 	// BotID field of AccountGetAuthorizationFormRequest.
 	BotID int
@@ -78,6 +80,8 @@ var (
 )
 
 // AccountGetAuthorizationForm invokes method account.getAuthorizationForm#b86ba8e1 returning error if any.
+//
+// See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {
 	var result AccountAuthorizationForm
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResetAuthorizationRequest represents TL type `account.resetAuthorization#df77f3bc`.
+//
+// See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
 	// Hash field of AccountResetAuthorizationRequest.
 	Hash int64
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountResetAuthorization invokes method account.resetAuthorization#df77f3bc returning error if any.
+//
+// See https://core.telegram.org/method/account.resetAuthorization for reference.
 func (c *Client) AccountResetAuthorization(ctx context.Context, request *AccountResetAuthorizationRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

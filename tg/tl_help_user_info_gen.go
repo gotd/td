@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpUserInfoEmpty represents TL type `help.userInfoEmpty#f3ae2eed`.
+//
+// See https://core.telegram.org/constructor/help.userInfoEmpty for reference.
 type HelpUserInfoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // HelpUserInfo represents TL type `help.userInfo#1eb3758`.
+//
+// See https://core.telegram.org/constructor/help.userInfo for reference.
 type HelpUserInfo struct {
 	// Message field of HelpUserInfo.
 	Message string
@@ -145,6 +149,8 @@ var (
 )
 
 // HelpUserInfoClass represents help.UserInfo generic type.
+//
+// See https://core.telegram.org/type/help.UserInfo for reference.
 //
 // Example:
 //  g, err := DecodeHelpUserInfo(buf)

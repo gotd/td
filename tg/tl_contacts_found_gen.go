@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsFound represents TL type `contacts.found#b3134d9d`.
+//
+// See https://core.telegram.org/constructor/contacts.found for reference.
 type ContactsFound struct {
 	// MyResults field of ContactsFound.
 	MyResults []PeerClass

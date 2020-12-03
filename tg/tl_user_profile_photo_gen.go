@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserProfilePhotoEmpty represents TL type `userProfilePhotoEmpty#4f11bae1`.
+//
+// See https://core.telegram.org/constructor/userProfilePhotoEmpty for reference.
 type UserProfilePhotoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // UserProfilePhoto represents TL type `userProfilePhoto#69d3ab26`.
+//
+// See https://core.telegram.org/constructor/userProfilePhoto for reference.
 type UserProfilePhoto struct {
 	// Flags field of UserProfilePhoto.
 	Flags bin.Fields
@@ -153,6 +157,8 @@ var (
 )
 
 // UserProfilePhotoClass represents UserProfilePhoto generic type.
+//
+// See https://core.telegram.org/type/UserProfilePhoto for reference.
 //
 // Example:
 //  g, err := DecodeUserProfilePhoto(buf)

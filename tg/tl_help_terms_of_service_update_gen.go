@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpTermsOfServiceUpdateEmpty represents TL type `help.termsOfServiceUpdateEmpty#e3309f7f`.
+//
+// See https://core.telegram.org/constructor/help.termsOfServiceUpdateEmpty for reference.
 type HelpTermsOfServiceUpdateEmpty struct {
 	// Expires field of HelpTermsOfServiceUpdateEmpty.
 	Expires int
@@ -63,6 +65,8 @@ var (
 )
 
 // HelpTermsOfServiceUpdate represents TL type `help.termsOfServiceUpdate#28ecf961`.
+//
+// See https://core.telegram.org/constructor/help.termsOfServiceUpdate for reference.
 type HelpTermsOfServiceUpdate struct {
 	// Expires field of HelpTermsOfServiceUpdate.
 	Expires int
@@ -121,6 +125,8 @@ var (
 )
 
 // HelpTermsOfServiceUpdateClass represents help.TermsOfServiceUpdate generic type.
+//
+// See https://core.telegram.org/type/help.TermsOfServiceUpdate for reference.
 //
 // Example:
 //  g, err := DecodeHelpTermsOfServiceUpdate(buf)

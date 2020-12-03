@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Theme represents TL type `theme#28f1114`.
+//
+// See https://localhost:80/doc/constructor/theme for reference.
 type Theme struct {
 	// Name field of Theme.
 	Name string

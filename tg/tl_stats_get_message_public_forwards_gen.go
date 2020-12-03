@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
+//
+// See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 type StatsGetMessagePublicForwardsRequest struct {
 	// Channel field of StatsGetMessagePublicForwardsRequest.
 	Channel InputChannelClass
@@ -118,6 +120,8 @@ var (
 )
 
 // StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.
+//
+// See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

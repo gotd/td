@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCheckPasswordRequest represents TL type `auth.checkPassword#d18b4d16`.
+//
+// See https://core.telegram.org/method/auth.checkPassword for reference.
 type AuthCheckPasswordRequest struct {
 	// Password field of AuthCheckPasswordRequest.
 	Password InputCheckPasswordSRPClass
@@ -63,6 +65,8 @@ var (
 )
 
 // AuthCheckPassword invokes method auth.checkPassword#d18b4d16 returning error if any.
+//
+// See https://core.telegram.org/method/auth.checkPassword for reference.
 func (c *Client) AuthCheckPassword(ctx context.Context, request *AuthCheckPasswordRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetStateRequest represents TL type `updates.getState#edd4882a`.
+//
+// See https://core.telegram.org/method/updates.getState for reference.
 type UpdatesGetStateRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // UpdatesGetState invokes method updates.getState#edd4882a returning error if any.
+//
+// See https://core.telegram.org/method/updates.getState for reference.
 func (c *Client) UpdatesGetState(ctx context.Context, request *UpdatesGetStateRequest) (*UpdatesState, error) {
 	var result UpdatesState
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

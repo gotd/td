@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputMessageID represents TL type `inputMessageID#a676a322`.
+//
+// See https://core.telegram.org/constructor/inputMessageID for reference.
 type InputMessageID struct {
 	// ID field of InputMessageID.
 	ID int
@@ -63,6 +65,8 @@ var (
 )
 
 // InputMessageReplyTo represents TL type `inputMessageReplyTo#bad88395`.
+//
+// See https://core.telegram.org/constructor/inputMessageReplyTo for reference.
 type InputMessageReplyTo struct {
 	// ID field of InputMessageReplyTo.
 	ID int
@@ -111,6 +115,8 @@ var (
 )
 
 // InputMessagePinned represents TL type `inputMessagePinned#86872538`.
+//
+// See https://core.telegram.org/constructor/inputMessagePinned for reference.
 type InputMessagePinned struct {
 }
 
@@ -149,6 +155,8 @@ var (
 )
 
 // InputMessageCallbackQuery represents TL type `inputMessageCallbackQuery#acfa1a7e`.
+//
+// See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
 	// ID field of InputMessageCallbackQuery.
 	ID int
@@ -207,6 +215,8 @@ var (
 )
 
 // InputMessageClass represents InputMessage generic type.
+//
+// See https://core.telegram.org/type/InputMessage for reference.
 //
 // Example:
 //  g, err := DecodeInputMessage(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetPassportConfigRequest represents TL type `help.getPassportConfig#c661ad08`.
+//
+// See https://core.telegram.org/method/help.getPassportConfig for reference.
 type HelpGetPassportConfigRequest struct {
 	// Hash field of HelpGetPassportConfigRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // HelpGetPassportConfig invokes method help.getPassportConfig#c661ad08 returning error if any.
+//
+// See https://core.telegram.org/method/help.getPassportConfig for reference.
 func (c *Client) HelpGetPassportConfig(ctx context.Context, request *HelpGetPassportConfigRequest) (HelpPassportConfigClass, error) {
 	var result HelpPassportConfigBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpAppUpdate represents TL type `help.appUpdate#1da7158f`.
+//
+// See https://core.telegram.org/constructor/help.appUpdate for reference.
 type HelpAppUpdate struct {
 	// Flags field of HelpAppUpdate.
 	Flags bin.Fields
@@ -192,6 +194,8 @@ var (
 )
 
 // HelpNoAppUpdate represents TL type `help.noAppUpdate#c45a6536`.
+//
+// See https://core.telegram.org/constructor/help.noAppUpdate for reference.
 type HelpNoAppUpdate struct {
 }
 
@@ -230,6 +234,8 @@ var (
 )
 
 // HelpAppUpdateClass represents help.AppUpdate generic type.
+//
+// See https://core.telegram.org/type/help.AppUpdate for reference.
 //
 // Example:
 //  g, err := DecodeHelpAppUpdate(buf)

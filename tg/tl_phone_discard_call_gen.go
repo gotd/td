@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneDiscardCallRequest represents TL type `phone.discardCall#b2cbc1c0`.
+//
+// See https://core.telegram.org/method/phone.discardCall for reference.
 type PhoneDiscardCallRequest struct {
 	// Flags field of PhoneDiscardCallRequest.
 	Flags bin.Fields
@@ -115,6 +117,8 @@ var (
 )
 
 // PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.
+//
+// See https://core.telegram.org/method/phone.discardCall for reference.
 func (c *Client) PhoneDiscardCall(ctx context.Context, request *PhoneDiscardCallRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

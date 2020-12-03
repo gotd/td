@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyStatusTimestamp for reference.
 type InputPrivacyKeyStatusTimestamp struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputPrivacyKeyChatInvite represents TL type `inputPrivacyKeyChatInvite#bdfb0426`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyChatInvite for reference.
 type InputPrivacyKeyChatInvite struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // InputPrivacyKeyPhoneCall represents TL type `inputPrivacyKeyPhoneCall#fabadc5f`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyPhoneCall for reference.
 type InputPrivacyKeyPhoneCall struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // InputPrivacyKeyPhoneP2P represents TL type `inputPrivacyKeyPhoneP2P#db9e70d2`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyPhoneP2P for reference.
 type InputPrivacyKeyPhoneP2P struct {
 }
 
@@ -167,6 +175,8 @@ var (
 )
 
 // InputPrivacyKeyForwards represents TL type `inputPrivacyKeyForwards#a4dd4c08`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyForwards for reference.
 type InputPrivacyKeyForwards struct {
 }
 
@@ -205,6 +215,8 @@ var (
 )
 
 // InputPrivacyKeyProfilePhoto represents TL type `inputPrivacyKeyProfilePhoto#5719bacc`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyProfilePhoto for reference.
 type InputPrivacyKeyProfilePhoto struct {
 }
 
@@ -243,6 +255,8 @@ var (
 )
 
 // InputPrivacyKeyPhoneNumber represents TL type `inputPrivacyKeyPhoneNumber#352dafa`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyPhoneNumber for reference.
 type InputPrivacyKeyPhoneNumber struct {
 }
 
@@ -281,6 +295,8 @@ var (
 )
 
 // InputPrivacyKeyAddedByPhone represents TL type `inputPrivacyKeyAddedByPhone#d1219bdd`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyKeyAddedByPhone for reference.
 type InputPrivacyKeyAddedByPhone struct {
 }
 
@@ -319,6 +335,8 @@ var (
 )
 
 // InputPrivacyKeyClass represents InputPrivacyKey generic type.
+//
+// See https://core.telegram.org/type/InputPrivacyKey for reference.
 //
 // Example:
 //  g, err := DecodeInputPrivacyKey(buf)

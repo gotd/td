@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
+//
+// See https://core.telegram.org/constructor/messages.votesList for reference.
 type MessagesVotesList struct {
 	// Flags field of MessagesVotesList.
 	Flags bin.Fields

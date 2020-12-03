@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateStatusRequest represents TL type `account.updateStatus#6628562c`.
+//
+// See https://core.telegram.org/method/account.updateStatus for reference.
 type AccountUpdateStatusRequest struct {
 	// Offline field of AccountUpdateStatusRequest.
 	Offline bool
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.
+//
+// See https://core.telegram.org/method/account.updateStatus for reference.
 func (c *Client) AccountUpdateStatus(ctx context.Context, request *AccountUpdateStatusRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

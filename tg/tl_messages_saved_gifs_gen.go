@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSavedGifsNotModified represents TL type `messages.savedGifsNotModified#e8025ca2`.
+//
+// See https://core.telegram.org/constructor/messages.savedGifsNotModified for reference.
 type MessagesSavedGifsNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // MessagesSavedGifs represents TL type `messages.savedGifs#2e0709a5`.
+//
+// See https://core.telegram.org/constructor/messages.savedGifs for reference.
 type MessagesSavedGifs struct {
 	// Hash field of MessagesSavedGifs.
 	Hash int
@@ -125,6 +129,8 @@ var (
 )
 
 // MessagesSavedGifsClass represents messages.SavedGifs generic type.
+//
+// See https://core.telegram.org/type/messages.SavedGifs for reference.
 //
 // Example:
 //  g, err := DecodeMessagesSavedGifs(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValueHash represents TL type `secureValueHash#ed1ecdb0`.
+//
+// See https://core.telegram.org/constructor/secureValueHash for reference.
 type SecureValueHash struct {
 	// Type field of SecureValueHash.
 	Type SecureValueTypeClass

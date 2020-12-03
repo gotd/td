@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRepliesRequest represents TL type `messages.getReplies#24b581ba`.
+//
+// See https://core.telegram.org/method/messages.getReplies for reference.
 type MessagesGetRepliesRequest struct {
 	// Peer field of MessagesGetRepliesRequest.
 	Peer InputPeerClass
@@ -143,6 +145,8 @@ var (
 )
 
 // MessagesGetReplies invokes method messages.getReplies#24b581ba returning error if any.
+//
+// See https://core.telegram.org/method/messages.getReplies for reference.
 func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

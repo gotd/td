@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersCreateStickerSetRequest represents TL type `stickers.createStickerSet#f1036780`.
+//
+// See https://core.telegram.org/method/stickers.createStickerSet for reference.
 type StickersCreateStickerSetRequest struct {
 	// Flags field of StickersCreateStickerSetRequest.
 	Flags bin.Fields
@@ -172,6 +174,8 @@ var (
 )
 
 // StickersCreateStickerSet invokes method stickers.createStickerSet#f1036780 returning error if any.
+//
+// See https://core.telegram.org/method/stickers.createStickerSet for reference.
 func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

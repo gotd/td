@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetGlobalPrivacySettingsRequest represents TL type `account.setGlobalPrivacySettings#1edaaac2`.
+//
+// See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 type AccountSetGlobalPrivacySettingsRequest struct {
 	// Settings field of AccountSetGlobalPrivacySettingsRequest.
 	Settings GlobalPrivacySettings
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountSetGlobalPrivacySettings invokes method account.setGlobalPrivacySettings#1edaaac2 returning error if any.
+//
+// See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 func (c *Client) AccountSetGlobalPrivacySettings(ctx context.Context, request *AccountSetGlobalPrivacySettingsRequest) (*GlobalPrivacySettings, error) {
 	var result GlobalPrivacySettings
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

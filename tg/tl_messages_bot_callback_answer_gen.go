@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesBotCallbackAnswer represents TL type `messages.botCallbackAnswer#36585ea4`.
+//
+// See https://core.telegram.org/constructor/messages.botCallbackAnswer for reference.
 type MessagesBotCallbackAnswer struct {
 	// Flags field of MessagesBotCallbackAnswer.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
+//
+// See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
 	// ID field of ContactsAcceptContactRequest.
 	ID InputUserClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
+//
+// See https://core.telegram.org/method/contacts.acceptContact for reference.
 func (c *Client) ContactsAcceptContact(ctx context.Context, request *ContactsAcceptContactRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ThemeSettings represents TL type `themeSettings#9c14984a`.
+//
+// See https://core.telegram.org/constructor/themeSettings for reference.
 type ThemeSettings struct {
 	// Flags field of ThemeSettings.
 	Flags bin.Fields

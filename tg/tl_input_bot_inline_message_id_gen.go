@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputBotInlineMessageID represents TL type `inputBotInlineMessageID#890c3d89`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageID for reference.
 type InputBotInlineMessageID struct {
 	// DCID field of InputBotInlineMessageID.
 	DCID int

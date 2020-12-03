@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStickerSetInstallResultSuccess represents TL type `messages.stickerSetInstallResultSuccess#38641628`.
+//
+// See https://core.telegram.org/constructor/messages.stickerSetInstallResultSuccess for reference.
 type MessagesStickerSetInstallResultSuccess struct {
 }
 
@@ -55,6 +57,8 @@ var (
 )
 
 // MessagesStickerSetInstallResultArchive represents TL type `messages.stickerSetInstallResultArchive#35e410a8`.
+//
+// See https://core.telegram.org/constructor/messages.stickerSetInstallResultArchive for reference.
 type MessagesStickerSetInstallResultArchive struct {
 	// Sets field of MessagesStickerSetInstallResultArchive.
 	Sets []StickerSetCoveredClass
@@ -119,6 +123,8 @@ var (
 )
 
 // MessagesStickerSetInstallResultClass represents messages.StickerSetInstallResult generic type.
+//
+// See https://core.telegram.org/type/messages.StickerSetInstallResult for reference.
 //
 // Example:
 //  g, err := DecodeMessagesStickerSetInstallResult(buf)

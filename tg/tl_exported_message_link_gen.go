@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ExportedMessageLink represents TL type `exportedMessageLink#5dab1af4`.
+//
+// See https://core.telegram.org/constructor/exportedMessageLink for reference.
 type ExportedMessageLink struct {
 	// Link field of ExportedMessageLink.
 	Link string

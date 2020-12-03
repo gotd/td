@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Error represents TL type `error#14feebbc`.
+//
+// See https://localhost:80/doc/constructor/error for reference.
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
 	Code int32

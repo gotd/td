@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpAcceptTermsOfServiceRequest represents TL type `help.acceptTermsOfService#ee72f79a`.
+//
+// See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 type HelpAcceptTermsOfServiceRequest struct {
 	// ID field of HelpAcceptTermsOfServiceRequest.
 	ID DataJSON
@@ -58,6 +60,8 @@ var (
 )
 
 // HelpAcceptTermsOfService invokes method help.acceptTermsOfService#ee72f79a returning error if any.
+//
+// See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 func (c *Client) HelpAcceptTermsOfService(ctx context.Context, request *HelpAcceptTermsOfServiceRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

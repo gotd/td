@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StorageFileUnknown represents TL type `storage.fileUnknown#aa963b05`.
+//
+// See https://core.telegram.org/constructor/storage.fileUnknown for reference.
 type StorageFileUnknown struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // StorageFilePartial represents TL type `storage.filePartial#40bc6f52`.
+//
+// See https://core.telegram.org/constructor/storage.filePartial for reference.
 type StorageFilePartial struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // StorageFileJpeg represents TL type `storage.fileJpeg#7efe0e`.
+//
+// See https://core.telegram.org/constructor/storage.fileJpeg for reference.
 type StorageFileJpeg struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // StorageFileGif represents TL type `storage.fileGif#cae1aadf`.
+//
+// See https://core.telegram.org/constructor/storage.fileGif for reference.
 type StorageFileGif struct {
 }
 
@@ -167,6 +175,8 @@ var (
 )
 
 // StorageFilePng represents TL type `storage.filePng#a4f63c0`.
+//
+// See https://core.telegram.org/constructor/storage.filePng for reference.
 type StorageFilePng struct {
 }
 
@@ -205,6 +215,8 @@ var (
 )
 
 // StorageFilePdf represents TL type `storage.filePdf#ae1e508d`.
+//
+// See https://core.telegram.org/constructor/storage.filePdf for reference.
 type StorageFilePdf struct {
 }
 
@@ -243,6 +255,8 @@ var (
 )
 
 // StorageFileMp3 represents TL type `storage.fileMp3#528a0677`.
+//
+// See https://core.telegram.org/constructor/storage.fileMp3 for reference.
 type StorageFileMp3 struct {
 }
 
@@ -281,6 +295,8 @@ var (
 )
 
 // StorageFileMov represents TL type `storage.fileMov#4b09ebbc`.
+//
+// See https://core.telegram.org/constructor/storage.fileMov for reference.
 type StorageFileMov struct {
 }
 
@@ -319,6 +335,8 @@ var (
 )
 
 // StorageFileMp4 represents TL type `storage.fileMp4#b3cea0e4`.
+//
+// See https://core.telegram.org/constructor/storage.fileMp4 for reference.
 type StorageFileMp4 struct {
 }
 
@@ -357,6 +375,8 @@ var (
 )
 
 // StorageFileWebp represents TL type `storage.fileWebp#1081464c`.
+//
+// See https://core.telegram.org/constructor/storage.fileWebp for reference.
 type StorageFileWebp struct {
 }
 
@@ -395,6 +415,8 @@ var (
 )
 
 // StorageFileTypeClass represents storage.FileType generic type.
+//
+// See https://core.telegram.org/type/storage.FileType for reference.
 //
 // Example:
 //  g, err := DecodeStorageFileType(buf)

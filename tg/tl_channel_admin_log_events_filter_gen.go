@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelAdminLogEventsFilter represents TL type `channelAdminLogEventsFilter#ea107ae4`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventsFilter for reference.
 type ChannelAdminLogEventsFilter struct {
 	// Flags field of ChannelAdminLogEventsFilter.
 	Flags bin.Fields

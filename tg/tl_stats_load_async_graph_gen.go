@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsLoadAsyncGraphRequest represents TL type `stats.loadAsyncGraph#621d5fa0`.
+//
+// See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 type StatsLoadAsyncGraphRequest struct {
 	// Flags field of StatsLoadAsyncGraphRequest.
 	Flags bin.Fields
@@ -97,6 +99,8 @@ var (
 )
 
 // StatsLoadAsyncGraph invokes method stats.loadAsyncGraph#621d5fa0 returning error if any.
+//
+// See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {
 	var result StatsGraphBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

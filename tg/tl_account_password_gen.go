@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
+//
+// See https://core.telegram.org/constructor/account.password for reference.
 type AccountPassword struct {
 	// Flags field of AccountPassword.
 	Flags bin.Fields

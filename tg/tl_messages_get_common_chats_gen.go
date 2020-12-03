@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetCommonChatsRequest represents TL type `messages.getCommonChats#d0a48c4`.
+//
+// See https://core.telegram.org/method/messages.getCommonChats for reference.
 type MessagesGetCommonChatsRequest struct {
 	// UserID field of MessagesGetCommonChatsRequest.
 	UserID InputUserClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getCommonChats for reference.
 func (c *Client) MessagesGetCommonChats(ctx context.Context, request *MessagesGetCommonChatsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

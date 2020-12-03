@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangPackDifference represents TL type `langPackDifference#f385c1f6`.
+//
+// See https://core.telegram.org/constructor/langPackDifference for reference.
 type LangPackDifference struct {
 	// LangCode field of LangPackDifference.
 	LangCode string

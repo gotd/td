@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
+//
+// See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
 	// ID field of PhoneConnection.
 	ID int64
@@ -103,6 +105,8 @@ var (
 )
 
 // PhoneConnectionWebrtc represents TL type `phoneConnectionWebrtc#635fe375`.
+//
+// See https://core.telegram.org/constructor/phoneConnectionWebrtc for reference.
 type PhoneConnectionWebrtc struct {
 	// Flags field of PhoneConnectionWebrtc.
 	Flags bin.Fields
@@ -235,6 +239,8 @@ var (
 )
 
 // PhoneConnectionClass represents PhoneConnection generic type.
+//
+// See https://core.telegram.org/type/PhoneConnection for reference.
 //
 // Example:
 //  g, err := DecodePhoneConnection(buf)

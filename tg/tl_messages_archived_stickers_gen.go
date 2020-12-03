@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesArchivedStickers represents TL type `messages.archivedStickers#4fcba9c8`.
+//
+// See https://core.telegram.org/constructor/messages.archivedStickers for reference.
 type MessagesArchivedStickers struct {
 	// Count field of MessagesArchivedStickers.
 	Count int

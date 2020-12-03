@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsClearSavedInfoRequest represents TL type `payments.clearSavedInfo#d83d70c1`.
+//
+// See https://core.telegram.org/method/payments.clearSavedInfo for reference.
 type PaymentsClearSavedInfoRequest struct {
 	// Flags field of PaymentsClearSavedInfoRequest.
 	Flags bin.Fields
@@ -82,6 +84,8 @@ var (
 )
 
 // PaymentsClearSavedInfo invokes method payments.clearSavedInfo#d83d70c1 returning error if any.
+//
+// See https://core.telegram.org/method/payments.clearSavedInfo for reference.
 func (c *Client) PaymentsClearSavedInfo(ctx context.Context, request *PaymentsClearSavedInfoRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

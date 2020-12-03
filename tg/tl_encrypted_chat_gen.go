@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
+//
+// See https://core.telegram.org/constructor/encryptedChatEmpty for reference.
 type EncryptedChatEmpty struct {
 	// ID field of EncryptedChatEmpty.
 	ID int
@@ -63,6 +65,8 @@ var (
 )
 
 // EncryptedChatWaiting represents TL type `encryptedChatWaiting#3bf703dc`.
+//
+// See https://core.telegram.org/constructor/encryptedChatWaiting for reference.
 type EncryptedChatWaiting struct {
 	// ID field of EncryptedChatWaiting.
 	ID int
@@ -151,6 +155,8 @@ var (
 )
 
 // EncryptedChatRequested represents TL type `encryptedChatRequested#62718a82`.
+//
+// See https://core.telegram.org/constructor/encryptedChatRequested for reference.
 type EncryptedChatRequested struct {
 	// Flags field of EncryptedChatRequested.
 	Flags bin.Fields
@@ -288,6 +294,8 @@ var (
 )
 
 // EncryptedChat represents TL type `encryptedChat#fa56ce36`.
+//
+// See https://core.telegram.org/constructor/encryptedChat for reference.
 type EncryptedChat struct {
 	// ID field of EncryptedChat.
 	ID int
@@ -396,6 +404,8 @@ var (
 )
 
 // EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#13d6dd27`.
+//
+// See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
 	// ID field of EncryptedChatDiscarded.
 	ID int
@@ -444,6 +454,8 @@ var (
 )
 
 // EncryptedChatClass represents EncryptedChat generic type.
+//
+// See https://core.telegram.org/type/EncryptedChat for reference.
 //
 // Example:
 //  g, err := DecodeEncryptedChat(buf)

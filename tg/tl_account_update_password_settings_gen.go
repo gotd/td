@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdatePasswordSettingsRequest represents TL type `account.updatePasswordSettings#a59b102f`.
+//
+// See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 type AccountUpdatePasswordSettingsRequest struct {
 	// Password field of AccountUpdatePasswordSettingsRequest.
 	Password InputCheckPasswordSRPClass
@@ -73,6 +75,8 @@ var (
 )
 
 // AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.
+//
+// See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 func (c *Client) AccountUpdatePasswordSettings(ctx context.Context, request *AccountUpdatePasswordSettingsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

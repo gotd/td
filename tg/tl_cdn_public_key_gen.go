@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // CdnPublicKey represents TL type `cdnPublicKey#c982eaba`.
+//
+// See https://core.telegram.org/constructor/cdnPublicKey for reference.
 type CdnPublicKey struct {
 	// DCID field of CdnPublicKey.
 	DCID int

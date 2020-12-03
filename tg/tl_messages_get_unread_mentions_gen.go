@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#46578472`.
+//
+// See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 type MessagesGetUnreadMentionsRequest struct {
 	// Peer field of MessagesGetUnreadMentionsRequest.
 	Peer InputPeerClass
@@ -113,6 +115,8 @@ var (
 )
 
 // MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 func (c *Client) MessagesGetUnreadMentions(ctx context.Context, request *MessagesGetUnreadMentionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputDocumentEmpty represents TL type `inputDocumentEmpty#72f0eaae`.
+//
+// See https://core.telegram.org/constructor/inputDocumentEmpty for reference.
 type InputDocumentEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputDocument represents TL type `inputDocument#1abfb575`.
+//
+// See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
 	// ID field of InputDocument.
 	ID int64
@@ -121,6 +125,8 @@ var (
 )
 
 // InputDocumentClass represents InputDocument generic type.
+//
+// See https://core.telegram.org/type/InputDocument for reference.
 //
 // Example:
 //  g, err := DecodeInputDocument(buf)

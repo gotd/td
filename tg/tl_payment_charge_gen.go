@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentCharge represents TL type `paymentCharge#ea02c27e`.
+//
+// See https://core.telegram.org/constructor/paymentCharge for reference.
 type PaymentCharge struct {
 	// ID field of PaymentCharge.
 	ID string

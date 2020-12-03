@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedMessage represents TL type `encryptedMessage#ed18c118`.
+//
+// See https://core.telegram.org/constructor/encryptedMessage for reference.
 type EncryptedMessage struct {
 	// RandomID field of EncryptedMessage.
 	RandomID int64
@@ -108,6 +110,8 @@ var (
 )
 
 // EncryptedMessageService represents TL type `encryptedMessageService#23734b06`.
+//
+// See https://core.telegram.org/constructor/encryptedMessageService for reference.
 type EncryptedMessageService struct {
 	// RandomID field of EncryptedMessageService.
 	RandomID int64
@@ -186,6 +190,8 @@ var (
 )
 
 // EncryptedMessageClass represents EncryptedMessage generic type.
+//
+// See https://core.telegram.org/type/EncryptedMessage for reference.
 //
 // Example:
 //  g, err := DecodeEncryptedMessage(buf)

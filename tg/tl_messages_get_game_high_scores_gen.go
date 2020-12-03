@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetGameHighScoresRequest represents TL type `messages.getGameHighScores#e822649d`.
+//
+// See https://core.telegram.org/method/messages.getGameHighScores for reference.
 type MessagesGetGameHighScoresRequest struct {
 	// Peer field of MessagesGetGameHighScoresRequest.
 	Peer InputPeerClass
@@ -88,6 +90,8 @@ var (
 )
 
 // MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.
+//
+// See https://core.telegram.org/method/messages.getGameHighScores for reference.
 func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

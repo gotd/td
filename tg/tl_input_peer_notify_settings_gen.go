@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPeerNotifySettings represents TL type `inputPeerNotifySettings#9c3d198e`.
+//
+// See https://core.telegram.org/constructor/inputPeerNotifySettings for reference.
 type InputPeerNotifySettings struct {
 	// Flags field of InputPeerNotifySettings.
 	Flags bin.Fields

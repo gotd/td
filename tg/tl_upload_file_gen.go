@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadFile represents TL type `upload.file#96a18d5`.
+//
+// See https://core.telegram.org/constructor/upload.file for reference.
 type UploadFile struct {
 	// Type field of UploadFile.
 	Type StorageFileTypeClass
@@ -88,6 +90,8 @@ var (
 )
 
 // UploadFileCdnRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
+//
+// See https://core.telegram.org/constructor/upload.fileCdnRedirect for reference.
 type UploadFileCdnRedirect struct {
 	// DCID field of UploadFileCdnRedirect.
 	DCID int
@@ -187,6 +191,8 @@ var (
 )
 
 // UploadFileClass represents upload.File generic type.
+//
+// See https://core.telegram.org/type/upload.File for reference.
 //
 // Example:
 //  g, err := DecodeUploadFile(buf)

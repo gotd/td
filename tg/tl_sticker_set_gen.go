@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickerSet represents TL type `stickerSet#eeb46f27`.
+//
+// See https://core.telegram.org/constructor/stickerSet for reference.
 type StickerSet struct {
 	// Flags field of StickerSet.
 	Flags bin.Fields

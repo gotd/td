@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
+//
+// See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
 	// PhoneNumber field of AuthResendCodeRequest.
 	PhoneNumber string
@@ -68,6 +70,8 @@ var (
 )
 
 // AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
+//
+// See https://core.telegram.org/method/auth.resendCode for reference.
 func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

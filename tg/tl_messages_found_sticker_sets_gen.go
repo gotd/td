@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFoundStickerSetsNotModified represents TL type `messages.foundStickerSetsNotModified#d54b65d`.
+//
+// See https://core.telegram.org/constructor/messages.foundStickerSetsNotModified for reference.
 type MessagesFoundStickerSetsNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // MessagesFoundStickerSets represents TL type `messages.foundStickerSets#5108d648`.
+//
+// See https://core.telegram.org/constructor/messages.foundStickerSets for reference.
 type MessagesFoundStickerSets struct {
 	// Hash field of MessagesFoundStickerSets.
 	Hash int
@@ -125,6 +129,8 @@ var (
 )
 
 // MessagesFoundStickerSetsClass represents messages.FoundStickerSets generic type.
+//
+// See https://core.telegram.org/type/messages.FoundStickerSets for reference.
 //
 // Example:
 //  g, err := DecodeMessagesFoundStickerSets(buf)

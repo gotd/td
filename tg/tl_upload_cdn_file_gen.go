@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
+//
+// See https://core.telegram.org/constructor/upload.cdnFileReuploadNeeded for reference.
 type UploadCdnFileReuploadNeeded struct {
 	// RequestToken field of UploadCdnFileReuploadNeeded.
 	RequestToken []byte
@@ -63,6 +65,8 @@ var (
 )
 
 // UploadCdnFile represents TL type `upload.cdnFile#a99fca4f`.
+//
+// See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCdnFile struct {
 	// Bytes field of UploadCdnFile.
 	Bytes []byte
@@ -111,6 +115,8 @@ var (
 )
 
 // UploadCdnFileClass represents upload.CdnFile generic type.
+//
+// See https://core.telegram.org/type/upload.CdnFile for reference.
 //
 // Example:
 //  g, err := DecodeUploadCdnFile(buf)

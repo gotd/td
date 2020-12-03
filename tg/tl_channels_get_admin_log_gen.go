@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetAdminLogRequest represents TL type `channels.getAdminLog#33ddf480`.
+//
+// See https://core.telegram.org/method/channels.getAdminLog for reference.
 type ChannelsGetAdminLogRequest struct {
 	// Flags field of ChannelsGetAdminLogRequest.
 	Flags bin.Fields
@@ -185,6 +187,8 @@ var (
 )
 
 // ChannelsGetAdminLog invokes method channels.getAdminLog#33ddf480 returning error if any.
+//
+// See https://core.telegram.org/method/channels.getAdminLog for reference.
 func (c *Client) ChannelsGetAdminLog(ctx context.Context, request *ChannelsGetAdminLogRequest) (*ChannelsAdminLogResults, error) {
 	var result ChannelsAdminLogResults
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

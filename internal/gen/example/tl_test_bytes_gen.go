@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TestBytes represents TL type `testBytes#a422c4de`.
+//
+// See https://localhost:80/doc/constructor/testBytes for reference.
 type TestBytes struct {
 	// Bytes
 	Value []byte

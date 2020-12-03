@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountFinishTakeoutSessionRequest represents TL type `account.finishTakeoutSession#1d2652ee`.
+//
+// See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 type AccountFinishTakeoutSessionRequest struct {
 	// Flags field of AccountFinishTakeoutSessionRequest.
 	Flags bin.Fields
@@ -70,6 +72,8 @@ var (
 )
 
 // AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
+//
+// See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

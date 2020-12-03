@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
+//
+// See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
 	// ID field of WallPaper.
 	ID int64
@@ -185,6 +187,8 @@ var (
 )
 
 // WallPaperNoFile represents TL type `wallPaperNoFile#8af40b25`.
+//
+// See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
 	// Flags field of WallPaperNoFile.
 	Flags bin.Fields
@@ -286,6 +290,8 @@ var (
 )
 
 // WallPaperClass represents WallPaper generic type.
+//
+// See https://core.telegram.org/type/WallPaper for reference.
 //
 // Example:
 //  g, err := DecodeWallPaper(buf)

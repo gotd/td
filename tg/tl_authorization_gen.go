@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Authorization represents TL type `authorization#ad01d61d`.
+//
+// See https://core.telegram.org/constructor/authorization for reference.
 type Authorization struct {
 	// Flags field of Authorization.
 	Flags bin.Fields

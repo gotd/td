@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#7011509f`.
+//
+// See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
 	// Email field of AccountSendVerifyEmailCodeRequest.
 	Email string
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.
+//
+// See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {
 	var result AccountSentEmailCode
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#3076c4bf`.
+//
+// See https://core.telegram.org/method/account.unregisterDevice for reference.
 type AccountUnregisterDeviceRequest struct {
 	// TokenType field of AccountUnregisterDeviceRequest.
 	TokenType int
@@ -87,6 +89,8 @@ var (
 )
 
 // AccountUnregisterDevice invokes method account.unregisterDevice#3076c4bf returning error if any.
+//
+// See https://core.telegram.org/method/account.unregisterDevice for reference.
 func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
+//
+// See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {
 	// Size field of UploadWebFile.
 	Size int

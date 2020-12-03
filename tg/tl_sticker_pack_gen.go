@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickerPack represents TL type `stickerPack#12b299d4`.
+//
+// See https://core.telegram.org/constructor/stickerPack for reference.
 type StickerPack struct {
 	// Emoticon field of StickerPack.
 	Emoticon string

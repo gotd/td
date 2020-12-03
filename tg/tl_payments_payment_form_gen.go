@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
+//
+// See https://core.telegram.org/constructor/payments.paymentForm for reference.
 type PaymentsPaymentForm struct {
 	// Flags field of PaymentsPaymentForm.
 	Flags bin.Fields

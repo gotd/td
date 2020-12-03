@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteChannelRequest represents TL type `channels.deleteChannel#c0111fe3`.
+//
+// See https://core.telegram.org/method/channels.deleteChannel for reference.
 type ChannelsDeleteChannelRequest struct {
 	// Channel field of ChannelsDeleteChannelRequest.
 	Channel InputChannelClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ChannelsDeleteChannel invokes method channels.deleteChannel#c0111fe3 returning error if any.
+//
+// See https://core.telegram.org/method/channels.deleteChannel for reference.
 func (c *Client) ChannelsDeleteChannel(ctx context.Context, request *ChannelsDeleteChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

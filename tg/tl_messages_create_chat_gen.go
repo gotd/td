@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
+//
+// See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
 	// Users field of MessagesCreateChatRequest.
 	Users []InputUserClass
@@ -82,6 +84,8 @@ var (
 )
 
 // MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
+//
+// See https://core.telegram.org/method/messages.createChat for reference.
 func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

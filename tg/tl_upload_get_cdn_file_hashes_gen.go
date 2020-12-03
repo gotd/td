@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
+//
+// See https://core.telegram.org/constructor/upload.getCdnFileHashes for reference.
 type UploadGetCdnFileHashesRequest struct {
 	// FileToken field of UploadGetCdnFileHashesRequest.
 	FileToken []byte

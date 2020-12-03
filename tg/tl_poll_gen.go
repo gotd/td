@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Poll represents TL type `poll#86e18161`.
+//
+// See https://core.telegram.org/constructor/poll for reference.
 type Poll struct {
 	// ID field of Poll.
 	ID int64

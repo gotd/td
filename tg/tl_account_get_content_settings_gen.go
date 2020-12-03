@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetContentSettingsRequest represents TL type `account.getContentSettings#8b9b4dae`.
+//
+// See https://core.telegram.org/method/account.getContentSettings for reference.
 type AccountGetContentSettingsRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountGetContentSettings invokes method account.getContentSettings#8b9b4dae returning error if any.
+//
+// See https://core.telegram.org/method/account.getContentSettings for reference.
 func (c *Client) AccountGetContentSettings(ctx context.Context, request *AccountGetContentSettingsRequest) (*AccountContentSettings, error) {
 	var result AccountContentSettings
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

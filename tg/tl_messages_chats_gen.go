@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesChats represents TL type `messages.chats#64ff9fd5`.
+//
+// See https://core.telegram.org/constructor/messages.chats for reference.
 type MessagesChats struct {
 	// Chats field of MessagesChats.
 	Chats []ChatClass
@@ -77,6 +79,8 @@ var (
 )
 
 // MessagesChatsSlice represents TL type `messages.chatsSlice#9cd81144`.
+//
+// See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
 	// Count field of MessagesChatsSlice.
 	Count int
@@ -149,6 +153,8 @@ var (
 )
 
 // MessagesChatsClass represents messages.Chats generic type.
+//
+// See https://core.telegram.org/type/messages.Chats for reference.
 //
 // Example:
 //  g, err := DecodeMessagesChats(buf)

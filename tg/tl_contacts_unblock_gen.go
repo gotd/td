@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsUnblockRequest represents TL type `contacts.unblock#bea65d50`.
+//
+// See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
 	// ID field of ContactsUnblockRequest.
 	ID InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ContactsUnblock invokes method contacts.unblock#bea65d50 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.unblock for reference.
 func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

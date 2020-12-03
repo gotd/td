@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesChatFull represents TL type `messages.chatFull#e5d7d19c`.
+//
+// See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {
 	// FullChat field of MessagesChatFull.
 	FullChat ChatFullClass

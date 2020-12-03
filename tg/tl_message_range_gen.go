@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageRange represents TL type `messageRange#ae30253`.
+//
+// See https://core.telegram.org/constructor/messageRange for reference.
 type MessageRange struct {
 	// MinID field of MessageRange.
 	MinID int

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelMessagesFilterEmpty represents TL type `channelMessagesFilterEmpty#94d42ee7`.
+//
+// See https://core.telegram.org/constructor/channelMessagesFilterEmpty for reference.
 type ChannelMessagesFilterEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ChannelMessagesFilter represents TL type `channelMessagesFilter#cd77d957`.
+//
+// See https://core.telegram.org/constructor/channelMessagesFilter for reference.
 type ChannelMessagesFilter struct {
 	// Flags field of ChannelMessagesFilter.
 	Flags bin.Fields
@@ -134,6 +138,8 @@ var (
 )
 
 // ChannelMessagesFilterClass represents ChannelMessagesFilter generic type.
+//
+// See https://core.telegram.org/type/ChannelMessagesFilter for reference.
 //
 // Example:
 //  g, err := DecodeChannelMessagesFilter(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMessagesRequest represents TL type `messages.getMessages#63c66506`.
+//
+// See https://core.telegram.org/method/messages.getMessages for reference.
 type MessagesGetMessagesRequest struct {
 	// ID field of MessagesGetMessagesRequest.
 	ID []InputMessageClass
@@ -72,6 +74,8 @@ var (
 )
 
 // MessagesGetMessages invokes method messages.getMessages#63c66506 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getMessages for reference.
 func (c *Client) MessagesGetMessages(ctx context.Context, request *MessagesGetMessagesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

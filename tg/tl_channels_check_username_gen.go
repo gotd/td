@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsCheckUsernameRequest represents TL type `channels.checkUsername#10e6bd2c`.
+//
+// See https://core.telegram.org/method/channels.checkUsername for reference.
 type ChannelsCheckUsernameRequest struct {
 	// Channel field of ChannelsCheckUsernameRequest.
 	Channel InputChannelClass
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelsCheckUsername invokes method channels.checkUsername#10e6bd2c returning error if any.
+//
+// See https://core.telegram.org/method/channels.checkUsername for reference.
 func (c *Client) ChannelsCheckUsername(ctx context.Context, request *ChannelsCheckUsernameRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

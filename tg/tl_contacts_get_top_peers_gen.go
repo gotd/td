@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetTopPeersRequest represents TL type `contacts.getTopPeers#d4982db5`.
+//
+// See https://core.telegram.org/method/contacts.getTopPeers for reference.
 type ContactsGetTopPeersRequest struct {
 	// Flags field of ContactsGetTopPeersRequest.
 	Flags bin.Fields
@@ -184,6 +186,8 @@ var (
 )
 
 // ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.getTopPeers for reference.
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {
 	var result ContactsTopPeersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DocumentAttributeImageSize represents TL type `documentAttributeImageSize#6c37c15c`.
+//
+// See https://core.telegram.org/constructor/documentAttributeImageSize for reference.
 type DocumentAttributeImageSize struct {
 	// W field of DocumentAttributeImageSize.
 	W int
@@ -73,6 +75,8 @@ var (
 )
 
 // DocumentAttributeAnimated represents TL type `documentAttributeAnimated#11b58939`.
+//
+// See https://core.telegram.org/constructor/documentAttributeAnimated for reference.
 type DocumentAttributeAnimated struct {
 }
 
@@ -111,6 +115,8 @@ var (
 )
 
 // DocumentAttributeSticker represents TL type `documentAttributeSticker#6319d612`.
+//
+// See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
 	// Flags field of DocumentAttributeSticker.
 	Flags bin.Fields
@@ -225,6 +231,8 @@ var (
 )
 
 // DocumentAttributeVideo represents TL type `documentAttributeVideo#ef02ce6`.
+//
+// See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
 	// Flags field of DocumentAttributeVideo.
 	Flags bin.Fields
@@ -327,6 +335,8 @@ var (
 )
 
 // DocumentAttributeAudio represents TL type `documentAttributeAudio#9852f9c6`.
+//
+// See https://core.telegram.org/constructor/documentAttributeAudio for reference.
 type DocumentAttributeAudio struct {
 	// Flags field of DocumentAttributeAudio.
 	Flags bin.Fields
@@ -484,6 +494,8 @@ var (
 )
 
 // DocumentAttributeFilename represents TL type `documentAttributeFilename#15590068`.
+//
+// See https://core.telegram.org/constructor/documentAttributeFilename for reference.
 type DocumentAttributeFilename struct {
 	// FileName field of DocumentAttributeFilename.
 	FileName string
@@ -532,6 +544,8 @@ var (
 )
 
 // DocumentAttributeHasStickers represents TL type `documentAttributeHasStickers#9801d2f7`.
+//
+// See https://core.telegram.org/constructor/documentAttributeHasStickers for reference.
 type DocumentAttributeHasStickers struct {
 }
 
@@ -570,6 +584,8 @@ var (
 )
 
 // DocumentAttributeClass represents DocumentAttribute generic type.
+//
+// See https://core.telegram.org/type/DocumentAttribute for reference.
 //
 // Example:
 //  g, err := DecodeDocumentAttribute(buf)

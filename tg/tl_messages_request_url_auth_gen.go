@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
+//
+// See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
 	// Peer field of MessagesRequestUrlAuthRequest.
 	Peer InputPeerClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesRequestUrlAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
+//
+// See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestUrlAuth(ctx context.Context, request *MessagesRequestUrlAuthRequest) (UrlAuthResultClass, error) {
 	var result UrlAuthResultBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

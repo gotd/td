@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountVerifyEmailRequest represents TL type `account.verifyEmail#ecba39db`.
+//
+// See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
 	// Email field of AccountVerifyEmailRequest.
 	Email string
@@ -68,6 +70,8 @@ var (
 )
 
 // AccountVerifyEmail invokes method account.verifyEmail#ecba39db returning error if any.
+//
+// See https://core.telegram.org/method/account.verifyEmail for reference.
 func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

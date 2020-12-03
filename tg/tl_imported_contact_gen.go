@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ImportedContact represents TL type `importedContact#d0028438`.
+//
+// See https://core.telegram.org/constructor/importedContact for reference.
 type ImportedContact struct {
 	// UserID field of ImportedContact.
 	UserID int

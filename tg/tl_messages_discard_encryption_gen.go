@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#edd923c5`.
+//
+// See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
 	// ChatID field of MessagesDiscardEncryptionRequest.
 	ChatID int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesDiscardEncryption invokes method messages.discardEncryption#edd923c5 returning error if any.
+//
+// See https://core.telegram.org/method/messages.discardEncryption for reference.
 func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageEntityUnknown represents TL type `messageEntityUnknown#bb92ba95`.
+//
+// See https://core.telegram.org/constructor/messageEntityUnknown for reference.
 type MessageEntityUnknown struct {
 	// Offset field of MessageEntityUnknown.
 	Offset int
@@ -73,6 +75,8 @@ var (
 )
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
+//
+// See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
 	// Offset field of MessageEntityMention.
 	Offset int
@@ -131,6 +135,8 @@ var (
 )
 
 // MessageEntityHashtag represents TL type `messageEntityHashtag#6f635b0d`.
+//
+// See https://core.telegram.org/constructor/messageEntityHashtag for reference.
 type MessageEntityHashtag struct {
 	// Offset field of MessageEntityHashtag.
 	Offset int
@@ -189,6 +195,8 @@ var (
 )
 
 // MessageEntityBotCommand represents TL type `messageEntityBotCommand#6cef8ac7`.
+//
+// See https://core.telegram.org/constructor/messageEntityBotCommand for reference.
 type MessageEntityBotCommand struct {
 	// Offset field of MessageEntityBotCommand.
 	Offset int
@@ -247,6 +255,8 @@ var (
 )
 
 // MessageEntityUrl represents TL type `messageEntityUrl#6ed02538`.
+//
+// See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityUrl struct {
 	// Offset field of MessageEntityUrl.
 	Offset int
@@ -305,6 +315,8 @@ var (
 )
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
+//
+// See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
 	// Offset field of MessageEntityEmail.
 	Offset int
@@ -363,6 +375,8 @@ var (
 )
 
 // MessageEntityBold represents TL type `messageEntityBold#bd610bc9`.
+//
+// See https://core.telegram.org/constructor/messageEntityBold for reference.
 type MessageEntityBold struct {
 	// Offset field of MessageEntityBold.
 	Offset int
@@ -421,6 +435,8 @@ var (
 )
 
 // MessageEntityItalic represents TL type `messageEntityItalic#826f8b60`.
+//
+// See https://core.telegram.org/constructor/messageEntityItalic for reference.
 type MessageEntityItalic struct {
 	// Offset field of MessageEntityItalic.
 	Offset int
@@ -479,6 +495,8 @@ var (
 )
 
 // MessageEntityCode represents TL type `messageEntityCode#28a20571`.
+//
+// See https://core.telegram.org/constructor/messageEntityCode for reference.
 type MessageEntityCode struct {
 	// Offset field of MessageEntityCode.
 	Offset int
@@ -537,6 +555,8 @@ var (
 )
 
 // MessageEntityPre represents TL type `messageEntityPre#73924be0`.
+//
+// See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
 	// Offset field of MessageEntityPre.
 	Offset int
@@ -605,6 +625,8 @@ var (
 )
 
 // MessageEntityTextUrl represents TL type `messageEntityTextUrl#76a6d327`.
+//
+// See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextUrl struct {
 	// Offset field of MessageEntityTextUrl.
 	Offset int
@@ -673,6 +695,8 @@ var (
 )
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
+//
+// See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
 	// Offset field of MessageEntityMentionName.
 	Offset int
@@ -741,6 +765,8 @@ var (
 )
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
+//
+// See https://core.telegram.org/constructor/inputMessageEntityMentionName for reference.
 type InputMessageEntityMentionName struct {
 	// Offset field of InputMessageEntityMentionName.
 	Offset int
@@ -814,6 +840,8 @@ var (
 )
 
 // MessageEntityPhone represents TL type `messageEntityPhone#9b69e34b`.
+//
+// See https://core.telegram.org/constructor/messageEntityPhone for reference.
 type MessageEntityPhone struct {
 	// Offset field of MessageEntityPhone.
 	Offset int
@@ -872,6 +900,8 @@ var (
 )
 
 // MessageEntityCashtag represents TL type `messageEntityCashtag#4c4e743f`.
+//
+// See https://core.telegram.org/constructor/messageEntityCashtag for reference.
 type MessageEntityCashtag struct {
 	// Offset field of MessageEntityCashtag.
 	Offset int
@@ -930,6 +960,8 @@ var (
 )
 
 // MessageEntityUnderline represents TL type `messageEntityUnderline#9c4e7e8b`.
+//
+// See https://core.telegram.org/constructor/messageEntityUnderline for reference.
 type MessageEntityUnderline struct {
 	// Offset field of MessageEntityUnderline.
 	Offset int
@@ -988,6 +1020,8 @@ var (
 )
 
 // MessageEntityStrike represents TL type `messageEntityStrike#bf0693d4`.
+//
+// See https://core.telegram.org/constructor/messageEntityStrike for reference.
 type MessageEntityStrike struct {
 	// Offset field of MessageEntityStrike.
 	Offset int
@@ -1046,6 +1080,8 @@ var (
 )
 
 // MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
+//
+// See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
 	// Offset field of MessageEntityBlockquote.
 	Offset int
@@ -1104,6 +1140,8 @@ var (
 )
 
 // MessageEntityBankCard represents TL type `messageEntityBankCard#761e6af4`.
+//
+// See https://core.telegram.org/constructor/messageEntityBankCard for reference.
 type MessageEntityBankCard struct {
 	// Offset field of MessageEntityBankCard.
 	Offset int
@@ -1162,6 +1200,8 @@ var (
 )
 
 // MessageEntityClass represents MessageEntity generic type.
+//
+// See https://core.telegram.org/type/MessageEntity for reference.
 //
 // Example:
 //  g, err := DecodeMessageEntity(buf)

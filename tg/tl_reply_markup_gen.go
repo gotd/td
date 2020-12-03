@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ReplyKeyboardHide represents TL type `replyKeyboardHide#a03e5b85`.
+//
+// See https://core.telegram.org/constructor/replyKeyboardHide for reference.
 type ReplyKeyboardHide struct {
 	// Flags field of ReplyKeyboardHide.
 	Flags bin.Fields
@@ -75,6 +77,8 @@ var (
 )
 
 // ReplyKeyboardForceReply represents TL type `replyKeyboardForceReply#f4108aa0`.
+//
+// See https://core.telegram.org/constructor/replyKeyboardForceReply for reference.
 type ReplyKeyboardForceReply struct {
 	// Flags field of ReplyKeyboardForceReply.
 	Flags bin.Fields
@@ -147,6 +151,8 @@ var (
 )
 
 // ReplyKeyboardMarkup represents TL type `replyKeyboardMarkup#3502758c`.
+//
+// See https://core.telegram.org/constructor/replyKeyboardMarkup for reference.
 type ReplyKeyboardMarkup struct {
 	// Flags field of ReplyKeyboardMarkup.
 	Flags bin.Fields
@@ -252,6 +258,8 @@ var (
 )
 
 // ReplyInlineMarkup represents TL type `replyInlineMarkup#48a30254`.
+//
+// See https://core.telegram.org/constructor/replyInlineMarkup for reference.
 type ReplyInlineMarkup struct {
 	// Rows field of ReplyInlineMarkup.
 	Rows []KeyboardButtonRow
@@ -311,6 +319,8 @@ var (
 )
 
 // ReplyMarkupClass represents ReplyMarkup generic type.
+//
+// See https://core.telegram.org/type/ReplyMarkup for reference.
 //
 // Example:
 //  g, err := DecodeReplyMarkup(buf)

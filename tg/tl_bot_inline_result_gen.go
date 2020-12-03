@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInlineResult represents TL type `botInlineResult#11965f3a`.
+//
+// See https://core.telegram.org/constructor/botInlineResult for reference.
 type BotInlineResult struct {
 	// Flags field of BotInlineResult.
 	Flags bin.Fields
@@ -253,6 +255,8 @@ var (
 )
 
 // BotInlineMediaResult represents TL type `botInlineMediaResult#17db940b`.
+//
+// See https://core.telegram.org/constructor/botInlineMediaResult for reference.
 type BotInlineMediaResult struct {
 	// Flags field of BotInlineMediaResult.
 	Flags bin.Fields
@@ -462,6 +466,8 @@ var (
 )
 
 // BotInlineResultClass represents BotInlineResult generic type.
+//
+// See https://core.telegram.org/type/BotInlineResult for reference.
 //
 // Example:
 //  g, err := DecodeBotInlineResult(buf)

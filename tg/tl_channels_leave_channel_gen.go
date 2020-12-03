@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsLeaveChannelRequest represents TL type `channels.leaveChannel#f836aa95`.
+//
+// See https://core.telegram.org/method/channels.leaveChannel for reference.
 type ChannelsLeaveChannelRequest struct {
 	// Channel field of ChannelsLeaveChannelRequest.
 	Channel InputChannelClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ChannelsLeaveChannel invokes method channels.leaveChannel#f836aa95 returning error if any.
+//
+// See https://core.telegram.org/method/channels.leaveChannel for reference.
 func (c *Client) ChannelsLeaveChannel(ctx context.Context, request *ChannelsLeaveChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

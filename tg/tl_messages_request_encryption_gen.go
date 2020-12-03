@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesRequestEncryptionRequest represents TL type `messages.requestEncryption#f64daf43`.
+//
+// See https://core.telegram.org/method/messages.requestEncryption for reference.
 type MessagesRequestEncryptionRequest struct {
 	// UserID field of MessagesRequestEncryptionRequest.
 	UserID InputUserClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesRequestEncryption invokes method messages.requestEncryption#f64daf43 returning error if any.
+//
+// See https://core.telegram.org/method/messages.requestEncryption for reference.
 func (c *Client) MessagesRequestEncryption(ctx context.Context, request *MessagesRequestEncryptionRequest) (EncryptedChatClass, error) {
 	var result EncryptedChatBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

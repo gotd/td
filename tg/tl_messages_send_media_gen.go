@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendMediaRequest represents TL type `messages.sendMedia#3491eba9`.
+//
+// See https://core.telegram.org/method/messages.sendMedia for reference.
 type MessagesSendMediaRequest struct {
 	// Flags field of MessagesSendMediaRequest.
 	Flags bin.Fields
@@ -279,6 +281,8 @@ var (
 )
 
 // MessagesSendMedia invokes method messages.sendMedia#3491eba9 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendMedia for reference.
 func (c *Client) MessagesSendMedia(ctx context.Context, request *MessagesSendMediaRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetArchivedStickersRequest represents TL type `messages.getArchivedStickers#57f17692`.
+//
+// See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 type MessagesGetArchivedStickersRequest struct {
 	// Flags field of MessagesGetArchivedStickersRequest.
 	Flags bin.Fields
@@ -90,6 +92,8 @@ var (
 )
 
 // MessagesGetArchivedStickers invokes method messages.getArchivedStickers#57f17692 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 func (c *Client) MessagesGetArchivedStickers(ctx context.Context, request *MessagesGetArchivedStickersRequest) (*MessagesArchivedStickers, error) {
 	var result MessagesArchivedStickers
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

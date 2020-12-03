@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetTermsOfServiceUpdateRequest represents TL type `help.getTermsOfServiceUpdate#2ca51fd1`.
+//
+// See https://core.telegram.org/method/help.getTermsOfServiceUpdate for reference.
 type HelpGetTermsOfServiceUpdateRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // HelpGetTermsOfServiceUpdate invokes method help.getTermsOfServiceUpdate#2ca51fd1 returning error if any.
+//
+// See https://core.telegram.org/method/help.getTermsOfServiceUpdate for reference.
 func (c *Client) HelpGetTermsOfServiceUpdate(ctx context.Context, request *HelpGetTermsOfServiceUpdateRequest) (HelpTermsOfServiceUpdateClass, error) {
 	var result HelpTermsOfServiceUpdateBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

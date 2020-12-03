@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
+//
+// See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
 	// ID field of InputSecureFileUploaded.
 	ID int64
@@ -103,6 +105,8 @@ var (
 )
 
 // InputSecureFile represents TL type `inputSecureFile#5367e5be`.
+//
+// See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
 	// ID field of InputSecureFile.
 	ID int64
@@ -161,6 +165,8 @@ var (
 )
 
 // InputSecureFileClass represents InputSecureFile generic type.
+//
+// See https://core.telegram.org/type/InputSecureFile for reference.
 //
 // Example:
 //  g, err := DecodeInputSecureFile(buf)

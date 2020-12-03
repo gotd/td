@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPhotoEmpty represents TL type `inputPhotoEmpty#1cd7bf0d`.
+//
+// See https://core.telegram.org/constructor/inputPhotoEmpty for reference.
 type InputPhotoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputPhoto represents TL type `inputPhoto#3bb3b94a`.
+//
+// See https://core.telegram.org/constructor/inputPhoto for reference.
 type InputPhoto struct {
 	// ID field of InputPhoto.
 	ID int64
@@ -121,6 +125,8 @@ var (
 )
 
 // InputPhotoClass represents InputPhoto generic type.
+//
+// See https://core.telegram.org/type/InputPhoto for reference.
 //
 // Example:
 //  g, err := DecodeInputPhoto(buf)

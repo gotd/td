@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0ee3b73`.
+//
+// See https://core.telegram.org/method/messages.getDialogs for reference.
 type MessagesGetDialogsRequest struct {
 	// Flags field of MessagesGetDialogsRequest.
 	Flags bin.Fields
@@ -154,6 +156,8 @@ var (
 )
 
 // MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getDialogs for reference.
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
 	var result MessagesDialogsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

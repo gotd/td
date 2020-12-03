@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsDateRangeDays represents TL type `statsDateRangeDays#b637edaf`.
+//
+// See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {
 	// MinDate field of StatsDateRangeDays.
 	MinDate int

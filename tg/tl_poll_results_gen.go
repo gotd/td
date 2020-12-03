@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollResults represents TL type `pollResults#badcc1a3`.
+//
+// See https://core.telegram.org/constructor/pollResults for reference.
 type PollResults struct {
 	// Flags field of PollResults.
 	Flags bin.Fields

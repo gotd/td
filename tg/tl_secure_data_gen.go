@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureData represents TL type `secureData#8aeabec3`.
+//
+// See https://core.telegram.org/constructor/secureData for reference.
 type SecureData struct {
 	// Data field of SecureData.
 	Data []byte

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
+//
+// See https://core.telegram.org/method/messages.setGameScore for reference.
 type MessagesSetGameScoreRequest struct {
 	// Flags field of MessagesSetGameScoreRequest.
 	Flags bin.Fields
@@ -132,6 +134,8 @@ var (
 )
 
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
+//
+// See https://core.telegram.org/method/messages.setGameScore for reference.
 func (c *Client) MessagesSetGameScore(ctx context.Context, request *MessagesSetGameScoreRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

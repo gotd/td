@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesInstallStickerSetRequest represents TL type `messages.installStickerSet#c78fe460`.
+//
+// See https://core.telegram.org/method/messages.installStickerSet for reference.
 type MessagesInstallStickerSetRequest struct {
 	// Stickerset field of MessagesInstallStickerSetRequest.
 	Stickerset InputStickerSetClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesInstallStickerSet invokes method messages.installStickerSet#c78fe460 returning error if any.
+//
+// See https://core.telegram.org/method/messages.installStickerSet for reference.
 func (c *Client) MessagesInstallStickerSet(ctx context.Context, request *MessagesInstallStickerSetRequest) (MessagesStickerSetInstallResultClass, error) {
 	var result MessagesStickerSetInstallResultBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

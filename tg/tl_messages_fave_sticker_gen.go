@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFaveStickerRequest represents TL type `messages.faveSticker#b9ffc55b`.
+//
+// See https://core.telegram.org/method/messages.faveSticker for reference.
 type MessagesFaveStickerRequest struct {
 	// ID field of MessagesFaveStickerRequest.
 	ID InputDocumentClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesFaveSticker invokes method messages.faveSticker#b9ffc55b returning error if any.
+//
+// See https://core.telegram.org/method/messages.faveSticker for reference.
 func (c *Client) MessagesFaveSticker(ctx context.Context, request *MessagesFaveStickerRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

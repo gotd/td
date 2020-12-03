@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInlineMessageMediaAuto represents TL type `botInlineMessageMediaAuto#764cf810`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageMediaAuto for reference.
 type BotInlineMessageMediaAuto struct {
 	// Flags field of BotInlineMessageMediaAuto.
 	Flags bin.Fields
@@ -150,6 +152,8 @@ var (
 )
 
 // BotInlineMessageText represents TL type `botInlineMessageText#8c7f65e2`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageText for reference.
 type BotInlineMessageText struct {
 	// Flags field of BotInlineMessageText.
 	Flags bin.Fields
@@ -297,6 +301,8 @@ var (
 )
 
 // BotInlineMessageMediaGeo represents TL type `botInlineMessageMediaGeo#51846fd`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageMediaGeo for reference.
 type BotInlineMessageMediaGeo struct {
 	// Flags field of BotInlineMessageMediaGeo.
 	Flags bin.Fields
@@ -481,6 +487,8 @@ var (
 )
 
 // BotInlineMessageMediaVenue represents TL type `botInlineMessageMediaVenue#8a86659c`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageMediaVenue for reference.
 type BotInlineMessageMediaVenue struct {
 	// Flags field of BotInlineMessageMediaVenue.
 	Flags bin.Fields
@@ -628,6 +636,8 @@ var (
 )
 
 // BotInlineMessageMediaContact represents TL type `botInlineMessageMediaContact#18d1cdc2`.
+//
+// See https://core.telegram.org/constructor/botInlineMessageMediaContact for reference.
 type BotInlineMessageMediaContact struct {
 	// Flags field of BotInlineMessageMediaContact.
 	Flags bin.Fields
@@ -750,6 +760,8 @@ var (
 )
 
 // BotInlineMessageClass represents BotInlineMessage generic type.
+//
+// See https://core.telegram.org/type/BotInlineMessage for reference.
 //
 // Example:
 //  g, err := DecodeBotInlineMessage(buf)

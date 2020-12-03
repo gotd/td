@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesImportChatInviteRequest represents TL type `messages.importChatInvite#6c50051c`.
+//
+// See https://core.telegram.org/method/messages.importChatInvite for reference.
 type MessagesImportChatInviteRequest struct {
 	// Hash field of MessagesImportChatInviteRequest.
 	Hash string
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesImportChatInvite invokes method messages.importChatInvite#6c50051c returning error if any.
+//
+// See https://core.telegram.org/method/messages.importChatInvite for reference.
 func (c *Client) MessagesImportChatInvite(ctx context.Context, request *MessagesImportChatInviteRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

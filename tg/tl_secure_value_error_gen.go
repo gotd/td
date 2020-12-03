@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorData for reference.
 type SecureValueErrorData struct {
 	// Type field of SecureValueErrorData.
 	Type SecureValueTypeClass
@@ -98,6 +100,8 @@ var (
 )
 
 // SecureValueErrorFrontSide represents TL type `secureValueErrorFrontSide#be3dfa`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorFrontSide for reference.
 type SecureValueErrorFrontSide struct {
 	// Type field of SecureValueErrorFrontSide.
 	Type SecureValueTypeClass
@@ -171,6 +175,8 @@ var (
 )
 
 // SecureValueErrorReverseSide represents TL type `secureValueErrorReverseSide#868a2aa5`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorReverseSide for reference.
 type SecureValueErrorReverseSide struct {
 	// Type field of SecureValueErrorReverseSide.
 	Type SecureValueTypeClass
@@ -244,6 +250,8 @@ var (
 )
 
 // SecureValueErrorSelfie represents TL type `secureValueErrorSelfie#e537ced6`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorSelfie for reference.
 type SecureValueErrorSelfie struct {
 	// Type field of SecureValueErrorSelfie.
 	Type SecureValueTypeClass
@@ -317,6 +325,8 @@ var (
 )
 
 // SecureValueErrorFile represents TL type `secureValueErrorFile#7a700873`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorFile for reference.
 type SecureValueErrorFile struct {
 	// Type field of SecureValueErrorFile.
 	Type SecureValueTypeClass
@@ -390,6 +400,8 @@ var (
 )
 
 // SecureValueErrorFiles represents TL type `secureValueErrorFiles#666220e9`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorFiles for reference.
 type SecureValueErrorFiles struct {
 	// Type field of SecureValueErrorFiles.
 	Type SecureValueTypeClass
@@ -472,6 +484,8 @@ var (
 )
 
 // SecureValueError represents TL type `secureValueError#869d758f`.
+//
+// See https://core.telegram.org/constructor/secureValueError for reference.
 type SecureValueError struct {
 	// Type field of SecureValueError.
 	Type SecureValueTypeClass
@@ -545,6 +559,8 @@ var (
 )
 
 // SecureValueErrorTranslationFile represents TL type `secureValueErrorTranslationFile#a1144770`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorTranslationFile for reference.
 type SecureValueErrorTranslationFile struct {
 	// Type field of SecureValueErrorTranslationFile.
 	Type SecureValueTypeClass
@@ -618,6 +634,8 @@ var (
 )
 
 // SecureValueErrorTranslationFiles represents TL type `secureValueErrorTranslationFiles#34636dd8`.
+//
+// See https://core.telegram.org/constructor/secureValueErrorTranslationFiles for reference.
 type SecureValueErrorTranslationFiles struct {
 	// Type field of SecureValueErrorTranslationFiles.
 	Type SecureValueTypeClass
@@ -700,6 +718,8 @@ var (
 )
 
 // SecureValueErrorClass represents SecureValueError generic type.
+//
+// See https://core.telegram.org/type/SecureValueError for reference.
 //
 // Example:
 //  g, err := DecodeSecureValueError(buf)

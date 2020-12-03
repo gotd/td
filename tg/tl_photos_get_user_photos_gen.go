@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosGetUserPhotosRequest represents TL type `photos.getUserPhotos#91cd32a8`.
+//
+// See https://core.telegram.org/method/photos.getUserPhotos for reference.
 type PhotosGetUserPhotosRequest struct {
 	// UserID field of PhotosGetUserPhotosRequest.
 	UserID InputUserClass
@@ -93,6 +95,8 @@ var (
 )
 
 // PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.
+//
+// See https://core.telegram.org/method/photos.getUserPhotos for reference.
 func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {
 	var result PhotosPhotosBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

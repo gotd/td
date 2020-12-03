@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadSaveFilePartRequest represents TL type `upload.saveFilePart#b304a621`.
+//
+// See https://core.telegram.org/method/upload.saveFilePart for reference.
 type UploadSaveFilePartRequest struct {
 	// FileID field of UploadSaveFilePartRequest.
 	FileID int64
@@ -78,6 +80,8 @@ var (
 )
 
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
+//
+// See https://core.telegram.org/method/upload.saveFilePart for reference.
 func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

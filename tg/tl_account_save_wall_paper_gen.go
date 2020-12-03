@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSaveWallPaperRequest represents TL type `account.saveWallPaper#6c5a5b37`.
+//
+// See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
 	// Wallpaper field of AccountSaveWallPaperRequest.
 	Wallpaper InputWallPaperClass
@@ -83,6 +85,8 @@ var (
 )
 
 // AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
+//
+// See https://core.telegram.org/method/account.saveWallPaper for reference.
 func (c *Client) AccountSaveWallPaper(ctx context.Context, request *AccountSaveWallPaperRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserStatusEmpty represents TL type `userStatusEmpty#9d05049`.
+//
+// See https://core.telegram.org/constructor/userStatusEmpty for reference.
 type UserStatusEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // UserStatusOnline represents TL type `userStatusOnline#edb93949`.
+//
+// See https://core.telegram.org/constructor/userStatusOnline for reference.
 type UserStatusOnline struct {
 	// Expires field of UserStatusOnline.
 	Expires int
@@ -101,6 +105,8 @@ var (
 )
 
 // UserStatusOffline represents TL type `userStatusOffline#8c703f`.
+//
+// See https://core.telegram.org/constructor/userStatusOffline for reference.
 type UserStatusOffline struct {
 	// WasOnline field of UserStatusOffline.
 	WasOnline int
@@ -149,6 +155,8 @@ var (
 )
 
 // UserStatusRecently represents TL type `userStatusRecently#e26f42f1`.
+//
+// See https://core.telegram.org/constructor/userStatusRecently for reference.
 type UserStatusRecently struct {
 }
 
@@ -187,6 +195,8 @@ var (
 )
 
 // UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
+//
+// See https://core.telegram.org/constructor/userStatusLastWeek for reference.
 type UserStatusLastWeek struct {
 }
 
@@ -225,6 +235,8 @@ var (
 )
 
 // UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
+//
+// See https://core.telegram.org/constructor/userStatusLastMonth for reference.
 type UserStatusLastMonth struct {
 }
 
@@ -263,6 +275,8 @@ var (
 )
 
 // UserStatusClass represents UserStatus generic type.
+//
+// See https://core.telegram.org/type/UserStatus for reference.
 //
 // Example:
 //  g, err := DecodeUserStatus(buf)

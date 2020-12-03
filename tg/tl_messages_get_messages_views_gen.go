@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMessagesViewsRequest represents TL type `messages.getMessagesViews#5784d3e1`.
+//
+// See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
 	// Peer field of MessagesGetMessagesViewsRequest.
 	Peer InputPeerClass
@@ -92,6 +94,8 @@ var (
 )
 
 // MessagesGetMessagesViews invokes method messages.getMessagesViews#5784d3e1 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getMessagesViews for reference.
 func (c *Client) MessagesGetMessagesViews(ctx context.Context, request *MessagesGetMessagesViewsRequest) (*MessagesMessageViews, error) {
 	var result MessagesMessageViews
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#770a8e74`.
+//
+// See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 type PaymentsValidateRequestedInfoRequest struct {
 	// Flags field of PaymentsValidateRequestedInfoRequest.
 	Flags bin.Fields
@@ -90,6 +92,8 @@ var (
 )
 
 // PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#770a8e74 returning error if any.
+//
+// See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {
 	var result PaymentsValidatedRequestedInfo
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

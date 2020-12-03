@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPinnedDialogsRequest represents TL type `messages.getPinnedDialogs#d6b94df2`.
+//
+// See https://core.telegram.org/method/messages.getPinnedDialogs for reference.
 type MessagesGetPinnedDialogsRequest struct {
 	// FolderID field of MessagesGetPinnedDialogsRequest.
 	FolderID int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetPinnedDialogs invokes method messages.getPinnedDialogs#d6b94df2 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getPinnedDialogs for reference.
 func (c *Client) MessagesGetPinnedDialogs(ctx context.Context, request *MessagesGetPinnedDialogsRequest) (*MessagesPeerDialogs, error) {
 	var result MessagesPeerDialogs
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

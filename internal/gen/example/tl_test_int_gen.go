@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TestInt represents TL type `testInt#ddbd2c09`.
+//
+// See https://localhost:80/doc/constructor/testInt for reference.
 type TestInt struct {
 	// Number
 	Value int32

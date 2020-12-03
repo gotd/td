@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesClearRecentStickersRequest represents TL type `messages.clearRecentStickers#8999602d`.
+//
+// See https://core.telegram.org/method/messages.clearRecentStickers for reference.
 type MessagesClearRecentStickersRequest struct {
 	// Flags field of MessagesClearRecentStickersRequest.
 	Flags bin.Fields
@@ -70,6 +72,8 @@ var (
 )
 
 // MessagesClearRecentStickers invokes method messages.clearRecentStickers#8999602d returning error if any.
+//
+// See https://core.telegram.org/method/messages.clearRecentStickers for reference.
 func (c *Client) MessagesClearRecentStickers(ctx context.Context, request *MessagesClearRecentStickersRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditCreatorRequest represents TL type `channels.editCreator#8f38cd1f`.
+//
+// See https://core.telegram.org/method/channels.editCreator for reference.
 type ChannelsEditCreatorRequest struct {
 	// Channel field of ChannelsEditCreatorRequest.
 	Channel InputChannelClass
@@ -93,6 +95,8 @@ var (
 )
 
 // ChannelsEditCreator invokes method channels.editCreator#8f38cd1f returning error if any.
+//
+// See https://core.telegram.org/method/channels.editCreator for reference.
 func (c *Client) ChannelsEditCreator(ctx context.Context, request *ChannelsEditCreatorRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

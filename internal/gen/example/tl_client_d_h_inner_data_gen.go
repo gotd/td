@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ClientDHInnerData represents TL type `client_DH_inner_data#6643b654`.
+//
+// See https://localhost:80/doc/constructor/client_DH_inner_data for reference.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
 	Nonce bin.Int128

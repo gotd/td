@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsInviteToChannelRequest represents TL type `channels.inviteToChannel#199f3a6c`.
+//
+// See https://core.telegram.org/method/channels.inviteToChannel for reference.
 type ChannelsInviteToChannelRequest struct {
 	// Channel field of ChannelsInviteToChannelRequest.
 	Channel InputChannelClass
@@ -87,6 +89,8 @@ var (
 )
 
 // ChannelsInviteToChannel invokes method channels.inviteToChannel#199f3a6c returning error if any.
+//
+// See https://core.telegram.org/method/channels.inviteToChannel for reference.
 func (c *Client) ChannelsInviteToChannel(ctx context.Context, request *ChannelsInviteToChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

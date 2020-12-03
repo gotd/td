@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteChatUserRequest represents TL type `messages.deleteChatUser#e0611f16`.
+//
+// See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
 	// ChatID field of MessagesDeleteChatUserRequest.
 	ChatID int
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesDeleteChatUser invokes method messages.deleteChatUser#e0611f16 returning error if any.
+//
+// See https://core.telegram.org/method/messages.deleteChatUser for reference.
 func (c *Client) MessagesDeleteChatUser(ctx context.Context, request *MessagesDeleteChatUserRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputFile represents TL type `inputFile#f52ff27f`.
+//
+// See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
 	// ID field of InputFile.
 	ID int64
@@ -93,6 +95,8 @@ var (
 )
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
+//
+// See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
 	// ID field of InputFileBig.
 	ID int64
@@ -161,6 +165,8 @@ var (
 )
 
 // InputFileClass represents InputFile generic type.
+//
+// See https://core.telegram.org/type/InputFile for reference.
 //
 // Example:
 //  g, err := DecodeInputFile(buf)

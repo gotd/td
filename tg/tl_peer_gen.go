@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerUser represents TL type `peerUser#9db1bc6d`.
+//
+// See https://core.telegram.org/constructor/peerUser for reference.
 type PeerUser struct {
 	// UserID field of PeerUser.
 	UserID int
@@ -63,6 +65,8 @@ var (
 )
 
 // PeerChat represents TL type `peerChat#bad0e5bb`.
+//
+// See https://core.telegram.org/constructor/peerChat for reference.
 type PeerChat struct {
 	// ChatID field of PeerChat.
 	ChatID int
@@ -111,6 +115,8 @@ var (
 )
 
 // PeerChannel represents TL type `peerChannel#bddde532`.
+//
+// See https://core.telegram.org/constructor/peerChannel for reference.
 type PeerChannel struct {
 	// ChannelID field of PeerChannel.
 	ChannelID int
@@ -159,6 +165,8 @@ var (
 )
 
 // PeerClass represents Peer generic type.
+//
+// See https://core.telegram.org/type/Peer for reference.
 //
 // Example:
 //  g, err := DecodePeer(buf)

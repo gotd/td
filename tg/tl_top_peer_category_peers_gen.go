@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TopPeerCategoryPeers represents TL type `topPeerCategoryPeers#fb834291`.
+//
+// See https://core.telegram.org/constructor/topPeerCategoryPeers for reference.
 type TopPeerCategoryPeers struct {
 	// Category field of TopPeerCategoryPeers.
 	Category TopPeerCategoryClass

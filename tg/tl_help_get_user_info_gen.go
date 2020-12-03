@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetUserInfoRequest represents TL type `help.getUserInfo#38a08d3`.
+//
+// See https://core.telegram.org/method/help.getUserInfo for reference.
 type HelpGetUserInfoRequest struct {
 	// UserID field of HelpGetUserInfoRequest.
 	UserID InputUserClass
@@ -63,6 +65,8 @@ var (
 )
 
 // HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.
+//
+// See https://core.telegram.org/method/help.getUserInfo for reference.
 func (c *Client) HelpGetUserInfo(ctx context.Context, request *HelpGetUserInfoRequest) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

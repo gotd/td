@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditMessageRequest represents TL type `messages.editMessage#48f71778`.
+//
+// See https://core.telegram.org/method/messages.editMessage for reference.
 type MessagesEditMessageRequest struct {
 	// Flags field of MessagesEditMessageRequest.
 	Flags bin.Fields
@@ -264,6 +266,8 @@ var (
 )
 
 // MessagesEditMessage invokes method messages.editMessage#48f71778 returning error if any.
+//
+// See https://core.telegram.org/method/messages.editMessage for reference.
 func (c *Client) MessagesEditMessage(ctx context.Context, request *MessagesEditMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

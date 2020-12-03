@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputBotInlineMessageMediaAuto represents TL type `inputBotInlineMessageMediaAuto#3380c786`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageMediaAuto for reference.
 type InputBotInlineMessageMediaAuto struct {
 	// Flags field of InputBotInlineMessageMediaAuto.
 	Flags bin.Fields
@@ -150,6 +152,8 @@ var (
 )
 
 // InputBotInlineMessageText represents TL type `inputBotInlineMessageText#3dcd7a87`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageText for reference.
 type InputBotInlineMessageText struct {
 	// Flags field of InputBotInlineMessageText.
 	Flags bin.Fields
@@ -297,6 +301,8 @@ var (
 )
 
 // InputBotInlineMessageMediaGeo represents TL type `inputBotInlineMessageMediaGeo#96929a85`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageMediaGeo for reference.
 type InputBotInlineMessageMediaGeo struct {
 	// Flags field of InputBotInlineMessageMediaGeo.
 	Flags bin.Fields
@@ -481,6 +487,8 @@ var (
 )
 
 // InputBotInlineMessageMediaVenue represents TL type `inputBotInlineMessageMediaVenue#417bbf11`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageMediaVenue for reference.
 type InputBotInlineMessageMediaVenue struct {
 	// Flags field of InputBotInlineMessageMediaVenue.
 	Flags bin.Fields
@@ -628,6 +636,8 @@ var (
 )
 
 // InputBotInlineMessageMediaContact represents TL type `inputBotInlineMessageMediaContact#a6edbffd`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageMediaContact for reference.
 type InputBotInlineMessageMediaContact struct {
 	// Flags field of InputBotInlineMessageMediaContact.
 	Flags bin.Fields
@@ -750,6 +760,8 @@ var (
 )
 
 // InputBotInlineMessageGame represents TL type `inputBotInlineMessageGame#4b425864`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageGame for reference.
 type InputBotInlineMessageGame struct {
 	// Flags field of InputBotInlineMessageGame.
 	Flags bin.Fields
@@ -832,6 +844,8 @@ var (
 )
 
 // InputBotInlineMessageClass represents InputBotInlineMessage generic type.
+//
+// See https://core.telegram.org/type/InputBotInlineMessage for reference.
 //
 // Example:
 //  g, err := DecodeInputBotInlineMessage(buf)

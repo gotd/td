@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TestString represents TL type `testString#fe56688c`.
+//
+// See https://localhost:80/doc/constructor/testString for reference.
 type TestString struct {
 	// String
 	Value string

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Contact represents TL type `contact#f911c994`.
+//
+// See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
 	// UserID field of Contact.
 	UserID int

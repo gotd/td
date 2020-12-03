@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStickersNotModified represents TL type `messages.stickersNotModified#f1749a22`.
+//
+// See https://core.telegram.org/constructor/messages.stickersNotModified for reference.
 type MessagesStickersNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // MessagesStickers represents TL type `messages.stickers#e4599bbd`.
+//
+// See https://core.telegram.org/constructor/messages.stickers for reference.
 type MessagesStickers struct {
 	// Hash field of MessagesStickers.
 	Hash int
@@ -125,6 +129,8 @@ var (
 )
 
 // MessagesStickersClass represents messages.Stickers generic type.
+//
+// See https://core.telegram.org/type/messages.Stickers for reference.
 //
 // Example:
 //  g, err := DecodeMessagesStickers(buf)

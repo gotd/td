@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
+//
+// See https://core.telegram.org/constructor/dialogFilter for reference.
 type DialogFilter struct {
 	// Flags field of DialogFilter.
 	Flags bin.Fields

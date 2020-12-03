@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendVerifyPhoneCodeRequest represents TL type `account.sendVerifyPhoneCode#a5a356f9`.
+//
+// See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
 	// PhoneNumber field of AccountSendVerifyPhoneCodeRequest.
 	PhoneNumber string
@@ -68,6 +70,8 @@ var (
 )
 
 // AccountSendVerifyPhoneCode invokes method account.sendVerifyPhoneCode#a5a356f9 returning error if any.
+//
+// See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 func (c *Client) AccountSendVerifyPhoneCode(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

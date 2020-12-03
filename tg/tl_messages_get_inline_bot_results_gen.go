@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetInlineBotResultsRequest represents TL type `messages.getInlineBotResults#514e999d`.
+//
+// See https://core.telegram.org/method/messages.getInlineBotResults for reference.
 type MessagesGetInlineBotResultsRequest struct {
 	// Flags field of MessagesGetInlineBotResultsRequest.
 	Flags bin.Fields
@@ -142,6 +144,8 @@ var (
 )
 
 // MessagesGetInlineBotResults invokes method messages.getInlineBotResults#514e999d returning error if any.
+//
+// See https://core.telegram.org/method/messages.getInlineBotResults for reference.
 func (c *Client) MessagesGetInlineBotResults(ctx context.Context, request *MessagesGetInlineBotResultsRequest) (*MessagesBotResults, error) {
 	var result MessagesBotResults
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

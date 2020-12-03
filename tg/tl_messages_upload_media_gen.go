@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUploadMediaRequest represents TL type `messages.uploadMedia#519bc2b1`.
+//
+// See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
 	// Peer field of MessagesUploadMediaRequest.
 	Peer InputPeerClass
@@ -78,6 +80,8 @@ var (
 )
 
 // MessagesUploadMedia invokes method messages.uploadMedia#519bc2b1 returning error if any.
+//
+// See https://core.telegram.org/method/messages.uploadMedia for reference.
 func (c *Client) MessagesUploadMedia(ctx context.Context, request *MessagesUploadMediaRequest) (MessageMediaClass, error) {
 	var result MessageMediaBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

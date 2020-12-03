@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputEncryptedChat represents TL type `inputEncryptedChat#f141b5e1`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedChat for reference.
 type InputEncryptedChat struct {
 	// ChatID field of InputEncryptedChat.
 	ChatID int

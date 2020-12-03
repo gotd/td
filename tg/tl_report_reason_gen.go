@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputReportReasonSpam represents TL type `inputReportReasonSpam#58dbcab8`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonSpam for reference.
 type InputReportReasonSpam struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputReportReasonViolence represents TL type `inputReportReasonViolence#1e22c78d`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonViolence for reference.
 type InputReportReasonViolence struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // InputReportReasonPornography represents TL type `inputReportReasonPornography#2e59d922`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonPornography for reference.
 type InputReportReasonPornography struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // InputReportReasonChildAbuse represents TL type `inputReportReasonChildAbuse#adf44ee3`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonChildAbuse for reference.
 type InputReportReasonChildAbuse struct {
 }
 
@@ -167,6 +175,8 @@ var (
 )
 
 // InputReportReasonOther represents TL type `inputReportReasonOther#e1746d0a`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonOther for reference.
 type InputReportReasonOther struct {
 	// Text field of InputReportReasonOther.
 	Text string
@@ -215,6 +225,8 @@ var (
 )
 
 // InputReportReasonCopyright represents TL type `inputReportReasonCopyright#9b89f93a`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonCopyright for reference.
 type InputReportReasonCopyright struct {
 }
 
@@ -253,6 +265,8 @@ var (
 )
 
 // InputReportReasonGeoIrrelevant represents TL type `inputReportReasonGeoIrrelevant#dbd4feed`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonGeoIrrelevant for reference.
 type InputReportReasonGeoIrrelevant struct {
 }
 
@@ -291,6 +305,8 @@ var (
 )
 
 // ReportReasonClass represents ReportReason generic type.
+//
+// See https://core.telegram.org/type/ReportReason for reference.
 //
 // Example:
 //  g, err := DecodeReportReason(buf)

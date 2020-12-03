@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetFeaturedStickersRequest represents TL type `messages.getFeaturedStickers#2dacca4f`.
+//
+// See https://core.telegram.org/method/messages.getFeaturedStickers for reference.
 type MessagesGetFeaturedStickersRequest struct {
 	// Hash field of MessagesGetFeaturedStickersRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#2dacca4f returning error if any.
+//
+// See https://core.telegram.org/method/messages.getFeaturedStickers for reference.
 func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, request *MessagesGetFeaturedStickersRequest) (MessagesFeaturedStickersClass, error) {
 	var result MessagesFeaturedStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

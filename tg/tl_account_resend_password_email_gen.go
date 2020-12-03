@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResendPasswordEmailRequest represents TL type `account.resendPasswordEmail#7a7f2a15`.
+//
+// See https://core.telegram.org/method/account.resendPasswordEmail for reference.
 type AccountResendPasswordEmailRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountResendPasswordEmail invokes method account.resendPasswordEmail#7a7f2a15 returning error if any.
+//
+// See https://core.telegram.org/method/account.resendPasswordEmail for reference.
 func (c *Client) AccountResendPasswordEmail(ctx context.Context, request *AccountResendPasswordEmailRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

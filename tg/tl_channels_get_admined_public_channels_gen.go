@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
+//
+// See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 type ChannelsGetAdminedPublicChannelsRequest struct {
 	// Flags field of ChannelsGetAdminedPublicChannelsRequest.
 	Flags bin.Fields
@@ -82,6 +84,8 @@ var (
 )
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
+//
+// See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReportSpamRequest represents TL type `messages.reportSpam#cf1592db`.
+//
+// See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
 	// Peer field of MessagesReportSpamRequest.
 	Peer InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesReportSpam invokes method messages.reportSpam#cf1592db returning error if any.
+//
+// See https://core.telegram.org/method/messages.reportSpam for reference.
 func (c *Client) MessagesReportSpam(ctx context.Context, request *MessagesReportSpamRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

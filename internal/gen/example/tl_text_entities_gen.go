@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TextEntities represents TL type `textEntities#cf89c258`.
+//
+// See https://localhost:80/doc/constructor/textEntities for reference.
 type TextEntities struct {
 	// List of text entities
 	Entities []TextEntity

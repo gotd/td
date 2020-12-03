@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateUsernameRequest represents TL type `account.updateUsername#3e0bdd7c`.
+//
+// See https://core.telegram.org/method/account.updateUsername for reference.
 type AccountUpdateUsernameRequest struct {
 	// Username field of AccountUpdateUsernameRequest.
 	Username string
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.
+//
+// See https://core.telegram.org/method/account.updateUsername for reference.
 func (c *Client) AccountUpdateUsername(ctx context.Context, request *AccountUpdateUsernameRequest) (UserClass, error) {
 	var result UserBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

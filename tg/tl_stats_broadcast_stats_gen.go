@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
+//
+// See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
 	// Period field of StatsBroadcastStats.
 	Period StatsDateRangeDays

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneRequestCallRequest represents TL type `phone.requestCall#42ff96ed`.
+//
+// See https://core.telegram.org/method/phone.requestCall for reference.
 type PhoneRequestCallRequest struct {
 	// Flags field of PhoneRequestCallRequest.
 	Flags bin.Fields
@@ -115,6 +117,8 @@ var (
 )
 
 // PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.
+//
+// See https://core.telegram.org/method/phone.requestCall for reference.
 func (c *Client) PhoneRequestCall(ctx context.Context, request *PhoneRequestCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

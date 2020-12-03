@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
+//
+// See https://core.telegram.org/method/account.initTakeoutSession for reference.
 type AccountInitTakeoutSessionRequest struct {
 	// Flags field of AccountInitTakeoutSessionRequest.
 	Flags bin.Fields
@@ -159,6 +161,8 @@ var (
 )
 
 // AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
+//
+// See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {
 	var result AccountTakeout
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

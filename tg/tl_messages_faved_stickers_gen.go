@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFavedStickersNotModified represents TL type `messages.favedStickersNotModified#9e8fa6d3`.
+//
+// See https://core.telegram.org/constructor/messages.favedStickersNotModified for reference.
 type MessagesFavedStickersNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // MessagesFavedStickers represents TL type `messages.favedStickers#f37f2f16`.
+//
+// See https://core.telegram.org/constructor/messages.favedStickers for reference.
 type MessagesFavedStickers struct {
 	// Hash field of MessagesFavedStickers.
 	Hash int
@@ -146,6 +150,8 @@ var (
 )
 
 // MessagesFavedStickersClass represents messages.FavedStickers generic type.
+//
+// See https://core.telegram.org/type/messages.FavedStickers for reference.
 //
 // Example:
 //  g, err := DecodeMessagesFavedStickers(buf)

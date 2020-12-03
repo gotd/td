@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelParticipantsRecent represents TL type `channelParticipantsRecent#de3f3c79`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsRecent for reference.
 type ChannelParticipantsRecent struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ChannelParticipantsAdmins represents TL type `channelParticipantsAdmins#b4608969`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsAdmins for reference.
 type ChannelParticipantsAdmins struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // ChannelParticipantsKicked represents TL type `channelParticipantsKicked#a3b54985`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsKicked for reference.
 type ChannelParticipantsKicked struct {
 	// Q field of ChannelParticipantsKicked.
 	Q string
@@ -139,6 +145,8 @@ var (
 )
 
 // ChannelParticipantsBots represents TL type `channelParticipantsBots#b0d1865b`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsBots for reference.
 type ChannelParticipantsBots struct {
 }
 
@@ -177,6 +185,8 @@ var (
 )
 
 // ChannelParticipantsBanned represents TL type `channelParticipantsBanned#1427a5e1`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsBanned for reference.
 type ChannelParticipantsBanned struct {
 	// Q field of ChannelParticipantsBanned.
 	Q string
@@ -225,6 +235,8 @@ var (
 )
 
 // ChannelParticipantsSearch represents TL type `channelParticipantsSearch#656ac4b`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsSearch for reference.
 type ChannelParticipantsSearch struct {
 	// Q field of ChannelParticipantsSearch.
 	Q string
@@ -273,6 +285,8 @@ var (
 )
 
 // ChannelParticipantsContacts represents TL type `channelParticipantsContacts#bb6ae88d`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsContacts for reference.
 type ChannelParticipantsContacts struct {
 	// Q field of ChannelParticipantsContacts.
 	Q string
@@ -321,6 +335,8 @@ var (
 )
 
 // ChannelParticipantsMentions represents TL type `channelParticipantsMentions#e04b5ceb`.
+//
+// See https://core.telegram.org/constructor/channelParticipantsMentions for reference.
 type ChannelParticipantsMentions struct {
 	// Flags field of ChannelParticipantsMentions.
 	Flags bin.Fields
@@ -427,6 +443,8 @@ var (
 )
 
 // ChannelParticipantsFilterClass represents ChannelParticipantsFilter generic type.
+//
+// See https://core.telegram.org/type/ChannelParticipantsFilter for reference.
 //
 // Example:
 //  g, err := DecodeChannelParticipantsFilter(buf)

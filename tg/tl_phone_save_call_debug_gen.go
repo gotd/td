@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneSaveCallDebugRequest represents TL type `phone.saveCallDebug#277add7e`.
+//
+// See https://core.telegram.org/method/phone.saveCallDebug for reference.
 type PhoneSaveCallDebugRequest struct {
 	// Peer field of PhoneSaveCallDebugRequest.
 	Peer InputPhoneCall
@@ -68,6 +70,8 @@ var (
 )
 
 // PhoneSaveCallDebug invokes method phone.saveCallDebug#277add7e returning error if any.
+//
+// See https://core.telegram.org/method/phone.saveCallDebug for reference.
 func (c *Client) PhoneSaveCallDebug(ctx context.Context, request *PhoneSaveCallDebugRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

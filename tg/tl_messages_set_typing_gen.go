@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
+//
+// See https://core.telegram.org/method/messages.setTyping for reference.
 type MessagesSetTypingRequest struct {
 	// Flags field of MessagesSetTypingRequest.
 	Flags bin.Fields
@@ -117,6 +119,8 @@ var (
 )
 
 // MessagesSetTyping invokes method messages.setTyping#58943ee2 returning error if any.
+//
+// See https://core.telegram.org/method/messages.setTyping for reference.
 func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

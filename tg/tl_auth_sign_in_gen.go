@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSignInRequest represents TL type `auth.signIn#bcd51581`.
+//
+// See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
 	// PhoneNumber field of AuthSignInRequest.
 	PhoneNumber string
@@ -78,6 +80,8 @@ var (
 )
 
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+//
+// See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

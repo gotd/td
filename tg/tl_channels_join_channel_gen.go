@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsJoinChannelRequest represents TL type `channels.joinChannel#24b524c5`.
+//
+// See https://core.telegram.org/method/channels.joinChannel for reference.
 type ChannelsJoinChannelRequest struct {
 	// Channel field of ChannelsJoinChannelRequest.
 	Channel InputChannelClass
@@ -63,6 +65,8 @@ var (
 )
 
 // ChannelsJoinChannel invokes method channels.joinChannel#24b524c5 returning error if any.
+//
+// See https://core.telegram.org/method/channels.joinChannel for reference.
 func (c *Client) ChannelsJoinChannel(ctx context.Context, request *ChannelsJoinChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

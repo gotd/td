@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditPhotoRequest represents TL type `channels.editPhoto#f12e57c9`.
+//
+// See https://core.telegram.org/method/channels.editPhoto for reference.
 type ChannelsEditPhotoRequest struct {
 	// Channel field of ChannelsEditPhotoRequest.
 	Channel InputChannelClass
@@ -78,6 +80,8 @@ var (
 )
 
 // ChannelsEditPhoto invokes method channels.editPhoto#f12e57c9 returning error if any.
+//
+// See https://core.telegram.org/method/channels.editPhoto for reference.
 func (c *Client) ChannelsEditPhoto(ctx context.Context, request *ChannelsEditPhotoRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

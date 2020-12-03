@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDialogs represents TL type `messages.dialogs#15ba6c40`.
+//
+// See https://core.telegram.org/constructor/messages.dialogs for reference.
 type MessagesDialogs struct {
 	// Dialogs field of MessagesDialogs.
 	Dialogs []DialogClass
@@ -149,6 +151,8 @@ var (
 )
 
 // MessagesDialogsSlice represents TL type `messages.dialogsSlice#71e094f3`.
+//
+// See https://core.telegram.org/constructor/messages.dialogsSlice for reference.
 type MessagesDialogsSlice struct {
 	// Count field of MessagesDialogsSlice.
 	Count int
@@ -293,6 +297,8 @@ var (
 )
 
 // MessagesDialogsNotModified represents TL type `messages.dialogsNotModified#f0e3e596`.
+//
+// See https://core.telegram.org/constructor/messages.dialogsNotModified for reference.
 type MessagesDialogsNotModified struct {
 	// Count field of MessagesDialogsNotModified.
 	Count int
@@ -341,6 +347,8 @@ var (
 )
 
 // MessagesDialogsClass represents messages.Dialogs generic type.
+//
+// See https://core.telegram.org/type/messages.Dialogs for reference.
 //
 // Example:
 //  g, err := DecodeMessagesDialogs(buf)

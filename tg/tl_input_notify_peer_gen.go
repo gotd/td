@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputNotifyPeer represents TL type `inputNotifyPeer#b8bc5b0c`.
+//
+// See https://core.telegram.org/constructor/inputNotifyPeer for reference.
 type InputNotifyPeer struct {
 	// Peer field of InputNotifyPeer.
 	Peer InputPeerClass
@@ -68,6 +70,8 @@ var (
 )
 
 // InputNotifyUsers represents TL type `inputNotifyUsers#193b4417`.
+//
+// See https://core.telegram.org/constructor/inputNotifyUsers for reference.
 type InputNotifyUsers struct {
 }
 
@@ -106,6 +110,8 @@ var (
 )
 
 // InputNotifyChats represents TL type `inputNotifyChats#4a95e84e`.
+//
+// See https://core.telegram.org/constructor/inputNotifyChats for reference.
 type InputNotifyChats struct {
 }
 
@@ -144,6 +150,8 @@ var (
 )
 
 // InputNotifyBroadcasts represents TL type `inputNotifyBroadcasts#b1db7c7e`.
+//
+// See https://core.telegram.org/constructor/inputNotifyBroadcasts for reference.
 type InputNotifyBroadcasts struct {
 }
 
@@ -182,6 +190,8 @@ var (
 )
 
 // InputNotifyPeerClass represents InputNotifyPeer generic type.
+//
+// See https://core.telegram.org/type/InputNotifyPeer for reference.
 //
 // Example:
 //  g, err := DecodeInputNotifyPeer(buf)

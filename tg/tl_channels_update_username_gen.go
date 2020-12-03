@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsUpdateUsernameRequest represents TL type `channels.updateUsername#3514b3de`.
+//
+// See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
 	// Channel field of ChannelsUpdateUsernameRequest.
 	Channel InputChannelClass
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.
+//
+// See https://core.telegram.org/method/channels.updateUsername for reference.
 func (c *Client) ChannelsUpdateUsername(ctx context.Context, request *ChannelsUpdateUsernameRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

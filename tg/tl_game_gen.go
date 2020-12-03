@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Game represents TL type `game#bdf9653b`.
+//
+// See https://core.telegram.org/constructor/game for reference.
 type Game struct {
 	// Flags field of Game.
 	Flags bin.Fields

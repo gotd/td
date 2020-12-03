@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputTheme represents TL type `inputTheme#3c5693e9`.
+//
+// See https://core.telegram.org/constructor/inputTheme for reference.
 type InputTheme struct {
 	// ID field of InputTheme.
 	ID int64
@@ -73,6 +75,8 @@ var (
 )
 
 // InputThemeSlug represents TL type `inputThemeSlug#f5890df1`.
+//
+// See https://core.telegram.org/constructor/inputThemeSlug for reference.
 type InputThemeSlug struct {
 	// Slug field of InputThemeSlug.
 	Slug string
@@ -121,6 +125,8 @@ var (
 )
 
 // InputThemeClass represents InputTheme generic type.
+//
+// See https://core.telegram.org/type/InputTheme for reference.
 //
 // Example:
 //  g, err := DecodeInputTheme(buf)

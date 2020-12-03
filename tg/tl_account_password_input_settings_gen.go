@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPasswordInputSettings represents TL type `account.passwordInputSettings#c23727c9`.
+//
+// See https://core.telegram.org/constructor/account.passwordInputSettings for reference.
 type AccountPasswordInputSettings struct {
 	// Flags field of AccountPasswordInputSettings.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
+//
+// See https://core.telegram.org/constructor/messageReplies for reference.
 type MessageReplies struct {
 	// Flags field of MessageReplies.
 	Flags bin.Fields

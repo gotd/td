@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LabeledPrice represents TL type `labeledPrice#cb296bf8`.
+//
+// See https://core.telegram.org/constructor/labeledPrice for reference.
 type LabeledPrice struct {
 	// Label field of LabeledPrice.
 	Label string

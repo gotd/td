@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
+//
+// See https://core.telegram.org/constructor/inputFileLocation for reference.
 type InputFileLocation struct {
 	// VolumeID field of InputFileLocation.
 	VolumeID int64
@@ -93,6 +95,8 @@ var (
 )
 
 // InputEncryptedFileLocation represents TL type `inputEncryptedFileLocation#f5235d55`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedFileLocation for reference.
 type InputEncryptedFileLocation struct {
 	// ID field of InputEncryptedFileLocation.
 	ID int64
@@ -151,6 +155,8 @@ var (
 )
 
 // InputDocumentFileLocation represents TL type `inputDocumentFileLocation#bad07584`.
+//
+// See https://core.telegram.org/constructor/inputDocumentFileLocation for reference.
 type InputDocumentFileLocation struct {
 	// ID field of InputDocumentFileLocation.
 	ID int64
@@ -229,6 +235,8 @@ var (
 )
 
 // InputSecureFileLocation represents TL type `inputSecureFileLocation#cbc7ee28`.
+//
+// See https://core.telegram.org/constructor/inputSecureFileLocation for reference.
 type InputSecureFileLocation struct {
 	// ID field of InputSecureFileLocation.
 	ID int64
@@ -287,6 +295,8 @@ var (
 )
 
 // InputTakeoutFileLocation represents TL type `inputTakeoutFileLocation#29be5899`.
+//
+// See https://core.telegram.org/constructor/inputTakeoutFileLocation for reference.
 type InputTakeoutFileLocation struct {
 }
 
@@ -325,6 +335,8 @@ var (
 )
 
 // InputPhotoFileLocation represents TL type `inputPhotoFileLocation#40181ffe`.
+//
+// See https://core.telegram.org/constructor/inputPhotoFileLocation for reference.
 type InputPhotoFileLocation struct {
 	// ID field of InputPhotoFileLocation.
 	ID int64
@@ -403,6 +415,8 @@ var (
 )
 
 // InputPhotoLegacyFileLocation represents TL type `inputPhotoLegacyFileLocation#d83466f3`.
+//
+// See https://core.telegram.org/constructor/inputPhotoLegacyFileLocation for reference.
 type InputPhotoLegacyFileLocation struct {
 	// ID field of InputPhotoLegacyFileLocation.
 	ID int64
@@ -501,6 +515,8 @@ var (
 )
 
 // InputPeerPhotoFileLocation represents TL type `inputPeerPhotoFileLocation#27d69997`.
+//
+// See https://core.telegram.org/constructor/inputPeerPhotoFileLocation for reference.
 type InputPeerPhotoFileLocation struct {
 	// Flags field of InputPeerPhotoFileLocation.
 	Flags bin.Fields
@@ -596,6 +612,8 @@ var (
 )
 
 // InputStickerSetThumb represents TL type `inputStickerSetThumb#dbaeae9`.
+//
+// See https://core.telegram.org/constructor/inputStickerSetThumb for reference.
 type InputStickerSetThumb struct {
 	// Stickerset field of InputStickerSetThumb.
 	Stickerset InputStickerSetClass
@@ -669,6 +687,8 @@ var (
 )
 
 // InputFileLocationClass represents InputFileLocation generic type.
+//
+// See https://core.telegram.org/type/InputFileLocation for reference.
 //
 // Example:
 //  g, err := DecodeInputFileLocation(buf)

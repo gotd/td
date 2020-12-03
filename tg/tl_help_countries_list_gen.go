@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpCountriesListNotModified represents TL type `help.countriesListNotModified#93cc1f32`.
+//
+// See https://core.telegram.org/constructor/help.countriesListNotModified for reference.
 type HelpCountriesListNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // HelpCountriesList represents TL type `help.countriesList#87d0759e`.
+//
+// See https://core.telegram.org/constructor/help.countriesList for reference.
 type HelpCountriesList struct {
 	// Countries field of HelpCountriesList.
 	Countries []HelpCountry
@@ -122,6 +126,8 @@ var (
 )
 
 // HelpCountriesListClass represents help.CountriesList generic type.
+//
+// See https://core.telegram.org/type/help.CountriesList for reference.
 //
 // Example:
 //  g, err := DecodeHelpCountriesList(buf)

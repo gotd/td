@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UsersSetSecureValueErrorsRequest represents TL type `users.setSecureValueErrors#90c894b5`.
+//
+// See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
 	// ID field of UsersSetSecureValueErrorsRequest.
 	ID InputUserClass
@@ -87,6 +89,8 @@ var (
 )
 
 // UsersSetSecureValueErrors invokes method users.setSecureValueErrors#90c894b5 returning error if any.
+//
+// See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 func (c *Client) UsersSetSecureValueErrors(ctx context.Context, request *UsersSetSecureValueErrorsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Page represents TL type `page#98657f0d`.
+//
+// See https://core.telegram.org/constructor/page for reference.
 type Page struct {
 	// Flags field of Page.
 	Flags bin.Fields

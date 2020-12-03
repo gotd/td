@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetBlockedRequest represents TL type `contacts.getBlocked#f57c350f`.
+//
+// See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
 	// Offset field of ContactsGetBlockedRequest.
 	Offset int
@@ -68,6 +70,8 @@ var (
 )
 
 // ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.
+//
+// See https://core.telegram.org/method/contacts.getBlocked for reference.
 func (c *Client) ContactsGetBlocked(ctx context.Context, request *ContactsGetBlockedRequest) (ContactsBlockedClass, error) {
 	var result ContactsBlockedBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
+//
+// See https://core.telegram.org/constructor/phoneCallEmpty for reference.
 type PhoneCallEmpty struct {
 	// ID field of PhoneCallEmpty.
 	ID int64
@@ -63,6 +65,8 @@ var (
 )
 
 // PhoneCallWaiting represents TL type `phoneCallWaiting#1b8f4ad1`.
+//
+// See https://core.telegram.org/constructor/phoneCallWaiting for reference.
 type PhoneCallWaiting struct {
 	// Flags field of PhoneCallWaiting.
 	Flags bin.Fields
@@ -212,6 +216,8 @@ var (
 )
 
 // PhoneCallRequested represents TL type `phoneCallRequested#87eabb53`.
+//
+// See https://core.telegram.org/constructor/phoneCallRequested for reference.
 type PhoneCallRequested struct {
 	// Flags field of PhoneCallRequested.
 	Flags bin.Fields
@@ -342,6 +348,8 @@ var (
 )
 
 // PhoneCallAccepted represents TL type `phoneCallAccepted#997c454a`.
+//
+// See https://core.telegram.org/constructor/phoneCallAccepted for reference.
 type PhoneCallAccepted struct {
 	// Flags field of PhoneCallAccepted.
 	Flags bin.Fields
@@ -472,6 +480,8 @@ var (
 )
 
 // PhoneCall represents TL type `phoneCall#8742ae7f`.
+//
+// See https://core.telegram.org/constructor/phoneCall for reference.
 type PhoneCall struct {
 	// Flags field of PhoneCall.
 	Flags bin.Fields
@@ -658,6 +668,8 @@ var (
 )
 
 // PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
+//
+// See https://core.telegram.org/constructor/phoneCallDiscarded for reference.
 type PhoneCallDiscarded struct {
 	// Flags field of PhoneCallDiscarded.
 	Flags bin.Fields
@@ -815,6 +827,8 @@ var (
 )
 
 // PhoneCallClass represents PhoneCall generic type.
+//
+// See https://core.telegram.org/type/PhoneCall for reference.
 //
 // Example:
 //  g, err := DecodePhoneCall(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateProfileRequest represents TL type `account.updateProfile#78515775`.
+//
+// See https://core.telegram.org/method/account.updateProfile for reference.
 type AccountUpdateProfileRequest struct {
 	// Flags field of AccountUpdateProfileRequest.
 	Flags bin.Fields
@@ -145,6 +147,8 @@ var (
 )
 
 // AccountUpdateProfile invokes method account.updateProfile#78515775 returning error if any.
+//
+// See https://core.telegram.org/method/account.updateProfile for reference.
 func (c *Client) AccountUpdateProfile(ctx context.Context, request *AccountUpdateProfileRequest) (UserClass, error) {
 	var result UserBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

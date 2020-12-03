@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesToggleStickerSetsRequest represents TL type `messages.toggleStickerSets#b5052fea`.
+//
+// See https://core.telegram.org/method/messages.toggleStickerSets for reference.
 type MessagesToggleStickerSetsRequest struct {
 	// Flags field of MessagesToggleStickerSetsRequest.
 	Flags bin.Fields
@@ -118,6 +120,8 @@ var (
 )
 
 // MessagesToggleStickerSets invokes method messages.toggleStickerSets#b5052fea returning error if any.
+//
+// See https://core.telegram.org/method/messages.toggleStickerSets for reference.
 func (c *Client) MessagesToggleStickerSets(ctx context.Context, request *MessagesToggleStickerSetsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

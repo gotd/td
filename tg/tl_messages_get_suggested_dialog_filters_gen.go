@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetSuggestedDialogFiltersRequest represents TL type `messages.getSuggestedDialogFilters#a29cd42c`.
+//
+// See https://core.telegram.org/constructor/messages.getSuggestedDialogFilters for reference.
 type MessagesGetSuggestedDialogFiltersRequest struct {
 }
 

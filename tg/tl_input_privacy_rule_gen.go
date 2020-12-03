@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPrivacyValueAllowContacts represents TL type `inputPrivacyValueAllowContacts#d09e07b`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowContacts for reference.
 type InputPrivacyValueAllowContacts struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputPrivacyValueAllowAll represents TL type `inputPrivacyValueAllowAll#184b35ce`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowAll for reference.
 type InputPrivacyValueAllowAll struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // InputPrivacyValueAllowUsers represents TL type `inputPrivacyValueAllowUsers#131cc67f`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowUsers for reference.
 type InputPrivacyValueAllowUsers struct {
 	// Users field of InputPrivacyValueAllowUsers.
 	Users []InputUserClass
@@ -153,6 +159,8 @@ var (
 )
 
 // InputPrivacyValueDisallowContacts represents TL type `inputPrivacyValueDisallowContacts#ba52007`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueDisallowContacts for reference.
 type InputPrivacyValueDisallowContacts struct {
 }
 
@@ -191,6 +199,8 @@ var (
 )
 
 // InputPrivacyValueDisallowAll represents TL type `inputPrivacyValueDisallowAll#d66b66c9`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueDisallowAll for reference.
 type InputPrivacyValueDisallowAll struct {
 }
 
@@ -229,6 +239,8 @@ var (
 )
 
 // InputPrivacyValueDisallowUsers represents TL type `inputPrivacyValueDisallowUsers#90110467`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueDisallowUsers for reference.
 type InputPrivacyValueDisallowUsers struct {
 	// Users field of InputPrivacyValueDisallowUsers.
 	Users []InputUserClass
@@ -291,6 +303,8 @@ var (
 )
 
 // InputPrivacyValueAllowChatParticipants represents TL type `inputPrivacyValueAllowChatParticipants#4c81c1ba`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueAllowChatParticipants for reference.
 type InputPrivacyValueAllowChatParticipants struct {
 	// Chats field of InputPrivacyValueAllowChatParticipants.
 	Chats []int
@@ -348,6 +362,8 @@ var (
 )
 
 // InputPrivacyValueDisallowChatParticipants represents TL type `inputPrivacyValueDisallowChatParticipants#d82363af`.
+//
+// See https://core.telegram.org/constructor/inputPrivacyValueDisallowChatParticipants for reference.
 type InputPrivacyValueDisallowChatParticipants struct {
 	// Chats field of InputPrivacyValueDisallowChatParticipants.
 	Chats []int
@@ -405,6 +421,8 @@ var (
 )
 
 // InputPrivacyRuleClass represents InputPrivacyRule generic type.
+//
+// See https://core.telegram.org/type/InputPrivacyRule for reference.
 //
 // Example:
 //  g, err := DecodeInputPrivacyRule(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetAuthorizationsRequest represents TL type `account.getAuthorizations#e320c158`.
+//
+// See https://core.telegram.org/method/account.getAuthorizations for reference.
 type AccountGetAuthorizationsRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountGetAuthorizations invokes method account.getAuthorizations#e320c158 returning error if any.
+//
+// See https://core.telegram.org/method/account.getAuthorizations for reference.
 func (c *Client) AccountGetAuthorizations(ctx context.Context, request *AccountGetAuthorizationsRequest) (*AccountAuthorizations, error) {
 	var result AccountAuthorizations
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

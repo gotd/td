@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetRecentMeUrlsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
+//
+// See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 type HelpGetRecentMeUrlsRequest struct {
 	// Referer field of HelpGetRecentMeUrlsRequest.
 	Referer string
@@ -58,6 +60,8 @@ var (
 )
 
 // HelpGetRecentMeUrls invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
+//
+// See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 func (c *Client) HelpGetRecentMeUrls(ctx context.Context, request *HelpGetRecentMeUrlsRequest) (*HelpRecentMeUrls, error) {
 	var result HelpRecentMeUrls
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

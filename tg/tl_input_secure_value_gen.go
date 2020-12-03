@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSecureValue represents TL type `inputSecureValue#db21d0a7`.
+//
+// See https://core.telegram.org/constructor/inputSecureValue for reference.
 type InputSecureValue struct {
 	// Flags field of InputSecureValue.
 	Flags bin.Fields

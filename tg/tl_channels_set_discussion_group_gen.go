@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsSetDiscussionGroupRequest represents TL type `channels.setDiscussionGroup#40582bb2`.
+//
+// See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
 	// Broadcast field of ChannelsSetDiscussionGroupRequest.
 	Broadcast InputChannelClass
@@ -78,6 +80,8 @@ var (
 )
 
 // ChannelsSetDiscussionGroup invokes method channels.setDiscussionGroup#40582bb2 returning error if any.
+//
+// See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 func (c *Client) ChannelsSetDiscussionGroup(ctx context.Context, request *ChannelsSetDiscussionGroupRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

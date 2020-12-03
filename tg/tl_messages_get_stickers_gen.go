@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetStickersRequest represents TL type `messages.getStickers#43d4f2c`.
+//
+// See https://core.telegram.org/method/messages.getStickers for reference.
 type MessagesGetStickersRequest struct {
 	// Emoticon field of MessagesGetStickersRequest.
 	Emoticon string
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesGetStickers invokes method messages.getStickers#43d4f2c returning error if any.
+//
+// See https://core.telegram.org/method/messages.getStickers for reference.
 func (c *Client) MessagesGetStickers(ctx context.Context, request *MessagesGetStickersRequest) (MessagesStickersClass, error) {
 	var result MessagesStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

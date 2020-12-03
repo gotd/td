@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesCheckChatInviteRequest represents TL type `messages.checkChatInvite#3eadb1bb`.
+//
+// See https://core.telegram.org/method/messages.checkChatInvite for reference.
 type MessagesCheckChatInviteRequest struct {
 	// Hash field of MessagesCheckChatInviteRequest.
 	Hash string
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.
+//
+// See https://core.telegram.org/method/messages.checkChatInvite for reference.
 func (c *Client) MessagesCheckChatInvite(ctx context.Context, request *MessagesCheckChatInviteRequest) (ChatInviteClass, error) {
 	var result ChatInviteBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

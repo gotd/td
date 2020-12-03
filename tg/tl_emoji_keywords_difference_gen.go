@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EmojiKeywordsDifference represents TL type `emojiKeywordsDifference#5cc761bd`.
+//
+// See https://core.telegram.org/constructor/emojiKeywordsDifference for reference.
 type EmojiKeywordsDifference struct {
 	// LangCode field of EmojiKeywordsDifference.
 	LangCode string

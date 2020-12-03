@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesPeerDialogs represents TL type `messages.peerDialogs#3371c354`.
+//
+// See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
 	// Dialogs field of MessagesPeerDialogs.
 	Dialogs []DialogClass

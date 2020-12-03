@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
+//
+// See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
 	// BotID field of AccountAcceptAuthorizationRequest.
 	BotID int
@@ -109,6 +111,8 @@ var (
 )
 
 // AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
+//
+// See https://core.telegram.org/method/account.acceptAuthorization for reference.
 func (c *Client) AccountAcceptAuthorization(ctx context.Context, request *AccountAcceptAuthorizationRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Null represents TL type `null#56730bcc`.
+//
+// See https://core.telegram.org/constructor/null for reference.
 type Null struct {
 }
 

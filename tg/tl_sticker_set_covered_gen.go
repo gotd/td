@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickerSetCovered represents TL type `stickerSetCovered#6410a5d2`.
+//
+// See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
 	// Set field of StickerSetCovered.
 	Set StickerSet
@@ -78,6 +80,8 @@ var (
 )
 
 // StickerSetMultiCovered represents TL type `stickerSetMultiCovered#3407e51b`.
+//
+// See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
 	// Set field of StickerSetMultiCovered.
 	Set StickerSet
@@ -150,6 +154,8 @@ var (
 )
 
 // StickerSetCoveredClass represents StickerSetCovered generic type.
+//
+// See https://core.telegram.org/type/StickerSetCovered for reference.
 //
 // Example:
 //  g, err := DecodeStickerSetCovered(buf)

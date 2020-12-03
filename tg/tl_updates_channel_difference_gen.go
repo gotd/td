@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesChannelDifferenceEmpty represents TL type `updates.channelDifferenceEmpty#3e11affb`.
+//
+// See https://core.telegram.org/constructor/updates.channelDifferenceEmpty for reference.
 type UpdatesChannelDifferenceEmpty struct {
 	// Flags field of UpdatesChannelDifferenceEmpty.
 	Flags bin.Fields
@@ -114,6 +116,8 @@ var (
 )
 
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
+//
+// See https://core.telegram.org/constructor/updates.channelDifferenceTooLong for reference.
 type UpdatesChannelDifferenceTooLong struct {
 	// Flags field of UpdatesChannelDifferenceTooLong.
 	Flags bin.Fields
@@ -290,6 +294,8 @@ var (
 )
 
 // UpdatesChannelDifference represents TL type `updates.channelDifference#2064674e`.
+//
+// See https://core.telegram.org/constructor/updates.channelDifference for reference.
 type UpdatesChannelDifference struct {
 	// Flags field of UpdatesChannelDifference.
 	Flags bin.Fields
@@ -485,6 +491,8 @@ var (
 )
 
 // UpdatesChannelDifferenceClass represents updates.ChannelDifference generic type.
+//
+// See https://core.telegram.org/type/updates.ChannelDifference for reference.
 //
 // Example:
 //  g, err := DecodeUpdatesChannelDifference(buf)

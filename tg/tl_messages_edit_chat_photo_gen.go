@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatPhotoRequest represents TL type `messages.editChatPhoto#ca4c79d8`.
+//
+// See https://core.telegram.org/method/messages.editChatPhoto for reference.
 type MessagesEditChatPhotoRequest struct {
 	// ChatID field of MessagesEditChatPhotoRequest.
 	ChatID int
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.
+//
+// See https://core.telegram.org/method/messages.editChatPhoto for reference.
 func (c *Client) MessagesEditChatPhoto(ctx context.Context, request *MessagesEditChatPhotoRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

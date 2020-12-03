@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Message represents TL type `message#ec200d96`.
+//
+// See https://localhost:80/doc/constructor/message for reference.
 type Message struct {
 	// Err field of Message.
 	Err Error

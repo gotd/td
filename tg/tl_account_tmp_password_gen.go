@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountTmpPassword represents TL type `account.tmpPassword#db64fd34`.
+//
+// See https://core.telegram.org/constructor/account.tmpPassword for reference.
 type AccountTmpPassword struct {
 	// TmpPassword field of AccountTmpPassword.
 	TmpPassword []byte

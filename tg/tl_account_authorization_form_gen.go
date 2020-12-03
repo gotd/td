@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
+//
+// See https://core.telegram.org/constructor/account.authorizationForm for reference.
 type AccountAuthorizationForm struct {
 	// Flags field of AccountAuthorizationForm.
 	Flags bin.Fields

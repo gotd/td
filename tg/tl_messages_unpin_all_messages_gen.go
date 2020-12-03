@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#f025bc8b`.
+//
+// See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
 	// Peer field of MessagesUnpinAllMessagesRequest.
 	Peer InputPeerClass
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesUnpinAllMessages invokes method messages.unpinAllMessages#f025bc8b returning error if any.
+//
+// See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 func (c *Client) MessagesUnpinAllMessages(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

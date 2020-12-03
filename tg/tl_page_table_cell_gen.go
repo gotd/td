@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageTableCell represents TL type `pageTableCell#34566b6a`.
+//
+// See https://core.telegram.org/constructor/pageTableCell for reference.
 type PageTableCell struct {
 	// Flags field of PageTableCell.
 	Flags bin.Fields

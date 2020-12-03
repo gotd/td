@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputUserEmpty represents TL type `inputUserEmpty#b98886cf`.
+//
+// See https://core.telegram.org/constructor/inputUserEmpty for reference.
 type InputUserEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputUserSelf represents TL type `inputUserSelf#f7c1b13f`.
+//
+// See https://core.telegram.org/constructor/inputUserSelf for reference.
 type InputUserSelf struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // InputUser represents TL type `inputUser#d8292816`.
+//
+// See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
 	// UserID field of InputUser.
 	UserID int
@@ -149,6 +155,8 @@ var (
 )
 
 // InputUserFromMessage represents TL type `inputUserFromMessage#2d117597`.
+//
+// See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
 	// Peer field of InputUserFromMessage.
 	Peer InputPeerClass
@@ -222,6 +230,8 @@ var (
 )
 
 // InputUserClass represents InputUser generic type.
+//
+// See https://core.telegram.org/type/InputUser for reference.
 //
 // Example:
 //  g, err := DecodeInputUser(buf)

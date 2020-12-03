@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSaveThemeRequest represents TL type `account.saveTheme#f257106c`.
+//
+// See https://core.telegram.org/method/account.saveTheme for reference.
 type AccountSaveThemeRequest struct {
 	// Theme field of AccountSaveThemeRequest.
 	Theme InputThemeClass
@@ -73,6 +75,8 @@ var (
 )
 
 // AccountSaveTheme invokes method account.saveTheme#f257106c returning error if any.
+//
+// See https://core.telegram.org/method/account.saveTheme for reference.
 func (c *Client) AccountSaveTheme(ctx context.Context, request *AccountSaveThemeRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

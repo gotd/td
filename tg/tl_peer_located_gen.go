@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerLocated represents TL type `peerLocated#ca461b5d`.
+//
+// See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
 	// Peer field of PeerLocated.
 	Peer PeerClass
@@ -88,6 +90,8 @@ var (
 )
 
 // PeerSelfLocated represents TL type `peerSelfLocated#f8ec284b`.
+//
+// See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
 	// Expires field of PeerSelfLocated.
 	Expires int
@@ -136,6 +140,8 @@ var (
 )
 
 // PeerLocatedClass represents PeerLocated generic type.
+//
+// See https://core.telegram.org/type/PeerLocated for reference.
 //
 // Example:
 //  g, err := DecodePeerLocated(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReportRequest represents TL type `messages.report#bd82b658`.
+//
+// See https://core.telegram.org/method/messages.report for reference.
 type MessagesReportRequest struct {
 	// Peer field of MessagesReportRequest.
 	Peer InputPeerClass
@@ -97,6 +99,8 @@ var (
 )
 
 // MessagesReport invokes method messages.report#bd82b658 returning error if any.
+//
+// See https://core.telegram.org/method/messages.report for reference.
 func (c *Client) MessagesReport(ctx context.Context, request *MessagesReportRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

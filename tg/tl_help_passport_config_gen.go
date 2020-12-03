@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpPassportConfigNotModified represents TL type `help.passportConfigNotModified#bfb9f457`.
+//
+// See https://core.telegram.org/constructor/help.passportConfigNotModified for reference.
 type HelpPassportConfigNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // HelpPassportConfig represents TL type `help.passportConfig#a098d6af`.
+//
+// See https://core.telegram.org/constructor/help.passportConfig for reference.
 type HelpPassportConfig struct {
 	// Hash field of HelpPassportConfig.
 	Hash int
@@ -111,6 +115,8 @@ var (
 )
 
 // HelpPassportConfigClass represents help.PassportConfig generic type.
+//
+// See https://core.telegram.org/type/help.PassportConfig for reference.
 //
 // Example:
 //  g, err := DecodeHelpPassportConfig(buf)

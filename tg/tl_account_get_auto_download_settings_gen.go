@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetAutoDownloadSettingsRequest represents TL type `account.getAutoDownloadSettings#56da0b3f`.
+//
+// See https://core.telegram.org/method/account.getAutoDownloadSettings for reference.
 type AccountGetAutoDownloadSettingsRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountGetAutoDownloadSettings invokes method account.getAutoDownloadSettings#56da0b3f returning error if any.
+//
+// See https://core.telegram.org/method/account.getAutoDownloadSettings for reference.
 func (c *Client) AccountGetAutoDownloadSettings(ctx context.Context, request *AccountGetAutoDownloadSettingsRequest) (*AccountAutoDownloadSettings, error) {
 	var result AccountAutoDownloadSettings
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

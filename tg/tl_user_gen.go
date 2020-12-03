@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
+//
+// See https://core.telegram.org/constructor/userEmpty for reference.
 type UserEmpty struct {
 	// ID field of UserEmpty.
 	ID int
@@ -63,6 +65,8 @@ var (
 )
 
 // User represents TL type `user#938458c1`.
+//
+// See https://core.telegram.org/constructor/user for reference.
 type User struct {
 	// Flags field of User.
 	Flags bin.Fields
@@ -629,6 +633,8 @@ var (
 )
 
 // UserClass represents User generic type.
+//
+// See https://core.telegram.org/type/User for reference.
 //
 // Example:
 //  g, err := DecodeUser(buf)

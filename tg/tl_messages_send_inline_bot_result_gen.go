@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
+//
+// See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 type MessagesSendInlineBotResultRequest struct {
 	// Flags field of MessagesSendInlineBotResultRequest.
 	Flags bin.Fields
@@ -209,6 +211,8 @@ var (
 )
 
 // MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#220815b0 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 func (c *Client) MessagesSendInlineBotResult(ctx context.Context, request *MessagesSendInlineBotResultRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

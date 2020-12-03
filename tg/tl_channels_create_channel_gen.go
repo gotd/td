@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
+//
+// See https://core.telegram.org/method/channels.createChannel for reference.
 type ChannelsCreateChannelRequest struct {
 	// Flags field of ChannelsCreateChannelRequest.
 	Flags bin.Fields
@@ -165,6 +167,8 @@ var (
 )
 
 // ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.
+//
+// See https://core.telegram.org/method/channels.createChannel for reference.
 func (c *Client) ChannelsCreateChannel(ctx context.Context, request *ChannelsCreateChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

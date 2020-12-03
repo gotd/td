@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageViews represents TL type `messageViews#455b853d`.
+//
+// See https://core.telegram.org/constructor/messageViews for reference.
 type MessageViews struct {
 	// Flags field of MessageViews.
 	Flags bin.Fields

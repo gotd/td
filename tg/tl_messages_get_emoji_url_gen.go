@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetEmojiURLRequest represents TL type `messages.getEmojiURL#d5b10c26`.
+//
+// See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
 	// LangCode field of MessagesGetEmojiURLRequest.
 	LangCode string
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getEmojiURL for reference.
 func (c *Client) MessagesGetEmojiURL(ctx context.Context, request *MessagesGetEmojiURLRequest) (*EmojiURL, error) {
 	var result EmojiURL
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

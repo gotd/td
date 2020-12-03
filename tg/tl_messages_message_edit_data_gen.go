@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMessageEditData represents TL type `messages.messageEditData#26b5dde6`.
+//
+// See https://core.telegram.org/constructor/messages.messageEditData for reference.
 type MessagesMessageEditData struct {
 	// Flags field of MessagesMessageEditData.
 	Flags bin.Fields

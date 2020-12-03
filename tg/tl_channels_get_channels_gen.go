@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetChannelsRequest represents TL type `channels.getChannels#a7f6bbb`.
+//
+// See https://core.telegram.org/method/channels.getChannels for reference.
 type ChannelsGetChannelsRequest struct {
 	// ID field of ChannelsGetChannelsRequest.
 	ID []InputChannelClass
@@ -72,6 +74,8 @@ var (
 )
 
 // ChannelsGetChannels invokes method channels.getChannels#a7f6bbb returning error if any.
+//
+// See https://core.telegram.org/method/channels.getChannels for reference.
 func (c *Client) ChannelsGetChannels(ctx context.Context, request *ChannelsGetChannelsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

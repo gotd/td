@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsImportContactsRequest represents TL type `contacts.importContacts#2c800be5`.
+//
+// See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
 	// Contacts field of ContactsImportContactsRequest.
 	Contacts []InputPhoneContact
@@ -69,6 +71,8 @@ var (
 )
 
 // ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.importContacts for reference.
 func (c *Client) ContactsImportContacts(ctx context.Context, request *ContactsImportContactsRequest) (*ContactsImportedContacts, error) {
 	var result ContactsImportedContacts
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsContactsNotModified represents TL type `contacts.contactsNotModified#b74ba9d2`.
+//
+// See https://core.telegram.org/constructor/contacts.contactsNotModified for reference.
 type ContactsContactsNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ContactsContacts represents TL type `contacts.contacts#eae87e42`.
+//
+// See https://core.telegram.org/constructor/contacts.contacts for reference.
 type ContactsContacts struct {
 	// Contacts field of ContactsContacts.
 	Contacts []Contact
@@ -146,6 +150,8 @@ var (
 )
 
 // ContactsContactsClass represents contacts.Contacts generic type.
+//
+// See https://core.telegram.org/type/contacts.Contacts for reference.
 //
 // Example:
 //  g, err := DecodeContactsContacts(buf)

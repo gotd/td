@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangPackLanguage represents TL type `langPackLanguage#eeca5ce3`.
+//
+// See https://core.telegram.org/constructor/langPackLanguage for reference.
 type LangPackLanguage struct {
 	// Flags field of LangPackLanguage.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#bbc45b09`.
+//
+// See https://core.telegram.org/method/messages.getRecentLocations for reference.
 type MessagesGetRecentLocationsRequest struct {
 	// Peer field of MessagesGetRecentLocationsRequest.
 	Peer InputPeerClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesGetRecentLocations invokes method messages.getRecentLocations#bbc45b09 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getRecentLocations for reference.
 func (c *Client) MessagesGetRecentLocations(ctx context.Context, request *MessagesGetRecentLocationsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

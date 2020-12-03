@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EmojiURL represents TL type `emojiURL#a575739d`.
+//
+// See https://core.telegram.org/constructor/emojiURL for reference.
 type EmojiURL struct {
 	// URL field of EmojiURL.
 	URL string

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageMediaEmpty represents TL type `messageMediaEmpty#3ded6320`.
+//
+// See https://core.telegram.org/constructor/messageMediaEmpty for reference.
 type MessageMediaEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // MessageMediaPhoto represents TL type `messageMediaPhoto#695150d7`.
+//
+// See https://core.telegram.org/constructor/messageMediaPhoto for reference.
 type MessageMediaPhoto struct {
 	// Flags field of MessageMediaPhoto.
 	Flags bin.Fields
@@ -164,6 +168,8 @@ var (
 )
 
 // MessageMediaGeo represents TL type `messageMediaGeo#56e0d474`.
+//
+// See https://core.telegram.org/constructor/messageMediaGeo for reference.
 type MessageMediaGeo struct {
 	// Geo field of MessageMediaGeo.
 	Geo GeoPointClass
@@ -217,6 +223,8 @@ var (
 )
 
 // MessageMediaContact represents TL type `messageMediaContact#cbf24940`.
+//
+// See https://core.telegram.org/constructor/messageMediaContact for reference.
 type MessageMediaContact struct {
 	// PhoneNumber field of MessageMediaContact.
 	PhoneNumber string
@@ -305,6 +313,8 @@ var (
 )
 
 // MessageMediaUnsupported represents TL type `messageMediaUnsupported#9f84f49e`.
+//
+// See https://core.telegram.org/constructor/messageMediaUnsupported for reference.
 type MessageMediaUnsupported struct {
 }
 
@@ -343,6 +353,8 @@ var (
 )
 
 // MessageMediaDocument represents TL type `messageMediaDocument#9cb070d7`.
+//
+// See https://core.telegram.org/constructor/messageMediaDocument for reference.
 type MessageMediaDocument struct {
 	// Flags field of MessageMediaDocument.
 	Flags bin.Fields
@@ -454,6 +466,8 @@ var (
 )
 
 // MessageMediaWebPage represents TL type `messageMediaWebPage#a32dd600`.
+//
+// See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
 	// Webpage field of MessageMediaWebPage.
 	Webpage WebPageClass
@@ -507,6 +521,8 @@ var (
 )
 
 // MessageMediaVenue represents TL type `messageMediaVenue#2ec0533f`.
+//
+// See https://core.telegram.org/constructor/messageMediaVenue for reference.
 type MessageMediaVenue struct {
 	// Geo field of MessageMediaVenue.
 	Geo GeoPointClass
@@ -610,6 +626,8 @@ var (
 )
 
 // MessageMediaGame represents TL type `messageMediaGame#fdb19008`.
+//
+// See https://core.telegram.org/constructor/messageMediaGame for reference.
 type MessageMediaGame struct {
 	// Game field of MessageMediaGame.
 	Game Game
@@ -658,6 +676,8 @@ var (
 )
 
 // MessageMediaInvoice represents TL type `messageMediaInvoice#84551347`.
+//
+// See https://core.telegram.org/constructor/messageMediaInvoice for reference.
 type MessageMediaInvoice struct {
 	// Flags field of MessageMediaInvoice.
 	Flags bin.Fields
@@ -843,6 +863,8 @@ var (
 )
 
 // MessageMediaGeoLive represents TL type `messageMediaGeoLive#b940c666`.
+//
+// See https://core.telegram.org/constructor/messageMediaGeoLive for reference.
 type MessageMediaGeoLive struct {
 	// Flags field of MessageMediaGeoLive.
 	Flags bin.Fields
@@ -974,6 +996,8 @@ var (
 )
 
 // MessageMediaPoll represents TL type `messageMediaPoll#4bd6e798`.
+//
+// See https://core.telegram.org/constructor/messageMediaPoll for reference.
 type MessageMediaPoll struct {
 	// Poll field of MessageMediaPoll.
 	Poll Poll
@@ -1032,6 +1056,8 @@ var (
 )
 
 // MessageMediaDice represents TL type `messageMediaDice#3f7ee58b`.
+//
+// See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
 	// Value field of MessageMediaDice.
 	Value int
@@ -1090,6 +1116,8 @@ var (
 )
 
 // MessageMediaClass represents MessageMedia generic type.
+//
+// See https://core.telegram.org/type/MessageMedia for reference.
 //
 // Example:
 //  g, err := DecodeMessageMedia(buf)

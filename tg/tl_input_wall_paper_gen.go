@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWallPaper represents TL type `inputWallPaper#e630b979`.
+//
+// See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
 	// ID field of InputWallPaper.
 	ID int64
@@ -73,6 +75,8 @@ var (
 )
 
 // InputWallPaperSlug represents TL type `inputWallPaperSlug#72091c80`.
+//
+// See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
 	// Slug field of InputWallPaperSlug.
 	Slug string
@@ -121,6 +125,8 @@ var (
 )
 
 // InputWallPaperNoFile represents TL type `inputWallPaperNoFile#8427bbac`.
+//
+// See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {
 }
 
@@ -159,6 +165,8 @@ var (
 )
 
 // InputWallPaperClass represents InputWallPaper generic type.
+//
+// See https://core.telegram.org/type/InputWallPaper for reference.
 //
 // Example:
 //  g, err := DecodeInputWallPaper(buf)

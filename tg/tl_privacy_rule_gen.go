@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PrivacyValueAllowContacts represents TL type `privacyValueAllowContacts#fffe1bac`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowContacts for reference.
 type PrivacyValueAllowContacts struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // PrivacyValueAllowAll represents TL type `privacyValueAllowAll#65427b82`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowAll for reference.
 type PrivacyValueAllowAll struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // PrivacyValueAllowUsers represents TL type `privacyValueAllowUsers#4d5bbe0c`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowUsers for reference.
 type PrivacyValueAllowUsers struct {
 	// Users field of PrivacyValueAllowUsers.
 	Users []int
@@ -148,6 +154,8 @@ var (
 )
 
 // PrivacyValueDisallowContacts represents TL type `privacyValueDisallowContacts#f888fa1a`.
+//
+// See https://core.telegram.org/constructor/privacyValueDisallowContacts for reference.
 type PrivacyValueDisallowContacts struct {
 }
 
@@ -186,6 +194,8 @@ var (
 )
 
 // PrivacyValueDisallowAll represents TL type `privacyValueDisallowAll#8b73e763`.
+//
+// See https://core.telegram.org/constructor/privacyValueDisallowAll for reference.
 type PrivacyValueDisallowAll struct {
 }
 
@@ -224,6 +234,8 @@ var (
 )
 
 // PrivacyValueDisallowUsers represents TL type `privacyValueDisallowUsers#c7f49b7`.
+//
+// See https://core.telegram.org/constructor/privacyValueDisallowUsers for reference.
 type PrivacyValueDisallowUsers struct {
 	// Users field of PrivacyValueDisallowUsers.
 	Users []int
@@ -281,6 +293,8 @@ var (
 )
 
 // PrivacyValueAllowChatParticipants represents TL type `privacyValueAllowChatParticipants#18be796b`.
+//
+// See https://core.telegram.org/constructor/privacyValueAllowChatParticipants for reference.
 type PrivacyValueAllowChatParticipants struct {
 	// Chats field of PrivacyValueAllowChatParticipants.
 	Chats []int
@@ -338,6 +352,8 @@ var (
 )
 
 // PrivacyValueDisallowChatParticipants represents TL type `privacyValueDisallowChatParticipants#acae0690`.
+//
+// See https://core.telegram.org/constructor/privacyValueDisallowChatParticipants for reference.
 type PrivacyValueDisallowChatParticipants struct {
 	// Chats field of PrivacyValueDisallowChatParticipants.
 	Chats []int
@@ -395,6 +411,8 @@ var (
 )
 
 // PrivacyRuleClass represents PrivacyRule generic type.
+//
+// See https://core.telegram.org/type/PrivacyRule for reference.
 //
 // Example:
 //  g, err := DecodePrivacyRule(buf)

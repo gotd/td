@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValue represents TL type `secureValue#187fa0ca`.
+//
+// See https://core.telegram.org/constructor/secureValue for reference.
 type SecureValue struct {
 	// Flags field of SecureValue.
 	Flags bin.Fields

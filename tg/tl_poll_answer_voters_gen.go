@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollAnswerVoters represents TL type `pollAnswerVoters#3b6ddad2`.
+//
+// See https://core.telegram.org/constructor/pollAnswerVoters for reference.
 type PollAnswerVoters struct {
 	// Flags field of PollAnswerVoters.
 	Flags bin.Fields

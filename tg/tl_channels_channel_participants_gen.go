@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsChannelParticipants represents TL type `channels.channelParticipants#f56ee2a8`.
+//
+// See https://core.telegram.org/constructor/channels.channelParticipants for reference.
 type ChannelsChannelParticipants struct {
 	// Count field of ChannelsChannelParticipants.
 	Count int
@@ -111,6 +113,8 @@ var (
 )
 
 // ChannelsChannelParticipantsNotModified represents TL type `channels.channelParticipantsNotModified#f0173fe9`.
+//
+// See https://core.telegram.org/constructor/channels.channelParticipantsNotModified for reference.
 type ChannelsChannelParticipantsNotModified struct {
 }
 
@@ -151,6 +155,8 @@ var (
 )
 
 // ChannelsChannelParticipantsClass represents channels.ChannelParticipants generic type.
+//
+// See https://core.telegram.org/type/channels.ChannelParticipants for reference.
 //
 // Example:
 //  g, err := DecodeChannelsChannelParticipants(buf)

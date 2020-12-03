@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // GetUpdatesResp represents TL type `getUpdatesResp#2b4b45c`.
+//
+// See https://localhost:80/doc/constructor/getUpdatesResp for reference.
 type GetUpdatesResp struct {
 	// Updates field of GetUpdatesResp.
 	Updates []AbstractMessageClass

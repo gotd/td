@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatInviteAlready represents TL type `chatInviteAlready#5a686d7c`.
+//
+// See https://core.telegram.org/constructor/chatInviteAlready for reference.
 type ChatInviteAlready struct {
 	// Chat field of ChatInviteAlready.
 	Chat ChatClass
@@ -68,6 +70,8 @@ var (
 )
 
 // ChatInvite represents TL type `chatInvite#dfc2f58e`.
+//
+// See https://core.telegram.org/constructor/chatInvite for reference.
 type ChatInvite struct {
 	// Flags field of ChatInvite.
 	Flags bin.Fields
@@ -242,6 +246,8 @@ var (
 )
 
 // ChatInvitePeek represents TL type `chatInvitePeek#61695cb0`.
+//
+// See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {
 	// Chat field of ChatInvitePeek.
 	Chat ChatClass
@@ -305,6 +311,8 @@ var (
 )
 
 // ChatInviteClass represents ChatInvite generic type.
+//
+// See https://core.telegram.org/type/ChatInvite for reference.
 //
 // Example:
 //  g, err := DecodeChatInvite(buf)

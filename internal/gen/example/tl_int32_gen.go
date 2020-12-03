@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Int32 represents TL type `int32#5cb934fa`.
+//
+// See https://localhost:80/doc/constructor/int32 for reference.
 type Int32 struct {
 }
 

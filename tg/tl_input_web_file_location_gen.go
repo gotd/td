@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
+//
+// See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
 	// URL field of InputWebFileLocation.
 	URL string
@@ -73,6 +75,8 @@ var (
 )
 
 // InputWebFileGeoPointLocation represents TL type `inputWebFileGeoPointLocation#9f2221c9`.
+//
+// See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
 	// GeoPoint field of InputWebFileGeoPointLocation.
 	GeoPoint InputGeoPointClass
@@ -176,6 +180,8 @@ var (
 )
 
 // InputWebFileLocationClass represents InputWebFileLocation generic type.
+//
+// See https://core.telegram.org/type/InputWebFileLocation for reference.
 //
 // Example:
 //  g, err := DecodeInputWebFileLocation(buf)

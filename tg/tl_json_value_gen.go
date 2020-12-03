@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // JsonNull represents TL type `jsonNull#3f6d7b68`.
+//
+// See https://core.telegram.org/constructor/jsonNull for reference.
 type JsonNull struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // JsonBool represents TL type `jsonBool#c7345e6a`.
+//
+// See https://core.telegram.org/constructor/jsonBool for reference.
 type JsonBool struct {
 	// Value field of JsonBool.
 	Value bool
@@ -101,6 +105,8 @@ var (
 )
 
 // JsonNumber represents TL type `jsonNumber#2be0dfa4`.
+//
+// See https://core.telegram.org/constructor/jsonNumber for reference.
 type JsonNumber struct {
 	// Value field of JsonNumber.
 	Value float64
@@ -149,6 +155,8 @@ var (
 )
 
 // JsonString represents TL type `jsonString#b71e767a`.
+//
+// See https://core.telegram.org/constructor/jsonString for reference.
 type JsonString struct {
 	// Value field of JsonString.
 	Value string
@@ -197,6 +205,8 @@ var (
 )
 
 // JsonArray represents TL type `jsonArray#f7444763`.
+//
+// See https://core.telegram.org/constructor/jsonArray for reference.
 type JsonArray struct {
 	// Value field of JsonArray.
 	Value []JSONValueClass
@@ -259,6 +269,8 @@ var (
 )
 
 // JsonObject represents TL type `jsonObject#99c1d49d`.
+//
+// See https://core.telegram.org/constructor/jsonObject for reference.
 type JsonObject struct {
 	// Value field of JsonObject.
 	Value []JsonObjectValue
@@ -318,6 +330,8 @@ var (
 )
 
 // JSONValueClass represents JSONValue generic type.
+//
+// See https://core.telegram.org/type/JSONValue for reference.
 //
 // Example:
 //  g, err := DecodeJSONValue(buf)

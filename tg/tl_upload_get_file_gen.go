@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
+//
+// See https://core.telegram.org/method/upload.getFile for reference.
 type UploadGetFileRequest struct {
 	// Flags field of UploadGetFileRequest.
 	Flags bin.Fields
@@ -117,6 +119,8 @@ var (
 )
 
 // UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.
+//
+// See https://core.telegram.org/method/upload.getFile for reference.
 func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {
 	var result UploadFileBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TestVectorBytes represents TL type `testVectorBytes#a590fb25`.
+//
+// See https://localhost:80/doc/constructor/testVectorBytes for reference.
 type TestVectorBytes struct {
 	// Value field of TestVectorBytes.
 	Value [][]byte

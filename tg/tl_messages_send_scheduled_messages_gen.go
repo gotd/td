@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendScheduledMessagesRequest represents TL type `messages.sendScheduledMessages#bd38850a`.
+//
+// See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 type MessagesSendScheduledMessagesRequest struct {
 	// Peer field of MessagesSendScheduledMessagesRequest.
 	Peer InputPeerClass
@@ -82,6 +84,8 @@ var (
 )
 
 // MessagesSendScheduledMessages invokes method messages.sendScheduledMessages#bd38850a returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 func (c *Client) MessagesSendScheduledMessages(ctx context.Context, request *MessagesSendScheduledMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

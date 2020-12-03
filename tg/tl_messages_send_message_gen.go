@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendMessageRequest represents TL type `messages.sendMessage#520c3870`.
+//
+// See https://core.telegram.org/method/messages.sendMessage for reference.
 type MessagesSendMessageRequest struct {
 	// Flags field of MessagesSendMessageRequest.
 	Flags bin.Fields
@@ -276,6 +278,8 @@ var (
 )
 
 // MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendMessage for reference.
 func (c *Client) MessagesSendMessage(ctx context.Context, request *MessagesSendMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

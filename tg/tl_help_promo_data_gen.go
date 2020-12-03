@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpPromoDataEmpty represents TL type `help.promoDataEmpty#98f6ac75`.
+//
+// See https://core.telegram.org/constructor/help.promoDataEmpty for reference.
 type HelpPromoDataEmpty struct {
 	// Expires field of HelpPromoDataEmpty.
 	Expires int
@@ -63,6 +65,8 @@ var (
 )
 
 // HelpPromoData represents TL type `help.promoData#8c39793f`.
+//
+// See https://core.telegram.org/constructor/help.promoData for reference.
 type HelpPromoData struct {
 	// Flags field of HelpPromoData.
 	Flags bin.Fields
@@ -254,6 +258,8 @@ var (
 )
 
 // HelpPromoDataClass represents help.PromoData generic type.
+//
+// See https://core.telegram.org/type/help.PromoData for reference.
 //
 // Example:
 //  g, err := DecodeHelpPromoData(buf)

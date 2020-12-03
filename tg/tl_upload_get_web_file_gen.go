@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetWebFileRequest represents TL type `upload.getWebFile#24e6818d`.
+//
+// See https://core.telegram.org/method/upload.getWebFile for reference.
 type UploadGetWebFileRequest struct {
 	// Location field of UploadGetWebFileRequest.
 	Location InputWebFileLocationClass
@@ -83,6 +85,8 @@ var (
 )
 
 // UploadGetWebFile invokes method upload.getWebFile#24e6818d returning error if any.
+//
+// See https://core.telegram.org/method/upload.getWebFile for reference.
 func (c *Client) UploadGetWebFile(ctx context.Context, request *UploadGetWebFileRequest) (*UploadWebFile, error) {
 	var result UploadWebFile
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

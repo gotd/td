@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#2b8879b3`.
+//
+// See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 type PaymentsSendPaymentFormRequest struct {
 	// Flags field of PaymentsSendPaymentFormRequest.
 	Flags bin.Fields
@@ -141,6 +143,8 @@ var (
 )
 
 // PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2b8879b3 returning error if any.
+//
+// See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {
 	var result PaymentsPaymentResultBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

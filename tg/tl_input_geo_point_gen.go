@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputGeoPointEmpty represents TL type `inputGeoPointEmpty#e4c123d6`.
+//
+// See https://core.telegram.org/constructor/inputGeoPointEmpty for reference.
 type InputGeoPointEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputGeoPoint represents TL type `inputGeoPoint#48222faf`.
+//
+// See https://core.telegram.org/constructor/inputGeoPoint for reference.
 type InputGeoPoint struct {
 	// Flags field of InputGeoPoint.
 	Flags bin.Fields
@@ -150,6 +154,8 @@ var (
 )
 
 // InputGeoPointClass represents InputGeoPoint generic type.
+//
+// See https://core.telegram.org/type/InputGeoPoint for reference.
 //
 // Example:
 //  g, err := DecodeInputGeoPoint(buf)

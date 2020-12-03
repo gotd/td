@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
+//
+// See https://core.telegram.org/constructor/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
 	// Types field of AccountGetSecureValueRequest.
 	Types []SecureValueTypeClass

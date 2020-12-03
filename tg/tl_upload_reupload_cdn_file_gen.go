@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
+//
+// See https://core.telegram.org/constructor/upload.reuploadCdnFile for reference.
 type UploadReuploadCdnFileRequest struct {
 	// FileToken field of UploadReuploadCdnFileRequest.
 	FileToken []byte

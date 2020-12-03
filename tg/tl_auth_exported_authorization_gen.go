@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthExportedAuthorization represents TL type `auth.exportedAuthorization#df969c2d`.
+//
+// See https://core.telegram.org/constructor/auth.exportedAuthorization for reference.
 type AuthExportedAuthorization struct {
 	// ID field of AuthExportedAuthorization.
 	ID int

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsToggleTopPeersRequest represents TL type `contacts.toggleTopPeers#8514bdda`.
+//
+// See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 type ContactsToggleTopPeersRequest struct {
 	// Enabled field of ContactsToggleTopPeersRequest.
 	Enabled bool
@@ -58,6 +60,8 @@ var (
 )
 
 // ContactsToggleTopPeers invokes method contacts.toggleTopPeers#8514bdda returning error if any.
+//
+// See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 func (c *Client) ContactsToggleTopPeers(ctx context.Context, request *ContactsToggleTopPeersRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

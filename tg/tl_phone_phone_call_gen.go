@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhonePhoneCall represents TL type `phone.phoneCall#ec82e140`.
+//
+// See https://core.telegram.org/constructor/phone.phoneCall for reference.
 type PhonePhoneCall struct {
 	// PhoneCall field of PhonePhoneCall.
 	PhoneCall PhoneCallClass

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // VideoSize represents TL type `videoSize#e831c556`.
+//
+// See https://core.telegram.org/constructor/videoSize for reference.
 type VideoSize struct {
 	// Flags field of VideoSize.
 	Flags bin.Fields

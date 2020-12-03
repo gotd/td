@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditLocationRequest represents TL type `channels.editLocation#58e63f6d`.
+//
+// See https://core.telegram.org/method/channels.editLocation for reference.
 type ChannelsEditLocationRequest struct {
 	// Channel field of ChannelsEditLocationRequest.
 	Channel InputChannelClass
@@ -88,6 +90,8 @@ var (
 )
 
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
+//
+// See https://core.telegram.org/method/channels.editLocation for reference.
 func (c *Client) ChannelsEditLocation(ctx context.Context, request *ChannelsEditLocationRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

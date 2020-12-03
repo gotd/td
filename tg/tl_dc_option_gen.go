@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DcOption represents TL type `dcOption#18b7a10d`.
+//
+// See https://core.telegram.org/constructor/dcOption for reference.
 type DcOption struct {
 	// Flags field of DcOption.
 	Flags bin.Fields

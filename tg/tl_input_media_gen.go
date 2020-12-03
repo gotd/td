@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputMediaEmpty represents TL type `inputMediaEmpty#9664f57f`.
+//
+// See https://core.telegram.org/constructor/inputMediaEmpty for reference.
 type InputMediaEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputMediaUploadedPhoto represents TL type `inputMediaUploadedPhoto#1e287d04`.
+//
+// See https://core.telegram.org/constructor/inputMediaUploadedPhoto for reference.
 type InputMediaUploadedPhoto struct {
 	// Flags field of InputMediaUploadedPhoto.
 	Flags bin.Fields
@@ -188,6 +192,8 @@ var (
 )
 
 // InputMediaPhoto represents TL type `inputMediaPhoto#b3ba0635`.
+//
+// See https://core.telegram.org/constructor/inputMediaPhoto for reference.
 type InputMediaPhoto struct {
 	// Flags field of InputMediaPhoto.
 	Flags bin.Fields
@@ -280,6 +286,8 @@ var (
 )
 
 // InputMediaGeoPoint represents TL type `inputMediaGeoPoint#f9c44144`.
+//
+// See https://core.telegram.org/constructor/inputMediaGeoPoint for reference.
 type InputMediaGeoPoint struct {
 	// GeoPoint field of InputMediaGeoPoint.
 	GeoPoint InputGeoPointClass
@@ -333,6 +341,8 @@ var (
 )
 
 // InputMediaContact represents TL type `inputMediaContact#f8ab7dfb`.
+//
+// See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {
 	// PhoneNumber field of InputMediaContact.
 	PhoneNumber string
@@ -411,6 +421,8 @@ var (
 )
 
 // InputMediaUploadedDocument represents TL type `inputMediaUploadedDocument#5b38c6c1`.
+//
+// See https://core.telegram.org/constructor/inputMediaUploadedDocument for reference.
 type InputMediaUploadedDocument struct {
 	// Flags field of InputMediaUploadedDocument.
 	Flags bin.Fields
@@ -638,6 +650,8 @@ var (
 )
 
 // InputMediaDocument represents TL type `inputMediaDocument#23ab23d2`.
+//
+// See https://core.telegram.org/constructor/inputMediaDocument for reference.
 type InputMediaDocument struct {
 	// Flags field of InputMediaDocument.
 	Flags bin.Fields
@@ -730,6 +744,8 @@ var (
 )
 
 // InputMediaVenue represents TL type `inputMediaVenue#c13d1c11`.
+//
+// See https://core.telegram.org/constructor/inputMediaVenue for reference.
 type InputMediaVenue struct {
 	// GeoPoint field of InputMediaVenue.
 	GeoPoint InputGeoPointClass
@@ -833,6 +849,8 @@ var (
 )
 
 // InputMediaPhotoExternal represents TL type `inputMediaPhotoExternal#e5bbfe1a`.
+//
+// See https://core.telegram.org/constructor/inputMediaPhotoExternal for reference.
 type InputMediaPhotoExternal struct {
 	// Flags field of InputMediaPhotoExternal.
 	Flags bin.Fields
@@ -920,6 +938,8 @@ var (
 )
 
 // InputMediaDocumentExternal represents TL type `inputMediaDocumentExternal#fb52dc99`.
+//
+// See https://core.telegram.org/constructor/inputMediaDocumentExternal for reference.
 type InputMediaDocumentExternal struct {
 	// Flags field of InputMediaDocumentExternal.
 	Flags bin.Fields
@@ -1007,6 +1027,8 @@ var (
 )
 
 // InputMediaGame represents TL type `inputMediaGame#d33f43f3`.
+//
+// See https://core.telegram.org/constructor/inputMediaGame for reference.
 type InputMediaGame struct {
 	// ID field of InputMediaGame.
 	ID InputGameClass
@@ -1060,6 +1082,8 @@ var (
 )
 
 // InputMediaInvoice represents TL type `inputMediaInvoice#f4e096c3`.
+//
+// See https://core.telegram.org/constructor/inputMediaInvoice for reference.
 type InputMediaInvoice struct {
 	// Flags field of InputMediaInvoice.
 	Flags bin.Fields
@@ -1207,6 +1231,8 @@ var (
 )
 
 // InputMediaGeoLive represents TL type `inputMediaGeoLive#971fa843`.
+//
+// See https://core.telegram.org/constructor/inputMediaGeoLive for reference.
 type InputMediaGeoLive struct {
 	// Flags field of InputMediaGeoLive.
 	Flags bin.Fields
@@ -1369,6 +1395,8 @@ var (
 )
 
 // InputMediaPoll represents TL type `inputMediaPoll#f94e5f1`.
+//
+// See https://core.telegram.org/constructor/inputMediaPoll for reference.
 type InputMediaPoll struct {
 	// Flags field of InputMediaPoll.
 	Flags bin.Fields
@@ -1537,6 +1565,8 @@ var (
 )
 
 // InputMediaDice represents TL type `inputMediaDice#e66fbf7b`.
+//
+// See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
 	// Emoticon field of InputMediaDice.
 	Emoticon string
@@ -1585,6 +1615,8 @@ var (
 )
 
 // InputMediaClass represents InputMedia generic type.
+//
+// See https://core.telegram.org/type/InputMedia for reference.
 //
 // Example:
 //  g, err := DecodeInputMedia(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthPasswordRecovery represents TL type `auth.passwordRecovery#137948a5`.
+//
+// See https://core.telegram.org/constructor/auth.passwordRecovery for reference.
 type AuthPasswordRecovery struct {
 	// EmailPattern field of AuthPasswordRecovery.
 	EmailPattern string

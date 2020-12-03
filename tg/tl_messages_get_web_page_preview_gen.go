@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetWebPagePreviewRequest represents TL type `messages.getWebPagePreview#8b68b0cc`.
+//
+// See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 type MessagesGetWebPagePreviewRequest struct {
 	// Flags field of MessagesGetWebPagePreviewRequest.
 	Flags bin.Fields
@@ -111,6 +113,8 @@ var (
 )
 
 // MessagesGetWebPagePreview invokes method messages.getWebPagePreview#8b68b0cc returning error if any.
+//
+// See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 func (c *Client) MessagesGetWebPagePreview(ctx context.Context, request *MessagesGetWebPagePreviewRequest) (MessageMediaClass, error) {
 	var result MessageMediaBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

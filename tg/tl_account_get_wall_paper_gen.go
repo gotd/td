@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetWallPaperRequest represents TL type `account.getWallPaper#fc8ddbea`.
+//
+// See https://core.telegram.org/method/account.getWallPaper for reference.
 type AccountGetWallPaperRequest struct {
 	// Wallpaper field of AccountGetWallPaperRequest.
 	Wallpaper InputWallPaperClass
@@ -63,6 +65,8 @@ var (
 )
 
 // AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.
+//
+// See https://core.telegram.org/method/account.getWallPaper for reference.
 func (c *Client) AccountGetWallPaper(ctx context.Context, request *AccountGetWallPaperRequest) (WallPaperClass, error) {
 	var result WallPaperBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

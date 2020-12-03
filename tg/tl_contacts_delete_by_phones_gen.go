@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsDeleteByPhonesRequest represents TL type `contacts.deleteByPhones#1013fd9e`.
+//
+// See https://core.telegram.org/method/contacts.deleteByPhones for reference.
 type ContactsDeleteByPhonesRequest struct {
 	// Phones field of ContactsDeleteByPhonesRequest.
 	Phones []string
@@ -67,6 +69,8 @@ var (
 )
 
 // ContactsDeleteByPhones invokes method contacts.deleteByPhones#1013fd9e returning error if any.
+//
+// See https://core.telegram.org/method/contacts.deleteByPhones for reference.
 func (c *Client) ContactsDeleteByPhones(ctx context.Context, request *ContactsDeleteByPhonesRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

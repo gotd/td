@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // NearestDc represents TL type `nearestDc#8e1a1775`.
+//
+// See https://core.telegram.org/constructor/nearestDc for reference.
 type NearestDc struct {
 	// Country field of NearestDc.
 	Country string

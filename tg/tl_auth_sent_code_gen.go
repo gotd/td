@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSentCode represents TL type `auth.sentCode#5e002502`.
+//
+// See https://core.telegram.org/constructor/auth.sentCode for reference.
 type AuthSentCode struct {
 	// Flags field of AuthSentCode.
 	Flags bin.Fields

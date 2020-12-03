@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetFavedStickersRequest represents TL type `messages.getFavedStickers#21ce0b0e`.
+//
+// See https://core.telegram.org/method/messages.getFavedStickers for reference.
 type MessagesGetFavedStickersRequest struct {
 	// Hash field of MessagesGetFavedStickersRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetFavedStickers invokes method messages.getFavedStickers#21ce0b0e returning error if any.
+//
+// See https://core.telegram.org/method/messages.getFavedStickers for reference.
 func (c *Client) MessagesGetFavedStickers(ctx context.Context, request *MessagesGetFavedStickersRequest) (MessagesFavedStickersClass, error) {
 	var result MessagesFavedStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

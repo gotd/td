@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserAuth represents TL type `user.auth#f4815592`.
+//
+// See https://localhost:80/doc/constructor/user.auth for reference.
 type UserAuth struct {
 	// Foo field of UserAuth.
 	Foo string
@@ -63,6 +65,8 @@ var (
 )
 
 // UserAuthPassword represents TL type `user.authPassword#5981e317`.
+//
+// See https://localhost:80/doc/constructor/user.authPassword for reference.
 type UserAuthPassword struct {
 	// Pwd field of UserAuthPassword.
 	Pwd string
@@ -111,6 +115,8 @@ var (
 )
 
 // UserAuthClass represents user.Auth generic type.
+//
+// See https://localhost:80/doc/type/user.Auth for reference.
 //
 // Example:
 //  g, err := DecodeUserAuth(buf)

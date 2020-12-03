@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageReplyHeader represents TL type `messageReplyHeader#a6d57763`.
+//
+// See https://core.telegram.org/constructor/messageReplyHeader for reference.
 type MessageReplyHeader struct {
 	// Flags field of MessageReplyHeader.
 	Flags bin.Fields

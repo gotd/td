@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
+//
+// See https://core.telegram.org/constructor/updatesTooLong for reference.
 type UpdatesTooLong struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // UpdateShortMessage represents TL type `updateShortMessage#2296d2c8`.
+//
+// See https://core.telegram.org/constructor/updateShortMessage for reference.
 type UpdateShortMessage struct {
 	// Flags field of UpdateShortMessage.
 	Flags bin.Fields
@@ -339,6 +343,8 @@ var (
 )
 
 // UpdateShortChatMessage represents TL type `updateShortChatMessage#402d5dbb`.
+//
+// See https://core.telegram.org/constructor/updateShortChatMessage for reference.
 type UpdateShortChatMessage struct {
 	// Flags field of UpdateShortChatMessage.
 	Flags bin.Fields
@@ -635,6 +641,8 @@ var (
 )
 
 // UpdateShort represents TL type `updateShort#78d4dec1`.
+//
+// See https://core.telegram.org/constructor/updateShort for reference.
 type UpdateShort struct {
 	// Update field of UpdateShort.
 	Update UpdateClass
@@ -698,6 +706,8 @@ var (
 )
 
 // UpdatesCombined represents TL type `updatesCombined#725b04c3`.
+//
+// See https://core.telegram.org/constructor/updatesCombined for reference.
 type UpdatesCombined struct {
 	// Updates field of UpdatesCombined.
 	Updates []UpdateClass
@@ -838,6 +848,8 @@ var (
 )
 
 // Updates represents TL type `updates#74ae4240`.
+//
+// See https://core.telegram.org/constructor/updates for reference.
 type Updates struct {
 	// Updates field of Updates.
 	Updates []UpdateClass
@@ -968,6 +980,8 @@ var (
 )
 
 // UpdateShortSentMessage represents TL type `updateShortSentMessage#11f1331c`.
+//
+// See https://core.telegram.org/constructor/updateShortSentMessage for reference.
 type UpdateShortSentMessage struct {
 	// Flags field of UpdateShortSentMessage.
 	Flags bin.Fields
@@ -1145,6 +1159,8 @@ var (
 )
 
 // UpdatesClass represents Updates generic type.
+//
+// See https://core.telegram.org/type/Updates for reference.
 //
 // Example:
 //  g, err := DecodeUpdates(buf)

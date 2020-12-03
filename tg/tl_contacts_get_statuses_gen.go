@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetStatusesRequest represents TL type `contacts.getStatuses#c4a353ee`.
+//
+// See https://core.telegram.org/constructor/contacts.getStatuses for reference.
 type ContactsGetStatusesRequest struct {
 }
 

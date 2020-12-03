@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputBotInlineResult represents TL type `inputBotInlineResult#88bf9319`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineResult for reference.
 type InputBotInlineResult struct {
 	// Flags field of InputBotInlineResult.
 	Flags bin.Fields
@@ -243,6 +245,8 @@ var (
 )
 
 // InputBotInlineResultPhoto represents TL type `inputBotInlineResultPhoto#a8d864a7`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineResultPhoto for reference.
 type InputBotInlineResultPhoto struct {
 	// ID field of InputBotInlineResultPhoto.
 	ID string
@@ -331,6 +335,8 @@ var (
 )
 
 // InputBotInlineResultDocument represents TL type `inputBotInlineResultDocument#fff8fdc4`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineResultDocument for reference.
 type InputBotInlineResultDocument struct {
 	// Flags field of InputBotInlineResultDocument.
 	Flags bin.Fields
@@ -487,6 +493,8 @@ var (
 )
 
 // InputBotInlineResultGame represents TL type `inputBotInlineResultGame#4fa417f2`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineResultGame for reference.
 type InputBotInlineResultGame struct {
 	// ID field of InputBotInlineResultGame.
 	ID string
@@ -560,6 +568,8 @@ var (
 )
 
 // InputBotInlineResultClass represents InputBotInlineResult generic type.
+//
+// See https://core.telegram.org/type/InputBotInlineResult for reference.
 //
 // Example:
 //  g, err := DecodeInputBotInlineResult(buf)

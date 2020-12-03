@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentReceipt represents TL type `payments.paymentReceipt#500911e1`.
+//
+// See https://core.telegram.org/constructor/payments.paymentReceipt for reference.
 type PaymentsPaymentReceipt struct {
 	// Flags field of PaymentsPaymentReceipt.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#e04232f3`.
+//
+// See https://core.telegram.org/constructor/autoDownloadSettings for reference.
 type AutoDownloadSettings struct {
 	// Flags field of AutoDownloadSettings.
 	Flags bin.Fields

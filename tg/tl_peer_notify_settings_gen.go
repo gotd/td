@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerNotifySettings represents TL type `peerNotifySettings#af509d20`.
+//
+// See https://core.telegram.org/constructor/peerNotifySettings for reference.
 type PeerNotifySettings struct {
 	// Flags field of PeerNotifySettings.
 	Flags bin.Fields

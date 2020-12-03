@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAffectedMessages represents TL type `messages.affectedMessages#84d19185`.
+//
+// See https://core.telegram.org/constructor/messages.affectedMessages for reference.
 type MessagesAffectedMessages struct {
 	// Pts field of MessagesAffectedMessages.
 	Pts int

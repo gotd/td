@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneCallProtocol represents TL type `phoneCallProtocol#fc878fc8`.
+//
+// See https://core.telegram.org/constructor/phoneCallProtocol for reference.
 type PhoneCallProtocol struct {
 	// Flags field of PhoneCallProtocol.
 	Flags bin.Fields

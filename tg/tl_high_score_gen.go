@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HighScore represents TL type `highScore#58fffcd0`.
+//
+// See https://core.telegram.org/constructor/highScore for reference.
 type HighScore struct {
 	// Pos field of HighScore.
 	Pos int

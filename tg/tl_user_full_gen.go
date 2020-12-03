@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserFull represents TL type `userFull#edf17c12`.
+//
+// See https://core.telegram.org/constructor/userFull for reference.
 type UserFull struct {
 	// Flags field of UserFull.
 	Flags bin.Fields

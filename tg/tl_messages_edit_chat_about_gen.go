@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatAboutRequest represents TL type `messages.editChatAbout#def60797`.
+//
+// See https://core.telegram.org/method/messages.editChatAbout for reference.
 type MessagesEditChatAboutRequest struct {
 	// Peer field of MessagesEditChatAboutRequest.
 	Peer InputPeerClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesEditChatAbout invokes method messages.editChatAbout#def60797 returning error if any.
+//
+// See https://core.telegram.org/method/messages.editChatAbout for reference.
 func (c *Client) MessagesEditChatAbout(ctx context.Context, request *MessagesEditChatAboutRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

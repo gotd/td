@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
+//
+// See https://core.telegram.org/method/channels.reportSpam for reference.
 type ChannelsReportSpamRequest struct {
 	// Channel field of ChannelsReportSpamRequest.
 	Channel InputChannelClass
@@ -97,6 +99,8 @@ var (
 )
 
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
+//
+// See https://core.telegram.org/method/channels.reportSpam for reference.
 func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

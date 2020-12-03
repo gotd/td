@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#4bc6589a`.
+//
+// See https://core.telegram.org/method/messages.searchGlobal for reference.
 type MessagesSearchGlobalRequest struct {
 	// Flags field of MessagesSearchGlobalRequest.
 	Flags bin.Fields
@@ -177,6 +179,8 @@ var (
 )
 
 // MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.
+//
+// See https://core.telegram.org/method/messages.searchGlobal for reference.
 func (c *Client) MessagesSearchGlobal(ctx context.Context, request *MessagesSearchGlobalRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

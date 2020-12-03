@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BigMessage represents TL type `bigMessage#7490dcc5`.
+//
+// See https://localhost:80/doc/constructor/bigMessage for reference.
 type BigMessage struct {
 	// ID field of BigMessage.
 	ID int32
@@ -103,6 +105,8 @@ var (
 )
 
 // NoMessage represents TL type `noMessage#ee6324c4`.
+//
+// See https://localhost:80/doc/constructor/noMessage for reference.
 type NoMessage struct {
 }
 
@@ -141,6 +145,8 @@ var (
 )
 
 // TargetsMessage represents TL type `targetsMessage#cc6136f1`.
+//
+// See https://localhost:80/doc/constructor/targetsMessage for reference.
 type TargetsMessage struct {
 	// Targets field of TargetsMessage.
 	Targets []int32
@@ -198,6 +204,8 @@ var (
 )
 
 // FieldsMessage represents TL type `fieldsMessage#947225b5`.
+//
+// See https://localhost:80/doc/constructor/fieldsMessage for reference.
 type FieldsMessage struct {
 	// Flags field of FieldsMessage.
 	Flags bin.Fields
@@ -287,6 +295,8 @@ var (
 )
 
 // BytesMessage represents TL type `bytesMessage#f990a67d`.
+//
+// See https://localhost:80/doc/constructor/bytesMessage for reference.
 type BytesMessage struct {
 	// Data field of BytesMessage.
 	Data []byte
@@ -335,6 +345,8 @@ var (
 )
 
 // AbstractMessageClass represents AbstractMessage generic type.
+//
+// See https://localhost:80/doc/type/AbstractMessage for reference.
 //
 // Example:
 //  g, err := DecodeAbstractMessage(buf)

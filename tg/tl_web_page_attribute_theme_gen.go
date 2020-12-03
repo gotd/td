@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebPageAttributeTheme represents TL type `webPageAttributeTheme#54b56617`.
+//
+// See https://core.telegram.org/constructor/webPageAttributeTheme for reference.
 type WebPageAttributeTheme struct {
 	// Flags field of WebPageAttributeTheme.
 	Flags bin.Fields

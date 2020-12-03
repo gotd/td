@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetAppUpdateRequest represents TL type `help.getAppUpdate#522d5a7d`.
+//
+// See https://core.telegram.org/method/help.getAppUpdate for reference.
 type HelpGetAppUpdateRequest struct {
 	// Source field of HelpGetAppUpdateRequest.
 	Source string
@@ -58,6 +60,8 @@ var (
 )
 
 // HelpGetAppUpdate invokes method help.getAppUpdate#522d5a7d returning error if any.
+//
+// See https://core.telegram.org/method/help.getAppUpdate for reference.
 func (c *Client) HelpGetAppUpdate(ctx context.Context, request *HelpGetAppUpdateRequest) (HelpAppUpdateClass, error) {
 	var result HelpAppUpdateBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

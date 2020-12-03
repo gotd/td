@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneGetCallConfigRequest represents TL type `phone.getCallConfig#55451fa9`.
+//
+// See https://core.telegram.org/method/phone.getCallConfig for reference.
 type PhoneGetCallConfigRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // PhoneGetCallConfig invokes method phone.getCallConfig#55451fa9 returning error if any.
+//
+// See https://core.telegram.org/method/phone.getCallConfig for reference.
 func (c *Client) PhoneGetCallConfig(ctx context.Context, request *PhoneGetCallConfigRequest) (*DataJSON, error) {
 	var result DataJSON
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

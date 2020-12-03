@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountInstallWallPaperRequest represents TL type `account.installWallPaper#feed5769`.
+//
+// See https://core.telegram.org/method/account.installWallPaper for reference.
 type AccountInstallWallPaperRequest struct {
 	// Wallpaper field of AccountInstallWallPaperRequest.
 	Wallpaper InputWallPaperClass
@@ -73,6 +75,8 @@ var (
 )
 
 // AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.
+//
+// See https://core.telegram.org/method/account.installWallPaper for reference.
 func (c *Client) AccountInstallWallPaper(ctx context.Context, request *AccountInstallWallPaperRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

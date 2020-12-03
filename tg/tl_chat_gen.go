@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatEmpty represents TL type `chatEmpty#9ba2d800`.
+//
+// See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
 	// ID field of ChatEmpty.
 	ID int
@@ -63,6 +65,8 @@ var (
 )
 
 // Chat represents TL type `chat#3bda1bde`.
+//
+// See https://core.telegram.org/constructor/chat for reference.
 type Chat struct {
 	// Flags field of Chat.
 	Flags bin.Fields
@@ -316,6 +320,8 @@ var (
 )
 
 // ChatForbidden represents TL type `chatForbidden#7328bdb`.
+//
+// See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
 	// ID field of ChatForbidden.
 	ID int
@@ -374,6 +380,8 @@ var (
 )
 
 // Channel represents TL type `channel#d31a961e`.
+//
+// See https://core.telegram.org/constructor/channel for reference.
 type Channel struct {
 	// Flags field of Channel.
 	Flags bin.Fields
@@ -847,6 +855,8 @@ var (
 )
 
 // ChannelForbidden represents TL type `channelForbidden#289da732`.
+//
+// See https://core.telegram.org/constructor/channelForbidden for reference.
 type ChannelForbidden struct {
 	// Flags field of ChannelForbidden.
 	Flags bin.Fields
@@ -978,6 +988,8 @@ var (
 )
 
 // ChatClass represents Chat generic type.
+//
+// See https://core.telegram.org/type/Chat for reference.
 //
 // Example:
 //  g, err := DecodeChat(buf)

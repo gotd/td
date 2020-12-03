@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageFwdHeader represents TL type `messageFwdHeader#5f777dce`.
+//
+// See https://core.telegram.org/constructor/messageFwdHeader for reference.
 type MessageFwdHeader struct {
 	// Flags field of MessageFwdHeader.
 	Flags bin.Fields

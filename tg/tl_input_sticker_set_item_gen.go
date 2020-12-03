@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputStickerSetItem represents TL type `inputStickerSetItem#ffa0a496`.
+//
+// See https://core.telegram.org/constructor/inputStickerSetItem for reference.
 type InputStickerSetItem struct {
 	// Flags field of InputStickerSetItem.
 	Flags bin.Fields

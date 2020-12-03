@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SendRequest represents TL type `send#f74488a`.
+//
+// See https://localhost:80/doc/method/send for reference.
 type SendRequest struct {
 	// Msg field of SendRequest.
 	Msg SMS
@@ -58,6 +60,8 @@ var (
 )
 
 // Send invokes method send#f74488a returning error if any.
+//
+// See https://localhost:80/doc/method/send for reference.
 func (c *Client) Send(ctx context.Context, request *SendRequest) (*SMS, error) {
 	var result SMS
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

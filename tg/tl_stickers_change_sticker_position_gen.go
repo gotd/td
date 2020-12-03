@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersChangeStickerPositionRequest represents TL type `stickers.changeStickerPosition#ffb6d4ca`.
+//
+// See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 type StickersChangeStickerPositionRequest struct {
 	// Sticker field of StickersChangeStickerPositionRequest.
 	Sticker InputDocumentClass
@@ -73,6 +75,8 @@ var (
 )
 
 // StickersChangeStickerPosition invokes method stickers.changeStickerPosition#ffb6d4ca returning error if any.
+//
+// See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 func (c *Client) StickersChangeStickerPosition(ctx context.Context, request *StickersChangeStickerPositionRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

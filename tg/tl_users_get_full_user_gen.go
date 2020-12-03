@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UsersGetFullUserRequest represents TL type `users.getFullUser#ca30a5b1`.
+//
+// See https://core.telegram.org/method/users.getFullUser for reference.
 type UsersGetFullUserRequest struct {
 	// ID field of UsersGetFullUserRequest.
 	ID InputUserClass
@@ -63,6 +65,8 @@ var (
 )
 
 // UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.
+//
+// See https://core.telegram.org/method/users.getFullUser for reference.
 func (c *Client) UsersGetFullUser(ctx context.Context, request *UsersGetFullUserRequest) (*UserFull, error) {
 	var result UserFull
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

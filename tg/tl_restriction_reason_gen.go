@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // RestrictionReason represents TL type `restrictionReason#d072acb4`.
+//
+// See https://core.telegram.org/constructor/restrictionReason for reference.
 type RestrictionReason struct {
 	// Platform field of RestrictionReason.
 	Platform string

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotoEmpty represents TL type `photoEmpty#2331b22d`.
+//
+// See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
 	// ID field of PhotoEmpty.
 	ID int64
@@ -63,6 +65,8 @@ var (
 )
 
 // Photo represents TL type `photo#fb197a65`.
+//
+// See https://core.telegram.org/constructor/photo for reference.
 type Photo struct {
 	// Flags field of Photo.
 	Flags bin.Fields
@@ -237,6 +241,8 @@ var (
 )
 
 // PhotoClass represents Photo generic type.
+//
+// See https://core.telegram.org/type/Photo for reference.
 //
 // Example:
 //  g, err := DecodePhoto(buf)

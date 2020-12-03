@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PostAddress represents TL type `postAddress#1e8caaeb`.
+//
+// See https://core.telegram.org/constructor/postAddress for reference.
 type PostAddress struct {
 	// StreetLine1 field of PostAddress.
 	StreetLine1 string

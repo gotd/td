@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputThemeSettings represents TL type `inputThemeSettings#bd507cd1`.
+//
+// See https://core.telegram.org/constructor/inputThemeSettings for reference.
 type InputThemeSettings struct {
 	// Flags field of InputThemeSettings.
 	Flags bin.Fields

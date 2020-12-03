@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetCdnConfigRequest represents TL type `help.getCdnConfig#52029342`.
+//
+// See https://core.telegram.org/method/help.getCdnConfig for reference.
 type HelpGetCdnConfigRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // HelpGetCdnConfig invokes method help.getCdnConfig#52029342 returning error if any.
+//
+// See https://core.telegram.org/method/help.getCdnConfig for reference.
 func (c *Client) HelpGetCdnConfig(ctx context.Context, request *HelpGetCdnConfigRequest) (*CdnConfig, error) {
 	var result CdnConfig
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

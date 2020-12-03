@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FolderPeer represents TL type `folderPeer#e9baa668`.
+//
+// See https://core.telegram.org/constructor/folderPeer for reference.
 type FolderPeer struct {
 	// Peer field of FolderPeer.
 	Peer PeerClass

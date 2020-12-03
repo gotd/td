@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchCounter represents TL type `messages.searchCounter#e844ebff`.
+//
+// See https://core.telegram.org/constructor/messages.searchCounter for reference.
 type MessagesSearchCounter struct {
 	// Flags field of MessagesSearchCounter.
 	Flags bin.Fields

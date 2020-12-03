@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSaveDraftRequest represents TL type `messages.saveDraft#bc39e14b`.
+//
+// See https://core.telegram.org/method/messages.saveDraft for reference.
 type MessagesSaveDraftRequest struct {
 	// Flags field of MessagesSaveDraftRequest.
 	Flags bin.Fields
@@ -167,6 +169,8 @@ var (
 )
 
 // MessagesSaveDraft invokes method messages.saveDraft#bc39e14b returning error if any.
+//
+// See https://core.telegram.org/method/messages.saveDraft for reference.
 func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

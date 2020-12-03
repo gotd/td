@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#c2b7d08b`.
+//
+// See https://core.telegram.org/method/messages.searchStickerSets for reference.
 type MessagesSearchStickerSetsRequest struct {
 	// Flags field of MessagesSearchStickerSetsRequest.
 	Flags bin.Fields
@@ -90,6 +92,8 @@ var (
 )
 
 // MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.
+//
+// See https://core.telegram.org/method/messages.searchStickerSets for reference.
 func (c *Client) MessagesSearchStickerSets(ctx context.Context, request *MessagesSearchStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {
 	var result MessagesFoundStickerSetsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

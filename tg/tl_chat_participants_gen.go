@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
+//
+// See https://core.telegram.org/constructor/chatParticipantsForbidden for reference.
 type ChatParticipantsForbidden struct {
 	// Flags field of ChatParticipantsForbidden.
 	Flags bin.Fields
@@ -107,6 +109,8 @@ var (
 )
 
 // ChatParticipants represents TL type `chatParticipants#3f460fed`.
+//
+// See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
 	// ChatID field of ChatParticipants.
 	ChatID int
@@ -189,6 +193,8 @@ var (
 )
 
 // ChatParticipantsClass represents ChatParticipants generic type.
+//
+// See https://core.telegram.org/type/ChatParticipants for reference.
 //
 // Example:
 //  g, err := DecodeChatParticipants(buf)

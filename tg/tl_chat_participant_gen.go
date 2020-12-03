@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatParticipant represents TL type `chatParticipant#c8d7493e`.
+//
+// See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
 	// UserID field of ChatParticipant.
 	UserID int
@@ -83,6 +85,8 @@ var (
 )
 
 // ChatParticipantCreator represents TL type `chatParticipantCreator#da13538a`.
+//
+// See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
 	// UserID field of ChatParticipantCreator.
 	UserID int
@@ -131,6 +135,8 @@ var (
 )
 
 // ChatParticipantAdmin represents TL type `chatParticipantAdmin#e2d6e436`.
+//
+// See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
 	// UserID field of ChatParticipantAdmin.
 	UserID int
@@ -199,6 +205,8 @@ var (
 )
 
 // ChatParticipantClass represents ChatParticipant generic type.
+//
+// See https://core.telegram.org/type/ChatParticipant for reference.
 //
 // Example:
 //  g, err := DecodeChatParticipant(buf)

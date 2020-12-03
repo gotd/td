@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Theme represents TL type `theme#28f1114`.
+//
+// See https://core.telegram.org/constructor/theme for reference.
 type Theme struct {
 	// Flags field of Theme.
 	Flags bin.Fields

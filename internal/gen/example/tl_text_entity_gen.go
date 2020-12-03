@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TextEntity represents TL type `textEntity#8bab99a8`.
+//
+// See https://localhost:80/doc/constructor/textEntity for reference.
 type TextEntity struct {
 	// Offset of the entity, in UTF-16 code units
 	Offset int32

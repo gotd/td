@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
+//
+// See https://core.telegram.org/constructor/encryptedFileEmpty for reference.
 type EncryptedFileEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // EncryptedFile represents TL type `encryptedFile#4a70994c`.
+//
+// See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
 	// ID field of EncryptedFile.
 	ID int64
@@ -141,6 +145,8 @@ var (
 )
 
 // EncryptedFileClass represents EncryptedFile generic type.
+//
+// See https://core.telegram.org/type/EncryptedFile for reference.
 //
 // Example:
 //  g, err := DecodeEncryptedFile(buf)

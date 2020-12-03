@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Dialog represents TL type `dialog#2c171f72`.
+//
+// See https://core.telegram.org/constructor/dialog for reference.
 type Dialog struct {
 	// Flags field of Dialog.
 	Flags bin.Fields
@@ -254,6 +256,8 @@ var (
 )
 
 // DialogFolder represents TL type `dialogFolder#71bd134c`.
+//
+// See https://core.telegram.org/constructor/dialogFolder for reference.
 type DialogFolder struct {
 	// Flags field of DialogFolder.
 	Flags bin.Fields
@@ -389,6 +393,8 @@ var (
 )
 
 // DialogClass represents Dialog generic type.
+//
+// See https://core.telegram.org/type/Dialog for reference.
 //
 // Example:
 //  g, err := DecodeDialog(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthImportBotAuthorizationRequest represents TL type `auth.importBotAuthorization#67a3ff2c`.
+//
+// See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 type AuthImportBotAuthorizationRequest struct {
 	// Flags field of AuthImportBotAuthorizationRequest.
 	Flags int
@@ -88,6 +90,8 @@ var (
 )
 
 // AuthImportBotAuthorization invokes method auth.importBotAuthorization#67a3ff2c returning error if any.
+//
+// See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 func (c *Client) AuthImportBotAuthorization(ctx context.Context, request *AuthImportBotAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

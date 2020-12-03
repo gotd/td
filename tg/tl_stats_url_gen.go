@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsURL represents TL type `statsURL#47a971e0`.
+//
+// See https://core.telegram.org/constructor/statsURL for reference.
 type StatsURL struct {
 	// URL field of StatsURL.
 	URL string

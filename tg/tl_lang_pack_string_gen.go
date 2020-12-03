@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangPackString represents TL type `langPackString#cad181f6`.
+//
+// See https://core.telegram.org/constructor/langPackString for reference.
 type LangPackString struct {
 	// Key field of LangPackString.
 	Key string
@@ -73,6 +75,8 @@ var (
 )
 
 // LangPackStringPluralized represents TL type `langPackStringPluralized#6c47ac9f`.
+//
+// See https://core.telegram.org/constructor/langPackStringPluralized for reference.
 type LangPackStringPluralized struct {
 	// Flags field of LangPackStringPluralized.
 	Flags bin.Fields
@@ -286,6 +290,8 @@ var (
 )
 
 // LangPackStringDeleted represents TL type `langPackStringDeleted#2979eeb2`.
+//
+// See https://core.telegram.org/constructor/langPackStringDeleted for reference.
 type LangPackStringDeleted struct {
 	// Key field of LangPackStringDeleted.
 	Key string
@@ -334,6 +340,8 @@ var (
 )
 
 // LangPackStringClass represents LangPackString generic type.
+//
+// See https://core.telegram.org/type/LangPackString for reference.
 //
 // Example:
 //  g, err := DecodeLangPackString(buf)

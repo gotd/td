@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendConfirmPhoneCodeRequest represents TL type `account.sendConfirmPhoneCode#1b3faa88`.
+//
+// See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 type AccountSendConfirmPhoneCodeRequest struct {
 	// Hash field of AccountSendConfirmPhoneCodeRequest.
 	Hash string
@@ -68,6 +70,8 @@ var (
 )
 
 // AccountSendConfirmPhoneCode invokes method account.sendConfirmPhoneCode#1b3faa88 returning error if any.
+//
+// See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

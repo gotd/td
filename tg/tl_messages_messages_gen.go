@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
+//
+// See https://core.telegram.org/constructor/messages.messages for reference.
 type MessagesMessages struct {
 	// Messages field of MessagesMessages.
 	Messages []MessageClass
@@ -125,6 +127,8 @@ var (
 )
 
 // MessagesMessagesSlice represents TL type `messages.messagesSlice#3a54685e`.
+//
+// See https://core.telegram.org/constructor/messages.messagesSlice for reference.
 type MessagesMessagesSlice struct {
 	// Flags field of MessagesMessagesSlice.
 	Flags bin.Fields
@@ -325,6 +329,8 @@ var (
 )
 
 // MessagesChannelMessages represents TL type `messages.channelMessages#64479808`.
+//
+// See https://core.telegram.org/constructor/messages.channelMessages for reference.
 type MessagesChannelMessages struct {
 	// Flags field of MessagesChannelMessages.
 	Flags bin.Fields
@@ -506,6 +512,8 @@ var (
 )
 
 // MessagesMessagesNotModified represents TL type `messages.messagesNotModified#74535f21`.
+//
+// See https://core.telegram.org/constructor/messages.messagesNotModified for reference.
 type MessagesMessagesNotModified struct {
 	// Count field of MessagesMessagesNotModified.
 	Count int
@@ -554,6 +562,8 @@ var (
 )
 
 // MessagesMessagesClass represents messages.Messages generic type.
+//
+// See https://core.telegram.org/type/messages.Messages for reference.
 //
 // Example:
 //  g, err := DecodeMessagesMessages(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputEncryptedFileEmpty represents TL type `inputEncryptedFileEmpty#1837c364`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedFileEmpty for reference.
 type InputEncryptedFileEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputEncryptedFileUploaded represents TL type `inputEncryptedFileUploaded#64bd0306`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
 	// ID field of InputEncryptedFileUploaded.
 	ID int64
@@ -131,6 +135,8 @@ var (
 )
 
 // InputEncryptedFile represents TL type `inputEncryptedFile#5a17b5e5`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedFile for reference.
 type InputEncryptedFile struct {
 	// ID field of InputEncryptedFile.
 	ID int64
@@ -189,6 +195,8 @@ var (
 )
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
+//
+// See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
 	// ID field of InputEncryptedFileBigUploaded.
 	ID int64
@@ -257,6 +265,8 @@ var (
 )
 
 // InputEncryptedFileClass represents InputEncryptedFile generic type.
+//
+// See https://core.telegram.org/type/InputEncryptedFile for reference.
 //
 // Example:
 //  g, err := DecodeInputEncryptedFile(buf)

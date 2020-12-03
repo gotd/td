@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadEncryptedHistoryRequest represents TL type `messages.readEncryptedHistory#7f4b690a`.
+//
+// See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 type MessagesReadEncryptedHistoryRequest struct {
 	// Peer field of MessagesReadEncryptedHistoryRequest.
 	Peer InputEncryptedChat
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesReadEncryptedHistory invokes method messages.readEncryptedHistory#7f4b690a returning error if any.
+//
+// See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 func (c *Client) MessagesReadEncryptedHistory(ctx context.Context, request *MessagesReadEncryptedHistoryRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

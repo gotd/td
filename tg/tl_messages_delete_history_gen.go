@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#1c015b09`.
+//
+// See https://core.telegram.org/method/messages.deleteHistory for reference.
 type MessagesDeleteHistoryRequest struct {
 	// Flags field of MessagesDeleteHistoryRequest.
 	Flags bin.Fields
@@ -107,6 +109,8 @@ var (
 )
 
 // MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
+//
+// See https://core.telegram.org/method/messages.deleteHistory for reference.
 func (c *Client) MessagesDeleteHistory(ctx context.Context, request *MessagesDeleteHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpCountry represents TL type `help.country#c3878e23`.
+//
+// See https://core.telegram.org/constructor/help.country for reference.
 type HelpCountry struct {
 	// Flags field of HelpCountry.
 	Flags bin.Fields

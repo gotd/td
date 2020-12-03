@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
+//
+// See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 type AccountCancelPasswordEmailRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AccountCancelPasswordEmail invokes method account.cancelPasswordEmail#c1cbd5b6 returning error if any.
+//
+// See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 func (c *Client) AccountCancelPasswordEmail(ctx context.Context, request *AccountCancelPasswordEmailRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

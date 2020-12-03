@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
+//
+// See https://core.telegram.org/constructor/auth.codeTypeSms for reference.
 type AuthCodeTypeSms struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // AuthCodeTypeCall represents TL type `auth.codeTypeCall#741cd3e3`.
+//
+// See https://core.telegram.org/constructor/auth.codeTypeCall for reference.
 type AuthCodeTypeCall struct {
 }
 
@@ -91,6 +95,8 @@ var (
 )
 
 // AuthCodeTypeFlashCall represents TL type `auth.codeTypeFlashCall#226ccefb`.
+//
+// See https://core.telegram.org/constructor/auth.codeTypeFlashCall for reference.
 type AuthCodeTypeFlashCall struct {
 }
 
@@ -129,6 +135,8 @@ var (
 )
 
 // AuthCodeTypeClass represents auth.CodeType generic type.
+//
+// See https://core.telegram.org/type/auth.CodeType for reference.
 //
 // Example:
 //  g, err := DecodeAuthCodeType(buf)

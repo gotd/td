@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetParticipantRequest represents TL type `channels.getParticipant#546dd7a6`.
+//
+// See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
 	// Channel field of ChannelsGetParticipantRequest.
 	Channel InputChannelClass
@@ -78,6 +80,8 @@ var (
 )
 
 // ChannelsGetParticipant invokes method channels.getParticipant#546dd7a6 returning error if any.
+//
+// See https://core.telegram.org/method/channels.getParticipant for reference.
 func (c *Client) ChannelsGetParticipant(ctx context.Context, request *ChannelsGetParticipantRequest) (*ChannelsChannelParticipant, error) {
 	var result ChannelsChannelParticipant
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

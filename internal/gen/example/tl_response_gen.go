@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ResponseID represents TL type `responseID#85d7fd8b`.
+//
+// See https://localhost:80/doc/constructor/responseID for reference.
 type ResponseID struct {
 	// ID field of ResponseID.
 	ID int32
@@ -63,6 +65,8 @@ var (
 )
 
 // ResponseText represents TL type `responseText#cb0244f2`.
+//
+// See https://localhost:80/doc/constructor/responseText for reference.
 type ResponseText struct {
 	// Text field of ResponseText.
 	Text string
@@ -111,6 +115,8 @@ var (
 )
 
 // ResponseClass represents Response generic type.
+//
+// See https://localhost:80/doc/type/Response for reference.
 //
 // Example:
 //  g, err := DecodeResponse(buf)

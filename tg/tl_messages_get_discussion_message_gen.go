@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
+//
+// See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 type MessagesGetDiscussionMessageRequest struct {
 	// Peer field of MessagesGetDiscussionMessageRequest.
 	Peer InputPeerClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesGetDiscussionMessage invokes method messages.getDiscussionMessage#446972fd returning error if any.
+//
+// See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {
 	var result MessagesDiscussionMessage
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

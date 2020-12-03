@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPrivacyRules represents TL type `account.privacyRules#50a04e45`.
+//
+// See https://core.telegram.org/constructor/account.privacyRules for reference.
 type AccountPrivacyRules struct {
 	// Rules field of AccountPrivacyRules.
 	Rules []PrivacyRuleClass

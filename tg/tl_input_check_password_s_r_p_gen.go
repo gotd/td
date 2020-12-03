@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputCheckPasswordEmpty represents TL type `inputCheckPasswordEmpty#9880f658`.
+//
+// See https://core.telegram.org/constructor/inputCheckPasswordEmpty for reference.
 type InputCheckPasswordEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputCheckPasswordSRP represents TL type `inputCheckPasswordSRP#d27ff082`.
+//
+// See https://core.telegram.org/constructor/inputCheckPasswordSRP for reference.
 type InputCheckPasswordSRP struct {
 	// SrpID field of InputCheckPasswordSRP.
 	SrpID int64
@@ -121,6 +125,8 @@ var (
 )
 
 // InputCheckPasswordSRPClass represents InputCheckPasswordSRP generic type.
+//
+// See https://core.telegram.org/type/InputCheckPasswordSRP for reference.
 //
 // Example:
 //  g, err := DecodeInputCheckPasswordSRP(buf)

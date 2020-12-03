@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRecentStickersRequest represents TL type `messages.getRecentStickers#5ea192c9`.
+//
+// See https://core.telegram.org/method/messages.getRecentStickers for reference.
 type MessagesGetRecentStickersRequest struct {
 	// Flags field of MessagesGetRecentStickersRequest.
 	Flags bin.Fields
@@ -80,6 +82,8 @@ var (
 )
 
 // MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getRecentStickers for reference.
 func (c *Client) MessagesGetRecentStickers(ctx context.Context, request *MessagesGetRecentStickersRequest) (MessagesRecentStickersClass, error) {
 	var result MessagesRecentStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

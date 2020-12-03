@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
+//
+// See https://core.telegram.org/constructor/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
 	// MaxQts field of MessagesReceivedQueueRequest.
 	MaxQts int

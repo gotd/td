@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsChannelParticipant represents TL type `channels.channelParticipant#d0d9b163`.
+//
+// See https://core.telegram.org/constructor/channels.channelParticipant for reference.
 type ChannelsChannelParticipant struct {
 	// Participant field of ChannelsChannelParticipant.
 	Participant ChannelParticipantClass

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TestVectorStringObject represents TL type `testVectorStringObject#e5ecc0d`.
+//
+// See https://localhost:80/doc/constructor/testVectorStringObject for reference.
 type TestVectorStringObject struct {
 	// Vector of objects
 	Value []TestString

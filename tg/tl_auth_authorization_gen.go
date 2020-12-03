@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthAuthorization represents TL type `auth.authorization#cd050916`.
+//
+// See https://core.telegram.org/constructor/auth.authorization for reference.
 type AuthAuthorization struct {
 	// Flags field of AuthAuthorization.
 	Flags bin.Fields
@@ -107,6 +109,8 @@ var (
 )
 
 // AuthAuthorizationSignUpRequired represents TL type `auth.authorizationSignUpRequired#44747e9a`.
+//
+// See https://core.telegram.org/constructor/auth.authorizationSignUpRequired for reference.
 type AuthAuthorizationSignUpRequired struct {
 	// Flags field of AuthAuthorizationSignUpRequired.
 	Flags bin.Fields
@@ -184,6 +188,8 @@ var (
 )
 
 // AuthAuthorizationClass represents auth.Authorization generic type.
+//
+// See https://core.telegram.org/type/auth.Authorization for reference.
 //
 // Example:
 //  g, err := DecodeAuthAuthorization(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
+//
+// See https://core.telegram.org/method/messages.getDhConfig for reference.
 type MessagesGetDhConfigRequest struct {
 	// Version field of MessagesGetDhConfigRequest.
 	Version int
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getDhConfig for reference.
 func (c *Client) MessagesGetDhConfig(ctx context.Context, request *MessagesGetDhConfigRequest) (MessagesDhConfigClass, error) {
 	var result MessagesDhConfigBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

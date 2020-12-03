@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSentCodeTypeApp represents TL type `auth.sentCodeTypeApp#3dbb5986`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeApp for reference.
 type AuthSentCodeTypeApp struct {
 	// Length field of AuthSentCodeTypeApp.
 	Length int
@@ -63,6 +65,8 @@ var (
 )
 
 // AuthSentCodeTypeSms represents TL type `auth.sentCodeTypeSms#c000bba2`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
 type AuthSentCodeTypeSms struct {
 	// Length field of AuthSentCodeTypeSms.
 	Length int
@@ -111,6 +115,8 @@ var (
 )
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
 	// Length field of AuthSentCodeTypeCall.
 	Length int
@@ -159,6 +165,8 @@ var (
 )
 
 // AuthSentCodeTypeFlashCall represents TL type `auth.sentCodeTypeFlashCall#ab03c6d9`.
+//
+// See https://core.telegram.org/constructor/auth.sentCodeTypeFlashCall for reference.
 type AuthSentCodeTypeFlashCall struct {
 	// Pattern field of AuthSentCodeTypeFlashCall.
 	Pattern string
@@ -207,6 +215,8 @@ var (
 )
 
 // AuthSentCodeTypeClass represents auth.SentCodeType generic type.
+//
+// See https://core.telegram.org/type/auth.SentCodeType for reference.
 //
 // Example:
 //  g, err := DecodeAuthSentCodeType(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetNotifyExceptionsRequest represents TL type `account.getNotifyExceptions#53577479`.
+//
+// See https://core.telegram.org/method/account.getNotifyExceptions for reference.
 type AccountGetNotifyExceptionsRequest struct {
 	// Flags field of AccountGetNotifyExceptionsRequest.
 	Flags bin.Fields
@@ -104,6 +106,8 @@ var (
 )
 
 // AccountGetNotifyExceptions invokes method account.getNotifyExceptions#53577479 returning error if any.
+//
+// See https://core.telegram.org/method/account.getNotifyExceptions for reference.
 func (c *Client) AccountGetNotifyExceptions(ctx context.Context, request *AccountGetNotifyExceptionsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

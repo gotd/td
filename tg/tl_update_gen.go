@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdateNewMessage represents TL type `updateNewMessage#1f2b0afd`.
+//
+// See https://core.telegram.org/constructor/updateNewMessage for reference.
 type UpdateNewMessage struct {
 	// Message field of UpdateNewMessage.
 	Message MessageClass
@@ -88,6 +90,8 @@ var (
 )
 
 // UpdateMessageID represents TL type `updateMessageID#4e90bfd6`.
+//
+// See https://core.telegram.org/constructor/updateMessageID for reference.
 type UpdateMessageID struct {
 	// ID field of UpdateMessageID.
 	ID int
@@ -146,6 +150,8 @@ var (
 )
 
 // UpdateDeleteMessages represents TL type `updateDeleteMessages#a20db0e5`.
+//
+// See https://core.telegram.org/constructor/updateDeleteMessages for reference.
 type UpdateDeleteMessages struct {
 	// Messages field of UpdateDeleteMessages.
 	Messages []int
@@ -223,6 +229,8 @@ var (
 )
 
 // UpdateUserTyping represents TL type `updateUserTyping#5c486927`.
+//
+// See https://core.telegram.org/constructor/updateUserTyping for reference.
 type UpdateUserTyping struct {
 	// UserID field of UpdateUserTyping.
 	UserID int
@@ -286,6 +294,8 @@ var (
 )
 
 // UpdateChatUserTyping represents TL type `updateChatUserTyping#9a65ea1f`.
+//
+// See https://core.telegram.org/constructor/updateChatUserTyping for reference.
 type UpdateChatUserTyping struct {
 	// ChatID field of UpdateChatUserTyping.
 	ChatID int
@@ -359,6 +369,8 @@ var (
 )
 
 // UpdateChatParticipants represents TL type `updateChatParticipants#7761198`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipants for reference.
 type UpdateChatParticipants struct {
 	// Participants field of UpdateChatParticipants.
 	Participants ChatParticipantsClass
@@ -412,6 +424,8 @@ var (
 )
 
 // UpdateUserStatus represents TL type `updateUserStatus#1bfbd823`.
+//
+// See https://core.telegram.org/constructor/updateUserStatus for reference.
 type UpdateUserStatus struct {
 	// UserID field of UpdateUserStatus.
 	UserID int
@@ -475,6 +489,8 @@ var (
 )
 
 // UpdateUserName represents TL type `updateUserName#a7332b73`.
+//
+// See https://core.telegram.org/constructor/updateUserName for reference.
 type UpdateUserName struct {
 	// UserID field of UpdateUserName.
 	UserID int
@@ -553,6 +569,8 @@ var (
 )
 
 // UpdateUserPhoto represents TL type `updateUserPhoto#95313b0c`.
+//
+// See https://core.telegram.org/constructor/updateUserPhoto for reference.
 type UpdateUserPhoto struct {
 	// UserID field of UpdateUserPhoto.
 	UserID int
@@ -636,6 +654,8 @@ var (
 )
 
 // UpdateNewEncryptedMessage represents TL type `updateNewEncryptedMessage#12bcbd9a`.
+//
+// See https://core.telegram.org/constructor/updateNewEncryptedMessage for reference.
 type UpdateNewEncryptedMessage struct {
 	// Message field of UpdateNewEncryptedMessage.
 	Message EncryptedMessageClass
@@ -699,6 +719,8 @@ var (
 )
 
 // UpdateEncryptedChatTyping represents TL type `updateEncryptedChatTyping#1710f156`.
+//
+// See https://core.telegram.org/constructor/updateEncryptedChatTyping for reference.
 type UpdateEncryptedChatTyping struct {
 	// ChatID field of UpdateEncryptedChatTyping.
 	ChatID int
@@ -747,6 +769,8 @@ var (
 )
 
 // UpdateEncryption represents TL type `updateEncryption#b4a2e88d`.
+//
+// See https://core.telegram.org/constructor/updateEncryption for reference.
 type UpdateEncryption struct {
 	// Chat field of UpdateEncryption.
 	Chat EncryptedChatClass
@@ -810,6 +834,8 @@ var (
 )
 
 // UpdateEncryptedMessagesRead represents TL type `updateEncryptedMessagesRead#38fe25b7`.
+//
+// See https://core.telegram.org/constructor/updateEncryptedMessagesRead for reference.
 type UpdateEncryptedMessagesRead struct {
 	// ChatID field of UpdateEncryptedMessagesRead.
 	ChatID int
@@ -878,6 +904,8 @@ var (
 )
 
 // UpdateChatParticipantAdd represents TL type `updateChatParticipantAdd#ea4b0e5c`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipantAdd for reference.
 type UpdateChatParticipantAdd struct {
 	// ChatID field of UpdateChatParticipantAdd.
 	ChatID int
@@ -966,6 +994,8 @@ var (
 )
 
 // UpdateChatParticipantDelete represents TL type `updateChatParticipantDelete#6e5f8c22`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipantDelete for reference.
 type UpdateChatParticipantDelete struct {
 	// ChatID field of UpdateChatParticipantDelete.
 	ChatID int
@@ -1034,6 +1064,8 @@ var (
 )
 
 // UpdateDcOptions represents TL type `updateDcOptions#8e5e9873`.
+//
+// See https://core.telegram.org/constructor/updateDcOptions for reference.
 type UpdateDcOptions struct {
 	// DCOptions field of UpdateDcOptions.
 	DCOptions []DcOption
@@ -1093,6 +1125,8 @@ var (
 )
 
 // UpdateNotifySettings represents TL type `updateNotifySettings#bec268ef`.
+//
+// See https://core.telegram.org/constructor/updateNotifySettings for reference.
 type UpdateNotifySettings struct {
 	// Peer field of UpdateNotifySettings.
 	Peer NotifyPeerClass
@@ -1156,6 +1190,8 @@ var (
 )
 
 // UpdateServiceNotification represents TL type `updateServiceNotification#ebe46819`.
+//
+// See https://core.telegram.org/constructor/updateServiceNotification for reference.
 type UpdateServiceNotification struct {
 	// Flags field of UpdateServiceNotification.
 	Flags bin.Fields
@@ -1304,6 +1340,8 @@ var (
 )
 
 // UpdatePrivacy represents TL type `updatePrivacy#ee3b272a`.
+//
+// See https://core.telegram.org/constructor/updatePrivacy for reference.
 type UpdatePrivacy struct {
 	// Key field of UpdatePrivacy.
 	Key PrivacyKeyClass
@@ -1381,6 +1419,8 @@ var (
 )
 
 // UpdateUserPhone represents TL type `updateUserPhone#12b9417b`.
+//
+// See https://core.telegram.org/constructor/updateUserPhone for reference.
 type UpdateUserPhone struct {
 	// UserID field of UpdateUserPhone.
 	UserID int
@@ -1439,6 +1479,8 @@ var (
 )
 
 // UpdateReadHistoryInbox represents TL type `updateReadHistoryInbox#9c974fdf`.
+//
+// See https://core.telegram.org/constructor/updateReadHistoryInbox for reference.
 type UpdateReadHistoryInbox struct {
 	// Flags field of UpdateReadHistoryInbox.
 	Flags bin.Fields
@@ -1571,6 +1613,8 @@ var (
 )
 
 // UpdateReadHistoryOutbox represents TL type `updateReadHistoryOutbox#2f2f21bf`.
+//
+// See https://core.telegram.org/constructor/updateReadHistoryOutbox for reference.
 type UpdateReadHistoryOutbox struct {
 	// Peer field of UpdateReadHistoryOutbox.
 	Peer PeerClass
@@ -1654,6 +1698,8 @@ var (
 )
 
 // UpdateWebPage represents TL type `updateWebPage#7f891213`.
+//
+// See https://core.telegram.org/constructor/updateWebPage for reference.
 type UpdateWebPage struct {
 	// Webpage field of UpdateWebPage.
 	Webpage WebPageClass
@@ -1727,6 +1773,8 @@ var (
 )
 
 // UpdateReadMessagesContents represents TL type `updateReadMessagesContents#68c13933`.
+//
+// See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
 	// Messages field of UpdateReadMessagesContents.
 	Messages []int
@@ -1804,6 +1852,8 @@ var (
 )
 
 // UpdateChannelTooLong represents TL type `updateChannelTooLong#eb0467fb`.
+//
+// See https://core.telegram.org/constructor/updateChannelTooLong for reference.
 type UpdateChannelTooLong struct {
 	// Flags field of UpdateChannelTooLong.
 	Flags bin.Fields
@@ -1891,6 +1941,8 @@ var (
 )
 
 // UpdateChannel represents TL type `updateChannel#b6d45656`.
+//
+// See https://core.telegram.org/constructor/updateChannel for reference.
 type UpdateChannel struct {
 	// ChannelID field of UpdateChannel.
 	ChannelID int
@@ -1939,6 +1991,8 @@ var (
 )
 
 // UpdateNewChannelMessage represents TL type `updateNewChannelMessage#62ba04d9`.
+//
+// See https://core.telegram.org/constructor/updateNewChannelMessage for reference.
 type UpdateNewChannelMessage struct {
 	// Message field of UpdateNewChannelMessage.
 	Message MessageClass
@@ -2012,6 +2066,8 @@ var (
 )
 
 // UpdateReadChannelInbox represents TL type `updateReadChannelInbox#330b5424`.
+//
+// See https://core.telegram.org/constructor/updateReadChannelInbox for reference.
 type UpdateReadChannelInbox struct {
 	// Flags field of UpdateReadChannelInbox.
 	Flags bin.Fields
@@ -2129,6 +2185,8 @@ var (
 )
 
 // UpdateDeleteChannelMessages represents TL type `updateDeleteChannelMessages#c37521c9`.
+//
+// See https://core.telegram.org/constructor/updateDeleteChannelMessages for reference.
 type UpdateDeleteChannelMessages struct {
 	// ChannelID field of UpdateDeleteChannelMessages.
 	ChannelID int
@@ -2216,6 +2274,8 @@ var (
 )
 
 // UpdateChannelMessageViews represents TL type `updateChannelMessageViews#98a12b4b`.
+//
+// See https://core.telegram.org/constructor/updateChannelMessageViews for reference.
 type UpdateChannelMessageViews struct {
 	// ChannelID field of UpdateChannelMessageViews.
 	ChannelID int
@@ -2284,6 +2344,8 @@ var (
 )
 
 // UpdateChatParticipantAdmin represents TL type `updateChatParticipantAdmin#b6901959`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipantAdmin for reference.
 type UpdateChatParticipantAdmin struct {
 	// ChatID field of UpdateChatParticipantAdmin.
 	ChatID int
@@ -2362,6 +2424,8 @@ var (
 )
 
 // UpdateNewStickerSet represents TL type `updateNewStickerSet#688a30aa`.
+//
+// See https://core.telegram.org/constructor/updateNewStickerSet for reference.
 type UpdateNewStickerSet struct {
 	// Stickerset field of UpdateNewStickerSet.
 	Stickerset MessagesStickerSet
@@ -2410,6 +2474,8 @@ var (
 )
 
 // UpdateStickerSetsOrder represents TL type `updateStickerSetsOrder#bb2d201`.
+//
+// See https://core.telegram.org/constructor/updateStickerSetsOrder for reference.
 type UpdateStickerSetsOrder struct {
 	// Flags field of UpdateStickerSetsOrder.
 	Flags bin.Fields
@@ -2489,6 +2555,8 @@ var (
 )
 
 // UpdateStickerSets represents TL type `updateStickerSets#43ae3dec`.
+//
+// See https://core.telegram.org/constructor/updateStickerSets for reference.
 type UpdateStickerSets struct {
 }
 
@@ -2527,6 +2595,8 @@ var (
 )
 
 // UpdateSavedGifs represents TL type `updateSavedGifs#9375341e`.
+//
+// See https://core.telegram.org/constructor/updateSavedGifs for reference.
 type UpdateSavedGifs struct {
 }
 
@@ -2565,6 +2635,8 @@ var (
 )
 
 // UpdateBotInlineQuery represents TL type `updateBotInlineQuery#54826690`.
+//
+// See https://core.telegram.org/constructor/updateBotInlineQuery for reference.
 type UpdateBotInlineQuery struct {
 	// Flags field of UpdateBotInlineQuery.
 	Flags bin.Fields
@@ -2687,6 +2759,8 @@ var (
 )
 
 // UpdateBotInlineSend represents TL type `updateBotInlineSend#e48f964`.
+//
+// See https://core.telegram.org/constructor/updateBotInlineSend for reference.
 type UpdateBotInlineSend struct {
 	// Flags field of UpdateBotInlineSend.
 	Flags bin.Fields
@@ -2828,6 +2902,8 @@ var (
 )
 
 // UpdateEditChannelMessage represents TL type `updateEditChannelMessage#1b3f4df7`.
+//
+// See https://core.telegram.org/constructor/updateEditChannelMessage for reference.
 type UpdateEditChannelMessage struct {
 	// Message field of UpdateEditChannelMessage.
 	Message MessageClass
@@ -2901,6 +2977,8 @@ var (
 )
 
 // UpdateBotCallbackQuery represents TL type `updateBotCallbackQuery#e73547e1`.
+//
+// See https://core.telegram.org/constructor/updateBotCallbackQuery for reference.
 type UpdateBotCallbackQuery struct {
 	// Flags field of UpdateBotCallbackQuery.
 	Flags bin.Fields
@@ -3062,6 +3140,8 @@ var (
 )
 
 // UpdateEditMessage represents TL type `updateEditMessage#e40370a3`.
+//
+// See https://core.telegram.org/constructor/updateEditMessage for reference.
 type UpdateEditMessage struct {
 	// Message field of UpdateEditMessage.
 	Message MessageClass
@@ -3135,6 +3215,8 @@ var (
 )
 
 // UpdateInlineBotCallbackQuery represents TL type `updateInlineBotCallbackQuery#f9d27a5a`.
+//
+// See https://core.telegram.org/constructor/updateInlineBotCallbackQuery for reference.
 type UpdateInlineBotCallbackQuery struct {
 	// Flags field of UpdateInlineBotCallbackQuery.
 	Flags bin.Fields
@@ -3281,6 +3363,8 @@ var (
 )
 
 // UpdateReadChannelOutbox represents TL type `updateReadChannelOutbox#25d6c9c7`.
+//
+// See https://core.telegram.org/constructor/updateReadChannelOutbox for reference.
 type UpdateReadChannelOutbox struct {
 	// ChannelID field of UpdateReadChannelOutbox.
 	ChannelID int
@@ -3339,6 +3423,8 @@ var (
 )
 
 // UpdateDraftMessage represents TL type `updateDraftMessage#ee2bb969`.
+//
+// See https://core.telegram.org/constructor/updateDraftMessage for reference.
 type UpdateDraftMessage struct {
 	// Peer field of UpdateDraftMessage.
 	Peer PeerClass
@@ -3407,6 +3493,8 @@ var (
 )
 
 // UpdateReadFeaturedStickers represents TL type `updateReadFeaturedStickers#571d2742`.
+//
+// See https://core.telegram.org/constructor/updateReadFeaturedStickers for reference.
 type UpdateReadFeaturedStickers struct {
 }
 
@@ -3445,6 +3533,8 @@ var (
 )
 
 // UpdateRecentStickers represents TL type `updateRecentStickers#9a422c20`.
+//
+// See https://core.telegram.org/constructor/updateRecentStickers for reference.
 type UpdateRecentStickers struct {
 }
 
@@ -3483,6 +3573,8 @@ var (
 )
 
 // UpdateConfig represents TL type `updateConfig#a229dd06`.
+//
+// See https://core.telegram.org/constructor/updateConfig for reference.
 type UpdateConfig struct {
 }
 
@@ -3521,6 +3613,8 @@ var (
 )
 
 // UpdatePtsChanged represents TL type `updatePtsChanged#3354678f`.
+//
+// See https://core.telegram.org/constructor/updatePtsChanged for reference.
 type UpdatePtsChanged struct {
 }
 
@@ -3559,6 +3653,8 @@ var (
 )
 
 // UpdateChannelWebPage represents TL type `updateChannelWebPage#40771900`.
+//
+// See https://core.telegram.org/constructor/updateChannelWebPage for reference.
 type UpdateChannelWebPage struct {
 	// ChannelID field of UpdateChannelWebPage.
 	ChannelID int
@@ -3642,6 +3738,8 @@ var (
 )
 
 // UpdateDialogPinned represents TL type `updateDialogPinned#6e6fe51c`.
+//
+// See https://core.telegram.org/constructor/updateDialogPinned for reference.
 type UpdateDialogPinned struct {
 	// Flags field of UpdateDialogPinned.
 	Flags bin.Fields
@@ -3746,6 +3844,8 @@ var (
 )
 
 // UpdatePinnedDialogs represents TL type `updatePinnedDialogs#fa0f3ca2`.
+//
+// See https://core.telegram.org/constructor/updatePinnedDialogs for reference.
 type UpdatePinnedDialogs struct {
 	// Flags field of UpdatePinnedDialogs.
 	Flags bin.Fields
@@ -3866,6 +3966,8 @@ var (
 )
 
 // UpdateBotWebhookJSON represents TL type `updateBotWebhookJSON#8317c0c3`.
+//
+// See https://core.telegram.org/constructor/updateBotWebhookJSON for reference.
 type UpdateBotWebhookJSON struct {
 	// Data field of UpdateBotWebhookJSON.
 	Data DataJSON
@@ -3914,6 +4016,8 @@ var (
 )
 
 // UpdateBotWebhookJSONQuery represents TL type `updateBotWebhookJSONQuery#9b9240a6`.
+//
+// See https://core.telegram.org/constructor/updateBotWebhookJSONQuery for reference.
 type UpdateBotWebhookJSONQuery struct {
 	// QueryID field of UpdateBotWebhookJSONQuery.
 	QueryID int64
@@ -3982,6 +4086,8 @@ var (
 )
 
 // UpdateBotShippingQuery represents TL type `updateBotShippingQuery#e0cdc940`.
+//
+// See https://core.telegram.org/constructor/updateBotShippingQuery for reference.
 type UpdateBotShippingQuery struct {
 	// QueryID field of UpdateBotShippingQuery.
 	QueryID int64
@@ -4060,6 +4166,8 @@ var (
 )
 
 // UpdateBotPrecheckoutQuery represents TL type `updateBotPrecheckoutQuery#5d2f3aa9`.
+//
+// See https://core.telegram.org/constructor/updateBotPrecheckoutQuery for reference.
 type UpdateBotPrecheckoutQuery struct {
 	// Flags field of UpdateBotPrecheckoutQuery.
 	Flags bin.Fields
@@ -4216,6 +4324,8 @@ var (
 )
 
 // UpdatePhoneCall represents TL type `updatePhoneCall#ab0f6b1e`.
+//
+// See https://core.telegram.org/constructor/updatePhoneCall for reference.
 type UpdatePhoneCall struct {
 	// PhoneCall field of UpdatePhoneCall.
 	PhoneCall PhoneCallClass
@@ -4269,6 +4379,8 @@ var (
 )
 
 // UpdateLangPackTooLong represents TL type `updateLangPackTooLong#46560264`.
+//
+// See https://core.telegram.org/constructor/updateLangPackTooLong for reference.
 type UpdateLangPackTooLong struct {
 	// LangCode field of UpdateLangPackTooLong.
 	LangCode string
@@ -4317,6 +4429,8 @@ var (
 )
 
 // UpdateLangPack represents TL type `updateLangPack#56022f4d`.
+//
+// See https://core.telegram.org/constructor/updateLangPack for reference.
 type UpdateLangPack struct {
 	// Difference field of UpdateLangPack.
 	Difference LangPackDifference
@@ -4365,6 +4479,8 @@ var (
 )
 
 // UpdateFavedStickers represents TL type `updateFavedStickers#e511996d`.
+//
+// See https://core.telegram.org/constructor/updateFavedStickers for reference.
 type UpdateFavedStickers struct {
 }
 
@@ -4403,6 +4519,8 @@ var (
 )
 
 // UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#89893b45`.
+//
+// See https://core.telegram.org/constructor/updateChannelReadMessagesContents for reference.
 type UpdateChannelReadMessagesContents struct {
 	// ChannelID field of UpdateChannelReadMessagesContents.
 	ChannelID int
@@ -4470,6 +4588,8 @@ var (
 )
 
 // UpdateContactsReset represents TL type `updateContactsReset#7084a7be`.
+//
+// See https://core.telegram.org/constructor/updateContactsReset for reference.
 type UpdateContactsReset struct {
 }
 
@@ -4508,6 +4628,8 @@ var (
 )
 
 // UpdateChannelAvailableMessages represents TL type `updateChannelAvailableMessages#70db6837`.
+//
+// See https://core.telegram.org/constructor/updateChannelAvailableMessages for reference.
 type UpdateChannelAvailableMessages struct {
 	// ChannelID field of UpdateChannelAvailableMessages.
 	ChannelID int
@@ -4566,6 +4688,8 @@ var (
 )
 
 // UpdateDialogUnreadMark represents TL type `updateDialogUnreadMark#e16459c3`.
+//
+// See https://core.telegram.org/constructor/updateDialogUnreadMark for reference.
 type UpdateDialogUnreadMark struct {
 	// Flags field of UpdateDialogUnreadMark.
 	Flags bin.Fields
@@ -4641,6 +4765,8 @@ var (
 )
 
 // UpdateMessagePoll represents TL type `updateMessagePoll#aca1657b`.
+//
+// See https://core.telegram.org/constructor/updateMessagePoll for reference.
 type UpdateMessagePoll struct {
 	// Flags field of UpdateMessagePoll.
 	Flags bin.Fields
@@ -4738,6 +4864,8 @@ var (
 )
 
 // UpdateChatDefaultBannedRights represents TL type `updateChatDefaultBannedRights#54c01850`.
+//
+// See https://core.telegram.org/constructor/updateChatDefaultBannedRights for reference.
 type UpdateChatDefaultBannedRights struct {
 	// Peer field of UpdateChatDefaultBannedRights.
 	Peer PeerClass
@@ -4811,6 +4939,8 @@ var (
 )
 
 // UpdateFolderPeers represents TL type `updateFolderPeers#19360dc0`.
+//
+// See https://core.telegram.org/constructor/updateFolderPeers for reference.
 type UpdateFolderPeers struct {
 	// FolderPeers field of UpdateFolderPeers.
 	FolderPeers []FolderPeer
@@ -4890,6 +5020,8 @@ var (
 )
 
 // UpdatePeerSettings represents TL type `updatePeerSettings#6a7e7366`.
+//
+// See https://core.telegram.org/constructor/updatePeerSettings for reference.
 type UpdatePeerSettings struct {
 	// Peer field of UpdatePeerSettings.
 	Peer PeerClass
@@ -4953,6 +5085,8 @@ var (
 )
 
 // UpdatePeerLocated represents TL type `updatePeerLocated#b4afcfb0`.
+//
+// See https://core.telegram.org/constructor/updatePeerLocated for reference.
 type UpdatePeerLocated struct {
 	// Peers field of UpdatePeerLocated.
 	Peers []PeerLocatedClass
@@ -5015,6 +5149,8 @@ var (
 )
 
 // UpdateNewScheduledMessage represents TL type `updateNewScheduledMessage#39a51dfb`.
+//
+// See https://core.telegram.org/constructor/updateNewScheduledMessage for reference.
 type UpdateNewScheduledMessage struct {
 	// Message field of UpdateNewScheduledMessage.
 	Message MessageClass
@@ -5068,6 +5204,8 @@ var (
 )
 
 // UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#90866cee`.
+//
+// See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
 	// Peer field of UpdateDeleteScheduledMessages.
 	Peer PeerClass
@@ -5140,6 +5278,8 @@ var (
 )
 
 // UpdateTheme represents TL type `updateTheme#8216fba3`.
+//
+// See https://core.telegram.org/constructor/updateTheme for reference.
 type UpdateTheme struct {
 	// Theme field of UpdateTheme.
 	Theme Theme
@@ -5188,6 +5328,8 @@ var (
 )
 
 // UpdateGeoLiveViewed represents TL type `updateGeoLiveViewed#871fb939`.
+//
+// See https://core.telegram.org/constructor/updateGeoLiveViewed for reference.
 type UpdateGeoLiveViewed struct {
 	// Peer field of UpdateGeoLiveViewed.
 	Peer PeerClass
@@ -5251,6 +5393,8 @@ var (
 )
 
 // UpdateLoginToken represents TL type `updateLoginToken#564fe691`.
+//
+// See https://core.telegram.org/constructor/updateLoginToken for reference.
 type UpdateLoginToken struct {
 }
 
@@ -5289,6 +5433,8 @@ var (
 )
 
 // UpdateMessagePollVote represents TL type `updateMessagePollVote#42f88f2c`.
+//
+// See https://core.telegram.org/constructor/updateMessagePollVote for reference.
 type UpdateMessagePollVote struct {
 	// PollID field of UpdateMessagePollVote.
 	PollID int64
@@ -5366,6 +5512,8 @@ var (
 )
 
 // UpdateDialogFilter represents TL type `updateDialogFilter#26ffde7d`.
+//
+// See https://core.telegram.org/constructor/updateDialogFilter for reference.
 type UpdateDialogFilter struct {
 	// Flags field of UpdateDialogFilter.
 	Flags bin.Fields
@@ -5453,6 +5601,8 @@ var (
 )
 
 // UpdateDialogFilterOrder represents TL type `updateDialogFilterOrder#a5d72105`.
+//
+// See https://core.telegram.org/constructor/updateDialogFilterOrder for reference.
 type UpdateDialogFilterOrder struct {
 	// Order field of UpdateDialogFilterOrder.
 	Order []int
@@ -5510,6 +5660,8 @@ var (
 )
 
 // UpdateDialogFilters represents TL type `updateDialogFilters#3504914f`.
+//
+// See https://core.telegram.org/constructor/updateDialogFilters for reference.
 type UpdateDialogFilters struct {
 }
 
@@ -5548,6 +5700,8 @@ var (
 )
 
 // UpdatePhoneCallSignalingData represents TL type `updatePhoneCallSignalingData#2661bf09`.
+//
+// See https://core.telegram.org/constructor/updatePhoneCallSignalingData for reference.
 type UpdatePhoneCallSignalingData struct {
 	// PhoneCallID field of UpdatePhoneCallSignalingData.
 	PhoneCallID int64
@@ -5606,6 +5760,8 @@ var (
 )
 
 // UpdateChannelParticipant represents TL type `updateChannelParticipant#65d2b464`.
+//
+// See https://core.telegram.org/constructor/updateChannelParticipant for reference.
 type UpdateChannelParticipant struct {
 	// Flags field of UpdateChannelParticipant.
 	Flags bin.Fields
@@ -5762,6 +5918,8 @@ var (
 )
 
 // UpdateChannelMessageForwards represents TL type `updateChannelMessageForwards#6e8a84df`.
+//
+// See https://core.telegram.org/constructor/updateChannelMessageForwards for reference.
 type UpdateChannelMessageForwards struct {
 	// ChannelID field of UpdateChannelMessageForwards.
 	ChannelID int
@@ -5830,6 +5988,8 @@ var (
 )
 
 // UpdateReadChannelDiscussionInbox represents TL type `updateReadChannelDiscussionInbox#1cc7de54`.
+//
+// See https://core.telegram.org/constructor/updateReadChannelDiscussionInbox for reference.
 type UpdateReadChannelDiscussionInbox struct {
 	// Flags field of UpdateReadChannelDiscussionInbox.
 	Flags bin.Fields
@@ -5966,6 +6126,8 @@ var (
 )
 
 // UpdateReadChannelDiscussionOutbox represents TL type `updateReadChannelDiscussionOutbox#4638a26c`.
+//
+// See https://core.telegram.org/constructor/updateReadChannelDiscussionOutbox for reference.
 type UpdateReadChannelDiscussionOutbox struct {
 	// ChannelID field of UpdateReadChannelDiscussionOutbox.
 	ChannelID int
@@ -6034,6 +6196,8 @@ var (
 )
 
 // UpdatePeerBlocked represents TL type `updatePeerBlocked#246a4b22`.
+//
+// See https://core.telegram.org/constructor/updatePeerBlocked for reference.
 type UpdatePeerBlocked struct {
 	// PeerID field of UpdatePeerBlocked.
 	PeerID PeerClass
@@ -6097,6 +6261,8 @@ var (
 )
 
 // UpdateChannelUserTyping represents TL type `updateChannelUserTyping#ff2abe9f`.
+//
+// See https://core.telegram.org/constructor/updateChannelUserTyping for reference.
 type UpdateChannelUserTyping struct {
 	// Flags field of UpdateChannelUserTyping.
 	Flags bin.Fields
@@ -6209,6 +6375,8 @@ var (
 )
 
 // UpdatePinnedMessages represents TL type `updatePinnedMessages#ed85eab5`.
+//
+// See https://core.telegram.org/constructor/updatePinnedMessages for reference.
 type UpdatePinnedMessages struct {
 	// Flags field of UpdatePinnedMessages.
 	Flags bin.Fields
@@ -6323,6 +6491,8 @@ var (
 )
 
 // UpdatePinnedChannelMessages represents TL type `updatePinnedChannelMessages#8588878b`.
+//
+// See https://core.telegram.org/constructor/updatePinnedChannelMessages for reference.
 type UpdatePinnedChannelMessages struct {
 	// Flags field of UpdatePinnedChannelMessages.
 	Flags bin.Fields
@@ -6432,6 +6602,8 @@ var (
 )
 
 // UpdateClass represents Update generic type.
+//
+// See https://core.telegram.org/type/Update for reference.
 //
 // Example:
 //  g, err := DecodeUpdate(buf)

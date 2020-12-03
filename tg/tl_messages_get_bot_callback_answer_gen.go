@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetBotCallbackAnswerRequest represents TL type `messages.getBotCallbackAnswer#9342ca07`.
+//
+// See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 type MessagesGetBotCallbackAnswerRequest struct {
 	// Flags field of MessagesGetBotCallbackAnswerRequest.
 	Flags bin.Fields
@@ -158,6 +160,8 @@ var (
 )
 
 // MessagesGetBotCallbackAnswer invokes method messages.getBotCallbackAnswer#9342ca07 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 func (c *Client) MessagesGetBotCallbackAnswer(ctx context.Context, request *MessagesGetBotCallbackAnswerRequest) (*MessagesBotCallbackAnswer, error) {
 	var result MessagesBotCallbackAnswer
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

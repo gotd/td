@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountDaysTTL represents TL type `accountDaysTTL#b8d0afdf`.
+//
+// See https://core.telegram.org/constructor/accountDaysTTL for reference.
 type AccountDaysTTL struct {
 	// Days field of AccountDaysTTL.
 	Days int

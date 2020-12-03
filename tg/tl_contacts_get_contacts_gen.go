@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetContactsRequest represents TL type `contacts.getContacts#c023849f`.
+//
+// See https://core.telegram.org/method/contacts.getContacts for reference.
 type ContactsGetContactsRequest struct {
 	// Hash field of ContactsGetContactsRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // ContactsGetContacts invokes method contacts.getContacts#c023849f returning error if any.
+//
+// See https://core.telegram.org/method/contacts.getContacts for reference.
 func (c *Client) ContactsGetContacts(ctx context.Context, request *ContactsGetContactsRequest) (ContactsContactsClass, error) {
 	var result ContactsContactsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

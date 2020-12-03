@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMessageEditDataRequest represents TL type `messages.getMessageEditData#fda68d36`.
+//
+// See https://core.telegram.org/method/messages.getMessageEditData for reference.
 type MessagesGetMessageEditDataRequest struct {
 	// Peer field of MessagesGetMessageEditDataRequest.
 	Peer InputPeerClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesGetMessageEditData invokes method messages.getMessageEditData#fda68d36 returning error if any.
+//
+// See https://core.telegram.org/method/messages.getMessageEditData for reference.
 func (c *Client) MessagesGetMessageEditData(ctx context.Context, request *MessagesGetMessageEditDataRequest) (*MessagesMessageEditData, error) {
 	var result MessagesMessageEditData
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

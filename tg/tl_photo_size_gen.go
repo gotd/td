@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotoSizeEmpty represents TL type `photoSizeEmpty#e17e23c`.
+//
+// See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
 	// Type field of PhotoSizeEmpty.
 	Type string
@@ -63,6 +65,8 @@ var (
 )
 
 // PhotoSize represents TL type `photoSize#77bfb61b`.
+//
+// See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Type field of PhotoSize.
 	Type string
@@ -151,6 +155,8 @@ var (
 )
 
 // PhotoCachedSize represents TL type `photoCachedSize#e9a734fa`.
+//
+// See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Type field of PhotoCachedSize.
 	Type string
@@ -239,6 +245,8 @@ var (
 )
 
 // PhotoStrippedSize represents TL type `photoStrippedSize#e0b0bc2e`.
+//
+// See https://core.telegram.org/constructor/photoStrippedSize for reference.
 type PhotoStrippedSize struct {
 	// Type field of PhotoStrippedSize.
 	Type string
@@ -297,6 +305,8 @@ var (
 )
 
 // PhotoSizeProgressive represents TL type `photoSizeProgressive#5aa86a51`.
+//
+// See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
 	// Type field of PhotoSizeProgressive.
 	Type string
@@ -394,6 +404,8 @@ var (
 )
 
 // PhotoPathSize represents TL type `photoPathSize#d8214d41`.
+//
+// See https://core.telegram.org/constructor/photoPathSize for reference.
 type PhotoPathSize struct {
 	// Type field of PhotoPathSize.
 	Type string
@@ -452,6 +464,8 @@ var (
 )
 
 // PhotoSizeClass represents PhotoSize generic type.
+//
+// See https://core.telegram.org/type/PhotoSize for reference.
 //
 // Example:
 //  g, err := DecodePhotoSize(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReorderPinnedDialogsRequest represents TL type `messages.reorderPinnedDialogs#3b1adf37`.
+//
+// See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 type MessagesReorderPinnedDialogsRequest struct {
 	// Flags field of MessagesReorderPinnedDialogsRequest.
 	Flags bin.Fields
@@ -104,6 +106,8 @@ var (
 )
 
 // MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.
+//
+// See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

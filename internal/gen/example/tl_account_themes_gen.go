@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountThemesNotModified represents TL type `account.themesNotModified#f41eb622`.
+//
+// See https://localhost:80/doc/constructor/account.themesNotModified for reference.
 type AccountThemesNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // AccountThemes represents TL type `account.themes#7f676421`.
+//
+// See https://localhost:80/doc/constructor/account.themes for reference.
 type AccountThemes struct {
 	// Hash field of AccountThemes.
 	Hash int
@@ -122,6 +126,8 @@ var (
 )
 
 // AccountThemesClass represents account.Themes generic type.
+//
+// See https://localhost:80/doc/type/account.Themes for reference.
 //
 // Example:
 //  g, err := DecodeAccountThemes(buf)

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DraftMessageEmpty represents TL type `draftMessageEmpty#1b0c841a`.
+//
+// See https://core.telegram.org/constructor/draftMessageEmpty for reference.
 type DraftMessageEmpty struct {
 	// Flags field of DraftMessageEmpty.
 	Flags bin.Fields
@@ -92,6 +94,8 @@ var (
 )
 
 // DraftMessage represents TL type `draftMessage#fd8e711f`.
+//
+// See https://core.telegram.org/constructor/draftMessage for reference.
 type DraftMessage struct {
 	// Flags field of DraftMessage.
 	Flags bin.Fields
@@ -244,6 +248,8 @@ var (
 )
 
 // DraftMessageClass represents DraftMessage generic type.
+//
+// See https://core.telegram.org/type/DraftMessage for reference.
 //
 // Example:
 //  g, err := DecodeDraftMessage(buf)

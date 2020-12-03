@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetEmojiKeywordsDifferenceRequest represents TL type `messages.getEmojiKeywordsDifference#1508b6af`.
+//
+// See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 type MessagesGetEmojiKeywordsDifferenceRequest struct {
 	// LangCode field of MessagesGetEmojiKeywordsDifferenceRequest.
 	LangCode string
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesGetEmojiKeywordsDifference invokes method messages.getEmojiKeywordsDifference#1508b6af returning error if any.
+//
+// See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 func (c *Client) MessagesGetEmojiKeywordsDifference(ctx context.Context, request *MessagesGetEmojiKeywordsDifferenceRequest) (*EmojiKeywordsDifference, error) {
 	var result EmojiKeywordsDifference
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

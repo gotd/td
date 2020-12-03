@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatTitleRequest represents TL type `messages.editChatTitle#dc452855`.
+//
+// See https://core.telegram.org/method/messages.editChatTitle for reference.
 type MessagesEditChatTitleRequest struct {
 	// ChatID field of MessagesEditChatTitleRequest.
 	ChatID int
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesEditChatTitle invokes method messages.editChatTitle#dc452855 returning error if any.
+//
+// See https://core.telegram.org/method/messages.editChatTitle for reference.
 func (c *Client) MessagesEditChatTitle(ctx context.Context, request *MessagesEditChatTitleRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

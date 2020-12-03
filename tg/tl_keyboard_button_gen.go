@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // KeyboardButton represents TL type `keyboardButton#a2fa4880`.
+//
+// See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {
 	// Text field of KeyboardButton.
 	Text string
@@ -63,6 +65,8 @@ var (
 )
 
 // KeyboardButtonUrl represents TL type `keyboardButtonUrl#258aff05`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
 type KeyboardButtonUrl struct {
 	// Text field of KeyboardButtonUrl.
 	Text string
@@ -121,6 +125,8 @@ var (
 )
 
 // KeyboardButtonCallback represents TL type `keyboardButtonCallback#35bbdb6b`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonCallback for reference.
 type KeyboardButtonCallback struct {
 	// Flags field of KeyboardButtonCallback.
 	Flags bin.Fields
@@ -201,6 +207,8 @@ var (
 )
 
 // KeyboardButtonRequestPhone represents TL type `keyboardButtonRequestPhone#b16a6c29`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonRequestPhone for reference.
 type KeyboardButtonRequestPhone struct {
 	// Text field of KeyboardButtonRequestPhone.
 	Text string
@@ -249,6 +257,8 @@ var (
 )
 
 // KeyboardButtonRequestGeoLocation represents TL type `keyboardButtonRequestGeoLocation#fc796b3f`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonRequestGeoLocation for reference.
 type KeyboardButtonRequestGeoLocation struct {
 	// Text field of KeyboardButtonRequestGeoLocation.
 	Text string
@@ -297,6 +307,8 @@ var (
 )
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonSwitchInline for reference.
 type KeyboardButtonSwitchInline struct {
 	// Flags field of KeyboardButtonSwitchInline.
 	Flags bin.Fields
@@ -377,6 +389,8 @@ var (
 )
 
 // KeyboardButtonGame represents TL type `keyboardButtonGame#50f41ccf`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonGame for reference.
 type KeyboardButtonGame struct {
 	// Text field of KeyboardButtonGame.
 	Text string
@@ -425,6 +439,8 @@ var (
 )
 
 // KeyboardButtonBuy represents TL type `keyboardButtonBuy#afd93fbb`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonBuy for reference.
 type KeyboardButtonBuy struct {
 	// Text field of KeyboardButtonBuy.
 	Text string
@@ -473,6 +489,8 @@ var (
 )
 
 // KeyboardButtonUrlAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonUrlAuth for reference.
 type KeyboardButtonUrlAuth struct {
 	// Flags field of KeyboardButtonUrlAuth.
 	Flags bin.Fields
@@ -580,6 +598,8 @@ var (
 )
 
 // InputKeyboardButtonUrlAuth represents TL type `inputKeyboardButtonUrlAuth#d02e7fd4`.
+//
+// See https://core.telegram.org/constructor/inputKeyboardButtonUrlAuth for reference.
 type InputKeyboardButtonUrlAuth struct {
 	// Flags field of InputKeyboardButtonUrlAuth.
 	Flags bin.Fields
@@ -704,6 +724,8 @@ var (
 )
 
 // KeyboardButtonRequestPoll represents TL type `keyboardButtonRequestPoll#bbc7515d`.
+//
+// See https://core.telegram.org/constructor/keyboardButtonRequestPoll for reference.
 type KeyboardButtonRequestPoll struct {
 	// Flags field of KeyboardButtonRequestPoll.
 	Flags bin.Fields
@@ -774,6 +796,8 @@ var (
 )
 
 // KeyboardButtonClass represents KeyboardButton generic type.
+//
+// See https://core.telegram.org/type/KeyboardButton for reference.
 //
 // Example:
 //  g, err := DecodeKeyboardButton(buf)

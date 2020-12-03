@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DialogPeer represents TL type `dialogPeer#e56dbf05`.
+//
+// See https://core.telegram.org/constructor/dialogPeer for reference.
 type DialogPeer struct {
 	// Peer field of DialogPeer.
 	Peer PeerClass
@@ -68,6 +70,8 @@ var (
 )
 
 // DialogPeerFolder represents TL type `dialogPeerFolder#514519e2`.
+//
+// See https://core.telegram.org/constructor/dialogPeerFolder for reference.
 type DialogPeerFolder struct {
 	// FolderID field of DialogPeerFolder.
 	FolderID int
@@ -116,6 +120,8 @@ var (
 )
 
 // DialogPeerClass represents DialogPeer generic type.
+//
+// See https://core.telegram.org/type/DialogPeer for reference.
 //
 // Example:
 //  g, err := DecodeDialogPeer(buf)

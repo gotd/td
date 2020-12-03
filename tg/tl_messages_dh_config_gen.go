@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDhConfigNotModified represents TL type `messages.dhConfigNotModified#c0e24635`.
+//
+// See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
 	// Random field of MessagesDhConfigNotModified.
 	Random []byte
@@ -63,6 +65,8 @@ var (
 )
 
 // MessagesDhConfig represents TL type `messages.dhConfig#2c221edd`.
+//
+// See https://core.telegram.org/constructor/messages.dhConfig for reference.
 type MessagesDhConfig struct {
 	// G field of MessagesDhConfig.
 	G int
@@ -141,6 +145,8 @@ var (
 )
 
 // MessagesDhConfigClass represents messages.DhConfig generic type.
+//
+// See https://core.telegram.org/type/messages.DhConfig for reference.
 //
 // Example:
 //  g, err := DecodeMessagesDhConfig(buf)

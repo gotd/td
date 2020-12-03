@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsTopPeersNotModified represents TL type `contacts.topPeersNotModified#de266ef5`.
+//
+// See https://core.telegram.org/constructor/contacts.topPeersNotModified for reference.
 type ContactsTopPeersNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ContactsTopPeers represents TL type `contacts.topPeers#70b772a8`.
+//
+// See https://core.telegram.org/constructor/contacts.topPeers for reference.
 type ContactsTopPeers struct {
 	// Categories field of ContactsTopPeers.
 	Categories []TopPeerCategoryPeers
@@ -160,6 +164,8 @@ var (
 )
 
 // ContactsTopPeersDisabled represents TL type `contacts.topPeersDisabled#b52c939d`.
+//
+// See https://core.telegram.org/constructor/contacts.topPeersDisabled for reference.
 type ContactsTopPeersDisabled struct {
 }
 
@@ -198,6 +204,8 @@ var (
 )
 
 // ContactsTopPeersClass represents contacts.TopPeers generic type.
+//
+// See https://core.telegram.org/type/contacts.TopPeers for reference.
 //
 // Example:
 //  g, err := DecodeContactsTopPeers(buf)

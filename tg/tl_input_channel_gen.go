@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputChannelEmpty represents TL type `inputChannelEmpty#ee8c1e86`.
+//
+// See https://core.telegram.org/constructor/inputChannelEmpty for reference.
 type InputChannelEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputChannel represents TL type `inputChannel#afeb712e`.
+//
+// See https://core.telegram.org/constructor/inputChannel for reference.
 type InputChannel struct {
 	// ChannelID field of InputChannel.
 	ChannelID int
@@ -111,6 +115,8 @@ var (
 )
 
 // InputChannelFromMessage represents TL type `inputChannelFromMessage#2a286531`.
+//
+// See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
 	// Peer field of InputChannelFromMessage.
 	Peer InputPeerClass
@@ -184,6 +190,8 @@ var (
 )
 
 // InputChannelClass represents InputChannel generic type.
+//
+// See https://core.telegram.org/type/InputChannel for reference.
 //
 // Example:
 //  g, err := DecodeInputChannel(buf)

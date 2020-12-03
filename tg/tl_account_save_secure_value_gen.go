@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSaveSecureValueRequest represents TL type `account.saveSecureValue#899fe31d`.
+//
+// See https://core.telegram.org/method/account.saveSecureValue for reference.
 type AccountSaveSecureValueRequest struct {
 	// Value field of AccountSaveSecureValueRequest.
 	Value InputSecureValue
@@ -68,6 +70,8 @@ var (
 )
 
 // AccountSaveSecureValue invokes method account.saveSecureValue#899fe31d returning error if any.
+//
+// See https://core.telegram.org/method/account.saveSecureValue for reference.
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {
 	var result SecureValue
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

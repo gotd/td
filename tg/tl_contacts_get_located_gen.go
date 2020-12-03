@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetLocatedRequest represents TL type `contacts.getLocated#d348bc44`.
+//
+// See https://core.telegram.org/method/contacts.getLocated for reference.
 type ContactsGetLocatedRequest struct {
 	// Flags field of ContactsGetLocatedRequest.
 	Flags bin.Fields
@@ -114,6 +116,8 @@ var (
 )
 
 // ContactsGetLocated invokes method contacts.getLocated#d348bc44 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.getLocated for reference.
 func (c *Client) ContactsGetLocated(ctx context.Context, request *ContactsGetLocatedRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

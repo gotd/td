@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#89f30f69`.
+//
+// See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 type PhotosUploadProfilePhotoRequest struct {
 	// Flags field of PhotosUploadProfilePhotoRequest.
 	Flags bin.Fields
@@ -155,6 +157,8 @@ var (
 )
 
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.
+//
+// See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 func (c *Client) PhotosUploadProfilePhoto(ctx context.Context, request *PhotosUploadProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

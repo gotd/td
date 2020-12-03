@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetEncryptedTypingRequest represents TL type `messages.setEncryptedTyping#791451ed`.
+//
+// See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 type MessagesSetEncryptedTypingRequest struct {
 	// Peer field of MessagesSetEncryptedTypingRequest.
 	Peer InputEncryptedChat
@@ -68,6 +70,8 @@ var (
 )
 
 // MessagesSetEncryptedTyping invokes method messages.setEncryptedTyping#791451ed returning error if any.
+//
+// See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 func (c *Client) MessagesSetEncryptedTyping(ctx context.Context, request *MessagesSetEncryptedTypingRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

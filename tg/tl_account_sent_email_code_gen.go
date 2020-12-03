@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSentEmailCode represents TL type `account.sentEmailCode#811f854f`.
+//
+// See https://core.telegram.org/constructor/account.sentEmailCode for reference.
 type AccountSentEmailCode struct {
 	// EmailPattern field of AccountSentEmailCode.
 	EmailPattern string

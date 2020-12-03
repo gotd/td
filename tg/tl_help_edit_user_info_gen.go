@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpEditUserInfoRequest represents TL type `help.editUserInfo#66b91b70`.
+//
+// See https://core.telegram.org/method/help.editUserInfo for reference.
 type HelpEditUserInfoRequest struct {
 	// UserID field of HelpEditUserInfoRequest.
 	UserID InputUserClass
@@ -97,6 +99,8 @@ var (
 )
 
 // HelpEditUserInfo invokes method help.editUserInfo#66b91b70 returning error if any.
+//
+// See https://core.telegram.org/method/help.editUserInfo for reference.
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
+//
+// See https://core.telegram.org/method/contacts.addContact for reference.
 type ContactsAddContactRequest struct {
 	// Flags field of ContactsAddContactRequest.
 	Flags bin.Fields
@@ -115,6 +117,8 @@ var (
 )
 
 // ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.addContact for reference.
 func (c *Client) ContactsAddContact(ctx context.Context, request *ContactsAddContactRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

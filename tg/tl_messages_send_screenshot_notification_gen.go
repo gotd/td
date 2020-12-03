@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#c97df020`.
+//
+// See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 type MessagesSendScreenshotNotificationRequest struct {
 	// Peer field of MessagesSendScreenshotNotificationRequest.
 	Peer InputPeerClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 func (c *Client) MessagesSendScreenshotNotification(ctx context.Context, request *MessagesSendScreenshotNotificationRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

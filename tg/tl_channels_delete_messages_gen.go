@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteMessagesRequest represents TL type `channels.deleteMessages#84c1fd4e`.
+//
+// See https://core.telegram.org/method/channels.deleteMessages for reference.
 type ChannelsDeleteMessagesRequest struct {
 	// Channel field of ChannelsDeleteMessagesRequest.
 	Channel InputChannelClass
@@ -82,6 +84,8 @@ var (
 )
 
 // ChannelsDeleteMessages invokes method channels.deleteMessages#84c1fd4e returning error if any.
+//
+// See https://core.telegram.org/method/channels.deleteMessages for reference.
 func (c *Client) ChannelsDeleteMessages(ctx context.Context, request *ChannelsDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

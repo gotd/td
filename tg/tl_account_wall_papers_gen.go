@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
+//
+// See https://core.telegram.org/constructor/account.wallPapersNotModified for reference.
 type AccountWallPapersNotModified struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // AccountWallPapers represents TL type `account.wallPapers#702b65a9`.
+//
+// See https://core.telegram.org/constructor/account.wallPapers for reference.
 type AccountWallPapers struct {
 	// Hash field of AccountWallPapers.
 	Hash int
@@ -125,6 +129,8 @@ var (
 )
 
 // AccountWallPapersClass represents account.WallPapers generic type.
+//
+// See https://core.telegram.org/type/account.WallPapers for reference.
 //
 // Example:
 //  g, err := DecodeAccountWallPapers(buf)

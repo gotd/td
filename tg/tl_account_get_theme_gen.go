@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetThemeRequest represents TL type `account.getTheme#8d9d742b`.
+//
+// See https://core.telegram.org/method/account.getTheme for reference.
 type AccountGetThemeRequest struct {
 	// Format field of AccountGetThemeRequest.
 	Format string
@@ -83,6 +85,8 @@ var (
 )
 
 // AccountGetTheme invokes method account.getTheme#8d9d742b returning error if any.
+//
+// See https://core.telegram.org/method/account.getTheme for reference.
 func (c *Client) AccountGetTheme(ctx context.Context, request *AccountGetThemeRequest) (*Theme, error) {
 	var result Theme
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

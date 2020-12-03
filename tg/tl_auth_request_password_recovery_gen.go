@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthRequestPasswordRecoveryRequest represents TL type `auth.requestPasswordRecovery#d897bc66`.
+//
+// See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 type AuthRequestPasswordRecoveryRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // AuthRequestPasswordRecovery invokes method auth.requestPasswordRecovery#d897bc66 returning error if any.
+//
+// See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 func (c *Client) AuthRequestPasswordRecovery(ctx context.Context, request *AuthRequestPasswordRecoveryRequest) (*AuthPasswordRecovery, error) {
 	var result AuthPasswordRecovery
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

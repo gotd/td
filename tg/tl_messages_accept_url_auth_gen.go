@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
+//
+// See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
 type MessagesAcceptUrlAuthRequest struct {
 	// Flags field of MessagesAcceptUrlAuthRequest.
 	Flags bin.Fields
@@ -105,6 +107,8 @@ var (
 )
 
 // MessagesAcceptUrlAuth invokes method messages.acceptUrlAuth#f729ea98 returning error if any.
+//
+// See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
 func (c *Client) MessagesAcceptUrlAuth(ctx context.Context, request *MessagesAcceptUrlAuthRequest) (UrlAuthResultClass, error) {
 	var result UrlAuthResultBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetBotPrecheckoutResultsRequest represents TL type `messages.setBotPrecheckoutResults#9c2dd95`.
+//
+// See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 type MessagesSetBotPrecheckoutResultsRequest struct {
 	// Flags field of MessagesSetBotPrecheckoutResultsRequest.
 	Flags bin.Fields
@@ -109,6 +111,8 @@ var (
 )
 
 // MessagesSetBotPrecheckoutResults invokes method messages.setBotPrecheckoutResults#9c2dd95 returning error if any.
+//
+// See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 func (c *Client) MessagesSetBotPrecheckoutResults(ctx context.Context, request *MessagesSetBotPrecheckoutResultsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

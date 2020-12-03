@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotsSetBotCommandsRequest represents TL type `bots.setBotCommands#805d46f6`.
+//
+// See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
 	// Commands field of BotsSetBotCommandsRequest.
 	Commands []BotCommand
@@ -69,6 +71,8 @@ var (
 )
 
 // BotsSetBotCommands invokes method bots.setBotCommands#805d46f6 returning error if any.
+//
+// See https://core.telegram.org/method/bots.setBotCommands for reference.
 func (c *Client) BotsSetBotCommands(ctx context.Context, request *BotsSetBotCommandsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

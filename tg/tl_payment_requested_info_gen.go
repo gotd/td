@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentRequestedInfo represents TL type `paymentRequestedInfo#909c3f94`.
+//
+// See https://core.telegram.org/constructor/paymentRequestedInfo for reference.
 type PaymentRequestedInfo struct {
 	// Flags field of PaymentRequestedInfo.
 	Flags bin.Fields

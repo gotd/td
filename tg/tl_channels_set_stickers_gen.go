@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsSetStickersRequest represents TL type `channels.setStickers#ea8ca4f9`.
+//
+// See https://core.telegram.org/method/channels.setStickers for reference.
 type ChannelsSetStickersRequest struct {
 	// Channel field of ChannelsSetStickersRequest.
 	Channel InputChannelClass
@@ -78,6 +80,8 @@ var (
 )
 
 // ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.
+//
+// See https://core.telegram.org/method/channels.setStickers for reference.
 func (c *Client) ChannelsSetStickers(ctx context.Context, request *ChannelsSetStickersRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

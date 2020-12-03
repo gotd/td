@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
+//
+// See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
 	// Imported field of ContactsImportedContacts.
 	Imported []ImportedContact

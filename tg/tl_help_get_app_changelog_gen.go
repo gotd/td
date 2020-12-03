@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetAppChangelogRequest represents TL type `help.getAppChangelog#9010ef6f`.
+//
+// See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
 	// PrevAppVersion field of HelpGetAppChangelogRequest.
 	PrevAppVersion string
@@ -58,6 +60,8 @@ var (
 )
 
 // HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.
+//
+// See https://core.telegram.org/method/help.getAppChangelog for reference.
 func (c *Client) HelpGetAppChangelog(ctx context.Context, request *HelpGetAppChangelogRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

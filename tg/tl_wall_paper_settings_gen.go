@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WallPaperSettings represents TL type `wallPaperSettings#5086cf8`.
+//
+// See https://core.telegram.org/constructor/wallPaperSettings for reference.
 type WallPaperSettings struct {
 	// Flags field of WallPaperSettings.
 	Flags bin.Fields

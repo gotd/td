@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadFeaturedStickersRequest represents TL type `messages.readFeaturedStickers#5b118126`.
+//
+// See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 type MessagesReadFeaturedStickersRequest struct {
 	// ID field of MessagesReadFeaturedStickersRequest.
 	ID []int64
@@ -67,6 +69,8 @@ var (
 )
 
 // MessagesReadFeaturedStickers invokes method messages.readFeaturedStickers#5b118126 returning error if any.
+//
+// See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 func (c *Client) MessagesReadFeaturedStickers(ctx context.Context, request *MessagesReadFeaturedStickersRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

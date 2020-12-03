@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPollVotesRequest represents TL type `messages.getPollVotes#b86e380e`.
+//
+// See https://core.telegram.org/method/messages.getPollVotes for reference.
 type MessagesGetPollVotesRequest struct {
 	// Flags field of MessagesGetPollVotesRequest.
 	Flags bin.Fields
@@ -151,6 +153,8 @@ var (
 )
 
 // MessagesGetPollVotes invokes method messages.getPollVotes#b86e380e returning error if any.
+//
+// See https://core.telegram.org/method/messages.getPollVotes for reference.
 func (c *Client) MessagesGetPollVotes(ctx context.Context, request *MessagesGetPollVotesRequest) (*MessagesVotesList, error) {
 	var result MessagesVotesList
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

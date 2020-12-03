@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FileHash represents TL type `fileHash#6242c773`.
+//
+// See https://core.telegram.org/constructor/fileHash for reference.
 type FileHash struct {
 	// Offset field of FileHash.
 	Offset int

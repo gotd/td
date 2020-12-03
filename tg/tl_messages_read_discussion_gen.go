@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadDiscussionRequest represents TL type `messages.readDiscussion#f731a9f4`.
+//
+// See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
 	// Peer field of MessagesReadDiscussionRequest.
 	Peer InputPeerClass
@@ -83,6 +85,8 @@ var (
 )
 
 // MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.
+//
+// See https://core.telegram.org/method/messages.readDiscussion for reference.
 func (c *Client) MessagesReadDiscussion(ctx context.Context, request *MessagesReadDiscussionRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

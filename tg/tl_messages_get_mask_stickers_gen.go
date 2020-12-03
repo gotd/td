@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMaskStickersRequest represents TL type `messages.getMaskStickers#65b8c79f`.
+//
+// See https://core.telegram.org/method/messages.getMaskStickers for reference.
 type MessagesGetMaskStickersRequest struct {
 	// Hash field of MessagesGetMaskStickersRequest.
 	Hash int
@@ -58,6 +60,8 @@ var (
 )
 
 // MessagesGetMaskStickers invokes method messages.getMaskStickers#65b8c79f returning error if any.
+//
+// See https://core.telegram.org/method/messages.getMaskStickers for reference.
 func (c *Client) MessagesGetMaskStickers(ctx context.Context, request *MessagesGetMaskStickersRequest) (MessagesAllStickersClass, error) {
 	var result MessagesAllStickersBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPollResultsRequest represents TL type `messages.getPollResults#73bb643b`.
+//
+// See https://core.telegram.org/method/messages.getPollResults for reference.
 type MessagesGetPollResultsRequest struct {
 	// Peer field of MessagesGetPollResultsRequest.
 	Peer InputPeerClass
@@ -73,6 +75,8 @@ var (
 )
 
 // MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.
+//
+// See https://core.telegram.org/method/messages.getPollResults for reference.
 func (c *Client) MessagesGetPollResults(ctx context.Context, request *MessagesGetPollResultsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetAppConfigRequest represents TL type `help.getAppConfig#98914110`.
+//
+// See https://core.telegram.org/method/help.getAppConfig for reference.
 type HelpGetAppConfigRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.
+//
+// See https://core.telegram.org/method/help.getAppConfig for reference.
 func (c *Client) HelpGetAppConfig(ctx context.Context, request *HelpGetAppConfigRequest) (JSONValueClass, error) {
 	var result JSONValueBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

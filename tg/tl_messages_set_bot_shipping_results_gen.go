@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
+//
+// See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 type MessagesSetBotShippingResultsRequest struct {
 	// Flags field of MessagesSetBotShippingResultsRequest.
 	Flags bin.Fields
@@ -137,6 +139,8 @@ var (
 )
 
 // MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
+//
+// See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

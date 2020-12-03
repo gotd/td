@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelLocationEmpty represents TL type `channelLocationEmpty#bfb5ad8b`.
+//
+// See https://core.telegram.org/constructor/channelLocationEmpty for reference.
 type ChannelLocationEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // ChannelLocation represents TL type `channelLocation#209b82db`.
+//
+// See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
 	// GeoPoint field of ChannelLocation.
 	GeoPoint GeoPointClass
@@ -116,6 +120,8 @@ var (
 )
 
 // ChannelLocationClass represents ChannelLocation generic type.
+//
+// See https://core.telegram.org/type/ChannelLocation for reference.
 //
 // Example:
 //  g, err := DecodeChannelLocation(buf)

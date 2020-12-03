@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerSettings represents TL type `peerSettings#733f2961`.
+//
+// See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {
 	// Flags field of PeerSettings.
 	Flags bin.Fields

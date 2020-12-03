@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecurePlainPhone represents TL type `securePlainPhone#7d6099dd`.
+//
+// See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
 	// Phone field of SecurePlainPhone.
 	Phone string
@@ -63,6 +65,8 @@ var (
 )
 
 // SecurePlainEmail represents TL type `securePlainEmail#21ec5a5f`.
+//
+// See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
 	// Email field of SecurePlainEmail.
 	Email string
@@ -111,6 +115,8 @@ var (
 )
 
 // SecurePlainDataClass represents SecurePlainData generic type.
+//
+// See https://core.telegram.org/type/SecurePlainData for reference.
 //
 // Example:
 //  g, err := DecodeSecurePlainData(buf)

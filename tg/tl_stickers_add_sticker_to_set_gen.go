@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
+//
+// See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
 	// Stickerset field of StickersAddStickerToSetRequest.
 	Stickerset InputStickerSetClass
@@ -73,6 +75,8 @@ var (
 )
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
+//
+// See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

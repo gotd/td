@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputChatPhotoEmpty represents TL type `inputChatPhotoEmpty#1ca48f57`.
+//
+// See https://core.telegram.org/constructor/inputChatPhotoEmpty for reference.
 type InputChatPhotoEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#c642724e`.
+//
+// See https://core.telegram.org/constructor/inputChatUploadedPhoto for reference.
 type InputChatUploadedPhoto struct {
 	// Flags field of InputChatUploadedPhoto.
 	Flags bin.Fields
@@ -198,6 +202,8 @@ var (
 )
 
 // InputChatPhoto represents TL type `inputChatPhoto#8953ad37`.
+//
+// See https://core.telegram.org/constructor/inputChatPhoto for reference.
 type InputChatPhoto struct {
 	// ID field of InputChatPhoto.
 	ID InputPhotoClass
@@ -251,6 +257,8 @@ var (
 )
 
 // InputChatPhotoClass represents InputChatPhoto generic type.
+//
+// See https://core.telegram.org/type/InputChatPhoto for reference.
 //
 // Example:
 //  g, err := DecodeInputChatPhoto(buf)

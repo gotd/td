@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetLeftChannelsRequest represents TL type `channels.getLeftChannels#8341ecc0`.
+//
+// See https://core.telegram.org/method/channels.getLeftChannels for reference.
 type ChannelsGetLeftChannelsRequest struct {
 	// Offset field of ChannelsGetLeftChannelsRequest.
 	Offset int
@@ -58,6 +60,8 @@ var (
 )
 
 // ChannelsGetLeftChannels invokes method channels.getLeftChannels#8341ecc0 returning error if any.
+//
+// See https://core.telegram.org/method/channels.getLeftChannels for reference.
 func (c *Client) ChannelsGetLeftChannels(ctx context.Context, request *ChannelsGetLeftChannelsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

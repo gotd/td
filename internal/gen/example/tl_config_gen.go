@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Config represents TL type `config#330b4067`.
+//
+// See https://localhost:80/doc/constructor/config for reference.
 type Config struct {
 	// Flags field of Config.
 	Flags bin.Fields

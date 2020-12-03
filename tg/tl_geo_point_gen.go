@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // GeoPointEmpty represents TL type `geoPointEmpty#1117dd5f`.
+//
+// See https://core.telegram.org/constructor/geoPointEmpty for reference.
 type GeoPointEmpty struct {
 }
 
@@ -53,6 +55,8 @@ var (
 )
 
 // GeoPoint represents TL type `geoPoint#b2a2f663`.
+//
+// See https://core.telegram.org/constructor/geoPoint for reference.
 type GeoPoint struct {
 	// Flags field of GeoPoint.
 	Flags bin.Fields
@@ -160,6 +164,8 @@ var (
 )
 
 // GeoPointClass represents GeoPoint generic type.
+//
+// See https://core.telegram.org/type/GeoPoint for reference.
 //
 // Example:
 //  g, err := DecodeGeoPoint(buf)

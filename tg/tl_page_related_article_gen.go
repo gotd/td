@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageRelatedArticle represents TL type `pageRelatedArticle#b390dc08`.
+//
+// See https://core.telegram.org/constructor/pageRelatedArticle for reference.
 type PageRelatedArticle struct {
 	// Flags field of PageRelatedArticle.
 	Flags bin.Fields

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendEncryptedRequest represents TL type `messages.sendEncrypted#44fa7a15`.
+//
+// See https://core.telegram.org/method/messages.sendEncrypted for reference.
 type MessagesSendEncryptedRequest struct {
 	// Flags field of MessagesSendEncryptedRequest.
 	Flags bin.Fields
@@ -100,6 +102,8 @@ var (
 )
 
 // MessagesSendEncrypted invokes method messages.sendEncrypted#44fa7a15 returning error if any.
+//
+// See https://core.telegram.org/method/messages.sendEncrypted for reference.
 func (c *Client) MessagesSendEncrypted(ctx context.Context, request *MessagesSendEncryptedRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUploadThemeRequest represents TL type `account.uploadTheme#1c3db333`.
+//
+// See https://core.telegram.org/method/account.uploadTheme for reference.
 type AccountUploadThemeRequest struct {
 	// Flags field of AccountUploadThemeRequest.
 	Flags bin.Fields
@@ -127,6 +129,8 @@ var (
 )
 
 // AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.
+//
+// See https://core.telegram.org/method/account.uploadTheme for reference.
 func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {
 	var result DocumentBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

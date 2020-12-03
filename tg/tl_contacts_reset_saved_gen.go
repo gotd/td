@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsResetSavedRequest represents TL type `contacts.resetSaved#879537f1`.
+//
+// See https://core.telegram.org/method/contacts.resetSaved for reference.
 type ContactsResetSavedRequest struct {
 }
 
@@ -48,6 +50,8 @@ var (
 )
 
 // ContactsResetSaved invokes method contacts.resetSaved#879537f1 returning error if any.
+//
+// See https://core.telegram.org/method/contacts.resetSaved for reference.
 func (c *Client) ContactsResetSaved(ctx context.Context, request *ContactsResetSavedRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

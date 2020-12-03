@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelAdminLogEventActionChangeTitle represents TL type `channelAdminLogEventActionChangeTitle#e6dfb825`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle for reference.
 type ChannelAdminLogEventActionChangeTitle struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeTitle.
 	PrevValue string
@@ -73,6 +75,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeAbout represents TL type `channelAdminLogEventActionChangeAbout#55188a2e`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout for reference.
 type ChannelAdminLogEventActionChangeAbout struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeAbout.
 	PrevValue string
@@ -131,6 +135,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeUsername represents TL type `channelAdminLogEventActionChangeUsername#6a4afc38`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername for reference.
 type ChannelAdminLogEventActionChangeUsername struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeUsername.
 	PrevValue string
@@ -191,6 +197,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangePhoto represents TL type `channelAdminLogEventActionChangePhoto#434bd2af`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto for reference.
 type ChannelAdminLogEventActionChangePhoto struct {
 	// PrevPhoto field of ChannelAdminLogEventActionChangePhoto.
 	PrevPhoto PhotoClass
@@ -259,6 +267,8 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleInvites represents TL type `channelAdminLogEventActionToggleInvites#1b7907ae`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites for reference.
 type ChannelAdminLogEventActionToggleInvites struct {
 	// NewValue field of ChannelAdminLogEventActionToggleInvites.
 	NewValue bool
@@ -309,6 +319,8 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleSignatures represents TL type `channelAdminLogEventActionToggleSignatures#26ae0971`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures for reference.
 type ChannelAdminLogEventActionToggleSignatures struct {
 	// NewValue field of ChannelAdminLogEventActionToggleSignatures.
 	NewValue bool
@@ -359,6 +371,8 @@ var (
 )
 
 // ChannelAdminLogEventActionUpdatePinned represents TL type `channelAdminLogEventActionUpdatePinned#e9e82c18`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned for reference.
 type ChannelAdminLogEventActionUpdatePinned struct {
 	// Message field of ChannelAdminLogEventActionUpdatePinned.
 	Message MessageClass
@@ -414,6 +428,8 @@ var (
 )
 
 // ChannelAdminLogEventActionEditMessage represents TL type `channelAdminLogEventActionEditMessage#709b2405`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage for reference.
 type ChannelAdminLogEventActionEditMessage struct {
 	// PrevMessage field of ChannelAdminLogEventActionEditMessage.
 	PrevMessage MessageClass
@@ -482,6 +498,8 @@ var (
 )
 
 // ChannelAdminLogEventActionDeleteMessage represents TL type `channelAdminLogEventActionDeleteMessage#42e047bb`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage for reference.
 type ChannelAdminLogEventActionDeleteMessage struct {
 	// Message field of ChannelAdminLogEventActionDeleteMessage.
 	Message MessageClass
@@ -537,6 +555,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantJoin represents TL type `channelAdminLogEventActionParticipantJoin#183040d3`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin for reference.
 type ChannelAdminLogEventActionParticipantJoin struct {
 }
 
@@ -577,6 +597,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantLeave represents TL type `channelAdminLogEventActionParticipantLeave#f89777f2`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave for reference.
 type ChannelAdminLogEventActionParticipantLeave struct {
 }
 
@@ -617,6 +639,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantInvite represents TL type `channelAdminLogEventActionParticipantInvite#e31c34d8`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite for reference.
 type ChannelAdminLogEventActionParticipantInvite struct {
 	// Participant field of ChannelAdminLogEventActionParticipantInvite.
 	Participant ChannelParticipantClass
@@ -672,6 +696,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleBan represents TL type `channelAdminLogEventActionParticipantToggleBan#e6d83d7e`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
 	// PrevParticipant field of ChannelAdminLogEventActionParticipantToggleBan.
 	PrevParticipant ChannelParticipantClass
@@ -742,6 +768,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleAdmin represents TL type `channelAdminLogEventActionParticipantToggleAdmin#d5676710`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 	// PrevParticipant field of ChannelAdminLogEventActionParticipantToggleAdmin.
 	PrevParticipant ChannelParticipantClass
@@ -812,6 +840,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeStickerSet represents TL type `channelAdminLogEventActionChangeStickerSet#b1c3caa7`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet for reference.
 type ChannelAdminLogEventActionChangeStickerSet struct {
 	// PrevStickerset field of ChannelAdminLogEventActionChangeStickerSet.
 	PrevStickerset InputStickerSetClass
@@ -882,6 +912,8 @@ var (
 )
 
 // ChannelAdminLogEventActionTogglePreHistoryHidden represents TL type `channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 	// NewValue field of ChannelAdminLogEventActionTogglePreHistoryHidden.
 	NewValue bool
@@ -932,6 +964,8 @@ var (
 )
 
 // ChannelAdminLogEventActionDefaultBannedRights represents TL type `channelAdminLogEventActionDefaultBannedRights#2df5fc0a`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights for reference.
 type ChannelAdminLogEventActionDefaultBannedRights struct {
 	// PrevBannedRights field of ChannelAdminLogEventActionDefaultBannedRights.
 	PrevBannedRights ChatBannedRights
@@ -992,6 +1026,8 @@ var (
 )
 
 // ChannelAdminLogEventActionStopPoll represents TL type `channelAdminLogEventActionStopPoll#8f079643`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionStopPoll for reference.
 type ChannelAdminLogEventActionStopPoll struct {
 	// Message field of ChannelAdminLogEventActionStopPoll.
 	Message MessageClass
@@ -1045,6 +1081,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeLinkedChat represents TL type `channelAdminLogEventActionChangeLinkedChat#a26f881b`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeLinkedChat.
 	PrevValue int
@@ -1105,6 +1143,8 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeLocation represents TL type `channelAdminLogEventActionChangeLocation#e6b76ae`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation for reference.
 type ChannelAdminLogEventActionChangeLocation struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeLocation.
 	PrevValue ChannelLocationClass
@@ -1175,6 +1215,8 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleSlowMode represents TL type `channelAdminLogEventActionToggleSlowMode#53909779`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
 	// PrevValue field of ChannelAdminLogEventActionToggleSlowMode.
 	PrevValue int
@@ -1235,6 +1277,8 @@ var (
 )
 
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
+//
+// See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
 //
 // Example:
 //  g, err := DecodeChannelAdminLogEventAction(buf)

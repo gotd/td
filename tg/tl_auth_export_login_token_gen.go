@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
+//
+// See https://core.telegram.org/method/auth.exportLoginToken for reference.
 type AuthExportLoginTokenRequest struct {
 	// APIID field of AuthExportLoginTokenRequest.
 	APIID int
@@ -87,6 +89,8 @@ var (
 )
 
 // AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.
+//
+// See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {
 	var result AuthLoginTokenBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

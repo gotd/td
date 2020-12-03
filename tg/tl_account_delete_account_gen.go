@@ -15,6 +15,8 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
+//
+// See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
 	// Reason field of AccountDeleteAccountRequest.
 	Reason string
@@ -58,6 +60,8 @@ var (
 )
 
 // AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.
+//
+// See https://core.telegram.org/method/account.deleteAccount for reference.
 func (c *Client) AccountDeleteAccount(ctx context.Context, request *AccountDeleteAccountRequest) (BoolClass, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
