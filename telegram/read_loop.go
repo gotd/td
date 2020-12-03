@@ -148,6 +148,7 @@ func (c *Client) readLoop(ctx context.Context) {
 		if errors.Is(err, io.EOF) {
 			// Nothing was received.
 			c.log.Debug("EOF")
+			// TODO: (ernado): reconnect here
 			continue
 		}
 
