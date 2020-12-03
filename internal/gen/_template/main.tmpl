@@ -4,6 +4,10 @@
 
 {{ range $s:= $.Structs }}
 // {{ $s.Comment }}
+{{- if $s.URL }}
+//
+// See {{ $s.URL }} for reference.
+{{- end }}
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
     // {{ $f.Comment }}
@@ -208,6 +212,10 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 
 {{- if $s.Method }}
 // {{ $s.Method }} invokes method {{ $s.RawType }} returning error if any.
+{{- if $s.URL }}
+//
+// See {{ $s.URL }} for reference.
+{{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}
 func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) (*{{ $s.Result }}, error) {
@@ -241,6 +249,10 @@ func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) er
 {{ range $f:= $.Interfaces }}
 // {{ $f.Name }} represents {{ $f.RawType }} generic type.
 //
+{{- if $f.URL }}
+// See {{ $f.URL }} for reference.
+//
+{{- end }}
 // Example:
 //  g, err := Decode{{ $f.Func }}(buf)
 //  if err != nil {

@@ -16,6 +16,7 @@ type interfaceDef struct {
 	Func         string      `validate:"required"`
 	Namespace    []string    `validate:"required"`
 	BaseName     string      `validate:"required"`
+	URL          string      `validate:"omitempty"`
 }
 
 func (g *Generator) makeInterfaces() error {
@@ -33,6 +34,7 @@ func (g *Generator) makeInterfaces() error {
 			Func:      c.Func,
 			BaseName:  c.BaseName,
 			RawType:   c.RawType,
+			URL:       g.docURL("type", c.RawType),
 		}
 		for _, s := range g.structs {
 			if s.Interface != def.Name {

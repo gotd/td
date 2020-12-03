@@ -47,6 +47,11 @@ type structDef struct {
 	Namespace []string
 	// BaseName for file structure generation.
 	BaseName string
+
+	// URL to documentation.
+	// Like https://core.telegram.org/method/account.getPrivacy
+	// Or https://core.telegram.org/constructor/account.privacyRules
+	URL string
 }
 
 type bindingDef struct {
@@ -84,6 +89,11 @@ func (g *Generator) makeStructures() error {
 
 			Method: t.Method,
 		}
+		if g.docBase != nil {
+			// Assuming constructor by default.
+			s.URL = g.docURL("constructor", typeKey)
+		}
+
 		// Selecting receiver based on non-namespaced type.
 		s.Receiver = strings.ToLower(d.Name[:1])
 		if s.Receiver == "b" {
@@ -113,6 +123,7 @@ func (g *Generator) makeStructures() error {
 				s.ResultSingular = class.Singular
 				s.ResultBaseName = class.BaseName
 				s.ResultFunc = class.Func
+				s.URL = g.docURL("method", typeKey)
 			} else {
 				// Not implemented.
 				s.Method = ""

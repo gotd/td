@@ -34,6 +34,7 @@ func main() {
 	targetDir := flag.String("target", "td", "Path to target dir")
 	packageName := flag.String("package", "td", "Target package name")
 	performFormat := flag.Bool("format", true, "perform code formatting")
+	docBase := flag.String("doc", "", "base documentation url")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
 	flag.Parse()
 	if *schemaPath == "" {
@@ -80,7 +81,7 @@ func main() {
 		Root:   *targetDir,
 		Format: *performFormat,
 	}
-	g, err := gen.NewGenerator(schema)
+	g, err := gen.NewGenerator(schema, *docBase)
 	if err != nil {
 		panic(err)
 	}

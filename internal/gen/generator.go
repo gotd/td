@@ -2,6 +2,7 @@ package gen
 
 import (
 	"fmt"
+	"net/url"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
@@ -32,17 +33,31 @@ type Generator struct {
 	// interfaces definitions.
 	interfaces []interfaceDef
 
-	// registry of type ids
+	// registry of type ids.
 	registry []bindingDef
+
+	// docBase is base url for documentation.
+	docBase *url.URL
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
-func NewGenerator(s *tl.Schema) (*Generator, error) {
+//
+// The docBase value is base url for documentation, like:
+// 	* https://core.telegram.org/
+// If blank string provided, no documentation links are generated.
+func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 	g := &Generator{
 		schema:    s,
 		classes:   map[string]classBinding{},
 		types:     map[string]typeBinding{},
 		validator: validator.New(),
+	}
+	if docBase != "" {
+		u, err := url.Parse(docBase)
+		if err != nil {
+			return nil, xerrors.Errorf("failed to parse docBase: %w", err)
+		}
+		g.docBase = u
 	}
 	if err := g.makeBindings(); err != nil {
 		return nil, xerrors.Errorf("failed to make type bindings: %w", err)
