@@ -88,6 +88,10 @@ issues:
     - path: "intermediate\\.go"
       linters: [gochecknoglobals]
 
+    # Exclude go:generate from lll
+    - source: "//go:generate"
+      linters: [lll]
+
     # Disable linters that are annoying in tests.
     - path: _test\.go
       linters:
