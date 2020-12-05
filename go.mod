@@ -7,7 +7,7 @@ require (
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
 	github.com/go-openapi/inflect v0.19.0
 	github.com/go-playground/validator/v10 v10.4.1
-	github.com/gotd/getdoc v0.0.0-20201205191539-f6d6865ab423
+	github.com/gotd/getdoc v0.1.0
 	github.com/gotd/tl v0.2.0
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0

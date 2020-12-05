@@ -78,15 +78,6 @@ func (g *Generator) docMethod(k string) getdoc.Method {
 	return g.doc.Methods[k]
 }
 
-func trimDocs(docs []string) []string {
-	var out []string
-	for _, s := range docs {
-		s = strings.TrimSpace(s)
-		out = append(out, strings.Split(s, "\n")...)
-	}
-	return out
-}
-
 // makeStructures generates go structure definition representations.
 //
 // nolint:gocognit,gocyclo // TODO(ernado): simplify
@@ -125,7 +116,6 @@ func (g *Generator) makeStructures() error {
 		if t.Method != "" {
 			s.Docs = docMethod.Description
 		}
-		s.Docs = trimDocs(s.Docs)
 		if g.docBase != nil {
 			// Assuming constructor by default.
 			s.URL = g.docURL("constructor", typeKey)
