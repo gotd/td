@@ -30,6 +30,6 @@ func TestDial(t *testing.T) {
 	if err == nil {
 		t.Error("expected non-nil error")
 	} else if !strings.Contains(err.Error(), "nonce mismatch") {
-		t.Error("expected nonce mismatch")
+		t.Errorf("expected nonce mismatch, got: %v", err)
 	}
 }
