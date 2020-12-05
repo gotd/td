@@ -91,7 +91,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	if err := t.ExecuteTemplate(buf, "client", cfg); err != nil {
 		return err
 	}
-	if err := fs.WriteFile("tl_client.go", buf.Bytes()); err != nil {
+	if err := fs.WriteFile("tl_client_gen.go", buf.Bytes()); err != nil {
 		return err
 	}
 
