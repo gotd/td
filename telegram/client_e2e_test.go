@@ -14,7 +14,7 @@ func TestDial(t *testing.T) {
 	srv := tgtest.NewServer(nil)
 	defer srv.Close()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
 	defer cancel()
 
 	client, err := Dial(ctx, Options{
