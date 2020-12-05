@@ -8,6 +8,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/getdoc"
 	"github.com/gotd/tl"
 )
 
@@ -38,6 +39,7 @@ type Generator struct {
 
 	// docBase is base url for documentation.
 	docBase *url.URL
+	doc     *getdoc.Doc
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
@@ -58,6 +60,16 @@ func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 			return nil, xerrors.Errorf("failed to parse docBase: %w", err)
 		}
 		g.docBase = u
+
+		if u.Host == "core.telegram.org" {
+			// Using embedded documentation.
+			// TODO(ernado): Get actual layer
+			doc, err := getdoc.Load(getdoc.LayerLatest)
+			if err != nil {
+				return nil, xerrors.Errorf("failed to get documentation: %w", err)
+			}
+			g.doc = doc
+		}
 	}
 	if err := g.makeBindings(); err != nil {
 		return nil, xerrors.Errorf("failed to make type bindings: %w", err)

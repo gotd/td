@@ -4,6 +4,11 @@
 
 {{ range $s:= $.Structs }}
 // {{ $s.Comment }}
+{{- if $s.Docs }}
+{{- range $d:= $s.Docs }}
+// {{ trim $d }}
+{{- end }}
+{{- end }}
 {{- if $s.URL }}
 //
 // See {{ $s.URL }} for reference.
@@ -212,6 +217,11 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 
 {{- if $s.Method }}
 // {{ $s.Method }} invokes method {{ $s.RawType }} returning error if any.
+{{- if $s.Docs }}
+{{- range $d := $s.Docs }}
+// {{ trim $d }}
+{{- end }}
+{{- end }}
 {{- if $s.URL }}
 //
 // See {{ $s.URL }} for reference.

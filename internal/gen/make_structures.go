@@ -5,6 +5,8 @@ import (
 	"strings"
 
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/getdoc"
 )
 
 // structDef represents go structure definition.
@@ -52,6 +54,9 @@ type structDef struct {
 	// Like https://core.telegram.org/method/account.getPrivacy
 	// Or https://core.telegram.org/constructor/account.privacyRules
 	URL string
+
+	// Docs is comments from documentation.
+	Docs []string
 }
 
 type bindingDef struct {
@@ -59,12 +64,37 @@ type bindingDef struct {
 	Raw   string // raw tl type
 }
 
+func (g *Generator) docStruct(k string) getdoc.Constructor {
+	if g.doc == nil {
+		return getdoc.Constructor{}
+	}
+	return g.doc.Constructors[k]
+}
+
+func (g *Generator) docMethod(k string) getdoc.Method {
+	if g.doc == nil {
+		return getdoc.Method{}
+	}
+	return g.doc.Methods[k]
+}
+
+func trimDocs(docs []string) []string {
+	var out []string
+	for _, s := range docs {
+		s = strings.TrimSpace(s)
+		out = append(out, strings.Split(s, "\n")...)
+	}
+	return out
+}
+
 // makeStructures generates go structure definition representations.
 func (g *Generator) makeStructures() error {
 	for _, sd := range g.schema.Definitions {
 		var (
-			d       = sd.Definition
-			typeKey = definitionType(d)
+			d         = sd.Definition
+			typeKey   = definitionType(d)
+			docStruct = g.docStruct(typeKey)
+			docMethod = g.docMethod(typeKey)
 		)
 		t, ok := g.types[typeKey]
 		if !ok {
@@ -88,7 +118,12 @@ func (g *Generator) makeStructures() error {
 			InterfaceFunc: t.InterfaceFunc,
 
 			Method: t.Method,
+			Docs:   docStruct.Description,
 		}
+		if t.Method != "" {
+			s.Docs = docMethod.Description
+		}
+		s.Docs = trimDocs(s.Docs)
 		if g.docBase != nil {
 			// Assuming constructor by default.
 			s.URL = g.docURL("constructor", typeKey)
@@ -108,6 +143,12 @@ func (g *Generator) makeStructures() error {
 			f, err := g.makeField(param, sd.Annotations)
 			if err != nil {
 				return xerrors.Errorf("failed to make field %s: %w", param.Name, err)
+			}
+			if f.Comment == "" {
+				f.Comment = docMethod.Parameters[param.Name]
+			}
+			if f.Comment == "" {
+				f.Comment = docStruct.Fields[param.Name]
 			}
 			if f.Comment == "" {
 				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
