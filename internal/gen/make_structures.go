@@ -88,6 +88,8 @@ func trimDocs(docs []string) []string {
 }
 
 // makeStructures generates go structure definition representations.
+//
+// nolint:gocognit,gocyclo // TODO(ernado): simplify
 func (g *Generator) makeStructures() error {
 	for _, sd := range g.schema.Definitions {
 		var (
