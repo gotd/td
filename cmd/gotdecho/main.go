@@ -99,7 +99,6 @@ func run(ctx context.Context) error {
 	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
 	defer cancel()
 	client, err := telegram.Dial(dialCtx, telegram.Options{
-		Addr:   "149.154.167.50:443",
 		Logger: logger,
 		SessionStorage: &telegram.FileSessionStorage{
 			Path: path.Join(sessionDir, "session.json"),

@@ -39,8 +39,6 @@ directly.
 
 ```go
 client, err := telegram.Dial(ctx, telegram.Options{
-    Addr:   "149.154.167.40:443",
-
     // Grab these from https://my.telegram.org/apps.
     // Never share it or hardcode!
     AppID:   appID,

@@ -28,6 +28,14 @@ type UpdateClient interface {
 // UpdateHandler will be called on received updates from Telegram.
 type UpdateHandler func(ctx context.Context, c UpdateClient, u *tg.Updates) error
 
+// Available MTProto default server addresses.
+//
+// See https://my.telegram.org/apps.
+const (
+	AddrProduction = "149.154.167.50:443"
+	AddrTest       = "149.154.167.40:443"
+)
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
@@ -130,11 +138,6 @@ func (c *Client) AuthKey() crypto.AuthKey {
 type Options struct {
 	// Required options:
 
-	// PublicKeys of telegram.
-	PublicKeys []*rsa.PublicKey
-	// Addr to connect.
-	Addr string
-
 	// AppID is api_id of your application.
 	///
 	// Can be found on https://my.telegram.org/apps.
@@ -145,6 +148,16 @@ type Options struct {
 	AppHash string
 
 	// Optional:
+
+	// PublicKeys of telegram.
+	//
+	// If not provided, embedded public keys will be used.
+	PublicKeys []*rsa.PublicKey
+
+	// Addr to connect.
+	//
+	// If not provided, AddrProduction will be used by default.
+	Addr string
 
 	// Dialer to use. Default dialer will be used if not provided.
 	Dialer *net.Dialer
@@ -175,6 +188,9 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
+	}
+	if opt.Addr == "" {
+		opt.Addr = AddrProduction
 	}
 	if len(opt.PublicKeys) == 0 {
 		// Using public keys that are included with distribution if not
