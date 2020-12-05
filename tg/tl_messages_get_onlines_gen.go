@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetOnlinesRequest represents TL type `messages.getOnlines#6e2be050`.
+// Get count of online users in a chat
 //
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 type MessagesGetOnlinesRequest struct {
-	// Peer field of MessagesGetOnlinesRequest.
+	// The chat
 	Peer InputPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.
+// Get count of online users in a chat
 //
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 func (c *Client) MessagesGetOnlines(ctx context.Context, request *MessagesGetOnlinesRequest) (*ChatOnlines, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecurePlainPhone represents TL type `securePlainPhone#7d6099dd`.
+// Phone number to use in telegram passport: it must be verified, first ».
 //
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
-	// Phone field of SecurePlainPhone.
+	// Phone number
 	Phone string
 }
 
@@ -65,10 +66,11 @@ var (
 )
 
 // SecurePlainEmail represents TL type `securePlainEmail#21ec5a5f`.
+// Email address to use in telegram passport: it must be verified, first ».
 //
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
-	// Email field of SecurePlainEmail.
+	// Email address
 	Email string
 }
 

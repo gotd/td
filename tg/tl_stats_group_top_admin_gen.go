@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#6014f412`.
+// Information about an active admin in a supergroup
 //
 // See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
-	// UserID field of StatsGroupTopAdmin.
+	// User ID
 	UserID int
-	// Deleted field of StatsGroupTopAdmin.
+	// Number of deleted messages for statistics period in consideration
 	Deleted int
-	// Kicked field of StatsGroupTopAdmin.
+	// Number of kicked users for statistics period in consideration
 	Kicked int
-	// Banned field of StatsGroupTopAdmin.
+	// Number of banned users for statistics period in consideration
 	Banned int
 }
 

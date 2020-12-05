@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUpdateDialogFiltersOrderRequest represents TL type `messages.updateDialogFiltersOrder#c563c1e4`.
+// Reorder folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFiltersOrder for reference.
 type MessagesUpdateDialogFiltersOrderRequest struct {
-	// Order field of MessagesUpdateDialogFiltersOrderRequest.
+	// New folder order
 	Order []int
 }
 
@@ -69,6 +70,7 @@ var (
 )
 
 // MessagesUpdateDialogFiltersOrder invokes method messages.updateDialogFiltersOrder#c563c1e4 returning error if any.
+// Reorder folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFiltersOrder for reference.
 func (c *Client) MessagesUpdateDialogFiltersOrder(ctx context.Context, request *MessagesUpdateDialogFiltersOrderRequest) (BoolClass, error) {

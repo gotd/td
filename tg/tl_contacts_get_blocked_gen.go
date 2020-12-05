@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetBlockedRequest represents TL type `contacts.getBlocked#f57c350f`.
+// Returns the list of blocked users.
 //
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
-	// Offset field of ContactsGetBlockedRequest.
+	// The number of list elements to be skipped
 	Offset int
-	// Limit field of ContactsGetBlockedRequest.
+	// The number of list elements to be returned
 	Limit int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.
+// Returns the list of blocked users.
 //
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 func (c *Client) ContactsGetBlocked(ctx context.Context, request *ContactsGetBlockedRequest) (ContactsBlockedClass, error) {

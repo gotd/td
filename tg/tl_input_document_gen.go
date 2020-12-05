@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputDocumentEmpty represents TL type `inputDocumentEmpty#72f0eaae`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/inputDocumentEmpty for reference.
 type InputDocumentEmpty struct {
@@ -55,14 +56,15 @@ var (
 )
 
 // InputDocument represents TL type `inputDocument#1abfb575`.
+// Defines a video for subsequent interaction.
 //
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
-	// ID field of InputDocument.
+	// Document ID
 	ID int64
-	// AccessHash field of InputDocument.
+	// access_hash parameter from the document constructor
 	AccessHash int64
-	// FileReference field of InputDocument.
+	// File reference
 	FileReference []byte
 }
 

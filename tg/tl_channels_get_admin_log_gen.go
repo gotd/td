@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetAdminLogRequest represents TL type `channels.getAdminLog#33ddf480`.
+// Get the admin log of a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.getAdminLog for reference.
 type ChannelsGetAdminLogRequest struct {
-	// Flags field of ChannelsGetAdminLogRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Channel field of ChannelsGetAdminLogRequest.
+	// Channel
 	Channel InputChannelClass
-	// Q field of ChannelsGetAdminLogRequest.
+	// Search query, can be empty
 	Q string
-	// EventsFilter field of ChannelsGetAdminLogRequest.
+	// Event filter
 	//
 	// Use SetEventsFilter and GetEventsFilter helpers.
 	EventsFilter ChannelAdminLogEventsFilter
-	// Admins field of ChannelsGetAdminLogRequest.
+	// Only show events from these admins
 	//
 	// Use SetAdmins and GetAdmins helpers.
 	Admins []InputUserClass
-	// MaxID field of ChannelsGetAdminLogRequest.
+	// Maximum ID of message to return (see pagination)
 	MaxID int64
-	// MinID field of ChannelsGetAdminLogRequest.
+	// Minimum ID of message to return (see pagination)
 	MinID int64
-	// Limit field of ChannelsGetAdminLogRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
 }
 
@@ -187,6 +188,7 @@ var (
 )
 
 // ChannelsGetAdminLog invokes method channels.getAdminLog#33ddf480 returning error if any.
+// Get the admin log of a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.getAdminLog for reference.
 func (c *Client) ChannelsGetAdminLog(ctx context.Context, request *ChannelsGetAdminLogRequest) (*ChannelsAdminLogResults, error) {

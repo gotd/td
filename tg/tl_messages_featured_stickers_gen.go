@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFeaturedStickersNotModified represents TL type `messages.featuredStickersNotModified#c6dc0c66`.
+// Featured stickers haven't changed
 //
 // See https://core.telegram.org/constructor/messages.featuredStickersNotModified for reference.
 type MessagesFeaturedStickersNotModified struct {
-	// Count field of MessagesFeaturedStickersNotModified.
+	// Total number of featured stickers
 	Count int
 }
 
@@ -65,16 +66,17 @@ var (
 )
 
 // MessagesFeaturedStickers represents TL type `messages.featuredStickers#b6abc341`.
+// Featured stickersets
 //
 // See https://core.telegram.org/constructor/messages.featuredStickers for reference.
 type MessagesFeaturedStickers struct {
-	// Hash field of MessagesFeaturedStickers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Count field of MessagesFeaturedStickers.
+	// Total number of featured stickers
 	Count int
-	// Sets field of MessagesFeaturedStickers.
+	// Featured stickersets
 	Sets []StickerSetCoveredClass
-	// Unread field of MessagesFeaturedStickers.
+	// IDs of new featured stickersets
 	Unread []int64
 }
 

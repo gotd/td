@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendMultiMediaRequest represents TL type `messages.sendMultiMedia#cc0110cb`.
+// Send an album or grouped media
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 type MessagesSendMultiMediaRequest struct {
-	// Flags field of MessagesSendMultiMediaRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesSendMultiMediaRequest.
+	// Whether to send the album silently (no notification triggered)
 	Silent bool
-	// Background field of MessagesSendMultiMediaRequest.
+	// Send in background?
 	Background bool
-	// ClearDraft field of MessagesSendMultiMediaRequest.
+	// Whether to clear drafts
 	ClearDraft bool
-	// Peer field of MessagesSendMultiMediaRequest.
+	// The destination chat
 	Peer InputPeerClass
-	// ReplyToMsgID field of MessagesSendMultiMediaRequest.
+	// The message to reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// MultiMedia field of MessagesSendMultiMediaRequest.
+	// The medias to send
 	MultiMedia []InputSingleMedia
-	// ScheduleDate field of MessagesSendMultiMediaRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -190,6 +191,7 @@ var (
 )
 
 // MessagesSendMultiMedia invokes method messages.sendMultiMedia#cc0110cb returning error if any.
+// Send an album or grouped media
 //
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
 func (c *Client) MessagesSendMultiMedia(ctx context.Context, request *MessagesSendMultiMediaRequest) (UpdatesClass, error) {

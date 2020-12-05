@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetNearestDcRequest represents TL type `help.getNearestDc#1fb33026`.
+// Returns info on data centre nearest to the user.
 //
 // See https://core.telegram.org/method/help.getNearestDc for reference.
 type HelpGetNearestDcRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // HelpGetNearestDc invokes method help.getNearestDc#1fb33026 returning error if any.
+// Returns info on data centre nearest to the user.
 //
 // See https://core.telegram.org/method/help.getNearestDc for reference.
 func (c *Client) HelpGetNearestDc(ctx context.Context, request *HelpGetNearestDcRequest) (*NearestDc, error) {

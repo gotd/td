@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerSettings represents TL type `peerSettings#733f2961`.
+// Peer settings
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {
-	// Flags field of PeerSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ReportSpam field of PeerSettings.
+	// Whether we can still report the user for spam
 	ReportSpam bool
-	// AddContact field of PeerSettings.
+	// Whether we can add the user as contact
 	AddContact bool
-	// BlockContact field of PeerSettings.
+	// Whether we can block the user
 	BlockContact bool
-	// ShareContact field of PeerSettings.
+	// Whether we can share the user's contact
 	ShareContact bool
-	// NeedContactsException field of PeerSettings.
+	// Whether a special exception for contacts is needed
 	NeedContactsException bool
-	// ReportGeo field of PeerSettings.
+	// Whether we can report a geogroup is irrelevant for this location
 	ReportGeo bool
-	// Autoarchived field of PeerSettings.
+	// Whether this peer was automatically archived according to privacy settings
 	Autoarchived bool
-	// GeoDistance field of PeerSettings.
+	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
 	GeoDistance int

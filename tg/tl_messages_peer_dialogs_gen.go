@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesPeerDialogs represents TL type `messages.peerDialogs#3371c354`.
+// Dialog info of multiple peers
 //
 // See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
-	// Dialogs field of MessagesPeerDialogs.
+	// Dialog info
 	Dialogs []DialogClass
-	// Messages field of MessagesPeerDialogs.
+	// Messages mentioned in dialog info
 	Messages []MessageClass
-	// Chats field of MessagesPeerDialogs.
+	// Chats
 	Chats []ChatClass
-	// Users field of MessagesPeerDialogs.
+	// Users
 	Users []UserClass
-	// State field of MessagesPeerDialogs.
+	// Current update state of dialog
 	State UpdatesState
 }
 

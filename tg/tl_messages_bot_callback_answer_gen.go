@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesBotCallbackAnswer represents TL type `messages.botCallbackAnswer#36585ea4`.
+// Callback answer sent by the bot in response to a button press
 //
 // See https://core.telegram.org/constructor/messages.botCallbackAnswer for reference.
 type MessagesBotCallbackAnswer struct {
-	// Flags field of MessagesBotCallbackAnswer.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Alert field of MessagesBotCallbackAnswer.
+	// Whether an alert should be shown to the user instead of a toast notification
 	Alert bool
-	// HasURL field of MessagesBotCallbackAnswer.
+	// Whether an URL is present
 	HasURL bool
-	// NativeUI field of MessagesBotCallbackAnswer.
+	// Whether to show games in WebView or in native UI.
 	NativeUI bool
-	// Message field of MessagesBotCallbackAnswer.
+	// Alert to show
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message string
-	// URL field of MessagesBotCallbackAnswer.
+	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// CacheTime field of MessagesBotCallbackAnswer.
+	// For how long should this answer be cached
 	CacheTime int
 }
 

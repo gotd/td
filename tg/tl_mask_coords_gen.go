@@ -15,16 +15,18 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MaskCoords represents TL type `maskCoords#aed6dbb2`.
+// Position on a photo where a mask should be placed
+// The n position indicates where the mask should be placed:
 //
 // See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {
-	// N field of MaskCoords.
+	// Part of the face, relative to which the mask should be placed
 	N int
-	// X field of MaskCoords.
+	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
 	X float64
-	// Y field of MaskCoords.
+	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
 	Y float64
-	// Zoom field of MaskCoords.
+	// Mask scaling coefficient. (For example, 2.0 means a doubled size)
 	Zoom float64
 }
 

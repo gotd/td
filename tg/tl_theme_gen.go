@@ -15,32 +15,33 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Theme represents TL type `theme#28f1114`.
+// Theme
 //
 // See https://core.telegram.org/constructor/theme for reference.
 type Theme struct {
-	// Flags field of Theme.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Creator field of Theme.
+	// Whether the current user is the creator of this theme
 	Creator bool
-	// Default field of Theme.
+	// Whether this is the default theme
 	Default bool
-	// ID field of Theme.
+	// Theme ID
 	ID int64
-	// AccessHash field of Theme.
+	// Theme access hash
 	AccessHash int64
-	// Slug field of Theme.
+	// Unique theme ID
 	Slug string
-	// Title field of Theme.
+	// Theme name
 	Title string
-	// Document field of Theme.
+	// Theme
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// Settings field of Theme.
+	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings ThemeSettings
-	// InstallsCount field of Theme.
+	// Installation count
 	InstallsCount int
 }
 

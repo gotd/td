@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
+// Returns content of a whole file or its part.
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
 type UploadGetFileRequest struct {
-	// Flags field of UploadGetFileRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Precise field of UploadGetFileRequest.
+	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
 	Precise bool
-	// CDNSupported field of UploadGetFileRequest.
+	// Whether the current client supports CDN downloads
 	CDNSupported bool
-	// Location field of UploadGetFileRequest.
+	// File location
 	Location InputFileLocationClass
-	// Offset field of UploadGetFileRequest.
+	// Number of bytes to be skipped
 	Offset int
-	// Limit field of UploadGetFileRequest.
+	// Number of bytes to be returned
 	Limit int
 }
 
@@ -119,6 +120,7 @@ var (
 )
 
 // UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.
+// Returns content of a whole file or its part.
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
 func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {

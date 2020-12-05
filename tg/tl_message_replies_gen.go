@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
+// Info about the comment section of a channel post, or a simple message thread
 //
 // See https://core.telegram.org/constructor/messageReplies for reference.
 type MessageReplies struct {
-	// Flags field of MessageReplies.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Comments field of MessageReplies.
+	// Whether this constructor contains information about the comment section of a channel post, or a simple message thread
 	Comments bool
-	// Replies field of MessageReplies.
+	// Contains the total number of replies in this thread or comment section.
 	Replies int
-	// RepliesPts field of MessageReplies.
+	// PTS of the message that started this thread.
 	RepliesPts int
-	// RecentRepliers field of MessageReplies.
+	// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
 	//
 	// Use SetRecentRepliers and GetRecentRepliers helpers.
 	RecentRepliers []PeerClass
-	// ChannelID field of MessageReplies.
+	// For channel post comments, contains the ID of the associated discussion supergroup
 	//
 	// Use SetChannelID and GetChannelID helpers.
 	ChannelID int
-	// MaxID field of MessageReplies.
+	// ID of the latest message in this thread or comment section.
 	//
 	// Use SetMaxID and GetMaxID helpers.
 	MaxID int
-	// ReadMaxID field of MessageReplies.
+	// Contains the ID of the latest read message in this thread or comment section.
 	//
 	// Use SetReadMaxID and GetReadMaxID helpers.
 	ReadMaxID int

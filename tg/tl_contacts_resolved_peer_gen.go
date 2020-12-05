@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsResolvedPeer represents TL type `contacts.resolvedPeer#7f077ad9`.
+// Resolved peer
 //
 // See https://core.telegram.org/constructor/contacts.resolvedPeer for reference.
 type ContactsResolvedPeer struct {
-	// Peer field of ContactsResolvedPeer.
+	// The peer
 	Peer PeerClass
-	// Chats field of ContactsResolvedPeer.
+	// Chats
 	Chats []ChatClass
-	// Users field of ContactsResolvedPeer.
+	// Users
 	Users []UserClass
 }
 

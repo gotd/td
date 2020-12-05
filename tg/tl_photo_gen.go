@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotoEmpty represents TL type `photoEmpty#2331b22d`.
+// Empty constructor, non-existent photo
 //
 // See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
-	// ID field of PhotoEmpty.
+	// Photo identifier
 	ID int64
 }
 
@@ -65,28 +66,29 @@ var (
 )
 
 // Photo represents TL type `photo#fb197a65`.
+// Photo
 //
 // See https://core.telegram.org/constructor/photo for reference.
 type Photo struct {
-	// Flags field of Photo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// HasStickers field of Photo.
+	// Whether the photo has mask stickers attached to it
 	HasStickers bool
-	// ID field of Photo.
+	// ID
 	ID int64
-	// AccessHash field of Photo.
+	// Access hash
 	AccessHash int64
-	// FileReference field of Photo.
+	// file reference
 	FileReference []byte
-	// Date field of Photo.
+	// Date of upload
 	Date int
-	// Sizes field of Photo.
+	// Available sizes for download
 	Sizes []PhotoSizeClass
-	// VideoSizes field of Photo.
+	// For animated profiles, the MPEG4 videos
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
 	VideoSizes []VideoSize
-	// DCID field of Photo.
+	// DC ID to use for download
 	DCID int
 }
 

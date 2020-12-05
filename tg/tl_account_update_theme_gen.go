@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateThemeRequest represents TL type `account.updateTheme#5cb367d5`.
+// Update theme
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.
 type AccountUpdateThemeRequest struct {
-	// Flags field of AccountUpdateThemeRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Format field of AccountUpdateThemeRequest.
+	// Theme format, a string that identifies the theming engines supported by the client
 	Format string
-	// Theme field of AccountUpdateThemeRequest.
+	// Theme to update
 	Theme InputThemeClass
-	// Slug field of AccountUpdateThemeRequest.
+	// Unique theme ID
 	//
 	// Use SetSlug and GetSlug helpers.
 	Slug string
-	// Title field of AccountUpdateThemeRequest.
+	// Theme name
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Document field of AccountUpdateThemeRequest.
+	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document InputDocumentClass
-	// Settings field of AccountUpdateThemeRequest.
+	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings InputThemeSettings
@@ -206,6 +207,7 @@ var (
 )
 
 // AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.
+// Update theme
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.
 func (c *Client) AccountUpdateTheme(ctx context.Context, request *AccountUpdateThemeRequest) (*Theme, error) {

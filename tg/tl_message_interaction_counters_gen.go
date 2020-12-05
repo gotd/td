@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageInteractionCounters represents TL type `messageInteractionCounters#ad4fc9bd`.
+// Message interaction counters
 //
 // See https://core.telegram.org/constructor/messageInteractionCounters for reference.
 type MessageInteractionCounters struct {
-	// MsgID field of MessageInteractionCounters.
+	// Message ID
 	MsgID int
-	// Views field of MessageInteractionCounters.
+	// Views
 	Views int
-	// Forwards field of MessageInteractionCounters.
+	// Number of times this message was forwarded
 	Forwards int
 }
 

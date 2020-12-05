@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
+// Get saved Telegram Passport document, for more info see the passport docs »
 //
 // See https://core.telegram.org/constructor/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
-	// Types field of AccountGetSecureValueRequest.
+	// Requested value types
 	Types []SecureValueTypeClass
 }
 

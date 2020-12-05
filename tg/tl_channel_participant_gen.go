@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelParticipant represents TL type `channelParticipant#15ebac1d`.
+// Channel/supergroup participant
 //
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
-	// UserID field of ChannelParticipant.
+	// Pariticipant user ID
 	UserID int
-	// Date field of ChannelParticipant.
+	// Date joined
 	Date int
 }
 
@@ -75,14 +76,15 @@ var (
 )
 
 // ChannelParticipantSelf represents TL type `channelParticipantSelf#a3289a6d`.
+// Myself
 //
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
-	// UserID field of ChannelParticipantSelf.
+	// User ID
 	UserID int
-	// InviterID field of ChannelParticipantSelf.
+	// User that invited me to the channel/supergroup
 	InviterID int
-	// Date field of ChannelParticipantSelf.
+	// When did I join the channel/supergroup
 	Date int
 }
 
@@ -145,16 +147,17 @@ var (
 )
 
 // ChannelParticipantCreator represents TL type `channelParticipantCreator#447dca4b`.
+// Channel/supergroup creator
 //
 // See https://core.telegram.org/constructor/channelParticipantCreator for reference.
 type ChannelParticipantCreator struct {
-	// Flags field of ChannelParticipantCreator.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// UserID field of ChannelParticipantCreator.
+	// User ID
 	UserID int
-	// AdminRights field of ChannelParticipantCreator.
+	// Creator admin rights
 	AdminRights ChatAdminRights
-	// Rank field of ChannelParticipantCreator.
+	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -244,28 +247,29 @@ var (
 )
 
 // ChannelParticipantAdmin represents TL type `channelParticipantAdmin#ccbebbaf`.
+// Admin
 //
 // See https://core.telegram.org/constructor/channelParticipantAdmin for reference.
 type ChannelParticipantAdmin struct {
-	// Flags field of ChannelParticipantAdmin.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CanEdit field of ChannelParticipantAdmin.
+	// Can this admin promote other admins with the same permissions?
 	CanEdit bool
-	// Self field of ChannelParticipantAdmin.
+	// Is this the current user
 	Self bool
-	// UserID field of ChannelParticipantAdmin.
+	// Admin user ID
 	UserID int
-	// InviterID field of ChannelParticipantAdmin.
+	// User that invited the admin to the channel/group
 	//
 	// Use SetInviterID and GetInviterID helpers.
 	InviterID int
-	// PromotedBy field of ChannelParticipantAdmin.
+	// User that promoted the user to admin
 	PromotedBy int
-	// Date field of ChannelParticipantAdmin.
+	// When did the user join
 	Date int
-	// AdminRights field of ChannelParticipantAdmin.
+	// Admin rights
 	AdminRights ChatAdminRights
-	// Rank field of ChannelParticipantAdmin.
+	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string
@@ -416,20 +420,21 @@ var (
 )
 
 // ChannelParticipantBanned represents TL type `channelParticipantBanned#1c0facaf`.
+// Banned/kicked user
 //
 // See https://core.telegram.org/constructor/channelParticipantBanned for reference.
 type ChannelParticipantBanned struct {
-	// Flags field of ChannelParticipantBanned.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Left field of ChannelParticipantBanned.
+	// Whether the user has left the group
 	Left bool
-	// UserID field of ChannelParticipantBanned.
+	// User ID
 	UserID int
-	// KickedBy field of ChannelParticipantBanned.
+	// User was kicked by the specified admin
 	KickedBy int
-	// Date field of ChannelParticipantBanned.
+	// When did the user join the group
 	Date int
-	// BannedRights field of ChannelParticipantBanned.
+	// Banned rights
 	BannedRights ChatBannedRights
 }
 
@@ -518,10 +523,11 @@ var (
 )
 
 // ChannelParticipantLeft represents TL type `channelParticipantLeft#c3c6796b`.
+// A participant that left the channel/supergroup
 //
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
-	// UserID field of ChannelParticipantLeft.
+	// User ID
 	UserID int
 }
 

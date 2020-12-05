@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetInlineBotResultsRequest represents TL type `messages.getInlineBotResults#514e999d`.
+// Query an inline bot
 //
 // See https://core.telegram.org/method/messages.getInlineBotResults for reference.
 type MessagesGetInlineBotResultsRequest struct {
-	// Flags field of MessagesGetInlineBotResultsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Bot field of MessagesGetInlineBotResultsRequest.
+	// The bot to query
 	Bot InputUserClass
-	// Peer field of MessagesGetInlineBotResultsRequest.
+	// The currently opened chat
 	Peer InputPeerClass
-	// GeoPoint field of MessagesGetInlineBotResultsRequest.
+	// The geolocation, if requested
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
 	GeoPoint InputGeoPointClass
-	// Query field of MessagesGetInlineBotResultsRequest.
+	// The query
 	Query string
-	// Offset field of MessagesGetInlineBotResultsRequest.
+	// The offset within the results, will be passed directly as-is to the bot.
 	Offset string
 }
 
@@ -144,6 +145,7 @@ var (
 )
 
 // MessagesGetInlineBotResults invokes method messages.getInlineBotResults#514e999d returning error if any.
+// Query an inline bot
 //
 // See https://core.telegram.org/method/messages.getInlineBotResults for reference.
 func (c *Client) MessagesGetInlineBotResults(ctx context.Context, request *MessagesGetInlineBotResultsRequest) (*MessagesBotResults, error) {

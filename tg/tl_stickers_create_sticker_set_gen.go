@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersCreateStickerSetRequest represents TL type `stickers.createStickerSet#f1036780`.
+// Create a stickerset, bots only.
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
 type StickersCreateStickerSetRequest struct {
-	// Flags field of StickersCreateStickerSetRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Masks field of StickersCreateStickerSetRequest.
+	// Whether this is a mask stickerset
 	Masks bool
-	// Animated field of StickersCreateStickerSetRequest.
+	// Whether this is an animated stickerset
 	Animated bool
-	// UserID field of StickersCreateStickerSetRequest.
+	// Stickerset owner
 	UserID InputUserClass
-	// Title field of StickersCreateStickerSetRequest.
+	// Stickerset name, 1-64 chars
 	Title string
-	// ShortName field of StickersCreateStickerSetRequest.
+	// Sticker set name. Can contain only English letters, digits and underscores. Must end with "by" ( is case insensitive); 1-64 characters
 	ShortName string
-	// Thumb field of StickersCreateStickerSetRequest.
+	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputDocumentClass
-	// Stickers field of StickersCreateStickerSetRequest.
+	// Stickers
 	Stickers []InputStickerSetItem
 }
 
@@ -174,6 +175,7 @@ var (
 )
 
 // StickersCreateStickerSet invokes method stickers.createStickerSet#f1036780 returning error if any.
+// Create a stickerset, bots only.
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
 func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error) {

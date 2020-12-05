@@ -15,40 +15,41 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
+// Payment form
 //
 // See https://core.telegram.org/constructor/payments.paymentForm for reference.
 type PaymentsPaymentForm struct {
-	// Flags field of PaymentsPaymentForm.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CanSaveCredentials field of PaymentsPaymentForm.
+	// Whether the user can choose to save credentials.
 	CanSaveCredentials bool
-	// PasswordMissing field of PaymentsPaymentForm.
+	// Indicates that the user can save payment credentials, but only after setting up a 2FA password (currently the account doesn't have a 2FA password)
 	PasswordMissing bool
-	// BotID field of PaymentsPaymentForm.
+	// Bot ID
 	BotID int
-	// Invoice field of PaymentsPaymentForm.
+	// Invoice
 	Invoice Invoice
-	// ProviderID field of PaymentsPaymentForm.
+	// Payment provider ID.
 	ProviderID int
-	// URL field of PaymentsPaymentForm.
+	// Payment form URL
 	URL string
-	// NativeProvider field of PaymentsPaymentForm.
+	// Payment provider name.One of the following:- stripe
 	//
 	// Use SetNativeProvider and GetNativeProvider helpers.
 	NativeProvider string
-	// NativeParams field of PaymentsPaymentForm.
+	// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.A JSON object that can contain the following fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor: Android Pay form background color- android_pay_inverse: Whether to use the dark theme in the Android Pay form- need_country: True, if the user country must be provided,- need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
 	NativeParams DataJSON
-	// SavedInfo field of PaymentsPaymentForm.
+	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
 	SavedInfo PaymentRequestedInfo
-	// SavedCredentials field of PaymentsPaymentForm.
+	// Contains information about saved card credentials
 	//
 	// Use SetSavedCredentials and GetSavedCredentials helpers.
 	SavedCredentials PaymentSavedCredentialsCard
-	// Users field of PaymentsPaymentForm.
+	// Users
 	Users []UserClass
 }
 

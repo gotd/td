@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelAdminLogEventsFilter represents TL type `channelAdminLogEventsFilter#ea107ae4`.
+// Filter only certain admin log events
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventsFilter for reference.
 type ChannelAdminLogEventsFilter struct {
-	// Flags field of ChannelAdminLogEventsFilter.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Join field of ChannelAdminLogEventsFilter.
+	// Join events
 	Join bool
-	// Leave field of ChannelAdminLogEventsFilter.
+	// Leave events
 	Leave bool
-	// Invite field of ChannelAdminLogEventsFilter.
+	// Invite events
 	Invite bool
-	// Ban field of ChannelAdminLogEventsFilter.
+	// Ban events
 	Ban bool
-	// Unban field of ChannelAdminLogEventsFilter.
+	// Unban events
 	Unban bool
-	// Kick field of ChannelAdminLogEventsFilter.
+	// Kick events
 	Kick bool
-	// Unkick field of ChannelAdminLogEventsFilter.
+	// Unkick events
 	Unkick bool
-	// Promote field of ChannelAdminLogEventsFilter.
+	// Admin promotion events
 	Promote bool
-	// Demote field of ChannelAdminLogEventsFilter.
+	// Admin demotion events
 	Demote bool
-	// Info field of ChannelAdminLogEventsFilter.
+	// Info change events (when about, linked chat, location, photo, stickerset, title or username data of a channel gets modified)
 	Info bool
-	// Settings field of ChannelAdminLogEventsFilter.
+	// Settings change events (invites, hidden prehistory, signatures, default banned rights)
 	Settings bool
-	// Pinned field of ChannelAdminLogEventsFilter.
+	// Message pin events
 	Pinned bool
-	// Edit field of ChannelAdminLogEventsFilter.
+	// Message edit events
 	Edit bool
-	// Delete field of ChannelAdminLogEventsFilter.
+	// Message deletion events
 	Delete bool
 }
 

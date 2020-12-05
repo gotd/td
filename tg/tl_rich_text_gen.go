@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TextEmpty represents TL type `textEmpty#dc3d824f`.
+// Empty rich text element
 //
 // See https://core.telegram.org/constructor/textEmpty for reference.
 type TextEmpty struct {
@@ -55,10 +56,11 @@ var (
 )
 
 // TextPlain represents TL type `textPlain#744694e0`.
+// Plain text
 //
 // See https://core.telegram.org/constructor/textPlain for reference.
 type TextPlain struct {
-	// Text field of TextPlain.
+	// Text
 	Text string
 }
 
@@ -105,10 +107,11 @@ var (
 )
 
 // TextBold represents TL type `textBold#6724abc4`.
+// Bold text
 //
 // See https://core.telegram.org/constructor/textBold for reference.
 type TextBold struct {
-	// Text field of TextBold.
+	// Text
 	Text RichTextClass
 }
 
@@ -160,10 +163,11 @@ var (
 )
 
 // TextItalic represents TL type `textItalic#d912a59c`.
+// Italic text
 //
 // See https://core.telegram.org/constructor/textItalic for reference.
 type TextItalic struct {
-	// Text field of TextItalic.
+	// Text
 	Text RichTextClass
 }
 
@@ -215,10 +219,11 @@ var (
 )
 
 // TextUnderline represents TL type `textUnderline#c12622c4`.
+// Underlined text
 //
 // See https://core.telegram.org/constructor/textUnderline for reference.
 type TextUnderline struct {
-	// Text field of TextUnderline.
+	// Text
 	Text RichTextClass
 }
 
@@ -270,10 +275,11 @@ var (
 )
 
 // TextStrike represents TL type `textStrike#9bf8bb95`.
+// Strikethrough text
 //
 // See https://core.telegram.org/constructor/textStrike for reference.
 type TextStrike struct {
-	// Text field of TextStrike.
+	// Text
 	Text RichTextClass
 }
 
@@ -325,10 +331,11 @@ var (
 )
 
 // TextFixed represents TL type `textFixed#6c3f19b9`.
+// fixed-width rich text
 //
 // See https://core.telegram.org/constructor/textFixed for reference.
 type TextFixed struct {
-	// Text field of TextFixed.
+	// Text
 	Text RichTextClass
 }
 
@@ -380,14 +387,15 @@ var (
 )
 
 // TextUrl represents TL type `textUrl#3c2884c1`.
+// Link
 //
 // See https://core.telegram.org/constructor/textUrl for reference.
 type TextUrl struct {
-	// Text field of TextUrl.
+	// Text of link
 	Text RichTextClass
-	// URL field of TextUrl.
+	// Webpage HTTP URL
 	URL string
-	// WebpageID field of TextUrl.
+	// If a preview was already generated for the page, the page ID
 	WebpageID int64
 }
 
@@ -455,12 +463,13 @@ var (
 )
 
 // TextEmail represents TL type `textEmail#de5a0dd6`.
+// Rich text email link
 //
 // See https://core.telegram.org/constructor/textEmail for reference.
 type TextEmail struct {
-	// Text field of TextEmail.
+	// Link text
 	Text RichTextClass
-	// Email field of TextEmail.
+	// Email address
 	Email string
 }
 
@@ -520,10 +529,11 @@ var (
 )
 
 // TextConcat represents TL type `textConcat#7e6260d7`.
+// Concatenation of rich texts
 //
 // See https://core.telegram.org/constructor/textConcat for reference.
 type TextConcat struct {
-	// Texts field of TextConcat.
+	// Concatenated rich texts
 	Texts []RichTextClass
 }
 
@@ -584,10 +594,11 @@ var (
 )
 
 // TextSubscript represents TL type `textSubscript#ed6a8504`.
+// Subscript text
 //
 // See https://core.telegram.org/constructor/textSubscript for reference.
 type TextSubscript struct {
-	// Text field of TextSubscript.
+	// Text
 	Text RichTextClass
 }
 
@@ -639,10 +650,11 @@ var (
 )
 
 // TextSuperscript represents TL type `textSuperscript#c7fb5e01`.
+// Superscript text
 //
 // See https://core.telegram.org/constructor/textSuperscript for reference.
 type TextSuperscript struct {
-	// Text field of TextSuperscript.
+	// Text
 	Text RichTextClass
 }
 
@@ -694,10 +706,11 @@ var (
 )
 
 // TextMarked represents TL type `textMarked#34b8621`.
+// Highlighted text
 //
 // See https://core.telegram.org/constructor/textMarked for reference.
 type TextMarked struct {
-	// Text field of TextMarked.
+	// Text
 	Text RichTextClass
 }
 
@@ -749,12 +762,13 @@ var (
 )
 
 // TextPhone represents TL type `textPhone#1ccb966a`.
+// Rich text linked to a phone number
 //
 // See https://core.telegram.org/constructor/textPhone for reference.
 type TextPhone struct {
-	// Text field of TextPhone.
+	// Text
 	Text RichTextClass
-	// Phone field of TextPhone.
+	// Phone number
 	Phone string
 }
 
@@ -814,14 +828,15 @@ var (
 )
 
 // TextImage represents TL type `textImage#81ccf4f`.
+// Inline image
 //
 // See https://core.telegram.org/constructor/textImage for reference.
 type TextImage struct {
-	// DocumentID field of TextImage.
+	// Document ID
 	DocumentID int64
-	// W field of TextImage.
+	// Width
 	W int
-	// H field of TextImage.
+	// Height
 	H int
 }
 
@@ -884,12 +899,13 @@ var (
 )
 
 // TextAnchor represents TL type `textAnchor#35553762`.
+// Text linking to another section of the page
 //
 // See https://core.telegram.org/constructor/textAnchor for reference.
 type TextAnchor struct {
-	// Text field of TextAnchor.
+	// Text
 	Text RichTextClass
-	// Name field of TextAnchor.
+	// Section name
 	Name string
 }
 

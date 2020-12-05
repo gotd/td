@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetNotifySettingsRequest represents TL type `account.getNotifySettings#12b3ad31`.
+// Gets current notification settings for a given user/group, from all users/all groups.
 //
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 type AccountGetNotifySettingsRequest struct {
-	// Peer field of AccountGetNotifySettingsRequest.
+	// Notification source
 	Peer InputNotifyPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.
+// Gets current notification settings for a given user/group, from all users/all groups.
 //
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 func (c *Client) AccountGetNotifySettings(ctx context.Context, request *AccountGetNotifySettingsRequest) (*PeerNotifySettings, error) {

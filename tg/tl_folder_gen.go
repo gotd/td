@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Folder represents TL type `folder#ff544e65`.
+// Folder
 //
 // See https://core.telegram.org/constructor/folder for reference.
 type Folder struct {
-	// Flags field of Folder.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// AutofillNewBroadcasts field of Folder.
+	// Automatically add new channels to this folder
 	AutofillNewBroadcasts bool
-	// AutofillPublicGroups field of Folder.
+	// Automatically add joined new public supergroups to this folder
 	AutofillPublicGroups bool
-	// AutofillNewCorrespondents field of Folder.
+	// Automatically add new private chats to this folder
 	AutofillNewCorrespondents bool
-	// ID field of Folder.
+	// Folder ID
 	ID int
-	// Title field of Folder.
+	// Folder title
 	Title string
-	// Photo field of Folder.
+	// Folder picture
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo ChatPhotoClass

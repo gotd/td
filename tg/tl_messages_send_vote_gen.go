@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendVoteRequest represents TL type `messages.sendVote#10ea6184`.
+// Vote in a poll
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
-	// Peer field of MessagesSendVoteRequest.
+	// The chat where the poll was sent
 	Peer InputPeerClass
-	// MsgID field of MessagesSendVoteRequest.
+	// The message ID of the poll
 	MsgID int
-	// Options field of MessagesSendVoteRequest.
+	// The options that were chosen
 	Options [][]byte
 }
 
@@ -94,6 +95,7 @@ var (
 )
 
 // MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.
+// Vote in a poll
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 func (c *Client) MessagesSendVote(ctx context.Context, request *MessagesSendVoteRequest) (UpdatesClass, error) {

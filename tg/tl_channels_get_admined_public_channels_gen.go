@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
+// Get channels/supergroups/geogroups we're admin in. Usually called when the user exceeds the limit for owned public channels/supergroups/geogroups, and the user is given the choice to remove one of his channels/supergroups/geogroups.
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 type ChannelsGetAdminedPublicChannelsRequest struct {
-	// Flags field of ChannelsGetAdminedPublicChannelsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ByLocation field of ChannelsGetAdminedPublicChannelsRequest.
+	// Get geogroups
 	ByLocation bool
-	// CheckLimit field of ChannelsGetAdminedPublicChannelsRequest.
+	// If set and the user has reached the limit of owned public channels/supergroups/geogroups, instead of returning the channel list one of the specified errors will be returned.Useful to check if a new public channel can indeed be created, even before asking the user to enter a channel username to use in channels.checkUsername/channels.updateUsername.
 	CheckLimit bool
 }
 
@@ -84,6 +85,7 @@ var (
 )
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
+// Get channels/supergroups/geogroups we're admin in. Usually called when the user exceeds the limit for owned public channels/supergroups/geogroups, and the user is given the choice to remove one of his channels/supergroups/geogroups.
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {

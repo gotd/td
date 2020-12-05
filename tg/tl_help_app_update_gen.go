@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpAppUpdate represents TL type `help.appUpdate#1da7158f`.
+// An update is available for the application.
 //
 // See https://core.telegram.org/constructor/help.appUpdate for reference.
 type HelpAppUpdate struct {
-	// Flags field of HelpAppUpdate.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CanNotSkip field of HelpAppUpdate.
+	// Unskippable, the new info must be shown to the user (with a popup or something else)
 	CanNotSkip bool
-	// ID field of HelpAppUpdate.
+	// Update ID
 	ID int
-	// Version field of HelpAppUpdate.
+	// New version name
 	Version string
-	// Text field of HelpAppUpdate.
+	// Text description of the update
 	Text string
-	// Entities field of HelpAppUpdate.
+	// Message entities for styled text
 	Entities []MessageEntityClass
-	// Document field of HelpAppUpdate.
+	// Application binary
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// URL field of HelpAppUpdate.
+	// Application download URL
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
@@ -194,6 +195,7 @@ var (
 )
 
 // HelpNoAppUpdate represents TL type `help.noAppUpdate#c45a6536`.
+// No updates are available for the application.
 //
 // See https://core.telegram.org/constructor/help.noAppUpdate for reference.
 type HelpNoAppUpdate struct {

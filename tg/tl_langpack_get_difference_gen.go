@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangpackGetDifferenceRequest represents TL type `langpack.getDifference#cd984aa5`.
+// Get new strings in languagepack
 //
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 type LangpackGetDifferenceRequest struct {
-	// LangPack field of LangpackGetDifferenceRequest.
+	// Language pack
 	LangPack string
-	// LangCode field of LangpackGetDifferenceRequest.
+	// Language code
 	LangCode string
-	// FromVersion field of LangpackGetDifferenceRequest.
+	// Previous localization pack version
 	FromVersion int
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.
+// Get new strings in languagepack
 //
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 func (c *Client) LangpackGetDifference(ctx context.Context, request *LangpackGetDifferenceRequest) (*LangPackDifference, error) {

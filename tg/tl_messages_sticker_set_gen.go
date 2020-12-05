@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStickerSet represents TL type `messages.stickerSet#b60a24a6`.
+// Stickerset and stickers inside it
 //
 // See https://core.telegram.org/constructor/messages.stickerSet for reference.
 type MessagesStickerSet struct {
-	// Set field of MessagesStickerSet.
+	// The stickerset
 	Set StickerSet
-	// Packs field of MessagesStickerSet.
+	// Emoji info for stickers
 	Packs []StickerPack
-	// Documents field of MessagesStickerSet.
+	// Stickers in stickerset
 	Documents []DocumentClass
 }
 

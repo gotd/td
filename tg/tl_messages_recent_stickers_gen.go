@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesRecentStickersNotModified represents TL type `messages.recentStickersNotModified#b17f890`.
+// No new recent sticker was found
 //
 // See https://core.telegram.org/constructor/messages.recentStickersNotModified for reference.
 type MessagesRecentStickersNotModified struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // MessagesRecentStickers represents TL type `messages.recentStickers#22f3afb3`.
+// Recently used stickers
 //
 // See https://core.telegram.org/constructor/messages.recentStickers for reference.
 type MessagesRecentStickers struct {
-	// Hash field of MessagesRecentStickers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Packs field of MessagesRecentStickers.
+	// Emojis associated to stickers
 	Packs []StickerPack
-	// Stickers field of MessagesRecentStickers.
+	// Recent stickers
 	Stickers []DocumentClass
-	// Dates field of MessagesRecentStickers.
+	// When was each sticker last used
 	Dates []int
 }
 

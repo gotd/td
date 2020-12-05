@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsSetStickersRequest represents TL type `channels.setStickers#ea8ca4f9`.
+// Associate a stickerset to the supergroup
 //
 // See https://core.telegram.org/method/channels.setStickers for reference.
 type ChannelsSetStickersRequest struct {
-	// Channel field of ChannelsSetStickersRequest.
+	// Supergroup
 	Channel InputChannelClass
-	// Stickerset field of ChannelsSetStickersRequest.
+	// The stickerset to associate
 	Stickerset InputStickerSetClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.
+// Associate a stickerset to the supergroup
 //
 // See https://core.telegram.org/method/channels.setStickers for reference.
 func (c *Client) ChannelsSetStickers(ctx context.Context, request *ChannelsSetStickersRequest) (BoolClass, error) {

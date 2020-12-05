@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
+// How users voted in a poll
 //
 // See https://core.telegram.org/constructor/messages.votesList for reference.
 type MessagesVotesList struct {
-	// Flags field of MessagesVotesList.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Count field of MessagesVotesList.
+	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes)
 	Count int
-	// Votes field of MessagesVotesList.
+	// Vote info for each user
 	Votes []MessageUserVoteClass
-	// Users field of MessagesVotesList.
+	// Info about users that voted in the poll
 	Users []UserClass
-	// NextOffset field of MessagesVotesList.
+	// Offset to use with the next messages.getPollVotes request, empty string if no more results are available.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#1c015b09`.
+// Deletes communication history.
 //
 // See https://core.telegram.org/method/messages.deleteHistory for reference.
 type MessagesDeleteHistoryRequest struct {
-	// Flags field of MessagesDeleteHistoryRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// JustClear field of MessagesDeleteHistoryRequest.
+	// Just clear history for the current user, without actually removing messages for every chat user
 	JustClear bool
-	// Revoke field of MessagesDeleteHistoryRequest.
+	// Whether to delete the message history for all chat participants
 	Revoke bool
-	// Peer field of MessagesDeleteHistoryRequest.
+	// User or chat, communication history of which will be deleted
 	Peer InputPeerClass
-	// MaxID field of MessagesDeleteHistoryRequest.
+	// Maximum ID of message to delete
 	MaxID int
 }
 
@@ -109,6 +110,7 @@ var (
 )
 
 // MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
+// Deletes communication history.
 //
 // See https://core.telegram.org/method/messages.deleteHistory for reference.
 func (c *Client) MessagesDeleteHistory(ctx context.Context, request *MessagesDeleteHistoryRequest) (*MessagesAffectedHistory, error) {

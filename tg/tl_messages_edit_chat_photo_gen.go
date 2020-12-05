@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatPhotoRequest represents TL type `messages.editChatPhoto#ca4c79d8`.
+// Changes chat photo and sends a service message on it
 //
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
 type MessagesEditChatPhotoRequest struct {
-	// ChatID field of MessagesEditChatPhotoRequest.
+	// Chat ID
 	ChatID int
-	// Photo field of MessagesEditChatPhotoRequest.
+	// Photo to be set
 	Photo InputChatPhotoClass
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.
+// Changes chat photo and sends a service message on it
 //
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
 func (c *Client) MessagesEditChatPhoto(ctx context.Context, request *MessagesEditChatPhotoRequest) (UpdatesClass, error) {

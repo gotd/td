@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
+// Rate a call
 //
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 type PhoneSetCallRatingRequest struct {
-	// Flags field of PhoneSetCallRatingRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// UserInitiative field of PhoneSetCallRatingRequest.
+	// Whether the user decided on their own initiative to rate the call
 	UserInitiative bool
-	// Peer field of PhoneSetCallRatingRequest.
+	// The call to rate
 	Peer InputPhoneCall
-	// Rating field of PhoneSetCallRatingRequest.
+	// Rating in 1-5 stars
 	Rating int
-	// Comment field of PhoneSetCallRatingRequest.
+	// An additional comment
 	Comment string
 }
 
@@ -102,6 +103,7 @@ var (
 )
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.
+// Rate a call
 //
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 func (c *Client) PhoneSetCallRating(ctx context.Context, request *PhoneSetCallRatingRequest) (UpdatesClass, error) {

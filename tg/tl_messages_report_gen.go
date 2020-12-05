@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReportRequest represents TL type `messages.report#bd82b658`.
+// Report a message in a chat for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/messages.report for reference.
 type MessagesReportRequest struct {
-	// Peer field of MessagesReportRequest.
+	// Peer
 	Peer InputPeerClass
-	// ID field of MessagesReportRequest.
+	// IDs of messages to report
 	ID []int
-	// Reason field of MessagesReportRequest.
+	// Why are these messages being reported
 	Reason ReportReasonClass
 }
 
@@ -99,6 +100,7 @@ var (
 )
 
 // MessagesReport invokes method messages.report#bd82b658 returning error if any.
+// Report a message in a chat for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/messages.report for reference.
 func (c *Client) MessagesReport(ctx context.Context, request *MessagesReportRequest) (BoolClass, error) {

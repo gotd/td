@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetStateRequest represents TL type `updates.getState#edd4882a`.
+// Returns a current state of updates.
 //
 // See https://core.telegram.org/method/updates.getState for reference.
 type UpdatesGetStateRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // UpdatesGetState invokes method updates.getState#edd4882a returning error if any.
+// Returns a current state of updates.
 //
 // See https://core.telegram.org/method/updates.getState for reference.
 func (c *Client) UpdatesGetState(ctx context.Context, request *UpdatesGetStateRequest) (*UpdatesState, error) {

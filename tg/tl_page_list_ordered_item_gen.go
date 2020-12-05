@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageListOrderedItemText represents TL type `pageListOrderedItemText#5e068047`.
+// Ordered list of text items
 //
 // See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
-	// Num field of PageListOrderedItemText.
+	// Number of element within ordered list
 	Num string
-	// Text field of PageListOrderedItemText.
+	// Text
 	Text RichTextClass
 }
 
@@ -80,12 +81,13 @@ var (
 )
 
 // PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
+// Ordered list of IV blocks
 //
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
-	// Num field of PageListOrderedItemBlocks.
+	// Number of element within ordered list
 	Num string
-	// Blocks field of PageListOrderedItemBlocks.
+	// Item contents
 	Blocks []PageBlockClass
 }
 

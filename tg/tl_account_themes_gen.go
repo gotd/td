@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountThemesNotModified represents TL type `account.themesNotModified#f41eb622`.
+// No new themes were installed
 //
 // See https://core.telegram.org/constructor/account.themesNotModified for reference.
 type AccountThemesNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // AccountThemes represents TL type `account.themes#7f676421`.
+// Installed themes
 //
 // See https://core.telegram.org/constructor/account.themes for reference.
 type AccountThemes struct {
-	// Hash field of AccountThemes.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Themes field of AccountThemes.
+	// Themes
 	Themes []Theme
 }
 

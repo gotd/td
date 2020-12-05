@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneSaveCallDebugRequest represents TL type `phone.saveCallDebug#277add7e`.
+// Send phone call debug data to server
 //
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 type PhoneSaveCallDebugRequest struct {
-	// Peer field of PhoneSaveCallDebugRequest.
+	// Phone call
 	Peer InputPhoneCall
-	// Debug field of PhoneSaveCallDebugRequest.
+	// Debug statistics obtained from libtgvoip
 	Debug DataJSON
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // PhoneSaveCallDebug invokes method phone.saveCallDebug#277add7e returning error if any.
+// Send phone call debug data to server
 //
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 func (c *Client) PhoneSaveCallDebug(ctx context.Context, request *PhoneSaveCallDebugRequest) (BoolClass, error) {

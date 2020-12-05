@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetAttachedStickersRequest represents TL type `messages.getAttachedStickers#cc5b67cc`.
+// Get stickers attached to a photo or video
 //
 // See https://core.telegram.org/constructor/messages.getAttachedStickers for reference.
 type MessagesGetAttachedStickersRequest struct {
-	// Media field of MessagesGetAttachedStickersRequest.
+	// Stickered media
 	Media InputStickeredMediaClass
 }
 

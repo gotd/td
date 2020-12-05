@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthLoginToken represents TL type `auth.loginToken#629f1980`.
+// Login token (for QR code login)
 //
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
-	// Expires field of AuthLoginToken.
+	// Expiry date of QR code
 	Expires int
-	// Token field of AuthLoginToken.
+	// Token to render in QR code
 	Token []byte
 }
 
@@ -75,12 +76,13 @@ var (
 )
 
 // AuthLoginTokenMigrateTo represents TL type `auth.loginTokenMigrateTo#68e9916`.
+// Repeat the query to the specified DC
 //
 // See https://core.telegram.org/constructor/auth.loginTokenMigrateTo for reference.
 type AuthLoginTokenMigrateTo struct {
-	// DCID field of AuthLoginTokenMigrateTo.
+	// DC ID
 	DCID int
-	// Token field of AuthLoginTokenMigrateTo.
+	// Token to use for login
 	Token []byte
 }
 
@@ -135,10 +137,11 @@ var (
 )
 
 // AuthLoginTokenSuccess represents TL type `auth.loginTokenSuccess#390d5c5e`.
+// Login via token (QR code) succeded!
 //
 // See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {
-	// Authorization field of AuthLoginTokenSuccess.
+	// Authorization info
 	Authorization AuthAuthorizationClass
 }
 

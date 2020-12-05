@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery update. Use this method to reply to shipping queries.
 //
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 type MessagesSetBotShippingResultsRequest struct {
-	// Flags field of MessagesSetBotShippingResultsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// QueryID field of MessagesSetBotShippingResultsRequest.
+	// Unique identifier for the query to be answered
 	QueryID int64
-	// Error field of MessagesSetBotShippingResultsRequest.
+	// Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
 	//
 	// Use SetError and GetError helpers.
 	Error string
-	// ShippingOptions field of MessagesSetBotShippingResultsRequest.
+	// A vector of available shipping options.
 	//
 	// Use SetShippingOptions and GetShippingOptions helpers.
 	ShippingOptions []ShippingOption
@@ -139,6 +140,7 @@ var (
 )
 
 // MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery update. Use this method to reply to shipping queries.
 //
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (BoolClass, error) {

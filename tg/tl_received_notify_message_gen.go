@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ReceivedNotifyMessage represents TL type `receivedNotifyMessage#a384b779`.
+// Message ID, for which PUSH-notifications were cancelled.
 //
 // See https://core.telegram.org/constructor/receivedNotifyMessage for reference.
 type ReceivedNotifyMessage struct {
-	// ID field of ReceivedNotifyMessage.
+	// Message ID, for which PUSH-notifications were canceled
 	ID int
-	// Flags field of ReceivedNotifyMessage.
+	// Reserved for future use
 	Flags int
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsGetPaymentReceiptRequest represents TL type `payments.getPaymentReceipt#a092a980`.
+// Get payment receipt
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 type PaymentsGetPaymentReceiptRequest struct {
-	// MsgID field of PaymentsGetPaymentReceiptRequest.
+	// Message ID of receipt
 	MsgID int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#a092a980 returning error if any.
+// Get payment receipt
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error) {

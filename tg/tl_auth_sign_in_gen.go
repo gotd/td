@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSignInRequest represents TL type `auth.signIn#bcd51581`.
+// Signs in a user with a validated phone number.
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
-	// PhoneNumber field of AuthSignInRequest.
+	// Phone number in the international format
 	PhoneNumber string
-	// PhoneCodeHash field of AuthSignInRequest.
+	// SMS-message ID, obtained from auth.sendCode
 	PhoneCodeHash string
-	// PhoneCode field of AuthSignInRequest.
+	// Valid numerical code from the SMS-message
 	PhoneCode string
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+// Signs in a user with a validated phone number.
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {

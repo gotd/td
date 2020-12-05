@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputChatPhotoEmpty represents TL type `inputChatPhotoEmpty#1ca48f57`.
+// Empty constructor, remove group photo.
 //
 // See https://core.telegram.org/constructor/inputChatPhotoEmpty for reference.
 type InputChatPhotoEmpty struct {
@@ -55,20 +56,21 @@ var (
 )
 
 // InputChatUploadedPhoto represents TL type `inputChatUploadedPhoto#c642724e`.
+// New photo to be set as group profile photo.
 //
 // See https://core.telegram.org/constructor/inputChatUploadedPhoto for reference.
 type InputChatUploadedPhoto struct {
-	// Flags field of InputChatUploadedPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// File field of InputChatUploadedPhoto.
+	// File saved in parts using the method upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
-	// Video field of InputChatUploadedPhoto.
+	// Square video for animated profile picture
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// VideoStartTs field of InputChatUploadedPhoto.
+	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
@@ -202,10 +204,11 @@ var (
 )
 
 // InputChatPhoto represents TL type `inputChatPhoto#8953ad37`.
+// Existing photo to be set as a chat profile photo.
 //
 // See https://core.telegram.org/constructor/inputChatPhoto for reference.
 type InputChatPhoto struct {
-	// ID field of InputChatPhoto.
+	// Existing photo
 	ID InputPhotoClass
 }
 

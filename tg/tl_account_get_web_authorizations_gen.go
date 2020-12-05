@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetWebAuthorizationsRequest represents TL type `account.getWebAuthorizations#182e6d6f`.
+// Get web login widget authorizations
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 type AccountGetWebAuthorizationsRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AccountGetWebAuthorizations invokes method account.getWebAuthorizations#182e6d6f returning error if any.
+// Get web login widget authorizations
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 func (c *Client) AccountGetWebAuthorizations(ctx context.Context, request *AccountGetWebAuthorizationsRequest) (*AccountWebAuthorizations, error) {

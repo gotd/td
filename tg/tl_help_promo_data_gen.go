@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpPromoDataEmpty represents TL type `help.promoDataEmpty#98f6ac75`.
+// No PSA/MTProxy info is available
 //
 // See https://core.telegram.org/constructor/help.promoDataEmpty for reference.
 type HelpPromoDataEmpty struct {
-	// Expires field of HelpPromoDataEmpty.
+	// Re-fetch PSA/MTProxy info after the specified number of seconds
 	Expires int
 }
 
@@ -65,26 +66,27 @@ var (
 )
 
 // HelpPromoData represents TL type `help.promoData#8c39793f`.
+// MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/constructor/help.promoData for reference.
 type HelpPromoData struct {
-	// Flags field of HelpPromoData.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Proxy field of HelpPromoData.
+	// MTProxy-related channel
 	Proxy bool
-	// Expires field of HelpPromoData.
+	// Expiry of PSA/MTProxy info
 	Expires int
-	// Peer field of HelpPromoData.
+	// MTProxy/PSA peer
 	Peer PeerClass
-	// Chats field of HelpPromoData.
+	// Chat info
 	Chats []ChatClass
-	// Users field of HelpPromoData.
+	// User info
 	Users []UserClass
-	// PsaType field of HelpPromoData.
+	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
 	PsaType string
-	// PsaMessage field of HelpPromoData.
+	// PSA message
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
 	PsaMessage string

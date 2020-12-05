@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsChannelParticipants represents TL type `channels.channelParticipants#f56ee2a8`.
+// Represents multiple channel participants
 //
 // See https://core.telegram.org/constructor/channels.channelParticipants for reference.
 type ChannelsChannelParticipants struct {
-	// Count field of ChannelsChannelParticipants.
+	// Total number of participants that correspond to the given query
 	Count int
-	// Participants field of ChannelsChannelParticipants.
+	// Participants
 	Participants []ChannelParticipantClass
-	// Users field of ChannelsChannelParticipants.
+	// Users mentioned in participant info
 	Users []UserClass
 }
 
@@ -113,6 +114,7 @@ var (
 )
 
 // ChannelsChannelParticipantsNotModified represents TL type `channels.channelParticipantsNotModified#f0173fe9`.
+// No new participant info could be found
 //
 // See https://core.telegram.org/constructor/channels.channelParticipantsNotModified for reference.
 type ChannelsChannelParticipantsNotModified struct {

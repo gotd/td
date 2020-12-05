@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
+// Create a supergroup/channel.
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.
 type ChannelsCreateChannelRequest struct {
-	// Flags field of ChannelsCreateChannelRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Broadcast field of ChannelsCreateChannelRequest.
+	// Whether to create a channel
 	Broadcast bool
-	// Megagroup field of ChannelsCreateChannelRequest.
+	// Whether to create a supergroup
 	Megagroup bool
-	// Title field of ChannelsCreateChannelRequest.
+	// Channel title
 	Title string
-	// About field of ChannelsCreateChannelRequest.
+	// Channel description
 	About string
-	// GeoPoint field of ChannelsCreateChannelRequest.
+	// Geogroup location
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
 	GeoPoint InputGeoPointClass
-	// Address field of ChannelsCreateChannelRequest.
+	// Geogroup address
 	//
 	// Use SetAddress and GetAddress helpers.
 	Address string
@@ -167,6 +168,7 @@ var (
 )
 
 // ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.
+// Create a supergroup/channel.
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.
 func (c *Client) ChannelsCreateChannel(ctx context.Context, request *ChannelsCreateChannelRequest) (UpdatesClass, error) {

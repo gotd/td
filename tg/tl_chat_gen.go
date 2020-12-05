@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatEmpty represents TL type `chatEmpty#9ba2d800`.
+// Empty constructor, group doesn't exist
 //
 // See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
-	// ID field of ChatEmpty.
+	// Group identifier
 	ID int
 }
 
@@ -65,40 +66,41 @@ var (
 )
 
 // Chat represents TL type `chat#3bda1bde`.
+// Info about a group
 //
 // See https://core.telegram.org/constructor/chat for reference.
 type Chat struct {
-	// Flags field of Chat.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Creator field of Chat.
+	// Whether the current user is the creator of the group
 	Creator bool
-	// Kicked field of Chat.
+	// Whether the current user was kicked from the group
 	Kicked bool
-	// Left field of Chat.
+	// Whether the current user has left the group
 	Left bool
-	// Deactivated field of Chat.
+	// Whether the group was migrated
 	Deactivated bool
-	// ID field of Chat.
+	// ID of the group
 	ID int
-	// Title field of Chat.
+	// Title
 	Title string
-	// Photo field of Chat.
+	// Chat photo
 	Photo ChatPhotoClass
-	// ParticipantsCount field of Chat.
+	// Participant count
 	ParticipantsCount int
-	// Date field of Chat.
+	// Date of creation of the group
 	Date int
-	// Version field of Chat.
+	// Used in basic groups to reorder updates and make sure that all of them were received.
 	Version int
-	// MigratedTo field of Chat.
+	// Means this chat was upgraded to a supergroup
 	//
 	// Use SetMigratedTo and GetMigratedTo helpers.
 	MigratedTo InputChannelClass
-	// AdminRights field of Chat.
+	// Admin rights of the user in the group
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
 	AdminRights ChatAdminRights
-	// DefaultBannedRights field of Chat.
+	// Default banned rights of all users in the group
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
 	DefaultBannedRights ChatBannedRights
@@ -320,12 +322,13 @@ var (
 )
 
 // ChatForbidden represents TL type `chatForbidden#7328bdb`.
+// A group to which the user has no access. E.g., because the user was kicked from the group.
 //
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
-	// ID field of ChatForbidden.
+	// User identifier
 	ID int
-	// Title field of ChatForbidden.
+	// Group name
 	Title string
 }
 
@@ -380,72 +383,73 @@ var (
 )
 
 // Channel represents TL type `channel#d31a961e`.
+// Channel/supergroup info
 //
 // See https://core.telegram.org/constructor/channel for reference.
 type Channel struct {
-	// Flags field of Channel.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Creator field of Channel.
+	// Whether the current user is the creator of this channel
 	Creator bool
-	// Left field of Channel.
+	// Whether the current user has left this channel
 	Left bool
-	// Broadcast field of Channel.
+	// Is this a channel?
 	Broadcast bool
-	// Verified field of Channel.
+	// Is this channel verified by telegram?
 	Verified bool
-	// Megagroup field of Channel.
+	// Is this a supergroup?
 	Megagroup bool
-	// Restricted field of Channel.
+	// Whether viewing/writing in this channel for a reason (see restriction_reason
 	Restricted bool
-	// Signatures field of Channel.
+	// Whether signatures are enabled (channels)
 	Signatures bool
-	// Min field of Channel.
+	// See min
 	Min bool
-	// Scam field of Channel.
+	// This channel/supergroup is probably a scam
 	Scam bool
-	// HasLink field of Channel.
+	// Whether this channel has a private join link
 	HasLink bool
-	// HasGeo field of Channel.
+	// Whether this chanel has a geoposition
 	HasGeo bool
-	// SlowmodeEnabled field of Channel.
+	// Whether slow mode is enabled for groups to prevent flood in chat
 	SlowmodeEnabled bool
 	// CallActive field of Channel.
 	CallActive bool
-	// ID field of Channel.
+	// ID of the channel
 	ID int
-	// AccessHash field of Channel.
+	// Access hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
 	AccessHash int64
-	// Title field of Channel.
+	// Title
 	Title string
-	// Username field of Channel.
+	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
 	Username string
-	// Photo field of Channel.
+	// Profile photo
 	Photo ChatPhotoClass
-	// Date field of Channel.
+	// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
 	Date int
-	// Version field of Channel.
+	// Version of the channel (always 0)
 	Version int
-	// RestrictionReason field of Channel.
+	// Contains the reason why access to this channel must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
-	// AdminRights field of Channel.
+	// Admin rights of the user in this channel (see rights)
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
 	AdminRights ChatAdminRights
-	// BannedRights field of Channel.
+	// Banned rights of the user in this channel (see rights)
 	//
 	// Use SetBannedRights and GetBannedRights helpers.
 	BannedRights ChatBannedRights
-	// DefaultBannedRights field of Channel.
+	// Default chat rights (see rights)
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
 	DefaultBannedRights ChatBannedRights
-	// ParticipantsCount field of Channel.
+	// Participant count
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
 	ParticipantsCount int
@@ -855,22 +859,23 @@ var (
 )
 
 // ChannelForbidden represents TL type `channelForbidden#289da732`.
+// Indicates a channel/supergroup we can't access because we were banned, or for some other reason.
 //
 // See https://core.telegram.org/constructor/channelForbidden for reference.
 type ChannelForbidden struct {
-	// Flags field of ChannelForbidden.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Broadcast field of ChannelForbidden.
+	// Is this a channel
 	Broadcast bool
-	// Megagroup field of ChannelForbidden.
+	// Is this a supergroup
 	Megagroup bool
-	// ID field of ChannelForbidden.
+	// Channel ID
 	ID int
-	// AccessHash field of ChannelForbidden.
+	// Access hash
 	AccessHash int64
-	// Title field of ChannelForbidden.
+	// Title
 	Title string
-	// UntilDate field of ChannelForbidden.
+	// The ban is valid until the specified date
 	//
 	// Use SetUntilDate and GetUntilDate helpers.
 	UntilDate int

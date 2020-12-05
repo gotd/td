@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetAuthorizationFormRequest represents TL type `account.getAuthorizationForm#b86ba8e1`.
+// Returns a Telegram Passport authorization form for sharing data with a service
 //
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 type AccountGetAuthorizationFormRequest struct {
-	// BotID field of AccountGetAuthorizationFormRequest.
+	// User identifier of the service's bot
 	BotID int
-	// Scope field of AccountGetAuthorizationFormRequest.
+	// Telegram Passport element types requested by the service
 	Scope string
-	// PublicKey field of AccountGetAuthorizationFormRequest.
+	// Service's public key
 	PublicKey string
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // AccountGetAuthorizationForm invokes method account.getAuthorizationForm#b86ba8e1 returning error if any.
+// Returns a Telegram Passport authorization form for sharing data with a service
 //
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {

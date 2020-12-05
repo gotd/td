@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdatePasswordSettingsRequest represents TL type `account.updatePasswordSettings#a59b102f`.
+// Set a new 2FA password
 //
 // See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 type AccountUpdatePasswordSettingsRequest struct {
-	// Password field of AccountUpdatePasswordSettingsRequest.
+	// The old password (see SRP)
 	Password InputCheckPasswordSRPClass
-	// NewSettings field of AccountUpdatePasswordSettingsRequest.
+	// The new password (see SRP)
 	NewSettings AccountPasswordInputSettings
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.
+// Set a new 2FA password
 //
 // See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 func (c *Client) AccountUpdatePasswordSettings(ctx context.Context, request *AccountUpdatePasswordSettingsRequest) (BoolClass, error) {

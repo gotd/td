@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetEncryptedTypingRequest represents TL type `messages.setEncryptedTyping#791451ed`.
+// Send typing event by the current user to a secret chat.
 //
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 type MessagesSetEncryptedTypingRequest struct {
-	// Peer field of MessagesSetEncryptedTypingRequest.
+	// Secret chat ID
 	Peer InputEncryptedChat
-	// Typing field of MessagesSetEncryptedTypingRequest.
+	// Typing.Possible values:(boolTrue), if the user started typing and more than 5 seconds have passed since the last request(boolFalse), if the user stopped typing
 	Typing bool
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesSetEncryptedTyping invokes method messages.setEncryptedTyping#791451ed returning error if any.
+// Send typing event by the current user to a secret chat.
 //
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 func (c *Client) MessagesSetEncryptedTyping(ctx context.Context, request *MessagesSetEncryptedTypingRequest) (BoolClass, error) {

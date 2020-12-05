@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetLeftChannelsRequest represents TL type `channels.getLeftChannels#8341ecc0`.
+// Get a list of channels/supergroups we left
 //
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
 type ChannelsGetLeftChannelsRequest struct {
-	// Offset field of ChannelsGetLeftChannelsRequest.
+	// Offset for pagination
 	Offset int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // ChannelsGetLeftChannels invokes method channels.getLeftChannels#8341ecc0 returning error if any.
+// Get a list of channels/supergroups we left
 //
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
 func (c *Client) ChannelsGetLeftChannels(ctx context.Context, request *ChannelsGetLeftChannelsRequest) (MessagesChatsClass, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // KeyboardButton represents TL type `keyboardButton#a2fa4880`.
+// Bot keyboard button
 //
 // See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {
-	// Text field of KeyboardButton.
+	// Button text
 	Text string
 }
 
@@ -65,12 +66,13 @@ var (
 )
 
 // KeyboardButtonUrl represents TL type `keyboardButtonUrl#258aff05`.
+// URL button
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
 type KeyboardButtonUrl struct {
-	// Text field of KeyboardButtonUrl.
+	// Button label
 	Text string
-	// URL field of KeyboardButtonUrl.
+	// URL
 	URL string
 }
 
@@ -125,16 +127,17 @@ var (
 )
 
 // KeyboardButtonCallback represents TL type `keyboardButtonCallback#35bbdb6b`.
+// Callback button
 //
 // See https://core.telegram.org/constructor/keyboardButtonCallback for reference.
 type KeyboardButtonCallback struct {
-	// Flags field of KeyboardButtonCallback.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// RequiresPassword field of KeyboardButtonCallback.
+	// Whether the user should verify his identity by entering his 2FA SRP parameters to the messages.getBotCallbackAnswer method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to SRP. This button is mainly used by the official @botfather bot, for verifying the user's identity before transferring ownership of a bot to another user.
 	RequiresPassword bool
-	// Text field of KeyboardButtonCallback.
+	// Button text
 	Text string
-	// Data field of KeyboardButtonCallback.
+	// Callback data
 	Data []byte
 }
 
@@ -207,10 +210,11 @@ var (
 )
 
 // KeyboardButtonRequestPhone represents TL type `keyboardButtonRequestPhone#b16a6c29`.
+// Button to request a user's phone number
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPhone for reference.
 type KeyboardButtonRequestPhone struct {
-	// Text field of KeyboardButtonRequestPhone.
+	// Button text
 	Text string
 }
 
@@ -257,10 +261,11 @@ var (
 )
 
 // KeyboardButtonRequestGeoLocation represents TL type `keyboardButtonRequestGeoLocation#fc796b3f`.
+// Button to request a user's geolocation
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestGeoLocation for reference.
 type KeyboardButtonRequestGeoLocation struct {
-	// Text field of KeyboardButtonRequestGeoLocation.
+	// Button text
 	Text string
 }
 
@@ -307,16 +312,17 @@ var (
 )
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
+// Button to force a user to switch to inline mode Pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field.
 //
 // See https://core.telegram.org/constructor/keyboardButtonSwitchInline for reference.
 type KeyboardButtonSwitchInline struct {
-	// Flags field of KeyboardButtonSwitchInline.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// SamePeer field of KeyboardButtonSwitchInline.
+	// If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field.
 	SamePeer bool
-	// Text field of KeyboardButtonSwitchInline.
+	// Button label
 	Text string
-	// Query field of KeyboardButtonSwitchInline.
+	// The inline query to use
 	Query string
 }
 
@@ -389,10 +395,11 @@ var (
 )
 
 // KeyboardButtonGame represents TL type `keyboardButtonGame#50f41ccf`.
+// Button to start a game
 //
 // See https://core.telegram.org/constructor/keyboardButtonGame for reference.
 type KeyboardButtonGame struct {
-	// Text field of KeyboardButtonGame.
+	// Button text
 	Text string
 }
 
@@ -439,10 +446,11 @@ var (
 )
 
 // KeyboardButtonBuy represents TL type `keyboardButtonBuy#afd93fbb`.
+// Button to buy a product
 //
 // See https://core.telegram.org/constructor/keyboardButtonBuy for reference.
 type KeyboardButtonBuy struct {
-	// Text field of KeyboardButtonBuy.
+	// Button text
 	Text string
 }
 
@@ -489,20 +497,21 @@ var (
 )
 
 // KeyboardButtonUrlAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
+// Button to request a user to authorize via URL using Seamless Telegram Login. When the user clicks on such a button, messages.requestUrlAuth should be called, providing the button_id and the ID of the container message. The returned urlAuthResultRequest object will contain more details about the authorization request (request_write_access if the bot would like to send messages to the user along with the username of the bot which will be used for user authorization). Finally, the user can choose to call messages.acceptUrlAuth to get a urlAuthResultAccepted with the URL to open instead of the url of this constructor, or a urlAuthResultDefault, in which case the url of this constructor must be opened, instead. If the user refuses the authorization request but still wants to open the link, the url of this constructor must be used.
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrlAuth for reference.
 type KeyboardButtonUrlAuth struct {
-	// Flags field of KeyboardButtonUrlAuth.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Text field of KeyboardButtonUrlAuth.
+	// Button label
 	Text string
-	// FwdText field of KeyboardButtonUrlAuth.
+	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
 	FwdText string
-	// URL field of KeyboardButtonUrlAuth.
+	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data.NOTE: Services must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization.
 	URL string
-	// ButtonID field of KeyboardButtonUrlAuth.
+	// ID of the button to pass to messages.requestUrlAuth
 	ButtonID int
 }
 
@@ -598,22 +607,23 @@ var (
 )
 
 // InputKeyboardButtonUrlAuth represents TL type `inputKeyboardButtonUrlAuth#d02e7fd4`.
+// Button to request a user to authorize via URL using Seamless Telegram Login.
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonUrlAuth for reference.
 type InputKeyboardButtonUrlAuth struct {
-	// Flags field of InputKeyboardButtonUrlAuth.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// RequestWriteAccess field of InputKeyboardButtonUrlAuth.
+	// Set this flag to request the permission for your bot to send messages to the user.
 	RequestWriteAccess bool
-	// Text field of InputKeyboardButtonUrlAuth.
+	// Button text
 	Text string
-	// FwdText field of InputKeyboardButtonUrlAuth.
+	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
 	FwdText string
-	// URL field of InputKeyboardButtonUrlAuth.
+	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization.
 	URL string
-	// Bot field of InputKeyboardButtonUrlAuth.
+	// Username of a bot, which will be used for user authorization. See Setting up a bot for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
 	Bot InputUserClass
 }
 
@@ -724,14 +734,15 @@ var (
 )
 
 // KeyboardButtonRequestPoll represents TL type `keyboardButtonRequestPoll#bbc7515d`.
+// A button that allows the user to create and send a poll when pressed; available only in private
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPoll for reference.
 type KeyboardButtonRequestPoll struct {
-	// Flags field of KeyboardButtonRequestPoll.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Quiz field of KeyboardButtonRequestPoll.
+	// If set, only quiz polls can be sent
 	Quiz bool
-	// Text field of KeyboardButtonRequestPoll.
+	// Button text
 	Text string
 }
 

@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPasswordSettings represents TL type `account.passwordSettings#9a5c33e5`.
+// Private info associated to the password info (recovery email, telegram passport info & so on)
 //
 // See https://core.telegram.org/constructor/account.passwordSettings for reference.
 type AccountPasswordSettings struct {
-	// Flags field of AccountPasswordSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Email field of AccountPasswordSettings.
+	// 2FA Recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
 	Email string
-	// SecureSettings field of AccountPasswordSettings.
+	// Telegram passport settings
 	//
 	// Use SetSecureSettings and GetSecureSettings helpers.
 	SecureSettings SecureSecretSettings

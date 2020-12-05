@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpRecentMeUrls represents TL type `help.recentMeUrls#e0310d7`.
+// Recent t.me URLs
 //
 // See https://core.telegram.org/constructor/help.recentMeUrls for reference.
 type HelpRecentMeUrls struct {
-	// Urls field of HelpRecentMeUrls.
+	// URLs
 	Urls []RecentMeUrlClass
-	// Chats field of HelpRecentMeUrls.
+	// Chats
 	Chats []ChatClass
-	// Users field of HelpRecentMeUrls.
+	// Users
 	Users []UserClass
 }
 

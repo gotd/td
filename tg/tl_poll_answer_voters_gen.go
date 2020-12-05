@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollAnswerVoters represents TL type `pollAnswerVoters#3b6ddad2`.
+// A poll answer, and how users voted on it
 //
 // See https://core.telegram.org/constructor/pollAnswerVoters for reference.
 type PollAnswerVoters struct {
-	// Flags field of PollAnswerVoters.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Chosen field of PollAnswerVoters.
+	// Whether we have chosen this answer
 	Chosen bool
-	// Correct field of PollAnswerVoters.
+	// For quizes, whether the option we have chosen is correct
 	Correct bool
-	// Option field of PollAnswerVoters.
+	// The param that has to be passed to messages.sendVote.
 	Option []byte
-	// Voters field of PollAnswerVoters.
+	// How many users voted for this option
 	Voters int
 }
 

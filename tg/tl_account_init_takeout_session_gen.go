@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
+// Intialize account takeout session
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 type AccountInitTakeoutSessionRequest struct {
-	// Flags field of AccountInitTakeoutSessionRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Contacts field of AccountInitTakeoutSessionRequest.
+	// Whether to export contacts
 	Contacts bool
-	// MessageUsers field of AccountInitTakeoutSessionRequest.
+	// Whether to export messages in private chats
 	MessageUsers bool
-	// MessageChats field of AccountInitTakeoutSessionRequest.
+	// Whether to export messages in legacy groups
 	MessageChats bool
-	// MessageMegagroups field of AccountInitTakeoutSessionRequest.
+	// Whether to export messages in supergroups
 	MessageMegagroups bool
-	// MessageChannels field of AccountInitTakeoutSessionRequest.
+	// Whether to export messages in channels
 	MessageChannels bool
-	// Files field of AccountInitTakeoutSessionRequest.
+	// Whether to export files
 	Files bool
-	// FileMaxSize field of AccountInitTakeoutSessionRequest.
+	// Maximum size of files to export
 	//
 	// Use SetFileMaxSize and GetFileMaxSize helpers.
 	FileMaxSize int
@@ -161,6 +162,7 @@ var (
 )
 
 // AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
+// Intialize account takeout session
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {

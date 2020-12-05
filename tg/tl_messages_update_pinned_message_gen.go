@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUpdatePinnedMessageRequest represents TL type `messages.updatePinnedMessage#d2aaf7ec`.
+// Pin a message
 //
 // See https://core.telegram.org/method/messages.updatePinnedMessage for reference.
 type MessagesUpdatePinnedMessageRequest struct {
-	// Flags field of MessagesUpdatePinnedMessageRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesUpdatePinnedMessageRequest.
+	// Pin the message silently, without triggering a notification
 	Silent bool
-	// Unpin field of MessagesUpdatePinnedMessageRequest.
+	// Whether the message should unpinned or pinned
 	Unpin bool
-	// PmOneside field of MessagesUpdatePinnedMessageRequest.
+	// Whether the message should only be pinned on the local side of a one-to-one chat
 	PmOneside bool
-	// Peer field of MessagesUpdatePinnedMessageRequest.
+	// The peer where to pin the message
 	Peer InputPeerClass
-	// ID field of MessagesUpdatePinnedMessageRequest.
+	// The message to pin or unpin
 	ID int
 }
 
@@ -121,6 +122,7 @@ var (
 )
 
 // MessagesUpdatePinnedMessage invokes method messages.updatePinnedMessage#d2aaf7ec returning error if any.
+// Pin a message
 //
 // See https://core.telegram.org/method/messages.updatePinnedMessage for reference.
 func (c *Client) MessagesUpdatePinnedMessage(ctx context.Context, request *MessagesUpdatePinnedMessageRequest) (UpdatesClass, error) {

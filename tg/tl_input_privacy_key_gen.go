@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
+// Whether we can see the exact last online timestamp of the user
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyStatusTimestamp for reference.
 type InputPrivacyKeyStatusTimestamp struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // InputPrivacyKeyChatInvite represents TL type `inputPrivacyKeyChatInvite#bdfb0426`.
+// Whether the user can be invited to chats
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyChatInvite for reference.
 type InputPrivacyKeyChatInvite struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // InputPrivacyKeyPhoneCall represents TL type `inputPrivacyKeyPhoneCall#fabadc5f`.
+// Whether the user will accept phone calls
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneCall for reference.
 type InputPrivacyKeyPhoneCall struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // InputPrivacyKeyPhoneP2P represents TL type `inputPrivacyKeyPhoneP2P#db9e70d2`.
+// Whether the user allows P2P communication during VoIP calls
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneP2P for reference.
 type InputPrivacyKeyPhoneP2P struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // InputPrivacyKeyForwards represents TL type `inputPrivacyKeyForwards#a4dd4c08`.
+// Whether messages forwarded from this user will be anonymous
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyForwards for reference.
 type InputPrivacyKeyForwards struct {
@@ -215,6 +220,7 @@ var (
 )
 
 // InputPrivacyKeyProfilePhoto represents TL type `inputPrivacyKeyProfilePhoto#5719bacc`.
+// Whether people will be able to see the user's profile picture
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyProfilePhoto for reference.
 type InputPrivacyKeyProfilePhoto struct {
@@ -255,6 +261,7 @@ var (
 )
 
 // InputPrivacyKeyPhoneNumber represents TL type `inputPrivacyKeyPhoneNumber#352dafa`.
+// Whether people will be able to see the user's phone number
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyPhoneNumber for reference.
 type InputPrivacyKeyPhoneNumber struct {
@@ -295,6 +302,7 @@ var (
 )
 
 // InputPrivacyKeyAddedByPhone represents TL type `inputPrivacyKeyAddedByPhone#d1219bdd`.
+// Whether people can add you to their contact list by your phone number
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyAddedByPhone for reference.
 type InputPrivacyKeyAddedByPhone struct {

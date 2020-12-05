@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Dialog represents TL type `dialog#2c171f72`.
+// Chat
 //
 // See https://core.telegram.org/constructor/dialog for reference.
 type Dialog struct {
-	// Flags field of Dialog.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Pinned field of Dialog.
+	// Is the dialog pinned
 	Pinned bool
-	// UnreadMark field of Dialog.
+	// Whether the chat was manually marked as unread
 	UnreadMark bool
-	// Peer field of Dialog.
+	// The chat
 	Peer PeerClass
-	// TopMessage field of Dialog.
+	// The latest message ID
 	TopMessage int
-	// ReadInboxMaxID field of Dialog.
+	// Position up to which all incoming messages are read.
 	ReadInboxMaxID int
-	// ReadOutboxMaxID field of Dialog.
+	// Position up to which all outgoing messages are read.
 	ReadOutboxMaxID int
-	// UnreadCount field of Dialog.
+	// Number of unread messages
 	UnreadCount int
-	// UnreadMentionsCount field of Dialog.
+	// Number of unread mentions
 	UnreadMentionsCount int
-	// NotifySettings field of Dialog.
+	// Notification settings
 	NotifySettings PeerNotifySettings
-	// Pts field of Dialog.
+	// PTS
 	//
 	// Use SetPts and GetPts helpers.
 	Pts int
-	// Draft field of Dialog.
+	// Message draft
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass
-	// FolderID field of Dialog.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -256,26 +257,27 @@ var (
 )
 
 // DialogFolder represents TL type `dialogFolder#71bd134c`.
+// Dialog in folder
 //
 // See https://core.telegram.org/constructor/dialogFolder for reference.
 type DialogFolder struct {
-	// Flags field of DialogFolder.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Pinned field of DialogFolder.
+	// Is this folder pinned
 	Pinned bool
-	// Folder field of DialogFolder.
+	// The folder
 	Folder Folder
-	// Peer field of DialogFolder.
+	// Peer in folder
 	Peer PeerClass
-	// TopMessage field of DialogFolder.
+	// Latest message ID of dialog
 	TopMessage int
-	// UnreadMutedPeersCount field of DialogFolder.
+	// Number of unread muted peers in folder
 	UnreadMutedPeersCount int
-	// UnreadUnmutedPeersCount field of DialogFolder.
+	// Number of unread unmuted peers in folder
 	UnreadUnmutedPeersCount int
-	// UnreadMutedMessagesCount field of DialogFolder.
+	// Number of unread messages from muted peers in folder
 	UnreadMutedMessagesCount int
-	// UnreadUnmutedMessagesCount field of DialogFolder.
+	// Number of unread messages from unmuted peers in folder
 	UnreadUnmutedMessagesCount int
 }
 

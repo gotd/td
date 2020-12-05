@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesExportChatInviteRequest represents TL type `messages.exportChatInvite#df7534c`.
+// Export an invite link for a chat
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
-	// Peer field of MessagesExportChatInviteRequest.
+	// Chat
 	Peer InputPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // MessagesExportChatInvite invokes method messages.exportChatInvite#df7534c returning error if any.
+// Export an invite link for a chat
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 func (c *Client) MessagesExportChatInvite(ctx context.Context, request *MessagesExportChatInviteRequest) (ExportedChatInviteClass, error) {

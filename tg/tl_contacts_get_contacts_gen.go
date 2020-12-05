@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetContactsRequest represents TL type `contacts.getContacts#c023849f`.
+// Returns the current user's contact list.
 //
 // See https://core.telegram.org/method/contacts.getContacts for reference.
 type ContactsGetContactsRequest struct {
-	// Hash field of ContactsGetContactsRequest.
+	// If there already is a full contact list on the client, a hash of a the list of contact IDs in ascending order may be passed in this parameter. If the contact set was not changed, (contacts.contactsNotModified) will be returned.
 	Hash int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // ContactsGetContacts invokes method contacts.getContacts#c023849f returning error if any.
+// Returns the current user's contact list.
 //
 // See https://core.telegram.org/method/contacts.getContacts for reference.
 func (c *Client) ContactsGetContacts(ctx context.Context, request *ContactsGetContactsRequest) (ContactsContactsClass, error) {

@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
+// Returns the difference between the current state of updates of a certain channel and transmitted.
 //
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
 type UpdatesGetChannelDifferenceRequest struct {
-	// Flags field of UpdatesGetChannelDifferenceRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Force field of UpdatesGetChannelDifferenceRequest.
+	// Set to true to skip some possibly unneeded updates and reduce server-side load
 	Force bool
-	// Channel field of UpdatesGetChannelDifferenceRequest.
+	// The channel
 	Channel InputChannelClass
-	// Filter field of UpdatesGetChannelDifferenceRequest.
+	// Messsage filter
 	Filter ChannelMessagesFilterClass
-	// Pts field of UpdatesGetChannelDifferenceRequest.
+	// Persistent timestamp (see updates)
 	Pts int
-	// Limit field of UpdatesGetChannelDifferenceRequest.
+	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass 10-100
 	Limit int
 }
 
@@ -122,6 +123,7 @@ var (
 )
 
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
+// Returns the difference between the current state of updates of a certain channel and transmitted.
 //
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
 func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {

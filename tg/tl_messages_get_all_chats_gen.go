@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetAllChatsRequest represents TL type `messages.getAllChats#eba80ff0`.
+// Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
-	// ExceptIds field of MessagesGetAllChatsRequest.
+	// Except these chats/channels/supergroups
 	ExceptIds []int
 }
 
@@ -69,6 +70,7 @@ var (
 )
 
 // MessagesGetAllChats invokes method messages.getAllChats#eba80ff0 returning error if any.
+// Get all chats, channels and supergroups
 //
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 func (c *Client) MessagesGetAllChats(ctx context.Context, request *MessagesGetAllChatsRequest) (MessagesChatsClass, error) {

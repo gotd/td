@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
+// Empty constructor
 //
 // See https://core.telegram.org/constructor/phoneCallEmpty for reference.
 type PhoneCallEmpty struct {
-	// ID field of PhoneCallEmpty.
+	// Call ID
 	ID int64
 }
 
@@ -65,26 +66,27 @@ var (
 )
 
 // PhoneCallWaiting represents TL type `phoneCallWaiting#1b8f4ad1`.
+// Incoming phone call
 //
 // See https://core.telegram.org/constructor/phoneCallWaiting for reference.
 type PhoneCallWaiting struct {
-	// Flags field of PhoneCallWaiting.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of PhoneCallWaiting.
+	// Is this a video call
 	Video bool
-	// ID field of PhoneCallWaiting.
+	// Call ID
 	ID int64
-	// AccessHash field of PhoneCallWaiting.
+	// Access hash
 	AccessHash int64
-	// Date field of PhoneCallWaiting.
+	// Date
 	Date int
-	// AdminID field of PhoneCallWaiting.
+	// Admin ID
 	AdminID int
-	// ParticipantID field of PhoneCallWaiting.
+	// Participant ID
 	ParticipantID int
-	// Protocol field of PhoneCallWaiting.
+	// Phone call protocol info
 	Protocol PhoneCallProtocol
-	// ReceiveDate field of PhoneCallWaiting.
+	// When was the phone call received
 	//
 	// Use SetReceiveDate and GetReceiveDate helpers.
 	ReceiveDate int
@@ -216,26 +218,27 @@ var (
 )
 
 // PhoneCallRequested represents TL type `phoneCallRequested#87eabb53`.
+// Requested phone call
 //
 // See https://core.telegram.org/constructor/phoneCallRequested for reference.
 type PhoneCallRequested struct {
-	// Flags field of PhoneCallRequested.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of PhoneCallRequested.
+	// Whether this is a video call
 	Video bool
-	// ID field of PhoneCallRequested.
+	// Phone call ID
 	ID int64
-	// AccessHash field of PhoneCallRequested.
+	// Access hash
 	AccessHash int64
-	// Date field of PhoneCallRequested.
+	// When was the phone call created
 	Date int
-	// AdminID field of PhoneCallRequested.
+	// ID of the creator of the phone call
 	AdminID int
-	// ParticipantID field of PhoneCallRequested.
+	// ID of the other participant of the phone call
 	ParticipantID int
-	// GAHash field of PhoneCallRequested.
+	// Parameter for key exchange
 	GAHash []byte
-	// Protocol field of PhoneCallRequested.
+	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
 }
 
@@ -348,26 +351,27 @@ var (
 )
 
 // PhoneCallAccepted represents TL type `phoneCallAccepted#997c454a`.
+// An accepted phone call
 //
 // See https://core.telegram.org/constructor/phoneCallAccepted for reference.
 type PhoneCallAccepted struct {
-	// Flags field of PhoneCallAccepted.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of PhoneCallAccepted.
+	// Whether this is a video call
 	Video bool
-	// ID field of PhoneCallAccepted.
+	// ID of accepted phone call
 	ID int64
-	// AccessHash field of PhoneCallAccepted.
+	// Access hash of phone call
 	AccessHash int64
-	// Date field of PhoneCallAccepted.
+	// When was the call accepted
 	Date int
-	// AdminID field of PhoneCallAccepted.
+	// ID of the call creator
 	AdminID int
-	// ParticipantID field of PhoneCallAccepted.
+	// ID of the other user in the call
 	ParticipantID int
-	// GB field of PhoneCallAccepted.
+	// B parameter for secure E2E phone call key exchange
 	GB []byte
-	// Protocol field of PhoneCallAccepted.
+	// Protocol to use for phone call
 	Protocol PhoneCallProtocol
 }
 
@@ -480,34 +484,35 @@ var (
 )
 
 // PhoneCall represents TL type `phoneCall#8742ae7f`.
+// Phone call
 //
 // See https://core.telegram.org/constructor/phoneCall for reference.
 type PhoneCall struct {
-	// Flags field of PhoneCall.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// P2PAllowed field of PhoneCall.
+	// Whether P2P connection to the other peer is allowed
 	P2PAllowed bool
-	// Video field of PhoneCall.
+	// Whether this is a video call
 	Video bool
-	// ID field of PhoneCall.
+	// Call ID
 	ID int64
-	// AccessHash field of PhoneCall.
+	// Access hash
 	AccessHash int64
-	// Date field of PhoneCall.
+	// Date of creation of the call
 	Date int
-	// AdminID field of PhoneCall.
+	// User ID of the creator of the call
 	AdminID int
-	// ParticipantID field of PhoneCall.
+	// User ID of the other participant in the call
 	ParticipantID int
-	// GAOrB field of PhoneCall.
+	// Parameter for key exchange
 	GAOrB []byte
-	// KeyFingerprint field of PhoneCall.
+	// Key fingerprint
 	KeyFingerprint int64
-	// Protocol field of PhoneCall.
+	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
-	// Connections field of PhoneCall.
+	// List of endpoints the user can connect to to exchange call data
 	Connections []PhoneConnectionClass
-	// StartDate field of PhoneCall.
+	// When was the call actually started
 	StartDate int
 }
 
@@ -668,24 +673,25 @@ var (
 )
 
 // PhoneCallDiscarded represents TL type `phoneCallDiscarded#50ca4de1`.
+// Indicates a discarded phone call
 //
 // See https://core.telegram.org/constructor/phoneCallDiscarded for reference.
 type PhoneCallDiscarded struct {
-	// Flags field of PhoneCallDiscarded.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NeedRating field of PhoneCallDiscarded.
+	// Whether the server required the user to rate the call
 	NeedRating bool
-	// NeedDebug field of PhoneCallDiscarded.
+	// Whether the server required the client to send the libtgvoip call debug data
 	NeedDebug bool
-	// Video field of PhoneCallDiscarded.
+	// Whether the call was a video call
 	Video bool
-	// ID field of PhoneCallDiscarded.
+	// Call ID
 	ID int64
-	// Reason field of PhoneCallDiscarded.
+	// Why was the phone call discarded
 	//
 	// Use SetReason and GetReason helpers.
 	Reason PhoneCallDiscardReasonClass
-	// Duration field of PhoneCallDiscarded.
+	// Duration of the phone call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int

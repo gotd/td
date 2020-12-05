@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetStatsURLRequest represents TL type `messages.getStatsURL#812c2ae6`.
+// Returns URL with the chat statistics. Currently this method can be used only for channels
 //
 // See https://core.telegram.org/method/messages.getStatsURL for reference.
 type MessagesGetStatsURLRequest struct {
-	// Flags field of MessagesGetStatsURLRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Dark field of MessagesGetStatsURLRequest.
+	// Pass true if a URL with the dark theme must be returned
 	Dark bool
-	// Peer field of MessagesGetStatsURLRequest.
+	// Chat identifier
 	Peer InputPeerClass
-	// Params field of MessagesGetStatsURLRequest.
+	// Parameters from tg://statsrefresh?params=****** link
 	Params string
 }
 
@@ -97,6 +98,7 @@ var (
 )
 
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.
+// Returns URL with the chat statistics. Currently this method can be used only for channels
 //
 // See https://core.telegram.org/method/messages.getStatsURL for reference.
 func (c *Client) MessagesGetStatsURL(ctx context.Context, request *MessagesGetStatsURLRequest) (*StatsURL, error) {

@@ -15,36 +15,37 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputBotInlineResult represents TL type `inputBotInlineResult#88bf9319`.
+// An inline bot result
 //
 // See https://core.telegram.org/constructor/inputBotInlineResult for reference.
 type InputBotInlineResult struct {
-	// Flags field of InputBotInlineResult.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of InputBotInlineResult.
+	// ID of result
 	ID string
-	// Type field of InputBotInlineResult.
+	// Result type (see bot API docs)
 	Type string
-	// Title field of InputBotInlineResult.
+	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of InputBotInlineResult.
+	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// URL field of InputBotInlineResult.
+	// URL of result
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// Thumb field of InputBotInlineResult.
+	// Thumbnail for result
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputWebDocument
-	// Content field of InputBotInlineResult.
+	// Result contents
 	//
 	// Use SetContent and GetContent helpers.
 	Content InputWebDocument
-	// SendMessage field of InputBotInlineResult.
+	// Message to send when the result is selected
 	SendMessage InputBotInlineMessageClass
 }
 
@@ -245,16 +246,17 @@ var (
 )
 
 // InputBotInlineResultPhoto represents TL type `inputBotInlineResultPhoto#a8d864a7`.
+// Photo
 //
 // See https://core.telegram.org/constructor/inputBotInlineResultPhoto for reference.
 type InputBotInlineResultPhoto struct {
-	// ID field of InputBotInlineResultPhoto.
+	// Result ID
 	ID string
-	// Type field of InputBotInlineResultPhoto.
+	// Result type (see bot API docs)
 	Type string
-	// Photo field of InputBotInlineResultPhoto.
+	// Photo to send
 	Photo InputPhotoClass
-	// SendMessage field of InputBotInlineResultPhoto.
+	// Message to send when the result is selected
 	SendMessage InputBotInlineMessageClass
 }
 
@@ -335,26 +337,27 @@ var (
 )
 
 // InputBotInlineResultDocument represents TL type `inputBotInlineResultDocument#fff8fdc4`.
+// Document (media of any type except for photos)
 //
 // See https://core.telegram.org/constructor/inputBotInlineResultDocument for reference.
 type InputBotInlineResultDocument struct {
-	// Flags field of InputBotInlineResultDocument.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of InputBotInlineResultDocument.
+	// Result ID
 	ID string
-	// Type field of InputBotInlineResultDocument.
+	// Result type (see bot API docs)
 	Type string
-	// Title field of InputBotInlineResultDocument.
+	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of InputBotInlineResultDocument.
+	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// Document field of InputBotInlineResultDocument.
+	// Document to send
 	Document InputDocumentClass
-	// SendMessage field of InputBotInlineResultDocument.
+	// Message to send when the result is selected
 	SendMessage InputBotInlineMessageClass
 }
 
@@ -493,14 +496,15 @@ var (
 )
 
 // InputBotInlineResultGame represents TL type `inputBotInlineResultGame#4fa417f2`.
+// Game
 //
 // See https://core.telegram.org/constructor/inputBotInlineResultGame for reference.
 type InputBotInlineResultGame struct {
-	// ID field of InputBotInlineResultGame.
+	// Result ID
 	ID string
-	// ShortName field of InputBotInlineResultGame.
+	// Game short name
 	ShortName string
-	// SendMessage field of InputBotInlineResultGame.
+	// Message to send when the result is selected
 	SendMessage InputBotInlineMessageClass
 }
 

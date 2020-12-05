@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EmojiURL represents TL type `emojiURL#a575739d`.
+// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
 //
 // See https://core.telegram.org/constructor/emojiURL for reference.
 type EmojiURL struct {
-	// URL field of EmojiURL.
+	// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
 	URL string
 }
 

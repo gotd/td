@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthExportAuthorizationRequest represents TL type `auth.exportAuthorization#e5bfffcd`.
+// Returns data for copying authorization to another data-centre.
 //
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 type AuthExportAuthorizationRequest struct {
-	// DCID field of AuthExportAuthorizationRequest.
+	// Number of a target data-centre
 	DCID int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AuthExportAuthorization invokes method auth.exportAuthorization#e5bfffcd returning error if any.
+// Returns data for copying authorization to another data-centre.
 //
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 func (c *Client) AuthExportAuthorization(ctx context.Context, request *AuthExportAuthorizationRequest) (*AuthExportedAuthorization, error) {

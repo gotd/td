@@ -15,12 +15,14 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UsersSetSecureValueErrorsRequest represents TL type `users.setSecureValueErrors#90c894b5`.
+// Notify the user that the sent passport data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).
+// Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
-	// ID field of UsersSetSecureValueErrorsRequest.
+	// The user
 	ID InputUserClass
-	// Errors field of UsersSetSecureValueErrorsRequest.
+	// Errors
 	Errors []SecureValueErrorClass
 }
 
@@ -89,6 +91,8 @@ var (
 )
 
 // UsersSetSecureValueErrors invokes method users.setSecureValueErrors#90c894b5 returning error if any.
+// Notify the user that the sent passport data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).
+// Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
 //
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 func (c *Client) UsersSetSecureValueErrors(ctx context.Context, request *UsersSetSecureValueErrorsRequest) (BoolClass, error) {

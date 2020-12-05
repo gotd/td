@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSentCodeTypeApp represents TL type `auth.sentCodeTypeApp#3dbb5986`.
+// The code was sent through the telegram app
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeApp for reference.
 type AuthSentCodeTypeApp struct {
-	// Length field of AuthSentCodeTypeApp.
+	// Length of the code in bytes
 	Length int
 }
 
@@ -65,10 +66,11 @@ var (
 )
 
 // AuthSentCodeTypeSms represents TL type `auth.sentCodeTypeSms#c000bba2`.
+// The code was sent via SMS
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
 type AuthSentCodeTypeSms struct {
-	// Length field of AuthSentCodeTypeSms.
+	// Length of the code in bytes
 	Length int
 }
 
@@ -115,10 +117,11 @@ var (
 )
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
+// The code will be sent via a phone call: a synthesized voice will tell the user which verification code to input.
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
-	// Length field of AuthSentCodeTypeCall.
+	// Length of the verification code
 	Length int
 }
 
@@ -165,10 +168,11 @@ var (
 )
 
 // AuthSentCodeTypeFlashCall represents TL type `auth.sentCodeTypeFlashCall#ab03c6d9`.
+// The code will be sent via a flash phone call, that will be closed immediately. The phone code will then be the phone number itself, just make sure that the phone number matches the specified pattern.
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFlashCall for reference.
 type AuthSentCodeTypeFlashCall struct {
-	// Pattern field of AuthSentCodeTypeFlashCall.
+	// pattern to match
 	Pattern string
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSavedGifsNotModified represents TL type `messages.savedGifsNotModified#e8025ca2`.
+// No new saved gifs were found
 //
 // See https://core.telegram.org/constructor/messages.savedGifsNotModified for reference.
 type MessagesSavedGifsNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // MessagesSavedGifs represents TL type `messages.savedGifs#2e0709a5`.
+// Saved gifs
 //
 // See https://core.telegram.org/constructor/messages.savedGifs for reference.
 type MessagesSavedGifs struct {
-	// Hash field of MessagesSavedGifs.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Gifs field of MessagesSavedGifs.
+	// List of saved gifs
 	Gifs []DocumentClass
 }
 

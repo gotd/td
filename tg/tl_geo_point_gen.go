@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // GeoPointEmpty represents TL type `geoPointEmpty#1117dd5f`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/geoPointEmpty for reference.
 type GeoPointEmpty struct {
@@ -55,18 +56,19 @@ var (
 )
 
 // GeoPoint represents TL type `geoPoint#b2a2f663`.
+// GeoPoint.
 //
 // See https://core.telegram.org/constructor/geoPoint for reference.
 type GeoPoint struct {
-	// Flags field of GeoPoint.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Long field of GeoPoint.
+	// Longtitude
 	Long float64
-	// Lat field of GeoPoint.
+	// Latitude
 	Lat float64
-	// AccessHash field of GeoPoint.
+	// Access hash
 	AccessHash int64
-	// AccuracyRadius field of GeoPoint.
+	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
 	AccuracyRadius int

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendVerifyPhoneCodeRequest represents TL type `account.sendVerifyPhoneCode#a5a356f9`.
+// Send the verification phone code for telegram passport.
 //
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
-	// PhoneNumber field of AccountSendVerifyPhoneCodeRequest.
+	// The phone number to verify
 	PhoneNumber string
-	// Settings field of AccountSendVerifyPhoneCodeRequest.
+	// Phone code settings
 	Settings CodeSettings
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AccountSendVerifyPhoneCode invokes method account.sendVerifyPhoneCode#a5a356f9 returning error if any.
+// Send the verification phone code for telegram passport.
 //
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 func (c *Client) AccountSendVerifyPhoneCode(ctx context.Context, request *AccountSendVerifyPhoneCodeRequest) (*AuthSentCode, error) {

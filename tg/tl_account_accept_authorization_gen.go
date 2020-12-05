@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
+// Sends a Telegram Passport authorization form, effectively sharing data with the service
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
-	// BotID field of AccountAcceptAuthorizationRequest.
+	// Bot ID
 	BotID int
-	// Scope field of AccountAcceptAuthorizationRequest.
+	// Telegram Passport element types requested by the service
 	Scope string
-	// PublicKey field of AccountAcceptAuthorizationRequest.
+	// Service's public key
 	PublicKey string
-	// ValueHashes field of AccountAcceptAuthorizationRequest.
+	// Types of values sent and their hashes
 	ValueHashes []SecureValueHash
-	// Credentials field of AccountAcceptAuthorizationRequest.
+	// Encrypted values
 	Credentials SecureCredentialsEncrypted
 }
 
@@ -111,6 +112,7 @@ var (
 )
 
 // AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
+// Sends a Telegram Passport authorization form, effectively sharing data with the service
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 func (c *Client) AccountAcceptAuthorization(ctx context.Context, request *AccountAcceptAuthorizationRequest) (BoolClass, error) {

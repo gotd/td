@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpSetBotUpdatesStatusRequest represents TL type `help.setBotUpdatesStatus#ec22cfcd`.
+// Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 type HelpSetBotUpdatesStatusRequest struct {
-	// PendingUpdatesCount field of HelpSetBotUpdatesStatusRequest.
+	// Number of pending updates
 	PendingUpdatesCount int
-	// Message field of HelpSetBotUpdatesStatusRequest.
+	// Error message, if present
 	Message string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // HelpSetBotUpdatesStatus invokes method help.setBotUpdatesStatus#ec22cfcd returning error if any.
+// Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 func (c *Client) HelpSetBotUpdatesStatus(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (BoolClass, error) {

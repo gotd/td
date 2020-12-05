@@ -15,14 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
+// Generate a login token, for login via QR code.
+// The generated login token should be encoded using base64url, then shown as a tg://login?token=base64encodedtoken URL in the QR code.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 type AuthExportLoginTokenRequest struct {
-	// APIID field of AuthExportLoginTokenRequest.
+	// Application identifier (see. App configuration)
 	APIID int
-	// APIHash field of AuthExportLoginTokenRequest.
+	// Application identifier hash (see. App configuration)
 	APIHash string
-	// ExceptIds field of AuthExportLoginTokenRequest.
+	// List of already logged-in user IDs, to prevent logging in twice with the same user
 	ExceptIds []int
 }
 
@@ -89,6 +92,9 @@ var (
 )
 
 // AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.
+// Generate a login token, for login via QR code.
+// The generated login token should be encoded using base64url, then shown as a tg://login?token=base64encodedtoken URL in the QR code.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {

@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#2b8879b3`.
+// Send compiled payment form
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 type PaymentsSendPaymentFormRequest struct {
-	// Flags field of PaymentsSendPaymentFormRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// MsgID field of PaymentsSendPaymentFormRequest.
+	// Message ID of form
 	MsgID int
-	// RequestedInfoID field of PaymentsSendPaymentFormRequest.
+	// ID of saved and validated order info
 	//
 	// Use SetRequestedInfoID and GetRequestedInfoID helpers.
 	RequestedInfoID string
-	// ShippingOptionID field of PaymentsSendPaymentFormRequest.
+	// Chosen shipping option ID
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
 	ShippingOptionID string
-	// Credentials field of PaymentsSendPaymentFormRequest.
+	// Payment credentials
 	Credentials InputPaymentCredentialsClass
 }
 
@@ -143,6 +144,7 @@ var (
 )
 
 // PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2b8879b3 returning error if any.
+// Send compiled payment form
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {

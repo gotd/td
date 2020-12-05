@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
+// Represents the rights of an admin in a channel/supergroup.
 //
 // See https://core.telegram.org/constructor/chatAdminRights for reference.
 type ChatAdminRights struct {
-	// Flags field of ChatAdminRights.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ChangeInfo field of ChatAdminRights.
+	// If set, allows the admin to modify the description of the channel/supergroup
 	ChangeInfo bool
-	// PostMessages field of ChatAdminRights.
+	// If set, allows the admin to post messages in the channel
 	PostMessages bool
-	// EditMessages field of ChatAdminRights.
+	// If set, allows the admin to also edit messages from other admins in the channel
 	EditMessages bool
-	// DeleteMessages field of ChatAdminRights.
+	// If set, allows the admin to also delete messages from other admins in the channel
 	DeleteMessages bool
-	// BanUsers field of ChatAdminRights.
+	// If set, allows the admin to ban users from the channel/supergroup
 	BanUsers bool
-	// InviteUsers field of ChatAdminRights.
+	// If set, allows the admin to invite users in the channel/supergroup
 	InviteUsers bool
-	// PinMessages field of ChatAdminRights.
+	// If set, allows the admin to pin messages in the channel/supergroup
 	PinMessages bool
-	// AddAdmins field of ChatAdminRights.
+	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup
 	AddAdmins bool
-	// Anonymous field of ChatAdminRights.
+	// Whether this admin is anonymous
 	Anonymous bool
 	// ManageCall field of ChatAdminRights.
 	ManageCall bool

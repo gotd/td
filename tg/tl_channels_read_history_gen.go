@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsReadHistoryRequest represents TL type `channels.readHistory#cc104937`.
+// Mark channel/supergroup history as read
 //
 // See https://core.telegram.org/method/channels.readHistory for reference.
 type ChannelsReadHistoryRequest struct {
-	// Channel field of ChannelsReadHistoryRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// MaxID field of ChannelsReadHistoryRequest.
+	// ID of message up to which messages should be marked as read
 	MaxID int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsReadHistory invokes method channels.readHistory#cc104937 returning error if any.
+// Mark channel/supergroup history as read
 //
 // See https://core.telegram.org/method/channels.readHistory for reference.
 func (c *Client) ChannelsReadHistory(ctx context.Context, request *ChannelsReadHistoryRequest) (BoolClass, error) {

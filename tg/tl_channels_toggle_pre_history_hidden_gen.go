@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsTogglePreHistoryHiddenRequest represents TL type `channels.togglePreHistoryHidden#eabbb94c`.
+// Hide/unhide message history for new channel/supergroup users
 //
 // See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 type ChannelsTogglePreHistoryHiddenRequest struct {
-	// Channel field of ChannelsTogglePreHistoryHiddenRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// Enabled field of ChannelsTogglePreHistoryHiddenRequest.
+	// Hide/unhide
 	Enabled bool
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsTogglePreHistoryHidden invokes method channels.togglePreHistoryHidden#eabbb94c returning error if any.
+// Hide/unhide message history for new channel/supergroup users
 //
 // See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 func (c *Client) ChannelsTogglePreHistoryHidden(ctx context.Context, request *ChannelsTogglePreHistoryHiddenRequest) (UpdatesClass, error) {

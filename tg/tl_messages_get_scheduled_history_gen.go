@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetScheduledHistoryRequest represents TL type `messages.getScheduledHistory#e2c2685b`.
+// Get scheduled messages
 //
 // See https://core.telegram.org/method/messages.getScheduledHistory for reference.
 type MessagesGetScheduledHistoryRequest struct {
-	// Peer field of MessagesGetScheduledHistoryRequest.
+	// Peer
 	Peer InputPeerClass
-	// Hash field of MessagesGetScheduledHistoryRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesGetScheduledHistory invokes method messages.getScheduledHistory#e2c2685b returning error if any.
+// Get scheduled messages
 //
 // See https://core.telegram.org/method/messages.getScheduledHistory for reference.
 func (c *Client) MessagesGetScheduledHistory(ctx context.Context, request *MessagesGetScheduledHistoryRequest) (MessagesMessagesClass, error) {

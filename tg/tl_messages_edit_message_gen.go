@@ -15,34 +15,35 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditMessageRequest represents TL type `messages.editMessage#48f71778`.
+// Edit message
 //
 // See https://core.telegram.org/method/messages.editMessage for reference.
 type MessagesEditMessageRequest struct {
-	// Flags field of MessagesEditMessageRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of MessagesEditMessageRequest.
+	// Disable webpage preview
 	NoWebpage bool
-	// Peer field of MessagesEditMessageRequest.
+	// Where was the message sent
 	Peer InputPeerClass
-	// ID field of MessagesEditMessageRequest.
+	// ID of the message to edit
 	ID int
-	// Message field of MessagesEditMessageRequest.
+	// New message
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message string
-	// Media field of MessagesEditMessageRequest.
+	// New attached media
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass
-	// ReplyMarkup field of MessagesEditMessageRequest.
+	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Entities field of MessagesEditMessageRequest.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ScheduleDate field of MessagesEditMessageRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -266,6 +267,7 @@ var (
 )
 
 // MessagesEditMessage invokes method messages.editMessage#48f71778 returning error if any.
+// Edit message
 //
 // See https://core.telegram.org/method/messages.editMessage for reference.
 func (c *Client) MessagesEditMessage(ctx context.Context, request *MessagesEditMessageRequest) (UpdatesClass, error) {

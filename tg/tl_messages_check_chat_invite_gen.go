@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesCheckChatInviteRequest represents TL type `messages.checkChatInvite#3eadb1bb`.
+// Check the validity of a chat invite link and get basic info about it
 //
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 type MessagesCheckChatInviteRequest struct {
-	// Hash field of MessagesCheckChatInviteRequest.
+	// Invite hash in t.me/joinchat/hash
 	Hash string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.
+// Check the validity of a chat invite link and get basic info about it
 //
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 func (c *Client) MessagesCheckChatInvite(ctx context.Context, request *MessagesCheckChatInviteRequest) (ChatInviteClass, error) {

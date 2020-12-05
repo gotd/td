@@ -15,20 +15,22 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
+// Add an existing telegram user as contact.
+// Use contacts.importContacts to add contacts by phone number, without knowing their Telegram ID.
 //
 // See https://core.telegram.org/method/contacts.addContact for reference.
 type ContactsAddContactRequest struct {
-	// Flags field of ContactsAddContactRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// AddPhonePrivacyException field of ContactsAddContactRequest.
+	// Allow the other user to see our phone number?
 	AddPhonePrivacyException bool
-	// ID field of ContactsAddContactRequest.
+	// Telegram ID of the other user
 	ID InputUserClass
-	// FirstName field of ContactsAddContactRequest.
+	// First name
 	FirstName string
-	// LastName field of ContactsAddContactRequest.
+	// Last name
 	LastName string
-	// Phone field of ContactsAddContactRequest.
+	// User's phone number
 	Phone string
 }
 
@@ -117,6 +119,8 @@ var (
 )
 
 // ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.
+// Add an existing telegram user as contact.
+// Use contacts.importContacts to add contacts by phone number, without knowing their Telegram ID.
 //
 // See https://core.telegram.org/method/contacts.addContact for reference.
 func (c *Client) ContactsAddContact(ctx context.Context, request *ContactsAddContactRequest) (UpdatesClass, error) {

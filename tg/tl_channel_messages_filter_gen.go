@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelMessagesFilterEmpty represents TL type `channelMessagesFilterEmpty#94d42ee7`.
+// No filter
 //
 // See https://core.telegram.org/constructor/channelMessagesFilterEmpty for reference.
 type ChannelMessagesFilterEmpty struct {
@@ -55,14 +56,15 @@ var (
 )
 
 // ChannelMessagesFilter represents TL type `channelMessagesFilter#cd77d957`.
+// Filter for getting only certain types of channel messages
 //
 // See https://core.telegram.org/constructor/channelMessagesFilter for reference.
 type ChannelMessagesFilter struct {
-	// Flags field of ChannelMessagesFilter.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ExcludeNewMessages field of ChannelMessagesFilter.
+	// Whether to exclude new messages from the search
 	ExcludeNewMessages bool
-	// Ranges field of ChannelMessagesFilter.
+	// A range of messages to fetch
 	Ranges []MessageRange
 }
 

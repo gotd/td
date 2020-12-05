@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ThemeSettings represents TL type `themeSettings#9c14984a`.
+// Theme settings
 //
 // See https://core.telegram.org/constructor/themeSettings for reference.
 type ThemeSettings struct {
-	// Flags field of ThemeSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// BaseTheme field of ThemeSettings.
+	// Base theme
 	BaseTheme BaseThemeClass
-	// AccentColor field of ThemeSettings.
+	// Accent color, RGB24 format
 	AccentColor int
-	// MessageTopColor field of ThemeSettings.
+	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
 	MessageTopColor int
-	// MessageBottomColor field of ThemeSettings.
+	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
 	MessageBottomColor int
-	// Wallpaper field of ThemeSettings.
+	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper WallPaperClass

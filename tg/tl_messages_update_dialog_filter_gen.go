@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUpdateDialogFilterRequest represents TL type `messages.updateDialogFilter#1ad4a04a`.
+// Update folder
 //
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 type MessagesUpdateDialogFilterRequest struct {
-	// Flags field of MessagesUpdateDialogFilterRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of MessagesUpdateDialogFilterRequest.
+	// Folder ID
 	ID int
-	// Filter field of MessagesUpdateDialogFilterRequest.
+	// Folder info
 	//
 	// Use SetFilter and GetFilter helpers.
 	Filter DialogFilter
@@ -99,6 +100,7 @@ var (
 )
 
 // MessagesUpdateDialogFilter invokes method messages.updateDialogFilter#1ad4a04a returning error if any.
+// Update folder
 //
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (BoolClass, error) {

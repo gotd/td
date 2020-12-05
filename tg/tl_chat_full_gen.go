@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatFull represents TL type `chatFull#1b7c9db3`.
+// Detailed chat info
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
-	// Flags field of ChatFull.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CanSetUsername field of ChatFull.
+	// Can we change the username of this chat
 	CanSetUsername bool
-	// HasScheduled field of ChatFull.
+	// Whether scheduled messages are available
 	HasScheduled bool
-	// ID field of ChatFull.
+	// ID of the chat
 	ID int
-	// About field of ChatFull.
+	// About string for this chat
 	About string
-	// Participants field of ChatFull.
+	// Participant list
 	Participants ChatParticipantsClass
-	// ChatPhoto field of ChatFull.
+	// Chat photo
 	//
 	// Use SetChatPhoto and GetChatPhoto helpers.
 	ChatPhoto PhotoClass
-	// NotifySettings field of ChatFull.
+	// Notification settings
 	NotifySettings PeerNotifySettings
-	// ExportedInvite field of ChatFull.
+	// Chat invite
 	ExportedInvite ExportedChatInviteClass
-	// BotInfo field of ChatFull.
+	// Info about bots that are in this chat
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
 	BotInfo []BotInfo
-	// PinnedMsgID field of ChatFull.
+	// Message ID of the last pinned message
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
-	// FolderID field of ChatFull.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -281,110 +282,111 @@ var (
 )
 
 // ChannelFull represents TL type `channelFull#f0e6672a`.
+// Full info about a channel/supergroup
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
-	// Flags field of ChannelFull.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CanViewParticipants field of ChannelFull.
+	// Can we vew the participant list?
 	CanViewParticipants bool
-	// CanSetUsername field of ChannelFull.
+	// Can we set the channel's username?
 	CanSetUsername bool
-	// CanSetStickers field of ChannelFull.
+	// Can we associate a stickerpack to the supergroup?
 	CanSetStickers bool
-	// HiddenPrehistory field of ChannelFull.
+	// Is the history before we joined hidden to us?
 	HiddenPrehistory bool
-	// CanSetLocation field of ChannelFull.
+	// Can we set the geolocation of this group (for geogroups)
 	CanSetLocation bool
-	// HasScheduled field of ChannelFull.
+	// Whether scheduled messages are available
 	HasScheduled bool
-	// CanViewStats field of ChannelFull.
+	// Can the user view channel/supergroup statistics
 	CanViewStats bool
-	// Blocked field of ChannelFull.
+	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies
 	Blocked bool
-	// ID field of ChannelFull.
+	// ID of the channel
 	ID int
-	// About field of ChannelFull.
+	// Info about the channel
 	About string
-	// ParticipantsCount field of ChannelFull.
+	// Number of participants of the channel
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
 	ParticipantsCount int
-	// AdminsCount field of ChannelFull.
+	// Number of channel admins
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
 	AdminsCount int
-	// KickedCount field of ChannelFull.
+	// Number of users kicked from the channel
 	//
 	// Use SetKickedCount and GetKickedCount helpers.
 	KickedCount int
-	// BannedCount field of ChannelFull.
+	// Number of users banned from the channel
 	//
 	// Use SetBannedCount and GetBannedCount helpers.
 	BannedCount int
-	// OnlineCount field of ChannelFull.
+	// Number of users currently online
 	//
 	// Use SetOnlineCount and GetOnlineCount helpers.
 	OnlineCount int
-	// ReadInboxMaxID field of ChannelFull.
+	// Position up to which all incoming messages are read.
 	ReadInboxMaxID int
-	// ReadOutboxMaxID field of ChannelFull.
+	// Position up to which all outgoing messages are read.
 	ReadOutboxMaxID int
-	// UnreadCount field of ChannelFull.
+	// Count of unread messages
 	UnreadCount int
-	// ChatPhoto field of ChannelFull.
+	// Channel picture
 	ChatPhoto PhotoClass
-	// NotifySettings field of ChannelFull.
+	// Notification settings
 	NotifySettings PeerNotifySettings
-	// ExportedInvite field of ChannelFull.
+	// Invite link
 	ExportedInvite ExportedChatInviteClass
-	// BotInfo field of ChannelFull.
+	// Info about bots in the channel/supergrup
 	BotInfo []BotInfo
-	// MigratedFromChatID field of ChannelFull.
+	// The chat ID from which this group was migrated
 	//
 	// Use SetMigratedFromChatID and GetMigratedFromChatID helpers.
 	MigratedFromChatID int
-	// MigratedFromMaxID field of ChannelFull.
+	// The message ID in the original chat at which this group was migrated
 	//
 	// Use SetMigratedFromMaxID and GetMigratedFromMaxID helpers.
 	MigratedFromMaxID int
-	// PinnedMsgID field of ChannelFull.
+	// Message ID of the last pinned message
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
-	// Stickerset field of ChannelFull.
+	// Associated stickerset
 	//
 	// Use SetStickerset and GetStickerset helpers.
 	Stickerset StickerSet
-	// AvailableMinID field of ChannelFull.
+	// Identifier of a maximum unavailable message in a channel due to hidden history.
 	//
 	// Use SetAvailableMinID and GetAvailableMinID helpers.
 	AvailableMinID int
-	// FolderID field of ChannelFull.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// LinkedChatID field of ChannelFull.
+	// ID of the linked discussion chat for channels
 	//
 	// Use SetLinkedChatID and GetLinkedChatID helpers.
 	LinkedChatID int
-	// Location field of ChannelFull.
+	// Location of the geogroup
 	//
 	// Use SetLocation and GetLocation helpers.
 	Location ChannelLocationClass
-	// SlowmodeSeconds field of ChannelFull.
+	// If specified, users in supergroups will only be able to send one message every slowmode_seconds seconds
 	//
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
 	SlowmodeSeconds int
-	// SlowmodeNextSendDate field of ChannelFull.
+	// Indicates when the user will be allowed to send another message in the supergroup (unixdate)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
 	SlowmodeNextSendDate int
-	// StatsDC field of ChannelFull.
+	// If set, specifies the DC to use for fetching channel statistics
 	//
 	// Use SetStatsDC and GetStatsDC helpers.
 	StatsDC int
-	// Pts field of ChannelFull.
+	// Latest PTS for this channel
 	Pts int
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotoSizeEmpty represents TL type `photoSizeEmpty#e17e23c`.
+// Empty constructor. Image with this thumbnail is unavailable.
 //
 // See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
-	// Type field of PhotoSizeEmpty.
+	// Thumbnail type (see. photoSize)
 	Type string
 }
 
@@ -65,18 +66,19 @@ var (
 )
 
 // PhotoSize represents TL type `photoSize#77bfb61b`.
+// Image description.
 //
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
-	// Type field of PhotoSize.
+	// Thumbnail type
 	Type string
-	// Location field of PhotoSize.
+	// File location
 	Location FileLocationToBeDeprecated
-	// W field of PhotoSize.
+	// Image width
 	W int
-	// H field of PhotoSize.
+	// Image height
 	H int
-	// Size field of PhotoSize.
+	// File size
 	Size int
 }
 
@@ -155,18 +157,19 @@ var (
 )
 
 // PhotoCachedSize represents TL type `photoCachedSize#e9a734fa`.
+// Description of an image and its content.
 //
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
-	// Type field of PhotoCachedSize.
+	// Thumbnail type
 	Type string
-	// Location field of PhotoCachedSize.
+	// File location
 	Location FileLocationToBeDeprecated
-	// W field of PhotoCachedSize.
+	// Image width
 	W int
-	// H field of PhotoCachedSize.
+	// Image height
 	H int
-	// Bytes field of PhotoCachedSize.
+	// Binary data, file content
 	Bytes []byte
 }
 
@@ -245,12 +248,13 @@ var (
 )
 
 // PhotoStrippedSize represents TL type `photoStrippedSize#e0b0bc2e`.
+// A low-resolution compressed JPG payload
 //
 // See https://core.telegram.org/constructor/photoStrippedSize for reference.
 type PhotoStrippedSize struct {
-	// Type field of PhotoStrippedSize.
+	// Thumbnail type
 	Type string
-	// Bytes field of PhotoStrippedSize.
+	// Thumbnail data, see here for more info on decompression »
 	Bytes []byte
 }
 
@@ -305,18 +309,19 @@ var (
 )
 
 // PhotoSizeProgressive represents TL type `photoSizeProgressive#5aa86a51`.
+// Progressively encoded photosize
 //
 // See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
-	// Type field of PhotoSizeProgressive.
+	// Photosize type
 	Type string
-	// Location field of PhotoSizeProgressive.
+	// File location
 	Location FileLocationToBeDeprecated
-	// W field of PhotoSizeProgressive.
+	// Photo width
 	W int
-	// H field of PhotoSizeProgressive.
+	// Photo height
 	H int
-	// Sizes field of PhotoSizeProgressive.
+	// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
 	Sizes []int
 }
 
@@ -404,12 +409,13 @@ var (
 )
 
 // PhotoPathSize represents TL type `photoPathSize#d8214d41`.
+// Messages with animated stickers can have a compressed svg (< 300 bytes) to show the outline of the sticker before fetching the actual lottie animation.
 //
 // See https://core.telegram.org/constructor/photoPathSize for reference.
 type PhotoPathSize struct {
-	// Type field of PhotoPathSize.
+	// Always j
 	Type string
-	// Bytes field of PhotoPathSize.
+	// Compressed SVG path payload, see here for decompression instructions
 	Bytes []byte
 }
 

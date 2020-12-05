@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DcOption represents TL type `dcOption#18b7a10d`.
+// Data centre
 //
 // See https://core.telegram.org/constructor/dcOption for reference.
 type DcOption struct {
-	// Flags field of DcOption.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Ipv6 field of DcOption.
+	// Whether the specified IP is an IPv6 address
 	Ipv6 bool
-	// MediaOnly field of DcOption.
+	// Whether this DC should only be used to download or upload files
 	MediaOnly bool
-	// TcpoOnly field of DcOption.
+	// Whether this DC only supports connection with transport obfuscation
 	TcpoOnly bool
-	// CDN field of DcOption.
+	// Whether this is a CDN DC.
 	CDN bool
-	// Static field of DcOption.
+	// If set, this IP should be used when connecting through a proxy
 	Static bool
-	// ID field of DcOption.
+	// DC ID
 	ID int
-	// IPAddress field of DcOption.
+	// IP address of DC
 	IPAddress string
-	// Port field of DcOption.
+	// Port
 	Port int
-	// Secret field of DcOption.
+	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation
 	//
 	// Use SetSecret and GetSecret helpers.
 	Secret []byte

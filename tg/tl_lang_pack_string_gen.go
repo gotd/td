@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangPackString represents TL type `langPackString#cad181f6`.
+// Translated localization string
 //
 // See https://core.telegram.org/constructor/langPackString for reference.
 type LangPackString struct {
-	// Key field of LangPackString.
+	// Language key
 	Key string
-	// Value field of LangPackString.
+	// Value
 	Value string
 }
 
@@ -75,34 +76,35 @@ var (
 )
 
 // LangPackStringPluralized represents TL type `langPackStringPluralized#6c47ac9f`.
+// A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
 //
 // See https://core.telegram.org/constructor/langPackStringPluralized for reference.
 type LangPackStringPluralized struct {
-	// Flags field of LangPackStringPluralized.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Key field of LangPackStringPluralized.
+	// Localization key
 	Key string
-	// ZeroValue field of LangPackStringPluralized.
+	// Value for zero objects
 	//
 	// Use SetZeroValue and GetZeroValue helpers.
 	ZeroValue string
-	// OneValue field of LangPackStringPluralized.
+	// Value for one object
 	//
 	// Use SetOneValue and GetOneValue helpers.
 	OneValue string
-	// TwoValue field of LangPackStringPluralized.
+	// Value for two objects
 	//
 	// Use SetTwoValue and GetTwoValue helpers.
 	TwoValue string
-	// FewValue field of LangPackStringPluralized.
+	// Value for a few objects
 	//
 	// Use SetFewValue and GetFewValue helpers.
 	FewValue string
-	// ManyValue field of LangPackStringPluralized.
+	// Value for many objects
 	//
 	// Use SetManyValue and GetManyValue helpers.
 	ManyValue string
-	// OtherValue field of LangPackStringPluralized.
+	// Default value
 	OtherValue string
 }
 
@@ -290,10 +292,11 @@ var (
 )
 
 // LangPackStringDeleted represents TL type `langPackStringDeleted#2979eeb2`.
+// Deleted localization string
 //
 // See https://core.telegram.org/constructor/langPackStringDeleted for reference.
 type LangPackStringDeleted struct {
-	// Key field of LangPackStringDeleted.
+	// Localization key
 	Key string
 }
 

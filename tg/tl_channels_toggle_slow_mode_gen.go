@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsToggleSlowModeRequest represents TL type `channels.toggleSlowMode#edd49ef0`.
+// Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
 //
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 type ChannelsToggleSlowModeRequest struct {
-	// Channel field of ChannelsToggleSlowModeRequest.
+	// The supergroup
 	Channel InputChannelClass
-	// Seconds field of ChannelsToggleSlowModeRequest.
+	// Users will only be able to send one message every seconds seconds, 0 to disable the limitation
 	Seconds int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.
+// Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
 //
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 func (c *Client) ChannelsToggleSlowMode(ctx context.Context, request *ChannelsToggleSlowModeRequest) (UpdatesClass, error) {

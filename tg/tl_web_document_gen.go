@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebDocument represents TL type `webDocument#1c570ed1`.
+// Remote document
 //
 // See https://core.telegram.org/constructor/webDocument for reference.
 type WebDocument struct {
-	// URL field of WebDocument.
+	// Document URL
 	URL string
-	// AccessHash field of WebDocument.
+	// Access hash
 	AccessHash int64
-	// Size field of WebDocument.
+	// File size
 	Size int
-	// MimeType field of WebDocument.
+	// MIME type
 	MimeType string
-	// Attributes field of WebDocument.
+	// Attributes for media types
 	Attributes []DocumentAttributeClass
 }
 
@@ -119,16 +120,17 @@ var (
 )
 
 // WebDocumentNoProxy represents TL type `webDocumentNoProxy#f9c8bcc6`.
+// Remote document that can be downloaded without proxying through telegram
 //
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
-	// URL field of WebDocumentNoProxy.
+	// Document URL
 	URL string
-	// Size field of WebDocumentNoProxy.
+	// File size
 	Size int
-	// MimeType field of WebDocumentNoProxy.
+	// MIME type
 	MimeType string
-	// Attributes field of WebDocumentNoProxy.
+	// Attributes for media types
 	Attributes []DocumentAttributeClass
 }
 

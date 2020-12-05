@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageListItemText represents TL type `pageListItemText#b92fb6cd`.
+// List item
 //
 // See https://core.telegram.org/constructor/pageListItemText for reference.
 type PageListItemText struct {
-	// Text field of PageListItemText.
+	// Text
 	Text RichTextClass
 }
 
@@ -70,10 +71,11 @@ var (
 )
 
 // PageListItemBlocks represents TL type `pageListItemBlocks#25e073fc`.
+// List item
 //
 // See https://core.telegram.org/constructor/pageListItemBlocks for reference.
 type PageListItemBlocks struct {
-	// Blocks field of PageListItemBlocks.
+	// Blocks
 	Blocks []PageBlockClass
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetMessagesRequest represents TL type `channels.getMessages#ad8c9a23`.
+// Get channel/supergroup messages
 //
 // See https://core.telegram.org/method/channels.getMessages for reference.
 type ChannelsGetMessagesRequest struct {
-	// Channel field of ChannelsGetMessagesRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// ID field of ChannelsGetMessagesRequest.
+	// IDs of messages to get
 	ID []InputMessageClass
 }
 
@@ -89,6 +90,7 @@ var (
 )
 
 // ChannelsGetMessages invokes method channels.getMessages#ad8c9a23 returning error if any.
+// Get channel/supergroup messages
 //
 // See https://core.telegram.org/method/channels.getMessages for reference.
 func (c *Client) ChannelsGetMessages(ctx context.Context, request *ChannelsGetMessagesRequest) (MessagesMessagesClass, error) {

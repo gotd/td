@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsGetBankCardDataRequest represents TL type `payments.getBankCardData#2e79d779`.
+// Get info about a credit card
 //
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
 type PaymentsGetBankCardDataRequest struct {
-	// Number field of PaymentsGetBankCardDataRequest.
+	// Credit card number
 	Number string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // PaymentsGetBankCardData invokes method payments.getBankCardData#2e79d779 returning error if any.
+// Get info about a credit card
 //
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
 func (c *Client) PaymentsGetBankCardData(ctx context.Context, request *PaymentsGetBankCardDataRequest) (*PaymentsBankCardData, error) {

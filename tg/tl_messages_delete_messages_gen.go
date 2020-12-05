@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteMessagesRequest represents TL type `messages.deleteMessages#e58e95d2`.
+// Deletes messages by their identifiers.
 //
 // See https://core.telegram.org/method/messages.deleteMessages for reference.
 type MessagesDeleteMessagesRequest struct {
-	// Flags field of MessagesDeleteMessagesRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Revoke field of MessagesDeleteMessagesRequest.
+	// Whether to delete messages for all participants of the chat
 	Revoke bool
-	// ID field of MessagesDeleteMessagesRequest.
+	// Message ID list
 	ID []int
 }
 
@@ -91,6 +92,7 @@ var (
 )
 
 // MessagesDeleteMessages invokes method messages.deleteMessages#e58e95d2 returning error if any.
+// Deletes messages by their identifiers.
 //
 // See https://core.telegram.org/method/messages.deleteMessages for reference.
 func (c *Client) MessagesDeleteMessages(ctx context.Context, request *MessagesDeleteMessagesRequest) (*MessagesAffectedMessages, error) {

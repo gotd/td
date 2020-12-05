@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputStickerSetItem represents TL type `inputStickerSetItem#ffa0a496`.
+// Sticker in a stickerset
 //
 // See https://core.telegram.org/constructor/inputStickerSetItem for reference.
 type InputStickerSetItem struct {
-	// Flags field of InputStickerSetItem.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Document field of InputStickerSetItem.
+	// The sticker
 	Document InputDocumentClass
-	// Emoji field of InputStickerSetItem.
+	// Associated emoji
 	Emoji string
-	// MaskCoords field of InputStickerSetItem.
+	// Coordinates for mask sticker
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords

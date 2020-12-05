@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
+// Empty constructor, unexisitng file.
 //
 // See https://core.telegram.org/constructor/encryptedFileEmpty for reference.
 type EncryptedFileEmpty struct {
@@ -55,18 +56,19 @@ var (
 )
 
 // EncryptedFile represents TL type `encryptedFile#4a70994c`.
+// Encrypted file.
 //
 // See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
-	// ID field of EncryptedFile.
+	// File ID
 	ID int64
-	// AccessHash field of EncryptedFile.
+	// Checking sum depending on user ID
 	AccessHash int64
-	// Size field of EncryptedFile.
+	// File size in bytes
 	Size int
-	// DCID field of EncryptedFile.
+	// Number of data centre
 	DCID int
-	// KeyFingerprint field of EncryptedFile.
+	// 32-bit fingerprint of key used for file encryption
 	KeyFingerprint int
 }
 

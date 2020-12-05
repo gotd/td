@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
+// Wallpaper settings.
 //
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
-	// ID field of WallPaper.
+	// Identifier
 	ID int64
-	// Flags field of WallPaper.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Creator field of WallPaper.
+	// Creator of the wallpaper
 	Creator bool
-	// Default field of WallPaper.
+	// Whether this is the default wallpaper
 	Default bool
-	// Pattern field of WallPaper.
+	// Pattern
 	Pattern bool
-	// Dark field of WallPaper.
+	// Dark mode
 	Dark bool
-	// AccessHash field of WallPaper.
+	// Access hash
 	AccessHash int64
-	// Slug field of WallPaper.
+	// Unique wallpaper ID
 	Slug string
-	// Document field of WallPaper.
+	// The actual wallpaper
 	Document DocumentClass
-	// Settings field of WallPaper.
+	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings WallPaperSettings
@@ -187,16 +188,17 @@ var (
 )
 
 // WallPaperNoFile represents TL type `wallPaperNoFile#8af40b25`.
+// No file wallpaper
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
-	// Flags field of WallPaperNoFile.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Default field of WallPaperNoFile.
+	// Whether this is the default wallpaper
 	Default bool
-	// Dark field of WallPaperNoFile.
+	// Dark mode
 	Dark bool
-	// Settings field of WallPaperNoFile.
+	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings WallPaperSettings

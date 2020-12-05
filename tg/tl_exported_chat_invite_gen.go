@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatInviteEmpty represents TL type `chatInviteEmpty#69df3769`.
+// No info is associated to the chat invite
 //
 // See https://core.telegram.org/constructor/chatInviteEmpty for reference.
 type ChatInviteEmpty struct {
@@ -55,10 +56,11 @@ var (
 )
 
 // ChatInviteExported represents TL type `chatInviteExported#fc2e05bc`.
+// Exported chat invite
 //
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
 type ChatInviteExported struct {
-	// Link field of ChatInviteExported.
+	// Chat invitation link
 	Link string
 }
 

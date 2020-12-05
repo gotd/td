@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserProfilePhotoEmpty represents TL type `userProfilePhotoEmpty#4f11bae1`.
+// Profile photo has not been set, or was hidden.
 //
 // See https://core.telegram.org/constructor/userProfilePhotoEmpty for reference.
 type UserProfilePhotoEmpty struct {
@@ -55,20 +56,21 @@ var (
 )
 
 // UserProfilePhoto represents TL type `userProfilePhoto#69d3ab26`.
+// User profile photo.
 //
 // See https://core.telegram.org/constructor/userProfilePhoto for reference.
 type UserProfilePhoto struct {
-	// Flags field of UserProfilePhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// HasVideo field of UserProfilePhoto.
+	// Whether an animated profile picture is available for this user
 	HasVideo bool
-	// PhotoID field of UserProfilePhoto.
+	// Identifier of the respective photoParameter added in Layer 2
 	PhotoID int64
-	// PhotoSmall field of UserProfilePhoto.
+	// Location of the file, corresponding to the small profile photo thumbnail
 	PhotoSmall FileLocationToBeDeprecated
-	// PhotoBig field of UserProfilePhoto.
+	// Location of the file, corresponding to the big profile photo thumbnail
 	PhotoBig FileLocationToBeDeprecated
-	// DCID field of UserProfilePhoto.
+	// DC ID where the photo is stored
 	DCID int
 }
 

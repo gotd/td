@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthLogOutRequest represents TL type `auth.logOut#5717da40`.
+// Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
 type AuthLogOutRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AuthLogOut invokes method auth.logOut#5717da40 returning error if any.
+// Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
 func (c *Client) AuthLogOut(ctx context.Context, request *AuthLogOutRequest) (BoolClass, error) {

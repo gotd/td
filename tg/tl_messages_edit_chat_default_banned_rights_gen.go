@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatDefaultBannedRightsRequest represents TL type `messages.editChatDefaultBannedRights#a5866b41`.
+// Edit the default banned rights of a channel/supergroup/group.
 //
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 type MessagesEditChatDefaultBannedRightsRequest struct {
-	// Peer field of MessagesEditChatDefaultBannedRightsRequest.
+	// The peer
 	Peer InputPeerClass
-	// BannedRights field of MessagesEditChatDefaultBannedRightsRequest.
+	// The new global rights
 	BannedRights ChatBannedRights
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesEditChatDefaultBannedRights invokes method messages.editChatDefaultBannedRights#a5866b41 returning error if any.
+// Edit the default banned rights of a channel/supergroup/group.
 //
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 func (c *Client) MessagesEditChatDefaultBannedRights(ctx context.Context, request *MessagesEditChatDefaultBannedRightsRequest) (UpdatesClass, error) {

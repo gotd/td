@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
+// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorData for reference.
 type SecureValueErrorData struct {
-	// Type field of SecureValueErrorData.
+	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeAddress
 	Type SecureValueTypeClass
-	// DataHash field of SecureValueErrorData.
+	// Data hash
 	DataHash []byte
-	// Field field of SecureValueErrorData.
+	// Name of the data field which has the error
 	Field string
-	// Text field of SecureValueErrorData.
+	// Error message
 	Text string
 }
 
@@ -100,14 +101,15 @@ var (
 )
 
 // SecureValueErrorFrontSide represents TL type `secureValueErrorFrontSide#be3dfa`.
+// Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFrontSide for reference.
 type SecureValueErrorFrontSide struct {
-	// Type field of SecureValueErrorFrontSide.
+	// One of secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorFrontSide.
+	// File hash
 	FileHash []byte
-	// Text field of SecureValueErrorFrontSide.
+	// Error message
 	Text string
 }
 
@@ -175,14 +177,15 @@ var (
 )
 
 // SecureValueErrorReverseSide represents TL type `secureValueErrorReverseSide#868a2aa5`.
+// Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorReverseSide for reference.
 type SecureValueErrorReverseSide struct {
-	// Type field of SecureValueErrorReverseSide.
+	// One of secureValueTypeDriverLicense, secureValueTypeIdentityCard
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorReverseSide.
+	// File hash
 	FileHash []byte
-	// Text field of SecureValueErrorReverseSide.
+	// Error message
 	Text string
 }
 
@@ -250,14 +253,15 @@ var (
 )
 
 // SecureValueErrorSelfie represents TL type `secureValueErrorSelfie#e537ced6`.
+// Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorSelfie for reference.
 type SecureValueErrorSelfie struct {
-	// Type field of SecureValueErrorSelfie.
+	// One of secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorSelfie.
+	// File hash
 	FileHash []byte
-	// Text field of SecureValueErrorSelfie.
+	// Error message
 	Text string
 }
 
@@ -325,14 +329,15 @@ var (
 )
 
 // SecureValueErrorFile represents TL type `secureValueErrorFile#7a700873`.
+// Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFile for reference.
 type SecureValueErrorFile struct {
-	// Type field of SecureValueErrorFile.
+	// One of secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorFile.
+	// File hash
 	FileHash []byte
-	// Text field of SecureValueErrorFile.
+	// Error message
 	Text string
 }
 
@@ -400,14 +405,15 @@ var (
 )
 
 // SecureValueErrorFiles represents TL type `secureValueErrorFiles#666220e9`.
+// Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFiles for reference.
 type SecureValueErrorFiles struct {
-	// Type field of SecureValueErrorFiles.
+	// One of secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorFiles.
+	// File hash
 	FileHash [][]byte
-	// Text field of SecureValueErrorFiles.
+	// Error message
 	Text string
 }
 
@@ -484,14 +490,15 @@ var (
 )
 
 // SecureValueError represents TL type `secureValueError#869d758f`.
+// Secure value error
 //
 // See https://core.telegram.org/constructor/secureValueError for reference.
 type SecureValueError struct {
-	// Type field of SecureValueError.
+	// Type of element which has the issue
 	Type SecureValueTypeClass
-	// Hash field of SecureValueError.
+	// Hash
 	Hash []byte
-	// Text field of SecureValueError.
+	// Error message
 	Text string
 }
 
@@ -559,14 +566,15 @@ var (
 )
 
 // SecureValueErrorTranslationFile represents TL type `secureValueErrorTranslationFile#a1144770`.
+// Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFile for reference.
 type SecureValueErrorTranslationFile struct {
-	// Type field of SecureValueErrorTranslationFile.
+	// One of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorTranslationFile.
+	// File hash
 	FileHash []byte
-	// Text field of SecureValueErrorTranslationFile.
+	// Error message
 	Text string
 }
 
@@ -634,14 +642,15 @@ var (
 )
 
 // SecureValueErrorTranslationFiles represents TL type `secureValueErrorTranslationFiles#34636dd8`.
+// Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFiles for reference.
 type SecureValueErrorTranslationFiles struct {
-	// Type field of SecureValueErrorTranslationFiles.
+	// One of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
-	// FileHash field of SecureValueErrorTranslationFiles.
+	// Hash
 	FileHash [][]byte
-	// Text field of SecureValueErrorTranslationFiles.
+	// Error message
 	Text string
 }
 

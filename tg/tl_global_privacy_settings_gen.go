@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // GlobalPrivacySettings represents TL type `globalPrivacySettings#bea2f424`.
+// Global privacy settings
 //
 // See https://core.telegram.org/constructor/globalPrivacySettings for reference.
 type GlobalPrivacySettings struct {
-	// Flags field of GlobalPrivacySettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ArchiveAndMuteNewNoncontactPeers field of GlobalPrivacySettings.
+	// Whether to archive and mute new chats from non-contacts
 	ArchiveAndMuteNewNoncontactPeers bool
 }
 

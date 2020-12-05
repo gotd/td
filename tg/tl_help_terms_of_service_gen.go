@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpTermsOfService represents TL type `help.termsOfService#780a0310`.
+// Info about the latest telegram Terms Of Service
 //
 // See https://core.telegram.org/constructor/help.termsOfService for reference.
 type HelpTermsOfService struct {
-	// Flags field of HelpTermsOfService.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Popup field of HelpTermsOfService.
+	// Whether a prompt must be showed to the user, in order to accept the new terms.
 	Popup bool
-	// ID field of HelpTermsOfService.
+	// ID of the new terms
 	ID DataJSON
-	// Text field of HelpTermsOfService.
+	// Text of the new terms
 	Text string
-	// Entities field of HelpTermsOfService.
+	// Message entities for styled text
 	Entities []MessageEntityClass
-	// MinAgeConfirm field of HelpTermsOfService.
+	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
 	//
 	// Use SetMinAgeConfirm and GetMinAgeConfirm helpers.
 	MinAgeConfirm int

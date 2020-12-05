@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageTableRow represents TL type `pageTableRow#e0c0c5e5`.
+// Table row
 //
 // See https://core.telegram.org/constructor/pageTableRow for reference.
 type PageTableRow struct {
-	// Cells field of PageTableRow.
+	// Table cells
 	Cells []PageTableCell
 }
 

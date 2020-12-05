@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWallPaper represents TL type `inputWallPaper#e630b979`.
+// Wallpaper
 //
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
-	// ID field of InputWallPaper.
+	// Wallpaper ID
 	ID int64
-	// AccessHash field of InputWallPaper.
+	// Access hash
 	AccessHash int64
 }
 
@@ -75,10 +76,11 @@ var (
 )
 
 // InputWallPaperSlug represents TL type `inputWallPaperSlug#72091c80`.
+// Wallpaper by slug (a unique ID)
 //
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
-	// Slug field of InputWallPaperSlug.
+	// Unique wallpaper ID
 	Slug string
 }
 
@@ -125,6 +127,7 @@ var (
 )
 
 // InputWallPaperNoFile represents TL type `inputWallPaperNoFile#8427bbac`.
+// Wallpaper with no file
 //
 // See https://core.telegram.org/constructor/inputWallPaperNoFile for reference.
 type InputWallPaperNoFile struct {

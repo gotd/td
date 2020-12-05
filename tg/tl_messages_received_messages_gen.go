@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
+// Confirms receipt of messages by a client, cancels PUSH-notification sending.
 //
 // See https://core.telegram.org/constructor/messages.receivedMessages for reference.
 type MessagesReceivedMessagesRequest struct {
-	// MaxID field of MessagesReceivedMessagesRequest.
+	// Maximum message ID available in a client.
 	MaxID int
 }
 

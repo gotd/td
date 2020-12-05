@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetWebPagePreviewRequest represents TL type `messages.getWebPagePreview#8b68b0cc`.
+// Get preview of webpage
 //
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 type MessagesGetWebPagePreviewRequest struct {
-	// Flags field of MessagesGetWebPagePreviewRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Message field of MessagesGetWebPagePreviewRequest.
+	// Message from which to extract the preview
 	Message string
-	// Entities field of MessagesGetWebPagePreviewRequest.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -113,6 +114,7 @@ var (
 )
 
 // MessagesGetWebPagePreview invokes method messages.getWebPagePreview#8b68b0cc returning error if any.
+// Get preview of webpage
 //
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 func (c *Client) MessagesGetWebPagePreview(ctx context.Context, request *MessagesGetWebPagePreviewRequest) (MessageMediaClass, error) {

@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendEncryptedFileRequest represents TL type `messages.sendEncryptedFile#5559481d`.
+// Sends a message with a file attachment to a secret chat
 //
 // See https://core.telegram.org/method/messages.sendEncryptedFile for reference.
 type MessagesSendEncryptedFileRequest struct {
-	// Flags field of MessagesSendEncryptedFileRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesSendEncryptedFileRequest.
+	// Whether to send the file without triggering a notification
 	Silent bool
-	// Peer field of MessagesSendEncryptedFileRequest.
+	// Secret chat ID
 	Peer InputEncryptedChat
-	// RandomID field of MessagesSendEncryptedFileRequest.
+	// Unique client message ID necessary to prevent message resending
 	RandomID int64
-	// Data field of MessagesSendEncryptedFileRequest.
+	// TL-serialization of DecryptedMessage type, encrypted with a key generated during chat initialization
 	Data []byte
-	// File field of MessagesSendEncryptedFileRequest.
+	// File attachment for the secret chat
 	File InputEncryptedFileClass
 }
 
@@ -117,6 +118,7 @@ var (
 )
 
 // MessagesSendEncryptedFile invokes method messages.sendEncryptedFile#5559481d returning error if any.
+// Sends a message with a file attachment to a secret chat
 //
 // See https://core.telegram.org/method/messages.sendEncryptedFile for reference.
 func (c *Client) MessagesSendEncryptedFile(ctx context.Context, request *MessagesSendEncryptedFileRequest) (MessagesSentEncryptedMessageClass, error) {

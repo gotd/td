@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditLocationRequest represents TL type `channels.editLocation#58e63f6d`.
+// Edit location of geogroup
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.
 type ChannelsEditLocationRequest struct {
-	// Channel field of ChannelsEditLocationRequest.
+	// Geogroup
 	Channel InputChannelClass
-	// GeoPoint field of ChannelsEditLocationRequest.
+	// New geolocation
 	GeoPoint InputGeoPointClass
-	// Address field of ChannelsEditLocationRequest.
+	// Address string
 	Address string
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
+// Edit location of geogroup
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.
 func (c *Client) ChannelsEditLocation(ctx context.Context, request *ChannelsEditLocationRequest) (BoolClass, error) {

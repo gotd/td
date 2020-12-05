@@ -15,42 +15,43 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
+// Supergroup statistics
 //
 // See https://core.telegram.org/constructor/stats.megagroupStats for reference.
 type StatsMegagroupStats struct {
-	// Period field of StatsMegagroupStats.
+	// Period in consideration
 	Period StatsDateRangeDays
-	// Members field of StatsMegagroupStats.
+	// Member count change for period in consideration
 	Members StatsAbsValueAndPrev
-	// Messages field of StatsMegagroupStats.
+	// Message number change for period in consideration
 	Messages StatsAbsValueAndPrev
-	// Viewers field of StatsMegagroupStats.
+	// Number of users that viewed messages, for range in consideration
 	Viewers StatsAbsValueAndPrev
-	// Posters field of StatsMegagroupStats.
+	// Number of users that posted messages, for range in consideration
 	Posters StatsAbsValueAndPrev
-	// GrowthGraph field of StatsMegagroupStats.
+	// Supergroup growth graph (absolute subscriber count)
 	GrowthGraph StatsGraphClass
-	// MembersGraph field of StatsMegagroupStats.
+	// Members growth (relative subscriber count)
 	MembersGraph StatsGraphClass
-	// NewMembersBySourceGraph field of StatsMegagroupStats.
+	// New members by source graph
 	NewMembersBySourceGraph StatsGraphClass
-	// LanguagesGraph field of StatsMegagroupStats.
+	// Subscriber language graph (piechart)
 	LanguagesGraph StatsGraphClass
-	// MessagesGraph field of StatsMegagroupStats.
+	// Message activity graph (stacked bar graph, message type)
 	MessagesGraph StatsGraphClass
-	// ActionsGraph field of StatsMegagroupStats.
+	// Group activity graph (deleted, modified messages, blocked users)
 	ActionsGraph StatsGraphClass
-	// TopHoursGraph field of StatsMegagroupStats.
+	// Activity per hour graph (absolute)
 	TopHoursGraph StatsGraphClass
-	// WeekdaysGraph field of StatsMegagroupStats.
+	// Activity per day of week graph (absolute)
 	WeekdaysGraph StatsGraphClass
-	// TopPosters field of StatsMegagroupStats.
+	// Info about most active group members
 	TopPosters []StatsGroupTopPoster
-	// TopAdmins field of StatsMegagroupStats.
+	// Info about most active group admins
 	TopAdmins []StatsGroupTopAdmin
-	// TopInviters field of StatsMegagroupStats.
+	// Info about most active group inviters
 	TopInviters []StatsGroupTopInviter
-	// Users field of StatsMegagroupStats.
+	// Info about users mentioned in statistics
 	Users []UserClass
 }
 

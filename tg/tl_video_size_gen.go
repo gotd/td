@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // VideoSize represents TL type `videoSize#e831c556`.
+// Animated profile picture in MPEG4 format
 //
 // See https://core.telegram.org/constructor/videoSize for reference.
 type VideoSize struct {
-	// Flags field of VideoSize.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Type field of VideoSize.
+	// u for animated profile pictures, and v for trimmed and downscaled video previews
 	Type string
-	// Location field of VideoSize.
+	// File location
 	Location FileLocationToBeDeprecated
-	// W field of VideoSize.
+	// Video width
 	W int
-	// H field of VideoSize.
+	// Video height
 	H int
-	// Size field of VideoSize.
+	// File size
 	Size int
-	// VideoStartTs field of VideoSize.
+	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64

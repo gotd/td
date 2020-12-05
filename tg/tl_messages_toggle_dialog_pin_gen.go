@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesToggleDialogPinRequest represents TL type `messages.toggleDialogPin#a731e257`.
+// Pin/unpin a dialog
 //
 // See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 type MessagesToggleDialogPinRequest struct {
-	// Flags field of MessagesToggleDialogPinRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Pinned field of MessagesToggleDialogPinRequest.
+	// Whether to pin or unpin the dialog
 	Pinned bool
-	// Peer field of MessagesToggleDialogPinRequest.
+	// The dialog to pin
 	Peer InputDialogPeerClass
 }
 
@@ -87,6 +88,7 @@ var (
 )
 
 // MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.
+// Pin/unpin a dialog
 //
 // See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 func (c *Client) MessagesToggleDialogPin(ctx context.Context, request *MessagesToggleDialogPinRequest) (BoolClass, error) {

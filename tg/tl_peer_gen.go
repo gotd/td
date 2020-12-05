@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerUser represents TL type `peerUser#9db1bc6d`.
+// Chat partner
 //
 // See https://core.telegram.org/constructor/peerUser for reference.
 type PeerUser struct {
-	// UserID field of PeerUser.
+	// User identifier
 	UserID int
 }
 
@@ -65,10 +66,11 @@ var (
 )
 
 // PeerChat represents TL type `peerChat#bad0e5bb`.
+// Group.
 //
 // See https://core.telegram.org/constructor/peerChat for reference.
 type PeerChat struct {
-	// ChatID field of PeerChat.
+	// Group identifier
 	ChatID int
 }
 
@@ -115,10 +117,11 @@ var (
 )
 
 // PeerChannel represents TL type `peerChannel#bddde532`.
+// Channel/supergroup
 //
 // See https://core.telegram.org/constructor/peerChannel for reference.
 type PeerChannel struct {
-	// ChannelID field of PeerChannel.
+	// Channel ID
 	ChannelID int
 }
 

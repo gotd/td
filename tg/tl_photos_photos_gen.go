@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosPhotos represents TL type `photos.photos#8dca6aa5`.
+// Full list of photos with auxiliary data.
 //
 // See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
-	// Photos field of PhotosPhotos.
+	// List of photos
 	Photos []PhotoClass
-	// Users field of PhotosPhotos.
+	// List of mentioned users
 	Users []UserClass
 }
 
@@ -103,14 +104,15 @@ var (
 )
 
 // PhotosPhotosSlice represents TL type `photos.photosSlice#15051f54`.
+// Incomplete list of photos with auxiliary data.
 //
 // See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
-	// Count field of PhotosPhotosSlice.
+	// Total number of photos
 	Count int
-	// Photos field of PhotosPhotosSlice.
+	// List of photos
 	Photos []PhotoClass
-	// Users field of PhotosPhotosSlice.
+	// List of mentioned users
 	Users []UserClass
 }
 

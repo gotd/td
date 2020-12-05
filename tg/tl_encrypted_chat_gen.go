@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/encryptedChatEmpty for reference.
 type EncryptedChatEmpty struct {
-	// ID field of EncryptedChatEmpty.
+	// Chat ID
 	ID int
 }
 
@@ -65,18 +66,19 @@ var (
 )
 
 // EncryptedChatWaiting represents TL type `encryptedChatWaiting#3bf703dc`.
+// Chat waiting for approval of second participant.
 //
 // See https://core.telegram.org/constructor/encryptedChatWaiting for reference.
 type EncryptedChatWaiting struct {
-	// ID field of EncryptedChatWaiting.
+	// Chat ID
 	ID int
-	// AccessHash field of EncryptedChatWaiting.
+	// Checking sum depending on user ID
 	AccessHash int64
-	// Date field of EncryptedChatWaiting.
+	// Date of chat creation
 	Date int
-	// AdminID field of EncryptedChatWaiting.
+	// Chat creator ID
 	AdminID int
-	// ParticipantID field of EncryptedChatWaiting.
+	// ID of second chat participant
 	ParticipantID int
 }
 
@@ -155,26 +157,27 @@ var (
 )
 
 // EncryptedChatRequested represents TL type `encryptedChatRequested#62718a82`.
+// Request to create an encrypted chat.
 //
 // See https://core.telegram.org/constructor/encryptedChatRequested for reference.
 type EncryptedChatRequested struct {
-	// Flags field of EncryptedChatRequested.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// FolderID field of EncryptedChatRequested.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// ID field of EncryptedChatRequested.
+	// Chat ID
 	ID int
-	// AccessHash field of EncryptedChatRequested.
+	// Check sum depending on user ID
 	AccessHash int64
-	// Date field of EncryptedChatRequested.
+	// Chat creation date
 	Date int
-	// AdminID field of EncryptedChatRequested.
+	// Chat creator ID
 	AdminID int
-	// ParticipantID field of EncryptedChatRequested.
+	// ID of second chat participant
 	ParticipantID int
-	// GA field of EncryptedChatRequested.
+	// A = g ^ a mod p, see Wikipedia
 	GA []byte
 }
 
@@ -294,22 +297,23 @@ var (
 )
 
 // EncryptedChat represents TL type `encryptedChat#fa56ce36`.
+// Encrypted chat
 //
 // See https://core.telegram.org/constructor/encryptedChat for reference.
 type EncryptedChat struct {
-	// ID field of EncryptedChat.
+	// Chat ID
 	ID int
-	// AccessHash field of EncryptedChat.
+	// Check sum dependant on the user ID
 	AccessHash int64
-	// Date field of EncryptedChat.
+	// Date chat was created
 	Date int
-	// AdminID field of EncryptedChat.
+	// Chat creator ID
 	AdminID int
-	// ParticipantID field of EncryptedChat.
+	// ID of the second chat participant
 	ParticipantID int
-	// GAOrB field of EncryptedChat.
+	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia for more info
 	GAOrB []byte
-	// KeyFingerprint field of EncryptedChat.
+	// 64-bit fingerprint of received key
 	KeyFingerprint int64
 }
 
@@ -404,10 +408,11 @@ var (
 )
 
 // EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#13d6dd27`.
+// Discarded or deleted chat.
 //
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
-	// ID field of EncryptedChatDiscarded.
+	// Chat ID
 	ID int
 }
 

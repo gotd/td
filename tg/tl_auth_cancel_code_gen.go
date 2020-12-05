@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCancelCodeRequest represents TL type `auth.cancelCode#1f040578`.
+// Cancel the login verification code
 //
 // See https://core.telegram.org/method/auth.cancelCode for reference.
 type AuthCancelCodeRequest struct {
-	// PhoneNumber field of AuthCancelCodeRequest.
+	// Phone number
 	PhoneNumber string
-	// PhoneCodeHash field of AuthCancelCodeRequest.
+	// Phone code hash from auth.sendCode
 	PhoneCodeHash string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AuthCancelCode invokes method auth.cancelCode#1f040578 returning error if any.
+// Cancel the login verification code
 //
 // See https://core.telegram.org/method/auth.cancelCode for reference.
 func (c *Client) AuthCancelCode(ctx context.Context, request *AuthCancelCodeRequest) (BoolClass, error) {

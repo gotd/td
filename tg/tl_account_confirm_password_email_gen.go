@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountConfirmPasswordEmailRequest represents TL type `account.confirmPasswordEmail#8fdf1920`.
+// Verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 type AccountConfirmPasswordEmailRequest struct {
-	// Code field of AccountConfirmPasswordEmailRequest.
+	// The phone code that was received after setting a recovery email
 	Code string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountConfirmPasswordEmail invokes method account.confirmPasswordEmail#8fdf1920 returning error if any.
+// Verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
 func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, request *AccountConfirmPasswordEmailRequest) (BoolClass, error) {

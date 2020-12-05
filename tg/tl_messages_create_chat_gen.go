@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
+// Creates a new chat.
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
-	// Users field of MessagesCreateChatRequest.
+	// List of user IDs to be invited
 	Users []InputUserClass
-	// Title field of MessagesCreateChatRequest.
+	// Chat name
 	Title string
 }
 
@@ -84,6 +85,7 @@ var (
 )
 
 // MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
+// Creates a new chat.
 //
 // See https://core.telegram.org/method/messages.createChat for reference.
 func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {

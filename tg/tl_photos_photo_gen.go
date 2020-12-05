@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosPhoto represents TL type `photos.photo#20212ca8`.
+// Photo with auxiliary data.
 //
 // See https://core.telegram.org/constructor/photos.photo for reference.
 type PhotosPhoto struct {
-	// Photo field of PhotosPhoto.
+	// Photo
 	Photo PhotoClass
-	// Users field of PhotosPhoto.
+	// Users
 	Users []UserClass
 }
 

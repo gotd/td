@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPhoneCall represents TL type `inputPhoneCall#1e36fded`.
+// Phone call
 //
 // See https://core.telegram.org/constructor/inputPhoneCall for reference.
 type InputPhoneCall struct {
-	// ID field of InputPhoneCall.
+	// Call ID
 	ID int64
-	// AccessHash field of InputPhoneCall.
+	// Access hash
 	AccessHash int64
 }
 

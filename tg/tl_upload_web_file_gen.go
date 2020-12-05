@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
+// Represents a chunk of an HTTP webfile downloaded through telegram's secure MTProto servers
 //
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {
-	// Size field of UploadWebFile.
+	// File size
 	Size int
-	// MimeType field of UploadWebFile.
+	// Mime type
 	MimeType string
-	// FileType field of UploadWebFile.
+	// File type
 	FileType StorageFileTypeClass
-	// Mtime field of UploadWebFile.
+	// Modified time
 	Mtime int
-	// Bytes field of UploadWebFile.
+	// Data
 	Bytes []byte
 }
 

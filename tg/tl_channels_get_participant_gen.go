@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetParticipantRequest represents TL type `channels.getParticipant#546dd7a6`.
+// Get info about a channel/supergroup participant
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
-	// Channel field of ChannelsGetParticipantRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// UserID field of ChannelsGetParticipantRequest.
+	// ID of participant to get info about
 	UserID InputUserClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // ChannelsGetParticipant invokes method channels.getParticipant#546dd7a6 returning error if any.
+// Get info about a channel/supergroup participant
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 func (c *Client) ChannelsGetParticipant(ctx context.Context, request *ChannelsGetParticipantRequest) (*ChannelsChannelParticipant, error) {

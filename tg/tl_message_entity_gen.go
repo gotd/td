@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageEntityUnknown represents TL type `messageEntityUnknown#bb92ba95`.
+// Unknown message entity
 //
 // See https://core.telegram.org/constructor/messageEntityUnknown for reference.
 type MessageEntityUnknown struct {
-	// Offset field of MessageEntityUnknown.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityUnknown.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -75,12 +76,13 @@ var (
 )
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
+// Message entity mentioning the current user
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
-	// Offset field of MessageEntityMention.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityMention.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -135,12 +137,13 @@ var (
 )
 
 // MessageEntityHashtag represents TL type `messageEntityHashtag#6f635b0d`.
+// #hashtag message entity
 //
 // See https://core.telegram.org/constructor/messageEntityHashtag for reference.
 type MessageEntityHashtag struct {
-	// Offset field of MessageEntityHashtag.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityHashtag.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -195,12 +198,13 @@ var (
 )
 
 // MessageEntityBotCommand represents TL type `messageEntityBotCommand#6cef8ac7`.
+// Message entity representing a bot /command
 //
 // See https://core.telegram.org/constructor/messageEntityBotCommand for reference.
 type MessageEntityBotCommand struct {
-	// Offset field of MessageEntityBotCommand.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityBotCommand.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -255,12 +259,13 @@ var (
 )
 
 // MessageEntityUrl represents TL type `messageEntityUrl#6ed02538`.
+// Message entity representing an in-text url: https://google.com; for text urls, use messageEntityTextUrl.
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityUrl struct {
-	// Offset field of MessageEntityUrl.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityUrl.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -315,12 +320,13 @@ var (
 )
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
+// Message entity representing an email@example.com.
 //
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
-	// Offset field of MessageEntityEmail.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityEmail.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -375,12 +381,13 @@ var (
 )
 
 // MessageEntityBold represents TL type `messageEntityBold#bd610bc9`.
+// Message entity representing bold text.
 //
 // See https://core.telegram.org/constructor/messageEntityBold for reference.
 type MessageEntityBold struct {
-	// Offset field of MessageEntityBold.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityBold.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -435,12 +442,13 @@ var (
 )
 
 // MessageEntityItalic represents TL type `messageEntityItalic#826f8b60`.
+// Message entity representing italic text.
 //
 // See https://core.telegram.org/constructor/messageEntityItalic for reference.
 type MessageEntityItalic struct {
-	// Offset field of MessageEntityItalic.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityItalic.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -495,12 +503,13 @@ var (
 )
 
 // MessageEntityCode represents TL type `messageEntityCode#28a20571`.
+// Message entity representing a codeblock.
 //
 // See https://core.telegram.org/constructor/messageEntityCode for reference.
 type MessageEntityCode struct {
-	// Offset field of MessageEntityCode.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityCode.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -555,14 +564,15 @@ var (
 )
 
 // MessageEntityPre represents TL type `messageEntityPre#73924be0`.
+// Message entity representing a preformatted codeblock, allowing the user to specify a programming language for the codeblock.
 //
 // See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
-	// Offset field of MessageEntityPre.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityPre.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
-	// Language field of MessageEntityPre.
+	// Programming language of the code
 	Language string
 }
 
@@ -625,14 +635,15 @@ var (
 )
 
 // MessageEntityTextUrl represents TL type `messageEntityTextUrl#76a6d327`.
+// Message entity representing a text url: for in-text urls like https://google.com use messageEntityUrl.
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextUrl struct {
-	// Offset field of MessageEntityTextUrl.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityTextUrl.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
-	// URL field of MessageEntityTextUrl.
+	// The actual URL
 	URL string
 }
 
@@ -695,14 +706,15 @@ var (
 )
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
+// Message entity representing a user mention: for creating a mention use inputMessageEntityMentionName.
 //
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
-	// Offset field of MessageEntityMentionName.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityMentionName.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
-	// UserID field of MessageEntityMentionName.
+	// Identifier of the user that was mentioned
 	UserID int
 }
 
@@ -765,14 +777,15 @@ var (
 )
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
+// Message entity that can be used to create a user user mention: received mentions use the messageEntityMentionName constructor, instead.
 //
 // See https://core.telegram.org/constructor/inputMessageEntityMentionName for reference.
 type InputMessageEntityMentionName struct {
-	// Offset field of InputMessageEntityMentionName.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of InputMessageEntityMentionName.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
-	// UserID field of InputMessageEntityMentionName.
+	// Identifier of the user that was mentioned
 	UserID InputUserClass
 }
 
@@ -840,12 +853,13 @@ var (
 )
 
 // MessageEntityPhone represents TL type `messageEntityPhone#9b69e34b`.
+// Message entity representing a phone number.
 //
 // See https://core.telegram.org/constructor/messageEntityPhone for reference.
 type MessageEntityPhone struct {
-	// Offset field of MessageEntityPhone.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityPhone.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -900,12 +914,13 @@ var (
 )
 
 // MessageEntityCashtag represents TL type `messageEntityCashtag#4c4e743f`.
+// Message entity representing a $cashtag.
 //
 // See https://core.telegram.org/constructor/messageEntityCashtag for reference.
 type MessageEntityCashtag struct {
-	// Offset field of MessageEntityCashtag.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityCashtag.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -960,12 +975,13 @@ var (
 )
 
 // MessageEntityUnderline represents TL type `messageEntityUnderline#9c4e7e8b`.
+// Message entity representing underlined text.
 //
 // See https://core.telegram.org/constructor/messageEntityUnderline for reference.
 type MessageEntityUnderline struct {
-	// Offset field of MessageEntityUnderline.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityUnderline.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -1020,12 +1036,13 @@ var (
 )
 
 // MessageEntityStrike represents TL type `messageEntityStrike#bf0693d4`.
+// Message entity representing strikethrough text.
 //
 // See https://core.telegram.org/constructor/messageEntityStrike for reference.
 type MessageEntityStrike struct {
-	// Offset field of MessageEntityStrike.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityStrike.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -1080,12 +1097,13 @@ var (
 )
 
 // MessageEntityBlockquote represents TL type `messageEntityBlockquote#20df5d0`.
+// Message entity representing a block quote.
 //
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
-	// Offset field of MessageEntityBlockquote.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityBlockquote.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
@@ -1140,12 +1158,13 @@ var (
 )
 
 // MessageEntityBankCard represents TL type `messageEntityBankCard#761e6af4`.
+// Indicates a credit card number
 //
 // See https://core.telegram.org/constructor/messageEntityBankCard for reference.
 type MessageEntityBankCard struct {
-	// Offset field of MessageEntityBankCard.
+	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
-	// Length field of MessageEntityBankCard.
+	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 

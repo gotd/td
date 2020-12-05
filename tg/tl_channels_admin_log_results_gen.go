@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsAdminLogResults represents TL type `channels.adminLogResults#ed8af74d`.
+// Admin log events
 //
 // See https://core.telegram.org/constructor/channels.adminLogResults for reference.
 type ChannelsAdminLogResults struct {
-	// Events field of ChannelsAdminLogResults.
+	// Admin log events
 	Events []ChannelAdminLogEvent
-	// Chats field of ChannelsAdminLogResults.
+	// Chats mentioned in events
 	Chats []ChatClass
-	// Users field of ChannelsAdminLogResults.
+	// Users mentioned in events
 	Users []UserClass
 }
 

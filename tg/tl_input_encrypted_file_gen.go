@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputEncryptedFileEmpty represents TL type `inputEncryptedFileEmpty#1837c364`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileEmpty for reference.
 type InputEncryptedFileEmpty struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // InputEncryptedFileUploaded represents TL type `inputEncryptedFileUploaded#64bd0306`.
+// Sets new encrypted file saved by parts using upload.saveFilePart method.
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
-	// ID field of InputEncryptedFileUploaded.
+	// Random file ID created by clien
 	ID int64
-	// Parts field of InputEncryptedFileUploaded.
+	// Number of saved parts
 	Parts int
-	// Md5Checksum field of InputEncryptedFileUploaded.
+	// In case md5-HASH of the (already encrypted) file was transmitted, file content will be checked prior to use
 	Md5Checksum string
-	// KeyFingerprint field of InputEncryptedFileUploaded.
+	// 32-bit fingerprint of the key used to encrypt a file
 	KeyFingerprint int
 }
 
@@ -135,12 +137,13 @@ var (
 )
 
 // InputEncryptedFile represents TL type `inputEncryptedFile#5a17b5e5`.
+// Sets forwarded encrypted file for attachment.
 //
 // See https://core.telegram.org/constructor/inputEncryptedFile for reference.
 type InputEncryptedFile struct {
-	// ID field of InputEncryptedFile.
+	// File ID, value of id parameter from encryptedFile
 	ID int64
-	// AccessHash field of InputEncryptedFile.
+	// Checking sum, value of access_hash parameter from encryptedFile
 	AccessHash int64
 }
 
@@ -195,14 +198,15 @@ var (
 )
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
+// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method upload.saveBigFilePart.
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
-	// ID field of InputEncryptedFileBigUploaded.
+	// Random file id, created by the client
 	ID int64
-	// Parts field of InputEncryptedFileBigUploaded.
+	// Number of saved parts
 	Parts int
-	// KeyFingerprint field of InputEncryptedFileBigUploaded.
+	// 32-bit imprint of the key used to encrypt the file
 	KeyFingerprint int
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPaymentCredentialsSaved represents TL type `inputPaymentCredentialsSaved#c10eb2cf`.
+// Saved payment credentials
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentialsSaved for reference.
 type InputPaymentCredentialsSaved struct {
-	// ID field of InputPaymentCredentialsSaved.
+	// Credential ID
 	ID string
-	// TmpPassword field of InputPaymentCredentialsSaved.
+	// Temporary password
 	TmpPassword []byte
 }
 
@@ -75,14 +76,15 @@ var (
 )
 
 // InputPaymentCredentials represents TL type `inputPaymentCredentials#3417d728`.
+// Payment credentials
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentials for reference.
 type InputPaymentCredentials struct {
-	// Flags field of InputPaymentCredentials.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Save field of InputPaymentCredentials.
+	// Save payment credential for future use
 	Save bool
-	// Data field of InputPaymentCredentials.
+	// Payment credentials
 	Data DataJSON
 }
 
@@ -147,10 +149,11 @@ var (
 )
 
 // InputPaymentCredentialsApplePay represents TL type `inputPaymentCredentialsApplePay#aa1c39f`.
+// Apple pay payment credentials
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentialsApplePay for reference.
 type InputPaymentCredentialsApplePay struct {
-	// PaymentData field of InputPaymentCredentialsApplePay.
+	// Payment data
 	PaymentData DataJSON
 }
 
@@ -197,12 +200,13 @@ var (
 )
 
 // InputPaymentCredentialsAndroidPay represents TL type `inputPaymentCredentialsAndroidPay#ca05d50e`.
+// Android pay payment credentials
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentialsAndroidPay for reference.
 type InputPaymentCredentialsAndroidPay struct {
-	// PaymentToken field of InputPaymentCredentialsAndroidPay.
+	// Android pay payment token
 	PaymentToken DataJSON
-	// GoogleTransactionID field of InputPaymentCredentialsAndroidPay.
+	// Google transaction ID
 	GoogleTransactionID string
 }
 

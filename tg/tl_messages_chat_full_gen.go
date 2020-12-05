@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesChatFull represents TL type `messages.chatFull#e5d7d19c`.
+// Extended info on chat and auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {
-	// FullChat field of MessagesChatFull.
+	// Extended info on a chat
 	FullChat ChatFullClass
-	// Chats field of MessagesChatFull.
+	// List containing basic info on chat
 	Chats []ChatClass
-	// Users field of MessagesChatFull.
+	// List of users mentioned above
 	Users []UserClass
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
+// Empty constructor, non-existent user.
 //
 // See https://core.telegram.org/constructor/userEmpty for reference.
 type UserEmpty struct {
-	// ID field of UserEmpty.
+	// User identifier or 0
 	ID int
 }
 
@@ -65,82 +66,83 @@ var (
 )
 
 // User represents TL type `user#938458c1`.
+// Indicates info about a certain user
 //
 // See https://core.telegram.org/constructor/user for reference.
 type User struct {
-	// Flags field of User.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Self field of User.
+	// Whether this user indicates the currently logged in user
 	Self bool
-	// Contact field of User.
+	// Whether this user is a contact
 	Contact bool
-	// MutualContact field of User.
+	// Whether this user is a mutual contact
 	MutualContact bool
-	// Deleted field of User.
+	// Whether the account of this user was deleted
 	Deleted bool
-	// Bot field of User.
+	// Is this user a bot?
 	Bot bool
-	// BotChatHistory field of User.
+	// Can the bot see all messages in groups?
 	BotChatHistory bool
-	// BotNochats field of User.
+	// Can the bot be added to groups?
 	BotNochats bool
-	// Verified field of User.
+	// Whether this user is verified
 	Verified bool
-	// Restricted field of User.
+	// Access to this user must be restricted for the reason specified in restriction_reason
 	Restricted bool
-	// Min field of User.
+	// See min
 	Min bool
-	// BotInlineGeo field of User.
+	// Whether the bot can request our geolocation in inline mode
 	BotInlineGeo bool
-	// Support field of User.
+	// Whether this is an official support user
 	Support bool
-	// Scam field of User.
+	// This may be a scam user
 	Scam bool
-	// ApplyMinPhoto field of User.
+	// If set, the profile picture for this user should be refetched
 	ApplyMinPhoto bool
-	// ID field of User.
+	// ID of the user
 	ID int
-	// AccessHash field of User.
+	// Access hash of the user
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
 	AccessHash int64
-	// FirstName field of User.
+	// First name
 	//
 	// Use SetFirstName and GetFirstName helpers.
 	FirstName string
-	// LastName field of User.
+	// Last name
 	//
 	// Use SetLastName and GetLastName helpers.
 	LastName string
-	// Username field of User.
+	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
 	Username string
-	// Phone field of User.
+	// Phone number
 	//
 	// Use SetPhone and GetPhone helpers.
 	Phone string
-	// Photo field of User.
+	// Profile picture of user
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo UserProfilePhotoClass
-	// Status field of User.
+	// Online status of user
 	//
 	// Use SetStatus and GetStatus helpers.
 	Status UserStatusClass
-	// BotInfoVersion field of User.
+	// Version of the bot_info field in userFull, incremented every time it changes
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
 	BotInfoVersion int
-	// RestrictionReason field of User.
+	// Contains the reason why access to this user must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
-	// BotInlinePlaceholder field of User.
+	// Inline placeholder for this inline bot
 	//
 	// Use SetBotInlinePlaceholder and GetBotInlinePlaceholder helpers.
 	BotInlinePlaceholder string
-	// LangCode field of User.
+	// Language code of the user
 	//
 	// Use SetLangCode and GetLangCode helpers.
 	LangCode string

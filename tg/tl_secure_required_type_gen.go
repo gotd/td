@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureRequiredType represents TL type `secureRequiredType#829d99da`.
+// Required type
 //
 // See https://core.telegram.org/constructor/secureRequiredType for reference.
 type SecureRequiredType struct {
-	// Flags field of SecureRequiredType.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NativeNames field of SecureRequiredType.
+	// Native names
 	NativeNames bool
-	// SelfieRequired field of SecureRequiredType.
+	// Is a selfie required
 	SelfieRequired bool
-	// TranslationRequired field of SecureRequiredType.
+	// Is a translation required
 	TranslationRequired bool
-	// Type field of SecureRequiredType.
+	// Secure value type
 	Type SecureValueTypeClass
 }
 
@@ -116,10 +117,11 @@ var (
 )
 
 // SecureRequiredTypeOneOf represents TL type `secureRequiredTypeOneOf#27477b4`.
+// One of
 //
 // See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
-	// Types field of SecureRequiredTypeOneOf.
+	// Secure required value types
 	Types []SecureRequiredTypeClass
 }
 

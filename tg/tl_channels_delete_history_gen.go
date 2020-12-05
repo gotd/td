@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteHistoryRequest represents TL type `channels.deleteHistory#af369d42`.
+// Delete the history of a supergroup
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
 type ChannelsDeleteHistoryRequest struct {
-	// Channel field of ChannelsDeleteHistoryRequest.
+	// Supergroup whose history must be deleted
 	Channel InputChannelClass
-	// MaxID field of ChannelsDeleteHistoryRequest.
+	// ID of message up to which the history must be deleted
 	MaxID int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsDeleteHistory invokes method channels.deleteHistory#af369d42 returning error if any.
+// Delete the history of a supergroup
 //
 // See https://core.telegram.org/method/channels.deleteHistory for reference.
 func (c *Client) ChannelsDeleteHistory(ctx context.Context, request *ChannelsDeleteHistoryRequest) (BoolClass, error) {

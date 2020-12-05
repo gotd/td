@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSentEmailCode represents TL type `account.sentEmailCode#811f854f`.
+// The sent email code
 //
 // See https://core.telegram.org/constructor/account.sentEmailCode for reference.
 type AccountSentEmailCode struct {
-	// EmailPattern field of AccountSentEmailCode.
+	// The email (to which the code was sent) must match this pattern
 	EmailPattern string
-	// Length field of AccountSentEmailCode.
+	// The length of the verification code
 	Length int
 }
 

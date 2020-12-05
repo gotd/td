@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountReportPeerRequest represents TL type `account.reportPeer#ae189d5f`.
+// Report a peer for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/account.reportPeer for reference.
 type AccountReportPeerRequest struct {
-	// Peer field of AccountReportPeerRequest.
+	// The peer to report
 	Peer InputPeerClass
-	// Reason field of AccountReportPeerRequest.
+	// The reason why this peer is being reported
 	Reason ReportReasonClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // AccountReportPeer invokes method account.reportPeer#ae189d5f returning error if any.
+// Report a peer for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/account.reportPeer for reference.
 func (c *Client) AccountReportPeer(ctx context.Context, request *AccountReportPeerRequest) (BoolClass, error) {

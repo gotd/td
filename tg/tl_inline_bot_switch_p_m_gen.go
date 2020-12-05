@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InlineBotSwitchPM represents TL type `inlineBotSwitchPM#3c20629f`.
+// The bot requested the user to message him in private
 //
 // See https://core.telegram.org/constructor/inlineBotSwitchPM for reference.
 type InlineBotSwitchPM struct {
-	// Text field of InlineBotSwitchPM.
+	// Text for the button that switches the user to a private chat with the bot and sends the bot a start message with the parameter start_parameter (can be empty)
 	Text string
-	// StartParam field of InlineBotSwitchPM.
+	// The parameter for the /start parameter
 	StartParam string
 }
 

@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendEncryptedRequest represents TL type `messages.sendEncrypted#44fa7a15`.
+// Sends a text message to a secret chat.
 //
 // See https://core.telegram.org/method/messages.sendEncrypted for reference.
 type MessagesSendEncryptedRequest struct {
-	// Flags field of MessagesSendEncryptedRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesSendEncryptedRequest.
+	// Send encrypted message without a notification
 	Silent bool
-	// Peer field of MessagesSendEncryptedRequest.
+	// Secret chat ID
 	Peer InputEncryptedChat
-	// RandomID field of MessagesSendEncryptedRequest.
+	// Unique client message ID, necessary to avoid message resending
 	RandomID int64
-	// Data field of MessagesSendEncryptedRequest.
+	// TL-serialization of DecryptedMessage type, encrypted with a key that was created during chat initialization
 	Data []byte
 }
 
@@ -102,6 +103,7 @@ var (
 )
 
 // MessagesSendEncrypted invokes method messages.sendEncrypted#44fa7a15 returning error if any.
+// Sends a text message to a secret chat.
 //
 // See https://core.telegram.org/method/messages.sendEncrypted for reference.
 func (c *Client) MessagesSendEncrypted(ctx context.Context, request *MessagesSendEncryptedRequest) (MessagesSentEncryptedMessageClass, error) {

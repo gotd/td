@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneCallProtocol represents TL type `phoneCallProtocol#fc878fc8`.
+// Protocol info for libtgvoip
 //
 // See https://core.telegram.org/constructor/phoneCallProtocol for reference.
 type PhoneCallProtocol struct {
-	// Flags field of PhoneCallProtocol.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// UDPP2P field of PhoneCallProtocol.
+	// Whether to allow P2P connection to the other participant
 	UDPP2P bool
-	// UDPReflector field of PhoneCallProtocol.
+	// Whether to allow connection to the other participants through the reflector servers
 	UDPReflector bool
-	// MinLayer field of PhoneCallProtocol.
+	// Minimum layer for remote libtgvoip
 	MinLayer int
-	// MaxLayer field of PhoneCallProtocol.
+	// Maximum layer for remote libtgvoip
 	MaxLayer int
-	// LibraryVersions field of PhoneCallProtocol.
+	// When using phone.requestCall and phone.acceptCall, specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall and in the phoneCallAccepted update received by the caller.
 	LibraryVersions []string
 }
 

@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendMediaRequest represents TL type `messages.sendMedia#3491eba9`.
+// Send a media
 //
 // See https://core.telegram.org/method/messages.sendMedia for reference.
 type MessagesSendMediaRequest struct {
-	// Flags field of MessagesSendMediaRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesSendMediaRequest.
+	// Send message silently (no notification should be triggered)
 	Silent bool
-	// Background field of MessagesSendMediaRequest.
+	// Send message in background
 	Background bool
-	// ClearDraft field of MessagesSendMediaRequest.
+	// Clear the draft
 	ClearDraft bool
-	// Peer field of MessagesSendMediaRequest.
+	// Destination
 	Peer InputPeerClass
-	// ReplyToMsgID field of MessagesSendMediaRequest.
+	// Message ID to which this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// Media field of MessagesSendMediaRequest.
+	// Attached media
 	Media InputMediaClass
-	// Message field of MessagesSendMediaRequest.
+	// Caption
 	Message string
-	// RandomID field of MessagesSendMediaRequest.
+	// Random ID to avoid resending the same message
 	RandomID int64
-	// ReplyMarkup field of MessagesSendMediaRequest.
+	// Reply markup for bot keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Entities field of MessagesSendMediaRequest.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ScheduleDate field of MessagesSendMediaRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -281,6 +282,7 @@ var (
 )
 
 // MessagesSendMedia invokes method messages.sendMedia#3491eba9 returning error if any.
+// Send a media
 //
 // See https://core.telegram.org/method/messages.sendMedia for reference.
 func (c *Client) MessagesSendMedia(ctx context.Context, request *MessagesSendMediaRequest) (UpdatesClass, error) {

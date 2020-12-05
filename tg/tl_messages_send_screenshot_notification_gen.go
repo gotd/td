@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#c97df020`.
+// Notify the other user in a private chat that a screenshot of the chat was taken
 //
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 type MessagesSendScreenshotNotificationRequest struct {
-	// Peer field of MessagesSendScreenshotNotificationRequest.
+	// Other user
 	Peer InputPeerClass
-	// ReplyToMsgID field of MessagesSendScreenshotNotificationRequest.
+	// ID of message that was screenshotted, can be 0
 	ReplyToMsgID int
-	// RandomID field of MessagesSendScreenshotNotificationRequest.
+	// Random ID to avoid message resending
 	RandomID int64
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.
+// Notify the other user in a private chat that a screenshot of the chat was taken
 //
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 func (c *Client) MessagesSendScreenshotNotification(ctx context.Context, request *MessagesSendScreenshotNotificationRequest) (UpdatesClass, error) {

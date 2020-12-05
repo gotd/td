@@ -15,34 +15,35 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangPackLanguage represents TL type `langPackLanguage#eeca5ce3`.
+// Identifies a localization pack
 //
 // See https://core.telegram.org/constructor/langPackLanguage for reference.
 type LangPackLanguage struct {
-	// Flags field of LangPackLanguage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Official field of LangPackLanguage.
+	// Whether the language pack is official
 	Official bool
-	// Rtl field of LangPackLanguage.
+	// Is this a localization pack for an RTL language
 	Rtl bool
-	// Beta field of LangPackLanguage.
+	// Is this a beta localization pack?
 	Beta bool
-	// Name field of LangPackLanguage.
+	// Language name
 	Name string
-	// NativeName field of LangPackLanguage.
+	// Language name in the language itself
 	NativeName string
-	// LangCode field of LangPackLanguage.
+	// Language code (pack identifier)
 	LangCode string
-	// BaseLangCode field of LangPackLanguage.
+	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
 	BaseLangCode string
-	// PluralCode field of LangPackLanguage.
+	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
 	PluralCode string
-	// StringsCount field of LangPackLanguage.
+	// Total number of non-deleted strings from the language pack
 	StringsCount int
-	// TranslatedCount field of LangPackLanguage.
+	// Total number of translated strings from the language pack
 	TranslatedCount int
-	// TranslationsURL field of LangPackLanguage.
+	// Link to language translation interface; empty for custom local language packs
 	TranslationsURL string
 }
 

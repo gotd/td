@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesBotResults represents TL type `messages.botResults#947ca848`.
+// Result of a query to an inline bot
 //
 // See https://core.telegram.org/constructor/messages.botResults for reference.
 type MessagesBotResults struct {
-	// Flags field of MessagesBotResults.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Gallery field of MessagesBotResults.
+	// Whether the result is a picture gallery
 	Gallery bool
-	// QueryID field of MessagesBotResults.
+	// Query ID
 	QueryID int64
-	// NextOffset field of MessagesBotResults.
+	// The next offset to use when navigating through results
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// SwitchPm field of MessagesBotResults.
+	// Whether the bot requested the user to message him in private
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
-	// Results field of MessagesBotResults.
+	// The results
 	Results []BotInlineResultClass
-	// CacheTime field of MessagesBotResults.
+	// Caching validity of the results
 	CacheTime int
-	// Users field of MessagesBotResults.
+	// Users mentioned in the results
 	Users []UserClass
 }
 

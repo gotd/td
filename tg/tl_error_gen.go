@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Error represents TL type `error#c4b9f9bb`.
+// Error.
 //
 // See https://core.telegram.org/constructor/error for reference.
 type Error struct {
-	// Code field of Error.
+	// Error code
 	Code int
-	// Text field of Error.
+	// Message
 	Text string
 }
 

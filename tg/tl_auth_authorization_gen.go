@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthAuthorization represents TL type `auth.authorization#cd050916`.
+// Contains user authorization info.
 //
 // See https://core.telegram.org/constructor/auth.authorization for reference.
 type AuthAuthorization struct {
-	// Flags field of AuthAuthorization.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// TmpSessions field of AuthAuthorization.
+	// Temporary passport sessions
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
-	// User field of AuthAuthorization.
+	// Info on authorized user
 	User UserClass
 }
 
@@ -109,12 +110,13 @@ var (
 )
 
 // AuthAuthorizationSignUpRequired represents TL type `auth.authorizationSignUpRequired#44747e9a`.
+// An account with this phone number doesn't exist on telegram: the user has to enter basic information and sign up
 //
 // See https://core.telegram.org/constructor/auth.authorizationSignUpRequired for reference.
 type AuthAuthorizationSignUpRequired struct {
-	// Flags field of AuthAuthorizationSignUpRequired.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// TermsOfService field of AuthAuthorizationSignUpRequired.
+	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
 	//
 	// Use SetTermsOfService and GetTermsOfService helpers.
 	TermsOfService HelpTermsOfService

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneCallDiscardReasonMissed represents TL type `phoneCallDiscardReasonMissed#85e42301`.
+// The phone call was missed
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonMissed for reference.
 type PhoneCallDiscardReasonMissed struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // PhoneCallDiscardReasonDisconnect represents TL type `phoneCallDiscardReasonDisconnect#e095c1a0`.
+// The phone call was disconnected
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonDisconnect for reference.
 type PhoneCallDiscardReasonDisconnect struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // PhoneCallDiscardReasonHangup represents TL type `phoneCallDiscardReasonHangup#57adc690`.
+// The phone call was ended normally
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonHangup for reference.
 type PhoneCallDiscardReasonHangup struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // PhoneCallDiscardReasonBusy represents TL type `phoneCallDiscardReasonBusy#faf7e8c9`.
+// The phone call was discared because the user is busy in another call
 //
 // See https://core.telegram.org/constructor/phoneCallDiscardReasonBusy for reference.
 type PhoneCallDiscardReasonBusy struct {

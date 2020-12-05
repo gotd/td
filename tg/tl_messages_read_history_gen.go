@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadHistoryRequest represents TL type `messages.readHistory#e306d3a`.
+// Marks message history as read.
 //
 // See https://core.telegram.org/method/messages.readHistory for reference.
 type MessagesReadHistoryRequest struct {
-	// Peer field of MessagesReadHistoryRequest.
+	// Target user or group
 	Peer InputPeerClass
-	// MaxID field of MessagesReadHistoryRequest.
+	// If a positive value is passed, only messages with identifiers less or equal than the given one will be read
 	MaxID int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesReadHistory invokes method messages.readHistory#e306d3a returning error if any.
+// Marks message history as read.
 //
 // See https://core.telegram.org/method/messages.readHistory for reference.
 func (c *Client) MessagesReadHistory(ctx context.Context, request *MessagesReadHistoryRequest) (*MessagesAffectedMessages, error) {

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadSaveFilePartRequest represents TL type `upload.saveFilePart#b304a621`.
+// Saves a part of file for futher sending to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
 type UploadSaveFilePartRequest struct {
-	// FileID field of UploadSaveFilePartRequest.
+	// Random file identifier created by the client
 	FileID int64
-	// FilePart field of UploadSaveFilePartRequest.
+	// Numerical order of a part
 	FilePart int
-	// Bytes field of UploadSaveFilePartRequest.
+	// Binary data, contend of a part
 	Bytes []byte
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
+// Saves a part of file for futher sending to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
 func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (BoolClass, error) {

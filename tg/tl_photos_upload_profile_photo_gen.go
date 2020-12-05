@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#89f30f69`.
+// Updates current user profile photo.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 type PhotosUploadProfilePhotoRequest struct {
-	// Flags field of PhotosUploadProfilePhotoRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// File field of PhotosUploadProfilePhotoRequest.
+	// File saved in parts by means of upload.saveFilePart method
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
-	// Video field of PhotosUploadProfilePhotoRequest.
+	// Animated profile picture video
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// VideoStartTs field of PhotosUploadProfilePhotoRequest.
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64
@@ -157,6 +158,7 @@ var (
 )
 
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.
+// Updates current user profile photo.
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 func (c *Client) PhotosUploadProfilePhoto(ctx context.Context, request *PhotosUploadProfilePhotoRequest) (*PhotosPhoto, error) {

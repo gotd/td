@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountFinishTakeoutSessionRequest represents TL type `account.finishTakeoutSession#1d2652ee`.
+// Finish account takeout session
 //
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 type AccountFinishTakeoutSessionRequest struct {
-	// Flags field of AccountFinishTakeoutSessionRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Success field of AccountFinishTakeoutSessionRequest.
+	// Data exported successfully
 	Success bool
 }
 
@@ -72,6 +73,7 @@ var (
 )
 
 // AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
+// Finish account takeout session
 //
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (BoolClass, error) {

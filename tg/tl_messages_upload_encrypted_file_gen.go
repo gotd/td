@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUploadEncryptedFileRequest represents TL type `messages.uploadEncryptedFile#5057c497`.
+// Upload encrypted file and associate it to a secret chat
 //
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 type MessagesUploadEncryptedFileRequest struct {
-	// Peer field of MessagesUploadEncryptedFileRequest.
+	// The secret chat to associate the file to
 	Peer InputEncryptedChat
-	// File field of MessagesUploadEncryptedFileRequest.
+	// The file
 	File InputEncryptedFileClass
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesUploadEncryptedFile invokes method messages.uploadEncryptedFile#5057c497 returning error if any.
+// Upload encrypted file and associate it to a secret chat
 //
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 func (c *Client) MessagesUploadEncryptedFile(ctx context.Context, request *MessagesUploadEncryptedFileRequest) (EncryptedFileClass, error) {

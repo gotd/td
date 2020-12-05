@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInlineMessageMediaAuto represents TL type `botInlineMessageMediaAuto#764cf810`.
+// Send whatever media is attached to the botInlineMediaResult
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaAuto for reference.
 type BotInlineMessageMediaAuto struct {
-	// Flags field of BotInlineMessageMediaAuto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Message field of BotInlineMessageMediaAuto.
+	// Caption
 	Message string
-	// Entities field of BotInlineMessageMediaAuto.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ReplyMarkup field of BotInlineMessageMediaAuto.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -152,20 +153,21 @@ var (
 )
 
 // BotInlineMessageText represents TL type `botInlineMessageText#8c7f65e2`.
+// Send a simple text message
 //
 // See https://core.telegram.org/constructor/botInlineMessageText for reference.
 type BotInlineMessageText struct {
-	// Flags field of BotInlineMessageText.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of BotInlineMessageText.
+	// Disable webpage preview
 	NoWebpage bool
-	// Message field of BotInlineMessageText.
+	// The message
 	Message string
-	// Entities field of BotInlineMessageText.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ReplyMarkup field of BotInlineMessageText.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -301,26 +303,27 @@ var (
 )
 
 // BotInlineMessageMediaGeo represents TL type `botInlineMessageMediaGeo#51846fd`.
+// Send a geolocation
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaGeo for reference.
 type BotInlineMessageMediaGeo struct {
-	// Flags field of BotInlineMessageMediaGeo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Geo field of BotInlineMessageMediaGeo.
+	// Geolocation
 	Geo GeoPointClass
-	// Heading field of BotInlineMessageMediaGeo.
+	// For live locations, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
-	// Period field of BotInlineMessageMediaGeo.
+	// Validity period
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// ProximityNotificationRadius field of BotInlineMessageMediaGeo.
+	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
-	// ReplyMarkup field of BotInlineMessageMediaGeo.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -487,24 +490,25 @@ var (
 )
 
 // BotInlineMessageMediaVenue represents TL type `botInlineMessageMediaVenue#8a86659c`.
+// Send a venue
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaVenue for reference.
 type BotInlineMessageMediaVenue struct {
-	// Flags field of BotInlineMessageMediaVenue.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Geo field of BotInlineMessageMediaVenue.
+	// Geolocation of venue
 	Geo GeoPointClass
-	// Title field of BotInlineMessageMediaVenue.
+	// Venue name
 	Title string
-	// Address field of BotInlineMessageMediaVenue.
+	// Address
 	Address string
-	// Provider field of BotInlineMessageMediaVenue.
+	// Venue provider: currently only "foursquare" needs to be supported
 	Provider string
-	// VenueID field of BotInlineMessageMediaVenue.
+	// Venue ID in the provider's database
 	VenueID string
-	// VenueType field of BotInlineMessageMediaVenue.
+	// Venue type in the provider's database
 	VenueType string
-	// ReplyMarkup field of BotInlineMessageMediaVenue.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -636,20 +640,21 @@ var (
 )
 
 // BotInlineMessageMediaContact represents TL type `botInlineMessageMediaContact#18d1cdc2`.
+// Send a contact
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaContact for reference.
 type BotInlineMessageMediaContact struct {
-	// Flags field of BotInlineMessageMediaContact.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// PhoneNumber field of BotInlineMessageMediaContact.
+	// Phone number
 	PhoneNumber string
-	// FirstName field of BotInlineMessageMediaContact.
+	// First name
 	FirstName string
-	// LastName field of BotInlineMessageMediaContact.
+	// Last name
 	LastName string
-	// Vcard field of BotInlineMessageMediaContact.
+	// VCard info
 	Vcard string
-	// ReplyMarkup field of BotInlineMessageMediaContact.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

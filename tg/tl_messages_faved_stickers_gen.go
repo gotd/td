@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFavedStickersNotModified represents TL type `messages.favedStickersNotModified#9e8fa6d3`.
+// No new favorited stickers were found
 //
 // See https://core.telegram.org/constructor/messages.favedStickersNotModified for reference.
 type MessagesFavedStickersNotModified struct {
@@ -55,14 +56,15 @@ var (
 )
 
 // MessagesFavedStickers represents TL type `messages.favedStickers#f37f2f16`.
+// Favorited stickers
 //
 // See https://core.telegram.org/constructor/messages.favedStickers for reference.
 type MessagesFavedStickers struct {
-	// Hash field of MessagesFavedStickers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Packs field of MessagesFavedStickers.
+	// Emojis associated to stickers
 	Packs []StickerPack
-	// Stickers field of MessagesFavedStickers.
+	// Favorited stickers
 	Stickers []DocumentClass
 }
 

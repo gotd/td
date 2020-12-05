@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsCheckUsernameRequest represents TL type `channels.checkUsername#10e6bd2c`.
+// Check if a username is free and can be assigned to a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.checkUsername for reference.
 type ChannelsCheckUsernameRequest struct {
-	// Channel field of ChannelsCheckUsernameRequest.
+	// The channel/supergroup that will assigned the specified username
 	Channel InputChannelClass
-	// Username field of ChannelsCheckUsernameRequest.
+	// The username to check
 	Username string
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsCheckUsername invokes method channels.checkUsername#10e6bd2c returning error if any.
+// Check if a username is free and can be assigned to a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.checkUsername for reference.
 func (c *Client) ChannelsCheckUsername(ctx context.Context, request *ChannelsCheckUsernameRequest) (BoolClass, error) {

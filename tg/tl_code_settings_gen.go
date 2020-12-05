@@ -15,16 +15,18 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // CodeSettings represents TL type `codeSettings#debebe83`.
+// Settings used by telegram servers for sending the confirm code.
+// Example implementations: telegram for android, tdlib.
 //
 // See https://core.telegram.org/constructor/codeSettings for reference.
 type CodeSettings struct {
-	// Flags field of CodeSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// AllowFlashcall field of CodeSettings.
+	// Whether to allow phone verification via phone calls.
 	AllowFlashcall bool
-	// CurrentNumber field of CodeSettings.
+	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
 	CurrentNumber bool
-	// AllowAppHash field of CodeSettings.
+	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs
 	AllowAppHash bool
 }
 

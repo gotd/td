@@ -15,34 +15,35 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentReceipt represents TL type `payments.paymentReceipt#500911e1`.
+// Receipt
 //
 // See https://core.telegram.org/constructor/payments.paymentReceipt for reference.
 type PaymentsPaymentReceipt struct {
-	// Flags field of PaymentsPaymentReceipt.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Date field of PaymentsPaymentReceipt.
+	// Date of generation
 	Date int
-	// BotID field of PaymentsPaymentReceipt.
+	// Bot ID
 	BotID int
-	// Invoice field of PaymentsPaymentReceipt.
+	// Invoice
 	Invoice Invoice
-	// ProviderID field of PaymentsPaymentReceipt.
+	// Provider ID
 	ProviderID int
-	// Info field of PaymentsPaymentReceipt.
+	// Info
 	//
 	// Use SetInfo and GetInfo helpers.
 	Info PaymentRequestedInfo
-	// Shipping field of PaymentsPaymentReceipt.
+	// Selected shipping option
 	//
 	// Use SetShipping and GetShipping helpers.
 	Shipping ShippingOption
-	// Currency field of PaymentsPaymentReceipt.
+	// Three-letter ISO 4217 currency code
 	Currency string
-	// TotalAmount field of PaymentsPaymentReceipt.
+	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	TotalAmount int64
-	// CredentialsTitle field of PaymentsPaymentReceipt.
+	// Payment credential name
 	CredentialsTitle string
-	// Users field of PaymentsPaymentReceipt.
+	// Users
 	Users []UserClass
 }
 

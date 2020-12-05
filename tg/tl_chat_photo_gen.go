@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatPhotoEmpty represents TL type `chatPhotoEmpty#37c1011c`.
+// Group photo is not set.
 //
 // See https://core.telegram.org/constructor/chatPhotoEmpty for reference.
 type ChatPhotoEmpty struct {
@@ -55,18 +56,19 @@ var (
 )
 
 // ChatPhoto represents TL type `chatPhoto#d20b9f3c`.
+// Group profile photo.
 //
 // See https://core.telegram.org/constructor/chatPhoto for reference.
 type ChatPhoto struct {
-	// Flags field of ChatPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// HasVideo field of ChatPhoto.
+	// Whether the user has an animated profile picture
 	HasVideo bool
-	// PhotoSmall field of ChatPhoto.
+	// Location of the file corresponding to the small thumbnail for group profile photo
 	PhotoSmall FileLocationToBeDeprecated
-	// PhotoBig field of ChatPhoto.
+	// Location of the file corresponding to the small thumbnail for group profile photo
 	PhotoBig FileLocationToBeDeprecated
-	// DCID field of ChatPhoto.
+	// DC where this photo is stored
 	DCID int
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesClearRecentStickersRequest represents TL type `messages.clearRecentStickers#8999602d`.
+// Clear recent stickers
 //
 // See https://core.telegram.org/method/messages.clearRecentStickers for reference.
 type MessagesClearRecentStickersRequest struct {
-	// Flags field of MessagesClearRecentStickersRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Attached field of MessagesClearRecentStickersRequest.
+	// Set this flag to clear the list of stickers recently attached to photo or video files
 	Attached bool
 }
 
@@ -72,6 +73,7 @@ var (
 )
 
 // MessagesClearRecentStickers invokes method messages.clearRecentStickers#8999602d returning error if any.
+// Clear recent stickers
 //
 // See https://core.telegram.org/method/messages.clearRecentStickers for reference.
 func (c *Client) MessagesClearRecentStickers(ctx context.Context, request *MessagesClearRecentStickersRequest) (BoolClass, error) {

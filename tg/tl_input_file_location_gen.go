@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
+// DEPRECATED location of a photo
 //
 // See https://core.telegram.org/constructor/inputFileLocation for reference.
 type InputFileLocation struct {
-	// VolumeID field of InputFileLocation.
+	// Server volume
 	VolumeID int64
-	// LocalID field of InputFileLocation.
+	// File identifier
 	LocalID int
-	// Secret field of InputFileLocation.
+	// Check sum to access the file
 	Secret int64
-	// FileReference field of InputFileLocation.
+	// File reference
 	FileReference []byte
 }
 
@@ -95,12 +96,13 @@ var (
 )
 
 // InputEncryptedFileLocation represents TL type `inputEncryptedFileLocation#f5235d55`.
+// Location of encrypted secret chat file.
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileLocation for reference.
 type InputEncryptedFileLocation struct {
-	// ID field of InputEncryptedFileLocation.
+	// File ID, id parameter value from encryptedFile
 	ID int64
-	// AccessHash field of InputEncryptedFileLocation.
+	// Checksum, access_hash parameter value from encryptedFile
 	AccessHash int64
 }
 
@@ -155,16 +157,17 @@ var (
 )
 
 // InputDocumentFileLocation represents TL type `inputDocumentFileLocation#bad07584`.
+// Document location (video, voice, audio, basically every type except photo)
 //
 // See https://core.telegram.org/constructor/inputDocumentFileLocation for reference.
 type InputDocumentFileLocation struct {
-	// ID field of InputDocumentFileLocation.
+	// Document ID
 	ID int64
-	// AccessHash field of InputDocumentFileLocation.
+	// access_hash parameter from the document constructor
 	AccessHash int64
-	// FileReference field of InputDocumentFileLocation.
+	// File reference
 	FileReference []byte
-	// ThumbSize field of InputDocumentFileLocation.
+	// Thumbnail size to download the thumbnail
 	ThumbSize string
 }
 
@@ -235,12 +238,13 @@ var (
 )
 
 // InputSecureFileLocation represents TL type `inputSecureFileLocation#cbc7ee28`.
+// Location of encrypted telegram passport file.
 //
 // See https://core.telegram.org/constructor/inputSecureFileLocation for reference.
 type InputSecureFileLocation struct {
-	// ID field of InputSecureFileLocation.
+	// File ID, id parameter value from secureFile
 	ID int64
-	// AccessHash field of InputSecureFileLocation.
+	// Checksum, access_hash parameter value from secureFile
 	AccessHash int64
 }
 
@@ -295,6 +299,7 @@ var (
 )
 
 // InputTakeoutFileLocation represents TL type `inputTakeoutFileLocation#29be5899`.
+// Empty constructor for takeout
 //
 // See https://core.telegram.org/constructor/inputTakeoutFileLocation for reference.
 type InputTakeoutFileLocation struct {
@@ -335,16 +340,17 @@ var (
 )
 
 // InputPhotoFileLocation represents TL type `inputPhotoFileLocation#40181ffe`.
+// Use this object to download a photo with upload.getFile method
 //
 // See https://core.telegram.org/constructor/inputPhotoFileLocation for reference.
 type InputPhotoFileLocation struct {
-	// ID field of InputPhotoFileLocation.
+	// Photo ID, obtained from the photo object
 	ID int64
-	// AccessHash field of InputPhotoFileLocation.
+	// Photo's access hash, obtained from the photo object
 	AccessHash int64
-	// FileReference field of InputPhotoFileLocation.
+	// File reference
 	FileReference []byte
-	// ThumbSize field of InputPhotoFileLocation.
+	// The PhotoSize to download: must be set to the type field of the desired PhotoSize object of the photo
 	ThumbSize string
 }
 
@@ -415,20 +421,21 @@ var (
 )
 
 // InputPhotoLegacyFileLocation represents TL type `inputPhotoLegacyFileLocation#d83466f3`.
+// Legacy photo file location
 //
 // See https://core.telegram.org/constructor/inputPhotoLegacyFileLocation for reference.
 type InputPhotoLegacyFileLocation struct {
-	// ID field of InputPhotoLegacyFileLocation.
+	// Photo ID
 	ID int64
-	// AccessHash field of InputPhotoLegacyFileLocation.
+	// Access hash
 	AccessHash int64
-	// FileReference field of InputPhotoLegacyFileLocation.
+	// File reference
 	FileReference []byte
-	// VolumeID field of InputPhotoLegacyFileLocation.
+	// Volume ID
 	VolumeID int64
-	// LocalID field of InputPhotoLegacyFileLocation.
+	// Local ID
 	LocalID int
-	// Secret field of InputPhotoLegacyFileLocation.
+	// Secret
 	Secret int64
 }
 
@@ -515,18 +522,19 @@ var (
 )
 
 // InputPeerPhotoFileLocation represents TL type `inputPeerPhotoFileLocation#27d69997`.
+// Location of profile photo of channel/group/supergroup/user
 //
 // See https://core.telegram.org/constructor/inputPeerPhotoFileLocation for reference.
 type InputPeerPhotoFileLocation struct {
-	// Flags field of InputPeerPhotoFileLocation.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Big field of InputPeerPhotoFileLocation.
+	// Whether to download the high-quality version of the picture
 	Big bool
-	// Peer field of InputPeerPhotoFileLocation.
+	// The peer whose profile picture should be downloaded
 	Peer InputPeerClass
-	// VolumeID field of InputPeerPhotoFileLocation.
+	// Volume ID from FileLocation met in the profile photo container.
 	VolumeID int64
-	// LocalID field of InputPeerPhotoFileLocation.
+	// Local ID from FileLocation met in the profile photo container.
 	LocalID int
 }
 
@@ -612,14 +620,15 @@ var (
 )
 
 // InputStickerSetThumb represents TL type `inputStickerSetThumb#dbaeae9`.
+// Location of stickerset thumbnail (see files)
 //
 // See https://core.telegram.org/constructor/inputStickerSetThumb for reference.
 type InputStickerSetThumb struct {
-	// Stickerset field of InputStickerSetThumb.
+	// Sticker set
 	Stickerset InputStickerSetClass
-	// VolumeID field of InputStickerSetThumb.
+	// Volume ID
 	VolumeID int64
-	// LocalID field of InputStickerSetThumb.
+	// Local ID
 	LocalID int
 }
 

@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSecureValue represents TL type `inputSecureValue#db21d0a7`.
+// Secure value, for more info see the passport docs »
 //
 // See https://core.telegram.org/constructor/inputSecureValue for reference.
 type InputSecureValue struct {
-	// Flags field of InputSecureValue.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Type field of InputSecureValue.
+	// Secure passport value type
 	Type SecureValueTypeClass
-	// Data field of InputSecureValue.
+	// Encrypted Telegram Passport element data
 	//
 	// Use SetData and GetData helpers.
 	Data SecureData
-	// FrontSide field of InputSecureValue.
+	// Encrypted passport file with the front side of the document
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
 	FrontSide InputSecureFileClass
-	// ReverseSide field of InputSecureValue.
+	// Encrypted passport file with the reverse side of the document
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
 	ReverseSide InputSecureFileClass
-	// Selfie field of InputSecureValue.
+	// Encrypted passport file with a selfie of the user holding the document
 	//
 	// Use SetSelfie and GetSelfie helpers.
 	Selfie InputSecureFileClass
-	// Translation field of InputSecureValue.
+	// Array of encrypted passport files with translated versions of the provided documents
 	//
 	// Use SetTranslation and GetTranslation helpers.
 	Translation []InputSecureFileClass
-	// Files field of InputSecureValue.
+	// Array of encrypted passport files with photos the of the documents
 	//
 	// Use SetFiles and GetFiles helpers.
 	Files []InputSecureFileClass
-	// PlainData field of InputSecureValue.
+	// Plaintext verified passport data
 	//
 	// Use SetPlainData and GetPlainData helpers.
 	PlainData SecurePlainDataClass

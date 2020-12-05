@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetMessageStatsRequest represents TL type `stats.getMessageStats#b6e0a3f5`.
+// Get message statistics
 //
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
 type StatsGetMessageStatsRequest struct {
-	// Flags field of StatsGetMessageStatsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Dark field of StatsGetMessageStatsRequest.
+	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Channel field of StatsGetMessageStatsRequest.
+	// Channel ID
 	Channel InputChannelClass
-	// MsgID field of StatsGetMessageStatsRequest.
+	// Message ID
 	MsgID int
 }
 
@@ -97,6 +98,7 @@ var (
 )
 
 // StatsGetMessageStats invokes method stats.getMessageStats#b6e0a3f5 returning error if any.
+// Get message statistics
 //
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
 func (c *Client) StatsGetMessageStats(ctx context.Context, request *StatsGetMessageStatsRequest) (*StatsMessageStats, error) {

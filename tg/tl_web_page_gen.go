@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebPageEmpty represents TL type `webPageEmpty#eb1477e8`.
+// No preview is available for the webpage
 //
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
-	// ID field of WebPageEmpty.
+	// Preview ID
 	ID int64
 }
 
@@ -65,12 +66,13 @@ var (
 )
 
 // WebPagePending represents TL type `webPagePending#c586da1c`.
+// A preview of the webpage is currently being generated
 //
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
-	// ID field of WebPagePending.
+	// ID of preview
 	ID int64
-	// Date field of WebPagePending.
+	// When was the processing started
 	Date int
 }
 
@@ -125,72 +127,73 @@ var (
 )
 
 // WebPage represents TL type `webPage#e89c45b2`.
+// Webpage preview
 //
 // See https://core.telegram.org/constructor/webPage for reference.
 type WebPage struct {
-	// Flags field of WebPage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of WebPage.
+	// Preview ID
 	ID int64
-	// URL field of WebPage.
+	// URL of previewed webpage
 	URL string
-	// DisplayURL field of WebPage.
+	// Webpage URL to be displayed to the user
 	DisplayURL string
-	// Hash field of WebPage.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Type field of WebPage.
+	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
 	//
 	// Use SetType and GetType helpers.
 	Type string
-	// SiteName field of WebPage.
+	// Short name of the site (e.g., Google Docs, App Store)
 	//
 	// Use SetSiteName and GetSiteName helpers.
 	SiteName string
-	// Title field of WebPage.
+	// Title of the content
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of WebPage.
+	// Content description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// Photo field of WebPage.
+	// Image representing the content
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
-	// EmbedURL field of WebPage.
+	// URL to show in the embedded preview
 	//
 	// Use SetEmbedURL and GetEmbedURL helpers.
 	EmbedURL string
-	// EmbedType field of WebPage.
+	// MIME type of the embedded preview, (e.g., text/html or video/mp4)
 	//
 	// Use SetEmbedType and GetEmbedType helpers.
 	EmbedType string
-	// EmbedWidth field of WebPage.
+	// Width of the embedded preview
 	//
 	// Use SetEmbedWidth and GetEmbedWidth helpers.
 	EmbedWidth int
-	// EmbedHeight field of WebPage.
+	// Height of the embedded preview
 	//
 	// Use SetEmbedHeight and GetEmbedHeight helpers.
 	EmbedHeight int
-	// Duration field of WebPage.
+	// Duration of the content, in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int
-	// Author field of WebPage.
+	// Author of the content
 	//
 	// Use SetAuthor and GetAuthor helpers.
 	Author string
-	// Document field of WebPage.
+	// Preview of the content as a media file
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// CachedPage field of WebPage.
+	// Page contents in instant view format
 	//
 	// Use SetCachedPage and GetCachedPage helpers.
 	CachedPage Page
-	// Attributes field of WebPage.
+	// Webpage attributes
 	//
 	// Use SetAttributes and GetAttributes helpers.
 	Attributes []WebPageAttributeTheme
@@ -642,12 +645,13 @@ var (
 )
 
 // WebPageNotModified represents TL type `webPageNotModified#7311ca11`.
+// The preview of the webpage hasn't changed
 //
 // See https://core.telegram.org/constructor/webPageNotModified for reference.
 type WebPageNotModified struct {
-	// Flags field of WebPageNotModified.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CachedPageViews field of WebPageNotModified.
+	// Page view count
 	//
 	// Use SetCachedPageViews and GetCachedPageViews helpers.
 	CachedPageViews int

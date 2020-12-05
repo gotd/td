@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSaveRecentStickerRequest represents TL type `messages.saveRecentSticker#392718f8`.
+// Add/remove sticker from recent stickers list
 //
 // See https://core.telegram.org/method/messages.saveRecentSticker for reference.
 type MessagesSaveRecentStickerRequest struct {
-	// Flags field of MessagesSaveRecentStickerRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Attached field of MessagesSaveRecentStickerRequest.
+	// Whether to add/remove stickers recently attached to photo or video files
 	Attached bool
-	// ID field of MessagesSaveRecentStickerRequest.
+	// Sticker
 	ID InputDocumentClass
-	// Unsave field of MessagesSaveRecentStickerRequest.
+	// Whether to save or unsave the sticker
 	Unsave bool
 }
 
@@ -97,6 +98,7 @@ var (
 )
 
 // MessagesSaveRecentSticker invokes method messages.saveRecentSticker#392718f8 returning error if any.
+// Add/remove sticker from recent stickers list
 //
 // See https://core.telegram.org/method/messages.saveRecentSticker for reference.
 func (c *Client) MessagesSaveRecentSticker(ctx context.Context, request *MessagesSaveRecentStickerRequest) (BoolClass, error) {

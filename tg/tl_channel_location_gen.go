@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelLocationEmpty represents TL type `channelLocationEmpty#bfb5ad8b`.
+// No location (normal supergroup)
 //
 // See https://core.telegram.org/constructor/channelLocationEmpty for reference.
 type ChannelLocationEmpty struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // ChannelLocation represents TL type `channelLocation#209b82db`.
+// Geographical location of supergroup (geogroups)
 //
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
-	// GeoPoint field of ChannelLocation.
+	// Geographical location of supergrup
 	GeoPoint GeoPointClass
-	// Address field of ChannelLocation.
+	// Textual description of the address
 	Address string
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputTheme represents TL type `inputTheme#3c5693e9`.
+// Theme
 //
 // See https://core.telegram.org/constructor/inputTheme for reference.
 type InputTheme struct {
-	// ID field of InputTheme.
+	// ID
 	ID int64
-	// AccessHash field of InputTheme.
+	// Access hash
 	AccessHash int64
 }
 
@@ -75,10 +76,11 @@ var (
 )
 
 // InputThemeSlug represents TL type `inputThemeSlug#f5890df1`.
+// Theme by theme ID
 //
 // See https://core.telegram.org/constructor/inputThemeSlug for reference.
 type InputThemeSlug struct {
-	// Slug field of InputThemeSlug.
+	// Unique theme ID
 	Slug string
 }
 

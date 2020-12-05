@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
+// Info on members is unavailable
 //
 // See https://core.telegram.org/constructor/chatParticipantsForbidden for reference.
 type ChatParticipantsForbidden struct {
-	// Flags field of ChatParticipantsForbidden.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ChatID field of ChatParticipantsForbidden.
+	// Group ID
 	ChatID int
-	// SelfParticipant field of ChatParticipantsForbidden.
+	// Info about the group membership of the current user
 	//
 	// Use SetSelfParticipant and GetSelfParticipant helpers.
 	SelfParticipant ChatParticipantClass
@@ -109,14 +110,15 @@ var (
 )
 
 // ChatParticipants represents TL type `chatParticipants#3f460fed`.
+// Group members.
 //
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
-	// ChatID field of ChatParticipants.
+	// Group identifier
 	ChatID int
-	// Participants field of ChatParticipants.
+	// List of group members
 	Participants []ChatParticipantClass
-	// Version field of ChatParticipants.
+	// Group version number
 	Version int
 }
 

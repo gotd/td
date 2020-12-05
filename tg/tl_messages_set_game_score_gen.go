@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
+// Use this method to set the score of the specified user in a game sent as a normal message (bots only).
 //
 // See https://core.telegram.org/method/messages.setGameScore for reference.
 type MessagesSetGameScoreRequest struct {
-	// Flags field of MessagesSetGameScoreRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// EditMessage field of MessagesSetGameScoreRequest.
+	// Set this flag if the game message should be automatically edited to include the current scoreboard
 	EditMessage bool
-	// Force field of MessagesSetGameScoreRequest.
+	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
 	Force bool
-	// Peer field of MessagesSetGameScoreRequest.
+	// Unique identifier of target chat
 	Peer InputPeerClass
-	// ID field of MessagesSetGameScoreRequest.
+	// Identifier of the sent message
 	ID int
-	// UserID field of MessagesSetGameScoreRequest.
+	// User identifier
 	UserID InputUserClass
-	// Score field of MessagesSetGameScoreRequest.
+	// New score
 	Score int
 }
 
@@ -134,6 +135,7 @@ var (
 )
 
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
+// Use this method to set the score of the specified user in a game sent as a normal message (bots only).
 //
 // See https://core.telegram.org/method/messages.setGameScore for reference.
 func (c *Client) MessagesSetGameScore(ctx context.Context, request *MessagesSetGameScoreRequest) (UpdatesClass, error) {

@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
+// Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 type UploadSaveBigFilePartRequest struct {
-	// FileID field of UploadSaveBigFilePartRequest.
+	// Random file id, created by the client
 	FileID int64
-	// FilePart field of UploadSaveBigFilePartRequest.
+	// Part sequence number
 	FilePart int
-	// FileTotalParts field of UploadSaveBigFilePartRequest.
+	// Total number of parts
 	FileTotalParts int
-	// Bytes field of UploadSaveBigFilePartRequest.
+	// Binary data, part contents
 	Bytes []byte
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // UploadSaveBigFilePart invokes method upload.saveBigFilePart#de7b673d returning error if any.
+// Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 func (c *Client) UploadSaveBigFilePart(ctx context.Context, request *UploadSaveBigFilePartRequest) (BoolClass, error) {

@@ -15,10 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthAcceptLoginTokenRequest represents TL type `auth.acceptLoginToken#e894ad4d`.
+// Accept QR code login token, logging in the app that generated it.
+// Returns info about the new session.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.acceptLoginToken for reference.
 type AuthAcceptLoginTokenRequest struct {
-	// Token field of AuthAcceptLoginTokenRequest.
+	// Login token embedded in QR code, for more info, see login via QR code.
 	Token []byte
 }
 
@@ -60,6 +63,9 @@ var (
 )
 
 // AuthAcceptLoginToken invokes method auth.acceptLoginToken#e894ad4d returning error if any.
+// Accept QR code login token, logging in the app that generated it.
+// Returns info about the new session.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.acceptLoginToken for reference.
 func (c *Client) AuthAcceptLoginToken(ctx context.Context, request *AuthAcceptLoginTokenRequest) (*Authorization, error) {

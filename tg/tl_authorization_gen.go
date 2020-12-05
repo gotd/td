@@ -15,40 +15,41 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Authorization represents TL type `authorization#ad01d61d`.
+// Logged-in session
 //
 // See https://core.telegram.org/constructor/authorization for reference.
 type Authorization struct {
-	// Flags field of Authorization.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Current field of Authorization.
+	// Whether this is the current session
 	Current bool
-	// OfficialApp field of Authorization.
+	// Whether the session is from an official app
 	OfficialApp bool
-	// PasswordPending field of Authorization.
+	// Whether the session is still waiting for a 2FA password
 	PasswordPending bool
-	// Hash field of Authorization.
+	// Identifier
 	Hash int64
-	// DeviceModel field of Authorization.
+	// Device model
 	DeviceModel string
-	// Platform field of Authorization.
+	// Platform
 	Platform string
-	// SystemVersion field of Authorization.
+	// System version
 	SystemVersion string
-	// APIID field of Authorization.
+	// API ID
 	APIID int
-	// AppName field of Authorization.
+	// App name
 	AppName string
-	// AppVersion field of Authorization.
+	// App version
 	AppVersion string
-	// DateCreated field of Authorization.
+	// When was the session created
 	DateCreated int
-	// DateActive field of Authorization.
+	// When was the session last active
 	DateActive int
-	// IP field of Authorization.
+	// Last known IP
 	IP string
-	// Country field of Authorization.
+	// Country determined from IP
 	Country string
-	// Region field of Authorization.
+	// Region determined from IP
 	Region string
 }
 

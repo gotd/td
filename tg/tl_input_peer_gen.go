@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPeerEmpty represents TL type `inputPeerEmpty#7f3b18ea`.
+// An empty constructor, no user or chat is defined.
 //
 // See https://core.telegram.org/constructor/inputPeerEmpty for reference.
 type InputPeerEmpty struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // InputPeerSelf represents TL type `inputPeerSelf#7da07ec9`.
+// Defines the current user.
 //
 // See https://core.telegram.org/constructor/inputPeerSelf for reference.
 type InputPeerSelf struct {
@@ -95,10 +97,11 @@ var (
 )
 
 // InputPeerChat represents TL type `inputPeerChat#179be863`.
+// Defines a chat for further interaction.
 //
 // See https://core.telegram.org/constructor/inputPeerChat for reference.
 type InputPeerChat struct {
-	// ChatID field of InputPeerChat.
+	// Chat idientifier
 	ChatID int
 }
 
@@ -145,12 +148,13 @@ var (
 )
 
 // InputPeerUser represents TL type `inputPeerUser#7b8e7de6`.
+// Defines a user for further interaction.
 //
 // See https://core.telegram.org/constructor/inputPeerUser for reference.
 type InputPeerUser struct {
-	// UserID field of InputPeerUser.
+	// User identifier
 	UserID int
-	// AccessHash field of InputPeerUser.
+	// access_hash value from the user constructor
 	AccessHash int64
 }
 
@@ -205,12 +209,13 @@ var (
 )
 
 // InputPeerChannel represents TL type `inputPeerChannel#20adaef8`.
+// Defines a channel for further interaction.
 //
 // See https://core.telegram.org/constructor/inputPeerChannel for reference.
 type InputPeerChannel struct {
-	// ChannelID field of InputPeerChannel.
+	// Channel identifier
 	ChannelID int
-	// AccessHash field of InputPeerChannel.
+	// access_hash value from the channel constructor
 	AccessHash int64
 }
 
@@ -265,14 +270,15 @@ var (
 )
 
 // InputPeerUserFromMessage represents TL type `inputPeerUserFromMessage#17bae2e6`.
+// Defines a min user that was seen in a certain message of a certain chat.
 //
 // See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
-	// Peer field of InputPeerUserFromMessage.
+	// The chat where the user was seen
 	Peer InputPeerClass
-	// MsgID field of InputPeerUserFromMessage.
+	// The message ID
 	MsgID int
-	// UserID field of InputPeerUserFromMessage.
+	// The identifier of the user that was seen
 	UserID int
 }
 
@@ -340,14 +346,15 @@ var (
 )
 
 // InputPeerChannelFromMessage represents TL type `inputPeerChannelFromMessage#9c95f7bb`.
+// Defines a min channel that was seen in a certain message of a certain chat.
 //
 // See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {
-	// Peer field of InputPeerChannelFromMessage.
+	// The chat where the channel's message was seen
 	Peer InputPeerClass
-	// MsgID field of InputPeerChannelFromMessage.
+	// The message ID
 	MsgID int
-	// ChannelID field of InputPeerChannelFromMessage.
+	// The identifier of the channel that was seen
 	ChannelID int
 }
 

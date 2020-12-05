@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Page represents TL type `page#98657f0d`.
+// Instant view page
 //
 // See https://core.telegram.org/constructor/page for reference.
 type Page struct {
-	// Flags field of Page.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Part field of Page.
+	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview.
 	Part bool
-	// Rtl field of Page.
+	// Whether the page contains RTL text
 	Rtl bool
-	// V2 field of Page.
+	// Whether this is an IV v2 page
 	V2 bool
-	// URL field of Page.
+	// Original page HTTP URL
 	URL string
-	// Blocks field of Page.
+	// Page elements (like with HTML elements, only as TL constructors)
 	Blocks []PageBlockClass
-	// Photos field of Page.
+	// Photos in page
 	Photos []PhotoClass
-	// Documents field of Page.
+	// Media in page
 	Documents []DocumentClass
-	// Views field of Page.
+	// Viewcount
 	//
 	// Use SetViews and GetViews helpers.
 	Views int

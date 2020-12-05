@@ -15,12 +15,14 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickerPack represents TL type `stickerPack#12b299d4`.
+// A stickerpack is a group of stickers associated to the same emoji.
+// It is not a sticker pack the way it is usually intended, you may be looking for a StickerSet.
 //
 // See https://core.telegram.org/constructor/stickerPack for reference.
 type StickerPack struct {
-	// Emoticon field of StickerPack.
+	// Emoji
 	Emoticon string
-	// Documents field of StickerPack.
+	// Stickers
 	Documents []int64
 }
 

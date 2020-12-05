@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DataJSON represents TL type `dataJSON#7d748d04`.
+// Represents a json-encoded object
 //
 // See https://core.telegram.org/constructor/dataJSON for reference.
 type DataJSON struct {
-	// Data field of DataJSON.
+	// JSON-encoded object
 	Data string
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetConfigRequest represents TL type `help.getConfig#c4f9186b`.
+// Returns current configuration, including data center configuration.
 //
 // See https://core.telegram.org/method/help.getConfig for reference.
 type HelpGetConfigRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // HelpGetConfig invokes method help.getConfig#c4f9186b returning error if any.
+// Returns current configuration, including data center configuration.
 //
 // See https://core.telegram.org/method/help.getConfig for reference.
 func (c *Client) HelpGetConfig(ctx context.Context, request *HelpGetConfigRequest) (*Config, error) {

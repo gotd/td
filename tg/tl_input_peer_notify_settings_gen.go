@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputPeerNotifySettings represents TL type `inputPeerNotifySettings#9c3d198e`.
+// Notification settings.
 //
 // See https://core.telegram.org/constructor/inputPeerNotifySettings for reference.
 type InputPeerNotifySettings struct {
-	// Flags field of InputPeerNotifySettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ShowPreviews field of InputPeerNotifySettings.
+	// If the text of the message shall be displayed in notification
 	ShowPreviews bool
-	// Silent field of InputPeerNotifySettings.
+	// Peer was muted?
 	Silent bool
-	// MuteUntil field of InputPeerNotifySettings.
+	// Date until which all notifications shall be switched off
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
 	MuteUntil int
-	// Sound field of InputPeerNotifySettings.
+	// Name of an audio file for notification
 	//
 	// Use SetSound and GetSound helpers.
 	Sound string

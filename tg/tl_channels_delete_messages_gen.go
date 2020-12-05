@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteMessagesRequest represents TL type `channels.deleteMessages#84c1fd4e`.
+// Delete messages in a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.deleteMessages for reference.
 type ChannelsDeleteMessagesRequest struct {
-	// Channel field of ChannelsDeleteMessagesRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// ID field of ChannelsDeleteMessagesRequest.
+	// IDs of messages to delete
 	ID []int
 }
 
@@ -84,6 +85,7 @@ var (
 )
 
 // ChannelsDeleteMessages invokes method channels.deleteMessages#84c1fd4e returning error if any.
+// Delete messages in a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.deleteMessages for reference.
 func (c *Client) ChannelsDeleteMessages(ctx context.Context, request *ChannelsDeleteMessagesRequest) (*MessagesAffectedMessages, error) {

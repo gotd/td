@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageUserVote represents TL type `messageUserVote#a28e5559`.
+// How a user voted in a poll
 //
 // See https://core.telegram.org/constructor/messageUserVote for reference.
 type MessageUserVote struct {
-	// UserID field of MessageUserVote.
+	// User ID
 	UserID int
-	// Option field of MessageUserVote.
+	// The option chosen by the user
 	Option []byte
-	// Date field of MessageUserVote.
+	// When did the user cast the vote
 	Date int
 }
 
@@ -85,12 +86,13 @@ var (
 )
 
 // MessageUserVoteInputOption represents TL type `messageUserVoteInputOption#36377430`.
+// How a user voted in a poll (reduced constructor, returned if an option was provided to messages.getPollVotes)
 //
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
-	// UserID field of MessageUserVoteInputOption.
+	// The user that voted for the queried option
 	UserID int
-	// Date field of MessageUserVoteInputOption.
+	// When did the user cast the vote
 	Date int
 }
 
@@ -145,14 +147,15 @@ var (
 )
 
 // MessageUserVoteMultiple represents TL type `messageUserVoteMultiple#e8fe0de`.
+// How a user voted in a multiple-choice poll
 //
 // See https://core.telegram.org/constructor/messageUserVoteMultiple for reference.
 type MessageUserVoteMultiple struct {
-	// UserID field of MessageUserVoteMultiple.
+	// User ID
 	UserID int
-	// Options field of MessageUserVoteMultiple.
+	// Options chosen by the user
 	Options [][]byte
-	// Date field of MessageUserVoteMultiple.
+	// When did the user cast their votes
 	Date int
 }
 

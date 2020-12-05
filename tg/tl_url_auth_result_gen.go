@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
+// Details about the authorization request, for more info click here »
 //
 // See https://core.telegram.org/constructor/urlAuthResultRequest for reference.
 type UrlAuthResultRequest struct {
-	// Flags field of UrlAuthResultRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// RequestWriteAccess field of UrlAuthResultRequest.
+	// Whether the bot would like to send messages to the user
 	RequestWriteAccess bool
-	// Bot field of UrlAuthResultRequest.
+	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
 	Bot UserClass
-	// Domain field of UrlAuthResultRequest.
+	// The domain name of the website on which the user will log in.
 	Domain string
 }
 
@@ -102,10 +103,11 @@ var (
 )
 
 // UrlAuthResultAccepted represents TL type `urlAuthResultAccepted#8f8c0e4e`.
+// Details about an accepted authorization request, for more info click here »
 //
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type UrlAuthResultAccepted struct {
-	// URL field of UrlAuthResultAccepted.
+	// The URL name of the website on which the user has logged in.
 	URL string
 }
 
@@ -152,6 +154,7 @@ var (
 )
 
 // UrlAuthResultDefault represents TL type `urlAuthResultDefault#a9d6db1f`.
+// Details about an accepted authorization request, for more info click here »
 //
 // See https://core.telegram.org/constructor/urlAuthResultDefault for reference.
 type UrlAuthResultDefault struct {

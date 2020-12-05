@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Game represents TL type `game#bdf9653b`.
+// Indicates an already sent game
 //
 // See https://core.telegram.org/constructor/game for reference.
 type Game struct {
-	// Flags field of Game.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of Game.
+	// ID of the game
 	ID int64
-	// AccessHash field of Game.
+	// Access hash of the game
 	AccessHash int64
-	// ShortName field of Game.
+	// Short name for the game
 	ShortName string
-	// Title field of Game.
+	// Title of the game
 	Title string
-	// Description field of Game.
+	// Game description
 	Description string
-	// Photo field of Game.
+	// Game preview
 	Photo PhotoClass
-	// Document field of Game.
+	// Optional attached document
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass

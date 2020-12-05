@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSaveGifRequest represents TL type `messages.saveGif#327a30cb`.
+// Add GIF to saved gifs list
 //
 // See https://core.telegram.org/method/messages.saveGif for reference.
 type MessagesSaveGifRequest struct {
-	// ID field of MessagesSaveGifRequest.
+	// GIF to save
 	ID InputDocumentClass
-	// Unsave field of MessagesSaveGifRequest.
+	// Whether to remove GIF from saved gifs list
 	Unsave bool
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.
+// Add GIF to saved gifs list
 //
 // See https://core.telegram.org/method/messages.saveGif for reference.
 func (c *Client) MessagesSaveGif(ctx context.Context, request *MessagesSaveGifRequest) (BoolClass, error) {

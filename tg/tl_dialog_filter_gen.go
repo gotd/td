@@ -15,40 +15,41 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
+// Dialog filter AKA folder
 //
 // See https://core.telegram.org/constructor/dialogFilter for reference.
 type DialogFilter struct {
-	// Flags field of DialogFilter.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Contacts field of DialogFilter.
+	// Whether to include all contacts in this folder
 	Contacts bool
-	// NonContacts field of DialogFilter.
+	// Whether to include all non-contacts in this folder
 	NonContacts bool
-	// Groups field of DialogFilter.
+	// Whether to include all groups in this folder
 	Groups bool
-	// Broadcasts field of DialogFilter.
+	// Whether to include all channels in this folder
 	Broadcasts bool
-	// Bots field of DialogFilter.
+	// Whether to include all bots in this folder
 	Bots bool
-	// ExcludeMuted field of DialogFilter.
+	// Whether to exclude muted chats from this folder
 	ExcludeMuted bool
-	// ExcludeRead field of DialogFilter.
+	// Whether to exclude read chats from this folder
 	ExcludeRead bool
-	// ExcludeArchived field of DialogFilter.
+	// Whether to exclude archived chats from this folder
 	ExcludeArchived bool
-	// ID field of DialogFilter.
+	// Folder ID
 	ID int
-	// Title field of DialogFilter.
+	// Folder name
 	Title string
-	// Emoticon field of DialogFilter.
+	// Folder emoticon
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// PinnedPeers field of DialogFilter.
+	// Pinned chats, folders can have unlimited pinned chats
 	PinnedPeers []InputPeerClass
-	// IncludePeers field of DialogFilter.
+	// Include the following chats in this folder
 	IncludePeers []InputPeerClass
-	// ExcludePeers field of DialogFilter.
+	// Exclude the following chats from this folder
 	ExcludePeers []InputPeerClass
 }
 

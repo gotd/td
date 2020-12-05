@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosGetUserPhotosRequest represents TL type `photos.getUserPhotos#91cd32a8`.
+// Returns the list of user photos.
 //
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 type PhotosGetUserPhotosRequest struct {
-	// UserID field of PhotosGetUserPhotosRequest.
+	// User ID
 	UserID InputUserClass
-	// Offset field of PhotosGetUserPhotosRequest.
+	// Number of list elements to be skipped
 	Offset int
-	// MaxID field of PhotosGetUserPhotosRequest.
+	// If a positive value was transferred, the method will return only photos with IDs less than the set one
 	MaxID int64
-	// Limit field of PhotosGetUserPhotosRequest.
+	// Number of list elements to be returned
 	Limit int
 }
 
@@ -95,6 +96,7 @@ var (
 )
 
 // PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.
+// Returns the list of user photos.
 //
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {

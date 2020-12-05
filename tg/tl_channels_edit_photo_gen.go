@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditPhotoRequest represents TL type `channels.editPhoto#f12e57c9`.
+// Change the photo of a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.editPhoto for reference.
 type ChannelsEditPhotoRequest struct {
-	// Channel field of ChannelsEditPhotoRequest.
+	// Channel/supergroup whose photo should be edited
 	Channel InputChannelClass
-	// Photo field of ChannelsEditPhotoRequest.
+	// New photo
 	Photo InputChatPhotoClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // ChannelsEditPhoto invokes method channels.editPhoto#f12e57c9 returning error if any.
+// Change the photo of a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.editPhoto for reference.
 func (c *Client) ChannelsEditPhoto(ctx context.Context, request *ChannelsEditPhotoRequest) (UpdatesClass, error) {

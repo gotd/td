@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesDifferenceEmpty represents TL type `updates.differenceEmpty#5d75a138`.
+// No events.
 //
 // See https://core.telegram.org/constructor/updates.differenceEmpty for reference.
 type UpdatesDifferenceEmpty struct {
-	// Date field of UpdatesDifferenceEmpty.
+	// Current date
 	Date int
-	// Seq field of UpdatesDifferenceEmpty.
+	// Number of sent updates
 	Seq int
 }
 
@@ -75,20 +76,21 @@ var (
 )
 
 // UpdatesDifference represents TL type `updates.difference#f49ca0`.
+// Full list of occurred events.
 //
 // See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
-	// NewMessages field of UpdatesDifference.
+	// List of new messages
 	NewMessages []MessageClass
-	// NewEncryptedMessages field of UpdatesDifference.
+	// List of new encrypted secret chat messages
 	NewEncryptedMessages []EncryptedMessageClass
-	// OtherUpdates field of UpdatesDifference.
+	// List of updates
 	OtherUpdates []UpdateClass
-	// Chats field of UpdatesDifference.
+	// List of chats mentioned in events
 	Chats []ChatClass
-	// Users field of UpdatesDifference.
+	// List of users mentioned in events
 	Users []UserClass
-	// State field of UpdatesDifference.
+	// Current state
 	State UpdatesState
 }
 
@@ -245,20 +247,21 @@ var (
 )
 
 // UpdatesDifferenceSlice represents TL type `updates.differenceSlice#a8fb1981`.
+// Incomplete list of occurred events.
 //
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
-	// NewMessages field of UpdatesDifferenceSlice.
+	// List of new messgaes
 	NewMessages []MessageClass
-	// NewEncryptedMessages field of UpdatesDifferenceSlice.
+	// New messages from the encrypted event sequence
 	NewEncryptedMessages []EncryptedMessageClass
-	// OtherUpdates field of UpdatesDifferenceSlice.
+	// List of updates
 	OtherUpdates []UpdateClass
-	// Chats field of UpdatesDifferenceSlice.
+	// List of chats mentioned in events
 	Chats []ChatClass
-	// Users field of UpdatesDifferenceSlice.
+	// List of users mentioned in events
 	Users []UserClass
-	// IntermediateState field of UpdatesDifferenceSlice.
+	// Intermediary state
 	IntermediateState UpdatesState
 }
 
@@ -415,10 +418,11 @@ var (
 )
 
 // UpdatesDifferenceTooLong represents TL type `updates.differenceTooLong#4afe8f6d`.
+// The difference is too long, and the specified state must be used to refetch updates.
 //
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
-	// Pts field of UpdatesDifferenceTooLong.
+	// The new state to use.
 	Pts int
 }
 

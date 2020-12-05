@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EmojiKeyword represents TL type `emojiKeyword#d5b3b9f9`.
+// Emoji keyword
 //
 // See https://core.telegram.org/constructor/emojiKeyword for reference.
 type EmojiKeyword struct {
-	// Keyword field of EmojiKeyword.
+	// Keyword
 	Keyword string
-	// Emoticons field of EmojiKeyword.
+	// Emojis associated to keyword
 	Emoticons []string
 }
 
@@ -84,12 +85,13 @@ var (
 )
 
 // EmojiKeywordDeleted represents TL type `emojiKeywordDeleted#236df622`.
+// Deleted emoji keyword
 //
 // See https://core.telegram.org/constructor/emojiKeywordDeleted for reference.
 type EmojiKeywordDeleted struct {
-	// Keyword field of EmojiKeywordDeleted.
+	// Keyword
 	Keyword string
-	// Emoticons field of EmojiKeywordDeleted.
+	// Emojis that were associated to keyword
 	Emoticons []string
 }
 

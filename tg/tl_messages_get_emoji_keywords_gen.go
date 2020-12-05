@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetEmojiKeywordsRequest represents TL type `messages.getEmojiKeywords#35a0e062`.
+// Get localized emoji keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywords for reference.
 type MessagesGetEmojiKeywordsRequest struct {
-	// LangCode field of MessagesGetEmojiKeywordsRequest.
+	// Language code
 	LangCode string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesGetEmojiKeywords invokes method messages.getEmojiKeywords#35a0e062 returning error if any.
+// Get localized emoji keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywords for reference.
 func (c *Client) MessagesGetEmojiKeywords(ctx context.Context, request *MessagesGetEmojiKeywordsRequest) (*EmojiKeywordsDifference, error) {

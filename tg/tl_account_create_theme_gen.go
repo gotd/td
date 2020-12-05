@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCreateThemeRequest represents TL type `account.createTheme#8432c21f`.
+// Create a theme
 //
 // See https://core.telegram.org/method/account.createTheme for reference.
 type AccountCreateThemeRequest struct {
-	// Flags field of AccountCreateThemeRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Slug field of AccountCreateThemeRequest.
+	// Unique theme ID
 	Slug string
-	// Title field of AccountCreateThemeRequest.
+	// Theme name
 	Title string
-	// Document field of AccountCreateThemeRequest.
+	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document InputDocumentClass
-	// Settings field of AccountCreateThemeRequest.
+	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
 	Settings InputThemeSettings
@@ -143,6 +144,7 @@ var (
 )
 
 // AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.
+// Create a theme
 //
 // See https://core.telegram.org/method/account.createTheme for reference.
 func (c *Client) AccountCreateTheme(ctx context.Context, request *AccountCreateThemeRequest) (*Theme, error) {

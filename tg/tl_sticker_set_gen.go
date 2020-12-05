@@ -15,42 +15,43 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickerSet represents TL type `stickerSet#eeb46f27`.
+// Represents a stickerset (stickerpack)
 //
 // See https://core.telegram.org/constructor/stickerSet for reference.
 type StickerSet struct {
-	// Flags field of StickerSet.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Archived field of StickerSet.
+	// Whether this stickerset was archived (due to too many saved stickers in the current account)
 	Archived bool
-	// Official field of StickerSet.
+	// Is this stickerset official
 	Official bool
-	// Masks field of StickerSet.
+	// Is this a mask stickerset
 	Masks bool
-	// Animated field of StickerSet.
+	// Is this an animated stickerpack
 	Animated bool
-	// InstalledDate field of StickerSet.
+	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
 	InstalledDate int
-	// ID field of StickerSet.
+	// ID of the stickerset
 	ID int64
-	// AccessHash field of StickerSet.
+	// Access hash of stickerset
 	AccessHash int64
-	// Title field of StickerSet.
+	// Title of stickerset
 	Title string
-	// ShortName field of StickerSet.
+	// Short name of stickerset to use in tg://addstickers?set=short_name
 	ShortName string
-	// Thumb field of StickerSet.
+	// Thumbnail for stickerset
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb PhotoSizeClass
-	// ThumbDCID field of StickerSet.
+	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
 	ThumbDCID int
-	// Count field of StickerSet.
+	// Number of stickers in pack
 	Count int
-	// Hash field of StickerSet.
+	// Hash
 	Hash int
 }
 

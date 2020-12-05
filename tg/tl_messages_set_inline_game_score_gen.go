@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetInlineGameScoreRequest represents TL type `messages.setInlineGameScore#15ad9f64`.
+// Use this method to set the score of the specified user in a game sent as an inline message (bots only).
 //
 // See https://core.telegram.org/method/messages.setInlineGameScore for reference.
 type MessagesSetInlineGameScoreRequest struct {
-	// Flags field of MessagesSetInlineGameScoreRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// EditMessage field of MessagesSetInlineGameScoreRequest.
+	// Set this flag if the game message should be automatically edited to include the current scoreboard
 	EditMessage bool
-	// Force field of MessagesSetInlineGameScoreRequest.
+	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
 	Force bool
-	// ID field of MessagesSetInlineGameScoreRequest.
+	// ID of the inline message
 	ID InputBotInlineMessageID
-	// UserID field of MessagesSetInlineGameScoreRequest.
+	// User identifier
 	UserID InputUserClass
-	// Score field of MessagesSetInlineGameScoreRequest.
+	// New score
 	Score int
 }
 
@@ -119,6 +120,7 @@ var (
 )
 
 // MessagesSetInlineGameScore invokes method messages.setInlineGameScore#15ad9f64 returning error if any.
+// Use this method to set the score of the specified user in a game sent as an inline message (bots only).
 //
 // See https://core.telegram.org/method/messages.setInlineGameScore for reference.
 func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (BoolClass, error) {

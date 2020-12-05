@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangpackGetLanguagesRequest represents TL type `langpack.getLanguages#42c6978f`.
+// Get information about all languages in a localization pack
 //
 // See https://core.telegram.org/constructor/langpack.getLanguages for reference.
 type LangpackGetLanguagesRequest struct {
-	// LangPack field of LangpackGetLanguagesRequest.
+	// Language pack
 	LangPack string
 }
 

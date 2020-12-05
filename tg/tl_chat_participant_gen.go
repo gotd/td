@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatParticipant represents TL type `chatParticipant#c8d7493e`.
+// Group member.
 //
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
-	// UserID field of ChatParticipant.
+	// Member user ID
 	UserID int
-	// InviterID field of ChatParticipant.
+	// ID of the user that added the member to the group
 	InviterID int
-	// Date field of ChatParticipant.
+	// Date added to the group
 	Date int
 }
 
@@ -85,10 +86,11 @@ var (
 )
 
 // ChatParticipantCreator represents TL type `chatParticipantCreator#da13538a`.
+// Represents the creator of the group
 //
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
-	// UserID field of ChatParticipantCreator.
+	// ID of the user that created the group
 	UserID int
 }
 
@@ -135,14 +137,15 @@ var (
 )
 
 // ChatParticipantAdmin represents TL type `chatParticipantAdmin#e2d6e436`.
+// Chat admin
 //
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
-	// UserID field of ChatParticipantAdmin.
+	// ID of a group member that is admin
 	UserID int
-	// InviterID field of ChatParticipantAdmin.
+	// ID of the user that added the member to the group
 	InviterID int
-	// Date field of ChatParticipantAdmin.
+	// Date when the user was added
 	Date int
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
+// Cancel the code that was sent to verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 type AccountCancelPasswordEmailRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AccountCancelPasswordEmail invokes method account.cancelPasswordEmail#c1cbd5b6 returning error if any.
+// Cancel the code that was sent to verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
 func (c *Client) AccountCancelPasswordEmail(ctx context.Context, request *AccountCancelPasswordEmailRequest) (BoolClass, error) {

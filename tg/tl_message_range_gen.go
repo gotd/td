@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageRange represents TL type `messageRange#ae30253`.
+// Indicates a range of chat messages
 //
 // See https://core.telegram.org/constructor/messageRange for reference.
 type MessageRange struct {
-	// MinID field of MessageRange.
+	// Start of range (message ID)
 	MinID int
-	// MaxID field of MessageRange.
+	// End of range (message ID)
 	MaxID int
 }
 

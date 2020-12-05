@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUploadMediaRequest represents TL type `messages.uploadMedia#519bc2b1`.
+// Upload a file and associate it to a chat (without actually sending it to the chat)
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
-	// Peer field of MessagesUploadMediaRequest.
+	// The chat, can be an inputPeerEmpty for bots
 	Peer InputPeerClass
-	// Media field of MessagesUploadMediaRequest.
+	// File uploaded in chunks as described in files »
 	Media InputMediaClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // MessagesUploadMedia invokes method messages.uploadMedia#519bc2b1 returning error if any.
+// Upload a file and associate it to a chat (without actually sending it to the chat)
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 func (c *Client) MessagesUploadMedia(ctx context.Context, request *MessagesUploadMediaRequest) (MessageMediaClass, error) {

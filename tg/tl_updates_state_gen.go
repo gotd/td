@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesState represents TL type `updates.state#a56c2a3e`.
+// Updates state.
 //
 // See https://core.telegram.org/constructor/updates.state for reference.
 type UpdatesState struct {
-	// Pts field of UpdatesState.
+	// Number of events occured in a text box
 	Pts int
-	// Qts field of UpdatesState.
+	// Position in a sequence of updates in secret chats. For further detailes refer to article secret chatsParameter was added in eigth layer.
 	Qts int
-	// Date field of UpdatesState.
+	// Date of condition
 	Date int
-	// Seq field of UpdatesState.
+	// Number of sent updates
 	Seq int
-	// UnreadCount field of UpdatesState.
+	// Number of unread messages
 	UnreadCount int
 }
 

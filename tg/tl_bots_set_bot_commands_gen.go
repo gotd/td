@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotsSetBotCommandsRequest represents TL type `bots.setBotCommands#805d46f6`.
+// Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
-	// Commands field of BotsSetBotCommandsRequest.
+	// Bot commands
 	Commands []BotCommand
 }
 
@@ -71,6 +72,7 @@ var (
 )
 
 // BotsSetBotCommands invokes method bots.setBotCommands#805d46f6 returning error if any.
+// Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 func (c *Client) BotsSetBotCommands(ctx context.Context, request *BotsSetBotCommandsRequest) (BoolClass, error) {

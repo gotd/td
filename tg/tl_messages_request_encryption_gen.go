@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesRequestEncryptionRequest represents TL type `messages.requestEncryption#f64daf43`.
+// Sends a request to start a secret chat to the user.
 //
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 type MessagesRequestEncryptionRequest struct {
-	// UserID field of MessagesRequestEncryptionRequest.
+	// User ID
 	UserID InputUserClass
-	// RandomID field of MessagesRequestEncryptionRequest.
+	// Unique client request ID required to prevent resending. This also doubles as the chat ID.
 	RandomID int
-	// GA field of MessagesRequestEncryptionRequest.
+	// A = g ^ a mod p, see Wikipedia
 	GA []byte
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesRequestEncryption invokes method messages.requestEncryption#f64daf43 returning error if any.
+// Sends a request to start a secret chat to the user.
 //
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 func (c *Client) MessagesRequestEncryption(ctx context.Context, request *MessagesRequestEncryptionRequest) (EncryptedChatClass, error) {

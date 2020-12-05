@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerNotifySettings represents TL type `peerNotifySettings#af509d20`.
+// Notification settings.
 //
 // See https://core.telegram.org/constructor/peerNotifySettings for reference.
 type PeerNotifySettings struct {
-	// Flags field of PeerNotifySettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ShowPreviews field of PeerNotifySettings.
+	// Display text in notifications
 	ShowPreviews bool
-	// Silent field of PeerNotifySettings.
+	// Mute peer?
 	Silent bool
-	// MuteUntil field of PeerNotifySettings.
+	// Mute all notifications until this date
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
 	MuteUntil int
-	// Sound field of PeerNotifySettings.
+	// Audio file name for notifications
 	//
 	// Use SetSound and GetSound helpers.
 	Sound string

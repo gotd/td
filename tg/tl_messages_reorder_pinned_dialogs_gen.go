@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReorderPinnedDialogsRequest represents TL type `messages.reorderPinnedDialogs#3b1adf37`.
+// Reorder pinned dialogs
 //
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 type MessagesReorderPinnedDialogsRequest struct {
-	// Flags field of MessagesReorderPinnedDialogsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Force field of MessagesReorderPinnedDialogsRequest.
+	// If set, dialogs pinned server-side but not present in the order field will be unpinned.
 	Force bool
-	// FolderID field of MessagesReorderPinnedDialogsRequest.
+	// Peer folder ID, for more info click here
 	FolderID int
-	// Order field of MessagesReorderPinnedDialogsRequest.
+	// New dialog order
 	Order []InputDialogPeerClass
 }
 
@@ -106,6 +107,7 @@ var (
 )
 
 // MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.
+// Reorder pinned dialogs
 //
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (BoolClass, error) {

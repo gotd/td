@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopPoster represents TL type `statsGroupTopPoster#18f3d0f7`.
+// Information about an active user in a supergroup
 //
 // See https://core.telegram.org/constructor/statsGroupTopPoster for reference.
 type StatsGroupTopPoster struct {
-	// UserID field of StatsGroupTopPoster.
+	// User ID
 	UserID int
-	// Messages field of StatsGroupTopPoster.
+	// Number of messages for statistics period in consideration
 	Messages int
-	// AvgChars field of StatsGroupTopPoster.
+	// Average number of characters per message
 	AvgChars int
 }
 

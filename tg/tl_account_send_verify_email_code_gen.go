@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#7011509f`.
+// Send the verification email code for telegram passport.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
-	// Email field of AccountSendVerifyEmailCodeRequest.
+	// The email where to send the code
 	Email string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.
+// Send the verification email code for telegram passport.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {

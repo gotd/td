@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsAbsValueAndPrev represents TL type `statsAbsValueAndPrev#cb43acde`.
+// Statistics value couple; intial and final value for period of time currently in consideration
 //
 // See https://core.telegram.org/constructor/statsAbsValueAndPrev for reference.
 type StatsAbsValueAndPrev struct {
-	// Current field of StatsAbsValueAndPrev.
+	// Current value
 	Current float64
-	// Previous field of StatsAbsValueAndPrev.
+	// Previous value
 	Previous float64
 }
 

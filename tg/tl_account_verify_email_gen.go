@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountVerifyEmailRequest represents TL type `account.verifyEmail#ecba39db`.
+// Verify an email address for telegram passport.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
-	// Email field of AccountVerifyEmailRequest.
+	// The email to verify
 	Email string
-	// Code field of AccountVerifyEmailRequest.
+	// The verification code that was received
 	Code string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AccountVerifyEmail invokes method account.verifyEmail#ecba39db returning error if any.
+// Verify an email address for telegram passport.
 //
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (BoolClass, error) {

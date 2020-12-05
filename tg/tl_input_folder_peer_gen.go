@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputFolderPeer represents TL type `inputFolderPeer#fbd2c296`.
+// Peer in a folder
 //
 // See https://core.telegram.org/constructor/inputFolderPeer for reference.
 type InputFolderPeer struct {
-	// Peer field of InputFolderPeer.
+	// Peer
 	Peer InputPeerClass
-	// FolderID field of InputFolderPeer.
+	// Peer folder ID, for more info click here
 	FolderID int
 }
 

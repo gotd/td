@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputGameID represents TL type `inputGameID#32c3e77`.
+// Indicates an already sent game
 //
 // See https://core.telegram.org/constructor/inputGameID for reference.
 type InputGameID struct {
-	// ID field of InputGameID.
+	// game ID from Game constructor
 	ID int64
-	// AccessHash field of InputGameID.
+	// access hash from Game constructor
 	AccessHash int64
 }
 
@@ -75,12 +76,13 @@ var (
 )
 
 // InputGameShortName represents TL type `inputGameShortName#c331e80a`.
+// Game by short name
 //
 // See https://core.telegram.org/constructor/inputGameShortName for reference.
 type InputGameShortName struct {
-	// BotID field of InputGameShortName.
+	// The bot that provides the game
 	BotID InputUserClass
-	// ShortName field of InputGameShortName.
+	// The game's short name
 	ShortName string
 }
 

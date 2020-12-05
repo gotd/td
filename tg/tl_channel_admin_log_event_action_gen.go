@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelAdminLogEventActionChangeTitle represents TL type `channelAdminLogEventActionChangeTitle#e6dfb825`.
+// Channel/supergroup title was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle for reference.
 type ChannelAdminLogEventActionChangeTitle struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeTitle.
+	// Previous title
 	PrevValue string
-	// NewValue field of ChannelAdminLogEventActionChangeTitle.
+	// New title
 	NewValue string
 }
 
@@ -75,12 +76,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeAbout represents TL type `channelAdminLogEventActionChangeAbout#55188a2e`.
+// The description was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout for reference.
 type ChannelAdminLogEventActionChangeAbout struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeAbout.
+	// Previous description
 	PrevValue string
-	// NewValue field of ChannelAdminLogEventActionChangeAbout.
+	// New description
 	NewValue string
 }
 
@@ -135,12 +137,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeUsername represents TL type `channelAdminLogEventActionChangeUsername#6a4afc38`.
+// Channel/supergroup username was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername for reference.
 type ChannelAdminLogEventActionChangeUsername struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeUsername.
+	// Old username
 	PrevValue string
-	// NewValue field of ChannelAdminLogEventActionChangeUsername.
+	// New username
 	NewValue string
 }
 
@@ -197,12 +200,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangePhoto represents TL type `channelAdminLogEventActionChangePhoto#434bd2af`.
+// The channel/supergroup's picture was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto for reference.
 type ChannelAdminLogEventActionChangePhoto struct {
-	// PrevPhoto field of ChannelAdminLogEventActionChangePhoto.
+	// Previous picture
 	PrevPhoto PhotoClass
-	// NewPhoto field of ChannelAdminLogEventActionChangePhoto.
+	// New picture
 	NewPhoto PhotoClass
 }
 
@@ -267,10 +271,11 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleInvites represents TL type `channelAdminLogEventActionToggleInvites#1b7907ae`.
+// Invites were enabled/disabled
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites for reference.
 type ChannelAdminLogEventActionToggleInvites struct {
-	// NewValue field of ChannelAdminLogEventActionToggleInvites.
+	// New value
 	NewValue bool
 }
 
@@ -319,10 +324,11 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleSignatures represents TL type `channelAdminLogEventActionToggleSignatures#26ae0971`.
+// Channel signatures were enabled/disabled
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures for reference.
 type ChannelAdminLogEventActionToggleSignatures struct {
-	// NewValue field of ChannelAdminLogEventActionToggleSignatures.
+	// New value
 	NewValue bool
 }
 
@@ -371,10 +377,11 @@ var (
 )
 
 // ChannelAdminLogEventActionUpdatePinned represents TL type `channelAdminLogEventActionUpdatePinned#e9e82c18`.
+// A message was pinned
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned for reference.
 type ChannelAdminLogEventActionUpdatePinned struct {
-	// Message field of ChannelAdminLogEventActionUpdatePinned.
+	// The message that was pinned
 	Message MessageClass
 }
 
@@ -428,12 +435,13 @@ var (
 )
 
 // ChannelAdminLogEventActionEditMessage represents TL type `channelAdminLogEventActionEditMessage#709b2405`.
+// A message was edited
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage for reference.
 type ChannelAdminLogEventActionEditMessage struct {
-	// PrevMessage field of ChannelAdminLogEventActionEditMessage.
+	// Old message
 	PrevMessage MessageClass
-	// NewMessage field of ChannelAdminLogEventActionEditMessage.
+	// New message
 	NewMessage MessageClass
 }
 
@@ -498,10 +506,11 @@ var (
 )
 
 // ChannelAdminLogEventActionDeleteMessage represents TL type `channelAdminLogEventActionDeleteMessage#42e047bb`.
+// A message was deleted
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage for reference.
 type ChannelAdminLogEventActionDeleteMessage struct {
-	// Message field of ChannelAdminLogEventActionDeleteMessage.
+	// The message that was deleted
 	Message MessageClass
 }
 
@@ -555,6 +564,7 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantJoin represents TL type `channelAdminLogEventActionParticipantJoin#183040d3`.
+// A user has joined the group (in the case of big groups, info of the user that has joined isn't shown)
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin for reference.
 type ChannelAdminLogEventActionParticipantJoin struct {
@@ -597,6 +607,7 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantLeave represents TL type `channelAdminLogEventActionParticipantLeave#f89777f2`.
+// A user left the channel/supergroup (in the case of big groups, info of the user that has joined isn't shown)
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave for reference.
 type ChannelAdminLogEventActionParticipantLeave struct {
@@ -639,10 +650,11 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantInvite represents TL type `channelAdminLogEventActionParticipantInvite#e31c34d8`.
+// A user was invited to the group
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite for reference.
 type ChannelAdminLogEventActionParticipantInvite struct {
-	// Participant field of ChannelAdminLogEventActionParticipantInvite.
+	// The user that was invited
 	Participant ChannelParticipantClass
 }
 
@@ -696,12 +708,13 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleBan represents TL type `channelAdminLogEventActionParticipantToggleBan#e6d83d7e`.
+// The banned rights of a user were changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
-	// PrevParticipant field of ChannelAdminLogEventActionParticipantToggleBan.
+	// Old banned rights of user
 	PrevParticipant ChannelParticipantClass
-	// NewParticipant field of ChannelAdminLogEventActionParticipantToggleBan.
+	// New banned rights of user
 	NewParticipant ChannelParticipantClass
 }
 
@@ -768,12 +781,13 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleAdmin represents TL type `channelAdminLogEventActionParticipantToggleAdmin#d5676710`.
+// The admin rights of a user were changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
-	// PrevParticipant field of ChannelAdminLogEventActionParticipantToggleAdmin.
+	// Previous admin rights
 	PrevParticipant ChannelParticipantClass
-	// NewParticipant field of ChannelAdminLogEventActionParticipantToggleAdmin.
+	// New admin rights
 	NewParticipant ChannelParticipantClass
 }
 
@@ -840,12 +854,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeStickerSet represents TL type `channelAdminLogEventActionChangeStickerSet#b1c3caa7`.
+// The supergroup's stickerset was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet for reference.
 type ChannelAdminLogEventActionChangeStickerSet struct {
-	// PrevStickerset field of ChannelAdminLogEventActionChangeStickerSet.
+	// Previous stickerset
 	PrevStickerset InputStickerSetClass
-	// NewStickerset field of ChannelAdminLogEventActionChangeStickerSet.
+	// New stickerset
 	NewStickerset InputStickerSetClass
 }
 
@@ -912,10 +927,11 @@ var (
 )
 
 // ChannelAdminLogEventActionTogglePreHistoryHidden represents TL type `channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1`.
+// The hidden prehistory setting was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
-	// NewValue field of ChannelAdminLogEventActionTogglePreHistoryHidden.
+	// New value
 	NewValue bool
 }
 
@@ -964,12 +980,13 @@ var (
 )
 
 // ChannelAdminLogEventActionDefaultBannedRights represents TL type `channelAdminLogEventActionDefaultBannedRights#2df5fc0a`.
+// The default banned rights were modified
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights for reference.
 type ChannelAdminLogEventActionDefaultBannedRights struct {
-	// PrevBannedRights field of ChannelAdminLogEventActionDefaultBannedRights.
+	// Previous global banned rights
 	PrevBannedRights ChatBannedRights
-	// NewBannedRights field of ChannelAdminLogEventActionDefaultBannedRights.
+	// New glboal banned rights.
 	NewBannedRights ChatBannedRights
 }
 
@@ -1026,10 +1043,11 @@ var (
 )
 
 // ChannelAdminLogEventActionStopPoll represents TL type `channelAdminLogEventActionStopPoll#8f079643`.
+// A poll was stopped
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStopPoll for reference.
 type ChannelAdminLogEventActionStopPoll struct {
-	// Message field of ChannelAdminLogEventActionStopPoll.
+	// The poll that was stopped
 	Message MessageClass
 }
 
@@ -1081,12 +1099,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeLinkedChat represents TL type `channelAdminLogEventActionChangeLinkedChat#a26f881b`.
+// The linked chat was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeLinkedChat.
+	// Previous linked chat
 	PrevValue int
-	// NewValue field of ChannelAdminLogEventActionChangeLinkedChat.
+	// New linked chat
 	NewValue int
 }
 
@@ -1143,12 +1162,13 @@ var (
 )
 
 // ChannelAdminLogEventActionChangeLocation represents TL type `channelAdminLogEventActionChangeLocation#e6b76ae`.
+// The geogroup location was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation for reference.
 type ChannelAdminLogEventActionChangeLocation struct {
-	// PrevValue field of ChannelAdminLogEventActionChangeLocation.
+	// Previous location
 	PrevValue ChannelLocationClass
-	// NewValue field of ChannelAdminLogEventActionChangeLocation.
+	// New location
 	NewValue ChannelLocationClass
 }
 
@@ -1215,12 +1235,13 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleSlowMode represents TL type `channelAdminLogEventActionToggleSlowMode#53909779`.
+// Slow mode setting for supergroups was changed
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
-	// PrevValue field of ChannelAdminLogEventActionToggleSlowMode.
+	// Previous slow mode value
 	PrevValue int
-	// NewValue field of ChannelAdminLogEventActionToggleSlowMode.
+	// New slow mode value
 	NewValue int
 }
 

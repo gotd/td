@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendChangePhoneCodeRequest represents TL type `account.sendChangePhoneCode#82574ae5`.
+// Verify a new phone number to associate to the current account
 //
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 type AccountSendChangePhoneCodeRequest struct {
-	// PhoneNumber field of AccountSendChangePhoneCodeRequest.
+	// New phone number
 	PhoneNumber string
-	// Settings field of AccountSendChangePhoneCodeRequest.
+	// Phone code settings
 	Settings CodeSettings
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AccountSendChangePhoneCode invokes method account.sendChangePhoneCode#82574ae5 returning error if any.
+// Verify a new phone number to associate to the current account
 //
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error) {

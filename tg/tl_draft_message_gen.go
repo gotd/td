@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DraftMessageEmpty represents TL type `draftMessageEmpty#1b0c841a`.
+// Empty draft
 //
 // See https://core.telegram.org/constructor/draftMessageEmpty for reference.
 type DraftMessageEmpty struct {
-	// Flags field of DraftMessageEmpty.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Date field of DraftMessageEmpty.
+	// When was the draft last updated
 	//
 	// Use SetDate and GetDate helpers.
 	Date int
@@ -94,24 +95,25 @@ var (
 )
 
 // DraftMessage represents TL type `draftMessage#fd8e711f`.
+// Represents a message draft.
 //
 // See https://core.telegram.org/constructor/draftMessage for reference.
 type DraftMessage struct {
-	// Flags field of DraftMessage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of DraftMessage.
+	// Whether no webpage preview will be generated
 	NoWebpage bool
-	// ReplyToMsgID field of DraftMessage.
+	// The message this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// Message field of DraftMessage.
+	// The draft
 	Message string
-	// Entities field of DraftMessage.
+	// Message entities for styled text.
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Date field of DraftMessage.
+	// Date of last update of the draft.
 	Date int
 }
 

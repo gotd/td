@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // JsonObjectValue represents TL type `jsonObjectValue#c0de1bd9`.
+// JSON key: value pair
 //
 // See https://core.telegram.org/constructor/jsonObjectValue for reference.
 type JsonObjectValue struct {
-	// Key field of JsonObjectValue.
+	// Key
 	Key string
-	// Value field of JsonObjectValue.
+	// Value
 	Value JSONValueClass
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpDeepLinkInfoEmpty represents TL type `help.deepLinkInfoEmpty#66afa166`.
+// Deep link info empty
 //
 // See https://core.telegram.org/constructor/help.deepLinkInfoEmpty for reference.
 type HelpDeepLinkInfoEmpty struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // HelpDeepLinkInfo represents TL type `help.deepLinkInfo#6a4ee832`.
+// Deep linking info
 //
 // See https://core.telegram.org/constructor/help.deepLinkInfo for reference.
 type HelpDeepLinkInfo struct {
-	// Flags field of HelpDeepLinkInfo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// UpdateApp field of HelpDeepLinkInfo.
+	// An update of the app is required to parse this link
 	UpdateApp bool
-	// Message field of HelpDeepLinkInfo.
+	// Message to show to the user
 	Message string
-	// Entities field of HelpDeepLinkInfo.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

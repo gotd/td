@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
+// Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
 //
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 type MessagesGetDhConfigRequest struct {
-	// Version field of MessagesGetDhConfigRequest.
+	// Value of the version parameter from messages.dhConfig, avialable at the client
 	Version int
-	// RandomLength field of MessagesGetDhConfigRequest.
+	// Length of the required random sequence
 	RandomLength int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.
+// Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
 //
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 func (c *Client) MessagesGetDhConfig(ctx context.Context, request *MessagesGetDhConfigRequest) (MessagesDhConfigClass, error) {

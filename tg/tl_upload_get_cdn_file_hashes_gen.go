@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
+// Get SHA256 hashes for verifying downloaded CDN files
 //
 // See https://core.telegram.org/constructor/upload.getCdnFileHashes for reference.
 type UploadGetCdnFileHashesRequest struct {
-	// FileToken field of UploadGetCdnFileHashesRequest.
+	// File
 	FileToken []byte
-	// Offset field of UploadGetCdnFileHashesRequest.
+	// Offset from which to start getting hashes
 	Offset int
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
+// If the peer settings of a new user allow us to add him as contact, add that user as contact
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
-	// ID field of ContactsAcceptContactRequest.
+	// The user to add as contact
 	ID InputUserClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
+// If the peer settings of a new user allow us to add him as contact, add that user as contact
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 func (c *Client) ContactsAcceptContact(ctx context.Context, request *ContactsAcceptContactRequest) (UpdatesClass, error) {

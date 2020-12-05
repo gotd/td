@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetAllStickersRequest represents TL type `messages.getAllStickers#1c9618b1`.
+// Get all installed stickers
 //
 // See https://core.telegram.org/method/messages.getAllStickers for reference.
 type MessagesGetAllStickersRequest struct {
-	// Hash field of MessagesGetAllStickersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesGetAllStickers invokes method messages.getAllStickers#1c9618b1 returning error if any.
+// Get all installed stickers
 //
 // See https://core.telegram.org/method/messages.getAllStickers for reference.
 func (c *Client) MessagesGetAllStickers(ctx context.Context, request *MessagesGetAllStickersRequest) (MessagesAllStickersClass, error) {

@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsBlockFromRepliesRequest represents TL type `contacts.blockFromReplies#29a8962c`.
+// Stop getting notifications about thread replies of a certain user in @replies
 //
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
 type ContactsBlockFromRepliesRequest struct {
-	// Flags field of ContactsBlockFromRepliesRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// DeleteMessage field of ContactsBlockFromRepliesRequest.
+	// Whether to delete the specified message as well
 	DeleteMessage bool
-	// DeleteHistory field of ContactsBlockFromRepliesRequest.
+	// Whether to delete all @replies messages from this user as well
 	DeleteHistory bool
-	// ReportSpam field of ContactsBlockFromRepliesRequest.
+	// Whether to also report this user for spam
 	ReportSpam bool
-	// MsgID field of ContactsBlockFromRepliesRequest.
+	// ID of the message in the @replies chat
 	MsgID int
 }
 
@@ -106,6 +107,7 @@ var (
 )
 
 // ContactsBlockFromReplies invokes method contacts.blockFromReplies#29a8962c returning error if any.
+// Stop getting notifications about thread replies of a certain user in @replies
 //
 // See https://core.telegram.org/method/contacts.blockFromReplies for reference.
 func (c *Client) ContactsBlockFromReplies(ctx context.Context, request *ContactsBlockFromRepliesRequest) (UpdatesClass, error) {

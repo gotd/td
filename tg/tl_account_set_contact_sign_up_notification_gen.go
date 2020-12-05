@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetContactSignUpNotificationRequest represents TL type `account.setContactSignUpNotification#cff43f61`.
+// Toggle contact sign up notifications
 //
 // See https://core.telegram.org/method/account.setContactSignUpNotification for reference.
 type AccountSetContactSignUpNotificationRequest struct {
-	// Silent field of AccountSetContactSignUpNotificationRequest.
+	// Whether to disable contact sign up notifications
 	Silent bool
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountSetContactSignUpNotification invokes method account.setContactSignUpNotification#cff43f61 returning error if any.
+// Toggle contact sign up notifications
 //
 // See https://core.telegram.org/method/account.setContactSignUpNotification for reference.
 func (c *Client) AccountSetContactSignUpNotification(ctx context.Context, request *AccountSetContactSignUpNotificationRequest) (BoolClass, error) {

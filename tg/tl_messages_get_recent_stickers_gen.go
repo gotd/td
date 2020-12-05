@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRecentStickersRequest represents TL type `messages.getRecentStickers#5ea192c9`.
+// Get recent stickers
 //
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.
 type MessagesGetRecentStickersRequest struct {
-	// Flags field of MessagesGetRecentStickersRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Attached field of MessagesGetRecentStickersRequest.
+	// Get stickers recently attached to photo or video files
 	Attached bool
-	// Hash field of MessagesGetRecentStickersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -82,6 +83,7 @@ var (
 )
 
 // MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.
+// Get recent stickers
 //
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.
 func (c *Client) MessagesGetRecentStickers(ctx context.Context, request *MessagesGetRecentStickersRequest) (MessagesRecentStickersClass, error) {

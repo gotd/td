@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatInviteAlready represents TL type `chatInviteAlready#5a686d7c`.
+// The user has already joined this chat
 //
 // See https://core.telegram.org/constructor/chatInviteAlready for reference.
 type ChatInviteAlready struct {
-	// Chat field of ChatInviteAlready.
+	// The chat connected to the invite
 	Chat ChatClass
 }
 
@@ -70,26 +71,27 @@ var (
 )
 
 // ChatInvite represents TL type `chatInvite#dfc2f58e`.
+// Chat invite info
 //
 // See https://core.telegram.org/constructor/chatInvite for reference.
 type ChatInvite struct {
-	// Flags field of ChatInvite.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Channel field of ChatInvite.
+	// Whether this is a channel/supergroup or a normal group
 	Channel bool
-	// Broadcast field of ChatInvite.
+	// Whether this is a channel
 	Broadcast bool
-	// Public field of ChatInvite.
+	// Whether this is a public channel/supergroup
 	Public bool
-	// Megagroup field of ChatInvite.
+	// Whether this is a supergroup
 	Megagroup bool
-	// Title field of ChatInvite.
+	// Chat/supergroup/channel title
 	Title string
-	// Photo field of ChatInvite.
+	// Chat/supergroup/channel photo
 	Photo PhotoClass
-	// ParticipantsCount field of ChatInvite.
+	// Participant count
 	ParticipantsCount int
-	// Participants field of ChatInvite.
+	// A few of the participants that are in the group
 	//
 	// Use SetParticipants and GetParticipants helpers.
 	Participants []UserClass
@@ -246,12 +248,13 @@ var (
 )
 
 // ChatInvitePeek represents TL type `chatInvitePeek#61695cb0`.
+// A chat invitation that also allows peeking into the group to read messages without joining it.
 //
 // See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {
-	// Chat field of ChatInvitePeek.
+	// Chat information
 	Chat ChatClass
-	// Expires field of ChatInvitePeek.
+	// Read-only anonymous access to this group will be revoked at this date
 	Expires int
 }
 

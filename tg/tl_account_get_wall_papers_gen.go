@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetWallPapersRequest represents TL type `account.getWallPapers#aabb1763`.
+// Returns a list of available wallpapers.
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 type AccountGetWallPapersRequest struct {
-	// Hash field of AccountGetWallPapersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountGetWallPapers invokes method account.getWallPapers#aabb1763 returning error if any.
+// Returns a list of available wallpapers.
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
 func (c *Client) AccountGetWallPapers(ctx context.Context, request *AccountGetWallPapersRequest) (AccountWallPapersClass, error) {

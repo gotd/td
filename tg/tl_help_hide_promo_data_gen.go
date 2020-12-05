@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpHidePromoDataRequest represents TL type `help.hidePromoData#1e251c95`.
+// Hide MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.hidePromoData for reference.
 type HelpHidePromoDataRequest struct {
-	// Peer field of HelpHidePromoDataRequest.
+	// Peer to hide
 	Peer InputPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // HelpHidePromoData invokes method help.hidePromoData#1e251c95 returning error if any.
+// Hide MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.hidePromoData for reference.
 func (c *Client) HelpHidePromoData(ctx context.Context, request *HelpHidePromoDataRequest) (BoolClass, error) {

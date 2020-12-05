@@ -15,36 +15,37 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInlineResult represents TL type `botInlineResult#11965f3a`.
+// Generic result
 //
 // See https://core.telegram.org/constructor/botInlineResult for reference.
 type BotInlineResult struct {
-	// Flags field of BotInlineResult.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of BotInlineResult.
+	// Result ID
 	ID string
-	// Type field of BotInlineResult.
+	// Result type (see bot API docs)
 	Type string
-	// Title field of BotInlineResult.
+	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of BotInlineResult.
+	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// URL field of BotInlineResult.
+	// URL of article or webpage
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// Thumb field of BotInlineResult.
+	// Thumbnail for the result
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb WebDocumentClass
-	// Content field of BotInlineResult.
+	// Content of the result
 	//
 	// Use SetContent and GetContent helpers.
 	Content WebDocumentClass
-	// SendMessage field of BotInlineResult.
+	// Message to send
 	SendMessage BotInlineMessageClass
 }
 
@@ -255,32 +256,33 @@ var (
 )
 
 // BotInlineMediaResult represents TL type `botInlineMediaResult#17db940b`.
+// Media result
 //
 // See https://core.telegram.org/constructor/botInlineMediaResult for reference.
 type BotInlineMediaResult struct {
-	// Flags field of BotInlineMediaResult.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of BotInlineMediaResult.
+	// Result ID
 	ID string
-	// Type field of BotInlineMediaResult.
+	// Result type (see bot API docs)
 	Type string
-	// Photo field of BotInlineMediaResult.
+	// If type is photo, the photo to send
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
-	// Document field of BotInlineMediaResult.
+	// If type is document, the document to send
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// Title field of BotInlineMediaResult.
+	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of BotInlineMediaResult.
+	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// SendMessage field of BotInlineMediaResult.
+	// Depending on the type and on the constructor, contains the caption of the media or the content of the message to be sent instead of the media
 	SendMessage BotInlineMessageClass
 }
 

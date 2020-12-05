@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputDialogPeer represents TL type `inputDialogPeer#fcaafeb7`.
+// A peer
 //
 // See https://core.telegram.org/constructor/inputDialogPeer for reference.
 type InputDialogPeer struct {
-	// Peer field of InputDialogPeer.
+	// Peer
 	Peer InputPeerClass
 }
 
@@ -70,10 +71,11 @@ var (
 )
 
 // InputDialogPeerFolder represents TL type `inputDialogPeerFolder#64600527`.
+// All peers in a peer folder
 //
 // See https://core.telegram.org/constructor/inputDialogPeerFolder for reference.
 type InputDialogPeerFolder struct {
-	// FolderID field of InputDialogPeerFolder.
+	// Peer folder ID, for more info click here
 	FolderID int
 }
 

@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneRequestCallRequest represents TL type `phone.requestCall#42ff96ed`.
+// Start a telegram phone call
 //
 // See https://core.telegram.org/method/phone.requestCall for reference.
 type PhoneRequestCallRequest struct {
-	// Flags field of PhoneRequestCallRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of PhoneRequestCallRequest.
+	// Whether to start a video call
 	Video bool
-	// UserID field of PhoneRequestCallRequest.
+	// Destination of the phone call
 	UserID InputUserClass
-	// RandomID field of PhoneRequestCallRequest.
+	// Random ID to avoid resending the same object
 	RandomID int
-	// GAHash field of PhoneRequestCallRequest.
+	// Parameter for E2E encryption key exchange »
 	GAHash []byte
-	// Protocol field of PhoneRequestCallRequest.
+	// Phone call settings
 	Protocol PhoneCallProtocol
 }
 
@@ -117,6 +118,7 @@ var (
 )
 
 // PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.
+// Start a telegram phone call
 //
 // See https://core.telegram.org/method/phone.requestCall for reference.
 func (c *Client) PhoneRequestCall(ctx context.Context, request *PhoneRequestCallRequest) (*PhonePhoneCall, error) {

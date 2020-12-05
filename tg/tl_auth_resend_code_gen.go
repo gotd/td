@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
+// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login for more info.
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
-	// PhoneNumber field of AuthResendCodeRequest.
+	// The phone number
 	PhoneNumber string
-	// PhoneCodeHash field of AuthResendCodeRequest.
+	// The phone code hash obtained from auth.sendCode
 	PhoneCodeHash string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
+// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login for more info.
 //
 // See https://core.telegram.org/method/auth.resendCode for reference.
 func (c *Client) AuthResendCode(ctx context.Context, request *AuthResendCodeRequest) (*AuthSentCode, error) {

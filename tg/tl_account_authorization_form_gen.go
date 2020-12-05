@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
+// Telegram Passport authorization form
 //
 // See https://core.telegram.org/constructor/account.authorizationForm for reference.
 type AccountAuthorizationForm struct {
-	// Flags field of AccountAuthorizationForm.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// RequiredTypes field of AccountAuthorizationForm.
+	// Required Telegram Passport documents
 	RequiredTypes []SecureRequiredTypeClass
-	// Values field of AccountAuthorizationForm.
+	// Already submitted Telegram Passport documents
 	Values []SecureValue
-	// Errors field of AccountAuthorizationForm.
+	// Telegram Passport errors
 	Errors []SecureValueErrorClass
-	// Users field of AccountAuthorizationForm.
+	// Info about the bot to which the form will be submitted
 	Users []UserClass
-	// PrivacyPolicyURL field of AccountAuthorizationForm.
+	// URL of the service's privacy policy
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
 	PrivacyPolicyURL string

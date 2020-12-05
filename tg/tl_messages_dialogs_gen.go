@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDialogs represents TL type `messages.dialogs#15ba6c40`.
+// Full list of chats with messages and auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.dialogs for reference.
 type MessagesDialogs struct {
-	// Dialogs field of MessagesDialogs.
+	// List of chats
 	Dialogs []DialogClass
-	// Messages field of MessagesDialogs.
+	// List of last messages from each chat
 	Messages []MessageClass
-	// Chats field of MessagesDialogs.
+	// List of groups mentioned in the chats
 	Chats []ChatClass
-	// Users field of MessagesDialogs.
+	// List of users mentioned in messages and groups
 	Users []UserClass
 }
 
@@ -151,18 +152,19 @@ var (
 )
 
 // MessagesDialogsSlice represents TL type `messages.dialogsSlice#71e094f3`.
+// Incomplete list of dialogs with messages and auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.dialogsSlice for reference.
 type MessagesDialogsSlice struct {
-	// Count field of MessagesDialogsSlice.
+	// Total number of dialogs
 	Count int
-	// Dialogs field of MessagesDialogsSlice.
+	// List of dialogs
 	Dialogs []DialogClass
-	// Messages field of MessagesDialogsSlice.
+	// List of last messages from dialogs
 	Messages []MessageClass
-	// Chats field of MessagesDialogsSlice.
+	// List of chats mentioned in dialogs
 	Chats []ChatClass
-	// Users field of MessagesDialogsSlice.
+	// List of users mentioned in messages and chats
 	Users []UserClass
 }
 
@@ -297,10 +299,11 @@ var (
 )
 
 // MessagesDialogsNotModified represents TL type `messages.dialogsNotModified#f0e3e596`.
+// Dialogs haven't changed
 //
 // See https://core.telegram.org/constructor/messages.dialogsNotModified for reference.
 type MessagesDialogsNotModified struct {
-	// Count field of MessagesDialogsNotModified.
+	// Number of dialogs found server-side by the query
 	Count int
 }
 

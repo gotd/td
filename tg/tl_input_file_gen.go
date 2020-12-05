@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputFile represents TL type `inputFile#f52ff27f`.
+// Defines a file saved in parts using the method upload.saveFilePart.
 //
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
-	// ID field of InputFile.
+	// Random file identifier created by the client
 	ID int64
-	// Parts field of InputFile.
+	// Number of parts saved
 	Parts int
-	// Name field of InputFile.
+	// Full name of the file
 	Name string
-	// Md5Checksum field of InputFile.
+	// In case the file's md5-hash was passed, contents of the file will be checked prior to use
 	Md5Checksum string
 }
 
@@ -95,14 +96,15 @@ var (
 )
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
+// Assigns a big file (over 10Mb in size), saved in part using the method upload.saveBigFilePart.
 //
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
-	// ID field of InputFileBig.
+	// Random file id, created by the client
 	ID int64
-	// Parts field of InputFileBig.
+	// Number of parts saved
 	Parts int
-	// Name field of InputFileBig.
+	// Full file name
 	Name string
 }
 

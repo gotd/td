@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d9fee60e`.
+// Forwards messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
 type MessagesForwardMessagesRequest struct {
-	// Flags field of MessagesForwardMessagesRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesForwardMessagesRequest.
+	// Whether to send messages silently (no notification will be triggered on the destination clients)
 	Silent bool
-	// Background field of MessagesForwardMessagesRequest.
+	// Whether to send the message in background
 	Background bool
-	// WithMyScore field of MessagesForwardMessagesRequest.
+	// When forwarding games, whether to include your score in the game
 	WithMyScore bool
-	// FromPeer field of MessagesForwardMessagesRequest.
+	// Source of messages
 	FromPeer InputPeerClass
-	// ID field of MessagesForwardMessagesRequest.
+	// IDs of messages
 	ID []int
-	// RandomID field of MessagesForwardMessagesRequest.
+	// Random ID to prevent resending of messages
 	RandomID []int64
-	// ToPeer field of MessagesForwardMessagesRequest.
+	// Destination peer
 	ToPeer InputPeerClass
-	// ScheduleDate field of MessagesForwardMessagesRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -193,6 +194,7 @@ var (
 )
 
 // MessagesForwardMessages invokes method messages.forwardMessages#d9fee60e returning error if any.
+// Forwards messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
 func (c *Client) MessagesForwardMessages(ctx context.Context, request *MessagesForwardMessagesRequest) (UpdatesClass, error) {

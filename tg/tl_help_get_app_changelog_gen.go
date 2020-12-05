@@ -15,10 +15,12 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetAppChangelogRequest represents TL type `help.getAppChangelog#9010ef6f`.
+// Get changelog of current app.
+// Typically, an updates constructor will be returned, containing one or more updateServiceNotification updates with app-specific changelogs.
 //
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
-	// PrevAppVersion field of HelpGetAppChangelogRequest.
+	// Previous app version
 	PrevAppVersion string
 }
 
@@ -60,6 +62,8 @@ var (
 )
 
 // HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.
+// Get changelog of current app.
+// Typically, an updates constructor will be returned, containing one or more updateServiceNotification updates with app-specific changelogs.
 //
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 func (c *Client) HelpGetAppChangelog(ctx context.Context, request *HelpGetAppChangelogRequest) (UpdatesClass, error) {

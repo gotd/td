@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsExportMessageLinkRequest represents TL type `channels.exportMessageLink#e63fadeb`.
+// Get link and embed info of a message in a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.exportMessageLink for reference.
 type ChannelsExportMessageLinkRequest struct {
-	// Flags field of ChannelsExportMessageLinkRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Grouped field of ChannelsExportMessageLinkRequest.
+	// Whether to include other grouped media (for albums)
 	Grouped bool
-	// Thread field of ChannelsExportMessageLinkRequest.
+	// Whether to also include a thread ID, if available, inside of the link
 	Thread bool
-	// Channel field of ChannelsExportMessageLinkRequest.
+	// Channel
 	Channel InputChannelClass
-	// ID field of ChannelsExportMessageLinkRequest.
+	// Message ID
 	ID int
 }
 
@@ -109,6 +110,7 @@ var (
 )
 
 // ChannelsExportMessageLink invokes method channels.exportMessageLink#e63fadeb returning error if any.
+// Get link and embed info of a message in a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.exportMessageLink for reference.
 func (c *Client) ChannelsExportMessageLink(ctx context.Context, request *ChannelsExportMessageLinkRequest) (*ExportedMessageLink, error) {

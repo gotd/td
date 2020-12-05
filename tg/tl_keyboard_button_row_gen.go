@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // KeyboardButtonRow represents TL type `keyboardButtonRow#77608b83`.
+// Inline keyboard row
 //
 // See https://core.telegram.org/constructor/keyboardButtonRow for reference.
 type KeyboardButtonRow struct {
-	// Buttons field of KeyboardButtonRow.
+	// Bot or inline keyboard buttons
 	Buttons []KeyboardButtonClass
 }
 

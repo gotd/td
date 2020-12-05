@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentRequestedInfo represents TL type `paymentRequestedInfo#909c3f94`.
+// Order info provided by the user
 //
 // See https://core.telegram.org/constructor/paymentRequestedInfo for reference.
 type PaymentRequestedInfo struct {
-	// Flags field of PaymentRequestedInfo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Name field of PaymentRequestedInfo.
+	// User's full name
 	//
 	// Use SetName and GetName helpers.
 	Name string
-	// Phone field of PaymentRequestedInfo.
+	// User's phone number
 	//
 	// Use SetPhone and GetPhone helpers.
 	Phone string
-	// Email field of PaymentRequestedInfo.
+	// User's email address
 	//
 	// Use SetEmail and GetEmail helpers.
 	Email string
-	// ShippingAddress field of PaymentRequestedInfo.
+	// User's shipping address
 	//
 	// Use SetShippingAddress and GetShippingAddress helpers.
 	ShippingAddress PostAddress

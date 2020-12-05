@@ -15,10 +15,12 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsImportContactsRequest represents TL type `contacts.importContacts#2c800be5`.
+// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.
+// Use contacts.addContact to add Telegram contacts without actually using their phone number.
 //
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
-	// Contacts field of ContactsImportContactsRequest.
+	// List of contacts to import
 	Contacts []InputPhoneContact
 }
 
@@ -71,6 +73,8 @@ var (
 )
 
 // ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.
+// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.
+// Use contacts.addContact to add Telegram contacts without actually using their phone number.
 //
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 func (c *Client) ContactsImportContacts(ctx context.Context, request *ContactsImportContactsRequest) (*ContactsImportedContacts, error) {

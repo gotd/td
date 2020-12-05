@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetPrivacyRequest represents TL type `account.getPrivacy#dadbc950`.
+// Get privacy settings of current account
 //
 // See https://core.telegram.org/method/account.getPrivacy for reference.
 type AccountGetPrivacyRequest struct {
-	// Key field of AccountGetPrivacyRequest.
+	// Peer category whose privacy settings should be fetched
 	Key InputPrivacyKeyClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // AccountGetPrivacy invokes method account.getPrivacy#dadbc950 returning error if any.
+// Get privacy settings of current account
 //
 // See https://core.telegram.org/method/account.getPrivacy for reference.
 func (c *Client) AccountGetPrivacy(ctx context.Context, request *AccountGetPrivacyRequest) (*AccountPrivacyRules, error) {

@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SavedPhoneContact represents TL type `savedPhoneContact#1142bd56`.
+// Saved contact
 //
 // See https://core.telegram.org/constructor/savedPhoneContact for reference.
 type SavedPhoneContact struct {
-	// Phone field of SavedPhoneContact.
+	// Phone number
 	Phone string
-	// FirstName field of SavedPhoneContact.
+	// First name
 	FirstName string
-	// LastName field of SavedPhoneContact.
+	// Last name
 	LastName string
-	// Date field of SavedPhoneContact.
+	// Date added
 	Date int
 }
 

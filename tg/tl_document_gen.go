@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DocumentEmpty represents TL type `documentEmpty#36f8c871`.
+// Empty constructor, document doesn't exist.
 //
 // See https://core.telegram.org/constructor/documentEmpty for reference.
 type DocumentEmpty struct {
-	// ID field of DocumentEmpty.
+	// Document ID or 0
 	ID int64
 }
 
@@ -65,34 +66,35 @@ var (
 )
 
 // Document represents TL type `document#1e87342b`.
+// Document
 //
 // See https://core.telegram.org/constructor/document for reference.
 type Document struct {
-	// Flags field of Document.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of Document.
+	// Document ID
 	ID int64
-	// AccessHash field of Document.
+	// Check sum, dependant on document ID
 	AccessHash int64
-	// FileReference field of Document.
+	// File reference
 	FileReference []byte
-	// Date field of Document.
+	// Creation date
 	Date int
-	// MimeType field of Document.
+	// MIME type
 	MimeType string
-	// Size field of Document.
+	// Size
 	Size int
-	// Thumbs field of Document.
+	// Thumbnails
 	//
 	// Use SetThumbs and GetThumbs helpers.
 	Thumbs []PhotoSizeClass
-	// VideoThumbs field of Document.
+	// Video thumbnails
 	//
 	// Use SetVideoThumbs and GetVideoThumbs helpers.
 	VideoThumbs []VideoSize
-	// DCID field of Document.
+	// DC ID
 	DCID int
-	// Attributes field of Document.
+	// Attributes
 	Attributes []DocumentAttributeClass
 }
 

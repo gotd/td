@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentSavedCredentialsCard represents TL type `paymentSavedCredentialsCard#cdc27a1f`.
+// Saved credit card
 //
 // See https://core.telegram.org/constructor/paymentSavedCredentialsCard for reference.
 type PaymentSavedCredentialsCard struct {
-	// ID field of PaymentSavedCredentialsCard.
+	// Card ID
 	ID string
-	// Title field of PaymentSavedCredentialsCard.
+	// Title
 	Title string
 }
 

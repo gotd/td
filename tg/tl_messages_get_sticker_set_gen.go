@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetStickerSetRequest represents TL type `messages.getStickerSet#2619a90e`.
+// Get info about a stickerset
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 type MessagesGetStickerSetRequest struct {
-	// Stickerset field of MessagesGetStickerSetRequest.
+	// Stickerset
 	Stickerset InputStickerSetClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // MessagesGetStickerSet invokes method messages.getStickerSet#2619a90e returning error if any.
+// Get info about a stickerset
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 func (c *Client) MessagesGetStickerSet(ctx context.Context, request *MessagesGetStickerSetRequest) (*MessagesStickerSet, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetChatsRequest represents TL type `messages.getChats#3c6aa187`.
+// Returns chat basic info on their IDs.
 //
 // See https://core.telegram.org/method/messages.getChats for reference.
 type MessagesGetChatsRequest struct {
-	// ID field of MessagesGetChatsRequest.
+	// List of chat IDs
 	ID []int
 }
 
@@ -69,6 +70,7 @@ var (
 )
 
 // MessagesGetChats invokes method messages.getChats#3c6aa187 returning error if any.
+// Returns chat basic info on their IDs.
 //
 // See https://core.telegram.org/method/messages.getChats for reference.
 func (c *Client) MessagesGetChats(ctx context.Context, request *MessagesGetChatsRequest) (MessagesChatsClass, error) {

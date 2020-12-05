@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetContactIDsRequest represents TL type `contacts.getContactIDs#2caa4a42`.
+// Get contact by telegram IDs
 //
 // See https://core.telegram.org/constructor/contacts.getContactIDs for reference.
 type ContactsGetContactIDsRequest struct {
-	// Hash field of ContactsGetContactIDsRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsGetSavedInfoRequest represents TL type `payments.getSavedInfo#227d824b`.
+// Get saved payment information
 //
 // See https://core.telegram.org/method/payments.getSavedInfo for reference.
 type PaymentsGetSavedInfoRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // PaymentsGetSavedInfo invokes method payments.getSavedInfo#227d824b returning error if any.
+// Get saved payment information
 //
 // See https://core.telegram.org/method/payments.getSavedInfo for reference.
 func (c *Client) PaymentsGetSavedInfo(ctx context.Context, request *PaymentsGetSavedInfoRequest) (*PaymentsSavedInfo, error) {

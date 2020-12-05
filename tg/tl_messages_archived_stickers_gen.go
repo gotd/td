@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesArchivedStickers represents TL type `messages.archivedStickers#4fcba9c8`.
+// Archived stickersets
 //
 // See https://core.telegram.org/constructor/messages.archivedStickers for reference.
 type MessagesArchivedStickers struct {
-	// Count field of MessagesArchivedStickers.
+	// Number of archived stickers
 	Count int
-	// Sets field of MessagesArchivedStickers.
+	// Archived stickersets
 	Sets []StickerSetCoveredClass
 }
 

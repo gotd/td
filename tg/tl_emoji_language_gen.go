@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EmojiLanguage represents TL type `emojiLanguage#b3fb5361`.
+// Emoji language
 //
 // See https://core.telegram.org/constructor/emojiLanguage for reference.
 type EmojiLanguage struct {
-	// LangCode field of EmojiLanguage.
+	// Language code
 	LangCode string
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerBlocked represents TL type `peerBlocked#e8fd8014`.
+// Information about a blocked peer
 //
 // See https://core.telegram.org/constructor/peerBlocked for reference.
 type PeerBlocked struct {
-	// PeerID field of PeerBlocked.
+	// Peer ID
 	PeerID PeerClass
-	// Date field of PeerBlocked.
+	// When was the peer blocked
 	Date int
 }
 

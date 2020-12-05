@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadEncryptedHistoryRequest represents TL type `messages.readEncryptedHistory#7f4b690a`.
+// Marks message history within a secret chat as read.
 //
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 type MessagesReadEncryptedHistoryRequest struct {
-	// Peer field of MessagesReadEncryptedHistoryRequest.
+	// Secret chat ID
 	Peer InputEncryptedChat
-	// MaxDate field of MessagesReadEncryptedHistoryRequest.
+	// Maximum date value for received messages in history
 	MaxDate int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesReadEncryptedHistory invokes method messages.readEncryptedHistory#7f4b690a returning error if any.
+// Marks message history within a secret chat as read.
 //
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 func (c *Client) MessagesReadEncryptedHistory(ctx context.Context, request *MessagesReadEncryptedHistoryRequest) (BoolClass, error) {

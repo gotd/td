@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsUpdateUsernameRequest represents TL type `channels.updateUsername#3514b3de`.
+// Change the username of a supergroup/channel
 //
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
-	// Channel field of ChannelsUpdateUsernameRequest.
+	// Channel
 	Channel InputChannelClass
-	// Username field of ChannelsUpdateUsernameRequest.
+	// New username
 	Username string
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.
+// Change the username of a supergroup/channel
 //
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 func (c *Client) ChannelsUpdateUsername(ctx context.Context, request *ChannelsUpdateUsernameRequest) (BoolClass, error) {

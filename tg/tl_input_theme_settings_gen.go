@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputThemeSettings represents TL type `inputThemeSettings#bd507cd1`.
+// Theme settings
 //
 // See https://core.telegram.org/constructor/inputThemeSettings for reference.
 type InputThemeSettings struct {
-	// Flags field of InputThemeSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// BaseTheme field of InputThemeSettings.
+	// Default theme on which this theme is based
 	BaseTheme BaseThemeClass
-	// AccentColor field of InputThemeSettings.
+	// Accent color, RGB24 format
 	AccentColor int
-	// MessageTopColor field of InputThemeSettings.
+	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
 	MessageTopColor int
-	// MessageBottomColor field of InputThemeSettings.
+	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
 	MessageBottomColor int
-	// Wallpaper field of InputThemeSettings.
+	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
 	Wallpaper InputWallPaperClass
-	// WallpaperSettings field of InputThemeSettings.
+	// Wallpaper settings
 	//
 	// Use SetWallpaperSettings and GetWallpaperSettings helpers.
 	WallpaperSettings WallPaperSettings

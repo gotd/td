@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#770a8e74`.
+// Submit requested order information for validation
 //
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 type PaymentsValidateRequestedInfoRequest struct {
-	// Flags field of PaymentsValidateRequestedInfoRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Save field of PaymentsValidateRequestedInfoRequest.
+	// Save order information to re-use it for future orders
 	Save bool
-	// MsgID field of PaymentsValidateRequestedInfoRequest.
+	// Message ID of payment form
 	MsgID int
-	// Info field of PaymentsValidateRequestedInfoRequest.
+	// Requested order information
 	Info PaymentRequestedInfo
 }
 
@@ -92,6 +93,7 @@ var (
 )
 
 // PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#770a8e74 returning error if any.
+// Submit requested order information for validation
 //
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {

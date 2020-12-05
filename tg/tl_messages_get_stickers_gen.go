@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetStickersRequest represents TL type `messages.getStickers#43d4f2c`.
+// Get stickers by emoji
 //
 // See https://core.telegram.org/method/messages.getStickers for reference.
 type MessagesGetStickersRequest struct {
-	// Emoticon field of MessagesGetStickersRequest.
+	// The emoji
 	Emoticon string
-	// Hash field of MessagesGetStickersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesGetStickers invokes method messages.getStickers#43d4f2c returning error if any.
+// Get stickers by emoji
 //
 // See https://core.telegram.org/method/messages.getStickers for reference.
 func (c *Client) MessagesGetStickers(ctx context.Context, request *MessagesGetStickersRequest) (MessagesStickersClass, error) {

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetPromoDataRequest represents TL type `help.getPromoData#c0977421`.
+// Get MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.getPromoData for reference.
 type HelpGetPromoDataRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // HelpGetPromoData invokes method help.getPromoData#c0977421 returning error if any.
+// Get MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.getPromoData for reference.
 func (c *Client) HelpGetPromoData(ctx context.Context, request *HelpGetPromoDataRequest) (HelpPromoDataClass, error) {

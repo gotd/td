@@ -15,42 +15,43 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
+// Configuration for two-factor authorization
 //
 // See https://core.telegram.org/constructor/account.password for reference.
 type AccountPassword struct {
-	// Flags field of AccountPassword.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// HasRecovery field of AccountPassword.
+	// Whether the user has a recovery method configured
 	HasRecovery bool
-	// HasSecureValues field of AccountPassword.
+	// Whether telegram passport is enabled
 	HasSecureValues bool
-	// HasPassword field of AccountPassword.
+	// Whether the user has a password
 	HasPassword bool
-	// CurrentAlgo field of AccountPassword.
+	// The KDF algorithm for SRP two-factor authentication of the current password
 	//
 	// Use SetCurrentAlgo and GetCurrentAlgo helpers.
 	CurrentAlgo PasswordKdfAlgoClass
-	// SrpB field of AccountPassword.
+	// Srp B param for SRP authorization
 	//
 	// Use SetSrpB and GetSrpB helpers.
 	SrpB []byte
-	// SrpID field of AccountPassword.
+	// Srp ID param for SRP authorization
 	//
 	// Use SetSrpID and GetSrpID helpers.
 	SrpID int64
-	// Hint field of AccountPassword.
+	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
 	Hint string
-	// EmailUnconfirmedPattern field of AccountPassword.
+	// A password recovery email with the specified pattern is still awaiting verification
 	//
 	// Use SetEmailUnconfirmedPattern and GetEmailUnconfirmedPattern helpers.
 	EmailUnconfirmedPattern string
-	// NewAlgo field of AccountPassword.
+	// The KDF algorithm for SRP two-factor authentication to use when creating new passwords
 	NewAlgo PasswordKdfAlgoClass
-	// NewSecureAlgo field of AccountPassword.
+	// The KDF algorithm for telegram passport
 	NewSecureAlgo SecurePasswordKdfAlgoClass
-	// SecureRandom field of AccountPassword.
+	// Secure random string
 	SecureRandom []byte
 }
 

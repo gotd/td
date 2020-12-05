@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetFullChannelRequest represents TL type `channels.getFullChannel#8736a09`.
+// Get full info about a channel
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 type ChannelsGetFullChannelRequest struct {
-	// Channel field of ChannelsGetFullChannelRequest.
+	// The channel to get info about
 	Channel InputChannelClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.
+// Get full info about a channel
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 func (c *Client) ChannelsGetFullChannel(ctx context.Context, request *ChannelsGetFullChannelRequest) (*MessagesChatFull, error) {

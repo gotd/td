@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSignUpRequest represents TL type `auth.signUp#80eee427`.
+// Registers a validated phone number in the system.
 //
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
-	// PhoneNumber field of AuthSignUpRequest.
+	// Phone number in the international format
 	PhoneNumber string
-	// PhoneCodeHash field of AuthSignUpRequest.
+	// SMS-message ID
 	PhoneCodeHash string
-	// FirstName field of AuthSignUpRequest.
+	// New user first name
 	FirstName string
-	// LastName field of AuthSignUpRequest.
+	// New user last name
 	LastName string
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // AuthSignUp invokes method auth.signUp#80eee427 returning error if any.
+// Registers a validated phone number in the system.
 //
 // See https://core.telegram.org/method/auth.signUp for reference.
 func (c *Client) AuthSignUp(ctx context.Context, request *AuthSignUpRequest) (AuthAuthorizationClass, error) {

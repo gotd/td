@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotsAnswerWebhookJSONQueryRequest represents TL type `bots.answerWebhookJSONQuery#e6213f4d`.
+// Answers a custom query; for bots only
 //
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 type BotsAnswerWebhookJSONQueryRequest struct {
-	// QueryID field of BotsAnswerWebhookJSONQueryRequest.
+	// Identifier of a custom query
 	QueryID int64
-	// Data field of BotsAnswerWebhookJSONQueryRequest.
+	// JSON-serialized answer to the query
 	Data DataJSON
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // BotsAnswerWebhookJSONQuery invokes method bots.answerWebhookJSONQuery#e6213f4d returning error if any.
+// Answers a custom query; for bots only
 //
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 func (c *Client) BotsAnswerWebhookJSONQuery(ctx context.Context, request *BotsAnswerWebhookJSONQueryRequest) (BoolClass, error) {

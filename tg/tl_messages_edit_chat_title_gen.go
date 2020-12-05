@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatTitleRequest represents TL type `messages.editChatTitle#dc452855`.
+// Chanages chat name and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 type MessagesEditChatTitleRequest struct {
-	// ChatID field of MessagesEditChatTitleRequest.
+	// Chat ID
 	ChatID int
-	// Title field of MessagesEditChatTitleRequest.
+	// New chat name, different from the old one
 	Title string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesEditChatTitle invokes method messages.editChatTitle#dc452855 returning error if any.
+// Chanages chat name and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 func (c *Client) MessagesEditChatTitle(ctx context.Context, request *MessagesEditChatTitleRequest) (UpdatesClass, error) {

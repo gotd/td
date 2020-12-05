@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetBotCallbackAnswerRequest represents TL type `messages.setBotCallbackAnswer#d58f130a`.
+// Set the callback answer to a user button press (bots only)
 //
 // See https://core.telegram.org/method/messages.setBotCallbackAnswer for reference.
 type MessagesSetBotCallbackAnswerRequest struct {
-	// Flags field of MessagesSetBotCallbackAnswerRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Alert field of MessagesSetBotCallbackAnswerRequest.
+	// Whether to show the message as a popup instead of a toast notification
 	Alert bool
-	// QueryID field of MessagesSetBotCallbackAnswerRequest.
+	// Query ID
 	QueryID int64
-	// Message field of MessagesSetBotCallbackAnswerRequest.
+	// Popup to show
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message string
-	// URL field of MessagesSetBotCallbackAnswerRequest.
+	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// CacheTime field of MessagesSetBotCallbackAnswerRequest.
+	// Cache validity
 	CacheTime int
 }
 
@@ -150,6 +151,7 @@ var (
 )
 
 // MessagesSetBotCallbackAnswer invokes method messages.setBotCallbackAnswer#d58f130a returning error if any.
+// Set the callback answer to a user button press (bots only)
 //
 // See https://core.telegram.org/method/messages.setBotCallbackAnswer for reference.
 func (c *Client) MessagesSetBotCallbackAnswer(ctx context.Context, request *MessagesSetBotCallbackAnswerRequest) (BoolClass, error) {

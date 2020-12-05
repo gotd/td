@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditCreatorRequest represents TL type `channels.editCreator#8f38cd1f`.
+// Transfer channel ownership
 //
 // See https://core.telegram.org/method/channels.editCreator for reference.
 type ChannelsEditCreatorRequest struct {
-	// Channel field of ChannelsEditCreatorRequest.
+	// Channel
 	Channel InputChannelClass
-	// UserID field of ChannelsEditCreatorRequest.
+	// New channel owner
 	UserID InputUserClass
-	// Password field of ChannelsEditCreatorRequest.
+	// 2FA password of account
 	Password InputCheckPasswordSRPClass
 }
 
@@ -95,6 +96,7 @@ var (
 )
 
 // ChannelsEditCreator invokes method channels.editCreator#8f38cd1f returning error if any.
+// Transfer channel ownership
 //
 // See https://core.telegram.org/method/channels.editCreator for reference.
 func (c *Client) ChannelsEditCreator(ctx context.Context, request *ChannelsEditCreatorRequest) (UpdatesClass, error) {

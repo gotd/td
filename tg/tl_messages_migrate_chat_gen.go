@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMigrateChatRequest represents TL type `messages.migrateChat#15a3b8e3`.
+// Turn a legacy group into a supergroup
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
-	// ChatID field of MessagesMigrateChatRequest.
+	// Legacy group to migrate
 	ChatID int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesMigrateChat invokes method messages.migrateChat#15a3b8e3 returning error if any.
+// Turn a legacy group into a supergroup
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 func (c *Client) MessagesMigrateChat(ctx context.Context, request *MessagesMigrateChatRequest) (UpdatesClass, error) {

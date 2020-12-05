@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhonePhoneCall represents TL type `phone.phoneCall#ec82e140`.
+// A VoIP phone call
 //
 // See https://core.telegram.org/constructor/phone.phoneCall for reference.
 type PhonePhoneCall struct {
-	// PhoneCall field of PhonePhoneCall.
+	// The VoIP phone call
 	PhoneCall PhoneCallClass
-	// Users field of PhonePhoneCall.
+	// VoIP phone call participants
 	Users []UserClass
 }
 

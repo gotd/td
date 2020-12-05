@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StorageFileUnknown represents TL type `storage.fileUnknown#aa963b05`.
+// Unknown type.
 //
 // See https://core.telegram.org/constructor/storage.fileUnknown for reference.
 type StorageFileUnknown struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // StorageFilePartial represents TL type `storage.filePartial#40bc6f52`.
+// Part of a bigger file.
 //
 // See https://core.telegram.org/constructor/storage.filePartial for reference.
 type StorageFilePartial struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // StorageFileJpeg represents TL type `storage.fileJpeg#7efe0e`.
+// JPEG image. MIME type: image/jpeg.
 //
 // See https://core.telegram.org/constructor/storage.fileJpeg for reference.
 type StorageFileJpeg struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // StorageFileGif represents TL type `storage.fileGif#cae1aadf`.
+// GIF image. MIME type: image/gif.
 //
 // See https://core.telegram.org/constructor/storage.fileGif for reference.
 type StorageFileGif struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // StorageFilePng represents TL type `storage.filePng#a4f63c0`.
+// PNG image. MIME type: image/png.
 //
 // See https://core.telegram.org/constructor/storage.filePng for reference.
 type StorageFilePng struct {
@@ -215,6 +220,7 @@ var (
 )
 
 // StorageFilePdf represents TL type `storage.filePdf#ae1e508d`.
+// PDF document image. MIME type: application/pdf.
 //
 // See https://core.telegram.org/constructor/storage.filePdf for reference.
 type StorageFilePdf struct {
@@ -255,6 +261,7 @@ var (
 )
 
 // StorageFileMp3 represents TL type `storage.fileMp3#528a0677`.
+// Mp3 audio. MIME type: audio/mpeg.
 //
 // See https://core.telegram.org/constructor/storage.fileMp3 for reference.
 type StorageFileMp3 struct {
@@ -295,6 +302,7 @@ var (
 )
 
 // StorageFileMov represents TL type `storage.fileMov#4b09ebbc`.
+// Quicktime video. MIME type: video/quicktime.
 //
 // See https://core.telegram.org/constructor/storage.fileMov for reference.
 type StorageFileMov struct {
@@ -335,6 +343,7 @@ var (
 )
 
 // StorageFileMp4 represents TL type `storage.fileMp4#b3cea0e4`.
+// MPEG-4 video. MIME type: video/mp4.
 //
 // See https://core.telegram.org/constructor/storage.fileMp4 for reference.
 type StorageFileMp4 struct {
@@ -375,6 +384,7 @@ var (
 )
 
 // StorageFileWebp represents TL type `storage.fileWebp#1081464c`.
+// WEBP image. MIME type: image/webp.
 //
 // See https://core.telegram.org/constructor/storage.fileWebp for reference.
 type StorageFileWebp struct {

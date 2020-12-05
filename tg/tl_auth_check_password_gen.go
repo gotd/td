@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCheckPasswordRequest represents TL type `auth.checkPassword#d18b4d16`.
+// Try logging to an account protected by a 2FA password.
 //
 // See https://core.telegram.org/method/auth.checkPassword for reference.
 type AuthCheckPasswordRequest struct {
-	// Password field of AuthCheckPasswordRequest.
+	// The account's password (see SRP)
 	Password InputCheckPasswordSRPClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // AuthCheckPassword invokes method auth.checkPassword#d18b4d16 returning error if any.
+// Try logging to an account protected by a 2FA password.
 //
 // See https://core.telegram.org/method/auth.checkPassword for reference.
 func (c *Client) AuthCheckPassword(ctx context.Context, request *AuthCheckPasswordRequest) (AuthAuthorizationClass, error) {

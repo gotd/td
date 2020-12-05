@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadFeaturedStickersRequest represents TL type `messages.readFeaturedStickers#5b118126`.
+// Mark new featured stickers as read
 //
 // See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 type MessagesReadFeaturedStickersRequest struct {
-	// ID field of MessagesReadFeaturedStickersRequest.
+	// IDs of stickersets to mark as read
 	ID []int64
 }
 
@@ -69,6 +70,7 @@ var (
 )
 
 // MessagesReadFeaturedStickers invokes method messages.readFeaturedStickers#5b118126 returning error if any.
+// Mark new featured stickers as read
 //
 // See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 func (c *Client) MessagesReadFeaturedStickers(ctx context.Context, request *MessagesReadFeaturedStickersRequest) (BoolClass, error) {

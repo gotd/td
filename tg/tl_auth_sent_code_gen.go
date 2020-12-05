@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSentCode represents TL type `auth.sentCode#5e002502`.
+// Contains info about a sent verification code.
 //
 // See https://core.telegram.org/constructor/auth.sentCode for reference.
 type AuthSentCode struct {
-	// Flags field of AuthSentCode.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Type field of AuthSentCode.
+	// Phone code type
 	Type AuthSentCodeTypeClass
-	// PhoneCodeHash field of AuthSentCode.
+	// Phone code hash, to be stored and later re-used with auth.signIn
 	PhoneCodeHash string
-	// NextType field of AuthSentCode.
+	// Phone code type that will be sent next, if the phone code is not received within timeout seconds: to send it use auth.resendCode
 	//
 	// Use SetNextType and GetNextType helpers.
 	NextType AuthCodeTypeClass
-	// Timeout field of AuthSentCode.
+	// Timeout for reception of the phone code
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int

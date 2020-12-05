@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAcceptEncryptionRequest represents TL type `messages.acceptEncryption#3dbc0415`.
+// Confirms creation of a secret chat
 //
 // See https://core.telegram.org/method/messages.acceptEncryption for reference.
 type MessagesAcceptEncryptionRequest struct {
-	// Peer field of MessagesAcceptEncryptionRequest.
+	// Secret chat ID
 	Peer InputEncryptedChat
-	// GB field of MessagesAcceptEncryptionRequest.
+	// B = g ^ b mod p, see Wikipedia
 	GB []byte
-	// KeyFingerprint field of MessagesAcceptEncryptionRequest.
+	// 64-bit fingerprint of the received key
 	KeyFingerprint int64
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // MessagesAcceptEncryption invokes method messages.acceptEncryption#3dbc0415 returning error if any.
+// Confirms creation of a secret chat
 //
 // See https://core.telegram.org/method/messages.acceptEncryption for reference.
 func (c *Client) MessagesAcceptEncryption(ctx context.Context, request *MessagesAcceptEncryptionRequest) (EncryptedChatClass, error) {

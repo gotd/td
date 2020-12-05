@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthDropTempAuthKeysRequest represents TL type `auth.dropTempAuthKeys#8e48a188`.
+// Delete all temporary authorization keys except for the ones specified
 //
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
 type AuthDropTempAuthKeysRequest struct {
-	// ExceptAuthKeys field of AuthDropTempAuthKeysRequest.
+	// The auth keys that shouldn't be dropped.
 	ExceptAuthKeys []int64
 }
 
@@ -69,6 +70,7 @@ var (
 )
 
 // AuthDropTempAuthKeys invokes method auth.dropTempAuthKeys#8e48a188 returning error if any.
+// Delete all temporary authorization keys except for the ones specified
 //
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
 func (c *Client) AuthDropTempAuthKeys(ctx context.Context, request *AuthDropTempAuthKeysRequest) (BoolClass, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateUsernameRequest represents TL type `account.updateUsername#3e0bdd7c`.
+// Changes username for the current user.
 //
 // See https://core.telegram.org/method/account.updateUsername for reference.
 type AccountUpdateUsernameRequest struct {
-	// Username field of AccountUpdateUsernameRequest.
+	// username or empty string if username is to be removedAccepted characters: a-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
 	Username string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.
+// Changes username for the current user.
 //
 // See https://core.telegram.org/method/account.updateUsername for reference.
 func (c *Client) AccountUpdateUsername(ctx context.Context, request *AccountUpdateUsernameRequest) (UserClass, error) {

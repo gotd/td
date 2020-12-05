@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
+// Uploaded secure file, for more info see the passport docs »
 //
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
-	// ID field of InputSecureFileUploaded.
+	// Secure file ID
 	ID int64
-	// Parts field of InputSecureFileUploaded.
+	// Secure file part count
 	Parts int
-	// Md5Checksum field of InputSecureFileUploaded.
+	// MD5 hash of encrypted uploaded file, to be checked server-side
 	Md5Checksum string
-	// FileHash field of InputSecureFileUploaded.
+	// File hash
 	FileHash []byte
-	// Secret field of InputSecureFileUploaded.
+	// Secret
 	Secret []byte
 }
 
@@ -105,12 +106,13 @@ var (
 )
 
 // InputSecureFile represents TL type `inputSecureFile#5367e5be`.
+// Preuploaded passport file, for more info see the passport docs »
 //
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
-	// ID field of InputSecureFile.
+	// Secure file ID
 	ID int64
-	// AccessHash field of InputSecureFile.
+	// Secure file access hash
 	AccessHash int64
 }
 

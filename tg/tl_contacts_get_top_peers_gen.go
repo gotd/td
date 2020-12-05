@@ -15,32 +15,33 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetTopPeersRequest represents TL type `contacts.getTopPeers#d4982db5`.
+// Get most used peers
 //
 // See https://core.telegram.org/method/contacts.getTopPeers for reference.
 type ContactsGetTopPeersRequest struct {
-	// Flags field of ContactsGetTopPeersRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Correspondents field of ContactsGetTopPeersRequest.
+	// Users we've chatted most frequently with
 	Correspondents bool
-	// BotsPm field of ContactsGetTopPeersRequest.
+	// Most used bots
 	BotsPm bool
-	// BotsInline field of ContactsGetTopPeersRequest.
+	// Most used inline bots
 	BotsInline bool
-	// PhoneCalls field of ContactsGetTopPeersRequest.
+	// Most frequently called users
 	PhoneCalls bool
-	// ForwardUsers field of ContactsGetTopPeersRequest.
+	// Users to which the users often forwards messages to
 	ForwardUsers bool
-	// ForwardChats field of ContactsGetTopPeersRequest.
+	// Chats to which the users often forwards messages to
 	ForwardChats bool
-	// Groups field of ContactsGetTopPeersRequest.
+	// Often-opened groups and supergroups
 	Groups bool
-	// Channels field of ContactsGetTopPeersRequest.
+	// Most frequently visited channels
 	Channels bool
-	// Offset field of ContactsGetTopPeersRequest.
+	// Offset for pagination
 	Offset int
-	// Limit field of ContactsGetTopPeersRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
-	// Hash field of ContactsGetTopPeersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -186,6 +187,7 @@ var (
 )
 
 // ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.
+// Get most used peers
 //
 // See https://core.telegram.org/method/contacts.getTopPeers for reference.
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {

@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#46578472`.
+// Get unread messages where we were mentioned
 //
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 type MessagesGetUnreadMentionsRequest struct {
-	// Peer field of MessagesGetUnreadMentionsRequest.
+	// Peer where to look for mentions
 	Peer InputPeerClass
-	// OffsetID field of MessagesGetUnreadMentionsRequest.
+	// Offsets for pagination, for more info click here
 	OffsetID int
-	// AddOffset field of MessagesGetUnreadMentionsRequest.
+	// Offsets for pagination, for more info click here
 	AddOffset int
-	// Limit field of MessagesGetUnreadMentionsRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
-	// MaxID field of MessagesGetUnreadMentionsRequest.
+	// Maximum message ID to return, see pagination
 	MaxID int
-	// MinID field of MessagesGetUnreadMentionsRequest.
+	// Minimum message ID to return, see pagination
 	MinID int
 }
 
@@ -115,6 +116,7 @@ var (
 )
 
 // MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
+// Get unread messages where we were mentioned
 //
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 func (c *Client) MessagesGetUnreadMentions(ctx context.Context, request *MessagesGetUnreadMentionsRequest) (MessagesMessagesClass, error) {

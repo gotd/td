@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesFoundStickerSetsNotModified represents TL type `messages.foundStickerSetsNotModified#d54b65d`.
+// No further results were found
 //
 // See https://core.telegram.org/constructor/messages.foundStickerSetsNotModified for reference.
 type MessagesFoundStickerSetsNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // MessagesFoundStickerSets represents TL type `messages.foundStickerSets#5108d648`.
+// Found stickersets
 //
 // See https://core.telegram.org/constructor/messages.foundStickerSets for reference.
 type MessagesFoundStickerSets struct {
-	// Hash field of MessagesFoundStickerSets.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Sets field of MessagesFoundStickerSets.
+	// Found stickersets
 	Sets []StickerSetCoveredClass
 }
 

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PeerLocated represents TL type `peerLocated#ca461b5d`.
+// Peer geolocated nearby
 //
 // See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
-	// Peer field of PeerLocated.
+	// Peer
 	Peer PeerClass
-	// Expires field of PeerLocated.
+	// Validity period of current data
 	Expires int
-	// Distance field of PeerLocated.
+	// Distance from the peer in meters
 	Distance int
 }
 
@@ -90,10 +91,11 @@ var (
 )
 
 // PeerSelfLocated represents TL type `peerSelfLocated#f8ec284b`.
+// Current peer
 //
 // See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
-	// Expires field of PeerSelfLocated.
+	// Expiry of geolocation info for current peer
 	Expires int
 }
 

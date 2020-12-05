@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsResetTopPeerRatingRequest represents TL type `contacts.resetTopPeerRating#1ae373ac`.
+// Reset rating of top peer
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 type ContactsResetTopPeerRatingRequest struct {
-	// Category field of ContactsResetTopPeerRatingRequest.
+	// Top peer category
 	Category TopPeerCategoryClass
-	// Peer field of ContactsResetTopPeerRatingRequest.
+	// Peer whose rating should be reset
 	Peer InputPeerClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // ContactsResetTopPeerRating invokes method contacts.resetTopPeerRating#1ae373ac returning error if any.
+// Reset rating of top peer
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 func (c *Client) ContactsResetTopPeerRating(ctx context.Context, request *ContactsResetTopPeerRatingRequest) (BoolClass, error) {

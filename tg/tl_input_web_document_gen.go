@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWebDocument represents TL type `inputWebDocument#9bed434d`.
+// The document
 //
 // See https://core.telegram.org/constructor/inputWebDocument for reference.
 type InputWebDocument struct {
-	// URL field of InputWebDocument.
+	// Remote document URL to be downloaded using the appropriate method
 	URL string
-	// Size field of InputWebDocument.
+	// Remote file size
 	Size int
-	// MimeType field of InputWebDocument.
+	// Mime type
 	MimeType string
-	// Attributes field of InputWebDocument.
+	// Attributes for media types
 	Attributes []DocumentAttributeClass
 }
 

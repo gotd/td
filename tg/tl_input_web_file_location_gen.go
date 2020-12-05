@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
+// Location of a remote HTTP(s) file
 //
 // See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
-	// URL field of InputWebFileLocation.
+	// HTTP URL of file
 	URL string
-	// AccessHash field of InputWebFileLocation.
+	// Access hash
 	AccessHash int64
 }
 
@@ -75,20 +76,21 @@ var (
 )
 
 // InputWebFileGeoPointLocation represents TL type `inputWebFileGeoPointLocation#9f2221c9`.
+// Geolocation
 //
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
-	// GeoPoint field of InputWebFileGeoPointLocation.
+	// Geolocation
 	GeoPoint InputGeoPointClass
-	// AccessHash field of InputWebFileGeoPointLocation.
+	// Access hash
 	AccessHash int64
-	// W field of InputWebFileGeoPointLocation.
+	// Map width in pixels before applying scale; 16-1024
 	W int
-	// H field of InputWebFileGeoPointLocation.
+	// Map height in pixels before applying scale; 16-1024
 	H int
-	// Zoom field of InputWebFileGeoPointLocation.
+	// Map zoom level; 13-20
 	Zoom int
-	// Scale field of InputWebFileGeoPointLocation.
+	// Map scale; 1-3
 	Scale int
 }
 

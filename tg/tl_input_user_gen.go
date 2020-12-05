@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputUserEmpty represents TL type `inputUserEmpty#b98886cf`.
+// Empty constructor, does not define a user.
 //
 // See https://core.telegram.org/constructor/inputUserEmpty for reference.
 type InputUserEmpty struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // InputUserSelf represents TL type `inputUserSelf#f7c1b13f`.
+// Defines the current user.
 //
 // See https://core.telegram.org/constructor/inputUserSelf for reference.
 type InputUserSelf struct {
@@ -95,12 +97,13 @@ var (
 )
 
 // InputUser represents TL type `inputUser#d8292816`.
+// Defines a user for further interaction.
 //
 // See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
-	// UserID field of InputUser.
+	// User identifier
 	UserID int
-	// AccessHash field of InputUser.
+	// access_hash value from the user constructor
 	AccessHash int64
 }
 
@@ -155,14 +158,15 @@ var (
 )
 
 // InputUserFromMessage represents TL type `inputUserFromMessage#2d117597`.
+// Defines a min user that was seen in a certain message of a certain chat.
 //
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
-	// Peer field of InputUserFromMessage.
+	// The chat where the user was seen
 	Peer InputPeerClass
-	// MsgID field of InputUserFromMessage.
+	// The message ID
 	MsgID int
-	// UserID field of InputUserFromMessage.
+	// The identifier of the user that was seen
 	UserID int
 }
 

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsSetDiscussionGroupRequest represents TL type `channels.setDiscussionGroup#40582bb2`.
+// Associate a group to a channel as discussion group for that channel
 //
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
-	// Broadcast field of ChannelsSetDiscussionGroupRequest.
+	// Channel
 	Broadcast InputChannelClass
-	// Group field of ChannelsSetDiscussionGroupRequest.
+	// Discussion group to associate to the channel
 	Group InputChannelClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // ChannelsSetDiscussionGroup invokes method channels.setDiscussionGroup#40582bb2 returning error if any.
+// Associate a group to a channel as discussion group for that channel
 //
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 func (c *Client) ChannelsSetDiscussionGroup(ctx context.Context, request *ChannelsSetDiscussionGroupRequest) (BoolClass, error) {

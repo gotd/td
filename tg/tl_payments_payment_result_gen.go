@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsPaymentResult represents TL type `payments.paymentResult#4e5f810d`.
+// Payment result
 //
 // See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
-	// Updates field of PaymentsPaymentResult.
+	// Info about the payment
 	Updates UpdatesClass
 }
 
@@ -70,10 +71,11 @@ var (
 )
 
 // PaymentsPaymentVerificationNeeded represents TL type `payments.paymentVerificationNeeded#d8411139`.
+// Payment was not successful, additional verification is needed
 //
 // See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
-	// URL field of PaymentsPaymentVerificationNeeded.
+	// URL for additional payment credentials verification
 	URL string
 }
 

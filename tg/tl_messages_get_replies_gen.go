@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRepliesRequest represents TL type `messages.getReplies#24b581ba`.
+// Get messages in a reply thread
 //
 // See https://core.telegram.org/method/messages.getReplies for reference.
 type MessagesGetRepliesRequest struct {
-	// Peer field of MessagesGetRepliesRequest.
+	// Peer
 	Peer InputPeerClass
-	// MsgID field of MessagesGetRepliesRequest.
+	// Message ID
 	MsgID int
-	// OffsetID field of MessagesGetRepliesRequest.
+	// Offsets for pagination, for more info click here
 	OffsetID int
-	// OffsetDate field of MessagesGetRepliesRequest.
+	// Offsets for pagination, for more info click here
 	OffsetDate int
-	// AddOffset field of MessagesGetRepliesRequest.
+	// Offsets for pagination, for more info click here
 	AddOffset int
-	// Limit field of MessagesGetRepliesRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
-	// MaxID field of MessagesGetRepliesRequest.
+	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
 	MaxID int
-	// MinID field of MessagesGetRepliesRequest.
+	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
 	MinID int
-	// Hash field of MessagesGetRepliesRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -145,6 +146,7 @@ var (
 )
 
 // MessagesGetReplies invokes method messages.getReplies#24b581ba returning error if any.
+// Get messages in a reply thread
 //
 // See https://core.telegram.org/method/messages.getReplies for reference.
 func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
+// Unknown t.me url
 //
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
-	// URL field of RecentMeUrlUnknown.
+	// URL
 	URL string
 }
 
@@ -65,12 +66,13 @@ var (
 )
 
 // RecentMeUrlUser represents TL type `recentMeUrlUser#8dbc3336`.
+// Recent t.me link to a user
 //
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
-	// URL field of RecentMeUrlUser.
+	// URL
 	URL string
-	// UserID field of RecentMeUrlUser.
+	// User ID
 	UserID int
 }
 
@@ -125,12 +127,13 @@ var (
 )
 
 // RecentMeUrlChat represents TL type `recentMeUrlChat#a01b22f9`.
+// Recent t.me link to a chat
 //
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
-	// URL field of RecentMeUrlChat.
+	// t.me URL
 	URL string
-	// ChatID field of RecentMeUrlChat.
+	// Chat ID
 	ChatID int
 }
 
@@ -185,12 +188,13 @@ var (
 )
 
 // RecentMeUrlChatInvite represents TL type `recentMeUrlChatInvite#eb49081d`.
+// Recent t.me invite link to a chat
 //
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
-	// URL field of RecentMeUrlChatInvite.
+	// t.me URL
 	URL string
-	// ChatInvite field of RecentMeUrlChatInvite.
+	// Chat invitation
 	ChatInvite ChatInviteClass
 }
 
@@ -250,12 +254,13 @@ var (
 )
 
 // RecentMeUrlStickerSet represents TL type `recentMeUrlStickerSet#bc0a57dc`.
+// Recent t.me stickerset installation URL
 //
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
-	// URL field of RecentMeUrlStickerSet.
+	// t.me URL
 	URL string
-	// Set field of RecentMeUrlStickerSet.
+	// Stickerset
 	Set StickerSetCoveredClass
 }
 

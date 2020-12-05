@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageMediaEmpty represents TL type `messageMediaEmpty#3ded6320`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/messageMediaEmpty for reference.
 type MessageMediaEmpty struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // MessageMediaPhoto represents TL type `messageMediaPhoto#695150d7`.
+// Attached photo.
 //
 // See https://core.telegram.org/constructor/messageMediaPhoto for reference.
 type MessageMediaPhoto struct {
-	// Flags field of MessageMediaPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Photo field of MessageMediaPhoto.
+	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo PhotoClass
-	// TTLSeconds field of MessageMediaPhoto.
+	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -168,10 +170,11 @@ var (
 )
 
 // MessageMediaGeo represents TL type `messageMediaGeo#56e0d474`.
+// Attached map.
 //
 // See https://core.telegram.org/constructor/messageMediaGeo for reference.
 type MessageMediaGeo struct {
-	// Geo field of MessageMediaGeo.
+	// GeoPoint
 	Geo GeoPointClass
 }
 
@@ -223,18 +226,19 @@ var (
 )
 
 // MessageMediaContact represents TL type `messageMediaContact#cbf24940`.
+// Attached contact.
 //
 // See https://core.telegram.org/constructor/messageMediaContact for reference.
 type MessageMediaContact struct {
-	// PhoneNumber field of MessageMediaContact.
+	// Phone number
 	PhoneNumber string
-	// FirstName field of MessageMediaContact.
+	// Contact's first name
 	FirstName string
-	// LastName field of MessageMediaContact.
+	// Contact's last name
 	LastName string
-	// Vcard field of MessageMediaContact.
+	// VCARD of contact
 	Vcard string
-	// UserID field of MessageMediaContact.
+	// User identifier or 0, if the user with the given phone number is not registered
 	UserID int
 }
 
@@ -313,6 +317,7 @@ var (
 )
 
 // MessageMediaUnsupported represents TL type `messageMediaUnsupported#9f84f49e`.
+// Current version of the client does not support this media type.
 //
 // See https://core.telegram.org/constructor/messageMediaUnsupported for reference.
 type MessageMediaUnsupported struct {
@@ -353,16 +358,17 @@ var (
 )
 
 // MessageMediaDocument represents TL type `messageMediaDocument#9cb070d7`.
+// Document (video, audio, voice, sticker, any media type except photo)
 //
 // See https://core.telegram.org/constructor/messageMediaDocument for reference.
 type MessageMediaDocument struct {
-	// Flags field of MessageMediaDocument.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Document field of MessageMediaDocument.
+	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// TTLSeconds field of MessageMediaDocument.
+	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -466,10 +472,11 @@ var (
 )
 
 // MessageMediaWebPage represents TL type `messageMediaWebPage#a32dd600`.
+// Preview of webpage
 //
 // See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
-	// Webpage field of MessageMediaWebPage.
+	// Webpage preview
 	Webpage WebPageClass
 }
 
@@ -521,20 +528,21 @@ var (
 )
 
 // MessageMediaVenue represents TL type `messageMediaVenue#2ec0533f`.
+// Venue
 //
 // See https://core.telegram.org/constructor/messageMediaVenue for reference.
 type MessageMediaVenue struct {
-	// Geo field of MessageMediaVenue.
+	// Geolocation of venue
 	Geo GeoPointClass
-	// Title field of MessageMediaVenue.
+	// Venue name
 	Title string
-	// Address field of MessageMediaVenue.
+	// Address
 	Address string
-	// Provider field of MessageMediaVenue.
+	// Venue provider: currently only "foursquare" needs to be supported
 	Provider string
-	// VenueID field of MessageMediaVenue.
+	// Venue ID in the provider's database
 	VenueID string
-	// VenueType field of MessageMediaVenue.
+	// Venue type in the provider's database
 	VenueType string
 }
 
@@ -626,10 +634,11 @@ var (
 )
 
 // MessageMediaGame represents TL type `messageMediaGame#fdb19008`.
+// Telegram game
 //
 // See https://core.telegram.org/constructor/messageMediaGame for reference.
 type MessageMediaGame struct {
-	// Game field of MessageMediaGame.
+	// Game
 	Game Game
 }
 
@@ -676,32 +685,33 @@ var (
 )
 
 // MessageMediaInvoice represents TL type `messageMediaInvoice#84551347`.
+// Invoice
 //
 // See https://core.telegram.org/constructor/messageMediaInvoice for reference.
 type MessageMediaInvoice struct {
-	// Flags field of MessageMediaInvoice.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ShippingAddressRequested field of MessageMediaInvoice.
+	// Whether the shipping address was requested
 	ShippingAddressRequested bool
-	// Test field of MessageMediaInvoice.
+	// Whether this is an example invoice
 	Test bool
-	// Title field of MessageMediaInvoice.
+	// Product name, 1-32 characters
 	Title string
-	// Description field of MessageMediaInvoice.
+	// Product description, 1-255 characters
 	Description string
-	// Photo field of MessageMediaInvoice.
+	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// ReceiptMsgID field of MessageMediaInvoice.
+	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy button always attached to the message to a localized version of the word Receipt
 	//
 	// Use SetReceiptMsgID and GetReceiptMsgID helpers.
 	ReceiptMsgID int
-	// Currency field of MessageMediaInvoice.
+	// Three-letter ISO 4217 currency code
 	Currency string
-	// TotalAmount field of MessageMediaInvoice.
+	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	TotalAmount int64
-	// StartParam field of MessageMediaInvoice.
+	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
 }
 
@@ -863,20 +873,21 @@ var (
 )
 
 // MessageMediaGeoLive represents TL type `messageMediaGeoLive#b940c666`.
+// Indicates a live geolocation
 //
 // See https://core.telegram.org/constructor/messageMediaGeoLive for reference.
 type MessageMediaGeoLive struct {
-	// Flags field of MessageMediaGeoLive.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Geo field of MessageMediaGeoLive.
+	// Geolocation
 	Geo GeoPointClass
-	// Heading field of MessageMediaGeoLive.
+	// For live locations, a direction in which the location moves, in degrees; 1-360
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
-	// Period field of MessageMediaGeoLive.
+	// Validity period of provided geolocation
 	Period int
-	// ProximityNotificationRadius field of MessageMediaGeoLive.
+	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -996,12 +1007,13 @@ var (
 )
 
 // MessageMediaPoll represents TL type `messageMediaPoll#4bd6e798`.
+// Poll
 //
 // See https://core.telegram.org/constructor/messageMediaPoll for reference.
 type MessageMediaPoll struct {
-	// Poll field of MessageMediaPoll.
+	// The poll
 	Poll Poll
-	// Results field of MessageMediaPoll.
+	// The results of the poll
 	Results PollResults
 }
 
@@ -1056,12 +1068,13 @@ var (
 )
 
 // MessageMediaDice represents TL type `messageMediaDice#3f7ee58b`.
+// Dice-based animated sticker
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
-	// Value field of MessageMediaDice.
+	// Dice value
 	Value int
-	// Emoticon field of MessageMediaDice.
+	// The emoji, for now ,  and  are supported
 	Emoticon string
 }
 

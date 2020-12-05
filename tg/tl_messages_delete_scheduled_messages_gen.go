@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteScheduledMessagesRequest represents TL type `messages.deleteScheduledMessages#59ae2b16`.
+// Delete scheduled messages
 //
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 type MessagesDeleteScheduledMessagesRequest struct {
-	// Peer field of MessagesDeleteScheduledMessagesRequest.
+	// Peer
 	Peer InputPeerClass
-	// ID field of MessagesDeleteScheduledMessagesRequest.
+	// Scheduled message IDs
 	ID []int
 }
 
@@ -84,6 +85,7 @@ var (
 )
 
 // MessagesDeleteScheduledMessages invokes method messages.deleteScheduledMessages#59ae2b16 returning error if any.
+// Delete scheduled messages
 //
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 func (c *Client) MessagesDeleteScheduledMessages(ctx context.Context, request *MessagesDeleteScheduledMessagesRequest) (UpdatesClass, error) {

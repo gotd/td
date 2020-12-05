@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
+// Type of verification code that will be sent next if you call the resendCode method: SMS code
 //
 // See https://core.telegram.org/constructor/auth.codeTypeSms for reference.
 type AuthCodeTypeSms struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // AuthCodeTypeCall represents TL type `auth.codeTypeCall#741cd3e3`.
+// Type of verification code that will be sent next if you call the resendCode method: SMS code
 //
 // See https://core.telegram.org/constructor/auth.codeTypeCall for reference.
 type AuthCodeTypeCall struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // AuthCodeTypeFlashCall represents TL type `auth.codeTypeFlashCall#226ccefb`.
+// Type of verification code that will be sent next if you call the resendCode method: SMS code
 //
 // See https://core.telegram.org/constructor/auth.codeTypeFlashCall for reference.
 type AuthCodeTypeFlashCall struct {

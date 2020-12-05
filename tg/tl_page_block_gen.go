@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageBlockUnsupported represents TL type `pageBlockUnsupported#13567e8a`.
+// Unsupported IV element
 //
 // See https://core.telegram.org/constructor/pageBlockUnsupported for reference.
 type PageBlockUnsupported struct {
@@ -55,10 +56,11 @@ var (
 )
 
 // PageBlockTitle represents TL type `pageBlockTitle#70abc3fd`.
+// Title
 //
 // See https://core.telegram.org/constructor/pageBlockTitle for reference.
 type PageBlockTitle struct {
-	// Text field of PageBlockTitle.
+	// Title
 	Text RichTextClass
 }
 
@@ -110,10 +112,11 @@ var (
 )
 
 // PageBlockSubtitle represents TL type `pageBlockSubtitle#8ffa9a1f`.
+// Subtitle
 //
 // See https://core.telegram.org/constructor/pageBlockSubtitle for reference.
 type PageBlockSubtitle struct {
-	// Text field of PageBlockSubtitle.
+	// Text
 	Text RichTextClass
 }
 
@@ -165,12 +168,13 @@ var (
 )
 
 // PageBlockAuthorDate represents TL type `pageBlockAuthorDate#baafe5e0`.
+// Author and date of creation of article
 //
 // See https://core.telegram.org/constructor/pageBlockAuthorDate for reference.
 type PageBlockAuthorDate struct {
-	// Author field of PageBlockAuthorDate.
+	// Author name
 	Author RichTextClass
-	// PublishedDate field of PageBlockAuthorDate.
+	// Date of pubblication
 	PublishedDate int
 }
 
@@ -230,10 +234,11 @@ var (
 )
 
 // PageBlockHeader represents TL type `pageBlockHeader#bfd064ec`.
+// Page header
 //
 // See https://core.telegram.org/constructor/pageBlockHeader for reference.
 type PageBlockHeader struct {
-	// Text field of PageBlockHeader.
+	// Contents
 	Text RichTextClass
 }
 
@@ -285,10 +290,11 @@ var (
 )
 
 // PageBlockSubheader represents TL type `pageBlockSubheader#f12bb6e1`.
+// Subheader
 //
 // See https://core.telegram.org/constructor/pageBlockSubheader for reference.
 type PageBlockSubheader struct {
-	// Text field of PageBlockSubheader.
+	// Subheader
 	Text RichTextClass
 }
 
@@ -340,10 +346,11 @@ var (
 )
 
 // PageBlockParagraph represents TL type `pageBlockParagraph#467a0766`.
+// A paragraph
 //
 // See https://core.telegram.org/constructor/pageBlockParagraph for reference.
 type PageBlockParagraph struct {
-	// Text field of PageBlockParagraph.
+	// Text
 	Text RichTextClass
 }
 
@@ -395,12 +402,13 @@ var (
 )
 
 // PageBlockPreformatted represents TL type `pageBlockPreformatted#c070d93e`.
+// Preformatted (<pre> text)
 //
 // See https://core.telegram.org/constructor/pageBlockPreformatted for reference.
 type PageBlockPreformatted struct {
-	// Text field of PageBlockPreformatted.
+	// Text
 	Text RichTextClass
-	// Language field of PageBlockPreformatted.
+	// Programming language of preformatted text
 	Language string
 }
 
@@ -460,10 +468,11 @@ var (
 )
 
 // PageBlockFooter represents TL type `pageBlockFooter#48870999`.
+// Page footer
 //
 // See https://core.telegram.org/constructor/pageBlockFooter for reference.
 type PageBlockFooter struct {
-	// Text field of PageBlockFooter.
+	// Contents
 	Text RichTextClass
 }
 
@@ -515,6 +524,7 @@ var (
 )
 
 // PageBlockDivider represents TL type `pageBlockDivider#db20b188`.
+// An empty block separating a page
 //
 // See https://core.telegram.org/constructor/pageBlockDivider for reference.
 type PageBlockDivider struct {
@@ -555,10 +565,11 @@ var (
 )
 
 // PageBlockAnchor represents TL type `pageBlockAnchor#ce0d37b0`.
+// Link to section within the page itself (like <a href="#target">anchor</a>)
 //
 // See https://core.telegram.org/constructor/pageBlockAnchor for reference.
 type PageBlockAnchor struct {
-	// Name field of PageBlockAnchor.
+	// Name of target section
 	Name string
 }
 
@@ -605,10 +616,11 @@ var (
 )
 
 // PageBlockList represents TL type `pageBlockList#e4e88011`.
+// Unordered list of IV blocks
 //
 // See https://core.telegram.org/constructor/pageBlockList for reference.
 type PageBlockList struct {
-	// Items field of PageBlockList.
+	// List of blocks in an IV page
 	Items []PageListItemClass
 }
 
@@ -669,12 +681,13 @@ var (
 )
 
 // PageBlockBlockquote represents TL type `pageBlockBlockquote#263d7c26`.
+// Quote (equivalent to the HTML <blockquote>)
 //
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
-	// Text field of PageBlockBlockquote.
+	// Quote contents
 	Text RichTextClass
-	// Caption field of PageBlockBlockquote.
+	// Caption
 	Caption RichTextClass
 }
 
@@ -739,12 +752,13 @@ var (
 )
 
 // PageBlockPullquote represents TL type `pageBlockPullquote#4f4456d3`.
+// Pullquote
 //
 // See https://core.telegram.org/constructor/pageBlockPullquote for reference.
 type PageBlockPullquote struct {
-	// Text field of PageBlockPullquote.
+	// Text
 	Text RichTextClass
-	// Caption field of PageBlockPullquote.
+	// Caption
 	Caption RichTextClass
 }
 
@@ -809,20 +823,21 @@ var (
 )
 
 // PageBlockPhoto represents TL type `pageBlockPhoto#1759c560`.
+// A photo
 //
 // See https://core.telegram.org/constructor/pageBlockPhoto for reference.
 type PageBlockPhoto struct {
-	// Flags field of PageBlockPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// PhotoID field of PageBlockPhoto.
+	// Photo ID
 	PhotoID int64
-	// Caption field of PageBlockPhoto.
+	// Caption
 	Caption PageCaption
-	// URL field of PageBlockPhoto.
+	// HTTP URL of page the photo leads to when clicked
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// WebpageID field of PageBlockPhoto.
+	// ID of preview of the page the photo leads to when clicked
 	//
 	// Use SetWebpageID and GetWebpageID helpers.
 	WebpageID int64
@@ -937,18 +952,19 @@ var (
 )
 
 // PageBlockVideo represents TL type `pageBlockVideo#7c8fe7b6`.
+// Video
 //
 // See https://core.telegram.org/constructor/pageBlockVideo for reference.
 type PageBlockVideo struct {
-	// Flags field of PageBlockVideo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Autoplay field of PageBlockVideo.
+	// Whether the video is set to autoplay
 	Autoplay bool
-	// Loop field of PageBlockVideo.
+	// Whether the video is set to loop
 	Loop bool
-	// VideoID field of PageBlockVideo.
+	// Video ID
 	VideoID int64
-	// Caption field of PageBlockVideo.
+	// Caption
 	Caption PageCaption
 }
 
@@ -1031,10 +1047,11 @@ var (
 )
 
 // PageBlockCover represents TL type `pageBlockCover#39f23300`.
+// A page cover
 //
 // See https://core.telegram.org/constructor/pageBlockCover for reference.
 type PageBlockCover struct {
-	// Cover field of PageBlockCover.
+	// Cover
 	Cover PageBlockClass
 }
 
@@ -1086,36 +1103,37 @@ var (
 )
 
 // PageBlockEmbed represents TL type `pageBlockEmbed#a8718dc5`.
+// An embedded webpage
 //
 // See https://core.telegram.org/constructor/pageBlockEmbed for reference.
 type PageBlockEmbed struct {
-	// Flags field of PageBlockEmbed.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// FullWidth field of PageBlockEmbed.
+	// Whether the block should be full width
 	FullWidth bool
-	// AllowScrolling field of PageBlockEmbed.
+	// Whether scrolling should be allowed
 	AllowScrolling bool
-	// URL field of PageBlockEmbed.
+	// Web page URL, if available
 	//
 	// Use SetURL and GetURL helpers.
 	URL string
-	// HTML field of PageBlockEmbed.
+	// HTML-markup of the embedded page
 	//
 	// Use SetHTML and GetHTML helpers.
 	HTML string
-	// PosterPhotoID field of PageBlockEmbed.
+	// Poster photo, if available
 	//
 	// Use SetPosterPhotoID and GetPosterPhotoID helpers.
 	PosterPhotoID int64
-	// W field of PageBlockEmbed.
+	// Block width, if known
 	//
 	// Use SetW and GetW helpers.
 	W int
-	// H field of PageBlockEmbed.
+	// Block height, if known
 	//
 	// Use SetH and GetH helpers.
 	H int
-	// Caption field of PageBlockEmbed.
+	// Caption
 	Caption PageCaption
 }
 
@@ -1315,22 +1333,23 @@ var (
 )
 
 // PageBlockEmbedPost represents TL type `pageBlockEmbedPost#f259a80b`.
+// An embedded post
 //
 // See https://core.telegram.org/constructor/pageBlockEmbedPost for reference.
 type PageBlockEmbedPost struct {
-	// URL field of PageBlockEmbedPost.
+	// Web page URL
 	URL string
-	// WebpageID field of PageBlockEmbedPost.
+	// ID of generated webpage preview
 	WebpageID int64
-	// AuthorPhotoID field of PageBlockEmbedPost.
+	// ID of the author's photo
 	AuthorPhotoID int64
-	// Author field of PageBlockEmbedPost.
+	// Author name
 	Author string
-	// Date field of PageBlockEmbedPost.
+	// Creation date
 	Date int
-	// Blocks field of PageBlockEmbedPost.
+	// Post contents
 	Blocks []PageBlockClass
-	// Caption field of PageBlockEmbedPost.
+	// Caption
 	Caption PageCaption
 }
 
@@ -1439,12 +1458,13 @@ var (
 )
 
 // PageBlockCollage represents TL type `pageBlockCollage#65a0fa4d`.
+// Collage of media
 //
 // See https://core.telegram.org/constructor/pageBlockCollage for reference.
 type PageBlockCollage struct {
-	// Items field of PageBlockCollage.
+	// Media elements
 	Items []PageBlockClass
-	// Caption field of PageBlockCollage.
+	// Caption
 	Caption PageCaption
 }
 
@@ -1513,12 +1533,13 @@ var (
 )
 
 // PageBlockSlideshow represents TL type `pageBlockSlideshow#31f9590`.
+// Slideshow
 //
 // See https://core.telegram.org/constructor/pageBlockSlideshow for reference.
 type PageBlockSlideshow struct {
-	// Items field of PageBlockSlideshow.
+	// Slideshow items
 	Items []PageBlockClass
-	// Caption field of PageBlockSlideshow.
+	// Caption
 	Caption PageCaption
 }
 
@@ -1587,10 +1608,11 @@ var (
 )
 
 // PageBlockChannel represents TL type `pageBlockChannel#ef1751b5`.
+// Reference to a telegram channel
 //
 // See https://core.telegram.org/constructor/pageBlockChannel for reference.
 type PageBlockChannel struct {
-	// Channel field of PageBlockChannel.
+	// The channel/supergroup/chat
 	Channel ChatClass
 }
 
@@ -1642,12 +1664,13 @@ var (
 )
 
 // PageBlockAudio represents TL type `pageBlockAudio#804361ea`.
+// Audio
 //
 // See https://core.telegram.org/constructor/pageBlockAudio for reference.
 type PageBlockAudio struct {
-	// AudioID field of PageBlockAudio.
+	// Audio ID (to be fetched from the container page constructor
 	AudioID int64
-	// Caption field of PageBlockAudio.
+	// Audio caption
 	Caption PageCaption
 }
 
@@ -1702,10 +1725,11 @@ var (
 )
 
 // PageBlockKicker represents TL type `pageBlockKicker#1e148390`.
+// Kicker
 //
 // See https://core.telegram.org/constructor/pageBlockKicker for reference.
 type PageBlockKicker struct {
-	// Text field of PageBlockKicker.
+	// Contents
 	Text RichTextClass
 }
 
@@ -1757,18 +1781,19 @@ var (
 )
 
 // PageBlockTable represents TL type `pageBlockTable#bf4dea82`.
+// Table
 //
 // See https://core.telegram.org/constructor/pageBlockTable for reference.
 type PageBlockTable struct {
-	// Flags field of PageBlockTable.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Bordered field of PageBlockTable.
+	// Does the table have a visible border?
 	Bordered bool
-	// Striped field of PageBlockTable.
+	// Is the table striped?
 	Striped bool
-	// Title field of PageBlockTable.
+	// Title
 	Title RichTextClass
-	// Rows field of PageBlockTable.
+	// Table rows
 	Rows []PageTableRow
 }
 
@@ -1867,10 +1892,11 @@ var (
 )
 
 // PageBlockOrderedList represents TL type `pageBlockOrderedList#9a8ae1e1`.
+// Ordered list of IV blocks
 //
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
-	// Items field of PageBlockOrderedList.
+	// List items
 	Items []PageListOrderedItemClass
 }
 
@@ -1931,16 +1957,17 @@ var (
 )
 
 // PageBlockDetails represents TL type `pageBlockDetails#76768bed`.
+// A collapsible details block
 //
 // See https://core.telegram.org/constructor/pageBlockDetails for reference.
 type PageBlockDetails struct {
-	// Flags field of PageBlockDetails.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Open field of PageBlockDetails.
+	// Whether the block is open by default
 	Open bool
-	// Blocks field of PageBlockDetails.
+	// Block contents
 	Blocks []PageBlockClass
-	// Title field of PageBlockDetails.
+	// Always visible heading for the block
 	Title RichTextClass
 }
 
@@ -2032,12 +2059,13 @@ var (
 )
 
 // PageBlockRelatedArticles represents TL type `pageBlockRelatedArticles#16115a96`.
+// Related articles
 //
 // See https://core.telegram.org/constructor/pageBlockRelatedArticles for reference.
 type PageBlockRelatedArticles struct {
-	// Title field of PageBlockRelatedArticles.
+	// Title
 	Title RichTextClass
-	// Articles field of PageBlockRelatedArticles.
+	// Related articles
 	Articles []PageRelatedArticle
 }
 
@@ -2108,18 +2136,19 @@ var (
 )
 
 // PageBlockMap represents TL type `pageBlockMap#a44f3ef6`.
+// A map
 //
 // See https://core.telegram.org/constructor/pageBlockMap for reference.
 type PageBlockMap struct {
-	// Geo field of PageBlockMap.
+	// Location of the map center
 	Geo GeoPointClass
-	// Zoom field of PageBlockMap.
+	// Map zoom level; 13-20
 	Zoom int
-	// W field of PageBlockMap.
+	// Map width in pixels before applying scale; 16-102
 	W int
-	// H field of PageBlockMap.
+	// Map height in pixels before applying scale; 16-1024
 	H int
-	// Caption field of PageBlockMap.
+	// Caption
 	Caption PageCaption
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpInviteText represents TL type `help.inviteText#18cb9f78`.
+// Text of a text message with an invitation to install Telegram.
 //
 // See https://core.telegram.org/constructor/help.inviteText for reference.
 type HelpInviteText struct {
-	// Message field of HelpInviteText.
+	// Text of the message
 	Message string
 }
 

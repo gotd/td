@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesToggleStickerSetsRequest represents TL type `messages.toggleStickerSets#b5052fea`.
+// Apply changes to multiple stickersets
 //
 // See https://core.telegram.org/method/messages.toggleStickerSets for reference.
 type MessagesToggleStickerSetsRequest struct {
-	// Flags field of MessagesToggleStickerSetsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Uninstall field of MessagesToggleStickerSetsRequest.
+	// Uninstall the specified stickersets
 	Uninstall bool
-	// Archive field of MessagesToggleStickerSetsRequest.
+	// Archive the specified stickersets
 	Archive bool
-	// Unarchive field of MessagesToggleStickerSetsRequest.
+	// Unarchive the specified stickersets
 	Unarchive bool
-	// Stickersets field of MessagesToggleStickerSetsRequest.
+	// Stickersets to act upon
 	Stickersets []InputStickerSetClass
 }
 
@@ -120,6 +121,7 @@ var (
 )
 
 // MessagesToggleStickerSets invokes method messages.toggleStickerSets#b5052fea returning error if any.
+// Apply changes to multiple stickersets
 //
 // See https://core.telegram.org/method/messages.toggleStickerSets for reference.
 func (c *Client) MessagesToggleStickerSets(ctx context.Context, request *MessagesToggleStickerSetsRequest) (BoolClass, error) {

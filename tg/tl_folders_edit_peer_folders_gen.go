@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FoldersEditPeerFoldersRequest represents TL type `folders.editPeerFolders#6847d0ab`.
+// Edit peers in peer folder
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 type FoldersEditPeerFoldersRequest struct {
-	// FolderPeers field of FoldersEditPeerFoldersRequest.
+	// New peer list
 	FolderPeers []InputFolderPeer
 }
 
@@ -71,6 +72,7 @@ var (
 )
 
 // FoldersEditPeerFolders invokes method folders.editPeerFolders#6847d0ab returning error if any.
+// Edit peers in peer folder
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 func (c *Client) FoldersEditPeerFolders(ctx context.Context, request *FoldersEditPeerFoldersRequest) (UpdatesClass, error) {

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetNotifyExceptionsRequest represents TL type `account.getNotifyExceptions#53577479`.
+// Returns list of chats with non-default notification settings
 //
 // See https://core.telegram.org/method/account.getNotifyExceptions for reference.
 type AccountGetNotifyExceptionsRequest struct {
-	// Flags field of AccountGetNotifyExceptionsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CompareSound field of AccountGetNotifyExceptionsRequest.
+	// If true, chats with non-default sound will also be returned
 	CompareSound bool
-	// Peer field of AccountGetNotifyExceptionsRequest.
+	// If specified, only chats of the specified category will be returned
 	//
 	// Use SetPeer and GetPeer helpers.
 	Peer InputNotifyPeerClass
@@ -106,6 +107,7 @@ var (
 )
 
 // AccountGetNotifyExceptions invokes method account.getNotifyExceptions#53577479 returning error if any.
+// Returns list of chats with non-default notification settings
 //
 // See https://core.telegram.org/method/account.getNotifyExceptions for reference.
 func (c *Client) AccountGetNotifyExceptions(ctx context.Context, request *AccountGetNotifyExceptionsRequest) (UpdatesClass, error) {

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountAutoDownloadSettings represents TL type `account.autoDownloadSettings#63cacf26`.
+// Media autodownload settings
 //
 // See https://core.telegram.org/constructor/account.autoDownloadSettings for reference.
 type AccountAutoDownloadSettings struct {
-	// Low field of AccountAutoDownloadSettings.
+	// Low data usage preset
 	Low AutoDownloadSettings
-	// Medium field of AccountAutoDownloadSettings.
+	// Medium data usage preset
 	Medium AutoDownloadSettings
-	// High field of AccountAutoDownloadSettings.
+	// High data usage preset
 	High AutoDownloadSettings
 }
 

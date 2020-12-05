@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputMediaEmpty represents TL type `inputMediaEmpty#9664f57f`.
+// Empty media content of a message.
 //
 // See https://core.telegram.org/constructor/inputMediaEmpty for reference.
 type InputMediaEmpty struct {
@@ -55,18 +56,19 @@ var (
 )
 
 // InputMediaUploadedPhoto represents TL type `inputMediaUploadedPhoto#1e287d04`.
+// Photo
 //
 // See https://core.telegram.org/constructor/inputMediaUploadedPhoto for reference.
 type InputMediaUploadedPhoto struct {
-	// Flags field of InputMediaUploadedPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// File field of InputMediaUploadedPhoto.
+	// The uploaded file
 	File InputFileClass
-	// Stickers field of InputMediaUploadedPhoto.
+	// Attached mask stickers
 	//
 	// Use SetStickers and GetStickers helpers.
 	Stickers []InputDocumentClass
-	// TTLSeconds field of InputMediaUploadedPhoto.
+	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -192,14 +194,15 @@ var (
 )
 
 // InputMediaPhoto represents TL type `inputMediaPhoto#b3ba0635`.
+// Forwarded photo
 //
 // See https://core.telegram.org/constructor/inputMediaPhoto for reference.
 type InputMediaPhoto struct {
-	// Flags field of InputMediaPhoto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of InputMediaPhoto.
+	// Photo to be forwarded
 	ID InputPhotoClass
-	// TTLSeconds field of InputMediaPhoto.
+	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -286,10 +289,11 @@ var (
 )
 
 // InputMediaGeoPoint represents TL type `inputMediaGeoPoint#f9c44144`.
+// Map.
 //
 // See https://core.telegram.org/constructor/inputMediaGeoPoint for reference.
 type InputMediaGeoPoint struct {
-	// GeoPoint field of InputMediaGeoPoint.
+	// GeoPoint
 	GeoPoint InputGeoPointClass
 }
 
@@ -341,16 +345,17 @@ var (
 )
 
 // InputMediaContact represents TL type `inputMediaContact#f8ab7dfb`.
+// Phonebook contact
 //
 // See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {
-	// PhoneNumber field of InputMediaContact.
+	// Phone number
 	PhoneNumber string
-	// FirstName field of InputMediaContact.
+	// Contact's first name
 	FirstName string
-	// LastName field of InputMediaContact.
+	// Contact's last name
 	LastName string
-	// Vcard field of InputMediaContact.
+	// Contact vcard
 	Vcard string
 }
 
@@ -421,30 +426,31 @@ var (
 )
 
 // InputMediaUploadedDocument represents TL type `inputMediaUploadedDocument#5b38c6c1`.
+// New document
 //
 // See https://core.telegram.org/constructor/inputMediaUploadedDocument for reference.
 type InputMediaUploadedDocument struct {
-	// Flags field of InputMediaUploadedDocument.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NosoundVideo field of InputMediaUploadedDocument.
+	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
 	NosoundVideo bool
-	// ForceFile field of InputMediaUploadedDocument.
+	// Force the media file to be uploaded as document
 	ForceFile bool
-	// File field of InputMediaUploadedDocument.
+	// The uploaded file
 	File InputFileClass
-	// Thumb field of InputMediaUploadedDocument.
+	// Thumbnail of the document, uploaded as for the file
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputFileClass
-	// MimeType field of InputMediaUploadedDocument.
+	// MIME type of document
 	MimeType string
-	// Attributes field of InputMediaUploadedDocument.
+	// Attributes that specify the type of the document (video, audio, voice, sticker, etc.)
 	Attributes []DocumentAttributeClass
-	// Stickers field of InputMediaUploadedDocument.
+	// Attached stickers
 	//
 	// Use SetStickers and GetStickers helpers.
 	Stickers []InputDocumentClass
-	// TTLSeconds field of InputMediaUploadedDocument.
+	// Time to live in seconds of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -650,14 +656,15 @@ var (
 )
 
 // InputMediaDocument represents TL type `inputMediaDocument#23ab23d2`.
+// Forwarded document
 //
 // See https://core.telegram.org/constructor/inputMediaDocument for reference.
 type InputMediaDocument struct {
-	// Flags field of InputMediaDocument.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ID field of InputMediaDocument.
+	// The document to be forwarded.
 	ID InputDocumentClass
-	// TTLSeconds field of InputMediaDocument.
+	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -744,20 +751,21 @@ var (
 )
 
 // InputMediaVenue represents TL type `inputMediaVenue#c13d1c11`.
+// Can be used to send a venue geolocation.
 //
 // See https://core.telegram.org/constructor/inputMediaVenue for reference.
 type InputMediaVenue struct {
-	// GeoPoint field of InputMediaVenue.
+	// Geolocation
 	GeoPoint InputGeoPointClass
-	// Title field of InputMediaVenue.
+	// Venue name
 	Title string
-	// Address field of InputMediaVenue.
+	// Physical address of the venue
 	Address string
-	// Provider field of InputMediaVenue.
+	// Venue provider: currently only "foursquare" needs to be supported
 	Provider string
-	// VenueID field of InputMediaVenue.
+	// Venue ID in the provider's database
 	VenueID string
-	// VenueType field of InputMediaVenue.
+	// Venue type in the provider's database
 	VenueType string
 }
 
@@ -849,14 +857,15 @@ var (
 )
 
 // InputMediaPhotoExternal represents TL type `inputMediaPhotoExternal#e5bbfe1a`.
+// New photo that will be uploaded by the server using the specified URL
 //
 // See https://core.telegram.org/constructor/inputMediaPhotoExternal for reference.
 type InputMediaPhotoExternal struct {
-	// Flags field of InputMediaPhotoExternal.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// URL field of InputMediaPhotoExternal.
+	// URL of the photo
 	URL string
-	// TTLSeconds field of InputMediaPhotoExternal.
+	// Self-destruct time to live of photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -938,14 +947,15 @@ var (
 )
 
 // InputMediaDocumentExternal represents TL type `inputMediaDocumentExternal#fb52dc99`.
+// Document that will be downloaded by the telegram servers
 //
 // See https://core.telegram.org/constructor/inputMediaDocumentExternal for reference.
 type InputMediaDocumentExternal struct {
-	// Flags field of InputMediaDocumentExternal.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// URL field of InputMediaDocumentExternal.
+	// URL of the document
 	URL string
-	// TTLSeconds field of InputMediaDocumentExternal.
+	// Self-destruct time to live of document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
@@ -1027,10 +1037,11 @@ var (
 )
 
 // InputMediaGame represents TL type `inputMediaGame#d33f43f3`.
+// A game
 //
 // See https://core.telegram.org/constructor/inputMediaGame for reference.
 type InputMediaGame struct {
-	// ID field of InputMediaGame.
+	// The game to forward
 	ID InputGameClass
 }
 
@@ -1082,28 +1093,29 @@ var (
 )
 
 // InputMediaInvoice represents TL type `inputMediaInvoice#f4e096c3`.
+// Generated invoice of a bot payment
 //
 // See https://core.telegram.org/constructor/inputMediaInvoice for reference.
 type InputMediaInvoice struct {
-	// Flags field of InputMediaInvoice.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Title field of InputMediaInvoice.
+	// Product name, 1-32 characters
 	Title string
-	// Description field of InputMediaInvoice.
+	// Product description, 1-255 characters
 	Description string
-	// Photo field of InputMediaInvoice.
+	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo InputWebDocument
-	// Invoice field of InputMediaInvoice.
+	// The actual invoice
 	Invoice Invoice
-	// Payload field of InputMediaInvoice.
+	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
 	Payload []byte
-	// Provider field of InputMediaInvoice.
+	// Payments provider token, obtained via Botfather
 	Provider string
-	// ProviderData field of InputMediaInvoice.
+	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
 	ProviderData DataJSON
-	// StartParam field of InputMediaInvoice.
+	// Start parameter
 	StartParam string
 }
 
@@ -1231,24 +1243,25 @@ var (
 )
 
 // InputMediaGeoLive represents TL type `inputMediaGeoLive#971fa843`.
+// Live geolocation
 //
 // See https://core.telegram.org/constructor/inputMediaGeoLive for reference.
 type InputMediaGeoLive struct {
-	// Flags field of InputMediaGeoLive.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Stopped field of InputMediaGeoLive.
+	// Whether sending of the geolocation was stopped
 	Stopped bool
-	// GeoPoint field of InputMediaGeoLive.
+	// Current geolocation
 	GeoPoint InputGeoPointClass
-	// Heading field of InputMediaGeoLive.
+	// For live locations, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
-	// Period field of InputMediaGeoLive.
+	// Validity period of the current location
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// ProximityNotificationRadius field of InputMediaGeoLive.
+	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -1395,22 +1408,23 @@ var (
 )
 
 // InputMediaPoll represents TL type `inputMediaPoll#f94e5f1`.
+// A poll
 //
 // See https://core.telegram.org/constructor/inputMediaPoll for reference.
 type InputMediaPoll struct {
-	// Flags field of InputMediaPoll.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Poll field of InputMediaPoll.
+	// The poll to send
 	Poll Poll
-	// CorrectAnswers field of InputMediaPoll.
+	// Correct answer IDs (for quiz polls)
 	//
 	// Use SetCorrectAnswers and GetCorrectAnswers helpers.
 	CorrectAnswers [][]byte
-	// Solution field of InputMediaPoll.
+	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
 	Solution string
-	// SolutionEntities field of InputMediaPoll.
+	// Message entities for styled text
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass
@@ -1565,10 +1579,11 @@ var (
 )
 
 // InputMediaDice represents TL type `inputMediaDice#e66fbf7b`.
+// Send a dice-based animated sticker
 //
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
-	// Emoticon field of InputMediaDice.
+	// The emoji, for now ,  and  are supported
 	Emoticon string
 }
 

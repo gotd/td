@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
+// Constructor may be interpreted as a booleanfalse value.
 //
 // See https://core.telegram.org/constructor/boolFalse for reference.
 type BoolFalse struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // BoolTrue represents TL type `boolTrue#997275b5`.
+// The constructor can be interpreted as a booleantrue value.
 //
 // See https://core.telegram.org/constructor/boolTrue for reference.
 type BoolTrue struct {

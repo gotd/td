@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsBlocked represents TL type `contacts.blocked#ade1591`.
+// Full list of blocked users.
 //
 // See https://core.telegram.org/constructor/contacts.blocked for reference.
 type ContactsBlocked struct {
-	// Blocked field of ContactsBlocked.
+	// List of blocked users
 	Blocked []PeerBlocked
-	// Chats field of ContactsBlocked.
+	// Blocked chats
 	Chats []ChatClass
-	// Users field of ContactsBlocked.
+	// List of users
 	Users []UserClass
 }
 
@@ -124,16 +125,17 @@ var (
 )
 
 // ContactsBlockedSlice represents TL type `contacts.blockedSlice#e1664194`.
+// Incomplete list of blocked users.
 //
 // See https://core.telegram.org/constructor/contacts.blockedSlice for reference.
 type ContactsBlockedSlice struct {
-	// Count field of ContactsBlockedSlice.
+	// Total number of elements in the list
 	Count int
-	// Blocked field of ContactsBlockedSlice.
+	// List of blocked users
 	Blocked []PeerBlocked
-	// Chats field of ContactsBlockedSlice.
+	// Blocked chats
 	Chats []ChatClass
-	// Users field of ContactsBlockedSlice.
+	// List of users
 	Users []UserClass
 }
 

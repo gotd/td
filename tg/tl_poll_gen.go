@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Poll represents TL type `poll#86e18161`.
+// Poll
 //
 // See https://core.telegram.org/constructor/poll for reference.
 type Poll struct {
-	// ID field of Poll.
+	// ID of the poll
 	ID int64
-	// Flags field of Poll.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Closed field of Poll.
+	// Whether the poll is closed and doesn't accept any more answers
 	Closed bool
-	// PublicVoters field of Poll.
+	// Whether cast votes are publicly visible to all users (non-anonymous poll)
 	PublicVoters bool
-	// MultipleChoice field of Poll.
+	// Whether multiple options can be chosen as answer
 	MultipleChoice bool
-	// Quiz field of Poll.
+	// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
 	Quiz bool
-	// Question field of Poll.
+	// The question of the poll
 	Question string
-	// Answers field of Poll.
+	// The possible answers, vote using messages.sendVote.
 	Answers []PollAnswer
-	// ClosePeriod field of Poll.
+	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
 	ClosePeriod int
-	// CloseDate field of Poll.
+	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
 	CloseDate int

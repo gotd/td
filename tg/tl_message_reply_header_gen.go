@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageReplyHeader represents TL type `messageReplyHeader#a6d57763`.
+// Message replies and thread information
 //
 // See https://core.telegram.org/constructor/messageReplyHeader for reference.
 type MessageReplyHeader struct {
-	// Flags field of MessageReplyHeader.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ReplyToMsgID field of MessageReplyHeader.
+	// ID of message to which this message is replying
 	ReplyToMsgID int
-	// ReplyToPeerID field of MessageReplyHeader.
+	// For replies sent in channel discussion threads of which the current user is not a member, the discussion group ID
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
 	ReplyToPeerID PeerClass
-	// ReplyToTopID field of MessageReplyHeader.
+	// ID of the message that started this message thread
 	//
 	// Use SetReplyToTopID and GetReplyToTopID helpers.
 	ReplyToTopID int

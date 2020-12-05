@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResetWebAuthorizationsRequest represents TL type `account.resetWebAuthorizations#682d2594`.
+// Reset all active web telegram login sessions
 //
 // See https://core.telegram.org/method/account.resetWebAuthorizations for reference.
 type AccountResetWebAuthorizationsRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AccountResetWebAuthorizations invokes method account.resetWebAuthorizations#682d2594 returning error if any.
+// Reset all active web telegram login sessions
 //
 // See https://core.telegram.org/method/account.resetWebAuthorizations for reference.
 func (c *Client) AccountResetWebAuthorizations(ctx context.Context, request *AccountResetWebAuthorizationsRequest) (BoolClass, error) {

@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageTableCell represents TL type `pageTableCell#34566b6a`.
+// Table cell
 //
 // See https://core.telegram.org/constructor/pageTableCell for reference.
 type PageTableCell struct {
-	// Flags field of PageTableCell.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Header field of PageTableCell.
+	// Is this element part of the column header
 	Header bool
-	// AlignCenter field of PageTableCell.
+	// Horizontally centered block
 	AlignCenter bool
-	// AlignRight field of PageTableCell.
+	// Right-aligned block
 	AlignRight bool
-	// ValignMiddle field of PageTableCell.
+	// Vertically centered block
 	ValignMiddle bool
-	// ValignBottom field of PageTableCell.
+	// Block vertically-alligned to the bottom
 	ValignBottom bool
-	// Text field of PageTableCell.
+	// Content
 	//
 	// Use SetText and GetText helpers.
 	Text RichTextClass
-	// Colspan field of PageTableCell.
+	// For how many columns should this cell extend
 	//
 	// Use SetColspan and GetColspan helpers.
 	Colspan int
-	// Rowspan field of PageTableCell.
+	// For how many rows should this cell extend
 	//
 	// Use SetRowspan and GetRowspan helpers.
 	Rowspan int

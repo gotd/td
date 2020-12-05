@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsLeaveChannelRequest represents TL type `channels.leaveChannel#f836aa95`.
+// Leave a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.leaveChannel for reference.
 type ChannelsLeaveChannelRequest struct {
-	// Channel field of ChannelsLeaveChannelRequest.
+	// Channel/supergroup to leave
 	Channel InputChannelClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // ChannelsLeaveChannel invokes method channels.leaveChannel#f836aa95 returning error if any.
+// Leave a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.leaveChannel for reference.
 func (c *Client) ChannelsLeaveChannel(ctx context.Context, request *ChannelsLeaveChannelRequest) (UpdatesClass, error) {

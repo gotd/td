@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageEmpty represents TL type `messageEmpty#83e5de54`.
+// Empty constructor, non-existent message.
 //
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
-	// ID field of MessageEmpty.
+	// Message identifier
 	ID int
 }
 
@@ -65,90 +66,91 @@ var (
 )
 
 // Message represents TL type `message#58ae39c9`.
+// A message
 //
 // See https://core.telegram.org/constructor/message for reference.
 type Message struct {
-	// Flags field of Message.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Out field of Message.
+	// Is this an outgoing message
 	Out bool
-	// Mentioned field of Message.
+	// Whether we were mentioned in this message
 	Mentioned bool
-	// MediaUnread field of Message.
+	// Whether there are unread media attachments in this message
 	MediaUnread bool
-	// Silent field of Message.
+	// Whether this is a silent message (no notification triggered)
 	Silent bool
-	// Post field of Message.
+	// Whether this is a channel post
 	Post bool
-	// FromScheduled field of Message.
+	// Whether this is a scheduled message
 	FromScheduled bool
-	// Legacy field of Message.
+	// This is a legacy message: it has to be refetched with the new layer
 	Legacy bool
-	// EditHide field of Message.
+	// Whether the message should be shown as not modified to the user, even if an edit date is present
 	EditHide bool
-	// Pinned field of Message.
+	// Whether this message is pinned
 	Pinned bool
-	// ID field of Message.
+	// ID of the message
 	ID int
-	// FromID field of Message.
+	// ID of the sender of the message
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// PeerID field of Message.
+	// Peer ID, the chat where this message was sent
 	PeerID PeerClass
-	// FwdFrom field of Message.
+	// Info about forwarded messages
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
 	FwdFrom MessageFwdHeader
-	// ViaBotID field of Message.
+	// ID of the inline bot that generated the message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
 	ViaBotID int
-	// ReplyTo field of Message.
+	// Reply information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Date field of Message.
+	// Date of the message
 	Date int
-	// Message field of Message.
+	// The message
 	Message string
-	// Media field of Message.
+	// Media attachment
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass
-	// ReplyMarkup field of Message.
+	// Reply markup (bot/inline keyboards)
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Entities field of Message.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Views field of Message.
+	// View count for channel posts
 	//
 	// Use SetViews and GetViews helpers.
 	Views int
-	// Forwards field of Message.
+	// Forward counter
 	//
 	// Use SetForwards and GetForwards helpers.
 	Forwards int
-	// Replies field of Message.
+	// Info about post comments (for channels) or message replies (for groups)
 	//
 	// Use SetReplies and GetReplies helpers.
 	Replies MessageReplies
-	// EditDate field of Message.
+	// Last edit date of this message
 	//
 	// Use SetEditDate and GetEditDate helpers.
 	EditDate int
-	// PostAuthor field of Message.
+	// Name of the author of this message for channel posts (with signatures enabled)
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// GroupedID field of Message.
+	// Multiple media messages sent using messages.sendMultiMedia with the same grouped ID indicate an album or media group
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
 	GroupedID int64
-	// RestrictionReason field of Message.
+	// Contains the reason why access to this message must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
@@ -714,38 +716,39 @@ var (
 )
 
 // MessageService represents TL type `messageService#286fa604`.
+// Indicates a service message
 //
 // See https://core.telegram.org/constructor/messageService for reference.
 type MessageService struct {
-	// Flags field of MessageService.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Out field of MessageService.
+	// Whether the message is outgoing
 	Out bool
-	// Mentioned field of MessageService.
+	// Whether we were mentioned in the message
 	Mentioned bool
-	// MediaUnread field of MessageService.
+	// Whether the message contains unread media
 	MediaUnread bool
-	// Silent field of MessageService.
+	// Whether the message is silent
 	Silent bool
-	// Post field of MessageService.
+	// Whether it's a channel post
 	Post bool
-	// Legacy field of MessageService.
+	// This is a legacy message: it has to be refetched with the new layer
 	Legacy bool
-	// ID field of MessageService.
+	// Message ID
 	ID int
-	// FromID field of MessageService.
+	// ID of the sender of this message
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// PeerID field of MessageService.
+	// Sender of service message
 	PeerID PeerClass
-	// ReplyTo field of MessageService.
+	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Date field of MessageService.
+	// Message date
 	Date int
-	// Action field of MessageService.
+	// Event connected with the service message
 	Action MessageActionClass
 }
 

@@ -15,16 +15,18 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthBindTempAuthKeyRequest represents TL type `auth.bindTempAuthKey#cdd42a05`.
+// Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
+// For more information, see Perfect Forward Secrecy.
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
-	// PermAuthKeyID field of AuthBindTempAuthKeyRequest.
+	// Permanent auth_key_id to bind to
 	PermAuthKeyID int64
-	// Nonce field of AuthBindTempAuthKeyRequest.
+	// Random long from Binding message contents
 	Nonce int64
-	// ExpiresAt field of AuthBindTempAuthKeyRequest.
+	// Unix timestamp to invalidate temporary key, see Binding message contents
 	ExpiresAt int
-	// EncryptedMessage field of AuthBindTempAuthKeyRequest.
+	// See Generating encrypted_message
 	EncryptedMessage []byte
 }
 
@@ -90,6 +92,8 @@ var (
 )
 
 // AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.
+// Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
+// For more information, see Perfect Forward Secrecy.
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (BoolClass, error) {

@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditInlineBotMessageRequest represents TL type `messages.editInlineBotMessage#83557dba`.
+// Edit an inline bot message
 //
 // See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
 type MessagesEditInlineBotMessageRequest struct {
-	// Flags field of MessagesEditInlineBotMessageRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of MessagesEditInlineBotMessageRequest.
+	// Disable webpage preview
 	NoWebpage bool
-	// ID field of MessagesEditInlineBotMessageRequest.
+	// Sent inline message ID
 	ID InputBotInlineMessageID
-	// Message field of MessagesEditInlineBotMessageRequest.
+	// Message
 	//
 	// Use SetMessage and GetMessage helpers.
 	Message string
-	// Media field of MessagesEditInlineBotMessageRequest.
+	// Media
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media InputMediaClass
-	// ReplyMarkup field of MessagesEditInlineBotMessageRequest.
+	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Entities field of MessagesEditInlineBotMessageRequest.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -222,6 +223,7 @@ var (
 )
 
 // MessagesEditInlineBotMessage invokes method messages.editInlineBotMessage#83557dba returning error if any.
+// Edit an inline bot message
 //
 // See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
 func (c *Client) MessagesEditInlineBotMessage(ctx context.Context, request *MessagesEditInlineBotMessageRequest) (BoolClass, error) {

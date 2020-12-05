@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FileLocationToBeDeprecated represents TL type `fileLocationToBeDeprecated#bc7fc6cd`.
+// Indicates the location of a photo, will be deprecated soon
 //
 // See https://core.telegram.org/constructor/fileLocationToBeDeprecated for reference.
 type FileLocationToBeDeprecated struct {
-	// VolumeID field of FileLocationToBeDeprecated.
+	// Volume ID
 	VolumeID int64
-	// LocalID field of FileLocationToBeDeprecated.
+	// Local ID
 	LocalID int
 }
 

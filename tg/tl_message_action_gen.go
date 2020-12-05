@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageActionEmpty represents TL type `messageActionEmpty#b6aef7b0`.
+// Empty constructor.
 //
 // See https://core.telegram.org/constructor/messageActionEmpty for reference.
 type MessageActionEmpty struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // MessageActionChatCreate represents TL type `messageActionChatCreate#a6638b9a`.
+// Group created
 //
 // See https://core.telegram.org/constructor/messageActionChatCreate for reference.
 type MessageActionChatCreate struct {
-	// Title field of MessageActionChatCreate.
+	// Group name
 	Title string
-	// Users field of MessageActionChatCreate.
+	// List of group members
 	Users []int
 }
 
@@ -124,10 +126,11 @@ var (
 )
 
 // MessageActionChatEditTitle represents TL type `messageActionChatEditTitle#b5a1ce5a`.
+// Group name changed.
 //
 // See https://core.telegram.org/constructor/messageActionChatEditTitle for reference.
 type MessageActionChatEditTitle struct {
-	// Title field of MessageActionChatEditTitle.
+	// New group name
 	Title string
 }
 
@@ -174,10 +177,11 @@ var (
 )
 
 // MessageActionChatEditPhoto represents TL type `messageActionChatEditPhoto#7fcb13a8`.
+// Group profile changed
 //
 // See https://core.telegram.org/constructor/messageActionChatEditPhoto for reference.
 type MessageActionChatEditPhoto struct {
-	// Photo field of MessageActionChatEditPhoto.
+	// New group pofile photo
 	Photo PhotoClass
 }
 
@@ -229,6 +233,7 @@ var (
 )
 
 // MessageActionChatDeletePhoto represents TL type `messageActionChatDeletePhoto#95e3fbef`.
+// Group profile photo removed.
 //
 // See https://core.telegram.org/constructor/messageActionChatDeletePhoto for reference.
 type MessageActionChatDeletePhoto struct {
@@ -269,10 +274,11 @@ var (
 )
 
 // MessageActionChatAddUser represents TL type `messageActionChatAddUser#488a7337`.
+// New member in the group
 //
 // See https://core.telegram.org/constructor/messageActionChatAddUser for reference.
 type MessageActionChatAddUser struct {
-	// Users field of MessageActionChatAddUser.
+	// Users that were invited to the chat
 	Users []int
 }
 
@@ -328,10 +334,11 @@ var (
 )
 
 // MessageActionChatDeleteUser represents TL type `messageActionChatDeleteUser#b2ae9b0c`.
+// User left the group.
 //
 // See https://core.telegram.org/constructor/messageActionChatDeleteUser for reference.
 type MessageActionChatDeleteUser struct {
-	// UserID field of MessageActionChatDeleteUser.
+	// Leaving user ID
 	UserID int
 }
 
@@ -378,10 +385,11 @@ var (
 )
 
 // MessageActionChatJoinedByLink represents TL type `messageActionChatJoinedByLink#f89cf5e8`.
+// A user joined the chat via an invite link
 //
 // See https://core.telegram.org/constructor/messageActionChatJoinedByLink for reference.
 type MessageActionChatJoinedByLink struct {
-	// InviterID field of MessageActionChatJoinedByLink.
+	// ID of the user that created the invite link
 	InviterID int
 }
 
@@ -428,10 +436,11 @@ var (
 )
 
 // MessageActionChannelCreate represents TL type `messageActionChannelCreate#95d2ac92`.
+// The channel was created
 //
 // See https://core.telegram.org/constructor/messageActionChannelCreate for reference.
 type MessageActionChannelCreate struct {
-	// Title field of MessageActionChannelCreate.
+	// Original channel/supergroup title
 	Title string
 }
 
@@ -478,10 +487,11 @@ var (
 )
 
 // MessageActionChatMigrateTo represents TL type `messageActionChatMigrateTo#51bdb021`.
+// Indicates the chat was migrated to the specified supergroup
 //
 // See https://core.telegram.org/constructor/messageActionChatMigrateTo for reference.
 type MessageActionChatMigrateTo struct {
-	// ChannelID field of MessageActionChatMigrateTo.
+	// The supergroup it was migrated to
 	ChannelID int
 }
 
@@ -528,12 +538,13 @@ var (
 )
 
 // MessageActionChannelMigrateFrom represents TL type `messageActionChannelMigrateFrom#b055eaee`.
+// Indicates the channel was migrated from the specified chat
 //
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
-	// Title field of MessageActionChannelMigrateFrom.
+	// The old chat tite
 	Title string
-	// ChatID field of MessageActionChannelMigrateFrom.
+	// The old chat ID
 	ChatID int
 }
 
@@ -588,6 +599,7 @@ var (
 )
 
 // MessageActionPinMessage represents TL type `messageActionPinMessage#94bd38ed`.
+// A message was pinned
 //
 // See https://core.telegram.org/constructor/messageActionPinMessage for reference.
 type MessageActionPinMessage struct {
@@ -628,6 +640,7 @@ var (
 )
 
 // MessageActionHistoryClear represents TL type `messageActionHistoryClear#9fbab604`.
+// Chat history was cleared
 //
 // See https://core.telegram.org/constructor/messageActionHistoryClear for reference.
 type MessageActionHistoryClear struct {
@@ -668,12 +681,13 @@ var (
 )
 
 // MessageActionGameScore represents TL type `messageActionGameScore#92a72876`.
+// Someone scored in a game
 //
 // See https://core.telegram.org/constructor/messageActionGameScore for reference.
 type MessageActionGameScore struct {
-	// GameID field of MessageActionGameScore.
+	// Game ID
 	GameID int64
-	// Score field of MessageActionGameScore.
+	// Score
 	Score int
 }
 
@@ -728,26 +742,27 @@ var (
 )
 
 // MessageActionPaymentSentMe represents TL type `messageActionPaymentSentMe#8f31b327`.
+// A user just sent a payment to me (a bot)
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSentMe for reference.
 type MessageActionPaymentSentMe struct {
-	// Flags field of MessageActionPaymentSentMe.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Currency field of MessageActionPaymentSentMe.
+	// Three-letter ISO 4217 currency code
 	Currency string
-	// TotalAmount field of MessageActionPaymentSentMe.
+	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	TotalAmount int64
-	// Payload field of MessageActionPaymentSentMe.
+	// Bot specified invoice payload
 	Payload []byte
-	// Info field of MessageActionPaymentSentMe.
+	// Order info provided by the user
 	//
 	// Use SetInfo and GetInfo helpers.
 	Info PaymentRequestedInfo
-	// ShippingOptionID field of MessageActionPaymentSentMe.
+	// Identifier of the shipping option chosen by the user
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
 	ShippingOptionID string
-	// Charge field of MessageActionPaymentSentMe.
+	// Provider payment identifier
 	Charge PaymentCharge
 }
 
@@ -876,12 +891,13 @@ var (
 )
 
 // MessageActionPaymentSent represents TL type `messageActionPaymentSent#40699cd0`.
+// A payment was sent
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSent for reference.
 type MessageActionPaymentSent struct {
-	// Currency field of MessageActionPaymentSent.
+	// Three-letter ISO 4217 currency code
 	Currency string
-	// TotalAmount field of MessageActionPaymentSent.
+	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	TotalAmount int64
 }
 
@@ -936,20 +952,21 @@ var (
 )
 
 // MessageActionPhoneCall represents TL type `messageActionPhoneCall#80e11a7f`.
+// A phone call
 //
 // See https://core.telegram.org/constructor/messageActionPhoneCall for reference.
 type MessageActionPhoneCall struct {
-	// Flags field of MessageActionPhoneCall.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of MessageActionPhoneCall.
+	// Is this a video call?
 	Video bool
-	// CallID field of MessageActionPhoneCall.
+	// Call ID
 	CallID int64
-	// Reason field of MessageActionPhoneCall.
+	// If the call has ended, the reason why it ended
 	//
 	// Use SetReason and GetReason helpers.
 	Reason PhoneCallDiscardReasonClass
-	// Duration field of MessageActionPhoneCall.
+	// Duration of the call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
 	Duration int
@@ -1071,6 +1088,7 @@ var (
 )
 
 // MessageActionScreenshotTaken represents TL type `messageActionScreenshotTaken#4792929b`.
+// A screenshot of the chat was taken
 //
 // See https://core.telegram.org/constructor/messageActionScreenshotTaken for reference.
 type MessageActionScreenshotTaken struct {
@@ -1111,10 +1129,11 @@ var (
 )
 
 // MessageActionCustomAction represents TL type `messageActionCustomAction#fae69f56`.
+// Custom action (most likely not supported by the current layer, an upgrade might be needed)
 //
 // See https://core.telegram.org/constructor/messageActionCustomAction for reference.
 type MessageActionCustomAction struct {
-	// Message field of MessageActionCustomAction.
+	// Action message
 	Message string
 }
 
@@ -1161,10 +1180,11 @@ var (
 )
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#abe9affe`.
+// The domain name of the website on which the user has logged in. More about Telegram Login »
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
-	// Domain field of MessageActionBotAllowed.
+	// The domain name of the website on which the user has logged in.
 	Domain string
 }
 
@@ -1211,12 +1231,13 @@ var (
 )
 
 // MessageActionSecureValuesSentMe represents TL type `messageActionSecureValuesSentMe#1b287353`.
+// Secure telegram passport values were received
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
-	// Values field of MessageActionSecureValuesSentMe.
+	// Vector with information about documents and other Telegram Passport elements that were shared with the bot
 	Values []SecureValue
-	// Credentials field of MessageActionSecureValuesSentMe.
+	// Encrypted credentials required to decrypt the data
 	Credentials SecureCredentialsEncrypted
 }
 
@@ -1282,10 +1303,11 @@ var (
 )
 
 // MessageActionSecureValuesSent represents TL type `messageActionSecureValuesSent#d95c6154`.
+// Request for secure telegram passport values was sent
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSent for reference.
 type MessageActionSecureValuesSent struct {
-	// Types field of MessageActionSecureValuesSent.
+	// Secure value types
 	Types []SecureValueTypeClass
 }
 
@@ -1346,6 +1368,7 @@ var (
 )
 
 // MessageActionContactSignUp represents TL type `messageActionContactSignUp#f3f25f76`.
+// A contact just signed up to telegram
 //
 // See https://core.telegram.org/constructor/messageActionContactSignUp for reference.
 type MessageActionContactSignUp struct {
@@ -1386,14 +1409,15 @@ var (
 )
 
 // MessageActionGeoProximityReached represents TL type `messageActionGeoProximityReached#98e0d697`.
+// A user of the chat is now in proximity of another user
 //
 // See https://core.telegram.org/constructor/messageActionGeoProximityReached for reference.
 type MessageActionGeoProximityReached struct {
-	// FromID field of MessageActionGeoProximityReached.
+	// The user or chat that is now in proximity of to_id
 	FromID PeerClass
-	// ToID field of MessageActionGeoProximityReached.
+	// The user or chat that subscribed to live geolocation proximity alerts
 	ToID PeerClass
-	// Distance field of MessageActionGeoProximityReached.
+	// Distance, in meters (0-100000)
 	Distance int
 }
 

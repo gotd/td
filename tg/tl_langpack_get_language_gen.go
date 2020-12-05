@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangpackGetLanguageRequest represents TL type `langpack.getLanguage#6a596502`.
+// Get information about a language in a localization pack
 //
 // See https://core.telegram.org/method/langpack.getLanguage for reference.
 type LangpackGetLanguageRequest struct {
-	// LangPack field of LangpackGetLanguageRequest.
+	// Language pack name
 	LangPack string
-	// LangCode field of LangpackGetLanguageRequest.
+	// Language code
 	LangCode string
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // LangpackGetLanguage invokes method langpack.getLanguage#6a596502 returning error if any.
+// Get information about a language in a localization pack
 //
 // See https://core.telegram.org/method/langpack.getLanguage for reference.
 func (c *Client) LangpackGetLanguage(ctx context.Context, request *LangpackGetLanguageRequest) (*LangPackLanguage, error) {

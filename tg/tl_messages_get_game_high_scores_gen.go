@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetGameHighScoresRequest represents TL type `messages.getGameHighScores#e822649d`.
+// Get highscores of a game
 //
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 type MessagesGetGameHighScoresRequest struct {
-	// Peer field of MessagesGetGameHighScoresRequest.
+	// Where was the game sent
 	Peer InputPeerClass
-	// ID field of MessagesGetGameHighScoresRequest.
+	// ID of message with game media attachment
 	ID int
-	// UserID field of MessagesGetGameHighScoresRequest.
+	// Get high scores made by a certain user
 	UserID InputUserClass
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.
+// Get highscores of a game
 //
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {

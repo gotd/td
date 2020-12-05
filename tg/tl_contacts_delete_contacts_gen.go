@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsDeleteContactsRequest represents TL type `contacts.deleteContacts#96a0e00`.
+// Deletes several contacts from the list.
 //
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 type ContactsDeleteContactsRequest struct {
-	// ID field of ContactsDeleteContactsRequest.
+	// User ID list
 	ID []InputUserClass
 }
 
@@ -74,6 +75,7 @@ var (
 )
 
 // ContactsDeleteContacts invokes method contacts.deleteContacts#96a0e00 returning error if any.
+// Deletes several contacts from the list.
 //
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 func (c *Client) ContactsDeleteContacts(ctx context.Context, request *ContactsDeleteContactsRequest) (UpdatesClass, error) {

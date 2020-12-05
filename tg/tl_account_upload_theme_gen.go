@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUploadThemeRequest represents TL type `account.uploadTheme#1c3db333`.
+// Upload theme
 //
 // See https://core.telegram.org/method/account.uploadTheme for reference.
 type AccountUploadThemeRequest struct {
-	// Flags field of AccountUploadThemeRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// File field of AccountUploadThemeRequest.
+	// Theme file uploaded as described in files »
 	File InputFileClass
-	// Thumb field of AccountUploadThemeRequest.
+	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
 	Thumb InputFileClass
-	// FileName field of AccountUploadThemeRequest.
+	// File name
 	FileName string
-	// MimeType field of AccountUploadThemeRequest.
+	// MIME type, must be application/x-tgtheme-{format}, where format depends on the client
 	MimeType string
 }
 
@@ -129,6 +130,7 @@ var (
 )
 
 // AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.
+// Upload theme
 //
 // See https://core.telegram.org/method/account.uploadTheme for reference.
 func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {

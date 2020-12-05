@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#edd923c5`.
+// Cancels a request for creation and/or delete info on secret chat.
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
-	// ChatID field of MessagesDiscardEncryptionRequest.
+	// Secret chat ID
 	ChatID int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesDiscardEncryption invokes method messages.discardEncryption#edd923c5 returning error if any.
+// Cancels a request for creation and/or delete info on secret chat.
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (BoolClass, error) {

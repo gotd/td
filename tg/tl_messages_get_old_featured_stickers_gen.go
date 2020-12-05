@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetOldFeaturedStickersRequest represents TL type `messages.getOldFeaturedStickers#5fe7025b`.
+// Method for fetching previously featured stickers
 //
 // See https://core.telegram.org/method/messages.getOldFeaturedStickers for reference.
 type MessagesGetOldFeaturedStickersRequest struct {
-	// Offset field of MessagesGetOldFeaturedStickersRequest.
+	// Offset
 	Offset int
-	// Limit field of MessagesGetOldFeaturedStickersRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
-	// Hash field of MessagesGetOldFeaturedStickersRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // MessagesGetOldFeaturedStickers invokes method messages.getOldFeaturedStickers#5fe7025b returning error if any.
+// Method for fetching previously featured stickers
 //
 // See https://core.telegram.org/method/messages.getOldFeaturedStickers for reference.
 func (c *Client) MessagesGetOldFeaturedStickers(ctx context.Context, request *MessagesGetOldFeaturedStickersRequest) (MessagesFeaturedStickersClass, error) {

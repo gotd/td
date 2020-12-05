@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#4bc6589a`.
+// Search for messages and peers globally
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.
 type MessagesSearchGlobalRequest struct {
-	// Flags field of MessagesSearchGlobalRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// FolderID field of MessagesSearchGlobalRequest.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// Q field of MessagesSearchGlobalRequest.
+	// Query
 	Q string
-	// Filter field of MessagesSearchGlobalRequest.
+	// Global search filter
 	Filter MessagesFilterClass
-	// MinDate field of MessagesSearchGlobalRequest.
+	// If a positive value was specified, the method will return only messages with date bigger than min_date
 	MinDate int
-	// MaxDate field of MessagesSearchGlobalRequest.
+	// If a positive value was transferred, the method will return only messages with date smaller than max_date
 	MaxDate int
-	// OffsetRate field of MessagesSearchGlobalRequest.
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice
 	OffsetRate int
-	// OffsetPeer field of MessagesSearchGlobalRequest.
+	// Offsets for pagination, for more info click here
 	OffsetPeer InputPeerClass
-	// OffsetID field of MessagesSearchGlobalRequest.
+	// Offsets for pagination, for more info click here
 	OffsetID int
-	// Limit field of MessagesSearchGlobalRequest.
+	// Offsets for pagination, for more info click here
 	Limit int
 }
 
@@ -179,6 +180,7 @@ var (
 )
 
 // MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.
+// Search for messages and peers globally
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.
 func (c *Client) MessagesSearchGlobal(ctx context.Context, request *MessagesSearchGlobalRequest) (MessagesMessagesClass, error) {

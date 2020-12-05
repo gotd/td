@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetBotCallbackAnswerRequest represents TL type `messages.getBotCallbackAnswer#9342ca07`.
+// Press an inline callback button and get a callback answer from the bot
 //
 // See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 type MessagesGetBotCallbackAnswerRequest struct {
-	// Flags field of MessagesGetBotCallbackAnswerRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Game field of MessagesGetBotCallbackAnswerRequest.
+	// Whether this is a "play game" button
 	Game bool
-	// Peer field of MessagesGetBotCallbackAnswerRequest.
+	// Where was the inline keyboard sent
 	Peer InputPeerClass
-	// MsgID field of MessagesGetBotCallbackAnswerRequest.
+	// ID of the Message with the inline keyboard
 	MsgID int
-	// Data field of MessagesGetBotCallbackAnswerRequest.
+	// Callback data
 	//
 	// Use SetData and GetData helpers.
 	Data []byte
-	// Password field of MessagesGetBotCallbackAnswerRequest.
+	// For buttons requiring you to verify your identity with your 2FA password, the SRP payload generated using SRP.
 	//
 	// Use SetPassword and GetPassword helpers.
 	Password InputCheckPasswordSRPClass
@@ -160,6 +161,7 @@ var (
 )
 
 // MessagesGetBotCallbackAnswer invokes method messages.getBotCallbackAnswer#9342ca07 returning error if any.
+// Press an inline callback button and get a callback answer from the bot
 //
 // See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 func (c *Client) MessagesGetBotCallbackAnswer(ctx context.Context, request *MessagesGetBotCallbackAnswerRequest) (*MessagesBotCallbackAnswer, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
+// This channel statistics graph must be generated asynchronously using stats.loadAsyncGraph to reduce server load
 //
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
-	// Token field of StatsGraphAsync.
+	// Token to use for fetching the async graph
 	Token string
 }
 
@@ -65,10 +66,11 @@ var (
 )
 
 // StatsGraphError represents TL type `statsGraphError#bedc9822`.
+// An error occurred while generating the statistics graph
 //
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
-	// Error field of StatsGraphError.
+	// The error
 	Error string
 }
 
@@ -115,14 +117,15 @@ var (
 )
 
 // StatsGraph represents TL type `statsGraph#8ea464b6`.
+// Channel statistics graph
 //
 // See https://core.telegram.org/constructor/statsGraph for reference.
 type StatsGraph struct {
-	// Flags field of StatsGraph.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// JSON field of StatsGraph.
+	// Statistics data
 	JSON DataJSON
-	// ZoomToken field of StatsGraph.
+	// Zoom token
 	//
 	// Use SetZoomToken and GetZoomToken helpers.
 	ZoomToken string

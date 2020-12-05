@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpCountryCode represents TL type `help.countryCode#4203c5ef`.
+// Country code and phone number pattern of a specific country
 //
 // See https://core.telegram.org/constructor/help.countryCode for reference.
 type HelpCountryCode struct {
-	// Flags field of HelpCountryCode.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// CountryCode field of HelpCountryCode.
+	// ISO country code
 	CountryCode string
-	// Prefixes field of HelpCountryCode.
+	// Possible phone prefixes
 	//
 	// Use SetPrefixes and GetPrefixes helpers.
 	Prefixes []string
-	// Patterns field of HelpCountryCode.
+	// Phone patterns: for example, XXX XXX XXX
 	//
 	// Use SetPatterns and GetPatterns helpers.
 	Patterns []string

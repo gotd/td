@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UsersGetUsersRequest represents TL type `users.getUsers#d91a548`.
+// Returns basic user info according to their identifiers.
 //
 // See https://core.telegram.org/constructor/users.getUsers for reference.
 type UsersGetUsersRequest struct {
-	// ID field of UsersGetUsersRequest.
+	// List of user identifiers
 	ID []InputUserClass
 }
 

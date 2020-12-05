@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpUserInfoEmpty represents TL type `help.userInfoEmpty#f3ae2eed`.
+// Internal use
 //
 // See https://core.telegram.org/constructor/help.userInfoEmpty for reference.
 type HelpUserInfoEmpty struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // HelpUserInfo represents TL type `help.userInfo#1eb3758`.
+// Internal use
 //
 // See https://core.telegram.org/constructor/help.userInfo for reference.
 type HelpUserInfo struct {
-	// Message field of HelpUserInfo.
+	// Info
 	Message string
-	// Entities field of HelpUserInfo.
+	// Message entities for styled text
 	Entities []MessageEntityClass
-	// Author field of HelpUserInfo.
+	// Author
 	Author string
-	// Date field of HelpUserInfo.
+	// Date
 	Date int
 }
 

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ShippingOption represents TL type `shippingOption#b6213cdf`.
+// Shipping option
 //
 // See https://core.telegram.org/constructor/shippingOption for reference.
 type ShippingOption struct {
-	// ID field of ShippingOption.
+	// Option ID
 	ID string
-	// Title field of ShippingOption.
+	// Title
 	Title string
-	// Prices field of ShippingOption.
+	// List of price portions
 	Prices []LabeledPrice
 }
 

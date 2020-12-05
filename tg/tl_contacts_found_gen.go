@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsFound represents TL type `contacts.found#b3134d9d`.
+// Users found by name substring and auxiliary data.
 //
 // See https://core.telegram.org/constructor/contacts.found for reference.
 type ContactsFound struct {
-	// MyResults field of ContactsFound.
+	// Personalized results
 	MyResults []PeerClass
-	// Results field of ContactsFound.
+	// List of found user identifiers
 	Results []PeerClass
-	// Chats field of ContactsFound.
+	// Found chats
 	Chats []ChatClass
-	// Users field of ContactsFound.
+	// List of users
 	Users []UserClass
 }
 

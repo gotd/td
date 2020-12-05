@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureFileEmpty represents TL type `secureFileEmpty#64199744`.
+// Empty constructor
 //
 // See https://core.telegram.org/constructor/secureFileEmpty for reference.
 type SecureFileEmpty struct {
@@ -55,22 +56,23 @@ var (
 )
 
 // SecureFile represents TL type `secureFile#e0277a62`.
+// Secure passport file, for more info see the passport docs »
 //
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
-	// ID field of SecureFile.
+	// ID
 	ID int64
-	// AccessHash field of SecureFile.
+	// Access hash
 	AccessHash int64
-	// Size field of SecureFile.
+	// File size
 	Size int
-	// DCID field of SecureFile.
+	// DC ID
 	DCID int
-	// Date field of SecureFile.
+	// Date of upload
 	Date int
-	// FileHash field of SecureFile.
+	// File hash
 	FileHash []byte
-	// Secret field of SecureFile.
+	// Secret
 	Secret []byte
 }
 

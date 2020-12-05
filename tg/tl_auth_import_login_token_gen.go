@@ -15,10 +15,12 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
+// Login using a redirected login token, generated in case of DC mismatch during QR code login.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
-	// Token field of AuthImportLoginTokenRequest.
+	// Login token
 	Token []byte
 }
 
@@ -60,6 +62,8 @@ var (
 )
 
 // AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.
+// Login using a redirected login token, generated in case of DC mismatch during QR code login.
+// For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 func (c *Client) AuthImportLoginToken(ctx context.Context, request *AuthImportLoginTokenRequest) (AuthLoginTokenClass, error) {

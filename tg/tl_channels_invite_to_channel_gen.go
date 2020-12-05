@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsInviteToChannelRequest represents TL type `channels.inviteToChannel#199f3a6c`.
+// Invite users to a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 type ChannelsInviteToChannelRequest struct {
-	// Channel field of ChannelsInviteToChannelRequest.
+	// Channel/supergroup
 	Channel InputChannelClass
-	// Users field of ChannelsInviteToChannelRequest.
+	// Users to invite
 	Users []InputUserClass
 }
 
@@ -89,6 +90,7 @@ var (
 )
 
 // ChannelsInviteToChannel invokes method channels.inviteToChannel#199f3a6c returning error if any.
+// Invite users to a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 func (c *Client) ChannelsInviteToChannel(ctx context.Context, request *ChannelsInviteToChannelRequest) (UpdatesClass, error) {

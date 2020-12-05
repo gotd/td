@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageFwdHeader represents TL type `messageFwdHeader#5f777dce`.
+// Info about a forwarded message
 //
 // See https://core.telegram.org/constructor/messageFwdHeader for reference.
 type MessageFwdHeader struct {
-	// Flags field of MessageFwdHeader.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// FromID field of MessageFwdHeader.
+	// The ID of the user that originally sent the message
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID PeerClass
-	// FromName field of MessageFwdHeader.
+	// The name of the user that originally sent the message
 	//
 	// Use SetFromName and GetFromName helpers.
 	FromName string
-	// Date field of MessageFwdHeader.
+	// When was the message originally sent
 	Date int
-	// ChannelPost field of MessageFwdHeader.
+	// ID of the channel message that was forwarded
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
 	ChannelPost int
-	// PostAuthor field of MessageFwdHeader.
+	// For channels and if signatures are enabled, author of the channel message
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// SavedFromPeer field of MessageFwdHeader.
+	// Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally sent the message
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
 	SavedFromPeer PeerClass
-	// SavedFromMsgID field of MessageFwdHeader.
+	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
 	SavedFromMsgID int
-	// PsaType field of MessageFwdHeader.
+	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
 	PsaType string

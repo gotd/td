@@ -15,36 +15,37 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
+// Represents the rights of a normal user in a supergroup/channel/chat. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
 //
 // See https://core.telegram.org/constructor/chatBannedRights for reference.
 type ChatBannedRights struct {
-	// Flags field of ChatBannedRights.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ViewMessages field of ChatBannedRights.
+	// If set, does not allow a user to view messages in a supergroup/channel/chat
 	ViewMessages bool
-	// SendMessages field of ChatBannedRights.
+	// If set, does not allow a user to send messages in a supergroup/chat
 	SendMessages bool
-	// SendMedia field of ChatBannedRights.
+	// If set, does not allow a user to send any media in a supergroup/chat
 	SendMedia bool
-	// SendStickers field of ChatBannedRights.
+	// If set, does not allow a user to send stickers in a supergroup/chat
 	SendStickers bool
-	// SendGifs field of ChatBannedRights.
+	// If set, does not allow a user to send gifs in a supergroup/chat
 	SendGifs bool
-	// SendGames field of ChatBannedRights.
+	// If set, does not allow a user to send games in a supergroup/chat
 	SendGames bool
-	// SendInline field of ChatBannedRights.
+	// If set, does not allow a user to use inline bots in a supergroup/chat
 	SendInline bool
-	// EmbedLinks field of ChatBannedRights.
+	// If set, does not allow a user to embed links in the messages of a supergroup/chat
 	EmbedLinks bool
-	// SendPolls field of ChatBannedRights.
+	// If set, does not allow a user to send stickers in a supergroup/chat
 	SendPolls bool
-	// ChangeInfo field of ChatBannedRights.
+	// If set, does not allow any user to change the description of a supergroup/chat
 	ChangeInfo bool
-	// InviteUsers field of ChatBannedRights.
+	// If set, does not allow any user to invite users in a supergroup/chat
 	InviteUsers bool
-	// PinMessages field of ChatBannedRights.
+	// If set, does not allow any user to pin messages in a supergroup/chat
 	PinMessages bool
-	// UntilDate field of ChatBannedRights.
+	// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
 	UntilDate int
 }
 

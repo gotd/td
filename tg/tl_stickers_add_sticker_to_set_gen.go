@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
+// Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
-	// Stickerset field of StickersAddStickerToSetRequest.
+	// The stickerset
 	Stickerset InputStickerSetClass
-	// Sticker field of StickersAddStickerToSetRequest.
+	// The sticker
 	Sticker InputStickerSetItem
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
+// Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {

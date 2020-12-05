@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelAdminLogEvent represents TL type `channelAdminLogEvent#3b5a3e40`.
+// Admin log event
 //
 // See https://core.telegram.org/constructor/channelAdminLogEvent for reference.
 type ChannelAdminLogEvent struct {
-	// ID field of ChannelAdminLogEvent.
+	// Event ID
 	ID int64
-	// Date field of ChannelAdminLogEvent.
+	// Date
 	Date int
-	// UserID field of ChannelAdminLogEvent.
+	// User ID
 	UserID int
-	// Action field of ChannelAdminLogEvent.
+	// Action
 	Action ChannelAdminLogEventActionClass
 }
 

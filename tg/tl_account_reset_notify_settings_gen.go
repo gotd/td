@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResetNotifySettingsRequest represents TL type `account.resetNotifySettings#db7e1747`.
+// Resets all notification settings from users and groups.
 //
 // See https://core.telegram.org/method/account.resetNotifySettings for reference.
 type AccountResetNotifySettingsRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AccountResetNotifySettings invokes method account.resetNotifySettings#db7e1747 returning error if any.
+// Resets all notification settings from users and groups.
 //
 // See https://core.telegram.org/method/account.resetNotifySettings for reference.
 func (c *Client) AccountResetNotifySettings(ctx context.Context, request *AccountResetNotifySettingsRequest) (BoolClass, error) {

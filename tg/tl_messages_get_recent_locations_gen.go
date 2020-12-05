@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#bbc45b09`.
+// Get live location history of a certain user
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 type MessagesGetRecentLocationsRequest struct {
-	// Peer field of MessagesGetRecentLocationsRequest.
+	// User
 	Peer InputPeerClass
-	// Limit field of MessagesGetRecentLocationsRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
-	// Hash field of MessagesGetRecentLocationsRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesGetRecentLocations invokes method messages.getRecentLocations#bbc45b09 returning error if any.
+// Get live location history of a certain user
 //
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 func (c *Client) MessagesGetRecentLocations(ctx context.Context, request *MessagesGetRecentLocationsRequest) (MessagesMessagesClass, error) {

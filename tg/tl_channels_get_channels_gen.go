@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetChannelsRequest represents TL type `channels.getChannels#a7f6bbb`.
+// Get info about channels/supergroups
 //
 // See https://core.telegram.org/method/channels.getChannels for reference.
 type ChannelsGetChannelsRequest struct {
-	// ID field of ChannelsGetChannelsRequest.
+	// IDs of channels/supergroups to get info about
 	ID []InputChannelClass
 }
 
@@ -74,6 +75,7 @@ var (
 )
 
 // ChannelsGetChannels invokes method channels.getChannels#a7f6bbb returning error if any.
+// Get info about channels/supergroups
 //
 // See https://core.telegram.org/method/channels.getChannels for reference.
 func (c *Client) ChannelsGetChannels(ctx context.Context, request *ChannelsGetChannelsRequest) (MessagesChatsClass, error) {

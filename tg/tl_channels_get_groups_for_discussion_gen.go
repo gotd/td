@@ -15,6 +15,9 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetGroupsForDiscussionRequest represents TL type `channels.getGroupsForDiscussion#f5dad378`.
+// Get all groups that can be used as discussion groups.
+// Returned legacy group chats must be first upgraded to supergroups before they can be set as a discussion group.
+// To set a returned supergroup as a discussion group, access to its old messages must be enabled using channels.togglePreHistoryHidden, first.
 //
 // See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 type ChannelsGetGroupsForDiscussionRequest struct {
@@ -50,6 +53,9 @@ var (
 )
 
 // ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.
+// Get all groups that can be used as discussion groups.
+// Returned legacy group chats must be first upgraded to supergroups before they can be set as a discussion group.
+// To set a returned supergroup as a discussion group, access to its old messages must be enabled using channels.togglePreHistoryHidden, first.
 //
 // See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
 func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context, request *ChannelsGetGroupsForDiscussionRequest) (MessagesChatsClass, error) {

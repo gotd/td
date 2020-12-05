@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
+// Full list of messages with auxilary data.
 //
 // See https://core.telegram.org/constructor/messages.messages for reference.
 type MessagesMessages struct {
-	// Messages field of MessagesMessages.
+	// List of messages
 	Messages []MessageClass
-	// Chats field of MessagesMessages.
+	// List of chats mentioned in dialogs
 	Chats []ChatClass
-	// Users field of MessagesMessages.
+	// List of users mentioned in messages and chats
 	Users []UserClass
 }
 
@@ -127,28 +128,29 @@ var (
 )
 
 // MessagesMessagesSlice represents TL type `messages.messagesSlice#3a54685e`.
+// Incomplete list of messages and auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.messagesSlice for reference.
 type MessagesMessagesSlice struct {
-	// Flags field of MessagesMessagesSlice.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Inexact field of MessagesMessagesSlice.
+	// If set, indicates that the results may be inexact
 	Inexact bool
-	// Count field of MessagesMessagesSlice.
+	// Total number of messages in the list
 	Count int
-	// NextRate field of MessagesMessagesSlice.
+	// Rate to use in the offset_rate parameter in the next call to messages.searchGlobal
 	//
 	// Use SetNextRate and GetNextRate helpers.
 	NextRate int
-	// OffsetIDOffset field of MessagesMessagesSlice.
+	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
-	// Messages field of MessagesMessagesSlice.
+	// List of messages
 	Messages []MessageClass
-	// Chats field of MessagesMessagesSlice.
+	// List of chats mentioned in messages
 	Chats []ChatClass
-	// Users field of MessagesMessagesSlice.
+	// List of users mentioned in messages and chats
 	Users []UserClass
 }
 
@@ -329,26 +331,27 @@ var (
 )
 
 // MessagesChannelMessages represents TL type `messages.channelMessages#64479808`.
+// Channel messages
 //
 // See https://core.telegram.org/constructor/messages.channelMessages for reference.
 type MessagesChannelMessages struct {
-	// Flags field of MessagesChannelMessages.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Inexact field of MessagesChannelMessages.
+	// If set, returned results may be inexact
 	Inexact bool
-	// Pts field of MessagesChannelMessages.
+	// Event count after generation
 	Pts int
-	// Count field of MessagesChannelMessages.
+	// Total number of results were found server-side (may not be all included here)
 	Count int
-	// OffsetIDOffset field of MessagesChannelMessages.
+	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
-	// Messages field of MessagesChannelMessages.
+	// Found messages
 	Messages []MessageClass
-	// Chats field of MessagesChannelMessages.
+	// Chats
 	Chats []ChatClass
-	// Users field of MessagesChannelMessages.
+	// Users
 	Users []UserClass
 }
 
@@ -512,10 +515,11 @@ var (
 )
 
 // MessagesMessagesNotModified represents TL type `messages.messagesNotModified#74535f21`.
+// No new messages matching the query were found
 //
 // See https://core.telegram.org/constructor/messages.messagesNotModified for reference.
 type MessagesMessagesNotModified struct {
-	// Count field of MessagesMessagesNotModified.
+	// Number of results found server-side by the given query
 	Count int
 }
 

@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
+// Identifies an endpoint that can be used to connect to the other user in a phone call
 //
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
-	// ID field of PhoneConnection.
+	// Endpoint ID
 	ID int64
-	// IP field of PhoneConnection.
+	// IP address of endpoint
 	IP string
-	// Ipv6 field of PhoneConnection.
+	// IPv6 address of endpoint
 	Ipv6 string
-	// Port field of PhoneConnection.
+	// Port ID
 	Port int
-	// PeerTag field of PhoneConnection.
+	// Our peer tag
 	PeerTag []byte
 }
 
@@ -105,26 +106,27 @@ var (
 )
 
 // PhoneConnectionWebrtc represents TL type `phoneConnectionWebrtc#635fe375`.
+// WebRTC connection parameters
 //
 // See https://core.telegram.org/constructor/phoneConnectionWebrtc for reference.
 type PhoneConnectionWebrtc struct {
-	// Flags field of PhoneConnectionWebrtc.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Turn field of PhoneConnectionWebrtc.
+	// Whether this is a TURN endpoint
 	Turn bool
-	// Stun field of PhoneConnectionWebrtc.
+	// Whether this is a STUN endpoint
 	Stun bool
-	// ID field of PhoneConnectionWebrtc.
+	// Endpoint ID
 	ID int64
-	// IP field of PhoneConnectionWebrtc.
+	// IP address
 	IP string
-	// Ipv6 field of PhoneConnectionWebrtc.
+	// IPv6 address
 	Ipv6 string
-	// Port field of PhoneConnectionWebrtc.
+	// Port
 	Port int
-	// Username field of PhoneConnectionWebrtc.
+	// Username
 	Username string
-	// Password field of PhoneConnectionWebrtc.
+	// Password
 	Password string
 }
 

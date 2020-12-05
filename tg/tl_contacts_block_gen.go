@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsBlockRequest represents TL type `contacts.block#68cc1411`.
+// Adds the user to the blacklist.
 //
 // See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
-	// ID field of ContactsBlockRequest.
+	// User ID
 	ID InputPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // ContactsBlock invokes method contacts.block#68cc1411 returning error if any.
+// Adds the user to the blacklist.
 //
 // See https://core.telegram.org/method/contacts.block for reference.
 func (c *Client) ContactsBlock(ctx context.Context, request *ContactsBlockRequest) (BoolClass, error) {

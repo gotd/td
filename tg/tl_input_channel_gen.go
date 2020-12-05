@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputChannelEmpty represents TL type `inputChannelEmpty#ee8c1e86`.
+// Represents the absence of a channel
 //
 // See https://core.telegram.org/constructor/inputChannelEmpty for reference.
 type InputChannelEmpty struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // InputChannel represents TL type `inputChannel#afeb712e`.
+// Represents a channel
 //
 // See https://core.telegram.org/constructor/inputChannel for reference.
 type InputChannel struct {
-	// ChannelID field of InputChannel.
+	// Channel ID
 	ChannelID int
-	// AccessHash field of InputChannel.
+	// Access hash taken from the channel constructor
 	AccessHash int64
 }
 
@@ -115,14 +117,15 @@ var (
 )
 
 // InputChannelFromMessage represents TL type `inputChannelFromMessage#2a286531`.
+// Defines a min channel that was seen in a certain message of a certain chat.
 //
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
-	// Peer field of InputChannelFromMessage.
+	// The chat where the channel was seen
 	Peer InputPeerClass
-	// MsgID field of InputChannelFromMessage.
+	// The message ID in the chat where the channel was seen
 	MsgID int
-	// ChannelID field of InputChannelFromMessage.
+	// The channel ID
 	ChannelID int
 }
 

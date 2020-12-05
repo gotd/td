@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpTermsOfServiceUpdateEmpty represents TL type `help.termsOfServiceUpdateEmpty#e3309f7f`.
+// No changes were made to telegram's terms of service
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdateEmpty for reference.
 type HelpTermsOfServiceUpdateEmpty struct {
-	// Expires field of HelpTermsOfServiceUpdateEmpty.
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate in expires seconds
 	Expires int
 }
 
@@ -65,12 +66,13 @@ var (
 )
 
 // HelpTermsOfServiceUpdate represents TL type `help.termsOfServiceUpdate#28ecf961`.
+// Info about an update of telegram's terms of service. If the terms of service are declined, then the account.deleteAccount method should be called with the reason "Decline ToS update"
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdate for reference.
 type HelpTermsOfServiceUpdate struct {
-	// Expires field of HelpTermsOfServiceUpdate.
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate in expires seconds
 	Expires int
-	// TermsOfService field of HelpTermsOfServiceUpdate.
+	// New terms of service
 	TermsOfService HelpTermsOfService
 }
 

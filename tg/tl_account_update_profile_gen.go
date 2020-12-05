@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateProfileRequest represents TL type `account.updateProfile#78515775`.
+// Updates user profile.
 //
 // See https://core.telegram.org/method/account.updateProfile for reference.
 type AccountUpdateProfileRequest struct {
-	// Flags field of AccountUpdateProfileRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// FirstName field of AccountUpdateProfileRequest.
+	// New user first name
 	//
 	// Use SetFirstName and GetFirstName helpers.
 	FirstName string
-	// LastName field of AccountUpdateProfileRequest.
+	// New user last name
 	//
 	// Use SetLastName and GetLastName helpers.
 	LastName string
-	// About field of AccountUpdateProfileRequest.
+	// New bio
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string
@@ -147,6 +148,7 @@ var (
 )
 
 // AccountUpdateProfile invokes method account.updateProfile#78515775 returning error if any.
+// Updates user profile.
 //
 // See https://core.telegram.org/method/account.updateProfile for reference.
 func (c *Client) AccountUpdateProfile(ctx context.Context, request *AccountUpdateProfileRequest) (UserClass, error) {

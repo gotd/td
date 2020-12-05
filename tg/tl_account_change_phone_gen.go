@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountChangePhoneRequest represents TL type `account.changePhone#70c32edb`.
+// Change the phone number of the current account
 //
 // See https://core.telegram.org/method/account.changePhone for reference.
 type AccountChangePhoneRequest struct {
-	// PhoneNumber field of AccountChangePhoneRequest.
+	// New phone number
 	PhoneNumber string
-	// PhoneCodeHash field of AccountChangePhoneRequest.
+	// Phone code hash received when calling account.sendChangePhoneCode
 	PhoneCodeHash string
-	// PhoneCode field of AccountChangePhoneRequest.
+	// Phone code received when calling account.sendChangePhoneCode
 	PhoneCode string
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // AccountChangePhone invokes method account.changePhone#70c32edb returning error if any.
+// Change the phone number of the current account
 //
 // See https://core.telegram.org/method/account.changePhone for reference.
 func (c *Client) AccountChangePhone(ctx context.Context, request *AccountChangePhoneRequest) (UserClass, error) {

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAddChatUserRequest represents TL type `messages.addChatUser#f9a0aa09`.
+// Adds a user to a chat and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
-	// ChatID field of MessagesAddChatUserRequest.
+	// Chat ID
 	ChatID int
-	// UserID field of MessagesAddChatUserRequest.
+	// User ID to be added
 	UserID InputUserClass
-	// FwdLimit field of MessagesAddChatUserRequest.
+	// Number of last messages to be forwarded
 	FwdLimit int
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.
+// Adds a user to a chat and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 func (c *Client) MessagesAddChatUser(ctx context.Context, request *MessagesAddChatUserRequest) (UpdatesClass, error) {

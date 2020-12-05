@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
+// Answer an inline query, for bots only
 //
 // See https://core.telegram.org/method/messages.setInlineBotResults for reference.
 type MessagesSetInlineBotResultsRequest struct {
-	// Flags field of MessagesSetInlineBotResultsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Gallery field of MessagesSetInlineBotResultsRequest.
+	// Set this flag if the results are composed of media files
 	Gallery bool
-	// Private field of MessagesSetInlineBotResultsRequest.
+	// Set this flag if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
 	Private bool
-	// QueryID field of MessagesSetInlineBotResultsRequest.
+	// Unique identifier for the answered query
 	QueryID int64
-	// Results field of MessagesSetInlineBotResultsRequest.
+	// Vector of results for the inline query
 	Results []InputBotInlineResultClass
-	// CacheTime field of MessagesSetInlineBotResultsRequest.
+	// The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
 	CacheTime int
-	// NextOffset field of MessagesSetInlineBotResultsRequest.
+	// Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// SwitchPm field of MessagesSetInlineBotResultsRequest.
+	// If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with a certain parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM
@@ -186,6 +187,7 @@ var (
 )
 
 // MessagesSetInlineBotResults invokes method messages.setInlineBotResults#eb5ea206 returning error if any.
+// Answer an inline query, for bots only
 //
 // See https://core.telegram.org/method/messages.setInlineBotResults for reference.
 func (c *Client) MessagesSetInlineBotResults(ctx context.Context, request *MessagesSetInlineBotResultsRequest) (BoolClass, error) {

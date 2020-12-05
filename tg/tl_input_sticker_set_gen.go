@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputStickerSetEmpty represents TL type `inputStickerSetEmpty#ffb62b95`.
+// Empty constructor
 //
 // See https://core.telegram.org/constructor/inputStickerSetEmpty for reference.
 type InputStickerSetEmpty struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // InputStickerSetID represents TL type `inputStickerSetID#9de7a269`.
+// Stickerset by ID
 //
 // See https://core.telegram.org/constructor/inputStickerSetID for reference.
 type InputStickerSetID struct {
-	// ID field of InputStickerSetID.
+	// ID
 	ID int64
-	// AccessHash field of InputStickerSetID.
+	// Access hash
 	AccessHash int64
 }
 
@@ -115,10 +117,11 @@ var (
 )
 
 // InputStickerSetShortName represents TL type `inputStickerSetShortName#861cc8a0`.
+// Stickerset by short name, from tg://addstickers?set=short_name
 //
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
-	// ShortName field of InputStickerSetShortName.
+	// From tg://addstickers?set=short_name
 	ShortName string
 }
 
@@ -165,6 +168,7 @@ var (
 )
 
 // InputStickerSetAnimatedEmoji represents TL type `inputStickerSetAnimatedEmoji#28703c8`.
+// Animated emojis stickerset
 //
 // See https://core.telegram.org/constructor/inputStickerSetAnimatedEmoji for reference.
 type InputStickerSetAnimatedEmoji struct {
@@ -205,10 +209,11 @@ var (
 )
 
 // InputStickerSetDice represents TL type `inputStickerSetDice#e67f520e`.
+// Used for fetching animated dice stickers
 //
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {
-	// Emoticon field of InputStickerSetDice.
+	// The emoji, for now ,  and  are supported
 	Emoticon string
 }
 

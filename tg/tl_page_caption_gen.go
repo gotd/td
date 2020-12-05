@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageCaption represents TL type `pageCaption#6f747657`.
+// Page caption
 //
 // See https://core.telegram.org/constructor/pageCaption for reference.
 type PageCaption struct {
-	// Text field of PageCaption.
+	// Caption
 	Text RichTextClass
-	// Credit field of PageCaption.
+	// Credits
 	Credit RichTextClass
 }
 

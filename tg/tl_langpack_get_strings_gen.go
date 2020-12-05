@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // LangpackGetStringsRequest represents TL type `langpack.getStrings#efea3803`.
+// Get strings from a language pack
 //
 // See https://core.telegram.org/constructor/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
-	// LangPack field of LangpackGetStringsRequest.
+	// Language pack name
 	LangPack string
-	// LangCode field of LangpackGetStringsRequest.
+	// Language code
 	LangCode string
-	// Keys field of LangpackGetStringsRequest.
+	// Strings to get
 	Keys []string
 }
 

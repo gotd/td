@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputBotInlineMessageMediaAuto represents TL type `inputBotInlineMessageMediaAuto#3380c786`.
+// A media
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaAuto for reference.
 type InputBotInlineMessageMediaAuto struct {
-	// Flags field of InputBotInlineMessageMediaAuto.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Message field of InputBotInlineMessageMediaAuto.
+	// Caption
 	Message string
-	// Entities field of InputBotInlineMessageMediaAuto.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ReplyMarkup field of InputBotInlineMessageMediaAuto.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -152,20 +153,21 @@ var (
 )
 
 // InputBotInlineMessageText represents TL type `inputBotInlineMessageText#3dcd7a87`.
+// Simple text message
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageText for reference.
 type InputBotInlineMessageText struct {
-	// Flags field of InputBotInlineMessageText.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of InputBotInlineMessageText.
+	// Disable webpage preview
 	NoWebpage bool
-	// Message field of InputBotInlineMessageText.
+	// Message
 	Message string
-	// Entities field of InputBotInlineMessageText.
+	// Message entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ReplyMarkup field of InputBotInlineMessageText.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -301,26 +303,27 @@ var (
 )
 
 // InputBotInlineMessageMediaGeo represents TL type `inputBotInlineMessageMediaGeo#96929a85`.
+// Geolocation
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaGeo for reference.
 type InputBotInlineMessageMediaGeo struct {
-	// Flags field of InputBotInlineMessageMediaGeo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// GeoPoint field of InputBotInlineMessageMediaGeo.
+	// Geolocation
 	GeoPoint InputGeoPointClass
-	// Heading field of InputBotInlineMessageMediaGeo.
+	// For live locations, a direction in which the location moves, in degrees; 1-360
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
-	// Period field of InputBotInlineMessageMediaGeo.
+	// Validity period
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// ProximityNotificationRadius field of InputBotInlineMessageMediaGeo.
+	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
-	// ReplyMarkup field of InputBotInlineMessageMediaGeo.
+	// Reply markup for bot/inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -487,24 +490,25 @@ var (
 )
 
 // InputBotInlineMessageMediaVenue represents TL type `inputBotInlineMessageMediaVenue#417bbf11`.
+// Venue
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaVenue for reference.
 type InputBotInlineMessageMediaVenue struct {
-	// Flags field of InputBotInlineMessageMediaVenue.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// GeoPoint field of InputBotInlineMessageMediaVenue.
+	// Geolocation
 	GeoPoint InputGeoPointClass
-	// Title field of InputBotInlineMessageMediaVenue.
+	// Venue name
 	Title string
-	// Address field of InputBotInlineMessageMediaVenue.
+	// Address
 	Address string
-	// Provider field of InputBotInlineMessageMediaVenue.
+	// Venue provider: currently only "foursquare" needs to be supported
 	Provider string
-	// VenueID field of InputBotInlineMessageMediaVenue.
+	// Venue ID in the provider's database
 	VenueID string
-	// VenueType field of InputBotInlineMessageMediaVenue.
+	// Venue type in the provider's database
 	VenueType string
-	// ReplyMarkup field of InputBotInlineMessageMediaVenue.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -636,20 +640,21 @@ var (
 )
 
 // InputBotInlineMessageMediaContact represents TL type `inputBotInlineMessageMediaContact#a6edbffd`.
+// A contact
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaContact for reference.
 type InputBotInlineMessageMediaContact struct {
-	// Flags field of InputBotInlineMessageMediaContact.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// PhoneNumber field of InputBotInlineMessageMediaContact.
+	// Phone number
 	PhoneNumber string
-	// FirstName field of InputBotInlineMessageMediaContact.
+	// First name
 	FirstName string
-	// LastName field of InputBotInlineMessageMediaContact.
+	// Last name
 	LastName string
-	// Vcard field of InputBotInlineMessageMediaContact.
+	// VCard info
 	Vcard string
-	// ReplyMarkup field of InputBotInlineMessageMediaContact.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
@@ -760,12 +765,13 @@ var (
 )
 
 // InputBotInlineMessageGame represents TL type `inputBotInlineMessageGame#4b425864`.
+// A game
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageGame for reference.
 type InputBotInlineMessageGame struct {
-	// Flags field of InputBotInlineMessageGame.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ReplyMarkup field of InputBotInlineMessageGame.
+	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactStatus represents TL type `contactStatus#d3680c61`.
+// Contact status: online / offline.
 //
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
-	// UserID field of ContactStatus.
+	// User identifier
 	UserID int
-	// Status field of ContactStatus.
+	// Online status
 	Status UserStatusClass
 }
 

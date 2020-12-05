@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthImportAuthorizationRequest represents TL type `auth.importAuthorization#e3ef9613`.
+// Logs in a user using a key transmitted from his native data-centre.
 //
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 type AuthImportAuthorizationRequest struct {
-	// ID field of AuthImportAuthorizationRequest.
+	// User ID
 	ID int
-	// Bytes field of AuthImportAuthorizationRequest.
+	// Authorization key
 	Bytes []byte
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AuthImportAuthorization invokes method auth.importAuthorization#e3ef9613 returning error if any.
+// Logs in a user using a key transmitted from his native data-centre.
 //
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 func (c *Client) AuthImportAuthorization(ctx context.Context, request *AuthImportAuthorizationRequest) (AuthAuthorizationClass, error) {

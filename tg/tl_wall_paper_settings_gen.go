@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WallPaperSettings represents TL type `wallPaperSettings#5086cf8`.
+// Wallpaper settings
 //
 // See https://core.telegram.org/constructor/wallPaperSettings for reference.
 type WallPaperSettings struct {
-	// Flags field of WallPaperSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Blur field of WallPaperSettings.
+	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
 	Blur bool
-	// Motion field of WallPaperSettings.
+	// If set, the background needs to be slightly moved when device is rotated
 	Motion bool
-	// BackgroundColor field of WallPaperSettings.
+	// If set, a PNG pattern is to be combined with the color chosen by the user: the main color of the background in RGB24 format
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
 	BackgroundColor int
-	// SecondBackgroundColor field of WallPaperSettings.
+	// If set, a PNG pattern is to be combined with the first and second background colors (RGB24 format) in a top-bottom gradient
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
 	SecondBackgroundColor int
-	// Intensity field of WallPaperSettings.
+	// Intensity of the pattern when it is shown above the main background color, 0-100
 	//
 	// Use SetIntensity and GetIntensity helpers.
 	Intensity int
-	// Rotation field of WallPaperSettings.
+	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45
 	//
 	// Use SetRotation and GetRotation helpers.
 	Rotation int

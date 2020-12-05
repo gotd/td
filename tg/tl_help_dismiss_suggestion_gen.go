@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#77fa99f`.
+// Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
-	// Suggestion field of HelpDismissSuggestionRequest.
+	// Suggestion
 	Suggestion string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // HelpDismissSuggestion invokes method help.dismissSuggestion#77fa99f returning error if any.
+// Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (BoolClass, error) {

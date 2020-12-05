@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsClearSavedInfoRequest represents TL type `payments.clearSavedInfo#d83d70c1`.
+// Clear saved payment information
 //
 // See https://core.telegram.org/method/payments.clearSavedInfo for reference.
 type PaymentsClearSavedInfoRequest struct {
-	// Flags field of PaymentsClearSavedInfoRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Credentials field of PaymentsClearSavedInfoRequest.
+	// Remove saved payment credentials
 	Credentials bool
-	// Info field of PaymentsClearSavedInfoRequest.
+	// Clear the last order settings saved by the user
 	Info bool
 }
 
@@ -84,6 +85,7 @@ var (
 )
 
 // PaymentsClearSavedInfo invokes method payments.clearSavedInfo#d83d70c1 returning error if any.
+// Clear saved payment information
 //
 // See https://core.telegram.org/method/payments.clearSavedInfo for reference.
 func (c *Client) PaymentsClearSavedInfo(ctx context.Context, request *PaymentsClearSavedInfoRequest) (BoolClass, error) {

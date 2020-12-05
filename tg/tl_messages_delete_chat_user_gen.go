@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDeleteChatUserRequest represents TL type `messages.deleteChatUser#e0611f16`.
+// Deletes a user from a chat and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
-	// ChatID field of MessagesDeleteChatUserRequest.
+	// Chat ID
 	ChatID int
-	// UserID field of MessagesDeleteChatUserRequest.
+	// User ID to be deleted
 	UserID InputUserClass
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesDeleteChatUser invokes method messages.deleteChatUser#e0611f16 returning error if any.
+// Deletes a user from a chat and sends a service message on it.
 //
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 func (c *Client) MessagesDeleteChatUser(ctx context.Context, request *MessagesDeleteChatUserRequest) (UpdatesClass, error) {

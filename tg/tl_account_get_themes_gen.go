@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetThemesRequest represents TL type `account.getThemes#285946f8`.
+// Get installed themes
 //
 // See https://core.telegram.org/method/account.getThemes for reference.
 type AccountGetThemesRequest struct {
-	// Format field of AccountGetThemesRequest.
+	// Theme format, a string that identifies the theming engines supported by the client
 	Format string
-	// Hash field of AccountGetThemesRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AccountGetThemes invokes method account.getThemes#285946f8 returning error if any.
+// Get installed themes
 //
 // See https://core.telegram.org/method/account.getThemes for reference.
 func (c *Client) AccountGetThemes(ctx context.Context, request *AccountGetThemesRequest) (AccountThemesClass, error) {

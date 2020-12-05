@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateStatusRequest represents TL type `account.updateStatus#6628562c`.
+// Updates online user status.
 //
 // See https://core.telegram.org/method/account.updateStatus for reference.
 type AccountUpdateStatusRequest struct {
-	// Offline field of AccountUpdateStatusRequest.
+	// If (boolTrue) is transmitted, user status will change to (userStatusOffline).
 	Offline bool
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.
+// Updates online user status.
 //
 // See https://core.telegram.org/method/account.updateStatus for reference.
 func (c *Client) AccountUpdateStatus(ctx context.Context, request *AccountUpdateStatusRequest) (BoolClass, error) {

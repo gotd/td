@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
+// Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
 //
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 type ChannelsReportSpamRequest struct {
-	// Channel field of ChannelsReportSpamRequest.
+	// Supergroup
 	Channel InputChannelClass
-	// UserID field of ChannelsReportSpamRequest.
+	// ID of the user that sent the spam messages
 	UserID InputUserClass
-	// ID field of ChannelsReportSpamRequest.
+	// IDs of spam messages
 	ID []int
 }
 
@@ -99,6 +100,7 @@ var (
 )
 
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
+// Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
 //
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (BoolClass, error) {

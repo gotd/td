@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStickersNotModified represents TL type `messages.stickersNotModified#f1749a22`.
+// No new stickers were found for the given query
 //
 // See https://core.telegram.org/constructor/messages.stickersNotModified for reference.
 type MessagesStickersNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // MessagesStickers represents TL type `messages.stickers#e4599bbd`.
+// Found stickers
 //
 // See https://core.telegram.org/constructor/messages.stickers for reference.
 type MessagesStickers struct {
-	// Hash field of MessagesStickers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Stickers field of MessagesStickers.
+	// Stickers
 	Stickers []DocumentClass
 }
 

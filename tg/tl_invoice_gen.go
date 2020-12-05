@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Invoice represents TL type `invoice#c30aa358`.
+// Invoice
 //
 // See https://core.telegram.org/constructor/invoice for reference.
 type Invoice struct {
-	// Flags field of Invoice.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Test field of Invoice.
+	// Test invoice
 	Test bool
-	// NameRequested field of Invoice.
+	// Set this flag if you require the user's full name to complete the order
 	NameRequested bool
-	// PhoneRequested field of Invoice.
+	// Set this flag if you require the user's phone number to complete the order
 	PhoneRequested bool
-	// EmailRequested field of Invoice.
+	// Set this flag if you require the user's email address to complete the order
 	EmailRequested bool
-	// ShippingAddressRequested field of Invoice.
+	// Set this flag if you require the user's shipping address to complete the order
 	ShippingAddressRequested bool
-	// Flexible field of Invoice.
+	// Set this flag if the final price depends on the shipping method
 	Flexible bool
-	// PhoneToProvider field of Invoice.
+	// Set this flag if user's phone number should be sent to provider
 	PhoneToProvider bool
-	// EmailToProvider field of Invoice.
+	// Set this flag if user's email address should be sent to provider
 	EmailToProvider bool
-	// Currency field of Invoice.
+	// Three-letter ISO 4217 currency code
 	Currency string
-	// Prices field of Invoice.
+	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
 	Prices []LabeledPrice
 }
 

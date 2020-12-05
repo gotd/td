@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotsSendCustomRequestRequest represents TL type `bots.sendCustomRequest#aa2769ed`.
+// Sends a custom request; for bots only
 //
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 type BotsSendCustomRequestRequest struct {
-	// CustomMethod field of BotsSendCustomRequestRequest.
+	// The method name
 	CustomMethod string
-	// Params field of BotsSendCustomRequestRequest.
+	// JSON-serialized method parameters
 	Params DataJSON
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // BotsSendCustomRequest invokes method bots.sendCustomRequest#aa2769ed returning error if any.
+// Sends a custom request; for bots only
 //
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 func (c *Client) BotsSendCustomRequest(ctx context.Context, request *BotsSendCustomRequestRequest) (*DataJSON, error) {

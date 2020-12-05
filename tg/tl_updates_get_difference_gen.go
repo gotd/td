@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
+// Get new updates.
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 type UpdatesGetDifferenceRequest struct {
-	// Flags field of UpdatesGetDifferenceRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Pts field of UpdatesGetDifferenceRequest.
+	// PTS, see updates.
 	Pts int
-	// PtsTotalLimit field of UpdatesGetDifferenceRequest.
+	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates.differenceTooLong will be returned.Simply tells the server to not return the difference if it is bigger than pts_total_limitIf the remote pts is too big (> ~4000000), this field will default to 1000000
 	//
 	// Use SetPtsTotalLimit and GetPtsTotalLimit helpers.
 	PtsTotalLimit int
-	// Date field of UpdatesGetDifferenceRequest.
+	// date, see updates.
 	Date int
-	// Qts field of UpdatesGetDifferenceRequest.
+	// QTS, see updates.
 	Qts int
 }
 
@@ -119,6 +120,7 @@ var (
 )
 
 // UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
+// Get new updates.
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {

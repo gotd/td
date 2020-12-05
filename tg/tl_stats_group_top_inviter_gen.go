@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGroupTopInviter represents TL type `statsGroupTopInviter#31962a4c`.
+// Information about an active supergroup inviter
 //
 // See https://core.telegram.org/constructor/statsGroupTopInviter for reference.
 type StatsGroupTopInviter struct {
-	// UserID field of StatsGroupTopInviter.
+	// User ID
 	UserID int
-	// Invitations field of StatsGroupTopInviter.
+	// Number of invitations for statistics period in consideration
 	Invitations int
 }
 

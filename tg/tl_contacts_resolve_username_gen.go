@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsResolveUsernameRequest represents TL type `contacts.resolveUsername#f93ccba3`.
+// Resolve a @username to get peer info
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 type ContactsResolveUsernameRequest struct {
-	// Username field of ContactsResolveUsernameRequest.
+	// @username to resolve
 	Username string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // ContactsResolveUsername invokes method contacts.resolveUsername#f93ccba3 returning error if any.
+// Resolve a @username to get peer info
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 func (c *Client) ContactsResolveUsername(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error) {

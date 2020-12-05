@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthSendCodeRequest represents TL type `auth.sendCode#a677244f`.
+// Send the verification code for login
 //
 // See https://core.telegram.org/method/auth.sendCode for reference.
 type AuthSendCodeRequest struct {
-	// PhoneNumber field of AuthSendCodeRequest.
+	// Phone number in international format
 	PhoneNumber string
-	// APIID field of AuthSendCodeRequest.
+	// Application identifier (see App configuration)
 	APIID int
-	// APIHash field of AuthSendCodeRequest.
+	// Application secret hash (see App configuration)
 	APIHash string
-	// Settings field of AuthSendCodeRequest.
+	// Settings for the code type to send
 	Settings CodeSettings
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // AuthSendCode invokes method auth.sendCode#a677244f returning error if any.
+// Send the verification code for login
 //
 // See https://core.telegram.org/method/auth.sendCode for reference.
 func (c *Client) AuthSendCode(ctx context.Context, request *AuthSendCodeRequest) (*AuthSentCode, error) {

@@ -15,28 +15,29 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountPasswordInputSettings represents TL type `account.passwordInputSettings#c23727c9`.
+// Settings for setting up a new password
 //
 // See https://core.telegram.org/constructor/account.passwordInputSettings for reference.
 type AccountPasswordInputSettings struct {
-	// Flags field of AccountPasswordInputSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NewAlgo field of AccountPasswordInputSettings.
+	// The SRP algorithm to use
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
 	NewAlgo PasswordKdfAlgoClass
-	// NewPasswordHash field of AccountPasswordInputSettings.
+	// The computed password hash
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
 	NewPasswordHash []byte
-	// Hint field of AccountPasswordInputSettings.
+	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
 	Hint string
-	// Email field of AccountPasswordInputSettings.
+	// Password recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
 	Email string
-	// NewSecureSettings field of AccountPasswordInputSettings.
+	// Telegram passport settings
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
 	NewSecureSettings SecureSecretSettings

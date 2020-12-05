@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetHistoryRequest represents TL type `messages.getHistory#dcbb8260`.
+// Gets back the conversation history with one interlocutor / within a chat
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
 type MessagesGetHistoryRequest struct {
-	// Peer field of MessagesGetHistoryRequest.
+	// Target peer
 	Peer InputPeerClass
-	// OffsetID field of MessagesGetHistoryRequest.
+	// Only return messages starting from the specified message ID
 	OffsetID int
-	// OffsetDate field of MessagesGetHistoryRequest.
+	// Only return messages sent before the specified date
 	OffsetDate int
-	// AddOffset field of MessagesGetHistoryRequest.
+	// Number of list elements to be skipped, negative values are also accepted.
 	AddOffset int
-	// Limit field of MessagesGetHistoryRequest.
+	// Number of results to return
 	Limit int
-	// MaxID field of MessagesGetHistoryRequest.
+	// If a positive value was transferred, the method will return only messages with IDs less than max_id
 	MaxID int
-	// MinID field of MessagesGetHistoryRequest.
+	// If a positive value was transferred, the method will return only messages with IDs more than min_id
 	MinID int
-	// Hash field of MessagesGetHistoryRequest.
+	// Result hash
 	Hash int
 }
 
@@ -135,6 +136,7 @@ var (
 )
 
 // MessagesGetHistory invokes method messages.getHistory#dcbb8260 returning error if any.
+// Gets back the conversation history with one interlocutor / within a chat
 //
 // See https://core.telegram.org/method/messages.getHistory for reference.
 func (c *Client) MessagesGetHistory(ctx context.Context, request *MessagesGetHistoryRequest) (MessagesMessagesClass, error) {

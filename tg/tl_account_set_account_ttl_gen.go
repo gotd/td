@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetAccountTTLRequest represents TL type `account.setAccountTTL#2442485e`.
+// Set account self-destruction period
 //
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
 type AccountSetAccountTTLRequest struct {
-	// TTL field of AccountSetAccountTTLRequest.
+	// Time to live in days
 	TTL AccountDaysTTL
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountSetAccountTTL invokes method account.setAccountTTL#2442485e returning error if any.
+// Set account self-destruction period
 //
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
 func (c *Client) AccountSetAccountTTL(ctx context.Context, request *AccountSetAccountTTLRequest) (BoolClass, error) {

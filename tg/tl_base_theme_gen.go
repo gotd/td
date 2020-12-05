@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BaseThemeClassic represents TL type `baseThemeClassic#c3a12462`.
+// Classic theme
 //
 // See https://core.telegram.org/constructor/baseThemeClassic for reference.
 type BaseThemeClassic struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // BaseThemeDay represents TL type `baseThemeDay#fbd81688`.
+// Day theme
 //
 // See https://core.telegram.org/constructor/baseThemeDay for reference.
 type BaseThemeDay struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // BaseThemeNight represents TL type `baseThemeNight#b7b31ea8`.
+// Night theme
 //
 // See https://core.telegram.org/constructor/baseThemeNight for reference.
 type BaseThemeNight struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // BaseThemeTinted represents TL type `baseThemeTinted#6d5f77ee`.
+// Tinted theme
 //
 // See https://core.telegram.org/constructor/baseThemeTinted for reference.
 type BaseThemeTinted struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // BaseThemeArctic represents TL type `baseThemeArctic#5b11125a`.
+// Arctic theme
 //
 // See https://core.telegram.org/constructor/baseThemeArctic for reference.
 type BaseThemeArctic struct {

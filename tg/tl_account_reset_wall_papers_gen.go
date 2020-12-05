@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResetWallPapersRequest represents TL type `account.resetWallPapers#bb3b9804`.
+// Delete installed wallpapers
 //
 // See https://core.telegram.org/method/account.resetWallPapers for reference.
 type AccountResetWallPapersRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // AccountResetWallPapers invokes method account.resetWallPapers#bb3b9804 returning error if any.
+// Delete installed wallpapers
 //
 // See https://core.telegram.org/method/account.resetWallPapers for reference.
 func (c *Client) AccountResetWallPapers(ctx context.Context, request *AccountResetWallPapersRequest) (BoolClass, error) {

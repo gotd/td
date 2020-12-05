@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DocumentAttributeImageSize represents TL type `documentAttributeImageSize#6c37c15c`.
+// Defines the width and height of an image uploaded as document
 //
 // See https://core.telegram.org/constructor/documentAttributeImageSize for reference.
 type DocumentAttributeImageSize struct {
-	// W field of DocumentAttributeImageSize.
+	// Width of image
 	W int
-	// H field of DocumentAttributeImageSize.
+	// Height of image
 	H int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // DocumentAttributeAnimated represents TL type `documentAttributeAnimated#11b58939`.
+// Defines an animated GIF
 //
 // See https://core.telegram.org/constructor/documentAttributeAnimated for reference.
 type DocumentAttributeAnimated struct {
@@ -115,18 +117,19 @@ var (
 )
 
 // DocumentAttributeSticker represents TL type `documentAttributeSticker#6319d612`.
+// Defines a sticker
 //
 // See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
-	// Flags field of DocumentAttributeSticker.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Mask field of DocumentAttributeSticker.
+	// Whether this is a mask sticker
 	Mask bool
-	// Alt field of DocumentAttributeSticker.
+	// Alternative emoji representation of sticker
 	Alt string
-	// Stickerset field of DocumentAttributeSticker.
+	// Associated stickerset
 	Stickerset InputStickerSetClass
-	// MaskCoords field of DocumentAttributeSticker.
+	// Mask coordinates (if this is a mask sticker, attached to a photo)
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
 	MaskCoords MaskCoords
@@ -231,20 +234,21 @@ var (
 )
 
 // DocumentAttributeVideo represents TL type `documentAttributeVideo#ef02ce6`.
+// Defines a video
 //
 // See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
-	// Flags field of DocumentAttributeVideo.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// RoundMessage field of DocumentAttributeVideo.
+	// Whether this is a round video
 	RoundMessage bool
-	// SupportsStreaming field of DocumentAttributeVideo.
+	// Whether the video supports streaming
 	SupportsStreaming bool
-	// Duration field of DocumentAttributeVideo.
+	// Duration in seconds
 	Duration int
-	// W field of DocumentAttributeVideo.
+	// Video width
 	W int
-	// H field of DocumentAttributeVideo.
+	// Video height
 	H int
 }
 
@@ -335,24 +339,25 @@ var (
 )
 
 // DocumentAttributeAudio represents TL type `documentAttributeAudio#9852f9c6`.
+// Represents an audio file
 //
 // See https://core.telegram.org/constructor/documentAttributeAudio for reference.
 type DocumentAttributeAudio struct {
-	// Flags field of DocumentAttributeAudio.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Voice field of DocumentAttributeAudio.
+	// Whether this is a voice message
 	Voice bool
-	// Duration field of DocumentAttributeAudio.
+	// Duration in seconds
 	Duration int
-	// Title field of DocumentAttributeAudio.
+	// Name of song
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Performer field of DocumentAttributeAudio.
+	// Performer
 	//
 	// Use SetPerformer and GetPerformer helpers.
 	Performer string
-	// Waveform field of DocumentAttributeAudio.
+	// Waveform
 	//
 	// Use SetWaveform and GetWaveform helpers.
 	Waveform []byte
@@ -494,10 +499,11 @@ var (
 )
 
 // DocumentAttributeFilename represents TL type `documentAttributeFilename#15590068`.
+// A simple document with a file name
 //
 // See https://core.telegram.org/constructor/documentAttributeFilename for reference.
 type DocumentAttributeFilename struct {
-	// FileName field of DocumentAttributeFilename.
+	// The file name
 	FileName string
 }
 
@@ -544,6 +550,7 @@ var (
 )
 
 // DocumentAttributeHasStickers represents TL type `documentAttributeHasStickers#9801d2f7`.
+// Whether the current document has stickers attached
 //
 // See https://core.telegram.org/constructor/documentAttributeHasStickers for reference.
 type DocumentAttributeHasStickers struct {

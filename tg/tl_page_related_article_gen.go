@@ -15,32 +15,33 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PageRelatedArticle represents TL type `pageRelatedArticle#b390dc08`.
+// Related article
 //
 // See https://core.telegram.org/constructor/pageRelatedArticle for reference.
 type PageRelatedArticle struct {
-	// Flags field of PageRelatedArticle.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// URL field of PageRelatedArticle.
+	// URL of article
 	URL string
-	// WebpageID field of PageRelatedArticle.
+	// Webpage ID of generated IV preview
 	WebpageID int64
-	// Title field of PageRelatedArticle.
+	// Title
 	//
 	// Use SetTitle and GetTitle helpers.
 	Title string
-	// Description field of PageRelatedArticle.
+	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// PhotoID field of PageRelatedArticle.
+	// ID of preview photo
 	//
 	// Use SetPhotoID and GetPhotoID helpers.
 	PhotoID int64
-	// Author field of PageRelatedArticle.
+	// Author name
 	//
 	// Use SetAuthor and GetAuthor helpers.
 	Author string
-	// PublishedDate field of PageRelatedArticle.
+	// Date of pubblication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
 	PublishedDate int

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountUpdateNotifySettingsRequest represents TL type `account.updateNotifySettings#84be5b93`.
+// Edits notification settings from a given user/group, from all users/all groups.
 //
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 type AccountUpdateNotifySettingsRequest struct {
-	// Peer field of AccountUpdateNotifySettingsRequest.
+	// Notification source
 	Peer InputNotifyPeerClass
-	// Settings field of AccountUpdateNotifySettingsRequest.
+	// Notification settings
 	Settings InputPeerNotifySettings
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.
+// Edits notification settings from a given user/group, from all users/all groups.
 //
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 func (c *Client) AccountUpdateNotifySettings(ctx context.Context, request *AccountUpdateNotifySettingsRequest) (BoolClass, error) {

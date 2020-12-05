@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsSearchRequest represents TL type `contacts.search#11f812d8`.
+// Returns users found by username substring.
 //
 // See https://core.telegram.org/method/contacts.search for reference.
 type ContactsSearchRequest struct {
-	// Q field of ContactsSearchRequest.
+	// Target substring
 	Q string
-	// Limit field of ContactsSearchRequest.
+	// Maximum number of users to be returned
 	Limit int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // ContactsSearch invokes method contacts.search#11f812d8 returning error if any.
+// Returns users found by username substring.
 //
 // See https://core.telegram.org/method/contacts.search for reference.
 func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {

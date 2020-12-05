@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsDateRangeDays represents TL type `statsDateRangeDays#b637edaf`.
+// Channel statistics date range
 //
 // See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {
-	// MinDate field of StatsDateRangeDays.
+	// Initial date
 	MinDate int
-	// MaxDate field of StatsDateRangeDays.
+	// Final date
 	MaxDate int
 }
 

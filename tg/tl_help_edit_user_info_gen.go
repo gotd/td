@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpEditUserInfoRequest represents TL type `help.editUserInfo#66b91b70`.
+// Internal use
 //
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 type HelpEditUserInfoRequest struct {
-	// UserID field of HelpEditUserInfoRequest.
+	// User
 	UserID InputUserClass
-	// Message field of HelpEditUserInfoRequest.
+	// Message
 	Message string
-	// Entities field of HelpEditUserInfoRequest.
+	// Message entities for styled text
 	Entities []MessageEntityClass
 }
 
@@ -99,6 +100,7 @@ var (
 )
 
 // HelpEditUserInfo invokes method help.editUserInfo#66b91b70 returning error if any.
+// Internal use
 //
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {

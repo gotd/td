@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#e04232f3`.
+// Autodownload settings
 //
 // See https://core.telegram.org/constructor/autoDownloadSettings for reference.
 type AutoDownloadSettings struct {
-	// Flags field of AutoDownloadSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Disabled field of AutoDownloadSettings.
+	// Disable automatic media downloads?
 	Disabled bool
-	// VideoPreloadLarge field of AutoDownloadSettings.
+	// Whether to preload the first seconds of videos larger than the specified limit
 	VideoPreloadLarge bool
-	// AudioPreloadNext field of AutoDownloadSettings.
+	// Whether to preload the next audio track when you're listening to music
 	AudioPreloadNext bool
-	// PhonecallsLessData field of AutoDownloadSettings.
+	// Whether to enable data saving mode in phone calls
 	PhonecallsLessData bool
-	// PhotoSizeMax field of AutoDownloadSettings.
+	// Maximum size of photos to preload
 	PhotoSizeMax int
-	// VideoSizeMax field of AutoDownloadSettings.
+	// Maximum size of videos to preload
 	VideoSizeMax int
-	// FileSizeMax field of AutoDownloadSettings.
+	// Maximum size of other files to preload
 	FileSizeMax int
-	// VideoUploadMaxbitrate field of AutoDownloadSettings.
+	// Maximum suggested bitrate for uploading videos
 	VideoUploadMaxbitrate int
 }
 

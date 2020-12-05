@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetInlineGameHighScoresRequest represents TL type `messages.getInlineGameHighScores#f635e1b`.
+// Get highscores of a game sent using an inline bot
 //
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 type MessagesGetInlineGameHighScoresRequest struct {
-	// ID field of MessagesGetInlineGameHighScoresRequest.
+	// ID of inline message
 	ID InputBotInlineMessageID
-	// UserID field of MessagesGetInlineGameHighScoresRequest.
+	// Get high scores of a certain user
 	UserID InputUserClass
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesGetInlineGameHighScores invokes method messages.getInlineGameHighScores#f635e1b returning error if any.
+// Get highscores of a game sent using an inline bot
 //
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 func (c *Client) MessagesGetInlineGameHighScores(ctx context.Context, request *MessagesGetInlineGameHighScoresRequest) (*MessagesHighScores, error) {

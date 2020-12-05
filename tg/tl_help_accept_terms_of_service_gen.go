@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpAcceptTermsOfServiceRequest represents TL type `help.acceptTermsOfService#ee72f79a`.
+// Accept the new terms of service
 //
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 type HelpAcceptTermsOfServiceRequest struct {
-	// ID field of HelpAcceptTermsOfServiceRequest.
+	// ID of terms of service
 	ID DataJSON
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // HelpAcceptTermsOfService invokes method help.acceptTermsOfService#ee72f79a returning error if any.
+// Accept the new terms of service
 //
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 func (c *Client) HelpAcceptTermsOfService(ctx context.Context, request *HelpAcceptTermsOfServiceRequest) (BoolClass, error) {

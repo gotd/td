@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChatOnlines represents TL type `chatOnlines#f041e250`.
+// Number of online users in a chat
 //
 // See https://core.telegram.org/constructor/chatOnlines for reference.
 type ChatOnlines struct {
-	// Onlines field of ChatOnlines.
+	// Number of online users
 	Onlines int
 }
 

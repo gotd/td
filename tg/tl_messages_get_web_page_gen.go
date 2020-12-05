@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetWebPageRequest represents TL type `messages.getWebPage#32ca8f91`.
+// Get instant view page
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
-	// URL field of MessagesGetWebPageRequest.
+	// URL of IV page to fetch
 	URL string
-	// Hash field of MessagesGetWebPageRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.
+// Get instant view page
 //
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {

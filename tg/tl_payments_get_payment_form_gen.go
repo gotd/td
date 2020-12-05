@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsGetPaymentFormRequest represents TL type `payments.getPaymentForm#99f09745`.
+// Get a payment form
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 type PaymentsGetPaymentFormRequest struct {
-	// MsgID field of PaymentsGetPaymentFormRequest.
+	// Message ID of payment form
 	MsgID int
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // PaymentsGetPaymentForm invokes method payments.getPaymentForm#99f09745 returning error if any.
+// Get a payment form
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {

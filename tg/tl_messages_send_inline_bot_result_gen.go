@@ -15,32 +15,33 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
+// Send a result obtained using messages.getInlineBotResults.
 //
 // See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 type MessagesSendInlineBotResultRequest struct {
-	// Flags field of MessagesSendInlineBotResultRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Silent field of MessagesSendInlineBotResultRequest.
+	// Whether to send the message silently (no notification will be triggered on the other client)
 	Silent bool
-	// Background field of MessagesSendInlineBotResultRequest.
+	// Whether to send the message in background
 	Background bool
-	// ClearDraft field of MessagesSendInlineBotResultRequest.
+	// Whether to clear the draft
 	ClearDraft bool
-	// HideVia field of MessagesSendInlineBotResultRequest.
+	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config)
 	HideVia bool
-	// Peer field of MessagesSendInlineBotResultRequest.
+	// Destination
 	Peer InputPeerClass
-	// ReplyToMsgID field of MessagesSendInlineBotResultRequest.
+	// ID of the message this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// RandomID field of MessagesSendInlineBotResultRequest.
+	// Random ID to avoid resending the same query
 	RandomID int64
-	// QueryID field of MessagesSendInlineBotResultRequest.
+	// Query ID from messages.getInlineBotResults
 	QueryID int64
-	// ID field of MessagesSendInlineBotResultRequest.
+	// Result ID from messages.getInlineBotResults
 	ID string
-	// ScheduleDate field of MessagesSendInlineBotResultRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -211,6 +212,7 @@ var (
 )
 
 // MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#220815b0 returning error if any.
+// Send a result obtained using messages.getInlineBotResults.
 //
 // See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 func (c *Client) MessagesSendInlineBotResult(ctx context.Context, request *MessagesSendInlineBotResultRequest) (UpdatesClass, error) {

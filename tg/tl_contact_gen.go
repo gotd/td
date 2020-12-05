@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Contact represents TL type `contact#f911c994`.
+// A contact of the current user that is registered in the system.
 //
 // See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
-	// UserID field of Contact.
+	// User identifier
 	UserID int
-	// Mutual field of Contact.
+	// Current user is in the user's contact list
 	Mutual bool
 }
 

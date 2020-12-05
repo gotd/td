@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsGetSavedRequest represents TL type `contacts.getSaved#82f1e39f`.
+// Get all contacts
 //
 // See https://core.telegram.org/constructor/contacts.getSaved for reference.
 type ContactsGetSavedRequest struct {

@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessageViews represents TL type `messageViews#455b853d`.
+// View, forward counter + info about replies of a specific message
 //
 // See https://core.telegram.org/constructor/messageViews for reference.
 type MessageViews struct {
-	// Flags field of MessageViews.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Views field of MessageViews.
+	// Viewcount of message
 	//
 	// Use SetViews and GetViews helpers.
 	Views int
-	// Forwards field of MessageViews.
+	// Forward count of message
 	//
 	// Use SetForwards and GetForwards helpers.
 	Forwards int
-	// Replies field of MessageViews.
+	// Reply and thread information of message
 	//
 	// Use SetReplies and GetReplies helpers.
 	Replies MessageReplies

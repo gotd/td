@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesClearAllDraftsRequest represents TL type `messages.clearAllDrafts#7e58ee9c`.
+// Clear all drafts.
 //
 // See https://core.telegram.org/method/messages.clearAllDrafts for reference.
 type MessagesClearAllDraftsRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // MessagesClearAllDrafts invokes method messages.clearAllDrafts#7e58ee9c returning error if any.
+// Clear all drafts.
 //
 // See https://core.telegram.org/method/messages.clearAllDrafts for reference.
 func (c *Client) MessagesClearAllDrafts(ctx context.Context, request *MessagesClearAllDraftsRequest) (BoolClass, error) {

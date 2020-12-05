@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAffectedMessages represents TL type `messages.affectedMessages#84d19185`.
+// Events affected by operation
 //
 // See https://core.telegram.org/constructor/messages.affectedMessages for reference.
 type MessagesAffectedMessages struct {
-	// Pts field of MessagesAffectedMessages.
+	// Event count after generation
 	Pts int
-	// PtsCount field of MessagesAffectedMessages.
+	// Number of events that were generated
 	PtsCount int
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputMessageID represents TL type `inputMessageID#a676a322`.
+// Message by ID
 //
 // See https://core.telegram.org/constructor/inputMessageID for reference.
 type InputMessageID struct {
-	// ID field of InputMessageID.
+	// Message ID
 	ID int
 }
 
@@ -65,10 +66,11 @@ var (
 )
 
 // InputMessageReplyTo represents TL type `inputMessageReplyTo#bad88395`.
+// Message to which the specified message replies to
 //
 // See https://core.telegram.org/constructor/inputMessageReplyTo for reference.
 type InputMessageReplyTo struct {
-	// ID field of InputMessageReplyTo.
+	// ID of the message that replies to the message we need
 	ID int
 }
 
@@ -115,6 +117,7 @@ var (
 )
 
 // InputMessagePinned represents TL type `inputMessagePinned#86872538`.
+// Pinned message
 //
 // See https://core.telegram.org/constructor/inputMessagePinned for reference.
 type InputMessagePinned struct {
@@ -155,12 +158,13 @@ var (
 )
 
 // InputMessageCallbackQuery represents TL type `inputMessageCallbackQuery#acfa1a7e`.
+// Used by bots for fetching information about the message that originated a callback query
 //
 // See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
-	// ID field of InputMessageCallbackQuery.
+	// Message ID
 	ID int
-	// QueryID field of InputMessageCallbackQuery.
+	// Callback query ID
 	QueryID int64
 }
 

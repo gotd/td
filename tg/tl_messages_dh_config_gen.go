@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesDhConfigNotModified represents TL type `messages.dhConfigNotModified#c0e24635`.
+// Configuring parameters did not change.
 //
 // See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
-	// Random field of MessagesDhConfigNotModified.
+	// Random sequence of bytes of assigned length
 	Random []byte
 }
 
@@ -65,16 +66,17 @@ var (
 )
 
 // MessagesDhConfig represents TL type `messages.dhConfig#2c221edd`.
+// New set of configuring parameters.
 //
 // See https://core.telegram.org/constructor/messages.dhConfig for reference.
 type MessagesDhConfig struct {
-	// G field of MessagesDhConfig.
+	// New value prime, see Wikipedia
 	G int
-	// P field of MessagesDhConfig.
+	// New value primitive root, see Wikipedia
 	P []byte
-	// Version field of MessagesDhConfig.
+	// Vestion of set of parameters
 	Version int
-	// Random field of MessagesDhConfig.
+	// Random sequence of bytes of assigned length
 	Random []byte
 }
 

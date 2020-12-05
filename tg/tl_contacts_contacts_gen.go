@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsContactsNotModified represents TL type `contacts.contactsNotModified#b74ba9d2`.
+// Contact list on the server is the same as the list on the client.
 //
 // See https://core.telegram.org/constructor/contacts.contactsNotModified for reference.
 type ContactsContactsNotModified struct {
@@ -55,14 +56,15 @@ var (
 )
 
 // ContactsContacts represents TL type `contacts.contacts#eae87e42`.
+// The current user's contact list and info on users.
 //
 // See https://core.telegram.org/constructor/contacts.contacts for reference.
 type ContactsContacts struct {
-	// Contacts field of ContactsContacts.
+	// Contact list
 	Contacts []Contact
-	// SavedCount field of ContactsContacts.
+	// Number of contacts that were saved successfully
 	SavedCount int
-	// Users field of ContactsContacts.
+	// User list
 	Users []UserClass
 }
 

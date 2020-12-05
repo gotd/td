@@ -15,12 +15,14 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsPercentValue represents TL type `statsPercentValue#cbce2fe0`.
+// Channel statistics percentage.
+// Compute the percentage simply by doing part * total / 100
 //
 // See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {
-	// Part field of StatsPercentValue.
+	// Partial value
 	Part float64
-	// Total field of StatsPercentValue.
+	// Total value
 	Total float64
 }
 

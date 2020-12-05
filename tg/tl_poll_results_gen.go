@@ -15,30 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollResults represents TL type `pollResults#badcc1a3`.
+// Results of poll
 //
 // See https://core.telegram.org/constructor/pollResults for reference.
 type PollResults struct {
-	// Flags field of PollResults.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Min field of PollResults.
+	// Similar to min objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults to get the full poll results).
 	Min bool
-	// Results field of PollResults.
+	// Poll results
 	//
 	// Use SetResults and GetResults helpers.
 	Results []PollAnswerVoters
-	// TotalVoters field of PollResults.
+	// Total number of people that voted in the poll
 	//
 	// Use SetTotalVoters and GetTotalVoters helpers.
 	TotalVoters int
-	// RecentVoters field of PollResults.
+	// IDs of the last users that recently voted in the poll
 	//
 	// Use SetRecentVoters and GetRecentVoters helpers.
 	RecentVoters []int
-	// Solution field of PollResults.
+	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
 	Solution string
-	// SolutionEntities field of PollResults.
+	// Message entities for styled text in quiz solution
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass

@@ -15,40 +15,41 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchRequest represents TL type `messages.search#c352eec`.
+// Gets back found messages
 //
 // See https://core.telegram.org/method/messages.search for reference.
 type MessagesSearchRequest struct {
-	// Flags field of MessagesSearchRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Peer field of MessagesSearchRequest.
+	// User or chat, histories with which are searched, or (inputPeerEmpty) constructor for global search
 	Peer InputPeerClass
-	// Q field of MessagesSearchRequest.
+	// Text search request
 	Q string
-	// FromID field of MessagesSearchRequest.
+	// Only return messages sent by the specified user ID
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID InputPeerClass
-	// TopMsgID field of MessagesSearchRequest.
+	// Thread ID
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// Filter field of MessagesSearchRequest.
+	// Filter to return only specified message types
 	Filter MessagesFilterClass
-	// MinDate field of MessagesSearchRequest.
+	// If a positive value was transferred, only messages with a sending date bigger than the transferred one will be returned
 	MinDate int
-	// MaxDate field of MessagesSearchRequest.
+	// If a positive value was transferred, only messages with a sending date smaller than the transferred one will be returned
 	MaxDate int
-	// OffsetID field of MessagesSearchRequest.
+	// Only return messages starting from the specified message ID
 	OffsetID int
-	// AddOffset field of MessagesSearchRequest.
+	// Additional offset
 	AddOffset int
-	// Limit field of MessagesSearchRequest.
+	// Number of results to return
 	Limit int
-	// MaxID field of MessagesSearchRequest.
+	// Maximum message ID to return
 	MaxID int
-	// MinID field of MessagesSearchRequest.
+	// Minimum message ID to return
 	MinID int
-	// Hash field of MessagesSearchRequest.
+	// Hash
 	Hash int
 }
 
@@ -243,6 +244,7 @@ var (
 )
 
 // MessagesSearch invokes method messages.search#c352eec returning error if any.
+// Gets back found messages
 //
 // See https://core.telegram.org/method/messages.search for reference.
 func (c *Client) MessagesSearch(ctx context.Context, request *MessagesSearchRequest) (MessagesMessagesClass, error) {

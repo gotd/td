@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSaveWallPaperRequest represents TL type `account.saveWallPaper#6c5a5b37`.
+// Install/uninstall wallpaper
 //
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
-	// Wallpaper field of AccountSaveWallPaperRequest.
+	// Wallpaper to save
 	Wallpaper InputWallPaperClass
-	// Unsave field of AccountSaveWallPaperRequest.
+	// Uninstall wallpaper?
 	Unsave bool
-	// Settings field of AccountSaveWallPaperRequest.
+	// Wallpaper settings
 	Settings WallPaperSettings
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // AccountSaveWallPaper invokes method account.saveWallPaper#6c5a5b37 returning error if any.
+// Install/uninstall wallpaper
 //
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 func (c *Client) AccountSaveWallPaper(ctx context.Context, request *AccountSaveWallPaperRequest) (BoolClass, error) {

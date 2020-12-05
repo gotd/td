@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReorderStickerSetsRequest represents TL type `messages.reorderStickerSets#78337739`.
+// Reorder installed stickersets
 //
 // See https://core.telegram.org/method/messages.reorderStickerSets for reference.
 type MessagesReorderStickerSetsRequest struct {
-	// Flags field of MessagesReorderStickerSetsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Masks field of MessagesReorderStickerSetsRequest.
+	// Reorder mask stickersets
 	Masks bool
-	// Order field of MessagesReorderStickerSetsRequest.
+	// New stickerset order by stickerset IDs
 	Order []int64
 }
 
@@ -91,6 +92,7 @@ var (
 )
 
 // MessagesReorderStickerSets invokes method messages.reorderStickerSets#78337739 returning error if any.
+// Reorder installed stickersets
 //
 // See https://core.telegram.org/method/messages.reorderStickerSets for reference.
 func (c *Client) MessagesReorderStickerSets(ctx context.Context, request *MessagesReorderStickerSetsRequest) (BoolClass, error) {

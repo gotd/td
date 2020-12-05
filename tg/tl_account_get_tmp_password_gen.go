@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetTmpPasswordRequest represents TL type `account.getTmpPassword#449e0b51`.
+// Get temporary payment password
 //
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 type AccountGetTmpPasswordRequest struct {
-	// Password field of AccountGetTmpPasswordRequest.
+	// SRP password parameters
 	Password InputCheckPasswordSRPClass
-	// Period field of AccountGetTmpPasswordRequest.
+	// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
 	Period int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // AccountGetTmpPassword invokes method account.getTmpPassword#449e0b51 returning error if any.
+// Get temporary payment password
 //
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {

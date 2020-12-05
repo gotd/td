@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSendConfirmPhoneCodeRequest represents TL type `account.sendConfirmPhoneCode#1b3faa88`.
+// Send confirmation code to cancel account deletion, for more info click here »
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 type AccountSendConfirmPhoneCodeRequest struct {
-	// Hash field of AccountSendConfirmPhoneCodeRequest.
+	// The hash from the service notification, for more info click here »
 	Hash string
-	// Settings field of AccountSendConfirmPhoneCodeRequest.
+	// Phone code settings
 	Settings CodeSettings
 }
 
@@ -70,6 +71,7 @@ var (
 )
 
 // AccountSendConfirmPhoneCode invokes method account.sendConfirmPhoneCode#1b3faa88 returning error if any.
+// Send confirmation code to cancel account deletion, for more info click here »
 //
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {

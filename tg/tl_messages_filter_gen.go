@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputMessagesFilterEmpty represents TL type `inputMessagesFilterEmpty#57e2f66c`.
+// Filter is absent.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterEmpty for reference.
 type InputMessagesFilterEmpty struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // InputMessagesFilterPhotos represents TL type `inputMessagesFilterPhotos#9609a51c`.
+// Filter for messages containing photos.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPhotos for reference.
 type InputMessagesFilterPhotos struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // InputMessagesFilterVideo represents TL type `inputMessagesFilterVideo#9fc00e65`.
+// Filter for messages containing videos.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterVideo for reference.
 type InputMessagesFilterVideo struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // InputMessagesFilterPhotoVideo represents TL type `inputMessagesFilterPhotoVideo#56e9f0e4`.
+// Filter for messages containing photos or videos.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPhotoVideo for reference.
 type InputMessagesFilterPhotoVideo struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // InputMessagesFilterDocument represents TL type `inputMessagesFilterDocument#9eddf188`.
+// Filter for messages containing documents.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterDocument for reference.
 type InputMessagesFilterDocument struct {
@@ -215,6 +220,7 @@ var (
 )
 
 // InputMessagesFilterUrl represents TL type `inputMessagesFilterUrl#7ef0dd87`.
+// Return only messages containing URLs
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterUrl for reference.
 type InputMessagesFilterUrl struct {
@@ -255,6 +261,7 @@ var (
 )
 
 // InputMessagesFilterGif represents TL type `inputMessagesFilterGif#ffc86587`.
+// Return only messages containing gifs
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterGif for reference.
 type InputMessagesFilterGif struct {
@@ -295,6 +302,7 @@ var (
 )
 
 // InputMessagesFilterVoice represents TL type `inputMessagesFilterVoice#50f5c392`.
+// Return only messages containing voice notes
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterVoice for reference.
 type InputMessagesFilterVoice struct {
@@ -335,6 +343,7 @@ var (
 )
 
 // InputMessagesFilterMusic represents TL type `inputMessagesFilterMusic#3751b49e`.
+// Return only messages containing audio files
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterMusic for reference.
 type InputMessagesFilterMusic struct {
@@ -375,6 +384,7 @@ var (
 )
 
 // InputMessagesFilterChatPhotos represents TL type `inputMessagesFilterChatPhotos#3a20ecb8`.
+// Return only chat photo changes
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterChatPhotos for reference.
 type InputMessagesFilterChatPhotos struct {
@@ -415,12 +425,13 @@ var (
 )
 
 // InputMessagesFilterPhoneCalls represents TL type `inputMessagesFilterPhoneCalls#80c99768`.
+// Return only phone calls
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPhoneCalls for reference.
 type InputMessagesFilterPhoneCalls struct {
-	// Flags field of InputMessagesFilterPhoneCalls.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Missed field of InputMessagesFilterPhoneCalls.
+	// Return only missed phone calls
 	Missed bool
 }
 
@@ -477,6 +488,7 @@ var (
 )
 
 // InputMessagesFilterRoundVoice represents TL type `inputMessagesFilterRoundVoice#7a7c17a4`.
+// Return only round videos and voice notes
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterRoundVoice for reference.
 type InputMessagesFilterRoundVoice struct {
@@ -517,6 +529,7 @@ var (
 )
 
 // InputMessagesFilterRoundVideo represents TL type `inputMessagesFilterRoundVideo#b549da53`.
+// Return only round videos
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterRoundVideo for reference.
 type InputMessagesFilterRoundVideo struct {
@@ -557,6 +570,7 @@ var (
 )
 
 // InputMessagesFilterMyMentions represents TL type `inputMessagesFilterMyMentions#c1f8e69a`.
+// Return only messages where the current user was mentioned.
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterMyMentions for reference.
 type InputMessagesFilterMyMentions struct {
@@ -597,6 +611,7 @@ var (
 )
 
 // InputMessagesFilterGeo represents TL type `inputMessagesFilterGeo#e7026d0d`.
+// Return only messages containing geolocations
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterGeo for reference.
 type InputMessagesFilterGeo struct {
@@ -637,6 +652,7 @@ var (
 )
 
 // InputMessagesFilterContacts represents TL type `inputMessagesFilterContacts#e062db83`.
+// Return only messages containing contacts
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterContacts for reference.
 type InputMessagesFilterContacts struct {
@@ -677,6 +693,7 @@ var (
 )
 
 // InputMessagesFilterPinned represents TL type `inputMessagesFilterPinned#1bb00451`.
+// Fetch only pinned messages
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPinned for reference.
 type InputMessagesFilterPinned struct {

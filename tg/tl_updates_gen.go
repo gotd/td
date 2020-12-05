@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
+// Too many updates, it is necessary to execute updates.getDifference.
 //
 // See https://core.telegram.org/constructor/updatesTooLong for reference.
 type UpdatesTooLong struct {
@@ -55,44 +56,45 @@ var (
 )
 
 // UpdateShortMessage represents TL type `updateShortMessage#2296d2c8`.
+// Info about a message sent to (received from) another user
 //
 // See https://core.telegram.org/constructor/updateShortMessage for reference.
 type UpdateShortMessage struct {
-	// Flags field of UpdateShortMessage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Out field of UpdateShortMessage.
+	// Whether the message is outgoing
 	Out bool
-	// Mentioned field of UpdateShortMessage.
+	// Whether we were mentioned in the message
 	Mentioned bool
-	// MediaUnread field of UpdateShortMessage.
+	// Whether there are some unread mentions in this message
 	MediaUnread bool
-	// Silent field of UpdateShortMessage.
+	// If true, the message is a silent message, no notifications should be triggered
 	Silent bool
-	// ID field of UpdateShortMessage.
+	// The message ID
 	ID int
-	// UserID field of UpdateShortMessage.
+	// The ID of the sender (if outgoing will be the ID of the destination) of the message
 	UserID int
-	// Message field of UpdateShortMessage.
+	// The message
 	Message string
-	// Pts field of UpdateShortMessage.
+	// PTS
 	Pts int
-	// PtsCount field of UpdateShortMessage.
+	// PTS count
 	PtsCount int
-	// Date field of UpdateShortMessage.
+	// date
 	Date int
-	// FwdFrom field of UpdateShortMessage.
+	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
 	FwdFrom MessageFwdHeader
-	// ViaBotID field of UpdateShortMessage.
+	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
 	ViaBotID int
-	// ReplyTo field of UpdateShortMessage.
+	// Reply and thread information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Entities field of UpdateShortMessage.
+	// Entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -343,46 +345,47 @@ var (
 )
 
 // UpdateShortChatMessage represents TL type `updateShortChatMessage#402d5dbb`.
+// Shortened constructor containing info on one new incoming text message from a chat
 //
 // See https://core.telegram.org/constructor/updateShortChatMessage for reference.
 type UpdateShortChatMessage struct {
-	// Flags field of UpdateShortChatMessage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Out field of UpdateShortChatMessage.
+	// Whether the message is outgoing
 	Out bool
-	// Mentioned field of UpdateShortChatMessage.
+	// Whether we were mentioned in this message
 	Mentioned bool
-	// MediaUnread field of UpdateShortChatMessage.
+	// Whether the message contains some unread mentions
 	MediaUnread bool
-	// Silent field of UpdateShortChatMessage.
+	// If true, the message is a silent message, no notifications should be triggered
 	Silent bool
-	// ID field of UpdateShortChatMessage.
+	// ID of the message
 	ID int
-	// FromID field of UpdateShortChatMessage.
+	// ID of the sender of the message
 	FromID int
-	// ChatID field of UpdateShortChatMessage.
+	// ID of the chat where the message was sent
 	ChatID int
-	// Message field of UpdateShortChatMessage.
+	// Message
 	Message string
-	// Pts field of UpdateShortChatMessage.
+	// PTS
 	Pts int
-	// PtsCount field of UpdateShortChatMessage.
+	// PTS count
 	PtsCount int
-	// Date field of UpdateShortChatMessage.
+	// date
 	Date int
-	// FwdFrom field of UpdateShortChatMessage.
+	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
 	FwdFrom MessageFwdHeader
-	// ViaBotID field of UpdateShortChatMessage.
+	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
 	ViaBotID int
-	// ReplyTo field of UpdateShortChatMessage.
+	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Entities field of UpdateShortChatMessage.
+	// Entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -641,12 +644,13 @@ var (
 )
 
 // UpdateShort represents TL type `updateShort#78d4dec1`.
+// Shortened constructor containing info on one update not requiring auxiliary data
 //
 // See https://core.telegram.org/constructor/updateShort for reference.
 type UpdateShort struct {
-	// Update field of UpdateShort.
+	// Update
 	Update UpdateClass
-	// Date field of UpdateShort.
+	// Date of event
 	Date int
 }
 
@@ -706,20 +710,21 @@ var (
 )
 
 // UpdatesCombined represents TL type `updatesCombined#725b04c3`.
+// Constructor for a group of updates.
 //
 // See https://core.telegram.org/constructor/updatesCombined for reference.
 type UpdatesCombined struct {
-	// Updates field of UpdatesCombined.
+	// List of updates
 	Updates []UpdateClass
-	// Users field of UpdatesCombined.
+	// List of users mentioned in updates
 	Users []UserClass
-	// Chats field of UpdatesCombined.
+	// List of chats mentioned in updates
 	Chats []ChatClass
-	// Date field of UpdatesCombined.
+	// Current date
 	Date int
-	// SeqStart field of UpdatesCombined.
+	// Value seq for the earliest update in a group
 	SeqStart int
-	// Seq field of UpdatesCombined.
+	// Value seq for the latest update in a group
 	Seq int
 }
 
@@ -980,26 +985,27 @@ var (
 )
 
 // UpdateShortSentMessage represents TL type `updateShortSentMessage#11f1331c`.
+// Shortened constructor containing info on one outgoing message to a contact (the destination chat has to be extracted from the method call that returned this object).
 //
 // See https://core.telegram.org/constructor/updateShortSentMessage for reference.
 type UpdateShortSentMessage struct {
-	// Flags field of UpdateShortSentMessage.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Out field of UpdateShortSentMessage.
+	// Whether the message is outgoing
 	Out bool
-	// ID field of UpdateShortSentMessage.
+	// ID of the sent message
 	ID int
-	// Pts field of UpdateShortSentMessage.
+	// PTS
 	Pts int
-	// PtsCount field of UpdateShortSentMessage.
+	// PTS count
 	PtsCount int
-	// Date field of UpdateShortSentMessage.
+	// date
 	Date int
-	// Media field of UpdateShortSentMessage.
+	// Attached media
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass
-	// Entities field of UpdateShortSentMessage.
+	// Entities for styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

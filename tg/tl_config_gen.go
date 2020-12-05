@@ -15,128 +15,129 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // Config represents TL type `config#330b4067`.
+// Current configuration
 //
 // See https://core.telegram.org/constructor/config for reference.
 type Config struct {
-	// Flags field of Config.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// PhonecallsEnabled field of Config.
+	// Whether phone calls can be used
 	PhonecallsEnabled bool
-	// DefaultP2PContacts field of Config.
+	// Whether the client should use P2P by default for phone calls with contacts
 	DefaultP2PContacts bool
-	// PreloadFeaturedStickers field of Config.
+	// Whether the client should preload featured stickers
 	PreloadFeaturedStickers bool
-	// IgnorePhoneEntities field of Config.
+	// Whether the client should ignore phone entities
 	IgnorePhoneEntities bool
-	// RevokePmInbox field of Config.
+	// Whether incoming private messages can be deleted for both participants
 	RevokePmInbox bool
-	// BlockedMode field of Config.
+	// Indicates that telegram is probably censored by governments/ISPs in the current region
 	BlockedMode bool
-	// PFSEnabled field of Config.
+	// Whether pfs was used
 	PFSEnabled bool
-	// Date field of Config.
+	// Current date at the server
 	Date int
-	// Expires field of Config.
+	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig
 	Expires int
-	// TestMode field of Config.
+	// Whether we're connected to the test DCs
 	TestMode bool
-	// ThisDC field of Config.
+	// ID of the DC that returned the reply
 	ThisDC int
-	// DCOptions field of Config.
+	// DC IP list
 	DCOptions []DcOption
-	// DCTxtDomainName field of Config.
+	// Domain name for fetching encrypted DC list from DNS TXT record
 	DCTxtDomainName string
-	// ChatSizeMax field of Config.
+	// Maximum member count for normal groups
 	ChatSizeMax int
-	// MegagroupSizeMax field of Config.
+	// Maximum member count for supergroups
 	MegagroupSizeMax int
-	// ForwardedCountMax field of Config.
+	// Maximum number of messages that can be forwarded at once using messages.forwardMessages.
 	ForwardedCountMax int
-	// OnlineUpdatePeriodMs field of Config.
+	// The client should update its online status every N milliseconds
 	OnlineUpdatePeriodMs int
-	// OfflineBlurTimeoutMs field of Config.
+	// Delay before offline status needs to be sent to the server
 	OfflineBlurTimeoutMs int
-	// OfflineIdleTimeoutMs field of Config.
+	// Time without any user activity after which it should be treated offline
 	OfflineIdleTimeoutMs int
-	// OnlineCloudTimeoutMs field of Config.
+	// If we are offline, but were online from some other client in last online_cloud_timeout_ms milliseconds after we had gone offline, then delay offline notification for notify_cloud_delay_ms milliseconds.
 	OnlineCloudTimeoutMs int
-	// NotifyCloudDelayMs field of Config.
+	// If we are offline, but online from some other client then delay sending the offline notification for notify_cloud_delay_ms milliseconds.
 	NotifyCloudDelayMs int
-	// NotifyDefaultDelayMs field of Config.
+	// If some other client is online, then delay notification for notification_default_delay_ms milliseconds
 	NotifyDefaultDelayMs int
-	// PushChatPeriodMs field of Config.
+	// Not for client use
 	PushChatPeriodMs int
-	// PushChatLimit field of Config.
+	// Not for client use
 	PushChatLimit int
-	// SavedGifsLimit field of Config.
+	// Maximum count of saved gifs
 	SavedGifsLimit int
-	// EditTimeLimit field of Config.
+	// Only messages with age smaller than the one specified can be edited
 	EditTimeLimit int
-	// RevokeTimeLimit field of Config.
+	// Only channel/supergroup messages with age smaller than the specified can be deleted
 	RevokeTimeLimit int
-	// RevokePmTimeLimit field of Config.
+	// Only private messages with age smaller than the specified can be deleted
 	RevokePmTimeLimit int
-	// RatingEDecay field of Config.
+	// Exponential decay rate for computing top peer rating
 	RatingEDecay int
-	// StickersRecentLimit field of Config.
+	// Maximum number of recent stickers
 	StickersRecentLimit int
-	// StickersFavedLimit field of Config.
+	// Maximum number of faved stickers
 	StickersFavedLimit int
-	// ChannelsReadMediaPeriod field of Config.
+	// Indicates that round videos (video notes) and voice messages sent in channels and older than the specified period must be marked as read
 	ChannelsReadMediaPeriod int
-	// TmpSessions field of Config.
+	// Temporary passport sessions
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
-	// PinnedDialogsCountMax field of Config.
+	// Maximum count of pinned dialogs
 	PinnedDialogsCountMax int
-	// PinnedInfolderCountMax field of Config.
+	// Maximum count of dialogs per folder
 	PinnedInfolderCountMax int
-	// CallReceiveTimeoutMs field of Config.
+	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't reply within the specified time (in milliseconds), we should hang up the call
 	CallReceiveTimeoutMs int
-	// CallRingTimeoutMs field of Config.
+	// Maximum allowed incoming ring time in VoIP calls: if the current user doesn't reply within the specified time (in milliseconds), the call will be automatically refused
 	CallRingTimeoutMs int
-	// CallConnectTimeoutMs field of Config.
+	// VoIP connection timeout: if the instance of libtgvoip on the other side of the call doesn't connect to our instance of libtgvoip within the specified time (in milliseconds), the call must be aborted
 	CallConnectTimeoutMs int
-	// CallPacketTimeoutMs field of Config.
+	// If during a VoIP call a packet isn't received for the specified period of time, the call must be aborted
 	CallPacketTimeoutMs int
-	// MeURLPrefix field of Config.
+	// The domain to use to parse in-app links.For example t.me indicates that t.me/username links should parsed to @username, t.me/addsticker/name should be parsed to the appropriate stickerset and so on...
 	MeURLPrefix string
-	// AutoupdateURLPrefix field of Config.
+	// URL to use to auto-update the current app
 	//
 	// Use SetAutoupdateURLPrefix and GetAutoupdateURLPrefix helpers.
 	AutoupdateURLPrefix string
-	// GifSearchUsername field of Config.
+	// Username of the bot to use to search for GIFs
 	//
 	// Use SetGifSearchUsername and GetGifSearchUsername helpers.
 	GifSearchUsername string
-	// VenueSearchUsername field of Config.
+	// Username of the bot to use to search for venues
 	//
 	// Use SetVenueSearchUsername and GetVenueSearchUsername helpers.
 	VenueSearchUsername string
-	// ImgSearchUsername field of Config.
+	// Username of the bot to use for image search
 	//
 	// Use SetImgSearchUsername and GetImgSearchUsername helpers.
 	ImgSearchUsername string
-	// StaticMapsProvider field of Config.
+	// ID of the map provider to use for venues
 	//
 	// Use SetStaticMapsProvider and GetStaticMapsProvider helpers.
 	StaticMapsProvider string
-	// CaptionLengthMax field of Config.
+	// Maximum length of caption (length in utf8 codepoints)
 	CaptionLengthMax int
-	// MessageLengthMax field of Config.
+	// Maximum length of messages (length in utf8 codepoints)
 	MessageLengthMax int
-	// WebfileDCID field of Config.
+	// DC ID to use to download webfiles
 	WebfileDCID int
-	// SuggestedLangCode field of Config.
+	// Suggested language code
 	//
 	// Use SetSuggestedLangCode and GetSuggestedLangCode helpers.
 	SuggestedLangCode string
-	// LangPackVersion field of Config.
+	// Language pack version
 	//
 	// Use SetLangPackVersion and GetLangPackVersion helpers.
 	LangPackVersion int
-	// BaseLangPackVersion field of Config.
+	// Basic language pack version
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
 	BaseLangPackVersion int

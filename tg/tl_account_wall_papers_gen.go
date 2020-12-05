@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
+// No new wallpapers were found
 //
 // See https://core.telegram.org/constructor/account.wallPapersNotModified for reference.
 type AccountWallPapersNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // AccountWallPapers represents TL type `account.wallPapers#702b65a9`.
+// Installed wallpapers
 //
 // See https://core.telegram.org/constructor/account.wallPapers for reference.
 type AccountWallPapers struct {
-	// Hash field of AccountWallPapers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Wallpapers field of AccountWallPapers.
+	// Wallpapers
 	Wallpapers []WallPaperClass
 }
 

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountDaysTTL represents TL type `accountDaysTTL#b8d0afdf`.
+// Time to live in days of the current account
 //
 // See https://core.telegram.org/constructor/accountDaysTTL for reference.
 type AccountDaysTTL struct {
-	// Days field of AccountDaysTTL.
+	// This account will self-destruct in the specified number of days
 	Days int
 }
 

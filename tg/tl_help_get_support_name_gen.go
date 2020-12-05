@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetSupportNameRequest represents TL type `help.getSupportName#d360e72c`.
+// Get localized name of the telegram support user
 //
 // See https://core.telegram.org/method/help.getSupportName for reference.
 type HelpGetSupportNameRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // HelpGetSupportName invokes method help.getSupportName#d360e72c returning error if any.
+// Get localized name of the telegram support user
 //
 // See https://core.telegram.org/method/help.getSupportName for reference.
 func (c *Client) HelpGetSupportName(ctx context.Context, request *HelpGetSupportNameRequest) (*HelpSupportName, error) {

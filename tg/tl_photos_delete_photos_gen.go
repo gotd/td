@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosDeletePhotosRequest represents TL type `photos.deletePhotos#87cf7f2f`.
+// Deletes profile photos.
 //
 // See https://core.telegram.org/constructor/photos.deletePhotos for reference.
 type PhotosDeletePhotosRequest struct {
-	// ID field of PhotosDeletePhotosRequest.
+	// Input photos to delete
 	ID []InputPhotoClass
 }
 

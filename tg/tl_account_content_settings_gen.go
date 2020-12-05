@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountContentSettings represents TL type `account.contentSettings#57e28221`.
+// Sensitive content settings
 //
 // See https://core.telegram.org/constructor/account.contentSettings for reference.
 type AccountContentSettings struct {
-	// Flags field of AccountContentSettings.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// SensitiveEnabled field of AccountContentSettings.
+	// Whether viewing of sensitive (NSFW) content is enabled
 	SensitiveEnabled bool
-	// SensitiveCanChange field of AccountContentSettings.
+	// Whether the current client can change the sensitive content settings to view NSFW content
 	SensitiveCanChange bool
 }
 

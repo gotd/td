@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TopPeer represents TL type `topPeer#edcdc05b`.
+// Top peer
 //
 // See https://core.telegram.org/constructor/topPeer for reference.
 type TopPeer struct {
-	// Peer field of TopPeer.
+	// Peer
 	Peer PeerClass
-	// Rating field of TopPeer.
+	// Rating as computed in top peer rating »
 	Rating float64
 }
 

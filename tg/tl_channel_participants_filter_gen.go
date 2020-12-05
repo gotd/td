@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelParticipantsRecent represents TL type `channelParticipantsRecent#de3f3c79`.
+// Fetch only recent participants
 //
 // See https://core.telegram.org/constructor/channelParticipantsRecent for reference.
 type ChannelParticipantsRecent struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // ChannelParticipantsAdmins represents TL type `channelParticipantsAdmins#b4608969`.
+// Fetch only admin participants
 //
 // See https://core.telegram.org/constructor/channelParticipantsAdmins for reference.
 type ChannelParticipantsAdmins struct {
@@ -95,10 +97,11 @@ var (
 )
 
 // ChannelParticipantsKicked represents TL type `channelParticipantsKicked#a3b54985`.
+// Fetch only kicked participants
 //
 // See https://core.telegram.org/constructor/channelParticipantsKicked for reference.
 type ChannelParticipantsKicked struct {
-	// Q field of ChannelParticipantsKicked.
+	// Optional filter for searching kicked participants by name (otherwise empty)
 	Q string
 }
 
@@ -145,6 +148,7 @@ var (
 )
 
 // ChannelParticipantsBots represents TL type `channelParticipantsBots#b0d1865b`.
+// Fetch only bot participants
 //
 // See https://core.telegram.org/constructor/channelParticipantsBots for reference.
 type ChannelParticipantsBots struct {
@@ -185,10 +189,11 @@ var (
 )
 
 // ChannelParticipantsBanned represents TL type `channelParticipantsBanned#1427a5e1`.
+// Fetch only banned participants
 //
 // See https://core.telegram.org/constructor/channelParticipantsBanned for reference.
 type ChannelParticipantsBanned struct {
-	// Q field of ChannelParticipantsBanned.
+	// Optional filter for searching banned participants by name (otherwise empty)
 	Q string
 }
 
@@ -235,10 +240,11 @@ var (
 )
 
 // ChannelParticipantsSearch represents TL type `channelParticipantsSearch#656ac4b`.
+// Query participants by name
 //
 // See https://core.telegram.org/constructor/channelParticipantsSearch for reference.
 type ChannelParticipantsSearch struct {
-	// Q field of ChannelParticipantsSearch.
+	// Search query
 	Q string
 }
 
@@ -285,10 +291,11 @@ var (
 )
 
 // ChannelParticipantsContacts represents TL type `channelParticipantsContacts#bb6ae88d`.
+// Fetch only participants that are also contacts
 //
 // See https://core.telegram.org/constructor/channelParticipantsContacts for reference.
 type ChannelParticipantsContacts struct {
-	// Q field of ChannelParticipantsContacts.
+	// Optional search query for searching contact participants by name
 	Q string
 }
 
@@ -335,16 +342,18 @@ var (
 )
 
 // ChannelParticipantsMentions represents TL type `channelParticipantsMentions#e04b5ceb`.
+// This filter is used when looking for supergroup members to mention.
+// This filter will automatically remove anonymous admins, and return even non-participant users that replied to a specific thread through the comment section of a channel.
 //
 // See https://core.telegram.org/constructor/channelParticipantsMentions for reference.
 type ChannelParticipantsMentions struct {
-	// Flags field of ChannelParticipantsMentions.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Q field of ChannelParticipantsMentions.
+	// Filter by user name or username
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// TopMsgID field of ChannelParticipantsMentions.
+	// Look only for users that posted in this thread
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

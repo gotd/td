@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthImportBotAuthorizationRequest represents TL type `auth.importBotAuthorization#67a3ff2c`.
+// Login as a bot
 //
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 type AuthImportBotAuthorizationRequest struct {
-	// Flags field of AuthImportBotAuthorizationRequest.
+	// Reserved for future use
 	Flags int
-	// APIID field of AuthImportBotAuthorizationRequest.
+	// Application identifier (see. App configuration)
 	APIID int
-	// APIHash field of AuthImportBotAuthorizationRequest.
+	// Application identifier hash (see. App configuration)
 	APIHash string
-	// BotAuthToken field of AuthImportBotAuthorizationRequest.
+	// Bot token (see bots)
 	BotAuthToken string
 }
 
@@ -90,6 +91,7 @@ var (
 )
 
 // AuthImportBotAuthorization invokes method auth.importBotAuthorization#67a3ff2c returning error if any.
+// Login as a bot
 //
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 func (c *Client) AuthImportBotAuthorization(ctx context.Context, request *AuthImportBotAuthorizationRequest) (AuthAuthorizationClass, error) {

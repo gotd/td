@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendMessageRequest represents TL type `messages.sendMessage#520c3870`.
+// Sends a message to a chat
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
 type MessagesSendMessageRequest struct {
-	// Flags field of MessagesSendMessageRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// NoWebpage field of MessagesSendMessageRequest.
+	// Set this flag to disable generation of the webpage preview
 	NoWebpage bool
-	// Silent field of MessagesSendMessageRequest.
+	// Send this message silently (no notifications for the receivers)
 	Silent bool
-	// Background field of MessagesSendMessageRequest.
+	// Send this message as background message
 	Background bool
-	// ClearDraft field of MessagesSendMessageRequest.
+	// Clear the draft field
 	ClearDraft bool
-	// Peer field of MessagesSendMessageRequest.
+	// The destination where the message will be sent
 	Peer InputPeerClass
-	// ReplyToMsgID field of MessagesSendMessageRequest.
+	// The message ID to which this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
 	ReplyToMsgID int
-	// Message field of MessagesSendMessageRequest.
+	// The message
 	Message string
-	// RandomID field of MessagesSendMessageRequest.
+	// Unique client message ID required to prevent message resending
 	RandomID int64
-	// ReplyMarkup field of MessagesSendMessageRequest.
+	// Reply markup for sending bot buttons
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Entities field of MessagesSendMessageRequest.
+	// Message entities for sending styled text
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// ScheduleDate field of MessagesSendMessageRequest.
+	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int
@@ -278,6 +279,7 @@ var (
 )
 
 // MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.
+// Sends a message to a chat
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
 func (c *Client) MessagesSendMessage(ctx context.Context, request *MessagesSendMessageRequest) (UpdatesClass, error) {

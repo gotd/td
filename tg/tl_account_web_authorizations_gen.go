@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountWebAuthorizations represents TL type `account.webAuthorizations#ed56c9fc`.
+// Web authorizations
 //
 // See https://core.telegram.org/constructor/account.webAuthorizations for reference.
 type AccountWebAuthorizations struct {
-	// Authorizations field of AccountWebAuthorizations.
+	// Web authorization list
 	Authorizations []WebAuthorization
-	// Users field of AccountWebAuthorizations.
+	// Users
 	Users []UserClass
 }
 

@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpCountriesListNotModified represents TL type `help.countriesListNotModified#93cc1f32`.
+// The country list has not changed
 //
 // See https://core.telegram.org/constructor/help.countriesListNotModified for reference.
 type HelpCountriesListNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // HelpCountriesList represents TL type `help.countriesList#87d0759e`.
+// Name, ISO code, localized name and phone codes/patterns of all available countries
 //
 // See https://core.telegram.org/constructor/help.countriesList for reference.
 type HelpCountriesList struct {
-	// Countries field of HelpCountriesList.
+	// Name, ISO code, localized name and phone codes/patterns of all available countries
 	Countries []HelpCountry
-	// Hash field of HelpCountriesList.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 

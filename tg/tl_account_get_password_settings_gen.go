@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetPasswordSettingsRequest represents TL type `account.getPasswordSettings#9cd4eaf9`.
+// Get private info associated to the password info (recovery email, telegram passport info & so on)
 //
 // See https://core.telegram.org/method/account.getPasswordSettings for reference.
 type AccountGetPasswordSettingsRequest struct {
-	// Password field of AccountGetPasswordSettingsRequest.
+	// The password (see SRP)
 	Password InputCheckPasswordSRPClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // AccountGetPasswordSettings invokes method account.getPasswordSettings#9cd4eaf9 returning error if any.
+// Get private info associated to the password info (recovery email, telegram passport info & so on)
 //
 // See https://core.telegram.org/method/account.getPasswordSettings for reference.
 func (c *Client) AccountGetPasswordSettings(ctx context.Context, request *AccountGetPasswordSettingsRequest) (*AccountPasswordSettings, error) {

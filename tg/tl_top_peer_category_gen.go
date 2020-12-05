@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // TopPeerCategoryBotsPM represents TL type `topPeerCategoryBotsPM#ab661b5b`.
+// Most used bots
 //
 // See https://core.telegram.org/constructor/topPeerCategoryBotsPM for reference.
 type TopPeerCategoryBotsPM struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // TopPeerCategoryBotsInline represents TL type `topPeerCategoryBotsInline#148677e2`.
+// Most used inline bots
 //
 // See https://core.telegram.org/constructor/topPeerCategoryBotsInline for reference.
 type TopPeerCategoryBotsInline struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // TopPeerCategoryCorrespondents represents TL type `topPeerCategoryCorrespondents#637b7ed`.
+// Users we've chatted most frequently with
 //
 // See https://core.telegram.org/constructor/topPeerCategoryCorrespondents for reference.
 type TopPeerCategoryCorrespondents struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // TopPeerCategoryGroups represents TL type `topPeerCategoryGroups#bd17a14a`.
+// Often-opened groups and supergroups
 //
 // See https://core.telegram.org/constructor/topPeerCategoryGroups for reference.
 type TopPeerCategoryGroups struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // TopPeerCategoryChannels represents TL type `topPeerCategoryChannels#161d9628`.
+// Most frequently visited channels
 //
 // See https://core.telegram.org/constructor/topPeerCategoryChannels for reference.
 type TopPeerCategoryChannels struct {
@@ -215,6 +220,7 @@ var (
 )
 
 // TopPeerCategoryPhoneCalls represents TL type `topPeerCategoryPhoneCalls#1e76a78c`.
+// Most frequently called users
 //
 // See https://core.telegram.org/constructor/topPeerCategoryPhoneCalls for reference.
 type TopPeerCategoryPhoneCalls struct {
@@ -255,6 +261,7 @@ var (
 )
 
 // TopPeerCategoryForwardUsers represents TL type `topPeerCategoryForwardUsers#a8406ca9`.
+// Users to which the users often forwards messages to
 //
 // See https://core.telegram.org/constructor/topPeerCategoryForwardUsers for reference.
 type TopPeerCategoryForwardUsers struct {
@@ -295,6 +302,7 @@ var (
 )
 
 // TopPeerCategoryForwardChats represents TL type `topPeerCategoryForwardChats#fbeec0f0`.
+// Chats to which the users often forwards messages to
 //
 // See https://core.telegram.org/constructor/topPeerCategoryForwardChats for reference.
 type TopPeerCategoryForwardChats struct {

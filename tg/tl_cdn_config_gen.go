@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // CdnConfig represents TL type `cdnConfig#5725e40a`.
+// Configuration for CDN file downloads.
 //
 // See https://core.telegram.org/constructor/cdnConfig for reference.
 type CdnConfig struct {
-	// PublicKeys field of CdnConfig.
+	// Vector of public keys to use only during handshakes to CDN DCs.
 	PublicKeys []CdnPublicKey
 }
 

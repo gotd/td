@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // WebAuthorization represents TL type `webAuthorization#cac943f2`.
+// Represents a bot logged in using the Telegram login widget
 //
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {
-	// Hash field of WebAuthorization.
+	// Authorization hash
 	Hash int64
-	// BotID field of WebAuthorization.
+	// Bot ID
 	BotID int
-	// Domain field of WebAuthorization.
+	// The domain name of the website on which the user has logged in.
 	Domain string
-	// Browser field of WebAuthorization.
+	// Browser user-agent
 	Browser string
-	// Platform field of WebAuthorization.
+	// Platform
 	Platform string
-	// DateCreated field of WebAuthorization.
+	// When was the web session created
 	DateCreated int
-	// DateActive field of WebAuthorization.
+	// When was the web session last active
 	DateActive int
-	// IP field of WebAuthorization.
+	// IP address
 	IP string
-	// Region field of WebAuthorization.
+	// Region, determined from IP address
 	Region string
 }
 

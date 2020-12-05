@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputStickeredMediaPhoto represents TL type `inputStickeredMediaPhoto#4a992157`.
+// A photo with stickers attached
 //
 // See https://core.telegram.org/constructor/inputStickeredMediaPhoto for reference.
 type InputStickeredMediaPhoto struct {
-	// ID field of InputStickeredMediaPhoto.
+	// The photo
 	ID InputPhotoClass
 }
 
@@ -70,10 +71,11 @@ var (
 )
 
 // InputStickeredMediaDocument represents TL type `inputStickeredMediaDocument#438865b`.
+// A document with stickers attached
 //
 // See https://core.telegram.org/constructor/inputStickeredMediaDocument for reference.
 type InputStickeredMediaDocument struct {
-	// ID field of InputStickeredMediaDocument.
+	// The document
 	ID InputDocumentClass
 }
 

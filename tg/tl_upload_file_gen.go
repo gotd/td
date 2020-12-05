@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadFile represents TL type `upload.file#96a18d5`.
+// File content.
 //
 // See https://core.telegram.org/constructor/upload.file for reference.
 type UploadFile struct {
-	// Type field of UploadFile.
+	// File type
 	Type StorageFileTypeClass
-	// Mtime field of UploadFile.
+	// Modification type
 	Mtime int
-	// Bytes field of UploadFile.
+	// Binary data, file content
 	Bytes []byte
 }
 
@@ -90,18 +91,19 @@ var (
 )
 
 // UploadFileCdnRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
+// The file must be downloaded from a CDN DC.
 //
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect for reference.
 type UploadFileCdnRedirect struct {
-	// DCID field of UploadFileCdnRedirect.
+	// CDN DC ID
 	DCID int
-	// FileToken field of UploadFileCdnRedirect.
+	// File token (see CDN files)
 	FileToken []byte
-	// EncryptionKey field of UploadFileCdnRedirect.
+	// Encryption key (see CDN files)
 	EncryptionKey []byte
-	// EncryptionIv field of UploadFileCdnRedirect.
+	// Encryption IV (see CDN files)
 	EncryptionIv []byte
-	// FileHashes field of UploadFileCdnRedirect.
+	// File hashes (see CDN files)
 	FileHashes []FileHash
 }
 

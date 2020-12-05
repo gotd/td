@@ -15,24 +15,25 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPollVotesRequest represents TL type `messages.getPollVotes#b86e380e`.
+// Get poll results for non-anonymous polls
 //
 // See https://core.telegram.org/method/messages.getPollVotes for reference.
 type MessagesGetPollVotesRequest struct {
-	// Flags field of MessagesGetPollVotesRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Peer field of MessagesGetPollVotesRequest.
+	// Chat where the poll was sent
 	Peer InputPeerClass
-	// ID field of MessagesGetPollVotesRequest.
+	// Message ID
 	ID int
-	// Option field of MessagesGetPollVotesRequest.
+	// Get only results for the specified poll option
 	//
 	// Use SetOption and GetOption helpers.
 	Option []byte
-	// Offset field of MessagesGetPollVotesRequest.
+	// Offset for results, taken from the next_offset field of messages.votesList, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in messages.votesList if it is empty, to avoid an infinite loop.
 	//
 	// Use SetOffset and GetOffset helpers.
 	Offset string
-	// Limit field of MessagesGetPollVotesRequest.
+	// Number of results to return
 	Limit int
 }
 
@@ -153,6 +154,7 @@ var (
 )
 
 // MessagesGetPollVotes invokes method messages.getPollVotes#b86e380e returning error if any.
+// Get poll results for non-anonymous polls
 //
 // See https://core.telegram.org/method/messages.getPollVotes for reference.
 func (c *Client) MessagesGetPollVotes(ctx context.Context, request *MessagesGetPollVotesRequest) (*MessagesVotesList, error) {

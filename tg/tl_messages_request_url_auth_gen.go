@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
+// Get more info about a Seamless Telegram Login authorization request, for more info click here »
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
-	// Peer field of MessagesRequestUrlAuthRequest.
+	// Peer where the message is located
 	Peer InputPeerClass
-	// MsgID field of MessagesRequestUrlAuthRequest.
+	// The message
 	MsgID int
-	// ButtonID field of MessagesRequestUrlAuthRequest.
+	// The ID of the button with the authorization request
 	ButtonID int
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesRequestUrlAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
+// Get more info about a Seamless Telegram Login authorization request, for more info click here »
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestUrlAuth(ctx context.Context, request *MessagesRequestUrlAuthRequest) (UrlAuthResultClass, error) {

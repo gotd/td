@@ -15,22 +15,23 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpCountry represents TL type `help.country#c3878e23`.
+// Name, ISO code, localized name and phone codes/patterns of a specific country
 //
 // See https://core.telegram.org/constructor/help.country for reference.
 type HelpCountry struct {
-	// Flags field of HelpCountry.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Hidden field of HelpCountry.
+	// Whether this country should not be shown in the list
 	Hidden bool
-	// Iso2 field of HelpCountry.
+	// ISO code of country
 	Iso2 string
-	// DefaultName field of HelpCountry.
+	// Name of the country in the country's language
 	DefaultName string
-	// Name field of HelpCountry.
+	// Name of the country in the user's language, if different from the original name
 	//
 	// Use SetName and GetName helpers.
 	Name string
-	// CountryCodes field of HelpCountry.
+	// Phone codes/patterns
 	CountryCodes []HelpCountryCode
 }
 

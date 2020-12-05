@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetPeerDialogsRequest represents TL type `messages.getPeerDialogs#e470bcfd`.
+// Get dialog info of specified peers
 //
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 type MessagesGetPeerDialogsRequest struct {
-	// Peers field of MessagesGetPeerDialogsRequest.
+	// Peers
 	Peers []InputDialogPeerClass
 }
 
@@ -74,6 +75,7 @@ var (
 )
 
 // MessagesGetPeerDialogs invokes method messages.getPeerDialogs#e470bcfd returning error if any.
+// Get dialog info of specified peers
 //
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 func (c *Client) MessagesGetPeerDialogs(ctx context.Context, request *MessagesGetPeerDialogsRequest) (*MessagesPeerDialogs, error) {

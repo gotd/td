@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReadDiscussionRequest represents TL type `messages.readDiscussion#f731a9f4`.
+// Mark a thread as read
 //
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
-	// Peer field of MessagesReadDiscussionRequest.
+	// Group ID
 	Peer InputPeerClass
-	// MsgID field of MessagesReadDiscussionRequest.
+	// ID of message that started the thread
 	MsgID int
-	// ReadMaxID field of MessagesReadDiscussionRequest.
+	// ID up to which thread messages were read
 	ReadMaxID int
 }
 
@@ -85,6 +86,7 @@ var (
 )
 
 // MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.
+// Mark a thread as read
 //
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 func (c *Client) MessagesReadDiscussion(ctx context.Context, request *MessagesReadDiscussionRequest) (BoolClass, error) {

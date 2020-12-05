@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PollAnswer represents TL type `pollAnswer#6ca9c2e9`.
+// A possible answer of a poll
 //
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
-	// Text field of PollAnswer.
+	// Textual representation of the answer
 	Text string
-	// Option field of PollAnswer.
+	// The param that has to be passed to messages.sendVote.
 	Option []byte
 }
 

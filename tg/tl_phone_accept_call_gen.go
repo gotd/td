@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneAcceptCallRequest represents TL type `phone.acceptCall#3bd2b4a0`.
+// Accept incoming call
 //
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 type PhoneAcceptCallRequest struct {
-	// Peer field of PhoneAcceptCallRequest.
+	// The call to accept
 	Peer InputPhoneCall
-	// GB field of PhoneAcceptCallRequest.
+	// Parameter for E2E encryption key exchange »
 	GB []byte
-	// Protocol field of PhoneAcceptCallRequest.
+	// Phone call settings
 	Protocol PhoneCallProtocol
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // PhoneAcceptCall invokes method phone.acceptCall#3bd2b4a0 returning error if any.
+// Accept incoming call
 //
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 func (c *Client) PhoneAcceptCall(ctx context.Context, request *PhoneAcceptCallRequest) (*PhonePhoneCall, error) {

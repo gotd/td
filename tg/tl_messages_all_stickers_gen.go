@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAllStickersNotModified represents TL type `messages.allStickersNotModified#e86602c3`.
+// Info about all installed stickers hasn't changed
 //
 // See https://core.telegram.org/constructor/messages.allStickersNotModified for reference.
 type MessagesAllStickersNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // MessagesAllStickers represents TL type `messages.allStickers#edfd405f`.
+// Info about all installed stickers
 //
 // See https://core.telegram.org/constructor/messages.allStickers for reference.
 type MessagesAllStickers struct {
-	// Hash field of MessagesAllStickers.
+	// Hash for pagination, for more info click here
 	Hash int
-	// Sets field of MessagesAllStickers.
+	// All stickersets
 	Sets []StickerSet
 }
 

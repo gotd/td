@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PaymentsBankCardData represents TL type `payments.bankCardData#3e24e573`.
+// Credit card info, provided by the card's bank(s)
 //
 // See https://core.telegram.org/constructor/payments.bankCardData for reference.
 type PaymentsBankCardData struct {
-	// Title field of PaymentsBankCardData.
+	// Credit card title
 	Title string
-	// OpenUrls field of PaymentsBankCardData.
+	// Info URL(s) provided by the card's bank(s)
 	OpenUrls []BankCardOpenUrl
 }
 

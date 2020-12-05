@@ -15,48 +15,49 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserFull represents TL type `userFull#edf17c12`.
+// Extended user info
 //
 // See https://core.telegram.org/constructor/userFull for reference.
 type UserFull struct {
-	// Flags field of UserFull.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Blocked field of UserFull.
+	// Whether you have blocked this user
 	Blocked bool
-	// PhoneCallsAvailable field of UserFull.
+	// Whether this user can make VoIP calls
 	PhoneCallsAvailable bool
-	// PhoneCallsPrivate field of UserFull.
+	// Whether this user's privacy settings allow you to call him
 	PhoneCallsPrivate bool
-	// CanPinMessage field of UserFull.
+	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
 	CanPinMessage bool
-	// HasScheduled field of UserFull.
+	// Whether scheduled messages are available
 	HasScheduled bool
-	// VideoCallsAvailable field of UserFull.
+	// Whether the user can receive video calls
 	VideoCallsAvailable bool
-	// User field of UserFull.
+	// Remaining user info
 	User UserClass
-	// About field of UserFull.
+	// Bio of the user
 	//
 	// Use SetAbout and GetAbout helpers.
 	About string
-	// Settings field of UserFull.
+	// Peer settings
 	Settings PeerSettings
-	// ProfilePhoto field of UserFull.
+	// Profile photo
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
 	ProfilePhoto PhotoClass
-	// NotifySettings field of UserFull.
+	// Notification settings
 	NotifySettings PeerNotifySettings
-	// BotInfo field of UserFull.
+	// For bots, info about the bot (bot commands, etc)
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
 	BotInfo BotInfo
-	// PinnedMsgID field of UserFull.
+	// Message ID of the last pinned message
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
-	// CommonChatsCount field of UserFull.
+	// Chats in common with this user
 	CommonChatsCount int
-	// FolderID field of UserFull.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int

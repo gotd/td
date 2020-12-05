@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#c2b7d08b`.
+// Search for stickersets
 //
 // See https://core.telegram.org/method/messages.searchStickerSets for reference.
 type MessagesSearchStickerSetsRequest struct {
-	// Flags field of MessagesSearchStickerSetsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ExcludeFeatured field of MessagesSearchStickerSetsRequest.
+	// Exclude featured stickersets from results
 	ExcludeFeatured bool
-	// Q field of MessagesSearchStickerSetsRequest.
+	// Query string
 	Q string
-	// Hash field of MessagesSearchStickerSetsRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -92,6 +93,7 @@ var (
 )
 
 // MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.
+// Search for stickersets
 //
 // See https://core.telegram.org/method/messages.searchStickerSets for reference.
 func (c *Client) MessagesSearchStickerSets(ctx context.Context, request *MessagesSearchStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {

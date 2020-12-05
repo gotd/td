@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMessageEditDataRequest represents TL type `messages.getMessageEditData#fda68d36`.
+// Find out if a media message's caption can be edited
 //
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 type MessagesGetMessageEditDataRequest struct {
-	// Peer field of MessagesGetMessageEditDataRequest.
+	// Peer where the media was sent
 	Peer InputPeerClass
-	// ID field of MessagesGetMessageEditDataRequest.
+	// ID of message
 	ID int
 }
 
@@ -75,6 +76,7 @@ var (
 )
 
 // MessagesGetMessageEditData invokes method messages.getMessageEditData#fda68d36 returning error if any.
+// Find out if a media message's caption can be edited
 //
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 func (c *Client) MessagesGetMessageEditData(ctx context.Context, request *MessagesGetMessageEditDataRequest) (*MessagesMessageEditData, error) {

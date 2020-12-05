@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetCdnConfigRequest represents TL type `help.getCdnConfig#52029342`.
+// Get configuration for CDN file downloads.
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 type HelpGetCdnConfigRequest struct {
@@ -50,6 +51,7 @@ var (
 )
 
 // HelpGetCdnConfig invokes method help.getCdnConfig#52029342 returning error if any.
+// Get configuration for CDN file downloads.
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 func (c *Client) HelpGetCdnConfig(ctx context.Context, request *HelpGetCdnConfigRequest) (*CdnConfig, error) {

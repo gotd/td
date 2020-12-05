@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetEmojiKeywordsLanguagesRequest represents TL type `messages.getEmojiKeywordsLanguages#4e9963b2`.
+// Get info about an emoji keyword localization
 //
 // See https://core.telegram.org/constructor/messages.getEmojiKeywordsLanguages for reference.
 type MessagesGetEmojiKeywordsLanguagesRequest struct {
-	// LangCodes field of MessagesGetEmojiKeywordsLanguagesRequest.
+	// Language codes
 	LangCodes []string
 }
 

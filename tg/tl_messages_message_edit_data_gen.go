@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesMessageEditData represents TL type `messages.messageEditData#26b5dde6`.
+// Message edit data for media
 //
 // See https://core.telegram.org/constructor/messages.messageEditData for reference.
 type MessagesMessageEditData struct {
-	// Flags field of MessagesMessageEditData.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Caption field of MessagesMessageEditData.
+	// Media caption, if the specified media's caption can be edited
 	Caption bool
 }
 

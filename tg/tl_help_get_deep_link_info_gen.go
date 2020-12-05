@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetDeepLinkInfoRequest represents TL type `help.getDeepLinkInfo#3fedc75f`.
+// Get info about a t.me link
 //
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 type HelpGetDeepLinkInfoRequest struct {
-	// Path field of HelpGetDeepLinkInfoRequest.
+	// Path in t.me/path
 	Path string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // HelpGetDeepLinkInfo invokes method help.getDeepLinkInfo#3fedc75f returning error if any.
+// Get info about a t.me link
 //
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 func (c *Client) HelpGetDeepLinkInfo(ctx context.Context, request *HelpGetDeepLinkInfoRequest) (HelpDeepLinkInfoClass, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSentEncryptedMessage represents TL type `messages.sentEncryptedMessage#560f8935`.
+// Message without file attachemts sent to an encrypted file.
 //
 // See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {
-	// Date field of MessagesSentEncryptedMessage.
+	// Date of sending
 	Date int
 }
 
@@ -65,12 +66,13 @@ var (
 )
 
 // MessagesSentEncryptedFile represents TL type `messages.sentEncryptedFile#9493ff32`.
+// Message with a file enclosure sent to a protected chat
 //
 // See https://core.telegram.org/constructor/messages.sentEncryptedFile for reference.
 type MessagesSentEncryptedFile struct {
-	// Date field of MessagesSentEncryptedFile.
+	// Sending date
 	Date int
-	// File field of MessagesSentEncryptedFile.
+	// Attached file
 	File EncryptedFileClass
 }
 

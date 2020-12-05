@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesUninstallStickerSetRequest represents TL type `messages.uninstallStickerSet#f96e55de`.
+// Uninstall a stickerset
 //
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
 type MessagesUninstallStickerSetRequest struct {
-	// Stickerset field of MessagesUninstallStickerSetRequest.
+	// The stickerset to uninstall
 	Stickerset InputStickerSetClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // MessagesUninstallStickerSet invokes method messages.uninstallStickerSet#f96e55de returning error if any.
+// Uninstall a stickerset
 //
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
 func (c *Client) MessagesUninstallStickerSet(ctx context.Context, request *MessagesUninstallStickerSetRequest) (BoolClass, error) {

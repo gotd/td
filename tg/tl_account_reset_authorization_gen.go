@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountResetAuthorizationRequest represents TL type `account.resetAuthorization#df77f3bc`.
+// Log out an active authorized session by its hash
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
-	// Hash field of AccountResetAuthorizationRequest.
+	// Session hash
 	Hash int64
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountResetAuthorization invokes method account.resetAuthorization#df77f3bc returning error if any.
+// Log out an active authorized session by its hash
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 func (c *Client) AccountResetAuthorization(ctx context.Context, request *AccountResetAuthorizationRequest) (BoolClass, error) {

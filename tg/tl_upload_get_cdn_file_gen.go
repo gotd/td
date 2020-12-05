@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetCdnFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
+// Download a CDN file.
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCdnFileRequest struct {
-	// FileToken field of UploadGetCdnFileRequest.
+	// File token
 	FileToken []byte
-	// Offset field of UploadGetCdnFileRequest.
+	// Offset of chunk to download
 	Offset int
-	// Limit field of UploadGetCdnFileRequest.
+	// Length of chunk to download
 	Limit int
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // UploadGetCdnFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
+// Download a CDN file.
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 func (c *Client) UploadGetCdnFile(ctx context.Context, request *UploadGetCdnFileRequest) (UploadCdnFileClass, error) {

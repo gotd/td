@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
+// Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
 //
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
-	// Peer field of PhoneReceivedCallRequest.
+	// The phone call we're currently in
 	Peer InputPhoneCall
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
+// Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
 //
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 func (c *Client) PhoneReceivedCall(ctx context.Context, request *PhoneReceivedCallRequest) (BoolClass, error) {

@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsUnblockRequest represents TL type `contacts.unblock#bea65d50`.
+// Deletes the user from the blacklist.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
-	// ID field of ContactsUnblockRequest.
+	// User ID
 	ID InputPeerClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // ContactsUnblock invokes method contacts.unblock#bea65d50 returning error if any.
+// Deletes the user from the blacklist.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
 func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (BoolClass, error) {

@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#9a364e30`.
+// Set stickerset thumbnail
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
-	// Stickerset field of StickersSetStickerSetThumbRequest.
+	// Stickerset
 	Stickerset InputStickerSetClass
-	// Thumb field of StickersSetStickerSetThumbRequest.
+	// Thumbnail
 	Thumb InputDocumentClass
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
+// Set stickerset thumbnail
 //
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error) {

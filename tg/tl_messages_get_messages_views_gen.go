@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetMessagesViewsRequest represents TL type `messages.getMessagesViews#5784d3e1`.
+// Get and increase the view counter of a message sent or forwarded from a channel
 //
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
-	// Peer field of MessagesGetMessagesViewsRequest.
+	// Peer where the message was found
 	Peer InputPeerClass
-	// ID field of MessagesGetMessagesViewsRequest.
+	// ID of message
 	ID []int
-	// Increment field of MessagesGetMessagesViewsRequest.
+	// Whether to mark the message as viewed and increment the view counter
 	Increment bool
 }
 
@@ -94,6 +95,7 @@ var (
 )
 
 // MessagesGetMessagesViews invokes method messages.getMessagesViews#5784d3e1 returning error if any.
+// Get and increase the view counter of a message sent or forwarded from a channel
 //
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 func (c *Client) MessagesGetMessagesViews(ctx context.Context, request *MessagesGetMessagesViewsRequest) (*MessagesMessageViews, error) {

@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInfo represents TL type `botInfo#98e81d3a`.
+// Info about bots (available bot commands, etc)
 //
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
-	// UserID field of BotInfo.
+	// ID of the bot
 	UserID int
-	// Description field of BotInfo.
+	// Description of the bot
 	Description string
-	// Commands field of BotInfo.
+	// Bot commands that can be used in the chat
 	Commands []BotCommand
 }
 

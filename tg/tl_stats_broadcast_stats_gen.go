@@ -15,38 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
+// Channel statistics.
 //
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
-	// Period field of StatsBroadcastStats.
+	// Period in consideration
 	Period StatsDateRangeDays
-	// Followers field of StatsBroadcastStats.
+	// Follower count change for period in consideration
 	Followers StatsAbsValueAndPrev
-	// ViewsPerPost field of StatsBroadcastStats.
+	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
 	ViewsPerPost StatsAbsValueAndPrev
-	// SharesPerPost field of StatsBroadcastStats.
+	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
 	SharesPerPost StatsAbsValueAndPrev
-	// EnabledNotifications field of StatsBroadcastStats.
+	// Percentage of subscribers with enabled notifications
 	EnabledNotifications StatsPercentValue
-	// GrowthGraph field of StatsBroadcastStats.
+	// Channel growth graph (absolute subscriber count)
 	GrowthGraph StatsGraphClass
-	// FollowersGraph field of StatsBroadcastStats.
+	// Followers growth graph (relative subscriber count)
 	FollowersGraph StatsGraphClass
-	// MuteGraph field of StatsBroadcastStats.
+	// Muted users graph (relative)
 	MuteGraph StatsGraphClass
-	// TopHoursGraph field of StatsBroadcastStats.
+	// Views per hour graph (absolute)
 	TopHoursGraph StatsGraphClass
-	// InteractionsGraph field of StatsBroadcastStats.
+	// Interactions graph (absolute)
 	InteractionsGraph StatsGraphClass
-	// IvInteractionsGraph field of StatsBroadcastStats.
+	// IV interactions graph (absolute)
 	IvInteractionsGraph StatsGraphClass
-	// ViewsBySourceGraph field of StatsBroadcastStats.
+	// Views by source graph (absolute)
 	ViewsBySourceGraph StatsGraphClass
-	// NewFollowersBySourceGraph field of StatsBroadcastStats.
+	// New followers by source graph (absolute)
 	NewFollowersBySourceGraph StatsGraphClass
-	// LanguagesGraph field of StatsBroadcastStats.
+	// Subscriber language graph (piechart)
 	LanguagesGraph StatsGraphClass
-	// RecentMessageInteractions field of StatsBroadcastStats.
+	// Recent message interactions
 	RecentMessageInteractions []MessageInteractionCounters
 }
 

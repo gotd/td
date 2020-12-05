@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#72d4742c`.
+// Installs a previously uploaded photo as a profile photo.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 type PhotosUpdateProfilePhotoRequest struct {
-	// ID field of PhotosUpdateProfilePhotoRequest.
+	// Input photo
 	ID InputPhotoClass
 }
 
@@ -65,6 +66,7 @@ var (
 )
 
 // PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#72d4742c returning error if any.
+// Installs a previously uploaded photo as a profile photo.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error) {

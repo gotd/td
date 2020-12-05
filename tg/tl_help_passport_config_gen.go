@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpPassportConfigNotModified represents TL type `help.passportConfigNotModified#bfb9f457`.
+// Password configuration not modified
 //
 // See https://core.telegram.org/constructor/help.passportConfigNotModified for reference.
 type HelpPassportConfigNotModified struct {
@@ -55,12 +56,13 @@ var (
 )
 
 // HelpPassportConfig represents TL type `help.passportConfig#a098d6af`.
+// Telegram passport configuration
 //
 // See https://core.telegram.org/constructor/help.passportConfig for reference.
 type HelpPassportConfig struct {
-	// Hash field of HelpPassportConfig.
+	// Hash for pagination, for more info click here
 	Hash int
-	// CountriesLangs field of HelpPassportConfig.
+	// Localization
 	CountriesLangs DataJSON
 }
 

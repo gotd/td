@@ -15,42 +15,43 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureValue represents TL type `secureValue#187fa0ca`.
+// Secure value
 //
 // See https://core.telegram.org/constructor/secureValue for reference.
 type SecureValue struct {
-	// Flags field of SecureValue.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Type field of SecureValue.
+	// Secure passport value type
 	Type SecureValueTypeClass
-	// Data field of SecureValue.
+	// Encrypted Telegram Passport element data
 	//
 	// Use SetData and GetData helpers.
 	Data SecureData
-	// FrontSide field of SecureValue.
+	// Encrypted passport file with the front side of the document
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
 	FrontSide SecureFileClass
-	// ReverseSide field of SecureValue.
+	// Encrypted passport file with the reverse side of the document
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
 	ReverseSide SecureFileClass
-	// Selfie field of SecureValue.
+	// Encrypted passport file with a selfie of the user holding the document
 	//
 	// Use SetSelfie and GetSelfie helpers.
 	Selfie SecureFileClass
-	// Translation field of SecureValue.
+	// Array of encrypted passport files with translated versions of the provided documents
 	//
 	// Use SetTranslation and GetTranslation helpers.
 	Translation []SecureFileClass
-	// Files field of SecureValue.
+	// Array of encrypted passport files with photos the of the documents
 	//
 	// Use SetFiles and GetFiles helpers.
 	Files []SecureFileClass
-	// PlainData field of SecureValue.
+	// Plaintext verified passport data
 	//
 	// Use SetPlainData and GetPlainData helpers.
 	PlainData SecurePlainDataClass
-	// Hash field of SecureValue.
+	// Data hash
 	Hash []byte
 }
 

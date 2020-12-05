@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
+// Confirms receipt of messages in a secret chat by client, cancels push notifications.
 //
 // See https://core.telegram.org/constructor/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
-	// MaxQts field of MessagesReceivedQueueRequest.
+	// Maximum qts value available at the client
 	MaxQts int
 }
 

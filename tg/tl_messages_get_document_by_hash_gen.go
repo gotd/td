@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDocumentByHashRequest represents TL type `messages.getDocumentByHash#338e2464`.
+// Get a document by its SHA256 hash, mainly used for gifs
 //
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 type MessagesGetDocumentByHashRequest struct {
-	// Sha256 field of MessagesGetDocumentByHashRequest.
+	// SHA256 of file
 	Sha256 []byte
-	// Size field of MessagesGetDocumentByHashRequest.
+	// Size of the file in bytes
 	Size int
-	// MimeType field of MessagesGetDocumentByHashRequest.
+	// Mime type
 	MimeType string
 }
 
@@ -80,6 +81,7 @@ var (
 )
 
 // MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.
+// Get a document by its SHA256 hash, mainly used for gifs
 //
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 func (c *Client) MessagesGetDocumentByHash(ctx context.Context, request *MessagesGetDocumentByHashRequest) (DocumentClass, error) {

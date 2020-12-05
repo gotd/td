@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountCheckUsernameRequest represents TL type `account.checkUsername#2714d86c`.
+// Validates a username and checks availability.
 //
 // See https://core.telegram.org/method/account.checkUsername for reference.
 type AccountCheckUsernameRequest struct {
-	// Username field of AccountCheckUsernameRequest.
+	// usernameAccepted characters: A-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
 	Username string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // AccountCheckUsername invokes method account.checkUsername#2714d86c returning error if any.
+// Validates a username and checks availability.
 //
 // See https://core.telegram.org/method/account.checkUsername for reference.
 func (c *Client) AccountCheckUsername(ctx context.Context, request *AccountCheckUsernameRequest) (BoolClass, error) {

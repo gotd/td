@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSearchCounter represents TL type `messages.searchCounter#e844ebff`.
+// Indicates how many results would be found by a messages.search call with the same parameters
 //
 // See https://core.telegram.org/constructor/messages.searchCounter for reference.
 type MessagesSearchCounter struct {
-	// Flags field of MessagesSearchCounter.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Inexact field of MessagesSearchCounter.
+	// If set, the results may be inexact
 	Inexact bool
-	// Filter field of MessagesSearchCounter.
+	// Provided message filter
 	Filter MessagesFilterClass
-	// Count field of MessagesSearchCounter.
+	// Number of results that were found server-side
 	Count int
 }
 

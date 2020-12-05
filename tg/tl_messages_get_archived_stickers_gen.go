@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetArchivedStickersRequest represents TL type `messages.getArchivedStickers#57f17692`.
+// Get all archived stickers
 //
 // See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 type MessagesGetArchivedStickersRequest struct {
-	// Flags field of MessagesGetArchivedStickersRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Masks field of MessagesGetArchivedStickersRequest.
+	// Get mask stickers
 	Masks bool
-	// OffsetID field of MessagesGetArchivedStickersRequest.
+	// Offsets for pagination, for more info click here
 	OffsetID int64
-	// Limit field of MessagesGetArchivedStickersRequest.
+	// Maximum number of results to return, see pagination
 	Limit int
 }
 
@@ -92,6 +93,7 @@ var (
 )
 
 // MessagesGetArchivedStickers invokes method messages.getArchivedStickers#57f17692 returning error if any.
+// Get all archived stickers
 //
 // See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 func (c *Client) MessagesGetArchivedStickers(ctx context.Context, request *MessagesGetArchivedStickersRequest) (*MessagesArchivedStickers, error) {

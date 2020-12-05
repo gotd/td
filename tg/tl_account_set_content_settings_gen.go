@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountSetContentSettingsRequest represents TL type `account.setContentSettings#b574b16b`.
+// Set sensitive content settings (for viewing or hiding NSFW content)
 //
 // See https://core.telegram.org/method/account.setContentSettings for reference.
 type AccountSetContentSettingsRequest struct {
-	// Flags field of AccountSetContentSettingsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// SensitiveEnabled field of AccountSetContentSettingsRequest.
+	// Enable NSFW content
 	SensitiveEnabled bool
 }
 
@@ -72,6 +73,7 @@ var (
 )
 
 // AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.
+// Set sensitive content settings (for viewing or hiding NSFW content)
 //
 // See https://core.telegram.org/method/account.setContentSettings for reference.
 func (c *Client) AccountSetContentSettings(ctx context.Context, request *AccountSetContentSettingsRequest) (BoolClass, error) {

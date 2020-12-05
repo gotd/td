@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
+// Info on succesfully imported contacts.
 //
 // See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
-	// Imported field of ContactsImportedContacts.
+	// List of succesfully imported contacts
 	Imported []ImportedContact
-	// PopularInvites field of ContactsImportedContacts.
+	// Popular contacts
 	PopularInvites []PopularContact
-	// RetryContacts field of ContactsImportedContacts.
+	// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.Parameter added in Layer 13
 	RetryContacts []int64
-	// Users field of ContactsImportedContacts.
+	// List of users
 	Users []UserClass
 }
 

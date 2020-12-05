@@ -15,26 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0ee3b73`.
+// Returns the current user dialog list.
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 type MessagesGetDialogsRequest struct {
-	// Flags field of MessagesGetDialogsRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// ExcludePinned field of MessagesGetDialogsRequest.
+	// Exclude pinned dialogs
 	ExcludePinned bool
-	// FolderID field of MessagesGetDialogsRequest.
+	// Peer folder ID, for more info click here
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// OffsetDate field of MessagesGetDialogsRequest.
+	// Offsets for pagination, for more info click here
 	OffsetDate int
-	// OffsetID field of MessagesGetDialogsRequest.
+	// Offsets for pagination, for more info click here
 	OffsetID int
-	// OffsetPeer field of MessagesGetDialogsRequest.
+	// Offset peer for pagination
 	OffsetPeer InputPeerClass
-	// Limit field of MessagesGetDialogsRequest.
+	// Number of list elements to be returned
 	Limit int
-	// Hash field of MessagesGetDialogsRequest.
+	// Hash for pagination, for more info click here
 	Hash int
 }
 
@@ -156,6 +157,7 @@ var (
 )
 
 // MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
+// Returns the current user dialog list.
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {

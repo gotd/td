@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
+// Unknown KDF (most likely, the client is outdated and does not support the specified KDF algorithm)
 //
 // See https://core.telegram.org/constructor/passwordKdfAlgoUnknown for reference.
 type PasswordKdfAlgoUnknown struct {
@@ -55,16 +56,17 @@ var (
 )
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow represents TL type `passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a`.
+// This key derivation algorithm defines that SRP 2FA login must be used
 //
 // See https://core.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow for reference.
 type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
-	// Salt1 field of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
+	// One of two salts used by the derivation function (see SRP 2FA login)
 	Salt1 []byte
-	// Salt2 field of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
+	// One of two salts used by the derivation function (see SRP 2FA login)
 	Salt2 []byte
-	// G field of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
+	// Base (see SRP 2FA login)
 	G int
-	// P field of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
+	// 2048-bit modulus (see SRP 2FA login)
 	P []byte
 }
 

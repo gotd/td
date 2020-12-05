@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesChats represents TL type `messages.chats#64ff9fd5`.
+// List of chats with auxiliary data.
 //
 // See https://core.telegram.org/constructor/messages.chats for reference.
 type MessagesChats struct {
-	// Chats field of MessagesChats.
+	// List of chats
 	Chats []ChatClass
 }
 
@@ -79,12 +80,13 @@ var (
 )
 
 // MessagesChatsSlice represents TL type `messages.chatsSlice#9cd81144`.
+// Partial list of chats, more would have to be fetched with pagination
 //
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
-	// Count field of MessagesChatsSlice.
+	// Total number of results that were found server-side (not all are included in chats)
 	Count int
-	// Chats field of MessagesChatsSlice.
+	// Chats
 	Chats []ChatClass
 }
 

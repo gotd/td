@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PrivacyKeyStatusTimestamp represents TL type `privacyKeyStatusTimestamp#bc2eab30`.
+// Whether we can see the last online timestamp
 //
 // See https://core.telegram.org/constructor/privacyKeyStatusTimestamp for reference.
 type PrivacyKeyStatusTimestamp struct {
@@ -55,6 +56,7 @@ var (
 )
 
 // PrivacyKeyChatInvite represents TL type `privacyKeyChatInvite#500e6dfa`.
+// Whether the user can be invited to chats
 //
 // See https://core.telegram.org/constructor/privacyKeyChatInvite for reference.
 type PrivacyKeyChatInvite struct {
@@ -95,6 +97,7 @@ var (
 )
 
 // PrivacyKeyPhoneCall represents TL type `privacyKeyPhoneCall#3d662b7b`.
+// Whether the user accepts phone calls
 //
 // See https://core.telegram.org/constructor/privacyKeyPhoneCall for reference.
 type PrivacyKeyPhoneCall struct {
@@ -135,6 +138,7 @@ var (
 )
 
 // PrivacyKeyPhoneP2P represents TL type `privacyKeyPhoneP2P#39491cc8`.
+// Whether P2P connections in phone calls are allowed
 //
 // See https://core.telegram.org/constructor/privacyKeyPhoneP2P for reference.
 type PrivacyKeyPhoneP2P struct {
@@ -175,6 +179,7 @@ var (
 )
 
 // PrivacyKeyForwards represents TL type `privacyKeyForwards#69ec56a3`.
+// Whether messages forwarded from the user will be anonymously forwarded
 //
 // See https://core.telegram.org/constructor/privacyKeyForwards for reference.
 type PrivacyKeyForwards struct {
@@ -215,6 +220,7 @@ var (
 )
 
 // PrivacyKeyProfilePhoto represents TL type `privacyKeyProfilePhoto#96151fed`.
+// Whether the profile picture of the user is visible
 //
 // See https://core.telegram.org/constructor/privacyKeyProfilePhoto for reference.
 type PrivacyKeyProfilePhoto struct {
@@ -255,6 +261,7 @@ var (
 )
 
 // PrivacyKeyPhoneNumber represents TL type `privacyKeyPhoneNumber#d19ae46d`.
+// Whether the user allows us to see his phone number
 //
 // See https://core.telegram.org/constructor/privacyKeyPhoneNumber for reference.
 type PrivacyKeyPhoneNumber struct {
@@ -295,6 +302,7 @@ var (
 )
 
 // PrivacyKeyAddedByPhone represents TL type `privacyKeyAddedByPhone#42ffd42b`.
+// Whether people can add you to their contact list by your phone number
 //
 // See https://core.telegram.org/constructor/privacyKeyAddedByPhone for reference.
 type PrivacyKeyAddedByPhone struct {

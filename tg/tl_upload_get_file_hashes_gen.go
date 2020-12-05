@@ -15,12 +15,13 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadGetFileHashesRequest represents TL type `upload.getFileHashes#c7025931`.
+// Get SHA256 hashes for verifying downloaded files
 //
 // See https://core.telegram.org/constructor/upload.getFileHashes for reference.
 type UploadGetFileHashesRequest struct {
-	// Location field of UploadGetFileHashesRequest.
+	// File
 	Location InputFileLocationClass
-	// Offset field of UploadGetFileHashesRequest.
+	// Offset from which to get file hashes
 	Offset int
 }
 

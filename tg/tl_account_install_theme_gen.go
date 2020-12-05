@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
+// Install a theme
 //
 // See https://core.telegram.org/method/account.installTheme for reference.
 type AccountInstallThemeRequest struct {
-	// Flags field of AccountInstallThemeRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Dark field of AccountInstallThemeRequest.
+	// Whether to install the dark version
 	Dark bool
-	// Format field of AccountInstallThemeRequest.
+	// Theme format, a string that identifies the theming engines supported by the client
 	//
 	// Use SetFormat and GetFormat helpers.
 	Format string
-	// Theme field of AccountInstallThemeRequest.
+	// Theme to install
 	//
 	// Use SetTheme and GetTheme helpers.
 	Theme InputThemeClass
@@ -135,6 +136,7 @@ var (
 )
 
 // AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.
+// Install a theme
 //
 // See https://core.telegram.org/method/account.installTheme for reference.
 func (c *Client) AccountInstallTheme(ctx context.Context, request *AccountInstallThemeRequest) (BoolClass, error) {

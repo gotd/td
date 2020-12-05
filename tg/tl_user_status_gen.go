@@ -15,6 +15,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UserStatusEmpty represents TL type `userStatusEmpty#9d05049`.
+// User status has not been set yet.
 //
 // See https://core.telegram.org/constructor/userStatusEmpty for reference.
 type UserStatusEmpty struct {
@@ -55,10 +56,11 @@ var (
 )
 
 // UserStatusOnline represents TL type `userStatusOnline#edb93949`.
+// Online status of the user.
 //
 // See https://core.telegram.org/constructor/userStatusOnline for reference.
 type UserStatusOnline struct {
-	// Expires field of UserStatusOnline.
+	// Time to expiration of the current online status
 	Expires int
 }
 
@@ -105,10 +107,11 @@ var (
 )
 
 // UserStatusOffline represents TL type `userStatusOffline#8c703f`.
+// The user's offline status.
 //
 // See https://core.telegram.org/constructor/userStatusOffline for reference.
 type UserStatusOffline struct {
-	// WasOnline field of UserStatusOffline.
+	// Time the user was last seen online
 	WasOnline int
 }
 
@@ -155,6 +158,7 @@ var (
 )
 
 // UserStatusRecently represents TL type `userStatusRecently#e26f42f1`.
+// Online status: last seen recently
 //
 // See https://core.telegram.org/constructor/userStatusRecently for reference.
 type UserStatusRecently struct {
@@ -195,6 +199,7 @@ var (
 )
 
 // UserStatusLastWeek represents TL type `userStatusLastWeek#7bf09fc`.
+// Online status: last seen last week
 //
 // See https://core.telegram.org/constructor/userStatusLastWeek for reference.
 type UserStatusLastWeek struct {
@@ -235,6 +240,7 @@ var (
 )
 
 // UserStatusLastMonth represents TL type `userStatusLastMonth#77ebc742`.
+// Online status: last seen last month
 //
 // See https://core.telegram.org/constructor/userStatusLastMonth for reference.
 type UserStatusLastMonth struct {

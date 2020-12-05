@@ -15,20 +15,21 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // PhoneDiscardCallRequest represents TL type `phone.discardCall#b2cbc1c0`.
+// Refuse or end running call
 //
 // See https://core.telegram.org/method/phone.discardCall for reference.
 type PhoneDiscardCallRequest struct {
-	// Flags field of PhoneDiscardCallRequest.
+	// Flags, see TL conditional fields
 	Flags bin.Fields
-	// Video field of PhoneDiscardCallRequest.
+	// Whether this is a video call
 	Video bool
-	// Peer field of PhoneDiscardCallRequest.
+	// The phone call
 	Peer InputPhoneCall
-	// Duration field of PhoneDiscardCallRequest.
+	// Call duration
 	Duration int
-	// Reason field of PhoneDiscardCallRequest.
+	// Why was the call discarded
 	Reason PhoneCallDiscardReasonClass
-	// ConnectionID field of PhoneDiscardCallRequest.
+	// Preferred libtgvoip relay ID
 	ConnectionID int64
 }
 
@@ -117,6 +118,7 @@ var (
 )
 
 // PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.
+// Refuse or end running call
 //
 // See https://core.telegram.org/method/phone.discardCall for reference.
 func (c *Client) PhoneDiscardCall(ctx context.Context, request *PhoneDiscardCallRequest) (UpdatesClass, error) {

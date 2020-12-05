@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesImportChatInviteRequest represents TL type `messages.importChatInvite#6c50051c`.
+// Import a chat invite and join a private chat/supergroup/channel
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
 type MessagesImportChatInviteRequest struct {
-	// Hash field of MessagesImportChatInviteRequest.
+	// hash from t.me/joinchat/hash
 	Hash string
 }
 
@@ -60,6 +61,7 @@ var (
 )
 
 // MessagesImportChatInvite invokes method messages.importChatInvite#6c50051c returning error if any.
+// Import a chat invite and join a private chat/supergroup/channel
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
 func (c *Client) MessagesImportChatInvite(ctx context.Context, request *MessagesImportChatInviteRequest) (UpdatesClass, error) {

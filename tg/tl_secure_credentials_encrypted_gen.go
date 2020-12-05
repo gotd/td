@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureCredentialsEncrypted represents TL type `secureCredentialsEncrypted#33f0ea47`.
+// Encrypted credentials required to decrypt telegram passport data.
 //
 // See https://core.telegram.org/constructor/secureCredentialsEncrypted for reference.
 type SecureCredentialsEncrypted struct {
-	// Data field of SecureCredentialsEncrypted.
+	// Encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication, as described in decrypting data »
 	Data []byte
-	// Hash field of SecureCredentialsEncrypted.
+	// Data hash for data authentication as described in decrypting data »
 	Hash []byte
-	// Secret field of SecureCredentialsEncrypted.
+	// Secret, encrypted with the bot's public RSA key, required for data decryption as described in decrypting data »
 	Secret []byte
 }
 

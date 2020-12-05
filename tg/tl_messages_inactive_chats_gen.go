@@ -15,14 +15,15 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesInactiveChats represents TL type `messages.inactiveChats#a927fec5`.
+// Inactive chat list
 //
 // See https://core.telegram.org/constructor/messages.inactiveChats for reference.
 type MessagesInactiveChats struct {
-	// Dates field of MessagesInactiveChats.
+	// When was the chat last active
 	Dates []int
-	// Chats field of MessagesInactiveChats.
+	// Chat list
 	Chats []ChatClass
-	// Users field of MessagesInactiveChats.
+	// Users mentioned in the chat list
 	Users []UserClass
 }
 

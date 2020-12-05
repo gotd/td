@@ -15,10 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetMultiWallPapersRequest represents TL type `account.getMultiWallPapers#65ad71dc`.
+// Get info about multiple wallpapers
 //
 // See https://core.telegram.org/constructor/account.getMultiWallPapers for reference.
 type AccountGetMultiWallPapersRequest struct {
-	// Wallpapers field of AccountGetMultiWallPapersRequest.
+	// Wallpapers to fetch info about
 	Wallpapers []InputWallPaperClass
 }
 

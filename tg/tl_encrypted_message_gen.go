@@ -15,18 +15,19 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // EncryptedMessage represents TL type `encryptedMessage#ed18c118`.
+// Encrypted message.
 //
 // See https://core.telegram.org/constructor/encryptedMessage for reference.
 type EncryptedMessage struct {
-	// RandomID field of EncryptedMessage.
+	// Random message ID, assigned by the author of message
 	RandomID int64
-	// ChatID field of EncryptedMessage.
+	// ID of encrypted chat
 	ChatID int
-	// Date field of EncryptedMessage.
+	// Date of sending
 	Date int
-	// Bytes field of EncryptedMessage.
+	// TL-serialising of DecryptedMessage type, encrypted with the key creatied at stage of chat initialization
 	Bytes []byte
-	// File field of EncryptedMessage.
+	// Attached encrypted file
 	File EncryptedFileClass
 }
 
@@ -110,16 +111,17 @@ var (
 )
 
 // EncryptedMessageService represents TL type `encryptedMessageService#23734b06`.
+// Encrypted service message
 //
 // See https://core.telegram.org/constructor/encryptedMessageService for reference.
 type EncryptedMessageService struct {
-	// RandomID field of EncryptedMessageService.
+	// Random message ID, assigned by the author of message
 	RandomID int64
-	// ChatID field of EncryptedMessageService.
+	// ID of encrypted chat
 	ChatID int
-	// Date field of EncryptedMessageService.
+	// Date of sending
 	Date int
-	// Bytes field of EncryptedMessageService.
+	// TL-serialising of DecryptedMessage type, encrypted with the key creatied at stage of chat initialization
 	Bytes []byte
 }
 

@@ -15,16 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputAppEvent represents TL type `inputAppEvent#1d1b1245`.
+// Event that occured in the application.
 //
 // See https://core.telegram.org/constructor/inputAppEvent for reference.
 type InputAppEvent struct {
-	// Time field of InputAppEvent.
+	// Client's exact timestamp for the event
 	Time float64
-	// Type field of InputAppEvent.
+	// Type of event
 	Type string
-	// Peer field of InputAppEvent.
+	// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
 	Peer int64
-	// Data field of InputAppEvent.
+	// Details of the event
 	Data JSONValueClass
 }
 
