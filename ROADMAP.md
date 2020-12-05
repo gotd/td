@@ -14,6 +14,7 @@
 - [x] RPC Requests
 - [ ] Reduce signature of RPC requests with zero methods
 - [ ] Vector as RPC Result
+- [ ] RPC Error description from documentation error codes
 
 ## Client
 
