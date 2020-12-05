@@ -4,8 +4,7 @@ import (
 	"crypto/aes"
 	"io"
 
-	"github.com/ernado/ige"
-
+	"github.com/gotd/ige"
 	"github.com/gotd/td/internal/crypto"
 )
 

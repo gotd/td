@@ -3,9 +3,9 @@ package telegram
 import (
 	"crypto/aes"
 
-	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/ige"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 )

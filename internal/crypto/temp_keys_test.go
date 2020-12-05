@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ernado/ige"
+	"github.com/gotd/ige"
 )
 
 func hexInt(hexValue string) *big.Int {

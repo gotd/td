@@ -11,9 +11,9 @@ import (
 	"math/big"
 	"sync/atomic"
 
-	"github.com/ernado/ige"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/ige"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
