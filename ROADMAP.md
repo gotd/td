@@ -23,6 +23,7 @@
 - [x] Session storage
 - [x] Automatic reconnect handling
 - [ ] Background pings
+- [ ] Replace zap with generic event listener, like [pebble.EventListener](https://pkg.go.dev/github.com/cockroachdb/pebble#EventListener)
 
 ## Testing
 - [ ] tgtest, like http test (partially implemented)
