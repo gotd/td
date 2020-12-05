@@ -52,13 +52,14 @@ func (h updateHandler) handle(ctx context.Context, client telegram.UpdateClient,
 					if err != nil {
 						return err
 					}
+					p := &tg.InputPeerUser{
+						UserID:     user.ID,
+						AccessHash: user.AccessHash,
+					}
 					return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 						RandomID: randomID,
 						Message:  m.Message,
-						Peer: &tg.InputPeerUser{
-							UserID:     user.ID,
-							AccessHash: user.AccessHash,
-						},
+						Peer:     p,
 					})
 				}
 			}
