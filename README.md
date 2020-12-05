@@ -91,9 +91,32 @@ type AuthAuthorizationClass interface {
 Also, the corresponding [auth.signIn](https://core.telegram.org/method/auth.signIn) method:
 ```go
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
+// Signs in a user with a validated phone number.
 //
 // See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {}
+```
+
+The generated constructors contain detailed official documentation:
+```go
+// AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
+// Install a theme
+//
+// See https://core.telegram.org/method/account.installTheme for reference.
+type AccountInstallThemeRequest struct {
+	// Flags, see TL conditional fields
+	Flags bin.Fields
+	// Whether to install the dark version
+	Dark bool
+	// Theme format, a string that identifies the theming engines supported by the client
+	//
+	// Use SetFormat and GetFormat helpers.
+	Format string
+	// Theme to install
+	//
+	// Use SetTheme and GetTheme helpers.
+	Theme InputThemeClass
+}
 ```
 
 ## Reference
