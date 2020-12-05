@@ -62,8 +62,8 @@ if err != nil {
 
 ### Generated code
 
-Code output of `gotdgen` contains references to TL types, examples and URL to
-official documentation.
+Code output of `gotdgen` contains references to TL types, examples, URL to
+official documentation and extracted comments from it.
 
 For example, the [auth.Authorization](https://core.telegram.org/type/auth.Authorization) type in `tg/tl_auth_authorization_gen.go`:
 
