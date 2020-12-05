@@ -15,6 +15,7 @@
 - [ ] Reduce signature of RPC requests with zero methods
 - [ ] Vector as RPC Result
 - [ ] RPC Error description from documentation error codes
+- [ ] Automatically set optional (`#`) fields if they are not blank
 
 ## Client
 
