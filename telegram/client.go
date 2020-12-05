@@ -34,7 +34,6 @@ type Client struct {
 	tg *tg.Client
 
 	// conn is owned by Client and not exposed.
-	// Currently immutable.
 	conn   net.Conn
 	addr   string
 	dialer *net.Dialer
