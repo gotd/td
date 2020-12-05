@@ -8,8 +8,8 @@
 - [ ] Non-bare vectors
 - [x] Namespaces
 - [x] Multiple output files
-- [ ] Tests
-- [ ] Examples
+- [ ] Generated tests
+- [ ] Generated examples
 - [x] Boxes for class decode
 - [x] RPC Requests
 - [ ] Reduce signature of RPC requests with zero methods
