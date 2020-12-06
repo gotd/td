@@ -37,7 +37,8 @@ func (c *Client) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b
 	if err := d.Encode(b); err != nil {
 		return err
 	}
-	msg, err := c.encrypt(b.Copy())
+	// encrypt creates padded copy, so there is no reason to use b.Copy()
+	msg, err := c.encrypt(b.Raw())
 	if err != nil {
 		return err
 	}
