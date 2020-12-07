@@ -47,7 +47,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 			return fmt.Errorf("failed to execute template '%s' for %s: %w", templateName, name, err)
 		}
 		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
-			io.Copy(os.Stderr, buf)
+			_, _ = io.Copy(os.Stderr, buf)
 			return fmt.Errorf("failed to write file %s: %w", name, err)
 		}
 

@@ -42,6 +42,7 @@ type structDef struct {
 	ResultBaseName string
 	ResultFunc     string
 
+	Vector bool
 	// Fields of structure.
 	Fields []fieldDef
 
@@ -57,6 +58,13 @@ type structDef struct {
 
 	// Docs is comments from documentation.
 	Docs []string
+}
+
+func (s *structDef) fillFromClass(class classBinding) {
+	s.Result = class.Name
+	s.ResultSingular = class.Singular
+	s.ResultBaseName = class.BaseName
+	s.ResultFunc = class.Func
 }
 
 type bindingDef struct {
@@ -151,13 +159,19 @@ func (g *Generator) makeStructures() error {
 		if s.Method != "" && t.Class != "Ok" {
 			// RPC call.
 			class, ok := g.classes[t.Class]
-			if ok {
-				s.Result = class.Name
-				s.ResultSingular = class.Singular
-				s.ResultBaseName = class.BaseName
-				s.ResultFunc = class.Func
+
+			switch {
+			case !ok && strings.HasPrefix(t.Class, "Vector<"):
+				var err error
+				class, err = g.instantiateVector(t.Class)
+				if err != nil {
+					return err
+				}
+				fallthrough
+			case ok:
+				s.fillFromClass(class)
 				s.URL = g.docURL("method", typeKey)
-			} else {
+			default:
 				// Not implemented.
 				s.Method = ""
 			}
