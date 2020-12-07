@@ -430,6 +430,7 @@ func (c *Config) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode config#330b4067: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)

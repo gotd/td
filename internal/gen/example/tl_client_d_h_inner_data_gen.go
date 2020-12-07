@@ -52,6 +52,7 @@ func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ClientDHInnerDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: %w", err)
 	}
+
 	{
 		value, err := b.Int128()
 		if err != nil {

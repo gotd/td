@@ -48,6 +48,7 @@ func (t *TextEntities) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntitiesTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntities#cf89c258: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -45,6 +45,7 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode message#ec200d96: %w", err)
 	}
+
 	{
 		if err := m.Err.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode message#ec200d96: field err: %w", err)

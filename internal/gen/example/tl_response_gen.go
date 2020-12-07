@@ -43,6 +43,7 @@ func (r *ResponseID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResponseIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode responseID#85d7fd8b: %w", err)
 	}
+
 	{
 		value, err := b.Int32()
 		if err != nil {
@@ -93,6 +94,7 @@ func (r *ResponseText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResponseTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode responseText#cb0244f2: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

@@ -51,6 +51,7 @@ func (u *Update) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode update#b03e2ef8: %w", err)
 	}
+
 	{
 		value, err := DecodeAbstractMessage(b)
 		if err != nil {

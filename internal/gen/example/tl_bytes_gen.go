@@ -40,6 +40,7 @@ func (b *Bytes) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode bytes#e937bb82: %w", err)
 	}
+
 	return nil
 }
 

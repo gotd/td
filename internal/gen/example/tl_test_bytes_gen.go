@@ -43,6 +43,7 @@ func (t *TestBytes) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestBytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode testBytes#a422c4de: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

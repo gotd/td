@@ -40,6 +40,7 @@ func (o *Ok) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(OkTypeID); err != nil {
 		return fmt.Errorf("unable to decode ok#d4edbe69: %w", err)
 	}
+
 	return nil
 }
 

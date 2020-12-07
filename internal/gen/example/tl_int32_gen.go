@@ -40,6 +40,7 @@ func (i *Int32) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(Int32TypeID); err != nil {
 		return fmt.Errorf("unable to decode int32#5cb934fa: %w", err)
 	}
+
 	return nil
 }
 

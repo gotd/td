@@ -49,6 +49,7 @@ func (e *Error) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode error#14feebbc: %w", err)
 	}
+
 	{
 		value, err := b.Int32()
 		if err != nil {

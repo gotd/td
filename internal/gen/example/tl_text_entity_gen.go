@@ -54,6 +54,7 @@ func (t *TextEntity) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntity#8bab99a8: %w", err)
 	}
+
 	{
 		value, err := b.Int32()
 		if err != nil {

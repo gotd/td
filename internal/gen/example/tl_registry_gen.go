@@ -77,5 +77,6 @@ func TypesMap() map[uint32]string {
 		0xf74488a:  "send#f74488a",
 		0xdf18e5ca: "sendMultipleSMS#df18e5ca",
 		0xfd2f6687: "doAuth#fd2f6687",
+		0xd4785939: "echoVector#d4785939",
 	}
 }

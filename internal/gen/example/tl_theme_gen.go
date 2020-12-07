@@ -43,6 +43,7 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode theme#28f1114: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

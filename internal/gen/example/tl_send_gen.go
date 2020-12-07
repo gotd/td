@@ -45,6 +45,7 @@ func (s *SendRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode send#f74488a: %w", err)
 	}
+
 	{
 		if err := s.Msg.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode send#f74488a: field msg: %w", err)

@@ -46,6 +46,7 @@ func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestVectorBytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode testVectorBytes#a590fb25: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

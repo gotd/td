@@ -144,3 +144,5 @@ send msg:SMS = SMS;
 sendMultipleSMS messages:vector<SMS> = Ok;
 
 doAuth = Auth;
+
+echoVector ids:Vector<int> = Vector<int>;
