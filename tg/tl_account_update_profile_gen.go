@@ -112,6 +112,7 @@ func (u *AccountUpdateProfileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateProfileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateProfile#78515775: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.updateProfile#78515775: field flags: %w", err)

@@ -41,6 +41,7 @@ func (f *MessagesFoundStickerSetsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFoundStickerSetsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.foundStickerSetsNotModified#d54b65d: %w", err)
 	}
+
 	return nil
 }
 
@@ -96,6 +97,7 @@ func (f *MessagesFoundStickerSets) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFoundStickerSetsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

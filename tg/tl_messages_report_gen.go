@@ -63,6 +63,7 @@ func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.report#bd82b658: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

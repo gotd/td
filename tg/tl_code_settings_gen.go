@@ -80,6 +80,7 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)

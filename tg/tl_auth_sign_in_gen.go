@@ -50,6 +50,7 @@ func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSignInRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.signIn#bcd51581: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

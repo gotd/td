@@ -44,6 +44,7 @@ func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDismissSuggestionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.dismissSuggestion#77fa99f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

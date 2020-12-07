@@ -44,6 +44,7 @@ func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentEmpty#36f8c871: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -186,6 +187,7 @@ func (d *Document) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode document#1e87342b: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode document#1e87342b: field flags: %w", err)

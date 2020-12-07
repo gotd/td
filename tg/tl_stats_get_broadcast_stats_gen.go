@@ -65,6 +65,7 @@ func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetBroadcastStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: field flags: %w", err)

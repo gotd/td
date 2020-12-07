@@ -71,6 +71,7 @@ func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReorderPinnedDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)

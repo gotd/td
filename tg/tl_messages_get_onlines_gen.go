@@ -49,6 +49,7 @@ func (g *MessagesGetOnlinesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetOnlinesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getOnlines#6e2be050: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

@@ -168,6 +168,7 @@ func (e *MessagesEditInlineBotMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditInlineBotMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: %w", err)
 	}
+
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field flags: %w", err)

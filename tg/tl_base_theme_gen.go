@@ -41,6 +41,7 @@ func (b *BaseThemeClassic) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeClassicTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeClassic#c3a12462: %w", err)
 	}
+
 	return nil
 }
 
@@ -82,6 +83,7 @@ func (b *BaseThemeDay) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeDayTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeDay#fbd81688: %w", err)
 	}
+
 	return nil
 }
 
@@ -123,6 +125,7 @@ func (b *BaseThemeNight) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeNightTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeNight#b7b31ea8: %w", err)
 	}
+
 	return nil
 }
 
@@ -164,6 +167,7 @@ func (b *BaseThemeTinted) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeTintedTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeTinted#6d5f77ee: %w", err)
 	}
+
 	return nil
 }
 
@@ -205,6 +209,7 @@ func (b *BaseThemeArctic) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeArcticTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeArctic#5b11125a: %w", err)
 	}
+
 	return nil
 }
 

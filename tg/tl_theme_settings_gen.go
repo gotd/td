@@ -128,6 +128,7 @@ func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ThemeSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode themeSettings#9c14984a: %w", err)
 	}
+
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode themeSettings#9c14984a: field flags: %w", err)

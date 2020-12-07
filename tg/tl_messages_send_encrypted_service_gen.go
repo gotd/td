@@ -52,6 +52,7 @@ func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendEncryptedServiceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: %w", err)
 	}
+
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: field peer: %w", err)

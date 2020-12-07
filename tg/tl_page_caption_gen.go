@@ -57,6 +57,7 @@ func (p *PageCaption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageCaptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageCaption#6f747657: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {

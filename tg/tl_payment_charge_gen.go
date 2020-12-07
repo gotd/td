@@ -47,6 +47,7 @@ func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentChargeTypeID); err != nil {
 		return fmt.Errorf("unable to decode paymentCharge#ea02c27e: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

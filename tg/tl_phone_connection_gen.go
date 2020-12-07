@@ -56,6 +56,7 @@ func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneConnectionTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -177,6 +178,7 @@ func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneConnectionWebrtcTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field flags: %w", err)

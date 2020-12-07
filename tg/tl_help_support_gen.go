@@ -52,6 +52,7 @@ func (s *HelpSupport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSupportTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.support#17c6b5f6: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

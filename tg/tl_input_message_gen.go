@@ -44,6 +44,7 @@ func (i *InputMessageID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageID#a676a322: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -95,6 +96,7 @@ func (i *InputMessageReplyTo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageReplyToTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageReplyTo#bad88395: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -143,6 +145,7 @@ func (i *InputMessagePinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagePinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagePinned#86872538: %w", err)
 	}
+
 	return nil
 }
 
@@ -190,6 +193,7 @@ func (i *InputMessageCallbackQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageCallbackQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageCallbackQuery#acfa1a7e: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

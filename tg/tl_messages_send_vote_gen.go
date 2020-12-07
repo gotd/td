@@ -58,6 +58,7 @@ func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendVoteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendVote#10ea6184: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

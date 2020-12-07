@@ -47,6 +47,7 @@ func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDhConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDhConfig#26cf8950: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

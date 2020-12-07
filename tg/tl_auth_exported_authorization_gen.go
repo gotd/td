@@ -47,6 +47,7 @@ func (e *AuthExportedAuthorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthExportedAuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.exportedAuthorization#df969c2d: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

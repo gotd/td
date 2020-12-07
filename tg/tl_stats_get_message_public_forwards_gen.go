@@ -70,6 +70,7 @@ func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMessagePublicForwardsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

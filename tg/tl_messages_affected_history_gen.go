@@ -50,6 +50,7 @@ func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAffectedHistoryTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -181,6 +181,7 @@ func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatBannedRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatBannedRights#9f120418: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field flags: %w", err)

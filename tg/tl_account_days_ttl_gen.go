@@ -44,6 +44,7 @@ func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDaysTTLTypeID); err != nil {
 		return fmt.Errorf("unable to decode accountDaysTTL#b8d0afdf: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

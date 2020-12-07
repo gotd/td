@@ -41,6 +41,7 @@ func (g *AccountGetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetContentSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getContentSettings#8b9b4dae: %w", err)
 	}
+
 	return nil
 }
 

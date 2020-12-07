@@ -52,6 +52,7 @@ func (c *MessagesChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chats#64ff9fd5: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -120,6 +121,7 @@ func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatsSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

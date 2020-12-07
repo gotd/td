@@ -41,6 +41,7 @@ func (r *AccountResendPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResendPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resendPasswordEmail#7a7f2a15: %w", err)
 	}
+
 	return nil
 }
 

@@ -163,6 +163,7 @@ func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPasswordInputSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field flags: %w", err)

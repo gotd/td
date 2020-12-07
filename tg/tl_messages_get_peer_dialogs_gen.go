@@ -52,6 +52,7 @@ func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPeerDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

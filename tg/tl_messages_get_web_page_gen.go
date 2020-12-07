@@ -47,6 +47,7 @@ func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetWebPageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

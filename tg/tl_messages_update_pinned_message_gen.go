@@ -90,6 +90,7 @@ func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdatePinnedMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)

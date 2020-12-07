@@ -49,6 +49,7 @@ func (i *InputStickeredMediaPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickeredMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickeredMediaPhoto#4a992157: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
@@ -105,6 +106,7 @@ func (i *InputStickeredMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickeredMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickeredMediaDocument#438865b: %w", err)
 	}
+
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {

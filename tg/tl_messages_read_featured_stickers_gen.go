@@ -47,6 +47,7 @@ func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadFeaturedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

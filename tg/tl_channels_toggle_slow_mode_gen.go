@@ -52,6 +52,7 @@ func (t *ChannelsToggleSlowModeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsToggleSlowModeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.toggleSlowMode#edd49ef0: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

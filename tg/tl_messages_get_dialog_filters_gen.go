@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
 // Get folders
 //
-// See https://core.telegram.org/constructor/messages.getDialogFilters for reference.
+// See https://core.telegram.org/method/messages.getDialogFilters for reference.
 type MessagesGetDialogFiltersRequest struct {
 }
 
@@ -41,6 +41,7 @@ func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogFiltersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogFilters#f19ed96d: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,3 +50,15 @@ var (
 	_ bin.Encoder = &MessagesGetDialogFiltersRequest{}
 	_ bin.Decoder = &MessagesGetDialogFiltersRequest{}
 )
+
+// MessagesGetDialogFilters invokes method messages.getDialogFilters#f19ed96d returning error if any.
+// Get folders
+//
+// See https://core.telegram.org/method/messages.getDialogFilters for reference.
+func (c *Client) MessagesGetDialogFilters(ctx context.Context, request *MessagesGetDialogFiltersRequest) (*DialogFilterVector, error) {
+	var result DialogFilterVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

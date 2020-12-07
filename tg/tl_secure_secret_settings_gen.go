@@ -55,6 +55,7 @@ func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureSecretSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: %w", err)
 	}
+
 	{
 		value, err := DecodeSecurePasswordKdfAlgo(b)
 		if err != nil {

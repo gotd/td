@@ -50,6 +50,7 @@ func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadSaveFilePartRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {

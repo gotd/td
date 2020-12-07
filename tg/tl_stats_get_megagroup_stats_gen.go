@@ -65,6 +65,7 @@ func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMegagroupStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: field flags: %w", err)

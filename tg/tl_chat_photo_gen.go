@@ -41,6 +41,7 @@ func (c *ChatPhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatPhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatPhotoEmpty#37c1011c: %w", err)
 	}
+
 	return nil
 }
 
@@ -111,6 +112,7 @@ func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field flags: %w", err)

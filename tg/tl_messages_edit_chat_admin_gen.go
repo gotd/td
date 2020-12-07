@@ -55,6 +55,7 @@ func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatAdminRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

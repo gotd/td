@@ -52,6 +52,7 @@ func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsToggleSignaturesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

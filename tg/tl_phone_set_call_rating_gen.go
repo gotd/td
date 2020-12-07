@@ -68,6 +68,7 @@ func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSetCallRatingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.setCallRating#59ead627: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field flags: %w", err)

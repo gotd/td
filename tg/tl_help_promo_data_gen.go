@@ -44,6 +44,7 @@ func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPromoDataEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.promoDataEmpty#98f6ac75: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -185,6 +186,7 @@ func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPromoDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.promoData#8c39793f: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.promoData#8c39793f: field flags: %w", err)

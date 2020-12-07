@@ -73,6 +73,7 @@ func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdateDialogFilterRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field flags: %w", err)

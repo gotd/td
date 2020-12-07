@@ -44,6 +44,7 @@ func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSendVerifyEmailCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

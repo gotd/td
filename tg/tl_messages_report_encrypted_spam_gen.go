@@ -46,6 +46,7 @@ func (r *MessagesReportEncryptedSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportEncryptedSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reportEncryptedSpam#4b0c8c0f: %w", err)
 	}
+
 	{
 		if err := r.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reportEncryptedSpam#4b0c8c0f: field peer: %w", err)

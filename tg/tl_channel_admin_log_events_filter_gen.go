@@ -200,6 +200,7 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventsFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)

@@ -44,6 +44,7 @@ func (g *ContactsGetContactsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetContactsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getContacts#c023849f: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

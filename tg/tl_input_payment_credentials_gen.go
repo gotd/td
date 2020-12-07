@@ -47,6 +47,7 @@ func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsSavedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsSaved#c10eb2cf: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -123,6 +124,7 @@ func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: field flags: %w", err)
@@ -180,6 +182,7 @@ func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsApplePayTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: %w", err)
 	}
+
 	{
 		if err := i.PaymentData.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
@@ -234,6 +237,7 @@ func (i *InputPaymentCredentialsAndroidPay) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsAndroidPayTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsAndroidPay#ca05d50e: %w", err)
 	}
+
 	{
 		if err := i.PaymentToken.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentialsAndroidPay#ca05d50e: field payment_token: %w", err)

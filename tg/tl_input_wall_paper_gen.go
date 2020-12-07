@@ -47,6 +47,7 @@ func (i *InputWallPaper) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaper#e630b979: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -105,6 +106,7 @@ func (i *InputWallPaperSlug) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperSlugTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaperSlug#72091c80: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -153,6 +155,7 @@ func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperNoFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaperNoFile#8427bbac: %w", err)
 	}
+
 	return nil
 }
 

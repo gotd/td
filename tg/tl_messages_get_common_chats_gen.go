@@ -55,6 +55,7 @@ func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetCommonChatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: %w", err)
 	}
+
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

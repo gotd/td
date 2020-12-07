@@ -49,6 +49,7 @@ func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsSetBotCommandsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.setBotCommands#805d46f6: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

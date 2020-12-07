@@ -41,6 +41,7 @@ func (r *AuthRequestPasswordRecoveryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthRequestPasswordRecoveryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.requestPasswordRecovery#d897bc66: %w", err)
 	}
+
 	return nil
 }
 

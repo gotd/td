@@ -73,6 +73,7 @@ func (g *MessagesGetRepliesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetRepliesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getReplies#24b581ba: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

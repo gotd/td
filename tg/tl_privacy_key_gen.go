@@ -41,6 +41,7 @@ func (p *PrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyStatusTimestampTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyStatusTimestamp#bc2eab30: %w", err)
 	}
+
 	return nil
 }
 
@@ -82,6 +83,7 @@ func (p *PrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyChatInvite#500e6dfa: %w", err)
 	}
+
 	return nil
 }
 
@@ -123,6 +125,7 @@ func (p *PrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneCall#3d662b7b: %w", err)
 	}
+
 	return nil
 }
 
@@ -164,6 +167,7 @@ func (p *PrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneP2PTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneP2P#39491cc8: %w", err)
 	}
+
 	return nil
 }
 
@@ -205,6 +209,7 @@ func (p *PrivacyKeyForwards) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyForwardsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyForwards#69ec56a3: %w", err)
 	}
+
 	return nil
 }
 
@@ -246,6 +251,7 @@ func (p *PrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyProfilePhoto#96151fed: %w", err)
 	}
+
 	return nil
 }
 
@@ -287,6 +293,7 @@ func (p *PrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneNumber#d19ae46d: %w", err)
 	}
+
 	return nil
 }
 
@@ -328,6 +335,7 @@ func (p *PrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyAddedByPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyAddedByPhone#42ffd42b: %w", err)
 	}
+
 	return nil
 }
 

@@ -41,6 +41,7 @@ func (i *InputPeerEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerEmpty#7f3b18ea: %w", err)
 	}
+
 	return nil
 }
 
@@ -82,6 +83,7 @@ func (i *InputPeerSelf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerSelfTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerSelf#7da07ec9: %w", err)
 	}
+
 	return nil
 }
 
@@ -126,6 +128,7 @@ func (i *InputPeerChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerChat#179be863: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -180,6 +183,7 @@ func (i *InputPeerUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerUser#7b8e7de6: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -241,6 +245,7 @@ func (i *InputPeerChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerChannel#20adaef8: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -310,6 +315,7 @@ func (i *InputPeerUserFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerUserFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerUserFromMessage#17bae2e6: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -386,6 +392,7 @@ func (i *InputPeerChannelFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerChannelFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerChannelFromMessage#9c95f7bb: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetAttachedStickersRequest represents TL type `messages.getAttachedStickers#cc5b67cc`.
 // Get stickers attached to a photo or video
 //
-// See https://core.telegram.org/constructor/messages.getAttachedStickers for reference.
+// See https://core.telegram.org/method/messages.getAttachedStickers for reference.
 type MessagesGetAttachedStickersRequest struct {
 	// Stickered media
 	Media InputStickeredMediaClass
@@ -49,6 +49,7 @@ func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAttachedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAttachedStickers#cc5b67cc: %w", err)
 	}
+
 	{
 		value, err := DecodeInputStickeredMedia(b)
 		if err != nil {
@@ -64,3 +65,15 @@ var (
 	_ bin.Encoder = &MessagesGetAttachedStickersRequest{}
 	_ bin.Decoder = &MessagesGetAttachedStickersRequest{}
 )
+
+// MessagesGetAttachedStickers invokes method messages.getAttachedStickers#cc5b67cc returning error if any.
+// Get stickers attached to a photo or video
+//
+// See https://core.telegram.org/method/messages.getAttachedStickers for reference.
+func (c *Client) MessagesGetAttachedStickers(ctx context.Context, request *MessagesGetAttachedStickersRequest) (*StickerSetCoveredClassVector, error) {
+	var result StickerSetCoveredClassVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

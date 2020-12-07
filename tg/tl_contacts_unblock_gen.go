@@ -49,6 +49,7 @@ func (u *ContactsUnblockRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsUnblockRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.unblock#bea65d50: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

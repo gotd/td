@@ -47,6 +47,7 @@ func (d *ContactsDeleteByPhonesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsDeleteByPhonesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.deleteByPhones#1013fd9e: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

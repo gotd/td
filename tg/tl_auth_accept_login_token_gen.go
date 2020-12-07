@@ -46,6 +46,7 @@ func (a *AuthAcceptLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthAcceptLoginTokenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.acceptLoginToken#e894ad4d: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

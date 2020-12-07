@@ -143,6 +143,7 @@ func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetTopPeersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field flags: %w", err)

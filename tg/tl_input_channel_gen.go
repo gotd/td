@@ -41,6 +41,7 @@ func (i *InputChannelEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannelEmpty#ee8c1e86: %w", err)
 	}
+
 	return nil
 }
 
@@ -88,6 +89,7 @@ func (i *InputChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannel#afeb712e: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -157,6 +159,7 @@ func (i *InputChannelFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannelFromMessage#2a286531: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

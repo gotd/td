@@ -53,6 +53,7 @@ func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

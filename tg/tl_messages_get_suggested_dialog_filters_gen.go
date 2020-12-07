@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetSuggestedDialogFiltersRequest represents TL type `messages.getSuggestedDialogFilters#a29cd42c`.
 // Get suggested folders
 //
-// See https://core.telegram.org/constructor/messages.getSuggestedDialogFilters for reference.
+// See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
 type MessagesGetSuggestedDialogFiltersRequest struct {
 }
 
@@ -41,6 +41,7 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSuggestedDialogFiltersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSuggestedDialogFilters#a29cd42c: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,3 +50,15 @@ var (
 	_ bin.Encoder = &MessagesGetSuggestedDialogFiltersRequest{}
 	_ bin.Decoder = &MessagesGetSuggestedDialogFiltersRequest{}
 )
+
+// MessagesGetSuggestedDialogFilters invokes method messages.getSuggestedDialogFilters#a29cd42c returning error if any.
+// Get suggested folders
+//
+// See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
+func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context, request *MessagesGetSuggestedDialogFiltersRequest) (*DialogFilterSuggestedVector, error) {
+	var result DialogFilterSuggestedVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

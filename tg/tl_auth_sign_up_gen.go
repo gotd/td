@@ -53,6 +53,7 @@ func (s *AuthSignUpRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSignUpRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.signUp#80eee427: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

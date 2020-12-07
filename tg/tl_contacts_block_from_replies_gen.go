@@ -82,6 +82,7 @@ func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockFromRepliesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: %w", err)
 	}
+
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field flags: %w", err)

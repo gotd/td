@@ -41,6 +41,7 @@ func (g *UpdatesGetStateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetStateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getState#edd4882a: %w", err)
 	}
+
 	return nil
 }
 

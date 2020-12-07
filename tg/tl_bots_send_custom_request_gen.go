@@ -49,6 +49,7 @@ func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsSendCustomRequestRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.sendCustomRequest#aa2769ed: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

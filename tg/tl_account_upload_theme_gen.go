@@ -87,6 +87,7 @@ func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUploadThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field flags: %w", err)

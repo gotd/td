@@ -145,6 +145,7 @@ func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDiscussionMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field flags: %w", err)

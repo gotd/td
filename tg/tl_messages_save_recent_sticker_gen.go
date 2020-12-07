@@ -68,6 +68,7 @@ func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveRecentStickerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: field flags: %w", err)

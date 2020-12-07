@@ -41,6 +41,7 @@ func (r *AccountResetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResetNotifySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resetNotifySettings#db7e1747: %w", err)
 	}
+
 	return nil
 }
 

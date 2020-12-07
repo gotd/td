@@ -44,6 +44,7 @@ func (s *StatsURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsURL#47a971e0: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

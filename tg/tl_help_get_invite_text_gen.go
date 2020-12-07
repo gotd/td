@@ -41,6 +41,7 @@ func (g *HelpGetInviteTextRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetInviteTextRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getInviteText#4d392343: %w", err)
 	}
+
 	return nil
 }
 

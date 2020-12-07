@@ -47,6 +47,7 @@ func (d *DocumentAttributeImageSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeImageSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeImageSize#6c37c15c: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -102,6 +103,7 @@ func (d *DocumentAttributeAnimated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeAnimatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeAnimated#11b58939: %w", err)
 	}
+
 	return nil
 }
 
@@ -194,6 +196,7 @@ func (d *DocumentAttributeSticker) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeStickerTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeSticker#6319d612: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeSticker#6319d612: field flags: %w", err)
@@ -296,6 +299,7 @@ func (d *DocumentAttributeVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field flags: %w", err)
@@ -450,6 +454,7 @@ func (d *DocumentAttributeAudio) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeAudioTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field flags: %w", err)
@@ -528,6 +533,7 @@ func (d *DocumentAttributeFilename) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeFilenameTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeFilename#15590068: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -576,6 +582,7 @@ func (d *DocumentAttributeHasStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeHasStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeHasStickers#9801d2f7: %w", err)
 	}
+
 	return nil
 }
 

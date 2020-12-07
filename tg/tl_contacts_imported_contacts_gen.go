@@ -74,6 +74,7 @@ func (i *ContactsImportedContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsImportedContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.importedContacts#77d01c3b: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

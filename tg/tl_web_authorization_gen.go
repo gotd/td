@@ -68,6 +68,7 @@ func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebAuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode webAuthorization#cac943f2: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {

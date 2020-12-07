@@ -52,6 +52,7 @@ func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveTheme#f257106c: %w", err)
 	}
+
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {

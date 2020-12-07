@@ -74,6 +74,7 @@ func (m *MessagesMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messages#8c718e87: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -250,6 +251,7 @@ func (m *MessagesMessagesSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: field flags: %w", err)
@@ -434,6 +436,7 @@ func (c *MessagesChannelMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChannelMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.channelMessages#64479808: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field flags: %w", err)
@@ -544,6 +547,7 @@ func (m *MessagesMessagesNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messagesNotModified#74535f21: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

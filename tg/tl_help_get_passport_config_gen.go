@@ -44,6 +44,7 @@ func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetPassportConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getPassportConfig#c661ad08: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

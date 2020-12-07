@@ -49,6 +49,7 @@ func (c *ChatInviteAlready) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteAlreadyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteAlready#5a686d7c: %w", err)
 	}
+
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
@@ -190,6 +191,7 @@ func (c *ChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
@@ -285,6 +287,7 @@ func (c *ChatInvitePeek) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInvitePeekTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInvitePeek#61695cb0: %w", err)
 	}
+
 	{
 		value, err := DecodeChat(b)
 		if err != nil {

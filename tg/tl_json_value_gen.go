@@ -41,6 +41,7 @@ func (j *JsonNull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonNullTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNull#3f6d7b68: %w", err)
 	}
+
 	return nil
 }
 
@@ -85,6 +86,7 @@ func (j *JsonBool) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonBoolTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonBool#c7345e6a: %w", err)
 	}
+
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -136,6 +138,7 @@ func (j *JsonNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNumber#2be0dfa4: %w", err)
 	}
+
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -187,6 +190,7 @@ func (j *JsonString) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonString#b71e767a: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -246,6 +250,7 @@ func (j *JsonArray) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonArrayTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonArray#f7444763: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -308,6 +313,7 @@ func (j *JsonObject) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonObject#99c1d49d: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

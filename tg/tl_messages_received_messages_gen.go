@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.
 //
-// See https://core.telegram.org/constructor/messages.receivedMessages for reference.
+// See https://core.telegram.org/method/messages.receivedMessages for reference.
 type MessagesReceivedMessagesRequest struct {
 	// Maximum message ID available in a client.
 	MaxID int
@@ -44,6 +44,7 @@ func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReceivedMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.receivedMessages#5a954c0: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -59,3 +60,15 @@ var (
 	_ bin.Encoder = &MessagesReceivedMessagesRequest{}
 	_ bin.Decoder = &MessagesReceivedMessagesRequest{}
 )
+
+// MessagesReceivedMessages invokes method messages.receivedMessages#5a954c0 returning error if any.
+// Confirms receipt of messages by a client, cancels PUSH-notification sending.
+//
+// See https://core.telegram.org/method/messages.receivedMessages for reference.
+func (c *Client) MessagesReceivedMessages(ctx context.Context, request *MessagesReceivedMessagesRequest) (*ReceivedNotifyMessageVector, error) {
+	var result ReceivedNotifyMessageVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

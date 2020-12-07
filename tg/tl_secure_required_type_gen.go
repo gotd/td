@@ -87,6 +87,7 @@ func (s *SecureRequiredType) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureRequiredTypeTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureRequiredType#829d99da: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode secureRequiredType#829d99da: field flags: %w", err)
@@ -154,6 +155,7 @@ func (s *SecureRequiredTypeOneOf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureRequiredTypeOneOfTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

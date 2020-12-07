@@ -60,6 +60,7 @@ func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetRecentStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field flags: %w", err)

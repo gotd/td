@@ -68,6 +68,7 @@ func (u *UrlAuthResultRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UrlAuthResultRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field flags: %w", err)
@@ -132,6 +133,7 @@ func (u *UrlAuthResultAccepted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UrlAuthResultAcceptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -180,6 +182,7 @@ func (u *UrlAuthResultDefault) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UrlAuthResultDefaultTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultDefault#a9d6db1f: %w", err)
 	}
+
 	return nil
 }
 

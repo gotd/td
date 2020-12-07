@@ -49,6 +49,7 @@ func (s *AccountSendChangePhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSendChangePhoneCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sendChangePhoneCode#82574ae5: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

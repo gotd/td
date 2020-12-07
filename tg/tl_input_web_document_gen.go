@@ -61,6 +61,7 @@ func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebDocument#9bed434d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

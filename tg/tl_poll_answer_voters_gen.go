@@ -74,6 +74,7 @@ func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
 		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)

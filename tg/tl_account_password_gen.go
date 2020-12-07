@@ -213,6 +213,7 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.password#ad2641f8: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.password#ad2641f8: field flags: %w", err)

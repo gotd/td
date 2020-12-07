@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // ContactsGetStatusesRequest represents TL type `contacts.getStatuses#c4a353ee`.
 // Returns the list of contact statuses.
 //
-// See https://core.telegram.org/constructor/contacts.getStatuses for reference.
+// See https://core.telegram.org/method/contacts.getStatuses for reference.
 type ContactsGetStatusesRequest struct {
 }
 
@@ -41,6 +41,7 @@ func (g *ContactsGetStatusesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetStatusesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getStatuses#c4a353ee: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,3 +50,15 @@ var (
 	_ bin.Encoder = &ContactsGetStatusesRequest{}
 	_ bin.Decoder = &ContactsGetStatusesRequest{}
 )
+
+// ContactsGetStatuses invokes method contacts.getStatuses#c4a353ee returning error if any.
+// Returns the list of contact statuses.
+//
+// See https://core.telegram.org/method/contacts.getStatuses for reference.
+func (c *Client) ContactsGetStatuses(ctx context.Context, request *ContactsGetStatusesRequest) (*ContactStatusVector, error) {
+	var result ContactStatusVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

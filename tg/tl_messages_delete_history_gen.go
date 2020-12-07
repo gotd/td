@@ -79,6 +79,7 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)

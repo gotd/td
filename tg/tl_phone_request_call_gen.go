@@ -76,6 +76,7 @@ func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneRequestCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field flags: %w", err)

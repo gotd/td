@@ -99,6 +99,7 @@ func (c *HelpCountryCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountryCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.countryCode#4203c5ef: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.countryCode#4203c5ef: field flags: %w", err)

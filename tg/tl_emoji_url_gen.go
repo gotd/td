@@ -44,6 +44,7 @@ func (e *EmojiURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiURL#a575739d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

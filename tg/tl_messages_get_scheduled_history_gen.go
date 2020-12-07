@@ -52,6 +52,7 @@ func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetScheduledHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getScheduledHistory#e2c2685b: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

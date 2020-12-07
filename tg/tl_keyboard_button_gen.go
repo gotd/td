@@ -44,6 +44,7 @@ func (k *KeyboardButton) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButton#a2fa4880: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -98,6 +99,7 @@ func (k *KeyboardButtonUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -175,6 +177,7 @@ func (k *KeyboardButtonCallback) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonCallbackTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: %w", err)
 	}
+
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
@@ -239,6 +242,7 @@ func (k *KeyboardButtonRequestPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestPhone#b16a6c29: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -290,6 +294,7 @@ func (k *KeyboardButtonRequestGeoLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestGeoLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestGeoLocation#fc796b3f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -360,6 +365,7 @@ func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonSwitchInlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: %w", err)
 	}
+
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field flags: %w", err)
@@ -424,6 +430,7 @@ func (k *KeyboardButtonGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonGame#50f41ccf: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -475,6 +482,7 @@ func (k *KeyboardButtonBuy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonBuyTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonBuy#afd93fbb: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -559,6 +567,7 @@ func (k *KeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonUrlAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: %w", err)
 	}
+
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
@@ -685,6 +694,7 @@ func (i *InputKeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputKeyboardButtonUrlAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
@@ -779,6 +789,7 @@ func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: %w", err)
 	}
+
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)

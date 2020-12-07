@@ -41,6 +41,7 @@ func (s *MessagesSavedGifsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSavedGifsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.savedGifsNotModified#e8025ca2: %w", err)
 	}
+
 	return nil
 }
 
@@ -96,6 +97,7 @@ func (s *MessagesSavedGifs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSavedGifsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.savedGifs#2e0709a5: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -80,6 +80,7 @@ func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallProtocolTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field flags: %w", err)

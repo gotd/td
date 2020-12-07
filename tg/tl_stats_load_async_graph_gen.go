@@ -71,6 +71,7 @@ func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsLoadAsyncGraphRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: %w", err)
 	}
+
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)

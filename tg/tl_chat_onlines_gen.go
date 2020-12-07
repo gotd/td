@@ -44,6 +44,7 @@ func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatOnlinesTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatOnlines#f041e250: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

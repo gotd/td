@@ -202,6 +202,7 @@ func (s *MessagesSendMediaRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendMediaRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendMedia#3491eba9: field flags: %w", err)

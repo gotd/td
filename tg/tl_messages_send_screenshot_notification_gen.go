@@ -55,6 +55,7 @@ func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(MessagesSendScreenshotNotificationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

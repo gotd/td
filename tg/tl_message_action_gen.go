@@ -41,6 +41,7 @@ func (m *MessageActionEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionEmpty#b6aef7b0: %w", err)
 	}
+
 	return nil
 }
 
@@ -91,6 +92,7 @@ func (m *MessageActionChatCreate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatCreateTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatCreate#a6638b9a: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,6 +157,7 @@ func (m *MessageActionChatEditTitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatEditTitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatEditTitle#b5a1ce5a: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -211,6 +214,7 @@ func (m *MessageActionChatEditPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatEditPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatEditPhoto#7fcb13a8: %w", err)
 	}
+
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
@@ -259,6 +263,7 @@ func (m *MessageActionChatDeletePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatDeletePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatDeletePhoto#95e3fbef: %w", err)
 	}
+
 	return nil
 }
 
@@ -306,6 +311,7 @@ func (m *MessageActionChatAddUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatAddUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatAddUser#488a7337: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -363,6 +369,7 @@ func (m *MessageActionChatDeleteUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatDeleteUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatDeleteUser#b2ae9b0c: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -414,6 +421,7 @@ func (m *MessageActionChatJoinedByLink) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatJoinedByLinkTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatJoinedByLink#f89cf5e8: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -465,6 +473,7 @@ func (m *MessageActionChannelCreate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChannelCreateTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChannelCreate#95d2ac92: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -516,6 +525,7 @@ func (m *MessageActionChatMigrateTo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChatMigrateToTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChatMigrateTo#51bdb021: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -570,6 +580,7 @@ func (m *MessageActionChannelMigrateFrom) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionChannelMigrateFromTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionChannelMigrateFrom#b055eaee: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -625,6 +636,7 @@ func (m *MessageActionPinMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionPinMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionPinMessage#94bd38ed: %w", err)
 	}
+
 	return nil
 }
 
@@ -666,6 +678,7 @@ func (m *MessageActionHistoryClear) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionHistoryClearTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionHistoryClear#9fbab604: %w", err)
 	}
+
 	return nil
 }
 
@@ -713,6 +726,7 @@ func (m *MessageActionGameScore) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionGameScoreTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionGameScore#92a72876: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -833,6 +847,7 @@ func (m *MessageActionPaymentSentMe) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionPaymentSentMeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
@@ -923,6 +938,7 @@ func (m *MessageActionPaymentSent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionPaymentSentTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionPaymentSent#40699cd0: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1046,6 +1062,7 @@ func (m *MessageActionPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageActionPhoneCall#80e11a7f: field flags: %w", err)
@@ -1114,6 +1131,7 @@ func (m *MessageActionScreenshotTaken) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionScreenshotTakenTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionScreenshotTaken#4792929b: %w", err)
 	}
+
 	return nil
 }
 
@@ -1158,6 +1176,7 @@ func (m *MessageActionCustomAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionCustomActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionCustomAction#fae69f56: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1209,6 +1228,7 @@ func (m *MessageActionBotAllowed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionBotAllowedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionBotAllowed#abe9affe: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1270,6 +1290,7 @@ func (m *MessageActionSecureValuesSentMe) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionSecureValuesSentMeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionSecureValuesSentMe#1b287353: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1340,6 +1361,7 @@ func (m *MessageActionSecureValuesSent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionSecureValuesSentTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionSecureValuesSent#d95c6154: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1394,6 +1416,7 @@ func (m *MessageActionContactSignUp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionContactSignUpTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionContactSignUp#f3f25f76: %w", err)
 	}
+
 	return nil
 }
 
@@ -1454,6 +1477,7 @@ func (m *MessageActionGeoProximityReached) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageActionGeoProximityReachedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageActionGeoProximityReached#98e0d697: %w", err)
 	}
+
 	{
 		value, err := DecodePeer(b)
 		if err != nil {

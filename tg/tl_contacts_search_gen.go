@@ -47,6 +47,7 @@ func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsSearchRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.search#11f812d8: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

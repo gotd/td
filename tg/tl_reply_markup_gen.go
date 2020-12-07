@@ -57,6 +57,7 @@ func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardHideTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: field flags: %w", err)
@@ -131,6 +132,7 @@ func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardForceReply#f4108aa0: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardForceReply#f4108aa0: field flags: %w", err)
@@ -225,6 +227,7 @@ func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardMarkup#3502758c: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardMarkup#3502758c: field flags: %w", err)
@@ -295,6 +298,7 @@ func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyInlineMarkupTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

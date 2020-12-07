@@ -44,6 +44,7 @@ func (d *DataJSON) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DataJSONTypeID); err != nil {
 		return fmt.Errorf("unable to decode dataJSON#7d748d04: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

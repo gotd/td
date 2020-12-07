@@ -41,6 +41,7 @@ func (g *HelpGetConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getConfig#c4f9186b: %w", err)
 	}
+
 	return nil
 }
 

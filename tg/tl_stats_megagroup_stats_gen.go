@@ -165,6 +165,7 @@ func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsMegagroupStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: %w", err)
 	}
+
 	{
 		if err := m.Period.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field period: %w", err)

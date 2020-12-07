@@ -49,6 +49,7 @@ func (i *InputDialogPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDialogPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDialogPeer#fcaafeb7: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -100,6 +101,7 @@ func (i *InputDialogPeerFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDialogPeerFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDialogPeerFolder#64600527: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

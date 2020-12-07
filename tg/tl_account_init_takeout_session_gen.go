@@ -134,6 +134,7 @@ func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInitTakeoutSessionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field flags: %w", err)

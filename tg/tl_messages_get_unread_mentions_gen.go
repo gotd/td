@@ -64,6 +64,7 @@ func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetUnreadMentionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

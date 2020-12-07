@@ -47,6 +47,7 @@ func (d *UpdatesDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceEmpty#5d75a138: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -162,6 +163,7 @@ func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.difference#f49ca0: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -333,6 +335,7 @@ func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -447,6 +450,7 @@ func (d *UpdatesDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceTooLong#4afe8f6d: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -47,6 +47,7 @@ func (p *PollAnswer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollAnswerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pollAnswer#6ca9c2e9: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

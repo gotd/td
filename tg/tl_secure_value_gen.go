@@ -249,6 +249,7 @@ func (s *SecureValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValue#187fa0ca: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode secureValue#187fa0ca: field flags: %w", err)

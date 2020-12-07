@@ -71,6 +71,7 @@ func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsResolvedPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: %w", err)
 	}
+
 	{
 		value, err := DecodePeer(b)
 		if err != nil {

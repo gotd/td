@@ -87,6 +87,7 @@ func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetLocatedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: field flags: %w", err)

@@ -44,6 +44,7 @@ func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppUpdateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppUpdate#522d5a7d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

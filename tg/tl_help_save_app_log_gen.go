@@ -49,6 +49,7 @@ func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSaveAppLogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.saveAppLog#6f02f748: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -205,6 +205,7 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)

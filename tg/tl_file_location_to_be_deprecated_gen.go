@@ -47,6 +47,7 @@ func (f *FileLocationToBeDeprecated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FileLocationToBeDeprecatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileLocationToBeDeprecated#bc7fc6cd: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {

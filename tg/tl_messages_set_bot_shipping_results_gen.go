@@ -98,6 +98,7 @@ func (s *MessagesSetBotShippingResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetBotShippingResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setBotShippingResults#e5f672fa: field flags: %w", err)

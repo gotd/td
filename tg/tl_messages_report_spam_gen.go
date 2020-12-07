@@ -49,6 +49,7 @@ func (r *MessagesReportSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reportSpam#cf1592db: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

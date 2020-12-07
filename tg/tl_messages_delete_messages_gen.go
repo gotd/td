@@ -63,6 +63,7 @@ func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field flags: %w", err)

@@ -47,6 +47,7 @@ func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputClientProxyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputClientProxy#75588b3f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

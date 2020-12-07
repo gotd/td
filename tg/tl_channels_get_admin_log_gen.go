@@ -120,6 +120,7 @@ func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetAdminLogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field flags: %w", err)

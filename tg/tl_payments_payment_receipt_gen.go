@@ -128,6 +128,7 @@ func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentReceiptTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentReceipt#500911e1: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.paymentReceipt#500911e1: field flags: %w", err)

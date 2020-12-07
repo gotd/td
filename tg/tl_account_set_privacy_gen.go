@@ -60,6 +60,7 @@ func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetPrivacyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {

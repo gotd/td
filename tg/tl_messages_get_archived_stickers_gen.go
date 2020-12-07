@@ -63,6 +63,7 @@ func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetArchivedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: field flags: %w", err)

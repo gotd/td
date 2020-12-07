@@ -41,6 +41,7 @@ func (g *ChannelsGetInactiveChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetInactiveChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getInactiveChannels#11e831ee: %w", err)
 	}
+
 	return nil
 }
 

@@ -47,6 +47,7 @@ func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSetBotUpdatesStatusRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.setBotUpdatesStatus#ec22cfcd: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -54,6 +54,7 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(MessagesEditChatDefaultBannedRightsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatDefaultBannedRights#a5866b41: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

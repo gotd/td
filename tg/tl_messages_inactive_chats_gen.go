@@ -69,6 +69,7 @@ func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesInactiveChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

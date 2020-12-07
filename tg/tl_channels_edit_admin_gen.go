@@ -65,6 +65,7 @@ func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditAdminRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

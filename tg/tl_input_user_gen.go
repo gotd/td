@@ -41,6 +41,7 @@ func (i *InputUserEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserEmpty#b98886cf: %w", err)
 	}
+
 	return nil
 }
 
@@ -82,6 +83,7 @@ func (i *InputUserSelf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserSelfTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserSelf#f7c1b13f: %w", err)
 	}
+
 	return nil
 }
 
@@ -129,6 +131,7 @@ func (i *InputUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUser#d8292816: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -198,6 +201,7 @@ func (i *InputUserFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

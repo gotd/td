@@ -49,6 +49,7 @@ func (a *AccountAuthorizations) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAuthorizationsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.authorizations#1250abde: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

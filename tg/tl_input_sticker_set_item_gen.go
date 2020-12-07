@@ -81,6 +81,7 @@ func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetItemTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field flags: %w", err)

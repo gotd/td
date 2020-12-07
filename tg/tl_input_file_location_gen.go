@@ -53,6 +53,7 @@ func (i *InputFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -128,6 +129,7 @@ func (i *InputEncryptedFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFileLocation#f5235d55: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -195,6 +197,7 @@ func (i *InputDocumentFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDocumentFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -270,6 +273,7 @@ func (i *InputSecureFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFileLocation#cbc7ee28: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -325,6 +329,7 @@ func (i *InputTakeoutFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputTakeoutFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputTakeoutFileLocation#29be5899: %w", err)
 	}
+
 	return nil
 }
 
@@ -378,6 +383,7 @@ func (i *InputPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPhotoFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -465,6 +471,7 @@ func (i *InputPhotoLegacyFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPhotoLegacyFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -578,6 +585,7 @@ func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerPhotoFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field flags: %w", err)
@@ -660,6 +668,7 @@ func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetThumbTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: %w", err)
 	}
+
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

@@ -93,6 +93,7 @@ func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesVotesListTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.votesList#823f649: %w", err)
 	}
+
 	{
 		if err := v.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.votesList#823f649: field flags: %w", err)

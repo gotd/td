@@ -44,6 +44,7 @@ func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFeaturedStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.featuredStickersNotModified#c6dc0c66: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -115,6 +116,7 @@ func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFeaturedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

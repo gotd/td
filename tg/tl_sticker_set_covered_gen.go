@@ -54,6 +54,7 @@ func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerSetCoveredTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: %w", err)
 	}
+
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: field set: %w", err)
@@ -123,6 +124,7 @@ func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerSetMultiCoveredTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: %w", err)
 	}
+
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field set: %w", err)

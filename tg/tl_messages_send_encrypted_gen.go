@@ -68,6 +68,7 @@ func (s *MessagesSendEncryptedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendEncryptedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendEncrypted#44fa7a15: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendEncrypted#44fa7a15: field flags: %w", err)

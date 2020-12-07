@@ -152,6 +152,7 @@ func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: %w", err)
 	}
+
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field flags: %w", err)

@@ -60,6 +60,7 @@ func (c *ChannelsChannelParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsChannelParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.channelParticipant#d0d9b163: %w", err)
 	}
+
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {

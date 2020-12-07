@@ -47,6 +47,7 @@ func (b *BotCommand) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotCommandTypeID); err != nil {
 		return fmt.Errorf("unable to decode botCommand#c27ac8c7: %w", err)
 	}
+
 	{
 		value, err := buf.String()
 		if err != nil {

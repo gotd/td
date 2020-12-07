@@ -46,6 +46,7 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetGlobalPrivacySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: %w", err)
 	}
+
 	{
 		if err := s.Settings.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: field settings: %w", err)

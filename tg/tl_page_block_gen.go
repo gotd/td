@@ -41,6 +41,7 @@ func (p *PageBlockUnsupported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockUnsupportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockUnsupported#13567e8a: %w", err)
 	}
+
 	return nil
 }
 
@@ -90,6 +91,7 @@ func (p *PageBlockTitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockTitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockTitle#70abc3fd: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -146,6 +148,7 @@ func (p *PageBlockSubtitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSubtitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSubtitle#8ffa9a1f: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -205,6 +208,7 @@ func (p *PageBlockAuthorDate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAuthorDateTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAuthorDate#baafe5e0: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -268,6 +272,7 @@ func (p *PageBlockHeader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockHeaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockHeader#bfd064ec: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -324,6 +329,7 @@ func (p *PageBlockSubheader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSubheaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSubheader#f12bb6e1: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -380,6 +386,7 @@ func (p *PageBlockParagraph) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockParagraphTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockParagraph#467a0766: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -439,6 +446,7 @@ func (p *PageBlockPreformatted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPreformattedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -502,6 +510,7 @@ func (p *PageBlockFooter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockFooterTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockFooter#48870999: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -550,6 +559,7 @@ func (p *PageBlockDivider) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockDividerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockDivider#db20b188: %w", err)
 	}
+
 	return nil
 }
 
@@ -594,6 +604,7 @@ func (p *PageBlockAnchor) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAnchorTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAnchor#ce0d37b0: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -653,6 +664,7 @@ func (p *PageBlockList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockListTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockList#e4e88011: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -723,6 +735,7 @@ func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockBlockquoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -794,6 +807,7 @@ func (p *PageBlockPullquote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPullquoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPullquote#4f4456d3: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -906,6 +920,7 @@ func (p *PageBlockPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field flags: %w", err)
@@ -1013,6 +1028,7 @@ func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field flags: %w", err)
@@ -1081,6 +1097,7 @@ func (p *PageBlockCover) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockCoverTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockCover#39f23300: %w", err)
 	}
+
 	{
 		value, err := DecodePageBlock(b)
 		if err != nil {
@@ -1271,6 +1288,7 @@ func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockEmbedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field flags: %w", err)
@@ -1390,6 +1408,7 @@ func (p *PageBlockEmbedPost) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockEmbedPostTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1500,6 +1519,7 @@ func (p *PageBlockCollage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockCollageTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1575,6 +1595,7 @@ func (p *PageBlockSlideshow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSlideshowTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1642,6 +1663,7 @@ func (p *PageBlockChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockChannel#ef1751b5: %w", err)
 	}
+
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
@@ -1698,6 +1720,7 @@ func (p *PageBlockAudio) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAudioTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAudio#804361ea: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1759,6 +1782,7 @@ func (p *PageBlockKicker) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockKickerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockKicker#1e148390: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1850,6 +1874,7 @@ func (p *PageBlockTable) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockTableTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field flags: %w", err)
@@ -1929,6 +1954,7 @@ func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockOrderedListTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -2018,6 +2044,7 @@ func (p *PageBlockDetails) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockDetailsTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockDetails#76768bed: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field flags: %w", err)
@@ -2101,6 +2128,7 @@ func (p *PageBlockRelatedArticles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockRelatedArticlesTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: %w", err)
 	}
+
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -2184,6 +2212,7 @@ func (p *PageBlockMap) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockMapTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: %w", err)
 	}
+
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {

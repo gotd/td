@@ -41,6 +41,7 @@ func (c *ContactsContactsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsContactsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.contactsNotModified#b74ba9d2: %w", err)
 	}
+
 	return nil
 }
 
@@ -104,6 +105,7 @@ func (c *ContactsContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.contacts#eae87e42: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

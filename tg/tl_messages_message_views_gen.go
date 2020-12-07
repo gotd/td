@@ -71,6 +71,7 @@ func (m *MessagesMessageViews) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessageViewsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messageViews#b6c4f543: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -115,6 +115,7 @@ func (a *Authorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode authorization#ad01d61d: %w", err)
 	}
+
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode authorization#ad01d61d: field flags: %w", err)

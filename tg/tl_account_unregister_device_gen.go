@@ -53,6 +53,7 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUnregisterDeviceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

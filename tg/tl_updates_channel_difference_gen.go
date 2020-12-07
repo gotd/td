@@ -82,6 +82,7 @@ func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
@@ -222,6 +223,7 @@ func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
@@ -407,6 +409,7 @@ func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifference#2064674e: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field flags: %w", err)

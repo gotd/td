@@ -58,6 +58,7 @@ func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetMessagesViewsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

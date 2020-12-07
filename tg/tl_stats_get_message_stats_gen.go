@@ -68,6 +68,7 @@ func (g *StatsGetMessageStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMessageStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMessageStats#b6e0a3f5: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getMessageStats#b6e0a3f5: field flags: %w", err)

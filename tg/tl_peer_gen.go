@@ -44,6 +44,7 @@ func (p *PeerUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerUser#9db1bc6d: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -95,6 +96,7 @@ func (p *PeerChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerChat#bad0e5bb: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -146,6 +148,7 @@ func (p *PeerChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerChannel#bddde532: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

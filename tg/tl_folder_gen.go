@@ -112,6 +112,7 @@ func (f *Folder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode folder#ff544e65: %w", err)
 	}
+
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode folder#ff544e65: field flags: %w", err)

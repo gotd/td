@@ -61,6 +61,7 @@ func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersSetSecureValueErrorsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: %w", err)
 	}
+
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

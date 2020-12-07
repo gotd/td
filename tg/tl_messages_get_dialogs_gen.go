@@ -99,6 +99,7 @@ func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field flags: %w", err)

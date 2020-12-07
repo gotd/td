@@ -54,6 +54,7 @@ func (g *MessagesGetInlineGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetInlineGameHighScoresRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: %w", err)
 	}
+
 	{
 		if err := g.ID.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getInlineGameHighScores#f635e1b: field id: %w", err)

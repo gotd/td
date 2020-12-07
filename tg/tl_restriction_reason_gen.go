@@ -51,6 +51,7 @@ func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RestrictionReasonTypeID); err != nil {
 		return fmt.Errorf("unable to decode restrictionReason#d072acb4: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

@@ -246,6 +246,7 @@ func (i *InputSecureValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputSecureValue#db21d0a7: field flags: %w", err)

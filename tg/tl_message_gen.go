@@ -44,6 +44,7 @@ func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEmpty#83e5de54: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -555,6 +556,7 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode message#58ae39c9: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode message#58ae39c9: field flags: %w", err)
@@ -886,6 +888,7 @@ func (m *MessageService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageService#286fa604: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageService#286fa604: field flags: %w", err)

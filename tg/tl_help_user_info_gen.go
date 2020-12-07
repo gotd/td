@@ -41,6 +41,7 @@ func (u *HelpUserInfoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpUserInfoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.userInfoEmpty#f3ae2eed: %w", err)
 	}
+
 	return nil
 }
 
@@ -102,6 +103,7 @@ func (u *HelpUserInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpUserInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.userInfo#1eb3758: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

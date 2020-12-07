@@ -117,6 +117,7 @@ func (g *MessagesGetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetBotCallbackAnswerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)

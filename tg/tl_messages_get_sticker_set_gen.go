@@ -49,6 +49,7 @@ func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: %w", err)
 	}
+
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

@@ -62,6 +62,7 @@ func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditBannedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editBanned#72796912: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

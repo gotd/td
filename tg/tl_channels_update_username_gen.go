@@ -52,6 +52,7 @@ func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsUpdateUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.updateUsername#3514b3de: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

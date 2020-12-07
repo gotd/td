@@ -47,6 +47,7 @@ func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentSavedCredentialsCardTypeID); err != nil {
 		return fmt.Errorf("unable to decode paymentSavedCredentialsCard#cdc27a1f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

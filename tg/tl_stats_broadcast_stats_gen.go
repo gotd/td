@@ -146,6 +146,7 @@ func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(StatsBroadcastStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: %w", err)
 	}
+
 	{
 		if err := b.Period.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field period: %w", err)

@@ -47,6 +47,7 @@ func (i *InputGameID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGameIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGameID#32c3e77: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -113,6 +114,7 @@ func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGameShortNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGameShortName#c331e80a: %w", err)
 	}
+
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

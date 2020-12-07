@@ -54,6 +54,7 @@ func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(AuthBindTempAuthKeyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: %w", err)
 	}
+
 	{
 		value, err := buf.Long()
 		if err != nil {

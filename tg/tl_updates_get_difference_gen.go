@@ -77,6 +77,7 @@ func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getDifference#25939651: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.getDifference#25939651: field flags: %w", err)

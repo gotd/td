@@ -52,6 +52,7 @@ func (e *ChannelsEditTitleRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditTitleRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editTitle#566decd0: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

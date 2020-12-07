@@ -51,6 +51,7 @@ func (s *StickerPack) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerPackTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerPack#12b299d4: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

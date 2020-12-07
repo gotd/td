@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
 // Get message ranges for saving the user's chat history
 //
-// See https://core.telegram.org/constructor/messages.getSplitRanges for reference.
+// See https://core.telegram.org/method/messages.getSplitRanges for reference.
 type MessagesGetSplitRangesRequest struct {
 }
 
@@ -41,6 +41,7 @@ func (g *MessagesGetSplitRangesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSplitRangesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSplitRanges#1cff7e08: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,3 +50,15 @@ var (
 	_ bin.Encoder = &MessagesGetSplitRangesRequest{}
 	_ bin.Decoder = &MessagesGetSplitRangesRequest{}
 )
+
+// MessagesGetSplitRanges invokes method messages.getSplitRanges#1cff7e08 returning error if any.
+// Get message ranges for saving the user's chat history
+//
+// See https://core.telegram.org/method/messages.getSplitRanges for reference.
+func (c *Client) MessagesGetSplitRanges(ctx context.Context, request *MessagesGetSplitRangesRequest) (*MessageRangeVector, error) {
+	var result MessageRangeVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -47,6 +47,7 @@ func (g *MessagesGetStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getStickers#43d4f2c: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

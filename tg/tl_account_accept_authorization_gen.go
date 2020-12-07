@@ -63,6 +63,7 @@ func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAcceptAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -49,6 +49,7 @@ func (c *CdnConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CdnConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnConfig#5725e40a: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

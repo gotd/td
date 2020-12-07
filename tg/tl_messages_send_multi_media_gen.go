@@ -139,6 +139,7 @@ func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field flags: %w", err)

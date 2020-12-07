@@ -41,6 +41,7 @@ func (c *ChannelLocationEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelLocationEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelLocationEmpty#bfb5ad8b: %w", err)
 	}
+
 	return nil
 }
 
@@ -93,6 +94,7 @@ func (c *ChannelLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelLocation#209b82db: %w", err)
 	}
+
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {

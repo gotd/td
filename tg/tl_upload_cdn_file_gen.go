@@ -44,6 +44,7 @@ func (c *UploadCdnFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadCdnFileReuploadNeededTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFileReuploadNeeded#eea8e46e: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -95,6 +96,7 @@ func (c *UploadCdnFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadCdnFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFile#a99fca4f: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

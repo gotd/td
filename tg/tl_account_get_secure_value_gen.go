@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
 // Get saved Telegram Passport document, for more info see the passport docs »
 //
-// See https://core.telegram.org/constructor/account.getSecureValue for reference.
+// See https://core.telegram.org/method/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
 	// Requested value types
 	Types []SecureValueTypeClass
@@ -52,6 +52,7 @@ func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -73,3 +74,15 @@ var (
 	_ bin.Encoder = &AccountGetSecureValueRequest{}
 	_ bin.Decoder = &AccountGetSecureValueRequest{}
 )
+
+// AccountGetSecureValue invokes method account.getSecureValue#73665bc2 returning error if any.
+// Get saved Telegram Passport document, for more info see the passport docs »
+//
+// See https://core.telegram.org/method/account.getSecureValue for reference.
+func (c *Client) AccountGetSecureValue(ctx context.Context, request *AccountGetSecureValueRequest) (*SecureValueVector, error) {
+	var result SecureValueVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -44,6 +44,7 @@ func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCheckChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.checkChatInvite#3eadb1bb: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

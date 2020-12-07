@@ -44,6 +44,7 @@ func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(AccountSetContactSignUpNotificationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setContactSignUpNotification#cff43f61: %w", err)
 	}
+
 	{
 		value, err := b.Bool()
 		if err != nil {

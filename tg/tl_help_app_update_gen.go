@@ -126,6 +126,7 @@ func (a *HelpAppUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpAppUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.appUpdate#1da7158f: %w", err)
 	}
+
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.appUpdate#1da7158f: field flags: %w", err)
@@ -221,6 +222,7 @@ func (n *HelpNoAppUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpNoAppUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.noAppUpdate#c45a6536: %w", err)
 	}
+
 	return nil
 }
 

@@ -41,6 +41,7 @@ func (m *MessageMediaEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaEmpty#3ded6320: %w", err)
 	}
+
 	return nil
 }
 
@@ -136,6 +137,7 @@ func (m *MessageMediaPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaPhoto#695150d7: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaPhoto#695150d7: field flags: %w", err)
@@ -204,6 +206,7 @@ func (m *MessageMediaGeo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGeo#56e0d474: %w", err)
 	}
+
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -267,6 +270,7 @@ func (m *MessageMediaContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaContact#cbf24940: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -343,6 +347,7 @@ func (m *MessageMediaUnsupported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaUnsupportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaUnsupported#9f84f49e: %w", err)
 	}
+
 	return nil
 }
 
@@ -438,6 +443,7 @@ func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field flags: %w", err)
@@ -506,6 +512,7 @@ func (m *MessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaWebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaWebPage#a32dd600: %w", err)
 	}
+
 	{
 		value, err := DecodeWebPage(b)
 		if err != nil {
@@ -577,6 +584,7 @@ func (m *MessageMediaVenue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaVenue#2ec0533f: %w", err)
 	}
+
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -665,6 +673,7 @@ func (m *MessageMediaGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGame#fdb19008: %w", err)
 	}
+
 	{
 		if err := m.Game.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaGame#fdb19008: field game: %w", err)
@@ -802,6 +811,7 @@ func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaInvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaInvoice#84551347: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field flags: %w", err)
@@ -959,6 +969,7 @@ func (m *MessageMediaGeoLive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGeoLiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGeoLive#b940c666: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaGeoLive#b940c666: field flags: %w", err)
@@ -1043,6 +1054,7 @@ func (m *MessageMediaPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaPoll#4bd6e798: %w", err)
 	}
+
 	{
 		if err := m.Poll.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaPoll#4bd6e798: field poll: %w", err)
@@ -1100,6 +1112,7 @@ func (m *MessageMediaDice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaDiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaDice#3f7ee58b: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

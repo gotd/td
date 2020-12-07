@@ -74,6 +74,7 @@ func (r *HelpRecentMeUrls) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpRecentMeUrlsTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

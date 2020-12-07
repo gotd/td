@@ -63,6 +63,7 @@ func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpEditUserInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: %w", err)
 	}
+
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

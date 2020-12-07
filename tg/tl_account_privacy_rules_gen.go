@@ -74,6 +74,7 @@ func (p *AccountPrivacyRules) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPrivacyRulesTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.privacyRules#50a04e45: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

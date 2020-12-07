@@ -47,6 +47,7 @@ func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetThemesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getThemes#285946f8: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

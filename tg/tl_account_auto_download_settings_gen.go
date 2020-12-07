@@ -56,6 +56,7 @@ func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAutoDownloadSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: %w", err)
 	}
+
 	{
 		if err := a.Low.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: field low: %w", err)

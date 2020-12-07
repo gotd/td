@@ -41,6 +41,7 @@ func (p *PrivacyValueAllowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowContacts#fffe1bac: %w", err)
 	}
+
 	return nil
 }
 
@@ -82,6 +83,7 @@ func (p *PrivacyValueAllowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowAll#65427b82: %w", err)
 	}
+
 	return nil
 }
 
@@ -129,6 +131,7 @@ func (p *PrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowUsers#4d5bbe0c: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -183,6 +186,7 @@ func (p *PrivacyValueDisallowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowContacts#f888fa1a: %w", err)
 	}
+
 	return nil
 }
 
@@ -224,6 +228,7 @@ func (p *PrivacyValueDisallowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowAll#8b73e763: %w", err)
 	}
+
 	return nil
 }
 
@@ -271,6 +276,7 @@ func (p *PrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowUsers#c7f49b7: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -331,6 +337,7 @@ func (p *PrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowChatParticipants#18be796b: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -391,6 +398,7 @@ func (p *PrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowChatParticipants#acae0690: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

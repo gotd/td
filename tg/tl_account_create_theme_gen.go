@@ -103,6 +103,7 @@ func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountCreateThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.createTheme#8432c21f: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field flags: %w", err)

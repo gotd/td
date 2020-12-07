@@ -52,6 +52,7 @@ func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListOrderedItemTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListOrderedItemText#5e068047: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -121,6 +122,7 @@ func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListOrderedItemBlocksTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

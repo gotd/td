@@ -82,6 +82,7 @@ func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getFile#b15a9afc: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field flags: %w", err)

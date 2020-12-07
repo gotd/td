@@ -152,6 +152,7 @@ func (i *InputThemeSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputThemeSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputThemeSettings#bd507cd1: field flags: %w", err)

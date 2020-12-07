@@ -48,6 +48,7 @@ func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsPercentValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsPercentValue#cbce2fe0: %w", err)
 	}
+
 	{
 		value, err := b.Double()
 		if err != nil {

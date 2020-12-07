@@ -49,6 +49,7 @@ func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogFilterSuggestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: %w", err)
 	}
+
 	{
 		if err := d.Filter.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: field filter: %w", err)

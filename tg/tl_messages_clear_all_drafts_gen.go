@@ -41,6 +41,7 @@ func (c *MessagesClearAllDraftsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesClearAllDraftsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.clearAllDrafts#7e58ee9c: %w", err)
 	}
+
 	return nil
 }
 

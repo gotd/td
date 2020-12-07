@@ -43,6 +43,7 @@ func (g *ChannelsGetGroupsForDiscussionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetGroupsForDiscussionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getGroupsForDiscussion#f5dad378: %w", err)
 	}
+
 	return nil
 }
 

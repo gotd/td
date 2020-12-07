@@ -44,6 +44,7 @@ func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetPaymentReceiptRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getPaymentReceipt#a092a980: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

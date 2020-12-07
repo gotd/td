@@ -44,6 +44,7 @@ func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetWallPapersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

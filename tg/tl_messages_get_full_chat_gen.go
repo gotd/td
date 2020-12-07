@@ -44,6 +44,7 @@ func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetFullChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getFullChat#3b831c66: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

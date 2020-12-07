@@ -55,6 +55,7 @@ func (s *ShippingOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ShippingOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode shippingOption#b6213cdf: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

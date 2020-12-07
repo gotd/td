@@ -47,6 +47,7 @@ func (b *BankCardOpenUrl) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BankCardOpenUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: %w", err)
 	}
+
 	{
 		value, err := buf.String()
 		if err != nil {

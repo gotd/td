@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // LangpackGetStringsRequest represents TL type `langpack.getStrings#efea3803`.
 // Get strings from a language pack
 //
-// See https://core.telegram.org/constructor/langpack.getStrings for reference.
+// See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
 	// Language pack name
 	LangPack string
@@ -53,6 +53,7 @@ func (g *LangpackGetStringsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetStringsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getStrings#efea3803: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -88,3 +89,15 @@ var (
 	_ bin.Encoder = &LangpackGetStringsRequest{}
 	_ bin.Decoder = &LangpackGetStringsRequest{}
 )
+
+// LangpackGetStrings invokes method langpack.getStrings#efea3803 returning error if any.
+// Get strings from a language pack
+//
+// See https://core.telegram.org/method/langpack.getStrings for reference.
+func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStringsRequest) (*LangPackStringClassVector, error) {
+	var result LangPackStringClassVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

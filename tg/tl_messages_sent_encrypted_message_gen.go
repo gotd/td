@@ -44,6 +44,7 @@ func (s *MessagesSentEncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSentEncryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sentEncryptedMessage#560f8935: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -103,6 +104,7 @@ func (s *MessagesSentEncryptedFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSentEncryptedFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sentEncryptedFile#9493ff32: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

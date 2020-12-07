@@ -52,6 +52,7 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactStatusTypeID); err != nil {
 		return fmt.Errorf("unable to decode contactStatus#d3680c61: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

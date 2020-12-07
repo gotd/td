@@ -41,6 +41,7 @@ func (i *InputStickerSetEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetEmpty#ffb62b95: %w", err)
 	}
+
 	return nil
 }
 
@@ -88,6 +89,7 @@ func (i *InputStickerSetID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetID#9de7a269: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -146,6 +148,7 @@ func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetShortNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetShortName#861cc8a0: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -194,6 +197,7 @@ func (i *InputStickerSetAnimatedEmoji) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetAnimatedEmojiTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetAnimatedEmoji#28703c8: %w", err)
 	}
+
 	return nil
 }
 
@@ -238,6 +242,7 @@ func (i *InputStickerSetDice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetDiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetDice#e67f520e: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

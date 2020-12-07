@@ -61,6 +61,7 @@ func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackDifference#f385c1f6: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

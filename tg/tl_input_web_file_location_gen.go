@@ -47,6 +47,7 @@ func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebFileLocation#c239d686: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -125,6 +126,7 @@ func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebFileGeoPointLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: %w", err)
 	}
+
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {

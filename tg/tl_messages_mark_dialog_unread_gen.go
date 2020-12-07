@@ -65,6 +65,7 @@ func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMarkDialogUnreadRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: %w", err)
 	}
+
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field flags: %w", err)

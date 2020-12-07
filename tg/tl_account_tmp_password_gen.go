@@ -47,6 +47,7 @@ func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountTmpPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.tmpPassword#db64fd34: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

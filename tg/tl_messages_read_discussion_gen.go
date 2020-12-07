@@ -55,6 +55,7 @@ func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadDiscussionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

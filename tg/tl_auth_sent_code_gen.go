@@ -106,6 +106,7 @@ func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCode#5e002502: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field flags: %w", err)

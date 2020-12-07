@@ -44,6 +44,7 @@ func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountTakeoutTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.takeout#4dba4501: %w", err)
 	}
+
 	{
 		value, err := b.Long()
 		if err != nil {

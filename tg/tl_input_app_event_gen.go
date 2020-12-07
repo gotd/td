@@ -58,6 +58,7 @@ func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputAppEventTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: %w", err)
 	}
+
 	{
 		value, err := b.Double()
 		if err != nil {

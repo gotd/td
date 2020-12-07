@@ -71,6 +71,7 @@ func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockedTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blocked#ade1591: %w", err)
 	}
+
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
@@ -184,6 +185,7 @@ func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockedSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: %w", err)
 	}
+
 	{
 		value, err := buf.Int()
 		if err != nil {

@@ -98,6 +98,7 @@ func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfService#780a0310: %w", err)
 	}
+
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field flags: %w", err)

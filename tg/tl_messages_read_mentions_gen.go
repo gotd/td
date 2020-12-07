@@ -49,6 +49,7 @@ func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadMentionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readMentions#f0189d3: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

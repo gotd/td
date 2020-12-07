@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // ContactsGetContactIDsRequest represents TL type `contacts.getContactIDs#2caa4a42`.
 // Get contact by telegram IDs
 //
-// See https://core.telegram.org/constructor/contacts.getContactIDs for reference.
+// See https://core.telegram.org/method/contacts.getContactIDs for reference.
 type ContactsGetContactIDsRequest struct {
 	// Hash for pagination, for more info click here
 	Hash int
@@ -44,6 +44,7 @@ func (g *ContactsGetContactIDsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetContactIDsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getContactIDs#2caa4a42: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -59,3 +60,15 @@ var (
 	_ bin.Encoder = &ContactsGetContactIDsRequest{}
 	_ bin.Decoder = &ContactsGetContactIDsRequest{}
 )
+
+// ContactsGetContactIDs invokes method contacts.getContactIDs#2caa4a42 returning error if any.
+// Get contact by telegram IDs
+//
+// See https://core.telegram.org/method/contacts.getContactIDs for reference.
+func (c *Client) ContactsGetContactIDs(ctx context.Context, request *ContactsGetContactIDsRequest) (*IntVector, error) {
+	var result IntVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

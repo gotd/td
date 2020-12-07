@@ -52,6 +52,7 @@ func (j *JsonObjectValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JsonObjectValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonObjectValue#c0de1bd9: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

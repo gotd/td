@@ -55,6 +55,7 @@ func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAddChatUserRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

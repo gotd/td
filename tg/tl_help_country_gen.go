@@ -93,6 +93,7 @@ func (c *HelpCountry) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountryTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.country#c3878e23: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.country#c3878e23: field flags: %w", err)

@@ -54,6 +54,7 @@ func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetWebFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: %w", err)
 	}
+
 	{
 		value, err := DecodeInputWebFileLocation(b)
 		if err != nil {

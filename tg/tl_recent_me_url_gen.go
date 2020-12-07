@@ -44,6 +44,7 @@ func (r *RecentMeUrlUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeUrlUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUnknown#46e1d13d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -98,6 +99,7 @@ func (r *RecentMeUrlUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeUrlUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -159,6 +161,7 @@ func (r *RecentMeUrlChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeUrlChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -225,6 +228,7 @@ func (r *RecentMeUrlChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeUrlChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -291,6 +295,7 @@ func (r *RecentMeUrlStickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeUrlStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

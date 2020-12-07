@@ -106,6 +106,7 @@ func (i *InputBotInlineMessageMediaAuto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageMediaAutoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageMediaAuto#3380c786: field flags: %w", err)
@@ -255,6 +256,7 @@ func (i *InputBotInlineMessageText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageText#3dcd7a87: field flags: %w", err)
@@ -435,6 +437,7 @@ func (i *InputBotInlineMessageMediaGeo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageMediaGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageMediaGeo#96929a85: field flags: %w", err)
@@ -571,6 +574,7 @@ func (i *InputBotInlineMessageMediaVenue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageMediaVenue#417bbf11: field flags: %w", err)
@@ -710,6 +714,7 @@ func (i *InputBotInlineMessageMediaContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageMediaContact#a6edbffd: field flags: %w", err)
@@ -823,6 +828,7 @@ func (i *InputBotInlineMessageGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageGame#4b425864: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineMessageGame#4b425864: field flags: %w", err)

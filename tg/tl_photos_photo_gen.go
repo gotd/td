@@ -60,6 +60,7 @@ func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photo#20212ca8: %w", err)
 	}
+
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {

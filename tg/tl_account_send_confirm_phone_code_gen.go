@@ -49,6 +49,7 @@ func (s *AccountSendConfirmPhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSendConfirmPhoneCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sendConfirmPhoneCode#1b3faa88: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

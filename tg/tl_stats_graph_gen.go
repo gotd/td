@@ -44,6 +44,7 @@ func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphAsyncTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraphAsync#4a27eb2d: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -95,6 +96,7 @@ func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraphError#bedc9822: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -175,6 +177,7 @@ func (s *StatsGraph) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraph#8ea464b6: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode statsGraph#8ea464b6: field flags: %w", err)

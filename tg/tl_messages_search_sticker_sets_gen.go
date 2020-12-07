@@ -63,6 +63,7 @@ func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field flags: %w", err)

@@ -49,6 +49,7 @@ func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetPrivacyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getPrivacy#dadbc950: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {

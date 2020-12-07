@@ -49,6 +49,7 @@ func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getWallPaper#fc8ddbea: %w", err)
 	}
+
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {

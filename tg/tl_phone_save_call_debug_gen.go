@@ -51,6 +51,7 @@ func (s *PhoneSaveCallDebugRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSaveCallDebugRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: %w", err)
 	}
+
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: field peer: %w", err)

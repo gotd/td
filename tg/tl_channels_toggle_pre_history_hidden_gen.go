@@ -52,6 +52,7 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsTogglePreHistoryHiddenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.togglePreHistoryHidden#eabbb94c: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

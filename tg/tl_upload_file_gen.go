@@ -55,6 +55,7 @@ func (f *UploadFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.file#96a18d5: %w", err)
 	}
+
 	{
 		value, err := DecodeStorageFileType(b)
 		if err != nil {
@@ -137,6 +138,7 @@ func (f *UploadFileCdnRedirect) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadFileCdnRedirectTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -136,6 +136,7 @@ func (p *PaymentRequestedInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentRequestedInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: %w", err)
 	}
+
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode paymentRequestedInfo#909c3f94: field flags: %w", err)

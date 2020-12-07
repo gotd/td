@@ -41,6 +41,7 @@ func (f *MessagesFavedStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFavedStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.favedStickersNotModified#9e8fa6d3: %w", err)
 	}
+
 	return nil
 }
 
@@ -104,6 +105,7 @@ func (f *MessagesFavedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFavedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.favedStickers#f37f2f16: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

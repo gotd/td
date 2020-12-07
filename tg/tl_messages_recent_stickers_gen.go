@@ -41,6 +41,7 @@ func (r *MessagesRecentStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRecentStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.recentStickersNotModified#b17f890: %w", err)
 	}
+
 	return nil
 }
 
@@ -110,6 +111,7 @@ func (r *MessagesRecentStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRecentStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

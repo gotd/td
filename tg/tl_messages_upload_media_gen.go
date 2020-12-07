@@ -57,6 +57,7 @@ func (u *MessagesUploadMediaRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUploadMediaRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uploadMedia#519bc2b1: %w", err)
 	}
+
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

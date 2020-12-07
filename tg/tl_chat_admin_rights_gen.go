@@ -156,6 +156,7 @@ func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatAdminRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: field flags: %w", err)

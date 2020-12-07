@@ -156,6 +156,7 @@ func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaperSettings#5086cf8: %w", err)
 	}
+
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode wallPaperSettings#5086cf8: field flags: %w", err)

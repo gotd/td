@@ -44,6 +44,7 @@ func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatEmpty#9ba2d800: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -239,6 +240,7 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
@@ -354,6 +356,7 @@ func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatForbidden#7328bdb: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -742,6 +745,7 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
@@ -943,6 +947,7 @@ func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)

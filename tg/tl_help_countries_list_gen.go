@@ -41,6 +41,7 @@ func (c *HelpCountriesListNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountriesListNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.countriesListNotModified#93cc1f32: %w", err)
 	}
+
 	return nil
 }
 
@@ -93,6 +94,7 @@ func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountriesListTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.countriesList#87d0759e: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

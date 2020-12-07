@@ -109,6 +109,7 @@ func (a *AccountAuthorizationForm) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAuthorizationFormTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: %w", err)
 	}
+
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.authorizationForm#ad2e1cd8: field flags: %w", err)

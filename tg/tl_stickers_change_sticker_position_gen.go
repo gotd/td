@@ -52,6 +52,7 @@ func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersChangeStickerPositionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.changeStickerPosition#ffb6d4ca: %w", err)
 	}
+
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {

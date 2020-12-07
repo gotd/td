@@ -49,6 +49,7 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsMessageStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.messageStats#8999f295: %w", err)
 	}
+
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {

@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // ContactsGetSavedRequest represents TL type `contacts.getSaved#82f1e39f`.
 // Get all contacts
 //
-// See https://core.telegram.org/constructor/contacts.getSaved for reference.
+// See https://core.telegram.org/method/contacts.getSaved for reference.
 type ContactsGetSavedRequest struct {
 }
 
@@ -41,6 +41,7 @@ func (g *ContactsGetSavedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetSavedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getSaved#82f1e39f: %w", err)
 	}
+
 	return nil
 }
 
@@ -49,3 +50,15 @@ var (
 	_ bin.Encoder = &ContactsGetSavedRequest{}
 	_ bin.Decoder = &ContactsGetSavedRequest{}
 )
+
+// ContactsGetSaved invokes method contacts.getSaved#82f1e39f returning error if any.
+// Get all contacts
+//
+// See https://core.telegram.org/method/contacts.getSaved for reference.
+func (c *Client) ContactsGetSaved(ctx context.Context, request *ContactsGetSavedRequest) (*SavedPhoneContactVector, error) {
+	var result SavedPhoneContactVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

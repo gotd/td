@@ -57,6 +57,7 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GlobalPrivacySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: %w", err)
 	}
+
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field flags: %w", err)

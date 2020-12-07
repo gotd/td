@@ -123,6 +123,7 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsCreateChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: %w", err)
 	}
+
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field flags: %w", err)

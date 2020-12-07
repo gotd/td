@@ -79,6 +79,7 @@ func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsExportMessageLinkRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: %w", err)
 	}
+
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field flags: %w", err)

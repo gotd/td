@@ -44,6 +44,7 @@ func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetBankCardDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getBankCardData#2e79d779: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

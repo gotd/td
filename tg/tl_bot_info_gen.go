@@ -55,6 +55,7 @@ func (b *BotInfo) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInfo#98e81d3a: %w", err)
 	}
+
 	{
 		value, err := buf.Int()
 		if err != nil {

@@ -49,6 +49,7 @@ func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCheckPasswordRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.checkPassword#d18b4d16: %w", err)
 	}
+
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {

@@ -44,6 +44,7 @@ func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateUsername#3e0bdd7c: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

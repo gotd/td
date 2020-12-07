@@ -55,6 +55,7 @@ func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsDeleteMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

@@ -49,6 +49,7 @@ func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetFullChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getFullChannel#8736a09: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

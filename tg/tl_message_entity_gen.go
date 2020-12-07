@@ -47,6 +47,7 @@ func (m *MessageEntityUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityUnknown#bb92ba95: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -108,6 +109,7 @@ func (m *MessageEntityMention) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityMentionTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityMention#fa04579d: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -169,6 +171,7 @@ func (m *MessageEntityHashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityHashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityHashtag#6f635b0d: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -230,6 +233,7 @@ func (m *MessageEntityBotCommand) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityBotCommandTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityBotCommand#6cef8ac7: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -291,6 +295,7 @@ func (m *MessageEntityUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityUrl#6ed02538: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -352,6 +357,7 @@ func (m *MessageEntityEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityEmail#64e475c2: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -413,6 +419,7 @@ func (m *MessageEntityBold) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityBoldTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityBold#bd610bc9: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -474,6 +481,7 @@ func (m *MessageEntityItalic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityItalicTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityItalic#826f8b60: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -535,6 +543,7 @@ func (m *MessageEntityCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityCode#28a20571: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -599,6 +608,7 @@ func (m *MessageEntityPre) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityPreTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityPre#73924be0: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -670,6 +680,7 @@ func (m *MessageEntityTextUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityTextUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -741,6 +752,7 @@ func (m *MessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityMentionNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityMentionName#352dca58: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -817,6 +829,7 @@ func (i *InputMessageEntityMentionName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageEntityMentionNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageEntityMentionName#208e68c9: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -885,6 +898,7 @@ func (m *MessageEntityPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityPhone#9b69e34b: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -946,6 +960,7 @@ func (m *MessageEntityCashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityCashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityCashtag#4c4e743f: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1007,6 +1022,7 @@ func (m *MessageEntityUnderline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityUnderlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityUnderline#9c4e7e8b: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1068,6 +1084,7 @@ func (m *MessageEntityStrike) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityStrikeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityStrike#bf0693d4: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1129,6 +1146,7 @@ func (m *MessageEntityBlockquote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityBlockquoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityBlockquote#20df5d0: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1190,6 +1208,7 @@ func (m *MessageEntityBankCard) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEntityBankCardTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityBankCard#761e6af4: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -52,6 +52,7 @@ func (f *FolderPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FolderPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode folderPeer#e9baa668: %w", err)
 	}
+
 	{
 		value, err := DecodePeer(b)
 		if err != nil {

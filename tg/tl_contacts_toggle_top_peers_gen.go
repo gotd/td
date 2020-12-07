@@ -44,6 +44,7 @@ func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsToggleTopPeersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.toggleTopPeers#8514bdda: %w", err)
 	}
+
 	{
 		value, err := b.Bool()
 		if err != nil {

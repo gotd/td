@@ -41,6 +41,7 @@ func (p *PasswordKdfAlgoUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PasswordKdfAlgoUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode passwordKdfAlgoUnknown#d45ab096: %w", err)
 	}
+
 	return nil
 }
 
@@ -94,6 +95,7 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Deco
 	if err := b.ConsumeID(PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID); err != nil {
 		return fmt.Errorf("unable to decode passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

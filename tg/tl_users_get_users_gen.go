@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // UsersGetUsersRequest represents TL type `users.getUsers#d91a548`.
 // Returns basic user info according to their identifiers.
 //
-// See https://core.telegram.org/constructor/users.getUsers for reference.
+// See https://core.telegram.org/method/users.getUsers for reference.
 type UsersGetUsersRequest struct {
 	// List of user identifiers
 	ID []InputUserClass
@@ -52,6 +52,7 @@ func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersGetUsersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.getUsers#d91a548: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -73,3 +74,15 @@ var (
 	_ bin.Encoder = &UsersGetUsersRequest{}
 	_ bin.Decoder = &UsersGetUsersRequest{}
 )
+
+// UsersGetUsers invokes method users.getUsers#d91a548 returning error if any.
+// Returns basic user info according to their identifiers.
+//
+// See https://core.telegram.org/method/users.getUsers for reference.
+func (c *Client) UsersGetUsers(ctx context.Context, request *UsersGetUsersRequest) (*UserClassVector, error) {
+	var result UserClassVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

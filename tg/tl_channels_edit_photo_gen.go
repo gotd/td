@@ -57,6 +57,7 @@ func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditPhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editPhoto#f12e57c9: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

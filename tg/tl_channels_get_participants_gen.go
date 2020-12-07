@@ -66,6 +66,7 @@ func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetParticipantsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: %w", err)
 	}
+
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

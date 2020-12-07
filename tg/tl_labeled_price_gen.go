@@ -47,6 +47,7 @@ func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LabeledPriceTypeID); err != nil {
 		return fmt.Errorf("unable to decode labeledPrice#cb296bf8: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

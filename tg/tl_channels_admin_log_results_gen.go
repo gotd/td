@@ -71,6 +71,7 @@ func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsAdminLogResultsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

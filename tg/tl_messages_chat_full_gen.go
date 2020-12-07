@@ -71,6 +71,7 @@ func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: %w", err)
 	}
+
 	{
 		value, err := DecodeChatFull(b)
 		if err != nil {

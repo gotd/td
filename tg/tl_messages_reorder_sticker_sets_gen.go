@@ -63,6 +63,7 @@ func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReorderStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: %w", err)
 	}
+
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field flags: %w", err)

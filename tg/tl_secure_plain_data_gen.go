@@ -44,6 +44,7 @@ func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecurePlainPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode securePlainPhone#7d6099dd: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -95,6 +96,7 @@ func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecurePlainEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode securePlainEmail#21ec5a5f: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // PhotosDeletePhotosRequest represents TL type `photos.deletePhotos#87cf7f2f`.
 // Deletes profile photos.
 //
-// See https://core.telegram.org/constructor/photos.deletePhotos for reference.
+// See https://core.telegram.org/method/photos.deletePhotos for reference.
 type PhotosDeletePhotosRequest struct {
 	// Input photos to delete
 	ID []InputPhotoClass
@@ -52,6 +52,7 @@ func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosDeletePhotosRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: %w", err)
 	}
+
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -73,3 +74,15 @@ var (
 	_ bin.Encoder = &PhotosDeletePhotosRequest{}
 	_ bin.Decoder = &PhotosDeletePhotosRequest{}
 )
+
+// PhotosDeletePhotos invokes method photos.deletePhotos#87cf7f2f returning error if any.
+// Deletes profile photos.
+//
+// See https://core.telegram.org/method/photos.deletePhotos for reference.
+func (c *Client) PhotosDeletePhotos(ctx context.Context, request *PhotosDeletePhotosRequest) (*LongVector, error) {
+	var result LongVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -145,6 +145,7 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode invoice#c30aa358: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode invoice#c30aa358: field flags: %w", err)

@@ -41,6 +41,7 @@ func (g *MessagesGetAllDraftsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAllDraftsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAllDrafts#6a3f8d65: %w", err)
 	}
+
 	return nil
 }
 

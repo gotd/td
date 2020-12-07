@@ -47,6 +47,7 @@ func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginToken#629f1980: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -108,6 +109,7 @@ func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenMigrateToTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginTokenMigrateTo#68e9916: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -171,6 +173,7 @@ func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenSuccessTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginTokenSuccess#390d5c5e: %w", err)
 	}
+
 	{
 		value, err := DecodeAuthAuthorization(b)
 		if err != nil {

@@ -41,6 +41,7 @@ func (g *AccountGetPasswordRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetPasswordRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getPassword#548a30f5: %w", err)
 	}
+
 	return nil
 }
 

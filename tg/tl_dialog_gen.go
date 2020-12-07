@@ -167,6 +167,7 @@ func (d *Dialog) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
@@ -327,6 +328,7 @@ func (d *DialogFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogFolder#71bd134c: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field flags: %w", err)

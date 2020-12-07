@@ -50,6 +50,7 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDocumentByHashRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: %w", err)
 	}
+
 	{
 		value, err := b.Bytes()
 		if err != nil {

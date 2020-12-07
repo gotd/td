@@ -50,6 +50,7 @@ func (e *EmojiKeyword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiKeywordTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
@@ -120,6 +121,7 @@ func (e *EmojiKeywordDeleted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiKeywordDeletedTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {

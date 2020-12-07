@@ -68,6 +68,7 @@ func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DraftMessageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: field flags: %w", err)
@@ -195,6 +196,7 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode draftMessage#fd8e711f: %w", err)
 	}
+
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field flags: %w", err)

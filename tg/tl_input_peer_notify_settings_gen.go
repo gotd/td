@@ -112,6 +112,7 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
 	}
+
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)

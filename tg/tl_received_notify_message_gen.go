@@ -47,6 +47,7 @@ func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReceivedNotifyMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode receivedNotifyMessage#a384b779: %w", err)
 	}
+
 	{
 		value, err := b.Int()
 		if err != nil {

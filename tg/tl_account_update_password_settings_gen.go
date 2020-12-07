@@ -54,6 +54,7 @@ func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdatePasswordSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updatePasswordSettings#a59b102f: %w", err)
 	}
+
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {

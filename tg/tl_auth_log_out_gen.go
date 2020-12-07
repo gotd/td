@@ -41,6 +41,7 @@ func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLogOutRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.logOut#5717da40: %w", err)
 	}
+
 	return nil
 }
 

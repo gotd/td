@@ -57,6 +57,7 @@ func (s *StickersSetStickerSetThumbRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersSetStickerSetThumbRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.setStickerSetThumb#9a364e30: %w", err)
 	}
+
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

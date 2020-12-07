@@ -84,6 +84,7 @@ func (s *MessagesSetTypingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetTypingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setTyping#58943ee2: %w", err)
 	}
+
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setTyping#58943ee2: field flags: %w", err)

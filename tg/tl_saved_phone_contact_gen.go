@@ -53,6 +53,7 @@ func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SavedPhoneContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: %w", err)
 	}
+
 	{
 		value, err := b.String()
 		if err != nil {
