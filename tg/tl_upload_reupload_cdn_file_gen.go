@@ -75,10 +75,10 @@ var (
 // Request a reupload of a certain file to a CDN DC.
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
-func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) (*FileHashVector, error) {
+func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) ([]FileHash, error) {
 	var result FileHashVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

@@ -79,10 +79,10 @@ var (
 // Get info about multiple wallpapers
 //
 // See https://core.telegram.org/method/account.getMultiWallPapers for reference.
-func (c *Client) AccountGetMultiWallPapers(ctx context.Context, request *AccountGetMultiWallPapersRequest) (*WallPaperClassVector, error) {
+func (c *Client) AccountGetMultiWallPapers(ctx context.Context, request *AccountGetMultiWallPapersRequest) ([]WallPaperClass, error) {
 	var result WallPaperClassVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

@@ -94,10 +94,10 @@ var (
 // Get the number of results that would be found by a messages.search call with the same parameters
 //
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
-func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) (*MessagesSearchCounterVector, error) {
+func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) ([]MessagesSearchCounter, error) {
 	var result MessagesSearchCounterVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

@@ -65,10 +65,10 @@ var (
 // Get information about all languages in a localization pack
 //
 // See https://core.telegram.org/method/langpack.getLanguages for reference.
-func (c *Client) LangpackGetLanguages(ctx context.Context, request *LangpackGetLanguagesRequest) (*LangPackLanguageVector, error) {
+func (c *Client) LangpackGetLanguages(ctx context.Context, request *LangpackGetLanguagesRequest) ([]LangPackLanguage, error) {
 	var result LangPackLanguageVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

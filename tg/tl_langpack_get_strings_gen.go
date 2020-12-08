@@ -94,10 +94,10 @@ var (
 // Get strings from a language pack
 //
 // See https://core.telegram.org/method/langpack.getStrings for reference.
-func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStringsRequest) (*LangPackStringClassVector, error) {
+func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStringsRequest) ([]LangPackStringClass, error) {
 	var result LangPackStringClassVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

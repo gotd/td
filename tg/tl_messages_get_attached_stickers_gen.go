@@ -70,10 +70,10 @@ var (
 // Get stickers attached to a photo or video
 //
 // See https://core.telegram.org/method/messages.getAttachedStickers for reference.
-func (c *Client) MessagesGetAttachedStickers(ctx context.Context, request *MessagesGetAttachedStickersRequest) (*StickerSetCoveredClassVector, error) {
+func (c *Client) MessagesGetAttachedStickers(ctx context.Context, request *MessagesGetAttachedStickersRequest) ([]StickerSetCoveredClass, error) {
 	var result StickerSetCoveredClassVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

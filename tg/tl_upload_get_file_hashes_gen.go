@@ -80,10 +80,10 @@ var (
 // Get SHA256 hashes for verifying downloaded files
 //
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
-func (c *Client) UploadGetFileHashes(ctx context.Context, request *UploadGetFileHashesRequest) (*FileHashVector, error) {
+func (c *Client) UploadGetFileHashes(ctx context.Context, request *UploadGetFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

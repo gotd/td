@@ -79,10 +79,10 @@ var (
 // Returns basic user info according to their identifiers.
 //
 // See https://core.telegram.org/method/users.getUsers for reference.
-func (c *Client) UsersGetUsers(ctx context.Context, request *UsersGetUsersRequest) (*UserClassVector, error) {
+func (c *Client) UsersGetUsers(ctx context.Context, request *UsersGetUsersRequest) ([]UserClass, error) {
 	var result UserClassVector
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return &result, nil
+	return result.Elems, nil
 }

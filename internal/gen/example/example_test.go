@@ -178,7 +178,7 @@ func TestVectorResponse(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	require.Equal(t, r.Elems, elems)
+	require.Equal(t, r, elems)
 }
 
 func BenchmarkDecodeBool(b *testing.B) {
