@@ -18,13 +18,6 @@ func (g *Generator) instantiateVector(className string) (class classBinding, err
 		goElementName = elementName
 	}
 
-	goName := strings.Title(goElementName) + "Vector"
-	class = classBinding{
-		Name:     goName,
-		Singular: true,
-	}
-	g.classes[className] = class
-
 	f, err := g.makeField(tl.Parameter{
 		Name: "Elems",
 		Type: tl.Type{
@@ -37,6 +30,15 @@ func (g *Generator) instantiateVector(className string) (class classBinding, err
 	if err != nil {
 		return
 	}
+
+	goName := strings.Title(goElementName) + "Vector"
+	class = classBinding{
+		Name:     goName,
+		Func:     f.Type,
+		Singular: true,
+		Vector:   true,
+	}
+	g.classes[className] = class
 
 	g.structs = append(g.structs, structDef{
 		Name:     goName,

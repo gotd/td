@@ -234,12 +234,16 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) (*{{ $s.Result }}, error) {
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}[]{{ $s.ResultFunc }}{{ end }}, error) {
     var result {{ $s.Result }}
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
         return nil, err
     }
+    {{- if $s.ResultVector }}
+    return result.Elems, nil
+    {{- else }}
     return &result, nil
+    {{- end }}
 }
 {{- else }}
 func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ $s.Result }}, error) {

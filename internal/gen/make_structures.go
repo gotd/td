@@ -41,6 +41,7 @@ type structDef struct {
 	// ResultBaseName is BaseName of result interface.
 	ResultBaseName string
 	ResultFunc     string
+	ResultVector   bool
 
 	Vector bool
 	// Fields of structure.
@@ -65,6 +66,7 @@ func (s *structDef) fillFromClass(class classBinding) {
 	s.ResultSingular = class.Singular
 	s.ResultBaseName = class.BaseName
 	s.ResultFunc = class.Func
+	s.ResultVector = class.Vector
 }
 
 type bindingDef struct {

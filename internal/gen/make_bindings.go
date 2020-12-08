@@ -27,6 +27,7 @@ type classBinding struct {
 	// Singular is special case for class where single constructor replaces
 	// class.
 	Singular     bool
+	Vector       bool
 	Constructors []string
 
 	// BaseName is "Auth" for user.Auth interface.
