@@ -1,5 +1,8 @@
 # Roadmap
 
+Please use [project](https://github.com/gotd/td/projects) as source of truth for
+features status.
+
 ## Gen
 
 - [x] Vector
