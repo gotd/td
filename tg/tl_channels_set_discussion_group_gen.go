@@ -57,7 +57,6 @@ func (s *ChannelsSetDiscussionGroupRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsSetDiscussionGroupRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.setDiscussionGroup#40582bb2: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

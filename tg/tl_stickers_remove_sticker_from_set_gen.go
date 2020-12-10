@@ -49,7 +49,6 @@ func (r *StickersRemoveStickerFromSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersRemoveStickerFromSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.removeStickerFromSet#f7760f51: %w", err)
 	}
-
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {

@@ -44,7 +44,6 @@ func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateStatusRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateStatus#6628562c: %w", err)
 	}
-
 	{
 		value, err := b.Bool()
 		if err != nil {

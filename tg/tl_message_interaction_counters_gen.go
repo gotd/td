@@ -50,7 +50,6 @@ func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageInteractionCountersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -102,7 +102,6 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: %w", err)
 	}
-
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field flags: %w", err)

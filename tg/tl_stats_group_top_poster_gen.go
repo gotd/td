@@ -50,7 +50,6 @@ func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopPosterTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

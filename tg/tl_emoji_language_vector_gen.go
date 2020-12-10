@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
-	//
+	// Elements of Vector<EmojiLanguage>
 	Elems []EmojiLanguage
 }
 

@@ -41,7 +41,6 @@ func (s *SendMessageTypingAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageTypingActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageTypingAction#16bf744e: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (s *SendMessageCancelAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageCancelActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageCancelAction#fd5ec8f5: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (s *SendMessageRecordVideoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordVideoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordVideoAction#a187d66f: %w", err)
 	}
-
 	return nil
 }
 
@@ -170,7 +167,6 @@ func (s *SendMessageUploadVideoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadVideoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadVideoAction#e9763aec: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -219,7 +215,6 @@ func (s *SendMessageRecordAudioAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordAudioActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordAudioAction#d52f73f7: %w", err)
 	}
-
 	return nil
 }
 
@@ -264,7 +259,6 @@ func (s *SendMessageUploadAudioAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadAudioActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadAudioAction#f351d7ab: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -316,7 +310,6 @@ func (s *SendMessageUploadPhotoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadPhotoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadPhotoAction#d1d34a26: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -368,7 +361,6 @@ func (s *SendMessageUploadDocumentAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadDocumentActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadDocumentAction#aa0cd9e4: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -417,7 +409,6 @@ func (s *SendMessageGeoLocationAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageGeoLocationActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageGeoLocationAction#176f8ba1: %w", err)
 	}
-
 	return nil
 }
 
@@ -459,7 +450,6 @@ func (s *SendMessageChooseContactAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageChooseContactActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageChooseContactAction#628cbc6f: %w", err)
 	}
-
 	return nil
 }
 
@@ -501,7 +491,6 @@ func (s *SendMessageGamePlayAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageGamePlayActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageGamePlayAction#dd6a8f48: %w", err)
 	}
-
 	return nil
 }
 
@@ -543,7 +532,6 @@ func (s *SendMessageRecordRoundAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordRoundActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordRoundAction#88f27fbc: %w", err)
 	}
-
 	return nil
 }
 
@@ -588,7 +576,6 @@ func (s *SendMessageUploadRoundAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadRoundActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadRoundAction#243e1c66: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

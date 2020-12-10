@@ -129,7 +129,6 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesForwardMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: %w", err)
 	}
-
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field flags: %w", err)

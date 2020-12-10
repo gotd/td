@@ -102,7 +102,6 @@ func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchGlobalRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field flags: %w", err)

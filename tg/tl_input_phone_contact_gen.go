@@ -53,7 +53,6 @@ func (i *InputPhoneContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPhoneContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhoneContact#f392b7f4: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

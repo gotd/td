@@ -46,7 +46,6 @@ func (s *AccountSetAccountTTLRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetAccountTTLRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setAccountTTL#2442485e: %w", err)
 	}
-
 	{
 		if err := s.TTL.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.setAccountTTL#2442485e: field ttl: %w", err)

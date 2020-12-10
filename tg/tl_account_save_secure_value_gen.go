@@ -49,7 +49,6 @@ func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: %w", err)
 	}
-
 	{
 		if err := s.Value.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: field value: %w", err)

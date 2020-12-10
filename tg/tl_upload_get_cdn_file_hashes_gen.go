@@ -47,7 +47,6 @@ func (g *UploadGetCdnFileHashesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetCdnFileHashesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {

@@ -41,7 +41,6 @@ func (d *HelpDeepLinkInfoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDeepLinkInfoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.deepLinkInfoEmpty#66afa166: %w", err)
 	}
-
 	return nil
 }
 
@@ -132,7 +131,6 @@ func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDeepLinkInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: %w", err)
 	}
-
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field flags: %w", err)

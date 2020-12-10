@@ -44,7 +44,6 @@ func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userEmpty#200250ba: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -512,7 +511,6 @@ func (u *User) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserTypeID); err != nil {
 		return fmt.Errorf("unable to decode user#938458c1: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)

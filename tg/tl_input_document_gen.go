@@ -41,7 +41,6 @@ func (i *InputDocumentEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDocumentEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocumentEmpty#72f0eaae: %w", err)
 	}
-
 	return nil
 }
 
@@ -92,7 +91,6 @@ func (i *InputDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocument#1abfb575: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

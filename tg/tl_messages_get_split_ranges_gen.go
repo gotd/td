@@ -41,7 +41,6 @@ func (g *MessagesGetSplitRangesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSplitRangesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSplitRanges#1cff7e08: %w", err)
 	}
-
 	return nil
 }
 

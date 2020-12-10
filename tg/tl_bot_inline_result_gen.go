@@ -180,7 +180,6 @@ func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineResult#11965f3a: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field flags: %w", err)
@@ -400,7 +399,6 @@ func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMediaResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field flags: %w", err)

@@ -41,7 +41,6 @@ func (c *ChannelParticipantsRecent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsRecentTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsRecent#de3f3c79: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (c *ChannelParticipantsAdmins) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsAdminsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsAdmins#b4608969: %w", err)
 	}
-
 	return nil
 }
 
@@ -128,7 +126,6 @@ func (c *ChannelParticipantsKicked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsKickedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsKicked#a3b54985: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -177,7 +174,6 @@ func (c *ChannelParticipantsBots) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsBotsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsBots#b0d1865b: %w", err)
 	}
-
 	return nil
 }
 
@@ -222,7 +218,6 @@ func (c *ChannelParticipantsBanned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsBannedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsBanned#1427a5e1: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -274,7 +269,6 @@ func (c *ChannelParticipantsSearch) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsSearchTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsSearch#656ac4b: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -326,7 +320,6 @@ func (c *ChannelParticipantsContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsContacts#bb6ae88d: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -425,7 +418,6 @@ func (c *ChannelParticipantsMentions) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsMentionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsMentions#e04b5ceb: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelParticipantsMentions#e04b5ceb: field flags: %w", err)

@@ -47,7 +47,6 @@ func (d *AuthDropTempAuthKeysRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthDropTempAuthKeysRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.dropTempAuthKeys#8e48a188: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -41,7 +41,6 @@ func (s *SecureFileEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureFileEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureFileEmpty#64199744: %w", err)
 	}
-
 	return nil
 }
 
@@ -104,7 +103,6 @@ func (s *SecureFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureFile#e0277a62: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

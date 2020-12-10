@@ -71,7 +71,6 @@ func (a *MessagesAcceptUrlAuthRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAcceptUrlAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.acceptUrlAuth#f729ea98: %w", err)
 	}
-
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.acceptUrlAuth#f729ea98: field flags: %w", err)

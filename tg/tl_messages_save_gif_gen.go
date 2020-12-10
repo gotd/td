@@ -52,7 +52,6 @@ func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveGifRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveGif#327a30cb: %w", err)
 	}
-
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {

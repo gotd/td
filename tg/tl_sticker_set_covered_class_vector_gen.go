@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// StickerSetCoveredClassVector is a box for Vector<StickerSetCovered>
 type StickerSetCoveredClassVector struct {
-	//
+	// Elements of Vector<StickerSetCovered>
 	Elems []StickerSetCoveredClass
 }
 

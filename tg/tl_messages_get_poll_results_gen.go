@@ -52,7 +52,6 @@ func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPollResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

@@ -49,7 +49,6 @@ func (n *NotifyPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NotifyPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode notifyPeer#9fd40bd8: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -98,7 +97,6 @@ func (n *NotifyUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NotifyUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode notifyUsers#b4c83b4c: %w", err)
 	}
-
 	return nil
 }
 
@@ -140,7 +138,6 @@ func (n *NotifyChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NotifyChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode notifyChats#c007cec3: %w", err)
 	}
-
 	return nil
 }
 
@@ -182,7 +179,6 @@ func (n *NotifyBroadcasts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NotifyBroadcastsTypeID); err != nil {
 		return fmt.Errorf("unable to decode notifyBroadcasts#d612e8ef: %w", err)
 	}
-
 	return nil
 }
 

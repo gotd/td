@@ -41,7 +41,6 @@ func (g *AccountGetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAuthorizationsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAuthorizations#e320c158: %w", err)
 	}
-
 	return nil
 }
 

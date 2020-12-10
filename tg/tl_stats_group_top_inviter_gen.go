@@ -47,7 +47,6 @@ func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopInviterTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

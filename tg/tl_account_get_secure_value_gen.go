@@ -52,7 +52,6 @@ func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

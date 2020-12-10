@@ -41,7 +41,6 @@ func (u *UpdatesTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatesTooLong#e317af7e: %w", err)
 	}
-
 	return nil
 }
 
@@ -250,7 +249,6 @@ func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field flags: %w", err)
@@ -543,7 +541,6 @@ func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field flags: %w", err)
@@ -684,7 +681,6 @@ func (u *UpdateShort) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShort#78d4dec1: %w", err)
 	}
-
 	{
 		value, err := DecodeUpdate(b)
 		if err != nil {
@@ -782,7 +778,6 @@ func (u *UpdatesCombined) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesCombinedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatesCombined#725b04c3: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -922,7 +917,6 @@ func (u *Updates) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates#74ae4240: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1102,7 +1096,6 @@ func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortSentMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field flags: %w", err)

@@ -100,7 +100,6 @@ func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageAttributeThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: %w", err)
 	}
-
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field flags: %w", err)

@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
-	//
+	// Elements of Vector<DialogPeer>
 	Elems []DialogPeerClass
 }
 

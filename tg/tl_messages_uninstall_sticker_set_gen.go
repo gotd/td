@@ -49,7 +49,6 @@ func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUninstallStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uninstallStickerSet#f96e55de: %w", err)
 	}
-
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

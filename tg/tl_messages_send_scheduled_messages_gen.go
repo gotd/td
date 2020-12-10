@@ -55,7 +55,6 @@ func (s *MessagesSendScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendScheduledMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendScheduledMessages#bd38850a: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

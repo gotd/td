@@ -47,7 +47,6 @@ func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ExportedMessageLinkTypeID); err != nil {
 		return fmt.Errorf("unable to decode exportedMessageLink#5dab1af4: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

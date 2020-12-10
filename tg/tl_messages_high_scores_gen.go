@@ -60,7 +60,6 @@ func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesHighScoresTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

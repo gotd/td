@@ -122,7 +122,6 @@ func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosUploadProfilePhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)

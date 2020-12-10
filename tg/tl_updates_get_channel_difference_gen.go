@@ -79,7 +79,6 @@ func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetChannelDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field flags: %w", err)

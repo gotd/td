@@ -41,7 +41,6 @@ func (g *PhoneGetCallConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGetCallConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.getCallConfig#55451fa9: %w", err)
 	}
-
 	return nil
 }
 

@@ -41,7 +41,6 @@ func (s *SecureValueTypePersonalDetails) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePersonalDetailsTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePersonalDetails#9d2a81e3: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (s *SecureValueTypePassport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePassportTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePassport#3dac6a00: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (s *SecureValueTypeDriverLicense) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeDriverLicenseTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeDriverLicense#6e425c4: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (s *SecureValueTypeIdentityCard) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeIdentityCardTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeIdentityCard#a0d0744b: %w", err)
 	}
-
 	return nil
 }
 
@@ -209,7 +205,6 @@ func (s *SecureValueTypeInternalPassport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeInternalPassportTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeInternalPassport#99a48f23: %w", err)
 	}
-
 	return nil
 }
 
@@ -251,7 +246,6 @@ func (s *SecureValueTypeAddress) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeAddress#cbe31e26: %w", err)
 	}
-
 	return nil
 }
 
@@ -293,7 +287,6 @@ func (s *SecureValueTypeUtilityBill) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeUtilityBillTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeUtilityBill#fc36954e: %w", err)
 	}
-
 	return nil
 }
 
@@ -335,7 +328,6 @@ func (s *SecureValueTypeBankStatement) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeBankStatementTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeBankStatement#89137c0d: %w", err)
 	}
-
 	return nil
 }
 
@@ -377,7 +369,6 @@ func (s *SecureValueTypeRentalAgreement) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeRentalAgreementTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeRentalAgreement#8b883488: %w", err)
 	}
-
 	return nil
 }
 
@@ -419,7 +410,6 @@ func (s *SecureValueTypePassportRegistration) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePassportRegistrationTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePassportRegistration#99e3806a: %w", err)
 	}
-
 	return nil
 }
 
@@ -461,7 +451,6 @@ func (s *SecureValueTypeTemporaryRegistration) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeTemporaryRegistrationTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeTemporaryRegistration#ea02ec33: %w", err)
 	}
-
 	return nil
 }
 
@@ -503,7 +492,6 @@ func (s *SecureValueTypePhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePhone#b320aadb: %w", err)
 	}
-
 	return nil
 }
 
@@ -545,7 +533,6 @@ func (s *SecureValueTypeEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeEmail#8e3ca7ee: %w", err)
 	}
-
 	return nil
 }
 

@@ -41,7 +41,6 @@ func (g *HelpGetCdnConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetCdnConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getCdnConfig#52029342: %w", err)
 	}
-
 	return nil
 }
 

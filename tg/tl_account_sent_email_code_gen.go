@@ -47,7 +47,6 @@ func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSentEmailCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sentEmailCode#811f854f: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

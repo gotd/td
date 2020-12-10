@@ -64,7 +64,6 @@ func (w *WebDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode webDocument#1c570ed1: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -167,7 +166,6 @@ func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebDocumentNoProxyTypeID); err != nil {
 		return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

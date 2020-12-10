@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// UserClassVector is a box for Vector<User>
 type UserClassVector struct {
-	//
+	// Elements of Vector<User>
 	Elems []UserClass
 }
 

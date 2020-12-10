@@ -41,7 +41,6 @@ func (f *StorageFileUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileUnknown#aa963b05: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (f *StorageFilePartial) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFilePartialTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.filePartial#40bc6f52: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (f *StorageFileJpeg) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileJpegTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileJpeg#7efe0e: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (f *StorageFileGif) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileGifTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileGif#cae1aadf: %w", err)
 	}
-
 	return nil
 }
 
@@ -209,7 +205,6 @@ func (f *StorageFilePng) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFilePngTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.filePng#a4f63c0: %w", err)
 	}
-
 	return nil
 }
 
@@ -251,7 +246,6 @@ func (f *StorageFilePdf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFilePdfTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.filePdf#ae1e508d: %w", err)
 	}
-
 	return nil
 }
 
@@ -293,7 +287,6 @@ func (f *StorageFileMp3) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileMp3TypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileMp3#528a0677: %w", err)
 	}
-
 	return nil
 }
 
@@ -335,7 +328,6 @@ func (f *StorageFileMov) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileMovTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileMov#4b09ebbc: %w", err)
 	}
-
 	return nil
 }
 
@@ -377,7 +369,6 @@ func (f *StorageFileMp4) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileMp4TypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileMp4#b3cea0e4: %w", err)
 	}
-
 	return nil
 }
 
@@ -419,7 +410,6 @@ func (f *StorageFileWebp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StorageFileWebpTypeID); err != nil {
 		return fmt.Errorf("unable to decode storage.fileWebp#1081464c: %w", err)
 	}
-
 	return nil
 }
 

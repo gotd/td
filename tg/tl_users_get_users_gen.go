@@ -52,7 +52,6 @@ func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersGetUsersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.getUsers#d91a548: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

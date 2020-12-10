@@ -47,7 +47,6 @@ func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountVerifyEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

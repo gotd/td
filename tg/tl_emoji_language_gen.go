@@ -44,7 +44,6 @@ func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiLanguageTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -49,7 +49,6 @@ func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPeerSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

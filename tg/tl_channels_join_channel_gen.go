@@ -49,7 +49,6 @@ func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsJoinChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

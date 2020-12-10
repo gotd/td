@@ -41,7 +41,6 @@ func (g *AccountGetAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAutoDownloadSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAutoDownloadSettings#56da0b3f: %w", err)
 	}
-
 	return nil
 }
 

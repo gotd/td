@@ -40,7 +40,6 @@ func (f *False) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FalseTypeID); err != nil {
 		return fmt.Errorf("unable to decode false#bc799737: %w", err)
 	}
-
 	return nil
 }
 
@@ -81,7 +80,6 @@ func (t *True) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TrueTypeID); err != nil {
 		return fmt.Errorf("unable to decode true#997275b5: %w", err)
 	}
-
 	return nil
 }
 

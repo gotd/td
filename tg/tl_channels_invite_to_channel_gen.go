@@ -60,7 +60,6 @@ func (i *ChannelsInviteToChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsInviteToChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.inviteToChannel#199f3a6c: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

@@ -50,7 +50,6 @@ func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureCredentialsEncryptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {

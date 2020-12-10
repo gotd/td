@@ -44,7 +44,6 @@ func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDhConfigNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dhConfigNotModified#c0e24635: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -105,7 +104,6 @@ func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDhConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

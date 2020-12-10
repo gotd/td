@@ -63,7 +63,6 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReportSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.reportSpam#fe087810: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

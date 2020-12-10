@@ -50,7 +50,6 @@ func (c *ChatParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipant#c8d7493e: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -116,7 +115,6 @@ func (c *ChatParticipantCreator) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantCreatorTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantCreator#da13538a: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -174,7 +172,6 @@ func (c *ChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantAdmin#e2d6e436: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

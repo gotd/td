@@ -57,7 +57,6 @@ func (s *AccountSaveWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveWallPaper#6c5a5b37: %w", err)
 	}
-
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {

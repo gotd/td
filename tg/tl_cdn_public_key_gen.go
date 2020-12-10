@@ -47,7 +47,6 @@ func (c *CdnPublicKey) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CdnPublicKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

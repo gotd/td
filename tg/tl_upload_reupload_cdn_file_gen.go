@@ -47,7 +47,6 @@ func (r *UploadReuploadCdnFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadReuploadCdnFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.reuploadCdnFile#9b2754a8: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {

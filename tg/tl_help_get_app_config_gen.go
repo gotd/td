@@ -41,7 +41,6 @@ func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppConfig#98914110: %w", err)
 	}
-
 	return nil
 }
 

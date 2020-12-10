@@ -41,7 +41,6 @@ func (g *HelpGetPromoDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetPromoDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getPromoData#c0977421: %w", err)
 	}
-
 	return nil
 }
 

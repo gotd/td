@@ -52,7 +52,6 @@ func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

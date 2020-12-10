@@ -58,7 +58,6 @@ func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosGetUserPhotosRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: %w", err)
 	}
-
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

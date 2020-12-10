@@ -44,7 +44,6 @@ func (g *HelpGetDeepLinkInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetDeepLinkInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getDeepLinkInfo#3fedc75f: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

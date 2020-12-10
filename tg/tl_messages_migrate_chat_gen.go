@@ -44,7 +44,6 @@ func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMigrateChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

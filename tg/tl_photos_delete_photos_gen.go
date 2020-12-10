@@ -52,7 +52,6 @@ func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosDeletePhotosRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -46,7 +46,6 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EchoVectorRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode echoVector#d4785939: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

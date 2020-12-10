@@ -44,7 +44,6 @@ func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatEmpty#ab7ec0a0: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -108,7 +107,6 @@ func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatWaitingTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -230,7 +228,6 @@ func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatRequestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: %w", err)
 	}
-
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field flags: %w", err)
@@ -347,7 +344,6 @@ func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChat#fa56ce36: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -441,7 +437,6 @@ func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatDiscardedTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatDiscarded#13d6dd27: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

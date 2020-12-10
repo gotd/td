@@ -49,7 +49,6 @@ func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAttachedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAttachedStickers#cc5b67cc: %w", err)
 	}
-
 	{
 		value, err := DecodeInputStickeredMedia(b)
 		if err != nil {

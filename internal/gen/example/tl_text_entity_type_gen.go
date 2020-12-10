@@ -40,7 +40,6 @@ func (t *TextEntityTypeMention) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeMentionTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeMention#37b3df65: %w", err)
 	}
-
 	return nil
 }
 
@@ -81,7 +80,6 @@ func (t *TextEntityTypeHashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeHashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeHashtag#c2f7a2dd: %w", err)
 	}
-
 	return nil
 }
 
@@ -122,7 +120,6 @@ func (t *TextEntityTypeCashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeCashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeCashtag#48e4374b: %w", err)
 	}
-
 	return nil
 }
 
@@ -163,7 +160,6 @@ func (t *TextEntityTypeBotCommand) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBotCommandTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBotCommand#bb652bb3: %w", err)
 	}
-
 	return nil
 }
 
@@ -204,7 +200,6 @@ func (t *TextEntityTypeUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeUrl#b1c0d47c: %w", err)
 	}
-
 	return nil
 }
 
@@ -245,7 +240,6 @@ func (t *TextEntityTypeEmailAddress) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeEmailAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeEmailAddress#54f81821: %w", err)
 	}
-
 	return nil
 }
 
@@ -286,7 +280,6 @@ func (t *TextEntityTypePhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePhoneNumber#bad9aa2a: %w", err)
 	}
-
 	return nil
 }
 
@@ -327,7 +320,6 @@ func (t *TextEntityTypeBankCardNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBankCardNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBankCardNumber#6513910: %w", err)
 	}
-
 	return nil
 }
 
@@ -368,7 +360,6 @@ func (t *TextEntityTypeBold) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBoldTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBold#bcc0e1b0: %w", err)
 	}
-
 	return nil
 }
 
@@ -409,7 +400,6 @@ func (t *TextEntityTypeItalic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeItalicTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeItalic#f8f3965d: %w", err)
 	}
-
 	return nil
 }
 
@@ -450,7 +440,6 @@ func (t *TextEntityTypeUnderline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeUnderlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeUnderline#2f39cf92: %w", err)
 	}
-
 	return nil
 }
 
@@ -491,7 +480,6 @@ func (t *TextEntityTypeStrikethrough) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeStrikethroughTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeStrikethrough#394fc4fa: %w", err)
 	}
-
 	return nil
 }
 
@@ -532,7 +520,6 @@ func (t *TextEntityTypeCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeCode#c5e9c94a: %w", err)
 	}
-
 	return nil
 }
 
@@ -573,7 +560,6 @@ func (t *TextEntityTypePre) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePreTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePre#62491c8e: %w", err)
 	}
-
 	return nil
 }
 
@@ -617,7 +603,6 @@ func (t *TextEntityTypePreCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePreCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePreCode#c7a77aab: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -668,7 +653,6 @@ func (t *TextEntityTypeTextUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeTextUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -719,7 +703,6 @@ func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeMentionNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
 	}
-
 	{
 		value, err := b.Int32()
 		if err != nil {

@@ -57,7 +57,6 @@ func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsSetStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.setStickers#ea8ca4f9: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

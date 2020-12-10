@@ -51,7 +51,6 @@ func (g *GetUpdatesResp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GetUpdatesRespTypeID); err != nil {
 		return fmt.Errorf("unable to decode getUpdatesResp#2b4b45c: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

@@ -41,7 +41,6 @@ func (g *AccountGetAllSecureValuesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAllSecureValuesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAllSecureValues#b288bc7d: %w", err)
 	}
-
 	return nil
 }
 

@@ -50,7 +50,6 @@ func (h *HighScore) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HighScoreTypeID); err != nil {
 		return fmt.Errorf("unable to decode highScore#58fffcd0: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

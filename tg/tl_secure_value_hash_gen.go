@@ -52,7 +52,6 @@ func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueHashTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {

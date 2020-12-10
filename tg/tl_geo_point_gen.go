@@ -41,7 +41,6 @@ func (g *GeoPointEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GeoPointEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode geoPointEmpty#1117dd5f: %w", err)
 	}
-
 	return nil
 }
 
@@ -119,7 +118,6 @@ func (g *GeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode geoPoint#b2a2f663: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field flags: %w", err)

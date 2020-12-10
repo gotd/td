@@ -57,7 +57,6 @@ func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountReportPeerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.reportPeer#ae189d5f: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

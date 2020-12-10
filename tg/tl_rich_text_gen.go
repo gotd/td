@@ -41,7 +41,6 @@ func (t *TextEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEmpty#dc3d824f: %w", err)
 	}
-
 	return nil
 }
 
@@ -86,7 +85,6 @@ func (t *TextPlain) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextPlainTypeID); err != nil {
 		return fmt.Errorf("unable to decode textPlain#744694e0: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -143,7 +141,6 @@ func (t *TextBold) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextBoldTypeID); err != nil {
 		return fmt.Errorf("unable to decode textBold#6724abc4: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -200,7 +197,6 @@ func (t *TextItalic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextItalicTypeID); err != nil {
 		return fmt.Errorf("unable to decode textItalic#d912a59c: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -257,7 +253,6 @@ func (t *TextUnderline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextUnderlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode textUnderline#c12622c4: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -314,7 +309,6 @@ func (t *TextStrike) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextStrikeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textStrike#9bf8bb95: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -371,7 +365,6 @@ func (t *TextFixed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextFixedTypeID); err != nil {
 		return fmt.Errorf("unable to decode textFixed#6c3f19b9: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -434,7 +427,6 @@ func (t *TextUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode textUrl#3c2884c1: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -508,7 +500,6 @@ func (t *TextEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEmail#de5a0dd6: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -575,7 +566,6 @@ func (t *TextConcat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextConcatTypeID); err != nil {
 		return fmt.Errorf("unable to decode textConcat#7e6260d7: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -638,7 +628,6 @@ func (t *TextSubscript) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextSubscriptTypeID); err != nil {
 		return fmt.Errorf("unable to decode textSubscript#ed6a8504: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -695,7 +684,6 @@ func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextSuperscriptTypeID); err != nil {
 		return fmt.Errorf("unable to decode textSuperscript#c7fb5e01: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -752,7 +740,6 @@ func (t *TextMarked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextMarkedTypeID); err != nil {
 		return fmt.Errorf("unable to decode textMarked#34b8621: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -812,7 +799,6 @@ func (t *TextPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode textPhone#1ccb966a: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -877,7 +863,6 @@ func (t *TextImage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextImageTypeID); err != nil {
 		return fmt.Errorf("unable to decode textImage#81ccf4f: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -951,7 +936,6 @@ func (t *TextAnchor) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextAnchorTypeID); err != nil {
 		return fmt.Errorf("unable to decode textAnchor#35553762: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {

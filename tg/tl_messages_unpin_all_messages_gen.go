@@ -49,7 +49,6 @@ func (u *MessagesUnpinAllMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUnpinAllMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.unpinAllMessages#f025bc8b: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

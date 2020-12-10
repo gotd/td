@@ -41,7 +41,6 @@ func (g *HelpGetSupportNameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetSupportNameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getSupportName#d360e72c: %w", err)
 	}
-
 	return nil
 }
 

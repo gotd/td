@@ -57,7 +57,6 @@ func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneConfirmCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: %w", err)
 	}
-
 	{
 		if err := c.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field peer: %w", err)

@@ -41,7 +41,6 @@ func (t *TopPeerCategoryBotsPM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryBotsPMTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryBotsPM#ab661b5b: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (t *TopPeerCategoryBotsInline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryBotsInlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryBotsInline#148677e2: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (t *TopPeerCategoryCorrespondents) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryCorrespondentsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryCorrespondents#637b7ed: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (t *TopPeerCategoryGroups) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryGroupsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryGroups#bd17a14a: %w", err)
 	}
-
 	return nil
 }
 
@@ -209,7 +205,6 @@ func (t *TopPeerCategoryChannels) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryChannelsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryChannels#161d9628: %w", err)
 	}
-
 	return nil
 }
 
@@ -251,7 +246,6 @@ func (t *TopPeerCategoryPhoneCalls) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryPhoneCallsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryPhoneCalls#1e76a78c: %w", err)
 	}
-
 	return nil
 }
 
@@ -293,7 +287,6 @@ func (t *TopPeerCategoryForwardUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryForwardUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryForwardUsers#a8406ca9: %w", err)
 	}
-
 	return nil
 }
 
@@ -335,7 +328,6 @@ func (t *TopPeerCategoryForwardChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryForwardChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryForwardChats#fbeec0f0: %w", err)
 	}
-
 	return nil
 }
 

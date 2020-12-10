@@ -55,7 +55,6 @@ func (r *MessagesRequestUrlAuthRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRequestUrlAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

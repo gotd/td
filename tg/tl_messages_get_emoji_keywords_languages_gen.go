@@ -47,7 +47,6 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsLanguagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

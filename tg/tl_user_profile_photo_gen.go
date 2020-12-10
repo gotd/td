@@ -41,7 +41,6 @@ func (u *UserProfilePhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserProfilePhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userProfilePhotoEmpty#4f11bae1: %w", err)
 	}
-
 	return nil
 }
 
@@ -115,7 +114,6 @@ func (u *UserProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode userProfilePhoto#69d3ab26: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode userProfilePhoto#69d3ab26: field flags: %w", err)

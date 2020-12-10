@@ -65,7 +65,6 @@ func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesToggleDialogPinRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: %w", err)
 	}
-
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: field flags: %w", err)

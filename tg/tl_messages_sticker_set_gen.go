@@ -65,7 +65,6 @@ func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: %w", err)
 	}
-
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field set: %w", err)

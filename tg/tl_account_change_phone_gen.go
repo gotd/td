@@ -50,7 +50,6 @@ func (c *AccountChangePhoneRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountChangePhoneRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.changePhone#70c32edb: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -41,7 +41,6 @@ func (g *PaymentsGetSavedInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetSavedInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getSavedInfo#227d824b: %w", err)
 	}
-
 	return nil
 }
 

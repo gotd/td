@@ -47,7 +47,6 @@ func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCancelCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.cancelCode#1f040578: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

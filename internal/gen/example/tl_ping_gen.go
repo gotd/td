@@ -43,7 +43,6 @@ func (p *PingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode ping#ce73048f: %w", err)
 	}
-
 	{
 		value, err := b.Int32()
 		if err != nil {

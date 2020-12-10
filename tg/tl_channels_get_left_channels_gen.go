@@ -44,7 +44,6 @@ func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetLeftChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getLeftChannels#8341ecc0: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

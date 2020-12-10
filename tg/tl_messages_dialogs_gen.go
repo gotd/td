@@ -85,7 +85,6 @@ func (d *MessagesDialogs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -226,7 +225,6 @@ func (d *MessagesDialogsSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -330,7 +328,6 @@ func (d *MessagesDialogsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogsNotModified#f0e3e596: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

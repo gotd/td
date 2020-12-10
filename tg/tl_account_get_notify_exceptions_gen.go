@@ -84,7 +84,6 @@ func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetNotifyExceptionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: field flags: %w", err)

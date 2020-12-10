@@ -250,7 +250,6 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode userFull#edf17c12: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode userFull#edf17c12: field flags: %w", err)

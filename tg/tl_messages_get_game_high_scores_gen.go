@@ -60,7 +60,6 @@ func (g *MessagesGetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetGameHighScoresRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getGameHighScores#e822649d: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

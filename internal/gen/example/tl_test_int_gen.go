@@ -43,7 +43,6 @@ func (t *TestInt) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestIntTypeID); err != nil {
 		return fmt.Errorf("unable to decode testInt#ddbd2c09: %w", err)
 	}
-
 	{
 		value, err := b.Int32()
 		if err != nil {

@@ -59,7 +59,6 @@ func (p *PostAddress) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PostAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode postAddress#1e8caaeb: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -52,7 +52,6 @@ func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputFolderPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFolderPeer#fbd2c296: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

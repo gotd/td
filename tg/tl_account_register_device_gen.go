@@ -75,7 +75,6 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountRegisterDeviceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.registerDevice#68976c6f: %w", err)
 	}
-
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field flags: %w", err)

@@ -44,7 +44,6 @@ func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetFavedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

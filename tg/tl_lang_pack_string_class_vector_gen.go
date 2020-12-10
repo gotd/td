@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// LangPackStringClassVector is a box for Vector<LangPackString>
 type LangPackStringClassVector struct {
-	//
+	// Elements of Vector<LangPackString>
 	Elems []LangPackStringClass
 }
 

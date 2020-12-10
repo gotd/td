@@ -48,7 +48,6 @@ func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestVectorStringObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

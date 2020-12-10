@@ -41,7 +41,6 @@ func (n *Null) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NullTypeID); err != nil {
 		return fmt.Errorf("unable to decode null#56730bcc: %w", err)
 	}
-
 	return nil
 }
 

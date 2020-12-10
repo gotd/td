@@ -55,7 +55,6 @@ func (p *PeerLocated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerLocatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerLocated#ca461b5d: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -121,7 +120,6 @@ func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerSelfLocatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerSelfLocated#f8ec284b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

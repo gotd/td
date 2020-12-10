@@ -85,7 +85,6 @@ func (v *VideoSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(VideoSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode videoSize#e831c556: %w", err)
 	}
-
 	{
 		if err := v.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode videoSize#e831c556: field flags: %w", err)

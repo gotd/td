@@ -41,7 +41,6 @@ func (i *InputPrivacyValueAllowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueAllowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueAllowContacts#d09e07b: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (i *InputPrivacyValueAllowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueAllowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueAllowAll#184b35ce: %w", err)
 	}
-
 	return nil
 }
 
@@ -136,7 +134,6 @@ func (i *InputPrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueAllowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueAllowUsers#131cc67f: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -191,7 +188,6 @@ func (i *InputPrivacyValueDisallowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueDisallowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueDisallowContacts#ba52007: %w", err)
 	}
-
 	return nil
 }
 
@@ -233,7 +229,6 @@ func (i *InputPrivacyValueDisallowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueDisallowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueDisallowAll#d66b66c9: %w", err)
 	}
-
 	return nil
 }
 
@@ -286,7 +281,6 @@ func (i *InputPrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueDisallowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueDisallowUsers#90110467: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -347,7 +341,6 @@ func (i *InputPrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyValueAllowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueAllowChatParticipants#4c81c1ba: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -408,7 +401,6 @@ func (i *InputPrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(InputPrivacyValueDisallowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyValueDisallowChatParticipants#d82363af: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

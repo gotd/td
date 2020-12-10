@@ -41,7 +41,6 @@ func (g *HelpGetTermsOfServiceUpdateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetTermsOfServiceUpdateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getTermsOfServiceUpdate#2ca51fd1: %w", err)
 	}
-
 	return nil
 }
 

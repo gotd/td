@@ -44,7 +44,6 @@ func (p *PhoneCallEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallEmpty#5366c915: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -151,7 +150,6 @@ func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallWaitingTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallWaiting#1b8f4ad1: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallWaiting#1b8f4ad1: field flags: %w", err)
@@ -285,7 +283,6 @@ func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallRequestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallRequested#87eabb53: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallRequested#87eabb53: field flags: %w", err)
@@ -419,7 +416,6 @@ func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallAcceptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallAccepted#997c454a: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallAccepted#997c454a: field flags: %w", err)
@@ -581,7 +577,6 @@ func (p *PhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCall#8742ae7f: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCall#8742ae7f: field flags: %w", err)
@@ -794,7 +789,6 @@ func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)

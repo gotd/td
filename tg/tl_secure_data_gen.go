@@ -50,7 +50,6 @@ func (s *SecureData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureData#8aeabec3: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {

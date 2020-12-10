@@ -55,7 +55,6 @@ func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReadMessageContentsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

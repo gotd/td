@@ -68,7 +68,6 @@ func (s *MessagesSearchCounter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchCounterTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.searchCounter#e844ebff: field flags: %w", err)

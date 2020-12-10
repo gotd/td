@@ -76,7 +76,6 @@ func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthAuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.authorization#cd050916: %w", err)
 	}
-
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.authorization#cd050916: field flags: %w", err)
@@ -166,7 +165,6 @@ func (a *AuthAuthorizationSignUpRequired) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthAuthorizationSignUpRequiredTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: %w", err)
 	}
-
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)

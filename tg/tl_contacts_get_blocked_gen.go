@@ -47,7 +47,6 @@ func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetBlockedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

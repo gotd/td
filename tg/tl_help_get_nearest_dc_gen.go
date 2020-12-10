@@ -41,7 +41,6 @@ func (g *HelpGetNearestDcRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetNearestDcRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getNearestDc#1fb33026: %w", err)
 	}
-
 	return nil
 }
 

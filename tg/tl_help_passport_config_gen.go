@@ -41,7 +41,6 @@ func (p *HelpPassportConfigNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPassportConfigNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.passportConfigNotModified#bfb9f457: %w", err)
 	}
-
 	return nil
 }
 
@@ -91,7 +90,6 @@ func (p *HelpPassportConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPassportConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.passportConfig#a098d6af: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

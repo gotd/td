@@ -55,7 +55,6 @@ func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCreateChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.createChat#9cb126e: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

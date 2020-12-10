@@ -41,7 +41,6 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSuggestedDialogFiltersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSuggestedDialogFilters#a29cd42c: %w", err)
 	}
-
 	return nil
 }
 

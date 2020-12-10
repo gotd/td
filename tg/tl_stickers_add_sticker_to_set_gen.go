@@ -54,7 +54,6 @@ func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersAddStickerToSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.addStickerToSet#8653febe: %w", err)
 	}
-
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

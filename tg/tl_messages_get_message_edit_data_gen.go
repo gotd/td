@@ -52,7 +52,6 @@ func (g *MessagesGetMessageEditDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetMessageEditDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getMessageEditData#fda68d36: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

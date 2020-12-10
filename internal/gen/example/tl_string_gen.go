@@ -40,7 +40,6 @@ func (s *String) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StringTypeID); err != nil {
 		return fmt.Errorf("unable to decode string#b5286e24: %w", err)
 	}
-
 	return nil
 }
 

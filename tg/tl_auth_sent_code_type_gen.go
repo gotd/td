@@ -44,7 +44,6 @@ func (s *AuthSentCodeTypeApp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeAppTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeApp#3dbb5986: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -96,7 +95,6 @@ func (s *AuthSentCodeTypeSms) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeSmsTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeSms#c000bba2: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -148,7 +146,6 @@ func (s *AuthSentCodeTypeCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeCall#5353e5a7: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -200,7 +197,6 @@ func (s *AuthSentCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeFlashCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeFlashCall#ab03c6d9: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

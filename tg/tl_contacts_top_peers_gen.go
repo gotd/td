@@ -41,7 +41,6 @@ func (t *ContactsTopPeersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeersNotModified#de266ef5: %w", err)
 	}
-
 	return nil
 }
 
@@ -113,7 +112,6 @@ func (t *ContactsTopPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -194,7 +192,6 @@ func (t *ContactsTopPeersDisabled) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersDisabledTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeersDisabled#b52c939d: %w", err)
 	}
-
 	return nil
 }
 

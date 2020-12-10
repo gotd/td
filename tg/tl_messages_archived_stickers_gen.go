@@ -55,7 +55,6 @@ func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesArchivedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

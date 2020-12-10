@@ -132,7 +132,6 @@ func (d *DcOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DcOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
 	}
-
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dcOption#18b7a10d: field flags: %w", err)

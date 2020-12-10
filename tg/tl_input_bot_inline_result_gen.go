@@ -174,7 +174,6 @@ func (i *InputBotInlineResult) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field flags: %w", err)
@@ -295,7 +294,6 @@ func (i *InputBotInlineResultPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultPhoto#a8d864a7: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -436,7 +434,6 @@ func (i *InputBotInlineResultDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultDocument#fff8fdc4: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineResultDocument#fff8fdc4: field flags: %w", err)
@@ -539,7 +536,6 @@ func (i *InputBotInlineResultGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultGame#4fa417f2: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -54,7 +54,6 @@ func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInstallWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.installWallPaper#feed5769: %w", err)
 	}
-
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {

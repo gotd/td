@@ -79,7 +79,6 @@ func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetWebPagePreviewRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)

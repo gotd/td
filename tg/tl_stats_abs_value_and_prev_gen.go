@@ -47,7 +47,6 @@ func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsAbsValueAndPrevTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsAbsValueAndPrev#cb43acde: %w", err)
 	}
-
 	{
 		value, err := b.Double()
 		if err != nil {

@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// SecureValueVector is a box for Vector<SecureValue>
 type SecureValueVector struct {
-	//
+	// Elements of Vector<SecureValue>
 	Elems []SecureValue
 }
 

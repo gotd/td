@@ -52,7 +52,6 @@ func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerBlockedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerBlocked#e8fd8014: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {

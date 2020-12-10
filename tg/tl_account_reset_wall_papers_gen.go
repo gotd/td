@@ -41,7 +41,6 @@ func (r *AccountResetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResetWallPapersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resetWallPapers#bb3b9804: %w", err)
 	}
-
 	return nil
 }
 

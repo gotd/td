@@ -41,7 +41,6 @@ func (c *ChannelMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelMessagesFilterEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelMessagesFilterEmpty#94d42ee7: %w", err)
 	}
-
 	return nil
 }
 
@@ -107,7 +106,6 @@ func (c *ChannelMessagesFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelMessagesFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field flags: %w", err)

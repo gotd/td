@@ -47,7 +47,6 @@ func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatTitleRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatTitle#dc452855: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

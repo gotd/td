@@ -54,7 +54,6 @@ func (u *MessagesUploadEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUploadEncryptedFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uploadEncryptedFile#5057c497: %w", err)
 	}
-
 	{
 		if err := u.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.uploadEncryptedFile#5057c497: field peer: %w", err)

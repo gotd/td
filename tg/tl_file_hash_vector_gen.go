@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// FileHashVector is a box for Vector<FileHash>
 type FileHashVector struct {
-	//
+	// Elements of Vector<FileHash>
 	Elems []FileHash
 }
 

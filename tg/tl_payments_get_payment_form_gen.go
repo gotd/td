@@ -44,7 +44,6 @@ func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetPaymentFormRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getPaymentForm#99f09745: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

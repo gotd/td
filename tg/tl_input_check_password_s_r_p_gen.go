@@ -41,7 +41,6 @@ func (i *InputCheckPasswordEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputCheckPasswordEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputCheckPasswordEmpty#9880f658: %w", err)
 	}
-
 	return nil
 }
 
@@ -92,7 +91,6 @@ func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputCheckPasswordSRPTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

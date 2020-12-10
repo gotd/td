@@ -49,7 +49,6 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosUpdateProfilePhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {

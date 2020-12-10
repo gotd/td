@@ -44,7 +44,6 @@ func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDiscardEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.discardEncryption#edd923c5: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

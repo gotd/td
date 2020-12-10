@@ -41,7 +41,6 @@ func (r *AccountResetWebAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResetWebAuthorizationsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resetWebAuthorizations#682d2594: %w", err)
 	}
-
 	return nil
 }
 

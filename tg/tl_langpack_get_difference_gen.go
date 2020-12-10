@@ -50,7 +50,6 @@ func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

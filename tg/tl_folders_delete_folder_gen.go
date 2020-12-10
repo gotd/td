@@ -44,7 +44,6 @@ func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FoldersDeleteFolderRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode folders.deleteFolder#1c295881: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

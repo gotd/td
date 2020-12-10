@@ -41,7 +41,6 @@ func (g *ContactsGetStatusesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetStatusesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getStatuses#c4a353ee: %w", err)
 	}
-
 	return nil
 }
 

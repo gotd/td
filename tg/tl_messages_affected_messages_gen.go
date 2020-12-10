@@ -47,7 +47,6 @@ func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAffectedMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.affectedMessages#84d19185: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

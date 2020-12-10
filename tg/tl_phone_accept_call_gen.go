@@ -54,7 +54,6 @@ func (a *PhoneAcceptCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneAcceptCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: %w", err)
 	}
-
 	{
 		if err := a.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.acceptCall#3bd2b4a0: field peer: %w", err)

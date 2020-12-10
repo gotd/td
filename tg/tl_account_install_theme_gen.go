@@ -106,7 +106,6 @@ func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)

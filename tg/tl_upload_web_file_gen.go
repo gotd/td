@@ -61,7 +61,6 @@ func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadWebFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.webFile#21e753bc: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

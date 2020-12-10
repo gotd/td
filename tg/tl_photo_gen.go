@@ -44,7 +44,6 @@ func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoEmpty#2331b22d: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -162,7 +161,6 @@ func (p *Photo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode photo#fb197a65: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode photo#fb197a65: field flags: %w", err)

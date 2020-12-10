@@ -75,7 +75,6 @@ func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsAddContactRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: %w", err)
 	}
-
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field flags: %w", err)

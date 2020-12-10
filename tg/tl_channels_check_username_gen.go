@@ -52,7 +52,6 @@ func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsCheckUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.checkUsername#10e6bd2c: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// ReceivedNotifyMessageVector is a box for Vector<ReceivedNotifyMessage>
 type ReceivedNotifyMessageVector struct {
-	//
+	// Elements of Vector<ReceivedNotifyMessage>
 	Elems []ReceivedNotifyMessage
 }
 

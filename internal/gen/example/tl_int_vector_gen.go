@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// IntVector is a box for Vector<int>
 type IntVector struct {
-	//
+	// Elements of Vector<int>
 	Elems []int
 }
 

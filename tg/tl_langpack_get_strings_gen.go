@@ -53,7 +53,6 @@ func (g *LangpackGetStringsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetStringsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getStrings#efea3803: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

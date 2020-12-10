@@ -48,7 +48,6 @@ func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMultipleSMSRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

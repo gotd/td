@@ -44,7 +44,6 @@ func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountConfirmPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.confirmPasswordEmail#8fdf1920: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

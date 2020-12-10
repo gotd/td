@@ -61,7 +61,6 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedMessage#ed18c118: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -150,7 +149,6 @@ func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedMessageServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedMessageService#23734b06: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

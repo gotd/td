@@ -90,7 +90,6 @@ func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSingleMediaTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field flags: %w", err)

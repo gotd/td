@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// MessagesSearchCounterVector is a box for Vector<messages.SearchCounter>
 type MessagesSearchCounterVector struct {
-	//
+	// Elements of Vector<messages.SearchCounter>
 	Elems []MessagesSearchCounter
 }
 

@@ -120,7 +120,6 @@ func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveDraftRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveDraft#bc39e14b: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.saveDraft#bc39e14b: field flags: %w", err)

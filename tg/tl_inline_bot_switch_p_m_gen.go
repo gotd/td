@@ -47,7 +47,6 @@ func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineBotSwitchPMTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineBotSwitchPM#3c20629f: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

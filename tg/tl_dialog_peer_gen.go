@@ -49,7 +49,6 @@ func (d *DialogPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogPeer#e56dbf05: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -101,7 +100,6 @@ func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogPeerFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogPeerFolder#514519e2: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

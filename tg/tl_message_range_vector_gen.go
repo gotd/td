@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// MessageRangeVector is a box for Vector<MessageRange>
 type MessageRangeVector struct {
-	//
+	// Elements of Vector<MessageRange>
 	Elems []MessageRange
 }
 

@@ -213,7 +213,6 @@ func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageFwdHeaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: %w", err)
 	}
-
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field flags: %w", err)

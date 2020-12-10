@@ -49,7 +49,6 @@ func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetUserInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: %w", err)
 	}
-
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

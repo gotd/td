@@ -45,7 +45,6 @@ func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppChangelogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppChangelog#9010ef6f: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

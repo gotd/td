@@ -49,7 +49,6 @@ func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.exportChatInvite#df7534c: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

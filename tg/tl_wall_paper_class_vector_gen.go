@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
-	//
+	// Elements of Vector<WallPaper>
 	Elems []WallPaperClass
 }
 

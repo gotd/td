@@ -60,7 +60,6 @@ func (p *PhonePhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhonePhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.phoneCall#ec82e140: %w", err)
 	}
-
 	{
 		value, err := DecodePhoneCall(b)
 		if err != nil {

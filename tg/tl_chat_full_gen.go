@@ -193,7 +193,6 @@ func (c *ChatFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatFull#1b7c9db3: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatFull#1b7c9db3: field flags: %w", err)
@@ -808,7 +807,6 @@ func (c *ChannelFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelFull#f0e6672a: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelFull#f0e6672a: field flags: %w", err)

@@ -49,7 +49,6 @@ func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentResult#4e5f810d: %w", err)
 	}
-
 	{
 		value, err := DecodeUpdates(b)
 		if err != nil {
@@ -101,7 +100,6 @@ func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentVerificationNeededTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentVerificationNeeded#d8411139: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -55,7 +55,6 @@ func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRequestEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: %w", err)
 	}
-
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

@@ -41,7 +41,6 @@ func (s *MessagesStickerSetInstallResultSuccess) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetInstallResultSuccessTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSetInstallResultSuccess#38641628: %w", err)
 	}
-
 	return nil
 }
 
@@ -96,7 +95,6 @@ func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetInstallResultArchiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

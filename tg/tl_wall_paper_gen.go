@@ -131,7 +131,6 @@ func (w *WallPaper) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaper#a437c3ed: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -266,7 +265,6 @@ func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperNoFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: %w", err)
 	}
-
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: field flags: %w", err)

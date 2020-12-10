@@ -41,7 +41,6 @@ func (i *InputEncryptedFileEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFileEmpty#1837c364: %w", err)
 	}
-
 	return nil
 }
 
@@ -95,7 +94,6 @@ func (i *InputEncryptedFileUploaded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileUploadedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -171,7 +169,6 @@ func (i *InputEncryptedFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFile#5a17b5e5: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -236,7 +233,6 @@ func (i *InputEncryptedFileBigUploaded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileBigUploadedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFileBigUploaded#2dc173c8: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

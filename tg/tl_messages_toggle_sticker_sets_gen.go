@@ -90,7 +90,6 @@ func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesToggleStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: %w", err)
 	}
-
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field flags: %w", err)

@@ -47,7 +47,6 @@ func (c *Contact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode contact#f911c994: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

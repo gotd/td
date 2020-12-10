@@ -47,7 +47,6 @@ func (c *ChannelParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipant#15ebac1d: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -112,7 +111,6 @@ func (c *ChannelParticipantSelf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantSelfTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantSelf#a3289a6d: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -210,7 +208,6 @@ func (c *ChannelParticipantCreator) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantCreatorTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantCreator#447dca4b: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelParticipantCreator#447dca4b: field flags: %w", err)
@@ -361,7 +358,6 @@ func (c *ChannelParticipantAdmin) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelParticipantAdmin#ccbebbaf: field flags: %w", err)
@@ -480,7 +476,6 @@ func (c *ChannelParticipantBanned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantBannedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field flags: %w", err)
@@ -557,7 +552,6 @@ func (c *ChannelParticipantLeft) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantLeftTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantLeft#c3c6796b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

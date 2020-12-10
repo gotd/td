@@ -47,7 +47,6 @@ func (p *PopularContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PopularContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode popularContact#5ce14175: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

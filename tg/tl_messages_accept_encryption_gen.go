@@ -52,7 +52,6 @@ func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAcceptEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: %w", err)
 	}
-
 	{
 		if err := a.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: field peer: %w", err)

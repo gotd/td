@@ -84,7 +84,6 @@ func (s *MessagesSetInlineGameScoreRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetInlineGameScoreRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setInlineGameScore#15ad9f64: field flags: %w", err)

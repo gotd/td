@@ -47,7 +47,6 @@ func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetChatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getChats#3c6aa187: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

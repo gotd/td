@@ -84,7 +84,6 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetBotPrecheckoutResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)

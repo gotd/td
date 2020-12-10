@@ -41,7 +41,6 @@ func (g *ContactsGetSavedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetSavedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getSaved#82f1e39f: %w", err)
 	}
-
 	return nil
 }
 

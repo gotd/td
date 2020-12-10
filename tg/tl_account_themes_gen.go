@@ -41,7 +41,6 @@ func (t *AccountThemesNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountThemesNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.themesNotModified#f41eb622: %w", err)
 	}
-
 	return nil
 }
 
@@ -94,7 +93,6 @@ func (t *AccountThemes) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountThemesTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.themes#7f676421: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

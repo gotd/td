@@ -49,7 +49,6 @@ func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FoldersEditPeerFoldersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode folders.editPeerFolders#6847d0ab: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

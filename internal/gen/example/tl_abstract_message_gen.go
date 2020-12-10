@@ -55,7 +55,6 @@ func (b *BigMessage) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BigMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode bigMessage#7490dcc5: %w", err)
 	}
-
 	{
 		value, err := buf.Int32()
 		if err != nil {
@@ -131,7 +130,6 @@ func (n *NoMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NoMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode noMessage#ee6324c4: %w", err)
 	}
-
 	return nil
 }
 
@@ -178,7 +176,6 @@ func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TargetsMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode targetsMessage#cc6136f1: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -270,7 +267,6 @@ func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FieldsMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode fieldsMessage#947225b5: %w", err)
 	}
-
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field flags: %w", err)
@@ -327,7 +323,6 @@ func (b *BytesMessage) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BytesMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode bytesMessage#f990a67d: %w", err)
 	}
-
 	{
 		value, err := buf.Bytes()
 		if err != nil {

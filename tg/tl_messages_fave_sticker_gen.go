@@ -52,7 +52,6 @@ func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFaveStickerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.faveSticker#b9ffc55b: %w", err)
 	}
-
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {

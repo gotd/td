@@ -52,7 +52,6 @@ func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatPhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

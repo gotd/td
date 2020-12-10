@@ -58,7 +58,6 @@ func (s *SecureValueErrorData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorData#e8a40bd9: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -142,7 +141,6 @@ func (s *SecureValueErrorFrontSide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFrontSideTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFrontSide#be3dfa: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -219,7 +217,6 @@ func (s *SecureValueErrorReverseSide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorReverseSideTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorReverseSide#868a2aa5: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -296,7 +293,6 @@ func (s *SecureValueErrorSelfie) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorSelfieTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorSelfie#e537ced6: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -373,7 +369,6 @@ func (s *SecureValueErrorFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFile#7a700873: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -453,7 +448,6 @@ func (s *SecureValueErrorFiles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFilesTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFiles#666220e9: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -536,7 +530,6 @@ func (s *SecureValueError) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueError#869d758f: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -613,7 +606,6 @@ func (s *SecureValueErrorTranslationFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTranslationFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorTranslationFile#a1144770: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -693,7 +685,6 @@ func (s *SecureValueErrorTranslationFiles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTranslationFilesTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorTranslationFiles#34636dd8: %w", err)
 	}
-
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {

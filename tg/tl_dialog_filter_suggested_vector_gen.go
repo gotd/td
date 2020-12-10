@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// DialogFilterSuggestedVector is a box for Vector<DialogFilterSuggested>
 type DialogFilterSuggestedVector struct {
-	//
+	// Elements of Vector<DialogFilterSuggested>
 	Elems []DialogFilterSuggested
 }
 

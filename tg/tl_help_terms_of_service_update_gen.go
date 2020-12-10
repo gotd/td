@@ -44,7 +44,6 @@ func (t *HelpTermsOfServiceUpdateEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfServiceUpdateEmpty#e3309f7f: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -101,7 +100,6 @@ func (t *HelpTermsOfServiceUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfServiceUpdate#28ecf961: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

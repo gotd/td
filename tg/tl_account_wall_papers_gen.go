@@ -41,7 +41,6 @@ func (w *AccountWallPapersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountWallPapersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.wallPapersNotModified#1c199183: %w", err)
 	}
-
 	return nil
 }
 
@@ -97,7 +96,6 @@ func (w *AccountWallPapers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountWallPapersTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.wallPapers#702b65a9: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -47,7 +47,6 @@ func (l *LangPackString) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackString#cad181f6: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -224,7 +223,6 @@ func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
 	}
-
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
@@ -323,7 +321,6 @@ func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringDeletedTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackStringDeleted#2979eeb2: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -47,7 +47,6 @@ func (c *ChannelAdminLogEventActionChangeTitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeTitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeTitle#e6dfb825: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -109,7 +108,6 @@ func (c *ChannelAdminLogEventActionChangeAbout) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeAboutTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAbout#55188a2e: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -171,7 +169,6 @@ func (c *ChannelAdminLogEventActionChangeUsername) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeUsernameTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsername#6a4afc38: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -245,7 +242,6 @@ func (c *ChannelAdminLogEventActionChangePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangePhoto#434bd2af: %w", err)
 	}
-
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
@@ -304,7 +300,6 @@ func (c *ChannelAdminLogEventActionToggleInvites) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleInvitesTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleInvites#1b7907ae: %w", err)
 	}
-
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -358,7 +353,6 @@ func (c *ChannelAdminLogEventActionToggleSignatures) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleSignaturesTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleSignatures#26ae0971: %w", err)
 	}
-
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -417,7 +411,6 @@ func (c *ChannelAdminLogEventActionUpdatePinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionUpdatePinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionUpdatePinned#e9e82c18: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -484,7 +477,6 @@ func (c *ChannelAdminLogEventActionEditMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionEditMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionEditMessage#709b2405: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -548,7 +540,6 @@ func (c *ChannelAdminLogEventActionDeleteMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionDeleteMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionDeleteMessage#42e047bb: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -599,7 +590,6 @@ func (c *ChannelAdminLogEventActionParticipantJoin) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoin#183040d3: %w", err)
 	}
-
 	return nil
 }
 
@@ -643,7 +633,6 @@ func (c *ChannelAdminLogEventActionParticipantLeave) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantLeaveTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantLeave#f89777f2: %w", err)
 	}
-
 	return nil
 }
 
@@ -695,7 +684,6 @@ func (c *ChannelAdminLogEventActionParticipantInvite) Decode(b *bin.Buffer) erro
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantInvite#e31c34d8: %w", err)
 	}
-
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -762,7 +750,6 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) Decode(b *bin.Buffer) e
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantToggleBanTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantToggleBan#e6d83d7e: %w", err)
 	}
-
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -836,7 +823,6 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Decode(b *bin.Buffer)
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantToggleAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantToggleAdmin#d5676710: %w", err)
 	}
-
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -910,7 +896,6 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeStickerSet#b1c3caa7: %w", err)
 	}
-
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -971,7 +956,6 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Decode(b *bin.Buffer)
 	if err := b.ConsumeID(ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1: %w", err)
 	}
-
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -1032,7 +1016,6 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) Decode(b *bin.Buffer) er
 	if err := b.ConsumeID(ChannelAdminLogEventActionDefaultBannedRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: %w", err)
 	}
-
 	{
 		if err := c.PrevBannedRights.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: field prev_banned_rights: %w", err)
@@ -1094,7 +1077,6 @@ func (c *ChannelAdminLogEventActionStopPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionStopPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionStopPoll#8f079643: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -1149,7 +1131,6 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeLinkedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#a26f881b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1223,7 +1204,6 @@ func (c *ChannelAdminLogEventActionChangeLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLocation#e6b76ae: %w", err)
 	}
-
 	{
 		value, err := DecodeChannelLocation(b)
 		if err != nil {
@@ -1287,7 +1267,6 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleSlowModeTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleSlowMode#53909779: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

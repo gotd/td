@@ -50,7 +50,6 @@ func (m *MessageUserVote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageUserVoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVote#a28e5559: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -119,7 +118,6 @@ func (m *MessageUserVoteInputOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageUserVoteInputOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVoteInputOption#36377430: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -187,7 +185,6 @@ func (m *MessageUserVoteMultiple) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageUserVoteMultipleTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

@@ -68,7 +68,6 @@ func (c *AccountContentSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountContentSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.contentSettings#57e28221: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.contentSettings#57e28221: field flags: %w", err)

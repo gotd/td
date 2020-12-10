@@ -54,7 +54,6 @@ func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateNotifySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateNotifySettings#84be5b93: %w", err)
 	}
-
 	{
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {

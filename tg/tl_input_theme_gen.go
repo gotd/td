@@ -47,7 +47,6 @@ func (i *InputTheme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputTheme#3c5693e9: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -106,7 +105,6 @@ func (i *InputThemeSlug) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputThemeSlugTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputThemeSlug#f5890df1: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

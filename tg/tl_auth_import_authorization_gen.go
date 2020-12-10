@@ -47,7 +47,6 @@ func (i *AuthImportAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthImportAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.importAuthorization#e3ef9613: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

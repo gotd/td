@@ -106,7 +106,6 @@ func (b *BotInlineMessageMediaAuto) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaAutoTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: field flags: %w", err)
@@ -256,7 +255,6 @@ func (b *BotInlineMessageText) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageText#8c7f65e2: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageText#8c7f65e2: field flags: %w", err)
@@ -437,7 +435,6 @@ func (b *BotInlineMessageMediaGeo) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
@@ -574,7 +571,6 @@ func (b *BotInlineMessageMediaVenue) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaVenue#8a86659c: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaVenue#8a86659c: field flags: %w", err)
@@ -714,7 +710,6 @@ func (b *BotInlineMessageMediaContact) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaContact#18d1cdc2: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaContact#18d1cdc2: field flags: %w", err)

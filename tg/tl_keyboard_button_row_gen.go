@@ -52,7 +52,6 @@ func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRowTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

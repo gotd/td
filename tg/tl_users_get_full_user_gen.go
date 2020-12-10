@@ -49,7 +49,6 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersGetFullUserRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: %w", err)
 	}
-
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

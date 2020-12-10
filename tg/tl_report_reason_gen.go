@@ -41,7 +41,6 @@ func (i *InputReportReasonSpam) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonSpamTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonSpam#58dbcab8: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (i *InputReportReasonViolence) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonViolenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonViolence#1e22c78d: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (i *InputReportReasonPornography) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonPornographyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonPornography#2e59d922: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (i *InputReportReasonChildAbuse) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonChildAbuseTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonChildAbuse#adf44ee3: %w", err)
 	}
-
 	return nil
 }
 
@@ -212,7 +208,6 @@ func (i *InputReportReasonOther) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonOtherTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonOther#e1746d0a: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -261,7 +256,6 @@ func (i *InputReportReasonCopyright) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonCopyrightTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonCopyright#9b89f93a: %w", err)
 	}
-
 	return nil
 }
 
@@ -303,7 +297,6 @@ func (i *InputReportReasonGeoIrrelevant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonGeoIrrelevantTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonGeoIrrelevant#dbd4feed: %w", err)
 	}
-
 	return nil
 }
 

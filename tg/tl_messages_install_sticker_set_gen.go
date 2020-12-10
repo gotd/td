@@ -52,7 +52,6 @@ func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesInstallStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.installStickerSet#c78fe460: %w", err)
 	}
-
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {

@@ -114,7 +114,6 @@ func (m *MessageViews) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageViewsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageViews#455b853d: %w", err)
 	}
-
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageViews#455b853d: field flags: %w", err)

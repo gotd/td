@@ -76,7 +76,6 @@ func (c *ChatParticipantsForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantsForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: field flags: %w", err)
@@ -154,7 +153,6 @@ func (c *ChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipants#3f460fed: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

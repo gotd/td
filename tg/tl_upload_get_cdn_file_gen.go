@@ -50,7 +50,6 @@ func (g *UploadGetCdnFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetCdnFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: %w", err)
 	}
-
 	{
 		value, err := b.Bytes()
 		if err != nil {

@@ -52,7 +52,6 @@ func (t *TopPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeer#edcdc05b: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {

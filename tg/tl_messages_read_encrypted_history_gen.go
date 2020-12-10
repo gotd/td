@@ -49,7 +49,6 @@ func (r *MessagesReadEncryptedHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadEncryptedHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readEncryptedHistory#7f4b690a: %w", err)
 	}
-
 	{
 		if err := r.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.readEncryptedHistory#7f4b690a: field peer: %w", err)

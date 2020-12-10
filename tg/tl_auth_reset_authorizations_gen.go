@@ -42,7 +42,6 @@ func (r *AuthResetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthResetAuthorizationsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.resetAuthorizations#9fab0d1a: %w", err)
 	}
-
 	return nil
 }
 

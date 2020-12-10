@@ -49,7 +49,6 @@ func (p *PageTableRow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTableRowTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

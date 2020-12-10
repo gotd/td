@@ -50,7 +50,6 @@ func (n *NearestDc) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NearestDcTypeID); err != nil {
 		return fmt.Errorf("unable to decode nearestDc#8e1a1775: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

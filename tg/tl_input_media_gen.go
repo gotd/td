@@ -41,7 +41,6 @@ func (i *InputMediaEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaEmpty#9664f57f: %w", err)
 	}
-
 	return nil
 }
 
@@ -148,7 +147,6 @@ func (i *InputMediaUploadedPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaUploadedPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
@@ -257,7 +255,6 @@ func (i *InputMediaPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field flags: %w", err)
@@ -326,7 +323,6 @@ func (i *InputMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGeoPoint#f9c44144: %w", err)
 	}
-
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
@@ -387,7 +383,6 @@ func (i *InputMediaContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -585,7 +580,6 @@ func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaUploadedDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
@@ -723,7 +717,6 @@ func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: field flags: %w", err)
@@ -807,7 +800,6 @@ func (i *InputMediaVenue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: %w", err)
 	}
-
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
@@ -921,7 +913,6 @@ func (i *InputMediaPhotoExternal) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPhotoExternalTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
@@ -1012,7 +1003,6 @@ func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDocumentExternalTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
@@ -1081,7 +1071,6 @@ func (i *InputMediaGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGame#d33f43f3: %w", err)
 	}
-
 	{
 		value, err := DecodeInputGame(b)
 		if err != nil {
@@ -1184,7 +1173,6 @@ func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaInvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field flags: %w", err)
@@ -1371,7 +1359,6 @@ func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGeoLiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field flags: %w", err)
@@ -1534,7 +1521,6 @@ func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field flags: %w", err)
@@ -1622,7 +1608,6 @@ func (i *InputMediaDice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDice#e66fbf7b: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

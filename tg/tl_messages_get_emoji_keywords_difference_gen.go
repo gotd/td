@@ -47,7 +47,6 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiKeywordsDifference#1508b6af: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

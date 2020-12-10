@@ -55,7 +55,6 @@ func (u *UpdateNewMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNewMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNewMessage#1f2b0afd: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -124,7 +123,6 @@ func (u *UpdateMessageID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateMessageIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateMessageID#4e90bfd6: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -192,7 +190,6 @@ func (u *UpdateDeleteMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDeleteMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDeleteMessages#a20db0e5: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -272,7 +269,6 @@ func (u *UpdateUserTyping) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateUserTypingTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateUserTyping#5c486927: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -342,7 +338,6 @@ func (u *UpdateChatUserTyping) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatUserTypingTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatUserTyping#9a65ea1f: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -413,7 +408,6 @@ func (u *UpdateChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatParticipants#7761198: %w", err)
 	}
-
 	{
 		value, err := DecodeChatParticipants(b)
 		if err != nil {
@@ -473,7 +467,6 @@ func (u *UpdateUserStatus) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateUserStatusTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateUserStatus#1bfbd823: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -541,7 +534,6 @@ func (u *UpdateUserName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateUserNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateUserName#a7332b73: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -628,7 +620,6 @@ func (u *UpdateUserPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateUserPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateUserPhoto#95313b0c: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -709,7 +700,6 @@ func (u *UpdateNewEncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNewEncryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNewEncryptedMessage#12bcbd9a: %w", err)
 	}
-
 	{
 		value, err := DecodeEncryptedMessage(b)
 		if err != nil {
@@ -768,7 +758,6 @@ func (u *UpdateEncryptedChatTyping) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateEncryptedChatTypingTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateEncryptedChatTyping#1710f156: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -828,7 +817,6 @@ func (u *UpdateEncryption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateEncryptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateEncryption#b4a2e88d: %w", err)
 	}
-
 	{
 		value, err := DecodeEncryptedChat(b)
 		if err != nil {
@@ -893,7 +881,6 @@ func (u *UpdateEncryptedMessagesRead) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateEncryptedMessagesReadTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateEncryptedMessagesRead#38fe25b7: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -971,7 +958,6 @@ func (u *UpdateChatParticipantAdd) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatParticipantAddTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatParticipantAdd#ea4b0e5c: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1057,7 +1043,6 @@ func (u *UpdateChatParticipantDelete) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatParticipantDeleteTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatParticipantDelete#6e5f8c22: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1128,7 +1113,6 @@ func (u *UpdateDcOptions) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDcOptionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDcOptions#8e5e9873: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1196,7 +1180,6 @@ func (u *UpdateNotifySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNotifySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNotifySettings#bec268ef: %w", err)
 	}
-
 	{
 		value, err := DecodeNotifyPeer(b)
 		if err != nil {
@@ -1314,7 +1297,6 @@ func (u *UpdateServiceNotification) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateServiceNotificationTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateServiceNotification#ebe46819: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateServiceNotification#ebe46819: field flags: %w", err)
@@ -1422,7 +1404,6 @@ func (u *UpdatePrivacy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePrivacyTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePrivacy#ee3b272a: %w", err)
 	}
-
 	{
 		value, err := DecodePrivacyKey(b)
 		if err != nil {
@@ -1490,7 +1471,6 @@ func (u *UpdateUserPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateUserPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateUserPhone#12b9417b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1593,7 +1573,6 @@ func (u *UpdateReadHistoryInbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadHistoryInboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadHistoryInbox#9c974fdf: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateReadHistoryInbox#9c974fdf: field flags: %w", err)
@@ -1699,7 +1678,6 @@ func (u *UpdateReadHistoryOutbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadHistoryOutboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadHistoryOutbox#2f2f21bf: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -1783,7 +1761,6 @@ func (u *UpdateWebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateWebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateWebPage#7f891213: %w", err)
 	}
-
 	{
 		value, err := DecodeWebPage(b)
 		if err != nil {
@@ -1858,7 +1835,6 @@ func (u *UpdateReadMessagesContents) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadMessagesContentsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadMessagesContents#68c13933: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1958,7 +1934,6 @@ func (u *UpdateChannelTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelTooLong#eb0467fb: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateChannelTooLong#eb0467fb: field flags: %w", err)
@@ -2022,7 +1997,6 @@ func (u *UpdateChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannel#b6d45656: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -2085,7 +2059,6 @@ func (u *UpdateNewChannelMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNewChannelMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNewChannelMessage#62ba04d9: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -2187,7 +2160,6 @@ func (u *UpdateReadChannelInbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadChannelInboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadChannelInbox#330b5424: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateReadChannelInbox#330b5424: field flags: %w", err)
@@ -2284,7 +2256,6 @@ func (u *UpdateDeleteChannelMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDeleteChannelMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDeleteChannelMessages#c37521c9: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -2369,7 +2340,6 @@ func (u *UpdateChannelMessageViews) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelMessageViewsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelMessageViews#98a12b4b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -2444,7 +2414,6 @@ func (u *UpdateChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatParticipantAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatParticipantAdmin#b6901959: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -2519,7 +2488,6 @@ func (u *UpdateNewStickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNewStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNewStickerSet#688a30aa: %w", err)
 	}
-
 	{
 		if err := u.Stickerset.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateNewStickerSet#688a30aa: field stickerset: %w", err)
@@ -2588,7 +2556,6 @@ func (u *UpdateStickerSetsOrder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateStickerSetsOrderTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateStickerSetsOrder#bb2d201: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateStickerSetsOrder#bb2d201: field flags: %w", err)
@@ -2649,7 +2616,6 @@ func (u *UpdateStickerSets) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateStickerSetsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateStickerSets#43ae3dec: %w", err)
 	}
-
 	return nil
 }
 
@@ -2691,7 +2657,6 @@ func (u *UpdateSavedGifs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateSavedGifsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateSavedGifs#9375341e: %w", err)
 	}
-
 	return nil
 }
 
@@ -2777,7 +2742,6 @@ func (u *UpdateBotInlineQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotInlineQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field flags: %w", err)
@@ -2924,7 +2888,6 @@ func (u *UpdateBotInlineSend) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotInlineSendTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotInlineSend#e48f964: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateBotInlineSend#e48f964: field flags: %w", err)
@@ -3018,7 +2981,6 @@ func (u *UpdateEditChannelMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateEditChannelMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateEditChannelMessage#1b3f4df7: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -3150,7 +3112,6 @@ func (u *UpdateBotCallbackQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotCallbackQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotCallbackQuery#e73547e1: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateBotCallbackQuery#e73547e1: field flags: %w", err)
@@ -3260,7 +3221,6 @@ func (u *UpdateEditMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateEditMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateEditMessage#e40370a3: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -3386,7 +3346,6 @@ func (u *UpdateInlineBotCallbackQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateInlineBotCallbackQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateInlineBotCallbackQuery#f9d27a5a: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateInlineBotCallbackQuery#f9d27a5a: field flags: %w", err)
@@ -3479,7 +3438,6 @@ func (u *UpdateReadChannelOutbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadChannelOutboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadChannelOutbox#25d6c9c7: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -3551,7 +3509,6 @@ func (u *UpdateDraftMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDraftMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDraftMessage#ee2bb969: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -3607,7 +3564,6 @@ func (u *UpdateReadFeaturedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadFeaturedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadFeaturedStickers#571d2742: %w", err)
 	}
-
 	return nil
 }
 
@@ -3649,7 +3605,6 @@ func (u *UpdateRecentStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateRecentStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateRecentStickers#9a422c20: %w", err)
 	}
-
 	return nil
 }
 
@@ -3691,7 +3646,6 @@ func (u *UpdateConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateConfig#a229dd06: %w", err)
 	}
-
 	return nil
 }
 
@@ -3733,7 +3687,6 @@ func (u *UpdatePtsChanged) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePtsChangedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePtsChanged#3354678f: %w", err)
 	}
-
 	return nil
 }
 
@@ -3792,7 +3745,6 @@ func (u *UpdateChannelWebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelWebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelWebPage#40771900: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -3908,7 +3860,6 @@ func (u *UpdateDialogPinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDialogPinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDialogPinned#6e6fe51c: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateDialogPinned#6e6fe51c: field flags: %w", err)
@@ -4027,7 +3978,6 @@ func (u *UpdatePinnedDialogs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePinnedDialogsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePinnedDialogs#fa0f3ca2: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updatePinnedDialogs#fa0f3ca2: field flags: %w", err)
@@ -4099,7 +4049,6 @@ func (u *UpdateBotWebhookJSON) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotWebhookJSONTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotWebhookJSON#8317c0c3: %w", err)
 	}
-
 	{
 		if err := u.Data.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateBotWebhookJSON#8317c0c3: field data: %w", err)
@@ -4157,7 +4106,6 @@ func (u *UpdateBotWebhookJSONQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotWebhookJSONQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotWebhookJSONQuery#9b9240a6: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -4232,7 +4180,6 @@ func (u *UpdateBotShippingQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotShippingQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotShippingQuery#e0cdc940: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -4366,7 +4313,6 @@ func (u *UpdateBotPrecheckoutQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateBotPrecheckoutQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateBotPrecheckoutQuery#5d2f3aa9: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateBotPrecheckoutQuery#5d2f3aa9: field flags: %w", err)
@@ -4468,7 +4414,6 @@ func (u *UpdatePhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePhoneCall#ab0f6b1e: %w", err)
 	}
-
 	{
 		value, err := DecodePhoneCall(b)
 		if err != nil {
@@ -4520,7 +4465,6 @@ func (u *UpdateLangPackTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateLangPackTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateLangPackTooLong#46560264: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -4574,7 +4518,6 @@ func (u *UpdateLangPack) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateLangPackTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateLangPack#56022f4d: %w", err)
 	}
-
 	{
 		if err := u.Difference.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateLangPack#56022f4d: field difference: %w", err)
@@ -4621,7 +4564,6 @@ func (u *UpdateFavedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateFavedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateFavedStickers#e511996d: %w", err)
 	}
-
 	return nil
 }
 
@@ -4672,7 +4614,6 @@ func (u *UpdateChannelReadMessagesContents) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelReadMessagesContentsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelReadMessagesContents#89893b45: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -4734,7 +4675,6 @@ func (u *UpdateContactsReset) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateContactsResetTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateContactsReset#7084a7be: %w", err)
 	}
-
 	return nil
 }
 
@@ -4782,7 +4722,6 @@ func (u *UpdateChannelAvailableMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelAvailableMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelAvailableMessages#70db6837: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -4862,7 +4801,6 @@ func (u *UpdateDialogUnreadMark) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDialogUnreadMarkTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDialogUnreadMark#e16459c3: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateDialogUnreadMark#e16459c3: field flags: %w", err)
@@ -4954,7 +4892,6 @@ func (u *UpdateMessagePoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateMessagePollTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateMessagePoll#aca1657b: field flags: %w", err)
@@ -5034,7 +4971,6 @@ func (u *UpdateChatDefaultBannedRights) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChatDefaultBannedRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChatDefaultBannedRights#54c01850: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -5109,7 +5045,6 @@ func (u *UpdateFolderPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateFolderPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateFolderPeers#19360dc0: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -5191,7 +5126,6 @@ func (u *UpdatePeerSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePeerSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePeerSettings#6a7e7366: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -5256,7 +5190,6 @@ func (u *UpdatePeerLocated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePeerLocatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePeerLocated#b4afcfb0: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -5319,7 +5252,6 @@ func (u *UpdateNewScheduledMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateNewScheduledMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateNewScheduledMessage#39a51dfb: %w", err)
 	}
-
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -5382,7 +5314,6 @@ func (u *UpdateDeleteScheduledMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDeleteScheduledMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDeleteScheduledMessages#90866cee: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -5449,7 +5380,6 @@ func (u *UpdateTheme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateTheme#8216fba3: %w", err)
 	}
-
 	{
 		if err := u.Theme.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateTheme#8216fba3: field theme: %w", err)
@@ -5507,7 +5437,6 @@ func (u *UpdateGeoLiveViewed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateGeoLiveViewedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateGeoLiveViewed#871fb939: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -5563,7 +5492,6 @@ func (u *UpdateLoginToken) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateLoginTokenTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateLoginToken#564fe691: %w", err)
 	}
-
 	return nil
 }
 
@@ -5617,7 +5545,6 @@ func (u *UpdateMessagePollVote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateMessagePollVoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateMessagePollVote#42f88f2c: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -5718,7 +5645,6 @@ func (u *UpdateDialogFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDialogFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDialogFilter#26ffde7d: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateDialogFilter#26ffde7d: field flags: %w", err)
@@ -5783,7 +5709,6 @@ func (u *UpdateDialogFilterOrder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDialogFilterOrderTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDialogFilterOrder#a5d72105: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -5838,7 +5763,6 @@ func (u *UpdateDialogFilters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateDialogFiltersTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDialogFilters#3504914f: %w", err)
 	}
-
 	return nil
 }
 
@@ -5886,7 +5810,6 @@ func (u *UpdatePhoneCallSignalingData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePhoneCallSignalingDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePhoneCallSignalingData#2661bf09: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -6013,7 +5936,6 @@ func (u *UpdateChannelParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field flags: %w", err)
@@ -6111,7 +6033,6 @@ func (u *UpdateChannelMessageForwards) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelMessageForwardsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelMessageForwards#6e8a84df: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -6232,7 +6153,6 @@ func (u *UpdateReadChannelDiscussionInbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadChannelDiscussionInboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadChannelDiscussionInbox#1cc7de54: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateReadChannelDiscussionInbox#1cc7de54: field flags: %w", err)
@@ -6323,7 +6243,6 @@ func (u *UpdateReadChannelDiscussionOutbox) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateReadChannelDiscussionOutboxTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateReadChannelDiscussionOutbox#4638a26c: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -6397,7 +6316,6 @@ func (u *UpdatePeerBlocked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePeerBlockedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePeerBlocked#246a4b22: %w", err)
 	}
-
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -6494,7 +6412,6 @@ func (u *UpdateChannelUserTyping) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateChannelUserTypingTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateChannelUserTyping#ff2abe9f: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateChannelUserTyping#ff2abe9f: field flags: %w", err)
@@ -6605,7 +6522,6 @@ func (u *UpdatePinnedMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePinnedMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePinnedMessages#ed85eab5: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updatePinnedMessages#ed85eab5: field flags: %w", err)
@@ -6718,7 +6634,6 @@ func (u *UpdatePinnedChannelMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatePinnedChannelMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatePinnedChannelMessages#8588878b: %w", err)
 	}
-
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updatePinnedChannelMessages#8588878b: field flags: %w", err)

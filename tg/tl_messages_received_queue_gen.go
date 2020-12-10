@@ -44,7 +44,6 @@ func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReceivedQueueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.receivedQueue#55a5bb66: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

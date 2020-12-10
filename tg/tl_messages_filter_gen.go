@@ -41,7 +41,6 @@ func (i *InputMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterEmpty#57e2f66c: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (i *InputMessagesFilterPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhotos#9609a51c: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (i *InputMessagesFilterVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterVideo#9fc00e65: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (i *InputMessagesFilterPhotoVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhotoVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhotoVideo#56e9f0e4: %w", err)
 	}
-
 	return nil
 }
 
@@ -209,7 +205,6 @@ func (i *InputMessagesFilterDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterDocument#9eddf188: %w", err)
 	}
-
 	return nil
 }
 
@@ -251,7 +246,6 @@ func (i *InputMessagesFilterUrl) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterUrlTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterUrl#7ef0dd87: %w", err)
 	}
-
 	return nil
 }
 
@@ -293,7 +287,6 @@ func (i *InputMessagesFilterGif) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterGifTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterGif#ffc86587: %w", err)
 	}
-
 	return nil
 }
 
@@ -335,7 +328,6 @@ func (i *InputMessagesFilterVoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterVoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterVoice#50f5c392: %w", err)
 	}
-
 	return nil
 }
 
@@ -377,7 +369,6 @@ func (i *InputMessagesFilterMusic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterMusicTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterMusic#3751b49e: %w", err)
 	}
-
 	return nil
 }
 
@@ -419,7 +410,6 @@ func (i *InputMessagesFilterChatPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterChatPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterChatPhotos#3a20ecb8: %w", err)
 	}
-
 	return nil
 }
 
@@ -477,7 +467,6 @@ func (i *InputMessagesFilterPhoneCalls) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhoneCallsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: %w", err)
 	}
-
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
@@ -525,7 +514,6 @@ func (i *InputMessagesFilterRoundVoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterRoundVoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterRoundVoice#7a7c17a4: %w", err)
 	}
-
 	return nil
 }
 
@@ -567,7 +555,6 @@ func (i *InputMessagesFilterRoundVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterRoundVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterRoundVideo#b549da53: %w", err)
 	}
-
 	return nil
 }
 
@@ -609,7 +596,6 @@ func (i *InputMessagesFilterMyMentions) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterMyMentionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterMyMentions#c1f8e69a: %w", err)
 	}
-
 	return nil
 }
 
@@ -651,7 +637,6 @@ func (i *InputMessagesFilterGeo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterGeo#e7026d0d: %w", err)
 	}
-
 	return nil
 }
 
@@ -693,7 +678,6 @@ func (i *InputMessagesFilterContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterContacts#e062db83: %w", err)
 	}
-
 	return nil
 }
 
@@ -735,7 +719,6 @@ func (i *InputMessagesFilterPinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPinned#1bb00451: %w", err)
 	}
-
 	return nil
 }
 

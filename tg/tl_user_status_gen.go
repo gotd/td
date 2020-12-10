@@ -41,7 +41,6 @@ func (u *UserStatusEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusEmpty#9d05049: %w", err)
 	}
-
 	return nil
 }
 
@@ -86,7 +85,6 @@ func (u *UserStatusOnline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusOnlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusOnline#edb93949: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -138,7 +136,6 @@ func (u *UserStatusOffline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusOfflineTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusOffline#8c703f: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -187,7 +184,6 @@ func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusRecentlyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
 	}
-
 	return nil
 }
 
@@ -229,7 +225,6 @@ func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusLastWeekTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
 	}
-
 	return nil
 }
 
@@ -271,7 +266,6 @@ func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusLastMonthTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
 	}
-
 	return nil
 }
 

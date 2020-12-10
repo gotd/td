@@ -55,7 +55,6 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthExportLoginTokenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

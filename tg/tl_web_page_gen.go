@@ -44,7 +44,6 @@ func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -99,7 +98,6 @@ func (w *WebPagePending) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPagePendingTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPagePending#c586da1c: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -497,7 +495,6 @@ func (w *WebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPage#e89c45b2: %w", err)
 	}
-
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
@@ -701,7 +698,6 @@ func (w *WebPageNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageNotModified#7311ca11: %w", err)
 	}
-
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPageNotModified#7311ca11: field flags: %w", err)

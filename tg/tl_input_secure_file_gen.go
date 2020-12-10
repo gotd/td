@@ -56,7 +56,6 @@ func (i *InputSecureFileUploaded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureFileUploadedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFileUploaded#3334b0f0: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -139,7 +138,6 @@ func (i *InputSecureFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFile#5367e5be: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

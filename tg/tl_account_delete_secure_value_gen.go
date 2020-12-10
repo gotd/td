@@ -52,7 +52,6 @@ func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDeleteSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

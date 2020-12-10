@@ -137,7 +137,6 @@ func (p *Page) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTypeID); err != nil {
 		return fmt.Errorf("unable to decode page#98657f0d: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode page#98657f0d: field flags: %w", err)

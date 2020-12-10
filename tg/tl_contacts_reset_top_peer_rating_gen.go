@@ -57,7 +57,6 @@ func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsResetTopPeerRatingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.resetTopPeerRating#1ae373ac: %w", err)
 	}
-
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {

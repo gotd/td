@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// ContactStatusVector is a box for Vector<ContactStatus>
 type ContactStatusVector struct {
-	//
+	// Elements of Vector<ContactStatus>
 	Elems []ContactStatus
 }
 

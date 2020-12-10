@@ -46,7 +46,6 @@ func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpAcceptTermsOfServiceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: %w", err)
 	}
-
 	{
 		if err := a.ID.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: field id: %w", err)

@@ -43,7 +43,6 @@ func (a *UserAuth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode user.auth#f4815592: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -94,7 +93,6 @@ func (a *UserAuthPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserAuthPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode user.authPassword#5981e317: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

@@ -41,7 +41,6 @@ func (c *AccountCancelPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountCancelPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.cancelPasswordEmail#c1cbd5b6: %w", err)
 	}
-
 	return nil
 }
 

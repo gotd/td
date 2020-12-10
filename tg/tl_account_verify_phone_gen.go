@@ -50,7 +50,6 @@ func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountVerifyPhoneRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

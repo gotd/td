@@ -60,7 +60,6 @@ func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSearchCountersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

@@ -47,7 +47,6 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdateDialogFiltersOrderRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

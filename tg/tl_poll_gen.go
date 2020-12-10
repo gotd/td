@@ -148,7 +148,6 @@ func (p *Poll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollTypeID); err != nil {
 		return fmt.Errorf("unable to decode poll#86e18161: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

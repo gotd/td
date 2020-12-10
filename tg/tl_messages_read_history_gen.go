@@ -52,7 +52,6 @@ func (r *MessagesReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readHistory#e306d3a: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

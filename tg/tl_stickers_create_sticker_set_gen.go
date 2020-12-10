@@ -117,7 +117,6 @@ func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersCreateStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.createStickerSet#f1036780: %w", err)
 	}
-
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickers.createStickerSet#f1036780: field flags: %w", err)

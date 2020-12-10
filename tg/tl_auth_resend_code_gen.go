@@ -47,7 +47,6 @@ func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthResendCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

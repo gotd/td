@@ -162,7 +162,6 @@ func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageRelatedArticleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field flags: %w", err)

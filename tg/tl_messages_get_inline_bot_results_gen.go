@@ -95,7 +95,6 @@ func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetInlineBotResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field flags: %w", err)

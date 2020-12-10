@@ -172,7 +172,6 @@ func (p *PageTableCell) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTableCellTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageTableCell#34566b6a: %w", err)
 	}
-
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field flags: %w", err)

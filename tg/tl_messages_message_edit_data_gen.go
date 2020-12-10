@@ -57,7 +57,6 @@ func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessageEditDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: %w", err)
 	}
-
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: field flags: %w", err)

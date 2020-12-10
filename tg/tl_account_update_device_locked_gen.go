@@ -44,7 +44,6 @@ func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateDeviceLockedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateDeviceLocked#38df3532: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

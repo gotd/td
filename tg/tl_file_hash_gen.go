@@ -49,7 +49,6 @@ func (f *FileHash) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FileHashTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileHash#6242c773: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

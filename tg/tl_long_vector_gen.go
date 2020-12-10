@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// LongVector is a box for Vector<long>
 type LongVector struct {
-	//
+	// Elements of Vector<long>
 	Elems []int64
 }
 

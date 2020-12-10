@@ -44,7 +44,6 @@ func (p *PhotoSizeEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoSizeEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoSizeEmpty#e17e23c: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -110,7 +109,6 @@ func (p *PhotoSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoSize#77bfb61b: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -202,7 +200,6 @@ func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoCachedSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -283,7 +280,6 @@ func (p *PhotoStrippedSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoStrippedSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoStrippedSize#e0b0bc2e: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -359,7 +355,6 @@ func (p *PhotoSizeProgressive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoSizeProgressiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoSizeProgressive#5aa86a51: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {
@@ -446,7 +441,6 @@ func (p *PhotoPathSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoPathSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoPathSize#d8214d41: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

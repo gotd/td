@@ -52,7 +52,6 @@ func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReadHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.readHistory#cc104937: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

@@ -41,7 +41,6 @@ func (p *PhoneCallDiscardReasonMissed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardReasonMissedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscardReasonMissed#85e42301: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (p *PhoneCallDiscardReasonDisconnect) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardReasonDisconnectTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscardReasonDisconnect#e095c1a0: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (p *PhoneCallDiscardReasonHangup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardReasonHangupTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscardReasonHangup#57adc690: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (p *PhoneCallDiscardReasonBusy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardReasonBusyTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscardReasonBusy#faf7e8c9: %w", err)
 	}
-
 	return nil
 }
 

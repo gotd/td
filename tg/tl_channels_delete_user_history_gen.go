@@ -57,7 +57,6 @@ func (d *ChannelsDeleteUserHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsDeleteUserHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.deleteUserHistory#d10dd71b: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

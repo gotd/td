@@ -131,7 +131,6 @@ func (b *MessagesBotResults) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(MessagesBotResultsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.botResults#947ca848: %w", err)
 	}
-
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode messages.botResults#947ca848: field flags: %w", err)

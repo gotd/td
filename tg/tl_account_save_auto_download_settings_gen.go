@@ -73,7 +73,6 @@ func (s *AccountSaveAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveAutoDownloadSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: %w", err)
 	}
-
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)

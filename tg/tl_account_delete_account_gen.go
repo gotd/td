@@ -44,7 +44,6 @@ func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDeleteAccountRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

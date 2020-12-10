@@ -44,7 +44,6 @@ func (s *HelpSupportName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSupportNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.supportName#8c05f1c9: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

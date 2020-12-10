@@ -63,7 +63,6 @@ func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStartBotRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.startBot#e6df7378: %w", err)
 	}
-
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {

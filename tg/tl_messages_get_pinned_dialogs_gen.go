@@ -44,7 +44,6 @@ func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPinnedDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPinnedDialogs#d6b94df2: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

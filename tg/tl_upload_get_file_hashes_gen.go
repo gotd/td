@@ -52,7 +52,6 @@ func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetFileHashesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: %w", err)
 	}
-
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {

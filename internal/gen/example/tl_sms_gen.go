@@ -43,7 +43,6 @@ func (s *SMS) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode sms#ed8bebfe: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

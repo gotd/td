@@ -44,7 +44,6 @@ func (i *MessagesImportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesImportChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.importChatInvite#6c50051c: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

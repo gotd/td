@@ -49,7 +49,6 @@ func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpHidePromoDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.hidePromoData#1e251c95: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

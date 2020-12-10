@@ -49,7 +49,6 @@ func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetEncryptedTypingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: %w", err)
 	}
-
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: field peer: %w", err)

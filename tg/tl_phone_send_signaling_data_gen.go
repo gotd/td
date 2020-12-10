@@ -49,7 +49,6 @@ func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSendSignalingDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: %w", err)
 	}
-
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: field peer: %w", err)

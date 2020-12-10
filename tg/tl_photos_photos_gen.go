@@ -63,7 +63,6 @@ func (p *PhotosPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photos#8dca6aa5: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -156,7 +155,6 @@ func (p *PhotosPhotosSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotosSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photosSlice#15051f54: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

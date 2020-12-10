@@ -44,7 +44,6 @@ func (g *LangpackGetLanguagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetLanguagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getLanguages#42c6978f: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

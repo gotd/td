@@ -65,7 +65,6 @@ func (e *ChannelsEditCreatorRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditCreatorRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editCreator#8f38cd1f: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

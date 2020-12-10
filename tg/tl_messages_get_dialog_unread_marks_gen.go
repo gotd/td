@@ -41,7 +41,6 @@ func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogUnreadMarksRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#22e24e22: %w", err)
 	}
-
 	return nil
 }
 

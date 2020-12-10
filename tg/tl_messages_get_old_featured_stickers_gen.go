@@ -50,7 +50,6 @@ func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetOldFeaturedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

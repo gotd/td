@@ -60,7 +60,6 @@ func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditLocationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

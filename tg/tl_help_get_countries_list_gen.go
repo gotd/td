@@ -47,7 +47,6 @@ func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetCountriesListRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getCountriesList#735787a8: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

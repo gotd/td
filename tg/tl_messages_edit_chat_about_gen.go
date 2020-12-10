@@ -52,7 +52,6 @@ func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatAboutRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatAbout#def60797: %w", err)
 	}
-
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {

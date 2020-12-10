@@ -104,7 +104,6 @@ func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPollVotesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field flags: %w", err)

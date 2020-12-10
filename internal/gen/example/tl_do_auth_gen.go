@@ -40,7 +40,6 @@ func (d *DoAuthRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DoAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode doAuth#fd2f6687: %w", err)
 	}
-
 	return nil
 }
 

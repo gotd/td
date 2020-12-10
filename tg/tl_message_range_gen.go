@@ -47,7 +47,6 @@ func (m *MessageRange) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageRangeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageRange#ae30253: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

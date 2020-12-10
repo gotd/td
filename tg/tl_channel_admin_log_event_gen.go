@@ -58,7 +58,6 @@ func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

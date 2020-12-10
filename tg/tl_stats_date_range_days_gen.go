@@ -47,7 +47,6 @@ func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsDateRangeDaysTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsDateRangeDays#b637edaf: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

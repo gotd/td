@@ -52,7 +52,6 @@ func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetMultiWallPapersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

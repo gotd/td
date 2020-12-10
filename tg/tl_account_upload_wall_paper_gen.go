@@ -57,7 +57,6 @@ func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUploadWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: %w", err)
 	}
-
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {

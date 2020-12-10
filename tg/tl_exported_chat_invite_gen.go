@@ -41,7 +41,6 @@ func (c *ChatInviteEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteEmpty#69df3769: %w", err)
 	}
-
 	return nil
 }
 
@@ -86,7 +85,6 @@ func (c *ChatInviteExported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteExportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteExported#fc2e05bc: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

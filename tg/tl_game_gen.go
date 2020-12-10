@@ -96,7 +96,6 @@ func (g *Game) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GameTypeID); err != nil {
 		return fmt.Errorf("unable to decode game#bdf9653b: %w", err)
 	}
-
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode game#bdf9653b: field flags: %w", err)

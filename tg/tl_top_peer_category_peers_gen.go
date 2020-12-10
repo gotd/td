@@ -60,7 +60,6 @@ func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: %w", err)
 	}
-
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {

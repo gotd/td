@@ -52,7 +52,6 @@ func (g *AccountGetTmpPasswordRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetTmpPasswordRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getTmpPassword#449e0b51: %w", err)
 	}
-
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {

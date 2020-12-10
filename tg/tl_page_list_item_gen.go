@@ -49,7 +49,6 @@ func (p *PageListItemText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListItemTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListItemText#b92fb6cd: %w", err)
 	}
-
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -109,7 +108,6 @@ func (p *PageListItemBlocks) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListItemBlocksTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListItemBlocks#25e073fc: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

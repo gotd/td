@@ -53,7 +53,6 @@ func (i *InputFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFile#f52ff27f: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -132,7 +131,6 @@ func (i *InputFileBig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputFileBigTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

@@ -41,7 +41,6 @@ func (t *True) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TrueTypeID); err != nil {
 		return fmt.Errorf("unable to decode true#3fedd339: %w", err)
 	}
-
 	return nil
 }
 

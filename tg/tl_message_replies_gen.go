@@ -159,7 +159,6 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageRepliesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageReplies#4128faac: %w", err)
 	}
-
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageReplies#4128faac: field flags: %w", err)

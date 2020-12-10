@@ -49,7 +49,6 @@ func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsLeaveChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: %w", err)
 	}
-
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {

@@ -41,7 +41,6 @@ func (i *InputPrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyStatusTimestampTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyStatusTimestamp#4f96cb18: %w", err)
 	}
-
 	return nil
 }
 
@@ -83,7 +82,6 @@ func (i *InputPrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyChatInvite#bdfb0426: %w", err)
 	}
-
 	return nil
 }
 
@@ -125,7 +123,6 @@ func (i *InputPrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneCall#fabadc5f: %w", err)
 	}
-
 	return nil
 }
 
@@ -167,7 +164,6 @@ func (i *InputPrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneP2PTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneP2P#db9e70d2: %w", err)
 	}
-
 	return nil
 }
 
@@ -209,7 +205,6 @@ func (i *InputPrivacyKeyForwards) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyForwardsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyForwards#a4dd4c08: %w", err)
 	}
-
 	return nil
 }
 
@@ -251,7 +246,6 @@ func (i *InputPrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyProfilePhoto#5719bacc: %w", err)
 	}
-
 	return nil
 }
 
@@ -293,7 +287,6 @@ func (i *InputPrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneNumber#352dafa: %w", err)
 	}
-
 	return nil
 }
 
@@ -335,7 +328,6 @@ func (i *InputPrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyAddedByPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyAddedByPhone#d1219bdd: %w", err)
 	}
-
 	return nil
 }
 

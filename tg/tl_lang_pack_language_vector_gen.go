@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// LangPackLanguageVector is a box for Vector<LangPackLanguage>
 type LangPackLanguageVector struct {
-	//
+	// Elements of Vector<LangPackLanguage>
 	Elems []LangPackLanguage
 }
 

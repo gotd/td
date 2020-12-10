@@ -122,7 +122,6 @@ func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackLanguageTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: %w", err)
 	}
-
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field flags: %w", err)

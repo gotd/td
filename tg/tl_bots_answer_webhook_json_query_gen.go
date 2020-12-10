@@ -49,7 +49,6 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsAnswerWebhookJSONQueryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.answerWebhookJSONQuery#e6213f4d: %w", err)
 	}
-
 	{
 		value, err := b.Long()
 		if err != nil {

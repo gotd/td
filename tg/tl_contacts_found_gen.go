@@ -85,7 +85,6 @@ func (f *ContactsFound) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsFoundTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.found#b3134d9d: %w", err)
 	}
-
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {

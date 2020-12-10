@@ -47,7 +47,6 @@ func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedChat#f141b5e1: %w", err)
 	}
-
 	{
 		value, err := b.Int()
 		if err != nil {

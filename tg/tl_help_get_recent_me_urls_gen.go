@@ -44,7 +44,6 @@ func (g *HelpGetRecentMeUrlsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetRecentMeUrlsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getRecentMeUrls#3dc0f114: %w", err)
 	}
-
 	{
 		value, err := b.String()
 		if err != nil {

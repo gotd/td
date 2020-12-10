@@ -14,9 +14,9 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
-//
+// SavedPhoneContactVector is a box for Vector<SavedContact>
 type SavedPhoneContactVector struct {
-	//
+	// Elements of Vector<SavedContact>
 	Elems []SavedPhoneContact
 }
 
