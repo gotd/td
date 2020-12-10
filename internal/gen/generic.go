@@ -30,6 +30,7 @@ func (g *Generator) instantiateVector(className string) (class classBinding, err
 	if err != nil {
 		return
 	}
+	f.Comment = "Elements of " + className
 
 	goName := strings.Title(goElementName) + "Vector"
 	class = classBinding{
@@ -44,10 +45,11 @@ func (g *Generator) instantiateVector(className string) (class classBinding, err
 		Name:     goName,
 		Receiver: "vec",
 		BufArg:   "b",
-		Vector:   true,
 		RawType:  className,
+		Vector:   true,
 		Fields:   []fieldDef{f},
 		BaseName: goName,
+		Comment:  goName + " is a box for " + className,
 	})
 
 	return class, nil

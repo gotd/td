@@ -133,7 +133,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
         return fmt.Errorf("unable to decode {{ $s.RawType }}: %w", err)
     }
-{{ end }}
+{{- end }}
 {{- range $f := $s.Fields }}
     {{- if $f.ConditionalBool }}
         {{ $s.Receiver }}.{{ $f.Name }} = {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }})
