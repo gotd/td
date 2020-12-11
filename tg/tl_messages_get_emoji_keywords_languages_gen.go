@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetEmojiKeywordsLanguagesRequest represents TL type `messages.getEmojiKeywordsLanguages#4e9963b2`.
 // Get info about an emoji keyword localization
 //
-// See https://core.telegram.org/constructor/messages.getEmojiKeywordsLanguages for reference.
+// See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
 type MessagesGetEmojiKeywordsLanguagesRequest struct {
 	// Language codes
 	LangCodes []string
@@ -68,3 +68,15 @@ var (
 	_ bin.Encoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
 	_ bin.Decoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
 )
+
+// MessagesGetEmojiKeywordsLanguages invokes method messages.getEmojiKeywordsLanguages#4e9963b2 returning error if any.
+// Get info about an emoji keyword localization
+//
+// See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
+func (c *Client) MessagesGetEmojiKeywordsLanguages(ctx context.Context, request *MessagesGetEmojiKeywordsLanguagesRequest) ([]EmojiLanguage, error) {
+	var result EmojiLanguageVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

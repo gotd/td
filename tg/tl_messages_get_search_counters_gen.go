@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetSearchCountersRequest represents TL type `messages.getSearchCounters#732eef00`.
 // Get the number of results that would be found by a messages.search call with the same parameters
 //
-// See https://core.telegram.org/constructor/messages.getSearchCounters for reference.
+// See https://core.telegram.org/method/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
 	// Peer where to search
 	Peer InputPeerClass
@@ -88,3 +88,15 @@ var (
 	_ bin.Encoder = &MessagesGetSearchCountersRequest{}
 	_ bin.Decoder = &MessagesGetSearchCountersRequest{}
 )
+
+// MessagesGetSearchCounters invokes method messages.getSearchCounters#732eef00 returning error if any.
+// Get the number of results that would be found by a messages.search call with the same parameters
+//
+// See https://core.telegram.org/method/messages.getSearchCounters for reference.
+func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) ([]MessagesSearchCounter, error) {
+	var result MessagesSearchCounterVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

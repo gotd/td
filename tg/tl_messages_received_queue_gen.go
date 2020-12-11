@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
 //
-// See https://core.telegram.org/constructor/messages.receivedQueue for reference.
+// See https://core.telegram.org/method/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
 	// Maximum qts value available at the client
 	MaxQts int
@@ -59,3 +59,15 @@ var (
 	_ bin.Encoder = &MessagesReceivedQueueRequest{}
 	_ bin.Decoder = &MessagesReceivedQueueRequest{}
 )
+
+// MessagesReceivedQueue invokes method messages.receivedQueue#55a5bb66 returning error if any.
+// Confirms receipt of messages in a secret chat by client, cancels push notifications.
+//
+// See https://core.telegram.org/method/messages.receivedQueue for reference.
+func (c *Client) MessagesReceivedQueue(ctx context.Context, request *MessagesReceivedQueueRequest) ([]int64, error) {
+	var result LongVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
 // Get message ranges for saving the user's chat history
 //
-// See https://core.telegram.org/constructor/messages.getSplitRanges for reference.
+// See https://core.telegram.org/method/messages.getSplitRanges for reference.
 type MessagesGetSplitRangesRequest struct {
 }
 
@@ -49,3 +49,15 @@ var (
 	_ bin.Encoder = &MessagesGetSplitRangesRequest{}
 	_ bin.Decoder = &MessagesGetSplitRangesRequest{}
 )
+
+// MessagesGetSplitRanges invokes method messages.getSplitRanges#1cff7e08 returning error if any.
+// Get message ranges for saving the user's chat history
+//
+// See https://core.telegram.org/method/messages.getSplitRanges for reference.
+func (c *Client) MessagesGetSplitRanges(ctx context.Context, request *MessagesGetSplitRangesRequest) ([]MessageRange, error) {
+	var result MessageRangeVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

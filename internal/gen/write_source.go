@@ -2,6 +2,9 @@ package gen
 
 import (
 	"bytes"
+	"fmt"
+	"io"
+	"os"
 	"strings"
 	"text/template"
 )
@@ -37,6 +40,20 @@ func outFileName(baseName string, namespace []string) string {
 
 // WriteSource writes generated definitions to fs.
 func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Template) error {
+	buf := new(bytes.Buffer)
+	generate := func(templateName, name string, cfg config) error {
+		buf.Reset()
+		if err := t.ExecuteTemplate(buf, templateName, cfg); err != nil {
+			return fmt.Errorf("failed to execute template '%s' for %s: %w", templateName, name, err)
+		}
+		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+			_, _ = io.Copy(os.Stderr, buf)
+			return fmt.Errorf("failed to write file %s: %w", name, err)
+		}
+
+		return nil
+	}
+
 	wroteConstructors := make(map[string]struct{})
 	for _, class := range g.interfaces {
 		cfg := config{
@@ -49,11 +66,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		}
 
 		name := outFileName(class.BaseName, class.Namespace)
-		buf := new(bytes.Buffer)
-		if err := t.ExecuteTemplate(buf, "main", cfg); err != nil {
-			return err
-		}
-		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		if err := generate("main", name, cfg); err != nil {
 			return err
 		}
 	}
@@ -66,11 +79,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 			Structs: []structDef{s},
 		}
 		name := outFileName(s.BaseName, s.Namespace)
-		buf := new(bytes.Buffer)
-		if err := t.ExecuteTemplate(buf, "main", cfg); err != nil {
-			return err
-		}
-		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
+		if err := generate("main", name, cfg); err != nil {
 			return err
 		}
 	}
@@ -79,21 +88,11 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		Package:  pkgName,
 		Registry: g.registry,
 	}
-	buf := new(bytes.Buffer)
-	if err := t.ExecuteTemplate(buf, "registry", cfg); err != nil {
+	if err := generate("registry", "tl_registry_gen.go", cfg); err != nil {
 		return err
 	}
-	if err := fs.WriteFile("tl_registry_gen.go", buf.Bytes()); err != nil {
+	if err := generate("client", "tl_client_gen.go", cfg); err != nil {
 		return err
 	}
-
-	buf.Reset()
-	if err := t.ExecuteTemplate(buf, "client", cfg); err != nil {
-		return err
-	}
-	if err := fs.WriteFile("tl_client_gen.go", buf.Bytes()); err != nil {
-		return err
-	}
-
 	return nil
 }

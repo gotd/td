@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // LangpackGetLanguagesRequest represents TL type `langpack.getLanguages#42c6978f`.
 // Get information about all languages in a localization pack
 //
-// See https://core.telegram.org/constructor/langpack.getLanguages for reference.
+// See https://core.telegram.org/method/langpack.getLanguages for reference.
 type LangpackGetLanguagesRequest struct {
 	// Language pack
 	LangPack string
@@ -59,3 +59,15 @@ var (
 	_ bin.Encoder = &LangpackGetLanguagesRequest{}
 	_ bin.Decoder = &LangpackGetLanguagesRequest{}
 )
+
+// LangpackGetLanguages invokes method langpack.getLanguages#42c6978f returning error if any.
+// Get information about all languages in a localization pack
+//
+// See https://core.telegram.org/method/langpack.getLanguages for reference.
+func (c *Client) LangpackGetLanguages(ctx context.Context, request *LangpackGetLanguagesRequest) ([]LangPackLanguage, error) {
+	var result LangPackLanguageVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

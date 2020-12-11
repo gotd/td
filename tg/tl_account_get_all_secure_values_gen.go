@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // AccountGetAllSecureValuesRequest represents TL type `account.getAllSecureValues#b288bc7d`.
 // Get all saved Telegram Passport documents, for more info see the passport docs »
 //
-// See https://core.telegram.org/constructor/account.getAllSecureValues for reference.
+// See https://core.telegram.org/method/account.getAllSecureValues for reference.
 type AccountGetAllSecureValuesRequest struct {
 }
 
@@ -49,3 +49,15 @@ var (
 	_ bin.Encoder = &AccountGetAllSecureValuesRequest{}
 	_ bin.Decoder = &AccountGetAllSecureValuesRequest{}
 )
+
+// AccountGetAllSecureValues invokes method account.getAllSecureValues#b288bc7d returning error if any.
+// Get all saved Telegram Passport documents, for more info see the passport docs »
+//
+// See https://core.telegram.org/method/account.getAllSecureValues for reference.
+func (c *Client) AccountGetAllSecureValues(ctx context.Context, request *AccountGetAllSecureValuesRequest) ([]SecureValue, error) {
+	var result SecureValueVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

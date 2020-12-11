@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
 // Request a reupload of a certain file to a CDN DC.
 //
-// See https://core.telegram.org/constructor/upload.reuploadCdnFile for reference.
+// See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCdnFileRequest struct {
 	// File token
 	FileToken []byte
@@ -69,3 +69,15 @@ var (
 	_ bin.Encoder = &UploadReuploadCdnFileRequest{}
 	_ bin.Decoder = &UploadReuploadCdnFileRequest{}
 )
+
+// UploadReuploadCdnFile invokes method upload.reuploadCdnFile#9b2754a8 returning error if any.
+// Request a reupload of a certain file to a CDN DC.
+//
+// See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
+func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) ([]FileHash, error) {
+	var result FileHashVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // MessagesGetDialogUnreadMarksRequest represents TL type `messages.getDialogUnreadMarks#22e24e22`.
 // Get dialogs manually marked as unread
 //
-// See https://core.telegram.org/constructor/messages.getDialogUnreadMarks for reference.
+// See https://core.telegram.org/method/messages.getDialogUnreadMarks for reference.
 type MessagesGetDialogUnreadMarksRequest struct {
 }
 
@@ -49,3 +49,15 @@ var (
 	_ bin.Encoder = &MessagesGetDialogUnreadMarksRequest{}
 	_ bin.Decoder = &MessagesGetDialogUnreadMarksRequest{}
 )
+
+// MessagesGetDialogUnreadMarks invokes method messages.getDialogUnreadMarks#22e24e22 returning error if any.
+// Get dialogs manually marked as unread
+//
+// See https://core.telegram.org/method/messages.getDialogUnreadMarks for reference.
+func (c *Client) MessagesGetDialogUnreadMarks(ctx context.Context, request *MessagesGetDialogUnreadMarksRequest) ([]DialogPeerClass, error) {
+	var result DialogPeerClassVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

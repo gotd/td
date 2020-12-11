@@ -1,6 +1,7 @@
 package td
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -146,6 +147,38 @@ func TestGetUpdatesRespNilElem(t *testing.T) {
 	if err := v.Encode(b); err == nil {
 		t.Fatal("unexpected success")
 	}
+}
+
+type mockInvoker struct {
+	input  bin.Encoder
+	output bin.Encoder
+}
+
+func (m *mockInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	m.input = input
+
+	buf := bin.Buffer{}
+	err := m.output.Encode(&buf)
+	if err != nil {
+		return err
+	}
+
+	return output.Decode(&buf)
+}
+
+func TestVectorResponse(t *testing.T) {
+	elems := []int{1, 2, 3}
+	m := mockInvoker{
+		output: &IntVector{Elems: []int{1, 2, 3}},
+	}
+	client := NewClient(&m)
+
+	r, err := client.EchoVector(context.Background(), &EchoVectorRequest{})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	require.Equal(t, r, elems)
 }
 
 func BenchmarkDecodeBool(b *testing.B) {

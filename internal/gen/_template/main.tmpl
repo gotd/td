@@ -30,15 +30,19 @@ type {{ $s.Name }} struct {
 {{- end }}
 }
 
+{{- if not $s.Vector }}
 // {{ $s.Name }}TypeID is TL type id of {{ $s.Name }}.
 const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
+{{- end }}
 
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
     }
+{{- if not $s.Vector }}
 {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
+{{- end }}
 {{- range $f := $s.Fields }}
     {{- if not $f.ConditionalBool }}
     {{- if $f.Conditional }}
@@ -125,9 +129,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't decode {{ $s.RawType }} to nil")
     }
+{{- if not $s.Vector }}
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
         return fmt.Errorf("unable to decode {{ $s.RawType }}: %w", err)
     }
+{{- end }}
 {{- range $f := $s.Fields }}
     {{- if $f.ConditionalBool }}
         {{ $s.Receiver }}.{{ $f.Name }} = {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }})
@@ -228,12 +234,16 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) (*{{ $s.Result }}, error) {
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}[]{{ $s.ResultFunc }}{{ end }}, error) {
     var result {{ $s.Result }}
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
         return nil, err
     }
+    {{- if $s.ResultVector }}
+    return result.Elems, nil
+    {{- else }}
     return &result, nil
+    {{- end }}
 }
 {{- else }}
 func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ $s.Result }}, error) {

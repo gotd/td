@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // AccountGetMultiWallPapersRequest represents TL type `account.getMultiWallPapers#65ad71dc`.
 // Get info about multiple wallpapers
 //
-// See https://core.telegram.org/constructor/account.getMultiWallPapers for reference.
+// See https://core.telegram.org/method/account.getMultiWallPapers for reference.
 type AccountGetMultiWallPapersRequest struct {
 	// Wallpapers to fetch info about
 	Wallpapers []InputWallPaperClass
@@ -73,3 +73,15 @@ var (
 	_ bin.Encoder = &AccountGetMultiWallPapersRequest{}
 	_ bin.Decoder = &AccountGetMultiWallPapersRequest{}
 )
+
+// AccountGetMultiWallPapers invokes method account.getMultiWallPapers#65ad71dc returning error if any.
+// Get info about multiple wallpapers
+//
+// See https://core.telegram.org/method/account.getMultiWallPapers for reference.
+func (c *Client) AccountGetMultiWallPapers(ctx context.Context, request *AccountGetMultiWallPapersRequest) ([]WallPaperClass, error) {
+	var result WallPaperClassVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}

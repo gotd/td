@@ -17,7 +17,7 @@ var _ = fmt.Stringer(nil)
 // UploadGetFileHashesRequest represents TL type `upload.getFileHashes#c7025931`.
 // Get SHA256 hashes for verifying downloaded files
 //
-// See https://core.telegram.org/constructor/upload.getFileHashes for reference.
+// See https://core.telegram.org/method/upload.getFileHashes for reference.
 type UploadGetFileHashesRequest struct {
 	// File
 	Location InputFileLocationClass
@@ -74,3 +74,15 @@ var (
 	_ bin.Encoder = &UploadGetFileHashesRequest{}
 	_ bin.Decoder = &UploadGetFileHashesRequest{}
 )
+
+// UploadGetFileHashes invokes method upload.getFileHashes#c7025931 returning error if any.
+// Get SHA256 hashes for verifying downloaded files
+//
+// See https://core.telegram.org/method/upload.getFileHashes for reference.
+func (c *Client) UploadGetFileHashes(ctx context.Context, request *UploadGetFileHashesRequest) ([]FileHash, error) {
+	var result FileHashVector
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Elems, nil
+}
