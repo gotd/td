@@ -105,6 +105,7 @@ var (
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

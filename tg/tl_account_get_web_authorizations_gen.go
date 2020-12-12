@@ -54,8 +54,10 @@ var (
 // Get web login widget authorizations
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
-func (c *Client) AccountGetWebAuthorizations(ctx context.Context, request *AccountGetWebAuthorizationsRequest) (*AccountWebAuthorizations, error) {
+func (c *Client) AccountGetWebAuthorizations(ctx context.Context) (*AccountWebAuthorizations, error) {
 	var result AccountWebAuthorizations
+
+	request := &AccountGetWebAuthorizationsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

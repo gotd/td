@@ -54,8 +54,10 @@ var (
 // Get suggested folders
 //
 // See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
-func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context, request *MessagesGetSuggestedDialogFiltersRequest) ([]DialogFilterSuggested, error) {
+func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context) ([]DialogFilterSuggested, error) {
 	var result DialogFilterSuggestedVector
+
+	request := &MessagesGetSuggestedDialogFiltersRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

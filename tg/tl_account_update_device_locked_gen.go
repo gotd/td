@@ -64,8 +64,12 @@ var (
 // When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications.
 //
 // See https://core.telegram.org/method/account.updateDeviceLocked for reference.
-func (c *Client) AccountUpdateDeviceLocked(ctx context.Context, request *AccountUpdateDeviceLockedRequest) (bool, error) {
+func (c *Client) AccountUpdateDeviceLocked(ctx context.Context, period int) (bool, error) {
 	var result BoolBox
+
+	request := &AccountUpdateDeviceLockedRequest{
+		Period: period,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

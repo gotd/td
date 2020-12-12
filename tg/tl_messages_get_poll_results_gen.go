@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.getPollResults for reference.
 func (c *Client) MessagesGetPollResults(ctx context.Context, request *MessagesGetPollResultsRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

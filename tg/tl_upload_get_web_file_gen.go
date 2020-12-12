@@ -89,6 +89,7 @@ var (
 // See https://core.telegram.org/method/upload.getWebFile for reference.
 func (c *Client) UploadGetWebFile(ctx context.Context, request *UploadGetWebFileRequest) (*UploadWebFile, error) {
 	var result UploadWebFile
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

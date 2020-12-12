@@ -54,8 +54,10 @@ var (
 // Cancel the code that was sent to verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.cancelPasswordEmail for reference.
-func (c *Client) AccountCancelPasswordEmail(ctx context.Context, request *AccountCancelPasswordEmailRequest) (bool, error) {
+func (c *Client) AccountCancelPasswordEmail(ctx context.Context) (bool, error) {
 	var result BoolBox
+
+	request := &AccountCancelPasswordEmailRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 func (c *Client) MessagesGetWebPage(ctx context.Context, request *MessagesGetWebPageRequest) (WebPageClass, error) {
 	var result WebPageBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

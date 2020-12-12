@@ -101,6 +101,7 @@ var (
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {
 	var result PhotosPhotosBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

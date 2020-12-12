@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/account.unregisterDevice for reference.
 func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

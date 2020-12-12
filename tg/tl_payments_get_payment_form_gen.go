@@ -64,8 +64,12 @@ var (
 // Get a payment form
 //
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
-func (c *Client) PaymentsGetPaymentForm(ctx context.Context, request *PaymentsGetPaymentFormRequest) (*PaymentsPaymentForm, error) {
+func (c *Client) PaymentsGetPaymentForm(ctx context.Context, msgid int) (*PaymentsPaymentForm, error) {
 	var result PaymentsPaymentForm
+
+	request := &PaymentsGetPaymentFormRequest{
+		MsgID: msgid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

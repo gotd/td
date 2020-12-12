@@ -108,6 +108,7 @@ var (
 // See https://core.telegram.org/method/phone.setCallRating for reference.
 func (c *Client) PhoneSetCallRating(ctx context.Context, request *PhoneSetCallRatingRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

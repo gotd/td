@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 func (c *Client) AccountGetAuthorizationForm(ctx context.Context, request *AccountGetAuthorizationFormRequest) (*AccountAuthorizationForm, error) {
 	var result AccountAuthorizationForm
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

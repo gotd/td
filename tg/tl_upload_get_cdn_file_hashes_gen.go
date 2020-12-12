@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 func (c *Client) UploadGetCdnFileHashes(ctx context.Context, request *UploadGetCdnFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

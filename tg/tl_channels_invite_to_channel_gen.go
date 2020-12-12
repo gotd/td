@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 func (c *Client) ChannelsInviteToChannel(ctx context.Context, request *ChannelsInviteToChannelRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

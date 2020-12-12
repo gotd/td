@@ -54,8 +54,10 @@ var (
 // Get media autodownload settings
 //
 // See https://core.telegram.org/method/account.getAutoDownloadSettings for reference.
-func (c *Client) AccountGetAutoDownloadSettings(ctx context.Context, request *AccountGetAutoDownloadSettingsRequest) (*AccountAutoDownloadSettings, error) {
+func (c *Client) AccountGetAutoDownloadSettings(ctx context.Context) (*AccountAutoDownloadSettings, error) {
 	var result AccountAutoDownloadSettings
+
+	request := &AccountGetAutoDownloadSettingsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

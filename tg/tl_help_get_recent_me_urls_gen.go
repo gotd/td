@@ -64,8 +64,12 @@ var (
 // Get recently used t.me links
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
-func (c *Client) HelpGetRecentMeUrls(ctx context.Context, request *HelpGetRecentMeUrlsRequest) (*HelpRecentMeUrls, error) {
+func (c *Client) HelpGetRecentMeUrls(ctx context.Context, referer string) (*HelpRecentMeUrls, error) {
 	var result HelpRecentMeUrls
+
+	request := &HelpGetRecentMeUrlsRequest{
+		Referer: referer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

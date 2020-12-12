@@ -64,8 +64,12 @@ var (
 // Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
-func (c *Client) MessagesGetEmojiURL(ctx context.Context, request *MessagesGetEmojiURLRequest) (*EmojiURL, error) {
+func (c *Client) MessagesGetEmojiURL(ctx context.Context, langcode string) (*EmojiURL, error) {
 	var result EmojiURL
+
+	request := &MessagesGetEmojiURLRequest{
+		LangCode: langcode,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

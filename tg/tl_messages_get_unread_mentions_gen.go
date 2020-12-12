@@ -121,6 +121,7 @@ var (
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 func (c *Client) MessagesGetUnreadMentions(ctx context.Context, request *MessagesGetUnreadMentionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

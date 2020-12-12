@@ -64,8 +64,12 @@ var (
 // Log out an active authorized session by its hash
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
-func (c *Client) AccountResetAuthorization(ctx context.Context, request *AccountResetAuthorizationRequest) (bool, error) {
+func (c *Client) AccountResetAuthorization(ctx context.Context, hash int64) (bool, error) {
 	var result BoolBox
+
+	request := &AccountResetAuthorizationRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

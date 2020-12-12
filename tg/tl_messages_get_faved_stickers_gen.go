@@ -64,8 +64,12 @@ var (
 // Get faved stickers
 //
 // See https://core.telegram.org/method/messages.getFavedStickers for reference.
-func (c *Client) MessagesGetFavedStickers(ctx context.Context, request *MessagesGetFavedStickersRequest) (MessagesFavedStickersClass, error) {
+func (c *Client) MessagesGetFavedStickers(ctx context.Context, hash int) (MessagesFavedStickersClass, error) {
 	var result MessagesFavedStickersBox
+
+	request := &MessagesGetFavedStickersRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

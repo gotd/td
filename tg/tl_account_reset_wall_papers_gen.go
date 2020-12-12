@@ -54,8 +54,10 @@ var (
 // Delete installed wallpapers
 //
 // See https://core.telegram.org/method/account.resetWallPapers for reference.
-func (c *Client) AccountResetWallPapers(ctx context.Context, request *AccountResetWallPapersRequest) (bool, error) {
+func (c *Client) AccountResetWallPapers(ctx context.Context) (bool, error) {
 	var result BoolBox
+
+	request := &AccountResetWallPapersRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

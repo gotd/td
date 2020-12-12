@@ -54,8 +54,10 @@ var (
 // Returns the list of contact statuses.
 //
 // See https://core.telegram.org/method/contacts.getStatuses for reference.
-func (c *Client) ContactsGetStatuses(ctx context.Context, request *ContactsGetStatusesRequest) ([]ContactStatus, error) {
+func (c *Client) ContactsGetStatuses(ctx context.Context) ([]ContactStatus, error) {
 	var result ContactStatusVector
+
+	request := &ContactsGetStatusesRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

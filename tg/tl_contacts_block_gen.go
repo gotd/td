@@ -69,8 +69,12 @@ var (
 // Adds the user to the blacklist.
 //
 // See https://core.telegram.org/method/contacts.block for reference.
-func (c *Client) ContactsBlock(ctx context.Context, request *ContactsBlockRequest) (bool, error) {
+func (c *Client) ContactsBlock(ctx context.Context, id InputPeerClass) (bool, error) {
 	var result BoolBox
+
+	request := &ContactsBlockRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

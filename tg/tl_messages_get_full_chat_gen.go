@@ -64,8 +64,12 @@ var (
 // Returns full chat info according to its ID.
 //
 // See https://core.telegram.org/method/messages.getFullChat for reference.
-func (c *Client) MessagesGetFullChat(ctx context.Context, request *MessagesGetFullChatRequest) (*MessagesChatFull, error) {
+func (c *Client) MessagesGetFullChat(ctx context.Context, chatid int) (*MessagesChatFull, error) {
 	var result MessagesChatFull
+
+	request := &MessagesGetFullChatRequest{
+		ChatID: chatid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

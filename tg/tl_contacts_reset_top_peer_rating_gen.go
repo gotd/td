@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 func (c *Client) ContactsResetTopPeerRating(ctx context.Context, request *ContactsResetTopPeerRatingRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

@@ -69,8 +69,12 @@ var (
 // Deletes the user from the blacklist.
 //
 // See https://core.telegram.org/method/contacts.unblock for reference.
-func (c *Client) ContactsUnblock(ctx context.Context, request *ContactsUnblockRequest) (bool, error) {
+func (c *Client) ContactsUnblock(ctx context.Context, id InputPeerClass) (bool, error) {
 	var result BoolBox
+
+	request := &ContactsUnblockRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

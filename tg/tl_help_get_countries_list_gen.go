@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/help.getCountriesList for reference.
 func (c *Client) HelpGetCountriesList(ctx context.Context, request *HelpGetCountriesListRequest) (HelpCountriesListClass, error) {
 	var result HelpCountriesListBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

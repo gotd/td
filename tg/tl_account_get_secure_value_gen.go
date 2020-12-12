@@ -78,8 +78,12 @@ var (
 // Get saved Telegram Passport document, for more info see the passport docs »
 //
 // See https://core.telegram.org/method/account.getSecureValue for reference.
-func (c *Client) AccountGetSecureValue(ctx context.Context, request *AccountGetSecureValueRequest) ([]SecureValue, error) {
+func (c *Client) AccountGetSecureValue(ctx context.Context, types []SecureValueTypeClass) ([]SecureValue, error) {
 	var result SecureValueVector
+
+	request := &AccountGetSecureValueRequest{
+		Types: types,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

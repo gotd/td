@@ -64,8 +64,12 @@ var (
 // Returns a list of available wallpapers.
 //
 // See https://core.telegram.org/method/account.getWallPapers for reference.
-func (c *Client) AccountGetWallPapers(ctx context.Context, request *AccountGetWallPapersRequest) (AccountWallPapersClass, error) {
+func (c *Client) AccountGetWallPapers(ctx context.Context, hash int) (AccountWallPapersClass, error) {
 	var result AccountWallPapersBox
+
+	request := &AccountGetWallPapersRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

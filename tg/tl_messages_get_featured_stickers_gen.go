@@ -64,8 +64,12 @@ var (
 // Get featured stickers
 //
 // See https://core.telegram.org/method/messages.getFeaturedStickers for reference.
-func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, request *MessagesGetFeaturedStickersRequest) (MessagesFeaturedStickersClass, error) {
+func (c *Client) MessagesGetFeaturedStickers(ctx context.Context, hash int) (MessagesFeaturedStickersClass, error) {
 	var result MessagesFeaturedStickersBox
+
+	request := &MessagesGetFeaturedStickersRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

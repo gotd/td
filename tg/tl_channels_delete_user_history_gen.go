@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/channels.deleteUserHistory for reference.
 func (c *Client) ChannelsDeleteUserHistory(ctx context.Context, request *ChannelsDeleteUserHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

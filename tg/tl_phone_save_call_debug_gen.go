@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 func (c *Client) PhoneSaveCallDebug(ctx context.Context, request *PhoneSaveCallDebugRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

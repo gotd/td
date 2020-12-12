@@ -112,6 +112,7 @@ var (
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

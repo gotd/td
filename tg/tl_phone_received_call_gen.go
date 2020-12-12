@@ -64,8 +64,12 @@ var (
 // Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
 //
 // See https://core.telegram.org/method/phone.receivedCall for reference.
-func (c *Client) PhoneReceivedCall(ctx context.Context, request *PhoneReceivedCallRequest) (bool, error) {
+func (c *Client) PhoneReceivedCall(ctx context.Context, peer InputPhoneCall) (bool, error) {
 	var result BoolBox
+
+	request := &PhoneReceivedCallRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

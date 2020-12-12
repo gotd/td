@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
 func (c *Client) MessagesEditChatAbout(ctx context.Context, request *MessagesEditChatAboutRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

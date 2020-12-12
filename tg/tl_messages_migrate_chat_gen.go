@@ -64,8 +64,12 @@ var (
 // Turn a legacy group into a supergroup
 //
 // See https://core.telegram.org/method/messages.migrateChat for reference.
-func (c *Client) MessagesMigrateChat(ctx context.Context, request *MessagesMigrateChatRequest) (UpdatesClass, error) {
+func (c *Client) MessagesMigrateChat(ctx context.Context, chatid int) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &MessagesMigrateChatRequest{
+		ChatID: chatid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

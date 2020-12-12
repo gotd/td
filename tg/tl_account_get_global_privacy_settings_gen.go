@@ -54,8 +54,10 @@ var (
 // Get global privacy settings
 //
 // See https://core.telegram.org/method/account.getGlobalPrivacySettings for reference.
-func (c *Client) AccountGetGlobalPrivacySettings(ctx context.Context, request *AccountGetGlobalPrivacySettingsRequest) (*GlobalPrivacySettings, error) {
+func (c *Client) AccountGetGlobalPrivacySettings(ctx context.Context) (*GlobalPrivacySettings, error) {
 	var result GlobalPrivacySettings
+
+	request := &AccountGetGlobalPrivacySettingsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

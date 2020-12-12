@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 func (c *Client) LangpackGetDifference(ctx context.Context, request *LangpackGetDifferenceRequest) (*LangPackDifference, error) {
 	var result LangPackDifference
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

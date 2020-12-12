@@ -54,8 +54,10 @@ var (
 // Get all contacts
 //
 // See https://core.telegram.org/method/contacts.getSaved for reference.
-func (c *Client) ContactsGetSaved(ctx context.Context, request *ContactsGetSavedRequest) ([]SavedPhoneContact, error) {
+func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, error) {
 	var result SavedPhoneContactVector
+
+	request := &ContactsGetSavedRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

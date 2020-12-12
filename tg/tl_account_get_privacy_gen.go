@@ -69,8 +69,12 @@ var (
 // Get privacy settings of current account
 //
 // See https://core.telegram.org/method/account.getPrivacy for reference.
-func (c *Client) AccountGetPrivacy(ctx context.Context, request *AccountGetPrivacyRequest) (*AccountPrivacyRules, error) {
+func (c *Client) AccountGetPrivacy(ctx context.Context, key InputPrivacyKeyClass) (*AccountPrivacyRules, error) {
 	var result AccountPrivacyRules
+
+	request := &AccountGetPrivacyRequest{
+		Key: key,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

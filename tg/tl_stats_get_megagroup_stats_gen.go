@@ -93,6 +93,7 @@ var (
 // See https://core.telegram.org/method/stats.getMegagroupStats for reference.
 func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {
 	var result StatsMegagroupStats
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

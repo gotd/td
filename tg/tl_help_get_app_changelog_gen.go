@@ -66,8 +66,12 @@ var (
 // Typically, an updates constructor will be returned, containing one or more updateServiceNotification updates with app-specific changelogs.
 //
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
-func (c *Client) HelpGetAppChangelog(ctx context.Context, request *HelpGetAppChangelogRequest) (UpdatesClass, error) {
+func (c *Client) HelpGetAppChangelog(ctx context.Context, prevappversion string) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &HelpGetAppChangelogRequest{
+		PrevAppVersion: prevappversion,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -90,6 +90,7 @@ var (
 // See https://core.telegram.org/method/channels.deleteMessages for reference.
 func (c *Client) ChannelsDeleteMessages(ctx context.Context, request *ChannelsDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

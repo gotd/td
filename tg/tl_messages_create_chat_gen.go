@@ -90,6 +90,7 @@ var (
 // See https://core.telegram.org/method/messages.createChat for reference.
 func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

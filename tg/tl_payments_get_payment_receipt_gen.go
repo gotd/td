@@ -64,8 +64,12 @@ var (
 // Get payment receipt
 //
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
-func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, request *PaymentsGetPaymentReceiptRequest) (*PaymentsPaymentReceipt, error) {
+func (c *Client) PaymentsGetPaymentReceipt(ctx context.Context, msgid int) (*PaymentsPaymentReceipt, error) {
 	var result PaymentsPaymentReceipt
+
+	request := &PaymentsGetPaymentReceiptRequest{
+		MsgID: msgid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

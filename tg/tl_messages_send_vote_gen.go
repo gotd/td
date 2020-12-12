@@ -100,6 +100,7 @@ var (
 // See https://core.telegram.org/method/messages.sendVote for reference.
 func (c *Client) MessagesSendVote(ctx context.Context, request *MessagesSendVoteRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

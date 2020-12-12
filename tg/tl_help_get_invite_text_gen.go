@@ -54,8 +54,10 @@ var (
 // Returns localized text of a text message with an invitation.
 //
 // See https://core.telegram.org/method/help.getInviteText for reference.
-func (c *Client) HelpGetInviteText(ctx context.Context, request *HelpGetInviteTextRequest) (*HelpInviteText, error) {
+func (c *Client) HelpGetInviteText(ctx context.Context) (*HelpInviteText, error) {
 	var result HelpInviteText
+
+	request := &HelpGetInviteTextRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

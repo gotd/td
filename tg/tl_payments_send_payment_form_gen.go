@@ -149,6 +149,7 @@ var (
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {
 	var result PaymentsPaymentResultBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -175,6 +175,7 @@ var (
 // See https://core.telegram.org/method/messages.saveDraft for reference.
 func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

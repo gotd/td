@@ -96,6 +96,7 @@ var (
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 func (c *Client) UploadSaveBigFilePart(ctx context.Context, request *UploadSaveBigFilePartRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

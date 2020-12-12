@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.faveSticker for reference.
 func (c *Client) MessagesFaveSticker(ctx context.Context, request *MessagesFaveStickerRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

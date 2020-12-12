@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 func (c *Client) PhoneAcceptCall(ctx context.Context, request *PhoneAcceptCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

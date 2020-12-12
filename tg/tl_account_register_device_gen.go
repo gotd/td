@@ -137,6 +137,7 @@ var (
 // See https://core.telegram.org/method/account.registerDevice for reference.
 func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 func (c *Client) ChannelsGetParticipant(ctx context.Context, request *ChannelsGetParticipantRequest) (*ChannelsChannelParticipant, error) {
 	var result ChannelsChannelParticipant
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

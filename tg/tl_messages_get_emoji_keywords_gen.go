@@ -64,8 +64,12 @@ var (
 // Get localized emoji keywords
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywords for reference.
-func (c *Client) MessagesGetEmojiKeywords(ctx context.Context, request *MessagesGetEmojiKeywordsRequest) (*EmojiKeywordsDifference, error) {
+func (c *Client) MessagesGetEmojiKeywords(ctx context.Context, langcode string) (*EmojiKeywordsDifference, error) {
 	var result EmojiKeywordsDifference
+
+	request := &MessagesGetEmojiKeywordsRequest{
+		LangCode: langcode,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

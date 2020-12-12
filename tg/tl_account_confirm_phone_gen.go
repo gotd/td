@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.confirmPhone for reference.
 func (c *Client) AccountConfirmPhone(ctx context.Context, request *AccountConfirmPhoneRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

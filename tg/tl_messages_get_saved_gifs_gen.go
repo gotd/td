@@ -64,8 +64,12 @@ var (
 // Get saved GIFs
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
-func (c *Client) MessagesGetSavedGifs(ctx context.Context, request *MessagesGetSavedGifsRequest) (MessagesSavedGifsClass, error) {
+func (c *Client) MessagesGetSavedGifs(ctx context.Context, hash int) (MessagesSavedGifsClass, error) {
 	var result MessagesSavedGifsBox
+
+	request := &MessagesGetSavedGifsRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

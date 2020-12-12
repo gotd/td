@@ -125,6 +125,7 @@ var (
 // See https://core.telegram.org/method/messages.setTyping for reference.
 func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

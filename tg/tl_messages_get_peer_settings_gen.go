@@ -69,8 +69,12 @@ var (
 // Get peer settings
 //
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
-func (c *Client) MessagesGetPeerSettings(ctx context.Context, request *MessagesGetPeerSettingsRequest) (*PeerSettings, error) {
+func (c *Client) MessagesGetPeerSettings(ctx context.Context, peer InputPeerClass) (*PeerSettings, error) {
 	var result PeerSettings
+
+	request := &MessagesGetPeerSettingsRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

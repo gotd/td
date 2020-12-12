@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.readHistory for reference.
 func (c *Client) MessagesReadHistory(ctx context.Context, request *MessagesReadHistoryRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

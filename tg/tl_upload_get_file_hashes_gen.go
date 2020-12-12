@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
 func (c *Client) UploadGetFileHashes(ctx context.Context, request *UploadGetFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

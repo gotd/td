@@ -105,6 +105,7 @@ var (
 // See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {
 	var result StatsGraphBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

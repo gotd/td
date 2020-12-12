@@ -73,8 +73,12 @@ var (
 // Returns chat basic info on their IDs.
 //
 // See https://core.telegram.org/method/messages.getChats for reference.
-func (c *Client) MessagesGetChats(ctx context.Context, request *MessagesGetChatsRequest) (MessagesChatsClass, error) {
+func (c *Client) MessagesGetChats(ctx context.Context, id []int) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
+
+	request := &MessagesGetChatsRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

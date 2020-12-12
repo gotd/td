@@ -54,8 +54,10 @@ var (
 // Get MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.getPromoData for reference.
-func (c *Client) HelpGetPromoData(ctx context.Context, request *HelpGetPromoDataRequest) (HelpPromoDataClass, error) {
+func (c *Client) HelpGetPromoData(ctx context.Context) (HelpPromoDataClass, error) {
 	var result HelpPromoDataBox
+
+	request := &HelpGetPromoDataRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

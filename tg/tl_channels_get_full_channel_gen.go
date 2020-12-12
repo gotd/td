@@ -69,8 +69,12 @@ var (
 // Get full info about a channel
 //
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
-func (c *Client) ChannelsGetFullChannel(ctx context.Context, request *ChannelsGetFullChannelRequest) (*MessagesChatFull, error) {
+func (c *Client) ChannelsGetFullChannel(ctx context.Context, channel InputChannelClass) (*MessagesChatFull, error) {
 	var result MessagesChatFull
+
+	request := &ChannelsGetFullChannelRequest{
+		Channel: channel,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

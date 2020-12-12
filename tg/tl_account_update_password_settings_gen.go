@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 func (c *Client) AccountUpdatePasswordSettings(ctx context.Context, request *AccountUpdatePasswordSettingsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

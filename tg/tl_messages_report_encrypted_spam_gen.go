@@ -64,8 +64,12 @@ var (
 // Report a secret chat for spam
 //
 // See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
-func (c *Client) MessagesReportEncryptedSpam(ctx context.Context, request *MessagesReportEncryptedSpamRequest) (bool, error) {
+func (c *Client) MessagesReportEncryptedSpam(ctx context.Context, peer InputEncryptedChat) (bool, error) {
 	var result BoolBox
+
+	request := &MessagesReportEncryptedSpamRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

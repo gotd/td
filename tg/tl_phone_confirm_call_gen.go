@@ -96,6 +96,7 @@ var (
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 func (c *Client) PhoneConfirmCall(ctx context.Context, request *PhoneConfirmCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

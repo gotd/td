@@ -54,8 +54,10 @@ var (
 // Get message ranges for saving the user's chat history
 //
 // See https://core.telegram.org/method/messages.getSplitRanges for reference.
-func (c *Client) MessagesGetSplitRanges(ctx context.Context, request *MessagesGetSplitRangesRequest) ([]MessageRange, error) {
+func (c *Client) MessagesGetSplitRanges(ctx context.Context) ([]MessageRange, error) {
 	var result MessageRangeVector
+
+	request := &MessagesGetSplitRangesRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

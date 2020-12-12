@@ -96,6 +96,7 @@ var (
 // See https://core.telegram.org/method/auth.sendCode for reference.
 func (c *Client) AuthSendCode(ctx context.Context, request *AuthSendCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -64,8 +64,12 @@ var (
 // Reset the 2FA password using the recovery code sent using auth.requestPasswordRecovery.
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
-func (c *Client) AuthRecoverPassword(ctx context.Context, request *AuthRecoverPasswordRequest) (AuthAuthorizationClass, error) {
+func (c *Client) AuthRecoverPassword(ctx context.Context, code string) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
+
+	request := &AuthRecoverPasswordRequest{
+		Code: code,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

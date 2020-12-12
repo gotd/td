@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 func (c *Client) ChannelsSetDiscussionGroup(ctx context.Context, request *ChannelsSetDiscussionGroupRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

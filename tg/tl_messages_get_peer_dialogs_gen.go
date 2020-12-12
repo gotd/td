@@ -78,8 +78,12 @@ var (
 // Get dialog info of specified peers
 //
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
-func (c *Client) MessagesGetPeerDialogs(ctx context.Context, request *MessagesGetPeerDialogsRequest) (*MessagesPeerDialogs, error) {
+func (c *Client) MessagesGetPeerDialogs(ctx context.Context, peers []InputDialogPeerClass) (*MessagesPeerDialogs, error) {
 	var result MessagesPeerDialogs
+
+	request := &MessagesGetPeerDialogsRequest{
+		Peers: peers,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

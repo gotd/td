@@ -54,8 +54,10 @@ var (
 // Get saved payment information
 //
 // See https://core.telegram.org/method/payments.getSavedInfo for reference.
-func (c *Client) PaymentsGetSavedInfo(ctx context.Context, request *PaymentsGetSavedInfoRequest) (*PaymentsSavedInfo, error) {
+func (c *Client) PaymentsGetSavedInfo(ctx context.Context) (*PaymentsSavedInfo, error) {
 	var result PaymentsSavedInfo
+
+	request := &PaymentsGetSavedInfoRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

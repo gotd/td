@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/messages.getStickers for reference.
 func (c *Client) MessagesGetStickers(ctx context.Context, request *MessagesGetStickersRequest) (MessagesStickersClass, error) {
 	var result MessagesStickersBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

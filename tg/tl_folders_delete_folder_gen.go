@@ -64,8 +64,12 @@ var (
 // Delete a peer folder
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
-func (c *Client) FoldersDeleteFolder(ctx context.Context, request *FoldersDeleteFolderRequest) (UpdatesClass, error) {
+func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &FoldersDeleteFolderRequest{
+		FolderID: folderid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

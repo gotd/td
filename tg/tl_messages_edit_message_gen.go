@@ -272,6 +272,7 @@ var (
 // See https://core.telegram.org/method/messages.editMessage for reference.
 func (c *Client) MessagesEditMessage(ctx context.Context, request *MessagesEditMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

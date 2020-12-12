@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 func (c *Client) AccountVerifyEmail(ctx context.Context, request *AccountVerifyEmailRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

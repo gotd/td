@@ -69,8 +69,12 @@ var (
 // Installs a previously uploaded photo as a profile photo.
 //
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
-func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, request *PhotosUpdateProfilePhotoRequest) (*PhotosPhoto, error) {
+func (c *Client) PhotosUpdateProfilePhoto(ctx context.Context, id InputPhotoClass) (*PhotosPhoto, error) {
 	var result PhotosPhoto
+
+	request := &PhotosUpdateProfilePhotoRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

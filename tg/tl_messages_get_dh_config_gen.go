@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 func (c *Client) MessagesGetDhConfig(ctx context.Context, request *MessagesGetDhConfigRequest) (MessagesDhConfigClass, error) {
 	var result MessagesDhConfigBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

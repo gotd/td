@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 func (c *Client) ContactsGetBlocked(ctx context.Context, request *ContactsGetBlockedRequest) (ContactsBlockedClass, error) {
 	var result ContactsBlockedBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

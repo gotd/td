@@ -64,8 +64,12 @@ var (
 // Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured.
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
-func (c *Client) AccountDeleteAccount(ctx context.Context, request *AccountDeleteAccountRequest) (bool, error) {
+func (c *Client) AccountDeleteAccount(ctx context.Context, reason string) (bool, error) {
 	var result BoolBox
+
+	request := &AccountDeleteAccountRequest{
+		Reason: reason,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

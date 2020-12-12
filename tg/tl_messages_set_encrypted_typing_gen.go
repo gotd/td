@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 func (c *Client) MessagesSetEncryptedTyping(ctx context.Context, request *MessagesSetEncryptedTypingRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

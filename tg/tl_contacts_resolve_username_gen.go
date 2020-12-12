@@ -64,8 +64,12 @@ var (
 // Resolve a @username to get peer info
 //
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
-func (c *Client) ContactsResolveUsername(ctx context.Context, request *ContactsResolveUsernameRequest) (*ContactsResolvedPeer, error) {
+func (c *Client) ContactsResolveUsername(ctx context.Context, username string) (*ContactsResolvedPeer, error) {
 	var result ContactsResolvedPeer
+
+	request := &ContactsResolveUsernameRequest{
+		Username: username,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

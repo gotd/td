@@ -97,6 +97,7 @@ var (
 // See https://core.telegram.org/method/messages.reorderStickerSets for reference.
 func (c *Client) MessagesReorderStickerSets(ctx context.Context, request *MessagesReorderStickerSetsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

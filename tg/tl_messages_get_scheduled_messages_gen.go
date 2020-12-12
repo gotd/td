@@ -90,6 +90,7 @@ var (
 // See https://core.telegram.org/method/messages.getScheduledMessages for reference.
 func (c *Client) MessagesGetScheduledMessages(ctx context.Context, request *MessagesGetScheduledMessagesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

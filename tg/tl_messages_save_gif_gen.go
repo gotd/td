@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.saveGif for reference.
 func (c *Client) MessagesSaveGif(ctx context.Context, request *MessagesSaveGifRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

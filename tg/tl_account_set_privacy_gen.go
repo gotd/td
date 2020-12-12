@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 func (c *Client) AccountSetPrivacy(ctx context.Context, request *AccountSetPrivacyRequest) (*AccountPrivacyRules, error) {
 	var result AccountPrivacyRules
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

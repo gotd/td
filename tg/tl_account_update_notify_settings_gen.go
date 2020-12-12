@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 func (c *Client) AccountUpdateNotifySettings(ctx context.Context, request *AccountUpdateNotifySettingsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 func (c *Client) MessagesSendEncryptedService(ctx context.Context, request *MessagesSendEncryptedServiceRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

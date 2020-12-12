@@ -106,6 +106,7 @@ var (
 // See https://core.telegram.org/method/messages.startBot for reference.
 func (c *Client) MessagesStartBot(ctx context.Context, request *MessagesStartBotRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

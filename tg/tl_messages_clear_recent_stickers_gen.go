@@ -78,6 +78,7 @@ var (
 // See https://core.telegram.org/method/messages.clearRecentStickers for reference.
 func (c *Client) MessagesClearRecentStickers(ctx context.Context, request *MessagesClearRecentStickersRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

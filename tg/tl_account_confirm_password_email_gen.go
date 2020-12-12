@@ -64,8 +64,12 @@ var (
 // Verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.confirmPasswordEmail for reference.
-func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, request *AccountConfirmPasswordEmailRequest) (bool, error) {
+func (c *Client) AccountConfirmPasswordEmail(ctx context.Context, code string) (bool, error) {
 	var result BoolBox
+
+	request := &AccountConfirmPasswordEmailRequest{
+		Code: code,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

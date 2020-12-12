@@ -78,8 +78,12 @@ var (
 // Delete stored Telegram Passport documents, for more info see the passport docs »
 //
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
-func (c *Client) AccountDeleteSecureValue(ctx context.Context, request *AccountDeleteSecureValueRequest) (bool, error) {
+func (c *Client) AccountDeleteSecureValue(ctx context.Context, types []SecureValueTypeClass) (bool, error) {
 	var result BoolBox
+
+	request := &AccountDeleteSecureValueRequest{
+		Types: types,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

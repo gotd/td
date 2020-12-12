@@ -54,8 +54,10 @@ var (
 // Returns current configuration, including data center configuration.
 //
 // See https://core.telegram.org/method/help.getConfig for reference.
-func (c *Client) HelpGetConfig(ctx context.Context, request *HelpGetConfigRequest) (*Config, error) {
+func (c *Client) HelpGetConfig(ctx context.Context) (*Config, error) {
 	var result Config
+
+	request := &HelpGetConfigRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

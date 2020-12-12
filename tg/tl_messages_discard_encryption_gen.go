@@ -64,8 +64,12 @@ var (
 // Cancels a request for creation and/or delete info on secret chat.
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
-func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (bool, error) {
+func (c *Client) MessagesDiscardEncryption(ctx context.Context, chatid int) (bool, error) {
 	var result BoolBox
+
+	request := &MessagesDiscardEncryptionRequest{
+		ChatID: chatid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

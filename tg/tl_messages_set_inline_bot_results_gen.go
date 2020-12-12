@@ -192,6 +192,7 @@ var (
 // See https://core.telegram.org/method/messages.setInlineBotResults for reference.
 func (c *Client) MessagesSetInlineBotResults(ctx context.Context, request *MessagesSetInlineBotResultsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

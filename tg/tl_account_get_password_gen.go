@@ -54,8 +54,10 @@ var (
 // Obtain configuration for two-factor authorization with password
 //
 // See https://core.telegram.org/method/account.getPassword for reference.
-func (c *Client) AccountGetPassword(ctx context.Context, request *AccountGetPasswordRequest) (*AccountPassword, error) {
+func (c *Client) AccountGetPassword(ctx context.Context) (*AccountPassword, error) {
 	var result AccountPassword
+
+	request := &AccountGetPasswordRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

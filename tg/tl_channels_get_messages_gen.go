@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/channels.getMessages for reference.
 func (c *Client) ChannelsGetMessages(ctx context.Context, request *ChannelsGetMessagesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -90,6 +90,7 @@ var (
 // See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 func (c *Client) MessagesSendScheduledMessages(ctx context.Context, request *MessagesSendScheduledMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

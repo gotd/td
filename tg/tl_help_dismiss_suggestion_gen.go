@@ -64,8 +64,12 @@ var (
 // Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
-func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (bool, error) {
+func (c *Client) HelpDismissSuggestion(ctx context.Context, suggestion string) (bool, error) {
 	var result BoolBox
+
+	request := &HelpDismissSuggestionRequest{
+		Suggestion: suggestion,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

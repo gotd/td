@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStringsRequest) ([]LangPackStringClass, error) {
 	var result LangPackStringClassVector
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

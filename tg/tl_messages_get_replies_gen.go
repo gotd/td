@@ -151,6 +151,7 @@ var (
 // See https://core.telegram.org/method/messages.getReplies for reference.
 func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

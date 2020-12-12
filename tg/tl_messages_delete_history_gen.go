@@ -115,6 +115,7 @@ var (
 // See https://core.telegram.org/method/messages.deleteHistory for reference.
 func (c *Client) MessagesDeleteHistory(ctx context.Context, request *MessagesDeleteHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

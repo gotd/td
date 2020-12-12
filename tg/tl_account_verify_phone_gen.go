@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

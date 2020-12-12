@@ -68,8 +68,12 @@ var (
 // For more info, see login via QR code.
 //
 // See https://core.telegram.org/method/auth.acceptLoginToken for reference.
-func (c *Client) AuthAcceptLoginToken(ctx context.Context, request *AuthAcceptLoginTokenRequest) (*Authorization, error) {
+func (c *Client) AuthAcceptLoginToken(ctx context.Context, token []byte) (*Authorization, error) {
 	var result Authorization
+
+	request := &AuthAcceptLoginTokenRequest{
+		Token: token,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

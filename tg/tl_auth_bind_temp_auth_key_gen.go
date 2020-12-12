@@ -98,6 +98,7 @@ var (
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

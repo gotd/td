@@ -64,8 +64,12 @@ var (
 // Get all installed stickers
 //
 // See https://core.telegram.org/method/messages.getAllStickers for reference.
-func (c *Client) MessagesGetAllStickers(ctx context.Context, request *MessagesGetAllStickersRequest) (MessagesAllStickersClass, error) {
+func (c *Client) MessagesGetAllStickers(ctx context.Context, hash int) (MessagesAllStickersClass, error) {
 	var result MessagesAllStickersBox
+
+	request := &MessagesGetAllStickersRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

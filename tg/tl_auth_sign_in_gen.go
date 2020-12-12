@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

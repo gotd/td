@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 func (c *Client) MessagesAddChatUser(ctx context.Context, request *MessagesAddChatUserRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -64,8 +64,12 @@ var (
 // Enable/disable top peers
 //
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
-func (c *Client) ContactsToggleTopPeers(ctx context.Context, request *ContactsToggleTopPeersRequest) (bool, error) {
+func (c *Client) ContactsToggleTopPeers(ctx context.Context, enabled bool) (bool, error) {
 	var result BoolBox
+
+	request := &ContactsToggleTopPeersRequest{
+		Enabled: enabled,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

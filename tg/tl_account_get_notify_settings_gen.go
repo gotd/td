@@ -69,8 +69,12 @@ var (
 // Gets current notification settings for a given user/group, from all users/all groups.
 //
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
-func (c *Client) AccountGetNotifySettings(ctx context.Context, request *AccountGetNotifySettingsRequest) (*PeerNotifySettings, error) {
+func (c *Client) AccountGetNotifySettings(ctx context.Context, peer InputNotifyPeerClass) (*PeerNotifySettings, error) {
 	var result PeerNotifySettings
+
+	request := &AccountGetNotifySettingsRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

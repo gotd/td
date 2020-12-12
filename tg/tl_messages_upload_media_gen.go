@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 func (c *Client) MessagesUploadMedia(ctx context.Context, request *MessagesUploadMediaRequest) (MessageMediaClass, error) {
 	var result MessageMediaBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -99,6 +99,7 @@ var (
 // See https://core.telegram.org/method/auth.exportLoginToken for reference.
 func (c *Client) AuthExportLoginToken(ctx context.Context, request *AuthExportLoginTokenRequest) (AuthLoginTokenClass, error) {
 	var result AuthLoginTokenBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

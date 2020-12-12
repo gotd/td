@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {
 	var result AccountTmpPassword
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
