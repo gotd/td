@@ -246,12 +246,17 @@ func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({
     {{- end }}
 }
 {{- else }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ $s.Result }}, error) {
+func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{if ne $s.Result "BoolClass"}}{{ $s.Result }}{{ else }}bool{{ end }}, error) {
     var result {{ $s.ResultFunc }}Box
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-        return nil, err
+{{- if ne $s.Result "BoolClass" }}return nil, err{{- else }}return false, err{{- end }}
     }
+    {{- if ne $s.Result "BoolClass" }}
     return result.{{ $s.ResultBaseName }}, nil
+    {{- else }}
+    _, ok := result.{{ $s.ResultBaseName }}.(*BoolTrue)
+    return ok, nil
+    {{- end }}
 }
 {{- end }}
 {{- else }}
