@@ -110,10 +110,11 @@ var (
 // Reorder pinned dialogs
 //
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
-func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (BoolClass, error) {
+func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

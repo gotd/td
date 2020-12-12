@@ -74,10 +74,11 @@ var (
 // Send VoIP signaling data
 //
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
-func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (BoolClass, error) {
+func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

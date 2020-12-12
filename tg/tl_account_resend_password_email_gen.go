@@ -54,10 +54,11 @@ var (
 // Resend the code to verify an email to use as 2FA recovery method.
 //
 // See https://core.telegram.org/method/account.resendPasswordEmail for reference.
-func (c *Client) AccountResendPasswordEmail(ctx context.Context, request *AccountResendPasswordEmailRequest) (BoolClass, error) {
+func (c *Client) AccountResendPasswordEmail(ctx context.Context, request *AccountResendPasswordEmailRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

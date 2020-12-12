@@ -69,10 +69,11 @@ var (
 // Report a new incoming chat for spam, if the peer settings of the chat allow us to do that
 //
 // See https://core.telegram.org/method/messages.reportSpam for reference.
-func (c *Client) MessagesReportSpam(ctx context.Context, request *MessagesReportSpamRequest) (BoolClass, error) {
+func (c *Client) MessagesReportSpam(ctx context.Context, request *MessagesReportSpamRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -75,10 +75,11 @@ var (
 // Saves logs of application on the server.
 //
 // See https://core.telegram.org/method/help.saveAppLog for reference.
-func (c *Client) HelpSaveAppLog(ctx context.Context, request *HelpSaveAppLogRequest) (BoolClass, error) {
+func (c *Client) HelpSaveAppLog(ctx context.Context, request *HelpSaveAppLogRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

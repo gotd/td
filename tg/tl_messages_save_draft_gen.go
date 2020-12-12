@@ -173,10 +173,11 @@ var (
 // Save a message draft associated to a chat.
 //
 // See https://core.telegram.org/method/messages.saveDraft for reference.
-func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (BoolClass, error) {
+func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

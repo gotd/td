@@ -73,10 +73,11 @@ var (
 // Reorder folders
 //
 // See https://core.telegram.org/method/messages.updateDialogFiltersOrder for reference.
-func (c *Client) MessagesUpdateDialogFiltersOrder(ctx context.Context, request *MessagesUpdateDialogFiltersOrderRequest) (BoolClass, error) {
+func (c *Client) MessagesUpdateDialogFiltersOrder(ctx context.Context, request *MessagesUpdateDialogFiltersOrderRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

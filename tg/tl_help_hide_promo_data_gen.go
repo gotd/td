@@ -69,10 +69,11 @@ var (
 // Hide MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.hidePromoData for reference.
-func (c *Client) HelpHidePromoData(ctx context.Context, request *HelpHidePromoDataRequest) (BoolClass, error) {
+func (c *Client) HelpHidePromoData(ctx context.Context, request *HelpHidePromoDataRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -123,10 +123,11 @@ var (
 // Use this method to set the score of the specified user in a game sent as an inline message (bots only).
 //
 // See https://core.telegram.org/method/messages.setInlineGameScore for reference.
-func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (BoolClass, error) {
+func (c *Client) MessagesSetInlineGameScore(ctx context.Context, request *MessagesSetInlineGameScoreRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -64,10 +64,11 @@ var (
 // Log out an active web telegram login session
 //
 // See https://core.telegram.org/method/account.resetWebAuthorization for reference.
-func (c *Client) AccountResetWebAuthorization(ctx context.Context, request *AccountResetWebAuthorizationRequest) (BoolClass, error) {
+func (c *Client) AccountResetWebAuthorization(ctx context.Context, request *AccountResetWebAuthorizationRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

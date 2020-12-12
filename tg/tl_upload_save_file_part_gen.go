@@ -84,10 +84,11 @@ var (
 // Saves a part of file for futher sending to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
-func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (BoolClass, error) {
+func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

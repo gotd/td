@@ -84,10 +84,11 @@ var (
 // Verify a phone number for telegram passport.
 //
 // See https://core.telegram.org/method/account.verifyPhone for reference.
-func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (BoolClass, error) {
+func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

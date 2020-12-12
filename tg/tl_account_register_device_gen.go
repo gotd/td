@@ -135,10 +135,11 @@ var (
 // Register device to receive PUSH notifications
 //
 // See https://core.telegram.org/method/account.registerDevice for reference.
-func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (BoolClass, error) {
+func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

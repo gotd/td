@@ -54,10 +54,11 @@ var (
 // Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
-func (c *Client) AuthLogOut(ctx context.Context, request *AuthLogOutRequest) (BoolClass, error) {
+func (c *Client) AuthLogOut(ctx context.Context, request *AuthLogOutRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

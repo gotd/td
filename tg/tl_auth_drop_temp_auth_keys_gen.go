@@ -73,10 +73,11 @@ var (
 // Delete all temporary authorization keys except for the ones specified
 //
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
-func (c *Client) AuthDropTempAuthKeys(ctx context.Context, request *AuthDropTempAuthKeysRequest) (BoolClass, error) {
+func (c *Client) AuthDropTempAuthKeys(ctx context.Context, request *AuthDropTempAuthKeysRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

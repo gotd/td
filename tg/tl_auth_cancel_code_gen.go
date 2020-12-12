@@ -74,10 +74,11 @@ var (
 // Cancel the login verification code
 //
 // See https://core.telegram.org/method/auth.cancelCode for reference.
-func (c *Client) AuthCancelCode(ctx context.Context, request *AuthCancelCodeRequest) (BoolClass, error) {
+func (c *Client) AuthCancelCode(ctx context.Context, request *AuthCancelCodeRequest) (bool, error) {
 	var result BoolBox
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }
