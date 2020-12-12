@@ -4,13 +4,11 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-
-	"github.com/gotd/td/tg"
 )
 
 func (c *Client) ensureState(ctx context.Context) error {
 	c.log.Debug("Trying to get state")
-	state, err := c.tg.UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
+	state, err := c.tg.UpdatesGetState(ctx)
 	if err != nil {
 		return err
 	}
