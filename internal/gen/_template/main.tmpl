@@ -20,13 +20,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{- if $f.DoubleSlice }}
-    {{ $f.Name }} [][]{{ $f.Type }}
-    {{- else if $f.Slice }}
-    {{ $f.Name }} []{{ $f.Type }}
-    {{- else }}
-    {{ $f.Name }} {{ $f.Type }}
-    {{- end }}
+    {{ $f.Name }} {{ template "print_type" $f }}
 {{- end }}
 }
 
@@ -112,7 +106,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ if $f.DoubleSl
 {{- if not $f.ConditionalBool }}
 // Get{{ $f.Name }} returns value of {{ $f.Name }} conditional field and
 // boolean which is true if field was set.
-func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ if $f.DoubleSlice }}[][]{{ else if $f.Slice }}[]{{ end }}{{ $f.Type }}, ok bool) {
+func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ template "print_type" $f }}, ok bool) {
     if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
         return value, false
     }
@@ -234,8 +228,9 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}[]{{ $s.ResultFunc }}{{ end }}, error) {
+func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}[]{{ $s.ResultFunc }}{{ end }}, error) {
     var result {{ $s.Result }}
+    {{ template "pack_request" $s }}
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
         return nil, err
     }
@@ -246,8 +241,9 @@ func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({
     {{- end }}
 }
 {{- else }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({{if ne $s.Result "BoolClass"}}{{ $s.Result }}{{ else }}bool{{ end }}, error) {
+func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) ({{if ne $s.Result "BoolClass"}}{{ $s.Result }}{{ else }}bool{{ end }}, error) {
     var result {{ $s.ResultFunc }}Box
+    {{ template "pack_request" $s }}
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 {{- if ne $s.Result "BoolClass" }}return nil, err{{- else }}return false, err{{- end }}
     }
@@ -260,8 +256,9 @@ func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) ({
 }
 {{- end }}
 {{- else }}
-func (c *Client) {{ $s.Method }}(ctx context.Context, request *{{ $s.Name }}) error {
+func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) error {
     var ok Ok
+    {{ template "pack_request" $s }}
     if err := c.rpc.InvokeRaw(ctx, request, &ok); err != nil {
         return err
     }

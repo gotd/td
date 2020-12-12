@@ -43,7 +43,8 @@ type structDef struct {
 	ResultFunc     string
 	ResultVector   bool
 
-	Vector bool
+	UnpackParameters bool
+	Vector           bool
 	// Fields of structure.
 	Fields []fieldDef
 
@@ -141,10 +142,16 @@ func (g *Generator) makeStructures() error {
 			// TODO(ernado): multi-line comments.
 			s.Comment = fmt.Sprintf("%s represents TL type `%s`.", s.Name, s.RawType)
 		}
+
+		allFieldRequired := true
 		for _, param := range d.Params {
 			f, err := g.makeField(param, sd.Annotations)
 			if err != nil {
 				return xerrors.Errorf("failed to make field %s: %w", param.Name, err)
+			}
+
+			if f.Conditional {
+				allFieldRequired = false
 			}
 			if f.Comment == "" {
 				f.Comment = docMethod.Parameters[param.Name]
@@ -156,6 +163,10 @@ func (g *Generator) makeStructures() error {
 				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
 			}
 			s.Fields = append(s.Fields, f)
+		}
+
+		if allFieldRequired && len(d.Params) < 2 {
+			s.UnpackParameters = true
 		}
 
 		if s.Method != "" && t.Class != "Ok" {
