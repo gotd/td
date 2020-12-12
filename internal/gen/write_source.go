@@ -85,6 +85,14 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	}
 
 	cfg := config{
+		Package: pkgName,
+		Structs: g.structs,
+	}
+	if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
+		return err
+	}
+
+	cfg = config{
 		Package:  pkgName,
 		Registry: g.registry,
 	}
