@@ -20,13 +20,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type UpdateClient interface {
-	RandInt64() (int64, error)
-	SendMessage(ctx context.Context, m *tg.MessagesSendMessageRequest) error
-}
-
 // UpdateHandler will be called on received updates from Telegram.
-type UpdateHandler func(ctx context.Context, c UpdateClient, u *tg.Updates) error
+type UpdateHandler func(ctx context.Context, u *tg.Updates) error
 
 // Available MTProto default server addresses.
 //
