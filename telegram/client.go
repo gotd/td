@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"crypto/rand"
 	"crypto/rsa"
 	"io"
 	"net"
@@ -39,7 +38,7 @@ type Client struct {
 	// conn is owned by Client and not exposed.
 	conn   net.Conn
 	addr   string
-	dialer *net.Dialer
+	dialer Dialer
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -129,90 +128,12 @@ func (c *Client) AuthKey() crypto.AuthKey {
 	return c.authKey
 }
 
-// Options of Client.
-type Options struct {
-	// Required options:
+func NewClient(appID int, appHash string, opt Options) *Client {
+	// Set default values, if user does not set.
+	opt.setDefaults()
 
-	// AppID is api_id of your application.
-	///
-	// Can be found on https://my.telegram.org/apps.
-	AppID int
-	// AppHash is api_hash of your application.
-	//
-	// Can be found on https://my.telegram.org/apps.
-	AppHash string
-
-	// Optional:
-
-	// PublicKeys of telegram.
-	//
-	// If not provided, embedded public keys will be used.
-	PublicKeys []*rsa.PublicKey
-
-	// Addr to connect.
-	//
-	// If not provided, AddrProduction will be used by default.
-	Addr string
-
-	// Dialer to use. Default dialer will be used if not provided.
-	Dialer *net.Dialer
-	// Network to use. Defaults to tcp.
-	Network string
-	// Random is random source. Defaults to crypto.
-	Random io.Reader
-	// Logger is instance of zap.Logger. No logs by default.
-	Logger *zap.Logger
-	// SessionStorage will be used to load and save session data.
-	// NB: Very sensitive data, save with care.
-	SessionStorage SessionStorage
-	// UpdateHandler will be called on received update.
-	UpdateHandler UpdateHandler
-}
-
-// Dial initializes Client and creates connection to Telegram, initializing
-// new or loading session from provided storage.
-func Dial(ctx context.Context, opt Options) (*Client, error) {
-	if opt.Dialer == nil {
-		opt.Dialer = &net.Dialer{}
-	}
-	if opt.Network == "" {
-		opt.Network = "tcp"
-	}
-	if opt.Random == nil {
-		opt.Random = rand.Reader
-	}
-	if opt.Logger == nil {
-		opt.Logger = zap.NewNop()
-	}
-	if opt.Addr == "" {
-		opt.Addr = AddrProduction
-	}
-	if len(opt.PublicKeys) == 0 {
-		// Using public keys that are included with distribution if not
-		// provided.
-		//
-		// This should never fail and keys should be valid for recent
-		// library versions.
-		keys, err := vendoredKeys()
-		if err != nil {
-			return nil, xerrors.Errorf("failed to load vendored keys: %w", err)
-		}
-		opt.PublicKeys = keys
-	}
-	if opt.AppHash == "" {
-		return nil, xerrors.New("no AppHash provided")
-	}
-	if opt.AppID == 0 {
-		return nil, xerrors.New("no AppID provided")
-	}
-
-	conn, err := opt.Dialer.DialContext(ctx, "tcp", opt.Addr)
-	if err != nil {
-		return nil, xerrors.Errorf("failed to dial: %w", err)
-	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		conn:   conn,
 		addr:   opt.Addr,
 		dialer: opt.Dialer,
 
@@ -225,8 +146,8 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 		ctx:    clientCtx,
 		cancel: clientCancel,
 
-		appID:   opt.AppID,
-		appHash: opt.AppHash,
+		appID:   appID,
+		appHash: appHash,
 
 		sessionStorage: opt.SessionStorage,
 		rsaPublicKeys:  opt.PublicKeys,
@@ -242,28 +163,37 @@ func Dial(ctx context.Context, opt Options) (*Client, error) {
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
 
+	return client
+}
+
+func (c *Client) Connect(ctx context.Context) (err error) {
+	c.conn, err = c.dialer.DialContext(ctx, "tcp", c.addr)
+	if err != nil {
+		return xerrors.Errorf("failed to dial: %w", err)
+	}
+
 	// Loading session from storage if provided.
-	if err := client.loadSession(ctx); err != nil {
+	if err := c.loadSession(ctx); err != nil {
 		// TODO: Add opt-in config to ignore session load failures.
-		return nil, xerrors.Errorf("failed to load session: %w", err)
+		return xerrors.Errorf("failed to load session: %w", err)
 	}
 
 	// Starting connection.
 	//
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
-	if err := client.connect(ctx); err != nil {
-		return nil, xerrors.Errorf("failed to start connection: %w", err)
+	if err := c.connect(ctx); err != nil {
+		return xerrors.Errorf("failed to start connection: %w", err)
 	}
 
 	// Spawning reading goroutine.
-	go client.readLoop(client.ctx)
+	go c.readLoop(c.ctx)
 
-	if err := client.initConnection(ctx); err != nil {
-		return nil, xerrors.Errorf("failed to init connection: %w", err)
+	if err := c.initConnection(ctx); err != nil {
+		return xerrors.Errorf("failed to init connection: %w", err)
 	}
 
-	return client, nil
+	return nil
 }
 
 // Authenticated returns true of already authenticated.
