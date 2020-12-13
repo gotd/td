@@ -26,11 +26,24 @@ import (
 
 // DecomposePQ decomposes pq into prime factors such that p < q.
 func DecomposePQ(pq *big.Int, randSource io.Reader) (p, q *big.Int, err error) { // nolint:gocognit
-	value0 := big.NewInt(0)
-	value1 := big.NewInt(1)
-	value15 := big.NewInt(15)
-	value17 := big.NewInt(17)
-	rndMax := big.NewInt(0).SetBit(big.NewInt(0), 64, 1)
+	var (
+		value0  = big.NewInt(0)
+		value1  = big.NewInt(1)
+		value15 = big.NewInt(15)
+		value17 = big.NewInt(17)
+		rndMax  = big.NewInt(0).SetBit(big.NewInt(0), 64, 1)
+
+		y        = big.NewInt(0)
+		whatNext = big.NewInt(0)
+
+		a = big.NewInt(0)
+		b = big.NewInt(0)
+		c = big.NewInt(0)
+
+		b2 = big.NewInt(0)
+
+		z = big.NewInt(0)
+	)
 
 	what := big.NewInt(0).Set(pq)
 	g := big.NewInt(0)
@@ -48,22 +61,22 @@ func DecomposePQ(pq *big.Int, randSource io.Reader) (p, q *big.Int, err error) {
 		if err != nil {
 			return nil, nil, err
 		}
-		whatNext := big.NewInt(0).Sub(what, value1)
+		whatNext.Sub(what, value1)
 		x = x.Mod(x, whatNext)
 		x = x.Add(x, value1)
 
-		y := big.NewInt(0).Set(x)
+		y.Set(x)
 		lim := 1 << (uint(i) + 18)
 		j := 1
 		flag := true
 
 		for j < lim && flag {
-			a := big.NewInt(0).Set(x)
-			b := big.NewInt(0).Set(x)
-			c := big.NewInt(0).Set(v)
+			a.Set(x)
+			b.Set(x)
+			c.Set(v)
 
 			for b.Cmp(value0) == 1 {
-				b2 := big.NewInt(0)
+				b2.SetInt64(0)
 				if b2.And(b, value1).Cmp(value0) == 1 {
 					c.Add(c, a)
 					if c.Cmp(what) >= 0 {
@@ -78,7 +91,7 @@ func DecomposePQ(pq *big.Int, randSource io.Reader) (p, q *big.Int, err error) {
 			}
 			x.Set(c)
 
-			z := big.NewInt(0)
+			z.SetInt64(0)
 			if x.Cmp(y) == -1 {
 				z.Add(what, x)
 				z.Sub(z, y)
