@@ -54,8 +54,10 @@ var (
 // Get sensitive content settings
 //
 // See https://core.telegram.org/method/account.getContentSettings for reference.
-func (c *Client) AccountGetContentSettings(ctx context.Context, request *AccountGetContentSettingsRequest) (*AccountContentSettings, error) {
+func (c *Client) AccountGetContentSettings(ctx context.Context) (*AccountContentSettings, error) {
 	var result AccountContentSettings
+
+	request := &AccountGetContentSettingsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

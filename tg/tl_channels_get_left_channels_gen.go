@@ -64,8 +64,12 @@ var (
 // Get a list of channels/supergroups we left
 //
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
-func (c *Client) ChannelsGetLeftChannels(ctx context.Context, request *ChannelsGetLeftChannelsRequest) (MessagesChatsClass, error) {
+func (c *Client) ChannelsGetLeftChannels(ctx context.Context, offset int) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
+
+	request := &ChannelsGetLeftChannelsRequest{
+		Offset: offset,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

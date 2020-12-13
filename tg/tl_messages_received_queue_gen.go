@@ -64,8 +64,12 @@ var (
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
 //
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
-func (c *Client) MessagesReceivedQueue(ctx context.Context, request *MessagesReceivedQueueRequest) ([]int64, error) {
+func (c *Client) MessagesReceivedQueue(ctx context.Context, maxqts int) ([]int64, error) {
 	var result LongVector
+
+	request := &MessagesReceivedQueueRequest{
+		MaxQts: maxqts,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

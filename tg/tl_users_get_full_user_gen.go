@@ -69,8 +69,12 @@ var (
 // Returns extended user info by ID.
 //
 // See https://core.telegram.org/method/users.getFullUser for reference.
-func (c *Client) UsersGetFullUser(ctx context.Context, request *UsersGetFullUserRequest) (*UserFull, error) {
+func (c *Client) UsersGetFullUser(ctx context.Context, id InputUserClass) (*UserFull, error) {
 	var result UserFull
+
+	request := &UsersGetFullUserRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

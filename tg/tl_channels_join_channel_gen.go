@@ -69,8 +69,12 @@ var (
 // Join a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.joinChannel for reference.
-func (c *Client) ChannelsJoinChannel(ctx context.Context, request *ChannelsJoinChannelRequest) (UpdatesClass, error) {
+func (c *Client) ChannelsJoinChannel(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &ChannelsJoinChannelRequest{
+		Channel: channel,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -69,10 +69,15 @@ var (
 // Should be called after the user hides the report spam/add as contact bar of a new chat, effectively prevents the user from executing the actions specified in the peer's settings.
 //
 // See https://core.telegram.org/method/messages.hidePeerSettingsBar for reference.
-func (c *Client) MessagesHidePeerSettingsBar(ctx context.Context, request *MessagesHidePeerSettingsBarRequest) (BoolClass, error) {
+func (c *Client) MessagesHidePeerSettingsBar(ctx context.Context, peer InputPeerClass) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &MessagesHidePeerSettingsBarRequest{
+		Peer: peer,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

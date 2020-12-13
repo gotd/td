@@ -54,8 +54,10 @@ var (
 // Request recovery code of a 2FA password, only for accounts with a recovery email configured.
 //
 // See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
-func (c *Client) AuthRequestPasswordRecovery(ctx context.Context, request *AuthRequestPasswordRecoveryRequest) (*AuthPasswordRecovery, error) {
+func (c *Client) AuthRequestPasswordRecovery(ctx context.Context) (*AuthPasswordRecovery, error) {
 	var result AuthPasswordRecovery
+
+	request := &AuthRequestPasswordRecoveryRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

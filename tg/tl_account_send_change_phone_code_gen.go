@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

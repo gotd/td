@@ -1,0 +1,19 @@
+{{ define "request_params" }}ctx context.Context{{- if .UnpackParameters }}{{- if .Fields }},
+{{- range $f := .Fields }}{{ lower $f.Name }} {{ template "print_type" $f }},{{- end}}
+{{- end }}
+{{- else }}, request *{{ .Name }}{{- end }}
+{{- end }}
+
+{{ define "pack_request" }}{{- if .UnpackParameters }}
+    request := &{{ $.Name }}{
+        {{- range $f := $.Fields }}
+        {{ $f.Name }}: {{ lower $f.Name }},
+        {{- end }}
+    }
+{{- end }}{{- end }}
+
+{{ define "print_type" }}
+{{- if $.DoubleSlice }}[][]{{ $.Type }}
+{{- else if $.Slice }}[]{{ $.Type }}
+{{- else }}{{ $.Type }}
+{{- end }}{{- end }}

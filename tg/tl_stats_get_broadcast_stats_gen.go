@@ -93,6 +93,7 @@ var (
 // See https://core.telegram.org/method/stats.getBroadcastStats for reference.
 func (c *Client) StatsGetBroadcastStats(ctx context.Context, request *StatsGetBroadcastStatsRequest) (*StatsBroadcastStats, error) {
 	var result StatsBroadcastStats
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

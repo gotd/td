@@ -64,8 +64,12 @@ var (
 // Check the validity of a chat invite link and get basic info about it
 //
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
-func (c *Client) MessagesCheckChatInvite(ctx context.Context, request *MessagesCheckChatInviteRequest) (ChatInviteClass, error) {
+func (c *Client) MessagesCheckChatInvite(ctx context.Context, hash string) (ChatInviteClass, error) {
 	var result ChatInviteBox
+
+	request := &MessagesCheckChatInviteRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

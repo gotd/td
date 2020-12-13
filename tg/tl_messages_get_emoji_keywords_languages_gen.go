@@ -73,8 +73,12 @@ var (
 // Get info about an emoji keyword localization
 //
 // See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
-func (c *Client) MessagesGetEmojiKeywordsLanguages(ctx context.Context, request *MessagesGetEmojiKeywordsLanguagesRequest) ([]EmojiLanguage, error) {
+func (c *Client) MessagesGetEmojiKeywordsLanguages(ctx context.Context, langcodes []string) ([]EmojiLanguage, error) {
 	var result EmojiLanguageVector
+
+	request := &MessagesGetEmojiKeywordsLanguagesRequest{
+		LangCodes: langcodes,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

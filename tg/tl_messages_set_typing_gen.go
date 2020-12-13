@@ -123,10 +123,12 @@ var (
 // Sends a current user typing event (see SendMessageAction for all event types) to a conversation partner or group.
 //
 // See https://core.telegram.org/method/messages.setTyping for reference.
-func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (BoolClass, error) {
+func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

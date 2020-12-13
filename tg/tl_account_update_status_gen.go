@@ -64,10 +64,15 @@ var (
 // Updates online user status.
 //
 // See https://core.telegram.org/method/account.updateStatus for reference.
-func (c *Client) AccountUpdateStatus(ctx context.Context, request *AccountUpdateStatusRequest) (BoolClass, error) {
+func (c *Client) AccountUpdateStatus(ctx context.Context, offline bool) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &AccountUpdateStatusRequest{
+		Offline: offline,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

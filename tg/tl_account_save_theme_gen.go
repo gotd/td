@@ -79,10 +79,12 @@ var (
 // Save a theme
 //
 // See https://core.telegram.org/method/account.saveTheme for reference.
-func (c *Client) AccountSaveTheme(ctx context.Context, request *AccountSaveThemeRequest) (BoolClass, error) {
+func (c *Client) AccountSaveTheme(ctx context.Context, request *AccountSaveThemeRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

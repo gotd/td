@@ -64,8 +64,12 @@ var (
 // Changes username for the current user.
 //
 // See https://core.telegram.org/method/account.updateUsername for reference.
-func (c *Client) AccountUpdateUsername(ctx context.Context, request *AccountUpdateUsernameRequest) (UserClass, error) {
+func (c *Client) AccountUpdateUsername(ctx context.Context, username string) (UserClass, error) {
 	var result UserBox
+
+	request := &AccountUpdateUsernameRequest{
+		Username: username,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

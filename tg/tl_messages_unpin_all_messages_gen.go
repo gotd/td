@@ -69,8 +69,12 @@ var (
 // Unpin all pinned messages
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
-func (c *Client) MessagesUnpinAllMessages(ctx context.Context, request *MessagesUnpinAllMessagesRequest) (*MessagesAffectedHistory, error) {
+func (c *Client) MessagesUnpinAllMessages(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
+
+	request := &MessagesUnpinAllMessagesRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

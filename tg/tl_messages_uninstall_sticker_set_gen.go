@@ -69,10 +69,15 @@ var (
 // Uninstall a stickerset
 //
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
-func (c *Client) MessagesUninstallStickerSet(ctx context.Context, request *MessagesUninstallStickerSetRequest) (BoolClass, error) {
+func (c *Client) MessagesUninstallStickerSet(ctx context.Context, stickerset InputStickerSetClass) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &MessagesUninstallStickerSetRequest{
+		Stickerset: stickerset,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

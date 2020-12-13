@@ -54,8 +54,10 @@ var (
 // Save get all message drafts.
 //
 // See https://core.telegram.org/method/messages.getAllDrafts for reference.
-func (c *Client) MessagesGetAllDrafts(ctx context.Context, request *MessagesGetAllDraftsRequest) (UpdatesClass, error) {
+func (c *Client) MessagesGetAllDrafts(ctx context.Context) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &MessagesGetAllDraftsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

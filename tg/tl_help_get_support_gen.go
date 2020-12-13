@@ -54,8 +54,10 @@ var (
 // Returns the support user for the 'ask a question' feature.
 //
 // See https://core.telegram.org/method/help.getSupport for reference.
-func (c *Client) HelpGetSupport(ctx context.Context, request *HelpGetSupportRequest) (*HelpSupport, error) {
+func (c *Client) HelpGetSupport(ctx context.Context) (*HelpSupport, error) {
 	var result HelpSupport
+
+	request := &HelpGetSupportRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

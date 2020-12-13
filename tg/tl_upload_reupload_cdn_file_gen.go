@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) ([]FileHash, error) {
 	var result FileHashVector
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

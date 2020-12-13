@@ -91,10 +91,12 @@ var (
 // Manually mark dialog as unread
 //
 // See https://core.telegram.org/method/messages.markDialogUnread for reference.
-func (c *Client) MessagesMarkDialogUnread(ctx context.Context, request *MessagesMarkDialogUnreadRequest) (BoolClass, error) {
+func (c *Client) MessagesMarkDialogUnread(ctx context.Context, request *MessagesMarkDialogUnreadRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

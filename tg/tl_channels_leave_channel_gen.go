@@ -69,8 +69,12 @@ var (
 // Leave a channel/supergroup
 //
 // See https://core.telegram.org/method/channels.leaveChannel for reference.
-func (c *Client) ChannelsLeaveChannel(ctx context.Context, request *ChannelsLeaveChannelRequest) (UpdatesClass, error) {
+func (c *Client) ChannelsLeaveChannel(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &ChannelsLeaveChannelRequest{
+		Channel: channel,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

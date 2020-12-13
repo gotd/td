@@ -162,6 +162,7 @@ var (
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
 	var result MessagesDialogsBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

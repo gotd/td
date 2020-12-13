@@ -105,6 +105,7 @@ var (
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 func (c *Client) HelpEditUserInfo(ctx context.Context, request *HelpEditUserInfoRequest) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

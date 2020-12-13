@@ -98,6 +98,7 @@ var (
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {
 	var result PaymentsValidatedRequestedInfo
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

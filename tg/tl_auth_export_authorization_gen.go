@@ -64,8 +64,12 @@ var (
 // Returns data for copying authorization to another data-centre.
 //
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
-func (c *Client) AuthExportAuthorization(ctx context.Context, request *AuthExportAuthorizationRequest) (*AuthExportedAuthorization, error) {
+func (c *Client) AuthExportAuthorization(ctx context.Context, dcid int) (*AuthExportedAuthorization, error) {
 	var result AuthExportedAuthorization
+
+	request := &AuthExportAuthorizationRequest{
+		DCID: dcid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

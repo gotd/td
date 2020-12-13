@@ -64,8 +64,12 @@ var (
 // Get pinned dialogs
 //
 // See https://core.telegram.org/method/messages.getPinnedDialogs for reference.
-func (c *Client) MessagesGetPinnedDialogs(ctx context.Context, request *MessagesGetPinnedDialogsRequest) (*MessagesPeerDialogs, error) {
+func (c *Client) MessagesGetPinnedDialogs(ctx context.Context, folderid int) (*MessagesPeerDialogs, error) {
 	var result MessagesPeerDialogs
+
+	request := &MessagesGetPinnedDialogsRequest{
+		FolderID: folderid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

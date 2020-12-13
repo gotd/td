@@ -64,8 +64,12 @@ var (
 // Import a chat invite and join a private chat/supergroup/channel
 //
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
-func (c *Client) MessagesImportChatInvite(ctx context.Context, request *MessagesImportChatInviteRequest) (UpdatesClass, error) {
+func (c *Client) MessagesImportChatInvite(ctx context.Context, hash string) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &MessagesImportChatInviteRequest{
+		Hash: hash,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

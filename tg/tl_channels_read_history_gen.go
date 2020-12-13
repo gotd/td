@@ -79,10 +79,12 @@ var (
 // Mark channel/supergroup history as read
 //
 // See https://core.telegram.org/method/channels.readHistory for reference.
-func (c *Client) ChannelsReadHistory(ctx context.Context, request *ChannelsReadHistoryRequest) (BoolClass, error) {
+func (c *Client) ChannelsReadHistory(ctx context.Context, request *ChannelsReadHistoryRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

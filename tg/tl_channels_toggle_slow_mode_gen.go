@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 func (c *Client) ChannelsToggleSlowMode(ctx context.Context, request *ChannelsToggleSlowModeRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -159,6 +159,7 @@ var (
 // See https://core.telegram.org/method/messages.getPollVotes for reference.
 func (c *Client) MessagesGetPollVotes(ctx context.Context, request *MessagesGetPollVotesRequest) (*MessagesVotesList, error) {
 	var result MessagesVotesList
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

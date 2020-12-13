@@ -128,6 +128,7 @@ var (
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
 func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {
 	var result UpdatesChannelDifferenceBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/contacts.search for reference.
 func (c *Client) ContactsSearch(ctx context.Context, request *ContactsSearchRequest) (*ContactsFound, error) {
 	var result ContactsFound
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

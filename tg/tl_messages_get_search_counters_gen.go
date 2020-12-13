@@ -95,6 +95,7 @@ var (
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *MessagesGetSearchCountersRequest) ([]MessagesSearchCounter, error) {
 	var result MessagesSearchCounterVector
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

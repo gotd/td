@@ -98,6 +98,7 @@ var (
 // See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 func (c *Client) MessagesGetArchivedStickers(ctx context.Context, request *MessagesGetArchivedStickersRequest) (*MessagesArchivedStickers, error) {
 	var result MessagesArchivedStickers
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

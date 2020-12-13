@@ -125,6 +125,7 @@ var (
 // See https://core.telegram.org/method/updates.getDifference for reference.
 func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {
 	var result UpdatesDifferenceBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

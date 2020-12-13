@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/account.changePhone for reference.
 func (c *Client) AccountChangePhone(ctx context.Context, request *AccountChangePhoneRequest) (UserClass, error) {
 	var result UserBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

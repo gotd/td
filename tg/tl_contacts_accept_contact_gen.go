@@ -69,8 +69,12 @@ var (
 // If the peer settings of a new user allow us to add him as contact, add that user as contact
 //
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
-func (c *Client) ContactsAcceptContact(ctx context.Context, request *ContactsAcceptContactRequest) (UpdatesClass, error) {
+func (c *Client) ContactsAcceptContact(ctx context.Context, id InputUserClass) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &ContactsAcceptContactRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestUrlAuth(ctx context.Context, request *MessagesRequestUrlAuthRequest) (UrlAuthResultClass, error) {
 	var result UrlAuthResultBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

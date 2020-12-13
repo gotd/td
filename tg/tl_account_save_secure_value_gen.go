@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.saveSecureValue for reference.
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {
 	var result SecureValue
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

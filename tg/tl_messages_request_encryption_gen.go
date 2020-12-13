@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 func (c *Client) MessagesRequestEncryption(ctx context.Context, request *MessagesRequestEncryptionRequest) (EncryptedChatClass, error) {
 	var result EncryptedChatBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

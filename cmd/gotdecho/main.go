@@ -134,7 +134,7 @@ func run(ctx context.Context) error {
 	// Getting state is required to process updates in your code.
 	// Currently missed updates are not processed, so only new
 	// messages will be handled.
-	state, err := raw.UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
+	state, err := raw.UpdatesGetState(ctx)
 	if err != nil {
 		return xerrors.Errorf("failed to get state: %w", err)
 	}

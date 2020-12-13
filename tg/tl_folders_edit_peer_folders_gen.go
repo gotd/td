@@ -75,8 +75,12 @@ var (
 // Edit peers in peer folder
 //
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
-func (c *Client) FoldersEditPeerFolders(ctx context.Context, request *FoldersEditPeerFoldersRequest) (UpdatesClass, error) {
+func (c *Client) FoldersEditPeerFolders(ctx context.Context, folderpeers []InputFolderPeer) (UpdatesClass, error) {
 	var result UpdatesBox
+
+	request := &FoldersEditPeerFoldersRequest{
+		FolderPeers: folderpeers,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -94,10 +94,12 @@ var (
 // Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
-func (c *Client) UploadSaveBigFilePart(ctx context.Context, request *UploadSaveBigFilePartRequest) (BoolClass, error) {
+func (c *Client) UploadSaveBigFilePart(ctx context.Context, request *UploadSaveBigFilePartRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -69,8 +69,12 @@ var (
 // Get info about a certain wallpaper
 //
 // See https://core.telegram.org/method/account.getWallPaper for reference.
-func (c *Client) AccountGetWallPaper(ctx context.Context, request *AccountGetWallPaperRequest) (WallPaperClass, error) {
+func (c *Client) AccountGetWallPaper(ctx context.Context, wallpaper InputWallPaperClass) (WallPaperClass, error) {
 	var result WallPaperBox
+
+	request := &AccountGetWallPaperRequest{
+		Wallpaper: wallpaper,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

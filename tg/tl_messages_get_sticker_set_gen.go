@@ -69,8 +69,12 @@ var (
 // Get info about a stickerset
 //
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
-func (c *Client) MessagesGetStickerSet(ctx context.Context, request *MessagesGetStickerSetRequest) (*MessagesStickerSet, error) {
+func (c *Client) MessagesGetStickerSet(ctx context.Context, stickerset InputStickerSetClass) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
+
+	request := &MessagesGetStickerSetRequest{
+		Stickerset: stickerset,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

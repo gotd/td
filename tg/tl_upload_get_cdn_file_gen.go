@@ -86,6 +86,7 @@ var (
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 func (c *Client) UploadGetCdnFile(ctx context.Context, request *UploadGetCdnFileRequest) (UploadCdnFileClass, error) {
 	var result UploadCdnFileBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

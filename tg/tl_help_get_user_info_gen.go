@@ -69,8 +69,12 @@ var (
 // Internal use
 //
 // See https://core.telegram.org/method/help.getUserInfo for reference.
-func (c *Client) HelpGetUserInfo(ctx context.Context, request *HelpGetUserInfoRequest) (HelpUserInfoClass, error) {
+func (c *Client) HelpGetUserInfo(ctx context.Context, userid InputUserClass) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox
+
+	request := &HelpGetUserInfoRequest{
+		UserID: userid,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

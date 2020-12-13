@@ -167,6 +167,7 @@ var (
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {
 	var result AccountTakeout
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

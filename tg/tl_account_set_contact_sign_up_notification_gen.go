@@ -64,10 +64,15 @@ var (
 // Toggle contact sign up notifications
 //
 // See https://core.telegram.org/method/account.setContactSignUpNotification for reference.
-func (c *Client) AccountSetContactSignUpNotification(ctx context.Context, request *AccountSetContactSignUpNotificationRequest) (BoolClass, error) {
+func (c *Client) AccountSetContactSignUpNotification(ctx context.Context, silent bool) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &AccountSetContactSignUpNotificationRequest{
+		Silent: silent,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

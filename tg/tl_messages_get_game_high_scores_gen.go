@@ -96,6 +96,7 @@ var (
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

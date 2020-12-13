@@ -103,10 +103,12 @@ var (
 // Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
 //
 // See https://core.telegram.org/method/channels.reportSpam for reference.
-func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (BoolClass, error) {
+func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

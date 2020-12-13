@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 func (c *Client) AccountUploadWallPaper(ctx context.Context, request *AccountUploadWallPaperRequest) (WallPaperClass, error) {
 	var result WallPaperBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -78,8 +78,12 @@ var (
 // Returns the list of messages by their IDs.
 //
 // See https://core.telegram.org/method/messages.getMessages for reference.
-func (c *Client) MessagesGetMessages(ctx context.Context, request *MessagesGetMessagesRequest) (MessagesMessagesClass, error) {
+func (c *Client) MessagesGetMessages(ctx context.Context, id []InputMessageClass) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
+	request := &MessagesGetMessagesRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

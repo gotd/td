@@ -284,6 +284,7 @@ var (
 // See https://core.telegram.org/method/messages.sendMessage for reference.
 func (c *Client) MessagesSendMessage(ctx context.Context, request *MessagesSendMessageRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

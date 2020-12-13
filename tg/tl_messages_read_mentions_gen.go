@@ -69,8 +69,12 @@ var (
 // Mark mentions as read
 //
 // See https://core.telegram.org/method/messages.readMentions for reference.
-func (c *Client) MessagesReadMentions(ctx context.Context, request *MessagesReadMentionsRequest) (*MessagesAffectedHistory, error) {
+func (c *Client) MessagesReadMentions(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
+
+	request := &MessagesReadMentionsRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

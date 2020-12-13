@@ -119,10 +119,12 @@ var (
 // Note: Telegram must receive an answer within 10 seconds after the pre-checkout query was sent.
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
-func (c *Client) MessagesSetBotPrecheckoutResults(ctx context.Context, request *MessagesSetBotPrecheckoutResultsRequest) (BoolClass, error) {
+func (c *Client) MessagesSetBotPrecheckoutResults(ctx context.Context, request *MessagesSetBotPrecheckoutResultsRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

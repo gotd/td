@@ -98,6 +98,7 @@ var (
 // See https://core.telegram.org/method/messages.searchStickerSets for reference.
 func (c *Client) MessagesSearchStickerSets(ctx context.Context, request *MessagesSearchStickerSetsRequest) (MessagesFoundStickerSetsClass, error) {
 	var result MessagesFoundStickerSetsBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

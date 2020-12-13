@@ -54,8 +54,10 @@ var (
 // Get folders
 //
 // See https://core.telegram.org/method/messages.getDialogFilters for reference.
-func (c *Client) MessagesGetDialogFilters(ctx context.Context, request *MessagesGetDialogFiltersRequest) ([]DialogFilter, error) {
+func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilter, error) {
 	var result DialogFilterVector
+
+	request := &MessagesGetDialogFiltersRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

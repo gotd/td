@@ -192,6 +192,7 @@ var (
 // See https://core.telegram.org/method/contacts.getTopPeers for reference.
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {
 	var result ContactsTopPeersBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

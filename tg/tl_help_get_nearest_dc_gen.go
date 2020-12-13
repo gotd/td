@@ -54,8 +54,10 @@ var (
 // Returns info on data centre nearest to the user.
 //
 // See https://core.telegram.org/method/help.getNearestDc for reference.
-func (c *Client) HelpGetNearestDc(ctx context.Context, request *HelpGetNearestDcRequest) (*NearestDc, error) {
+func (c *Client) HelpGetNearestDc(ctx context.Context) (*NearestDc, error) {
 	var result NearestDc
+
+	request := &HelpGetNearestDcRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.sendConfirmPhoneCode for reference.
 func (c *Client) AccountSendConfirmPhoneCode(ctx context.Context, request *AccountSendConfirmPhoneCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

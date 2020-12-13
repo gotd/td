@@ -90,6 +90,7 @@ var (
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 func (c *Client) MessagesDeleteScheduledMessages(ctx context.Context, request *MessagesDeleteScheduledMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

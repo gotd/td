@@ -64,8 +64,12 @@ var (
 // Send the verification email code for telegram passport.
 //
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
-func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, request *AccountSendVerifyEmailCodeRequest) (*AccountSentEmailCode, error) {
+func (c *Client) AccountSendVerifyEmailCode(ctx context.Context, email string) (*AccountSentEmailCode, error) {
 	var result AccountSentEmailCode
+
+	request := &AccountSendVerifyEmailCodeRequest{
+		Email: email,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 func (c *Client) MessagesGetRecentLocations(ctx context.Context, request *MessagesGetRecentLocationsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

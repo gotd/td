@@ -76,6 +76,7 @@ var (
 // See https://core.telegram.org/method/account.getThemes for reference.
 func (c *Client) AccountGetThemes(ctx context.Context, request *AccountGetThemesRequest) (AccountThemesClass, error) {
 	var result AccountThemesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

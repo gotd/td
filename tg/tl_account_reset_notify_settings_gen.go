@@ -54,10 +54,13 @@ var (
 // Resets all notification settings from users and groups.
 //
 // See https://core.telegram.org/method/account.resetNotifySettings for reference.
-func (c *Client) AccountResetNotifySettings(ctx context.Context, request *AccountResetNotifySettingsRequest) (BoolClass, error) {
+func (c *Client) AccountResetNotifySettings(ctx context.Context) (bool, error) {
 	var result BoolBox
+
+	request := &AccountResetNotifySettingsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

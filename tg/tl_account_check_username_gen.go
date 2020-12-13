@@ -64,10 +64,15 @@ var (
 // Validates a username and checks availability.
 //
 // See https://core.telegram.org/method/account.checkUsername for reference.
-func (c *Client) AccountCheckUsername(ctx context.Context, request *AccountCheckUsernameRequest) (BoolClass, error) {
+func (c *Client) AccountCheckUsername(ctx context.Context, username string) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &AccountCheckUsernameRequest{
+		Username: username,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -64,8 +64,12 @@ var (
 // Get info about a credit card
 //
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
-func (c *Client) PaymentsGetBankCardData(ctx context.Context, request *PaymentsGetBankCardDataRequest) (*PaymentsBankCardData, error) {
+func (c *Client) PaymentsGetBankCardData(ctx context.Context, number string) (*PaymentsBankCardData, error) {
 	var result PaymentsBankCardData
+
+	request := &PaymentsGetBankCardDataRequest{
+		Number: number,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

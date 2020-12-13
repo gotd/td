@@ -212,6 +212,7 @@ var (
 // See https://core.telegram.org/method/account.updateTheme for reference.
 func (c *Client) AccountUpdateTheme(ctx context.Context, request *AccountUpdateThemeRequest) (*Theme, error) {
 	var result Theme
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

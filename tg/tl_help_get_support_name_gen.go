@@ -54,8 +54,10 @@ var (
 // Get localized name of the telegram support user
 //
 // See https://core.telegram.org/method/help.getSupportName for reference.
-func (c *Client) HelpGetSupportName(ctx context.Context, request *HelpGetSupportNameRequest) (*HelpSupportName, error) {
+func (c *Client) HelpGetSupportName(ctx context.Context) (*HelpSupportName, error) {
 	var result HelpSupportName
+
+	request := &HelpGetSupportNameRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

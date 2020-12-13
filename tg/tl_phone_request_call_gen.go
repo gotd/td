@@ -123,6 +123,7 @@ var (
 // See https://core.telegram.org/method/phone.requestCall for reference.
 func (c *Client) PhoneRequestCall(ctx context.Context, request *PhoneRequestCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

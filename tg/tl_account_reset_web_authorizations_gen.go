@@ -54,10 +54,13 @@ var (
 // Reset all active web telegram login sessions
 //
 // See https://core.telegram.org/method/account.resetWebAuthorizations for reference.
-func (c *Client) AccountResetWebAuthorizations(ctx context.Context, request *AccountResetWebAuthorizationsRequest) (BoolClass, error) {
+func (c *Client) AccountResetWebAuthorizations(ctx context.Context) (bool, error) {
 	var result BoolBox
+
+	request := &AccountResetWebAuthorizationsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

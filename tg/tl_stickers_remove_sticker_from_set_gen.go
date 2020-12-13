@@ -69,8 +69,12 @@ var (
 // Remove a sticker from the set where it belongs, bots only. The sticker set must have been created by the bot.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
-func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, request *StickersRemoveStickerFromSetRequest) (*MessagesStickerSet, error) {
+func (c *Client) StickersRemoveStickerFromSet(ctx context.Context, sticker InputDocumentClass) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
+
+	request := &StickersRemoveStickerFromSetRequest{
+		Sticker: sticker,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -75,10 +75,15 @@ var (
 // Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
-func (c *Client) BotsSetBotCommands(ctx context.Context, request *BotsSetBotCommandsRequest) (BoolClass, error) {
+func (c *Client) BotsSetBotCommands(ctx context.Context, commands []BotCommand) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &BotsSetBotCommandsRequest{
+		Commands: commands,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

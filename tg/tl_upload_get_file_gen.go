@@ -125,6 +125,7 @@ var (
 // See https://core.telegram.org/method/upload.getFile for reference.
 func (c *Client) UploadGetFile(ctx context.Context, request *UploadGetFileRequest) (UploadFileClass, error) {
 	var result UploadFileBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -91,6 +91,7 @@ var (
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
 func (c *Client) MessagesGetCommonChats(ctx context.Context, request *MessagesGetCommonChatsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -64,10 +64,15 @@ var (
 // Accept the new terms of service
 //
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
-func (c *Client) HelpAcceptTermsOfService(ctx context.Context, request *HelpAcceptTermsOfServiceRequest) (BoolClass, error) {
+func (c *Client) HelpAcceptTermsOfService(ctx context.Context, id DataJSON) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &HelpAcceptTermsOfServiceRequest{
+		ID: id,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

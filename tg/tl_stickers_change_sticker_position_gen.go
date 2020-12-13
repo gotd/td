@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 func (c *Client) StickersChangeStickerPosition(ctx context.Context, request *StickersChangeStickerPositionRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

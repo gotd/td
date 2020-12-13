@@ -54,8 +54,10 @@ var (
 // Get configuration for CDN file downloads.
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
-func (c *Client) HelpGetCdnConfig(ctx context.Context, request *HelpGetCdnConfigRequest) (*CdnConfig, error) {
+func (c *Client) HelpGetCdnConfig(ctx context.Context) (*CdnConfig, error) {
 	var result CdnConfig
+
+	request := &HelpGetCdnConfigRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

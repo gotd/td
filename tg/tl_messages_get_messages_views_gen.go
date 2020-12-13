@@ -100,6 +100,7 @@ var (
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 func (c *Client) MessagesGetMessagesViews(ctx context.Context, request *MessagesGetMessagesViewsRequest) (*MessagesMessageViews, error) {
 	var result MessagesMessageViews
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

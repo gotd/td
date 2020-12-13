@@ -69,8 +69,12 @@ var (
 // Export an invite link for a chat
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
-func (c *Client) MessagesExportChatInvite(ctx context.Context, request *MessagesExportChatInviteRequest) (ExportedChatInviteClass, error) {
+func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerClass) (ExportedChatInviteClass, error) {
 	var result ExportedChatInviteBox
+
+	request := &MessagesExportChatInviteRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

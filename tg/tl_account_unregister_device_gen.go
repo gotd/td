@@ -93,10 +93,12 @@ var (
 // Deletes a device by its token, stops sending PUSH-notifications to it.
 //
 // See https://core.telegram.org/method/account.unregisterDevice for reference.
-func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (BoolClass, error) {
+func (c *Client) AccountUnregisterDevice(ctx context.Context, request *AccountUnregisterDeviceRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

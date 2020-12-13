@@ -103,6 +103,7 @@ var (
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
 func (c *Client) StatsGetMessageStats(ctx context.Context, request *StatsGetMessageStatsRequest) (*StatsMessageStats, error) {
 	var result StatsMessageStats
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

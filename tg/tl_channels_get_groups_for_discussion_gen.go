@@ -58,8 +58,10 @@ var (
 // To set a returned supergroup as a discussion group, access to its old messages must be enabled using channels.togglePreHistoryHidden, first.
 //
 // See https://core.telegram.org/method/channels.getGroupsForDiscussion for reference.
-func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context, request *ChannelsGetGroupsForDiscussionRequest) (MessagesChatsClass, error) {
+func (c *Client) ChannelsGetGroupsForDiscussion(ctx context.Context) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
+
+	request := &ChannelsGetGroupsForDiscussionRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

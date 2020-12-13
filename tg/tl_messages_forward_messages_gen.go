@@ -199,6 +199,7 @@ var (
 // See https://core.telegram.org/method/messages.forwardMessages for reference.
 func (c *Client) MessagesForwardMessages(ctx context.Context, request *MessagesForwardMessagesRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

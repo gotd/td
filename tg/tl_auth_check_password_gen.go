@@ -69,8 +69,12 @@ var (
 // Try logging to an account protected by a 2FA password.
 //
 // See https://core.telegram.org/method/auth.checkPassword for reference.
-func (c *Client) AuthCheckPassword(ctx context.Context, request *AuthCheckPasswordRequest) (AuthAuthorizationClass, error) {
+func (c *Client) AuthCheckPassword(ctx context.Context, password InputCheckPasswordSRPClass) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
+
+	request := &AuthCheckPasswordRequest{
+		Password: password,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

@@ -69,8 +69,12 @@ var (
 // Get private info associated to the password info (recovery email, telegram passport info & so on)
 //
 // See https://core.telegram.org/method/account.getPasswordSettings for reference.
-func (c *Client) AccountGetPasswordSettings(ctx context.Context, request *AccountGetPasswordSettingsRequest) (*AccountPasswordSettings, error) {
+func (c *Client) AccountGetPasswordSettings(ctx context.Context, password InputCheckPasswordSRPClass) (*AccountPasswordSettings, error) {
 	var result AccountPasswordSettings
+
+	request := &AccountGetPasswordSettingsRequest{
+		Password: password,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

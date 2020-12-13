@@ -54,8 +54,10 @@ var (
 // Get phone call configuration to be passed to libtgvoip's shared config
 //
 // See https://core.telegram.org/method/phone.getCallConfig for reference.
-func (c *Client) PhoneGetCallConfig(ctx context.Context, request *PhoneGetCallConfigRequest) (*DataJSON, error) {
+func (c *Client) PhoneGetCallConfig(ctx context.Context) (*DataJSON, error) {
 	var result DataJSON
+
+	request := &PhoneGetCallConfigRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

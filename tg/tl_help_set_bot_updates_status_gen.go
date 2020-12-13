@@ -74,10 +74,12 @@ var (
 // Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
-func (c *Client) HelpSetBotUpdatesStatus(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (BoolClass, error) {
+func (c *Client) HelpSetBotUpdatesStatus(ctx context.Context, request *HelpSetBotUpdatesStatusRequest) (bool, error) {
 	var result BoolBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

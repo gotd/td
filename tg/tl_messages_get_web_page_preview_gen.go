@@ -119,6 +119,7 @@ var (
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 func (c *Client) MessagesGetWebPagePreview(ctx context.Context, request *MessagesGetWebPagePreviewRequest) (MessageMediaClass, error) {
 	var result MessageMediaBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

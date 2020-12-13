@@ -81,6 +81,7 @@ var (
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {
 	var result MessagesDiscussionMessage
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

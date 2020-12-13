@@ -78,8 +78,12 @@ var (
 // Get info about channels/supergroups
 //
 // See https://core.telegram.org/method/channels.getChannels for reference.
-func (c *Client) ChannelsGetChannels(ctx context.Context, request *ChannelsGetChannelsRequest) (MessagesChatsClass, error) {
+func (c *Client) ChannelsGetChannels(ctx context.Context, id []InputChannelClass) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
+
+	request := &ChannelsGetChannelsRequest{
+		ID: id,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

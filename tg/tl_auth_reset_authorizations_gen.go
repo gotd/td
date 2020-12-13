@@ -56,10 +56,13 @@ var (
 // After calling this method it is necessary to reregister the current device using the method account.registerDevice
 //
 // See https://core.telegram.org/method/auth.resetAuthorizations for reference.
-func (c *Client) AuthResetAuthorizations(ctx context.Context, request *AuthResetAuthorizationsRequest) (BoolClass, error) {
+func (c *Client) AuthResetAuthorizations(ctx context.Context) (bool, error) {
 	var result BoolBox
+
+	request := &AuthResetAuthorizationsRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+		return false, err
 	}
-	return result.Bool, nil
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

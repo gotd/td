@@ -69,8 +69,12 @@ var (
 // Get count of online users in a chat
 //
 // See https://core.telegram.org/method/messages.getOnlines for reference.
-func (c *Client) MessagesGetOnlines(ctx context.Context, request *MessagesGetOnlinesRequest) (*ChatOnlines, error) {
+func (c *Client) MessagesGetOnlines(ctx context.Context, peer InputPeerClass) (*ChatOnlines, error) {
 	var result ChatOnlines
+
+	request := &MessagesGetOnlinesRequest{
+		Peer: peer,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

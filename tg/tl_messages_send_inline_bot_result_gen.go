@@ -217,6 +217,7 @@ var (
 // See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 func (c *Client) MessagesSendInlineBotResult(ctx context.Context, request *MessagesSendInlineBotResultRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

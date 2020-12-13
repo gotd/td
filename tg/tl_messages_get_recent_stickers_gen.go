@@ -88,6 +88,7 @@ var (
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.
 func (c *Client) MessagesGetRecentStickers(ctx context.Context, request *MessagesGetRecentStickersRequest) (MessagesRecentStickersClass, error) {
 	var result MessagesRecentStickersBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

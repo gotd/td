@@ -64,10 +64,15 @@ var (
 // Set account self-destruction period
 //
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
-func (c *Client) AccountSetAccountTTL(ctx context.Context, request *AccountSetAccountTTLRequest) (BoolClass, error) {
+func (c *Client) AccountSetAccountTTL(ctx context.Context, ttl AccountDaysTTL) (bool, error) {
 	var result BoolBox
-	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
-		return nil, err
+
+	request := &AccountSetAccountTTLRequest{
+		TTL: ttl,
 	}
-	return result.Bool, nil
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return false, err
+	}
+	_, ok := result.Bool.(*BoolTrue)
+	return ok, nil
 }

@@ -125,6 +125,7 @@ var (
 // See https://core.telegram.org/method/contacts.addContact for reference.
 func (c *Client) ContactsAddContact(ctx context.Context, request *ContactsAddContactRequest) (UpdatesClass, error) {
 	var result UpdatesBox
+
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

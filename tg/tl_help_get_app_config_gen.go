@@ -54,8 +54,10 @@ var (
 // Get app-specific configuration, see client configuration for more info on the result.
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
-func (c *Client) HelpGetAppConfig(ctx context.Context, request *HelpGetAppConfigRequest) (JSONValueClass, error) {
+func (c *Client) HelpGetAppConfig(ctx context.Context) (JSONValueClass, error) {
 	var result JSONValueBox
+
+	request := &HelpGetAppConfigRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
