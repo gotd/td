@@ -5,70 +5,19 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"path"
+	"path/filepath"
 	"strconv"
 	"syscall"
 	"time"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
-
-type updateHandler struct {
-	log *zap.Logger
-}
-
-func (h updateHandler) handle(ctx context.Context, client telegram.UpdateClient, updates *tg.Updates) error {
-	// This wll be required to send message back.
-	users := map[int]*tg.User{}
-	for _, u := range updates.Users {
-		user, ok := u.(*tg.User)
-		if !ok {
-			continue
-		}
-		users[user.ID] = user
-	}
-
-	for _, update := range updates.Updates {
-		switch u := update.(type) {
-		case *tg.UpdateNewMessage:
-			switch m := u.Message.(type) {
-			case *tg.Message:
-				switch peer := m.PeerID.(type) {
-				case *tg.PeerUser:
-					user := users[peer.UserID]
-					h.log.With(
-						zap.String("text", m.Message),
-						zap.Int("user_id", user.ID),
-						zap.String("user_first_name", user.FirstName),
-						zap.String("username", user.Username),
-					).Info("Got message")
-
-					randomID, err := client.RandInt64()
-					if err != nil {
-						return err
-					}
-					p := &tg.InputPeerUser{
-						UserID:     user.ID,
-						AccessHash: user.AccessHash,
-					}
-					return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-						RandomID: randomID,
-						Message:  m.Message,
-						Peer:     p,
-					})
-				}
-			}
-		default:
-			h.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Info("Ignoring update")
-		}
-	}
-	return nil
-}
 
 func run(ctx context.Context) error {
 	logger, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
@@ -90,31 +39,62 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	sessionDir := path.Join(home, ".td")
+	sessionDir := filepath.Join(home, ".td")
 	if err := os.MkdirAll(sessionDir, 0600); err != nil {
 		return err
 	}
 
+	dispatcher := tg.NewUpdateDispatcher()
 	// Creating connection.
 	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
 	defer cancel()
-	client, err := telegram.Dial(dialCtx, telegram.Options{
+	client := telegram.NewClient(appID, appHash, telegram.Options{
 		Logger: logger,
 		SessionStorage: &telegram.FileSessionStorage{
-			Path: path.Join(sessionDir, "session.json"),
+			Path: filepath.Join(sessionDir, "session.json"),
 		},
 
-		// Grab these from https://my.telegram.org/apps.
-		// Never share it or hardcode!
-		AppID:   appID,
-		AppHash: appHash,
-
-		UpdateHandler: updateHandler{log: logger}.handle,
+		Dialer:        telegram.DialFunc(proxy.Dial),
+		UpdateHandler: dispatcher.Handle,
 	})
+
+	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
+		switch m := u.Message.(type) {
+		case *tg.Message:
+			switch peer := m.PeerID.(type) {
+			case *tg.PeerUser:
+				user := ctx.Users[peer.UserID]
+				logger.With(
+					zap.String("text", m.Message),
+					zap.Int("user_id", user.ID),
+					zap.String("user_first_name", user.FirstName),
+					zap.String("username", user.Username),
+				).Info("Got message")
+
+				randomID, err := client.RandInt64()
+				if err != nil {
+					return err
+				}
+				p := &tg.InputPeerUser{
+					UserID:     user.ID,
+					AccessHash: user.AccessHash,
+				}
+				return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+					RandomID: randomID,
+					Message:  m.Message,
+					Peer:     p,
+				})
+			}
+		}
+
+		return nil
+	})
+
+	err = client.Connect(ctx)
 	if err != nil {
-		return xerrors.Errorf("failed to dial: %w", err)
+		return xerrors.Errorf("failed to connect: %w", err)
 	}
-	logger.Info("Dialed")
+	logger.Info("Client started.")
 
 	auth, err := client.AuthStatus(dialCtx)
 	if err != nil {

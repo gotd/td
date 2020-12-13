@@ -10,23 +10,19 @@ import (
 	"github.com/gotd/td/telegram/internal/tgtest"
 )
 
-func TestDial(t *testing.T) {
+func TestClient(t *testing.T) {
 	srv := tgtest.NewServer(nil)
 	defer srv.Close()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
 	defer cancel()
 
-	client, err := Dial(ctx, Options{
-		AppID:   1,
-		AppHash: "hash",
-
+	client := NewClient(1, "hash", Options{
 		PublicKeys: []*rsa.PublicKey{srv.Key()},
 		Addr:       srv.Listener.Addr().String(),
 	})
-	if client != nil {
-		t.Error("expected nil client")
-	}
+
+	err := client.Connect(ctx)
 	if err == nil {
 		t.Error("expected non-nil error")
 	} else if !strings.Contains(err.Error(), "nonce mismatch") {

@@ -22,7 +22,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 				return
 			}
 			// We should send ACK here.
-			if err := c.updateHandler(c.ctx, c, u); err != nil {
+			if err := c.updateHandler(c.ctx, u); err != nil {
 				c.log.With(zap.Error(err)).Error("Update handler returning error")
 			}
 		}()

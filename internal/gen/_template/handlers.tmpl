@@ -1,0 +1,84 @@
+{{ define "handlers" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+type handler = func(UpdateContext, UpdateClass) error
+
+type UpdateDispatcher struct {
+    handlers map[int]handler
+}
+
+func NewUpdateDispatcher() UpdateDispatcher {
+    return UpdateDispatcher{
+        handlers: map[int]handler{},
+    }
+}
+
+type UpdateContext struct {
+    context.Context
+
+    Users map[int]*User
+    Chats map[int]*Chat
+    init bool
+}
+
+func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
+    if u.init {
+        return
+    }
+
+    u.init = true
+    u.Users = make(map[int]*User, len(updates.Users))
+	for _, class := range updates.Users {
+		user, ok := class.(*User)
+		if !ok {
+			continue
+		}
+		u.Users[user.ID] = user
+	}
+
+    u.Chats = make(map[int]*Chat, len(updates.Chats))
+	for _, class := range updates.Chats {
+		chat, ok := class.(*Chat)
+		if !ok {
+			continue
+		}
+		u.Chats[chat.ID] = chat
+	}
+}
+
+func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
+    uctx := UpdateContext{
+        Context:      ctx,
+    }
+
+	for _, update := range updates.Updates {
+        uctx.lazyInitFromUpdates(updates)
+        switch update.(type) {
+{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
+        case *{{ $s.Name }}:
+            if handler, ok := u.handlers[{{ $s.Name }}TypeID]; ok {
+                if err := handler(uctx, update); err != nil {
+                    return err
+                }
+            }
+{{- end }}{{ end }}
+        }
+	}
+	return nil
+}
+
+{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
+{{ $eventName := trimPrefix $s.Name "Update"}}
+// {{ $eventName }}Handler is a {{ $eventName }} event handler.
+type {{ $eventName }}Handler func(ctx UpdateContext, update *{{ $s.Name }}) error
+
+// On{{ $eventName }} sets {{ $eventName }} handler.
+func (u UpdateDispatcher) On{{ $eventName }}(handler {{ $eventName }}Handler) {
+    u.handlers[{{ $s.Name }}TypeID] = func(ctx UpdateContext, update UpdateClass) error {
+        return handler(ctx, update.(*{{ $s.Name }}))
+    }
+}
+{{- end }}{{ end }}
+
+{{ end }}
