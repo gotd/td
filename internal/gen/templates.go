@@ -9,8 +9,8 @@ import (
 
 func Template() *template.Template {
 	tmpl := template.New("templates").Funcs(template.FuncMap{
-		"trim":  strings.TrimSpace,
-		"lower": strings.ToLower,
+		"trim":       strings.TrimSpace,
+		"lower":      strings.ToLower,
 		"trimPrefix": strings.TrimPrefix,
 		"hasPrefix":  strings.HasPrefix,
 	})
