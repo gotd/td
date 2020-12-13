@@ -10,6 +10,7 @@ type EncryptedMessage struct {
 	EncryptedData []byte
 }
 
+// Decode implements bin.Decoder.
 func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeN(e.AuthKeyID[:], 8); err != nil {
 		return err
@@ -29,6 +30,7 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	return nil
 }
 
+// Encode implements bin.Encoder.
 func (e EncryptedMessage) Encode(b *bin.Buffer) error {
 	b.Put(e.AuthKeyID[:])
 	b.PutInt128(e.MsgKey)

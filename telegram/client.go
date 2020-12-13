@@ -124,10 +124,7 @@ func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error
 	return msg.Encode(b)
 }
 
-func (c *Client) AuthKey() crypto.AuthKey {
-	return c.authKey
-}
-
+// NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
 	opt.setDefaults()
@@ -166,6 +163,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	return client
 }
 
+// Connect initializes connection to Telegram server and starts internal
+// read loop.
 func (c *Client) Connect(ctx context.Context) (err error) {
 	c.conn, err = c.dialer.DialContext(ctx, "tcp", c.addr)
 	if err != nil {

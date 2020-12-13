@@ -1,3 +1,4 @@
+// Package tmap provides type mapping facility that maps type id to type name.
 package tmap
 
 // Map is type mapping.

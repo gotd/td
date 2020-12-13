@@ -8,12 +8,15 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// MessageContainerTypeID is TL type id of MessageContainer.
 const MessageContainerTypeID = 0x73f1f8dc
 
+// MessageContainer contains slice of messages.
 type MessageContainer struct {
 	Messages []Message
 }
 
+// Decode implements bin.Decoder.
 func (m *MessageContainer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageContainerTypeID); err != nil {
 		return xerrors.Errorf("failed to consume id of message container: %w", err)
@@ -32,6 +35,7 @@ func (m *MessageContainer) Decode(b *bin.Buffer) error {
 	return nil
 }
 
+// Message is element of MessageContainer.
 type Message struct {
 	ID    int64
 	SeqNo int
@@ -39,6 +43,7 @@ type Message struct {
 	Body  []byte
 }
 
+// Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	{
 		v, err := b.Long()

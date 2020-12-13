@@ -1,8 +1,6 @@
 linters-settings:
   govet:
     check-shadowing: true
-  golint:
-    min-confidence: 0
   gocyclo:
     min-complexity: 15
   maligned:
@@ -76,6 +74,7 @@ linters:
   # - funlen    (gocyclo is enough)
 
 issues:
+  exclude-use-default: false
   exclude-rules:
     # TODO(ernado): Should we refactor Parse() functions?
     - linters: [gocyclo, gocognit]
@@ -113,3 +112,10 @@ issues:
       linters: [gochecknoglobals, goconst, funlen, gocognit, gocyclo]
     - linters: [goconst]
       text: 'string `bool`'
+
+    - path: tgtest
+      text: "should have comment or be unexported"
+
+    - path: internal\.go
+      text: "should have.+comment"
+      linters: [golint]

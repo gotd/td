@@ -1,6 +1,6 @@
 package proto
 
-// Types returns mapping from type ids to TL type names.
+// TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
 	return map[uint32]string{
 		MessageContainerTypeID: "message_container",

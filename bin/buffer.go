@@ -22,15 +22,18 @@ func (b *Buffer) Read(p []byte) (n int, err error) {
 	return n, nil
 }
 
+// Copy returns new copy of buffer.
 func (b *Buffer) Copy() []byte {
 	return append([]byte{}, b.Buf...)
 }
 
+// Write implements io.Writer.
 func (b *Buffer) Write(p []byte) (n int, err error) {
 	b.Buf = append(b.Buf, p...)
 	return len(p), nil
 }
 
+// WriteTo implements io.WriterTo.
 func (b Buffer) WriteTo(w io.Writer) (n int64, err error) {
 	wroteN, err := w.Write(b.Buf)
 	return int64(wroteN), err

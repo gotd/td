@@ -1,3 +1,4 @@
+// Package gen implements code generation from TL schema.
 package gen
 
 import (

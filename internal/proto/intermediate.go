@@ -17,7 +17,7 @@ import (
 // Note that server does not respond with it.
 var IntermediateClientStart = []byte{0xee, 0xee, 0xee, 0xee}
 
-// EncodeIntermediate encodes b as payload to w.
+// WriteIntermediate encodes b as payload to w.
 func WriteIntermediate(w io.Writer, b *bin.Buffer) error {
 	if b.Len() > maxMessageSize {
 		return ErrMessageTooBig

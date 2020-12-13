@@ -18,8 +18,10 @@ type GZIP struct {
 	Data []byte
 }
 
+// GZIPTypeID is TL type id of GZIP.
 const GZIPTypeID = 0x3072cfa1
 
+// Decode implements bin.Decoder.
 func (g *GZIP) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GZIPTypeID); err != nil {
 		return err

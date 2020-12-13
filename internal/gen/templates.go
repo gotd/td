@@ -7,6 +7,7 @@ import (
 	"github.com/gotd/td/internal/gen/internal"
 )
 
+// Template parses and returns vendored code generation templates.
 func Template() *template.Template {
 	tmpl := template.New("templates").Funcs(template.FuncMap{
 		"trim":       strings.TrimSpace,

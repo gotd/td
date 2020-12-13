@@ -60,6 +60,7 @@ func (b *Buffer) PutInt32(v int32) {
 	b.PutUint32(uint32(v))
 }
 
+// PutUint32 serializes unsigned 32-bit integer.
 func (b *Buffer) PutUint32(v uint32) {
 	t := make([]byte, Word)
 	binary.LittleEndian.PutUint32(t, v)

@@ -42,6 +42,10 @@ func (b *Buffer) Int32() (int32, error) {
 	return int32(v), nil
 }
 
+// ConsumeN consumes n bytes from buffer, writing them to target.
+//
+// Returns io.ErrUnexpectedEOF if buffer contains less that n bytes.
+// Expects that len(target) >= n.
 func (b *Buffer) ConsumeN(target []byte, n int) error {
 	if len(b.Buf) < n {
 		return io.ErrUnexpectedEOF
@@ -208,7 +212,7 @@ func (b *Buffer) Int128() (Int128, error) {
 	return v, nil
 }
 
-// Int128 decodes 128-bit unsigned integer from Buffer.
+// Int256 decodes 256-bit unsigned integer from Buffer.
 func (b *Buffer) Int256() (Int256, error) {
 	v := Int256{}
 	size := len(v)

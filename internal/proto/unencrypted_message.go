@@ -12,6 +12,7 @@ type UnencryptedMessage struct {
 	MessageData []byte
 }
 
+// Decode implements bin.Decoder.
 func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	{
 		id, err := b.Long()
@@ -43,6 +44,7 @@ func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	return nil
 }
 
+// Encode implements bin.Encoder.
 func (u UnencryptedMessage) Encode(b *bin.Buffer) error {
 	b.PutLong(0)
 	b.PutLong(u.MessageID)

@@ -1,3 +1,4 @@
+// Binary gotdgen generates go source code from TL schema.
 package main
 
 import (

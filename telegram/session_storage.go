@@ -32,6 +32,7 @@ type FileSessionStorage struct {
 	Path string
 }
 
+// LoadSession loads session from file.
 func (f *FileSessionStorage) LoadSession(_ context.Context) ([]byte, error) {
 	if f == nil {
 		return nil, xerrors.New("nil session storage is invalid")
@@ -46,6 +47,7 @@ func (f *FileSessionStorage) LoadSession(_ context.Context) ([]byte, error) {
 	return data, nil
 }
 
+// StoreSession stores session to file.
 func (f *FileSessionStorage) StoreSession(_ context.Context, data []byte) error {
 	if f == nil {
 		return xerrors.New("nil session storage is invalid")

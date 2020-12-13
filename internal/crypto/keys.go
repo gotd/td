@@ -14,6 +14,7 @@ import (
 // AuthKey represents 2048-bit authorization key.
 type AuthKey [256]byte
 
+// Zero reports whether AuthKey is zero value.
 func (k AuthKey) Zero() bool {
 	return k == AuthKey{}
 }
@@ -26,6 +27,7 @@ func (k AuthKey) ID() [8]byte {
 	return id
 }
 
+// AuxHash returns aux_hash value of key.
 func (k AuthKey) AuxHash() [8]byte {
 	raw := sha1.Sum(k[:]) // #nosec
 	var id [8]byte
