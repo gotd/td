@@ -2,7 +2,9 @@ package telegram
 
 import (
 	"context"
+	"time"
 
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -67,4 +69,31 @@ func (c *Client) handlePong(b *bin.Buffer) error {
 		f()
 	}
 	return nil
+}
+
+func (c *Client) pingLoop(ctx context.Context) {
+	ticker := time.NewTicker(c.pingDuration)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ctx.Done():
+			if err := ctx.Err(); err != nil {
+				c.log.Error("ping loop ctx error", zap.Error(err))
+			}
+			return
+		case <-ticker.C:
+			if err := func() error {
+				ctx, cancel := context.WithTimeout(ctx, c.pingTimeout)
+				defer cancel()
+
+				return c.Ping(ctx)
+			}(); err != nil {
+				c.log.Warn("ping error", zap.Error(err))
+				if err := c.reconnect(); err != nil {
+					c.log.Fatal("reconnect after ping error", zap.Error(err))
+				}
+			}
+		}
+	}
 }

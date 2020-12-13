@@ -40,6 +40,9 @@ type Client struct {
 	addr   string
 	dialer Dialer
 
+	pingDuration time.Duration
+	pingTimeout  time.Duration
+
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
 	clock func() time.Time
@@ -134,6 +137,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		addr:   opt.Addr,
 		dialer: opt.Dialer,
 
+		pingDuration: opt.PingDuration,
+		pingTimeout:  opt.PingTimeout,
+
 		clock: time.Now,
 		rand:  opt.Random,
 		log:   opt.Logger,
@@ -187,6 +193,9 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 
 	// Spawning reading goroutine.
 	go c.readLoop(c.ctx)
+
+	// Spawning ping goroutine.
+	go c.pingLoop(ctx)
 
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("failed to init connection: %w", err)
