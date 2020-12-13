@@ -106,7 +106,7 @@ issues:
         - gochecknoglobals
     # Ignore shadowing of err.
     - linters: [govet]
-      text: 'declaration of "err"'
+      text: 'declaration of "(err|ctx)"'
     # Ignore linters in main packages.
     - path: main\.go
       linters: [gochecknoglobals, goconst, funlen, gocognit, gocyclo]
