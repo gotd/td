@@ -90,9 +90,12 @@ func (c *Client) pingLoop(ctx context.Context) {
 				return c.Ping(ctx)
 			}(); err != nil {
 				c.log.Warn("ping error", zap.Error(err))
+				ticker.Stop()
 				if err := c.reconnect(); err != nil {
 					c.log.Fatal("reconnect after ping error", zap.Error(err))
 				}
+
+				ticker.Reset(c.pingDuration)
 			}
 		}
 	}
