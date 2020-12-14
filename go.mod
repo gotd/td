@@ -7,7 +7,7 @@ require (
 	github.com/go-openapi/inflect v0.19.0
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/gotd/getdoc v0.1.0
-	github.com/gotd/ige v0.1.3
+	github.com/gotd/ige v0.1.5
 	github.com/gotd/tl v0.2.0
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0
