@@ -103,7 +103,7 @@ func run(ctx context.Context) error {
 	}
 	logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
 	if !auth.Authorized {
-		if err := client.BotLogin(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
+		if err := client.AuthBot(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
 			return xerrors.Errorf("failed to perform bot login: %w", err)
 		}
 		logger.Info("Bot login ok")
