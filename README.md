@@ -49,7 +49,7 @@ if err != nil {
     panic(err)
 }
 // Grab token from @BotFather.
-if err := client.BotLogin(ctx, "token:12345"); err != nil {
+if err := client.AuthBot(ctx, "token:12345"); err != nil {
     panic(err)
 }
 // updates.getState#edd4882a
