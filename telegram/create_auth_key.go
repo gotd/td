@@ -114,7 +114,7 @@ Loop:
 	}
 
 	// `encrypted_data := RSA (data_with_hash, server_public_key);`
-	encryptedData, err := crypto.EncryptHashed(b.Buf, selectedPubKey, c.rand)
+	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
 	if err != nil {
 		return err
 	}
