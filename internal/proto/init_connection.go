@@ -1,6 +1,10 @@
 package proto
 
-import "github.com/gotd/td/bin"
+import (
+	"fmt"
+
+	"github.com/gotd/td/bin"
+)
 
 // initConnection#c1cd5ea9 {X:Type} flags:# api_id:int device_model:string system_version:string
 // app_version:string system_lang_code:string lang_pack:string lang_code:string
@@ -17,12 +21,14 @@ type InitConnection struct {
 	LangPack       string
 	LangCode       string
 
-	Query bin.Encoder
+	Query TType
 }
+
+const InitConnectionID = 0xc1cd5ea9
 
 // Encode implements bin.Encoder.
 func (i InitConnection) Encode(b *bin.Buffer) error {
-	b.PutID(0xc1cd5ea9)
+	b.PutID(InitConnectionID)
 	if err := i.Flags.Encode(b); err != nil {
 		return err
 	}
@@ -36,4 +42,54 @@ func (i InitConnection) Encode(b *bin.Buffer) error {
 	b.PutString(i.LangCode)
 
 	return i.Query.Encode(b)
+}
+
+func (i InitConnection) Decode(b *bin.Buffer) (err error) {
+	if err := b.ConsumeID(InitConnectionID); err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	if err := i.Flags.Decode(b); err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.ID, err = b.Int()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.DeviceModel, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.SystemVersion, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.AppVersion, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.SystemLangCode, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.LangPack, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	i.LangCode, err = b.String()
+	if err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+
+	if err := i.Query.Decode(b); err != nil {
+		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
+	}
+	return nil
 }

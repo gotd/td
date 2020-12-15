@@ -13,6 +13,15 @@ type Result struct {
 	Result           []byte
 }
 
+// Encode implements bin.Encoder.
+func (r *Result) Encode(b *bin.Buffer) error {
+	b.PutID(ResultTypeID)
+	b.PutLong(r.RequestMessageID)
+	b.Put(r.Result)
+	return nil
+}
+
+
 // Decode implements bin.Decoder.
 func (r *Result) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResultTypeID); err != nil {
