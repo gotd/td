@@ -18,6 +18,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/xor"
 )
 
 // createAuthKey generates new authorization key.
@@ -260,7 +261,7 @@ Loop:
 			nonceHash1 := sha(buf)[4:20]
 			serverSalt := make([]byte, 8)
 			copy(serverSalt, newNonce[:8])
-			xor(serverSalt, v.ServerNonce[:8])
+			xor.Bytes(serverSalt, serverSalt, v.ServerNonce[:8])
 
 			if !bytes.Equal(nonceHash1, v.NewNonceHash1[:]) {
 				return xerrors.New("key exchange verification failed: hash mismatch")
