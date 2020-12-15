@@ -21,7 +21,6 @@ func (r *Result) Encode(b *bin.Buffer) error {
 	return nil
 }
 
-
 // Decode implements bin.Decoder.
 func (r *Result) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResultTypeID); err != nil {

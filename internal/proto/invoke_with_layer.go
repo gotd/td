@@ -16,6 +16,7 @@ type InvokeWithLayer struct {
 	Query TType
 }
 
+// InvokeWithLayerID is TL type id of invokeWithLayer#da9b0d0d.
 const InvokeWithLayerID = 0xda9b0d0d
 
 // Encode implements bin.Encoder.

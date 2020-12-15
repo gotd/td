@@ -45,6 +45,7 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	return res, nil
 }
 
+// RSADecryptHashed decrypts given data with RSA, prefixing with a hash.
 func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte) {
 	c := big.NewInt(0).SetBytes(data)
 	m := big.NewInt(0).Exp(c, key.D, key.N)

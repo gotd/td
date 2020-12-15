@@ -24,6 +24,7 @@ type InitConnection struct {
 	Query TType
 }
 
+// InitConnectionID is TL type id of initConnection#c1cd5ea9.
 const InitConnectionID = 0xc1cd5ea9
 
 // Encode implements bin.Encoder.
@@ -44,6 +45,7 @@ func (i InitConnection) Encode(b *bin.Buffer) error {
 	return i.Query.Encode(b)
 }
 
+// Decode implements bin.Decoder.
 func (i InitConnection) Decode(b *bin.Buffer) (err error) {
 	if err := b.ConsumeID(InitConnectionID); err != nil {
 		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
