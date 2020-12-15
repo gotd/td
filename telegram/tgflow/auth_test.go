@@ -55,7 +55,7 @@ func TestCodeOnlyAuth(t *testing.T) {
 	a.NoError(err)
 	a.Equal("phone", result)
 
-	result, err = auth.Password(ctx)
+	_, err = auth.Password(ctx)
 	a.Error(err)
 }
 
