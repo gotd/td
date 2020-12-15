@@ -13,8 +13,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func ExampleClient_PasswordLogin() {
-	die := func(err error) {
+func ExampleClient_UserLogin() {
+	check := func(err error) {
 		if err != nil {
 			panic(err)
 		}
@@ -30,36 +30,24 @@ func ExampleClient_PasswordLogin() {
 	}
 
 	appID, err := strconv.Atoi(appIDString)
-	die(err)
+	check(err)
 
 	ctxt := context.Background()
 	c := telegram.NewClient(appID, appHash, telegram.Options{})
 	err = c.Connect(ctxt)
-	die(err)
+	check(err)
 
-	client := tg.NewClient(c)
-	sentCode, err := client.AuthSendCode(ctxt, &tg.AuthSendCodeRequest{
-		PhoneNumber: phone,
-		APIID:       appID,
-		APIHash:     appHash,
-		Settings:    tg.CodeSettings{},
-	})
-	die(err)
-
-	fmt.Print("code:")
-	code, err := bufio.NewReader(os.Stdin).ReadString('\n')
-	die(err)
-	code = strings.ReplaceAll(code, "\n", "")
-
-	_, err = client.AuthSignIn(ctxt, &tg.AuthSignInRequest{
-		PhoneNumber:   phone,
-		PhoneCodeHash: sentCode.PhoneCodeHash,
-		PhoneCode:     code,
-	})
-	if err != nil && !strings.Contains(err.Error(), "SESSION_PASSWORD_NEEDED") {
-		die(err)
+	codeAsk := func(ctx context.Context) (string, error) {
+		fmt.Print("code:")
+		code, err := bufio.NewReader(os.Stdin).ReadString('\n')
+		if err != nil {
+			return "", err
+		}
+		code = strings.ReplaceAll(code, "\n", "")
+		return code, nil
 	}
+	auth := telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk))
 
-	_, err = c.PasswordLogin(ctxt, pass)
-	die(err)
+	err = c.UserLogin(ctxt, auth, tg.CodeSettings{})
+	check(err)
 }

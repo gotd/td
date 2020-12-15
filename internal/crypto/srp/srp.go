@@ -1,6 +1,8 @@
-package crypto
+// Package srp contains implementation of Secure Remote Password protocol.
+package srp
 
 import (
+	"crypto/sha256"
 	"crypto/sha512"
 	"io"
 	"math/big"
@@ -11,15 +13,22 @@ import (
 	"github.com/gotd/xor"
 )
 
+// SRP is client implementation of Secure Remote Password protocol.
+//
+// See https://core.telegram.org/api/srp.
 type SRP struct {
 	random io.Reader
 }
 
+// NewSRP creates new SRP instance.
 func NewSRP(random io.Reader) SRP {
 	return SRP{random: random}
 }
 
-type SRPInput struct {
+// Input is hashing algorithm parameters from server.
+//
+// Copy of tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow
+type Input struct {
 	// One of two salts used by the derivation function (see SRP 2FA login)
 	Salt1 []byte
 	// One of two salts used by the derivation function (see SRP 2FA login)
@@ -30,17 +39,21 @@ type SRPInput struct {
 	P []byte
 }
 
-type SRPAnswer struct {
+// Answer is result of SRP algorithm.
+type Answer struct {
 	// A parameter (see SRP)
 	A []byte
 	// M1 parameter (see SRP)
 	M1 []byte
 }
 
-//nolint:gocritic
-func (s SRP) Auth(password, srpB, random []byte, i SRPInput) (SRPAnswer, error) {
+// Hash computes user password hash using parameters from server.
+// Parameters
+//
+// See https://core.telegram.org/api/srp#checking-the-password-with-srp.
+func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
 	if err := s.checkPG(i.G, i.P); err != nil {
-		return SRPAnswer{}, xerrors.Errorf("failed to validate algo: %w", err)
+		return Answer{}, xerrors.Errorf("failed to validate algo: %w", err)
 	}
 
 	p := s.bigFromBytes(i.P)
@@ -50,40 +63,40 @@ func (s SRP) Auth(password, srpB, random []byte, i SRPInput) (SRPAnswer, error) 
 	// random 2048-bit number a
 	a := s.bigFromBytes(random)
 
-	// g_a = pow(g, a) mod p
+	// `g_a = pow(g, a) mod p`
 	ga := s.paddedFromBig(s.bigExp(g, a, p))
 
-	// g_b = srp_B
+	// `g_b = srp_B`
 	gb := s.pad256(srpB)
 
-	// u = H(g_a | g_b)
+	// `u = H(g_a | g_b)`
 	u := s.bigFromBytes(s.hash(ga, gb))
 
-	// x = PH2(password, salt1, salt2)
+	// `x = PH2(password, salt1, salt2)`
 	x := s.bigFromBytes(s.secondary(password, i.Salt1, i.Salt2))
 
-	// v = pow(g, x) mod p
+	// `v = pow(g, x) mod p`
 	v := s.bigExp(g, x, p)
 
-	// k = (k * v) mod p
+	// `k = (k * v) mod p`
 	k := s.bigFromBytes(s.hash(i.P, gBytes))
 
-	// k_v = (k * v) % p
+	// `k_v = (k * v) % p`
 	kv := k.Mul(k, v).Mod(k, p)
 
-	// t = (g_b - k_v) % p
+	// `t = (g_b - k_v) % p`
 	t := s.bigFromBytes(srpB)
 	if t.Sub(t, kv).Cmp(big.NewInt(0)) == -1 {
 		t.Add(t, p)
 	}
 
-	// s_a = pow(t, a + u * x) mod p
+	// `s_a = pow(t, a + u * x) mod p`
 	sa := s.paddedFromBig(s.bigExp(t, u.Mul(u, x).Add(u, a), p))
 
-	// k_a = H(s_a)
+	// `k_a = H(s_a)`
 	ka := s.hash(sa)
 
-	// M1 := H(H(p) xor H(g) | H2(salt1) | H2(salt2) | g_a | g_b | k_a)
+	// `M1 = H(H(p) xor H(g) | H2(salt1) | H2(salt2) | g_a | g_b | k_a)`
 	M1 := s.hash(
 		s.bytesXor(s.hash(i.P), s.hash(gBytes)),
 		s.hash(i.Salt1),
@@ -93,7 +106,7 @@ func (s SRP) Auth(password, srpB, random []byte, i SRPInput) (SRPAnswer, error) 
 		ka,
 	)
 
-	return SRPAnswer{
+	return Answer{
 		A:  ga,
 		M1: M1,
 	}, nil
@@ -135,8 +148,7 @@ func (s SRP) bigExp(x, y, m *big.Int) *big.Int {
 //
 // H(data) := sha256(data)
 func (s SRP) hash(data ...[]byte) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
+	h := sha256.New()
 
 	for _, buf := range data {
 		_, _ = h.Write(buf)
@@ -148,9 +160,6 @@ func (s SRP) hash(data ...[]byte) []byte {
 //
 // SH(data, salt) := H(salt | data | salt)
 func (s SRP) saltHash(data, salt []byte) []byte {
-	h := getSHA256()
-	defer sha256Pool.Put(h)
-
 	return s.hash(salt, data, salt)
 }
 

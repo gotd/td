@@ -1,4 +1,4 @@
-package crypto
+package srp
 
 import (
 	"crypto/rand"
@@ -14,7 +14,7 @@ import (
 type srpArgs struct {
 	password []byte
 	srpB     []byte
-	mp       SRPInput
+	mp       Input
 }
 
 func testSRPInput(t testing.TB) srpArgs {
@@ -28,7 +28,7 @@ func testSRPInput(t testing.TB) srpArgs {
 			"7F68094CCC9DE8239251375D8FFFD263316CD528C097B7BC9FB919FBEDB76C52"+
 			"5DF3413C374EE076D97A1E6D352BB7CC80FD13651B04B32E2E48C5268150842C"+
 			"FD07CF855958B1B5EA9C36FDAD697FE3AEC8DCC6B1EFEC36874AF226204676CF"),
-		mp: SRPInput{
+		mp: Input{
 			Salt1: getHex(t, "4D11FB6BEC38F9D2546BB0F61E4F1C99A1BC0DB8F0D5F35B1291B37B213123D7ED48F3C6794D495B"),
 			Salt2: getHex(t, "A1B181AAFE88188680AE32860D60BB01"),
 			G:     3,
@@ -47,12 +47,12 @@ func testSRPInput(t testing.TB) srpArgs {
 func TestSRP(t *testing.T) {
 	tests := []struct {
 		args        srpArgs
-		want        SRPAnswer
+		want        Answer
 		expectError assert.ErrorAssertionFunc
 	}{
 		{
 			args: testSRPInput(t),
-			want: SRPAnswer{
+			want: Answer{
 				A:  setByte(256, 3),
 				M1: getHex(t, "999DF906BDA2C6CBB52F503406EBA2D0D0503ACE0CC302C38F13EE5010AD4051"),
 			},
@@ -64,7 +64,7 @@ func TestSRP(t *testing.T) {
 		t.Run(fmt.Sprintf("#%v", i), func(t *testing.T) {
 			random := setByte(256, 1)
 			srp := NewSRP(rand.Reader)
-			got, err := srp.Auth(tcase.args.password, tcase.args.srpB, random, tcase.args.mp)
+			got, err := srp.Hash(tcase.args.password, tcase.args.srpB, random, tcase.args.mp)
 			if !tcase.expectError(t, err) {
 				return
 			}
@@ -118,6 +118,6 @@ func BenchmarkSRP_Auth(b *testing.B) {
 	b.ReportAllocs()
 
 	for i := 0; i < b.N; i++ {
-		_, _ = srp.Auth(input.password, input.srpB, random, input.mp)
+		_, _ = srp.Hash(input.password, input.srpB, random, input.mp)
 	}
 }
