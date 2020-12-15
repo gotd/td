@@ -24,5 +24,5 @@ Note that in most cases readability is more important that speed.
 Please check [projects](https://github.com/gotd/td/projects) page for features that
 are on roadmap. If you have idea for new feature, please open feature request first.
 
-Also it will be great to [contact](.github/SUPPORT.md) developers to discuss implementation
-defailts.
+Also, it will be great to [contact](.github/SUPPORT.md) developers to discuss implementation
+details.
