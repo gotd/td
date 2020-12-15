@@ -38,6 +38,27 @@ func TestConstantAuth(t *testing.T) {
 	a.Equal("password", result)
 }
 
+func TestCodeOnlyAuth(t *testing.T) {
+	askCode := tgflow.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
+		return "123", nil
+	})
+
+	a := require.New(t)
+	auth := tgflow.CodeOnlyAuth("phone", askCode)
+	ctx := context.Background()
+
+	result, err := auth.Code(ctx)
+	a.NoError(err)
+	a.Equal("123", result)
+
+	result, err = auth.Phone(ctx)
+	a.NoError(err)
+	a.Equal("phone", result)
+
+	result, err = auth.Password(ctx)
+	a.Error(err)
+}
+
 func ExampleAuth_Run() {
 	check := func(err error) {
 		if err != nil {

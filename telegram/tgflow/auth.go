@@ -109,3 +109,24 @@ func ConstantAuth(phone, password string, code CodeAuthenticator) UserAuthentica
 		CodeAuthenticator: code,
 	}
 }
+
+type codeOnlyAuth struct {
+	phone string
+	CodeAuthenticator
+}
+
+func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {
+	return c.phone, nil
+}
+
+func (c codeOnlyAuth) Password(ctx context.Context) (string, error) {
+	return "", errors.New("password requested but not provided")
+}
+
+// CodeOnlyAuth creates UserAuthenticator with constant phone and no password.
+func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
+	return codeOnlyAuth{
+		phone:             phone,
+		CodeAuthenticator: code,
+	}
+}
