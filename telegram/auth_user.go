@@ -11,6 +11,8 @@ import (
 )
 
 // AuthPassword performs login via secure remote password (aka 2FA).
+//
+// Method can be called after AuthSignIn to provide password if requested.
 func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	p, err := c.tg.AccountGetPassword(ctx)
 	if err != nil {
@@ -43,7 +45,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	return nil
 }
 
-// SendCodeOptions wraps options for user code receive.
+// SendCodeOptions defines how to send auth code to user.
 type SendCodeOptions struct {
 	// AllowFlashCall allows phone verification via phone calls.
 	AllowFlashCall bool
@@ -55,7 +57,10 @@ type SendCodeOptions struct {
 	AllowAppHash bool
 }
 
-// AuthSendCode requests code for provided phone number, returning code hash and error if any.
+// AuthSendCode requests code for provided phone number, returning code hash
+// and error if any. Use tgflow.Auth to reduce boilerplate.
+//
+// This method should be called first in user authentication flow.
 func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error) {
 	var settings tg.CodeSettings
 	if options.AllowAppHash {
@@ -81,12 +86,16 @@ func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCod
 }
 
 // ErrPasswordAuthNeeded means that 2FA auth is required.
+//
+// Call Client.AuthPassword to provide 2FA password.
 var ErrPasswordAuthNeeded = errors.New("2FA required")
 
 // AuthSignIn performs sign in with provided user phone, code and code hash.
 //
 // If ErrPasswordAuthNeeded is returned, call AuthPassword to provide 2FA
 // password.
+//
+// To obtain codeHash, use AuthSendCode.
 func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) error {
 	a, err := c.tg.AuthSignIn(ctx, &tg.AuthSignInRequest{
 		PhoneNumber:   phone,

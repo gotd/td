@@ -8,7 +8,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// AuthBot performs bot authorization request.
+// AuthBot performs bot authentication request.
 func (c *Client) AuthBot(ctx context.Context, token string) error {
 	auth, err := c.tg.AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
