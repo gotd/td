@@ -78,6 +78,7 @@ func run(ctx context.Context) error {
 			// Server told us to wait N seconds before sending next message.
 			logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")
 			time.Sleep(time.Second * time.Duration(rpcErr.Argument))
+			continue
 		}
 
 		if err != nil {
