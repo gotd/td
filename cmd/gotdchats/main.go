@@ -4,6 +4,7 @@ package main
 import (
 	"context"
 	"crypto/rand"
+	"errors"
 	"flag"
 	"os"
 	"path/filepath"
@@ -69,8 +70,16 @@ func run(ctx context.Context) error {
 
 	c := tg.NewClient(client)
 
-	for range time.NewTicker(time.Second * 30).C {
+	for range time.NewTicker(time.Second * 5).C {
 		chats, err := c.MessagesGetAllChats(ctx, nil)
+
+		var rpcErr *telegram.Error
+		if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
+			// Server told us to wait N seconds before sending next message.
+			logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")
+			time.Sleep(time.Second * time.Duration(rpcErr.Argument))
+		}
+
 		if err != nil {
 			return xerrors.Errorf("failed to get chats: %w", err)
 		}
