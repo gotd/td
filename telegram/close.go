@@ -2,12 +2,9 @@ package telegram
 
 import (
 	"context"
-
-	"golang.org/x/xerrors"
 )
 
-// Close closes underlying connection and saves session to storage
-// if provided.
+// Close closes underlying connection.
 func (c *Client) Close(ctx context.Context) error {
 	c.cancel()
 
@@ -18,10 +15,6 @@ func (c *Client) Close(ctx context.Context) error {
 	// Probably we should wait with timeout, but it is unclear
 	// whether we can try to save session or should hard fail on timeout.
 	c.wg.Wait()
-
-	if err := c.saveSession(ctx); err != nil {
-		return xerrors.Errorf("failed to save session: %w", err)
-	}
 
 	return nil
 }
