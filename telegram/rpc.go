@@ -36,7 +36,7 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
 			return c.rpcDoRequest(ctx, req)
 		}
-		return xerrors.Errorf("rpcDoRequest filed: %w", err)
+		return xerrors.Errorf("rpcDoRequest: %w", err)
 	}
 
 	return nil
@@ -97,7 +97,7 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Encoding request. Note that callback is already set.
 	if err := c.write(req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("failed to write: %w", err)
+		return xerrors.Errorf("write: %w", err)
 	}
 
 	select {

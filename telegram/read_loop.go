@@ -68,7 +68,7 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)
 	case proto.MessageContainerTypeID:
-		return c.processBatch(b)
+		return c.processContainer(b)
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
 	case proto.ResultTypeID:
@@ -86,10 +86,10 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 	}
 }
 
-func (c *Client) processBatch(b *bin.Buffer) error {
+func (c *Client) processContainer(b *bin.Buffer) error {
 	var container proto.MessageContainer
 	if err := container.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode container: %w", err)
+		return xerrors.Errorf("container: %w", err)
 	}
 	for _, msg := range container.Messages {
 		if err := c.processContainerMessage(msg); err != nil {
@@ -111,29 +111,29 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 		_ = c.conn.SetReadDeadline(time.Time{})
 	}()
 	if err := c.conn.SetReadDeadline(c.deadline(ctx)); err != nil {
-		return xerrors.Errorf("failed to set read deadline: %w", err)
+		return xerrors.Errorf("set deadline: %w", err)
 	}
 	if err := proto.ReadIntermediate(c.conn, b); err != nil {
-		return xerrors.Errorf("failed to read intermediate: %w", err)
+		return xerrors.Errorf("read intermediate: %w", err)
 	}
 	if err := c.checkProtocolError(b); err != nil {
-		return xerrors.Errorf("protocol error: %w", err)
+		return xerrors.Errorf("protocol: %w", err)
 	}
 
 	// Decrypting.
 	encMessage := &crypto.EncryptedMessage{}
 	if err := encMessage.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode encrypted message: %w", err)
+		return xerrors.Errorf("decode encrypted msg: %w", err)
 	}
 	msg, err := c.decryptData(encMessage)
 	if err != nil {
-		return xerrors.Errorf("failed to decrypt: %w", err)
+		return xerrors.Errorf("decrypt: %w", err)
 	}
 
 	// Buffer now contains plaintext message payload.
 	b.ResetTo(msg.MessageDataWithPadding[:msg.MessageDataLen])
 	if err := c.handleMessage(b); err != nil {
-		return xerrors.Errorf("failed to handle message: %w", err)
+		return xerrors.Errorf("handle: %w", err)
 	}
 
 	return nil

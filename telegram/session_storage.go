@@ -42,7 +42,7 @@ func (f *FileSessionStorage) LoadSession(_ context.Context) ([]byte, error) {
 		return nil, ErrSessionNotFound
 	}
 	if err != nil {
-		return nil, xerrors.Errorf("failed to load session: %w", err)
+		return nil, xerrors.Errorf("read: %w", err)
 	}
 	return data, nil
 }
@@ -75,10 +75,10 @@ func (c *Client) saveSession(ctx context.Context) error {
 	}
 	data, err := json.Marshal(sess)
 	if err != nil {
-		return xerrors.Errorf("failed to marshal session: %w", err)
+		return xerrors.Errorf("marshal: %w", err)
 	}
 	if err := c.sessionStorage.StoreSession(ctx, data); err != nil {
-		return xerrors.Errorf("failed to store session: %w", err)
+		return xerrors.Errorf("store: %w", err)
 	}
 
 	return nil
@@ -100,7 +100,7 @@ func (c *Client) loadSession(ctx context.Context) error {
 	if err := json.Unmarshal(data, &sess); err != nil {
 		// Probably we can re-create session anyway via explicit config
 		// option.
-		return xerrors.Errorf("failed to unmarshal session: %w", err)
+		return xerrors.Errorf("unmarshal: %w", err)
 	}
 
 	// Validating auth key.

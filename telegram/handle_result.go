@@ -13,7 +13,7 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 	// Response to an RPC query.
 	var res proto.Result
 	if err := res.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode: %x", err)
+		return xerrors.Errorf("decode: %x", err)
 	}
 	c.log.With(
 		zap.Int64("request_id", res.RequestMessageID),
@@ -27,7 +27,7 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 	if id == proto.GZIPTypeID {
 		content, err := c.gzip(b)
 		if err != nil {
-			return xerrors.Errorf("failed to decompres: %w", err)
+			return xerrors.Errorf("decompress: %w", err)
 		}
 
 		// Replacing buffer so callback will deal with uncompressed data.
@@ -35,14 +35,14 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 
 		// Replacing id with inner id if error is compressed for any reason.
 		if id, err = b.PeekID(); err != nil {
-			return xerrors.Errorf("failed to peek id: %w", err)
+			return xerrors.Errorf("peek id: %w", err)
 		}
 	}
 
 	if id == mt.RPCErrorTypeID {
 		var rpcErr mt.RPCError
 		if err := rpcErr.Decode(b); err != nil {
-			return xerrors.Errorf("failed to decode: %w", err)
+			return xerrors.Errorf("error decode: %w", err)
 		}
 
 		c.rpcMux.Lock()

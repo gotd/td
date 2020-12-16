@@ -27,7 +27,7 @@ func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 				Authorized: false,
 			}, nil
 		}
-		return nil, xerrors.Errorf("failed to perform request: %w", err)
+		return nil, xerrors.Errorf("request: %w", err)
 	}
 	return &AuthStatus{Authorized: false}, nil
 }

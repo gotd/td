@@ -16,7 +16,7 @@ import (
 func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	p, err := c.tg.AccountGetPassword(ctx)
 	if err != nil {
-		return xerrors.Errorf("failed to get SRP parameters: %w", err)
+		return xerrors.Errorf("get SRP parameters: %w", err)
 	}
 
 	algo, ok := p.CurrentAlgo.(*tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow)
@@ -27,7 +27,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	s := srp.NewSRP(c.rand)
 	a, err := s.Hash([]byte(password), p.SrpB, p.SecureRandom, srp.Input(*algo))
 	if err != nil {
-		return xerrors.Errorf("failed to create SRP answer: %w", err)
+		return xerrors.Errorf("create SRP answer: %w", err)
 	}
 
 	auth, err := c.tg.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
@@ -36,10 +36,10 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 		M1:    a.M1,
 	})
 	if err != nil {
-		return xerrors.Errorf("failed to check password: %w", err)
+		return xerrors.Errorf("check password: %w", err)
 	}
 	if err := c.checkAuthResult(auth); err != nil {
-		return xerrors.Errorf("invalid check password result: %w", err)
+		return xerrors.Errorf("check: %w", err)
 	}
 
 	return nil
@@ -80,7 +80,7 @@ func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCod
 		Settings:    settings,
 	})
 	if err != nil {
-		return "", xerrors.Errorf("failed to send code: %w", err)
+		return "", xerrors.Errorf("send code: %w", err)
 	}
 	return sentCode.PhoneCodeHash, nil
 }
@@ -107,10 +107,10 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 		return ErrPasswordAuthNeeded
 	}
 	if err != nil {
-		return xerrors.Errorf("failed to sign in: %w", err)
+		return xerrors.Errorf("sign in: %w", err)
 	}
 	if err := c.checkAuthResult(a); err != nil {
-		return xerrors.Errorf("failed to check sign in result: %w", err)
+		return xerrors.Errorf("check: %w", err)
 	}
 
 	return nil

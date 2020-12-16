@@ -14,7 +14,7 @@ func (c *Client) gzip(b *bin.Buffer) (*bin.Buffer, error) {
 func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 	var content proto.GZIP
 	if err := content.Decode(b); err != nil {
-		return nil, xerrors.Errorf("failed to decode: %w", err)
+		return nil, xerrors.Errorf("decode: %w", err)
 	}
 	return &bin.Buffer{Buf: content.Data}, nil
 }
@@ -22,7 +22,7 @@ func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 func (c *Client) handleGZIP(b *bin.Buffer) error {
 	content, err := c.gzip(b)
 	if err != nil {
-		return xerrors.Errorf("failed to unzip: %w", err)
+		return xerrors.Errorf("unzip: %w", err)
 	}
 	return c.handleMessage(content)
 }

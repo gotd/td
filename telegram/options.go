@@ -61,7 +61,7 @@ func (opt *Options) setDefaults() {
 		// library versions.
 		keys, err := vendoredKeys()
 		if err != nil {
-			panic(xerrors.Errorf("failed to load vendored keys: %w", err))
+			panic(xerrors.Errorf("load vendored keys: %w", err))
 		}
 		opt.PublicKeys = keys
 	}

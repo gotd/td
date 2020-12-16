@@ -168,13 +168,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 func (c *Client) Connect(ctx context.Context) (err error) {
 	c.conn, err = c.dialer.DialContext(ctx, "tcp", c.addr)
 	if err != nil {
-		return xerrors.Errorf("failed to dial: %w", err)
+		return xerrors.Errorf("dial: %w", err)
 	}
 
 	// Loading session from storage if provided.
 	if err := c.loadSession(ctx); err != nil {
 		// TODO: Add opt-in config to ignore session load failures.
-		return xerrors.Errorf("failed to load session: %w", err)
+		return xerrors.Errorf("load session: %w", err)
 	}
 
 	// Starting connection.
@@ -182,14 +182,14 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
 	if err := c.connect(ctx); err != nil {
-		return xerrors.Errorf("failed to start connection: %w", err)
+		return xerrors.Errorf("start: %w", err)
 	}
 
 	// Spawning reading goroutine.
 	go c.readLoop(c.ctx)
 
 	if err := c.initConnection(ctx); err != nil {
-		return xerrors.Errorf("failed to init connection: %w", err)
+		return xerrors.Errorf("init: %w", err)
 	}
 
 	return nil
@@ -214,7 +214,7 @@ func (c *Client) connect(ctx context.Context) error {
 		c.log.Info("Generating new auth key")
 		start := c.clock()
 		if err := c.createAuthKey(ctx); err != nil {
-			return xerrors.Errorf("unable to create auth key: %w", err)
+			return xerrors.Errorf("create auth key: %w", err)
 		}
 
 		if err := c.saveSession(ctx); err != nil {
