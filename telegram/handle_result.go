@@ -49,7 +49,12 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 		f, ok := c.rpc[res.RequestMessageID]
 		c.rpcMux.Unlock()
 		if ok {
-			f(nil, &Error{Code: rpcErr.ErrorCode, Message: rpcErr.ErrorMessage})
+			e := &Error{
+				Code:    rpcErr.ErrorCode,
+				Message: rpcErr.ErrorMessage,
+			}
+			e.extractArgument()
+			f(nil, e)
 		}
 
 		return nil
