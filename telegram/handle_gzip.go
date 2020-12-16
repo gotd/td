@@ -8,6 +8,10 @@ import (
 )
 
 func (c *Client) gzip(b *bin.Buffer) (*bin.Buffer, error) {
+	return gzip(b)
+}
+
+func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 	var content proto.GZIP
 	if err := content.Decode(b); err != nil {
 		return nil, xerrors.Errorf("failed to decode: %w", err)
