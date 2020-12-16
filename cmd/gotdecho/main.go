@@ -72,18 +72,12 @@ func run(ctx context.Context) error {
 					zap.String("username", user.Username),
 				).Info("Got message")
 
-				randomID, err := client.RandInt64()
-				if err != nil {
-					return err
-				}
-				p := &tg.InputPeerUser{
-					UserID:     user.ID,
-					AccessHash: user.AccessHash,
-				}
 				return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-					RandomID: randomID,
-					Message:  m.Message,
-					Peer:     p,
+					Message: m.Message,
+					Peer: &tg.InputPeerUser{
+						UserID:     user.ID,
+						AccessHash: user.AccessHash,
+					},
 				})
 			}
 		}
