@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"crypto/aes"
+	"sync/atomic"
 
 	"golang.org/x/xerrors"
 
@@ -35,11 +36,27 @@ func (c *Client) decryptData(encrypted *crypto.EncryptedMessage) (*crypto.Encryp
 	if err != nil {
 		return nil, err
 	}
+
+	// Checking SHA256 hash value of msg_key
+	key := crypto.MessageKey(c.authKey, plaintext, crypto.Server)
+	if key != encrypted.MsgKey {
+		return nil, xerrors.Errorf("msg_key is invalid")
+	}
+
 	b := &bin.Buffer{Buf: plaintext}
 	msg := &crypto.EncryptedMessageData{}
 	if err := msg.Decode(b); err != nil {
 		return nil, err
 	}
+
+	// Checking session_id
+	//
+	// The client is to check that the session_id field in the decrypted message indeed
+	// equals to that of an active session created by the client.
+	if msg.SessionID != atomic.LoadInt64(&c.session) {
+		return nil, xerrors.Errorf("session id is invalid")
+	}
+
 	{
 		// Checking that padding of decrypted message is not too big.
 		const maxPadding = 1024
