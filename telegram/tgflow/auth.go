@@ -149,7 +149,6 @@ func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	}
 	code := strings.Repeat(strconv.Itoa(dc), 5)
 	phone := fmt.Sprintf("99966%d%04d", dc, n)
-	fmt.Println(phone, code)
 	return testAuth{
 		phone: phone,
 		code:  code,
