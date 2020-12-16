@@ -216,6 +216,11 @@ func (c *Client) connect(ctx context.Context) error {
 		if err := c.createAuthKey(ctx); err != nil {
 			return xerrors.Errorf("unable to create auth key: %w", err)
 		}
+
+		if err := c.saveSession(ctx); err != nil {
+			return xerrors.Errorf("failed to save session: %w", err)
+		}
+
 		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("Auth key generated")
 	}
 	return nil

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"sync/atomic"
 	"time"
 
 	"github.com/gotd/td/internal/crypto"
@@ -24,7 +25,15 @@ func (c *Client) handleSessionCreated(b *bin.Buffer) error {
 	if err := ns.Decode(b); err != nil {
 		return xerrors.Errorf("failed to decode: %x", err)
 	}
+
+	atomic.StoreInt64(&c.salt, ns.ServerSalt)
+
+	if err := c.saveSession(c.ctx); err != nil {
+		return xerrors.Errorf("failed to save session: %w", err)
+	}
+
 	c.log.Info("Session created")
+
 	return nil
 }
 
