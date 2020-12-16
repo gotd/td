@@ -45,7 +45,7 @@ func (c badMessageError) Error() string {
 	case codeIncorrectServerSalt:
 		return "incorrect server salt"
 	default:
-		return fmt.Sprintf("rpc error code %d", c.Code)
+		return fmt.Sprintf("bad msg error code %d", c.Code)
 	}
 }
 
