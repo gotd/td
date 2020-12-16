@@ -22,7 +22,7 @@ func (s *Server) exchange(conn net.Conn) (crypto.AuthKey, error) {
 		return crypto.AuthKey{}, err
 	}
 
-	serverNonce, err := crypto.RandInt128(s.rand)
+	serverNonce, err := crypto.RandInt128(s.cipher.Rand())
 	if err != nil {
 		return crypto.AuthKey{}, xerrors.Errorf("failed to generate server nonce: %w", err)
 	}

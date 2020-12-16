@@ -7,11 +7,11 @@ import (
 	"crypto/rsa"
 	"errors"
 	"fmt"
-	"io"
 	"net"
 	"sync"
 	"time"
 
+	"golang.org/x/net/nettest"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -28,7 +28,7 @@ type Server struct {
 	Listener net.Listener
 
 	key     *rsa.PrivateKey
-	rand    io.Reader
+	cipher  crypto.Cipher
 	handler Handler
 
 	wg sync.WaitGroup
@@ -71,7 +71,7 @@ func NewUnstartedServer(tb TB) *Server {
 	}
 	s := &Server{
 		Listener: newLocalListener(),
-		rand:     rand.Reader,
+		cipher:   crypto.NewServerCipher(rand.Reader),
 		key:      k,
 		tb:       tb,
 		conns:    newConns(),
@@ -80,11 +80,9 @@ func NewUnstartedServer(tb TB) *Server {
 }
 
 func newLocalListener() net.Listener {
-	l, err := net.Listen("tcp", "127.0.0.1:0")
+	l, err := nettest.NewLocalListener("tcp")
 	if err != nil {
-		if l, err = net.Listen("tcp6", "[::1]:0"); err != nil {
-			panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
-		}
+		panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
 	}
 	return l
 }
@@ -128,27 +126,22 @@ func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
 }
 
 func (s *Server) rpcHandle(k crypto.AuthKey, conn net.Conn) error {
-	var in bin.Buffer
+	var b bin.Buffer
 	for {
-		in.Reset()
-		if err := proto.ReadIntermediate(conn, &in); err != nil {
+		b.Reset()
+		if err := proto.ReadIntermediate(conn, &b); err != nil {
 			return xerrors.Errorf("failed to read intermediate: %w", err)
 		}
 
-		// Decrypting.
-		encMessage := &crypto.EncryptedMessage{}
-		if err := encMessage.Decode(&in); err != nil {
-			return xerrors.Errorf("failed to decode encrypted message: %w", err)
-		}
-		msg, err := s.decryptData(k, encMessage)
+		msg, err := s.cipher.DecryptDataFrom(k, &b)
 		if err != nil {
 			return xerrors.Errorf("failed to decrypt: %w", err)
 		}
 
 		// Buffer now contains plaintext message payload.
-		in.ResetTo(msg.MessageDataWithPadding[:msg.MessageDataLen])
+		b.ResetTo(msg.Data())
 
-		if err := s.handler.OnMessage(k, msg.MessageID, &in); err != nil {
+		if err := s.handler.OnMessage(k, msg.MessageID, &b); err != nil {
 			return xerrors.Errorf("failed to call handler: %w", err)
 		}
 	}

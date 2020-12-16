@@ -43,7 +43,7 @@ func (s *Server) ga(g, dhPrime *big.Int) (a, ga *big.Int, err error) {
 
 	randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
 	for {
-		a, err = rand.Int(s.rand, randMax)
+		a, err = rand.Int(s.cipher.Rand(), randMax)
 		if err != nil {
 			return
 		}

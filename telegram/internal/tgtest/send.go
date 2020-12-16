@@ -16,17 +16,22 @@ func (s *Server) Send(k crypto.AuthKey, encoder bin.Encoder) error {
 		return errors.New("invalid key: connection not found")
 	}
 
-	var buf bin.Buffer
-	msg, err := s.encryptData(k, encoder)
+	var b bin.Buffer
+	if err := encoder.Encode(&b); err != nil {
+		return xerrors.Errorf("failed to encode data: %w", err)
+	}
+
+	data := crypto.EncryptedMessageData{
+		MessageDataLen:         int32(b.Len()),
+		MessageDataWithPadding: b.Copy(),
+	}
+
+	err := s.cipher.EncryptDataTo(k, data, &b)
 	if err != nil {
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}
 
-	if err := msg.Encode(&buf); err != nil {
-		return xerrors.Errorf("failed to encode message: %w", err)
-	}
-
-	return proto.WriteIntermediate(conn, &buf)
+	return proto.WriteIntermediate(conn, &b)
 }
 
 func (s *Server) SendResult(k crypto.AuthKey, id int64, msg bin.Encoder) error {

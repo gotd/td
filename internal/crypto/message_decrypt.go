@@ -1,4 +1,4 @@
-package telegram
+package crypto
 
 import (
 	"crypto/aes"
@@ -8,18 +8,18 @@ import (
 
 	"github.com/gotd/ige"
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
 )
 
-func (c *Client) decrypt(encrypted *crypto.EncryptedMessage) ([]byte, error) {
-	if c.authKeyID != encrypted.AuthKeyID {
+// DecryptMessage decrypts data from encrypted message using AES-IGE.
+func (c Cipher) DecryptMessage(authKey AuthKey, encrypted *EncryptedMessage) ([]byte, error) {
+	if authKey.ID() != encrypted.AuthKeyID {
 		return nil, xerrors.New("unknown auth key id")
 	}
 	if len(encrypted.EncryptedData)%16 != 0 {
 		return nil, xerrors.New("invalid encrypted data padding")
 	}
 
-	key, iv := crypto.Keys(c.authKey, encrypted.MsgKey, crypto.Server)
+	key, iv := Keys(authKey, encrypted.MsgKey, c.encryptSide.DecryptSide())
 	cipher, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
@@ -31,20 +31,27 @@ func (c *Client) decrypt(encrypted *crypto.EncryptedMessage) ([]byte, error) {
 	return plaintext, nil
 }
 
-func (c *Client) decryptData(encrypted *crypto.EncryptedMessage) (*crypto.EncryptedMessageData, error) {
-	plaintext, err := c.decrypt(encrypted)
+// DecryptDataFrom decrypts data from buffer with EncryptedMessage using AES-IGE.
+func (c Cipher) DecryptDataFrom(authKey AuthKey, b *bin.Buffer) (*EncryptedMessageData, error) {
+	encrypted := &EncryptedMessage{}
+	if err := encrypted.Decode(b); err != nil {
+		return nil, xerrors.Errorf("failed to decode encrypted message: %w", err)
+	}
+
+	plaintext, err := c.DecryptMessage(authKey, encrypted)
 	if err != nil {
 		return nil, err
 	}
 
 	// Checking SHA256 hash value of msg_key
-	key := crypto.MessageKey(c.authKey, plaintext, crypto.Server)
+	key := MessageKey(authKey, plaintext, c.encryptSide.DecryptSide())
 	if key != encrypted.MsgKey {
 		return nil, xerrors.Errorf("msg_key is invalid")
 	}
 
-	b := &bin.Buffer{Buf: plaintext}
-	msg := &crypto.EncryptedMessageData{}
+	b.ResetTo(plaintext)
+	msg := &EncryptedMessageData{}
+
 	if err := msg.Decode(b); err != nil {
 		return nil, err
 	}

@@ -9,8 +9,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gotd/td/internal/crypto"
-
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -120,18 +118,14 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 		return xerrors.Errorf("protocol: %w", err)
 	}
 
-	// Decrypting.
-	encMessage := &crypto.EncryptedMessage{}
-	if err := encMessage.Decode(b); err != nil {
-		return xerrors.Errorf("decode encrypted msg: %w", err)
-	}
-	msg, err := c.decryptData(encMessage)
+	msg, err := c.cipher.DecryptDataFrom(c.authKey, b)
 	if err != nil {
 		return xerrors.Errorf("decrypt: %w", err)
 	}
 
 	// Buffer now contains plaintext message payload.
-	b.ResetTo(msg.MessageDataWithPadding[:msg.MessageDataLen])
+	b.ResetTo(msg.Data())
+
 	if err := c.handleMessage(b); err != nil {
 		return xerrors.Errorf("handle: %w", err)
 	}

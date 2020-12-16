@@ -44,7 +44,7 @@ func (s *Server) encryptedExchangeAnswer(answer []byte, newNonce bin.Int256, ser
 		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
 	}
 
-	answerWithHash, err := crypto.DataWithHash(answer, s.rand)
+	answerWithHash, err := crypto.DataWithHash(answer, s.cipher.Rand())
 	if err != nil {
 		return nil, xerrors.Errorf("failed to get answer with hash: %w", err)
 	}
