@@ -91,8 +91,7 @@ func run(ctx context.Context) error {
 		return nil
 	})
 
-	err = client.Connect(ctx)
-	if err != nil {
+	if err := client.Connect(ctx); err != nil {
 		return xerrors.Errorf("failed to connect: %w", err)
 	}
 	logger.Info("Client started.")

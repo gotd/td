@@ -2,7 +2,13 @@ package tgflow
 
 import (
 	"context"
+	"crypto/rand"
 	"errors"
+	"fmt"
+	"io"
+	"math/big"
+	"strconv"
+	"strings"
 
 	"golang.org/x/xerrors"
 
@@ -55,7 +61,7 @@ func (f Auth) Run(ctx context.Context, client AuthFlowClient) error {
 		return nil
 	}
 	if signInErr != nil {
-		return xerrors.Errorf("failed to sign in: %w", err)
+		return xerrors.Errorf("failed to sign in: %w", signInErr)
 	}
 
 	return nil
@@ -129,4 +135,34 @@ func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
 		phone:             phone,
 		CodeAuthenticator: code,
 	}
+}
+
+// TestAuth returns UserAuthenticator that authenticates via testing credentials.
+//
+// Can be used only with testing server.
+func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
+	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 5.
+	// The n value is from 0000 to 9999.
+	n, err := rand.Int(randReader, big.NewInt(1000))
+	if err != nil {
+		panic(err)
+	}
+	code := strings.Repeat(strconv.Itoa(dc), 5)
+	phone := fmt.Sprintf("99966%d%04d", dc, n)
+	fmt.Println(phone, code)
+	return testAuth{
+		phone: phone,
+		code:  code,
+	}
+}
+
+type testAuth struct {
+	phone string
+	code  string
+}
+
+func (t testAuth) Phone(ctx context.Context) (string, error) { return t.phone, nil }
+func (t testAuth) Code(ctx context.Context) (string, error)  { return t.code, nil }
+func (t testAuth) Password(ctx context.Context) (string, error) {
+	return "", xerrors.New("no password")
 }

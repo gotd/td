@@ -3,6 +3,7 @@ package tgflow_test
 import (
 	"bufio"
 	"context"
+	"crypto/rand"
 	"fmt"
 	"log"
 	"os"
@@ -57,6 +58,26 @@ func TestCodeOnlyAuth(t *testing.T) {
 
 	_, err = auth.Password(ctx)
 	a.Error(err)
+}
+
+func ExampleTestAuth() {
+	// Example of using test server.
+	const dcID = 2
+
+	ctx := context.Background()
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
+		Addr: telegram.AddrTest,
+	})
+	if err := client.Connect(ctx); err != nil {
+		panic(err)
+	}
+
+	if err := tgflow.NewAuth(
+		tgflow.TestAuth(rand.Reader, dcID),
+		telegram.SendCodeOptions{},
+	).Run(ctx, client); err != nil {
+		panic(err)
+	}
 }
 
 func ExampleAuth_Run() {

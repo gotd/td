@@ -30,6 +30,16 @@ const (
 	AddrTest       = "149.154.167.40:443"
 )
 
+// Test-only credentials. Can be used with AddrTest and tgflow.TestAuth to
+// test authentication.
+//
+// Reference:
+//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
+const (
+	TestAppID   = 17349
+	TestAppHash = "344583e45741c457fe1862106095a5eb"
+)
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
