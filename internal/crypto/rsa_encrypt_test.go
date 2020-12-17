@@ -20,7 +20,7 @@ BSqi+FEREW/2aWSgSwIDAQAB
 	}
 	key := keys[0]
 	rnd := mathrand.New(mathrand.NewSource(239))
-	result, err := EncryptHashed([]byte("hello world"), key, rnd)
+	result, err := RSAEncryptHashed([]byte("hello world"), key, rnd)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +33,7 @@ BSqi+FEREW/2aWSgSwIDAQAB
 	if expectedBase64 != gotBase64 {
 		t.Error(gotBase64)
 	}
-	if _, err := EncryptHashed(bytes.Repeat([]byte{1, 2, 3}, 1000), key, rnd); err == nil {
+	if _, err := RSAEncryptHashed(bytes.Repeat([]byte{1, 2, 3}, 1000), key, rnd); err == nil {
 		t.Error("should error")
 	}
 }

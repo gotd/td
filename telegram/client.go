@@ -30,6 +30,16 @@ const (
 	AddrTest       = "149.154.167.40:443"
 )
 
+// Test-only credentials. Can be used with AddrTest and tgflow.TestAuth to
+// test authentication.
+//
+// Reference:
+//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
+const (
+	TestAppID   = 17349
+	TestAppHash = "344583e45741c457fe1862106095a5eb"
+)
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
@@ -42,9 +52,10 @@ type Client struct {
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
-	clock func() time.Time
-	rand  io.Reader
-	log   *zap.Logger
+	clock  func() time.Time
+	rand   io.Reader
+	cipher crypto.Cipher
+	log    *zap.Logger
 
 	// Access to authKey and authKeyID is not synchronized because
 	// serial access ensured in Dial (i.e. no concurrent access possible).
@@ -140,11 +151,12 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		addr:   opt.Addr,
 		dialer: opt.Dialer,
 
-		clock: time.Now,
-		rand:  opt.Random,
-		log:   opt.Logger,
-		ping:  map[int64]func(){},
-		rpc:   map[int64]func(b *bin.Buffer, rpcErr error){},
+		clock:  time.Now,
+		rand:   opt.Random,
+		cipher: crypto.NewClientCipher(opt.Random),
+		log:    opt.Logger,
+		ping:   map[int64]func(){},
+		rpc:    map[int64]func(b *bin.Buffer, rpcErr error){},
 
 		ctx:    clientCtx,
 		cancel: clientCancel,
@@ -174,13 +186,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 func (c *Client) Connect(ctx context.Context) (err error) {
 	c.conn, err = c.dialer.DialContext(ctx, "tcp", c.addr)
 	if err != nil {
-		return xerrors.Errorf("failed to dial: %w", err)
+		return xerrors.Errorf("dial: %w", err)
 	}
 
 	// Loading session from storage if provided.
 	if err := c.loadSession(ctx); err != nil {
 		// TODO: Add opt-in config to ignore session load failures.
-		return xerrors.Errorf("failed to load session: %w", err)
+		return xerrors.Errorf("load session: %w", err)
 	}
 
 	// Starting connection.
@@ -188,22 +200,19 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
 	if err := c.connect(ctx); err != nil {
-		return xerrors.Errorf("failed to start connection: %w", err)
+		return xerrors.Errorf("start: %w", err)
 	}
 
 	// Spawning goroutines.
-	go c.readLoop(c.ctx)
-	go c.wr(c.ctx)
+	c.wctx, c.wcancel = context.WithCancel(c.ctx)
+	go c.readLoop(c.wctx)
+	go c.writeLoop(c.wctx)
+
 	if err := c.initConnection(ctx); err != nil {
-		return xerrors.Errorf("failed to init connection: %w", err)
+		return xerrors.Errorf("init: %w", err)
 	}
 
 	return nil
-}
-
-// Authenticated returns true of already authenticated.
-func (c *Client) Authenticated() bool {
-	return !c.authKey.Zero()
 }
 
 // connect establishes connection in intermediate mode, creating new auth key
@@ -220,7 +229,7 @@ func (c *Client) connect(ctx context.Context) error {
 		c.log.Info("Generating new auth key")
 		start := c.clock()
 		if err := c.createAuthKey(ctx); err != nil {
-			return xerrors.Errorf("unable to create auth key: %w", err)
+			return xerrors.Errorf("create auth key: %w", err)
 		}
 
 		if err := c.saveSession(ctx); err != nil {

@@ -30,7 +30,7 @@ func (c *Client) initConnection(ctx context.Context) error {
 			Query:          proto.GetConfig{},
 		},
 	}, &response); err != nil {
-		return xerrors.Errorf("failed to perform request: %w", err)
+		return xerrors.Errorf("request: %w", err)
 	}
 
 	c.log.Debug("Got config")

@@ -19,7 +19,7 @@ func (c *Client) AuthBot(ctx context.Context, token string) error {
 		return err
 	}
 	if err := c.checkAuthResult(auth); err != nil {
-		return xerrors.Errorf("failed to check result: %w", err)
+		return xerrors.Errorf("check: %w", err)
 	}
 	return nil
 }

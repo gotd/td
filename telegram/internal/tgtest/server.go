@@ -7,14 +7,15 @@ import (
 	"crypto/rsa"
 	"errors"
 	"fmt"
-	"math/big"
 	"net"
 	"sync"
 	"time"
 
+	"golang.org/x/net/nettest"
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 )
 
@@ -26,13 +27,17 @@ type TB interface {
 type Server struct {
 	Listener net.Listener
 
-	key *rsa.PrivateKey
+	key     *rsa.PrivateKey
+	cipher  crypto.Cipher
+	handler Handler
 
 	wg sync.WaitGroup
 
 	mux    sync.Mutex // guards closed and tb
 	tb     TB
 	closed bool
+
+	conns *conns
 }
 
 func (s *Server) Key() *rsa.PublicKey {
@@ -52,8 +57,9 @@ func (s *Server) Close() {
 	s.wg.Wait()
 }
 
-func NewServer(tb TB) *Server {
+func NewServer(tb TB, h Handler) *Server {
 	s := NewUnstartedServer(tb)
+	s.SetHandler(h)
 	s.Start()
 	return s
 }
@@ -65,21 +71,24 @@ func NewUnstartedServer(tb TB) *Server {
 	}
 	s := &Server{
 		Listener: newLocalListener(),
-
-		key: k,
-		tb:  tb,
+		cipher:   crypto.NewServerCipher(rand.Reader),
+		key:      k,
+		tb:       tb,
+		conns:    newConns(),
 	}
 	return s
 }
 
 func newLocalListener() net.Listener {
-	l, err := net.Listen("tcp", "127.0.0.1:0")
+	l, err := nettest.NewLocalListener("tcp")
 	if err != nil {
-		if l, err = net.Listen("tcp6", "[::1]:0"); err != nil {
-			panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
-		}
+		panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
 	}
 	return l
+}
+
+func (s *Server) SetHandler(handler Handler) {
+	s.handler = handler
 }
 
 func (s *Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
@@ -116,8 +125,35 @@ func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
 	return data.Decode(b)
 }
 
+func (s *Server) rpcHandle(k Session, conn net.Conn) error {
+	var b bin.Buffer
+	for {
+		b.Reset()
+		if err := proto.ReadIntermediate(conn, &b); err != nil {
+			return xerrors.Errorf("failed to read intermediate: %w", err)
+		}
+
+		msg, err := s.cipher.DecryptDataFrom(k.Key, 0, &b)
+		if err != nil {
+			return xerrors.Errorf("failed to decrypt: %w", err)
+		}
+		k.SessionID = msg.SessionID
+
+		// Buffer now contains plaintext message payload.
+		b.ResetTo(msg.Data())
+
+		if err := s.handler.OnMessage(k, msg.MessageID, &b); err != nil {
+			return xerrors.Errorf("failed to call handler: %w", err)
+		}
+	}
+}
+
 func (s *Server) serveConn(conn net.Conn) error {
-	defer func() { _ = conn.Close() }()
+	var session Session
+	defer func() {
+		s.conns.delete(session)
+		_ = conn.Close()
+	}()
 
 	buf := make([]byte, len(proto.IntermediateClientStart))
 	if _, err := conn.Read(buf); err != nil {
@@ -125,35 +161,21 @@ func (s *Server) serveConn(conn net.Conn) error {
 	}
 
 	if !bytes.Equal(buf, proto.IntermediateClientStart) {
-		return errors.New("unexpected inermediate client start")
+		return errors.New("unexpected intermediate client start")
 	}
 
-	var pqReq mt.ReqPqMulti
-	if err := s.readUnencrypted(conn, &pqReq); err != nil {
-		return err
+	session, err := s.exchange(conn)
+	if err != nil {
+		return xerrors.Errorf("key exchange failed: %w", err)
+	}
+	s.conns.add(session, conn)
+
+	err = s.handler.OnNewClient(session)
+	if err != nil {
+		return xerrors.Errorf("OnNewClient handler failed: %w", err)
 	}
 
-	pq := big.NewInt(0x17ED48941A08F981)
-	if err := s.writeUnencrypted(conn, &mt.ResPQ{
-		Pq:    pq.Bytes(),
-		Nonce: pqReq.Nonce,
-		ServerPublicKeyFingerprints: []int64{
-			crypto.RSAFingerprint(s.Key()),
-		},
-	}); err != nil {
-		return err
-	}
-
-	// TODO(ernado): make actual crypto here
-	var dhParams mt.ReqDHParams
-	if err := s.readUnencrypted(conn, &dhParams); err != nil {
-		return err
-	}
-	if err := s.writeUnencrypted(conn, &mt.ServerDHParamsOk{}); err != nil {
-		return err
-	}
-
-	return nil
+	return s.rpcHandle(session, conn)
 }
 
 func (s *Server) checkMsgID(id int64) error {
