@@ -2,7 +2,6 @@ package crypto
 
 import (
 	"crypto/aes"
-	"sync/atomic"
 
 	"golang.org/x/xerrors"
 
@@ -32,7 +31,7 @@ func (c Cipher) DecryptMessage(authKey AuthKey, encrypted *EncryptedMessage) ([]
 }
 
 // DecryptDataFrom decrypts data from buffer with EncryptedMessage using AES-IGE.
-func (c Cipher) DecryptDataFrom(authKey AuthKey, b *bin.Buffer) (*EncryptedMessageData, error) {
+func (c Cipher) DecryptDataFrom(authKey AuthKey, sessionID int64, b *bin.Buffer) (*EncryptedMessageData, error) {
 	encrypted := &EncryptedMessage{}
 	if err := encrypted.Decode(b); err != nil {
 		return nil, xerrors.Errorf("failed to decode encrypted message: %w", err)
@@ -43,8 +42,9 @@ func (c Cipher) DecryptDataFrom(authKey AuthKey, b *bin.Buffer) (*EncryptedMessa
 		return nil, err
 	}
 
+	side := c.encryptSide.DecryptSide()
 	// Checking SHA256 hash value of msg_key
-	key := MessageKey(authKey, plaintext, c.encryptSide.DecryptSide())
+	key := MessageKey(authKey, plaintext, side)
 	if key != encrypted.MsgKey {
 		return nil, xerrors.Errorf("msg_key is invalid")
 	}
@@ -60,7 +60,7 @@ func (c Cipher) DecryptDataFrom(authKey AuthKey, b *bin.Buffer) (*EncryptedMessa
 	//
 	// The client is to check that the session_id field in the decrypted message indeed
 	// equals to that of an active session created by the client.
-	if msg.SessionID != atomic.LoadInt64(&c.session) {
+	if side != Client && msg.SessionID != sessionID { // Skip check on client.
 		return nil, xerrors.Errorf("session id is invalid")
 	}
 

@@ -16,23 +16,23 @@ func newConns() *conns {
 	return &conns{m: map[crypto.AuthKey]net.Conn{}}
 }
 
-func (c *conns) add(key crypto.AuthKey, conn net.Conn) {
+func (c *conns) add(key Session, conn net.Conn) {
 	c.mux.Lock()
-	c.m[key] = conn
+	c.m[key.Key] = conn
 	c.mux.Unlock()
 }
 
-func (c *conns) get(key crypto.AuthKey) (conn net.Conn) {
+func (c *conns) get(key Session) (conn net.Conn) {
 	c.mux.Lock()
-	conn = c.m[key]
+	conn = c.m[key.Key]
 	c.mux.Unlock()
 
 	return
 }
 
-func (c *conns) delete(key crypto.AuthKey) {
+func (c *conns) delete(key Session) {
 	c.mux.Lock()
-	delete(c.m, key)
+	delete(c.m, key.Key)
 	c.mux.Unlock()
 }
 

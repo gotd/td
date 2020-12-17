@@ -125,7 +125,7 @@ func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
 	return data.Decode(b)
 }
 
-func (s *Server) rpcHandle(k crypto.AuthKey, conn net.Conn) error {
+func (s *Server) rpcHandle(k Session, conn net.Conn) error {
 	var b bin.Buffer
 	for {
 		b.Reset()
@@ -133,10 +133,11 @@ func (s *Server) rpcHandle(k crypto.AuthKey, conn net.Conn) error {
 			return xerrors.Errorf("failed to read intermediate: %w", err)
 		}
 
-		msg, err := s.cipher.DecryptDataFrom(k, &b)
+		msg, err := s.cipher.DecryptDataFrom(k.Key, 0, &b)
 		if err != nil {
 			return xerrors.Errorf("failed to decrypt: %w", err)
 		}
+		k.SessionID = msg.SessionID
 
 		// Buffer now contains plaintext message payload.
 		b.ResetTo(msg.Data())
@@ -148,9 +149,9 @@ func (s *Server) rpcHandle(k crypto.AuthKey, conn net.Conn) error {
 }
 
 func (s *Server) serveConn(conn net.Conn) error {
-	var k crypto.AuthKey
+	var session Session
 	defer func() {
-		s.conns.delete(k)
+		s.conns.delete(session)
 		_ = conn.Close()
 	}()
 
@@ -163,18 +164,18 @@ func (s *Server) serveConn(conn net.Conn) error {
 		return errors.New("unexpected intermediate client start")
 	}
 
-	k, err := s.exchange(conn)
+	session, err := s.exchange(conn)
 	if err != nil {
 		return xerrors.Errorf("key exchange failed: %w", err)
 	}
-	s.conns.add(k, conn)
+	s.conns.add(session, conn)
 
-	err = s.handler.OnNewClient(k)
+	err = s.handler.OnNewClient(session)
 	if err != nil {
 		return xerrors.Errorf("OnNewClient handler failed: %w", err)
 	}
 
-	return s.rpcHandle(k, conn)
+	return s.rpcHandle(session, conn)
 }
 
 func (s *Server) checkMsgID(id int64) error {

@@ -10,7 +10,6 @@ import (
 	"go.uber.org/zap/zapcore"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
@@ -22,13 +21,13 @@ type handler struct {
 	message string
 }
 
-func (h handler) OnNewClient(k crypto.AuthKey) error {
+func (h handler) OnNewClient(s tgtest.Session) error {
 	h.t.Log("new client connected")
 
 	return nil
 }
 
-func (h handler) hello(k crypto.AuthKey, message string) error {
+func (h handler) hello(k tgtest.Session, message string) error {
 	h.t.Log("[server]", "sent message", message)
 
 	return h.server.Send(k, &tg.Updates{
@@ -45,11 +44,11 @@ func (h handler) hello(k crypto.AuthKey, message string) error {
 	})
 }
 
-func (h handler) sendConfig(k crypto.AuthKey, id int64) error {
+func (h handler) sendConfig(k tgtest.Session, id int64) error {
 	return h.server.SendResult(k, id, &tg.Config{})
 }
 
-func (h handler) OnMessage(k crypto.AuthKey, msgID int64, in *bin.Buffer) error {
+func (h handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error {
 	id, err := in.PeekID()
 	if err != nil {
 		return err

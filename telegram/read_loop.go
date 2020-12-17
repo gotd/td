@@ -118,7 +118,7 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 		return xerrors.Errorf("protocol: %w", err)
 	}
 
-	msg, err := c.cipher.DecryptDataFrom(c.authKey, b)
+	msg, err := c.cipher.DecryptDataFrom(c.authKey, atomic.LoadInt64(&c.session), b)
 	if err != nil {
 		return xerrors.Errorf("decrypt: %w", err)
 	}

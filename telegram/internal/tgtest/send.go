@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 )
 
-func (s *Server) Send(k crypto.AuthKey, encoder bin.Encoder) error {
+func (s *Server) Send(k Session, encoder bin.Encoder) error {
 	conn := s.conns.get(k)
 	if conn == nil {
 		return errors.New("invalid key: connection not found")
@@ -22,11 +22,12 @@ func (s *Server) Send(k crypto.AuthKey, encoder bin.Encoder) error {
 	}
 
 	data := crypto.EncryptedMessageData{
+		SessionID:              k.SessionID,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 	}
 
-	err := s.cipher.EncryptDataTo(k, data, &b)
+	err := s.cipher.EncryptDataTo(k.Key, data, &b)
 	if err != nil {
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}
@@ -34,7 +35,7 @@ func (s *Server) Send(k crypto.AuthKey, encoder bin.Encoder) error {
 	return proto.WriteIntermediate(conn, &b)
 }
 
-func (s *Server) SendResult(k crypto.AuthKey, id int64, msg bin.Encoder) error {
+func (s *Server) SendResult(k Session, id int64, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {

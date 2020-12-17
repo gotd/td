@@ -2,6 +2,7 @@ package crypto
 
 import (
 	"crypto/rand"
+	"math/big"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -29,17 +30,21 @@ var testAuthKey = [256]byte{
 func checkSame(t *testing.T, a, b Cipher) {
 	asserts := require.New(t)
 
+	sessionID, err := rand.Int(rand.Reader, big.NewInt(2345512351))
+	asserts.NoError(err)
+
 	msg := []byte("data")
 	data := EncryptedMessageData{
+		SessionID:              sessionID.Int64(),
 		MessageDataLen:         int32(len(msg)),
 		MessageDataWithPadding: msg,
 	}
 
 	var buf bin.Buffer
-	err := a.EncryptDataTo(testAuthKey, data, &buf)
+	err = a.EncryptDataTo(testAuthKey, data, &buf)
 	asserts.NoError(err)
 
-	decrypt, err := b.DecryptDataFrom(testAuthKey, &buf)
+	decrypt, err := b.DecryptDataFrom(testAuthKey, sessionID.Int64(), &buf)
 	asserts.NoError(err)
 
 	asserts.Equal(data.Data(), decrypt.Data())
