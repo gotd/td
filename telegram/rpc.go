@@ -34,6 +34,10 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
+			if err := c.saveSession(c.ctx); err != nil {
+				return xerrors.Errorf("badMsg update salt: %w", err)
+			}
+
 			return c.rpcDoRequest(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)
