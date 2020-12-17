@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 
-	"golang.org/x/xerrors"
-
 	"github.com/gotd/td/tg"
 )
 
@@ -13,21 +11,24 @@ import (
 type AuthStatus struct {
 	// Authorized is true if client is authorized.
 	Authorized bool
+	// User is current User object.
+	User *tg.User
 }
 
 // AuthStatus gets authorization status of client.
 func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
-	var res tg.UpdatesState
-	if err := c.rpcContent(ctx, &tg.UpdatesGetStateRequest{}, &res); err != nil {
+	u, err := c.Self(ctx)
+	if err != nil {
 		var rpcErr *Error
-		if errors.As(err, &rpcErr) {
-			// Not authorized.
-			// TODO(ernado): Check for specific code.
-			return &AuthStatus{
-				Authorized: false,
-			}, nil
+		if errors.As(err, &rpcErr) && rpcErr.Message == "AUTH_KEY_UNREGISTERED" {
+			return &AuthStatus{}, nil
 		}
-		return nil, xerrors.Errorf("request: %w", err)
+
+		return nil, err
 	}
-	return &AuthStatus{Authorized: false}, nil
+
+	return &AuthStatus{
+		Authorized: true,
+		User:       u,
+	}, nil
 }

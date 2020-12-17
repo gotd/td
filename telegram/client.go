@@ -205,11 +205,6 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 	return nil
 }
 
-// Authenticated returns true of already authenticated.
-func (c *Client) Authenticated() bool {
-	return !c.authKey.Zero()
-}
-
 // connect establishes connection in intermediate mode, creating new auth key
 // if needed.
 func (c *Client) connect(ctx context.Context) error {
