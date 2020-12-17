@@ -116,9 +116,9 @@ func ConstantAuth(phone, password string, code CodeAuthenticator) UserAuthentica
 	}
 }
 
-// ErrPasswordRequestButNotProvided means that password requested by Telegram,
+// ErrPasswordNotProvided means that password requested by Telegram,
 // but not provided by user.
-var ErrPasswordRequestButNotProvided = errors.New("password requested but not provided")
+var ErrPasswordNotProvided = errors.New("password requested but not provided")
 
 type codeOnlyAuth struct {
 	phone string
@@ -130,7 +130,7 @@ func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {
 }
 
 func (c codeOnlyAuth) Password(ctx context.Context) (string, error) {
-	return "", ErrPasswordRequestButNotProvided
+	return "", ErrPasswordNotProvided
 }
 
 // CodeOnlyAuth creates UserAuthenticator with constant phone and no password.
