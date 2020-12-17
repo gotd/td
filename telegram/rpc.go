@@ -34,6 +34,7 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
+
 			return c.rpcDoRequest(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest filed: %w", err)

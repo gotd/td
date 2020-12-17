@@ -63,7 +63,10 @@ type Client struct {
 
 	ctx    context.Context
 	cancel context.CancelFunc
-	wg     sync.WaitGroup
+
+	wctx    context.Context
+	wcancel context.CancelFunc
+	wg      sync.WaitGroup
 
 	appID   int    // immutable
 	appHash string // immutable
@@ -83,6 +86,9 @@ type Client struct {
 	rsaPublicKeys []*rsa.PublicKey
 
 	types *tmap.Map
+
+	pchan chan *bin.Buffer
+	wchan chan *bin.Buffer
 }
 
 const defaultTimeout = time.Second * 10
@@ -185,9 +191,9 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 		return xerrors.Errorf("failed to start connection: %w", err)
 	}
 
-	// Spawning reading goroutine.
+	// Spawning goroutines.
 	go c.readLoop(c.ctx)
-
+	go c.wr(c.ctx)
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("failed to init connection: %w", err)
 	}

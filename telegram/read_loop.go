@@ -157,10 +157,8 @@ func (c *Client) readLoop(ctx context.Context) {
 		if errors.Is(err, io.EOF) {
 			// Nothing was received.
 			// TODO(ernado): also check ctx done
-			if err := c.reconnect(); err != nil {
-				c.log.With(zap.Error(err)).Error("Failed to reconnect")
-			}
-			continue
+			go c.reconnect()
+			return
 		}
 
 		// Checking for read timeout.

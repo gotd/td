@@ -1,11 +1,17 @@
 package telegram
 
 import (
+	"context"
+
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 )
 
 func (c *Client) reconnect() error {
+	// stop all network activity
+	c.wcancel()
+	c.wg.Wait()
+
 	c.log.Debug("Disconnected. Trying to re-connect")
 
 	// Probably we should set read or write deadline here.
@@ -22,19 +28,22 @@ func (c *Client) reconnect() error {
 		return xerrors.Errorf("failed to connect: %w", err)
 	}
 
-	go func() {
-		if err := c.initConnection(c.ctx); err != nil {
-			c.log.With(zap.Error(err)).Error("Failed to init connection after reconnect")
-			return
-		}
+	c.wctx, c.wcancel = context.WithCancel(c.ctx)
+	// init goroutines
+	go c.readLoop(c.wctx)
+	go c.writeLoop(c.wctx)
 
-		c.log.Debug("Reconnected")
+	if err := c.initConnection(c.ctx); err != nil {
+		c.log.With(zap.Error(err)).Error("Failed to init connection after reconnect")
+		return err
+	}
 
-		if err := c.ensureState(c.ctx); err != nil {
-			c.log.With(zap.Error(err)).Error("Failed to get state after reconnect")
-			return
-		}
-	}()
+	c.log.Debug("Reconnected")
+
+	if err := c.ensureState(c.ctx); err != nil {
+		c.log.With(zap.Error(err)).Error("Failed to get state after reconnect")
+		return err
+	}
 
 	return nil
 }
