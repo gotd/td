@@ -1,6 +1,8 @@
 package crypto
 
 import (
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 )
 
@@ -63,5 +65,14 @@ func (e *EncryptedMessageData) Decode(b *bin.Buffer) error {
 		e.MessageDataLen = v
 	}
 	e.MessageDataWithPadding = append(e.MessageDataWithPadding[:0], b.Buf...)
+	if int(e.MessageDataLen) > len(e.MessageDataWithPadding) {
+		return xerrors.Errorf("MessageDataLen field is bigger then MessageDataWithPadding length")
+	}
+
 	return nil
+}
+
+// Data returns message data without hash.
+func (e *EncryptedMessageData) Data() []byte {
+	return e.MessageDataWithPadding[:e.MessageDataLen]
 }

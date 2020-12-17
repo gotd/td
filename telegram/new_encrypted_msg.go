@@ -33,17 +33,8 @@ func (c *Client) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b
 		MessageDataWithPadding: b.Copy(),
 	}
 
-	b.Reset()
-	if err := d.Encode(b); err != nil {
-		return err
-	}
-	msg, err := c.encrypt(b.Copy())
+	err := c.cipher.EncryptDataTo(c.authKey, d, b)
 	if err != nil {
-		return err
-	}
-
-	b.Reset()
-	if err := msg.Encode(b); err != nil {
 		return err
 	}
 

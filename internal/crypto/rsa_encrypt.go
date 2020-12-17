@@ -12,8 +12,8 @@ import (
 	"crypto/sha1"
 )
 
-// EncryptHashed encrypts given data with RSA, prefixing with a hash.
-func EncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, error) {
+// RSAEncryptHashed encrypts given data with RSA, prefixing with a hash.
+func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, error) {
 	// Preparing `data_with_hash`.
 	// data_with_hash := SHA1(data) + data + (any random bytes);
 	// such that the length equals 255 bytes;
@@ -43,4 +43,14 @@ func EncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]b
 	copy(res, c.Bytes())
 
 	return res, nil
+}
+
+// RSADecryptHashed decrypts given data with RSA, prefixing with a hash.
+func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte) {
+	c := big.NewInt(0).SetBytes(data)
+	m := big.NewInt(0).Exp(c, key.D, key.N)
+
+	r = m.Bytes()
+	r = r[sha1.Size:]
+	return
 }

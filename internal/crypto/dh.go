@@ -11,14 +11,14 @@ import (
 func CheckDHParams(dhPrime, g, gA, gB *big.Int) error {
 	one := big.NewInt(1)
 	dhPrimeMinusOne := big.NewInt(0).Sub(dhPrime, one)
-	if !inRange(g, one, dhPrimeMinusOne) {
-		return errors.New("kex: bad g")
+	if !InRange(g, one, dhPrimeMinusOne) {
+		return errors.New("kex: bad g, g must be 1 < g < dh_prime - 1")
 	}
-	if !inRange(gA, one, dhPrimeMinusOne) {
-		return errors.New("kex: bad g_a")
+	if !InRange(gA, one, dhPrimeMinusOne) {
+		return errors.New("kex: bad g_a, g_a must be 1 < g_a < dh_prime - 1")
 	}
-	if !inRange(gB, one, dhPrimeMinusOne) {
-		return errors.New("kex: bad g_b")
+	if !InRange(gB, one, dhPrimeMinusOne) {
+		return errors.New("kex: bad g_b, g_b must be 1 < g_b < dh_prime - 1")
 	}
 
 	// IMPORTANT: Apart from the conditions on the Diffie-Hellman prime
@@ -30,17 +30,17 @@ func CheckDHParams(dhPrime, g, gA, gB *big.Int) error {
 	// 2^{2048-64}
 	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(2048-64), nil)
 	safetyRangeMax := big.NewInt(0).Sub(dhPrime, safetyRangeMin)
-	if !inRange(gA, safetyRangeMin, safetyRangeMax) {
-		return errors.New("kex: bad g_a")
+	if !InRange(gA, safetyRangeMin, safetyRangeMax) {
+		return errors.New("kex: bad g_a, g_a must be 2^{2048-64} < g_a < dh_prime - 2^{2048-64}")
 	}
-	if !inRange(gB, safetyRangeMin, safetyRangeMax) {
-		return errors.New("kex: bad g_b")
+	if !InRange(gB, safetyRangeMin, safetyRangeMax) {
+		return errors.New("kex: bad g_b, g_b must be 2^{2048-64} < g_b < dh_prime - 2^{2048-64}")
 	}
 
 	return nil
 }
 
-// inRange checks whether x is in (min, max) range, i.e. min < x < max.
-func inRange(x, min, max *big.Int) bool {
+// InRange checks whether x is in (min, max) range, i.e. min < x < max.
+func InRange(x, min, max *big.Int) bool {
 	return x.Cmp(min) > 0 && x.Cmp(max) < 0
 }

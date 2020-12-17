@@ -45,6 +45,11 @@ const (
 	Server Side = 1
 )
 
+// DecryptSide returns Side for decryption.
+func (s Side) DecryptSide() Side {
+	return s ^ 1 // flips bit, so 0 becomes 1, 1 becomes 0
+}
+
 func getX(mode Side) int {
 	switch mode {
 	case Client:

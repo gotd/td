@@ -52,9 +52,10 @@ type Client struct {
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
-	clock func() time.Time
-	rand  io.Reader
-	log   *zap.Logger
+	clock  func() time.Time
+	rand   io.Reader
+	cipher crypto.Cipher
+	log    *zap.Logger
 
 	// Access to authKey and authKeyID is not synchronized because
 	// serial access ensured in Dial (i.e. no concurrent access possible).
@@ -144,11 +145,12 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		addr:   opt.Addr,
 		dialer: opt.Dialer,
 
-		clock: time.Now,
-		rand:  opt.Random,
-		log:   opt.Logger,
-		ping:  map[int64]func(){},
-		rpc:   map[int64]func(b *bin.Buffer, rpcErr error){},
+		clock:  time.Now,
+		rand:   opt.Random,
+		cipher: crypto.NewClientCipher(opt.Random),
+		log:    opt.Logger,
+		ping:   map[int64]func(){},
+		rpc:    map[int64]func(b *bin.Buffer, rpcErr error){},
 
 		ctx:    clientCtx,
 		cancel: clientCancel,
