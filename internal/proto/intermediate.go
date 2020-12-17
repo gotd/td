@@ -41,6 +41,11 @@ var ErrMessageTooBig = errors.New("message is too big")
 
 const maxMessageSize = 1024 * 1024 // 1mb
 
+// ErrMessageTooSmall means that message length is too small and invalid.
+var ErrMessageTooSmall = errors.New("message is too small")
+
+const minMessageSize = 0
+
 // ReadIntermediate reads payload from r to b.
 func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
 	b.Buf = append(b.Buf[:0], make([]byte, 4)...)
@@ -51,9 +56,14 @@ func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
 	if err != nil {
 		return err
 	}
-	if dataLen > maxMessageSize {
+
+	switch {
+	case dataLen < minMessageSize:
+		return ErrMessageTooSmall
+	case dataLen > maxMessageSize:
 		return ErrMessageTooBig
 	}
+
 	b.Buf = append(b.Buf[:0], make([]byte, int(dataLen))...)
 	if _, err := r.Read(b.Buf); err != nil {
 		return fmt.Errorf("failed to read payload: %w", err)
