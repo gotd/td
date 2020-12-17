@@ -48,7 +48,7 @@ const minMessageSize = 0
 
 // ReadIntermediate reads payload from r to b.
 func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
-	b.Buf = append(b.Buf[:0], make([]byte, 4)...)
+	b.PreAllocate(4)
 	if _, err := io.ReadFull(r, b.Buf[:4]); err != nil {
 		return fmt.Errorf("failed to read length: %w", err)
 	}
@@ -64,9 +64,10 @@ func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
 		return ErrMessageTooBig
 	}
 
-	b.Buf = append(b.Buf[:0], make([]byte, int(dataLen))...)
-	if _, err := r.Read(b.Buf); err != nil {
+	b.PreAllocate(int(dataLen))
+	if _, err := io.ReadFull(r, b.Buf[0:int(dataLen)]); err != nil {
 		return fmt.Errorf("failed to read payload: %w", err)
 	}
+
 	return nil
 }

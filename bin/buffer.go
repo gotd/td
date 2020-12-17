@@ -9,6 +9,20 @@ type Buffer struct {
 	Buf []byte
 }
 
+// PreAllocate reallocates buffer if it is not too big enough.
+// Returns true, if reallocation happen.
+func (b *Buffer) PreAllocate(size int) (r bool) {
+	if len(b.Buf) < size {
+		n := make([]byte, size)
+		copy(n, b.Buf)
+		b.Buf = n
+
+		r = true
+	}
+
+	return
+}
+
 // Read implements io.Reader.
 func (b *Buffer) Read(p []byte) (n int, err error) {
 	if len(p) == 0 {
