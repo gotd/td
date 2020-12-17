@@ -1,7 +1,6 @@
 package proto
 
 import (
-	"errors"
 	"fmt"
 	"io"
 
@@ -17,10 +16,23 @@ import (
 // Note that server does not respond with it.
 var IntermediateClientStart = []byte{0xee, 0xee, 0xee, 0xee}
 
+type errInvalidMsgLen struct {
+	n int
+}
+
+func (e errInvalidMsgLen) Error() string {
+	return fmt.Sprintf("invalid message length %d", e.n)
+}
+
+func (e errInvalidMsgLen) Is(err error) bool {
+	_, ok := err.(errInvalidMsgLen)
+	return ok
+}
+
 // WriteIntermediate encodes b as payload to w.
 func WriteIntermediate(w io.Writer, b *bin.Buffer) error {
 	if b.Len() > maxMessageSize {
-		return ErrMessageTooBig
+		return errInvalidMsgLen{n: b.Len()}
 	}
 
 	// Re-using b.Buf if possible to reduce allocations.
@@ -36,36 +48,24 @@ func WriteIntermediate(w io.Writer, b *bin.Buffer) error {
 	return nil
 }
 
-// ErrMessageTooBig means that message length is too big to be handled.
-var ErrMessageTooBig = errors.New("message is too big")
-
 const maxMessageSize = 1024 * 1024 // 1mb
-
-// ErrMessageTooSmall means that message length is too small and invalid.
-var ErrMessageTooSmall = errors.New("message is too small")
-
-const minMessageSize = 0
 
 // ReadIntermediate reads payload from r to b.
 func ReadIntermediate(r io.Reader, b *bin.Buffer) error {
-	b.PreAllocate(4)
-	if _, err := io.ReadFull(r, b.Buf[:4]); err != nil {
+	b.ResetN(bin.Word)
+	if _, err := io.ReadFull(r, b.Buf); err != nil {
 		return fmt.Errorf("failed to read length: %w", err)
 	}
-	dataLen, err := b.Int32()
+	n, err := b.Int()
 	if err != nil {
 		return err
 	}
 
-	switch {
-	case dataLen < minMessageSize:
-		return ErrMessageTooSmall
-	case dataLen > maxMessageSize:
-		return ErrMessageTooBig
+	if n <= 0 || n > maxMessageSize {
+		return errInvalidMsgLen{n: n}
 	}
-
-	b.PreAllocate(int(dataLen))
-	if _, err := io.ReadFull(r, b.Buf[0:int(dataLen)]); err != nil {
+	b.ResetN(n)
+	if _, err := io.ReadFull(r, b.Buf); err != nil {
 		return fmt.Errorf("failed to read payload: %w", err)
 	}
 

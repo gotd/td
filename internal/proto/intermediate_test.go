@@ -71,14 +71,14 @@ func TestIntermediate(t *testing.T) {
 			b.PutInt(1024*1024 + 10)
 
 			var out bin.Buffer
-			if err := ReadIntermediate(&b, &out); !errors.Is(err, ErrMessageTooBig) {
+			if err := ReadIntermediate(&b, &out); !errors.Is(err, errInvalidMsgLen{}) {
 				t.Error(err)
 			}
 		})
 		t.Run("Write", func(t *testing.T) {
 			buf := make([]byte, 1024*1024*2)
 
-			if err := WriteIntermediate(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, ErrMessageTooBig) {
+			if err := WriteIntermediate(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, errInvalidMsgLen{}) {
 				t.Error(err)
 			}
 		})
