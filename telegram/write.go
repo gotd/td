@@ -15,3 +15,7 @@ func (c *Client) write(id int64, seq int32, message bin.Encoder) error {
 	}
 	return nil
 }
+
+func (c *Client) writeServiceMessage(message bin.Encoder) error {
+	return c.write(c.newMessageID(), c.seqNo(), message)
+}

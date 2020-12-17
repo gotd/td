@@ -86,6 +86,12 @@ type Client struct {
 	rpc    map[int64]func(b *bin.Buffer, rpcErr error)
 	rpcMux sync.Mutex
 
+	// callbacks for ack protected by ackMux
+	ack    map[int64]func()
+	ackMux sync.RWMutex
+
+	ackSendChan chan int64 // channel for outcoming acks
+
 	// callbacks for ping results protected by pingMux
 	ping    map[int64]func()
 	pingMux sync.Mutex
@@ -152,6 +158,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		ping:   map[int64]func(){},
 		rpc:    map[int64]func(b *bin.Buffer, rpcErr error){},
 
+		ack:         map[int64]func(){},
+		ackSendChan: make(chan int64),
+
 		ctx:    clientCtx,
 		cancel: clientCancel,
 
@@ -197,8 +206,9 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 		return xerrors.Errorf("start: %w", err)
 	}
 
-	// Spawning reading goroutine.
+	// Spawning goroutines.
 	go c.readLoop(c.ctx)
+	go c.ackLoop(c.ctx)
 
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("init: %w", err)
