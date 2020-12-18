@@ -77,7 +77,7 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		return c.handleAck(b)
 	case proto.GZIPTypeID:
 		return c.handleGZIP(b)
-	case tg.UpdatesTypeID:
+	case tg.UpdatesTypeID, tg.UpdateShortTypeID, tg.UpdateShortMessageTypeID:
 		return c.handleUpdates(b)
 	default:
 		return c.handleUnknown(b)
