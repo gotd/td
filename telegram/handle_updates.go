@@ -12,21 +12,11 @@ import (
 
 func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	if c.updateHandler == nil {
-		// Ignoring. Probably we should ACK.
 		return nil
 	}
 	switch u := updates.(type) {
 	case *tg.Updates:
-		go func() {
-			if c.updateHandler == nil {
-				return
-			}
-			// We should send ACK here.
-			if err := c.updateHandler(c.ctx, u); err != nil {
-				c.log.With(zap.Error(err)).Error("Update handler returning error")
-			}
-		}()
-		return nil
+		return c.updateHandler(c.ctx, u)
 	default:
 		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Debug("Ignoring update")
 	}
