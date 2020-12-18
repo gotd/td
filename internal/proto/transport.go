@@ -3,6 +3,7 @@ package proto
 import (
 	"context"
 	"fmt"
+	"io"
 	"net"
 
 	"github.com/gotd/td/bin"
@@ -54,4 +55,36 @@ func checkProtocolError(b *bin.Buffer) error {
 		return err
 	}
 	return &ProtocolErr{Code: -code}
+}
+
+type errInvalidMsgLen struct {
+	n int
+}
+
+func (e errInvalidMsgLen) Error() string {
+	return fmt.Sprintf("invalid message length %d", e.n)
+}
+
+func (e errInvalidMsgLen) Is(err error) bool {
+	_, ok := err.(errInvalidMsgLen)
+	return ok
+}
+
+const maxMessageSize = 1024 * 1024 // 1mb
+
+func tryReadLength(r io.Reader, b *bin.Buffer) (int, error) {
+	b.ResetN(bin.Word)
+	if _, err := io.ReadFull(r, b.Buf[:bin.Word]); err != nil {
+		return 0, fmt.Errorf("failed to read length: %w", err)
+	}
+	n, err := b.Int()
+	if err != nil {
+		return 0, err
+	}
+
+	if n <= 0 || n > maxMessageSize {
+		return 0, errInvalidMsgLen{n: n}
+	}
+
+	return n, nil
 }

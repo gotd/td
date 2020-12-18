@@ -22,8 +22,6 @@ import (
 var IntermediateClientStart = []byte{0xee, 0xee, 0xee, 0xee}
 
 // Intermediate is intermediate MTProto transport.
-//
-// See https://core.telegram.org/mtproto/mtproto-transports#intermediate
 type Intermediate struct {
 	Dialer Dialer
 
@@ -105,19 +103,6 @@ func (i *Intermediate) Close() error {
 	return i.conn.Close()
 }
 
-type errInvalidMsgLen struct {
-	n int
-}
-
-func (e errInvalidMsgLen) Error() string {
-	return fmt.Sprintf("invalid message length %d", e.n)
-}
-
-func (e errInvalidMsgLen) Is(err error) bool {
-	_, ok := err.(errInvalidMsgLen)
-	return ok
-}
-
 // writeIntermediate encodes b as payload to w.
 func writeIntermediate(w io.Writer, b *bin.Buffer) error {
 	if b.Len() > maxMessageSize {
@@ -137,22 +122,13 @@ func writeIntermediate(w io.Writer, b *bin.Buffer) error {
 	return nil
 }
 
-const maxMessageSize = 1024 * 1024 // 1mb
-
 // readIntermediate reads payload from r to b.
 func readIntermediate(r io.Reader, b *bin.Buffer) error {
-	b.ResetN(bin.Word)
-	if _, err := io.ReadFull(r, b.Buf); err != nil {
-		return fmt.Errorf("failed to read length: %w", err)
-	}
-	n, err := b.Int()
+	n, err := tryReadLength(r, b)
 	if err != nil {
 		return err
 	}
 
-	if n <= 0 || n > maxMessageSize {
-		return errInvalidMsgLen{n: n}
-	}
 	b.ResetN(n)
 	if _, err := io.ReadFull(r, b.Buf); err != nil {
 		return fmt.Errorf("failed to read payload: %w", err)

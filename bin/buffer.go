@@ -14,6 +14,16 @@ func (b *Buffer) ResetN(n int) {
 	b.Buf = append(b.Buf[:0], make([]byte, n)...)
 }
 
+// Expand expands buffer to add n bytes.
+func (b *Buffer) Expand(n int) {
+	b.Buf = append(b.Buf, make([]byte, n)...)
+}
+
+// Skip moves cursor for next n bytes.
+func (b *Buffer) Skip(n int) {
+	b.Buf = b.Buf[n:]
+}
+
 // Read implements io.Reader.
 func (b *Buffer) Read(p []byte) (n int, err error) {
 	if len(p) == 0 {
