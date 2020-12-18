@@ -17,8 +17,21 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	switch u := updates.(type) {
 	case *tg.Updates:
 		return c.updateHandler(c.ctx, u)
+	case *tg.UpdateShort:
+		// TODO(ernado): separate handler
+		return c.updateHandler(c.ctx, &tg.Updates{
+			Date: u.Date,
+			Updates: []tg.UpdateClass{
+				u.Update,
+			},
+		})
+	// TODO(ernado): handle UpdatesTooLong
+	// TODO(ernado): handle UpdateShortMessage
+	// TODO(ernado): handle UpdateShortChatMessage
+	// TODO(ernado): handle UpdatesCombined
+	// TODO(ernado): handle UpdateShortSentMessage
 	default:
-		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Debug("Ignoring update")
+		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Warn("Ignoring update")
 	}
 	return nil
 }
