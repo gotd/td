@@ -41,7 +41,7 @@ func IntermediateFromConnection(conn net.Conn) *Intermediate {
 
 // Dial sends protocol version.
 func (i *Intermediate) Dial(ctx context.Context, network, addr string) (err error) {
-	i.conn, err = i.Dialer.DialContext(ctx, "tcp", addr)
+	i.conn, err = i.Dialer.DialContext(ctx, network, addr)
 	if err != nil {
 		return xerrors.Errorf("dial: %w", err)
 	}
