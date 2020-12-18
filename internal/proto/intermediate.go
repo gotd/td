@@ -30,6 +30,9 @@ type Intermediate struct {
 	conn net.Conn
 }
 
+// check that Intermediate implements Transport in compile time.
+var _ Transport = &Intermediate{}
+
 // IntermediateFromConnection creates Intermediate transport fron given net.Conn
 // For tgtest.Server purposes only.
 func IntermediateFromConnection(conn net.Conn) *Intermediate {
@@ -87,6 +90,10 @@ func (i *Intermediate) Recv(ctx context.Context, b *bin.Buffer) error {
 
 	if err := i.conn.SetReadDeadline(time.Time{}); err != nil {
 		return xerrors.Errorf("reset connection deadline: %w", err)
+	}
+
+	if err := checkProtocolError(b); err != nil {
+		return err
 	}
 
 	return nil

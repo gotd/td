@@ -2,6 +2,7 @@ package proto
 
 import (
 	"context"
+	"fmt"
 	"net"
 
 	"github.com/gotd/td/bin"
@@ -28,5 +29,29 @@ type Transport interface {
 	Close() error
 }
 
-// check that Intermediate implements Transport in compile time.
-var _ Transport = &Intermediate{}
+// ProtocolErr represents protocol level error.
+type ProtocolErr struct {
+	Code int32
+}
+
+func (p ProtocolErr) Error() string {
+	switch p.Code {
+	case CodeAuthKeyNotFound:
+		return "auth key not found"
+	case CodeTransportFlood:
+		return "transport flood"
+	default:
+		return fmt.Sprintf("protocol error %d", p.Code)
+	}
+}
+
+func checkProtocolError(b *bin.Buffer) error {
+	if b.Len() != bin.Word {
+		return nil
+	}
+	code, err := b.Int32()
+	if err != nil {
+		return err
+	}
+	return &ProtocolErr{Code: -code}
+}
