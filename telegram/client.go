@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/rsa"
 	"io"
-	"net"
 	"sync"
 	"time"
 
@@ -46,9 +45,8 @@ type Client struct {
 	tg *tg.Client
 
 	// conn is owned by Client and not exposed.
-	conn   net.Conn
-	addr   string
-	dialer Dialer
+	conn proto.Transport
+	addr string
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -96,32 +94,6 @@ type Client struct {
 	types *tmap.Map
 }
 
-const defaultTimeout = time.Second * 10
-
-func (c *Client) startIntermediateMode(deadline time.Time) error {
-	if err := c.conn.SetDeadline(deadline); err != nil {
-		return xerrors.Errorf("failed to set deadline: %w", err)
-	}
-	if _, err := c.conn.Write(proto.IntermediateClientStart); err != nil {
-		return xerrors.Errorf("failed to write start: %w", err)
-	}
-	if err := c.conn.SetDeadline(time.Time{}); err != nil {
-		return xerrors.Errorf("failed to reset connection deadline: %w", err)
-	}
-	return nil
-}
-
-func (c *Client) resetDeadline() error {
-	return c.conn.SetDeadline(time.Time{})
-}
-
-func (c *Client) deadline(ctx context.Context) time.Time {
-	if deadline, ok := ctx.Deadline(); ok {
-		return deadline
-	}
-	return c.clock().Add(defaultTimeout)
-}
-
 func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error {
 	b.Reset()
 	if err := payload.Encode(b); err != nil {
@@ -142,8 +114,11 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		addr:   opt.Addr,
-		dialer: opt.Dialer,
+		addr: opt.Addr,
+		// TODO(tdakkota): allow user to pass transport via options
+		conn: &proto.Intermediate{
+			Dialer: opt.Dialer,
+		},
 
 		clock:  time.Now,
 		rand:   opt.Random,
@@ -178,11 +153,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 // Connect initializes connection to Telegram server and starts internal
 // read loop.
 func (c *Client) Connect(ctx context.Context) (err error) {
-	c.conn, err = c.dialer.DialContext(ctx, "tcp", c.addr)
-	if err != nil {
-		return xerrors.Errorf("dial: %w", err)
-	}
-
 	// Loading session from storage if provided.
 	if err := c.loadSession(ctx); err != nil {
 		// TODO: Add opt-in config to ignore session load failures.
@@ -210,13 +180,10 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 // connect establishes connection in intermediate mode, creating new auth key
 // if needed.
 func (c *Client) connect(ctx context.Context) error {
-	deadline := c.clock().Add(defaultTimeout)
-	if ctxDeadline, ok := ctx.Deadline(); ok {
-		deadline = ctxDeadline
+	if err := c.conn.Dial(ctx, "tcp", c.addr); err != nil {
+		return xerrors.Errorf("dial failed: %w", err)
 	}
-	if err := c.startIntermediateMode(deadline); err != nil {
-		return xerrors.Errorf("failed to initialize intermediate protocol: %w", err)
-	}
+
 	if c.authKey.Zero() {
 		c.log.Info("Generating new auth key")
 		start := c.clock()

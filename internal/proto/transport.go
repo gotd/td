@@ -40,25 +40,25 @@ var _ Transport = &Intermediate{}
 type Intermediate struct {
 	Dialer Dialer
 
-	Conn net.Conn
+	conn net.Conn
 }
 
 // Dial sends protocol version.
 func (i *Intermediate) Dial(ctx context.Context, network, addr string) (err error) {
-	i.Conn, err = i.Dialer.DialContext(ctx, "tcp", addr)
+	i.conn, err = i.Dialer.DialContext(ctx, "tcp", addr)
 	if err != nil {
 		return xerrors.Errorf("dial: %w", err)
 	}
 
-	if err := i.Conn.SetDeadline(deadline(ctx)); err != nil {
+	if err := i.conn.SetDeadline(deadline(ctx)); err != nil {
 		return xerrors.Errorf("set deadline: %w", err)
 	}
 
-	if _, err := i.Conn.Write(IntermediateClientStart); err != nil {
+	if _, err := i.conn.Write(IntermediateClientStart); err != nil {
 		return xerrors.Errorf("start intermediate: %w", err)
 	}
 
-	if err := i.Conn.SetDeadline(time.Time{}); err != nil {
+	if err := i.conn.SetDeadline(time.Time{}); err != nil {
 		return xerrors.Errorf("reset connection deadline: %w", err)
 	}
 
@@ -67,15 +67,15 @@ func (i *Intermediate) Dial(ctx context.Context, network, addr string) (err erro
 
 // Send sends message from given buffer.
 func (i *Intermediate) Send(ctx context.Context, b *bin.Buffer) error {
-	if err := i.Conn.SetWriteDeadline(deadline(ctx)); err != nil {
+	if err := i.conn.SetWriteDeadline(deadline(ctx)); err != nil {
 		return xerrors.Errorf("set deadline: %w", err)
 	}
 
-	if err := WriteIntermediate(i.Conn, b); err != nil {
+	if err := WriteIntermediate(i.conn, b); err != nil {
 		return xerrors.Errorf("write intermediate: %w", err)
 	}
 
-	if err := i.Conn.SetWriteDeadline(time.Time{}); err != nil {
+	if err := i.conn.SetWriteDeadline(time.Time{}); err != nil {
 		return xerrors.Errorf("reset connection deadline: %w", err)
 	}
 
@@ -84,15 +84,15 @@ func (i *Intermediate) Send(ctx context.Context, b *bin.Buffer) error {
 
 // Recv fills buffer with received message.
 func (i *Intermediate) Recv(ctx context.Context, b *bin.Buffer) error {
-	if err := i.Conn.SetReadDeadline(deadline(ctx)); err != nil {
+	if err := i.conn.SetReadDeadline(deadline(ctx)); err != nil {
 		return xerrors.Errorf("set deadline: %w", err)
 	}
 
-	if err := ReadIntermediate(i.Conn, b); err != nil {
+	if err := ReadIntermediate(i.conn, b); err != nil {
 		return xerrors.Errorf("read intermediate: %w", err)
 	}
 
-	if err := i.Conn.SetReadDeadline(time.Time{}); err != nil {
+	if err := i.conn.SetReadDeadline(time.Time{}); err != nil {
 		return xerrors.Errorf("reset connection deadline: %w", err)
 	}
 
@@ -102,5 +102,5 @@ func (i *Intermediate) Recv(ctx context.Context, b *bin.Buffer) error {
 // Close closes the connection.
 // Any blocked Read or Write operations will be unblocked and return errors.
 func (i *Intermediate) Close() error {
-	return i.Conn.Close()
+	return i.conn.Close()
 }

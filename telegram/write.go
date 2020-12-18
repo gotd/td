@@ -1,16 +1,17 @@
 package telegram
 
 import (
+	"context"
+
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto"
 )
 
-func (c *Client) write(id int64, seq int32, message bin.Encoder) error {
+func (c *Client) write(ctx context.Context, id int64, seq int32, message bin.Encoder) error {
 	b := new(bin.Buffer)
 	if err := c.newEncryptedMessage(id, seq, message, b); err != nil {
 		return err
 	}
-	if err := proto.WriteIntermediate(c.conn, b); err != nil {
+	if err := c.conn.Send(ctx, b); err != nil {
 		return err
 	}
 	return nil

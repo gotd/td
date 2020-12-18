@@ -7,7 +7,6 @@ import (
 	"io"
 	"net"
 	"sync/atomic"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -104,15 +103,8 @@ func (c *Client) processContainerMessage(msg proto.Message) error {
 
 func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 	b.Reset()
-	defer func() {
-		// Reset deadline.
-		_ = c.conn.SetReadDeadline(time.Time{})
-	}()
-	if err := c.conn.SetReadDeadline(c.deadline(ctx)); err != nil {
-		return xerrors.Errorf("set deadline: %w", err)
-	}
-	if err := proto.ReadIntermediate(c.conn, b); err != nil {
-		return xerrors.Errorf("read intermediate: %w", err)
+	if err := c.conn.Recv(ctx, b); err != nil {
+		return err
 	}
 	if err := c.checkProtocolError(b); err != nil {
 		return xerrors.Errorf("protocol: %w", err)
