@@ -15,8 +15,8 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 	}
 	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
 
-	c.ackMux.RLock()
-	defer c.ackMux.RUnlock()
+	c.ackMux.Lock()
+	defer c.ackMux.Unlock()
 
 	for _, msgID := range ack.MsgIds {
 		fn, found := c.ack[msgID]

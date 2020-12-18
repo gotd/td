@@ -88,7 +88,7 @@ type Client struct {
 
 	// callbacks for ack protected by ackMux
 	ack    map[int64]func()
-	ackMux sync.RWMutex
+	ackMux sync.Mutex
 
 	ackSendChan chan int64 // channel for outcoming acks
 
