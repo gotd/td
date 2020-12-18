@@ -23,10 +23,10 @@ func (c *Client) ackLoop(ctx context.Context) {
 		timer = time.NewTimer(ackForcedSendTimeout)
 	)
 
-	sendAcks := func() {
+	sendAcks := func(ctx context.Context) {
 		defer func() { buff = buff[:0] }()
 
-		if err := c.writeServiceMessage(&mt.MsgsAck{MsgIds: buff}); err != nil {
+		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIds: buff}); err != nil {
 			c.log.Error("send acks", zap.Error(err))
 			return
 		}
@@ -40,12 +40,12 @@ func (c *Client) ackLoop(ctx context.Context) {
 			return
 		case <-timer.C:
 			if len(buff) > 0 {
-				sendAcks()
+				sendAcks(ctx)
 			}
 		case msgID := <-c.ackSendChan:
 			buff = append(buff, msgID)
 			if len(buff) == ackMaxBatchSize {
-				sendAcks()
+				sendAcks(ctx)
 				timer.Reset(ackForcedSendTimeout)
 			}
 		}
@@ -78,7 +78,7 @@ func (c *Client) ackOutcomingRPC(ctx context.Context, req request) {
 		case <-ctx.Done():
 			return
 		case <-time.After(ackRequestResendTimeout):
-			if err := c.write(req.ID, req.Sequence, req.Input); err != nil {
+			if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
 				c.log.Error("ack timeout resend request", zap.Error(err))
 				return
 			}

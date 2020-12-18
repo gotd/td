@@ -1,8 +1,8 @@
 package tgtest
 
 import (
+	"context"
 	"math/big"
-	"net"
 	"time"
 
 	"golang.org/x/xerrors"
@@ -10,6 +10,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
 )
 
 type Session struct {
@@ -18,12 +19,12 @@ type Session struct {
 }
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(conn net.Conn) (Session, error) {
+func (s *Server) exchange(ctx context.Context, conn proto.Transport) (Session, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMulti
-	if err := s.readUnencrypted(conn, &pqReq); err != nil {
+	if err := s.readUnencrypted(ctx, conn, &pqReq); err != nil {
 		return Session{}, err
 	}
 
@@ -40,7 +41,7 @@ func (s *Server) exchange(conn net.Conn) (Session, error) {
 		return Session{}, xerrors.Errorf("failed to generate pq: %w", err)
 	}
 
-	if err := s.writeUnencrypted(conn, &mt.ResPQ{
+	if err := s.writeUnencrypted(ctx, conn, &mt.ResPQ{
 		Pq:          pq.Bytes(),
 		Nonce:       pqReq.Nonce,
 		ServerNonce: serverNonce,
@@ -56,7 +57,7 @@ func (s *Server) exchange(conn net.Conn) (Session, error) {
 	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string
 	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params
 	var dhParams mt.ReqDHParams
-	if err := s.readUnencrypted(conn, &dhParams); err != nil {
+	if err := s.readUnencrypted(ctx, conn, &dhParams); err != nil {
 		return Session{}, err
 	}
 
@@ -101,7 +102,7 @@ func (s *Server) exchange(conn net.Conn) (Session, error) {
 	}
 
 	// 5. Server responds with Server_DH_Params.
-	if err := s.writeUnencrypted(conn, &mt.ServerDHParamsOk{
+	if err := s.writeUnencrypted(ctx, conn, &mt.ServerDHParamsOk{
 		Nonce:           pqReq.Nonce,
 		ServerNonce:     serverNonce,
 		EncryptedAnswer: answer,
@@ -110,7 +111,7 @@ func (s *Server) exchange(conn net.Conn) (Session, error) {
 	}
 
 	var clientDhParams mt.SetClientDHParams
-	if err := s.readUnencrypted(conn, &clientDhParams); err != nil {
+	if err := s.readUnencrypted(ctx, conn, &clientDhParams); err != nil {
 		return Session{}, err
 	}
 
@@ -134,7 +135,7 @@ func (s *Server) exchange(conn net.Conn) (Session, error) {
 	// 8. Server responds in one of three ways:
 	// dh_gen_ok#3bcbf734 nonce:int128 server_nonce:int128
 	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;
-	if err := s.writeUnencrypted(conn, &mt.DhGenOk{
+	if err := s.writeUnencrypted(ctx, conn, &mt.DhGenOk{
 		Nonce:         pqReq.Nonce,
 		ServerNonce:   serverNonce,
 		NewNonceHash1: s.getNonceHash1(authKey, innerData.NewNonce[:]),

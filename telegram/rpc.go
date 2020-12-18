@@ -34,6 +34,10 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
+			if err := c.saveSession(c.ctx); err != nil {
+				return xerrors.Errorf("badMsg update salt: %w", err)
+			}
+
 			return c.rpcDoRequest(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)
@@ -99,7 +103,7 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	}()
 
 	// Encoding request. Note that callback is already set.
-	if err := c.write(req.ID, req.Sequence, req.Input); err != nil {
+	if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 

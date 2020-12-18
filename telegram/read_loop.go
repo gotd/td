@@ -7,7 +7,6 @@ import (
 	"io"
 	"net"
 	"sync/atomic"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -105,18 +104,8 @@ func (c *Client) processContainerMessage(msg proto.Message) error {
 
 func (c *Client) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
 	b.Reset()
-	defer func() {
-		// Reset deadline.
-		_ = c.conn.SetReadDeadline(time.Time{})
-	}()
-	if err := c.conn.SetReadDeadline(c.deadline(ctx)); err != nil {
-		return nil, xerrors.Errorf("set deadline: %w", err)
-	}
-	if err := proto.ReadIntermediate(c.conn, b); err != nil {
-		return nil, xerrors.Errorf("read intermediate: %w", err)
-	}
-	if err := c.checkProtocolError(b); err != nil {
-		return nil, xerrors.Errorf("protocol: %w", err)
+	if err := c.conn.Recv(ctx, b); err != nil {
+		return nil, err
 	}
 
 	msg, err := c.cipher.DecryptDataFrom(c.authKey, atomic.LoadInt64(&c.session), b)
@@ -161,7 +150,7 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		var protoErr *ProtocolErr
+		var protoErr *proto.ProtocolErr
 		if errors.As(err, &protoErr) && protoErr.Code == proto.CodeAuthKeyNotFound {
 			c.log.Warn("Re-generating keys (server not found key that we provided)")
 			if err := c.createAuthKey(ctx); err != nil {
