@@ -175,7 +175,7 @@ func (s *Server) serveConn(conn net.Conn) error {
 		return errors.New("unexpected intermediate client start")
 	}
 
-	ctx, cancel := context.WithTimeout(s.ctx, 10*time.Second) // TODO(tdakkota): make it configurable
+	ctx, cancel := context.WithTimeout(s.ctx, 60*time.Second) // TODO(tdakkota): make it configurable
 	defer cancel()
 	transport := proto.IntermediateFromConnection(conn)
 
