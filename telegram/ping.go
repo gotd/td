@@ -38,7 +38,7 @@ func (c *Client) Ping(ctx context.Context) error {
 	}
 	c.pingMux.Unlock()
 
-	if err := c.write(c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
+	if err := c.write(ctx, c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 

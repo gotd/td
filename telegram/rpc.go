@@ -100,7 +100,7 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	}()
 
 	// Encoding request. Note that callback is already set.
-	if err := c.write(req.ID, req.Sequence, req.Input); err != nil {
+	if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 

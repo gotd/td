@@ -3,6 +3,7 @@ package tgtest
 
 import (
 	"bytes"
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"errors"
@@ -31,7 +32,9 @@ type Server struct {
 	cipher  crypto.Cipher
 	handler Handler
 
-	wg sync.WaitGroup
+	ctx    context.Context
+	cancel context.CancelFunc
+	wg     sync.WaitGroup
 
 	mux    sync.Mutex // guards closed and tb
 	tb     TB
@@ -50,6 +53,10 @@ func (s *Server) Start() {
 }
 
 func (s *Server) Close() {
+	if s.cancel != nil {
+		s.cancel()
+	}
+
 	s.mux.Lock()
 	s.closed = true
 	s.mux.Unlock()
@@ -69,11 +76,15 @@ func NewUnstartedServer(tb TB) *Server {
 	if err != nil {
 		panic(err)
 	}
+
+	ctx, cancel := context.WithCancel(context.Background())
 	s := &Server{
 		Listener: newLocalListener(),
-		cipher:   crypto.NewServerCipher(rand.Reader),
-		key:      k,
 		tb:       tb,
+		key:      k,
+		cipher:   crypto.NewServerCipher(rand.Reader),
+		ctx:      ctx,
+		cancel:   cancel,
 		conns:    newConns(),
 	}
 	return s
@@ -91,7 +102,7 @@ func (s *Server) SetHandler(handler Handler) {
 	s.handler = handler
 }
 
-func (s *Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
+func (s *Server) writeUnencrypted(ctx context.Context, conn proto.Transport, data bin.Encoder) error {
 	b := &bin.Buffer{}
 	if err := data.Encode(b); err != nil {
 		return err
@@ -105,12 +116,12 @@ func (s *Server) writeUnencrypted(conn net.Conn, data bin.Encoder) error {
 		return err
 	}
 
-	return proto.WriteIntermediate(conn, b)
+	return conn.Send(ctx, b)
 }
 
-func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
+func (s *Server) readUnencrypted(ctx context.Context, conn proto.Transport, data bin.Decoder) error {
 	b := &bin.Buffer{}
-	if err := proto.ReadIntermediate(conn, b); err != nil {
+	if err := conn.Recv(ctx, b); err != nil {
 		return err
 	}
 	var msg proto.UnencryptedMessage
@@ -125,12 +136,12 @@ func (s *Server) readUnencrypted(conn net.Conn, data bin.Decoder) error {
 	return data.Decode(b)
 }
 
-func (s *Server) rpcHandle(k Session, conn net.Conn) error {
+func (s *Server) rpcHandle(ctx context.Context, k Session, conn proto.Transport) error {
 	var b bin.Buffer
 	for {
 		b.Reset()
-		if err := proto.ReadIntermediate(conn, &b); err != nil {
-			return xerrors.Errorf("failed to read intermediate: %w", err)
+		if err := conn.Recv(ctx, &b); err != nil {
+			return xerrors.Errorf("read from client: %w", err)
 		}
 
 		msg, err := s.cipher.DecryptDataFrom(k.Key, 0, &b)
@@ -164,18 +175,22 @@ func (s *Server) serveConn(conn net.Conn) error {
 		return errors.New("unexpected intermediate client start")
 	}
 
-	session, err := s.exchange(conn)
+	ctx, cancel := context.WithTimeout(s.ctx, 10*time.Second) // TODO(tdakkota): make it configurable
+	defer cancel()
+	transport := proto.IntermediateFromConnection(conn)
+
+	session, err := s.exchange(ctx, transport)
 	if err != nil {
 		return xerrors.Errorf("key exchange failed: %w", err)
 	}
-	s.conns.add(session, conn)
+	s.conns.add(session, transport)
 
 	err = s.handler.OnNewClient(session)
 	if err != nil {
 		return xerrors.Errorf("OnNewClient handler failed: %w", err)
 	}
 
-	return s.rpcHandle(session, conn)
+	return s.rpcHandle(ctx, session, transport)
 }
 
 func (s *Server) checkMsgID(id int64) error {
