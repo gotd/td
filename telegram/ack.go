@@ -13,25 +13,29 @@ func (c *Client) ackLoop(ctx context.Context) {
 	c.wg.Add(1)
 	defer c.wg.Done()
 
+	log := c.log.Named("ack")
+
 	const (
-		ackMaxBatchSize      = 20
-		ackForcedSendTimeout = time.Second * 15
+		maxBatchSize      = 20
+		forcedSendTimeout = time.Second * 15
 	)
 
 	var (
-		buff  = make([]int64, 0, ackMaxBatchSize)
-		timer = time.NewTimer(ackForcedSendTimeout)
+		buf = make([]int64, 0, maxBatchSize)
+
+		// TODO(ernado): remove side-effect.
+		timer = time.NewTimer(forcedSendTimeout)
 	)
 
-	sendAcks := func(ctx context.Context) {
-		defer func() { buff = buff[:0] }()
+	send := func() {
+		defer func() { buf = buf[:0] }()
 
-		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIds: buff}); err != nil {
-			c.log.Error("send acks", zap.Error(err))
+		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIds: buf}); err != nil {
+			c.log.Error("Failed to ACK", zap.Error(err))
 			return
 		}
 
-		c.log.Info("sent acks", zap.Int64s("message-ids", buff))
+		log.Info("ACK", zap.Int64s("message_ids", buf))
 	}
 
 	for {
@@ -39,20 +43,20 @@ func (c *Client) ackLoop(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case <-timer.C:
-			if len(buff) > 0 {
-				sendAcks(ctx)
+			if len(buf) > 0 {
+				send()
 			}
 		case msgID := <-c.ackSendChan:
-			buff = append(buff, msgID)
-			if len(buff) == ackMaxBatchSize {
-				sendAcks(ctx)
-				timer.Reset(ackForcedSendTimeout)
+			buf = append(buf, msgID)
+			if len(buf) == maxBatchSize {
+				send()
+				timer.Reset(forcedSendTimeout)
 			}
 		}
 	}
 }
 
-func (c *Client) ackOutcomingRPC(ctx context.Context, req request) {
+func (c *Client) rpcRetryUntilAck(ctx context.Context, req request) {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 

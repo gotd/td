@@ -80,7 +80,8 @@ type Client struct {
 	updateHandler  UpdateHandler  // immutable
 	sessionStorage SessionStorage // immutable
 
-	// callbacks for RPC requests, protected by rpcMux
+	// callbacks for RPC requests, protected by rpcMux.
+	// Key is request message id.
 	rpc    map[int64]func(b *bin.Buffer, rpcErr error) error
 	rpcMux sync.Mutex
 
@@ -88,9 +89,12 @@ type Client struct {
 	ack    map[int64]func()
 	ackMux sync.Mutex
 
-	ackSendChan chan int64 // channel for outcoming acks
+	// ackSendChan is queue for outgoing message id's that require waiting for
+	// ACK from server.
+	ackSendChan chan int64
 
-	// callbacks for ping results protected by pingMux
+	// callbacks for ping results protected by pingMux.
+	// Key is ping id.
 	ping    map[int64]func()
 	pingMux sync.Mutex
 

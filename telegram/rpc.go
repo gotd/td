@@ -110,8 +110,8 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	ackCtx, ackClose := context.WithCancel(c.ctx)
 	defer ackClose()
 
-	// resend request until we receive ack or response for it
-	go c.ackOutcomingRPC(ackCtx, req)
+	// Start retrying.
+	go c.rpcRetryUntilAck(ackCtx, req)
 
 	select {
 	case <-ctx.Done():
