@@ -12,6 +12,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tg"
@@ -101,25 +102,18 @@ func (c *Client) processContainerMessage(msg proto.Message) error {
 	return c.handleMessage(b)
 }
 
-func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
+func (c *Client) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
 	b.Reset()
 	if err := c.conn.Recv(ctx, b); err != nil {
-		return err
+		return nil, err
 	}
 
 	msg, err := c.cipher.DecryptDataFrom(c.authKey, atomic.LoadInt64(&c.session), b)
 	if err != nil {
-		return xerrors.Errorf("decrypt: %w", err)
+		return nil, xerrors.Errorf("decrypt: %w", err)
 	}
 
-	// Buffer now contains plaintext message payload.
-	b.ResetTo(msg.Data())
-
-	if err := c.handleMessage(b); err != nil {
-		return xerrors.Errorf("handle: %w", err)
-	}
-
-	return nil
+	return msg, nil
 }
 
 func (c *Client) readLoop(ctx context.Context) {
@@ -131,9 +125,11 @@ func (c *Client) readLoop(ctx context.Context) {
 	defer c.wg.Done()
 
 	for {
-		err := c.read(ctx, b)
+		msg, err := c.read(ctx, b)
 		if err == nil {
 			// Reading ok.
+			go func() { _ = c.handleEncryptedMessage(msg) }()
+
 			continue
 		}
 
@@ -175,4 +171,24 @@ func (c *Client) readLoop(ctx context.Context) {
 			log.With(zap.Error(err)).Error("Read returned error")
 		}
 	}
+}
+
+func (c *Client) handleEncryptedMessage(msg *crypto.EncryptedMessageData) error {
+	// TODO(ccln): we can avoid this buffer allocation
+	// by re-using readLoop buffer for decoding message
+	// and handle decoded data in separeted goroutine
+	b := new(bin.Buffer)
+	b.ResetTo(msg.Data())
+
+	if err := c.handleMessage(b); err != nil {
+		c.log.Error("handle", zap.Error(err))
+		return err
+	}
+
+	needAck := (msg.SeqNo & 0x01) != 0
+	if needAck {
+		c.ackSendChan <- msg.MessageID
+	}
+
+	return nil
 }

@@ -16,3 +16,7 @@ func (c *Client) write(ctx context.Context, id int64, seq int32, message bin.Enc
 	}
 	return nil
 }
+
+func (c *Client) writeServiceMessage(ctx context.Context, message bin.Encoder) error {
+	return c.write(ctx, c.newMessageID(), c.seqNo(), message)
+}

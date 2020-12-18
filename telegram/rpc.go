@@ -78,13 +78,16 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Will write error to that variable.
 	var resultErr error
-	handler := func(rpcBuff *bin.Buffer, rpcErr error) {
+	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
+		defer closeDone()
+
 		if rpcErr != nil {
 			resultErr = rpcErr
-		} else {
-			resultErr = req.Output.Decode(rpcBuff)
+			return nil
 		}
-		closeDone()
+
+		resultErr = req.Output.Decode(rpcBuff)
+		return resultErr
 	}
 
 	// Setting callback that will be called if message is received.
@@ -103,6 +106,12 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
+
+	ackCtx, ackClose := context.WithCancel(c.ctx)
+	defer ackClose()
+
+	// resend request until we receive ack or response for it
+	go c.ackOutcomingRPC(ackCtx, req)
 
 	select {
 	case <-ctx.Done():

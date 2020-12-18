@@ -54,7 +54,7 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 				Message: rpcErr.ErrorMessage,
 			}
 			e.extractArgument()
-			f(nil, e)
+			return f(nil, e)
 		}
 
 		return nil
@@ -68,10 +68,9 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 	c.rpcMux.Unlock()
 
 	if ok {
-		f(b, nil)
-	} else {
-		c.log.Debug("Got unexpected result")
+		return f(b, nil)
 	}
 
+	c.log.Debug("Got unexpected result")
 	return nil
 }
