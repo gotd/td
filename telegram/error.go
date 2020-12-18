@@ -49,7 +49,7 @@ func (e *Error) extractArgument() {
 }
 
 func (e Error) Error() string {
-	if e.Type != "" {
+	if e.Argument != 0 {
 		return fmt.Sprintf("rpc error code %d: %s (%d)", e.Code, e.Type, e.Argument)
 	}
 	return fmt.Sprintf("rpc error code %d: %s", e.Code, e.Message)
