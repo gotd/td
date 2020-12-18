@@ -91,7 +91,7 @@ func TestClient(t *testing.T) {
 	srv.Start()
 	defer srv.Close()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*60)
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
 	defer cancel()
 
 	dispatcher := tg.NewUpdateDispatcher()
