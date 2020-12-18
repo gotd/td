@@ -174,7 +174,9 @@ func (c *Client) readLoop(ctx context.Context) {
 }
 
 func (c *Client) handleEncryptedMessage(msg *crypto.EncryptedMessageData) error {
-	// TODO(ccln): maybe use pool here?
+	// TODO(ccln): we can avoid this buffer allocation
+	// by re-using readLoop buffer for decoding message
+	// and handle decoded data in separeted goroutine
 	b := new(bin.Buffer)
 	b.ResetTo(msg.Data())
 
