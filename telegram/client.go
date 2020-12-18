@@ -83,7 +83,7 @@ type Client struct {
 	sessionStorage SessionStorage // immutable
 
 	// callbacks for RPC requests, protected by rpcMux
-	rpc    map[int64]func(b *bin.Buffer, rpcErr error)
+	rpc    map[int64]func(b *bin.Buffer, rpcErr error) error
 	rpcMux sync.Mutex
 
 	// callbacks for ack protected by ackMux
@@ -156,7 +156,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cipher: crypto.NewClientCipher(opt.Random),
 		log:    opt.Logger,
 		ping:   map[int64]func(){},
-		rpc:    map[int64]func(b *bin.Buffer, rpcErr error){},
+		rpc:    map[int64]func(b *bin.Buffer, rpcErr error) error{},
 
 		ack:         map[int64]func(){},
 		ackSendChan: make(chan int64),

@@ -123,16 +123,16 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 		return xerrors.Errorf("decrypt: %w", err)
 	}
 
-	needAck := (msg.SeqNo & 0x01) != 0
-	if needAck {
-		c.ackSendChan <- msg.MessageID
-	}
-
 	// Buffer now contains plaintext message payload.
 	b.ResetTo(msg.Data())
 
 	if err := c.handleMessage(b); err != nil {
 		return xerrors.Errorf("handle: %w", err)
+	}
+
+	needAck := (msg.SeqNo & 0x01) != 0
+	if needAck {
+		c.ackSendChan <- msg.MessageID
 	}
 
 	return nil

@@ -74,13 +74,16 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Will write error to that variable.
 	var resultErr error
-	handler := func(rpcBuff *bin.Buffer, rpcErr error) {
+	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
+		defer closeDone()
+
 		if rpcErr != nil {
 			resultErr = rpcErr
-		} else {
-			resultErr = req.Output.Decode(rpcBuff)
+			return nil
 		}
-		closeDone()
+
+		resultErr = req.Output.Decode(rpcBuff)
+		return resultErr
 	}
 
 	// Setting callback that will be called if message is received.
