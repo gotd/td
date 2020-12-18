@@ -21,7 +21,7 @@ func BenchmarkWriteIntermediate(b *testing.B) {
 	b.SetBytes(int64(buf.Len() + 4))
 
 	for i := 0; i < b.N; i++ {
-		if err := WriteIntermediate(out, buf); err != nil {
+		if err := writeIntermediate(out, buf); err != nil {
 			b.Fatal(err)
 		}
 		out.Reset()
@@ -34,7 +34,7 @@ func BenchmarkReadIntermediate(b *testing.B) {
 	buf.PutString("Hello world")
 	buf.PutString("Wake up")
 	buf.PutString("Neo")
-	if err := WriteIntermediate(out, buf); err != nil {
+	if err := writeIntermediate(out, buf); err != nil {
 		b.Fatal(err)
 	}
 	raw := out.Bytes()
@@ -45,7 +45,7 @@ func BenchmarkReadIntermediate(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		reader.Reset(raw)
-		if err := ReadIntermediate(reader, buf); err != nil {
+		if err := readIntermediate(reader, buf); err != nil {
 			b.Fatal(err)
 		}
 		buf.Reset()
@@ -56,11 +56,11 @@ func TestIntermediate(t *testing.T) {
 	t.Run("Ok", func(t *testing.T) {
 		msg := bytes.Repeat([]byte{1, 2, 3}, 100)
 		buf := new(bytes.Buffer)
-		if err := WriteIntermediate(buf, &bin.Buffer{Buf: msg}); err != nil {
+		if err := writeIntermediate(buf, &bin.Buffer{Buf: msg}); err != nil {
 			t.Fatal(err)
 		}
 		var out bin.Buffer
-		if err := ReadIntermediate(buf, &out); err != nil {
+		if err := readIntermediate(buf, &out); err != nil {
 			t.Fatal(err)
 		}
 		require.Equal(t, msg, out.Buf)
@@ -71,14 +71,14 @@ func TestIntermediate(t *testing.T) {
 			b.PutInt(1024*1024 + 10)
 
 			var out bin.Buffer
-			if err := ReadIntermediate(&b, &out); !errors.Is(err, errInvalidMsgLen{}) {
+			if err := readIntermediate(&b, &out); !errors.Is(err, errInvalidMsgLen{}) {
 				t.Error(err)
 			}
 		})
 		t.Run("Write", func(t *testing.T) {
 			buf := make([]byte, 1024*1024*2)
 
-			if err := WriteIntermediate(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, errInvalidMsgLen{}) {
+			if err := writeIntermediate(nil, &bin.Buffer{Buf: buf}); !errors.Is(err, errInvalidMsgLen{}) {
 				t.Error(err)
 			}
 		})

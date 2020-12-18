@@ -32,7 +32,7 @@ func (s *Server) Send(k Session, encoder bin.Encoder) error {
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}
 
-	return proto.WriteIntermediate(conn, &b)
+	return conn.Send(s.ctx, &b)
 }
 
 func (s *Server) SendResult(k Session, id int64, msg bin.Encoder) error {
