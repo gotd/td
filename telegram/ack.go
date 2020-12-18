@@ -4,8 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/gotd/td/internal/mt"
 	"go.uber.org/zap"
+
+	"github.com/gotd/td/internal/mt"
 )
 
 func (c *Client) ackLoop(ctx context.Context) {

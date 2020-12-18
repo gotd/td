@@ -123,7 +123,6 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) error {
 		return xerrors.Errorf("decrypt: %w", err)
 	}
 
-	// https://github.com/telegramdesktop/tdesktop/blob/60f91ebce471e4ac4128829129941f28ebe65a27/Telegram/SourceFiles/mtproto/session_private.cpp#L1251
 	needAck := (msg.SeqNo & 0x01) != 0
 	if needAck {
 		c.ackSendChan <- msg.MessageID
