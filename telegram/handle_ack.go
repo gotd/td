@@ -15,7 +15,19 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 	}
 	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
 
-	c.acker.handleAcks(ack.MsgIds)
+	c.ackMux.Lock()
+	defer c.ackMux.Unlock()
+
+	for _, msgID := range ack.MsgIds {
+		fn, found := c.ack[msgID]
+		if !found {
+			c.log.Warn("ack callback is not set", zap.Int64("message-id", msgID))
+			continue
+		}
+
+		fn()
+		delete(c.ack, msgID)
+	}
 
 	return nil
 }

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"sync"
 	"sync/atomic"
+	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -111,12 +112,59 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	defer ackClose()
 
 	// Start retrying.
-	go c.acker.rpcRetryUntilAck(ackCtx, req)
+	retry := func() <-chan error {
+		ch := make(chan error)
+		go func() { ch <- c.rpcRetryUntilAck(ackCtx, req) }()
+		return ch
+	}
 
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
+	case e := <-retry():
+		return e
 	case <-done:
 		return resultErr
+	}
+}
+
+func (c *Client) rpcRetryUntilAck(ctx context.Context, req request) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	// Set ack callback for request.
+	c.ackMux.Lock()
+	c.ack[req.ID] = cancel
+	c.ackMux.Unlock()
+
+	defer func() {
+		c.ackMux.Lock()
+		delete(c.ack, req.ID)
+		c.ackMux.Unlock()
+	}()
+
+	const (
+		ackMaxRequestResendRetries = 5
+		ackRequestResendTimeout    = time.Second * 15
+	)
+
+	retries := 0
+	for {
+		select {
+		case <-ctx.Done():
+			return nil
+			// TODO(ccln): use clock.
+		case <-time.After(ackRequestResendTimeout):
+			if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
+				c.log.Error("ack timeout resend request", zap.Error(err))
+				return err
+			}
+
+			retries++
+			if retries == ackMaxRequestResendRetries {
+				c.log.Error("ack retry limit reached", zap.Int64("request-id", req.ID))
+				return xerrors.Errorf("retry limit reached")
+			}
+		}
 	}
 }
