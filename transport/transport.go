@@ -45,6 +45,11 @@ type Transport struct {
 	constructor func() Codec
 }
 
+// Codec creates new codec using transport settings.
+func (t *Transport) Codec() Codec {
+	return t.constructor()
+}
+
 // DialContext creates new MTProto connection.
 func (t *Transport) DialContext(ctx context.Context, network, address string) (Connection, error) {
 	conn, err := t.dialer.DialContext(ctx, network, address)

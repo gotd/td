@@ -13,6 +13,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/transport"
 )
 
 type handler struct {
@@ -80,45 +81,53 @@ func (h handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error 
 	return nil
 }
 
-func TestClient(t *testing.T) {
-	srv := tgtest.NewUnstartedServer(t)
-	h := handler{
-		server:  srv,
-		t:       t,
-		message: "ну как там с деньгами?",
-	}
-	srv.SetHandler(h)
-	srv.Start()
-	defer srv.Close()
+func testTransport(trp *transport.Transport) func(t *testing.T) {
+	return func(t *testing.T) {
+		srv := tgtest.NewUnstartedServer(t, trp.Codec())
+		h := handler{
+			server:  srv,
+			t:       t,
+			message: "ну как там с деньгами?",
+		}
+		srv.SetHandler(h)
+		srv.Start()
+		defer srv.Close()
 
-	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
-	defer cancel()
+		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
+		defer cancel()
 
-	dispatcher := tg.NewUpdateDispatcher()
-	log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
-	client := NewClient(1, "hash", Options{
-		PublicKeys:    []*rsa.PublicKey{srv.Key()},
-		Addr:          srv.Listener.Addr().String(),
-		Logger:        log,
-		UpdateHandler: dispatcher.Handle,
-	})
+		dispatcher := tg.NewUpdateDispatcher()
+		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
+		client := NewClient(1, "hash", Options{
+			PublicKeys:    []*rsa.PublicKey{srv.Key()},
+			Addr:          srv.Addr().String(),
+			Transport:     trp,
+			Logger:        log,
+			UpdateHandler: dispatcher.Handle,
+		})
 
-	wait := make(chan struct{})
-	dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
-		message := update.Message.(*tg.Message).Message
-		t.Log("[client]", "got message", message)
-		if message != h.message {
-			t.Fatalf("expected %s, got %s", h.message, message)
+		wait := make(chan struct{})
+		dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+			message := update.Message.(*tg.Message).Message
+			t.Log("[client]", "got message", message)
+			if message != h.message {
+				t.Fatalf("expected %s, got %s", h.message, message)
+			}
+
+			wait <- struct{}{}
+			return client.Close(ctx)
+		})
+
+		err := client.Connect(ctx)
+		if err != nil {
+			t.Fatal(err)
 		}
 
-		wait <- struct{}{}
-		return client.Close(ctx)
-	})
-
-	err := client.Connect(ctx)
-	if err != nil {
-		t.Fatal(err)
+		<-wait
 	}
+}
 
-	<-wait
+func TestClient(t *testing.T) {
+	t.Run("intermediate", testTransport(transport.Intermediate(nil)))
+	t.Run("full", testTransport(transport.Full(nil)))
 }

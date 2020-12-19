@@ -9,9 +9,9 @@ import (
 )
 
 // NewCustomServer creates new MTProto server with custom transport codec.
-func NewCustomServer(codec Codec, listener net.Listener) *Server {
+func NewCustomServer(c Codec, listener net.Listener) *Server {
 	return &Server{
-		codec:    codec,
+		codec:    c,
 		listener: listener,
 	}
 }
@@ -22,29 +22,36 @@ func NewIntermediateServer(listener net.Listener) *Server {
 	return NewCustomServer(codec.Intermediate{}, listener)
 }
 
+// Handler is MTProto server connection handler.
+type Handler func(ctx context.Context, conn Connection) error
+
 // Server is a simple MTProto server.
 type Server struct {
 	codec    Codec
 	listener net.Listener
-	handler  func(ctx context.Context, conn Connection) error
 
 	ctx    context.Context
 	cancel context.CancelFunc
 	closed int64
 }
 
-func (s *Server) serveConn(ctx context.Context, c net.Conn) error {
+func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
 	if err := s.codec.ReadHeader(c); err != nil {
 		return err
 	}
 
-	return s.handler(ctx, Connection{
+	return handler(ctx, Connection{
 		c, s.codec,
 	})
 }
 
+// Addr returns server address.
+func (s *Server) Addr() net.Addr {
+	return s.listener.Addr()
+}
+
 // Serve runs server using given listener.
-func (s *Server) Serve(ctx context.Context) error {
+func (s *Server) Serve(ctx context.Context, handler Handler) error {
 	s.ctx, s.cancel = context.WithCancel(ctx)
 
 	for {
@@ -56,7 +63,7 @@ func (s *Server) Serve(ctx context.Context) error {
 			break
 		}
 		go func() {
-			_ = s.serveConn(s.ctx, conn)
+			_ = s.serveConn(s.ctx, handler, conn)
 		}()
 	}
 

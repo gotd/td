@@ -11,8 +11,8 @@ import (
 )
 
 func (s *Server) Send(k Session, encoder bin.Encoder) error {
-	conn := s.conns.get(k)
-	if conn == nil {
+	conn, ok := s.conns.get(k)
+	if !ok {
 		return errors.New("invalid key: connection not found")
 	}
 
