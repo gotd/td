@@ -58,7 +58,7 @@ func (g *GZIP) Decode(b *bin.Buffer) error {
 	}
 	defer func() { _ = r.Close() }()
 
-	// Apply mitigation for DOS via gzip bomp.
+	// Apply mitigation for reading too much data which can result in OOM.
 	const maxUncompressedSize = 1024 * 1024 * 10 // 10 mb
 	// TODO(ernado): fail explicitly if limit is reached
 	// Currently we just return nil, but it is better than failing with OOM.
