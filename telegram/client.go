@@ -85,7 +85,13 @@ type Client struct {
 	rpc    map[int64]func(b *bin.Buffer, rpcErr error) error
 	rpcMux sync.Mutex
 
-	acker *acker
+	// callbacks for ack protected by ackMux
+	ack    map[int64]func()
+	ackMux sync.Mutex
+
+	// ackSendChan is queue for outgoing message id's that require waiting for
+	// ACK from server.
+	ackSendChan chan int64
 
 	// callbacks for ping results protected by pingMux.
 	// Key is ping id.
@@ -131,6 +137,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		ping:   map[int64]func(){},
 		rpc:    map[int64]func(b *bin.Buffer, rpcErr error) error{},
 
+		ack:         map[int64]func(){},
+		ackSendChan: make(chan int64),
+
 		ctx:    clientCtx,
 		cancel: clientCancel,
 
@@ -150,8 +159,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
-
-	client.acker = newAcker(client, opt.Logger.Named("acker"), ackConfig{})
 
 	return client
 }
@@ -175,7 +182,7 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 
 	// Spawning goroutines.
 	go c.readLoop(c.ctx)
-	go c.acker.run(c.ctx)
+	go c.ackLoop(c.ctx)
 
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("init: %w", err)

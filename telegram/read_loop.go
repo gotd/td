@@ -187,7 +187,7 @@ func (c *Client) handleEncryptedMessage(msg *crypto.EncryptedMessageData) error 
 
 	needAck := (msg.SeqNo & 0x01) != 0
 	if needAck {
-		c.acker.sendAck(msg.MessageID)
+		c.ackSendChan <- msg.MessageID
 	}
 
 	return nil
