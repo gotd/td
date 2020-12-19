@@ -84,7 +84,11 @@ func (h handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error 
 func testTransport(trp *transport.Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
-		srv := tgtest.NewUnstartedServer(t, trp.Codec())
+
+		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
+		defer cancel()
+
+		srv := tgtest.NewUnstartedServer(ctx, t, trp.Codec())
 		h := handler{
 			server:  srv,
 			t:       t,
@@ -93,9 +97,6 @@ func testTransport(trp *transport.Transport) func(t *testing.T) {
 		srv.SetHandler(h)
 		srv.Start()
 		defer srv.Close()
-
-		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
-		defer cancel()
 
 		dispatcher := tg.NewUpdateDispatcher()
 		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))

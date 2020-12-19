@@ -50,20 +50,20 @@ func (s *Server) Close() {
 	_ = s.server.Close()
 }
 
-func NewServer(tb TB, codec transport.Codec, h Handler) *Server {
-	s := NewUnstartedServer(tb, codec)
+func NewServer(ctx context.Context, tb TB, codec transport.Codec, h Handler) *Server {
+	s := NewUnstartedServer(ctx, tb, codec)
 	s.SetHandler(h)
 	s.Start()
 	return s
 }
 
-func NewUnstartedServer(tb TB, codec transport.Codec) *Server {
+func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Server {
 	k, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
 
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancel(ctx)
 	s := &Server{
 		server: transport.NewCustomServer(codec, newLocalListener()),
 		tb:     tb,
