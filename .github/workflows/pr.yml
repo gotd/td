@@ -52,6 +52,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-${{ matrix.golang }}-
       - name: Run tests
+        env:
+          CGO_ENABLED: 0
         run: go test -v ./...
 
   tests-on-windows:
