@@ -1,14 +1,11 @@
-package proto
+package codec
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"hash/crc32"
 	"io"
-	"net"
 	"sync/atomic"
-	"time"
 
 	"golang.org/x/xerrors"
 
@@ -16,73 +13,45 @@ import (
 )
 
 // Full is full MTProto transport.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports#full
 type Full struct {
-	Dialer Dialer
 	wSeqNo int64
 	rSeqNo int64
-
-	conn net.Conn
 }
 
-// check that Full implements Transport in compile time.
-var _ Transport = &Full{}
-
-// Dial sends protocol version.
-func (i *Full) Dial(ctx context.Context, network, addr string) (err error) {
-	i.conn, err = i.Dialer.DialContext(ctx, "tcp", addr)
-	if err != nil {
-		return xerrors.Errorf("dial: %w", err)
-	}
-
-	atomic.StoreInt64(&i.wSeqNo, 0)
-	atomic.StoreInt64(&i.rSeqNo, 0)
+// WriteHeader sends protocol tag.
+func (i *Full) WriteHeader(w io.Writer) (err error) {
 	return nil
 }
 
-// Send sends message from given buffer.
-func (i *Full) Send(ctx context.Context, b *bin.Buffer) error {
-	if err := i.conn.SetWriteDeadline(deadline(ctx)); err != nil {
-		return xerrors.Errorf("set deadline: %w", err)
-	}
+// ReadHeader reads protocol tag.
+func (i *Full) ReadHeader(r io.Reader) (err error) {
+	return nil
+}
 
-	if err := writeFull(i.conn, int(atomic.LoadInt64(&i.wSeqNo)), b); err != nil {
+// Write encode to writer message from given buffer.
+func (i *Full) Write(w io.Writer, b *bin.Buffer) error {
+	if err := writeFull(w, int(atomic.LoadInt64(&i.wSeqNo)), b); err != nil {
 		return xerrors.Errorf("write full: %w", err)
 	}
 	atomic.StoreInt64(&i.wSeqNo, i.wSeqNo+1)
 
-	if err := i.conn.SetWriteDeadline(time.Time{}); err != nil {
-		return xerrors.Errorf("reset connection deadline: %w", err)
-	}
-
 	return nil
 }
 
-// Recv fills buffer with received message.
-func (i *Full) Recv(ctx context.Context, b *bin.Buffer) error {
-	if err := i.conn.SetReadDeadline(deadline(ctx)); err != nil {
-		return xerrors.Errorf("set deadline: %w", err)
-	}
-
-	if err := readFull(i.conn, int(atomic.LoadInt64(&i.rSeqNo)), b); err != nil {
+// Read fills buffer with received message.
+func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
+	if err := readFull(r, int(atomic.LoadInt64(&i.rSeqNo)), b); err != nil {
 		return xerrors.Errorf("read full: %w", err)
 	}
 	atomic.StoreInt64(&i.rSeqNo, i.rSeqNo+1)
-
-	if err := i.conn.SetReadDeadline(time.Time{}); err != nil {
-		return xerrors.Errorf("reset connection deadline: %w", err)
-	}
 
 	if err := checkProtocolError(b); err != nil {
 		return err
 	}
 
 	return nil
-}
-
-// Close closes the connection.
-// Any blocked Read or Write operations will be unblocked and return errors.
-func (i *Full) Close() error {
-	return i.conn.Close()
 }
 
 func writeFull(w io.Writer, seqNo int, b *bin.Buffer) error {

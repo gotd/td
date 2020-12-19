@@ -16,6 +16,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/transport"
 )
 
 // UpdateHandler will be called on received updates from Telegram.
@@ -45,8 +46,9 @@ type Client struct {
 	tg *tg.Client
 
 	// conn is owned by Client and not exposed.
-	conn proto.Transport
-	addr string
+	transport *transport.Transport
+	conn      transport.Connection
+	addr      string
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -124,11 +126,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		addr: opt.Addr,
-		// TODO(tdakkota): allow user to pass transport via options
-		conn: &proto.Intermediate{
-			Dialer: opt.Dialer,
-		},
+		addr:      opt.Addr,
+		transport: opt.Transport,
 
 		clock:  time.Now,
 		rand:   opt.Random,
@@ -193,8 +192,9 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 
 // connect establishes connection in intermediate mode, creating new auth key
 // if needed.
-func (c *Client) connect(ctx context.Context) error {
-	if err := c.conn.Dial(ctx, "tcp", c.addr); err != nil {
+func (c *Client) connect(ctx context.Context) (err error) {
+	c.conn, err = c.transport.DialContext(ctx, "tcp", c.addr)
+	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
 
