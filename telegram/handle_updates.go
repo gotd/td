@@ -12,23 +12,26 @@ import (
 
 func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	if c.updateHandler == nil {
-		// Ignoring. Probably we should ACK.
 		return nil
 	}
 	switch u := updates.(type) {
 	case *tg.Updates:
-		go func() {
-			if c.updateHandler == nil {
-				return
-			}
-			// We should send ACK here.
-			if err := c.updateHandler(c.ctx, u); err != nil {
-				c.log.With(zap.Error(err)).Error("Update handler returning error")
-			}
-		}()
-		return nil
+		return c.updateHandler(c.ctx, u)
+	case *tg.UpdateShort:
+		// TODO(ernado): separate handler
+		return c.updateHandler(c.ctx, &tg.Updates{
+			Date: u.Date,
+			Updates: []tg.UpdateClass{
+				u.Update,
+			},
+		})
+	// TODO(ernado): handle UpdatesTooLong
+	// TODO(ernado): handle UpdateShortMessage
+	// TODO(ernado): handle UpdateShortChatMessage
+	// TODO(ernado): handle UpdatesCombined
+	// TODO(ernado): handle UpdateShortSentMessage
 	default:
-		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Debug("Ignoring update")
+		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Warn("Ignoring update")
 	}
 	return nil
 }
@@ -36,7 +39,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 func (c *Client) handleUpdates(b *bin.Buffer) error {
 	updates, err := tg.DecodeUpdates(b)
 	if err != nil {
-		return xerrors.Errorf("failed to decode updates: %w", err)
+		return xerrors.Errorf("decode updates: %w", err)
 	}
 	return c.processUpdates(updates)
 }

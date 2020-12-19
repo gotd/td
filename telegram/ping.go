@@ -40,8 +40,8 @@ func (c *Client) Ping(ctx context.Context) error {
 	}
 	c.pingMux.Unlock()
 
-	if err := c.write(c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
-		return xerrors.Errorf("failed to write: %w", err)
+	if err := c.write(ctx, c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
+		return xerrors.Errorf("write: %w", err)
 	}
 
 	// Waiting for result.
@@ -58,7 +58,7 @@ func (c *Client) Ping(ctx context.Context) error {
 func (c *Client) handlePong(b *bin.Buffer) error {
 	var pong mt.Pong
 	if err := pong.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode: %x", err)
+		return xerrors.Errorf("decode: %x", err)
 	}
 	c.log.Info("Pong")
 

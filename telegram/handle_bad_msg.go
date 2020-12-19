@@ -45,7 +45,7 @@ func (c badMessageError) Error() string {
 	case codeIncorrectServerSalt:
 		return "incorrect server salt"
 	default:
-		return fmt.Sprintf("rpc error code %d", c.Code)
+		return fmt.Sprintf("bad msg error code %d", c.Code)
 	}
 }
 
@@ -65,7 +65,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		f, ok := c.rpc[bad.BadMsgID]
 		c.rpcMux.Unlock()
 		if ok {
-			f(b, &badMessageError{Code: bad.ErrorCode})
+			return f(b, &badMessageError{Code: bad.ErrorCode})
 		}
 
 		return nil
@@ -79,7 +79,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 		f, ok := c.rpc[bad.BadMsgID]
 		c.rpcMux.Unlock()
 		if ok {
-			f(b, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
+			return f(b, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		}
 
 		return nil

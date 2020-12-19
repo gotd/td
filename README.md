@@ -28,10 +28,43 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * Testing and fuzzing applied to improve durability
 * No runtime reflection overhead
 * Secure PRNG used for crypto
+* 2FA support
 
 ## Example
 
 You can see `cmd/gotdecho` for echo bot example.
+
+### Auth
+
+#### User
+
+You can use `td/telegram/tgflow` package to deal with user auth.
+
+```go
+codePrompt := func(ctx context.Context) (string, error) {
+	// Safely get authentication code from terminal here,
+	// like in https://play.golang.org/p/l-9IP1mrhA
+	return code, nil
+}
+// This will setup and perform authentication flow.
+// If account does not require 2FA password, use tgflow.CodeOnlyAuth
+// instead of tgflow.ConstantAuth.
+if err := tgflow.NewAuth(
+	tgflow.ConstantAuth(phone, password, tgflow.CodeAuthenticatorFunc(codePrompt)),
+	telegram.SendCodeOptions{},
+).Run(ctx, client); err != nil {
+	panic(err)
+}
+```
+#### Bot
+
+Use bot token from [@BotFather](https://telegram.me/BotFather).
+
+```go
+if err := client.AuthBot(ctx, "token:12345"); err != nil {
+    panic(err)
+}
+```
 
 ### Calling MTProto directly
 
@@ -49,7 +82,7 @@ if err != nil {
     panic(err)
 }
 // Grab token from @BotFather.
-if err := client.BotLogin(ctx, "token:12345"); err != nil {
+if err := client.AuthBot(ctx, "token:12345"); err != nil {
     panic(err)
 }
 // updates.getState#edd4882a

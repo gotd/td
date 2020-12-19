@@ -34,9 +34,13 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
+			if err := c.saveSession(c.ctx); err != nil {
+				return xerrors.Errorf("badMsg update salt: %w", err)
+			}
+
 			return c.rpcDoRequest(ctx, req)
 		}
-		return xerrors.Errorf("rpcDoRequest filed: %w", err)
+		return xerrors.Errorf("rpcDoRequest: %w", err)
 	}
 
 	return nil
@@ -74,13 +78,16 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Will write error to that variable.
 	var resultErr error
-	handler := func(rpcBuff *bin.Buffer, rpcErr error) {
+	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
+		defer closeDone()
+
 		if rpcErr != nil {
 			resultErr = rpcErr
-		} else {
-			resultErr = req.Output.Decode(rpcBuff)
+			return nil
 		}
-		closeDone()
+
+		resultErr = req.Output.Decode(rpcBuff)
+		return resultErr
 	}
 
 	// Setting callback that will be called if message is received.
@@ -96,9 +103,15 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	}()
 
 	// Encoding request. Note that callback is already set.
-	if err := c.write(req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("failed to write: %w", err)
+	if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
+		return xerrors.Errorf("write: %w", err)
 	}
+
+	ackCtx, ackClose := context.WithCancel(c.ctx)
+	defer ackClose()
+
+	// Start retrying.
+	go c.rpcRetryUntilAck(ackCtx, req)
 
 	select {
 	case <-ctx.Done():

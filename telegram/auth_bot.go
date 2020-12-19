@@ -8,8 +8,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// BotLogin performs bot authorization request.
-func (c *Client) BotLogin(ctx context.Context, token string) error {
+// AuthBot performs bot authentication request.
+func (c *Client) AuthBot(ctx context.Context, token string) error {
 	auth, err := c.tg.AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
 		APIHash:      c.appHash,
@@ -18,11 +18,8 @@ func (c *Client) BotLogin(ctx context.Context, token string) error {
 	if err != nil {
 		return err
 	}
-	switch auth.(type) {
-	case *tg.AuthAuthorization:
-		// Ok.
-		return nil
-	default:
-		return xerrors.Errorf("got unexpected response %T", auth)
+	if err := c.checkAuthResult(auth); err != nil {
+		return xerrors.Errorf("check: %w", err)
 	}
+	return nil
 }

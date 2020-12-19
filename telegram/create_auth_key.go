@@ -18,17 +18,11 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/xor"
 )
 
 // createAuthKey generates new authorization key.
 func (c *Client) createAuthKey(ctx context.Context) error {
-	// Using conn exclusively.
-
-	if err := c.conn.SetDeadline(c.deadline(ctx)); err != nil {
-		return err
-	}
-	defer func() { _ = c.resetDeadline() }()
-
 	// 1. DH exchange initiation.
 	nonce, err := crypto.RandInt128(c.rand)
 	if err != nil {
@@ -38,14 +32,14 @@ func (c *Client) createAuthKey(ctx context.Context) error {
 	if err := c.newUnencryptedMessage(&mt.ReqPqMulti{Nonce: nonce}, b); err != nil {
 		return err
 	}
-	if err := proto.WriteIntermediate(c.conn, b); err != nil {
+	if err := c.conn.Send(ctx, b); err != nil {
 		return xerrors.Errorf("failed to write request: %w", err)
 	}
 	b.Reset()
 
 	// 2. Server sends response of the form
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
-	if err := proto.ReadIntermediate(c.conn, b); err != nil {
+	if err := c.conn.Recv(ctx, b); err != nil {
 		return xerrors.Errorf("failed to read response: %w", err)
 	}
 	plaintextMsg := proto.UnencryptedMessage{}
@@ -113,7 +107,7 @@ Loop:
 	}
 
 	// `encrypted_data := RSA (data_with_hash, server_public_key);`
-	encryptedData, err := crypto.EncryptHashed(b.Buf, selectedPubKey, c.rand)
+	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
 	if err != nil {
 		return err
 	}
@@ -128,13 +122,13 @@ Loop:
 	if err := c.newUnencryptedMessage(reqDHParams, b); err != nil {
 		return err
 	}
-	if err := proto.WriteIntermediate(c.conn, b); err != nil {
+	if err := c.conn.Send(ctx, b); err != nil {
 		return xerrors.Errorf("failed to write request: %w", err)
 	}
 	b.Reset()
 
 	// 5. Server responds with Server_DH_Params.
-	if err := proto.ReadIntermediate(c.conn, b); err != nil {
+	if err := c.conn.Recv(ctx, b); err != nil {
 		return xerrors.Errorf("failed to read response: %w", err)
 	}
 	if err := plaintextMsg.Decode(b); err != nil {
@@ -228,7 +222,7 @@ Loop:
 		if err := c.newUnencryptedMessage(setParamsReq, b); err != nil {
 			return err
 		}
-		if err := proto.WriteIntermediate(c.conn, b); err != nil {
+		if err := c.conn.Send(ctx, b); err != nil {
 			return err
 		}
 
@@ -236,7 +230,7 @@ Loop:
 		authKey := big.NewInt(0).Exp(gA, bParam, dhPrime)
 
 		b.Reset()
-		if err := proto.ReadIntermediate(c.conn, b); err != nil {
+		if err := c.conn.Recv(ctx, b); err != nil {
 			return xerrors.Errorf("failed to read response: %w", err)
 		}
 		if err := plaintextMsg.Decode(b); err != nil {
@@ -260,7 +254,7 @@ Loop:
 			nonceHash1 := sha(buf)[4:20]
 			serverSalt := make([]byte, 8)
 			copy(serverSalt, newNonce[:8])
-			xor(serverSalt, v.ServerNonce[:8])
+			xor.Bytes(serverSalt, serverSalt, v.ServerNonce[:8])
 
 			if !bytes.Equal(nonceHash1, v.NewNonceHash1[:]) {
 				return xerrors.New("key exchange verification failed: hash mismatch")
