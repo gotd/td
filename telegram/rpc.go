@@ -111,7 +111,7 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	defer ackClose()
 
 	// Start retrying.
-	go c.rpcRetryUntilAck(ackCtx, req)
+	go c.acker.rpcRetryUntilAck(ackCtx, req)
 
 	select {
 	case <-ctx.Done():

@@ -57,6 +57,8 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 		rand: Zero{},
 		log:  zap.NewNop(),
 	}
+	c.acker = newAcker(c, zap.NewNop(), ackConfig{})
+
 	corpus, err := ioutil.ReadDir(filepath.Join("_fuzz", "handle_message", "corpus"))
 	if os.IsNotExist(err) {
 		t.Skip("No corpus")
