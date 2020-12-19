@@ -15,7 +15,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func TestClientExternal(t *testing.T) {
+func TestExternalE2EConnect(t *testing.T) {
 	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
 		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
 	}
