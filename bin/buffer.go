@@ -9,6 +9,16 @@ type Buffer struct {
 	Buf []byte
 }
 
+// Encode wrapper.
+func (b *Buffer) Encode(e Encoder) error {
+	return e.Encode(b)
+}
+
+// Decode wrapper.
+func (b *Buffer) Decode(d Decoder) error {
+	return d.Decode(b)
+}
+
 // ResetN resets buffer and expands it to fit n bytes.
 func (b *Buffer) ResetN(n int) {
 	b.Buf = append(b.Buf[:0], make([]byte, n)...)
