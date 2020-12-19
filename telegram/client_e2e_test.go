@@ -83,6 +83,7 @@ func (h handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error 
 
 func testTransport(trp *transport.Transport) func(t *testing.T) {
 	return func(t *testing.T) {
+		t.Helper()
 		srv := tgtest.NewUnstartedServer(t, trp.Codec())
 		h := handler{
 			server:  srv,
