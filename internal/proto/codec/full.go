@@ -83,9 +83,9 @@ var errSeqNoMismatch = errors.New("seq_no mismatch")
 var errCRCMismatch = errors.New("crc mismatch")
 
 func readFull(r io.Reader, seqNo int, b *bin.Buffer) error {
-	n, err := tryReadLength(r, b)
+	n, err := readLen(r, b)
 	if err != nil {
-		return err
+		return xerrors.Errorf("len: %w", err)
 	}
 
 	// Put length, because it need to count CRC.

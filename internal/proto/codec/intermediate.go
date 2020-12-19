@@ -85,7 +85,7 @@ func writeIntermediate(w io.Writer, b *bin.Buffer) error {
 
 // readIntermediate reads payload from r to b.
 func readIntermediate(r io.Reader, b *bin.Buffer) error {
-	n, err := tryReadLength(r, b)
+	n, err := readLen(r, b)
 	if err != nil {
 		return err
 	}
