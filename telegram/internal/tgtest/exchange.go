@@ -5,12 +5,13 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/gotd/td/transport"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
 )
 
 type Session struct {
@@ -19,7 +20,7 @@ type Session struct {
 }
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(ctx context.Context, conn proto.Transport) (Session, error) {
+func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Session, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;

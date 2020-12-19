@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/tg"
 )
 
@@ -150,8 +151,8 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		var protoErr *proto.ProtocolErr
-		if errors.As(err, &protoErr) && protoErr.Code == proto.CodeAuthKeyNotFound {
+		var protoErr *codec.ProtocolErr
+		if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 			c.log.Warn("Re-generating keys (server not found key that we provided)")
 			if err := c.createAuthKey(ctx); err != nil {
 				// Probably fatal error.

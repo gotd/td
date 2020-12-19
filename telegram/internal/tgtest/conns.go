@@ -3,29 +3,28 @@ package tgtest
 import (
 	"sync"
 
-	"github.com/gotd/td/internal/proto"
-
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/transport"
 )
 
 type conns struct {
 	mux sync.Mutex
-	m   map[crypto.AuthKey]proto.Transport
+	m   map[crypto.AuthKey]transport.Connection
 }
 
 func newConns() *conns {
-	return &conns{m: map[crypto.AuthKey]proto.Transport{}}
+	return &conns{m: map[crypto.AuthKey]transport.Connection{}}
 }
 
-func (c *conns) add(key Session, conn proto.Transport) {
+func (c *conns) add(key Session, conn transport.Connection) {
 	c.mux.Lock()
 	c.m[key.Key] = conn
 	c.mux.Unlock()
 }
 
-func (c *conns) get(key Session) (conn proto.Transport) {
+func (c *conns) get(key Session) (conn transport.Connection, ok bool) {
 	c.mux.Lock()
-	conn = c.m[key.Key]
+	conn, ok = c.m[key.Key]
 	c.mux.Unlock()
 
 	return
