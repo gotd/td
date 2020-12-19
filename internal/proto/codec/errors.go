@@ -59,4 +59,6 @@ func (e errInvalidMsgLen) Is(err error) bool {
 	return ok
 }
 
+// ErrProtocolHeaderMismatch means that received protocol header
+// is mismatched with expected.
 var ErrProtocolHeaderMismatch = errors.New("protocol header mismatch")

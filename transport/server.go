@@ -4,8 +4,11 @@ import (
 	"context"
 	"net"
 	"sync/atomic"
+
+	"github.com/gotd/td/internal/proto/codec"
 )
 
+// NewCustomServer creates new MTProto server with custom transport codec.
 func NewCustomServer(codec Codec, listener net.Listener) *Server {
 	return &Server{
 		codec:    codec,
@@ -13,6 +16,13 @@ func NewCustomServer(codec Codec, listener net.Listener) *Server {
 	}
 }
 
+// NewIntermediateServer creates new MTProto server with
+// Intermediate transport codec.
+func NewIntermediateServer(listener net.Listener) *Server {
+	return NewCustomServer(codec.Intermediate{}, listener)
+}
+
+// Server is a simple MTProto server.
 type Server struct {
 	codec    Codec
 	listener net.Listener
@@ -33,6 +43,7 @@ func (s *Server) serveConn(ctx context.Context, c net.Conn) error {
 	})
 }
 
+// Serve runs server using given listener.
 func (s *Server) Serve(ctx context.Context) error {
 	s.ctx, s.cancel = context.WithCancel(ctx)
 
@@ -52,6 +63,7 @@ func (s *Server) Serve(ctx context.Context) error {
 	return nil
 }
 
+// Close stops server and closes given listener.
 func (s *Server) Close() error {
 	if s.cancel != nil {
 		s.cancel()
