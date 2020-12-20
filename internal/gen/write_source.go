@@ -88,17 +88,30 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		Package: pkgName,
 		Structs: g.structs,
 	}
-	if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
-		return err
+
+	haveUpdateClass := false
+	for _, s := range cfg.Structs {
+		if s.Interface == "UpdateClass" {
+			haveUpdateClass = true
+			break
+		}
+	}
+
+	if haveUpdateClass {
+		if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
+			return err
+		}
 	}
 
 	cfg = config{
 		Package:  pkgName,
 		Registry: g.registry,
 	}
+
 	if err := generate("registry", "tl_registry_gen.go", cfg); err != nil {
 		return err
 	}
+
 	if err := generate("client", "tl_client_gen.go", cfg); err != nil {
 		return err
 	}

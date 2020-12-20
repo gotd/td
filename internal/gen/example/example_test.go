@@ -173,7 +173,7 @@ func TestVectorResponse(t *testing.T) {
 	}
 	client := NewClient(&m)
 
-	r, err := client.EchoVector(context.Background(), &EchoVectorRequest{})
+	r, err := client.EchoVector(context.Background(), nil)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -52,8 +52,10 @@ var (
 // DoAuth invokes method doAuth#fd2f6687 returning error if any.
 //
 // See https://localhost:80/doc/method/doAuth for reference.
-func (c *Client) DoAuth(ctx context.Context, request *DoAuthRequest) (AuthClass, error) {
+func (c *Client) DoAuth(ctx context.Context) (AuthClass, error) {
 	var result AuthBox
+
+	request := &DoAuthRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
