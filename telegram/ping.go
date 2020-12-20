@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"go.uber.org/zap"
@@ -40,6 +41,12 @@ func (c *Client) Ping(ctx context.Context) error {
 	}
 	c.pingMux.Unlock()
 
+	defer func() {
+		c.pingMux.Lock()
+		delete(c.ping, pingID)
+		c.pingMux.Unlock()
+	}()
+
 	if err := c.write(ctx, c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
@@ -72,30 +79,43 @@ func (c *Client) handlePong(b *bin.Buffer) error {
 }
 
 func (c *Client) pingLoop(ctx context.Context) {
-	ticker := time.NewTicker(c.pingDuration)
+	c.wg.Add(1)
+	defer c.wg.Done()
+
+	log := c.log.Named("pinger")
+
+	const (
+		timeout   = time.Second * 15
+		frequency = time.Minute
+	)
+
+	ticker := time.NewTicker(frequency)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ctx.Done():
-			if err := ctx.Err(); err != nil {
-				c.log.Error("ping loop ctx error", zap.Error(err))
-			}
 			return
 		case <-ticker.C:
 			if err := func() error {
-				ctx, cancel := context.WithTimeout(ctx, c.pingTimeout)
+				ctx, cancel := context.WithTimeout(ctx, timeout)
 				defer cancel()
 
 				return c.Ping(ctx)
 			}(); err != nil {
-				c.log.Warn("ping error", zap.Error(err))
-				ticker.Stop()
-				if err := c.reconnect(); err != nil {
-					c.log.Fatal("reconnect after ping error", zap.Error(err))
+				if errors.Is(err, context.Canceled) {
+					return
 				}
 
-				ticker.Reset(c.pingDuration)
+				log.Warn("ping error", zap.Error(err))
+				ticker.Stop()
+
+				if err := c.reconnect(); err != nil {
+					// TODO(ccln): what next???
+					log.Error("reconnect", zap.Error(err))
+				}
+
+				ticker.Reset(frequency)
 			}
 		}
 	}

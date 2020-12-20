@@ -50,9 +50,6 @@ type Client struct {
 	conn      transport.Connection
 	addr      string
 
-	pingDuration time.Duration
-	pingTimeout  time.Duration
-
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
 	clock  func() time.Time
@@ -184,9 +181,7 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 	// Spawning goroutines.
 	go c.readLoop(c.ctx)
 	go c.ackLoop(c.ctx)
-
-	// Spawning ping goroutine.
-	go c.pingLoop(ctx)
+	go c.pingLoop(c.ctx)
 
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("init: %w", err)
