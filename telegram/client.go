@@ -181,6 +181,7 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 	// Spawning goroutines.
 	go c.readLoop(c.ctx)
 	go c.ackLoop(c.ctx)
+	go c.pingLoop(c.ctx)
 
 	if err := c.initConnection(ctx); err != nil {
 		return xerrors.Errorf("init: %w", err)
