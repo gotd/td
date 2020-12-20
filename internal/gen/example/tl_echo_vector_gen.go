@@ -71,8 +71,12 @@ var (
 // EchoVector invokes method echoVector#d4785939 returning error if any.
 //
 // See https://localhost:80/doc/method/echoVector for reference.
-func (c *Client) EchoVector(ctx context.Context, request *EchoVectorRequest) ([]int, error) {
+func (c *Client) EchoVector(ctx context.Context, ids []int) ([]int, error) {
 	var result IntVector
+
+	request := &EchoVectorRequest{
+		Ids: ids,
+	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
