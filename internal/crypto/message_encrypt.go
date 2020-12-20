@@ -12,37 +12,37 @@ import (
 func countPadding(l int) int { return 16 + (16 - (l % 16)) }
 
 // EncryptMessage encrypts plaintext using AES-IGE.
-func (c Cipher) EncryptMessage(authKey AuthKey, plaintext []byte) (*EncryptedMessage, error) {
+func (c Cipher) EncryptMessage(k AuthKeyWithID, plaintext []byte) (*EncryptedMessage, error) {
 	plaintextPadded := make([]byte, len(plaintext)+countPadding(len(plaintext)))
 	copy(plaintextPadded, plaintext)
 	if _, err := io.ReadFull(c.rand, plaintextPadded[len(plaintext):]); err != nil {
 		return nil, err
 	}
 
-	messageKey := MessageKey(authKey, plaintextPadded, c.encryptSide)
-	key, iv := Keys(authKey, messageKey, c.encryptSide)
+	messageKey := MessageKey(k.AuthKey, plaintextPadded, c.encryptSide)
+	key, iv := Keys(k.AuthKey, messageKey, c.encryptSide)
 	cipher, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err
 	}
-	encryptor := ige.NewIGEEncrypter(cipher, iv[:])
+	encrypter := ige.NewIGEEncrypter(cipher, iv[:])
 	msg := &EncryptedMessage{
-		AuthKeyID:     authKey.ID(),
+		AuthKeyID:     k.AuthKeyID,
 		MsgKey:        messageKey,
 		EncryptedData: make([]byte, len(plaintextPadded)),
 	}
-	encryptor.CryptBlocks(msg.EncryptedData, plaintextPadded)
+	encrypter.CryptBlocks(msg.EncryptedData, plaintextPadded)
 	return msg, nil
 }
 
-// EncryptDataTo encrypts EncryptedMessageData using AES-IGE to given buffer.
-func (c Cipher) EncryptDataTo(authKey AuthKey, data EncryptedMessageData, b *bin.Buffer) error {
+// Encrypt encrypts EncryptedMessageData using AES-IGE to given buffer.
+func (c Cipher) Encrypt(key AuthKeyWithID, data EncryptedMessageData, b *bin.Buffer) error {
 	b.Reset()
 	if err := data.Encode(b); err != nil {
 		return err
 	}
 
-	msg, err := c.EncryptMessage(authKey, b.Raw())
+	msg, err := c.EncryptMessage(key, b.Raw())
 	if err != nil {
 		return err
 	}

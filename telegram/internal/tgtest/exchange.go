@@ -14,24 +14,19 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
-type Session struct {
-	Key       crypto.AuthKey
-	SessionID int64
-}
-
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Session, error) {
+func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypto.AuthKeyWithID, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMulti
 	if err := s.readUnencrypted(ctx, conn, &pqReq); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	serverNonce, err := crypto.RandInt128(s.cipher.Rand())
 	if err != nil {
-		return Session{}, xerrors.Errorf("failed to generate server nonce: %w", err)
+		return crypto.AuthKeyWithID{}, xerrors.Errorf("failed to generate server nonce: %w", err)
 	}
 
 	// 2. Server sends response of the form
@@ -39,7 +34,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
 	pq, err := s.pq()
 	if err != nil {
-		return Session{}, xerrors.Errorf("failed to generate pq: %w", err)
+		return crypto.AuthKeyWithID{}, xerrors.Errorf("failed to generate pq: %w", err)
 	}
 
 	if err := s.writeUnencrypted(ctx, conn, &mt.ResPQ{
@@ -50,7 +45,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 			crypto.RSAFingerprint(s.Key()),
 		},
 	}); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	// 4. Client sends query to server
@@ -59,7 +54,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params
 	var dhParams mt.ReqDHParams
 	if err := s.readUnencrypted(ctx, conn, &dhParams); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	var b bin.Buffer
@@ -68,18 +63,18 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 	var innerData mt.PQInnerDataConst
 	err = innerData.Decode(&b)
 	if err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	dhPrime, err := s.dhPrime()
 	if err != nil {
-		return Session{}, xerrors.Errorf("failed to generate dh_prime: %w", err)
+		return crypto.AuthKeyWithID{}, xerrors.Errorf("failed to generate dh_prime: %w", err)
 	}
 
 	g := 2
 	a, ga, err := s.ga(big.NewInt(int64(g)), dhPrime)
 	if err != nil {
-		return Session{}, xerrors.Errorf("failed to generate g_a: %w", err)
+		return crypto.AuthKeyWithID{}, xerrors.Errorf("failed to generate g_a: %w", err)
 	}
 
 	data := mt.ServerDHInnerData{
@@ -94,12 +89,13 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 	b.Reset()
 	err = data.Encode(&b)
 	if err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
-	answer, err := s.encryptedExchangeAnswer(b.Raw(), innerData.NewNonce, serverNonce)
+	key, iv := crypto.TempAESKeys(innerData.NewNonce.BigInt(), serverNonce.BigInt())
+	answer, err := crypto.EncryptExchangeAnswer(s.cipher.Rand(), b.Raw(), key, iv)
 	if err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	// 5. Server responds with Server_DH_Params.
@@ -108,17 +104,17 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 		ServerNonce:     serverNonce,
 		EncryptedAnswer: answer,
 	}); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	var clientDhParams mt.SetClientDHParams
 	if err := s.readUnencrypted(ctx, conn, &clientDhParams); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
-	decrypted, err := s.decryptedExchangeAnswer(clientDhParams.EncryptedData, innerData.NewNonce, serverNonce)
+	decrypted, err := crypto.DecryptExchangeAnswer(clientDhParams.EncryptedData, key, iv)
 	if err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 	b.Reset()
 	b.Put(decrypted)
@@ -126,7 +122,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 	var clientInnerData mt.ClientDHInnerData
 	err = clientInnerData.Decode(&b)
 	if err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	gB := big.NewInt(0).SetBytes(clientInnerData.GB)
@@ -141,13 +137,11 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (Sessi
 		ServerNonce:   serverNonce,
 		NewNonceHash1: s.getNonceHash1(authKey, innerData.NewNonce[:]),
 	}); err != nil {
-		return Session{}, err
+		return crypto.AuthKeyWithID{}, err
 	}
 
 	var result crypto.AuthKey
 	copy(result[:], authKey)
 
-	return Session{
-		Key: result,
-	}, nil
+	return result.WithID(), nil
 }

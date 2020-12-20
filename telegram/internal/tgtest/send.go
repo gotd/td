@@ -11,7 +11,7 @@ import (
 )
 
 func (s *Server) Send(k Session, encoder bin.Encoder) error {
-	conn, ok := s.conns.get(k)
+	conn, ok := s.users.getConnection(k.AuthKeyWithID)
 	if !ok {
 		return errors.New("invalid key: connection not found")
 	}
@@ -27,7 +27,7 @@ func (s *Server) Send(k Session, encoder bin.Encoder) error {
 		MessageDataWithPadding: b.Copy(),
 	}
 
-	err := s.cipher.EncryptDataTo(k.Key, data, &b)
+	err := s.cipher.Encrypt(k.AuthKeyWithID, data, &b)
 	if err != nil {
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}

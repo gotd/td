@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/gotd/td/internal/crypto"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
@@ -22,7 +24,7 @@ type handler struct {
 	message string
 }
 
-func (h handler) OnNewClient(s tgtest.Session) error {
+func (h handler) OnNewClient(k crypto.AuthKeyWithID) error {
 	h.t.Log("new client connected")
 
 	return nil

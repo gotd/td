@@ -35,6 +35,14 @@ func (k AuthKey) AuxHash() [8]byte {
 	return id
 }
 
+// WithID creates new AuthKeyWithID from AuthKey.
+func (k AuthKey) WithID() AuthKeyWithID {
+	return AuthKeyWithID{
+		AuthKey:   k,
+		AuthKeyID: k.ID(),
+	}
+}
+
 // Side on which encryption is performed.
 type Side byte
 
