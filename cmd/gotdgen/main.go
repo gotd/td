@@ -37,6 +37,7 @@ func main() {
 	performFormat := flag.Bool("format", true, "perform code formatting")
 	docBase := flag.String("doc", "", "base documentation url")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
+	dispatcher := flag.Bool("with-dispatcher", false, "Generate dispatcher for tl types")
 	flag.Parse()
 	if *schemaPath == "" {
 		panic("no schema provided")
@@ -82,7 +83,10 @@ func main() {
 		Root:   *targetDir,
 		Format: *performFormat,
 	}
-	g, err := gen.NewGenerator(schema, *docBase)
+	g, err := gen.NewGenerator(schema, gen.Config{
+		DocBase:    *docBase,
+		Dispathcer: *dispatcher,
+	})
 	if err != nil {
 		panic(err)
 	}

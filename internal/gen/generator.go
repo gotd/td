@@ -40,22 +40,31 @@ type Generator struct {
 	// docBase is base url for documentation.
 	docBase *url.URL
 	doc     *getdoc.Doc
+
+	cfg Config
+}
+
+type Config struct {
+	// The docBase value is base url for documentation, like:
+	// 	* https://core.telegram.org/
+	// If blank string provided, no documentation links are generated.
+	DocBase string
+
+	// Dispathcer indicates whether to generate a dispatcher for generated TL types.
+	Dispathcer bool
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
-//
-// The docBase value is base url for documentation, like:
-// 	* https://core.telegram.org/
-// If blank string provided, no documentation links are generated.
-func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
+func NewGenerator(s *tl.Schema, cfg Config) (*Generator, error) {
 	g := &Generator{
 		schema:    s,
 		classes:   map[string]classBinding{},
 		types:     map[string]typeBinding{},
 		validator: validator.New(),
+		cfg:       cfg,
 	}
-	if docBase != "" {
-		u, err := url.Parse(docBase)
+	if cfg.DocBase != "" {
+		u, err := url.Parse(cfg.DocBase)
 		if err != nil {
 			return nil, xerrors.Errorf("failed to parse docBase: %w", err)
 		}
