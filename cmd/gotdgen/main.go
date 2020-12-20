@@ -56,7 +56,7 @@ func main() {
 		panic(err)
 	}
 	if os.IsNotExist(err) {
-		if err := os.Mkdir(*targetDir, 0600); err != nil {
+		if err := os.Mkdir(*targetDir, 0750); err != nil {
 			panic(err)
 		}
 	}

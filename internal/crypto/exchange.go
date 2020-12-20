@@ -1,18 +1,18 @@
-package tgtest
+package crypto
 
 import (
 	"crypto/aes"
 	"errors"
+	"io"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/ige"
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/crypto"
 )
 
-func (s *Server) decryptedExchangeAnswer(data []byte, newNonce bin.Int256, serverNonce bin.Int128) (dst []byte, err error) {
-	key, iv := crypto.TempAESKeys(newNonce.BigInt(), serverNonce.BigInt())
+// DecryptExchangeAnswer decrypts messages created during key exchange.
+func DecryptExchangeAnswer(data, key, iv []byte) (dst []byte, err error) {
+	// Decrypting inner data.
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
@@ -26,7 +26,7 @@ func (s *Server) decryptedExchangeAnswer(data []byte, newNonce bin.Int256, serve
 	}
 	d.CryptBlocks(dataWithHash, data)
 
-	dst = crypto.GuessDataWithHash(dataWithHash)
+	dst = GuessDataWithHash(dataWithHash)
 	if data == nil {
 		// Most common cause of this error is invalid crypto implementation,
 		// i.e. invalid keys are used to decrypt payload which lead to
@@ -37,14 +37,14 @@ func (s *Server) decryptedExchangeAnswer(data []byte, newNonce bin.Int256, serve
 	return
 }
 
-func (s *Server) encryptedExchangeAnswer(answer []byte, newNonce bin.Int256, serverNonce bin.Int128) (dst []byte, err error) {
-	key, iv := crypto.TempAESKeys(newNonce.BigInt(), serverNonce.BigInt())
+// EncryptExchangeAnswer encrypts messages created during key exchange.
+func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, err error) {
 	cipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to init aes cipher: %w", err)
 	}
 
-	answerWithHash, err := crypto.DataWithHash(answer, s.cipher.Rand())
+	answerWithHash, err := DataWithHash(answer, rand)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to get answer with hash: %w", err)
 	}

@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/tg"
 )
 
@@ -77,7 +78,14 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		return c.handleAck(b)
 	case proto.GZIPTypeID:
 		return c.handleGZIP(b)
-	case tg.UpdatesTypeID, tg.UpdateShortTypeID, tg.UpdateShortMessageTypeID:
+	// Handling all types of tg.UpdatesClass.
+	case tg.UpdatesTooLongTypeID,
+		tg.UpdateShortMessageTypeID,
+		tg.UpdateShortChatMessageTypeID,
+		tg.UpdateShortTypeID,
+		tg.UpdatesCombinedTypeID,
+		tg.UpdatesTypeID,
+		tg.UpdateShortSentMessageTypeID:
 		return c.handleUpdates(b)
 	default:
 		return c.handleUnknown(b)
@@ -108,9 +116,13 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMess
 		return nil, err
 	}
 
-	msg, err := c.cipher.DecryptDataFrom(c.authKey, atomic.LoadInt64(&c.session), b)
+	msg, err := c.cipher.DecryptFromBuffer(c.authKey, b)
 	if err != nil {
 		return nil, xerrors.Errorf("decrypt: %w", err)
+	}
+
+	if msg.SessionID != atomic.LoadInt64(&c.session) {
+		return nil, xerrors.Errorf("invalid session")
 	}
 
 	return msg, nil
@@ -150,8 +162,8 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		var protoErr *proto.ProtocolErr
-		if errors.As(err, &protoErr) && protoErr.Code == proto.CodeAuthKeyNotFound {
+		var protoErr *codec.ProtocolErr
+		if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 			c.log.Warn("Re-generating keys (server not found key that we provided)")
 			if err := c.createAuthKey(ctx); err != nil {
 				// Probably fatal error.

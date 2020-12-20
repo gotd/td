@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/gotd/td/transport"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
@@ -54,7 +56,7 @@ func run(ctx context.Context) error {
 		Addr:           telegram.AddrTest,
 		Logger:         logger,
 		SessionStorage: storage,
-		Dialer:         telegram.DialFunc(proxy.Dial),
+		Transport:      transport.Intermediate(transport.DialFunc(proxy.Dial)),
 		UpdateHandler:  dispatcher.Handle,
 	})
 

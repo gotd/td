@@ -3,7 +3,6 @@ package telegram
 import (
 	"bytes"
 	"context"
-	"crypto/aes"
 	"crypto/rand"
 	"crypto/rsa" // #nosec
 	"encoding/binary"
@@ -13,7 +12,6 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/ige"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
@@ -147,27 +145,11 @@ Loop:
 			return xerrors.New("nonce mismatch")
 		}
 
-		// Decrypting inner data.
 		key, iv := crypto.TempAESKeys(newNonce.BigInt(), res.ServerNonce.BigInt())
-		cipher, err := aes.NewCipher(key)
+		// Decrypting inner data.
+		data, err := crypto.DecryptExchangeAnswer(p.EncryptedAnswer, key, iv)
 		if err != nil {
-			return xerrors.Errorf("failed to init aes cipher: %w", err)
-		}
-		d := ige.NewIGEDecrypter(cipher, iv)
-		dataWithHash := make([]byte, len(p.EncryptedAnswer))
-
-		// Checking length. Invalid length will lead to panic in CryptBlocks.
-		if len(dataWithHash)%cipher.BlockSize() != 0 {
-			return xerrors.Errorf("invalid len of data_with_hash (%d %% 16 != 0)", len(dataWithHash))
-		}
-		d.CryptBlocks(dataWithHash, p.EncryptedAnswer)
-		// Guessing data from decrypted dataWithHash.
-		data := crypto.GuessDataWithHash(dataWithHash)
-		if data == nil {
-			// Most common cause of this error is invalid crypto implementation,
-			// i.e. invalid keys are used to decrypt payload which lead to
-			// decrypt failure, so data does not match sha1 with any padding.
-			return errors.New("failed to guess data from data_with_hash")
+			return err
 		}
 		b.ResetTo(data)
 
@@ -205,13 +187,10 @@ Loop:
 		if err := clientInnerData.Encode(b); err != nil {
 			return err
 		}
-		clientDataWithHash, err := crypto.DataWithHash(b.Buf, c.rand)
+		clientEncrypted, err := crypto.EncryptExchangeAnswer(c.rand, b.Buf, key, iv)
 		if err != nil {
 			return err
 		}
-		clientEncrypted := make([]byte, len(clientDataWithHash))
-		e := ige.NewIGEEncrypter(cipher, iv)
-		e.CryptBlocks(clientEncrypted, clientDataWithHash)
 
 		setParamsReq := &mt.SetClientDHParams{
 			Nonce:         nonce,
@@ -243,14 +222,15 @@ Loop:
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
-			authKey.FillBytes(c.authKey[:])
-			authKeyID := sha(c.authKey[:])[12:20]
+			var key crypto.AuthKey
+			authKey.FillBytes(key[:])
+			authKeyID := key.ID()
 
 			// Checking received hash.
 			var buf []byte
 			buf = append(buf, newNonce[:]...)
 			buf = append(buf, 1)
-			buf = append(buf, sha(c.authKey[:])[0:8]...)
+			buf = append(buf, sha(key[:])[0:8]...)
 			nonceHash1 := sha(buf)[4:20]
 			serverSalt := make([]byte, 8)
 			copy(serverSalt, newNonce[:8])
@@ -266,7 +246,7 @@ Loop:
 				return err
 			}
 
-			copy(c.authKeyID[:], authKeyID)
+			c.authKey = crypto.AuthKeyWithID{AuthKey: key, AuthKeyID: authKeyID}
 			atomic.StoreInt64(&c.session, sessionID)
 			atomic.StoreInt64(&c.salt, int64(binary.LittleEndian.Uint64(serverSalt)))
 

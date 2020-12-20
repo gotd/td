@@ -33,30 +33,27 @@ jobs:
           version: latest
 
   tests-on-windows:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15 # test only the latest go version to speed up CI
+          go-version: 1.15
       - name: Run tests
         run: go test ./...
         continue-on-error: true
   tests-on-macos:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15 # test only the latest go version to speed up CI
+          go-version: 1.15
       - name: Run tests
         run: make test
   tests-on-unix:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -76,8 +73,30 @@ jobs:
             ${{ runner.os }}-go-${{ matrix.golang }}-
       - name: Run tests
         run: make test
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        golang:
+          - 1.15
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.golang }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ matrix.golang }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ matrix.golang }}-
+      - name: Run tests
+        env:
+          GOTD_TEST_EXTERNAL: 1
+        # Run all tests that starts with "TestExternalE2E".
+        run: go test -race -v -run ^TestExternalE2E ./...
   coverage:
-    needs: golangci-lint # run after golangci-lint action to not produce duplicated errors
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -104,3 +123,15 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: coverage.lcov
+  check-generated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Unshallow
+        run: git fetch --prune --unshallow
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+      - name: Check that go generate does not make changes
+        run: make check_generated

@@ -4,11 +4,11 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
-	"net"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/transport"
 )
 
 // Options of Client.
@@ -23,14 +23,10 @@ type Options struct {
 	// If not provided, AddrProduction will be used by default.
 	Addr string
 
-	// Dialer to use. Default dialer will be used if not provided.
-	Dialer Dialer
+	// Transport to use. Default dialer will be used if not provided.
+	Transport *transport.Transport
 	// Network to use. Defaults to tcp.
 	Network string
-	// Ping duration. Default 1 minute.
-	PingDuration time.Duration
-	// Ping timeout. Default 15 seconds.
-	PingTimeout time.Duration
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -43,8 +39,8 @@ type Options struct {
 }
 
 func (opt *Options) setDefaults() {
-	if opt.Dialer == nil {
-		opt.Dialer = &net.Dialer{}
+	if opt.Transport == nil {
+		opt.Transport = transport.Intermediate(nil)
 	}
 	if opt.Network == "" {
 		opt.Network = "tcp"
@@ -69,11 +65,5 @@ func (opt *Options) setDefaults() {
 			panic(xerrors.Errorf("load vendored keys: %w", err))
 		}
 		opt.PublicKeys = keys
-	}
-	if opt.PingDuration.Nanoseconds() <= 0 {
-		opt.PingDuration = time.Minute
-	}
-	if opt.PingTimeout.Nanoseconds() <= 0 {
-		opt.PingTimeout = time.Second * 15
 	}
 }

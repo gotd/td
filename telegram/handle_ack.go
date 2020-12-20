@@ -11,7 +11,7 @@ import (
 func (c *Client) handleAck(b *bin.Buffer) error {
 	var ack mt.MsgsAck
 	if err := ack.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %x", err)
+		return xerrors.Errorf("decode: %w", err)
 	}
 	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
 
@@ -21,7 +21,7 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 	for _, msgID := range ack.MsgIds {
 		fn, found := c.ack[msgID]
 		if !found {
-			c.log.Warn("ack callback is not set", zap.Int64("message-id", msgID))
+			c.log.Warn("ack callback is not set", zap.Int64("message_id", msgID))
 			continue
 		}
 
