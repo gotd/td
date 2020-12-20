@@ -33,33 +33,11 @@ func (c *Client) Ping(ctx context.Context) error {
 		return err
 	}
 
-	// Setting ping callback before write.
-	result := make(chan struct{})
-	c.pingMux.Lock()
-	c.ping[pingID] = func() {
-		close(result)
-	}
-	c.pingMux.Unlock()
-
-	defer func() {
-		c.pingMux.Lock()
-		delete(c.ping, pingID)
-		c.pingMux.Unlock()
-	}()
-
-	if err := c.write(ctx, c.newMessageID(), c.seqNo(), pingMessage{id: pingID}); err != nil {
+	if err := c.writeServiceMessage(ctx, pingMessage{id: pingID}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 
-	// Waiting for result.
-	select {
-	case <-result:
-		// Received pong with pingID.
-		return nil
-	case <-ctx.Done():
-		// Something gone really bad.
-		return ctx.Err()
-	}
+	return c.waitPong(ctx, pingID)
 }
 
 func (c *Client) handlePong(b *bin.Buffer) error {
@@ -78,6 +56,62 @@ func (c *Client) handlePong(b *bin.Buffer) error {
 	return nil
 }
 
+type pingDelayDisconnectMessage struct {
+	id    int64
+	delay int // in seconds
+}
+
+func (p pingDelayDisconnectMessage) Encode(b *bin.Buffer) error {
+	b.PutID(0xf3427b8c)
+	b.PutLong(p.id)
+	b.PutInt(int(p.delay))
+	return nil
+}
+
+func (c *Client) pingDelayDisconnect(ctx context.Context, delay int) error {
+	// Generating random id.
+	// Probably we should check for collisions here.
+	pingID, err := crypto.RandInt64(c.rand)
+	if err != nil {
+		return err
+	}
+
+	if err := c.writeServiceMessage(ctx, pingDelayDisconnectMessage{
+		id:    pingID,
+		delay: delay,
+	}); err != nil {
+		return xerrors.Errorf("write: %w", err)
+	}
+
+	return c.waitPong(ctx, pingID)
+}
+
+func (c *Client) waitPong(ctx context.Context, pingID int64) error {
+	// Setting ping callback before write.
+	result := make(chan struct{})
+	c.pingMux.Lock()
+	c.ping[pingID] = func() {
+		close(result)
+	}
+	c.pingMux.Unlock()
+
+	defer func() {
+		c.pingMux.Lock()
+		delete(c.ping, pingID)
+		c.pingMux.Unlock()
+	}()
+
+	// Waiting for result.
+	select {
+	case <-result:
+		// Received pong with pingID.
+		return nil
+	case <-ctx.Done():
+		// Something gone really bad.
+		return ctx.Err()
+	}
+}
+
 func (c *Client) pingLoop(ctx context.Context) {
 	c.wg.Add(1)
 	defer c.wg.Done()
@@ -87,6 +121,9 @@ func (c *Client) pingLoop(ctx context.Context) {
 	const (
 		timeout   = time.Second * 15
 		frequency = time.Minute
+		// If the client sends these pings once every 60 seconds,
+		// for example, it may set disconnect_delay equal to 75 seconds.
+		disconnectDelay = 75 // in seconds
 	)
 
 	ticker := time.NewTicker(frequency)
@@ -101,7 +138,7 @@ func (c *Client) pingLoop(ctx context.Context) {
 				ctx, cancel := context.WithTimeout(ctx, timeout)
 				defer cancel()
 
-				return c.Ping(ctx)
+				return c.pingDelayDisconnect(ctx, disconnectDelay)
 			}(); err != nil {
 				if errors.Is(err, context.Canceled) {
 					return
