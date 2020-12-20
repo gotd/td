@@ -7,33 +7,38 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+type connection struct {
+	transport.Connection
+	sentCreated bool
+}
+
 type users struct {
 	sessions    map[[8]byte]crypto.AuthKeyWithID
 	sessionsMux sync.Mutex
 
-	conns    map[[8]byte]transport.Connection
+	conns    map[[8]byte]connection
 	connsMux sync.Mutex
 }
 
 func newUsers() *users {
 	return &users{
-		conns:    map[[8]byte]transport.Connection{},
+		conns:    map[[8]byte]connection{},
 		sessions: map[[8]byte]crypto.AuthKeyWithID{},
 	}
 }
 
-func (c *users) createSession(key crypto.AuthKeyWithID, conn transport.Connection) {
+func (c *users) createSession(key crypto.AuthKeyWithID, conn connection) {
 	c.addConnection(key, conn)
 	c.addSession(key)
 }
 
-func (c *users) addConnection(key crypto.AuthKeyWithID, conn transport.Connection) {
+func (c *users) addConnection(key crypto.AuthKeyWithID, conn connection) {
 	c.connsMux.Lock()
 	c.conns[key.AuthKeyID] = conn
 	c.connsMux.Unlock()
 }
 
-func (c *users) getConnection(key crypto.AuthKeyWithID) (conn transport.Connection, ok bool) {
+func (c *users) getConnection(key crypto.AuthKeyWithID) (conn connection, ok bool) {
 	c.connsMux.Lock()
 	conn, ok = c.conns[key.AuthKeyID]
 	c.connsMux.Unlock()
@@ -44,7 +49,7 @@ func (c *users) getConnection(key crypto.AuthKeyWithID) (conn transport.Connecti
 func (c *users) deleteConnection(key crypto.AuthKeyWithID) {
 	c.connsMux.Lock()
 	conn := c.conns[key.AuthKeyID]
-	zero := transport.Connection{}
+	zero := connection{}
 	if conn != zero {
 		_ = conn.Close()
 	}
