@@ -64,7 +64,7 @@ type pingDelayDisconnectMessage struct {
 func (p pingDelayDisconnectMessage) Encode(b *bin.Buffer) error {
 	b.PutID(0xf3427b8c)
 	b.PutLong(p.id)
-	b.PutInt(int(p.delay))
+	b.PutInt(p.delay)
 	return nil
 }
 
