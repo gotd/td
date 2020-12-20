@@ -23,14 +23,12 @@ func TestExternalE2EConnect(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
-	defer cancel()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Addr:      telegram.AddrTest,
 		Transport: transport.Intermediate(transport.DialFunc(proxy.Dial)),
 	})
 
-	if err := client.Connect(dialCtx); err != nil {
+	if err := client.Connect(ctx); err != nil {
 		t.Fatal(err)
 	}
 
