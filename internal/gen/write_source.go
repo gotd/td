@@ -89,7 +89,15 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		Structs: g.structs,
 	}
 
-	if g.cfg.Dispathcer {
+	haveUpdateClass := false
+	for _, s := range cfg.Structs {
+		if s.Interface == "UpdateClass" {
+			haveUpdateClass = true
+			break
+		}
+	}
+
+	if haveUpdateClass {
 		if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
 			return err
 		}

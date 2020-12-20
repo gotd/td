@@ -30,7 +30,7 @@ func TestGenerator(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGenerator(schema, Config{})
+	g, err := NewGenerator(schema, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -48,9 +48,7 @@ func TestGeneratorTelegram(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	g, err := NewGenerator(schema, Config{
-		DocBase: "https://core.telegram.org/",
-	})
+	g, err := NewGenerator(schema, "https://core.telegram.org/")
 	if err != nil {
 		t.Fatal(err)
 	}
