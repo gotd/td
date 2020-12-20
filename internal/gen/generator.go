@@ -44,6 +44,7 @@ type Generator struct {
 	cfg Config
 }
 
+// Config of generator.
 type Config struct {
 	// The docBase value is base url for documentation, like:
 	// 	* https://core.telegram.org/
