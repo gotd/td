@@ -24,7 +24,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 		buf = make([]int64, 0, maxBatchSize)
 
 		// TODO(ernado): remove side-effect.
-		timer = time.NewTimer(forcedSendTimeout)
+		ticker = time.NewTicker(forcedSendTimeout)
 	)
 
 	send := func() {
@@ -42,7 +42,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 		select {
 		case <-ctx.Done():
 			return
-		case <-timer.C:
+		case <-ticker.C:
 			if len(buf) > 0 {
 				send()
 			}
@@ -50,7 +50,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 			buf = append(buf, msgID)
 			if len(buf) == maxBatchSize {
 				send()
-				timer.Reset(forcedSendTimeout)
+				ticker.Reset(forcedSendTimeout)
 			}
 		}
 	}
