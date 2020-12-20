@@ -27,7 +27,7 @@ func (t formattedSource) WriteFile(name string, content []byte) error {
 		}
 		out = buf
 	}
-	return ioutil.WriteFile(filepath.Join(t.Root, name), out, 0600)
+	return ioutil.WriteFile(filepath.Join(t.Root, name), out, 0666)
 }
 
 func main() {
@@ -56,7 +56,7 @@ func main() {
 		panic(err)
 	}
 	if os.IsNotExist(err) {
-		if err := os.Mkdir(*targetDir, 0600); err != nil {
+		if err := os.Mkdir(*targetDir, 0777); err != nil {
 			panic(err)
 		}
 	}
