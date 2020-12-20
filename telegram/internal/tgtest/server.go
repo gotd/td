@@ -25,7 +25,7 @@ type Server struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 
-	conns *conns
+	users *users
 }
 
 func (s *Server) Key() *rsa.PublicKey {
@@ -71,7 +71,7 @@ func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Serv
 		cipher: crypto.NewServerCipher(rand.Reader),
 		ctx:    ctx,
 		cancel: cancel,
-		conns:  newConns(),
+		users:  newUsers(),
 	}
 	return s
 }

@@ -116,9 +116,13 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMess
 		return nil, err
 	}
 
-	msg, err := c.cipher.DecryptDataFrom(c.authKey, atomic.LoadInt64(&c.session), b)
+	msg, err := c.cipher.DecryptFromBuffer(c.authKey, b)
 	if err != nil {
 		return nil, xerrors.Errorf("decrypt: %w", err)
+	}
+
+	if msg.SessionID != atomic.LoadInt64(&c.session) {
+		return nil, xerrors.Errorf("invalid session")
 	}
 
 	return msg, nil

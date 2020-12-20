@@ -11,13 +11,13 @@ import (
 func TestEncrypt(t *testing.T) {
 	c := NewClientCipher(Zero{})
 
-	var authKey [256]byte
+	var authKey AuthKey
 	for i := 0; i < 256; i++ {
 		authKey[i] = byte(i)
 	}
 
 	// Testing vector from grammers.
-	msg, err := c.EncryptMessage(authKey, []byte("Hello, world! This data should remain secure!"))
+	msg, err := c.EncryptMessage(authKey.WithID(), []byte("Hello, world! This data should remain secure!"))
 	if err != nil {
 		t.Fatal(err)
 	}

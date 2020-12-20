@@ -59,8 +59,7 @@ type Client struct {
 
 	// Access to authKey and authKeyID is not synchronized because
 	// serial access ensured in Dial (i.e. no concurrent access possible).
-	authKey   crypto.AuthKey
-	authKeyID [8]byte
+	authKey crypto.AuthKeyWithID
 
 	salt    int64 // atomic access only
 	session int64 // atomic access only

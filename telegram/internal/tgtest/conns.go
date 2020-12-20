@@ -7,41 +7,71 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-type conns struct {
-	mux sync.Mutex
-	m   map[crypto.AuthKey]transport.Connection
+type users struct {
+	sessions    map[[8]byte]crypto.AuthKeyWithID
+	sessionsMux sync.Mutex
+
+	conns    map[[8]byte]transport.Connection
+	connsMux sync.Mutex
 }
 
-func newConns() *conns {
-	return &conns{m: map[crypto.AuthKey]transport.Connection{}}
+func newUsers() *users {
+	return &users{
+		conns:    map[[8]byte]transport.Connection{},
+		sessions: map[[8]byte]crypto.AuthKeyWithID{},
+	}
 }
 
-func (c *conns) add(key Session, conn transport.Connection) {
-	c.mux.Lock()
-	c.m[key.Key] = conn
-	c.mux.Unlock()
+func (c *users) createSession(key crypto.AuthKeyWithID, conn transport.Connection) {
+	c.addConnection(key, conn)
+	c.addSession(key)
 }
 
-func (c *conns) get(key Session) (conn transport.Connection, ok bool) {
-	c.mux.Lock()
-	conn, ok = c.m[key.Key]
-	c.mux.Unlock()
+func (c *users) addConnection(key crypto.AuthKeyWithID, conn transport.Connection) {
+	c.connsMux.Lock()
+	c.conns[key.AuthKeyID] = conn
+	c.connsMux.Unlock()
+}
+
+func (c *users) getConnection(key crypto.AuthKeyWithID) (conn transport.Connection, ok bool) {
+	c.connsMux.Lock()
+	conn, ok = c.conns[key.AuthKeyID]
+	c.connsMux.Unlock()
 
 	return
 }
 
-func (c *conns) delete(key Session) {
-	c.mux.Lock()
-	delete(c.m, key.Key)
-	c.mux.Unlock()
-}
-
-func (c *conns) Close() error {
-	c.mux.Lock()
-	for _, conn := range c.m {
+func (c *users) deleteConnection(key crypto.AuthKeyWithID) {
+	c.connsMux.Lock()
+	conn := c.conns[key.AuthKeyID]
+	zero := transport.Connection{}
+	if conn != zero {
 		_ = conn.Close()
 	}
-	c.mux.Unlock()
+	delete(c.conns, key.AuthKeyID)
+	c.connsMux.Unlock()
+}
+
+func (c *users) addSession(key crypto.AuthKeyWithID) {
+	c.sessionsMux.Lock()
+	c.sessions[key.AuthKeyID] = key
+	c.sessionsMux.Unlock()
+}
+
+func (c *users) getSession(k [8]byte) (s crypto.AuthKeyWithID, ok bool) {
+	c.connsMux.Lock()
+	s, ok = c.sessions[k]
+	c.connsMux.Unlock()
+
+	return
+}
+
+func (c *users) Close() error {
+	c.connsMux.Lock()
+	for _, conn := range c.conns {
+		_ = conn.Close()
+	}
+	c.connsMux.Unlock()
 
 	return nil
 }

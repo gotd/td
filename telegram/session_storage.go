@@ -70,8 +70,8 @@ func (c *Client) saveSession(ctx context.Context) error {
 
 	sess := jsonSession{
 		Salt:      atomic.LoadInt64(&c.salt),
-		AuthKeyID: c.authKeyID[:],
-		AuthKey:   c.authKey[:],
+		AuthKeyID: c.authKey.AuthKeyID[:],
+		AuthKey:   c.authKey.AuthKey[:],
 	}
 	data, err := json.Marshal(sess)
 	if err != nil {
@@ -114,8 +114,10 @@ func (c *Client) loadSession(ctx context.Context) error {
 	}
 
 	// Success.
-	c.authKey = authKey
-	c.authKeyID = authKeyID
+	c.authKey = crypto.AuthKeyWithID{
+		AuthKey:   authKey,
+		AuthKeyID: authKeyID,
+	}
 	atomic.StoreInt64(&c.salt, sess.Salt)
 	c.log.Info("Session loaded from storage")
 

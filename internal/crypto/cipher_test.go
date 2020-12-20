@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-var testAuthKey = [256]byte{
+var testAuthKey = AuthKey{
 	93, 46, 125, 101, 244, 158, 194, 139, 208, 41, 168, 135, 97, 234, 39, 184, 164, 199,
 	159, 18, 34, 101, 37, 68, 62, 125, 124, 89, 110, 243, 48, 53, 48, 219, 33, 7, 232, 154,
 	169, 151, 199, 160, 22, 74, 182, 148, 24, 122, 222, 255, 21, 107, 214, 239, 113, 24,
@@ -25,7 +25,7 @@ var testAuthKey = [256]byte{
 	29, 16, 94, 193, 23, 51, 111, 92, 118, 198, 177, 135, 3, 125, 75, 66, 112, 206, 233,
 	204, 33, 7, 29, 151, 233, 188, 162, 32, 198, 215, 176, 27, 153, 140, 242, 229, 205,
 	185, 165, 14, 205, 161, 133, 42, 54, 230, 53, 105, 12, 142,
-}
+}.WithID()
 
 func checkSame(t *testing.T, a, b Cipher) {
 	asserts := require.New(t)
@@ -41,12 +41,13 @@ func checkSame(t *testing.T, a, b Cipher) {
 	}
 
 	var buf bin.Buffer
-	err = a.EncryptDataTo(testAuthKey, data, &buf)
+	err = a.Encrypt(testAuthKey, data, &buf)
 	asserts.NoError(err)
 
-	decrypt, err := b.DecryptDataFrom(testAuthKey, sessionID.Int64(), &buf)
+	decrypt, err := b.DecryptFromBuffer(testAuthKey, &buf)
 	asserts.NoError(err)
 
+	asserts.Equal(data.SessionID, decrypt.SessionID)
 	asserts.Equal(data.Data(), decrypt.Data())
 }
 
