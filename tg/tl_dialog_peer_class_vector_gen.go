@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
 	// Elements of Vector<DialogPeer>
 	Elems []DialogPeerClass
+}
+
+// String implements fmt.Stringer.
+func (vec *DialogPeerClassVector) String() string {
+	if vec == nil {
+		return "DialogPeerClassVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogPeerClassVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

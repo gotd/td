@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StorageFileUnknown represents TL type `storage.fileUnknown#aa963b05`.
 // Unknown type.
@@ -23,6 +25,18 @@ type StorageFileUnknown struct {
 
 // StorageFileUnknownTypeID is TL type id of StorageFileUnknown.
 const StorageFileUnknownTypeID = 0xaa963b05
+
+// String implements fmt.Stringer.
+func (f *StorageFileUnknown) String() string {
+	if f == nil {
+		return "StorageFileUnknown(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileUnknown")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *StorageFileUnknown) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type StorageFilePartial struct {
 // StorageFilePartialTypeID is TL type id of StorageFilePartial.
 const StorageFilePartialTypeID = 0x40bc6f52
 
+// String implements fmt.Stringer.
+func (f *StorageFilePartial) String() string {
+	if f == nil {
+		return "StorageFilePartial(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFilePartial")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFilePartial) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -105,6 +131,18 @@ type StorageFileJpeg struct {
 
 // StorageFileJpegTypeID is TL type id of StorageFileJpeg.
 const StorageFileJpegTypeID = 0x7efe0e
+
+// String implements fmt.Stringer.
+func (f *StorageFileJpeg) String() string {
+	if f == nil {
+		return "StorageFileJpeg(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileJpeg")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *StorageFileJpeg) Encode(b *bin.Buffer) error {
@@ -147,6 +185,18 @@ type StorageFileGif struct {
 // StorageFileGifTypeID is TL type id of StorageFileGif.
 const StorageFileGifTypeID = 0xcae1aadf
 
+// String implements fmt.Stringer.
+func (f *StorageFileGif) String() string {
+	if f == nil {
+		return "StorageFileGif(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileGif")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileGif) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -187,6 +237,18 @@ type StorageFilePng struct {
 
 // StorageFilePngTypeID is TL type id of StorageFilePng.
 const StorageFilePngTypeID = 0xa4f63c0
+
+// String implements fmt.Stringer.
+func (f *StorageFilePng) String() string {
+	if f == nil {
+		return "StorageFilePng(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFilePng")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *StorageFilePng) Encode(b *bin.Buffer) error {
@@ -229,6 +291,18 @@ type StorageFilePdf struct {
 // StorageFilePdfTypeID is TL type id of StorageFilePdf.
 const StorageFilePdfTypeID = 0xae1e508d
 
+// String implements fmt.Stringer.
+func (f *StorageFilePdf) String() string {
+	if f == nil {
+		return "StorageFilePdf(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFilePdf")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFilePdf) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -269,6 +343,18 @@ type StorageFileMp3 struct {
 
 // StorageFileMp3TypeID is TL type id of StorageFileMp3.
 const StorageFileMp3TypeID = 0x528a0677
+
+// String implements fmt.Stringer.
+func (f *StorageFileMp3) String() string {
+	if f == nil {
+		return "StorageFileMp3(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileMp3")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *StorageFileMp3) Encode(b *bin.Buffer) error {
@@ -311,6 +397,18 @@ type StorageFileMov struct {
 // StorageFileMovTypeID is TL type id of StorageFileMov.
 const StorageFileMovTypeID = 0x4b09ebbc
 
+// String implements fmt.Stringer.
+func (f *StorageFileMov) String() string {
+	if f == nil {
+		return "StorageFileMov(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileMov")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMov) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -352,6 +450,18 @@ type StorageFileMp4 struct {
 // StorageFileMp4TypeID is TL type id of StorageFileMp4.
 const StorageFileMp4TypeID = 0xb3cea0e4
 
+// String implements fmt.Stringer.
+func (f *StorageFileMp4) String() string {
+	if f == nil {
+		return "StorageFileMp4(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileMp4")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMp4) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -392,6 +502,18 @@ type StorageFileWebp struct {
 
 // StorageFileWebpTypeID is TL type id of StorageFileWebp.
 const StorageFileWebpTypeID = 0x1081464c
+
+// String implements fmt.Stringer.
+func (f *StorageFileWebp) String() string {
+	if f == nil {
+		return "StorageFileWebp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StorageFileWebp")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *StorageFileWebp) Encode(b *bin.Buffer) error {
@@ -450,6 +572,7 @@ type StorageFileTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StorageFileTypeClass
+	fmt.Stringer
 }
 
 // DecodeStorageFileType implements binary de-serialization for StorageFileTypeClass.

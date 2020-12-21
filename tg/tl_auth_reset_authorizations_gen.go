@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthResetAuthorizationsRequest represents TL type `auth.resetAuthorizations#9fab0d1a`.
 // Terminates all user's authorized sessions except for the current one.
@@ -24,6 +26,18 @@ type AuthResetAuthorizationsRequest struct {
 
 // AuthResetAuthorizationsRequestTypeID is TL type id of AuthResetAuthorizationsRequest.
 const AuthResetAuthorizationsRequestTypeID = 0x9fab0d1a
+
+// String implements fmt.Stringer.
+func (r *AuthResetAuthorizationsRequest) String() string {
+	if r == nil {
+		return "AuthResetAuthorizationsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthResetAuthorizationsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AuthResetAuthorizationsRequest) Encode(b *bin.Buffer) error {

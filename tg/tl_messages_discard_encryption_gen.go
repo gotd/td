@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#edd923c5`.
 // Cancels a request for creation and/or delete info on secret chat.
@@ -25,6 +27,21 @@ type MessagesDiscardEncryptionRequest struct {
 
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
 const MessagesDiscardEncryptionRequestTypeID = 0xedd923c5
+
+// String implements fmt.Stringer.
+func (d *MessagesDiscardEncryptionRequest) String() string {
+	if d == nil {
+		return "MessagesDiscardEncryptionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDiscardEncryptionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(d.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {

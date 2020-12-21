@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PeerSettings represents TL type `peerSettings#733f2961`.
 // Peer settings
@@ -43,6 +45,26 @@ type PeerSettings struct {
 
 // PeerSettingsTypeID is TL type id of PeerSettings.
 const PeerSettingsTypeID = 0x733f2961
+
+// String implements fmt.Stringer.
+func (p *PeerSettings) String() string {
+	if p == nil {
+		return "PeerSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(6) {
+		sb.WriteString("\tGeoDistance: ")
+		sb.WriteString(fmt.Sprint(p.GeoDistance))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerSettings) Encode(b *bin.Buffer) error {

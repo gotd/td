@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsGetFullChannelRequest represents TL type `channels.getFullChannel#8736a09`.
 // Get full info about a channel
@@ -25,6 +27,21 @@ type ChannelsGetFullChannelRequest struct {
 
 // ChannelsGetFullChannelRequestTypeID is TL type id of ChannelsGetFullChannelRequest.
 const ChannelsGetFullChannelRequestTypeID = 0x8736a09
+
+// String implements fmt.Stringer.
+func (g *ChannelsGetFullChannelRequest) String() string {
+	if g == nil {
+		return "ChannelsGetFullChannelRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsGetFullChannelRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {

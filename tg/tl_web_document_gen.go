@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WebDocument represents TL type `webDocument#1c570ed1`.
 // Remote document
@@ -33,6 +35,35 @@ type WebDocument struct {
 
 // WebDocumentTypeID is TL type id of WebDocument.
 const WebDocumentTypeID = 0x1c570ed1
+
+// String implements fmt.Stringer.
+func (w *WebDocument) String() string {
+	if w == nil {
+		return "WebDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(w.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(w.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(w.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(w.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range w.Attributes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebDocument) Encode(b *bin.Buffer) error {
@@ -137,6 +168,32 @@ type WebDocumentNoProxy struct {
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
 const WebDocumentNoProxyTypeID = 0xf9c8bcc6
 
+// String implements fmt.Stringer.
+func (w *WebDocumentNoProxy) String() string {
+	if w == nil {
+		return "WebDocumentNoProxy(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebDocumentNoProxy")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(w.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(w.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(w.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range w.Attributes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -232,6 +289,7 @@ type WebDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WebDocumentClass
+	fmt.Stringer
 }
 
 // DecodeWebDocument implements binary de-serialization for WebDocumentClass.

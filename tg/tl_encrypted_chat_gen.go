@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
 // Empty constructor.
@@ -25,6 +27,21 @@ type EncryptedChatEmpty struct {
 
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
 const EncryptedChatEmptyTypeID = 0xab7ec0a0
+
+// String implements fmt.Stringer.
+func (e *EncryptedChatEmpty) String() string {
+	if e == nil {
+		return "EncryptedChatEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedChatEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
@@ -84,6 +101,33 @@ type EncryptedChatWaiting struct {
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
 const EncryptedChatWaitingTypeID = 0x3bf703dc
+
+// String implements fmt.Stringer.
+func (e *EncryptedChatWaiting) String() string {
+	if e == nil {
+		return "EncryptedChatWaiting(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedChatWaiting")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(e.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(e.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(e.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(e.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
@@ -183,6 +227,44 @@ type EncryptedChatRequested struct {
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
 const EncryptedChatRequestedTypeID = 0x62718a82
+
+// String implements fmt.Stringer.
+func (e *EncryptedChatRequested) String() string {
+	if e == nil {
+		return "EncryptedChatRequested(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedChatRequested")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(e.Flags.String())
+	sb.WriteString(",\n")
+	if e.Flags.Has(0) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(e.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(e.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(e.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(e.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(e.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGA: ")
+	sb.WriteString(fmt.Sprint(e.GA))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
@@ -320,6 +402,39 @@ type EncryptedChat struct {
 // EncryptedChatTypeID is TL type id of EncryptedChat.
 const EncryptedChatTypeID = 0xfa56ce36
 
+// String implements fmt.Stringer.
+func (e *EncryptedChat) String() string {
+	if e == nil {
+		return "EncryptedChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(e.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(e.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(e.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(e.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGAOrB: ")
+	sb.WriteString(fmt.Sprint(e.GAOrB))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(e.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -419,6 +534,21 @@ type EncryptedChatDiscarded struct {
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
 const EncryptedChatDiscardedTypeID = 0x13d6dd27
 
+// String implements fmt.Stringer.
+func (e *EncryptedChatDiscarded) String() string {
+	if e == nil {
+		return "EncryptedChatDiscarded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedChatDiscarded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -479,6 +609,7 @@ type EncryptedChatClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedChatClass
+	fmt.Stringer
 }
 
 // DecodeEncryptedChat implements binary de-serialization for EncryptedChatClass.

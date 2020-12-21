@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DraftMessageEmpty represents TL type `draftMessageEmpty#1b0c841a`.
 // Empty draft
@@ -29,6 +31,26 @@ type DraftMessageEmpty struct {
 
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
 const DraftMessageEmptyTypeID = 0x1b0c841a
+
+// String implements fmt.Stringer.
+func (d *DraftMessageEmpty) String() string {
+	if d == nil {
+		return "DraftMessageEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DraftMessageEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteString("\tDate: ")
+		sb.WriteString(fmt.Sprint(d.Date))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
@@ -119,6 +141,39 @@ type DraftMessage struct {
 
 // DraftMessageTypeID is TL type id of DraftMessage.
 const DraftMessageTypeID = 0xfd8e711f
+
+// String implements fmt.Stringer.
+func (d *DraftMessage) String() string {
+	if d == nil {
+		return "DraftMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DraftMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteString("\tReplyToMsgID: ")
+		sb.WriteString(fmt.Sprint(d.ReplyToMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(d.Message))
+	sb.WriteString(",\n")
+	if d.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range d.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(d.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
@@ -267,6 +322,7 @@ type DraftMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DraftMessageClass
+	fmt.Stringer
 }
 
 // DecodeDraftMessage implements binary de-serialization for DraftMessageClass.

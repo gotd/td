@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpRecentMeUrls represents TL type `help.recentMeUrls#e0310d7`.
 // Recent t.me URLs
@@ -29,6 +31,33 @@ type HelpRecentMeUrls struct {
 
 // HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.
 const HelpRecentMeUrlsTypeID = 0xe0310d7
+
+// String implements fmt.Stringer.
+func (r *HelpRecentMeUrls) String() string {
+	if r == nil {
+		return "HelpRecentMeUrls(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpRecentMeUrls")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range r.Urls {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range r.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range r.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *HelpRecentMeUrls) Encode(b *bin.Buffer) error {

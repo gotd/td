@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGetMegagroupStatsRequest represents TL type `stats.getMegagroupStats#dcdf8607`.
 // Get supergroup statistics
@@ -29,6 +31,24 @@ type StatsGetMegagroupStatsRequest struct {
 
 // StatsGetMegagroupStatsRequestTypeID is TL type id of StatsGetMegagroupStatsRequest.
 const StatsGetMegagroupStatsRequestTypeID = 0xdcdf8607
+
+// String implements fmt.Stringer.
+func (g *StatsGetMegagroupStatsRequest) String() string {
+	if g == nil {
+		return "StatsGetMegagroupStatsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGetMegagroupStatsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
 // Add an existing telegram user as contact.
@@ -36,6 +38,33 @@ type ContactsAddContactRequest struct {
 
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.
 const ContactsAddContactRequestTypeID = 0xe8f463d0
+
+// String implements fmt.Stringer.
+func (a *ContactsAddContactRequest) String() string {
+	if a == nil {
+		return "ContactsAddContactRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsAddContactRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(a.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(a.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(a.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(a.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {

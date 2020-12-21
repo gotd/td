@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsResolvedPeer represents TL type `contacts.resolvedPeer#7f077ad9`.
 // Resolved peer
@@ -29,6 +31,31 @@ type ContactsResolvedPeer struct {
 
 // ContactsResolvedPeerTypeID is TL type id of ContactsResolvedPeer.
 const ContactsResolvedPeerTypeID = 0x7f077ad9
+
+// String implements fmt.Stringer.
+func (r *ContactsResolvedPeer) String() string {
+	if r == nil {
+		return "ContactsResolvedPeer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsResolvedPeer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range r.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {

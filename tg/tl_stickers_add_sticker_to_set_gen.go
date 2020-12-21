@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
 // Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
@@ -27,6 +29,24 @@ type StickersAddStickerToSetRequest struct {
 
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
 const StickersAddStickerToSetRequestTypeID = 0x8653febe
+
+// String implements fmt.Stringer.
+func (a *StickersAddStickerToSetRequest) String() string {
+	if a == nil {
+		return "StickersAddStickerToSetRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickersAddStickerToSetRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(a.Stickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSticker: ")
+	sb.WriteString(a.Sticker.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *StickersAddStickerToSetRequest) Encode(b *bin.Buffer) error {

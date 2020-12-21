@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetOldFeaturedStickersRequest represents TL type `messages.getOldFeaturedStickers#5fe7025b`.
 // Method for fetching previously featured stickers
@@ -29,6 +31,27 @@ type MessagesGetOldFeaturedStickersRequest struct {
 
 // MessagesGetOldFeaturedStickersRequestTypeID is TL type id of MessagesGetOldFeaturedStickersRequest.
 const MessagesGetOldFeaturedStickersRequestTypeID = 0x5fe7025b
+
+// String implements fmt.Stringer.
+func (g *MessagesGetOldFeaturedStickersRequest) String() string {
+	if g == nil {
+		return "MessagesGetOldFeaturedStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetOldFeaturedStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetOldFeaturedStickersRequest) Encode(b *bin.Buffer) error {

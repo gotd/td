@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#2b8879b3`.
 // Send compiled payment form
@@ -37,6 +39,37 @@ type PaymentsSendPaymentFormRequest struct {
 
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.
 const PaymentsSendPaymentFormRequestTypeID = 0x2b8879b3
+
+// String implements fmt.Stringer.
+func (s *PaymentsSendPaymentFormRequest) String() string {
+	if s == nil {
+		return "PaymentsSendPaymentFormRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsSendPaymentFormRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(s.MsgID))
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tRequestedInfoID: ")
+		sb.WriteString(fmt.Sprint(s.RequestedInfoID))
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(1) {
+		sb.WriteString("\tShippingOptionID: ")
+		sb.WriteString(fmt.Sprint(s.ShippingOptionID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCredentials: ")
+	sb.WriteString(s.Credentials.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {

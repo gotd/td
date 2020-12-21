@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#4bc6589a`.
 // Search for messages and peers globally
@@ -45,6 +47,50 @@ type MessagesSearchGlobalRequest struct {
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
 const MessagesSearchGlobalRequestTypeID = 0x4bc6589a
+
+// String implements fmt.Stringer.
+func (s *MessagesSearchGlobalRequest) String() string {
+	if s == nil {
+		return "MessagesSearchGlobalRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSearchGlobalRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(s.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(s.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(s.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinDate: ")
+	sb.WriteString(fmt.Sprint(s.MinDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxDate: ")
+	sb.WriteString(fmt.Sprint(s.MaxDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetRate: ")
+	sb.WriteString(fmt.Sprint(s.OffsetRate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetPeer: ")
+	sb.WriteString(s.OffsetPeer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(s.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(s.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {

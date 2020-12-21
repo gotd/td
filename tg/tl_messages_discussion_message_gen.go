@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDiscussionMessage represents TL type `messages.discussionMessage#f5dd8f9d`.
 // Information about a message thread
@@ -43,6 +45,51 @@ type MessagesDiscussionMessage struct {
 
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
 const MessagesDiscussionMessageTypeID = 0xf5dd8f9d
+
+// String implements fmt.Stringer.
+func (d *MessagesDiscussionMessage) String() string {
+	if d == nil {
+		return "MessagesDiscussionMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDiscussionMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range d.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if d.Flags.Has(0) {
+		sb.WriteString("\tMaxID: ")
+		sb.WriteString(fmt.Sprint(d.MaxID))
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(1) {
+		sb.WriteString("\tReadInboxMaxID: ")
+		sb.WriteString(fmt.Sprint(d.ReadInboxMaxID))
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(2) {
+		sb.WriteString("\tReadOutboxMaxID: ")
+		sb.WriteString(fmt.Sprint(d.ReadOutboxMaxID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range d.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {

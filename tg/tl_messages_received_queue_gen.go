@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
@@ -25,6 +27,21 @@ type MessagesReceivedQueueRequest struct {
 
 // MessagesReceivedQueueRequestTypeID is TL type id of MessagesReceivedQueueRequest.
 const MessagesReceivedQueueRequestTypeID = 0x55a5bb66
+
+// String implements fmt.Stringer.
+func (r *MessagesReceivedQueueRequest) String() string {
+	if r == nil {
+		return "MessagesReceivedQueueRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReceivedQueueRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMaxQts: ")
+	sb.WriteString(fmt.Sprint(r.MaxQts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {

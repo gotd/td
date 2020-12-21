@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetHistoryRequest represents TL type `messages.getHistory#dcbb8260`.
 // Gets back the conversation history with one interlocutor / within a chat
@@ -39,6 +41,42 @@ type MessagesGetHistoryRequest struct {
 
 // MessagesGetHistoryRequestTypeID is TL type id of MessagesGetHistoryRequest.
 const MessagesGetHistoryRequestTypeID = 0xdcbb8260
+
+// String implements fmt.Stringer.
+func (g *MessagesGetHistoryRequest) String() string {
+	if g == nil {
+		return "MessagesGetHistoryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetHistoryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(g.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetDate: ")
+	sb.WriteString(fmt.Sprint(g.OffsetDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddOffset: ")
+	sb.WriteString(fmt.Sprint(g.AddOffset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(g.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinID: ")
+	sb.WriteString(fmt.Sprint(g.MinID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {

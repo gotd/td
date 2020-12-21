@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUpdateDialogFiltersOrderRequest represents TL type `messages.updateDialogFiltersOrder#c563c1e4`.
 // Reorder folders
@@ -25,6 +27,23 @@ type MessagesUpdateDialogFiltersOrderRequest struct {
 
 // MessagesUpdateDialogFiltersOrderRequestTypeID is TL type id of MessagesUpdateDialogFiltersOrderRequest.
 const MessagesUpdateDialogFiltersOrderRequestTypeID = 0xc563c1e4
+
+// String implements fmt.Stringer.
+func (u *MessagesUpdateDialogFiltersOrderRequest) String() string {
+	if u == nil {
+		return "MessagesUpdateDialogFiltersOrderRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUpdateDialogFiltersOrderRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Order {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {

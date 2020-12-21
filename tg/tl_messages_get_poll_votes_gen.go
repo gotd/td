@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetPollVotesRequest represents TL type `messages.getPollVotes#b86e380e`.
 // Get poll results for non-anonymous polls
@@ -39,6 +41,40 @@ type MessagesGetPollVotesRequest struct {
 
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.
 const MessagesGetPollVotesRequestTypeID = 0xb86e380e
+
+// String implements fmt.Stringer.
+func (g *MessagesGetPollVotesRequest) String() string {
+	if g == nil {
+		return "MessagesGetPollVotesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetPollVotesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(g.ID))
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tOption: ")
+		sb.WriteString(fmt.Sprint(g.Option))
+		sb.WriteString(",\n")
+	}
+	if g.Flags.Has(1) {
+		sb.WriteString("\tOffset: ")
+		sb.WriteString(fmt.Sprint(g.Offset))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {

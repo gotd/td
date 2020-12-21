@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesImportChatInviteRequest represents TL type `messages.importChatInvite#6c50051c`.
 // Import a chat invite and join a private chat/supergroup/channel
@@ -25,6 +27,21 @@ type MessagesImportChatInviteRequest struct {
 
 // MessagesImportChatInviteRequestTypeID is TL type id of MessagesImportChatInviteRequest.
 const MessagesImportChatInviteRequestTypeID = 0x6c50051c
+
+// String implements fmt.Stringer.
+func (i *MessagesImportChatInviteRequest) String() string {
+	if i == nil {
+		return "MessagesImportChatInviteRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesImportChatInviteRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(i.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {

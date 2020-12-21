@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputEncryptedFileEmpty represents TL type `inputEncryptedFileEmpty#1837c364`.
 // Empty constructor.
@@ -23,6 +25,18 @@ type InputEncryptedFileEmpty struct {
 
 // InputEncryptedFileEmptyTypeID is TL type id of InputEncryptedFileEmpty.
 const InputEncryptedFileEmptyTypeID = 0x1837c364
+
+// String implements fmt.Stringer.
+func (i *InputEncryptedFileEmpty) String() string {
+	if i == nil {
+		return "InputEncryptedFileEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedFileEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileEmpty) Encode(b *bin.Buffer) error {
@@ -72,6 +86,30 @@ type InputEncryptedFileUploaded struct {
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
 const InputEncryptedFileUploadedTypeID = 0x64bd0306
+
+// String implements fmt.Stringer.
+func (i *InputEncryptedFileUploaded) String() string {
+	if i == nil {
+		return "InputEncryptedFileUploaded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedFileUploaded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParts: ")
+	sb.WriteString(fmt.Sprint(i.Parts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMd5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(i.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
@@ -150,6 +188,24 @@ type InputEncryptedFile struct {
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
 const InputEncryptedFileTypeID = 0x5a17b5e5
 
+// String implements fmt.Stringer.
+func (i *InputEncryptedFile) String() string {
+	if i == nil {
+		return "InputEncryptedFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -212,6 +268,27 @@ type InputEncryptedFileBigUploaded struct {
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.
 const InputEncryptedFileBigUploadedTypeID = 0x2dc173c8
+
+// String implements fmt.Stringer.
+func (i *InputEncryptedFileBigUploaded) String() string {
+	if i == nil {
+		return "InputEncryptedFileBigUploaded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedFileBigUploaded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParts: ")
+	sb.WriteString(fmt.Sprint(i.Parts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(i.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileBigUploaded) Encode(b *bin.Buffer) error {
@@ -288,6 +365,7 @@ type InputEncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputEncryptedFileClass
+	fmt.Stringer
 }
 
 // DecodeInputEncryptedFile implements binary de-serialization for InputEncryptedFileClass.

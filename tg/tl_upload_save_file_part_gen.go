@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadSaveFilePartRequest represents TL type `upload.saveFilePart#b304a621`.
 // Saves a part of file for futher sending to one of the methods.
@@ -29,6 +31,27 @@ type UploadSaveFilePartRequest struct {
 
 // UploadSaveFilePartRequestTypeID is TL type id of UploadSaveFilePartRequest.
 const UploadSaveFilePartRequestTypeID = 0xb304a621
+
+// String implements fmt.Stringer.
+func (s *UploadSaveFilePartRequest) String() string {
+	if s == nil {
+		return "UploadSaveFilePartRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadSaveFilePartRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileID: ")
+	sb.WriteString(fmt.Sprint(s.FileID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilePart: ")
+	sb.WriteString(fmt.Sprint(s.FilePart))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(s.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *UploadSaveFilePartRequest) Encode(b *bin.Buffer) error {

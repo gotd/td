@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#77fa99f`.
 // Dismiss a suggestion
@@ -25,6 +27,21 @@ type HelpDismissSuggestionRequest struct {
 
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
 const HelpDismissSuggestionRequestTypeID = 0x77fa99f
+
+// String implements fmt.Stringer.
+func (d *HelpDismissSuggestionRequest) String() string {
+	if d == nil {
+		return "HelpDismissSuggestionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpDismissSuggestionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSuggestion: ")
+	sb.WriteString(fmt.Sprint(d.Suggestion))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {

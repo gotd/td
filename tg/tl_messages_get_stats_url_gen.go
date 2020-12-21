@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetStatsURLRequest represents TL type `messages.getStatsURL#812c2ae6`.
 // Returns URL with the chat statistics. Currently this method can be used only for channels
@@ -31,6 +33,27 @@ type MessagesGetStatsURLRequest struct {
 
 // MessagesGetStatsURLRequestTypeID is TL type id of MessagesGetStatsURLRequest.
 const MessagesGetStatsURLRequestTypeID = 0x812c2ae6
+
+// String implements fmt.Stringer.
+func (g *MessagesGetStatsURLRequest) String() string {
+	if g == nil {
+		return "MessagesGetStatsURLRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetStatsURLRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tParams: ")
+	sb.WriteString(fmt.Sprint(g.Params))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {

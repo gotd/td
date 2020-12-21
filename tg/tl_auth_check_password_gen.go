@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthCheckPasswordRequest represents TL type `auth.checkPassword#d18b4d16`.
 // Try logging to an account protected by a 2FA password.
@@ -25,6 +27,21 @@ type AuthCheckPasswordRequest struct {
 
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.
 const AuthCheckPasswordRequestTypeID = 0xd18b4d16
+
+// String implements fmt.Stringer.
+func (c *AuthCheckPasswordRequest) String() string {
+	if c == nil {
+		return "AuthCheckPasswordRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthCheckPasswordRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPassword: ")
+	sb.WriteString(c.Password.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {

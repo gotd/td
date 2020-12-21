@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SavedPhoneContact represents TL type `savedPhoneContact#1142bd56`.
 // Saved contact
@@ -31,6 +33,30 @@ type SavedPhoneContact struct {
 
 // SavedPhoneContactTypeID is TL type id of SavedPhoneContact.
 const SavedPhoneContactTypeID = 0x1142bd56
+
+// String implements fmt.Stringer.
+func (s *SavedPhoneContact) String() string {
+	if s == nil {
+		return "SavedPhoneContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SavedPhoneContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(s.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(s.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(s.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(s.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {

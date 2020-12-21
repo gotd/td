@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneRequestCallRequest represents TL type `phone.requestCall#42ff96ed`.
 // Start a telegram phone call
@@ -35,6 +37,33 @@ type PhoneRequestCallRequest struct {
 
 // PhoneRequestCallRequestTypeID is TL type id of PhoneRequestCallRequest.
 const PhoneRequestCallRequestTypeID = 0x42ff96ed
+
+// String implements fmt.Stringer.
+func (r *PhoneRequestCallRequest) String() string {
+	if r == nil {
+		return "PhoneRequestCallRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneRequestCallRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(r.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(r.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGAHash: ")
+	sb.WriteString(fmt.Sprint(r.GAHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(r.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {

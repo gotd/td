@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountResetNotifySettingsRequest represents TL type `account.resetNotifySettings#db7e1747`.
 // Resets all notification settings from users and groups.
@@ -23,6 +25,18 @@ type AccountResetNotifySettingsRequest struct {
 
 // AccountResetNotifySettingsRequestTypeID is TL type id of AccountResetNotifySettingsRequest.
 const AccountResetNotifySettingsRequestTypeID = 0xdb7e1747
+
+// String implements fmt.Stringer.
+func (r *AccountResetNotifySettingsRequest) String() string {
+	if r == nil {
+		return "AccountResetNotifySettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountResetNotifySettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {

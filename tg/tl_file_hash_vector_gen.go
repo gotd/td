@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // FileHashVector is a box for Vector<FileHash>
 type FileHashVector struct {
 	// Elements of Vector<FileHash>
 	Elems []FileHash
+}
+
+// String implements fmt.Stringer.
+func (vec *FileHashVector) String() string {
+	if vec == nil {
+		return "FileHashVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("FileHashVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
 // Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
@@ -25,6 +27,21 @@ type PhoneReceivedCallRequest struct {
 
 // PhoneReceivedCallRequestTypeID is TL type id of PhoneReceivedCallRequest.
 const PhoneReceivedCallRequestTypeID = 0x17d54f61
+
+// String implements fmt.Stringer.
+func (r *PhoneReceivedCallRequest) String() string {
+	if r == nil {
+		return "PhoneReceivedCallRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneReceivedCallRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {

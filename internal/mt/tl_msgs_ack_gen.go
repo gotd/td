@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MsgsAck represents TL type `msgs_ack#62d6b459`.
 type MsgsAck struct {
@@ -22,6 +24,23 @@ type MsgsAck struct {
 
 // MsgsAckTypeID is TL type id of MsgsAck.
 const MsgsAckTypeID = 0x62d6b459
+
+// String implements fmt.Stringer.
+func (m *MsgsAck) String() string {
+	if m == nil {
+		return "MsgsAck(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MsgsAck")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.MsgIds {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MsgsAck) Encode(b *bin.Buffer) error {

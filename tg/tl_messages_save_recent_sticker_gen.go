@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSaveRecentStickerRequest represents TL type `messages.saveRecentSticker#392718f8`.
 // Add/remove sticker from recent stickers list
@@ -31,6 +33,27 @@ type MessagesSaveRecentStickerRequest struct {
 
 // MessagesSaveRecentStickerRequestTypeID is TL type id of MessagesSaveRecentStickerRequest.
 const MessagesSaveRecentStickerRequestTypeID = 0x392718f8
+
+// String implements fmt.Stringer.
+func (s *MessagesSaveRecentStickerRequest) String() string {
+	if s == nil {
+		return "MessagesSaveRecentStickerRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSaveRecentStickerRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(s.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnsave: ")
+	sb.WriteString(fmt.Sprint(s.Unsave))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {

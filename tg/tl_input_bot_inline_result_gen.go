@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputBotInlineResult represents TL type `inputBotInlineResult#88bf9319`.
 // An inline bot result
@@ -51,6 +53,55 @@ type InputBotInlineResult struct {
 
 // InputBotInlineResultTypeID is TL type id of InputBotInlineResult.
 const InputBotInlineResultTypeID = 0x88bf9319
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineResult) String() string {
+	if i == nil {
+		return "InputBotInlineResult(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineResult")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(i.Type))
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(i.Title))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(i.Description))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(3) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(i.URL))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(4) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(i.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(5) {
+		sb.WriteString("\tContent: ")
+		sb.WriteString(i.Content.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(i.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
@@ -263,6 +314,30 @@ type InputBotInlineResultPhoto struct {
 // InputBotInlineResultPhotoTypeID is TL type id of InputBotInlineResultPhoto.
 const InputBotInlineResultPhotoTypeID = 0xa8d864a7
 
+// String implements fmt.Stringer.
+func (i *InputBotInlineResultPhoto) String() string {
+	if i == nil {
+		return "InputBotInlineResultPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineResultPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(i.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(i.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(i.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -363,6 +438,43 @@ type InputBotInlineResultDocument struct {
 
 // InputBotInlineResultDocumentTypeID is TL type id of InputBotInlineResultDocument.
 const InputBotInlineResultDocumentTypeID = 0xfff8fdc4
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineResultDocument) String() string {
+	if i == nil {
+		return "InputBotInlineResultDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineResultDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(i.Type))
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(i.Title))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(i.Description))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDocument: ")
+	sb.WriteString(i.Document.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(i.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
@@ -511,6 +623,27 @@ type InputBotInlineResultGame struct {
 // InputBotInlineResultGameTypeID is TL type id of InputBotInlineResultGame.
 const InputBotInlineResultGameTypeID = 0x4fa417f2
 
+// String implements fmt.Stringer.
+func (i *InputBotInlineResultGame) String() string {
+	if i == nil {
+		return "InputBotInlineResultGame(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineResultGame")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(i.ShortName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(i.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -591,6 +724,7 @@ type InputBotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputBotInlineResultClass
+	fmt.Stringer
 }
 
 // DecodeInputBotInlineResult implements binary de-serialization for InputBotInlineResultClass.

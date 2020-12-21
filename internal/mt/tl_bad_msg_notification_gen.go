@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
@@ -26,6 +28,27 @@ type BadMsgNotification struct {
 
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
 const BadMsgNotificationTypeID = 0xa7eff811
+
+// String implements fmt.Stringer.
+func (b *BadMsgNotification) String() string {
+	if b == nil {
+		return "BadMsgNotification(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BadMsgNotification")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBadMsgID: ")
+	sb.WriteString(fmt.Sprint(b.BadMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBadMsgSeqno: ")
+	sb.WriteString(fmt.Sprint(b.BadMsgSeqno))
+	sb.WriteString(",\n")
+	sb.WriteString("\tErrorCode: ")
+	sb.WriteString(fmt.Sprint(b.ErrorCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {

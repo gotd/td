@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendMultiMediaRequest represents TL type `messages.sendMultiMedia#cc0110cb`.
 // Send an album or grouped media
@@ -43,6 +45,39 @@ type MessagesSendMultiMediaRequest struct {
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
 const MessagesSendMultiMediaRequestTypeID = 0xcc0110cb
+
+// String implements fmt.Stringer.
+func (s *MessagesSendMultiMediaRequest) String() string {
+	if s == nil {
+		return "MessagesSendMultiMediaRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendMultiMediaRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tReplyToMsgID: ")
+		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range s.MultiMedia {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if s.Flags.Has(10) {
+		sb.WriteString("\tScheduleDate: ")
+		sb.WriteString(fmt.Sprint(s.ScheduleDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {

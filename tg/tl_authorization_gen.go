@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Authorization represents TL type `authorization#ad01d61d`.
 // Logged-in session
@@ -55,6 +57,57 @@ type Authorization struct {
 
 // AuthorizationTypeID is TL type id of Authorization.
 const AuthorizationTypeID = 0xad01d61d
+
+// String implements fmt.Stringer.
+func (a *Authorization) String() string {
+	if a == nil {
+		return "Authorization(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Authorization")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(a.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDeviceModel: ")
+	sb.WriteString(fmt.Sprint(a.DeviceModel))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPlatform: ")
+	sb.WriteString(fmt.Sprint(a.Platform))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSystemVersion: ")
+	sb.WriteString(fmt.Sprint(a.SystemVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIID: ")
+	sb.WriteString(fmt.Sprint(a.APIID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAppName: ")
+	sb.WriteString(fmt.Sprint(a.AppName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAppVersion: ")
+	sb.WriteString(fmt.Sprint(a.AppVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDateCreated: ")
+	sb.WriteString(fmt.Sprint(a.DateCreated))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDateActive: ")
+	sb.WriteString(fmt.Sprint(a.DateActive))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIP: ")
+	sb.WriteString(fmt.Sprint(a.IP))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCountry: ")
+	sb.WriteString(fmt.Sprint(a.Country))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRegion: ")
+	sb.WriteString(fmt.Sprint(a.Region))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *Authorization) Encode(b *bin.Buffer) error {

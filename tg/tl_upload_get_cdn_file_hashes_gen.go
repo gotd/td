@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
 // Get SHA256 hashes for verifying downloaded CDN files
@@ -27,6 +29,24 @@ type UploadGetCdnFileHashesRequest struct {
 
 // UploadGetCdnFileHashesRequestTypeID is TL type id of UploadGetCdnFileHashesRequest.
 const UploadGetCdnFileHashesRequestTypeID = 0x4da54231
+
+// String implements fmt.Stringer.
+func (g *UploadGetCdnFileHashesRequest) String() string {
+	if g == nil {
+		return "UploadGetCdnFileHashesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadGetCdnFileHashesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileToken: ")
+	sb.WriteString(fmt.Sprint(g.FileToken))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UploadGetCdnFileHashesRequest) Encode(b *bin.Buffer) error {

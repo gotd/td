@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
 // How users voted in a poll
@@ -35,6 +37,39 @@ type MessagesVotesList struct {
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
 const MessagesVotesListTypeID = 0x823f649
+
+// String implements fmt.Stringer.
+func (v *MessagesVotesList) String() string {
+	if v == nil {
+		return "MessagesVotesList(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesVotesList")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(v.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(v.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range v.Votes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range v.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if v.Flags.Has(0) {
+		sb.WriteString("\tNextOffset: ")
+		sb.WriteString(fmt.Sprint(v.NextOffset))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (v *MessagesVotesList) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SetClientDHParams represents TL type `set_client_DH_params#f5045f1f`.
 type SetClientDHParams struct {
@@ -26,6 +28,27 @@ type SetClientDHParams struct {
 
 // SetClientDHParamsTypeID is TL type id of SetClientDHParams.
 const SetClientDHParamsTypeID = 0xf5045f1f
+
+// String implements fmt.Stringer.
+func (s *SetClientDHParams) String() string {
+	if s == nil {
+		return "SetClientDHParams(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SetClientDHParams")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(s.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(s.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptedData: ")
+	sb.WriteString(fmt.Sprint(s.EncryptedData))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SetClientDHParams) Encode(b *bin.Buffer) error {

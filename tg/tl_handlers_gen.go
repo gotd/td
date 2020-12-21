@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 type handler = func(UpdateContext, UpdateClass) error
 
@@ -65,514 +67,598 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
 	}
 
 	for _, update := range updates.Updates {
-		uctx.lazyInitFromUpdates(updates)
 		switch update.(type) {
 		case *UpdateNewMessage:
 			if handler, ok := u.handlers[UpdateNewMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateMessageID:
 			if handler, ok := u.handlers[UpdateMessageIDTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDeleteMessages:
 			if handler, ok := u.handlers[UpdateDeleteMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateUserTyping:
 			if handler, ok := u.handlers[UpdateUserTypingTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatUserTyping:
 			if handler, ok := u.handlers[UpdateChatUserTypingTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatParticipants:
 			if handler, ok := u.handlers[UpdateChatParticipantsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateUserStatus:
 			if handler, ok := u.handlers[UpdateUserStatusTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateUserName:
 			if handler, ok := u.handlers[UpdateUserNameTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateUserPhoto:
 			if handler, ok := u.handlers[UpdateUserPhotoTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateNewEncryptedMessage:
 			if handler, ok := u.handlers[UpdateNewEncryptedMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateEncryptedChatTyping:
 			if handler, ok := u.handlers[UpdateEncryptedChatTypingTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateEncryption:
 			if handler, ok := u.handlers[UpdateEncryptionTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateEncryptedMessagesRead:
 			if handler, ok := u.handlers[UpdateEncryptedMessagesReadTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatParticipantAdd:
 			if handler, ok := u.handlers[UpdateChatParticipantAddTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatParticipantDelete:
 			if handler, ok := u.handlers[UpdateChatParticipantDeleteTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDcOptions:
 			if handler, ok := u.handlers[UpdateDcOptionsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateNotifySettings:
 			if handler, ok := u.handlers[UpdateNotifySettingsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateServiceNotification:
 			if handler, ok := u.handlers[UpdateServiceNotificationTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePrivacy:
 			if handler, ok := u.handlers[UpdatePrivacyTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateUserPhone:
 			if handler, ok := u.handlers[UpdateUserPhoneTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadHistoryInbox:
 			if handler, ok := u.handlers[UpdateReadHistoryInboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadHistoryOutbox:
 			if handler, ok := u.handlers[UpdateReadHistoryOutboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateWebPage:
 			if handler, ok := u.handlers[UpdateWebPageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadMessagesContents:
 			if handler, ok := u.handlers[UpdateReadMessagesContentsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelTooLong:
 			if handler, ok := u.handlers[UpdateChannelTooLongTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannel:
 			if handler, ok := u.handlers[UpdateChannelTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateNewChannelMessage:
 			if handler, ok := u.handlers[UpdateNewChannelMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadChannelInbox:
 			if handler, ok := u.handlers[UpdateReadChannelInboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDeleteChannelMessages:
 			if handler, ok := u.handlers[UpdateDeleteChannelMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelMessageViews:
 			if handler, ok := u.handlers[UpdateChannelMessageViewsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatParticipantAdmin:
 			if handler, ok := u.handlers[UpdateChatParticipantAdminTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateNewStickerSet:
 			if handler, ok := u.handlers[UpdateNewStickerSetTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateStickerSetsOrder:
 			if handler, ok := u.handlers[UpdateStickerSetsOrderTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateStickerSets:
 			if handler, ok := u.handlers[UpdateStickerSetsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateSavedGifs:
 			if handler, ok := u.handlers[UpdateSavedGifsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotInlineQuery:
 			if handler, ok := u.handlers[UpdateBotInlineQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotInlineSend:
 			if handler, ok := u.handlers[UpdateBotInlineSendTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateEditChannelMessage:
 			if handler, ok := u.handlers[UpdateEditChannelMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotCallbackQuery:
 			if handler, ok := u.handlers[UpdateBotCallbackQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateEditMessage:
 			if handler, ok := u.handlers[UpdateEditMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateInlineBotCallbackQuery:
 			if handler, ok := u.handlers[UpdateInlineBotCallbackQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadChannelOutbox:
 			if handler, ok := u.handlers[UpdateReadChannelOutboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDraftMessage:
 			if handler, ok := u.handlers[UpdateDraftMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadFeaturedStickers:
 			if handler, ok := u.handlers[UpdateReadFeaturedStickersTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateRecentStickers:
 			if handler, ok := u.handlers[UpdateRecentStickersTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateConfig:
 			if handler, ok := u.handlers[UpdateConfigTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePtsChanged:
 			if handler, ok := u.handlers[UpdatePtsChangedTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelWebPage:
 			if handler, ok := u.handlers[UpdateChannelWebPageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDialogPinned:
 			if handler, ok := u.handlers[UpdateDialogPinnedTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePinnedDialogs:
 			if handler, ok := u.handlers[UpdatePinnedDialogsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotWebhookJSON:
 			if handler, ok := u.handlers[UpdateBotWebhookJSONTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotWebhookJSONQuery:
 			if handler, ok := u.handlers[UpdateBotWebhookJSONQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotShippingQuery:
 			if handler, ok := u.handlers[UpdateBotShippingQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateBotPrecheckoutQuery:
 			if handler, ok := u.handlers[UpdateBotPrecheckoutQueryTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePhoneCall:
 			if handler, ok := u.handlers[UpdatePhoneCallTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateLangPackTooLong:
 			if handler, ok := u.handlers[UpdateLangPackTooLongTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateLangPack:
 			if handler, ok := u.handlers[UpdateLangPackTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateFavedStickers:
 			if handler, ok := u.handlers[UpdateFavedStickersTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelReadMessagesContents:
 			if handler, ok := u.handlers[UpdateChannelReadMessagesContentsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateContactsReset:
 			if handler, ok := u.handlers[UpdateContactsResetTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelAvailableMessages:
 			if handler, ok := u.handlers[UpdateChannelAvailableMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDialogUnreadMark:
 			if handler, ok := u.handlers[UpdateDialogUnreadMarkTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateMessagePoll:
 			if handler, ok := u.handlers[UpdateMessagePollTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChatDefaultBannedRights:
 			if handler, ok := u.handlers[UpdateChatDefaultBannedRightsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateFolderPeers:
 			if handler, ok := u.handlers[UpdateFolderPeersTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePeerSettings:
 			if handler, ok := u.handlers[UpdatePeerSettingsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePeerLocated:
 			if handler, ok := u.handlers[UpdatePeerLocatedTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateNewScheduledMessage:
 			if handler, ok := u.handlers[UpdateNewScheduledMessageTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDeleteScheduledMessages:
 			if handler, ok := u.handlers[UpdateDeleteScheduledMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateTheme:
 			if handler, ok := u.handlers[UpdateThemeTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateGeoLiveViewed:
 			if handler, ok := u.handlers[UpdateGeoLiveViewedTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateLoginToken:
 			if handler, ok := u.handlers[UpdateLoginTokenTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateMessagePollVote:
 			if handler, ok := u.handlers[UpdateMessagePollVoteTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDialogFilter:
 			if handler, ok := u.handlers[UpdateDialogFilterTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDialogFilterOrder:
 			if handler, ok := u.handlers[UpdateDialogFilterOrderTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateDialogFilters:
 			if handler, ok := u.handlers[UpdateDialogFiltersTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePhoneCallSignalingData:
 			if handler, ok := u.handlers[UpdatePhoneCallSignalingDataTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelParticipant:
 			if handler, ok := u.handlers[UpdateChannelParticipantTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelMessageForwards:
 			if handler, ok := u.handlers[UpdateChannelMessageForwardsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadChannelDiscussionInbox:
 			if handler, ok := u.handlers[UpdateReadChannelDiscussionInboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateReadChannelDiscussionOutbox:
 			if handler, ok := u.handlers[UpdateReadChannelDiscussionOutboxTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePeerBlocked:
 			if handler, ok := u.handlers[UpdatePeerBlockedTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdateChannelUserTyping:
 			if handler, ok := u.handlers[UpdateChannelUserTypingTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePinnedMessages:
 			if handler, ok := u.handlers[UpdatePinnedMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}
 			}
 		case *UpdatePinnedChannelMessages:
 			if handler, ok := u.handlers[UpdatePinnedChannelMessagesTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
 				if err := handler(uctx, update); err != nil {
 					return err
 				}

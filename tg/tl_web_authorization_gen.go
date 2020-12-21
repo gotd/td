@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WebAuthorization represents TL type `webAuthorization#cac943f2`.
 // Represents a bot logged in using the Telegram login widget
@@ -41,6 +43,45 @@ type WebAuthorization struct {
 
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
 const WebAuthorizationTypeID = 0xcac943f2
+
+// String implements fmt.Stringer.
+func (w *WebAuthorization) String() string {
+	if w == nil {
+		return "WebAuthorization(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebAuthorization")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(w.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(fmt.Sprint(w.BotID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDomain: ")
+	sb.WriteString(fmt.Sprint(w.Domain))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBrowser: ")
+	sb.WriteString(fmt.Sprint(w.Browser))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPlatform: ")
+	sb.WriteString(fmt.Sprint(w.Platform))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDateCreated: ")
+	sb.WriteString(fmt.Sprint(w.DateCreated))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDateActive: ")
+	sb.WriteString(fmt.Sprint(w.DateActive))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIP: ")
+	sb.WriteString(fmt.Sprint(w.IP))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRegion: ")
+	sb.WriteString(fmt.Sprint(w.Region))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebAuthorization) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosPhoto represents TL type `photos.photo#20212ca8`.
 // Photo with auxiliary data.
@@ -27,6 +29,26 @@ type PhotosPhoto struct {
 
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.
 const PhotosPhotoTypeID = 0x20212ca8
+
+// String implements fmt.Stringer.
+func (p *PhotosPhoto) String() string {
+	if p == nil {
+		return "PhotosPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(p.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotosPhoto) Encode(b *bin.Buffer) error {

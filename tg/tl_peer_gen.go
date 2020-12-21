@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PeerUser represents TL type `peerUser#9db1bc6d`.
 // Chat partner
@@ -25,6 +27,21 @@ type PeerUser struct {
 
 // PeerUserTypeID is TL type id of PeerUser.
 const PeerUserTypeID = 0x9db1bc6d
+
+// String implements fmt.Stringer.
+func (p *PeerUser) String() string {
+	if p == nil {
+		return "PeerUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerUser")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(p.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerUser) Encode(b *bin.Buffer) error {
@@ -77,6 +94,21 @@ type PeerChat struct {
 // PeerChatTypeID is TL type id of PeerChat.
 const PeerChatTypeID = 0xbad0e5bb
 
+// String implements fmt.Stringer.
+func (p *PeerChat) String() string {
+	if p == nil {
+		return "PeerChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(p.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerChat) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -127,6 +159,21 @@ type PeerChannel struct {
 
 // PeerChannelTypeID is TL type id of PeerChannel.
 const PeerChannelTypeID = 0xbddde532
+
+// String implements fmt.Stringer.
+func (p *PeerChannel) String() string {
+	if p == nil {
+		return "PeerChannel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerChannel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(p.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerChannel) Encode(b *bin.Buffer) error {
@@ -186,6 +233,7 @@ type PeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PeerClass
+	fmt.Stringer
 }
 
 // DecodePeer implements binary de-serialization for PeerClass.

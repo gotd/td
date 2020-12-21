@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesStickerSet represents TL type `messages.stickerSet#b60a24a6`.
 // Stickerset and stickers inside it
@@ -29,6 +31,31 @@ type MessagesStickerSet struct {
 
 // MessagesStickerSetTypeID is TL type id of MessagesStickerSet.
 const MessagesStickerSetTypeID = 0xb60a24a6
+
+// String implements fmt.Stringer.
+func (s *MessagesStickerSet) String() string {
+	if s == nil {
+		return "MessagesStickerSet(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesStickerSet")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSet: ")
+	sb.WriteString(s.Set.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Packs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range s.Documents {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {

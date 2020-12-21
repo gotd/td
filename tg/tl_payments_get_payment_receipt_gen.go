@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsGetPaymentReceiptRequest represents TL type `payments.getPaymentReceipt#a092a980`.
 // Get payment receipt
@@ -25,6 +27,21 @@ type PaymentsGetPaymentReceiptRequest struct {
 
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
 const PaymentsGetPaymentReceiptRequestTypeID = 0xa092a980
+
+// String implements fmt.Stringer.
+func (g *PaymentsGetPaymentReceiptRequest) String() string {
+	if g == nil {
+		return "PaymentsGetPaymentReceiptRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsGetPaymentReceiptRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {

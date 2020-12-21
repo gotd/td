@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputReportReasonSpam represents TL type `inputReportReasonSpam#58dbcab8`.
 // Report for spam
@@ -23,6 +25,18 @@ type InputReportReasonSpam struct {
 
 // InputReportReasonSpamTypeID is TL type id of InputReportReasonSpam.
 const InputReportReasonSpamTypeID = 0x58dbcab8
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonSpam) String() string {
+	if i == nil {
+		return "InputReportReasonSpam(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonSpam")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type InputReportReasonViolence struct {
 // InputReportReasonViolenceTypeID is TL type id of InputReportReasonViolence.
 const InputReportReasonViolenceTypeID = 0x1e22c78d
 
+// String implements fmt.Stringer.
+func (i *InputReportReasonViolence) String() string {
+	if i == nil {
+		return "InputReportReasonViolence(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonViolence")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonViolence) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -106,6 +132,18 @@ type InputReportReasonPornography struct {
 // InputReportReasonPornographyTypeID is TL type id of InputReportReasonPornography.
 const InputReportReasonPornographyTypeID = 0x2e59d922
 
+// String implements fmt.Stringer.
+func (i *InputReportReasonPornography) String() string {
+	if i == nil {
+		return "InputReportReasonPornography(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonPornography")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -146,6 +184,18 @@ type InputReportReasonChildAbuse struct {
 
 // InputReportReasonChildAbuseTypeID is TL type id of InputReportReasonChildAbuse.
 const InputReportReasonChildAbuseTypeID = 0xadf44ee3
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonChildAbuse) String() string {
+	if i == nil {
+		return "InputReportReasonChildAbuse(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonChildAbuse")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputReportReasonChildAbuse) Encode(b *bin.Buffer) error {
@@ -189,6 +239,21 @@ type InputReportReasonOther struct {
 
 // InputReportReasonOtherTypeID is TL type id of InputReportReasonOther.
 const InputReportReasonOtherTypeID = 0xe1746d0a
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonOther) String() string {
+	if i == nil {
+		return "InputReportReasonOther(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonOther")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(i.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
@@ -239,6 +304,18 @@ type InputReportReasonCopyright struct {
 // InputReportReasonCopyrightTypeID is TL type id of InputReportReasonCopyright.
 const InputReportReasonCopyrightTypeID = 0x9b89f93a
 
+// String implements fmt.Stringer.
+func (i *InputReportReasonCopyright) String() string {
+	if i == nil {
+		return "InputReportReasonCopyright(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonCopyright")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonCopyright) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -279,6 +356,18 @@ type InputReportReasonGeoIrrelevant struct {
 
 // InputReportReasonGeoIrrelevantTypeID is TL type id of InputReportReasonGeoIrrelevant.
 const InputReportReasonGeoIrrelevantTypeID = 0xdbd4feed
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonGeoIrrelevant) String() string {
+	if i == nil {
+		return "InputReportReasonGeoIrrelevant(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonGeoIrrelevant")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputReportReasonGeoIrrelevant) Encode(b *bin.Buffer) error {
@@ -334,6 +423,7 @@ type ReportReasonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ReportReasonClass
+	fmt.Stringer
 }
 
 // DecodeReportReason implements binary de-serialization for ReportReasonClass.

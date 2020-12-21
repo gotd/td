@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UsersSetSecureValueErrorsRequest represents TL type `users.setSecureValueErrors#90c894b5`.
 // Notify the user that the sent passport data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).
@@ -28,6 +30,26 @@ type UsersSetSecureValueErrorsRequest struct {
 
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.
 const UsersSetSecureValueErrorsRequestTypeID = 0x90c894b5
+
+// String implements fmt.Stringer.
+func (s *UsersSetSecureValueErrorsRequest) String() string {
+	if s == nil {
+		return "UsersSetSecureValueErrorsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UsersSetSecureValueErrorsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(s.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Errors {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {

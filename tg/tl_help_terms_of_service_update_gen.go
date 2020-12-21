@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpTermsOfServiceUpdateEmpty represents TL type `help.termsOfServiceUpdateEmpty#e3309f7f`.
 // No changes were made to telegram's terms of service
@@ -25,6 +27,21 @@ type HelpTermsOfServiceUpdateEmpty struct {
 
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
 const HelpTermsOfServiceUpdateEmptyTypeID = 0xe3309f7f
+
+// String implements fmt.Stringer.
+func (t *HelpTermsOfServiceUpdateEmpty) String() string {
+	if t == nil {
+		return "HelpTermsOfServiceUpdateEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpTermsOfServiceUpdateEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(t.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
@@ -78,6 +95,24 @@ type HelpTermsOfServiceUpdate struct {
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.
 const HelpTermsOfServiceUpdateTypeID = 0x28ecf961
+
+// String implements fmt.Stringer.
+func (t *HelpTermsOfServiceUpdate) String() string {
+	if t == nil {
+		return "HelpTermsOfServiceUpdate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpTermsOfServiceUpdate")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(t.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTermsOfService: ")
+	sb.WriteString(t.TermsOfService.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
@@ -144,6 +179,7 @@ type HelpTermsOfServiceUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpTermsOfServiceUpdateClass
+	fmt.Stringer
 }
 
 // DecodeHelpTermsOfServiceUpdate implements binary de-serialization for HelpTermsOfServiceUpdateClass.

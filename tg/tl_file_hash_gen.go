@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // FileHash represents TL type `fileHash#6242c773`.
 //
@@ -28,6 +30,27 @@ type FileHash struct {
 
 // FileHashTypeID is TL type id of FileHash.
 const FileHashTypeID = 0x6242c773
+
+// String implements fmt.Stringer.
+func (f *FileHash) String() string {
+	if f == nil {
+		return "FileHash(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("FileHash")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(f.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(f.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(f.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *FileHash) Encode(b *bin.Buffer) error {

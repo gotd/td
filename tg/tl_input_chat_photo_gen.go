@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputChatPhotoEmpty represents TL type `inputChatPhotoEmpty#1ca48f57`.
 // Empty constructor, remove group photo.
@@ -23,6 +25,18 @@ type InputChatPhotoEmpty struct {
 
 // InputChatPhotoEmptyTypeID is TL type id of InputChatPhotoEmpty.
 const InputChatPhotoEmptyTypeID = 0x1ca48f57
+
+// String implements fmt.Stringer.
+func (i *InputChatPhotoEmpty) String() string {
+	if i == nil {
+		return "InputChatPhotoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChatPhotoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputChatPhotoEmpty) Encode(b *bin.Buffer) error {
@@ -78,6 +92,36 @@ type InputChatUploadedPhoto struct {
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
 const InputChatUploadedPhotoTypeID = 0xc642724e
+
+// String implements fmt.Stringer.
+func (i *InputChatUploadedPhoto) String() string {
+	if i == nil {
+		return "InputChatUploadedPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChatUploadedPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tFile: ")
+		sb.WriteString(i.File.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tVideo: ")
+		sb.WriteString(i.Video.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tVideoStartTs: ")
+		sb.WriteString(fmt.Sprint(i.VideoStartTs))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
@@ -215,6 +259,21 @@ type InputChatPhoto struct {
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
 const InputChatPhotoTypeID = 0x8953ad37
 
+// String implements fmt.Stringer.
+func (i *InputChatPhoto) String() string {
+	if i == nil {
+		return "InputChatPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChatPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChatPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -278,6 +337,7 @@ type InputChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputChatPhotoClass
+	fmt.Stringer
 }
 
 // DecodeInputChatPhoto implements binary de-serialization for InputChatPhotoClass.

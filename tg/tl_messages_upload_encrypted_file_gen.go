@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUploadEncryptedFileRequest represents TL type `messages.uploadEncryptedFile#5057c497`.
 // Upload encrypted file and associate it to a secret chat
@@ -27,6 +29,24 @@ type MessagesUploadEncryptedFileRequest struct {
 
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.
 const MessagesUploadEncryptedFileRequestTypeID = 0x5057c497
+
+// String implements fmt.Stringer.
+func (u *MessagesUploadEncryptedFileRequest) String() string {
+	if u == nil {
+		return "MessagesUploadEncryptedFileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUploadEncryptedFileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(u.File.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUploadEncryptedFileRequest) Encode(b *bin.Buffer) error {

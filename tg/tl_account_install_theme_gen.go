@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
 // Install a theme
@@ -35,6 +37,31 @@ type AccountInstallThemeRequest struct {
 
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.
 const AccountInstallThemeRequestTypeID = 0x7ae43737
+
+// String implements fmt.Stringer.
+func (i *AccountInstallThemeRequest) String() string {
+	if i == nil {
+		return "AccountInstallThemeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountInstallThemeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteString("\tFormat: ")
+		sb.WriteString(fmt.Sprint(i.Format))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tTheme: ")
+		sb.WriteString(i.Theme.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {

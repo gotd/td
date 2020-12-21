@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthRequestPasswordRecoveryRequest represents TL type `auth.requestPasswordRecovery#d897bc66`.
 // Request recovery code of a 2FA password, only for accounts with a recovery email configured.
@@ -23,6 +25,18 @@ type AuthRequestPasswordRecoveryRequest struct {
 
 // AuthRequestPasswordRecoveryRequestTypeID is TL type id of AuthRequestPasswordRecoveryRequest.
 const AuthRequestPasswordRecoveryRequestTypeID = 0xd897bc66
+
+// String implements fmt.Stringer.
+func (r *AuthRequestPasswordRecoveryRequest) String() string {
+	if r == nil {
+		return "AuthRequestPasswordRecoveryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthRequestPasswordRecoveryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AuthRequestPasswordRecoveryRequest) Encode(b *bin.Buffer) error {

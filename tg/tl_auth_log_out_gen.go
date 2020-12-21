@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthLogOutRequest represents TL type `auth.logOut#5717da40`.
 // Logs out the user.
@@ -23,6 +25,18 @@ type AuthLogOutRequest struct {
 
 // AuthLogOutRequestTypeID is TL type id of AuthLogOutRequest.
 const AuthLogOutRequestTypeID = 0x5717da40
+
+// String implements fmt.Stringer.
+func (l *AuthLogOutRequest) String() string {
+	if l == nil {
+		return "AuthLogOutRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthLogOutRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputBotInlineMessageID represents TL type `inputBotInlineMessageID#890c3d89`.
 // Represents a sent inline message from the perspective of a bot
@@ -29,6 +31,27 @@ type InputBotInlineMessageID struct {
 
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.
 const InputBotInlineMessageIDTypeID = 0x890c3d89
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageID) String() string {
+	if i == nil {
+		return "InputBotInlineMessageID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(i.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {

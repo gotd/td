@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
@@ -28,6 +30,30 @@ type BadServerSalt struct {
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
 const BadServerSaltTypeID = 0xedab447b
+
+// String implements fmt.Stringer.
+func (b *BadServerSalt) String() string {
+	if b == nil {
+		return "BadServerSalt(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BadServerSalt")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBadMsgID: ")
+	sb.WriteString(fmt.Sprint(b.BadMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBadMsgSeqno: ")
+	sb.WriteString(fmt.Sprint(b.BadMsgSeqno))
+	sb.WriteString(",\n")
+	sb.WriteString("\tErrorCode: ")
+	sb.WriteString(fmt.Sprint(b.ErrorCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewServerSalt: ")
+	sb.WriteString(fmt.Sprint(b.NewServerSalt))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BadServerSalt) Encode(buf *bin.Buffer) error {

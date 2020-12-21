@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsGetLocatedRequest represents TL type `contacts.getLocated#d348bc44`.
 // Get contacts near you
@@ -33,6 +35,29 @@ type ContactsGetLocatedRequest struct {
 
 // ContactsGetLocatedRequestTypeID is TL type id of ContactsGetLocatedRequest.
 const ContactsGetLocatedRequestTypeID = 0xd348bc44
+
+// String implements fmt.Stringer.
+func (g *ContactsGetLocatedRequest) String() string {
+	if g == nil {
+		return "ContactsGetLocatedRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsGetLocatedRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(g.GeoPoint.String())
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tSelfExpires: ")
+		sb.WriteString(fmt.Sprint(g.SelfExpires))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DocumentEmpty represents TL type `documentEmpty#36f8c871`.
 // Empty constructor, document doesn't exist.
@@ -25,6 +27,21 @@ type DocumentEmpty struct {
 
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
 const DocumentEmptyTypeID = 0x36f8c871
+
+// String implements fmt.Stringer.
+func (d *DocumentEmpty) String() string {
+	if d == nil {
+		return "DocumentEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(d.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
@@ -100,6 +117,61 @@ type Document struct {
 
 // DocumentTypeID is TL type id of Document.
 const DocumentTypeID = 0x1e87342b
+
+// String implements fmt.Stringer.
+func (d *Document) String() string {
+	if d == nil {
+		return "Document(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Document")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(d.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(d.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(d.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(d.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(d.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(d.Size))
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range d.Thumbs {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if d.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range d.VideoThumbs {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(d.DCID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range d.Attributes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *Document) Encode(b *bin.Buffer) error {
@@ -311,6 +383,7 @@ type DocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DocumentClass
+	fmt.Stringer
 }
 
 // DecodeDocument implements binary de-serialization for DocumentClass.

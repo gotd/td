@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
 // Creates a new chat.
@@ -27,6 +29,26 @@ type MessagesCreateChatRequest struct {
 
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
 const MessagesCreateChatRequestTypeID = 0x9cb126e
+
+// String implements fmt.Stringer.
+func (c *MessagesCreateChatRequest) String() string {
+	if c == nil {
+		return "MessagesCreateChatRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesCreateChatRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {

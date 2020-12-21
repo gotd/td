@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
 // Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
@@ -31,6 +33,30 @@ type UploadSaveBigFilePartRequest struct {
 
 // UploadSaveBigFilePartRequestTypeID is TL type id of UploadSaveBigFilePartRequest.
 const UploadSaveBigFilePartRequestTypeID = 0xde7b673d
+
+// String implements fmt.Stringer.
+func (s *UploadSaveBigFilePartRequest) String() string {
+	if s == nil {
+		return "UploadSaveBigFilePartRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadSaveBigFilePartRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileID: ")
+	sb.WriteString(fmt.Sprint(s.FileID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilePart: ")
+	sb.WriteString(fmt.Sprint(s.FilePart))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileTotalParts: ")
+	sb.WriteString(fmt.Sprint(s.FileTotalParts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(s.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *UploadSaveBigFilePartRequest) Encode(b *bin.Buffer) error {

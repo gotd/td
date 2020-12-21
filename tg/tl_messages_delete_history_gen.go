@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#1c015b09`.
 // Deletes communication history.
@@ -33,6 +35,27 @@ type MessagesDeleteHistoryRequest struct {
 
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.
 const MessagesDeleteHistoryRequestTypeID = 0x1c015b09
+
+// String implements fmt.Stringer.
+func (d *MessagesDeleteHistoryRequest) String() string {
+	if d == nil {
+		return "MessagesDeleteHistoryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDeleteHistoryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(d.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(d.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {

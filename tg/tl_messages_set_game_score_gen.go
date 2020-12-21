@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
 // Use this method to set the score of the specified user in a game sent as a normal message (bots only).
@@ -37,6 +39,33 @@ type MessagesSetGameScoreRequest struct {
 
 // MessagesSetGameScoreRequestTypeID is TL type id of MessagesSetGameScoreRequest.
 const MessagesSetGameScoreRequestTypeID = 0x8ef8ecc0
+
+// String implements fmt.Stringer.
+func (s *MessagesSetGameScoreRequest) String() string {
+	if s == nil {
+		return "MessagesSetGameScoreRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetGameScoreRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(s.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(s.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tScore: ")
+	sb.WriteString(fmt.Sprint(s.Score))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetGameScoreRequest) Encode(b *bin.Buffer) error {

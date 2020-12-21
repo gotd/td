@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosPhotos represents TL type `photos.photos#8dca6aa5`.
 // Full list of photos with auxiliary data.
@@ -27,6 +29,28 @@ type PhotosPhotos struct {
 
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
 const PhotosPhotosTypeID = 0x8dca6aa5
+
+// String implements fmt.Stringer.
+func (p *PhotosPhotos) String() string {
+	if p == nil {
+		return "PhotosPhotos(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosPhotos")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Photos {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotosPhotos) Encode(b *bin.Buffer) error {
@@ -118,6 +142,31 @@ type PhotosPhotosSlice struct {
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
 const PhotosPhotosSliceTypeID = 0x15051f54
+
+// String implements fmt.Stringer.
+func (p *PhotosPhotosSlice) String() string {
+	if p == nil {
+		return "PhotosPhotosSlice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosPhotosSlice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(p.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Photos {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotosPhotosSlice) Encode(b *bin.Buffer) error {
@@ -220,6 +269,7 @@ type PhotosPhotosClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotosPhotosClass
+	fmt.Stringer
 }
 
 // DecodePhotosPhotos implements binary de-serialization for PhotosPhotosClass.

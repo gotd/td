@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesClearRecentStickersRequest represents TL type `messages.clearRecentStickers#8999602d`.
 // Clear recent stickers
@@ -27,6 +29,21 @@ type MessagesClearRecentStickersRequest struct {
 
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.
 const MessagesClearRecentStickersRequestTypeID = 0x8999602d
+
+// String implements fmt.Stringer.
+func (c *MessagesClearRecentStickersRequest) String() string {
+	if c == nil {
+		return "MessagesClearRecentStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesClearRecentStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {

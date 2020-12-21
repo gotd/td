@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneDiscardCallRequest represents TL type `phone.discardCall#b2cbc1c0`.
 // Refuse or end running call
@@ -35,6 +37,33 @@ type PhoneDiscardCallRequest struct {
 
 // PhoneDiscardCallRequestTypeID is TL type id of PhoneDiscardCallRequest.
 const PhoneDiscardCallRequestTypeID = 0xb2cbc1c0
+
+// String implements fmt.Stringer.
+func (d *PhoneDiscardCallRequest) String() string {
+	if d == nil {
+		return "PhoneDiscardCallRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneDiscardCallRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(d.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDuration: ")
+	sb.WriteString(fmt.Sprint(d.Duration))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReason: ")
+	sb.WriteString(d.Reason.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tConnectionID: ")
+	sb.WriteString(fmt.Sprint(d.ConnectionID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {

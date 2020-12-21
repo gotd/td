@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSaveDraftRequest represents TL type `messages.saveDraft#bc39e14b`.
 // Save a message draft associated to a chat.
@@ -39,6 +41,39 @@ type MessagesSaveDraftRequest struct {
 
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.
 const MessagesSaveDraftRequestTypeID = 0xbc39e14b
+
+// String implements fmt.Stringer.
+func (s *MessagesSaveDraftRequest) String() string {
+	if s == nil {
+		return "MessagesSaveDraftRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSaveDraftRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tReplyToMsgID: ")
+		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(s.Message))
+	sb.WriteString(",\n")
+	if s.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range s.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {

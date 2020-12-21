@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsFound represents TL type `contacts.found#b3134d9d`.
 // Users found by name substring and auxiliary data.
@@ -31,6 +33,38 @@ type ContactsFound struct {
 
 // ContactsFoundTypeID is TL type id of ContactsFound.
 const ContactsFoundTypeID = 0xb3134d9d
+
+// String implements fmt.Stringer.
+func (f *ContactsFound) String() string {
+	if f == nil {
+		return "ContactsFound(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsFound")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range f.MyResults {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.Results {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *ContactsFound) Encode(b *bin.Buffer) error {

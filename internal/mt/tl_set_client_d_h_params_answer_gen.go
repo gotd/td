@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DhGenOk represents TL type `dh_gen_ok#3bcbf734`.
 type DhGenOk struct {
@@ -26,6 +28,27 @@ type DhGenOk struct {
 
 // DhGenOkTypeID is TL type id of DhGenOk.
 const DhGenOkTypeID = 0x3bcbf734
+
+// String implements fmt.Stringer.
+func (d *DhGenOk) String() string {
+	if d == nil {
+		return "DhGenOk(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DhGenOk")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(d.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(d.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonceHash1: ")
+	sb.WriteString(fmt.Sprint(d.NewNonceHash1))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DhGenOk) Encode(b *bin.Buffer) error {
@@ -95,6 +118,27 @@ type DhGenRetry struct {
 // DhGenRetryTypeID is TL type id of DhGenRetry.
 const DhGenRetryTypeID = 0x46dc1fb9
 
+// String implements fmt.Stringer.
+func (d *DhGenRetry) String() string {
+	if d == nil {
+		return "DhGenRetry(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DhGenRetry")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(d.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(d.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonceHash2: ")
+	sb.WriteString(fmt.Sprint(d.NewNonceHash2))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -162,6 +206,27 @@ type DhGenFail struct {
 
 // DhGenFailTypeID is TL type id of DhGenFail.
 const DhGenFailTypeID = 0xa69dae02
+
+// String implements fmt.Stringer.
+func (d *DhGenFail) String() string {
+	if d == nil {
+		return "DhGenFail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DhGenFail")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(d.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(d.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonceHash3: ")
+	sb.WriteString(fmt.Sprint(d.NewNonceHash3))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DhGenFail) Encode(b *bin.Buffer) error {
@@ -235,6 +300,7 @@ type SetClientDHParamsAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SetClientDHParamsAnswerClass
+	fmt.Stringer
 }
 
 // DecodeSetClientDHParamsAnswer implements binary de-serialization for SetClientDHParamsAnswerClass.

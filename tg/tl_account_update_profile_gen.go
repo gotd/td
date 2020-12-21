@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdateProfileRequest represents TL type `account.updateProfile#78515775`.
 // Updates user profile.
@@ -37,6 +39,36 @@ type AccountUpdateProfileRequest struct {
 
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.
 const AccountUpdateProfileRequestTypeID = 0x78515775
+
+// String implements fmt.Stringer.
+func (u *AccountUpdateProfileRequest) String() string {
+	if u == nil {
+		return "AccountUpdateProfileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdateProfileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFirstName: ")
+		sb.WriteString(fmt.Sprint(u.FirstName))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tLastName: ")
+		sb.WriteString(fmt.Sprint(u.LastName))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(2) {
+		sb.WriteString("\tAbout: ")
+		sb.WriteString(fmt.Sprint(u.About))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdateProfileRequest) Encode(b *bin.Buffer) error {

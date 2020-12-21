@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
 // Configuration for two-factor authorization
@@ -57,6 +59,55 @@ type AccountPassword struct {
 
 // AccountPasswordTypeID is TL type id of AccountPassword.
 const AccountPasswordTypeID = 0xad2641f8
+
+// String implements fmt.Stringer.
+func (p *AccountPassword) String() string {
+	if p == nil {
+		return "AccountPassword(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountPassword")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(2) {
+		sb.WriteString("\tCurrentAlgo: ")
+		sb.WriteString(p.CurrentAlgo.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tSrpB: ")
+		sb.WriteString(fmt.Sprint(p.SrpB))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tSrpID: ")
+		sb.WriteString(fmt.Sprint(p.SrpID))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(3) {
+		sb.WriteString("\tHint: ")
+		sb.WriteString(fmt.Sprint(p.Hint))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(4) {
+		sb.WriteString("\tEmailUnconfirmedPattern: ")
+		sb.WriteString(fmt.Sprint(p.EmailUnconfirmedPattern))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tNewAlgo: ")
+	sb.WriteString(p.NewAlgo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewSecureAlgo: ")
+	sb.WriteString(p.NewSecureAlgo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecureRandom: ")
+	sb.WriteString(fmt.Sprint(p.SecureRandom))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *AccountPassword) Encode(b *bin.Buffer) error {

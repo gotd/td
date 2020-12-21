@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetAllDraftsRequest represents TL type `messages.getAllDrafts#6a3f8d65`.
 // Save get all message drafts.
@@ -23,6 +25,18 @@ type MessagesGetAllDraftsRequest struct {
 
 // MessagesGetAllDraftsRequestTypeID is TL type id of MessagesGetAllDraftsRequest.
 const MessagesGetAllDraftsRequestTypeID = 0x6a3f8d65
+
+// String implements fmt.Stringer.
+func (g *MessagesGetAllDraftsRequest) String() string {
+	if g == nil {
+		return "MessagesGetAllDraftsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetAllDraftsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetAllDraftsRequest) Encode(b *bin.Buffer) error {

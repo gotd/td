@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetAuthorizationsRequest represents TL type `account.getAuthorizations#e320c158`.
 // Get logged-in sessions
@@ -23,6 +25,18 @@ type AccountGetAuthorizationsRequest struct {
 
 // AccountGetAuthorizationsRequestTypeID is TL type id of AccountGetAuthorizationsRequest.
 const AccountGetAuthorizationsRequestTypeID = 0xe320c158
+
+// String implements fmt.Stringer.
+func (g *AccountGetAuthorizationsRequest) String() string {
+	if g == nil {
+		return "AccountGetAuthorizationsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetAuthorizationsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {

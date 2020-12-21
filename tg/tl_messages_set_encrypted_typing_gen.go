@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetEncryptedTypingRequest represents TL type `messages.setEncryptedTyping#791451ed`.
 // Send typing event by the current user to a secret chat.
@@ -27,6 +29,24 @@ type MessagesSetEncryptedTypingRequest struct {
 
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.
 const MessagesSetEncryptedTypingRequestTypeID = 0x791451ed
+
+// String implements fmt.Stringer.
+func (s *MessagesSetEncryptedTypingRequest) String() string {
+	if s == nil {
+		return "MessagesSetEncryptedTypingRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetEncryptedTypingRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTyping: ")
+	sb.WriteString(fmt.Sprint(s.Typing))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetEncryptedTypingRequest) Encode(b *bin.Buffer) error {

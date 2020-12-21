@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageFwdHeader represents TL type `messageFwdHeader#5f777dce`.
 // Info about a forwarded message
@@ -55,6 +57,59 @@ type MessageFwdHeader struct {
 
 // MessageFwdHeaderTypeID is TL type id of MessageFwdHeader.
 const MessageFwdHeaderTypeID = 0x5f777dce
+
+// String implements fmt.Stringer.
+func (m *MessageFwdHeader) String() string {
+	if m == nil {
+		return "MessageFwdHeader(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageFwdHeader")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tFromID: ")
+		sb.WriteString(m.FromID.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(5) {
+		sb.WriteString("\tFromName: ")
+		sb.WriteString(fmt.Sprint(m.FromName))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	if m.Flags.Has(2) {
+		sb.WriteString("\tChannelPost: ")
+		sb.WriteString(fmt.Sprint(m.ChannelPost))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(3) {
+		sb.WriteString("\tPostAuthor: ")
+		sb.WriteString(fmt.Sprint(m.PostAuthor))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(4) {
+		sb.WriteString("\tSavedFromPeer: ")
+		sb.WriteString(m.SavedFromPeer.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(4) {
+		sb.WriteString("\tSavedFromMsgID: ")
+		sb.WriteString(fmt.Sprint(m.SavedFromMsgID))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(6) {
+		sb.WriteString("\tPsaType: ")
+		sb.WriteString(fmt.Sprint(m.PsaType))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {

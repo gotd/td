@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // CodeSettings represents TL type `codeSettings#debebe83`.
 // Settings used by telegram servers for sending the confirm code.
@@ -32,6 +34,21 @@ type CodeSettings struct {
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
 const CodeSettingsTypeID = 0xdebebe83
+
+// String implements fmt.Stringer.
+func (c *CodeSettings) String() string {
+	if c == nil {
+		return "CodeSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("CodeSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {

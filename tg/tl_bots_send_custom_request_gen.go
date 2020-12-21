@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BotsSendCustomRequestRequest represents TL type `bots.sendCustomRequest#aa2769ed`.
 // Sends a custom request; for bots only
@@ -27,6 +29,24 @@ type BotsSendCustomRequestRequest struct {
 
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.
 const BotsSendCustomRequestRequestTypeID = 0xaa2769ed
+
+// String implements fmt.Stringer.
+func (s *BotsSendCustomRequestRequest) String() string {
+	if s == nil {
+		return "BotsSendCustomRequestRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotsSendCustomRequestRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCustomMethod: ")
+	sb.WriteString(fmt.Sprint(s.CustomMethod))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParams: ")
+	sb.WriteString(s.Params.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {

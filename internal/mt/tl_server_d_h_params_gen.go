@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {
@@ -26,6 +28,27 @@ type ServerDHParamsFail struct {
 
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
 const ServerDHParamsFailTypeID = 0x79cb045d
+
+// String implements fmt.Stringer.
+func (s *ServerDHParamsFail) String() string {
+	if s == nil {
+		return "ServerDHParamsFail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ServerDHParamsFail")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(s.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(s.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonceHash: ")
+	sb.WriteString(fmt.Sprint(s.NewNonceHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ServerDHParamsFail) Encode(b *bin.Buffer) error {
@@ -94,6 +117,27 @@ type ServerDHParamsOk struct {
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.
 const ServerDHParamsOkTypeID = 0xd0e8075c
+
+// String implements fmt.Stringer.
+func (s *ServerDHParamsOk) String() string {
+	if s == nil {
+		return "ServerDHParamsOk(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ServerDHParamsOk")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(s.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(s.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptedAnswer: ")
+	sb.WriteString(fmt.Sprint(s.EncryptedAnswer))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ServerDHParamsOk) Encode(b *bin.Buffer) error {
@@ -166,6 +210,7 @@ type ServerDHParamsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ServerDHParamsClass
+	fmt.Stringer
 }
 
 // DecodeServerDHParams implements binary de-serialization for ServerDHParamsClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatEmpty represents TL type `chatEmpty#9ba2d800`.
 // Empty constructor, group doesn't exist
@@ -25,6 +27,21 @@ type ChatEmpty struct {
 
 // ChatEmptyTypeID is TL type id of ChatEmpty.
 const ChatEmptyTypeID = 0x9ba2d800
+
+// String implements fmt.Stringer.
+func (c *ChatEmpty) String() string {
+	if c == nil {
+		return "ChatEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatEmpty) Encode(b *bin.Buffer) error {
@@ -108,6 +125,54 @@ type Chat struct {
 
 // ChatTypeID is TL type id of Chat.
 const ChatTypeID = 0x3bda1bde
+
+// String implements fmt.Stringer.
+func (c *Chat) String() string {
+	if c == nil {
+		return "Chat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Chat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(c.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantsCount: ")
+	sb.WriteString(fmt.Sprint(c.ParticipantsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(c.Version))
+	sb.WriteString(",\n")
+	if c.Flags.Has(6) {
+		sb.WriteString("\tMigratedTo: ")
+		sb.WriteString(c.MigratedTo.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(14) {
+		sb.WriteString("\tAdminRights: ")
+		sb.WriteString(c.AdminRights.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(18) {
+		sb.WriteString("\tDefaultBannedRights: ")
+		sb.WriteString(c.DefaultBannedRights.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *Chat) Encode(b *bin.Buffer) error {
@@ -335,6 +400,24 @@ type ChatForbidden struct {
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
 const ChatForbiddenTypeID = 0x7328bdb
 
+// String implements fmt.Stringer.
+func (c *ChatForbidden) String() string {
+	if c == nil {
+		return "ChatForbidden(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatForbidden")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -457,6 +540,73 @@ type Channel struct {
 
 // ChannelTypeID is TL type id of Channel.
 const ChannelTypeID = 0xd31a961e
+
+// String implements fmt.Stringer.
+func (c *Channel) String() string {
+	if c == nil {
+		return "Channel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Channel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	if c.Flags.Has(13) {
+		sb.WriteString("\tAccessHash: ")
+		sb.WriteString(fmt.Sprint(c.AccessHash))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	if c.Flags.Has(6) {
+		sb.WriteString("\tUsername: ")
+		sb.WriteString(fmt.Sprint(c.Username))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(c.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(c.Version))
+	sb.WriteString(",\n")
+	if c.Flags.Has(9) {
+		sb.WriteByte('[')
+		for _, v := range c.RestrictionReason {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if c.Flags.Has(14) {
+		sb.WriteString("\tAdminRights: ")
+		sb.WriteString(c.AdminRights.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(15) {
+		sb.WriteString("\tBannedRights: ")
+		sb.WriteString(c.BannedRights.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(18) {
+		sb.WriteString("\tDefaultBannedRights: ")
+		sb.WriteString(c.DefaultBannedRights.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(17) {
+		sb.WriteString("\tParticipantsCount: ")
+		sb.WriteString(fmt.Sprint(c.ParticipantsCount))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *Channel) Encode(b *bin.Buffer) error {
@@ -884,6 +1034,35 @@ type ChannelForbidden struct {
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
 const ChannelForbiddenTypeID = 0x289da732
 
+// String implements fmt.Stringer.
+func (c *ChannelForbidden) String() string {
+	if c == nil {
+		return "ChannelForbidden(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelForbidden")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(c.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	if c.Flags.Has(16) {
+		sb.WriteString("\tUntilDate: ")
+		sb.WriteString(fmt.Sprint(c.UntilDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1013,6 +1192,7 @@ type ChatClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatClass
+	fmt.Stringer
 }
 
 // DecodeChat implements binary de-serialization for ChatClass.

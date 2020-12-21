@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetPrivacyRequest represents TL type `account.getPrivacy#dadbc950`.
 // Get privacy settings of current account
@@ -25,6 +27,21 @@ type AccountGetPrivacyRequest struct {
 
 // AccountGetPrivacyRequestTypeID is TL type id of AccountGetPrivacyRequest.
 const AccountGetPrivacyRequestTypeID = 0xdadbc950
+
+// String implements fmt.Stringer.
+func (g *AccountGetPrivacyRequest) String() string {
+	if g == nil {
+		return "AccountGetPrivacyRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetPrivacyRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(g.Key.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetPrivacyRequest) Encode(b *bin.Buffer) error {

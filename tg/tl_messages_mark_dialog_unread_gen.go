@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesMarkDialogUnreadRequest represents TL type `messages.markDialogUnread#c286d98f`.
 // Manually mark dialog as unread
@@ -29,6 +31,24 @@ type MessagesMarkDialogUnreadRequest struct {
 
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
 const MessagesMarkDialogUnreadRequestTypeID = 0xc286d98f
+
+// String implements fmt.Stringer.
+func (m *MessagesMarkDialogUnreadRequest) String() string {
+	if m == nil {
+		return "MessagesMarkDialogUnreadRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMarkDialogUnreadRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(m.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {

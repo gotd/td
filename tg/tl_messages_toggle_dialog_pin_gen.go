@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesToggleDialogPinRequest represents TL type `messages.toggleDialogPin#a731e257`.
 // Pin/unpin a dialog
@@ -29,6 +31,24 @@ type MessagesToggleDialogPinRequest struct {
 
 // MessagesToggleDialogPinRequestTypeID is TL type id of MessagesToggleDialogPinRequest.
 const MessagesToggleDialogPinRequestTypeID = 0xa731e257
+
+// String implements fmt.Stringer.
+func (t *MessagesToggleDialogPinRequest) String() string {
+	if t == nil {
+		return "MessagesToggleDialogPinRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesToggleDialogPinRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(t.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(t.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {

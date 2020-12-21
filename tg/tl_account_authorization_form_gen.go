@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
 // Telegram Passport authorization form
@@ -37,6 +39,46 @@ type AccountAuthorizationForm struct {
 
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.
 const AccountAuthorizationFormTypeID = 0xad2e1cd8
+
+// String implements fmt.Stringer.
+func (a *AccountAuthorizationForm) String() string {
+	if a == nil {
+		return "AccountAuthorizationForm(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountAuthorizationForm")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range a.RequiredTypes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range a.Values {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range a.Errors {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range a.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if a.Flags.Has(0) {
+		sb.WriteString("\tPrivacyPolicyURL: ")
+		sb.WriteString(fmt.Sprint(a.PrivacyPolicyURL))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelAdminLogEventActionChangeTitle represents TL type `channelAdminLogEventActionChangeTitle#e6dfb825`.
 // Channel/supergroup title was changed
@@ -27,6 +29,24 @@ type ChannelAdminLogEventActionChangeTitle struct {
 
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
 const ChannelAdminLogEventActionChangeTitleTypeID = 0xe6dfb825
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeTitle) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeTitle(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeTitle")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(fmt.Sprint(c.PrevValue))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeTitle) Encode(b *bin.Buffer) error {
@@ -89,6 +109,24 @@ type ChannelAdminLogEventActionChangeAbout struct {
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
 const ChannelAdminLogEventActionChangeAboutTypeID = 0x55188a2e
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeAbout) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeAbout(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeAbout")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(fmt.Sprint(c.PrevValue))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeAbout) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -149,6 +187,24 @@ type ChannelAdminLogEventActionChangeUsername struct {
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
 const ChannelAdminLogEventActionChangeUsernameTypeID = 0x6a4afc38
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeUsername) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeUsername(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeUsername")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(fmt.Sprint(c.PrevValue))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeUsername) Encode(b *bin.Buffer) error {
@@ -212,6 +268,24 @@ type ChannelAdminLogEventActionChangePhoto struct {
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
 const ChannelAdminLogEventActionChangePhotoTypeID = 0x434bd2af
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangePhoto) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangePhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangePhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevPhoto: ")
+	sb.WriteString(c.PrevPhoto.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewPhoto: ")
+	sb.WriteString(c.NewPhoto.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangePhoto) Encode(b *bin.Buffer) error {
@@ -282,6 +356,21 @@ type ChannelAdminLogEventActionToggleInvites struct {
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
 const ChannelAdminLogEventActionToggleInvitesTypeID = 0x1b7907ae
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleInvites) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleInvites(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionToggleInvites")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleInvites) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -335,6 +424,21 @@ type ChannelAdminLogEventActionToggleSignatures struct {
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
 const ChannelAdminLogEventActionToggleSignaturesTypeID = 0x26ae0971
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleSignatures) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleSignatures(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionToggleSignatures")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleSignatures) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -387,6 +491,21 @@ type ChannelAdminLogEventActionUpdatePinned struct {
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
 const ChannelAdminLogEventActionUpdatePinnedTypeID = 0xe9e82c18
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionUpdatePinned) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionUpdatePinned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionUpdatePinned")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(c.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionUpdatePinned) Encode(b *bin.Buffer) error {
@@ -447,6 +566,24 @@ type ChannelAdminLogEventActionEditMessage struct {
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
 const ChannelAdminLogEventActionEditMessageTypeID = 0x709b2405
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionEditMessage) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionEditMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionEditMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevMessage: ")
+	sb.WriteString(c.PrevMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewMessage: ")
+	sb.WriteString(c.NewMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionEditMessage) Encode(b *bin.Buffer) error {
@@ -517,6 +654,21 @@ type ChannelAdminLogEventActionDeleteMessage struct {
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
 const ChannelAdminLogEventActionDeleteMessageTypeID = 0x42e047bb
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionDeleteMessage) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionDeleteMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionDeleteMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(c.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionDeleteMessage) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -573,6 +725,18 @@ type ChannelAdminLogEventActionParticipantJoin struct {
 // ChannelAdminLogEventActionParticipantJoinTypeID is TL type id of ChannelAdminLogEventActionParticipantJoin.
 const ChannelAdminLogEventActionParticipantJoinTypeID = 0x183040d3
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantJoin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantJoin")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantJoin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -615,6 +779,18 @@ type ChannelAdminLogEventActionParticipantLeave struct {
 
 // ChannelAdminLogEventActionParticipantLeaveTypeID is TL type id of ChannelAdminLogEventActionParticipantLeave.
 const ChannelAdminLogEventActionParticipantLeaveTypeID = 0xf89777f2
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantLeave(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantLeave")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantLeave) Encode(b *bin.Buffer) error {
@@ -660,6 +836,21 @@ type ChannelAdminLogEventActionParticipantInvite struct {
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
 const ChannelAdminLogEventActionParticipantInviteTypeID = 0xe31c34d8
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantInvite) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantInvite(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantInvite")
+	sb.WriteString("{\n")
+	sb.WriteString("\tParticipant: ")
+	sb.WriteString(c.Participant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantInvite) Encode(b *bin.Buffer) error {
@@ -720,6 +911,24 @@ type ChannelAdminLogEventActionParticipantToggleBan struct {
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
 const ChannelAdminLogEventActionParticipantToggleBanTypeID = 0xe6d83d7e
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantToggleBan(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantToggleBan")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevParticipant: ")
+	sb.WriteString(c.PrevParticipant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewParticipant: ")
+	sb.WriteString(c.NewParticipant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) Encode(b *bin.Buffer) error {
@@ -794,6 +1003,24 @@ type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
 const ChannelAdminLogEventActionParticipantToggleAdminTypeID = 0xd5676710
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantToggleAdmin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantToggleAdmin")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevParticipant: ")
+	sb.WriteString(c.PrevParticipant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewParticipant: ")
+	sb.WriteString(c.NewParticipant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -867,6 +1094,24 @@ type ChannelAdminLogEventActionChangeStickerSet struct {
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
 const ChannelAdminLogEventActionChangeStickerSetTypeID = 0xb1c3caa7
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeStickerSet) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeStickerSet(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeStickerSet")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevStickerset: ")
+	sb.WriteString(c.PrevStickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewStickerset: ")
+	sb.WriteString(c.NewStickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeStickerSet) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -938,6 +1183,21 @@ type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
 const ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID = 0x5f5c95f1
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionTogglePreHistoryHidden(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionTogglePreHistoryHidden")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -992,6 +1252,24 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
 const ChannelAdminLogEventActionDefaultBannedRightsTypeID = 0x2df5fc0a
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionDefaultBannedRights(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionDefaultBannedRights")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevBannedRights: ")
+	sb.WriteString(c.PrevBannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewBannedRights: ")
+	sb.WriteString(c.NewBannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) Encode(b *bin.Buffer) error {
@@ -1054,6 +1332,21 @@ type ChannelAdminLogEventActionStopPoll struct {
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
 const ChannelAdminLogEventActionStopPollTypeID = 0x8f079643
 
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionStopPoll) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionStopPoll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionStopPoll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(c.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionStopPoll) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1111,6 +1404,24 @@ type ChannelAdminLogEventActionChangeLinkedChat struct {
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
 const ChannelAdminLogEventActionChangeLinkedChatTypeID = 0xa26f881b
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeLinkedChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeLinkedChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(fmt.Sprint(c.PrevValue))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error {
@@ -1174,6 +1485,24 @@ type ChannelAdminLogEventActionChangeLocation struct {
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
 const ChannelAdminLogEventActionChangeLocationTypeID = 0xe6b76ae
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeLocation) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionChangeLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(c.PrevValue.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(c.NewValue.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeLocation) Encode(b *bin.Buffer) error {
@@ -1247,6 +1576,24 @@ type ChannelAdminLogEventActionToggleSlowMode struct {
 
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
 const ChannelAdminLogEventActionToggleSlowModeTypeID = 0x53909779
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleSlowMode) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleSlowMode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionToggleSlowMode")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevValue: ")
+	sb.WriteString(fmt.Sprint(c.PrevValue))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewValue: ")
+	sb.WriteString(fmt.Sprint(c.NewValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleSlowMode) Encode(b *bin.Buffer) error {
@@ -1334,6 +1681,7 @@ type ChannelAdminLogEventActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelAdminLogEventActionClass
+	fmt.Stringer
 }
 
 // DecodeChannelAdminLogEventAction implements binary de-serialization for ChannelAdminLogEventActionClass.

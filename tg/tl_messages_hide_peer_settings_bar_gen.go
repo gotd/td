@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesHidePeerSettingsBarRequest represents TL type `messages.hidePeerSettingsBar#4facb138`.
 // Should be called after the user hides the report spam/add as contact bar of a new chat, effectively prevents the user from executing the actions specified in the peer's settings.
@@ -25,6 +27,21 @@ type MessagesHidePeerSettingsBarRequest struct {
 
 // MessagesHidePeerSettingsBarRequestTypeID is TL type id of MessagesHidePeerSettingsBarRequest.
 const MessagesHidePeerSettingsBarRequestTypeID = 0x4facb138
+
+// String implements fmt.Stringer.
+func (h *MessagesHidePeerSettingsBarRequest) String() string {
+	if h == nil {
+		return "MessagesHidePeerSettingsBarRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesHidePeerSettingsBarRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(h.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (h *MessagesHidePeerSettingsBarRequest) Encode(b *bin.Buffer) error {

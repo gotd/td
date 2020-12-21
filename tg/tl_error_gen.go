@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Error represents TL type `error#c4b9f9bb`.
 // Error.
@@ -27,6 +29,24 @@ type Error struct {
 
 // ErrorTypeID is TL type id of Error.
 const ErrorTypeID = 0xc4b9f9bb
+
+// String implements fmt.Stringer.
+func (e *Error) String() string {
+	if e == nil {
+		return "Error(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Error")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCode: ")
+	sb.WriteString(fmt.Sprint(e.Code))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(e.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *Error) Encode(b *bin.Buffer) error {

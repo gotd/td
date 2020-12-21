@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DocumentAttributeImageSize represents TL type `documentAttributeImageSize#6c37c15c`.
 // Defines the width and height of an image uploaded as document
@@ -27,6 +29,24 @@ type DocumentAttributeImageSize struct {
 
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
 const DocumentAttributeImageSizeTypeID = 0x6c37c15c
+
+// String implements fmt.Stringer.
+func (d *DocumentAttributeImageSize) String() string {
+	if d == nil {
+		return "DocumentAttributeImageSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeImageSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(d.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(d.H))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeImageSize) Encode(b *bin.Buffer) error {
@@ -85,6 +105,18 @@ type DocumentAttributeAnimated struct {
 // DocumentAttributeAnimatedTypeID is TL type id of DocumentAttributeAnimated.
 const DocumentAttributeAnimatedTypeID = 0x11b58939
 
+// String implements fmt.Stringer.
+func (d *DocumentAttributeAnimated) String() string {
+	if d == nil {
+		return "DocumentAttributeAnimated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeAnimated")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAnimated) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -137,6 +169,32 @@ type DocumentAttributeSticker struct {
 
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
 const DocumentAttributeStickerTypeID = 0x6319d612
+
+// String implements fmt.Stringer.
+func (d *DocumentAttributeSticker) String() string {
+	if d == nil {
+		return "DocumentAttributeSticker(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeSticker")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAlt: ")
+	sb.WriteString(fmt.Sprint(d.Alt))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(d.Stickerset.String())
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteString("\tMaskCoords: ")
+		sb.WriteString(d.MaskCoords.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
@@ -255,6 +313,30 @@ type DocumentAttributeVideo struct {
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
 const DocumentAttributeVideoTypeID = 0xef02ce6
 
+// String implements fmt.Stringer.
+func (d *DocumentAttributeVideo) String() string {
+	if d == nil {
+		return "DocumentAttributeVideo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeVideo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDuration: ")
+	sb.WriteString(fmt.Sprint(d.Duration))
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(d.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(d.H))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -365,6 +447,39 @@ type DocumentAttributeAudio struct {
 
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
 const DocumentAttributeAudioTypeID = 0x9852f9c6
+
+// String implements fmt.Stringer.
+func (d *DocumentAttributeAudio) String() string {
+	if d == nil {
+		return "DocumentAttributeAudio(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeAudio")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDuration: ")
+	sb.WriteString(fmt.Sprint(d.Duration))
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(d.Title))
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(1) {
+		sb.WriteString("\tPerformer: ")
+		sb.WriteString(fmt.Sprint(d.Performer))
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(2) {
+		sb.WriteString("\tWaveform: ")
+		sb.WriteString(fmt.Sprint(d.Waveform))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
@@ -510,6 +625,21 @@ type DocumentAttributeFilename struct {
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
 const DocumentAttributeFilenameTypeID = 0x15590068
 
+// String implements fmt.Stringer.
+func (d *DocumentAttributeFilename) String() string {
+	if d == nil {
+		return "DocumentAttributeFilename(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeFilename")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileName: ")
+	sb.WriteString(fmt.Sprint(d.FileName))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeFilename) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -558,6 +688,18 @@ type DocumentAttributeHasStickers struct {
 
 // DocumentAttributeHasStickersTypeID is TL type id of DocumentAttributeHasStickers.
 const DocumentAttributeHasStickersTypeID = 0x9801d2f7
+
+// String implements fmt.Stringer.
+func (d *DocumentAttributeHasStickers) String() string {
+	if d == nil {
+		return "DocumentAttributeHasStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DocumentAttributeHasStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeHasStickers) Encode(b *bin.Buffer) error {
@@ -613,6 +755,7 @@ type DocumentAttributeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DocumentAttributeClass
+	fmt.Stringer
 }
 
 // DecodeDocumentAttribute implements binary de-serialization for DocumentAttributeClass.

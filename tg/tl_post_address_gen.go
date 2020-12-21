@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PostAddress represents TL type `postAddress#1e8caaeb`.
 // Shipping address
@@ -35,6 +37,36 @@ type PostAddress struct {
 
 // PostAddressTypeID is TL type id of PostAddress.
 const PostAddressTypeID = 0x1e8caaeb
+
+// String implements fmt.Stringer.
+func (p *PostAddress) String() string {
+	if p == nil {
+		return "PostAddress(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PostAddress")
+	sb.WriteString("{\n")
+	sb.WriteString("\tStreetLine1: ")
+	sb.WriteString(fmt.Sprint(p.StreetLine1))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStreetLine2: ")
+	sb.WriteString(fmt.Sprint(p.StreetLine2))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCity: ")
+	sb.WriteString(fmt.Sprint(p.City))
+	sb.WriteString(",\n")
+	sb.WriteString("\tState: ")
+	sb.WriteString(fmt.Sprint(p.State))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCountryIso2: ")
+	sb.WriteString(fmt.Sprint(p.CountryIso2))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPostCode: ")
+	sb.WriteString(fmt.Sprint(p.PostCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PostAddress) Encode(b *bin.Buffer) error {

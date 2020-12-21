@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetContentSettingsRequest represents TL type `account.getContentSettings#8b9b4dae`.
 // Get sensitive content settings
@@ -23,6 +25,18 @@ type AccountGetContentSettingsRequest struct {
 
 // AccountGetContentSettingsRequestTypeID is TL type id of AccountGetContentSettingsRequest.
 const AccountGetContentSettingsRequestTypeID = 0x8b9b4dae
+
+// String implements fmt.Stringer.
+func (g *AccountGetContentSettingsRequest) String() string {
+	if g == nil {
+		return "AccountGetContentSettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetContentSettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetContentSettingsRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureData represents TL type `secureData#8aeabec3`.
 // Secure passport data, for more info see the passport docs »
@@ -29,6 +31,27 @@ type SecureData struct {
 
 // SecureDataTypeID is TL type id of SecureData.
 const SecureDataTypeID = 0x8aeabec3
+
+// String implements fmt.Stringer.
+func (s *SecureData) String() string {
+	if s == nil {
+		return "SecureData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(s.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDataHash: ")
+	sb.WriteString(fmt.Sprint(s.DataHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(s.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureData) Encode(b *bin.Buffer) error {

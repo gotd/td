@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendEncryptedServiceRequest represents TL type `messages.sendEncryptedService#32d439a4`.
 // Sends a service message to a secret chat.
@@ -29,6 +31,27 @@ type MessagesSendEncryptedServiceRequest struct {
 
 // MessagesSendEncryptedServiceRequestTypeID is TL type id of MessagesSendEncryptedServiceRequest.
 const MessagesSendEncryptedServiceRequestTypeID = 0x32d439a4
+
+// String implements fmt.Stringer.
+func (s *MessagesSendEncryptedServiceRequest) String() string {
+	if s == nil {
+		return "MessagesSendEncryptedServiceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendEncryptedServiceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(s.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(s.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedServiceRequest) Encode(b *bin.Buffer) error {

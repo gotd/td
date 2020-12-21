@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ClientDHInnerData represents TL type `client_DH_inner_data#6643b654`.
 type ClientDHInnerData struct {
@@ -28,6 +30,30 @@ type ClientDHInnerData struct {
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
 const ClientDHInnerDataTypeID = 0x6643b654
+
+// String implements fmt.Stringer.
+func (c *ClientDHInnerData) String() string {
+	if c == nil {
+		return "ClientDHInnerData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ClientDHInnerData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(c.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(c.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRetryID: ")
+	sb.WriteString(fmt.Sprint(c.RetryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGB: ")
+	sb.WriteString(fmt.Sprint(c.GB))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {

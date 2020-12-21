@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadGetCdnFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
 // Download a CDN file.
@@ -29,6 +31,27 @@ type UploadGetCdnFileRequest struct {
 
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
 const UploadGetCdnFileRequestTypeID = 0x2000bcc3
+
+// String implements fmt.Stringer.
+func (g *UploadGetCdnFileRequest) String() string {
+	if g == nil {
+		return "UploadGetCdnFileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadGetCdnFileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileToken: ")
+	sb.WriteString(fmt.Sprint(g.FileToken))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UploadGetCdnFileRequest) Encode(b *bin.Buffer) error {

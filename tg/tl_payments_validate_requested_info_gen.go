@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#770a8e74`.
 // Submit requested order information for validation
@@ -31,6 +33,27 @@ type PaymentsValidateRequestedInfoRequest struct {
 
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.
 const PaymentsValidateRequestedInfoRequestTypeID = 0x770a8e74
+
+// String implements fmt.Stringer.
+func (v *PaymentsValidateRequestedInfoRequest) String() string {
+	if v == nil {
+		return "PaymentsValidateRequestedInfoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsValidateRequestedInfoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(v.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(v.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInfo: ")
+	sb.WriteString(v.Info.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {

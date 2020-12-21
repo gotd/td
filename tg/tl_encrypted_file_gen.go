@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
 // Empty constructor, unexisitng file.
@@ -23,6 +25,18 @@ type EncryptedFileEmpty struct {
 
 // EncryptedFileEmptyTypeID is TL type id of EncryptedFileEmpty.
 const EncryptedFileEmptyTypeID = 0xc21f497e
+
+// String implements fmt.Stringer.
+func (e *EncryptedFileEmpty) String() string {
+	if e == nil {
+		return "EncryptedFileEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedFileEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedFileEmpty) Encode(b *bin.Buffer) error {
@@ -74,6 +88,33 @@ type EncryptedFile struct {
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
 const EncryptedFileTypeID = 0x4a70994c
+
+// String implements fmt.Stringer.
+func (e *EncryptedFile) String() string {
+	if e == nil {
+		return "EncryptedFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(e.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(e.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(e.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(e.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedFile) Encode(b *bin.Buffer) error {
@@ -164,6 +205,7 @@ type EncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedFileClass
+	fmt.Stringer
 }
 
 // DecodeEncryptedFile implements binary de-serialization for EncryptedFileClass.

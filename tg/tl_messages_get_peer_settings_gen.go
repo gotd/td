@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetPeerSettingsRequest represents TL type `messages.getPeerSettings#3672e09c`.
 // Get peer settings
@@ -25,6 +27,21 @@ type MessagesGetPeerSettingsRequest struct {
 
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
 const MessagesGetPeerSettingsRequestTypeID = 0x3672e09c
+
+// String implements fmt.Stringer.
+func (g *MessagesGetPeerSettingsRequest) String() string {
+	if g == nil {
+		return "MessagesGetPeerSettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetPeerSettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {

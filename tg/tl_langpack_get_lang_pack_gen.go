@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangpackGetLangPackRequest represents TL type `langpack.getLangPack#f2f2330a`.
 // Get localization pack strings
@@ -27,6 +29,24 @@ type LangpackGetLangPackRequest struct {
 
 // LangpackGetLangPackRequestTypeID is TL type id of LangpackGetLangPackRequest.
 const LangpackGetLangPackRequestTypeID = 0xf2f2330a
+
+// String implements fmt.Stringer.
+func (g *LangpackGetLangPackRequest) String() string {
+	if g == nil {
+		return "LangpackGetLangPackRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangpackGetLangPackRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangPack: ")
+	sb.WriteString(fmt.Sprint(g.LangPack))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *LangpackGetLangPackRequest) Encode(b *bin.Buffer) error {

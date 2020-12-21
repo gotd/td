@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#3076c4bf`.
 // Deletes a device by its token, stops sending PUSH-notifications to it.
@@ -29,6 +31,29 @@ type AccountUnregisterDeviceRequest struct {
 
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
 const AccountUnregisterDeviceRequestTypeID = 0x3076c4bf
+
+// String implements fmt.Stringer.
+func (u *AccountUnregisterDeviceRequest) String() string {
+	if u == nil {
+		return "AccountUnregisterDeviceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUnregisterDeviceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTokenType: ")
+	sb.WriteString(fmt.Sprint(u.TokenType))
+	sb.WriteString(",\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(u.Token))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.OtherUids {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {

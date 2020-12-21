@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetPassportConfigRequest represents TL type `help.getPassportConfig#c661ad08`.
 // Get passport configuration
@@ -25,6 +27,21 @@ type HelpGetPassportConfigRequest struct {
 
 // HelpGetPassportConfigRequestTypeID is TL type id of HelpGetPassportConfigRequest.
 const HelpGetPassportConfigRequestTypeID = 0xc661ad08
+
+// String implements fmt.Stringer.
+func (g *HelpGetPassportConfigRequest) String() string {
+	if g == nil {
+		return "HelpGetPassportConfigRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetPassportConfigRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetPassportConfigRequest) Encode(b *bin.Buffer) error {

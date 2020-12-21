@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpCountry represents TL type `help.country#c3878e23`.
 // Name, ISO code, localized name and phone codes/patterns of a specific country
@@ -37,6 +39,37 @@ type HelpCountry struct {
 
 // HelpCountryTypeID is TL type id of HelpCountry.
 const HelpCountryTypeID = 0xc3878e23
+
+// String implements fmt.Stringer.
+func (c *HelpCountry) String() string {
+	if c == nil {
+		return "HelpCountry(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpCountry")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tIso2: ")
+	sb.WriteString(fmt.Sprint(c.Iso2))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDefaultName: ")
+	sb.WriteString(fmt.Sprint(c.DefaultName))
+	sb.WriteString(",\n")
+	if c.Flags.Has(1) {
+		sb.WriteString("\tName: ")
+		sb.WriteString(fmt.Sprint(c.Name))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range c.CountryCodes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *HelpCountry) Encode(b *bin.Buffer) error {

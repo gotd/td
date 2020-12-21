@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputWallPaper represents TL type `inputWallPaper#e630b979`.
 // Wallpaper
@@ -27,6 +29,24 @@ type InputWallPaper struct {
 
 // InputWallPaperTypeID is TL type id of InputWallPaper.
 const InputWallPaperTypeID = 0xe630b979
+
+// String implements fmt.Stringer.
+func (i *InputWallPaper) String() string {
+	if i == nil {
+		return "InputWallPaper(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWallPaper")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputWallPaper) Encode(b *bin.Buffer) error {
@@ -87,6 +107,21 @@ type InputWallPaperSlug struct {
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.
 const InputWallPaperSlugTypeID = 0x72091c80
 
+// String implements fmt.Stringer.
+func (i *InputWallPaperSlug) String() string {
+	if i == nil {
+		return "InputWallPaperSlug(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWallPaperSlug")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSlug: ")
+	sb.WriteString(fmt.Sprint(i.Slug))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -135,6 +170,18 @@ type InputWallPaperNoFile struct {
 
 // InputWallPaperNoFileTypeID is TL type id of InputWallPaperNoFile.
 const InputWallPaperNoFileTypeID = 0x8427bbac
+
+// String implements fmt.Stringer.
+func (i *InputWallPaperNoFile) String() string {
+	if i == nil {
+		return "InputWallPaperNoFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWallPaperNoFile")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
@@ -186,6 +233,7 @@ type InputWallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputWallPaperClass
+	fmt.Stringer
 }
 
 // DecodeInputWallPaper implements binary de-serialization for InputWallPaperClass.

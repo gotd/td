@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
 // Unknown t.me url
@@ -25,6 +27,21 @@ type RecentMeUrlUnknown struct {
 
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
 const RecentMeUrlUnknownTypeID = 0x46e1d13d
+
+// String implements fmt.Stringer.
+func (r *RecentMeUrlUnknown) String() string {
+	if r == nil {
+		return "RecentMeUrlUnknown(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RecentMeUrlUnknown")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(r.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlUnknown) Encode(b *bin.Buffer) error {
@@ -78,6 +95,24 @@ type RecentMeUrlUser struct {
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
 const RecentMeUrlUserTypeID = 0x8dbc3336
+
+// String implements fmt.Stringer.
+func (r *RecentMeUrlUser) String() string {
+	if r == nil {
+		return "RecentMeUrlUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RecentMeUrlUser")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(r.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(r.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlUser) Encode(b *bin.Buffer) error {
@@ -140,6 +175,24 @@ type RecentMeUrlChat struct {
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
 const RecentMeUrlChatTypeID = 0xa01b22f9
 
+// String implements fmt.Stringer.
+func (r *RecentMeUrlChat) String() string {
+	if r == nil {
+		return "RecentMeUrlChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RecentMeUrlChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(r.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(r.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlChat) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -200,6 +253,24 @@ type RecentMeUrlChatInvite struct {
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
 const RecentMeUrlChatInviteTypeID = 0xeb49081d
+
+// String implements fmt.Stringer.
+func (r *RecentMeUrlChatInvite) String() string {
+	if r == nil {
+		return "RecentMeUrlChatInvite(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RecentMeUrlChatInvite")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(r.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatInvite: ")
+	sb.WriteString(r.ChatInvite.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlChatInvite) Encode(b *bin.Buffer) error {
@@ -266,6 +337,24 @@ type RecentMeUrlStickerSet struct {
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
 const RecentMeUrlStickerSetTypeID = 0xbc0a57dc
+
+// String implements fmt.Stringer.
+func (r *RecentMeUrlStickerSet) String() string {
+	if r == nil {
+		return "RecentMeUrlStickerSet(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RecentMeUrlStickerSet")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(r.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSet: ")
+	sb.WriteString(r.Set.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlStickerSet) Encode(b *bin.Buffer) error {
@@ -340,6 +429,7 @@ type RecentMeUrlClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() RecentMeUrlClass
+	fmt.Stringer
 }
 
 // DecodeRecentMeUrl implements binary de-serialization for RecentMeUrlClass.

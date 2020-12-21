@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
 // Represents the rights of a normal user in a supergroup/channel/chat. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
@@ -51,6 +53,24 @@ type ChatBannedRights struct {
 
 // ChatBannedRightsTypeID is TL type id of ChatBannedRights.
 const ChatBannedRightsTypeID = 0x9f120418
+
+// String implements fmt.Stringer.
+func (c *ChatBannedRights) String() string {
+	if c == nil {
+		return "ChatBannedRights(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatBannedRights")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUntilDate: ")
+	sb.WriteString(fmt.Sprint(c.UntilDate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatBannedRights) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdateNotifySettingsRequest represents TL type `account.updateNotifySettings#84be5b93`.
 // Edits notification settings from a given user/group, from all users/all groups.
@@ -27,6 +29,24 @@ type AccountUpdateNotifySettingsRequest struct {
 
 // AccountUpdateNotifySettingsRequestTypeID is TL type id of AccountUpdateNotifySettingsRequest.
 const AccountUpdateNotifySettingsRequestTypeID = 0x84be5b93
+
+// String implements fmt.Stringer.
+func (u *AccountUpdateNotifySettingsRequest) String() string {
+	if u == nil {
+		return "AccountUpdateNotifySettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdateNotifySettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(u.Settings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdateNotifySettingsRequest) Encode(b *bin.Buffer) error {

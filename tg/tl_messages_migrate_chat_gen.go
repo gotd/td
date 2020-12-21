@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesMigrateChatRequest represents TL type `messages.migrateChat#15a3b8e3`.
 // Turn a legacy group into a supergroup
@@ -25,6 +27,21 @@ type MessagesMigrateChatRequest struct {
 
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
 const MessagesMigrateChatRequestTypeID = 0x15a3b8e3
+
+// String implements fmt.Stringer.
+func (m *MessagesMigrateChatRequest) String() string {
+	if m == nil {
+		return "MessagesMigrateChatRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMigrateChatRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(m.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {

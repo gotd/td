@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSearchRequest represents TL type `messages.search#c352eec`.
 // Gets back found messages
@@ -55,6 +57,64 @@ type MessagesSearchRequest struct {
 
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
 const MessagesSearchRequestTypeID = 0xc352eec
+
+// String implements fmt.Stringer.
+func (s *MessagesSearchRequest) String() string {
+	if s == nil {
+		return "MessagesSearchRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSearchRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(s.Q))
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tFromID: ")
+		sb.WriteString(s.FromID.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(1) {
+		sb.WriteString("\tTopMsgID: ")
+		sb.WriteString(fmt.Sprint(s.TopMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(s.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinDate: ")
+	sb.WriteString(fmt.Sprint(s.MinDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxDate: ")
+	sb.WriteString(fmt.Sprint(s.MaxDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(s.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddOffset: ")
+	sb.WriteString(fmt.Sprint(s.AddOffset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(s.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(s.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinID: ")
+	sb.WriteString(fmt.Sprint(s.MinID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {

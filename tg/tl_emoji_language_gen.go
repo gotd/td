@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EmojiLanguage represents TL type `emojiLanguage#b3fb5361`.
 // Emoji language
@@ -25,6 +27,21 @@ type EmojiLanguage struct {
 
 // EmojiLanguageTypeID is TL type id of EmojiLanguage.
 const EmojiLanguageTypeID = 0xb3fb5361
+
+// String implements fmt.Stringer.
+func (e *EmojiLanguage) String() string {
+	if e == nil {
+		return "EmojiLanguage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EmojiLanguage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(e.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EmojiLanguage) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsCheckUsernameRequest represents TL type `channels.checkUsername#10e6bd2c`.
 // Check if a username is free and can be assigned to a channel/supergroup
@@ -27,6 +29,24 @@ type ChannelsCheckUsernameRequest struct {
 
 // ChannelsCheckUsernameRequestTypeID is TL type id of ChannelsCheckUsernameRequest.
 const ChannelsCheckUsernameRequestTypeID = 0x10e6bd2c
+
+// String implements fmt.Stringer.
+func (c *ChannelsCheckUsernameRequest) String() string {
+	if c == nil {
+		return "ChannelsCheckUsernameRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsCheckUsernameRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(c.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUsername: ")
+	sb.WriteString(fmt.Sprint(c.Username))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelsCheckUsernameRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // FoldersEditPeerFoldersRequest represents TL type `folders.editPeerFolders#6847d0ab`.
 // Edit peers in peer folder
@@ -25,6 +27,23 @@ type FoldersEditPeerFoldersRequest struct {
 
 // FoldersEditPeerFoldersRequestTypeID is TL type id of FoldersEditPeerFoldersRequest.
 const FoldersEditPeerFoldersRequestTypeID = 0x6847d0ab
+
+// String implements fmt.Stringer.
+func (e *FoldersEditPeerFoldersRequest) String() string {
+	if e == nil {
+		return "FoldersEditPeerFoldersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("FoldersEditPeerFoldersRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range e.FolderPeers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {

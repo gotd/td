@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Invoice represents TL type `invoice#c30aa358`.
 // Invoice
@@ -45,6 +47,29 @@ type Invoice struct {
 
 // InvoiceTypeID is TL type id of Invoice.
 const InvoiceTypeID = 0xc30aa358
+
+// String implements fmt.Stringer.
+func (i *Invoice) String() string {
+	if i == nil {
+		return "Invoice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Invoice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(i.Currency))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range i.Prices {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {

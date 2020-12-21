@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountPrivacyRules represents TL type `account.privacyRules#50a04e45`.
 // Privacy rules
@@ -29,6 +31,33 @@ type AccountPrivacyRules struct {
 
 // AccountPrivacyRulesTypeID is TL type id of AccountPrivacyRules.
 const AccountPrivacyRulesTypeID = 0x50a04e45
+
+// String implements fmt.Stringer.
+func (p *AccountPrivacyRules) String() string {
+	if p == nil {
+		return "AccountPrivacyRules(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountPrivacyRules")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Rules {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *AccountPrivacyRules) Encode(b *bin.Buffer) error {

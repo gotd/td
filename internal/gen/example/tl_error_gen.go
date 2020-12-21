@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Error represents TL type `error#14feebbc`.
 //
@@ -28,6 +30,27 @@ type Error struct {
 
 // ErrorTypeID is TL type id of Error.
 const ErrorTypeID = 0x14feebbc
+
+// String implements fmt.Stringer.
+func (e *Error) String() string {
+	if e == nil {
+		return "Error(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Error")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCode: ")
+	sb.WriteString(fmt.Sprint(e.Code))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(e.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTemporary: ")
+	sb.WriteString(fmt.Sprint(e.Temporary))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *Error) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsBlockRequest represents TL type `contacts.block#68cc1411`.
 // Adds the user to the blacklist.
@@ -25,6 +27,21 @@ type ContactsBlockRequest struct {
 
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.
 const ContactsBlockRequestTypeID = 0x68cc1411
+
+// String implements fmt.Stringer.
+func (b *ContactsBlockRequest) String() string {
+	if b == nil {
+		return "ContactsBlockRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsBlockRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(b.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *ContactsBlockRequest) Encode(buf *bin.Buffer) error {

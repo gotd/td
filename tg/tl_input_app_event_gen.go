@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputAppEvent represents TL type `inputAppEvent#1d1b1245`.
 // Event that occured in the application.
@@ -31,6 +33,30 @@ type InputAppEvent struct {
 
 // InputAppEventTypeID is TL type id of InputAppEvent.
 const InputAppEventTypeID = 0x1d1b1245
+
+// String implements fmt.Stringer.
+func (i *InputAppEvent) String() string {
+	if i == nil {
+		return "InputAppEvent(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputAppEvent")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTime: ")
+	sb.WriteString(fmt.Sprint(i.Time))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(i.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(fmt.Sprint(i.Peer))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(i.Data.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputAppEvent) Encode(b *bin.Buffer) error {

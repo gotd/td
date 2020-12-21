@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageUserVote represents TL type `messageUserVote#a28e5559`.
 // How a user voted in a poll
@@ -29,6 +31,27 @@ type MessageUserVote struct {
 
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
 const MessageUserVoteTypeID = 0xa28e5559
+
+// String implements fmt.Stringer.
+func (m *MessageUserVote) String() string {
+	if m == nil {
+		return "MessageUserVote(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageUserVote")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOption: ")
+	sb.WriteString(fmt.Sprint(m.Option))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageUserVote) Encode(b *bin.Buffer) error {
@@ -99,6 +122,24 @@ type MessageUserVoteInputOption struct {
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
 const MessageUserVoteInputOptionTypeID = 0x36377430
 
+// String implements fmt.Stringer.
+func (m *MessageUserVoteInputOption) String() string {
+	if m == nil {
+		return "MessageUserVoteInputOption(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageUserVoteInputOption")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -161,6 +202,29 @@ type MessageUserVoteMultiple struct {
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.
 const MessageUserVoteMultipleTypeID = 0xe8fe0de
+
+// String implements fmt.Stringer.
+func (m *MessageUserVoteMultiple) String() string {
+	if m == nil {
+		return "MessageUserVoteMultiple(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageUserVoteMultiple")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range m.Options {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
@@ -245,6 +309,7 @@ type MessageUserVoteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageUserVoteClass
+	fmt.Stringer
 }
 
 // DecodeMessageUserVote implements binary de-serialization for MessageUserVoteClass.

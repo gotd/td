@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
 // Get new updates.
@@ -35,6 +37,35 @@ type UpdatesGetDifferenceRequest struct {
 
 // UpdatesGetDifferenceRequestTypeID is TL type id of UpdatesGetDifferenceRequest.
 const UpdatesGetDifferenceRequestTypeID = 0x25939651
+
+// String implements fmt.Stringer.
+func (g *UpdatesGetDifferenceRequest) String() string {
+	if g == nil {
+		return "UpdatesGetDifferenceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesGetDifferenceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(g.Pts))
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tPtsTotalLimit: ")
+		sb.WriteString(fmt.Sprint(g.PtsTotalLimit))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(g.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQts: ")
+	sb.WriteString(fmt.Sprint(g.Qts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {

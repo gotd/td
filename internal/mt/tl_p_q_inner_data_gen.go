@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PQInnerDataConst represents TL type `p_q_inner_data_const#83c95aec`.
 type PQInnerDataConst struct {
@@ -32,6 +34,36 @@ type PQInnerDataConst struct {
 
 // PQInnerDataConstTypeID is TL type id of PQInnerDataConst.
 const PQInnerDataConstTypeID = 0x83c95aec
+
+// String implements fmt.Stringer.
+func (p *PQInnerDataConst) String() string {
+	if p == nil {
+		return "PQInnerDataConst(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PQInnerDataConst")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPq: ")
+	sb.WriteString(fmt.Sprint(p.Pq))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(p.P))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(p.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(p.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(p.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonce: ")
+	sb.WriteString(fmt.Sprint(p.NewNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PQInnerDataConst) Encode(b *bin.Buffer) error {
@@ -132,6 +164,39 @@ type PQInnerDataTemp struct {
 
 // PQInnerDataTempTypeID is TL type id of PQInnerDataTemp.
 const PQInnerDataTempTypeID = 0x3c6a84d4
+
+// String implements fmt.Stringer.
+func (p *PQInnerDataTemp) String() string {
+	if p == nil {
+		return "PQInnerDataTemp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PQInnerDataTemp")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPq: ")
+	sb.WriteString(fmt.Sprint(p.Pq))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(p.P))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(p.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(p.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(p.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewNonce: ")
+	sb.WriteString(fmt.Sprint(p.NewNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpiresIn: ")
+	sb.WriteString(fmt.Sprint(p.ExpiresIn))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PQInnerDataTemp) Encode(b *bin.Buffer) error {
@@ -236,6 +301,7 @@ type PQInnerDataClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PQInnerDataClass
+	fmt.Stringer
 }
 
 // DecodePQInnerData implements binary de-serialization for PQInnerDataClass.

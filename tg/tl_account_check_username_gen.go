@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountCheckUsernameRequest represents TL type `account.checkUsername#2714d86c`.
 // Validates a username and checks availability.
@@ -25,6 +27,21 @@ type AccountCheckUsernameRequest struct {
 
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.
 const AccountCheckUsernameRequestTypeID = 0x2714d86c
+
+// String implements fmt.Stringer.
+func (c *AccountCheckUsernameRequest) String() string {
+	if c == nil {
+		return "AccountCheckUsernameRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountCheckUsernameRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUsername: ")
+	sb.WriteString(fmt.Sprint(c.Username))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AccountCheckUsernameRequest) Encode(b *bin.Buffer) error {

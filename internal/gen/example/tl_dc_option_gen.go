@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DcOption represents TL type `dcOption#18b7a10d`.
 //
@@ -44,6 +46,35 @@ type DcOption struct {
 
 // DcOptionTypeID is TL type id of DcOption.
 const DcOptionTypeID = 0x18b7a10d
+
+// String implements fmt.Stringer.
+func (d *DcOption) String() string {
+	if d == nil {
+		return "DcOption(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DcOption")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(d.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIPAddress: ")
+	sb.WriteString(fmt.Sprint(d.IPAddress))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPort: ")
+	sb.WriteString(fmt.Sprint(d.Port))
+	sb.WriteString(",\n")
+	if d.Flags.Has(10) {
+		sb.WriteString("\tSecret: ")
+		sb.WriteString(fmt.Sprint(d.Secret))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DcOption) Encode(b *bin.Buffer) error {

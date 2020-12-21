@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatInviteAlready represents TL type `chatInviteAlready#5a686d7c`.
 // The user has already joined this chat
@@ -25,6 +27,21 @@ type ChatInviteAlready struct {
 
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
 const ChatInviteAlreadyTypeID = 0x5a686d7c
+
+// String implements fmt.Stringer.
+func (c *ChatInviteAlready) String() string {
+	if c == nil {
+		return "ChatInviteAlready(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatInviteAlready")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChat: ")
+	sb.WriteString(c.Chat.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatInviteAlready) Encode(b *bin.Buffer) error {
@@ -99,6 +116,37 @@ type ChatInvite struct {
 
 // ChatInviteTypeID is TL type id of ChatInvite.
 const ChatInviteTypeID = 0xdfc2f58e
+
+// String implements fmt.Stringer.
+func (c *ChatInvite) String() string {
+	if c == nil {
+		return "ChatInvite(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatInvite")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(c.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantsCount: ")
+	sb.WriteString(fmt.Sprint(c.ParticipantsCount))
+	sb.WriteString(",\n")
+	if c.Flags.Has(4) {
+		sb.WriteByte('[')
+		for _, v := range c.Participants {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatInvite) Encode(b *bin.Buffer) error {
@@ -261,6 +309,24 @@ type ChatInvitePeek struct {
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
 const ChatInvitePeekTypeID = 0x61695cb0
 
+// String implements fmt.Stringer.
+func (c *ChatInvitePeek) String() string {
+	if c == nil {
+		return "ChatInvitePeek(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatInvitePeek")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChat: ")
+	sb.WriteString(c.Chat.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(c.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInvitePeek) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -332,6 +398,7 @@ type ChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatInviteClass
+	fmt.Stringer
 }
 
 // DecodeChatInvite implements binary de-serialization for ChatInviteClass.

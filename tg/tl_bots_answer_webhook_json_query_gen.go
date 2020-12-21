@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BotsAnswerWebhookJSONQueryRequest represents TL type `bots.answerWebhookJSONQuery#e6213f4d`.
 // Answers a custom query; for bots only
@@ -27,6 +29,24 @@ type BotsAnswerWebhookJSONQueryRequest struct {
 
 // BotsAnswerWebhookJSONQueryRequestTypeID is TL type id of BotsAnswerWebhookJSONQueryRequest.
 const BotsAnswerWebhookJSONQueryRequestTypeID = 0xe6213f4d
+
+// String implements fmt.Stringer.
+func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
+	if a == nil {
+		return "BotsAnswerWebhookJSONQueryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotsAnswerWebhookJSONQueryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(a.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(a.Data.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsAbsValueAndPrev represents TL type `statsAbsValueAndPrev#cb43acde`.
 // Statistics value couple; intial and final value for period of time currently in consideration
@@ -27,6 +29,24 @@ type StatsAbsValueAndPrev struct {
 
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.
 const StatsAbsValueAndPrevTypeID = 0xcb43acde
+
+// String implements fmt.Stringer.
+func (s *StatsAbsValueAndPrev) String() string {
+	if s == nil {
+		return "StatsAbsValueAndPrev(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsAbsValueAndPrev")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCurrent: ")
+	sb.WriteString(fmt.Sprint(s.Current))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPrevious: ")
+	sb.WriteString(fmt.Sprint(s.Previous))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {

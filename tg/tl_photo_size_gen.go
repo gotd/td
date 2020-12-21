@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotoSizeEmpty represents TL type `photoSizeEmpty#e17e23c`.
 // Empty constructor. Image with this thumbnail is unavailable.
@@ -25,6 +27,21 @@ type PhotoSizeEmpty struct {
 
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
 const PhotoSizeEmptyTypeID = 0xe17e23c
+
+// String implements fmt.Stringer.
+func (p *PhotoSizeEmpty) String() string {
+	if p == nil {
+		return "PhotoSizeEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoSizeEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotoSizeEmpty) Encode(b *bin.Buffer) error {
@@ -84,6 +101,33 @@ type PhotoSize struct {
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
 const PhotoSizeTypeID = 0x77bfb61b
+
+// String implements fmt.Stringer.
+func (p *PhotoSize) String() string {
+	if p == nil {
+		return "PhotoSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(p.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(p.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(p.H))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(p.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotoSize) Encode(b *bin.Buffer) error {
@@ -176,6 +220,33 @@ type PhotoCachedSize struct {
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
 const PhotoCachedSizeTypeID = 0xe9a734fa
 
+// String implements fmt.Stringer.
+func (p *PhotoCachedSize) String() string {
+	if p == nil {
+		return "PhotoCachedSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoCachedSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(p.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(p.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(p.H))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(p.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -261,6 +332,24 @@ type PhotoStrippedSize struct {
 // PhotoStrippedSizeTypeID is TL type id of PhotoStrippedSize.
 const PhotoStrippedSizeTypeID = 0xe0b0bc2e
 
+// String implements fmt.Stringer.
+func (p *PhotoStrippedSize) String() string {
+	if p == nil {
+		return "PhotoStrippedSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoStrippedSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(p.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoStrippedSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -327,6 +416,35 @@ type PhotoSizeProgressive struct {
 
 // PhotoSizeProgressiveTypeID is TL type id of PhotoSizeProgressive.
 const PhotoSizeProgressiveTypeID = 0x5aa86a51
+
+// String implements fmt.Stringer.
+func (p *PhotoSizeProgressive) String() string {
+	if p == nil {
+		return "PhotoSizeProgressive(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoSizeProgressive")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(p.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(p.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(p.H))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Sizes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotoSizeProgressive) Encode(b *bin.Buffer) error {
@@ -422,6 +540,24 @@ type PhotoPathSize struct {
 // PhotoPathSizeTypeID is TL type id of PhotoPathSize.
 const PhotoPathSizeTypeID = 0xd8214d41
 
+// String implements fmt.Stringer.
+func (p *PhotoPathSize) String() string {
+	if p == nil {
+		return "PhotoPathSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoPathSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(p.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(p.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoPathSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -491,6 +627,7 @@ type PhotoSizeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotoSizeClass
+	fmt.Stringer
 }
 
 // DecodePhotoSize implements binary de-serialization for PhotoSizeClass.

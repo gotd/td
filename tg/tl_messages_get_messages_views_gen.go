@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetMessagesViewsRequest represents TL type `messages.getMessagesViews#5784d3e1`.
 // Get and increase the view counter of a message sent or forwarded from a channel
@@ -29,6 +31,29 @@ type MessagesGetMessagesViewsRequest struct {
 
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.
 const MessagesGetMessagesViewsRequestTypeID = 0x5784d3e1
+
+// String implements fmt.Stringer.
+func (g *MessagesGetMessagesViewsRequest) String() string {
+	if g == nil {
+		return "MessagesGetMessagesViewsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetMessagesViewsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range g.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tIncrement: ")
+	sb.WriteString(fmt.Sprint(g.Increment))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {

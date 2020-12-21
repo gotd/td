@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Pong represents TL type `pong#347773c5`.
 type Pong struct {
@@ -24,6 +26,24 @@ type Pong struct {
 
 // PongTypeID is TL type id of Pong.
 const PongTypeID = 0x347773c5
+
+// String implements fmt.Stringer.
+func (p *Pong) String() string {
+	if p == nil {
+		return "Pong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Pong")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(p.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPingID: ")
+	sb.WriteString(fmt.Sprint(p.PingID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *Pong) Encode(b *bin.Buffer) error {

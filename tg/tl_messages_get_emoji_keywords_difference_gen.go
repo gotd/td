@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetEmojiKeywordsDifferenceRequest represents TL type `messages.getEmojiKeywordsDifference#1508b6af`.
 // Get changed emoji keywords
@@ -27,6 +29,24 @@ type MessagesGetEmojiKeywordsDifferenceRequest struct {
 
 // MessagesGetEmojiKeywordsDifferenceRequestTypeID is TL type id of MessagesGetEmojiKeywordsDifferenceRequest.
 const MessagesGetEmojiKeywordsDifferenceRequestTypeID = 0x1508b6af
+
+// String implements fmt.Stringer.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) String() string {
+	if g == nil {
+		return "MessagesGetEmojiKeywordsDifferenceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetEmojiKeywordsDifferenceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromVersion: ")
+	sb.WriteString(fmt.Sprint(g.FromVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error {

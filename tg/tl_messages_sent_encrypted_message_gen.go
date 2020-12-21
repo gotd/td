@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSentEncryptedMessage represents TL type `messages.sentEncryptedMessage#560f8935`.
 // Message without file attachemts sent to an encrypted file.
@@ -25,6 +27,21 @@ type MessagesSentEncryptedMessage struct {
 
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
 const MessagesSentEncryptedMessageTypeID = 0x560f8935
+
+// String implements fmt.Stringer.
+func (s *MessagesSentEncryptedMessage) String() string {
+	if s == nil {
+		return "MessagesSentEncryptedMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSentEncryptedMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(s.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSentEncryptedMessage) Encode(b *bin.Buffer) error {
@@ -78,6 +95,24 @@ type MessagesSentEncryptedFile struct {
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
 const MessagesSentEncryptedFileTypeID = 0x9493ff32
+
+// String implements fmt.Stringer.
+func (s *MessagesSentEncryptedFile) String() string {
+	if s == nil {
+		return "MessagesSentEncryptedFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSentEncryptedFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(s.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(s.File.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSentEncryptedFile) Encode(b *bin.Buffer) error {
@@ -149,6 +184,7 @@ type MessagesSentEncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesSentEncryptedMessageClass
+	fmt.Stringer
 }
 
 // DecodeMessagesSentEncryptedMessage implements binary de-serialization for MessagesSentEncryptedMessageClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageMediaEmpty represents TL type `messageMediaEmpty#3ded6320`.
 // Empty constructor.
@@ -23,6 +25,18 @@ type MessageMediaEmpty struct {
 
 // MessageMediaEmptyTypeID is TL type id of MessageMediaEmpty.
 const MessageMediaEmptyTypeID = 0x3ded6320
+
+// String implements fmt.Stringer.
+func (m *MessageMediaEmpty) String() string {
+	if m == nil {
+		return "MessageMediaEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaEmpty) Encode(b *bin.Buffer) error {
@@ -74,6 +88,31 @@ type MessageMediaPhoto struct {
 
 // MessageMediaPhotoTypeID is TL type id of MessageMediaPhoto.
 const MessageMediaPhotoTypeID = 0x695150d7
+
+// String implements fmt.Stringer.
+func (m *MessageMediaPhoto) String() string {
+	if m == nil {
+		return "MessageMediaPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(m.Photo.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(2) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(m.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaPhoto) Encode(b *bin.Buffer) error {
@@ -181,6 +220,21 @@ type MessageMediaGeo struct {
 // MessageMediaGeoTypeID is TL type id of MessageMediaGeo.
 const MessageMediaGeoTypeID = 0x56e0d474
 
+// String implements fmt.Stringer.
+func (m *MessageMediaGeo) String() string {
+	if m == nil {
+		return "MessageMediaGeo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaGeo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(m.Geo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaGeo) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -244,6 +298,33 @@ type MessageMediaContact struct {
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
 const MessageMediaContactTypeID = 0xcbf24940
+
+// String implements fmt.Stringer.
+func (m *MessageMediaContact) String() string {
+	if m == nil {
+		return "MessageMediaContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(m.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(m.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(m.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVcard: ")
+	sb.WriteString(fmt.Sprint(m.Vcard))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaContact) Encode(b *bin.Buffer) error {
@@ -326,6 +407,18 @@ type MessageMediaUnsupported struct {
 // MessageMediaUnsupportedTypeID is TL type id of MessageMediaUnsupported.
 const MessageMediaUnsupportedTypeID = 0x9f84f49e
 
+// String implements fmt.Stringer.
+func (m *MessageMediaUnsupported) String() string {
+	if m == nil {
+		return "MessageMediaUnsupported(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaUnsupported")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaUnsupported) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -376,6 +469,31 @@ type MessageMediaDocument struct {
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
 const MessageMediaDocumentTypeID = 0x9cb070d7
+
+// String implements fmt.Stringer.
+func (m *MessageMediaDocument) String() string {
+	if m == nil {
+		return "MessageMediaDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(m.Document.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(2) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(m.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
@@ -483,6 +601,21 @@ type MessageMediaWebPage struct {
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
 const MessageMediaWebPageTypeID = 0xa32dd600
 
+// String implements fmt.Stringer.
+func (m *MessageMediaWebPage) String() string {
+	if m == nil {
+		return "MessageMediaWebPage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaWebPage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tWebpage: ")
+	sb.WriteString(m.Webpage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaWebPage) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -548,6 +681,36 @@ type MessageMediaVenue struct {
 
 // MessageMediaVenueTypeID is TL type id of MessageMediaVenue.
 const MessageMediaVenueTypeID = 0x2ec0533f
+
+// String implements fmt.Stringer.
+func (m *MessageMediaVenue) String() string {
+	if m == nil {
+		return "MessageMediaVenue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaVenue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(m.Geo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(m.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProvider: ")
+	sb.WriteString(fmt.Sprint(m.Provider))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueID: ")
+	sb.WriteString(fmt.Sprint(m.VenueID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueType: ")
+	sb.WriteString(fmt.Sprint(m.VenueType))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaVenue) Encode(b *bin.Buffer) error {
@@ -645,6 +808,21 @@ type MessageMediaGame struct {
 // MessageMediaGameTypeID is TL type id of MessageMediaGame.
 const MessageMediaGameTypeID = 0xfdb19008
 
+// String implements fmt.Stringer.
+func (m *MessageMediaGame) String() string {
+	if m == nil {
+		return "MessageMediaGame(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaGame")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGame: ")
+	sb.WriteString(m.Game.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaGame) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -717,6 +895,46 @@ type MessageMediaInvoice struct {
 
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
 const MessageMediaInvoiceTypeID = 0x84551347
+
+// String implements fmt.Stringer.
+func (m *MessageMediaInvoice) String() string {
+	if m == nil {
+		return "MessageMediaInvoice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaInvoice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDescription: ")
+	sb.WriteString(fmt.Sprint(m.Description))
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(m.Photo.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(2) {
+		sb.WriteString("\tReceiptMsgID: ")
+		sb.WriteString(fmt.Sprint(m.ReceiptMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(m.Currency))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotalAmount: ")
+	sb.WriteString(fmt.Sprint(m.TotalAmount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStartParam: ")
+	sb.WriteString(fmt.Sprint(m.StartParam))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
@@ -896,6 +1114,37 @@ type MessageMediaGeoLive struct {
 // MessageMediaGeoLiveTypeID is TL type id of MessageMediaGeoLive.
 const MessageMediaGeoLiveTypeID = 0xb940c666
 
+// String implements fmt.Stringer.
+func (m *MessageMediaGeoLive) String() string {
+	if m == nil {
+		return "MessageMediaGeoLive(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaGeoLive")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(m.Geo.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tHeading: ")
+		sb.WriteString(fmt.Sprint(m.Heading))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeriod: ")
+	sb.WriteString(fmt.Sprint(m.Period))
+	sb.WriteString(",\n")
+	if m.Flags.Has(1) {
+		sb.WriteString("\tProximityNotificationRadius: ")
+		sb.WriteString(fmt.Sprint(m.ProximityNotificationRadius))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaGeoLive) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1020,6 +1269,24 @@ type MessageMediaPoll struct {
 // MessageMediaPollTypeID is TL type id of MessageMediaPoll.
 const MessageMediaPollTypeID = 0x4bd6e798
 
+// String implements fmt.Stringer.
+func (m *MessageMediaPoll) String() string {
+	if m == nil {
+		return "MessageMediaPoll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaPoll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPoll: ")
+	sb.WriteString(m.Poll.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tResults: ")
+	sb.WriteString(m.Results.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageMediaPoll) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1080,6 +1347,24 @@ type MessageMediaDice struct {
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.
 const MessageMediaDiceTypeID = 0x3f7ee58b
+
+// String implements fmt.Stringer.
+func (m *MessageMediaDice) String() string {
+	if m == nil {
+		return "MessageMediaDice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageMediaDice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(fmt.Sprint(m.Value))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEmoticon: ")
+	sb.WriteString(fmt.Sprint(m.Emoticon))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageMediaDice) Encode(b *bin.Buffer) error {
@@ -1157,6 +1442,7 @@ type MessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageMediaClass
+	fmt.Stringer
 }
 
 // DecodeMessageMedia implements binary de-serialization for MessageMediaClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetThemeRequest represents TL type `account.getTheme#8d9d742b`.
 // Get theme information
@@ -29,6 +31,27 @@ type AccountGetThemeRequest struct {
 
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.
 const AccountGetThemeRequestTypeID = 0x8d9d742b
+
+// String implements fmt.Stringer.
+func (g *AccountGetThemeRequest) String() string {
+	if g == nil {
+		return "AccountGetThemeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetThemeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFormat: ")
+	sb.WriteString(fmt.Sprint(g.Format))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTheme: ")
+	sb.WriteString(g.Theme.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDocumentID: ")
+	sb.WriteString(fmt.Sprint(g.DocumentID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {

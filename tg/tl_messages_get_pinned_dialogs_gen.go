@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetPinnedDialogsRequest represents TL type `messages.getPinnedDialogs#d6b94df2`.
 // Get pinned dialogs
@@ -25,6 +27,21 @@ type MessagesGetPinnedDialogsRequest struct {
 
 // MessagesGetPinnedDialogsRequestTypeID is TL type id of MessagesGetPinnedDialogsRequest.
 const MessagesGetPinnedDialogsRequestTypeID = 0xd6b94df2
+
+// String implements fmt.Stringer.
+func (g *MessagesGetPinnedDialogsRequest) String() string {
+	if g == nil {
+		return "MessagesGetPinnedDialogsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetPinnedDialogsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFolderID: ")
+	sb.WriteString(fmt.Sprint(g.FolderID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {

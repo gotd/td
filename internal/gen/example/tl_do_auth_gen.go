@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DoAuthRequest represents TL type `doAuth#fd2f6687`.
 //
@@ -22,6 +24,18 @@ type DoAuthRequest struct {
 
 // DoAuthRequestTypeID is TL type id of DoAuthRequest.
 const DoAuthRequestTypeID = 0xfd2f6687
+
+// String implements fmt.Stringer.
+func (d *DoAuthRequest) String() string {
+	if d == nil {
+		return "DoAuthRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DoAuthRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DoAuthRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsTogglePreHistoryHiddenRequest represents TL type `channels.togglePreHistoryHidden#eabbb94c`.
 // Hide/unhide message history for new channel/supergroup users
@@ -27,6 +29,24 @@ type ChannelsTogglePreHistoryHiddenRequest struct {
 
 // ChannelsTogglePreHistoryHiddenRequestTypeID is TL type id of ChannelsTogglePreHistoryHiddenRequest.
 const ChannelsTogglePreHistoryHiddenRequestTypeID = 0xeabbb94c
+
+// String implements fmt.Stringer.
+func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
+	if t == nil {
+		return "ChannelsTogglePreHistoryHiddenRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsTogglePreHistoryHiddenRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(t.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tEnabled: ")
+	sb.WriteString(fmt.Sprint(t.Enabled))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {

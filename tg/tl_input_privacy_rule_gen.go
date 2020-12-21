@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPrivacyValueAllowContacts represents TL type `inputPrivacyValueAllowContacts#d09e07b`.
 // Allow only contacts
@@ -23,6 +25,18 @@ type InputPrivacyValueAllowContacts struct {
 
 // InputPrivacyValueAllowContactsTypeID is TL type id of InputPrivacyValueAllowContacts.
 const InputPrivacyValueAllowContactsTypeID = 0xd09e07b
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowContacts) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueAllowContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
@@ -64,6 +78,18 @@ type InputPrivacyValueAllowAll struct {
 
 // InputPrivacyValueAllowAllTypeID is TL type id of InputPrivacyValueAllowAll.
 const InputPrivacyValueAllowAllTypeID = 0x184b35ce
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowAll) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowAll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueAllowAll")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowAll) Encode(b *bin.Buffer) error {
@@ -107,6 +133,23 @@ type InputPrivacyValueAllowUsers struct {
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
 const InputPrivacyValueAllowUsersTypeID = 0x131cc67f
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowUsers) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowUsers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueAllowUsers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
@@ -171,6 +214,18 @@ type InputPrivacyValueDisallowContacts struct {
 // InputPrivacyValueDisallowContactsTypeID is TL type id of InputPrivacyValueDisallowContacts.
 const InputPrivacyValueDisallowContactsTypeID = 0xba52007
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueDisallowContacts) String() string {
+	if i == nil {
+		return "InputPrivacyValueDisallowContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueDisallowContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -211,6 +266,18 @@ type InputPrivacyValueDisallowAll struct {
 
 // InputPrivacyValueDisallowAllTypeID is TL type id of InputPrivacyValueDisallowAll.
 const InputPrivacyValueDisallowAllTypeID = 0xd66b66c9
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueDisallowAll) String() string {
+	if i == nil {
+		return "InputPrivacyValueDisallowAll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueDisallowAll")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
@@ -254,6 +321,23 @@ type InputPrivacyValueDisallowUsers struct {
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
 const InputPrivacyValueDisallowUsersTypeID = 0x90110467
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueDisallowUsers) String() string {
+	if i == nil {
+		return "InputPrivacyValueDisallowUsers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueDisallowUsers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
@@ -320,6 +404,23 @@ type InputPrivacyValueAllowChatParticipants struct {
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
 const InputPrivacyValueAllowChatParticipantsTypeID = 0x4c81c1ba
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueAllowChatParticipants) String() string {
+	if i == nil {
+		return "InputPrivacyValueAllowChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueAllowChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -379,6 +480,23 @@ type InputPrivacyValueDisallowChatParticipants struct {
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.
 const InputPrivacyValueDisallowChatParticipantsTypeID = 0xd82363af
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyValueDisallowChatParticipants) String() string {
+	if i == nil {
+		return "InputPrivacyValueDisallowChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyValueDisallowChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
@@ -452,6 +570,7 @@ type InputPrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPrivacyRuleClass
+	fmt.Stringer
 }
 
 // DecodeInputPrivacyRule implements binary de-serialization for InputPrivacyRuleClass.

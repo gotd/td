@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // CdnPublicKey represents TL type `cdnPublicKey#c982eaba`.
 // Public key to use only during handshakes to CDN DCs.
@@ -27,6 +29,24 @@ type CdnPublicKey struct {
 
 // CdnPublicKeyTypeID is TL type id of CdnPublicKey.
 const CdnPublicKeyTypeID = 0xc982eaba
+
+// String implements fmt.Stringer.
+func (c *CdnPublicKey) String() string {
+	if c == nil {
+		return "CdnPublicKey(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("CdnPublicKey")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(c.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublicKey: ")
+	sb.WriteString(fmt.Sprint(c.PublicKey))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *CdnPublicKey) Encode(b *bin.Buffer) error {

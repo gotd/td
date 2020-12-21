@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ServerDHInnerData represents TL type `server_DH_inner_data#b5890dba`.
 type ServerDHInnerData struct {
@@ -32,6 +34,36 @@ type ServerDHInnerData struct {
 
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.
 const ServerDHInnerDataTypeID = 0xb5890dba
+
+// String implements fmt.Stringer.
+func (s *ServerDHInnerData) String() string {
+	if s == nil {
+		return "ServerDHInnerData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ServerDHInnerData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(s.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(s.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tG: ")
+	sb.WriteString(fmt.Sprint(s.G))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDhPrime: ")
+	sb.WriteString(fmt.Sprint(s.DhPrime))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGA: ")
+	sb.WriteString(fmt.Sprint(s.GA))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerTime: ")
+	sb.WriteString(fmt.Sprint(s.ServerTime))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ServerDHInnerData) Encode(b *bin.Buffer) error {

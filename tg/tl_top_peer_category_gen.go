@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TopPeerCategoryBotsPM represents TL type `topPeerCategoryBotsPM#ab661b5b`.
 // Most used bots
@@ -23,6 +25,18 @@ type TopPeerCategoryBotsPM struct {
 
 // TopPeerCategoryBotsPMTypeID is TL type id of TopPeerCategoryBotsPM.
 const TopPeerCategoryBotsPMTypeID = 0xab661b5b
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryBotsPM) String() string {
+	if t == nil {
+		return "TopPeerCategoryBotsPM(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryBotsPM")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryBotsPM) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type TopPeerCategoryBotsInline struct {
 // TopPeerCategoryBotsInlineTypeID is TL type id of TopPeerCategoryBotsInline.
 const TopPeerCategoryBotsInlineTypeID = 0x148677e2
 
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryBotsInline) String() string {
+	if t == nil {
+		return "TopPeerCategoryBotsInline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryBotsInline")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryBotsInline) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -105,6 +131,18 @@ type TopPeerCategoryCorrespondents struct {
 
 // TopPeerCategoryCorrespondentsTypeID is TL type id of TopPeerCategoryCorrespondents.
 const TopPeerCategoryCorrespondentsTypeID = 0x637b7ed
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryCorrespondents) String() string {
+	if t == nil {
+		return "TopPeerCategoryCorrespondents(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryCorrespondents")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryCorrespondents) Encode(b *bin.Buffer) error {
@@ -147,6 +185,18 @@ type TopPeerCategoryGroups struct {
 // TopPeerCategoryGroupsTypeID is TL type id of TopPeerCategoryGroups.
 const TopPeerCategoryGroupsTypeID = 0xbd17a14a
 
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryGroups) String() string {
+	if t == nil {
+		return "TopPeerCategoryGroups(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryGroups")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryGroups) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -187,6 +237,18 @@ type TopPeerCategoryChannels struct {
 
 // TopPeerCategoryChannelsTypeID is TL type id of TopPeerCategoryChannels.
 const TopPeerCategoryChannelsTypeID = 0x161d9628
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryChannels) String() string {
+	if t == nil {
+		return "TopPeerCategoryChannels(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryChannels")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryChannels) Encode(b *bin.Buffer) error {
@@ -229,6 +291,18 @@ type TopPeerCategoryPhoneCalls struct {
 // TopPeerCategoryPhoneCallsTypeID is TL type id of TopPeerCategoryPhoneCalls.
 const TopPeerCategoryPhoneCallsTypeID = 0x1e76a78c
 
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryPhoneCalls) String() string {
+	if t == nil {
+		return "TopPeerCategoryPhoneCalls(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryPhoneCalls")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryPhoneCalls) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -270,6 +344,18 @@ type TopPeerCategoryForwardUsers struct {
 // TopPeerCategoryForwardUsersTypeID is TL type id of TopPeerCategoryForwardUsers.
 const TopPeerCategoryForwardUsersTypeID = 0xa8406ca9
 
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryForwardUsers) String() string {
+	if t == nil {
+		return "TopPeerCategoryForwardUsers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryForwardUsers")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardUsers) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -310,6 +396,18 @@ type TopPeerCategoryForwardChats struct {
 
 // TopPeerCategoryForwardChatsTypeID is TL type id of TopPeerCategoryForwardChats.
 const TopPeerCategoryForwardChatsTypeID = 0xfbeec0f0
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryForwardChats) String() string {
+	if t == nil {
+		return "TopPeerCategoryForwardChats(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryForwardChats")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardChats) Encode(b *bin.Buffer) error {
@@ -366,6 +464,7 @@ type TopPeerCategoryClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() TopPeerCategoryClass
+	fmt.Stringer
 }
 
 // DecodeTopPeerCategory implements binary de-serialization for TopPeerCategoryClass.

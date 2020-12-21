@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsURL represents TL type `statsURL#47a971e0`.
 // URL with chat statistics
@@ -25,6 +27,21 @@ type StatsURL struct {
 
 // StatsURLTypeID is TL type id of StatsURL.
 const StatsURLTypeID = 0x47a971e0
+
+// String implements fmt.Stringer.
+func (s *StatsURL) String() string {
+	if s == nil {
+		return "StatsURL(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsURL")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(s.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsURL) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
 // Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
@@ -36,6 +38,36 @@ type StatsGetMessagePublicForwardsRequest struct {
 
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
 const StatsGetMessagePublicForwardsRequestTypeID = 0x5630281b
+
+// String implements fmt.Stringer.
+func (g *StatsGetMessagePublicForwardsRequest) String() string {
+	if g == nil {
+		return "StatsGetMessagePublicForwardsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGetMessagePublicForwardsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetRate: ")
+	sb.WriteString(fmt.Sprint(g.OffsetRate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetPeer: ")
+	sb.WriteString(g.OffsetPeer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(g.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {

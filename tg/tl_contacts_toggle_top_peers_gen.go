@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsToggleTopPeersRequest represents TL type `contacts.toggleTopPeers#8514bdda`.
 // Enable/disable top peers
@@ -25,6 +27,21 @@ type ContactsToggleTopPeersRequest struct {
 
 // ContactsToggleTopPeersRequestTypeID is TL type id of ContactsToggleTopPeersRequest.
 const ContactsToggleTopPeersRequestTypeID = 0x8514bdda
+
+// String implements fmt.Stringer.
+func (t *ContactsToggleTopPeersRequest) String() string {
+	if t == nil {
+		return "ContactsToggleTopPeersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsToggleTopPeersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEnabled: ")
+	sb.WriteString(fmt.Sprint(t.Enabled))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {

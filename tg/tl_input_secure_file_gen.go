@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
 // Uploaded secure file, for more info see the passport docs »
@@ -33,6 +35,33 @@ type InputSecureFileUploaded struct {
 
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
 const InputSecureFileUploadedTypeID = 0x3334b0f0
+
+// String implements fmt.Stringer.
+func (i *InputSecureFileUploaded) String() string {
+	if i == nil {
+		return "InputSecureFileUploaded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputSecureFileUploaded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParts: ")
+	sb.WriteString(fmt.Sprint(i.Parts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMd5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(i.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(i.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputSecureFileUploaded) Encode(b *bin.Buffer) error {
@@ -119,6 +148,24 @@ type InputSecureFile struct {
 // InputSecureFileTypeID is TL type id of InputSecureFile.
 const InputSecureFileTypeID = 0x5367e5be
 
+// String implements fmt.Stringer.
+func (i *InputSecureFile) String() string {
+	if i == nil {
+		return "InputSecureFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputSecureFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -184,6 +231,7 @@ type InputSecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputSecureFileClass
+	fmt.Stringer
 }
 
 // DecodeInputSecureFile implements binary de-serialization for InputSecureFileClass.

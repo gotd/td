@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InlineBotSwitchPM represents TL type `inlineBotSwitchPM#3c20629f`.
 // The bot requested the user to message him in private
@@ -27,6 +29,24 @@ type InlineBotSwitchPM struct {
 
 // InlineBotSwitchPMTypeID is TL type id of InlineBotSwitchPM.
 const InlineBotSwitchPMTypeID = 0x3c20629f
+
+// String implements fmt.Stringer.
+func (i *InlineBotSwitchPM) String() string {
+	if i == nil {
+		return "InlineBotSwitchPM(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InlineBotSwitchPM")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(i.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStartParam: ")
+	sb.WriteString(fmt.Sprint(i.StartParam))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {

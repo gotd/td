@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UserStatusEmpty represents TL type `userStatusEmpty#9d05049`.
 // User status has not been set yet.
@@ -23,6 +25,18 @@ type UserStatusEmpty struct {
 
 // UserStatusEmptyTypeID is TL type id of UserStatusEmpty.
 const UserStatusEmptyTypeID = 0x9d05049
+
+// String implements fmt.Stringer.
+func (u *UserStatusEmpty) String() string {
+	if u == nil {
+		return "UserStatusEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type UserStatusOnline struct {
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
 const UserStatusOnlineTypeID = 0xedb93949
+
+// String implements fmt.Stringer.
+func (u *UserStatusOnline) String() string {
+	if u == nil {
+		return "UserStatusOnline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusOnline")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(u.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
@@ -118,6 +147,21 @@ type UserStatusOffline struct {
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.
 const UserStatusOfflineTypeID = 0x8c703f
 
+// String implements fmt.Stringer.
+func (u *UserStatusOffline) String() string {
+	if u == nil {
+		return "UserStatusOffline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusOffline")
+	sb.WriteString("{\n")
+	sb.WriteString("\tWasOnline: ")
+	sb.WriteString(fmt.Sprint(u.WasOnline))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -167,6 +211,18 @@ type UserStatusRecently struct {
 // UserStatusRecentlyTypeID is TL type id of UserStatusRecently.
 const UserStatusRecentlyTypeID = 0xe26f42f1
 
+// String implements fmt.Stringer.
+func (u *UserStatusRecently) String() string {
+	if u == nil {
+		return "UserStatusRecently(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusRecently")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -208,6 +264,18 @@ type UserStatusLastWeek struct {
 // UserStatusLastWeekTypeID is TL type id of UserStatusLastWeek.
 const UserStatusLastWeekTypeID = 0x7bf09fc
 
+// String implements fmt.Stringer.
+func (u *UserStatusLastWeek) String() string {
+	if u == nil {
+		return "UserStatusLastWeek(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusLastWeek")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -248,6 +316,18 @@ type UserStatusLastMonth struct {
 
 // UserStatusLastMonthTypeID is TL type id of UserStatusLastMonth.
 const UserStatusLastMonthTypeID = 0x77ebc742
+
+// String implements fmt.Stringer.
+func (u *UserStatusLastMonth) String() string {
+	if u == nil {
+		return "UserStatusLastMonth(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserStatusLastMonth")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
@@ -302,6 +382,7 @@ type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserStatusClass
+	fmt.Stringer
 }
 
 // DecodeUserStatus implements binary de-serialization for UserStatusClass.

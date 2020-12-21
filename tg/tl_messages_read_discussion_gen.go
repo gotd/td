@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReadDiscussionRequest represents TL type `messages.readDiscussion#f731a9f4`.
 // Mark a thread as read
@@ -29,6 +31,27 @@ type MessagesReadDiscussionRequest struct {
 
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.
 const MessagesReadDiscussionRequestTypeID = 0xf731a9f4
+
+// String implements fmt.Stringer.
+func (r *MessagesReadDiscussionRequest) String() string {
+	if r == nil {
+		return "MessagesReadDiscussionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReadDiscussionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(r.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadMaxID: ")
+	sb.WriteString(fmt.Sprint(r.ReadMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReadDiscussionRequest) Encode(b *bin.Buffer) error {

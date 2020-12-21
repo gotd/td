@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountPasswordInputSettings represents TL type `account.passwordInputSettings#c23727c9`.
 // Settings for setting up a new password
@@ -45,6 +47,46 @@ type AccountPasswordInputSettings struct {
 
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
 const AccountPasswordInputSettingsTypeID = 0xc23727c9
+
+// String implements fmt.Stringer.
+func (p *AccountPasswordInputSettings) String() string {
+	if p == nil {
+		return "AccountPasswordInputSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountPasswordInputSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tNewAlgo: ")
+		sb.WriteString(p.NewAlgo.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(0) {
+		sb.WriteString("\tNewPasswordHash: ")
+		sb.WriteString(fmt.Sprint(p.NewPasswordHash))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(0) {
+		sb.WriteString("\tHint: ")
+		sb.WriteString(fmt.Sprint(p.Hint))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tEmail: ")
+		sb.WriteString(fmt.Sprint(p.Email))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tNewSecureSettings: ")
+		sb.WriteString(p.NewSecureSettings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {

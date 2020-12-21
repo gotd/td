@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpAcceptTermsOfServiceRequest represents TL type `help.acceptTermsOfService#ee72f79a`.
 // Accept the new terms of service
@@ -25,6 +27,21 @@ type HelpAcceptTermsOfServiceRequest struct {
 
 // HelpAcceptTermsOfServiceRequestTypeID is TL type id of HelpAcceptTermsOfServiceRequest.
 const HelpAcceptTermsOfServiceRequestTypeID = 0xee72f79a
+
+// String implements fmt.Stringer.
+func (a *HelpAcceptTermsOfServiceRequest) String() string {
+	if a == nil {
+		return "HelpAcceptTermsOfServiceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpAcceptTermsOfServiceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(a.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {

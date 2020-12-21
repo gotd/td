@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ImportedContact represents TL type `importedContact#d0028438`.
 // Successfully imported contact.
@@ -27,6 +29,24 @@ type ImportedContact struct {
 
 // ImportedContactTypeID is TL type id of ImportedContact.
 const ImportedContactTypeID = 0xd0028438
+
+// String implements fmt.Stringer.
+func (i *ImportedContact) String() string {
+	if i == nil {
+		return "ImportedContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ImportedContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(i.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tClientID: ")
+	sb.WriteString(fmt.Sprint(i.ClientID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *ImportedContact) Encode(b *bin.Buffer) error {

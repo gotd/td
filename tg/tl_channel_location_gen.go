@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelLocationEmpty represents TL type `channelLocationEmpty#bfb5ad8b`.
 // No location (normal supergroup)
@@ -23,6 +25,18 @@ type ChannelLocationEmpty struct {
 
 // ChannelLocationEmptyTypeID is TL type id of ChannelLocationEmpty.
 const ChannelLocationEmptyTypeID = 0xbfb5ad8b
+
+// String implements fmt.Stringer.
+func (c *ChannelLocationEmpty) String() string {
+	if c == nil {
+		return "ChannelLocationEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelLocationEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
@@ -68,6 +82,24 @@ type ChannelLocation struct {
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
 const ChannelLocationTypeID = 0x209b82db
+
+// String implements fmt.Stringer.
+func (c *ChannelLocation) String() string {
+	if c == nil {
+		return "ChannelLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(c.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(c.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelLocation) Encode(b *bin.Buffer) error {
@@ -139,6 +171,7 @@ type ChannelLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelLocationClass
+	fmt.Stringer
 }
 
 // DecodeChannelLocation implements binary de-serialization for ChannelLocationClass.

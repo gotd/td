@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
 // This channel statistics graph must be generated asynchronously using stats.loadAsyncGraph to reduce server load
@@ -25,6 +27,21 @@ type StatsGraphAsync struct {
 
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
 const StatsGraphAsyncTypeID = 0x4a27eb2d
+
+// String implements fmt.Stringer.
+func (s *StatsGraphAsync) String() string {
+	if s == nil {
+		return "StatsGraphAsync(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGraphAsync")
+	sb.WriteString("{\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(s.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
@@ -76,6 +93,21 @@ type StatsGraphError struct {
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
 const StatsGraphErrorTypeID = 0xbedc9822
+
+// String implements fmt.Stringer.
+func (s *StatsGraphError) String() string {
+	if s == nil {
+		return "StatsGraphError(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGraphError")
+	sb.WriteString("{\n")
+	sb.WriteString("\tError: ")
+	sb.WriteString(fmt.Sprint(s.Error))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsGraphError) Encode(b *bin.Buffer) error {
@@ -133,6 +165,29 @@ type StatsGraph struct {
 
 // StatsGraphTypeID is TL type id of StatsGraph.
 const StatsGraphTypeID = 0x8ea464b6
+
+// String implements fmt.Stringer.
+func (s *StatsGraph) String() string {
+	if s == nil {
+		return "StatsGraph(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGraph")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tJSON: ")
+	sb.WriteString(s.JSON.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tZoomToken: ")
+		sb.WriteString(fmt.Sprint(s.ZoomToken))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsGraph) Encode(b *bin.Buffer) error {
@@ -225,6 +280,7 @@ type StatsGraphClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StatsGraphClass
+	fmt.Stringer
 }
 
 // DecodeStatsGraph implements binary de-serialization for StatsGraphClass.

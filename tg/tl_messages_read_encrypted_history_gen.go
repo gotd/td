@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReadEncryptedHistoryRequest represents TL type `messages.readEncryptedHistory#7f4b690a`.
 // Marks message history within a secret chat as read.
@@ -27,6 +29,24 @@ type MessagesReadEncryptedHistoryRequest struct {
 
 // MessagesReadEncryptedHistoryRequestTypeID is TL type id of MessagesReadEncryptedHistoryRequest.
 const MessagesReadEncryptedHistoryRequestTypeID = 0x7f4b690a
+
+// String implements fmt.Stringer.
+func (r *MessagesReadEncryptedHistoryRequest) String() string {
+	if r == nil {
+		return "MessagesReadEncryptedHistoryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReadEncryptedHistoryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxDate: ")
+	sb.WriteString(fmt.Sprint(r.MaxDate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReadEncryptedHistoryRequest) Encode(b *bin.Buffer) error {

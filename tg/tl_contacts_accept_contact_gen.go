@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
 // If the peer settings of a new user allow us to add him as contact, add that user as contact
@@ -25,6 +27,21 @@ type ContactsAcceptContactRequest struct {
 
 // ContactsAcceptContactRequestTypeID is TL type id of ContactsAcceptContactRequest.
 const ContactsAcceptContactRequestTypeID = 0xf831a20f
+
+// String implements fmt.Stringer.
+func (a *ContactsAcceptContactRequest) String() string {
+	if a == nil {
+		return "ContactsAcceptContactRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsAcceptContactRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(a.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *ContactsAcceptContactRequest) Encode(b *bin.Buffer) error {
