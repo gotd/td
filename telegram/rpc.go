@@ -3,7 +3,6 @@ package telegram
 import (
 	"context"
 	"errors"
-	"sync"
 	"sync/atomic"
 	"time"
 
@@ -68,32 +67,22 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	log := c.log.With(zap.Int("message_id", int(req.ID)))
 	log.Debug("Do")
 
-	// Creating "done" channel and ensuring that it will be closed before
-	// method returns and only once.
-	done := make(chan struct{})
-	doneClose := sync.Once{}
-	closeDone := func() {
-		doneClose.Do(func() {
-			close(done)
-		})
-	}
-	defer closeDone()
-
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
-	// Will write error to that variable.
-	var resultErr error
+	// Will write error to that channel.
+	result := make(chan error)
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
-		defer func() { closeDone(); retryClose() }()
+		defer retryClose()
 
 		if rpcErr != nil {
-			resultErr = rpcErr
+			result <- rpcErr
 			return nil
 		}
 
-		resultErr = req.Output.Decode(rpcBuff)
-		return resultErr
+		decodeErr := req.Output.Decode(rpcBuff)
+		result <- decodeErr
+		return decodeErr
 	}
 
 	// Setting callback that will be called if message is received.
@@ -121,8 +110,8 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
-	case <-done:
-		return resultErr
+	case r := <-result:
+		return r
 	}
 }
 
