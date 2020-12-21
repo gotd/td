@@ -9,11 +9,11 @@ func TestCondOnce(t *testing.T) {
 
 	c := createCondOnce()
 	first := make(chan struct{}, 1)
-	for i := range [n]struct{}{} {
-		go func(n int) {
+	for i := 0; i < n; i++ {
+		go func() {
 			c.WaitIfNeeded()
 			first <- struct{}{}
-		}(i)
+		}()
 	}
 
 	<-first

@@ -30,7 +30,7 @@ func (c *condOnce) Done() {
 func (c *condOnce) WaitIfNeeded() {
 	select {
 	// Do not block on first call, or on close.
-	case _, _ = <-c.ch: // nolint:gosimple
+	case <-c.ch:
 	default:
 		// Channel is not closed and is empty, wait.
 		<-c.ch
