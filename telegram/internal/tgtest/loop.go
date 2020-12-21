@@ -17,7 +17,7 @@ type Session struct {
 	crypto.AuthKeyWithID
 }
 
-func (s *Server) rpcHandle(ctx context.Context, conn connection) error {
+func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var b bin.Buffer
 	for {
 		b.Reset()
@@ -44,13 +44,13 @@ func (s *Server) rpcHandle(ctx context.Context, conn connection) error {
 			SessionID:     msg.SessionID,
 			AuthKeyWithID: key,
 		}
-		if !conn.sentCreated {
+		if !conn.didSentCreated() {
 			if err := s.Send(session, &mt.NewSessionCreated{
 				ServerSalt: int64(binary.LittleEndian.Uint64(key.AuthKeyID[:])),
 			}); err != nil {
 				return err
 			}
-			conn.sentCreated = true
+			conn.sentCreated()
 		}
 
 		// Buffer now contains plaintext message payload.
@@ -73,7 +73,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Connection) (err 
 	if err != nil {
 		return xerrors.Errorf("key exchange failed: %w", err)
 	}
-	wrappedConn := connection{
+	wrappedConn := &connection{
 		Connection: conn,
 	}
 	s.users.createSession(k, wrappedConn)

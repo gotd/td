@@ -3,9 +3,13 @@ package telegram
 import (
 	"context"
 	"crypto/rsa"
+	"fmt"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/tmap"
 
 	"github.com/stretchr/testify/require"
 
@@ -24,6 +28,7 @@ import (
 type handler struct {
 	server *tgtest.Server
 	t      *testing.T
+	logger *zap.Logger
 
 	// For ACK testing proposes.
 	// We send ack only after second request
@@ -31,16 +36,31 @@ type handler struct {
 	counterMx sync.Mutex
 
 	message string // immutable
+	types   *tmap.Map
+}
+
+func newHandler(t *testing.T, server *tgtest.Server, logger *zap.Logger) *handler {
+	return &handler{
+		server:  server,
+		t:       t,
+		logger:  logger,
+		message: "ну че там с деньгами?",
+		types: tmap.New(
+			mt.TypesMap(),
+			tg.TypesMap(),
+			proto.TypesMap(),
+		),
+	}
 }
 
 func (h *handler) OnNewClient(k crypto.AuthKeyWithID) error {
-	h.t.Log("new client connected")
-
+	h.logger.Info("new client connected")
 	return nil
 }
 
 func (h *handler) hello(k tgtest.Session, message string) error {
-	h.t.Log("[server]", "sent message", message)
+	h.logger.With(zap.String("message", message)).
+		Info("sent message")
 
 	return h.server.Send(k, &tg.Updates{
 		Updates: []tg.UpdateClass{
@@ -66,7 +86,9 @@ func (h *handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error
 		return err
 	}
 
-	h.t.Logf("new message, type %x", id)
+	h.logger.With(
+		zap.String("id", fmt.Sprintf("%x", id)),
+	).Info("new message")
 
 	switch id {
 	case proto.InvokeWithLayerID:
@@ -93,8 +115,6 @@ func (h *handler) OnMessage(k tgtest.Session, msgID int64, in *bin.Buffer) error
 		}
 
 		return h.handleMessage(k, msgID, m)
-	default:
-		h.t.Logf("unexpected type: %x", id)
 	}
 
 	return nil
@@ -118,27 +138,24 @@ func (h *handler) handleMessage(k tgtest.Session, msgID int64, m *tg.MessagesSen
 func testTransport(trp *transport.Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
+		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
 
 		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
 		defer cancel()
 
 		srv := tgtest.NewUnstartedServer(ctx, t, trp.Codec())
-		h := &handler{
-			server:  srv,
-			t:       t,
-			message: "ну как там с деньгами?",
-		}
+		h := newHandler(t, srv, log.Named("server"))
 		srv.SetHandler(h)
 		srv.Start()
 		defer srv.Close()
 
 		dispatcher := tg.NewUpdateDispatcher()
-		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
+		clientLogger := log.Named("client")
 		client := NewClient(1, "hash", Options{
 			PublicKeys:    []*rsa.PublicKey{srv.Key()},
 			Addr:          srv.Addr().String(),
 			Transport:     trp,
-			Logger:        log,
+			Logger:        clientLogger,
 			UpdateHandler: dispatcher.Handle,
 		})
 		raw := tg.NewClient(client)
@@ -146,10 +163,9 @@ func testTransport(trp *transport.Transport) func(t *testing.T) {
 		wait := make(chan struct{})
 		dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 			message := update.Message.(*tg.Message).Message
-			t.Log("[client]", "got message", message)
-			if message != h.message {
-				t.Fatalf("expected %s, got %s", h.message, message)
-			}
+			clientLogger.With(zap.String("message", message)).
+				Info("got message")
+			require.Equal(t, h.message, message)
 
 			_, err := raw.MessagesSendMessage(ctx, &tg.MessagesSendMessageRequest{
 				Peer:    &tg.InputPeerUser{},

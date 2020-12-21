@@ -2,6 +2,7 @@ package tgtest
 
 import (
 	"sync"
+	"sync/atomic"
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/transport"
@@ -9,36 +10,44 @@ import (
 
 type connection struct {
 	transport.Connection
-	sentCreated bool
+	sent uint64
+}
+
+func (conn *connection) didSentCreated() bool {
+	return atomic.LoadUint64(&conn.sent) >= 1
+}
+
+func (conn *connection) sentCreated() {
+	atomic.AddUint64(&conn.sent, 1)
 }
 
 type users struct {
 	sessions    map[[8]byte]crypto.AuthKeyWithID
 	sessionsMux sync.Mutex
 
-	conns    map[[8]byte]connection
+	conns    map[[8]byte]*connection
 	connsMux sync.Mutex
 }
 
 func newUsers() *users {
 	return &users{
-		conns:    map[[8]byte]connection{},
+		conns:    map[[8]byte]*connection{},
 		sessions: map[[8]byte]crypto.AuthKeyWithID{},
 	}
 }
 
-func (c *users) createSession(key crypto.AuthKeyWithID, conn connection) {
+func (c *users) createSession(key crypto.AuthKeyWithID, conn *connection) {
 	c.addConnection(key, conn)
 	c.addSession(key)
 }
 
-func (c *users) addConnection(key crypto.AuthKeyWithID, conn connection) {
+func (c *users) addConnection(key crypto.AuthKeyWithID, conn *connection) {
 	c.connsMux.Lock()
 	c.conns[key.AuthKeyID] = conn
 	c.connsMux.Unlock()
 }
 
-func (c *users) getConnection(key crypto.AuthKeyWithID) (conn connection, ok bool) {
+func (c *users) getConnection(key crypto.AuthKeyWithID) (conn *connection, ok bool) {
 	c.connsMux.Lock()
 	conn, ok = c.conns[key.AuthKeyID]
 	c.connsMux.Unlock()
@@ -49,8 +58,7 @@ func (c *users) getConnection(key crypto.AuthKeyWithID) (conn connection, ok boo
 func (c *users) deleteConnection(key crypto.AuthKeyWithID) {
 	c.connsMux.Lock()
 	conn := c.conns[key.AuthKeyID]
-	zero := connection{}
-	if conn != zero {
+	if conn != nil {
 		_ = conn.Close()
 	}
 	delete(c.conns, key.AuthKeyID)
