@@ -6,6 +6,7 @@ import (
 )
 
 func (c *Client) reconnect() error {
+	c.sessionCreated.Reset()
 	c.log.Debug("Disconnected. Trying to re-connect")
 
 	if err := c.connect(c.ctx); err != nil {

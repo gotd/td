@@ -14,6 +14,8 @@ import (
 )
 
 func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
+	c.sessionCreated.WaitIfNeeded()
+
 	req := request{
 		ID:     c.newMessageID(),
 		Input:  in,

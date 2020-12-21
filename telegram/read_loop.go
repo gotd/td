@@ -26,6 +26,7 @@ func (c *Client) handleSessionCreated(b *bin.Buffer) error {
 	}
 
 	atomic.StoreInt64(&c.salt, ns.ServerSalt)
+	c.sessionCreated.Done()
 
 	if err := c.saveSession(c.ctx); err != nil {
 		return xerrors.Errorf("failed to save session: %w", err)
