@@ -1,9 +1,19 @@
 package bin
 
+import "strconv"
+
 // Fields represent a bitfield value that compactly encodes
 // information about provided conditional fields, e.g. says
 // that fields "1", "5" and "10" were set.
 type Fields uint32
+
+// String implement fmt.Stringer
+func (f *Fields) String() string {
+	if f == nil {
+		return ""
+	}
+	return strconv.FormatUint(uint64(*f), 2)
+}
 
 // Decode implements Decoder.
 func (f *Fields) Decode(b *Buffer) error {
