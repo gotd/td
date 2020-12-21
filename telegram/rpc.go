@@ -70,10 +70,22 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
-	// Will write error to that channel.
-	result := make(chan error)
+	var (
+		// Will write error to that channel.
+		result = make(chan error)
+		// Needed to prevent multiple handler calls.
+		handlerCalls uint32
+	)
+
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
 		defer retryClose()
+
+		atomic.AddUint32(&handlerCalls, 1)
+		if atomic.LoadUint32(&handlerCalls) > 1 {
+			log.Warn("handler already called")
+
+			return xerrors.Errorf("handler already called")
+		}
 
 		if rpcErr != nil {
 			result <- rpcErr
