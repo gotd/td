@@ -77,10 +77,13 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	}
 	defer closeDone()
 
+	retryCtx, retryClose := context.WithCancel(ctx)
+	defer retryClose()
+
 	// Will write error to that variable.
 	var resultErr error
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
-		defer closeDone()
+		defer func() { closeDone(); retryClose() }()
 
 		if rpcErr != nil {
 			resultErr = rpcErr
@@ -108,21 +111,14 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 		return xerrors.Errorf("write: %w", err)
 	}
 
-	ackCtx, ackClose := context.WithCancel(c.ctx)
-	defer ackClose()
-
 	// Start retrying.
-	retry := func() <-chan error {
-		ch := make(chan error)
-		go func() { ch <- c.rpcRetryUntilAck(ackCtx, req) }()
-		return ch
+	if err := c.rpcRetryUntilAck(retryCtx, req); err != nil {
+		return err
 	}
 
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
-	case e := <-retry():
-		return e
 	case <-done:
 		return resultErr
 	}
