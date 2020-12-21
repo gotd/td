@@ -2,12 +2,13 @@ package tgtest
 
 import (
 	"context"
-
-	"github.com/gotd/td/internal/crypto"
+	"encoding/binary"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/transport"
 )
 
@@ -16,7 +17,7 @@ type Session struct {
 	crypto.AuthKeyWithID
 }
 
-func (s *Server) rpcHandle(ctx context.Context, conn transport.Connection) error {
+func (s *Server) rpcHandle(ctx context.Context, conn connection) error {
 	var b bin.Buffer
 	for {
 		b.Reset()
@@ -39,13 +40,23 @@ func (s *Server) rpcHandle(ctx context.Context, conn transport.Connection) error
 			return xerrors.Errorf("failed to decrypt: %w", err)
 		}
 
+		session := Session{
+			SessionID:     msg.SessionID,
+			AuthKeyWithID: key,
+		}
+		if !conn.sentCreated {
+			if err := s.Send(session, &mt.NewSessionCreated{
+				ServerSalt: int64(binary.LittleEndian.Uint64(key.AuthKeyID[:])),
+			}); err != nil {
+				return err
+			}
+			conn.sentCreated = true
+		}
+
 		// Buffer now contains plaintext message payload.
 		b.ResetTo(msg.Data())
 
-		if err := s.handler.OnMessage(Session{
-			SessionID:     msg.SessionID,
-			AuthKeyWithID: key,
-		}, msg.MessageID, &b); err != nil {
+		if err := s.handler.OnMessage(session, msg.MessageID, &b); err != nil {
 			return xerrors.Errorf("failed to call handler: %w", err)
 		}
 	}
@@ -62,12 +73,15 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Connection) (err 
 	if err != nil {
 		return xerrors.Errorf("key exchange failed: %w", err)
 	}
-	s.users.createSession(k, conn)
+	wrappedConn := connection{
+		Connection: conn,
+	}
+	s.users.createSession(k, wrappedConn)
 
 	err = s.handler.OnNewClient(k)
 	if err != nil {
 		return xerrors.Errorf("OnNewClient handler failed: %w", err)
 	}
 
-	return s.rpcHandle(ctx, conn)
+	return s.rpcHandle(ctx, wrappedConn)
 }

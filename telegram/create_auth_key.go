@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa" // #nosec
-	"encoding/binary"
 	"errors"
 	"math/big"
 	"sync/atomic"
@@ -16,7 +15,6 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/xor"
 )
 
 // createAuthKey generates new authorization key.
@@ -232,9 +230,7 @@ Loop:
 			buf = append(buf, 1)
 			buf = append(buf, sha(key[:])[0:8]...)
 			nonceHash1 := sha(buf)[4:20]
-			serverSalt := make([]byte, 8)
-			copy(serverSalt, newNonce[:8])
-			xor.Bytes(serverSalt, serverSalt, v.ServerNonce[:8])
+			serverSalt := crypto.ServerSalt(newNonce, v.ServerNonce)
 
 			if !bytes.Equal(nonceHash1, v.NewNonceHash1[:]) {
 				return xerrors.New("key exchange verification failed: hash mismatch")
@@ -248,7 +244,7 @@ Loop:
 
 			c.authKey = crypto.AuthKeyWithID{AuthKey: key, AuthKeyID: authKeyID}
 			atomic.StoreInt64(&c.session, sessionID)
-			atomic.StoreInt64(&c.salt, int64(binary.LittleEndian.Uint64(serverSalt)))
+			atomic.StoreInt64(&c.salt, serverSalt)
 
 			return nil
 		case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
