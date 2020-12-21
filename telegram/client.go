@@ -57,6 +57,8 @@ type Client struct {
 	cipher crypto.Cipher
 	log    *zap.Logger
 
+	sessionCreated *condOnce
+
 	// Access to authKey and authKeyID is not synchronized because
 	// serial access ensured in Dial (i.e. no concurrent access possible).
 	authKey crypto.AuthKeyWithID
@@ -134,6 +136,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		log:    opt.Logger,
 		ping:   map[int64]func(){},
 		rpc:    map[int64]func(b *bin.Buffer, rpcErr error) error{},
+
+		sessionCreated: createCondOnce(),
 
 		ack:         map[int64]func(){},
 		ackSendChan: make(chan int64),
