@@ -4,11 +4,12 @@ import (
 	"context"
 	"crypto/rsa"
 	"fmt"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/tmap"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/tmap"
 
 	"github.com/stretchr/testify/require"
 
