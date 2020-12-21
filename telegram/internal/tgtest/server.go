@@ -16,7 +16,6 @@ import (
 
 type Server struct {
 	server *transport.Server
-	tb     TB
 
 	key     *rsa.PrivateKey
 	cipher  crypto.Cipher
@@ -66,7 +65,6 @@ func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Serv
 	ctx, cancel := context.WithCancel(ctx)
 	s := &Server{
 		server: transport.NewCustomServer(codec, newLocalListener()),
-		tb:     tb,
 		key:    k,
 		cipher: crypto.NewServerCipher(rand.Reader),
 		ctx:    ctx,
