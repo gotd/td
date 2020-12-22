@@ -29,7 +29,7 @@ func TestExternalE2EConnect(t *testing.T) {
 	}
 
 	defer func() {
-		_ = client.Close(ctx)
+		_ = client.Close()
 	}()
 
 	if err := tgflow.NewAuth(tgflow.TestAuth(rand.Reader, 2), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {

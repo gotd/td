@@ -122,7 +122,7 @@ func run(ctx context.Context) error {
 
 	<-c
 	logger.Info("Shutting down")
-	if err := client.Close(ctx); err != nil {
+	if err := client.Close(); err != nil {
 		return err
 	}
 	logger.Info("Graceful shutdown completed")
