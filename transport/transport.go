@@ -17,8 +17,8 @@ func CustomTransport(dialer Dialer, constructor func() Codec) *Transport {
 	}
 
 	return &Transport{
-		dialer:      dialer,
-		constructor: constructor,
+		dialer: dialer,
+		codec:  constructor,
 	}
 }
 
@@ -42,13 +42,13 @@ func Full(d Dialer) *Transport {
 
 // Transport is MTProto connection creator.
 type Transport struct {
-	dialer      Dialer
-	constructor func() Codec
+	dialer Dialer
+	codec  func() Codec
 }
 
 // Codec creates new codec using transport settings.
 func (t *Transport) Codec() Codec {
-	return t.constructor()
+	return t.codec()
 }
 
 // Conn is transport connection.
@@ -65,13 +65,13 @@ func (t *Transport) DialContext(ctx context.Context, network, address string) (C
 		return nil, xerrors.Errorf("dial: %w", err)
 	}
 
-	connectionCodec := t.constructor()
-	if err := connectionCodec.WriteHeader(conn); err != nil {
+	connCodec := t.codec()
+	if err := connCodec.WriteHeader(conn); err != nil {
 		return nil, xerrors.Errorf("write header: %w", err)
 	}
 
 	return &connection{
 		conn:  conn,
-		codec: connectionCodec,
+		codec: connCodec,
 	}, nil
 }
