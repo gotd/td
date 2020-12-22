@@ -72,7 +72,7 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	var (
 		// Will write error to that channel.
-		result = make(chan error)
+		result = make(chan error, 1)
 		// Needed to prevent multiple handler calls.
 		handlerCalls uint32
 	)
