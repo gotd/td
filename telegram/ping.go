@@ -13,16 +13,6 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
-type pingMessage struct {
-	id int64
-}
-
-func (p pingMessage) Encode(b *bin.Buffer) error {
-	b.PutID(0x7abe77ec)
-	b.PutLong(p.id)
-	return nil
-}
-
 // Ping sends ping request to server and waits until pong is received or
 // context is canceled.
 func (c *Client) Ping(ctx context.Context) error {
@@ -33,7 +23,7 @@ func (c *Client) Ping(ctx context.Context) error {
 		return err
 	}
 
-	if err := c.writeServiceMessage(ctx, pingMessage{id: pingID}); err != nil {
+	if err := c.writeServiceMessage(ctx, &mt.PingRequest{PingID: pingID}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 
@@ -56,18 +46,6 @@ func (c *Client) handlePong(b *bin.Buffer) error {
 	return nil
 }
 
-type pingDelayDisconnectMessage struct {
-	id    int64
-	delay int // in seconds
-}
-
-func (p pingDelayDisconnectMessage) Encode(b *bin.Buffer) error {
-	b.PutID(0xf3427b8c)
-	b.PutLong(p.id)
-	b.PutInt(p.delay)
-	return nil
-}
-
 func (c *Client) pingDelayDisconnect(ctx context.Context, delay int) error {
 	// Generating random id.
 	// Probably we should check for collisions here.
@@ -76,9 +54,9 @@ func (c *Client) pingDelayDisconnect(ctx context.Context, delay int) error {
 		return err
 	}
 
-	if err := c.writeServiceMessage(ctx, pingDelayDisconnectMessage{
-		id:    pingID,
-		delay: delay,
+	if err := c.writeServiceMessage(ctx, &mt.PingDelayDisconnectRequest{
+		PingID:          pingID,
+		DisconnectDelay: delay,
 	}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}

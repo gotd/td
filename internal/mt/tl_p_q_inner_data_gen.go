@@ -16,32 +16,32 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
-// PQInnerDataConst represents TL type `p_q_inner_data_const#83c95aec`.
-type PQInnerDataConst struct {
-	// Pq field of PQInnerDataConst.
+// PQInnerData represents TL type `p_q_inner_data#83c95aec`.
+type PQInnerData struct {
+	// Pq field of PQInnerData.
 	Pq []byte
-	// P field of PQInnerDataConst.
+	// P field of PQInnerData.
 	P []byte
-	// Q field of PQInnerDataConst.
+	// Q field of PQInnerData.
 	Q []byte
-	// Nonce field of PQInnerDataConst.
+	// Nonce field of PQInnerData.
 	Nonce bin.Int128
-	// ServerNonce field of PQInnerDataConst.
+	// ServerNonce field of PQInnerData.
 	ServerNonce bin.Int128
-	// NewNonce field of PQInnerDataConst.
+	// NewNonce field of PQInnerData.
 	NewNonce bin.Int256
 }
 
-// PQInnerDataConstTypeID is TL type id of PQInnerDataConst.
-const PQInnerDataConstTypeID = 0x83c95aec
+// PQInnerDataTypeID is TL type id of PQInnerData.
+const PQInnerDataTypeID = 0x83c95aec
 
 // String implements fmt.Stringer.
-func (p *PQInnerDataConst) String() string {
+func (p *PQInnerData) String() string {
 	if p == nil {
-		return "PQInnerDataConst(nil)"
+		return "PQInnerData(nil)"
 	}
 	var sb strings.Builder
-	sb.WriteString("PQInnerDataConst")
+	sb.WriteString("PQInnerData")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPq: ")
 	sb.WriteString(fmt.Sprint(p.Pq))
@@ -66,11 +66,11 @@ func (p *PQInnerDataConst) String() string {
 }
 
 // Encode implements bin.Encoder.
-func (p *PQInnerDataConst) Encode(b *bin.Buffer) error {
+func (p *PQInnerData) Encode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't encode p_q_inner_data_const#83c95aec as nil")
+		return fmt.Errorf("can't encode p_q_inner_data#83c95aec as nil")
 	}
-	b.PutID(PQInnerDataConstTypeID)
+	b.PutID(PQInnerDataTypeID)
 	b.PutBytes(p.Pq)
 	b.PutBytes(p.P)
 	b.PutBytes(p.Q)
@@ -81,277 +81,60 @@ func (p *PQInnerDataConst) Encode(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (p *PQInnerDataConst) Decode(b *bin.Buffer) error {
+func (p *PQInnerData) Decode(b *bin.Buffer) error {
 	if p == nil {
-		return fmt.Errorf("can't decode p_q_inner_data_const#83c95aec to nil")
+		return fmt.Errorf("can't decode p_q_inner_data#83c95aec to nil")
 	}
-	if err := b.ConsumeID(PQInnerDataConstTypeID); err != nil {
-		return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: %w", err)
+	if err := b.ConsumeID(PQInnerDataTypeID); err != nil {
+		return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: %w", err)
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field pq: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field pq: %w", err)
 		}
 		p.Pq = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field p: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field p: %w", err)
 		}
 		p.P = value
 	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field q: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field q: %w", err)
 		}
 		p.Q = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field nonce: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field nonce: %w", err)
 		}
 		p.Nonce = value
 	}
 	{
 		value, err := b.Int128()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field server_nonce: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field server_nonce: %w", err)
 		}
 		p.ServerNonce = value
 	}
 	{
 		value, err := b.Int256()
 		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_const#83c95aec: field new_nonce: %w", err)
+			return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: field new_nonce: %w", err)
 		}
 		p.NewNonce = value
 	}
 	return nil
 }
 
-// construct implements constructor of PQInnerDataClass.
-func (p PQInnerDataConst) construct() PQInnerDataClass { return &p }
-
-// Ensuring interfaces in compile-time for PQInnerDataConst.
+// Ensuring interfaces in compile-time for PQInnerData.
 var (
-	_ bin.Encoder = &PQInnerDataConst{}
-	_ bin.Decoder = &PQInnerDataConst{}
-
-	_ PQInnerDataClass = &PQInnerDataConst{}
+	_ bin.Encoder = &PQInnerData{}
+	_ bin.Decoder = &PQInnerData{}
 )
-
-// PQInnerDataTemp represents TL type `p_q_inner_data_temp#3c6a84d4`.
-type PQInnerDataTemp struct {
-	// Pq field of PQInnerDataTemp.
-	Pq []byte
-	// P field of PQInnerDataTemp.
-	P []byte
-	// Q field of PQInnerDataTemp.
-	Q []byte
-	// Nonce field of PQInnerDataTemp.
-	Nonce bin.Int128
-	// ServerNonce field of PQInnerDataTemp.
-	ServerNonce bin.Int128
-	// NewNonce field of PQInnerDataTemp.
-	NewNonce bin.Int256
-	// ExpiresIn field of PQInnerDataTemp.
-	ExpiresIn int
-}
-
-// PQInnerDataTempTypeID is TL type id of PQInnerDataTemp.
-const PQInnerDataTempTypeID = 0x3c6a84d4
-
-// String implements fmt.Stringer.
-func (p *PQInnerDataTemp) String() string {
-	if p == nil {
-		return "PQInnerDataTemp(nil)"
-	}
-	var sb strings.Builder
-	sb.WriteString("PQInnerDataTemp")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPq: ")
-	sb.WriteString(fmt.Sprint(p.Pq))
-	sb.WriteString(",\n")
-	sb.WriteString("\tP: ")
-	sb.WriteString(fmt.Sprint(p.P))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(p.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(p.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(p.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonce: ")
-	sb.WriteString(fmt.Sprint(p.NewNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tExpiresIn: ")
-	sb.WriteString(fmt.Sprint(p.ExpiresIn))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
-}
-
-// Encode implements bin.Encoder.
-func (p *PQInnerDataTemp) Encode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't encode p_q_inner_data_temp#3c6a84d4 as nil")
-	}
-	b.PutID(PQInnerDataTempTypeID)
-	b.PutBytes(p.Pq)
-	b.PutBytes(p.P)
-	b.PutBytes(p.Q)
-	b.PutInt128(p.Nonce)
-	b.PutInt128(p.ServerNonce)
-	b.PutInt256(p.NewNonce)
-	b.PutInt(p.ExpiresIn)
-	return nil
-}
-
-// Decode implements bin.Decoder.
-func (p *PQInnerDataTemp) Decode(b *bin.Buffer) error {
-	if p == nil {
-		return fmt.Errorf("can't decode p_q_inner_data_temp#3c6a84d4 to nil")
-	}
-	if err := b.ConsumeID(PQInnerDataTempTypeID); err != nil {
-		return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: %w", err)
-	}
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field pq: %w", err)
-		}
-		p.Pq = value
-	}
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field p: %w", err)
-		}
-		p.P = value
-	}
-	{
-		value, err := b.Bytes()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field q: %w", err)
-		}
-		p.Q = value
-	}
-	{
-		value, err := b.Int128()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field nonce: %w", err)
-		}
-		p.Nonce = value
-	}
-	{
-		value, err := b.Int128()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field server_nonce: %w", err)
-		}
-		p.ServerNonce = value
-	}
-	{
-		value, err := b.Int256()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field new_nonce: %w", err)
-		}
-		p.NewNonce = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode p_q_inner_data_temp#3c6a84d4: field expires_in: %w", err)
-		}
-		p.ExpiresIn = value
-	}
-	return nil
-}
-
-// construct implements constructor of PQInnerDataClass.
-func (p PQInnerDataTemp) construct() PQInnerDataClass { return &p }
-
-// Ensuring interfaces in compile-time for PQInnerDataTemp.
-var (
-	_ bin.Encoder = &PQInnerDataTemp{}
-	_ bin.Decoder = &PQInnerDataTemp{}
-
-	_ PQInnerDataClass = &PQInnerDataTemp{}
-)
-
-// PQInnerDataClass represents P_Q_inner_data generic type.
-//
-// Example:
-//  g, err := DecodePQInnerData(buf)
-//  if err != nil {
-//      panic(err)
-//  }
-//  switch v := g.(type) {
-//  case *PQInnerDataConst: // p_q_inner_data_const#83c95aec
-//  case *PQInnerDataTemp: // p_q_inner_data_temp#3c6a84d4
-//  default: panic(v)
-//  }
-type PQInnerDataClass interface {
-	bin.Encoder
-	bin.Decoder
-	construct() PQInnerDataClass
-	fmt.Stringer
-}
-
-// DecodePQInnerData implements binary de-serialization for PQInnerDataClass.
-func DecodePQInnerData(buf *bin.Buffer) (PQInnerDataClass, error) {
-	id, err := buf.PeekID()
-	if err != nil {
-		return nil, err
-	}
-	switch id {
-	case PQInnerDataConstTypeID:
-		// Decoding p_q_inner_data_const#83c95aec.
-		v := PQInnerDataConst{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PQInnerDataClass: %w", err)
-		}
-		return &v, nil
-	case PQInnerDataTempTypeID:
-		// Decoding p_q_inner_data_temp#3c6a84d4.
-		v := PQInnerDataTemp{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode PQInnerDataClass: %w", err)
-		}
-		return &v, nil
-	default:
-		return nil, fmt.Errorf("unable to decode PQInnerDataClass: %w", bin.NewUnexpectedID(id))
-	}
-}
-
-// PQInnerData boxes the PQInnerDataClass providing a helper.
-type PQInnerDataBox struct {
-	P_Q_inner_data PQInnerDataClass
-}
-
-// Decode implements bin.Decoder for PQInnerDataBox.
-func (b *PQInnerDataBox) Decode(buf *bin.Buffer) error {
-	if b == nil {
-		return fmt.Errorf("unable to decode PQInnerDataBox to nil")
-	}
-	v, err := DecodePQInnerData(buf)
-	if err != nil {
-		return fmt.Errorf("unable to decode boxed value: %w", err)
-	}
-	b.P_Q_inner_data = v
-	return nil
-}
-
-// Encode implements bin.Encode for PQInnerDataBox.
-func (b *PQInnerDataBox) Encode(buf *bin.Buffer) error {
-	if b == nil || b.P_Q_inner_data == nil {
-		return fmt.Errorf("unable to encode PQInnerDataClass as nil")
-	}
-	return b.P_Q_inner_data.Encode(buf)
-}

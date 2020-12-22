@@ -16,26 +16,26 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
-// SetClientDHParams represents TL type `set_client_DH_params#f5045f1f`.
-type SetClientDHParams struct {
-	// Nonce field of SetClientDHParams.
+// SetClientDHParamsRequest represents TL type `set_client_DH_params#f5045f1f`.
+type SetClientDHParamsRequest struct {
+	// Nonce field of SetClientDHParamsRequest.
 	Nonce bin.Int128
-	// ServerNonce field of SetClientDHParams.
+	// ServerNonce field of SetClientDHParamsRequest.
 	ServerNonce bin.Int128
-	// EncryptedData field of SetClientDHParams.
+	// EncryptedData field of SetClientDHParamsRequest.
 	EncryptedData []byte
 }
 
-// SetClientDHParamsTypeID is TL type id of SetClientDHParams.
-const SetClientDHParamsTypeID = 0xf5045f1f
+// SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
+const SetClientDHParamsRequestTypeID = 0xf5045f1f
 
 // String implements fmt.Stringer.
-func (s *SetClientDHParams) String() string {
+func (s *SetClientDHParamsRequest) String() string {
 	if s == nil {
-		return "SetClientDHParams(nil)"
+		return "SetClientDHParamsRequest(nil)"
 	}
 	var sb strings.Builder
-	sb.WriteString("SetClientDHParams")
+	sb.WriteString("SetClientDHParamsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tNonce: ")
 	sb.WriteString(fmt.Sprint(s.Nonce))
@@ -51,11 +51,11 @@ func (s *SetClientDHParams) String() string {
 }
 
 // Encode implements bin.Encoder.
-func (s *SetClientDHParams) Encode(b *bin.Buffer) error {
+func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode set_client_DH_params#f5045f1f as nil")
 	}
-	b.PutID(SetClientDHParamsTypeID)
+	b.PutID(SetClientDHParamsRequestTypeID)
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
 	b.PutBytes(s.EncryptedData)
@@ -63,11 +63,11 @@ func (s *SetClientDHParams) Encode(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (s *SetClientDHParams) Decode(b *bin.Buffer) error {
+func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode set_client_DH_params#f5045f1f to nil")
 	}
-	if err := b.ConsumeID(SetClientDHParamsTypeID); err != nil {
+	if err := b.ConsumeID(SetClientDHParamsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: %w", err)
 	}
 	{
@@ -94,8 +94,18 @@ func (s *SetClientDHParams) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for SetClientDHParams.
+// Ensuring interfaces in compile-time for SetClientDHParamsRequest.
 var (
-	_ bin.Encoder = &SetClientDHParams{}
-	_ bin.Decoder = &SetClientDHParams{}
+	_ bin.Encoder = &SetClientDHParamsRequest{}
+	_ bin.Decoder = &SetClientDHParamsRequest{}
 )
+
+// SetClientDHParams invokes method set_client_DH_params#f5045f1f returning error if any.
+func (c *Client) SetClientDHParams(ctx context.Context, request *SetClientDHParamsRequest) (SetClientDHParamsAnswerClass, error) {
+	var result SetClientDHParamsAnswerBox
+
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Set_client_DH_params_answer, nil
+}

@@ -25,7 +25,7 @@ func (c *Client) createAuthKey(ctx context.Context) error {
 		return err
 	}
 	b := new(bin.Buffer)
-	if err := c.newUnencryptedMessage(&mt.ReqPqMulti{Nonce: nonce}, b); err != nil {
+	if err := c.newUnencryptedMessage(&mt.ReqPqMultiRequest{Nonce: nonce}, b); err != nil {
 		return err
 	}
 	if err := c.conn.Send(ctx, b); err != nil {
@@ -90,7 +90,7 @@ Loop:
 	if err != nil {
 		return xerrors.Errorf("failed to generate new nonce: %w", err)
 	}
-	pqInnerData := &mt.PQInnerDataConst{
+	pqInnerData := &mt.PQInnerData{
 		Pq:          pq.Bytes(),
 		Nonce:       nonce,
 		NewNonce:    newNonce,
@@ -107,7 +107,7 @@ Loop:
 	if err != nil {
 		return err
 	}
-	reqDHParams := &mt.ReqDHParams{
+	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
 		ServerNonce:          res.ServerNonce,
 		P:                    p.Bytes(),
@@ -190,7 +190,7 @@ Loop:
 			return err
 		}
 
-		setParamsReq := &mt.SetClientDHParams{
+		setParamsReq := &mt.SetClientDHParamsRequest{
 			Nonce:         nonce,
 			ServerNonce:   reqDHParams.ServerNonce,
 			EncryptedData: clientEncrypted,
