@@ -11,14 +11,14 @@ import (
 )
 
 // NewTransport creates transport using user Codec constructor.
-func NewTransport(dialer Dialer, codec func() Codec) *Transport {
+func NewTransport(dialer Dialer, getCodec func() Codec) *Transport {
 	if dialer == nil {
 		dialer = &net.Dialer{}
 	}
 
 	return &Transport{
 		dialer: dialer,
-		codec:  codec,
+		codec:  getCodec,
 	}
 }
 
