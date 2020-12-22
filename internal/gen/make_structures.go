@@ -60,6 +60,9 @@ type structDef struct {
 
 	// Docs is comments from documentation.
 	Docs []string
+
+	// Links from documentation
+	Links []string
 }
 
 func (s *structDef) fillFromClass(class classBinding) {
@@ -123,9 +126,11 @@ func (g *Generator) makeStructures() error {
 
 			Method: t.Method,
 			Docs:   docStruct.Description,
+			Links:  docStruct.Links,
 		}
 		if t.Method != "" {
 			s.Docs = docMethod.Description
+			s.Links = docMethod.Links
 		}
 		if g.docBase != nil {
 			// Assuming constructor by default.
@@ -150,14 +155,19 @@ func (g *Generator) makeStructures() error {
 				return xerrors.Errorf("failed to make field %s: %w", param.Name, err)
 			}
 
+			f.Links = docStruct.Fields[param.Name].Links
+			if t.Method != "" {
+				f.Links = docMethod.Parameters[param.Name].Links
+			}
+
 			if f.Conditional {
 				allFieldRequired = false
 			}
 			if f.Comment == "" {
-				f.Comment = docMethod.Parameters[param.Name]
+				f.Comment = docMethod.Parameters[param.Name].Description
 			}
 			if f.Comment == "" {
-				f.Comment = docStruct.Fields[param.Name]
+				f.Comment = docStruct.Fields[param.Name].Description
 			}
 			if f.Comment == "" {
 				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)

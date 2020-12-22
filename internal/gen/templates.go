@@ -14,6 +14,9 @@ func Template() *template.Template {
 		"lower":      strings.ToLower,
 		"trimPrefix": strings.TrimPrefix,
 		"hasPrefix":  strings.HasPrefix,
+		"add": func(x, y int) int {
+			return x + y
+		},
 	})
 	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/utils.tmpl"))))
 	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/header.tmpl"))))
