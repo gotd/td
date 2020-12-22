@@ -115,7 +115,16 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 
 	// Start retrying.
 	if err := c.rpcRetryUntilAck(retryCtx, req); err != nil {
-		return err
+		// If the retryCtx was canceled, then one of two things happened:
+		// 1. User canceled the original context.
+		// 2. The RPC result came and callback canceled retryCtx.
+		//
+		// If this is not an context.Canceled error, most likely we did not receive ACK
+		// and exceeded the limit of attempts to send a request,
+		// or could not write data to the connection, so we return an error.
+		if !errors.Is(err, context.Canceled) {
+			return xerrors.Errorf("retryUntilAck: %w", err)
+		}
 	}
 
 	select {
@@ -126,25 +135,25 @@ func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
 	}
 }
 
+// rpcRetryUntilAck resends the request to the server until ACK is received
+// or context canceled.
+//
+// Returns nil if ACK was received, otherwise return error.
 func (c *Client) rpcRetryUntilAck(ctx context.Context, req request) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	// Set ack callback for request.
-	c.ackMux.Lock()
-	c.ack[req.ID] = cancel
-	c.ackMux.Unlock()
-
-	defer func() {
-		c.ackMux.Lock()
-		delete(c.ack, req.ID)
-		c.ackMux.Unlock()
-	}()
+	ackChan := make(chan error)
+	go func() { ackChan <- c.waitACK(ctx, req.ID) }()
 
 	retries := 0
 	for {
 		select {
-		case <-ctx.Done():
+		case ackErr := <-ackChan:
+			if ackErr != nil {
+				return xerrors.Errorf("wait ack: %w", ackErr)
+			}
+
 			return nil
 			// TODO(ccln): use clock.
 		case <-time.After(c.retryInterval):

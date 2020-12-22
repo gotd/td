@@ -45,3 +45,27 @@ func (c *Client) ackLoop(ctx context.Context) {
 		}
 	}
 }
+
+// waitACK waits to receive ACK from the server until the context is canceled.
+// If ACK was received - returns nil.
+// If the context was canceled before the ACK was received, it returns a context error.
+func (c *Client) waitACK(ctx context.Context, msgID int64) error {
+	got := make(chan struct{})
+
+	c.ackMux.Lock()
+	c.ack[msgID] = func() { got <- struct{}{} }
+	c.ackMux.Unlock()
+
+	defer func() {
+		c.ackMux.Lock()
+		delete(c.ack, msgID)
+		c.ackMux.Unlock()
+	}()
+
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-got:
+		return nil
+	}
+}
