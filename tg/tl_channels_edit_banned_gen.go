@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsEditBannedRequest represents TL type `channels.editBanned#72796912`.
 // Ban/unban/kick a user in a supergroup/channel¹.
@@ -35,6 +37,27 @@ type ChannelsEditBannedRequest struct {
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
 const ChannelsEditBannedRequestTypeID = 0x72796912
+
+// String implements fmt.Stringer.
+func (e *ChannelsEditBannedRequest) String() string {
+	if e == nil {
+		return "ChannelsEditBannedRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsEditBannedRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(e.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBannedRights: ")
+	sb.WriteString(e.BannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsDateRangeDays represents TL type `statsDateRangeDays#b637edaf`.
 // Channel statistics¹ date range
@@ -30,6 +32,24 @@ type StatsDateRangeDays struct {
 
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.
 const StatsDateRangeDaysTypeID = 0xb637edaf
+
+// String implements fmt.Stringer.
+func (s *StatsDateRangeDays) String() string {
+	if s == nil {
+		return "StatsDateRangeDays(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsDateRangeDays")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMinDate: ")
+	sb.WriteString(fmt.Sprint(s.MinDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxDate: ")
+	sb.WriteString(fmt.Sprint(s.MaxDate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {

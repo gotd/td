@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpInviteText represents TL type `help.inviteText#18cb9f78`.
 // Text of a text message with an invitation to install Telegram.
@@ -25,6 +27,21 @@ type HelpInviteText struct {
 
 // HelpInviteTextTypeID is TL type id of HelpInviteText.
 const HelpInviteTextTypeID = 0x18cb9f78
+
+// String implements fmt.Stringer.
+func (i *HelpInviteText) String() string {
+	if i == nil {
+		return "HelpInviteText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpInviteText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(i.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *HelpInviteText) Encode(b *bin.Buffer) error {

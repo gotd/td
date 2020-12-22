@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
 // No new wallpapers were found
@@ -23,6 +25,18 @@ type AccountWallPapersNotModified struct {
 
 // AccountWallPapersNotModifiedTypeID is TL type id of AccountWallPapersNotModified.
 const AccountWallPapersNotModifiedTypeID = 0x1c199183
+
+// String implements fmt.Stringer.
+func (w *AccountWallPapersNotModified) String() string {
+	if w == nil {
+		return "AccountWallPapersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountWallPapersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *AccountWallPapersNotModified) Encode(b *bin.Buffer) error {
@@ -71,6 +85,26 @@ type AccountWallPapers struct {
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
 const AccountWallPapersTypeID = 0x702b65a9
+
+// String implements fmt.Stringer.
+func (w *AccountWallPapers) String() string {
+	if w == nil {
+		return "AccountWallPapers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountWallPapers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(w.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range w.Wallpapers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *AccountWallPapers) Encode(b *bin.Buffer) error {
@@ -151,6 +185,7 @@ type AccountWallPapersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AccountWallPapersClass
+	fmt.Stringer
 }
 
 // DecodeAccountWallPapers implements binary de-serialization for AccountWallPapersClass.

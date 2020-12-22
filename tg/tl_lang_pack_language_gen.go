@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangPackLanguage represents TL type `langPackLanguage#eeca5ce3`.
 // Identifies a localization pack
@@ -55,6 +57,47 @@ type LangPackLanguage struct {
 
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
 const LangPackLanguageTypeID = 0xeeca5ce3
+
+// String implements fmt.Stringer.
+func (l *LangPackLanguage) String() string {
+	if l == nil {
+		return "LangPackLanguage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackLanguage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(l.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(l.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNativeName: ")
+	sb.WriteString(fmt.Sprint(l.NativeName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(l.LangCode))
+	sb.WriteString(",\n")
+	if l.Flags.Has(1) {
+		sb.WriteString("\tBaseLangCode: ")
+		sb.WriteString(fmt.Sprint(l.BaseLangCode))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPluralCode: ")
+	sb.WriteString(fmt.Sprint(l.PluralCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStringsCount: ")
+	sb.WriteString(fmt.Sprint(l.StringsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTranslatedCount: ")
+	sb.WriteString(fmt.Sprint(l.TranslatedCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTranslationsURL: ")
+	sb.WriteString(fmt.Sprint(l.TranslationsURL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *LangPackLanguage) Encode(b *bin.Buffer) error {

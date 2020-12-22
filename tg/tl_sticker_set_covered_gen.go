@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickerSetCovered represents TL type `stickerSetCovered#6410a5d2`.
 // Stickerset, with a specific sticker as preview
@@ -27,6 +29,24 @@ type StickerSetCovered struct {
 
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
 const StickerSetCoveredTypeID = 0x6410a5d2
+
+// String implements fmt.Stringer.
+func (s *StickerSetCovered) String() string {
+	if s == nil {
+		return "StickerSetCovered(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickerSetCovered")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSet: ")
+	sb.WriteString(s.Set.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCover: ")
+	sb.WriteString(s.Cover.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
@@ -93,6 +113,26 @@ type StickerSetMultiCovered struct {
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
 const StickerSetMultiCoveredTypeID = 0x3407e51b
+
+// String implements fmt.Stringer.
+func (s *StickerSetMultiCovered) String() string {
+	if s == nil {
+		return "StickerSetMultiCovered(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickerSetMultiCovered")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSet: ")
+	sb.WriteString(s.Set.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Covers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
@@ -173,6 +213,7 @@ type StickerSetCoveredClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StickerSetCoveredClass
+	fmt.Stringer
 }
 
 // DecodeStickerSetCovered implements binary de-serialization for StickerSetCoveredClass.

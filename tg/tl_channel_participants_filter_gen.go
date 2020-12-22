@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelParticipantsRecent represents TL type `channelParticipantsRecent#de3f3c79`.
 // Fetch only recent participants
@@ -23,6 +25,18 @@ type ChannelParticipantsRecent struct {
 
 // ChannelParticipantsRecentTypeID is TL type id of ChannelParticipantsRecent.
 const ChannelParticipantsRecentTypeID = 0xde3f3c79
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsRecent) String() string {
+	if c == nil {
+		return "ChannelParticipantsRecent(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsRecent")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsRecent) Encode(b *bin.Buffer) error {
@@ -64,6 +78,18 @@ type ChannelParticipantsAdmins struct {
 
 // ChannelParticipantsAdminsTypeID is TL type id of ChannelParticipantsAdmins.
 const ChannelParticipantsAdminsTypeID = 0xb4608969
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsAdmins) String() string {
+	if c == nil {
+		return "ChannelParticipantsAdmins(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsAdmins")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsAdmins) Encode(b *bin.Buffer) error {
@@ -107,6 +133,21 @@ type ChannelParticipantsKicked struct {
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
 const ChannelParticipantsKickedTypeID = 0xa3b54985
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsKicked) String() string {
+	if c == nil {
+		return "ChannelParticipantsKicked(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsKicked")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(c.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsKicked) Encode(b *bin.Buffer) error {
@@ -157,6 +198,18 @@ type ChannelParticipantsBots struct {
 // ChannelParticipantsBotsTypeID is TL type id of ChannelParticipantsBots.
 const ChannelParticipantsBotsTypeID = 0xb0d1865b
 
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsBots) String() string {
+	if c == nil {
+		return "ChannelParticipantsBots(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsBots")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsBots) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -199,6 +252,21 @@ type ChannelParticipantsBanned struct {
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
 const ChannelParticipantsBannedTypeID = 0x1427a5e1
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsBanned) String() string {
+	if c == nil {
+		return "ChannelParticipantsBanned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsBanned")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(c.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsBanned) Encode(b *bin.Buffer) error {
@@ -251,6 +319,21 @@ type ChannelParticipantsSearch struct {
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
 const ChannelParticipantsSearchTypeID = 0x656ac4b
 
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsSearch) String() string {
+	if c == nil {
+		return "ChannelParticipantsSearch(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsSearch")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(c.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsSearch) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -301,6 +384,21 @@ type ChannelParticipantsContacts struct {
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
 const ChannelParticipantsContactsTypeID = 0xbb6ae88d
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsContacts) String() string {
+	if c == nil {
+		return "ChannelParticipantsContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(c.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsContacts) Encode(b *bin.Buffer) error {
@@ -371,6 +469,31 @@ type ChannelParticipantsMentions struct {
 
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.
 const ChannelParticipantsMentionsTypeID = 0xe04b5ceb
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantsMentions) String() string {
+	if c == nil {
+		return "ChannelParticipantsMentions(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantsMentions")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(0) {
+		sb.WriteString("\tQ: ")
+		sb.WriteString(fmt.Sprint(c.Q))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(1) {
+		sb.WriteString("\tTopMsgID: ")
+		sb.WriteString(fmt.Sprint(c.TopMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsMentions) Encode(b *bin.Buffer) error {
@@ -485,6 +608,7 @@ type ChannelParticipantsFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelParticipantsFilterClass
+	fmt.Stringer
 }
 
 // DecodeChannelParticipantsFilter implements binary de-serialization for ChannelParticipantsFilterClass.

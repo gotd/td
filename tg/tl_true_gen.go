@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // True represents TL type `true#3fedd339`.
 // See predefined identifiers¹.
@@ -26,6 +28,18 @@ type True struct {
 
 // TrueTypeID is TL type id of True.
 const TrueTypeID = 0x3fedd339
+
+// String implements fmt.Stringer.
+func (t *True) String() string {
+	if t == nil {
+		return "True(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("True")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *True) Encode(b *bin.Buffer) error {

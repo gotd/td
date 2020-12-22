@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,32 +14,48 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
-// ReqPqMulti represents TL type `req_pq_multi#be7e8ef1`.
-type ReqPqMulti struct {
-	// Nonce field of ReqPqMulti.
+// ReqPqMultiRequest represents TL type `req_pq_multi#be7e8ef1`.
+type ReqPqMultiRequest struct {
+	// Nonce field of ReqPqMultiRequest.
 	Nonce bin.Int128
 }
 
-// ReqPqMultiTypeID is TL type id of ReqPqMulti.
-const ReqPqMultiTypeID = 0xbe7e8ef1
+// ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.
+const ReqPqMultiRequestTypeID = 0xbe7e8ef1
+
+// String implements fmt.Stringer.
+func (r *ReqPqMultiRequest) String() string {
+	if r == nil {
+		return "ReqPqMultiRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReqPqMultiRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(r.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
-func (r *ReqPqMulti) Encode(b *bin.Buffer) error {
+func (r *ReqPqMultiRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode req_pq_multi#be7e8ef1 as nil")
 	}
-	b.PutID(ReqPqMultiTypeID)
+	b.PutID(ReqPqMultiRequestTypeID)
 	b.PutInt128(r.Nonce)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (r *ReqPqMulti) Decode(b *bin.Buffer) error {
+func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode req_pq_multi#be7e8ef1 to nil")
 	}
-	if err := b.ConsumeID(ReqPqMultiTypeID); err != nil {
+	if err := b.ConsumeID(ReqPqMultiRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode req_pq_multi#be7e8ef1: %w", err)
 	}
 	{
@@ -51,8 +68,21 @@ func (r *ReqPqMulti) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReqPqMulti.
+// Ensuring interfaces in compile-time for ReqPqMultiRequest.
 var (
-	_ bin.Encoder = &ReqPqMulti{}
-	_ bin.Decoder = &ReqPqMulti{}
+	_ bin.Encoder = &ReqPqMultiRequest{}
+	_ bin.Decoder = &ReqPqMultiRequest{}
 )
+
+// ReqPqMulti invokes method req_pq_multi#be7e8ef1 returning error if any.
+func (c *Client) ReqPqMulti(ctx context.Context, nonce bin.Int128) (*ResPQ, error) {
+	var result ResPQ
+
+	request := &ReqPqMultiRequest{
+		Nonce: nonce,
+	}
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return &result, nil
+}

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#46578472`.
 // Get unread messages where we were mentioned
@@ -50,6 +52,36 @@ type MessagesGetUnreadMentionsRequest struct {
 
 // MessagesGetUnreadMentionsRequestTypeID is TL type id of MessagesGetUnreadMentionsRequest.
 const MessagesGetUnreadMentionsRequestTypeID = 0x46578472
+
+// String implements fmt.Stringer.
+func (g *MessagesGetUnreadMentionsRequest) String() string {
+	if g == nil {
+		return "MessagesGetUnreadMentionsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetUnreadMentionsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(g.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddOffset: ")
+	sb.WriteString(fmt.Sprint(g.AddOffset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(g.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinID: ")
+	sb.WriteString(fmt.Sprint(g.MinID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {

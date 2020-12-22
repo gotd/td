@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetCountriesListRequest represents TL type `help.getCountriesList#735787a8`.
 // Get name, ISO code, localized name and phone codes/patterns of all available countries
@@ -30,6 +32,24 @@ type HelpGetCountriesListRequest struct {
 
 // HelpGetCountriesListRequestTypeID is TL type id of HelpGetCountriesListRequest.
 const HelpGetCountriesListRequestTypeID = 0x735787a8
+
+// String implements fmt.Stringer.
+func (g *HelpGetCountriesListRequest) String() string {
+	if g == nil {
+		return "HelpGetCountriesListRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetCountriesListRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetCountriesListRequest) Encode(b *bin.Buffer) error {

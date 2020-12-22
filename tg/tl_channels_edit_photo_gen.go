@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsEditPhotoRequest represents TL type `channels.editPhoto#f12e57c9`.
 // Change the photo of a channel/supergroup¹
@@ -30,6 +32,24 @@ type ChannelsEditPhotoRequest struct {
 
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.
 const ChannelsEditPhotoRequestTypeID = 0xf12e57c9
+
+// String implements fmt.Stringer.
+func (e *ChannelsEditPhotoRequest) String() string {
+	if e == nil {
+		return "ChannelsEditPhotoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsEditPhotoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(e.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {

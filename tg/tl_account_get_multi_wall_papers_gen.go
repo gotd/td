@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetMultiWallPapersRequest represents TL type `account.getMultiWallPapers#65ad71dc`.
 // Get info about multiple wallpapers
@@ -25,6 +27,23 @@ type AccountGetMultiWallPapersRequest struct {
 
 // AccountGetMultiWallPapersRequestTypeID is TL type id of AccountGetMultiWallPapersRequest.
 const AccountGetMultiWallPapersRequestTypeID = 0x65ad71dc
+
+// String implements fmt.Stringer.
+func (g *AccountGetMultiWallPapersRequest) String() string {
+	if g == nil {
+		return "AccountGetMultiWallPapersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetMultiWallPapersRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range g.Wallpapers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {

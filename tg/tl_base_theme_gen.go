@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BaseThemeClassic represents TL type `baseThemeClassic#c3a12462`.
 // Classic theme
@@ -23,6 +25,18 @@ type BaseThemeClassic struct {
 
 // BaseThemeClassicTypeID is TL type id of BaseThemeClassic.
 const BaseThemeClassicTypeID = 0xc3a12462
+
+// String implements fmt.Stringer.
+func (b *BaseThemeClassic) String() string {
+	if b == nil {
+		return "BaseThemeClassic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BaseThemeClassic")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
@@ -65,6 +79,18 @@ type BaseThemeDay struct {
 // BaseThemeDayTypeID is TL type id of BaseThemeDay.
 const BaseThemeDayTypeID = 0xfbd81688
 
+// String implements fmt.Stringer.
+func (b *BaseThemeDay) String() string {
+	if b == nil {
+		return "BaseThemeDay(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BaseThemeDay")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeDay) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -105,6 +131,18 @@ type BaseThemeNight struct {
 
 // BaseThemeNightTypeID is TL type id of BaseThemeNight.
 const BaseThemeNightTypeID = 0xb7b31ea8
+
+// String implements fmt.Stringer.
+func (b *BaseThemeNight) String() string {
+	if b == nil {
+		return "BaseThemeNight(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BaseThemeNight")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
@@ -147,6 +185,18 @@ type BaseThemeTinted struct {
 // BaseThemeTintedTypeID is TL type id of BaseThemeTinted.
 const BaseThemeTintedTypeID = 0x6d5f77ee
 
+// String implements fmt.Stringer.
+func (b *BaseThemeTinted) String() string {
+	if b == nil {
+		return "BaseThemeTinted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BaseThemeTinted")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeTinted) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -187,6 +237,18 @@ type BaseThemeArctic struct {
 
 // BaseThemeArcticTypeID is TL type id of BaseThemeArctic.
 const BaseThemeArcticTypeID = 0x5b11125a
+
+// String implements fmt.Stringer.
+func (b *BaseThemeArctic) String() string {
+	if b == nil {
+		return "BaseThemeArctic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BaseThemeArctic")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
@@ -240,6 +302,7 @@ type BaseThemeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BaseThemeClass
+	fmt.Stringer
 }
 
 // DecodeBaseTheme implements binary de-serialization for BaseThemeClass.

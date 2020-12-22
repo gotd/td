@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetAppChangelogRequest represents TL type `help.getAppChangelog#9010ef6f`.
 // Get changelog of current app.
@@ -30,6 +32,21 @@ type HelpGetAppChangelogRequest struct {
 
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.
 const HelpGetAppChangelogRequestTypeID = 0x9010ef6f
+
+// String implements fmt.Stringer.
+func (g *HelpGetAppChangelogRequest) String() string {
+	if g == nil {
+		return "HelpGetAppChangelogRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetAppChangelogRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPrevAppVersion: ")
+	sb.WriteString(fmt.Sprint(g.PrevAppVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {

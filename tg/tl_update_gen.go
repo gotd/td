@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdateNewMessage represents TL type `updateNewMessage#1f2b0afd`.
 // New message in a private chat or in a legacy group¹.
@@ -32,6 +34,27 @@ type UpdateNewMessage struct {
 
 // UpdateNewMessageTypeID is TL type id of UpdateNewMessage.
 const UpdateNewMessageTypeID = 0x1f2b0afd
+
+// String implements fmt.Stringer.
+func (u *UpdateNewMessage) String() string {
+	if u == nil {
+		return "UpdateNewMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNewMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateNewMessage) Encode(b *bin.Buffer) error {
@@ -110,6 +133,24 @@ type UpdateMessageID struct {
 // UpdateMessageIDTypeID is TL type id of UpdateMessageID.
 const UpdateMessageIDTypeID = 0x4e90bfd6
 
+// String implements fmt.Stringer.
+func (u *UpdateMessageID) String() string {
+	if u == nil {
+		return "UpdateMessageID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateMessageID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(u.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateMessageID) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -175,6 +216,29 @@ type UpdateDeleteMessages struct {
 
 // UpdateDeleteMessagesTypeID is TL type id of UpdateDeleteMessages.
 const UpdateDeleteMessagesTypeID = 0xa20db0e5
+
+// String implements fmt.Stringer.
+func (u *UpdateDeleteMessages) String() string {
+	if u == nil {
+		return "UpdateDeleteMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDeleteMessages")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteMessages) Encode(b *bin.Buffer) error {
@@ -257,6 +321,24 @@ type UpdateUserTyping struct {
 // UpdateUserTypingTypeID is TL type id of UpdateUserTyping.
 const UpdateUserTypingTypeID = 0x5c486927
 
+// String implements fmt.Stringer.
+func (u *UpdateUserTyping) String() string {
+	if u == nil {
+		return "UpdateUserTyping(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateUserTyping")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAction: ")
+	sb.WriteString(u.Action.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -327,6 +409,27 @@ type UpdateChatUserTyping struct {
 
 // UpdateChatUserTypingTypeID is TL type id of UpdateChatUserTyping.
 const UpdateChatUserTypingTypeID = 0x9a65ea1f
+
+// String implements fmt.Stringer.
+func (u *UpdateChatUserTyping) String() string {
+	if u == nil {
+		return "UpdateChatUserTyping(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatUserTyping")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAction: ")
+	sb.WriteString(u.Action.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChatUserTyping) Encode(b *bin.Buffer) error {
@@ -400,6 +503,21 @@ type UpdateChatParticipants struct {
 // UpdateChatParticipantsTypeID is TL type id of UpdateChatParticipants.
 const UpdateChatParticipantsTypeID = 0x7761198
 
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipants) String() string {
+	if u == nil {
+		return "UpdateChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteString("\tParticipants: ")
+	sb.WriteString(u.Participants.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipants) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -457,6 +575,24 @@ type UpdateUserStatus struct {
 
 // UpdateUserStatusTypeID is TL type id of UpdateUserStatus.
 const UpdateUserStatusTypeID = 0x1bfbd823
+
+// String implements fmt.Stringer.
+func (u *UpdateUserStatus) String() string {
+	if u == nil {
+		return "UpdateUserStatus(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateUserStatus")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStatus: ")
+	sb.WriteString(u.Status.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateUserStatus) Encode(b *bin.Buffer) error {
@@ -536,6 +672,30 @@ type UpdateUserName struct {
 
 // UpdateUserNameTypeID is TL type id of UpdateUserName.
 const UpdateUserNameTypeID = 0xa7332b73
+
+// String implements fmt.Stringer.
+func (u *UpdateUserName) String() string {
+	if u == nil {
+		return "UpdateUserName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateUserName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(u.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(u.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUsername: ")
+	sb.WriteString(fmt.Sprint(u.Username))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateUserName) Encode(b *bin.Buffer) error {
@@ -621,6 +781,30 @@ type UpdateUserPhoto struct {
 // UpdateUserPhotoTypeID is TL type id of UpdateUserPhoto.
 const UpdateUserPhotoTypeID = 0x95313b0c
 
+// String implements fmt.Stringer.
+func (u *UpdateUserPhoto) String() string {
+	if u == nil {
+		return "UpdateUserPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateUserPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(u.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPrevious: ")
+	sb.WriteString(fmt.Sprint(u.Previous))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserPhoto) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -703,6 +887,24 @@ type UpdateNewEncryptedMessage struct {
 // UpdateNewEncryptedMessageTypeID is TL type id of UpdateNewEncryptedMessage.
 const UpdateNewEncryptedMessageTypeID = 0x12bcbd9a
 
+// String implements fmt.Stringer.
+func (u *UpdateNewEncryptedMessage) String() string {
+	if u == nil {
+		return "UpdateNewEncryptedMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNewEncryptedMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQts: ")
+	sb.WriteString(fmt.Sprint(u.Qts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewEncryptedMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -767,6 +969,21 @@ type UpdateEncryptedChatTyping struct {
 // UpdateEncryptedChatTypingTypeID is TL type id of UpdateEncryptedChatTyping.
 const UpdateEncryptedChatTypingTypeID = 0x1710f156
 
+// String implements fmt.Stringer.
+func (u *UpdateEncryptedChatTyping) String() string {
+	if u == nil {
+		return "UpdateEncryptedChatTyping(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateEncryptedChatTyping")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEncryptedChatTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -819,6 +1036,24 @@ type UpdateEncryption struct {
 
 // UpdateEncryptionTypeID is TL type id of UpdateEncryption.
 const UpdateEncryptionTypeID = 0xb4a2e88d
+
+// String implements fmt.Stringer.
+func (u *UpdateEncryption) String() string {
+	if u == nil {
+		return "UpdateEncryption(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateEncryption")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChat: ")
+	sb.WriteString(u.Chat.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateEncryption) Encode(b *bin.Buffer) error {
@@ -887,6 +1122,27 @@ type UpdateEncryptedMessagesRead struct {
 
 // UpdateEncryptedMessagesReadTypeID is TL type id of UpdateEncryptedMessagesRead.
 const UpdateEncryptedMessagesReadTypeID = 0x38fe25b7
+
+// String implements fmt.Stringer.
+func (u *UpdateEncryptedMessagesRead) String() string {
+	if u == nil {
+		return "UpdateEncryptedMessagesRead(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateEncryptedMessagesRead")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxDate: ")
+	sb.WriteString(fmt.Sprint(u.MaxDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateEncryptedMessagesRead) Encode(b *bin.Buffer) error {
@@ -962,6 +1218,33 @@ type UpdateChatParticipantAdd struct {
 
 // UpdateChatParticipantAddTypeID is TL type id of UpdateChatParticipantAdd.
 const UpdateChatParticipantAddTypeID = 0xea4b0e5c
+
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipantAdd) String() string {
+	if u == nil {
+		return "UpdateChatParticipantAdd(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatParticipantAdd")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInviterID: ")
+	sb.WriteString(fmt.Sprint(u.InviterID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(u.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantAdd) Encode(b *bin.Buffer) error {
@@ -1050,6 +1333,27 @@ type UpdateChatParticipantDelete struct {
 // UpdateChatParticipantDeleteTypeID is TL type id of UpdateChatParticipantDelete.
 const UpdateChatParticipantDeleteTypeID = 0x6e5f8c22
 
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipantDelete) String() string {
+	if u == nil {
+		return "UpdateChatParticipantDelete(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatParticipantDelete")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(u.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantDelete) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1117,6 +1421,23 @@ type UpdateDcOptions struct {
 // UpdateDcOptionsTypeID is TL type id of UpdateDcOptions.
 const UpdateDcOptionsTypeID = 0x8e5e9873
 
+// String implements fmt.Stringer.
+func (u *UpdateDcOptions) String() string {
+	if u == nil {
+		return "UpdateDcOptions(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDcOptions")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.DCOptions {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDcOptions) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1180,6 +1501,24 @@ type UpdateNotifySettings struct {
 
 // UpdateNotifySettingsTypeID is TL type id of UpdateNotifySettings.
 const UpdateNotifySettingsTypeID = 0xbec268ef
+
+// String implements fmt.Stringer.
+func (u *UpdateNotifySettings) String() string {
+	if u == nil {
+		return "UpdateNotifySettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNotifySettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNotifySettings: ")
+	sb.WriteString(u.NotifySettings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateNotifySettings) Encode(b *bin.Buffer) error {
@@ -1268,6 +1607,40 @@ type UpdateServiceNotification struct {
 
 // UpdateServiceNotificationTypeID is TL type id of UpdateServiceNotification.
 const UpdateServiceNotificationTypeID = 0xebe46819
+
+// String implements fmt.Stringer.
+func (u *UpdateServiceNotification) String() string {
+	if u == nil {
+		return "UpdateServiceNotification(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateServiceNotification")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(1) {
+		sb.WriteString("\tInboxDate: ")
+		sb.WriteString(fmt.Sprint(u.InboxDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(u.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(u.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMedia: ")
+	sb.WriteString(u.Media.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateServiceNotification) Encode(b *bin.Buffer) error {
@@ -1408,6 +1781,26 @@ type UpdatePrivacy struct {
 // UpdatePrivacyTypeID is TL type id of UpdatePrivacy.
 const UpdatePrivacyTypeID = 0xee3b272a
 
+// String implements fmt.Stringer.
+func (u *UpdatePrivacy) String() string {
+	if u == nil {
+		return "UpdatePrivacy(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePrivacy")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(u.Key.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Rules {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePrivacy) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1487,6 +1880,24 @@ type UpdateUserPhone struct {
 
 // UpdateUserPhoneTypeID is TL type id of UpdateUserPhone.
 const UpdateUserPhoneTypeID = 0x12b9417b
+
+// String implements fmt.Stringer.
+func (u *UpdateUserPhone) String() string {
+	if u == nil {
+		return "UpdateUserPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateUserPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(u.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateUserPhone) Encode(b *bin.Buffer) error {
@@ -1572,6 +1983,41 @@ type UpdateReadHistoryInbox struct {
 
 // UpdateReadHistoryInboxTypeID is TL type id of UpdateReadHistoryInbox.
 const UpdateReadHistoryInboxTypeID = 0x9c974fdf
+
+// String implements fmt.Stringer.
+func (u *UpdateReadHistoryInbox) String() string {
+	if u == nil {
+		return "UpdateReadHistoryInbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadHistoryInbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(u.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(u.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStillUnreadCount: ")
+	sb.WriteString(fmt.Sprint(u.StillUnreadCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateReadHistoryInbox) Encode(b *bin.Buffer) error {
@@ -1706,6 +2152,30 @@ type UpdateReadHistoryOutbox struct {
 // UpdateReadHistoryOutboxTypeID is TL type id of UpdateReadHistoryOutbox.
 const UpdateReadHistoryOutboxTypeID = 0x2f2f21bf
 
+// String implements fmt.Stringer.
+func (u *UpdateReadHistoryOutbox) String() string {
+	if u == nil {
+		return "UpdateReadHistoryOutbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadHistoryOutbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(u.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadHistoryOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1799,6 +2269,27 @@ type UpdateWebPage struct {
 // UpdateWebPageTypeID is TL type id of UpdateWebPage.
 const UpdateWebPageTypeID = 0x7f891213
 
+// String implements fmt.Stringer.
+func (u *UpdateWebPage) String() string {
+	if u == nil {
+		return "UpdateWebPage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateWebPage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tWebpage: ")
+	sb.WriteString(u.Webpage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateWebPage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1883,6 +2374,29 @@ type UpdateReadMessagesContents struct {
 
 // UpdateReadMessagesContentsTypeID is TL type id of UpdateReadMessagesContents.
 const UpdateReadMessagesContentsTypeID = 0x68c13933
+
+// String implements fmt.Stringer.
+func (u *UpdateReadMessagesContents) String() string {
+	if u == nil {
+		return "UpdateReadMessagesContents(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadMessagesContents")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateReadMessagesContents) Encode(b *bin.Buffer) error {
@@ -1973,6 +2487,29 @@ type UpdateChannelTooLong struct {
 // UpdateChannelTooLongTypeID is TL type id of UpdateChannelTooLong.
 const UpdateChannelTooLongTypeID = 0xeb0467fb
 
+// String implements fmt.Stringer.
+func (u *UpdateChannelTooLong) String() string {
+	if u == nil {
+		return "UpdateChannelTooLong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelTooLong")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tPts: ")
+		sb.WriteString(fmt.Sprint(u.Pts))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2057,6 +2594,21 @@ type UpdateChannel struct {
 // UpdateChannelTypeID is TL type id of UpdateChannel.
 const UpdateChannelTypeID = 0xb6d45656
 
+// String implements fmt.Stringer.
+func (u *UpdateChannel) String() string {
+	if u == nil {
+		return "UpdateChannel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannel) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2120,6 +2672,27 @@ type UpdateNewChannelMessage struct {
 
 // UpdateNewChannelMessageTypeID is TL type id of UpdateNewChannelMessage.
 const UpdateNewChannelMessageTypeID = 0x62ba04d9
+
+// String implements fmt.Stringer.
+func (u *UpdateNewChannelMessage) String() string {
+	if u == nil {
+		return "UpdateNewChannelMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNewChannelMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateNewChannelMessage) Encode(b *bin.Buffer) error {
@@ -2216,6 +2789,38 @@ type UpdateReadChannelInbox struct {
 
 // UpdateReadChannelInboxTypeID is TL type id of UpdateReadChannelInbox.
 const UpdateReadChannelInboxTypeID = 0x330b5424
+
+// String implements fmt.Stringer.
+func (u *UpdateReadChannelInbox) String() string {
+	if u == nil {
+		return "UpdateReadChannelInbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadChannelInbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(u.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(u.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStillUnreadCount: ")
+	sb.WriteString(fmt.Sprint(u.StillUnreadCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelInbox) Encode(b *bin.Buffer) error {
@@ -2340,6 +2945,32 @@ type UpdateDeleteChannelMessages struct {
 // UpdateDeleteChannelMessagesTypeID is TL type id of UpdateDeleteChannelMessages.
 const UpdateDeleteChannelMessagesTypeID = 0xc37521c9
 
+// String implements fmt.Stringer.
+func (u *UpdateDeleteChannelMessages) String() string {
+	if u == nil {
+		return "UpdateDeleteChannelMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDeleteChannelMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteChannelMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2428,6 +3059,27 @@ type UpdateChannelMessageViews struct {
 // UpdateChannelMessageViewsTypeID is TL type id of UpdateChannelMessageViews.
 const UpdateChannelMessageViewsTypeID = 0x98a12b4b
 
+// String implements fmt.Stringer.
+func (u *UpdateChannelMessageViews) String() string {
+	if u == nil {
+		return "UpdateChannelMessageViews(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelMessageViews")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tViews: ")
+	sb.WriteString(fmt.Sprint(u.Views))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelMessageViews) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2504,6 +3156,30 @@ type UpdateChatParticipantAdmin struct {
 // UpdateChatParticipantAdminTypeID is TL type id of UpdateChatParticipantAdmin.
 const UpdateChatParticipantAdminTypeID = 0xb6901959
 
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipantAdmin) String() string {
+	if u == nil {
+		return "UpdateChatParticipantAdmin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatParticipantAdmin")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIsAdmin: ")
+	sb.WriteString(fmt.Sprint(u.IsAdmin))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(u.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2579,6 +3255,21 @@ type UpdateNewStickerSet struct {
 // UpdateNewStickerSetTypeID is TL type id of UpdateNewStickerSet.
 const UpdateNewStickerSetTypeID = 0x688a30aa
 
+// String implements fmt.Stringer.
+func (u *UpdateNewStickerSet) String() string {
+	if u == nil {
+		return "UpdateNewStickerSet(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNewStickerSet")
+	sb.WriteString("{\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(u.Stickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewStickerSet) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2636,6 +3327,26 @@ type UpdateStickerSetsOrder struct {
 
 // UpdateStickerSetsOrderTypeID is TL type id of UpdateStickerSetsOrder.
 const UpdateStickerSetsOrderTypeID = 0xbb2d201
+
+// String implements fmt.Stringer.
+func (u *UpdateStickerSetsOrder) String() string {
+	if u == nil {
+		return "UpdateStickerSetsOrder(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateStickerSetsOrder")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Order {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSetsOrder) Encode(b *bin.Buffer) error {
@@ -2716,6 +3427,18 @@ type UpdateStickerSets struct {
 // UpdateStickerSetsTypeID is TL type id of UpdateStickerSets.
 const UpdateStickerSetsTypeID = 0x43ae3dec
 
+// String implements fmt.Stringer.
+func (u *UpdateStickerSets) String() string {
+	if u == nil {
+		return "UpdateStickerSets(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateStickerSets")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2759,6 +3482,18 @@ type UpdateSavedGifs struct {
 
 // UpdateSavedGifsTypeID is TL type id of UpdateSavedGifs.
 const UpdateSavedGifsTypeID = 0x9375341e
+
+// String implements fmt.Stringer.
+func (u *UpdateSavedGifs) String() string {
+	if u == nil {
+		return "UpdateSavedGifs(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateSavedGifs")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateSavedGifs) Encode(b *bin.Buffer) error {
@@ -2817,6 +3552,38 @@ type UpdateBotInlineQuery struct {
 
 // UpdateBotInlineQueryTypeID is TL type id of UpdateBotInlineQuery.
 const UpdateBotInlineQueryTypeID = 0x54826690
+
+// String implements fmt.Stringer.
+func (u *UpdateBotInlineQuery) String() string {
+	if u == nil {
+		return "UpdateBotInlineQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotInlineQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQuery: ")
+	sb.WriteString(fmt.Sprint(u.Query))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tGeo: ")
+		sb.WriteString(u.Geo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(u.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
@@ -2950,6 +3717,40 @@ type UpdateBotInlineSend struct {
 
 // UpdateBotInlineSendTypeID is TL type id of UpdateBotInlineSend.
 const UpdateBotInlineSendTypeID = 0xe48f964
+
+// String implements fmt.Stringer.
+func (u *UpdateBotInlineSend) String() string {
+	if u == nil {
+		return "UpdateBotInlineSend(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotInlineSend")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQuery: ")
+	sb.WriteString(fmt.Sprint(u.Query))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tGeo: ")
+		sb.WriteString(u.Geo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(1) {
+		sb.WriteString("\tMsgID: ")
+		sb.WriteString(u.MsgID.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineSend) Encode(b *bin.Buffer) error {
@@ -3094,6 +3895,27 @@ type UpdateEditChannelMessage struct {
 // UpdateEditChannelMessageTypeID is TL type id of UpdateEditChannelMessage.
 const UpdateEditChannelMessageTypeID = 0x1b3f4df7
 
+// String implements fmt.Stringer.
+func (u *UpdateEditChannelMessage) String() string {
+	if u == nil {
+		return "UpdateEditChannelMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateEditChannelMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEditChannelMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3186,6 +4008,46 @@ type UpdateBotCallbackQuery struct {
 
 // UpdateBotCallbackQueryTypeID is TL type id of UpdateBotCallbackQuery.
 const UpdateBotCallbackQueryTypeID = 0xe73547e1
+
+// String implements fmt.Stringer.
+func (u *UpdateBotCallbackQuery) String() string {
+	if u == nil {
+		return "UpdateBotCallbackQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotCallbackQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(u.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatInstance: ")
+	sb.WriteString(fmt.Sprint(u.ChatInstance))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tData: ")
+		sb.WriteString(fmt.Sprint(u.Data))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tGameShortName: ")
+		sb.WriteString(fmt.Sprint(u.GameShortName))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotCallbackQuery) Encode(b *bin.Buffer) error {
@@ -3343,6 +4205,27 @@ type UpdateEditMessage struct {
 // UpdateEditMessageTypeID is TL type id of UpdateEditMessage.
 const UpdateEditMessageTypeID = 0xe40370a3
 
+// String implements fmt.Stringer.
+func (u *UpdateEditMessage) String() string {
+	if u == nil {
+		return "UpdateEditMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateEditMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEditMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3433,6 +4316,43 @@ type UpdateInlineBotCallbackQuery struct {
 
 // UpdateInlineBotCallbackQueryTypeID is TL type id of UpdateInlineBotCallbackQuery.
 const UpdateInlineBotCallbackQueryTypeID = 0xf9d27a5a
+
+// String implements fmt.Stringer.
+func (u *UpdateInlineBotCallbackQuery) String() string {
+	if u == nil {
+		return "UpdateInlineBotCallbackQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateInlineBotCallbackQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(u.MsgID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatInstance: ")
+	sb.WriteString(fmt.Sprint(u.ChatInstance))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tData: ")
+		sb.WriteString(fmt.Sprint(u.Data))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tGameShortName: ")
+		sb.WriteString(fmt.Sprint(u.GameShortName))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateInlineBotCallbackQuery) Encode(b *bin.Buffer) error {
@@ -3572,6 +4492,24 @@ type UpdateReadChannelOutbox struct {
 // UpdateReadChannelOutboxTypeID is TL type id of UpdateReadChannelOutbox.
 const UpdateReadChannelOutboxTypeID = 0x25d6c9c7
 
+// String implements fmt.Stringer.
+func (u *UpdateReadChannelOutbox) String() string {
+	if u == nil {
+		return "UpdateReadChannelOutbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadChannelOutbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(u.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3635,6 +4573,24 @@ type UpdateDraftMessage struct {
 
 // UpdateDraftMessageTypeID is TL type id of UpdateDraftMessage.
 const UpdateDraftMessageTypeID = 0xee2bb969
+
+// String implements fmt.Stringer.
+func (u *UpdateDraftMessage) String() string {
+	if u == nil {
+		return "UpdateDraftMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDraftMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDraft: ")
+	sb.WriteString(u.Draft.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateDraftMessage) Encode(b *bin.Buffer) error {
@@ -3703,6 +4659,18 @@ type UpdateReadFeaturedStickers struct {
 // UpdateReadFeaturedStickersTypeID is TL type id of UpdateReadFeaturedStickers.
 const UpdateReadFeaturedStickersTypeID = 0x571d2742
 
+// String implements fmt.Stringer.
+func (u *UpdateReadFeaturedStickers) String() string {
+	if u == nil {
+		return "UpdateReadFeaturedStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadFeaturedStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadFeaturedStickers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3743,6 +4711,18 @@ type UpdateRecentStickers struct {
 
 // UpdateRecentStickersTypeID is TL type id of UpdateRecentStickers.
 const UpdateRecentStickersTypeID = 0x9a422c20
+
+// String implements fmt.Stringer.
+func (u *UpdateRecentStickers) String() string {
+	if u == nil {
+		return "UpdateRecentStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateRecentStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateRecentStickers) Encode(b *bin.Buffer) error {
@@ -3788,6 +4768,18 @@ type UpdateConfig struct {
 // UpdateConfigTypeID is TL type id of UpdateConfig.
 const UpdateConfigTypeID = 0xa229dd06
 
+// String implements fmt.Stringer.
+func (u *UpdateConfig) String() string {
+	if u == nil {
+		return "UpdateConfig(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateConfig")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateConfig) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3832,6 +4824,18 @@ type UpdatePtsChanged struct {
 
 // UpdatePtsChangedTypeID is TL type id of UpdatePtsChanged.
 const UpdatePtsChangedTypeID = 0x3354678f
+
+// String implements fmt.Stringer.
+func (u *UpdatePtsChanged) String() string {
+	if u == nil {
+		return "UpdatePtsChanged(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePtsChanged")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePtsChanged) Encode(b *bin.Buffer) error {
@@ -3893,6 +4897,30 @@ type UpdateChannelWebPage struct {
 
 // UpdateChannelWebPageTypeID is TL type id of UpdateChannelWebPage.
 const UpdateChannelWebPageTypeID = 0x40771900
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelWebPage) String() string {
+	if u == nil {
+		return "UpdateChannelWebPage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelWebPage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tWebpage: ")
+	sb.WriteString(u.Webpage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelWebPage) Encode(b *bin.Buffer) error {
@@ -3987,6 +5015,29 @@ type UpdateDialogPinned struct {
 
 // UpdateDialogPinnedTypeID is TL type id of UpdateDialogPinned.
 const UpdateDialogPinnedTypeID = 0x6e6fe51c
+
+// String implements fmt.Stringer.
+func (u *UpdateDialogPinned) String() string {
+	if u == nil {
+		return "UpdateDialogPinned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDialogPinned")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(1) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(u.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateDialogPinned) Encode(b *bin.Buffer) error {
@@ -4100,6 +5151,33 @@ type UpdatePinnedDialogs struct {
 
 // UpdatePinnedDialogsTypeID is TL type id of UpdatePinnedDialogs.
 const UpdatePinnedDialogsTypeID = 0xfa0f3ca2
+
+// String implements fmt.Stringer.
+func (u *UpdatePinnedDialogs) String() string {
+	if u == nil {
+		return "UpdatePinnedDialogs(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePinnedDialogs")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(1) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(u.FolderID))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range u.Order {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedDialogs) Encode(b *bin.Buffer) error {
@@ -4216,6 +5294,21 @@ type UpdateBotWebhookJSON struct {
 // UpdateBotWebhookJSONTypeID is TL type id of UpdateBotWebhookJSON.
 const UpdateBotWebhookJSONTypeID = 0x8317c0c3
 
+// String implements fmt.Stringer.
+func (u *UpdateBotWebhookJSON) String() string {
+	if u == nil {
+		return "UpdateBotWebhookJSON(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotWebhookJSON")
+	sb.WriteString("{\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(u.Data.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotWebhookJSON) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4270,6 +5363,27 @@ type UpdateBotWebhookJSONQuery struct {
 
 // UpdateBotWebhookJSONQueryTypeID is TL type id of UpdateBotWebhookJSONQuery.
 const UpdateBotWebhookJSONQueryTypeID = 0x9b9240a6
+
+// String implements fmt.Stringer.
+func (u *UpdateBotWebhookJSONQuery) String() string {
+	if u == nil {
+		return "UpdateBotWebhookJSONQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotWebhookJSONQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(u.Data.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTimeout: ")
+	sb.WriteString(fmt.Sprint(u.Timeout))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotWebhookJSONQuery) Encode(b *bin.Buffer) error {
@@ -4343,6 +5457,30 @@ type UpdateBotShippingQuery struct {
 
 // UpdateBotShippingQueryTypeID is TL type id of UpdateBotShippingQuery.
 const UpdateBotShippingQueryTypeID = 0xe0cdc940
+
+// String implements fmt.Stringer.
+func (u *UpdateBotShippingQuery) String() string {
+	if u == nil {
+		return "UpdateBotShippingQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotShippingQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPayload: ")
+	sb.WriteString(fmt.Sprint(u.Payload))
+	sb.WriteString(",\n")
+	sb.WriteString("\tShippingAddress: ")
+	sb.WriteString(u.ShippingAddress.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotShippingQuery) Encode(b *bin.Buffer) error {
@@ -4445,6 +5583,46 @@ type UpdateBotPrecheckoutQuery struct {
 
 // UpdateBotPrecheckoutQueryTypeID is TL type id of UpdateBotPrecheckoutQuery.
 const UpdateBotPrecheckoutQueryTypeID = 0x5d2f3aa9
+
+// String implements fmt.Stringer.
+func (u *UpdateBotPrecheckoutQuery) String() string {
+	if u == nil {
+		return "UpdateBotPrecheckoutQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateBotPrecheckoutQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(u.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPayload: ")
+	sb.WriteString(fmt.Sprint(u.Payload))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tInfo: ")
+		sb.WriteString(u.Info.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tShippingOptionID: ")
+		sb.WriteString(fmt.Sprint(u.ShippingOptionID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(u.Currency))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotalAmount: ")
+	sb.WriteString(fmt.Sprint(u.TotalAmount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateBotPrecheckoutQuery) Encode(b *bin.Buffer) error {
@@ -4587,6 +5765,21 @@ type UpdatePhoneCall struct {
 // UpdatePhoneCallTypeID is TL type id of UpdatePhoneCall.
 const UpdatePhoneCallTypeID = 0xab0f6b1e
 
+// String implements fmt.Stringer.
+func (u *UpdatePhoneCall) String() string {
+	if u == nil {
+		return "UpdatePhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneCall: ")
+	sb.WriteString(u.PhoneCall.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePhoneCall) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4646,6 +5839,21 @@ type UpdateLangPackTooLong struct {
 // UpdateLangPackTooLongTypeID is TL type id of UpdateLangPackTooLong.
 const UpdateLangPackTooLongTypeID = 0x46560264
 
+// String implements fmt.Stringer.
+func (u *UpdateLangPackTooLong) String() string {
+	if u == nil {
+		return "UpdateLangPackTooLong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateLangPackTooLong")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(u.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateLangPackTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4696,6 +5904,21 @@ type UpdateLangPack struct {
 
 // UpdateLangPackTypeID is TL type id of UpdateLangPack.
 const UpdateLangPackTypeID = 0x56022f4d
+
+// String implements fmt.Stringer.
+func (u *UpdateLangPack) String() string {
+	if u == nil {
+		return "UpdateLangPack(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateLangPack")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDifference: ")
+	sb.WriteString(u.Difference.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateLangPack) Encode(b *bin.Buffer) error {
@@ -4749,6 +5972,18 @@ type UpdateFavedStickers struct {
 // UpdateFavedStickersTypeID is TL type id of UpdateFavedStickers.
 const UpdateFavedStickersTypeID = 0xe511996d
 
+// String implements fmt.Stringer.
+func (u *UpdateFavedStickers) String() string {
+	if u == nil {
+		return "UpdateFavedStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateFavedStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateFavedStickers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4799,6 +6034,26 @@ type UpdateChannelReadMessagesContents struct {
 
 // UpdateChannelReadMessagesContentsTypeID is TL type id of UpdateChannelReadMessagesContents.
 const UpdateChannelReadMessagesContentsTypeID = 0x89893b45
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelReadMessagesContents) String() string {
+	if u == nil {
+		return "UpdateChannelReadMessagesContents(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelReadMessagesContents")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelReadMessagesContents) Encode(b *bin.Buffer) error {
@@ -4866,6 +6121,18 @@ type UpdateContactsReset struct {
 // UpdateContactsResetTypeID is TL type id of UpdateContactsReset.
 const UpdateContactsResetTypeID = 0x7084a7be
 
+// String implements fmt.Stringer.
+func (u *UpdateContactsReset) String() string {
+	if u == nil {
+		return "UpdateContactsReset(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateContactsReset")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateContactsReset) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4913,6 +6180,24 @@ type UpdateChannelAvailableMessages struct {
 
 // UpdateChannelAvailableMessagesTypeID is TL type id of UpdateChannelAvailableMessages.
 const UpdateChannelAvailableMessagesTypeID = 0x70db6837
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelAvailableMessages) String() string {
+	if u == nil {
+		return "UpdateChannelAvailableMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelAvailableMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAvailableMinID: ")
+	sb.WriteString(fmt.Sprint(u.AvailableMinID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelAvailableMessages) Encode(b *bin.Buffer) error {
@@ -4979,6 +6264,24 @@ type UpdateDialogUnreadMark struct {
 
 // UpdateDialogUnreadMarkTypeID is TL type id of UpdateDialogUnreadMark.
 const UpdateDialogUnreadMarkTypeID = 0xe16459c3
+
+// String implements fmt.Stringer.
+func (u *UpdateDialogUnreadMark) String() string {
+	if u == nil {
+		return "UpdateDialogUnreadMark(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDialogUnreadMark")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
@@ -5064,6 +6367,32 @@ type UpdateMessagePoll struct {
 
 // UpdateMessagePollTypeID is TL type id of UpdateMessagePoll.
 const UpdateMessagePollTypeID = 0xaca1657b
+
+// String implements fmt.Stringer.
+func (u *UpdateMessagePoll) String() string {
+	if u == nil {
+		return "UpdateMessagePoll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateMessagePoll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPollID: ")
+	sb.WriteString(fmt.Sprint(u.PollID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tPoll: ")
+		sb.WriteString(u.Poll.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tResults: ")
+	sb.WriteString(u.Results.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
@@ -5164,6 +6493,27 @@ type UpdateChatDefaultBannedRights struct {
 // UpdateChatDefaultBannedRightsTypeID is TL type id of UpdateChatDefaultBannedRights.
 const UpdateChatDefaultBannedRightsTypeID = 0x54c01850
 
+// String implements fmt.Stringer.
+func (u *UpdateChatDefaultBannedRights) String() string {
+	if u == nil {
+		return "UpdateChatDefaultBannedRights(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChatDefaultBannedRights")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDefaultBannedRights: ")
+	sb.WriteString(u.DefaultBannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(u.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatDefaultBannedRights) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5249,6 +6599,29 @@ type UpdateFolderPeers struct {
 // UpdateFolderPeersTypeID is TL type id of UpdateFolderPeers.
 const UpdateFolderPeersTypeID = 0x19360dc0
 
+// String implements fmt.Stringer.
+func (u *UpdateFolderPeers) String() string {
+	if u == nil {
+		return "UpdateFolderPeers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateFolderPeers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.FolderPeers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateFolderPeers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5329,6 +6702,24 @@ type UpdatePeerSettings struct {
 // UpdatePeerSettingsTypeID is TL type id of UpdatePeerSettings.
 const UpdatePeerSettingsTypeID = 0x6a7e7366
 
+// String implements fmt.Stringer.
+func (u *UpdatePeerSettings) String() string {
+	if u == nil {
+		return "UpdatePeerSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePeerSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(u.Settings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePeerSettings) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5392,6 +6783,23 @@ type UpdatePeerLocated struct {
 
 // UpdatePeerLocatedTypeID is TL type id of UpdatePeerLocated.
 const UpdatePeerLocatedTypeID = 0xb4afcfb0
+
+// String implements fmt.Stringer.
+func (u *UpdatePeerLocated) String() string {
+	if u == nil {
+		return "UpdatePeerLocated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePeerLocated")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Peers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePeerLocated) Encode(b *bin.Buffer) error {
@@ -5461,6 +6869,21 @@ type UpdateNewScheduledMessage struct {
 // UpdateNewScheduledMessageTypeID is TL type id of UpdateNewScheduledMessage.
 const UpdateNewScheduledMessageTypeID = 0x39a51dfb
 
+// String implements fmt.Stringer.
+func (u *UpdateNewScheduledMessage) String() string {
+	if u == nil {
+		return "UpdateNewScheduledMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateNewScheduledMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(u.Message.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewScheduledMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5521,6 +6944,26 @@ type UpdateDeleteScheduledMessages struct {
 
 // UpdateDeleteScheduledMessagesTypeID is TL type id of UpdateDeleteScheduledMessages.
 const UpdateDeleteScheduledMessagesTypeID = 0x90866cee
+
+// String implements fmt.Stringer.
+func (u *UpdateDeleteScheduledMessages) String() string {
+	if u == nil {
+		return "UpdateDeleteScheduledMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDeleteScheduledMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteScheduledMessages) Encode(b *bin.Buffer) error {
@@ -5595,6 +7038,21 @@ type UpdateTheme struct {
 // UpdateThemeTypeID is TL type id of UpdateTheme.
 const UpdateThemeTypeID = 0x8216fba3
 
+// String implements fmt.Stringer.
+func (u *UpdateTheme) String() string {
+	if u == nil {
+		return "UpdateTheme(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateTheme")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTheme: ")
+	sb.WriteString(u.Theme.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateTheme) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5647,6 +7105,24 @@ type UpdateGeoLiveViewed struct {
 
 // UpdateGeoLiveViewedTypeID is TL type id of UpdateGeoLiveViewed.
 const UpdateGeoLiveViewedTypeID = 0x871fb939
+
+// String implements fmt.Stringer.
+func (u *UpdateGeoLiveViewed) String() string {
+	if u == nil {
+		return "UpdateGeoLiveViewed(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateGeoLiveViewed")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(u.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateGeoLiveViewed) Encode(b *bin.Buffer) error {
@@ -5710,6 +7186,18 @@ type UpdateLoginToken struct {
 // UpdateLoginTokenTypeID is TL type id of UpdateLoginToken.
 const UpdateLoginTokenTypeID = 0x564fe691
 
+// String implements fmt.Stringer.
+func (u *UpdateLoginToken) String() string {
+	if u == nil {
+		return "UpdateLoginToken(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateLoginToken")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateLoginToken) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5756,6 +7244,29 @@ type UpdateMessagePollVote struct {
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
 const UpdateMessagePollVoteTypeID = 0x42f88f2c
+
+// String implements fmt.Stringer.
+func (u *UpdateMessagePollVote) String() string {
+	if u == nil {
+		return "UpdateMessagePollVote(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateMessagePollVote")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPollID: ")
+	sb.WriteString(fmt.Sprint(u.PollID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Options {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
@@ -5851,6 +7362,29 @@ type UpdateDialogFilter struct {
 // UpdateDialogFilterTypeID is TL type id of UpdateDialogFilter.
 const UpdateDialogFilterTypeID = 0x26ffde7d
 
+// String implements fmt.Stringer.
+func (u *UpdateDialogFilter) String() string {
+	if u == nil {
+		return "UpdateDialogFilter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDialogFilter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFilter: ")
+		sb.WriteString(u.Filter.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilter) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5941,6 +7475,23 @@ type UpdateDialogFilterOrder struct {
 // UpdateDialogFilterOrderTypeID is TL type id of UpdateDialogFilterOrder.
 const UpdateDialogFilterOrderTypeID = 0xa5d72105
 
+// String implements fmt.Stringer.
+func (u *UpdateDialogFilterOrder) String() string {
+	if u == nil {
+		return "UpdateDialogFilterOrder(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDialogFilterOrder")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Order {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilterOrder) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6002,6 +7553,18 @@ type UpdateDialogFilters struct {
 // UpdateDialogFiltersTypeID is TL type id of UpdateDialogFilters.
 const UpdateDialogFiltersTypeID = 0x3504914f
 
+// String implements fmt.Stringer.
+func (u *UpdateDialogFilters) String() string {
+	if u == nil {
+		return "UpdateDialogFilters(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateDialogFilters")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilters) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6046,6 +7609,24 @@ type UpdatePhoneCallSignalingData struct {
 
 // UpdatePhoneCallSignalingDataTypeID is TL type id of UpdatePhoneCallSignalingData.
 const UpdatePhoneCallSignalingDataTypeID = 0x2661bf09
+
+// String implements fmt.Stringer.
+func (u *UpdatePhoneCallSignalingData) String() string {
+	if u == nil {
+		return "UpdatePhoneCallSignalingData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePhoneCallSignalingData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneCallID: ")
+	sb.WriteString(fmt.Sprint(u.PhoneCallID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(u.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePhoneCallSignalingData) Encode(b *bin.Buffer) error {
@@ -6130,6 +7711,43 @@ type UpdateChannelParticipant struct {
 
 // UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
 const UpdateChannelParticipantTypeID = 0x65d2b464
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelParticipant) String() string {
+	if u == nil {
+		return "UpdateChannelParticipant(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelParticipant")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tPrevParticipant: ")
+		sb.WriteString(u.PrevParticipant.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tNewParticipant: ")
+		sb.WriteString(u.NewParticipant.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tQts: ")
+	sb.WriteString(fmt.Sprint(u.Qts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
@@ -6278,6 +7896,27 @@ type UpdateChannelMessageForwards struct {
 // UpdateChannelMessageForwardsTypeID is TL type id of UpdateChannelMessageForwards.
 const UpdateChannelMessageForwardsTypeID = 0x6e8a84df
 
+// String implements fmt.Stringer.
+func (u *UpdateChannelMessageForwards) String() string {
+	if u == nil {
+		return "UpdateChannelMessageForwards(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelMessageForwards")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tForwards: ")
+	sb.WriteString(fmt.Sprint(u.Forwards))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelMessageForwards) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6380,6 +8019,40 @@ type UpdateReadChannelDiscussionInbox struct {
 
 // UpdateReadChannelDiscussionInboxTypeID is TL type id of UpdateReadChannelDiscussionInbox.
 const UpdateReadChannelDiscussionInboxTypeID = 0x1cc7de54
+
+// String implements fmt.Stringer.
+func (u *UpdateReadChannelDiscussionInbox) String() string {
+	if u == nil {
+		return "UpdateReadChannelDiscussionInbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadChannelDiscussionInbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopMsgID: ")
+	sb.WriteString(fmt.Sprint(u.TopMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadMaxID: ")
+	sb.WriteString(fmt.Sprint(u.ReadMaxID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tBroadcastID: ")
+		sb.WriteString(fmt.Sprint(u.BroadcastID))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(0) {
+		sb.WriteString("\tBroadcastPost: ")
+		sb.WriteString(fmt.Sprint(u.BroadcastPost))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelDiscussionInbox) Encode(b *bin.Buffer) error {
@@ -6522,6 +8195,27 @@ type UpdateReadChannelDiscussionOutbox struct {
 // UpdateReadChannelDiscussionOutboxTypeID is TL type id of UpdateReadChannelDiscussionOutbox.
 const UpdateReadChannelDiscussionOutboxTypeID = 0x4638a26c
 
+// String implements fmt.Stringer.
+func (u *UpdateReadChannelDiscussionOutbox) String() string {
+	if u == nil {
+		return "UpdateReadChannelDiscussionOutbox(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateReadChannelDiscussionOutbox")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopMsgID: ")
+	sb.WriteString(fmt.Sprint(u.TopMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadMaxID: ")
+	sb.WriteString(fmt.Sprint(u.ReadMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelDiscussionOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6590,6 +8284,24 @@ type UpdatePeerBlocked struct {
 
 // UpdatePeerBlockedTypeID is TL type id of UpdatePeerBlocked.
 const UpdatePeerBlockedTypeID = 0x246a4b22
+
+// String implements fmt.Stringer.
+func (u *UpdatePeerBlocked) String() string {
+	if u == nil {
+		return "UpdatePeerBlocked(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePeerBlocked")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeerID: ")
+	sb.WriteString(u.PeerID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBlocked: ")
+	sb.WriteString(fmt.Sprint(u.Blocked))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePeerBlocked) Encode(b *bin.Buffer) error {
@@ -6674,6 +8386,35 @@ type UpdateChannelUserTyping struct {
 
 // UpdateChannelUserTypingTypeID is TL type id of UpdateChannelUserTyping.
 const UpdateChannelUserTypingTypeID = 0xff2abe9f
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelUserTyping) String() string {
+	if u == nil {
+		return "UpdateChannelUserTyping(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChannelUserTyping")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tTopMsgID: ")
+		sb.WriteString(fmt.Sprint(u.TopMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAction: ")
+	sb.WriteString(u.Action.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateChannelUserTyping) Encode(b *bin.Buffer) error {
@@ -6798,6 +8539,35 @@ type UpdatePinnedMessages struct {
 
 // UpdatePinnedMessagesTypeID is TL type id of UpdatePinnedMessages.
 const UpdatePinnedMessagesTypeID = 0xed85eab5
+
+// String implements fmt.Stringer.
+func (u *UpdatePinnedMessages) String() string {
+	if u == nil {
+		return "UpdatePinnedMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePinnedMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedMessages) Encode(b *bin.Buffer) error {
@@ -6927,6 +8697,35 @@ type UpdatePinnedChannelMessages struct {
 
 // UpdatePinnedChannelMessagesTypeID is TL type id of UpdatePinnedChannelMessages.
 const UpdatePinnedChannelMessagesTypeID = 0x8588878b
+
+// String implements fmt.Stringer.
+func (u *UpdatePinnedChannelMessages) String() string {
+	if u == nil {
+		return "UpdatePinnedChannelMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatePinnedChannelMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(u.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedChannelMessages) Encode(b *bin.Buffer) error {
@@ -7119,6 +8918,7 @@ type UpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdateClass
+	fmt.Stringer
 }
 
 // DecodeUpdate implements binary de-serialization for UpdateClass.

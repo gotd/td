@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#7011509f`.
 // Send the verification email code for telegram passport¹.
@@ -28,6 +30,21 @@ type AccountSendVerifyEmailCodeRequest struct {
 
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
 const AccountSendVerifyEmailCodeRequestTypeID = 0x7011509f
+
+// String implements fmt.Stringer.
+func (s *AccountSendVerifyEmailCodeRequest) String() string {
+	if s == nil {
+		return "AccountSendVerifyEmailCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSendVerifyEmailCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmail: ")
+	sb.WriteString(fmt.Sprint(s.Email))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {

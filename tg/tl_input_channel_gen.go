@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputChannelEmpty represents TL type `inputChannelEmpty#ee8c1e86`.
 // Represents the absence of a channel
@@ -23,6 +25,18 @@ type InputChannelEmpty struct {
 
 // InputChannelEmptyTypeID is TL type id of InputChannelEmpty.
 const InputChannelEmptyTypeID = 0xee8c1e86
+
+// String implements fmt.Stringer.
+func (i *InputChannelEmpty) String() string {
+	if i == nil {
+		return "InputChannelEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChannelEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputChannelEmpty) Encode(b *bin.Buffer) error {
@@ -71,6 +85,24 @@ type InputChannel struct {
 
 // InputChannelTypeID is TL type id of InputChannel.
 const InputChannelTypeID = 0xafeb712e
+
+// String implements fmt.Stringer.
+func (i *InputChannel) String() string {
+	if i == nil {
+		return "InputChannel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChannel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(i.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputChannel) Encode(b *bin.Buffer) error {
@@ -137,6 +169,27 @@ type InputChannelFromMessage struct {
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
 const InputChannelFromMessageTypeID = 0x2a286531
+
+// String implements fmt.Stringer.
+func (i *InputChannelFromMessage) String() string {
+	if i == nil {
+		return "InputChannelFromMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputChannelFromMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(i.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(i.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputChannelFromMessage) Encode(b *bin.Buffer) error {
@@ -217,6 +270,7 @@ type InputChannelClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputChannelClass
+	fmt.Stringer
 }
 
 // DecodeInputChannel implements binary de-serialization for InputChannelClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesCheckChatInviteRequest represents TL type `messages.checkChatInvite#3eadb1bb`.
 // Check the validity of a chat invite link and get basic info about it
@@ -25,6 +27,21 @@ type MessagesCheckChatInviteRequest struct {
 
 // MessagesCheckChatInviteRequestTypeID is TL type id of MessagesCheckChatInviteRequest.
 const MessagesCheckChatInviteRequestTypeID = 0x3eadb1bb
+
+// String implements fmt.Stringer.
+func (c *MessagesCheckChatInviteRequest) String() string {
+	if c == nil {
+		return "MessagesCheckChatInviteRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesCheckChatInviteRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(c.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesCheckChatInviteRequest) Encode(b *bin.Buffer) error {

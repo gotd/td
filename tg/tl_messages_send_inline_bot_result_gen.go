@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
 // Send a result obtained using messages.getInlineBotResults¹.
@@ -67,6 +69,43 @@ type MessagesSendInlineBotResultRequest struct {
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.
 const MessagesSendInlineBotResultRequestTypeID = 0x220815b0
+
+// String implements fmt.Stringer.
+func (s *MessagesSendInlineBotResultRequest) String() string {
+	if s == nil {
+		return "MessagesSendInlineBotResultRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendInlineBotResultRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tReplyToMsgID: ")
+		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(s.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(s.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(s.ID))
+	sb.WriteString(",\n")
+	if s.Flags.Has(10) {
+		sb.WriteString("\tScheduleDate: ")
+		sb.WriteString(fmt.Sprint(s.ScheduleDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {

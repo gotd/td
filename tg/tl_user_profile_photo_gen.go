@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UserProfilePhotoEmpty represents TL type `userProfilePhotoEmpty#4f11bae1`.
 // Profile photo has not been set, or was hidden.
@@ -23,6 +25,18 @@ type UserProfilePhotoEmpty struct {
 
 // UserProfilePhotoEmptyTypeID is TL type id of UserProfilePhotoEmpty.
 const UserProfilePhotoEmptyTypeID = 0x4f11bae1
+
+// String implements fmt.Stringer.
+func (u *UserProfilePhotoEmpty) String() string {
+	if u == nil {
+		return "UserProfilePhotoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserProfilePhotoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
@@ -85,6 +99,33 @@ type UserProfilePhoto struct {
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
 const UserProfilePhotoTypeID = 0x69d3ab26
+
+// String implements fmt.Stringer.
+func (u *UserProfilePhoto) String() string {
+	if u == nil {
+		return "UserProfilePhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserProfilePhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoID: ")
+	sb.WriteString(fmt.Sprint(u.PhotoID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoSmall: ")
+	sb.WriteString(u.PhotoSmall.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoBig: ")
+	sb.WriteString(u.PhotoBig.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(u.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
@@ -185,6 +226,7 @@ type UserProfilePhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserProfilePhotoClass
+	fmt.Stringer
 }
 
 // DecodeUserProfilePhoto implements binary de-serialization for UserProfilePhotoClass.

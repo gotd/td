@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
 // Identifies an endpoint that can be used to connect to the other user in a phone call
@@ -33,6 +35,33 @@ type PhoneConnection struct {
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
 const PhoneConnectionTypeID = 0x9d4c17c0
+
+// String implements fmt.Stringer.
+func (p *PhoneConnection) String() string {
+	if p == nil {
+		return "PhoneConnection(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneConnection")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIP: ")
+	sb.WriteString(fmt.Sprint(p.IP))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIpv6: ")
+	sb.WriteString(fmt.Sprint(p.Ipv6))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPort: ")
+	sb.WriteString(fmt.Sprint(p.Port))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeerTag: ")
+	sb.WriteString(fmt.Sprint(p.PeerTag))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneConnection) Encode(b *bin.Buffer) error {
@@ -135,6 +164,39 @@ type PhoneConnectionWebrtc struct {
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
 const PhoneConnectionWebrtcTypeID = 0x635fe375
+
+// String implements fmt.Stringer.
+func (p *PhoneConnectionWebrtc) String() string {
+	if p == nil {
+		return "PhoneConnectionWebrtc(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneConnectionWebrtc")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIP: ")
+	sb.WriteString(fmt.Sprint(p.IP))
+	sb.WriteString(",\n")
+	sb.WriteString("\tIpv6: ")
+	sb.WriteString(fmt.Sprint(p.Ipv6))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPort: ")
+	sb.WriteString(fmt.Sprint(p.Port))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUsername: ")
+	sb.WriteString(fmt.Sprint(p.Username))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPassword: ")
+	sb.WriteString(fmt.Sprint(p.Password))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
@@ -261,6 +323,7 @@ type PhoneConnectionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneConnectionClass
+	fmt.Stringer
 }
 
 // DecodePhoneConnection implements binary de-serialization for PhoneConnectionClass.

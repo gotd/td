@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsDeleteMessagesRequest represents TL type `channels.deleteMessages#84c1fd4e`.
 // Delete messages in a channel/supergroup¹
@@ -33,6 +35,26 @@ type ChannelsDeleteMessagesRequest struct {
 
 // ChannelsDeleteMessagesRequestTypeID is TL type id of ChannelsDeleteMessagesRequest.
 const ChannelsDeleteMessagesRequestTypeID = 0x84c1fd4e
+
+// String implements fmt.Stringer.
+func (d *ChannelsDeleteMessagesRequest) String() string {
+	if d == nil {
+		return "ChannelsDeleteMessagesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsDeleteMessagesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(d.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range d.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteMessagesRequest) Encode(b *bin.Buffer) error {

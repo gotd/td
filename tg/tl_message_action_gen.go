@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageActionEmpty represents TL type `messageActionEmpty#b6aef7b0`.
 // Empty constructor.
@@ -23,6 +25,18 @@ type MessageActionEmpty struct {
 
 // MessageActionEmptyTypeID is TL type id of MessageActionEmpty.
 const MessageActionEmptyTypeID = 0xb6aef7b0
+
+// String implements fmt.Stringer.
+func (m *MessageActionEmpty) String() string {
+	if m == nil {
+		return "MessageActionEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionEmpty) Encode(b *bin.Buffer) error {
@@ -68,6 +82,26 @@ type MessageActionChatCreate struct {
 
 // MessageActionChatCreateTypeID is TL type id of MessageActionChatCreate.
 const MessageActionChatCreateTypeID = 0xa6638b9a
+
+// String implements fmt.Stringer.
+func (m *MessageActionChatCreate) String() string {
+	if m == nil {
+		return "MessageActionChatCreate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatCreate")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChatCreate) Encode(b *bin.Buffer) error {
@@ -137,6 +171,21 @@ type MessageActionChatEditTitle struct {
 // MessageActionChatEditTitleTypeID is TL type id of MessageActionChatEditTitle.
 const MessageActionChatEditTitleTypeID = 0xb5a1ce5a
 
+// String implements fmt.Stringer.
+func (m *MessageActionChatEditTitle) String() string {
+	if m == nil {
+		return "MessageActionChatEditTitle(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatEditTitle")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatEditTitle) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -187,6 +236,21 @@ type MessageActionChatEditPhoto struct {
 
 // MessageActionChatEditPhotoTypeID is TL type id of MessageActionChatEditPhoto.
 const MessageActionChatEditPhotoTypeID = 0x7fcb13a8
+
+// String implements fmt.Stringer.
+func (m *MessageActionChatEditPhoto) String() string {
+	if m == nil {
+		return "MessageActionChatEditPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatEditPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(m.Photo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChatEditPhoto) Encode(b *bin.Buffer) error {
@@ -242,6 +306,18 @@ type MessageActionChatDeletePhoto struct {
 // MessageActionChatDeletePhotoTypeID is TL type id of MessageActionChatDeletePhoto.
 const MessageActionChatDeletePhotoTypeID = 0x95e3fbef
 
+// String implements fmt.Stringer.
+func (m *MessageActionChatDeletePhoto) String() string {
+	if m == nil {
+		return "MessageActionChatDeletePhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatDeletePhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatDeletePhoto) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -284,6 +360,23 @@ type MessageActionChatAddUser struct {
 
 // MessageActionChatAddUserTypeID is TL type id of MessageActionChatAddUser.
 const MessageActionChatAddUserTypeID = 0x488a7337
+
+// String implements fmt.Stringer.
+func (m *MessageActionChatAddUser) String() string {
+	if m == nil {
+		return "MessageActionChatAddUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatAddUser")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChatAddUser) Encode(b *bin.Buffer) error {
@@ -345,6 +438,21 @@ type MessageActionChatDeleteUser struct {
 // MessageActionChatDeleteUserTypeID is TL type id of MessageActionChatDeleteUser.
 const MessageActionChatDeleteUserTypeID = 0xb2ae9b0c
 
+// String implements fmt.Stringer.
+func (m *MessageActionChatDeleteUser) String() string {
+	if m == nil {
+		return "MessageActionChatDeleteUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatDeleteUser")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatDeleteUser) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -396,6 +504,21 @@ type MessageActionChatJoinedByLink struct {
 // MessageActionChatJoinedByLinkTypeID is TL type id of MessageActionChatJoinedByLink.
 const MessageActionChatJoinedByLinkTypeID = 0xf89cf5e8
 
+// String implements fmt.Stringer.
+func (m *MessageActionChatJoinedByLink) String() string {
+	if m == nil {
+		return "MessageActionChatJoinedByLink(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatJoinedByLink")
+	sb.WriteString("{\n")
+	sb.WriteString("\tInviterID: ")
+	sb.WriteString(fmt.Sprint(m.InviterID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatJoinedByLink) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -446,6 +569,21 @@ type MessageActionChannelCreate struct {
 
 // MessageActionChannelCreateTypeID is TL type id of MessageActionChannelCreate.
 const MessageActionChannelCreateTypeID = 0x95d2ac92
+
+// String implements fmt.Stringer.
+func (m *MessageActionChannelCreate) String() string {
+	if m == nil {
+		return "MessageActionChannelCreate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChannelCreate")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChannelCreate) Encode(b *bin.Buffer) error {
@@ -500,6 +638,21 @@ type MessageActionChatMigrateTo struct {
 
 // MessageActionChatMigrateToTypeID is TL type id of MessageActionChatMigrateTo.
 const MessageActionChatMigrateToTypeID = 0x51bdb021
+
+// String implements fmt.Stringer.
+func (m *MessageActionChatMigrateTo) String() string {
+	if m == nil {
+		return "MessageActionChatMigrateTo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChatMigrateTo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(m.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChatMigrateTo) Encode(b *bin.Buffer) error {
@@ -556,6 +709,24 @@ type MessageActionChannelMigrateFrom struct {
 
 // MessageActionChannelMigrateFromTypeID is TL type id of MessageActionChannelMigrateFrom.
 const MessageActionChannelMigrateFromTypeID = 0xb055eaee
+
+// String implements fmt.Stringer.
+func (m *MessageActionChannelMigrateFrom) String() string {
+	if m == nil {
+		return "MessageActionChannelMigrateFrom(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionChannelMigrateFrom")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(m.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(m.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionChannelMigrateFrom) Encode(b *bin.Buffer) error {
@@ -614,6 +785,18 @@ type MessageActionPinMessage struct {
 // MessageActionPinMessageTypeID is TL type id of MessageActionPinMessage.
 const MessageActionPinMessageTypeID = 0x94bd38ed
 
+// String implements fmt.Stringer.
+func (m *MessageActionPinMessage) String() string {
+	if m == nil {
+		return "MessageActionPinMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionPinMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPinMessage) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -654,6 +837,18 @@ type MessageActionHistoryClear struct {
 
 // MessageActionHistoryClearTypeID is TL type id of MessageActionHistoryClear.
 const MessageActionHistoryClearTypeID = 0x9fbab604
+
+// String implements fmt.Stringer.
+func (m *MessageActionHistoryClear) String() string {
+	if m == nil {
+		return "MessageActionHistoryClear(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionHistoryClear")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionHistoryClear) Encode(b *bin.Buffer) error {
@@ -699,6 +894,24 @@ type MessageActionGameScore struct {
 
 // MessageActionGameScoreTypeID is TL type id of MessageActionGameScore.
 const MessageActionGameScoreTypeID = 0x92a72876
+
+// String implements fmt.Stringer.
+func (m *MessageActionGameScore) String() string {
+	if m == nil {
+		return "MessageActionGameScore(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionGameScore")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGameID: ")
+	sb.WriteString(fmt.Sprint(m.GameID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tScore: ")
+	sb.WriteString(fmt.Sprint(m.Score))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionGameScore) Encode(b *bin.Buffer) error {
@@ -783,6 +996,43 @@ type MessageActionPaymentSentMe struct {
 
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
 const MessageActionPaymentSentMeTypeID = 0x8f31b327
+
+// String implements fmt.Stringer.
+func (m *MessageActionPaymentSentMe) String() string {
+	if m == nil {
+		return "MessageActionPaymentSentMe(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionPaymentSentMe")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(m.Currency))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotalAmount: ")
+	sb.WriteString(fmt.Sprint(m.TotalAmount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPayload: ")
+	sb.WriteString(fmt.Sprint(m.Payload))
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tInfo: ")
+		sb.WriteString(m.Info.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(1) {
+		sb.WriteString("\tShippingOptionID: ")
+		sb.WriteString(fmt.Sprint(m.ShippingOptionID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCharge: ")
+	sb.WriteString(m.Charge.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
@@ -925,6 +1175,24 @@ type MessageActionPaymentSent struct {
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
 const MessageActionPaymentSentTypeID = 0x40699cd0
 
+// String implements fmt.Stringer.
+func (m *MessageActionPaymentSent) String() string {
+	if m == nil {
+		return "MessageActionPaymentSent(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionPaymentSent")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(m.Currency))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotalAmount: ")
+	sb.WriteString(fmt.Sprint(m.TotalAmount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -998,6 +1266,34 @@ type MessageActionPhoneCall struct {
 
 // MessageActionPhoneCallTypeID is TL type id of MessageActionPhoneCall.
 const MessageActionPhoneCallTypeID = 0x80e11a7f
+
+// String implements fmt.Stringer.
+func (m *MessageActionPhoneCall) String() string {
+	if m == nil {
+		return "MessageActionPhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionPhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCallID: ")
+	sb.WriteString(fmt.Sprint(m.CallID))
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tReason: ")
+		sb.WriteString(m.Reason.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(1) {
+		sb.WriteString("\tDuration: ")
+		sb.WriteString(fmt.Sprint(m.Duration))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionPhoneCall) Encode(b *bin.Buffer) error {
@@ -1121,6 +1417,18 @@ type MessageActionScreenshotTaken struct {
 // MessageActionScreenshotTakenTypeID is TL type id of MessageActionScreenshotTaken.
 const MessageActionScreenshotTakenTypeID = 0x4792929b
 
+// String implements fmt.Stringer.
+func (m *MessageActionScreenshotTaken) String() string {
+	if m == nil {
+		return "MessageActionScreenshotTaken(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionScreenshotTaken")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionScreenshotTaken) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1163,6 +1471,21 @@ type MessageActionCustomAction struct {
 
 // MessageActionCustomActionTypeID is TL type id of MessageActionCustomAction.
 const MessageActionCustomActionTypeID = 0xfae69f56
+
+// String implements fmt.Stringer.
+func (m *MessageActionCustomAction) String() string {
+	if m == nil {
+		return "MessageActionCustomAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionCustomAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(m.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionCustomAction) Encode(b *bin.Buffer) error {
@@ -1217,6 +1540,21 @@ type MessageActionBotAllowed struct {
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
 const MessageActionBotAllowedTypeID = 0xabe9affe
+
+// String implements fmt.Stringer.
+func (m *MessageActionBotAllowed) String() string {
+	if m == nil {
+		return "MessageActionBotAllowed(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionBotAllowed")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDomain: ")
+	sb.WriteString(fmt.Sprint(m.Domain))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionBotAllowed) Encode(b *bin.Buffer) error {
@@ -1273,6 +1611,26 @@ type MessageActionSecureValuesSentMe struct {
 
 // MessageActionSecureValuesSentMeTypeID is TL type id of MessageActionSecureValuesSentMe.
 const MessageActionSecureValuesSentMeTypeID = 0x1b287353
+
+// String implements fmt.Stringer.
+func (m *MessageActionSecureValuesSentMe) String() string {
+	if m == nil {
+		return "MessageActionSecureValuesSentMe(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionSecureValuesSentMe")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.Values {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCredentials: ")
+	sb.WriteString(m.Credentials.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionSecureValuesSentMe) Encode(b *bin.Buffer) error {
@@ -1347,6 +1705,23 @@ type MessageActionSecureValuesSent struct {
 // MessageActionSecureValuesSentTypeID is TL type id of MessageActionSecureValuesSent.
 const MessageActionSecureValuesSentTypeID = 0xd95c6154
 
+// String implements fmt.Stringer.
+func (m *MessageActionSecureValuesSent) String() string {
+	if m == nil {
+		return "MessageActionSecureValuesSent(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionSecureValuesSent")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.Types {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionSecureValuesSent) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1410,6 +1785,18 @@ type MessageActionContactSignUp struct {
 // MessageActionContactSignUpTypeID is TL type id of MessageActionContactSignUp.
 const MessageActionContactSignUpTypeID = 0xf3f25f76
 
+// String implements fmt.Stringer.
+func (m *MessageActionContactSignUp) String() string {
+	if m == nil {
+		return "MessageActionContactSignUp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionContactSignUp")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionContactSignUp) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1459,6 +1846,27 @@ type MessageActionGeoProximityReached struct {
 
 // MessageActionGeoProximityReachedTypeID is TL type id of MessageActionGeoProximityReached.
 const MessageActionGeoProximityReachedTypeID = 0x98e0d697
+
+// String implements fmt.Stringer.
+func (m *MessageActionGeoProximityReached) String() string {
+	if m == nil {
+		return "MessageActionGeoProximityReached(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionGeoProximityReached")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFromID: ")
+	sb.WriteString(m.FromID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tToID: ")
+	sb.WriteString(m.ToID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDistance: ")
+	sb.WriteString(fmt.Sprint(m.Distance))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageActionGeoProximityReached) Encode(b *bin.Buffer) error {
@@ -1565,6 +1973,7 @@ type MessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageActionClass
+	fmt.Stringer
 }
 
 // DecodeMessageAction implements binary de-serialization for MessageActionClass.

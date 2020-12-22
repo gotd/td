@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UserFull represents TL type `userFull#edf17c12`.
 // Extended user info
@@ -77,6 +79,58 @@ type UserFull struct {
 
 // UserFullTypeID is TL type id of UserFull.
 const UserFullTypeID = 0xedf17c12
+
+// String implements fmt.Stringer.
+func (u *UserFull) String() string {
+	if u == nil {
+		return "UserFull(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserFull")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUser: ")
+	sb.WriteString(u.User.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(1) {
+		sb.WriteString("\tAbout: ")
+		sb.WriteString(fmt.Sprint(u.About))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(u.Settings.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(2) {
+		sb.WriteString("\tProfilePhoto: ")
+		sb.WriteString(u.ProfilePhoto.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tNotifySettings: ")
+	sb.WriteString(u.NotifySettings.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(3) {
+		sb.WriteString("\tBotInfo: ")
+		sb.WriteString(u.BotInfo.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(6) {
+		sb.WriteString("\tPinnedMsgID: ")
+		sb.WriteString(fmt.Sprint(u.PinnedMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCommonChatsCount: ")
+	sb.WriteString(fmt.Sprint(u.CommonChatsCount))
+	sb.WriteString(",\n")
+	if u.Flags.Has(11) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(u.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangPackDifference represents TL type `langPackDifference#f385c1f6`.
 // Changes to the app's localization pack
@@ -31,6 +33,32 @@ type LangPackDifference struct {
 
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.
 const LangPackDifferenceTypeID = 0xf385c1f6
+
+// String implements fmt.Stringer.
+func (l *LangPackDifference) String() string {
+	if l == nil {
+		return "LangPackDifference(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackDifference")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(l.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromVersion: ")
+	sb.WriteString(fmt.Sprint(l.FromVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(l.Version))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range l.Strings {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *LangPackDifference) Encode(b *bin.Buffer) error {

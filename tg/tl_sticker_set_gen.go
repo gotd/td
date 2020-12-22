@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickerSet represents TL type `stickerSet#eeb46f27`.
 // Represents a stickerset (stickerpack)
@@ -60,6 +62,54 @@ type StickerSet struct {
 
 // StickerSetTypeID is TL type id of StickerSet.
 const StickerSetTypeID = 0xeeb46f27
+
+// String implements fmt.Stringer.
+func (s *StickerSet) String() string {
+	if s == nil {
+		return "StickerSet(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickerSet")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tInstalledDate: ")
+		sb.WriteString(fmt.Sprint(s.InstalledDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(s.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(s.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(s.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(s.ShortName))
+	sb.WriteString(",\n")
+	if s.Flags.Has(4) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(s.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(4) {
+		sb.WriteString("\tThumbDCID: ")
+		sb.WriteString(fmt.Sprint(s.ThumbDCID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(s.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StickerSet) Encode(b *bin.Buffer) error {

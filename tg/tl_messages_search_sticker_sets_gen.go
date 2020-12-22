@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#c2b7d08b`.
 // Search for stickersets
@@ -37,6 +39,27 @@ type MessagesSearchStickerSetsRequest struct {
 
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
 const MessagesSearchStickerSetsRequestTypeID = 0xc2b7d08b
+
+// String implements fmt.Stringer.
+func (s *MessagesSearchStickerSetsRequest) String() string {
+	if s == nil {
+		return "MessagesSearchStickerSetsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSearchStickerSetsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(s.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {

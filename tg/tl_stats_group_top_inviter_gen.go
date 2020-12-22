@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGroupTopInviter represents TL type `statsGroupTopInviter#31962a4c`.
 // Information about an active supergroup inviter
@@ -30,6 +32,24 @@ type StatsGroupTopInviter struct {
 
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.
 const StatsGroupTopInviterTypeID = 0x31962a4c
+
+// String implements fmt.Stringer.
+func (s *StatsGroupTopInviter) String() string {
+	if s == nil {
+		return "StatsGroupTopInviter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGroupTopInviter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(s.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInvitations: ")
+	sb.WriteString(fmt.Sprint(s.Invitations))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {

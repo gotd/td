@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadFile represents TL type `upload.file#96a18d5`.
 // File content.
@@ -29,6 +31,27 @@ type UploadFile struct {
 
 // UploadFileTypeID is TL type id of UploadFile.
 const UploadFileTypeID = 0x96a18d5
+
+// String implements fmt.Stringer.
+func (f *UploadFile) String() string {
+	if f == nil {
+		return "UploadFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(f.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMtime: ")
+	sb.WriteString(fmt.Sprint(f.Mtime))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(f.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *UploadFile) Encode(b *bin.Buffer) error {
@@ -127,6 +150,35 @@ type UploadFileCdnRedirect struct {
 
 // UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.
 const UploadFileCdnRedirectTypeID = 0xf18cda44
+
+// String implements fmt.Stringer.
+func (f *UploadFileCdnRedirect) String() string {
+	if f == nil {
+		return "UploadFileCdnRedirect(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadFileCdnRedirect")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(f.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileToken: ")
+	sb.WriteString(fmt.Sprint(f.FileToken))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptionKey: ")
+	sb.WriteString(fmt.Sprint(f.EncryptionKey))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptionIv: ")
+	sb.WriteString(fmt.Sprint(f.EncryptionIv))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range f.FileHashes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *UploadFileCdnRedirect) Encode(b *bin.Buffer) error {
@@ -228,6 +280,7 @@ type UploadFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UploadFileClass
+	fmt.Stringer
 }
 
 // DecodeUploadFile implements binary de-serialization for UploadFileClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickersChangeStickerPositionRequest represents TL type `stickers.changeStickerPosition#ffb6d4ca`.
 // Changes the absolute position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot
@@ -27,6 +29,24 @@ type StickersChangeStickerPositionRequest struct {
 
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.
 const StickersChangeStickerPositionRequestTypeID = 0xffb6d4ca
+
+// String implements fmt.Stringer.
+func (c *StickersChangeStickerPositionRequest) String() string {
+	if c == nil {
+		return "StickersChangeStickerPositionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickersChangeStickerPositionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSticker: ")
+	sb.WriteString(c.Sticker.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPosition: ")
+	sb.WriteString(fmt.Sprint(c.Position))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {

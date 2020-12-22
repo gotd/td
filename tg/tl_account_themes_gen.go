@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountThemesNotModified represents TL type `account.themesNotModified#f41eb622`.
 // No new themes were installed
@@ -23,6 +25,18 @@ type AccountThemesNotModified struct {
 
 // AccountThemesNotModifiedTypeID is TL type id of AccountThemesNotModified.
 const AccountThemesNotModifiedTypeID = 0xf41eb622
+
+// String implements fmt.Stringer.
+func (t *AccountThemesNotModified) String() string {
+	if t == nil {
+		return "AccountThemesNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountThemesNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
@@ -71,6 +85,26 @@ type AccountThemes struct {
 
 // AccountThemesTypeID is TL type id of AccountThemes.
 const AccountThemesTypeID = 0x7f676421
+
+// String implements fmt.Stringer.
+func (t *AccountThemes) String() string {
+	if t == nil {
+		return "AccountThemes(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountThemes")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(t.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range t.Themes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *AccountThemes) Encode(b *bin.Buffer) error {
@@ -148,6 +182,7 @@ type AccountThemesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AccountThemesClass
+	fmt.Stringer
 }
 
 // DecodeAccountThemes implements binary de-serialization for AccountThemesClass.

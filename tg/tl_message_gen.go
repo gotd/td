@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageEmpty represents TL type `messageEmpty#83e5de54`.
 // Empty constructor, non-existent message.
@@ -25,6 +27,21 @@ type MessageEmpty struct {
 
 // MessageEmptyTypeID is TL type id of MessageEmpty.
 const MessageEmptyTypeID = 0x83e5de54
+
+// String implements fmt.Stringer.
+func (m *MessageEmpty) String() string {
+	if m == nil {
+		return "MessageEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(m.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEmpty) Encode(b *bin.Buffer) error {
@@ -180,6 +197,107 @@ type Message struct {
 
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0x58ae39c9
+
+// String implements fmt.Stringer.
+func (m *Message) String() string {
+	if m == nil {
+		return "Message(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Message")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(m.ID))
+	sb.WriteString(",\n")
+	if m.Flags.Has(8) {
+		sb.WriteString("\tFromID: ")
+		sb.WriteString(m.FromID.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeerID: ")
+	sb.WriteString(m.PeerID.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(2) {
+		sb.WriteString("\tFwdFrom: ")
+		sb.WriteString(m.FwdFrom.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(11) {
+		sb.WriteString("\tViaBotID: ")
+		sb.WriteString(fmt.Sprint(m.ViaBotID))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(3) {
+		sb.WriteString("\tReplyTo: ")
+		sb.WriteString(m.ReplyTo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(m.Message))
+	sb.WriteString(",\n")
+	if m.Flags.Has(9) {
+		sb.WriteString("\tMedia: ")
+		sb.WriteString(m.Media.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(6) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(m.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(7) {
+		sb.WriteByte('[')
+		for _, v := range m.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if m.Flags.Has(10) {
+		sb.WriteString("\tViews: ")
+		sb.WriteString(fmt.Sprint(m.Views))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(10) {
+		sb.WriteString("\tForwards: ")
+		sb.WriteString(fmt.Sprint(m.Forwards))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(23) {
+		sb.WriteString("\tReplies: ")
+		sb.WriteString(m.Replies.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(15) {
+		sb.WriteString("\tEditDate: ")
+		sb.WriteString(fmt.Sprint(m.EditDate))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(16) {
+		sb.WriteString("\tPostAuthor: ")
+		sb.WriteString(fmt.Sprint(m.PostAuthor))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(17) {
+		sb.WriteString("\tGroupedID: ")
+		sb.WriteString(fmt.Sprint(m.GroupedID))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(22) {
+		sb.WriteByte('[')
+		for _, v := range m.RestrictionReason {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
@@ -780,6 +898,43 @@ type MessageService struct {
 // MessageServiceTypeID is TL type id of MessageService.
 const MessageServiceTypeID = 0x286fa604
 
+// String implements fmt.Stringer.
+func (m *MessageService) String() string {
+	if m == nil {
+		return "MessageService(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageService")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(m.ID))
+	sb.WriteString(",\n")
+	if m.Flags.Has(8) {
+		sb.WriteString("\tFromID: ")
+		sb.WriteString(m.FromID.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPeerID: ")
+	sb.WriteString(m.PeerID.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(3) {
+		sb.WriteString("\tReplyTo: ")
+		sb.WriteString(m.ReplyTo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(m.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAction: ")
+	sb.WriteString(m.Action.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageService) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -995,6 +1150,7 @@ type MessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageClass
+	fmt.Stringer
 }
 
 // DecodeMessage implements binary de-serialization for MessageClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesBotCallbackAnswer represents TL type `messages.botCallbackAnswer#36585ea4`.
 // Callback answer sent by the bot in response to a button press
@@ -44,6 +46,34 @@ type MessagesBotCallbackAnswer struct {
 
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.
 const MessagesBotCallbackAnswerTypeID = 0x36585ea4
+
+// String implements fmt.Stringer.
+func (b *MessagesBotCallbackAnswer) String() string {
+	if b == nil {
+		return "MessagesBotCallbackAnswer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesBotCallbackAnswer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	if b.Flags.Has(0) {
+		sb.WriteString("\tMessage: ")
+		sb.WriteString(fmt.Sprint(b.Message))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(b.URL))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCacheTime: ")
+	sb.WriteString(fmt.Sprint(b.CacheTime))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsGetMessagesRequest represents TL type `channels.getMessages#ad8c9a23`.
 // Get channel/supergroup¹ messages
@@ -30,6 +32,26 @@ type ChannelsGetMessagesRequest struct {
 
 // ChannelsGetMessagesRequestTypeID is TL type id of ChannelsGetMessagesRequest.
 const ChannelsGetMessagesRequestTypeID = 0xad8c9a23
+
+// String implements fmt.Stringer.
+func (g *ChannelsGetMessagesRequest) String() string {
+	if g == nil {
+		return "ChannelsGetMessagesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsGetMessagesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range g.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ChannelsGetMessagesRequest) Encode(b *bin.Buffer) error {

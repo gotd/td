@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TopPeer represents TL type `topPeer#edcdc05b`.
 // Top peer
@@ -30,6 +32,24 @@ type TopPeer struct {
 
 // TopPeerTypeID is TL type id of TopPeer.
 const TopPeerTypeID = 0xedcdc05b
+
+// String implements fmt.Stringer.
+func (t *TopPeer) String() string {
+	if t == nil {
+		return "TopPeer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(t.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRating: ")
+	sb.WriteString(fmt.Sprint(t.Rating))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeer) Encode(b *bin.Buffer) error {

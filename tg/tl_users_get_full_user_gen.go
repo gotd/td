@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UsersGetFullUserRequest represents TL type `users.getFullUser#ca30a5b1`.
 // Returns extended user info by ID.
@@ -25,6 +27,21 @@ type UsersGetFullUserRequest struct {
 
 // UsersGetFullUserRequestTypeID is TL type id of UsersGetFullUserRequest.
 const UsersGetFullUserRequestTypeID = 0xca30a5b1
+
+// String implements fmt.Stringer.
+func (g *UsersGetFullUserRequest) String() string {
+	if g == nil {
+		return "UsersGetFullUserRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UsersGetFullUserRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(g.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {

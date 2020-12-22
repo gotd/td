@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.
@@ -26,6 +28,18 @@ type AccountCancelPasswordEmailRequest struct {
 
 // AccountCancelPasswordEmailRequestTypeID is TL type id of AccountCancelPasswordEmailRequest.
 const AccountCancelPasswordEmailRequestTypeID = 0xc1cbd5b6
+
+// String implements fmt.Stringer.
+func (c *AccountCancelPasswordEmailRequest) String() string {
+	if c == nil {
+		return "AccountCancelPasswordEmailRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountCancelPasswordEmailRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsLoadAsyncGraphRequest represents TL type `stats.loadAsyncGraph#621d5fa0`.
 // Load channel statistics graph¹ asynchronously
@@ -40,6 +42,29 @@ type StatsLoadAsyncGraphRequest struct {
 
 // StatsLoadAsyncGraphRequestTypeID is TL type id of StatsLoadAsyncGraphRequest.
 const StatsLoadAsyncGraphRequestTypeID = 0x621d5fa0
+
+// String implements fmt.Stringer.
+func (l *StatsLoadAsyncGraphRequest) String() string {
+	if l == nil {
+		return "StatsLoadAsyncGraphRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsLoadAsyncGraphRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(l.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(l.Token))
+	sb.WriteString(",\n")
+	if l.Flags.Has(0) {
+		sb.WriteString("\tX: ")
+		sb.WriteString(fmt.Sprint(l.X))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {

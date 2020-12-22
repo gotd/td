@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesToggleStickerSetsRequest represents TL type `messages.toggleStickerSets#b5052fea`.
 // Apply changes to multiple stickersets
@@ -36,6 +38,26 @@ type MessagesToggleStickerSetsRequest struct {
 
 // MessagesToggleStickerSetsRequestTypeID is TL type id of MessagesToggleStickerSetsRequest.
 const MessagesToggleStickerSetsRequestTypeID = 0xb5052fea
+
+// String implements fmt.Stringer.
+func (t *MessagesToggleStickerSetsRequest) String() string {
+	if t == nil {
+		return "MessagesToggleStickerSetsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesToggleStickerSetsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(t.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range t.Stickersets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {

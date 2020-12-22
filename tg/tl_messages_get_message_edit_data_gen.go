@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetMessageEditDataRequest represents TL type `messages.getMessageEditData#fda68d36`.
 // Find out if a media message's caption can be edited
@@ -27,6 +29,24 @@ type MessagesGetMessageEditDataRequest struct {
 
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.
 const MessagesGetMessageEditDataRequestTypeID = 0xfda68d36
+
+// String implements fmt.Stringer.
+func (g *MessagesGetMessageEditDataRequest) String() string {
+	if g == nil {
+		return "MessagesGetMessageEditDataRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetMessageEditDataRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(g.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessageEditDataRequest) Encode(b *bin.Buffer) error {

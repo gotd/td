@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BotInlineMessageMediaAuto represents TL type `botInlineMessageMediaAuto#764cf810`.
 // Send whatever media is attached to the botInlineMediaResult¹
@@ -44,6 +46,36 @@ type BotInlineMessageMediaAuto struct {
 
 // BotInlineMessageMediaAutoTypeID is TL type id of BotInlineMessageMediaAuto.
 const BotInlineMessageMediaAutoTypeID = 0x764cf810
+
+// String implements fmt.Stringer.
+func (b *BotInlineMessageMediaAuto) String() string {
+	if b == nil {
+		return "BotInlineMessageMediaAuto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMessageMediaAuto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(b.Message))
+	sb.WriteString(",\n")
+	if b.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range b.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(b.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaAuto) Encode(buf *bin.Buffer) error {
@@ -190,6 +222,36 @@ type BotInlineMessageText struct {
 
 // BotInlineMessageTextTypeID is TL type id of BotInlineMessageText.
 const BotInlineMessageTextTypeID = 0x8c7f65e2
+
+// String implements fmt.Stringer.
+func (b *BotInlineMessageText) String() string {
+	if b == nil {
+		return "BotInlineMessageText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMessageText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(b.Message))
+	sb.WriteString(",\n")
+	if b.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range b.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(b.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageText) Encode(buf *bin.Buffer) error {
@@ -355,6 +417,44 @@ type BotInlineMessageMediaGeo struct {
 
 // BotInlineMessageMediaGeoTypeID is TL type id of BotInlineMessageMediaGeo.
 const BotInlineMessageMediaGeoTypeID = 0x51846fd
+
+// String implements fmt.Stringer.
+func (b *BotInlineMessageMediaGeo) String() string {
+	if b == nil {
+		return "BotInlineMessageMediaGeo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMessageMediaGeo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(b.Geo.String())
+	sb.WriteString(",\n")
+	if b.Flags.Has(0) {
+		sb.WriteString("\tHeading: ")
+		sb.WriteString(fmt.Sprint(b.Heading))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(1) {
+		sb.WriteString("\tPeriod: ")
+		sb.WriteString(fmt.Sprint(b.Period))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(3) {
+		sb.WriteString("\tProximityNotificationRadius: ")
+		sb.WriteString(fmt.Sprint(b.ProximityNotificationRadius))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(b.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaGeo) Encode(buf *bin.Buffer) error {
@@ -544,6 +644,44 @@ type BotInlineMessageMediaVenue struct {
 // BotInlineMessageMediaVenueTypeID is TL type id of BotInlineMessageMediaVenue.
 const BotInlineMessageMediaVenueTypeID = 0x8a86659c
 
+// String implements fmt.Stringer.
+func (b *BotInlineMessageMediaVenue) String() string {
+	if b == nil {
+		return "BotInlineMessageMediaVenue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMessageMediaVenue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(b.Geo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(b.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(b.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProvider: ")
+	sb.WriteString(fmt.Sprint(b.Provider))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueID: ")
+	sb.WriteString(fmt.Sprint(b.VenueID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueType: ")
+	sb.WriteString(fmt.Sprint(b.VenueType))
+	sb.WriteString(",\n")
+	if b.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(b.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaVenue) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -693,6 +831,38 @@ type BotInlineMessageMediaContact struct {
 // BotInlineMessageMediaContactTypeID is TL type id of BotInlineMessageMediaContact.
 const BotInlineMessageMediaContactTypeID = 0x18d1cdc2
 
+// String implements fmt.Stringer.
+func (b *BotInlineMessageMediaContact) String() string {
+	if b == nil {
+		return "BotInlineMessageMediaContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMessageMediaContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(b.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(b.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(b.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVcard: ")
+	sb.WriteString(fmt.Sprint(b.Vcard))
+	sb.WriteString(",\n")
+	if b.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(b.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMessageMediaContact) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -815,6 +985,7 @@ type BotInlineMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BotInlineMessageClass
+	fmt.Stringer
 }
 
 // DecodeBotInlineMessage implements binary de-serialization for BotInlineMessageClass.

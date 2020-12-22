@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // NearestDc represents TL type `nearestDc#8e1a1775`.
 // Nearest data centre, according to geo-ip.
@@ -29,6 +31,27 @@ type NearestDc struct {
 
 // NearestDcTypeID is TL type id of NearestDc.
 const NearestDcTypeID = 0x8e1a1775
+
+// String implements fmt.Stringer.
+func (n *NearestDc) String() string {
+	if n == nil {
+		return "NearestDc(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("NearestDc")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCountry: ")
+	sb.WriteString(fmt.Sprint(n.Country))
+	sb.WriteString(",\n")
+	sb.WriteString("\tThisDC: ")
+	sb.WriteString(fmt.Sprint(n.ThisDC))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNearestDC: ")
+	sb.WriteString(fmt.Sprint(n.NearestDC))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (n *NearestDc) Encode(b *bin.Buffer) error {

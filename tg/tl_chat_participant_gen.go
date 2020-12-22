@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatParticipant represents TL type `chatParticipant#c8d7493e`.
 // Group member.
@@ -29,6 +31,27 @@ type ChatParticipant struct {
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
 const ChatParticipantTypeID = 0xc8d7493e
+
+// String implements fmt.Stringer.
+func (c *ChatParticipant) String() string {
+	if c == nil {
+		return "ChatParticipant(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatParticipant")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInviterID: ")
+	sb.WriteString(fmt.Sprint(c.InviterID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipant) Encode(b *bin.Buffer) error {
@@ -97,6 +120,21 @@ type ChatParticipantCreator struct {
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
 const ChatParticipantCreatorTypeID = 0xda13538a
 
+// String implements fmt.Stringer.
+func (c *ChatParticipantCreator) String() string {
+	if c == nil {
+		return "ChatParticipantCreator(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatParticipantCreator")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -151,6 +189,27 @@ type ChatParticipantAdmin struct {
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
 const ChatParticipantAdminTypeID = 0xe2d6e436
+
+// String implements fmt.Stringer.
+func (c *ChatParticipantAdmin) String() string {
+	if c == nil {
+		return "ChatParticipantAdmin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatParticipantAdmin")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInviterID: ")
+	sb.WriteString(fmt.Sprint(c.InviterID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
@@ -226,6 +285,7 @@ type ChatParticipantClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatParticipantClass
+	fmt.Stringer
 }
 
 // DecodeChatParticipant implements binary de-serialization for ChatParticipantClass.

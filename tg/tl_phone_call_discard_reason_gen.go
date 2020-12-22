@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneCallDiscardReasonMissed represents TL type `phoneCallDiscardReasonMissed#85e42301`.
 // The phone call was missed
@@ -23,6 +25,18 @@ type PhoneCallDiscardReasonMissed struct {
 
 // PhoneCallDiscardReasonMissedTypeID is TL type id of PhoneCallDiscardReasonMissed.
 const PhoneCallDiscardReasonMissedTypeID = 0x85e42301
+
+// String implements fmt.Stringer.
+func (p *PhoneCallDiscardReasonMissed) String() string {
+	if p == nil {
+		return "PhoneCallDiscardReasonMissed(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallDiscardReasonMissed")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonMissed) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type PhoneCallDiscardReasonDisconnect struct {
 // PhoneCallDiscardReasonDisconnectTypeID is TL type id of PhoneCallDiscardReasonDisconnect.
 const PhoneCallDiscardReasonDisconnectTypeID = 0xe095c1a0
 
+// String implements fmt.Stringer.
+func (p *PhoneCallDiscardReasonDisconnect) String() string {
+	if p == nil {
+		return "PhoneCallDiscardReasonDisconnect(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallDiscardReasonDisconnect")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonDisconnect) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -106,6 +132,18 @@ type PhoneCallDiscardReasonHangup struct {
 // PhoneCallDiscardReasonHangupTypeID is TL type id of PhoneCallDiscardReasonHangup.
 const PhoneCallDiscardReasonHangupTypeID = 0x57adc690
 
+// String implements fmt.Stringer.
+func (p *PhoneCallDiscardReasonHangup) String() string {
+	if p == nil {
+		return "PhoneCallDiscardReasonHangup(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallDiscardReasonHangup")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonHangup) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -146,6 +184,18 @@ type PhoneCallDiscardReasonBusy struct {
 
 // PhoneCallDiscardReasonBusyTypeID is TL type id of PhoneCallDiscardReasonBusy.
 const PhoneCallDiscardReasonBusyTypeID = 0xfaf7e8c9
+
+// String implements fmt.Stringer.
+func (p *PhoneCallDiscardReasonBusy) String() string {
+	if p == nil {
+		return "PhoneCallDiscardReasonBusy(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallDiscardReasonBusy")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonBusy) Encode(b *bin.Buffer) error {
@@ -198,6 +248,7 @@ type PhoneCallDiscardReasonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneCallDiscardReasonClass
+	fmt.Stringer
 }
 
 // DecodePhoneCallDiscardReason implements binary de-serialization for PhoneCallDiscardReasonClass.

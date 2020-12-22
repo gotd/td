@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
 // Represents the rights of an admin in a channel/supergroup¹.
@@ -75,6 +77,21 @@ type ChatAdminRights struct {
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
 const ChatAdminRightsTypeID = 0x5fb224d5
+
+// String implements fmt.Stringer.
+func (c *ChatAdminRights) String() string {
+	if c == nil {
+		return "ChatAdminRights(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatAdminRights")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatAdminRights) Encode(b *bin.Buffer) error {

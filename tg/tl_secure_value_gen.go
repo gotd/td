@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureValue represents TL type `secureValue#187fa0ca`.
 // Secure value
@@ -84,6 +86,66 @@ type SecureValue struct {
 
 // SecureValueTypeID is TL type id of SecureValue.
 const SecureValueTypeID = 0x187fa0ca
+
+// String implements fmt.Stringer.
+func (s *SecureValue) String() string {
+	if s == nil {
+		return "SecureValue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tData: ")
+		sb.WriteString(s.Data.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(1) {
+		sb.WriteString("\tFrontSide: ")
+		sb.WriteString(s.FrontSide.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(2) {
+		sb.WriteString("\tReverseSide: ")
+		sb.WriteString(s.ReverseSide.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(3) {
+		sb.WriteString("\tSelfie: ")
+		sb.WriteString(s.Selfie.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(6) {
+		sb.WriteByte('[')
+		for _, v := range s.Translation {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if s.Flags.Has(4) {
+		sb.WriteByte('[')
+		for _, v := range s.Files {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if s.Flags.Has(5) {
+		sb.WriteString("\tPlainData: ")
+		sb.WriteString(s.PlainData.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValue) Encode(b *bin.Buffer) error {

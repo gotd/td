@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetCommonChatsRequest represents TL type `messages.getCommonChats#d0a48c4`.
 // Get chats in common with a user
@@ -35,6 +37,27 @@ type MessagesGetCommonChatsRequest struct {
 
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
 const MessagesGetCommonChatsRequestTypeID = 0xd0a48c4
+
+// String implements fmt.Stringer.
+func (g *MessagesGetCommonChatsRequest) String() string {
+	if g == nil {
+		return "MessagesGetCommonChatsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetCommonChatsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(g.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(g.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {

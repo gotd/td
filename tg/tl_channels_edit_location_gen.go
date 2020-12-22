@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsEditLocationRequest represents TL type `channels.editLocation#58e63f6d`.
 // Edit location of geogroup
@@ -32,6 +34,27 @@ type ChannelsEditLocationRequest struct {
 
 // ChannelsEditLocationRequestTypeID is TL type id of ChannelsEditLocationRequest.
 const ChannelsEditLocationRequestTypeID = 0x58e63f6d
+
+// String implements fmt.Stringer.
+func (e *ChannelsEditLocationRequest) String() string {
+	if e == nil {
+		return "ChannelsEditLocationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsEditLocationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(e.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(e.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {

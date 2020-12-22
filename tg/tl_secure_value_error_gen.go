@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
 // Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
@@ -39,6 +41,30 @@ type SecureValueErrorData struct {
 
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
 const SecureValueErrorDataTypeID = 0xe8a40bd9
+
+// String implements fmt.Stringer.
+func (s *SecureValueErrorData) String() string {
+	if s == nil {
+		return "SecureValueErrorData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDataHash: ")
+	sb.WriteString(fmt.Sprint(s.DataHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tField: ")
+	sb.WriteString(fmt.Sprint(s.Field))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorData) Encode(b *bin.Buffer) error {
@@ -130,6 +156,27 @@ type SecureValueErrorFrontSide struct {
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
 const SecureValueErrorFrontSideTypeID = 0xbe3dfa
 
+// String implements fmt.Stringer.
+func (s *SecureValueErrorFrontSide) String() string {
+	if s == nil {
+		return "SecureValueErrorFrontSide(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorFrontSide")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFrontSide) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -209,6 +256,27 @@ type SecureValueErrorReverseSide struct {
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
 const SecureValueErrorReverseSideTypeID = 0x868a2aa5
+
+// String implements fmt.Stringer.
+func (s *SecureValueErrorReverseSide) String() string {
+	if s == nil {
+		return "SecureValueErrorReverseSide(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorReverseSide")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorReverseSide) Encode(b *bin.Buffer) error {
@@ -291,6 +359,27 @@ type SecureValueErrorSelfie struct {
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
 const SecureValueErrorSelfieTypeID = 0xe537ced6
+
+// String implements fmt.Stringer.
+func (s *SecureValueErrorSelfie) String() string {
+	if s == nil {
+		return "SecureValueErrorSelfie(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorSelfie")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorSelfie) Encode(b *bin.Buffer) error {
@@ -375,6 +464,27 @@ type SecureValueErrorFile struct {
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
 const SecureValueErrorFileTypeID = 0x7a700873
 
+// String implements fmt.Stringer.
+func (s *SecureValueErrorFile) String() string {
+	if s == nil {
+		return "SecureValueErrorFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -457,6 +567,29 @@ type SecureValueErrorFiles struct {
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
 const SecureValueErrorFilesTypeID = 0x666220e9
+
+// String implements fmt.Stringer.
+func (s *SecureValueErrorFiles) String() string {
+	if s == nil {
+		return "SecureValueErrorFiles(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorFiles")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.FileHash {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFiles) Encode(b *bin.Buffer) error {
@@ -542,6 +675,27 @@ type SecureValueError struct {
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
 const SecureValueErrorTypeID = 0x869d758f
+
+// String implements fmt.Stringer.
+func (s *SecureValueError) String() string {
+	if s == nil {
+		return "SecureValueError(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueError")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueError) Encode(b *bin.Buffer) error {
@@ -631,6 +785,27 @@ type SecureValueErrorTranslationFile struct {
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
 const SecureValueErrorTranslationFileTypeID = 0xa1144770
 
+// String implements fmt.Stringer.
+func (s *SecureValueErrorTranslationFile) String() string {
+	if s == nil {
+		return "SecureValueErrorTranslationFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorTranslationFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorTranslationFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -718,6 +893,29 @@ type SecureValueErrorTranslationFiles struct {
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.
 const SecureValueErrorTranslationFilesTypeID = 0x34636dd8
+
+// String implements fmt.Stringer.
+func (s *SecureValueErrorTranslationFiles) String() string {
+	if s == nil {
+		return "SecureValueErrorTranslationFiles(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueErrorTranslationFiles")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.FileHash {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorTranslationFiles) Encode(b *bin.Buffer) error {
@@ -813,6 +1011,7 @@ type SecureValueErrorClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureValueErrorClass
+	fmt.Stringer
 }
 
 // DecodeSecureValueError implements binary de-serialization for SecureValueErrorClass.

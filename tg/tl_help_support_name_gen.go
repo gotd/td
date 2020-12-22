@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpSupportName represents TL type `help.supportName#8c05f1c9`.
 // Localized name for telegram support
@@ -25,6 +27,21 @@ type HelpSupportName struct {
 
 // HelpSupportNameTypeID is TL type id of HelpSupportName.
 const HelpSupportNameTypeID = 0x8c05f1c9
+
+// String implements fmt.Stringer.
+func (s *HelpSupportName) String() string {
+	if s == nil {
+		return "HelpSupportName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpSupportName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(s.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *HelpSupportName) Encode(b *bin.Buffer) error {

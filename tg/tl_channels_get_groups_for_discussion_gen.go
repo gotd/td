@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsGetGroupsForDiscussionRequest represents TL type `channels.getGroupsForDiscussion#f5dad378`.
 // Get all groups that can be used as discussion groups¹.
@@ -31,6 +33,18 @@ type ChannelsGetGroupsForDiscussionRequest struct {
 
 // ChannelsGetGroupsForDiscussionRequestTypeID is TL type id of ChannelsGetGroupsForDiscussionRequest.
 const ChannelsGetGroupsForDiscussionRequestTypeID = 0xf5dad378
+
+// String implements fmt.Stringer.
+func (g *ChannelsGetGroupsForDiscussionRequest) String() string {
+	if g == nil {
+		return "ChannelsGetGroupsForDiscussionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsGetGroupsForDiscussionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.
@@ -25,6 +27,21 @@ type MessagesReceivedMessagesRequest struct {
 
 // MessagesReceivedMessagesRequestTypeID is TL type id of MessagesReceivedMessagesRequest.
 const MessagesReceivedMessagesRequestTypeID = 0x5a954c0
+
+// String implements fmt.Stringer.
+func (r *MessagesReceivedMessagesRequest) String() string {
+	if r == nil {
+		return "MessagesReceivedMessagesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReceivedMessagesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(r.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReceivedMessagesRequest) Encode(b *bin.Buffer) error {

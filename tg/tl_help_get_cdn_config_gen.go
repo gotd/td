@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetCdnConfigRequest represents TL type `help.getCdnConfig#52029342`.
 // Get configuration for CDN¹ file downloads.
@@ -26,6 +28,18 @@ type HelpGetCdnConfigRequest struct {
 
 // HelpGetCdnConfigRequestTypeID is TL type id of HelpGetCdnConfigRequest.
 const HelpGetCdnConfigRequestTypeID = 0x52029342
+
+// String implements fmt.Stringer.
+func (g *HelpGetCdnConfigRequest) String() string {
+	if g == nil {
+		return "HelpGetCdnConfigRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetCdnConfigRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetCdnConfigRequest) Encode(b *bin.Buffer) error {

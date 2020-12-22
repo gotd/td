@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPeerNotifySettings represents TL type `inputPeerNotifySettings#9c3d198e`.
 // Notification settings.
@@ -40,6 +42,31 @@ type InputPeerNotifySettings struct {
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
 const InputPeerNotifySettingsTypeID = 0x9c3d198e
+
+// String implements fmt.Stringer.
+func (i *InputPeerNotifySettings) String() string {
+	if i == nil {
+		return "InputPeerNotifySettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerNotifySettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tMuteUntil: ")
+		sb.WriteString(fmt.Sprint(i.MuteUntil))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(3) {
+		sb.WriteString("\tSound: ")
+		sb.WriteString(fmt.Sprint(i.Sound))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {

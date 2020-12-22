@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthSentCode represents TL type `auth.sentCode#5e002502`.
 // Contains info about a sent verification code.
@@ -46,6 +48,37 @@ type AuthSentCode struct {
 
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
 const AuthSentCodeTypeID = 0x5e002502
+
+// String implements fmt.Stringer.
+func (s *AuthSentCode) String() string {
+	if s == nil {
+		return "AuthSentCode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSentCode")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(s.PhoneCodeHash))
+	sb.WriteString(",\n")
+	if s.Flags.Has(1) {
+		sb.WriteString("\tNextType: ")
+		sb.WriteString(s.NextType.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(2) {
+		sb.WriteString("\tTimeout: ")
+		sb.WriteString(fmt.Sprint(s.Timeout))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSentCode) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#6014f412`.
 // Information about an active admin in a supergroup
@@ -40,6 +42,30 @@ type StatsGroupTopAdmin struct {
 
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
 const StatsGroupTopAdminTypeID = 0x6014f412
+
+// String implements fmt.Stringer.
+func (s *StatsGroupTopAdmin) String() string {
+	if s == nil {
+		return "StatsGroupTopAdmin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGroupTopAdmin")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(s.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDeleted: ")
+	sb.WriteString(fmt.Sprint(s.Deleted))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKicked: ")
+	sb.WriteString(fmt.Sprint(s.Kicked))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBanned: ")
+	sb.WriteString(fmt.Sprint(s.Banned))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {

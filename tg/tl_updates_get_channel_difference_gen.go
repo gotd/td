@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
 // Returns the difference between the current state of updates of a certain channel and transmitted.
@@ -41,6 +43,33 @@ type UpdatesGetChannelDifferenceRequest struct {
 
 // UpdatesGetChannelDifferenceRequestTypeID is TL type id of UpdatesGetChannelDifferenceRequest.
 const UpdatesGetChannelDifferenceRequestTypeID = 0x3173d78
+
+// String implements fmt.Stringer.
+func (g *UpdatesGetChannelDifferenceRequest) String() string {
+	if g == nil {
+		return "UpdatesGetChannelDifferenceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesGetChannelDifferenceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(g.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(g.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {

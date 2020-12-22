@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputClientProxy represents TL type `inputClientProxy#75588b3f`.
 // Info about an MTProxy¹ used to connect.
@@ -30,6 +32,24 @@ type InputClientProxy struct {
 
 // InputClientProxyTypeID is TL type id of InputClientProxy.
 const InputClientProxyTypeID = 0x75588b3f
+
+// String implements fmt.Stringer.
+func (i *InputClientProxy) String() string {
+	if i == nil {
+		return "InputClientProxy(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputClientProxy")
+	sb.WriteString("{\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(i.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPort: ")
+	sb.WriteString(fmt.Sprint(i.Port))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputClientProxy) Encode(b *bin.Buffer) error {

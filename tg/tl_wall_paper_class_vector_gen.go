@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
 	// Elements of Vector<WallPaper>
 	Elems []WallPaperClass
+}
+
+// String implements fmt.Stringer.
+func (vec *WallPaperClassVector) String() string {
+	if vec == nil {
+		return "WallPaperClassVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WallPaperClassVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

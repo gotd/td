@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesBotResults represents TL type `messages.botResults#947ca848`.
 // Result of a query to an inline bot
@@ -46,6 +48,47 @@ type MessagesBotResults struct {
 
 // MessagesBotResultsTypeID is TL type id of MessagesBotResults.
 const MessagesBotResultsTypeID = 0x947ca848
+
+// String implements fmt.Stringer.
+func (b *MessagesBotResults) String() string {
+	if b == nil {
+		return "MessagesBotResults(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesBotResults")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(b.QueryID))
+	sb.WriteString(",\n")
+	if b.Flags.Has(1) {
+		sb.WriteString("\tNextOffset: ")
+		sb.WriteString(fmt.Sprint(b.NextOffset))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tSwitchPm: ")
+		sb.WriteString(b.SwitchPm.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range b.Results {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCacheTime: ")
+	sb.WriteString(fmt.Sprint(b.CacheTime))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range b.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {

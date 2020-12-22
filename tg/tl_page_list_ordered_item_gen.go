@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageListOrderedItemText represents TL type `pageListOrderedItemText#5e068047`.
 // Ordered list of text items
@@ -27,6 +29,24 @@ type PageListOrderedItemText struct {
 
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
 const PageListOrderedItemTextTypeID = 0x5e068047
+
+// String implements fmt.Stringer.
+func (p *PageListOrderedItemText) String() string {
+	if p == nil {
+		return "PageListOrderedItemText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageListOrderedItemText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNum: ")
+	sb.WriteString(fmt.Sprint(p.Num))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
@@ -96,6 +116,26 @@ type PageListOrderedItemBlocks struct {
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
 const PageListOrderedItemBlocksTypeID = 0x98dd8936
+
+// String implements fmt.Stringer.
+func (p *PageListOrderedItemBlocks) String() string {
+	if p == nil {
+		return "PageListOrderedItemBlocks(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageListOrderedItemBlocks")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNum: ")
+	sb.WriteString(fmt.Sprint(p.Num))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Blocks {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
@@ -176,6 +216,7 @@ type PageListOrderedItemClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageListOrderedItemClass
+	fmt.Stringer
 }
 
 // DecodePageListOrderedItem implements binary de-serialization for PageListOrderedItemClass.

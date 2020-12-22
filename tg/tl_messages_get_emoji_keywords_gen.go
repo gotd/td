@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetEmojiKeywordsRequest represents TL type `messages.getEmojiKeywords#35a0e062`.
 // Get localized emoji keywords
@@ -25,6 +27,21 @@ type MessagesGetEmojiKeywordsRequest struct {
 
 // MessagesGetEmojiKeywordsRequestTypeID is TL type id of MessagesGetEmojiKeywordsRequest.
 const MessagesGetEmojiKeywordsRequestTypeID = 0x35a0e062
+
+// String implements fmt.Stringer.
+func (g *MessagesGetEmojiKeywordsRequest) String() string {
+	if g == nil {
+		return "MessagesGetEmojiKeywordsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetEmojiKeywordsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsRequest) Encode(b *bin.Buffer) error {

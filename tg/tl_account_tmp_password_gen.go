@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountTmpPassword represents TL type `account.tmpPassword#db64fd34`.
 // Temporary payment password
@@ -27,6 +29,24 @@ type AccountTmpPassword struct {
 
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.
 const AccountTmpPasswordTypeID = 0xdb64fd34
+
+// String implements fmt.Stringer.
+func (t *AccountTmpPassword) String() string {
+	if t == nil {
+		return "AccountTmpPassword(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountTmpPassword")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTmpPassword: ")
+	sb.WriteString(fmt.Sprint(t.TmpPassword))
+	sb.WriteString(",\n")
+	sb.WriteString("\tValidUntil: ")
+	sb.WriteString(fmt.Sprint(t.ValidUntil))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {

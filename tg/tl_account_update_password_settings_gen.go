@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdatePasswordSettingsRequest represents TL type `account.updatePasswordSettings#a59b102f`.
 // Set a new 2FA password
@@ -33,6 +35,24 @@ type AccountUpdatePasswordSettingsRequest struct {
 
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.
 const AccountUpdatePasswordSettingsRequestTypeID = 0xa59b102f
+
+// String implements fmt.Stringer.
+func (u *AccountUpdatePasswordSettingsRequest) String() string {
+	if u == nil {
+		return "AccountUpdatePasswordSettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdatePasswordSettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPassword: ")
+	sb.WriteString(u.Password.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewSettings: ")
+	sb.WriteString(u.NewSettings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdatePasswordSettingsRequest) Encode(b *bin.Buffer) error {

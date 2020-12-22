@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetArchivedStickersRequest represents TL type `messages.getArchivedStickers#57f17692`.
 // Get all archived stickers
@@ -40,6 +42,27 @@ type MessagesGetArchivedStickersRequest struct {
 
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.
 const MessagesGetArchivedStickersRequestTypeID = 0x57f17692
+
+// String implements fmt.Stringer.
+func (g *MessagesGetArchivedStickersRequest) String() string {
+	if g == nil {
+		return "MessagesGetArchivedStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetArchivedStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(g.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {

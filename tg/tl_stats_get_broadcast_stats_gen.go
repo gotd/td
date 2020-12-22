@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGetBroadcastStatsRequest represents TL type `stats.getBroadcastStats#ab42441a`.
 // Get channel statistics¹
@@ -35,6 +37,24 @@ type StatsGetBroadcastStatsRequest struct {
 
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.
 const StatsGetBroadcastStatsRequestTypeID = 0xab42441a
+
+// String implements fmt.Stringer.
+func (g *StatsGetBroadcastStatsRequest) String() string {
+	if g == nil {
+		return "StatsGetBroadcastStatsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGetBroadcastStatsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *StatsGetBroadcastStatsRequest) Encode(b *bin.Buffer) error {

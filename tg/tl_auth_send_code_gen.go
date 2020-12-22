@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthSendCodeRequest represents TL type `auth.sendCode#a677244f`.
 // Send the verification code for login
@@ -37,6 +39,30 @@ type AuthSendCodeRequest struct {
 
 // AuthSendCodeRequestTypeID is TL type id of AuthSendCodeRequest.
 const AuthSendCodeRequestTypeID = 0xa677244f
+
+// String implements fmt.Stringer.
+func (s *AuthSendCodeRequest) String() string {
+	if s == nil {
+		return "AuthSendCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSendCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(s.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIID: ")
+	sb.WriteString(fmt.Sprint(s.APIID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIHash: ")
+	sb.WriteString(fmt.Sprint(s.APIHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(s.Settings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSendCodeRequest) Encode(b *bin.Buffer) error {

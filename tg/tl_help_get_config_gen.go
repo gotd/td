@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetConfigRequest represents TL type `help.getConfig#c4f9186b`.
 // Returns current configuration, including data center configuration.
@@ -23,6 +25,18 @@ type HelpGetConfigRequest struct {
 
 // HelpGetConfigRequestTypeID is TL type id of HelpGetConfigRequest.
 const HelpGetConfigRequestTypeID = 0xc4f9186b
+
+// String implements fmt.Stringer.
+func (g *HelpGetConfigRequest) String() string {
+	if g == nil {
+		return "HelpGetConfigRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetConfigRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetConfigRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReorderPinnedDialogsRequest represents TL type `messages.reorderPinnedDialogs#3b1adf37`.
 // Reorder pinned dialogs
@@ -37,6 +39,29 @@ type MessagesReorderPinnedDialogsRequest struct {
 
 // MessagesReorderPinnedDialogsRequestTypeID is TL type id of MessagesReorderPinnedDialogsRequest.
 const MessagesReorderPinnedDialogsRequestTypeID = 0x3b1adf37
+
+// String implements fmt.Stringer.
+func (r *MessagesReorderPinnedDialogsRequest) String() string {
+	if r == nil {
+		return "MessagesReorderPinnedDialogsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReorderPinnedDialogsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFolderID: ")
+	sb.WriteString(fmt.Sprint(r.FolderID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.Order {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {

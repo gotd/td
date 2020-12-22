@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecurePasswordKdfAlgoUnknown represents TL type `securePasswordKdfAlgoUnknown#4a8537`.
 // Unknown KDF algo (most likely the client has to be updated)
@@ -23,6 +25,18 @@ type SecurePasswordKdfAlgoUnknown struct {
 
 // SecurePasswordKdfAlgoUnknownTypeID is TL type id of SecurePasswordKdfAlgoUnknown.
 const SecurePasswordKdfAlgoUnknownTypeID = 0x4a8537
+
+// String implements fmt.Stringer.
+func (s *SecurePasswordKdfAlgoUnknown) String() string {
+	if s == nil {
+		return "SecurePasswordKdfAlgoUnknown(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecurePasswordKdfAlgoUnknown")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
 const SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID = 0xbbf2dda0
+
+// String implements fmt.Stringer.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) String() string {
+	if s == nil {
+		return "SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSalt: ")
+	sb.WriteString(fmt.Sprint(s.Salt))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Encode(b *bin.Buffer) error {
@@ -119,6 +148,21 @@ type SecurePasswordKdfAlgoSHA512 struct {
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
 const SecurePasswordKdfAlgoSHA512TypeID = 0x86471d92
+
+// String implements fmt.Stringer.
+func (s *SecurePasswordKdfAlgoSHA512) String() string {
+	if s == nil {
+		return "SecurePasswordKdfAlgoSHA512(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecurePasswordKdfAlgoSHA512")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSalt: ")
+	sb.WriteString(fmt.Sprint(s.Salt))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoSHA512) Encode(b *bin.Buffer) error {
@@ -178,6 +222,7 @@ type SecurePasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecurePasswordKdfAlgoClass
+	fmt.Stringer
 }
 
 // DecodeSecurePasswordKdfAlgo implements binary de-serialization for SecurePasswordKdfAlgoClass.

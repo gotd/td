@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
 // Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user exceeds the limit² for owned public channels/supergroups/geogroups³, and the user is given the choice to remove one of his channels/supergroups/geogroups.
@@ -43,6 +45,21 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
 const ChannelsGetAdminedPublicChannelsRequestTypeID = 0xf8b036af
+
+// String implements fmt.Stringer.
+func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
+	if g == nil {
+		return "ChannelsGetAdminedPublicChannelsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsGetAdminedPublicChannelsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {

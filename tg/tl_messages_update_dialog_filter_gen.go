@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUpdateDialogFilterRequest represents TL type `messages.updateDialogFilter#1ad4a04a`.
 // Update folder¹
@@ -43,6 +45,29 @@ type MessagesUpdateDialogFilterRequest struct {
 
 // MessagesUpdateDialogFilterRequestTypeID is TL type id of MessagesUpdateDialogFilterRequest.
 const MessagesUpdateDialogFilterRequestTypeID = 0x1ad4a04a
+
+// String implements fmt.Stringer.
+func (u *MessagesUpdateDialogFilterRequest) String() string {
+	if u == nil {
+		return "MessagesUpdateDialogFilterRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUpdateDialogFilterRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFilter: ")
+		sb.WriteString(u.Filter.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {

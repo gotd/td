@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
 // Login using a redirected login token, generated in case of DC mismatch during QR code login¹.
@@ -30,6 +32,21 @@ type AuthImportLoginTokenRequest struct {
 
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.
 const AuthImportLoginTokenRequestTypeID = 0x95ac5ce4
+
+// String implements fmt.Stringer.
+func (i *AuthImportLoginTokenRequest) String() string {
+	if i == nil {
+		return "AuthImportLoginTokenRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthImportLoginTokenRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(i.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
 // Too many updates, it is necessary to execute updates.getDifference¹.
@@ -26,6 +28,18 @@ type UpdatesTooLong struct {
 
 // UpdatesTooLongTypeID is TL type id of UpdatesTooLong.
 const UpdatesTooLongTypeID = 0xe317af7e
+
+// String implements fmt.Stringer.
+func (u *UpdatesTooLong) String() string {
+	if u == nil {
+		return "UpdatesTooLong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesTooLong")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
@@ -123,6 +137,61 @@ type UpdateShortMessage struct {
 
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
 const UpdateShortMessageTypeID = 0x2296d2c8
+
+// String implements fmt.Stringer.
+func (u *UpdateShortMessage) String() string {
+	if u == nil {
+		return "UpdateShortMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateShortMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(u.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(u.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	if u.Flags.Has(2) {
+		sb.WriteString("\tFwdFrom: ")
+		sb.WriteString(u.FwdFrom.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(11) {
+		sb.WriteString("\tViaBotID: ")
+		sb.WriteString(fmt.Sprint(u.ViaBotID))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(3) {
+		sb.WriteString("\tReplyTo: ")
+		sb.WriteString(u.ReplyTo.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(7) {
+		sb.WriteByte('[')
+		for _, v := range u.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
@@ -430,6 +499,64 @@ type UpdateShortChatMessage struct {
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
 const UpdateShortChatMessageTypeID = 0x402d5dbb
 
+// String implements fmt.Stringer.
+func (u *UpdateShortChatMessage) String() string {
+	if u == nil {
+		return "UpdateShortChatMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateShortChatMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromID: ")
+	sb.WriteString(fmt.Sprint(u.FromID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(u.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	if u.Flags.Has(2) {
+		sb.WriteString("\tFwdFrom: ")
+		sb.WriteString(u.FwdFrom.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(11) {
+		sb.WriteString("\tViaBotID: ")
+		sb.WriteString(fmt.Sprint(u.ViaBotID))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(3) {
+		sb.WriteString("\tReplyTo: ")
+		sb.WriteString(u.ReplyTo.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(7) {
+		sb.WriteByte('[')
+		for _, v := range u.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -693,6 +820,24 @@ type UpdateShort struct {
 // UpdateShortTypeID is TL type id of UpdateShort.
 const UpdateShortTypeID = 0x78d4dec1
 
+// String implements fmt.Stringer.
+func (u *UpdateShort) String() string {
+	if u == nil {
+		return "UpdateShort(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateShort")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUpdate: ")
+	sb.WriteString(u.Update.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShort) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -766,6 +911,42 @@ type UpdatesCombined struct {
 
 // UpdatesCombinedTypeID is TL type id of UpdatesCombined.
 const UpdatesCombinedTypeID = 0x725b04c3
+
+// String implements fmt.Stringer.
+func (u *UpdatesCombined) String() string {
+	if u == nil {
+		return "UpdatesCombined(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesCombined")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Updates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range u.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range u.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeqStart: ")
+	sb.WriteString(fmt.Sprint(u.SeqStart))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeq: ")
+	sb.WriteString(fmt.Sprint(u.Seq))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
@@ -906,6 +1087,39 @@ type Updates struct {
 
 // UpdatesTypeID is TL type id of Updates.
 const UpdatesTypeID = 0x74ae4240
+
+// String implements fmt.Stringer.
+func (u *Updates) String() string {
+	if u == nil {
+		return "Updates(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Updates")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range u.Updates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range u.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range u.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeq: ")
+	sb.WriteString(fmt.Sprint(u.Seq))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *Updates) Encode(b *bin.Buffer) error {
@@ -1064,6 +1278,45 @@ type UpdateShortSentMessage struct {
 
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.
 const UpdateShortSentMessageTypeID = 0x11f1331c
+
+// String implements fmt.Stringer.
+func (u *UpdateShortSentMessage) String() string {
+	if u == nil {
+		return "UpdateShortSentMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateShortSentMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(u.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(u.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	if u.Flags.Has(9) {
+		sb.WriteString("\tMedia: ")
+		sb.WriteString(u.Media.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(7) {
+		sb.WriteByte('[')
+		for _, v := range u.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
@@ -1238,6 +1491,7 @@ type UpdatesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesClass
+	fmt.Stringer
 }
 
 // DecodeUpdates implements binary de-serialization for UpdatesClass.

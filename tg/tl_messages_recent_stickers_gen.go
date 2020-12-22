@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesRecentStickersNotModified represents TL type `messages.recentStickersNotModified#b17f890`.
 // No new recent sticker was found
@@ -23,6 +25,18 @@ type MessagesRecentStickersNotModified struct {
 
 // MessagesRecentStickersNotModifiedTypeID is TL type id of MessagesRecentStickersNotModified.
 const MessagesRecentStickersNotModifiedTypeID = 0xb17f890
+
+// String implements fmt.Stringer.
+func (r *MessagesRecentStickersNotModified) String() string {
+	if r == nil {
+		return "MessagesRecentStickersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesRecentStickersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
@@ -75,6 +89,36 @@ type MessagesRecentStickers struct {
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
 const MessagesRecentStickersTypeID = 0x22f3afb3
+
+// String implements fmt.Stringer.
+func (r *MessagesRecentStickers) String() string {
+	if r == nil {
+		return "MessagesRecentStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesRecentStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(r.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.Packs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range r.Stickers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range r.Dates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
@@ -191,6 +235,7 @@ type MessagesRecentStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesRecentStickersClass
+	fmt.Stringer
 }
 
 // DecodeMessagesRecentStickers implements binary de-serialization for MessagesRecentStickersClass.

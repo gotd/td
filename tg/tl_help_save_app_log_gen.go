@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpSaveAppLogRequest represents TL type `help.saveAppLog#6f02f748`.
 // Saves logs of application on the server.
@@ -25,6 +27,23 @@ type HelpSaveAppLogRequest struct {
 
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.
 const HelpSaveAppLogRequestTypeID = 0x6f02f748
+
+// String implements fmt.Stringer.
+func (s *HelpSaveAppLogRequest) String() string {
+	if s == nil {
+		return "HelpSaveAppLogRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpSaveAppLogRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range s.Events {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {

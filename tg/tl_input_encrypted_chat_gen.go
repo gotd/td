@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputEncryptedChat represents TL type `inputEncryptedChat#f141b5e1`.
 // Creates an encrypted chat.
@@ -32,6 +34,24 @@ type InputEncryptedChat struct {
 
 // InputEncryptedChatTypeID is TL type id of InputEncryptedChat.
 const InputEncryptedChatTypeID = 0xf141b5e1
+
+// String implements fmt.Stringer.
+func (i *InputEncryptedChat) String() string {
+	if i == nil {
+		return "InputEncryptedChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(i.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageReplyHeader represents TL type `messageReplyHeader#a6d57763`.
 // Message replies and thread¹ information
@@ -47,6 +49,34 @@ type MessageReplyHeader struct {
 
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
 const MessageReplyHeaderTypeID = 0xa6d57763
+
+// String implements fmt.Stringer.
+func (m *MessageReplyHeader) String() string {
+	if m == nil {
+		return "MessageReplyHeader(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageReplyHeader")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tReplyToMsgID: ")
+	sb.WriteString(fmt.Sprint(m.ReplyToMsgID))
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tReplyToPeerID: ")
+		sb.WriteString(m.ReplyToPeerID.String())
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(1) {
+		sb.WriteString("\tReplyToTopID: ")
+		sb.WriteString(fmt.Sprint(m.ReplyToTopID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {

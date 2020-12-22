@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneConfirmCallRequest represents TL type `phone.confirmCall#2efe1722`.
 // Complete phone call E2E encryption key exchange »¹
@@ -37,6 +39,30 @@ type PhoneConfirmCallRequest struct {
 
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.
 const PhoneConfirmCallRequestTypeID = 0x2efe1722
+
+// String implements fmt.Stringer.
+func (c *PhoneConfirmCallRequest) String() string {
+	if c == nil {
+		return "PhoneConfirmCallRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneConfirmCallRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(c.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGA: ")
+	sb.WriteString(fmt.Sprint(c.GA))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(c.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(c.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
 // Supergroup statistics¹
@@ -60,6 +62,77 @@ type StatsMegagroupStats struct {
 
 // StatsMegagroupStatsTypeID is TL type id of StatsMegagroupStats.
 const StatsMegagroupStatsTypeID = 0xef7ff916
+
+// String implements fmt.Stringer.
+func (m *StatsMegagroupStats) String() string {
+	if m == nil {
+		return "StatsMegagroupStats(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsMegagroupStats")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeriod: ")
+	sb.WriteString(m.Period.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMembers: ")
+	sb.WriteString(m.Members.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessages: ")
+	sb.WriteString(m.Messages.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tViewers: ")
+	sb.WriteString(m.Viewers.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPosters: ")
+	sb.WriteString(m.Posters.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGrowthGraph: ")
+	sb.WriteString(m.GrowthGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMembersGraph: ")
+	sb.WriteString(m.MembersGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewMembersBySourceGraph: ")
+	sb.WriteString(m.NewMembersBySourceGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLanguagesGraph: ")
+	sb.WriteString(m.LanguagesGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessagesGraph: ")
+	sb.WriteString(m.MessagesGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tActionsGraph: ")
+	sb.WriteString(m.ActionsGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopHoursGraph: ")
+	sb.WriteString(m.TopHoursGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tWeekdaysGraph: ")
+	sb.WriteString(m.WeekdaysGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range m.TopPosters {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.TopAdmins {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.TopInviters {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *StatsMegagroupStats) Encode(b *bin.Buffer) error {

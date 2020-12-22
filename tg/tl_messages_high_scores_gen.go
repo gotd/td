@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesHighScores represents TL type `messages.highScores#9a3bfd99`.
 // Highscores in a game
@@ -27,6 +29,28 @@ type MessagesHighScores struct {
 
 // MessagesHighScoresTypeID is TL type id of MessagesHighScores.
 const MessagesHighScoresTypeID = 0x9a3bfd99
+
+// String implements fmt.Stringer.
+func (h *MessagesHighScores) String() string {
+	if h == nil {
+		return "MessagesHighScores(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesHighScores")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range h.Scores {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range h.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (h *MessagesHighScores) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpAppUpdate represents TL type `help.appUpdate#1da7158f`.
 // An update is available for the application.
@@ -49,6 +51,45 @@ type HelpAppUpdate struct {
 
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.
 const HelpAppUpdateTypeID = 0x1da7158f
+
+// String implements fmt.Stringer.
+func (a *HelpAppUpdate) String() string {
+	if a == nil {
+		return "HelpAppUpdate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpAppUpdate")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(a.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(a.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(a.Text))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range a.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if a.Flags.Has(1) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(a.Document.String())
+		sb.WriteString(",\n")
+	}
+	if a.Flags.Has(2) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(a.URL))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
@@ -210,6 +251,18 @@ type HelpNoAppUpdate struct {
 // HelpNoAppUpdateTypeID is TL type id of HelpNoAppUpdate.
 const HelpNoAppUpdateTypeID = 0xc45a6536
 
+// String implements fmt.Stringer.
+func (n *HelpNoAppUpdate) String() string {
+	if n == nil {
+		return "HelpNoAppUpdate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpNoAppUpdate")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -259,6 +312,7 @@ type HelpAppUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpAppUpdateClass
+	fmt.Stringer
 }
 
 // DecodeHelpAppUpdate implements binary de-serialization for HelpAppUpdateClass.

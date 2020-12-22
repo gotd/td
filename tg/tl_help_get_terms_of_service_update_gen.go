@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetTermsOfServiceUpdateRequest represents TL type `help.getTermsOfServiceUpdate#2ca51fd1`.
 // Look for updates of telegram's terms of service
@@ -23,6 +25,18 @@ type HelpGetTermsOfServiceUpdateRequest struct {
 
 // HelpGetTermsOfServiceUpdateRequestTypeID is TL type id of HelpGetTermsOfServiceUpdateRequest.
 const HelpGetTermsOfServiceUpdateRequestTypeID = 0x2ca51fd1
+
+// String implements fmt.Stringer.
+func (g *HelpGetTermsOfServiceUpdateRequest) String() string {
+	if g == nil {
+		return "HelpGetTermsOfServiceUpdateRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetTermsOfServiceUpdateRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetTermsOfServiceUpdateRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUploadMediaRequest represents TL type `messages.uploadMedia#519bc2b1`.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
@@ -33,6 +35,24 @@ type MessagesUploadMediaRequest struct {
 
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
 const MessagesUploadMediaRequestTypeID = 0x519bc2b1
+
+// String implements fmt.Stringer.
+func (u *MessagesUploadMediaRequest) String() string {
+	if u == nil {
+		return "MessagesUploadMediaRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUploadMediaRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMedia: ")
+	sb.WriteString(u.Media.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {

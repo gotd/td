@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
 // DEPRECATED location of a photo
@@ -34,6 +36,30 @@ type InputFileLocation struct {
 
 // InputFileLocationTypeID is TL type id of InputFileLocation.
 const InputFileLocationTypeID = 0xdfdaabe1
+
+// String implements fmt.Stringer.
+func (i *InputFileLocation) String() string {
+	if i == nil {
+		return "InputFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tVolumeID: ")
+	sb.WriteString(fmt.Sprint(i.VolumeID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocalID: ")
+	sb.WriteString(fmt.Sprint(i.LocalID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(i.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputFileLocation) Encode(b *bin.Buffer) error {
@@ -118,6 +144,24 @@ type InputEncryptedFileLocation struct {
 // InputEncryptedFileLocationTypeID is TL type id of InputEncryptedFileLocation.
 const InputEncryptedFileLocationTypeID = 0xf5235d55
 
+// String implements fmt.Stringer.
+func (i *InputEncryptedFileLocation) String() string {
+	if i == nil {
+		return "InputEncryptedFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputEncryptedFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -188,6 +232,30 @@ type InputDocumentFileLocation struct {
 
 // InputDocumentFileLocationTypeID is TL type id of InputDocumentFileLocation.
 const InputDocumentFileLocationTypeID = 0xbad07584
+
+// String implements fmt.Stringer.
+func (i *InputDocumentFileLocation) String() string {
+	if i == nil {
+		return "InputDocumentFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputDocumentFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("\tThumbSize: ")
+	sb.WriteString(fmt.Sprint(i.ThumbSize))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
@@ -275,6 +343,24 @@ type InputSecureFileLocation struct {
 // InputSecureFileLocationTypeID is TL type id of InputSecureFileLocation.
 const InputSecureFileLocationTypeID = 0xcbc7ee28
 
+// String implements fmt.Stringer.
+func (i *InputSecureFileLocation) String() string {
+	if i == nil {
+		return "InputSecureFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputSecureFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -331,6 +417,18 @@ type InputTakeoutFileLocation struct {
 
 // InputTakeoutFileLocationTypeID is TL type id of InputTakeoutFileLocation.
 const InputTakeoutFileLocationTypeID = 0x29be5899
+
+// String implements fmt.Stringer.
+func (i *InputTakeoutFileLocation) String() string {
+	if i == nil {
+		return "InputTakeoutFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputTakeoutFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputTakeoutFileLocation) Encode(b *bin.Buffer) error {
@@ -396,6 +494,30 @@ type InputPhotoFileLocation struct {
 
 // InputPhotoFileLocationTypeID is TL type id of InputPhotoFileLocation.
 const InputPhotoFileLocationTypeID = 0x40181ffe
+
+// String implements fmt.Stringer.
+func (i *InputPhotoFileLocation) String() string {
+	if i == nil {
+		return "InputPhotoFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhotoFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("\tThumbSize: ")
+	sb.WriteString(fmt.Sprint(i.ThumbSize))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
@@ -481,6 +603,36 @@ type InputPhotoLegacyFileLocation struct {
 
 // InputPhotoLegacyFileLocationTypeID is TL type id of InputPhotoLegacyFileLocation.
 const InputPhotoLegacyFileLocationTypeID = 0xd83466f3
+
+// String implements fmt.Stringer.
+func (i *InputPhotoLegacyFileLocation) String() string {
+	if i == nil {
+		return "InputPhotoLegacyFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhotoLegacyFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVolumeID: ")
+	sb.WriteString(fmt.Sprint(i.VolumeID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocalID: ")
+	sb.WriteString(fmt.Sprint(i.LocalID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(i.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
@@ -590,6 +742,30 @@ type InputPeerPhotoFileLocation struct {
 // InputPeerPhotoFileLocationTypeID is TL type id of InputPeerPhotoFileLocation.
 const InputPeerPhotoFileLocationTypeID = 0x27d69997
 
+// String implements fmt.Stringer.
+func (i *InputPeerPhotoFileLocation) String() string {
+	if i == nil {
+		return "InputPeerPhotoFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerPhotoFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tVolumeID: ")
+	sb.WriteString(fmt.Sprint(i.VolumeID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocalID: ")
+	sb.WriteString(fmt.Sprint(i.LocalID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -687,6 +863,27 @@ type InputStickerSetThumb struct {
 // InputStickerSetThumbTypeID is TL type id of InputStickerSetThumb.
 const InputStickerSetThumbTypeID = 0xdbaeae9
 
+// String implements fmt.Stringer.
+func (i *InputStickerSetThumb) String() string {
+	if i == nil {
+		return "InputStickerSetThumb(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetThumb")
+	sb.WriteString("{\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(i.Stickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tVolumeID: ")
+	sb.WriteString(fmt.Sprint(i.VolumeID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocalID: ")
+	sb.WriteString(fmt.Sprint(i.LocalID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -772,6 +969,7 @@ type InputFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputFileLocationClass
+	fmt.Stringer
 }
 
 // DecodeInputFileLocation implements binary de-serialization for InputFileLocationClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
 // Sends a Telegram Passport authorization form, effectively sharing data with the service
@@ -33,6 +35,35 @@ type AccountAcceptAuthorizationRequest struct {
 
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.
 const AccountAcceptAuthorizationRequestTypeID = 0xe7027c94
+
+// String implements fmt.Stringer.
+func (a *AccountAcceptAuthorizationRequest) String() string {
+	if a == nil {
+		return "AccountAcceptAuthorizationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountAcceptAuthorizationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(fmt.Sprint(a.BotID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tScope: ")
+	sb.WriteString(fmt.Sprint(a.Scope))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublicKey: ")
+	sb.WriteString(fmt.Sprint(a.PublicKey))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range a.ValueHashes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCredentials: ")
+	sb.WriteString(a.Credentials.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {

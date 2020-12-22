@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSetContactSignUpNotificationRequest represents TL type `account.setContactSignUpNotification#cff43f61`.
 // Toggle contact sign up notifications
@@ -25,6 +27,21 @@ type AccountSetContactSignUpNotificationRequest struct {
 
 // AccountSetContactSignUpNotificationRequestTypeID is TL type id of AccountSetContactSignUpNotificationRequest.
 const AccountSetContactSignUpNotificationRequestTypeID = 0xcff43f61
+
+// String implements fmt.Stringer.
+func (s *AccountSetContactSignUpNotificationRequest) String() string {
+	if s == nil {
+		return "AccountSetContactSignUpNotificationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSetContactSignUpNotificationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSilent: ")
+	sb.WriteString(fmt.Sprint(s.Silent))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error {

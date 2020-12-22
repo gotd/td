@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
 // Payment form
@@ -62,6 +64,58 @@ type PaymentsPaymentForm struct {
 
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
 const PaymentsPaymentFormTypeID = 0x3f56aea3
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentForm) String() string {
+	if p == nil {
+		return "PaymentsPaymentForm(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsPaymentForm")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(fmt.Sprint(p.BotID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInvoice: ")
+	sb.WriteString(p.Invoice.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tProviderID: ")
+	sb.WriteString(fmt.Sprint(p.ProviderID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(p.URL))
+	sb.WriteString(",\n")
+	if p.Flags.Has(4) {
+		sb.WriteString("\tNativeProvider: ")
+		sb.WriteString(fmt.Sprint(p.NativeProvider))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(4) {
+		sb.WriteString("\tNativeParams: ")
+		sb.WriteString(p.NativeParams.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(0) {
+		sb.WriteString("\tSavedInfo: ")
+		sb.WriteString(p.SavedInfo.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tSavedCredentials: ")
+		sb.WriteString(p.SavedCredentials.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {

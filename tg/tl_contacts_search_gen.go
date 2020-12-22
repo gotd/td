@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsSearchRequest represents TL type `contacts.search#11f812d8`.
 // Returns users found by username substring.
@@ -27,6 +29,24 @@ type ContactsSearchRequest struct {
 
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.
 const ContactsSearchRequestTypeID = 0x11f812d8
+
+// String implements fmt.Stringer.
+func (s *ContactsSearchRequest) String() string {
+	if s == nil {
+		return "ContactsSearchRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsSearchRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(s.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(s.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {

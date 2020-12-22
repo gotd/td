@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DataJSON represents TL type `dataJSON#7d748d04`.
 // Represents a json-encoded object
@@ -25,6 +27,21 @@ type DataJSON struct {
 
 // DataJSONTypeID is TL type id of DataJSON.
 const DataJSONTypeID = 0x7d748d04
+
+// String implements fmt.Stringer.
+func (d *DataJSON) String() string {
+	if d == nil {
+		return "DataJSON(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DataJSON")
+	sb.WriteString("{\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(d.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DataJSON) Encode(b *bin.Buffer) error {

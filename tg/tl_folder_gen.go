@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Folder represents TL type `folder#ff544e65`.
 // Folder
@@ -42,6 +44,32 @@ type Folder struct {
 
 // FolderTypeID is TL type id of Folder.
 const FolderTypeID = 0xff544e65
+
+// String implements fmt.Stringer.
+func (f *Folder) String() string {
+	if f == nil {
+		return "Folder(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Folder")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(f.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(f.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(f.Title))
+	sb.WriteString(",\n")
+	if f.Flags.Has(3) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(f.Photo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *Folder) Encode(b *bin.Buffer) error {

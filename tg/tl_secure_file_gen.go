@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureFileEmpty represents TL type `secureFileEmpty#64199744`.
 // Empty constructor
@@ -23,6 +25,18 @@ type SecureFileEmpty struct {
 
 // SecureFileEmptyTypeID is TL type id of SecureFileEmpty.
 const SecureFileEmptyTypeID = 0x64199744
+
+// String implements fmt.Stringer.
+func (s *SecureFileEmpty) String() string {
+	if s == nil {
+		return "SecureFileEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureFileEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
@@ -82,6 +96,39 @@ type SecureFile struct {
 
 // SecureFileTypeID is TL type id of SecureFile.
 const SecureFileTypeID = 0xe0277a62
+
+// String implements fmt.Stringer.
+func (s *SecureFile) String() string {
+	if s == nil {
+		return "SecureFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(s.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(s.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(s.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(s.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(s.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileHash: ")
+	sb.WriteString(fmt.Sprint(s.FileHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(s.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureFile) Encode(b *bin.Buffer) error {
@@ -188,6 +235,7 @@ type SecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureFileClass
+	fmt.Stringer
 }
 
 // DecodeSecureFile implements binary de-serialization for SecureFileClass.

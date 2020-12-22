@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
 // Location of a remote HTTP(s) file
@@ -27,6 +29,24 @@ type InputWebFileLocation struct {
 
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
 const InputWebFileLocationTypeID = 0xc239d686
+
+// String implements fmt.Stringer.
+func (i *InputWebFileLocation) String() string {
+	if i == nil {
+		return "InputWebFileLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWebFileLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(i.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
@@ -96,6 +116,36 @@ type InputWebFileGeoPointLocation struct {
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
 const InputWebFileGeoPointLocationTypeID = 0x9f2221c9
+
+// String implements fmt.Stringer.
+func (i *InputWebFileGeoPointLocation) String() string {
+	if i == nil {
+		return "InputWebFileGeoPointLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWebFileGeoPointLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(i.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(i.H))
+	sb.WriteString(",\n")
+	sb.WriteString("\tZoom: ")
+	sb.WriteString(fmt.Sprint(i.Zoom))
+	sb.WriteString(",\n")
+	sb.WriteString("\tScale: ")
+	sb.WriteString(fmt.Sprint(i.Scale))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
@@ -199,6 +249,7 @@ type InputWebFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputWebFileLocationClass
+	fmt.Stringer
 }
 
 // DecodeInputWebFileLocation implements binary de-serialization for InputWebFileLocationClass.

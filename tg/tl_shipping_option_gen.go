@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ShippingOption represents TL type `shippingOption#b6213cdf`.
 // Shipping option
@@ -29,6 +31,29 @@ type ShippingOption struct {
 
 // ShippingOptionTypeID is TL type id of ShippingOption.
 const ShippingOptionTypeID = 0xb6213cdf
+
+// String implements fmt.Stringer.
+func (s *ShippingOption) String() string {
+	if s == nil {
+		return "ShippingOption(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ShippingOption")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(s.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(s.Title))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Prices {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ShippingOption) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputDocumentEmpty represents TL type `inputDocumentEmpty#72f0eaae`.
 // Empty constructor.
@@ -23,6 +25,18 @@ type InputDocumentEmpty struct {
 
 // InputDocumentEmptyTypeID is TL type id of InputDocumentEmpty.
 const InputDocumentEmptyTypeID = 0x72f0eaae
+
+// String implements fmt.Stringer.
+func (i *InputDocumentEmpty) String() string {
+	if i == nil {
+		return "InputDocumentEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputDocumentEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
@@ -76,6 +90,27 @@ type InputDocument struct {
 
 // InputDocumentTypeID is TL type id of InputDocument.
 const InputDocumentTypeID = 0x1abfb575
+
+// String implements fmt.Stringer.
+func (i *InputDocument) String() string {
+	if i == nil {
+		return "InputDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputDocument) Encode(b *bin.Buffer) error {
@@ -150,6 +185,7 @@ type InputDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputDocumentClass
+	fmt.Stringer
 }
 
 // DecodeInputDocument implements binary de-serialization for InputDocumentClass.

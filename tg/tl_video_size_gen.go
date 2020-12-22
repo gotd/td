@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // VideoSize represents TL type `videoSize#e831c556`.
 // Animated profile picture¹ in MPEG4 format
@@ -45,6 +47,41 @@ type VideoSize struct {
 
 // VideoSizeTypeID is TL type id of VideoSize.
 const VideoSizeTypeID = 0xe831c556
+
+// String implements fmt.Stringer.
+func (v *VideoSize) String() string {
+	if v == nil {
+		return "VideoSize(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("VideoSize")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(v.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(v.Type))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(v.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(v.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(v.H))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(v.Size))
+	sb.WriteString(",\n")
+	if v.Flags.Has(0) {
+		sb.WriteString("\tVideoStartTs: ")
+		sb.WriteString(fmt.Sprint(v.VideoStartTs))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (v *VideoSize) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpSetBotUpdatesStatusRequest represents TL type `help.setBotUpdatesStatus#ec22cfcd`.
 // Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
@@ -27,6 +29,24 @@ type HelpSetBotUpdatesStatusRequest struct {
 
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.
 const HelpSetBotUpdatesStatusRequestTypeID = 0xec22cfcd
+
+// String implements fmt.Stringer.
+func (s *HelpSetBotUpdatesStatusRequest) String() string {
+	if s == nil {
+		return "HelpSetBotUpdatesStatusRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpSetBotUpdatesStatusRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPendingUpdatesCount: ")
+	sb.WriteString(fmt.Sprint(s.PendingUpdatesCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(s.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {

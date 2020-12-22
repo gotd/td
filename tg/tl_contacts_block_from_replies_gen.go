@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsBlockFromRepliesRequest represents TL type `contacts.blockFromReplies#29a8962c`.
 // Stop getting notifications about thread replies¹ of a certain user in @replies
@@ -42,6 +44,24 @@ type ContactsBlockFromRepliesRequest struct {
 
 // ContactsBlockFromRepliesRequestTypeID is TL type id of ContactsBlockFromRepliesRequest.
 const ContactsBlockFromRepliesRequestTypeID = 0x29a8962c
+
+// String implements fmt.Stringer.
+func (b *ContactsBlockFromRepliesRequest) String() string {
+	if b == nil {
+		return "ContactsBlockFromRepliesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsBlockFromRepliesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(b.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {

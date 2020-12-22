@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TestVectorString represents TL type `testVectorString#5d6f85bc`.
 //
@@ -24,6 +26,23 @@ type TestVectorString struct {
 
 // TestVectorStringTypeID is TL type id of TestVectorString.
 const TestVectorStringTypeID = 0x5d6f85bc
+
+// String implements fmt.Stringer.
+func (t *TestVectorString) String() string {
+	if t == nil {
+		return "TestVectorString(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TestVectorString")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range t.Value {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TestVectorString) Encode(b *bin.Buffer) error {

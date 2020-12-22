@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetNotifyExceptionsRequest represents TL type `account.getNotifyExceptions#53577479`.
 // Returns list of chats with non-default notification settings
@@ -34,6 +36,26 @@ type AccountGetNotifyExceptionsRequest struct {
 
 // AccountGetNotifyExceptionsRequestTypeID is TL type id of AccountGetNotifyExceptionsRequest.
 const AccountGetNotifyExceptionsRequestTypeID = 0x53577479
+
+// String implements fmt.Stringer.
+func (g *AccountGetNotifyExceptionsRequest) String() string {
+	if g == nil {
+		return "AccountGetNotifyExceptionsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetNotifyExceptionsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tPeer: ")
+		sb.WriteString(g.Peer.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {

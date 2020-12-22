@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0ee3b73`.
 // Returns the current user dialog list.
@@ -59,6 +61,41 @@ type MessagesGetDialogsRequest struct {
 
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
 const MessagesGetDialogsRequestTypeID = 0xa0ee3b73
+
+// String implements fmt.Stringer.
+func (g *MessagesGetDialogsRequest) String() string {
+	if g == nil {
+		return "MessagesGetDialogsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetDialogsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	if g.Flags.Has(1) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(g.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tOffsetDate: ")
+	sb.WriteString(fmt.Sprint(g.OffsetDate))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetID: ")
+	sb.WriteString(fmt.Sprint(g.OffsetID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffsetPeer: ")
+	sb.WriteString(g.OffsetPeer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {

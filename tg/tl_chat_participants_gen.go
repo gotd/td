@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
 // Info on members is unavailable
@@ -34,6 +36,29 @@ type ChatParticipantsForbidden struct {
 
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
 const ChatParticipantsForbiddenTypeID = 0xfc900c2b
+
+// String implements fmt.Stringer.
+func (c *ChatParticipantsForbidden) String() string {
+	if c == nil {
+		return "ChatParticipantsForbidden(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatParticipantsForbidden")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(c.ChatID))
+	sb.WriteString(",\n")
+	if c.Flags.Has(0) {
+		sb.WriteString("\tSelfParticipant: ")
+		sb.WriteString(c.SelfParticipant.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
@@ -128,6 +153,29 @@ type ChatParticipants struct {
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
 const ChatParticipantsTypeID = 0x3f460fed
 
+// String implements fmt.Stringer.
+func (c *ChatParticipants) String() string {
+	if c == nil {
+		return "ChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(c.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Participants {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(c.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -215,6 +263,7 @@ type ChatParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatParticipantsClass
+	fmt.Stringer
 }
 
 // DecodeChatParticipants implements binary de-serialization for ChatParticipantsClass.

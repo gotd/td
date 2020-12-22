@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // False represents TL type `false#bc799737`.
 //
@@ -22,6 +24,18 @@ type False struct {
 
 // FalseTypeID is TL type id of False.
 const FalseTypeID = 0xbc799737
+
+// String implements fmt.Stringer.
+func (f *False) String() string {
+	if f == nil {
+		return "False(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("False")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *False) Encode(b *bin.Buffer) error {
@@ -62,6 +76,18 @@ type True struct {
 
 // TrueTypeID is TL type id of True.
 const TrueTypeID = 0x997275b5
+
+// String implements fmt.Stringer.
+func (t *True) String() string {
+	if t == nil {
+		return "True(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("True")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *True) Encode(b *bin.Buffer) error {
@@ -112,6 +138,7 @@ type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BoolClass
+	fmt.Stringer
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.

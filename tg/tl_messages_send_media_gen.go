@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendMediaRequest represents TL type `messages.sendMedia#3491eba9`.
 // Send a media
@@ -64,6 +66,55 @@ type MessagesSendMediaRequest struct {
 
 // MessagesSendMediaRequestTypeID is TL type id of MessagesSendMediaRequest.
 const MessagesSendMediaRequestTypeID = 0x3491eba9
+
+// String implements fmt.Stringer.
+func (s *MessagesSendMediaRequest) String() string {
+	if s == nil {
+		return "MessagesSendMediaRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendMediaRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tReplyToMsgID: ")
+		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tMedia: ")
+	sb.WriteString(s.Media.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(s.Message))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(s.RandomID))
+	sb.WriteString(",\n")
+	if s.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(s.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range s.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if s.Flags.Has(10) {
+		sb.WriteString("\tScheduleDate: ")
+		sb.WriteString(fmt.Sprint(s.ScheduleDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendMediaRequest) Encode(b *bin.Buffer) error {

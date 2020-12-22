@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MaskCoords represents TL type `maskCoords#aed6dbb2`.
 // Position on a photo where a mask should be placed
@@ -32,6 +34,30 @@ type MaskCoords struct {
 
 // MaskCoordsTypeID is TL type id of MaskCoords.
 const MaskCoordsTypeID = 0xaed6dbb2
+
+// String implements fmt.Stringer.
+func (m *MaskCoords) String() string {
+	if m == nil {
+		return "MaskCoords(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MaskCoords")
+	sb.WriteString("{\n")
+	sb.WriteString("\tN: ")
+	sb.WriteString(fmt.Sprint(m.N))
+	sb.WriteString(",\n")
+	sb.WriteString("\tX: ")
+	sb.WriteString(fmt.Sprint(m.X))
+	sb.WriteString(",\n")
+	sb.WriteString("\tY: ")
+	sb.WriteString(fmt.Sprint(m.Y))
+	sb.WriteString(",\n")
+	sb.WriteString("\tZoom: ")
+	sb.WriteString(fmt.Sprint(m.Zoom))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MaskCoords) Encode(b *bin.Buffer) error {

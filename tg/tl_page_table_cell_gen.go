@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageTableCell represents TL type `pageTableCell#34566b6a`.
 // Table cell
@@ -50,6 +52,36 @@ type PageTableCell struct {
 
 // PageTableCellTypeID is TL type id of PageTableCell.
 const PageTableCellTypeID = 0x34566b6a
+
+// String implements fmt.Stringer.
+func (p *PageTableCell) String() string {
+	if p == nil {
+		return "PageTableCell(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageTableCell")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(7) {
+		sb.WriteString("\tText: ")
+		sb.WriteString(p.Text.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tColspan: ")
+		sb.WriteString(fmt.Sprint(p.Colspan))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tRowspan: ")
+		sb.WriteString(fmt.Sprint(p.Rowspan))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageTableCell) Encode(b *bin.Buffer) error {

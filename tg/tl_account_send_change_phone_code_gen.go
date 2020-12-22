@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSendChangePhoneCodeRequest represents TL type `account.sendChangePhoneCode#82574ae5`.
 // Verify a new phone number to associate to the current account
@@ -27,6 +29,24 @@ type AccountSendChangePhoneCodeRequest struct {
 
 // AccountSendChangePhoneCodeRequestTypeID is TL type id of AccountSendChangePhoneCodeRequest.
 const AccountSendChangePhoneCodeRequestTypeID = 0x82574ae5
+
+// String implements fmt.Stringer.
+func (s *AccountSendChangePhoneCodeRequest) String() string {
+	if s == nil {
+		return "AccountSendChangePhoneCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSendChangePhoneCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(s.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(s.Settings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSendChangePhoneCodeRequest) Encode(b *bin.Buffer) error {

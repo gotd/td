@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Null represents TL type `null#56730bcc`.
 // Corresponds to an arbitrary empty object.
@@ -23,6 +25,18 @@ type Null struct {
 
 // NullTypeID is TL type id of Null.
 const NullTypeID = 0x56730bcc
+
+// String implements fmt.Stringer.
+func (n *Null) String() string {
+	if n == nil {
+		return "Null(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Null")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (n *Null) Encode(b *bin.Buffer) error {

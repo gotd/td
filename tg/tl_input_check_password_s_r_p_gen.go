@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputCheckPasswordEmpty represents TL type `inputCheckPasswordEmpty#9880f658`.
 // There is no password
@@ -23,6 +25,18 @@ type InputCheckPasswordEmpty struct {
 
 // InputCheckPasswordEmptyTypeID is TL type id of InputCheckPasswordEmpty.
 const InputCheckPasswordEmptyTypeID = 0x9880f658
+
+// String implements fmt.Stringer.
+func (i *InputCheckPasswordEmpty) String() string {
+	if i == nil {
+		return "InputCheckPasswordEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputCheckPasswordEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
@@ -82,6 +96,27 @@ type InputCheckPasswordSRP struct {
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
 const InputCheckPasswordSRPTypeID = 0xd27ff082
+
+// String implements fmt.Stringer.
+func (i *InputCheckPasswordSRP) String() string {
+	if i == nil {
+		return "InputCheckPasswordSRP(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputCheckPasswordSRP")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSrpID: ")
+	sb.WriteString(fmt.Sprint(i.SrpID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tA: ")
+	sb.WriteString(fmt.Sprint(i.A))
+	sb.WriteString(",\n")
+	sb.WriteString("\tM1: ")
+	sb.WriteString(fmt.Sprint(i.M1))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
@@ -156,6 +191,7 @@ type InputCheckPasswordSRPClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
+	fmt.Stringer
 }
 
 // DecodeInputCheckPasswordSRP implements binary de-serialization for InputCheckPasswordSRPClass.

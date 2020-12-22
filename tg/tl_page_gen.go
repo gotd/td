@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Page represents TL type `page#98657f0d`.
 // Instant view¹ page
@@ -55,6 +57,44 @@ type Page struct {
 
 // PageTypeID is TL type id of Page.
 const PageTypeID = 0x98657f0d
+
+// String implements fmt.Stringer.
+func (p *Page) String() string {
+	if p == nil {
+		return "Page(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Page")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(p.URL))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Blocks {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Photos {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Documents {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if p.Flags.Has(3) {
+		sb.WriteString("\tViews: ")
+		sb.WriteString(fmt.Sprint(p.Views))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *Page) Encode(b *bin.Buffer) error {

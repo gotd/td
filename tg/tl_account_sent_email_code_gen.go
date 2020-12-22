@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSentEmailCode represents TL type `account.sentEmailCode#811f854f`.
 // The sent email code
@@ -30,6 +32,24 @@ type AccountSentEmailCode struct {
 
 // AccountSentEmailCodeTypeID is TL type id of AccountSentEmailCode.
 const AccountSentEmailCodeTypeID = 0x811f854f
+
+// String implements fmt.Stringer.
+func (s *AccountSentEmailCode) String() string {
+	if s == nil {
+		return "AccountSentEmailCode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSentEmailCode")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmailPattern: ")
+	sb.WriteString(fmt.Sprint(s.EmailPattern))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(s.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {

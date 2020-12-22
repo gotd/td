@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
 // Wallpaper settings.
@@ -48,6 +50,38 @@ type WallPaper struct {
 
 // WallPaperTypeID is TL type id of WallPaper.
 const WallPaperTypeID = 0xa437c3ed
+
+// String implements fmt.Stringer.
+func (w *WallPaper) String() string {
+	if w == nil {
+		return "WallPaper(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WallPaper")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(w.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(w.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSlug: ")
+	sb.WriteString(fmt.Sprint(w.Slug))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDocument: ")
+	sb.WriteString(w.Document.String())
+	sb.WriteString(",\n")
+	if w.Flags.Has(2) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(w.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WallPaper) Encode(b *bin.Buffer) error {
@@ -213,6 +247,26 @@ type WallPaperNoFile struct {
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
 const WallPaperNoFileTypeID = 0x8af40b25
 
+// String implements fmt.Stringer.
+func (w *WallPaperNoFile) String() string {
+	if w == nil {
+		return "WallPaperNoFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WallPaperNoFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	if w.Flags.Has(2) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(w.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -315,6 +369,7 @@ type WallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WallPaperClass
+	fmt.Stringer
 }
 
 // DecodeWallPaper implements binary de-serialization for WallPaperClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsGetParticipantsRequest represents TL type `channels.getParticipants#123e05e9`.
 // Get the participants of a supergroup/channel¹
@@ -45,6 +47,33 @@ type ChannelsGetParticipantsRequest struct {
 
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.
 const ChannelsGetParticipantsRequestTypeID = 0x123e05e9
+
+// String implements fmt.Stringer.
+func (g *ChannelsGetParticipantsRequest) String() string {
+	if g == nil {
+		return "ChannelsGetParticipantsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsGetParticipantsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(g.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ChannelsGetParticipantsRequest) Encode(b *bin.Buffer) error {

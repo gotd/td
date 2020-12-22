@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpEditUserInfoRequest represents TL type `help.editUserInfo#66b91b70`.
 // Internal use
@@ -32,6 +34,29 @@ type HelpEditUserInfoRequest struct {
 
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.
 const HelpEditUserInfoRequestTypeID = 0x66b91b70
+
+// String implements fmt.Stringer.
+func (e *HelpEditUserInfoRequest) String() string {
+	if e == nil {
+		return "HelpEditUserInfoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpEditUserInfoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(e.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(e.Message))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range e.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {

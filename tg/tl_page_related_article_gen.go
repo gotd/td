@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageRelatedArticle represents TL type `pageRelatedArticle#b390dc08`.
 // Related article
@@ -52,6 +54,52 @@ type PageRelatedArticle struct {
 
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
 const PageRelatedArticleTypeID = 0xb390dc08
+
+// String implements fmt.Stringer.
+func (p *PageRelatedArticle) String() string {
+	if p == nil {
+		return "PageRelatedArticle(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageRelatedArticle")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(p.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tWebpageID: ")
+	sb.WriteString(fmt.Sprint(p.WebpageID))
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(p.Title))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(p.Description))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tPhotoID: ")
+		sb.WriteString(fmt.Sprint(p.PhotoID))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(3) {
+		sb.WriteString("\tAuthor: ")
+		sb.WriteString(fmt.Sprint(p.Author))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(4) {
+		sb.WriteString("\tPublishedDate: ")
+		sb.WriteString(fmt.Sprint(p.PublishedDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {

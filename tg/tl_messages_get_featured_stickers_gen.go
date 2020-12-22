@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetFeaturedStickersRequest represents TL type `messages.getFeaturedStickers#2dacca4f`.
 // Get featured stickers
@@ -28,6 +30,21 @@ type MessagesGetFeaturedStickersRequest struct {
 
 // MessagesGetFeaturedStickersRequestTypeID is TL type id of MessagesGetFeaturedStickersRequest.
 const MessagesGetFeaturedStickersRequestTypeID = 0x2dacca4f
+
+// String implements fmt.Stringer.
+func (g *MessagesGetFeaturedStickersRequest) String() string {
+	if g == nil {
+		return "MessagesGetFeaturedStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetFeaturedStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {

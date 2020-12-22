@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountChangePhoneRequest represents TL type `account.changePhone#70c32edb`.
 // Change the phone number of the current account
@@ -35,6 +37,27 @@ type AccountChangePhoneRequest struct {
 
 // AccountChangePhoneRequestTypeID is TL type id of AccountChangePhoneRequest.
 const AccountChangePhoneRequestTypeID = 0x70c32edb
+
+// String implements fmt.Stringer.
+func (c *AccountChangePhoneRequest) String() string {
+	if c == nil {
+		return "AccountChangePhoneRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountChangePhoneRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(c.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(c.PhoneCodeHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCode: ")
+	sb.WriteString(fmt.Sprint(c.PhoneCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AccountChangePhoneRequest) Encode(b *bin.Buffer) error {

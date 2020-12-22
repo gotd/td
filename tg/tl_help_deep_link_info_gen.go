@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpDeepLinkInfoEmpty represents TL type `help.deepLinkInfoEmpty#66afa166`.
 // Deep link info empty
@@ -23,6 +25,18 @@ type HelpDeepLinkInfoEmpty struct {
 
 // HelpDeepLinkInfoEmptyTypeID is TL type id of HelpDeepLinkInfoEmpty.
 const HelpDeepLinkInfoEmptyTypeID = 0x66afa166
+
+// String implements fmt.Stringer.
+func (d *HelpDeepLinkInfoEmpty) String() string {
+	if d == nil {
+		return "HelpDeepLinkInfoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpDeepLinkInfoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
@@ -80,6 +94,31 @@ type HelpDeepLinkInfo struct {
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
 const HelpDeepLinkInfoTypeID = 0x6a4ee832
+
+// String implements fmt.Stringer.
+func (d *HelpDeepLinkInfo) String() string {
+	if d == nil {
+		return "HelpDeepLinkInfo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpDeepLinkInfo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(d.Message))
+	sb.WriteString(",\n")
+	if d.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range d.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
@@ -195,6 +234,7 @@ type HelpDeepLinkInfoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
+	fmt.Stringer
 }
 
 // DecodeHelpDeepLinkInfo implements binary de-serialization for HelpDeepLinkInfoClass.

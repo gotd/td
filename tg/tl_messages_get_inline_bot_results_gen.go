@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetInlineBotResultsRequest represents TL type `messages.getInlineBotResults#514e999d`.
 // Query an inline bot
@@ -40,6 +42,38 @@ type MessagesGetInlineBotResultsRequest struct {
 
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.
 const MessagesGetInlineBotResultsRequestTypeID = 0x514e999d
+
+// String implements fmt.Stringer.
+func (g *MessagesGetInlineBotResultsRequest) String() string {
+	if g == nil {
+		return "MessagesGetInlineBotResultsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetInlineBotResultsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBot: ")
+	sb.WriteString(g.Bot.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tGeoPoint: ")
+		sb.WriteString(g.GeoPoint.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tQuery: ")
+	sb.WriteString(fmt.Sprint(g.Query))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {

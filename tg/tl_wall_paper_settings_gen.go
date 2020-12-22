@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WallPaperSettings represents TL type `wallPaperSettings#5086cf8`.
 // Wallpaper settings
@@ -48,6 +50,41 @@ type WallPaperSettings struct {
 
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
 const WallPaperSettingsTypeID = 0x5086cf8
+
+// String implements fmt.Stringer.
+func (w *WallPaperSettings) String() string {
+	if w == nil {
+		return "WallPaperSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WallPaperSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	if w.Flags.Has(0) {
+		sb.WriteString("\tBackgroundColor: ")
+		sb.WriteString(fmt.Sprint(w.BackgroundColor))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(4) {
+		sb.WriteString("\tSecondBackgroundColor: ")
+		sb.WriteString(fmt.Sprint(w.SecondBackgroundColor))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(3) {
+		sb.WriteString("\tIntensity: ")
+		sb.WriteString(fmt.Sprint(w.Intensity))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(4) {
+		sb.WriteString("\tRotation: ")
+		sb.WriteString(fmt.Sprint(w.Rotation))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WallPaperSettings) Encode(b *bin.Buffer) error {

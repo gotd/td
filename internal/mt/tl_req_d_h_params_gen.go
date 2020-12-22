@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,32 +14,63 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
-// ReqDHParams represents TL type `req_DH_params#d712e4be`.
-type ReqDHParams struct {
-	// Nonce field of ReqDHParams.
+// ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
+type ReqDHParamsRequest struct {
+	// Nonce field of ReqDHParamsRequest.
 	Nonce bin.Int128
-	// ServerNonce field of ReqDHParams.
+	// ServerNonce field of ReqDHParamsRequest.
 	ServerNonce bin.Int128
-	// P field of ReqDHParams.
+	// P field of ReqDHParamsRequest.
 	P []byte
-	// Q field of ReqDHParams.
+	// Q field of ReqDHParamsRequest.
 	Q []byte
-	// PublicKeyFingerprint field of ReqDHParams.
+	// PublicKeyFingerprint field of ReqDHParamsRequest.
 	PublicKeyFingerprint int64
-	// EncryptedData field of ReqDHParams.
+	// EncryptedData field of ReqDHParamsRequest.
 	EncryptedData []byte
 }
 
-// ReqDHParamsTypeID is TL type id of ReqDHParams.
-const ReqDHParamsTypeID = 0xd712e4be
+// ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.
+const ReqDHParamsRequestTypeID = 0xd712e4be
+
+// String implements fmt.Stringer.
+func (r *ReqDHParamsRequest) String() string {
+	if r == nil {
+		return "ReqDHParamsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReqDHParamsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(r.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(r.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(r.P))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(r.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublicKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(r.PublicKeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptedData: ")
+	sb.WriteString(fmt.Sprint(r.EncryptedData))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
-func (r *ReqDHParams) Encode(b *bin.Buffer) error {
+func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode req_DH_params#d712e4be as nil")
 	}
-	b.PutID(ReqDHParamsTypeID)
+	b.PutID(ReqDHParamsRequestTypeID)
 	b.PutInt128(r.Nonce)
 	b.PutInt128(r.ServerNonce)
 	b.PutBytes(r.P)
@@ -49,11 +81,11 @@ func (r *ReqDHParams) Encode(b *bin.Buffer) error {
 }
 
 // Decode implements bin.Decoder.
-func (r *ReqDHParams) Decode(b *bin.Buffer) error {
+func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode req_DH_params#d712e4be to nil")
 	}
-	if err := b.ConsumeID(ReqDHParamsTypeID); err != nil {
+	if err := b.ConsumeID(ReqDHParamsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode req_DH_params#d712e4be: %w", err)
 	}
 	{
@@ -101,8 +133,18 @@ func (r *ReqDHParams) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for ReqDHParams.
+// Ensuring interfaces in compile-time for ReqDHParamsRequest.
 var (
-	_ bin.Encoder = &ReqDHParams{}
-	_ bin.Decoder = &ReqDHParams{}
+	_ bin.Encoder = &ReqDHParamsRequest{}
+	_ bin.Decoder = &ReqDHParamsRequest{}
 )
+
+// ReqDHParams invokes method req_DH_params#d712e4be returning error if any.
+func (c *Client) ReqDHParams(ctx context.Context, request *ReqDHParamsRequest) (ServerDHParamsClass, error) {
+	var result ServerDHParamsBox
+
+	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
+		return nil, err
+	}
+	return result.Server_DH_Params, nil
+}

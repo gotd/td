@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesChannelDifferenceEmpty represents TL type `updates.channelDifferenceEmpty#3e11affb`.
 // There are no new updates
@@ -39,6 +41,29 @@ type UpdatesChannelDifferenceEmpty struct {
 
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
 const UpdatesChannelDifferenceEmptyTypeID = 0x3e11affb
+
+// String implements fmt.Stringer.
+func (c *UpdatesChannelDifferenceEmpty) String() string {
+	if c == nil {
+		return "UpdatesChannelDifferenceEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesChannelDifferenceEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(c.Pts))
+	sb.WriteString(",\n")
+	if c.Flags.Has(1) {
+		sb.WriteString("\tTimeout: ")
+		sb.WriteString(fmt.Sprint(c.Timeout))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
@@ -153,6 +178,44 @@ type UpdatesChannelDifferenceTooLong struct {
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
 const UpdatesChannelDifferenceTooLongTypeID = 0xa4bcc6fe
+
+// String implements fmt.Stringer.
+func (c *UpdatesChannelDifferenceTooLong) String() string {
+	if c == nil {
+		return "UpdatesChannelDifferenceTooLong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesChannelDifferenceTooLong")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(1) {
+		sb.WriteString("\tTimeout: ")
+		sb.WriteString(fmt.Sprint(c.Timeout))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tDialog: ")
+	sb.WriteString(c.Dialog.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
@@ -340,6 +403,49 @@ type UpdatesChannelDifference struct {
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
 const UpdatesChannelDifferenceTypeID = 0x2064674e
+
+// String implements fmt.Stringer.
+func (c *UpdatesChannelDifference) String() string {
+	if c == nil {
+		return "UpdatesChannelDifference(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesChannelDifference")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(c.Pts))
+	sb.WriteString(",\n")
+	if c.Flags.Has(1) {
+		sb.WriteString("\tTimeout: ")
+		sb.WriteString(fmt.Sprint(c.Timeout))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range c.NewMessages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.OtherUpdates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
@@ -530,6 +636,7 @@ type UpdatesChannelDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
+	fmt.Stringer
 }
 
 // DecodeUpdatesChannelDifference implements binary de-serialization for UpdatesChannelDifferenceClass.

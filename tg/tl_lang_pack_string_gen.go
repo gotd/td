@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangPackString represents TL type `langPackString#cad181f6`.
 // Translated localization string
@@ -27,6 +29,24 @@ type LangPackString struct {
 
 // LangPackStringTypeID is TL type id of LangPackString.
 const LangPackStringTypeID = 0xcad181f6
+
+// String implements fmt.Stringer.
+func (l *LangPackString) String() string {
+	if l == nil {
+		return "LangPackString(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackString")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(fmt.Sprint(l.Key))
+	sb.WriteString(",\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(fmt.Sprint(l.Value))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *LangPackString) Encode(b *bin.Buffer) error {
@@ -116,6 +136,52 @@ type LangPackStringPluralized struct {
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
 const LangPackStringPluralizedTypeID = 0x6c47ac9f
+
+// String implements fmt.Stringer.
+func (l *LangPackStringPluralized) String() string {
+	if l == nil {
+		return "LangPackStringPluralized(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackStringPluralized")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(l.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(fmt.Sprint(l.Key))
+	sb.WriteString(",\n")
+	if l.Flags.Has(0) {
+		sb.WriteString("\tZeroValue: ")
+		sb.WriteString(fmt.Sprint(l.ZeroValue))
+		sb.WriteString(",\n")
+	}
+	if l.Flags.Has(1) {
+		sb.WriteString("\tOneValue: ")
+		sb.WriteString(fmt.Sprint(l.OneValue))
+		sb.WriteString(",\n")
+	}
+	if l.Flags.Has(2) {
+		sb.WriteString("\tTwoValue: ")
+		sb.WriteString(fmt.Sprint(l.TwoValue))
+		sb.WriteString(",\n")
+	}
+	if l.Flags.Has(3) {
+		sb.WriteString("\tFewValue: ")
+		sb.WriteString(fmt.Sprint(l.FewValue))
+		sb.WriteString(",\n")
+	}
+	if l.Flags.Has(4) {
+		sb.WriteString("\tManyValue: ")
+		sb.WriteString(fmt.Sprint(l.ManyValue))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tOtherValue: ")
+	sb.WriteString(fmt.Sprint(l.OtherValue))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
@@ -309,6 +375,21 @@ type LangPackStringDeleted struct {
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
 const LangPackStringDeletedTypeID = 0x2979eeb2
 
+// String implements fmt.Stringer.
+func (l *LangPackStringDeleted) String() string {
+	if l == nil {
+		return "LangPackStringDeleted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackStringDeleted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(fmt.Sprint(l.Key))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -367,6 +448,7 @@ type LangPackStringClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() LangPackStringClass
+	fmt.Stringer
 }
 
 // DecodeLangPackString implements binary de-serialization for LangPackStringClass.

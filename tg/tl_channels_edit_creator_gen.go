@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsEditCreatorRequest represents TL type `channels.editCreator#8f38cd1f`.
 // Transfer channel ownership
@@ -32,6 +34,27 @@ type ChannelsEditCreatorRequest struct {
 
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.
 const ChannelsEditCreatorRequestTypeID = 0x8f38cd1f
+
+// String implements fmt.Stringer.
+func (e *ChannelsEditCreatorRequest) String() string {
+	if e == nil {
+		return "ChannelsEditCreatorRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsEditCreatorRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(e.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPassword: ")
+	sb.WriteString(e.Password.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditCreatorRequest) Encode(b *bin.Buffer) error {

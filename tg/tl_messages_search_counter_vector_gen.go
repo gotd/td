@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSearchCounterVector is a box for Vector<messages.SearchCounter>
 type MessagesSearchCounterVector struct {
 	// Elements of Vector<messages.SearchCounter>
 	Elems []MessagesSearchCounter
+}
+
+// String implements fmt.Stringer.
+func (vec *MessagesSearchCounterVector) String() string {
+	if vec == nil {
+		return "MessagesSearchCounterVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSearchCounterVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

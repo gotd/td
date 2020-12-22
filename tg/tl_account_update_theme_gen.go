@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdateThemeRequest represents TL type `account.updateTheme#5cb367d5`.
 // Update theme
@@ -48,6 +50,47 @@ type AccountUpdateThemeRequest struct {
 
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.
 const AccountUpdateThemeRequestTypeID = 0x5cb367d5
+
+// String implements fmt.Stringer.
+func (u *AccountUpdateThemeRequest) String() string {
+	if u == nil {
+		return "AccountUpdateThemeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdateThemeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFormat: ")
+	sb.WriteString(fmt.Sprint(u.Format))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTheme: ")
+	sb.WriteString(u.Theme.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tSlug: ")
+		sb.WriteString(fmt.Sprint(u.Slug))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(u.Title))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(2) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(u.Document.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(3) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(u.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {

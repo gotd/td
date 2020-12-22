@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetGameHighScoresRequest represents TL type `messages.getGameHighScores#e822649d`.
 // Get highscores of a game
@@ -29,6 +31,27 @@ type MessagesGetGameHighScoresRequest struct {
 
 // MessagesGetGameHighScoresRequestTypeID is TL type id of MessagesGetGameHighScoresRequest.
 const MessagesGetGameHighScoresRequestTypeID = 0xe822649d
+
+// String implements fmt.Stringer.
+func (g *MessagesGetGameHighScoresRequest) String() string {
+	if g == nil {
+		return "MessagesGetGameHighScoresRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetGameHighScoresRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(g.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(g.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetGameHighScoresRequest) Encode(b *bin.Buffer) error {

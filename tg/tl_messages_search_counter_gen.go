@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSearchCounter represents TL type `messages.searchCounter#e844ebff`.
 // Indicates how many results would be found by a messages.search¹ call with the same parameters
@@ -37,6 +39,27 @@ type MessagesSearchCounter struct {
 
 // MessagesSearchCounterTypeID is TL type id of MessagesSearchCounter.
 const MessagesSearchCounterTypeID = 0xe844ebff
+
+// String implements fmt.Stringer.
+func (s *MessagesSearchCounter) String() string {
+	if s == nil {
+		return "MessagesSearchCounter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSearchCounter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(s.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(s.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {

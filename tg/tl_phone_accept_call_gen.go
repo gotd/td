@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneAcceptCallRequest represents TL type `phone.acceptCall#3bd2b4a0`.
 // Accept incoming call
@@ -32,6 +34,27 @@ type PhoneAcceptCallRequest struct {
 
 // PhoneAcceptCallRequestTypeID is TL type id of PhoneAcceptCallRequest.
 const PhoneAcceptCallRequestTypeID = 0x3bd2b4a0
+
+// String implements fmt.Stringer.
+func (a *PhoneAcceptCallRequest) String() string {
+	if a == nil {
+		return "PhoneAcceptCallRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneAcceptCallRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(a.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGB: ")
+	sb.WriteString(fmt.Sprint(a.GB))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(a.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *PhoneAcceptCallRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesChatFull represents TL type `messages.chatFull#e5d7d19c`.
 // Extended info on chat and auxiliary data.
@@ -29,6 +31,31 @@ type MessagesChatFull struct {
 
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.
 const MessagesChatFullTypeID = 0xe5d7d19c
+
+// String implements fmt.Stringer.
+func (c *MessagesChatFull) String() string {
+	if c == nil {
+		return "MessagesChatFull(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesChatFull")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFullChat: ")
+	sb.WriteString(c.FullChat.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesChatFull) Encode(b *bin.Buffer) error {

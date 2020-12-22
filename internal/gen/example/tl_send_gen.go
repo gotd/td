@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SendRequest represents TL type `send#f74488a`.
 //
@@ -24,6 +26,21 @@ type SendRequest struct {
 
 // SendRequestTypeID is TL type id of SendRequest.
 const SendRequestTypeID = 0xf74488a
+
+// String implements fmt.Stringer.
+func (s *SendRequest) String() string {
+	if s == nil {
+		return "SendRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMsg: ")
+	sb.WriteString(s.Msg.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendRequest) Encode(b *bin.Buffer) error {

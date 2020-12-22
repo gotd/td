@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WebPageEmpty represents TL type `webPageEmpty#eb1477e8`.
 // No preview is available for the webpage
@@ -25,6 +27,21 @@ type WebPageEmpty struct {
 
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
 const WebPageEmptyTypeID = 0xeb1477e8
+
+// String implements fmt.Stringer.
+func (w *WebPageEmpty) String() string {
+	if w == nil {
+		return "WebPageEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebPageEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(w.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
@@ -78,6 +95,24 @@ type WebPagePending struct {
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
 const WebPagePendingTypeID = 0xc586da1c
+
+// String implements fmt.Stringer.
+func (w *WebPagePending) String() string {
+	if w == nil {
+		return "WebPagePending(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebPagePending")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(w.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(w.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebPagePending) Encode(b *bin.Buffer) error {
@@ -210,6 +245,105 @@ type WebPage struct {
 
 // WebPageTypeID is TL type id of WebPage.
 const WebPageTypeID = 0xe89c45b2
+
+// String implements fmt.Stringer.
+func (w *WebPage) String() string {
+	if w == nil {
+		return "WebPage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebPage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(w.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(w.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDisplayURL: ")
+	sb.WriteString(fmt.Sprint(w.DisplayURL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(w.Hash))
+	sb.WriteString(",\n")
+	if w.Flags.Has(0) {
+		sb.WriteString("\tType: ")
+		sb.WriteString(fmt.Sprint(w.Type))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(1) {
+		sb.WriteString("\tSiteName: ")
+		sb.WriteString(fmt.Sprint(w.SiteName))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(2) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(w.Title))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(3) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(w.Description))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(4) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(w.Photo.String())
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(5) {
+		sb.WriteString("\tEmbedURL: ")
+		sb.WriteString(fmt.Sprint(w.EmbedURL))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(5) {
+		sb.WriteString("\tEmbedType: ")
+		sb.WriteString(fmt.Sprint(w.EmbedType))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(6) {
+		sb.WriteString("\tEmbedWidth: ")
+		sb.WriteString(fmt.Sprint(w.EmbedWidth))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(6) {
+		sb.WriteString("\tEmbedHeight: ")
+		sb.WriteString(fmt.Sprint(w.EmbedHeight))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(7) {
+		sb.WriteString("\tDuration: ")
+		sb.WriteString(fmt.Sprint(w.Duration))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(8) {
+		sb.WriteString("\tAuthor: ")
+		sb.WriteString(fmt.Sprint(w.Author))
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(9) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(w.Document.String())
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(10) {
+		sb.WriteString("\tCachedPage: ")
+		sb.WriteString(w.CachedPage.String())
+		sb.WriteString(",\n")
+	}
+	if w.Flags.Has(12) {
+		sb.WriteByte('[')
+		for _, v := range w.Attributes {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebPage) Encode(b *bin.Buffer) error {
@@ -672,6 +806,26 @@ type WebPageNotModified struct {
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.
 const WebPageNotModifiedTypeID = 0x7311ca11
 
+// String implements fmt.Stringer.
+func (w *WebPageNotModified) String() string {
+	if w == nil {
+		return "WebPageNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebPageNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	if w.Flags.Has(0) {
+		sb.WriteString("\tCachedPageViews: ")
+		sb.WriteString(fmt.Sprint(w.CachedPageViews))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -756,6 +910,7 @@ type WebPageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WebPageClass
+	fmt.Stringer
 }
 
 // DecodeWebPage implements binary de-serialization for WebPageClass.

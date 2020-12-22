@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d9fee60e`.
 // Forwards messages by their IDs.
@@ -46,6 +48,42 @@ type MessagesForwardMessagesRequest struct {
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
 const MessagesForwardMessagesRequestTypeID = 0xd9fee60e
+
+// String implements fmt.Stringer.
+func (f *MessagesForwardMessagesRequest) String() string {
+	if f == nil {
+		return "MessagesForwardMessagesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesForwardMessagesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(f.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromPeer: ")
+	sb.WriteString(f.FromPeer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range f.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.RandomID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tToPeer: ")
+	sb.WriteString(f.ToPeer.String())
+	sb.WriteString(",\n")
+	if f.Flags.Has(10) {
+		sb.WriteString("\tScheduleDate: ")
+		sb.WriteString(fmt.Sprint(f.ScheduleDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {

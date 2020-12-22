@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BigMessage represents TL type `bigMessage#7490dcc5`.
 //
@@ -32,6 +34,33 @@ type BigMessage struct {
 
 // BigMessageTypeID is TL type id of BigMessage.
 const BigMessageTypeID = 0x7490dcc5
+
+// String implements fmt.Stringer.
+func (b *BigMessage) String() string {
+	if b == nil {
+		return "BigMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BigMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(b.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(b.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTargetId: ")
+	sb.WriteString(fmt.Sprint(b.TargetId))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEscape: ")
+	sb.WriteString(fmt.Sprint(b.Escape))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSummary: ")
+	sb.WriteString(fmt.Sprint(b.Summary))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BigMessage) Encode(buf *bin.Buffer) error {
@@ -113,6 +142,18 @@ type NoMessage struct {
 // NoMessageTypeID is TL type id of NoMessage.
 const NoMessageTypeID = 0xee6324c4
 
+// String implements fmt.Stringer.
+func (n *NoMessage) String() string {
+	if n == nil {
+		return "NoMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("NoMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (n *NoMessage) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -154,6 +195,23 @@ type TargetsMessage struct {
 
 // TargetsMessageTypeID is TL type id of TargetsMessage.
 const TargetsMessageTypeID = 0xcc6136f1
+
+// String implements fmt.Stringer.
+func (t *TargetsMessage) String() string {
+	if t == nil {
+		return "TargetsMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TargetsMessage")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range t.Targets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TargetsMessage) Encode(b *bin.Buffer) error {
@@ -219,6 +277,26 @@ type FieldsMessage struct {
 
 // FieldsMessageTypeID is TL type id of FieldsMessage.
 const FieldsMessageTypeID = 0x947225b5
+
+// String implements fmt.Stringer.
+func (f *FieldsMessage) String() string {
+	if f == nil {
+		return "FieldsMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("FieldsMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(f.Flags.String())
+	sb.WriteString(",\n")
+	if f.Flags.Has(1) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(f.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *FieldsMessage) Encode(b *bin.Buffer) error {
@@ -305,6 +383,21 @@ type BytesMessage struct {
 // BytesMessageTypeID is TL type id of BytesMessage.
 const BytesMessageTypeID = 0xf990a67d
 
+// String implements fmt.Stringer.
+func (b *BytesMessage) String() string {
+	if b == nil {
+		return "BytesMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BytesMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(b.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -365,6 +458,7 @@ type AbstractMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AbstractMessageClass
+	fmt.Stringer
 }
 
 // DecodeAbstractMessage implements binary de-serialization for AbstractMessageClass.

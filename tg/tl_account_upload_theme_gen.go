@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUploadThemeRequest represents TL type `account.uploadTheme#1c3db333`.
 // Upload theme
@@ -41,6 +43,35 @@ type AccountUploadThemeRequest struct {
 
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.
 const AccountUploadThemeRequestTypeID = 0x1c3db333
+
+// String implements fmt.Stringer.
+func (u *AccountUploadThemeRequest) String() string {
+	if u == nil {
+		return "AccountUploadThemeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUploadThemeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(u.File.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(u.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tFileName: ")
+	sb.WriteString(fmt.Sprint(u.FileName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(u.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {

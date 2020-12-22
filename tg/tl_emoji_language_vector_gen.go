@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
 	// Elements of Vector<EmojiLanguage>
 	Elems []EmojiLanguage
+}
+
+// String implements fmt.Stringer.
+func (vec *EmojiLanguageVector) String() string {
+	if vec == nil {
+		return "EmojiLanguageVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EmojiLanguageVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetDeepLinkInfoRequest represents TL type `help.getDeepLinkInfo#3fedc75f`.
 // Get info about a t.me link
@@ -25,6 +27,21 @@ type HelpGetDeepLinkInfoRequest struct {
 
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.
 const HelpGetDeepLinkInfoRequestTypeID = 0x3fedc75f
+
+// String implements fmt.Stringer.
+func (g *HelpGetDeepLinkInfoRequest) String() string {
+	if g == nil {
+		return "HelpGetDeepLinkInfoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetDeepLinkInfoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPath: ")
+	sb.WriteString(fmt.Sprint(g.Path))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetDeepLinkInfoRequest) Encode(b *bin.Buffer) error {

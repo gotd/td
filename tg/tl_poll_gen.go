@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Poll represents TL type `poll#86e18161`.
 // Poll
@@ -53,6 +55,42 @@ type Poll struct {
 
 // PollTypeID is TL type id of Poll.
 const PollTypeID = 0x86e18161
+
+// String implements fmt.Stringer.
+func (p *Poll) String() string {
+	if p == nil {
+		return "Poll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Poll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQuestion: ")
+	sb.WriteString(fmt.Sprint(p.Question))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Answers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if p.Flags.Has(4) {
+		sb.WriteString("\tClosePeriod: ")
+		sb.WriteString(fmt.Sprint(p.ClosePeriod))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(5) {
+		sb.WriteString("\tCloseDate: ")
+		sb.WriteString(fmt.Sprint(p.CloseDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {

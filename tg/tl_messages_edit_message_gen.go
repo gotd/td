@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesEditMessageRequest represents TL type `messages.editMessage#48f71778`.
 // Edit message
@@ -60,6 +62,54 @@ type MessagesEditMessageRequest struct {
 
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
 const MessagesEditMessageRequestTypeID = 0x48f71778
+
+// String implements fmt.Stringer.
+func (e *MessagesEditMessageRequest) String() string {
+	if e == nil {
+		return "MessagesEditMessageRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesEditMessageRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(e.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(e.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	if e.Flags.Has(11) {
+		sb.WriteString("\tMessage: ")
+		sb.WriteString(fmt.Sprint(e.Message))
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(14) {
+		sb.WriteString("\tMedia: ")
+		sb.WriteString(e.Media.String())
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(e.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range e.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if e.Flags.Has(15) {
+		sb.WriteString("\tScheduleDate: ")
+		sb.WriteString(fmt.Sprint(e.ScheduleDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {

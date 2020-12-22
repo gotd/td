@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // FileLocationToBeDeprecated represents TL type `fileLocationToBeDeprecated#bc7fc6cd`.
 // Indicates the location of a photo, will be deprecated soon
@@ -27,6 +29,24 @@ type FileLocationToBeDeprecated struct {
 
 // FileLocationToBeDeprecatedTypeID is TL type id of FileLocationToBeDeprecated.
 const FileLocationToBeDeprecatedTypeID = 0xbc7fc6cd
+
+// String implements fmt.Stringer.
+func (f *FileLocationToBeDeprecated) String() string {
+	if f == nil {
+		return "FileLocationToBeDeprecated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("FileLocationToBeDeprecated")
+	sb.WriteString("{\n")
+	sb.WriteString("\tVolumeID: ")
+	sb.WriteString(fmt.Sprint(f.VolumeID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocalID: ")
+	sb.WriteString(fmt.Sprint(f.LocalID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *FileLocationToBeDeprecated) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Theme represents TL type `theme#28f1114`.
 // Theme
@@ -50,6 +52,46 @@ type Theme struct {
 
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
+
+// String implements fmt.Stringer.
+func (t *Theme) String() string {
+	if t == nil {
+		return "Theme(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Theme")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(t.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(t.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(t.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSlug: ")
+	sb.WriteString(fmt.Sprint(t.Slug))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(t.Title))
+	sb.WriteString(",\n")
+	if t.Flags.Has(2) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(t.Document.String())
+		sb.WriteString(",\n")
+	}
+	if t.Flags.Has(3) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(t.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tInstallsCount: ")
+	sb.WriteString(fmt.Sprint(t.InstallsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {

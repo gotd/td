@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EncryptedMessage represents TL type `encryptedMessage#ed18c118`.
 // Encrypted message.
@@ -36,6 +38,33 @@ type EncryptedMessage struct {
 
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
 const EncryptedMessageTypeID = 0xed18c118
+
+// String implements fmt.Stringer.
+func (e *EncryptedMessage) String() string {
+	if e == nil {
+		return "EncryptedMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(e.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(e.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(e.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(e.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(e.File.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
@@ -134,6 +163,30 @@ type EncryptedMessageService struct {
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.
 const EncryptedMessageServiceTypeID = 0x23734b06
 
+// String implements fmt.Stringer.
+func (e *EncryptedMessageService) String() string {
+	if e == nil {
+		return "EncryptedMessageService(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EncryptedMessageService")
+	sb.WriteString("{\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(e.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(e.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(e.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(e.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -215,6 +268,7 @@ type EncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedMessageClass
+	fmt.Stringer
 }
 
 // DecodeEncryptedMessage implements binary de-serialization for EncryptedMessageClass.

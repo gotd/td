@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
 // Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto servers
@@ -36,6 +38,33 @@ type UploadWebFile struct {
 
 // UploadWebFileTypeID is TL type id of UploadWebFile.
 const UploadWebFileTypeID = 0x21e753bc
+
+// String implements fmt.Stringer.
+func (w *UploadWebFile) String() string {
+	if w == nil {
+		return "UploadWebFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadWebFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(w.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(w.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileType: ")
+	sb.WriteString(w.FileType.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMtime: ")
+	sb.WriteString(fmt.Sprint(w.Mtime))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(w.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *UploadWebFile) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesFaveStickerRequest represents TL type `messages.faveSticker#b9ffc55b`.
 // Mark a sticker as favorite
@@ -27,6 +29,24 @@ type MessagesFaveStickerRequest struct {
 
 // MessagesFaveStickerRequestTypeID is TL type id of MessagesFaveStickerRequest.
 const MessagesFaveStickerRequestTypeID = 0xb9ffc55b
+
+// String implements fmt.Stringer.
+func (f *MessagesFaveStickerRequest) String() string {
+	if f == nil {
+		return "MessagesFaveStickerRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFaveStickerRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(f.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnfave: ")
+	sb.WriteString(fmt.Sprint(f.Unfave))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {

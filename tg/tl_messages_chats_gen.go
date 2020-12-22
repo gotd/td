@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesChats represents TL type `messages.chats#64ff9fd5`.
 // List of chats with auxiliary data.
@@ -25,6 +27,23 @@ type MessagesChats struct {
 
 // MessagesChatsTypeID is TL type id of MessagesChats.
 const MessagesChatsTypeID = 0x64ff9fd5
+
+// String implements fmt.Stringer.
+func (c *MessagesChats) String() string {
+	if c == nil {
+		return "MessagesChats(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesChats")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesChats) Encode(b *bin.Buffer) error {
@@ -95,6 +114,26 @@ type MessagesChatsSlice struct {
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
 const MessagesChatsSliceTypeID = 0x9cd81144
+
+// String implements fmt.Stringer.
+func (c *MessagesChatsSlice) String() string {
+	if c == nil {
+		return "MessagesChatsSlice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesChatsSlice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(c.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
@@ -175,6 +214,7 @@ type MessagesChatsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesChatsClass
+	fmt.Stringer
 }
 
 // DecodeMessagesChats implements binary de-serialization for MessagesChatsClass.

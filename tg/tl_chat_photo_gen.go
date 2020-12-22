@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatPhotoEmpty represents TL type `chatPhotoEmpty#37c1011c`.
 // Group photo is not set.
@@ -23,6 +25,18 @@ type ChatPhotoEmpty struct {
 
 // ChatPhotoEmptyTypeID is TL type id of ChatPhotoEmpty.
 const ChatPhotoEmptyTypeID = 0x37c1011c
+
+// String implements fmt.Stringer.
+func (c *ChatPhotoEmpty) String() string {
+	if c == nil {
+		return "ChatPhotoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatPhotoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
@@ -77,6 +91,30 @@ type ChatPhoto struct {
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
 const ChatPhotoTypeID = 0xd20b9f3c
+
+// String implements fmt.Stringer.
+func (c *ChatPhoto) String() string {
+	if c == nil {
+		return "ChatPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoSmall: ")
+	sb.WriteString(c.PhotoSmall.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoBig: ")
+	sb.WriteString(c.PhotoBig.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(c.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatPhoto) Encode(b *bin.Buffer) error {
@@ -169,6 +207,7 @@ type ChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatPhotoClass
+	fmt.Stringer
 }
 
 // DecodeChatPhoto implements binary de-serialization for ChatPhotoClass.

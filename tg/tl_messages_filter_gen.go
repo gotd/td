@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputMessagesFilterEmpty represents TL type `inputMessagesFilterEmpty#57e2f66c`.
 // Filter is absent.
@@ -23,6 +25,18 @@ type InputMessagesFilterEmpty struct {
 
 // InputMessagesFilterEmptyTypeID is TL type id of InputMessagesFilterEmpty.
 const InputMessagesFilterEmptyTypeID = 0x57e2f66c
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterEmpty) String() string {
+	if i == nil {
+		return "InputMessagesFilterEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type InputMessagesFilterPhotos struct {
 // InputMessagesFilterPhotosTypeID is TL type id of InputMessagesFilterPhotos.
 const InputMessagesFilterPhotosTypeID = 0x9609a51c
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterPhotos) String() string {
+	if i == nil {
+		return "InputMessagesFilterPhotos(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterPhotos")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhotos) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +131,18 @@ type InputMessagesFilterVideo struct {
 
 // InputMessagesFilterVideoTypeID is TL type id of InputMessagesFilterVideo.
 const InputMessagesFilterVideoTypeID = 0x9fc00e65
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterVideo) String() string {
+	if i == nil {
+		return "InputMessagesFilterVideo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterVideo")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
@@ -147,6 +185,18 @@ type InputMessagesFilterPhotoVideo struct {
 // InputMessagesFilterPhotoVideoTypeID is TL type id of InputMessagesFilterPhotoVideo.
 const InputMessagesFilterPhotoVideoTypeID = 0x56e9f0e4
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterPhotoVideo) String() string {
+	if i == nil {
+		return "InputMessagesFilterPhotoVideo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterPhotoVideo")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhotoVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -187,6 +237,18 @@ type InputMessagesFilterDocument struct {
 
 // InputMessagesFilterDocumentTypeID is TL type id of InputMessagesFilterDocument.
 const InputMessagesFilterDocumentTypeID = 0x9eddf188
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterDocument) String() string {
+	if i == nil {
+		return "InputMessagesFilterDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
@@ -229,6 +291,18 @@ type InputMessagesFilterUrl struct {
 // InputMessagesFilterUrlTypeID is TL type id of InputMessagesFilterUrl.
 const InputMessagesFilterUrlTypeID = 0x7ef0dd87
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterUrl) String() string {
+	if i == nil {
+		return "InputMessagesFilterUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterUrl) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -269,6 +343,18 @@ type InputMessagesFilterGif struct {
 
 // InputMessagesFilterGifTypeID is TL type id of InputMessagesFilterGif.
 const InputMessagesFilterGifTypeID = 0xffc86587
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterGif) String() string {
+	if i == nil {
+		return "InputMessagesFilterGif(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterGif")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
@@ -311,6 +397,18 @@ type InputMessagesFilterVoice struct {
 // InputMessagesFilterVoiceTypeID is TL type id of InputMessagesFilterVoice.
 const InputMessagesFilterVoiceTypeID = 0x50f5c392
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterVoice) String() string {
+	if i == nil {
+		return "InputMessagesFilterVoice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterVoice")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,6 +450,18 @@ type InputMessagesFilterMusic struct {
 // InputMessagesFilterMusicTypeID is TL type id of InputMessagesFilterMusic.
 const InputMessagesFilterMusicTypeID = 0x3751b49e
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterMusic) String() string {
+	if i == nil {
+		return "InputMessagesFilterMusic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterMusic")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -392,6 +502,18 @@ type InputMessagesFilterChatPhotos struct {
 
 // InputMessagesFilterChatPhotosTypeID is TL type id of InputMessagesFilterChatPhotos.
 const InputMessagesFilterChatPhotosTypeID = 0x3a20ecb8
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterChatPhotos) String() string {
+	if i == nil {
+		return "InputMessagesFilterChatPhotos(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterChatPhotos")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterChatPhotos) Encode(b *bin.Buffer) error {
@@ -440,6 +562,21 @@ type InputMessagesFilterPhoneCalls struct {
 
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.
 const InputMessagesFilterPhoneCallsTypeID = 0x80c99768
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterPhoneCalls) String() string {
+	if i == nil {
+		return "InputMessagesFilterPhoneCalls(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterPhoneCalls")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
@@ -500,6 +637,18 @@ type InputMessagesFilterRoundVoice struct {
 // InputMessagesFilterRoundVoiceTypeID is TL type id of InputMessagesFilterRoundVoice.
 const InputMessagesFilterRoundVoiceTypeID = 0x7a7c17a4
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterRoundVoice) String() string {
+	if i == nil {
+		return "InputMessagesFilterRoundVoice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterRoundVoice")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterRoundVoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -540,6 +689,18 @@ type InputMessagesFilterRoundVideo struct {
 
 // InputMessagesFilterRoundVideoTypeID is TL type id of InputMessagesFilterRoundVideo.
 const InputMessagesFilterRoundVideoTypeID = 0xb549da53
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterRoundVideo) String() string {
+	if i == nil {
+		return "InputMessagesFilterRoundVideo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterRoundVideo")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterRoundVideo) Encode(b *bin.Buffer) error {
@@ -585,6 +746,18 @@ type InputMessagesFilterMyMentions struct {
 // InputMessagesFilterMyMentionsTypeID is TL type id of InputMessagesFilterMyMentions.
 const InputMessagesFilterMyMentionsTypeID = 0xc1f8e69a
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterMyMentions) String() string {
+	if i == nil {
+		return "InputMessagesFilterMyMentions(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterMyMentions")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -625,6 +798,18 @@ type InputMessagesFilterGeo struct {
 
 // InputMessagesFilterGeoTypeID is TL type id of InputMessagesFilterGeo.
 const InputMessagesFilterGeoTypeID = 0xe7026d0d
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterGeo) String() string {
+	if i == nil {
+		return "InputMessagesFilterGeo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterGeo")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGeo) Encode(b *bin.Buffer) error {
@@ -667,6 +852,18 @@ type InputMessagesFilterContacts struct {
 // InputMessagesFilterContactsTypeID is TL type id of InputMessagesFilterContacts.
 const InputMessagesFilterContactsTypeID = 0xe062db83
 
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterContacts) String() string {
+	if i == nil {
+		return "InputMessagesFilterContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -707,6 +904,18 @@ type InputMessagesFilterPinned struct {
 
 // InputMessagesFilterPinnedTypeID is TL type id of InputMessagesFilterPinned.
 const InputMessagesFilterPinnedTypeID = 0x1bb00451
+
+// String implements fmt.Stringer.
+func (i *InputMessagesFilterPinned) String() string {
+	if i == nil {
+		return "InputMessagesFilterPinned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagesFilterPinned")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPinned) Encode(b *bin.Buffer) error {
@@ -772,6 +981,7 @@ type MessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFilterClass
+	fmt.Stringer
 }
 
 // DecodeMessagesFilter implements binary de-serialization for MessagesFilterClass.

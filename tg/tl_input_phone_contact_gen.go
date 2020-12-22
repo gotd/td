@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
 // Phone contact. The client_id is just an arbitrary contact ID: it should be set, for example, to an incremental number when using contacts.importContacts¹, in order to retry importing only the contacts that weren't imported successfully.
@@ -34,6 +36,30 @@ type InputPhoneContact struct {
 
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
 const InputPhoneContactTypeID = 0xf392b7f4
+
+// String implements fmt.Stringer.
+func (i *InputPhoneContact) String() string {
+	if i == nil {
+		return "InputPhoneContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhoneContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tClientID: ")
+	sb.WriteString(fmt.Sprint(i.ClientID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(i.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(i.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(i.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhoneContact) Encode(b *bin.Buffer) error {

@@ -15,11 +15,11 @@ import (
 )
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypto.AuthKeyWithID, error) {
+func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKeyWithID, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
-	var pqReq mt.ReqPqMulti
+	var pqReq mt.ReqPqMultiRequest
 	if err := s.readUnencrypted(ctx, conn, &pqReq); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
@@ -52,7 +52,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypt
 	//
 	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string
 	//  q:string public_key_fingerprint:long encrypted_data:string = Server_DH_Params
-	var dhParams mt.ReqDHParams
+	var dhParams mt.ReqDHParamsRequest
 	if err := s.readUnencrypted(ctx, conn, &dhParams); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
@@ -60,7 +60,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypt
 	var b bin.Buffer
 	b.Put(crypto.RSADecryptHashed(dhParams.EncryptedData, s.key))
 
-	var innerData mt.PQInnerDataConst
+	var innerData mt.PQInnerData
 	err = innerData.Decode(&b)
 	if err != nil {
 		return crypto.AuthKeyWithID{}, err
@@ -107,7 +107,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypt
 		return crypto.AuthKeyWithID{}, err
 	}
 
-	var clientDhParams mt.SetClientDHParams
+	var clientDhParams mt.SetClientDHParamsRequest
 	if err := s.readUnencrypted(ctx, conn, &clientDhParams); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
 // Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
@@ -39,6 +41,30 @@ type MessagesAcceptUrlAuthRequest struct {
 
 // MessagesAcceptUrlAuthRequestTypeID is TL type id of MessagesAcceptUrlAuthRequest.
 const MessagesAcceptUrlAuthRequestTypeID = 0xf729ea98
+
+// String implements fmt.Stringer.
+func (a *MessagesAcceptUrlAuthRequest) String() string {
+	if a == nil {
+		return "MessagesAcceptUrlAuthRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAcceptUrlAuthRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(a.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(a.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tButtonID: ")
+	sb.WriteString(fmt.Sprint(a.ButtonID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptUrlAuthRequest) Encode(b *bin.Buffer) error {

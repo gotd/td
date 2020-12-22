@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesDifferenceEmpty represents TL type `updates.differenceEmpty#5d75a138`.
 // No events.
@@ -27,6 +29,24 @@ type UpdatesDifferenceEmpty struct {
 
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
 const UpdatesDifferenceEmptyTypeID = 0x5d75a138
+
+// String implements fmt.Stringer.
+func (d *UpdatesDifferenceEmpty) String() string {
+	if d == nil {
+		return "UpdatesDifferenceEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesDifferenceEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(d.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeq: ")
+	sb.WriteString(fmt.Sprint(d.Seq))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
@@ -96,6 +116,46 @@ type UpdatesDifference struct {
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
 const UpdatesDifferenceTypeID = 0xf49ca0
+
+// String implements fmt.Stringer.
+func (d *UpdatesDifference) String() string {
+	if d == nil {
+		return "UpdatesDifference(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesDifference")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.NewMessages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.NewEncryptedMessages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.OtherUpdates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tState: ")
+	sb.WriteString(d.State.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
@@ -271,6 +331,46 @@ type UpdatesDifferenceSlice struct {
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
 const UpdatesDifferenceSliceTypeID = 0xa8fb1981
 
+// String implements fmt.Stringer.
+func (d *UpdatesDifferenceSlice) String() string {
+	if d == nil {
+		return "UpdatesDifferenceSlice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesDifferenceSlice")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.NewMessages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.NewEncryptedMessages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.OtherUpdates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tIntermediateState: ")
+	sb.WriteString(d.IntermediateState.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -435,6 +535,21 @@ type UpdatesDifferenceTooLong struct {
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.
 const UpdatesDifferenceTooLongTypeID = 0x4afe8f6d
 
+// String implements fmt.Stringer.
+func (d *UpdatesDifferenceTooLong) String() string {
+	if d == nil {
+		return "UpdatesDifferenceTooLong(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesDifferenceTooLong")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(d.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -494,6 +609,7 @@ type UpdatesDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesDifferenceClass
+	fmt.Stringer
 }
 
 // DecodeUpdatesDifference implements binary de-serialization for UpdatesDifferenceClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthAcceptLoginTokenRequest represents TL type `auth.acceptLoginToken#e894ad4d`.
 // Accept QR code login token, logging in the app that generated it.
@@ -33,6 +35,21 @@ type AuthAcceptLoginTokenRequest struct {
 
 // AuthAcceptLoginTokenRequestTypeID is TL type id of AuthAcceptLoginTokenRequest.
 const AuthAcceptLoginTokenRequestTypeID = 0xe894ad4d
+
+// String implements fmt.Stringer.
+func (a *AuthAcceptLoginTokenRequest) String() string {
+	if a == nil {
+		return "AuthAcceptLoginTokenRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthAcceptLoginTokenRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(a.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AuthAcceptLoginTokenRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#89f30f69`.
 // Updates current user profile photo.
@@ -46,6 +48,36 @@ type PhotosUploadProfilePhotoRequest struct {
 
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
 const PhotosUploadProfilePhotoRequestTypeID = 0x89f30f69
+
+// String implements fmt.Stringer.
+func (u *PhotosUploadProfilePhotoRequest) String() string {
+	if u == nil {
+		return "PhotosUploadProfilePhotoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosUploadProfilePhotoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tFile: ")
+		sb.WriteString(u.File.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tVideo: ")
+		sb.WriteString(u.Video.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(2) {
+		sb.WriteString("\tVideoStartTs: ")
+		sb.WriteString(fmt.Sprint(u.VideoStartTs))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {

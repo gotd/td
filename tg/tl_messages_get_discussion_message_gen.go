@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
 // Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
@@ -34,6 +36,24 @@ type MessagesGetDiscussionMessageRequest struct {
 
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.
 const MessagesGetDiscussionMessageRequestTypeID = 0x446972fd
+
+// String implements fmt.Stringer.
+func (g *MessagesGetDiscussionMessageRequest) String() string {
+	if g == nil {
+		return "MessagesGetDiscussionMessageRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetDiscussionMessageRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {

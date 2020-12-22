@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,28 +14,52 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Types returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
 	return map[uint32]string{
-		0xbe7e8ef1: "req_pq_multi#be7e8ef1",
 		0x5162463:  "resPQ#5162463",
-		0x83c95aec: "p_q_inner_data_const#83c95aec",
-		0x3c6a84d4: "p_q_inner_data_temp#3c6a84d4",
-		0xb5890dba: "server_DH_inner_data#b5890dba",
-		0x6643b654: "client_DH_inner_data#6643b654",
-		0xd712e4be: "req_DH_params#d712e4be",
+		0x83c95aec: "p_q_inner_data#83c95aec",
 		0x79cb045d: "server_DH_params_fail#79cb045d",
 		0xd0e8075c: "server_DH_params_ok#d0e8075c",
-		0xf5045f1f: "set_client_DH_params#f5045f1f",
+		0xb5890dba: "server_DH_inner_data#b5890dba",
+		0x6643b654: "client_DH_inner_data#6643b654",
 		0x3bcbf734: "dh_gen_ok#3bcbf734",
 		0x46dc1fb9: "dh_gen_retry#46dc1fb9",
 		0xa69dae02: "dh_gen_fail#a69dae02",
+		0xf35c6d01: "rpc_result#f35c6d01",
+		0x2144ca19: "rpc_error#2144ca19",
+		0x5e2ad36e: "rpc_answer_unknown#5e2ad36e",
+		0xcd78e586: "rpc_answer_dropped_running#cd78e586",
+		0xa43ad8b7: "rpc_answer_dropped#a43ad8b7",
+		0x949d9dc:  "future_salt#949d9dc",
+		0xae500895: "future_salts#ae500895",
 		0x347773c5: "pong#347773c5",
+		0xe22045fc: "destroy_session_ok#e22045fc",
+		0x62d350c9: "destroy_session_none#62d350c9",
+		0x9ec20908: "new_session_created#9ec20908",
+		0x5bb8e511: "message#5bb8e511",
+		0xe06046b2: "msg_copy#e06046b2",
+		0x3072cfa1: "gzip_packed#3072cfa1",
+		0x62d6b459: "msgs_ack#62d6b459",
 		0xa7eff811: "bad_msg_notification#a7eff811",
 		0xedab447b: "bad_server_salt#edab447b",
-		0x9ec20908: "new_session_created#9ec20908",
-		0x62d6b459: "msgs_ack#62d6b459",
-		0x2144ca19: "rpc_error#2144ca19",
+		0x7d861a08: "msg_resend_req#7d861a08",
+		0xda69fb52: "msgs_state_req#da69fb52",
+		0x4deb57d:  "msgs_state_info#4deb57d",
+		0x8cc0d131: "msgs_all_info#8cc0d131",
+		0x276d3ec6: "msg_detailed_info#276d3ec6",
+		0x809db6df: "msg_new_detailed_info#809db6df",
+		0x60469778: "req_pq#60469778",
+		0xbe7e8ef1: "req_pq_multi#be7e8ef1",
+		0xd712e4be: "req_DH_params#d712e4be",
+		0xf5045f1f: "set_client_DH_params#f5045f1f",
+		0x58e4a740: "rpc_drop_answer#58e4a740",
+		0xb921bd04: "get_future_salts#b921bd04",
+		0x7abe77ec: "ping#7abe77ec",
+		0xf3427b8c: "ping_delay_disconnect#f3427b8c",
+		0xe7512126: "destroy_session#e7512126",
+		0x9299359f: "http_wait#9299359f",
 	}
 }

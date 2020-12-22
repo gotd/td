@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DialogPeer represents TL type `dialogPeer#e56dbf05`.
 // Peer
@@ -25,6 +27,21 @@ type DialogPeer struct {
 
 // DialogPeerTypeID is TL type id of DialogPeer.
 const DialogPeerTypeID = 0xe56dbf05
+
+// String implements fmt.Stringer.
+func (d *DialogPeer) String() string {
+	if d == nil {
+		return "DialogPeer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogPeer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(d.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DialogPeer) Encode(b *bin.Buffer) error {
@@ -88,6 +105,21 @@ type DialogPeerFolder struct {
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.
 const DialogPeerFolderTypeID = 0x514519e2
 
+// String implements fmt.Stringer.
+func (d *DialogPeerFolder) String() string {
+	if d == nil {
+		return "DialogPeerFolder(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogPeerFolder")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFolderID: ")
+	sb.WriteString(fmt.Sprint(d.FolderID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogPeerFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -145,6 +177,7 @@ type DialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DialogPeerClass
+	fmt.Stringer
 }
 
 // DecodeDialogPeer implements binary de-serialization for DialogPeerClass.

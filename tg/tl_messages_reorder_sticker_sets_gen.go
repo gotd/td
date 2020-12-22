@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReorderStickerSetsRequest represents TL type `messages.reorderStickerSets#78337739`.
 // Reorder installed stickersets
@@ -32,6 +34,26 @@ type MessagesReorderStickerSetsRequest struct {
 
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.
 const MessagesReorderStickerSetsRequestTypeID = 0x78337739
+
+// String implements fmt.Stringer.
+func (r *MessagesReorderStickerSetsRequest) String() string {
+	if r == nil {
+		return "MessagesReorderStickerSetsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReorderStickerSetsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.Order {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {

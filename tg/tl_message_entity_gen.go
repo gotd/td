@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageEntityUnknown represents TL type `messageEntityUnknown#bb92ba95`.
 // Unknown message entity
@@ -27,6 +29,24 @@ type MessageEntityUnknown struct {
 
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
 const MessageEntityUnknownTypeID = 0xbb92ba95
+
+// String implements fmt.Stringer.
+func (m *MessageEntityUnknown) String() string {
+	if m == nil {
+		return "MessageEntityUnknown(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityUnknown")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnknown) Encode(b *bin.Buffer) error {
@@ -92,6 +112,24 @@ type MessageEntityMention struct {
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
 const MessageEntityMentionTypeID = 0xfa04579d
 
+// String implements fmt.Stringer.
+func (m *MessageEntityMention) String() string {
+	if m == nil {
+		return "MessageEntityMention(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityMention")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityMention) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -153,6 +191,24 @@ type MessageEntityHashtag struct {
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
 const MessageEntityHashtagTypeID = 0x6f635b0d
 
+// String implements fmt.Stringer.
+func (m *MessageEntityHashtag) String() string {
+	if m == nil {
+		return "MessageEntityHashtag(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityHashtag")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityHashtag) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -213,6 +269,24 @@ type MessageEntityBotCommand struct {
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
 const MessageEntityBotCommandTypeID = 0x6cef8ac7
+
+// String implements fmt.Stringer.
+func (m *MessageEntityBotCommand) String() string {
+	if m == nil {
+		return "MessageEntityBotCommand(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityBotCommand")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityBotCommand) Encode(b *bin.Buffer) error {
@@ -280,6 +354,24 @@ type MessageEntityUrl struct {
 // MessageEntityUrlTypeID is TL type id of MessageEntityUrl.
 const MessageEntityUrlTypeID = 0x6ed02538
 
+// String implements fmt.Stringer.
+func (m *MessageEntityUrl) String() string {
+	if m == nil {
+		return "MessageEntityUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityUrl) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -344,6 +436,24 @@ type MessageEntityEmail struct {
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
 const MessageEntityEmailTypeID = 0x64e475c2
 
+// String implements fmt.Stringer.
+func (m *MessageEntityEmail) String() string {
+	if m == nil {
+		return "MessageEntityEmail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityEmail")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityEmail) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -404,6 +514,24 @@ type MessageEntityBold struct {
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
 const MessageEntityBoldTypeID = 0xbd610bc9
+
+// String implements fmt.Stringer.
+func (m *MessageEntityBold) String() string {
+	if m == nil {
+		return "MessageEntityBold(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityBold")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityBold) Encode(b *bin.Buffer) error {
@@ -466,6 +594,24 @@ type MessageEntityItalic struct {
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
 const MessageEntityItalicTypeID = 0x826f8b60
 
+// String implements fmt.Stringer.
+func (m *MessageEntityItalic) String() string {
+	if m == nil {
+		return "MessageEntityItalic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityItalic")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityItalic) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -526,6 +672,24 @@ type MessageEntityCode struct {
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
 const MessageEntityCodeTypeID = 0x28a20571
+
+// String implements fmt.Stringer.
+func (m *MessageEntityCode) String() string {
+	if m == nil {
+		return "MessageEntityCode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityCode")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityCode) Encode(b *bin.Buffer) error {
@@ -589,6 +753,27 @@ type MessageEntityPre struct {
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
 const MessageEntityPreTypeID = 0x73924be0
+
+// String implements fmt.Stringer.
+func (m *MessageEntityPre) String() string {
+	if m == nil {
+		return "MessageEntityPre(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityPre")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLanguage: ")
+	sb.WriteString(fmt.Sprint(m.Language))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityPre) Encode(b *bin.Buffer) error {
@@ -666,6 +851,27 @@ type MessageEntityTextUrl struct {
 // MessageEntityTextUrlTypeID is TL type id of MessageEntityTextUrl.
 const MessageEntityTextUrlTypeID = 0x76a6d327
 
+// String implements fmt.Stringer.
+func (m *MessageEntityTextUrl) String() string {
+	if m == nil {
+		return "MessageEntityTextUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityTextUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(m.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityTextUrl) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -740,6 +946,27 @@ type MessageEntityMentionName struct {
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
 const MessageEntityMentionNameTypeID = 0x352dca58
+
+// String implements fmt.Stringer.
+func (m *MessageEntityMentionName) String() string {
+	if m == nil {
+		return "MessageEntityMentionName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityMentionName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(m.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
@@ -816,6 +1043,27 @@ type InputMessageEntityMentionName struct {
 // InputMessageEntityMentionNameTypeID is TL type id of InputMessageEntityMentionName.
 const InputMessageEntityMentionNameTypeID = 0x208e68c9
 
+// String implements fmt.Stringer.
+func (i *InputMessageEntityMentionName) String() string {
+	if i == nil {
+		return "InputMessageEntityMentionName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessageEntityMentionName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(i.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(i.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(i.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageEntityMentionName) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -890,6 +1138,24 @@ type MessageEntityPhone struct {
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
 const MessageEntityPhoneTypeID = 0x9b69e34b
 
+// String implements fmt.Stringer.
+func (m *MessageEntityPhone) String() string {
+	if m == nil {
+		return "MessageEntityPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityPhone) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -950,6 +1216,24 @@ type MessageEntityCashtag struct {
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
 const MessageEntityCashtagTypeID = 0x4c4e743f
+
+// String implements fmt.Stringer.
+func (m *MessageEntityCashtag) String() string {
+	if m == nil {
+		return "MessageEntityCashtag(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityCashtag")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityCashtag) Encode(b *bin.Buffer) error {
@@ -1012,6 +1296,24 @@ type MessageEntityUnderline struct {
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
 const MessageEntityUnderlineTypeID = 0x9c4e7e8b
 
+// String implements fmt.Stringer.
+func (m *MessageEntityUnderline) String() string {
+	if m == nil {
+		return "MessageEntityUnderline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityUnderline")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnderline) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1072,6 +1374,24 @@ type MessageEntityStrike struct {
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
 const MessageEntityStrikeTypeID = 0xbf0693d4
+
+// String implements fmt.Stringer.
+func (m *MessageEntityStrike) String() string {
+	if m == nil {
+		return "MessageEntityStrike(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityStrike")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityStrike) Encode(b *bin.Buffer) error {
@@ -1134,6 +1454,24 @@ type MessageEntityBlockquote struct {
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
 const MessageEntityBlockquoteTypeID = 0x20df5d0
 
+// String implements fmt.Stringer.
+func (m *MessageEntityBlockquote) String() string {
+	if m == nil {
+		return "MessageEntityBlockquote(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityBlockquote")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1194,6 +1532,24 @@ type MessageEntityBankCard struct {
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.
 const MessageEntityBankCardTypeID = 0x761e6af4
+
+// String implements fmt.Stringer.
+func (m *MessageEntityBankCard) String() string {
+	if m == nil {
+		return "MessageEntityBankCard(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageEntityBankCard")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(m.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(m.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageEntityBankCard) Encode(b *bin.Buffer) error {
@@ -1277,6 +1633,7 @@ type MessageEntityClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageEntityClass
+	fmt.Stringer
 }
 
 // DecodeMessageEntity implements binary de-serialization for MessageEntityClass.

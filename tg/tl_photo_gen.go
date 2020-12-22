@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotoEmpty represents TL type `photoEmpty#2331b22d`.
 // Empty constructor, non-existent photo
@@ -25,6 +27,21 @@ type PhotoEmpty struct {
 
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
 const PhotoEmptyTypeID = 0x2331b22d
+
+// String implements fmt.Stringer.
+func (p *PhotoEmpty) String() string {
+	if p == nil {
+		return "PhotoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
@@ -103,6 +120,48 @@ type Photo struct {
 
 // PhotoTypeID is TL type id of Photo.
 const PhotoTypeID = 0xfb197a65
+
+// String implements fmt.Stringer.
+func (p *Photo) String() string {
+	if p == nil {
+		return "Photo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Photo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(p.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(p.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Sizes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if p.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range p.VideoSizes {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(p.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *Photo) Encode(b *bin.Buffer) error {
@@ -269,6 +328,7 @@ type PhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotoClass
+	fmt.Stringer
 }
 
 // DecodePhoto implements binary de-serialization for PhotoClass.

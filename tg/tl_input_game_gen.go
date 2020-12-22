@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputGameID represents TL type `inputGameID#32c3e77`.
 // Indicates an already sent game
@@ -33,6 +35,24 @@ type InputGameID struct {
 
 // InputGameIDTypeID is TL type id of InputGameID.
 const InputGameIDTypeID = 0x32c3e77
+
+// String implements fmt.Stringer.
+func (i *InputGameID) String() string {
+	if i == nil {
+		return "InputGameID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputGameID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputGameID) Encode(b *bin.Buffer) error {
@@ -94,6 +114,24 @@ type InputGameShortName struct {
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.
 const InputGameShortNameTypeID = 0xc331e80a
+
+// String implements fmt.Stringer.
+func (i *InputGameShortName) String() string {
+	if i == nil {
+		return "InputGameShortName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputGameShortName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(i.BotID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(i.ShortName))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputGameShortName) Encode(b *bin.Buffer) error {
@@ -165,6 +203,7 @@ type InputGameClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputGameClass
+	fmt.Stringer
 }
 
 // DecodeInputGame implements binary de-serialization for InputGameClass.

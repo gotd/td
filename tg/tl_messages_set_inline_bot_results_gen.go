@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
 // Answer an inline query, for bots only
@@ -46,6 +48,42 @@ type MessagesSetInlineBotResultsRequest struct {
 
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
 const MessagesSetInlineBotResultsRequestTypeID = 0xeb5ea206
+
+// String implements fmt.Stringer.
+func (s *MessagesSetInlineBotResultsRequest) String() string {
+	if s == nil {
+		return "MessagesSetInlineBotResultsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetInlineBotResultsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(s.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Results {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCacheTime: ")
+	sb.WriteString(fmt.Sprint(s.CacheTime))
+	sb.WriteString(",\n")
+	if s.Flags.Has(2) {
+		sb.WriteString("\tNextOffset: ")
+		sb.WriteString(fmt.Sprint(s.NextOffset))
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(3) {
+		sb.WriteString("\tSwitchPm: ")
+		sb.WriteString(s.SwitchPm.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {

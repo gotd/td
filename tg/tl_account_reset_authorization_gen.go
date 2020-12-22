@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountResetAuthorizationRequest represents TL type `account.resetAuthorization#df77f3bc`.
 // Log out an active authorized session¹ by its hash
@@ -28,6 +30,21 @@ type AccountResetAuthorizationRequest struct {
 
 // AccountResetAuthorizationRequestTypeID is TL type id of AccountResetAuthorizationRequest.
 const AccountResetAuthorizationRequestTypeID = 0xdf77f3bc
+
+// String implements fmt.Stringer.
+func (r *AccountResetAuthorizationRequest) String() string {
+	if r == nil {
+		return "AccountResetAuthorizationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountResetAuthorizationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(r.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountResetAuthorizationRequest) Encode(b *bin.Buffer) error {

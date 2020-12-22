@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthSentCodeTypeApp represents TL type `auth.sentCodeTypeApp#3dbb5986`.
 // The code was sent through the telegram app
@@ -25,6 +27,21 @@ type AuthSentCodeTypeApp struct {
 
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
 const AuthSentCodeTypeAppTypeID = 0x3dbb5986
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeApp) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeApp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSentCodeTypeApp")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(s.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeApp) Encode(b *bin.Buffer) error {
@@ -77,6 +94,21 @@ type AuthSentCodeTypeSms struct {
 // AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
 const AuthSentCodeTypeSmsTypeID = 0xc000bba2
 
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeSms) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeSms(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSentCodeTypeSms")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(s.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeSms) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -127,6 +159,21 @@ type AuthSentCodeTypeCall struct {
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
 const AuthSentCodeTypeCallTypeID = 0x5353e5a7
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeCall) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSentCodeTypeCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLength: ")
+	sb.WriteString(fmt.Sprint(s.Length))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeCall) Encode(b *bin.Buffer) error {
@@ -181,6 +228,21 @@ type AuthSentCodeTypeFlashCall struct {
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
 const AuthSentCodeTypeFlashCallTypeID = 0xab03c6d9
+
+// String implements fmt.Stringer.
+func (s *AuthSentCodeTypeFlashCall) String() string {
+	if s == nil {
+		return "AuthSentCodeTypeFlashCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSentCodeTypeFlashCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPattern: ")
+	sb.WriteString(fmt.Sprint(s.Pattern))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeFlashCall) Encode(b *bin.Buffer) error {
@@ -241,6 +303,7 @@ type AuthSentCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthSentCodeTypeClass
+	fmt.Stringer
 }
 
 // DecodeAuthSentCodeType implements binary de-serialization for AuthSentCodeTypeClass.

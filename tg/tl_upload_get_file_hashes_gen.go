@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadGetFileHashesRequest represents TL type `upload.getFileHashes#c7025931`.
 // Get SHA256 hashes for verifying downloaded files
@@ -27,6 +29,24 @@ type UploadGetFileHashesRequest struct {
 
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.
 const UploadGetFileHashesRequestTypeID = 0xc7025931
+
+// String implements fmt.Stringer.
+func (g *UploadGetFileHashesRequest) String() string {
+	if g == nil {
+		return "UploadGetFileHashesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadGetFileHashesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(g.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {

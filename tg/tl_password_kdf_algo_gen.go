@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
 // Unknown KDF (most likely, the client is outdated and does not support the specified KDF algorithm)
@@ -23,6 +25,18 @@ type PasswordKdfAlgoUnknown struct {
 
 // PasswordKdfAlgoUnknownTypeID is TL type id of PasswordKdfAlgoUnknown.
 const PasswordKdfAlgoUnknownTypeID = 0xd45ab096
+
+// String implements fmt.Stringer.
+func (p *PasswordKdfAlgoUnknown) String() string {
+	if p == nil {
+		return "PasswordKdfAlgoUnknown(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PasswordKdfAlgoUnknown")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
@@ -87,6 +101,30 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
 const PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID = 0x3a912d4a
+
+// String implements fmt.Stringer.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) String() string {
+	if p == nil {
+		return "PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSalt1: ")
+	sb.WriteString(fmt.Sprint(p.Salt1))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSalt2: ")
+	sb.WriteString(fmt.Sprint(p.Salt2))
+	sb.WriteString(",\n")
+	sb.WriteString("\tG: ")
+	sb.WriteString(fmt.Sprint(p.G))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(p.P))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Encode(b *bin.Buffer) error {
@@ -171,6 +209,7 @@ type PasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PasswordKdfAlgoClass
+	fmt.Stringer
 }
 
 // DecodePasswordKdfAlgo implements binary de-serialization for PasswordKdfAlgoClass.

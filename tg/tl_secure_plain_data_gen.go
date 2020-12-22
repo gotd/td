@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecurePlainPhone represents TL type `securePlainPhone#7d6099dd`.
 // Phone number to use in telegram passport¹: it must be verified, first »².
@@ -29,6 +31,21 @@ type SecurePlainPhone struct {
 
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
 const SecurePlainPhoneTypeID = 0x7d6099dd
+
+// String implements fmt.Stringer.
+func (s *SecurePlainPhone) String() string {
+	if s == nil {
+		return "SecurePlainPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecurePlainPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(s.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
@@ -84,6 +101,21 @@ type SecurePlainEmail struct {
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
 const SecurePlainEmailTypeID = 0x21ec5a5f
+
+// String implements fmt.Stringer.
+func (s *SecurePlainEmail) String() string {
+	if s == nil {
+		return "SecurePlainEmail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecurePlainEmail")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmail: ")
+	sb.WriteString(fmt.Sprint(s.Email))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
@@ -142,6 +174,7 @@ type SecurePlainDataClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecurePlainDataClass
+	fmt.Stringer
 }
 
 // DecodeSecurePlainData implements binary de-serialization for SecurePlainDataClass.

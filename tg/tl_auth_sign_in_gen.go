@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthSignInRequest represents TL type `auth.signIn#bcd51581`.
 // Signs in a user with a validated phone number.
@@ -32,6 +34,27 @@ type AuthSignInRequest struct {
 
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.
 const AuthSignInRequestTypeID = 0xbcd51581
+
+// String implements fmt.Stringer.
+func (s *AuthSignInRequest) String() string {
+	if s == nil {
+		return "AuthSignInRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthSignInRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(s.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(s.PhoneCodeHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCode: ")
+	sb.WriteString(fmt.Sprint(s.PhoneCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TextEntityTypeMention represents TL type `textEntityTypeMention#37b3df65`.
 //
@@ -22,6 +24,18 @@ type TextEntityTypeMention struct {
 
 // TextEntityTypeMentionTypeID is TL type id of TextEntityTypeMention.
 const TextEntityTypeMentionTypeID = 0x37b3df65
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeMention) String() string {
+	if t == nil {
+		return "TextEntityTypeMention(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeMention")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
@@ -63,6 +77,18 @@ type TextEntityTypeHashtag struct {
 // TextEntityTypeHashtagTypeID is TL type id of TextEntityTypeHashtag.
 const TextEntityTypeHashtagTypeID = 0xc2f7a2dd
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeHashtag) String() string {
+	if t == nil {
+		return "TextEntityTypeHashtag(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeHashtag")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeHashtag) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -102,6 +128,18 @@ type TextEntityTypeCashtag struct {
 
 // TextEntityTypeCashtagTypeID is TL type id of TextEntityTypeCashtag.
 const TextEntityTypeCashtagTypeID = 0x48e4374b
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeCashtag) String() string {
+	if t == nil {
+		return "TextEntityTypeCashtag(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeCashtag")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
@@ -143,6 +181,18 @@ type TextEntityTypeBotCommand struct {
 // TextEntityTypeBotCommandTypeID is TL type id of TextEntityTypeBotCommand.
 const TextEntityTypeBotCommandTypeID = 0xbb652bb3
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeBotCommand) String() string {
+	if t == nil {
+		return "TextEntityTypeBotCommand(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeBotCommand")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBotCommand) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -182,6 +232,18 @@ type TextEntityTypeUrl struct {
 
 // TextEntityTypeUrlTypeID is TL type id of TextEntityTypeUrl.
 const TextEntityTypeUrlTypeID = 0xb1c0d47c
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeUrl) String() string {
+	if t == nil {
+		return "TextEntityTypeUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUrl) Encode(b *bin.Buffer) error {
@@ -223,6 +285,18 @@ type TextEntityTypeEmailAddress struct {
 // TextEntityTypeEmailAddressTypeID is TL type id of TextEntityTypeEmailAddress.
 const TextEntityTypeEmailAddressTypeID = 0x54f81821
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeEmailAddress) String() string {
+	if t == nil {
+		return "TextEntityTypeEmailAddress(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeEmailAddress")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeEmailAddress) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -262,6 +336,18 @@ type TextEntityTypePhoneNumber struct {
 
 // TextEntityTypePhoneNumberTypeID is TL type id of TextEntityTypePhoneNumber.
 const TextEntityTypePhoneNumberTypeID = 0xbad9aa2a
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypePhoneNumber) String() string {
+	if t == nil {
+		return "TextEntityTypePhoneNumber(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypePhoneNumber")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
@@ -303,6 +389,18 @@ type TextEntityTypeBankCardNumber struct {
 // TextEntityTypeBankCardNumberTypeID is TL type id of TextEntityTypeBankCardNumber.
 const TextEntityTypeBankCardNumberTypeID = 0x6513910
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeBankCardNumber) String() string {
+	if t == nil {
+		return "TextEntityTypeBankCardNumber(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeBankCardNumber")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBankCardNumber) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -342,6 +440,18 @@ type TextEntityTypeBold struct {
 
 // TextEntityTypeBoldTypeID is TL type id of TextEntityTypeBold.
 const TextEntityTypeBoldTypeID = 0xbcc0e1b0
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeBold) String() string {
+	if t == nil {
+		return "TextEntityTypeBold(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeBold")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
@@ -383,6 +493,18 @@ type TextEntityTypeItalic struct {
 // TextEntityTypeItalicTypeID is TL type id of TextEntityTypeItalic.
 const TextEntityTypeItalicTypeID = 0xf8f3965d
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeItalic) String() string {
+	if t == nil {
+		return "TextEntityTypeItalic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeItalic")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeItalic) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -422,6 +544,18 @@ type TextEntityTypeUnderline struct {
 
 // TextEntityTypeUnderlineTypeID is TL type id of TextEntityTypeUnderline.
 const TextEntityTypeUnderlineTypeID = 0x2f39cf92
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeUnderline) String() string {
+	if t == nil {
+		return "TextEntityTypeUnderline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeUnderline")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
@@ -463,6 +597,18 @@ type TextEntityTypeStrikethrough struct {
 // TextEntityTypeStrikethroughTypeID is TL type id of TextEntityTypeStrikethrough.
 const TextEntityTypeStrikethroughTypeID = 0x394fc4fa
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeStrikethrough) String() string {
+	if t == nil {
+		return "TextEntityTypeStrikethrough(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeStrikethrough")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeStrikethrough) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -503,6 +649,18 @@ type TextEntityTypeCode struct {
 // TextEntityTypeCodeTypeID is TL type id of TextEntityTypeCode.
 const TextEntityTypeCodeTypeID = 0xc5e9c94a
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeCode) String() string {
+	if t == nil {
+		return "TextEntityTypeCode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeCode")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -542,6 +700,18 @@ type TextEntityTypePre struct {
 
 // TextEntityTypePreTypeID is TL type id of TextEntityTypePre.
 const TextEntityTypePreTypeID = 0x62491c8e
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypePre) String() string {
+	if t == nil {
+		return "TextEntityTypePre(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypePre")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePre) Encode(b *bin.Buffer) error {
@@ -584,6 +754,21 @@ type TextEntityTypePreCode struct {
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
 const TextEntityTypePreCodeTypeID = 0xc7a77aab
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypePreCode) String() string {
+	if t == nil {
+		return "TextEntityTypePreCode(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypePreCode")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLanguage: ")
+	sb.WriteString(fmt.Sprint(t.Language))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
@@ -635,6 +820,21 @@ type TextEntityTypeTextUrl struct {
 // TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
 const TextEntityTypeTextUrlTypeID = 0x1a912463
 
+// String implements fmt.Stringer.
+func (t *TextEntityTypeTextUrl) String() string {
+	if t == nil {
+		return "TextEntityTypeTextUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeTextUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(t.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeTextUrl) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -684,6 +884,21 @@ type TextEntityTypeMentionName struct {
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
 const TextEntityTypeMentionNameTypeID = 0xd0d2685d
+
+// String implements fmt.Stringer.
+func (t *TextEntityTypeMentionName) String() string {
+	if t == nil {
+		return "TextEntityTypeMentionName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntityTypeMentionName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(t.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
@@ -757,6 +972,7 @@ type TextEntityTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() TextEntityTypeClass
+	fmt.Stringer
 }
 
 // DecodeTextEntityType implements binary de-serialization for TextEntityTypeClass.

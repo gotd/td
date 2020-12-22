@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatFull represents TL type `chatFull#1b7c9db3`.
 // Detailed chat info
@@ -67,6 +69,58 @@ type ChatFull struct {
 
 // ChatFullTypeID is TL type id of ChatFull.
 const ChatFullTypeID = 0x1b7c9db3
+
+// String implements fmt.Stringer.
+func (c *ChatFull) String() string {
+	if c == nil {
+		return "ChatFull(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatFull")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAbout: ")
+	sb.WriteString(fmt.Sprint(c.About))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipants: ")
+	sb.WriteString(c.Participants.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tChatPhoto: ")
+		sb.WriteString(c.ChatPhoto.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tNotifySettings: ")
+	sb.WriteString(c.NotifySettings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tExportedInvite: ")
+	sb.WriteString(c.ExportedInvite.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range c.BotInfo {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if c.Flags.Has(6) {
+		sb.WriteString("\tPinnedMsgID: ")
+		sb.WriteString(fmt.Sprint(c.PinnedMsgID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(11) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(c.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatFull) Encode(b *bin.Buffer) error {
@@ -443,6 +497,133 @@ type ChannelFull struct {
 
 // ChannelFullTypeID is TL type id of ChannelFull.
 const ChannelFullTypeID = 0xf0e6672a
+
+// String implements fmt.Stringer.
+func (c *ChannelFull) String() string {
+	if c == nil {
+		return "ChannelFull(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelFull")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(c.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAbout: ")
+	sb.WriteString(fmt.Sprint(c.About))
+	sb.WriteString(",\n")
+	if c.Flags.Has(0) {
+		sb.WriteString("\tParticipantsCount: ")
+		sb.WriteString(fmt.Sprint(c.ParticipantsCount))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(1) {
+		sb.WriteString("\tAdminsCount: ")
+		sb.WriteString(fmt.Sprint(c.AdminsCount))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(2) {
+		sb.WriteString("\tKickedCount: ")
+		sb.WriteString(fmt.Sprint(c.KickedCount))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(2) {
+		sb.WriteString("\tBannedCount: ")
+		sb.WriteString(fmt.Sprint(c.BannedCount))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(13) {
+		sb.WriteString("\tOnlineCount: ")
+		sb.WriteString(fmt.Sprint(c.OnlineCount))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tReadInboxMaxID: ")
+	sb.WriteString(fmt.Sprint(c.ReadInboxMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadOutboxMaxID: ")
+	sb.WriteString(fmt.Sprint(c.ReadOutboxMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadCount: ")
+	sb.WriteString(fmt.Sprint(c.UnreadCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatPhoto: ")
+	sb.WriteString(c.ChatPhoto.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNotifySettings: ")
+	sb.WriteString(c.NotifySettings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tExportedInvite: ")
+	sb.WriteString(c.ExportedInvite.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.BotInfo {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if c.Flags.Has(4) {
+		sb.WriteString("\tMigratedFromChatID: ")
+		sb.WriteString(fmt.Sprint(c.MigratedFromChatID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(4) {
+		sb.WriteString("\tMigratedFromMaxID: ")
+		sb.WriteString(fmt.Sprint(c.MigratedFromMaxID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(5) {
+		sb.WriteString("\tPinnedMsgID: ")
+		sb.WriteString(fmt.Sprint(c.PinnedMsgID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(8) {
+		sb.WriteString("\tStickerset: ")
+		sb.WriteString(c.Stickerset.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(9) {
+		sb.WriteString("\tAvailableMinID: ")
+		sb.WriteString(fmt.Sprint(c.AvailableMinID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(11) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(c.FolderID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(14) {
+		sb.WriteString("\tLinkedChatID: ")
+		sb.WriteString(fmt.Sprint(c.LinkedChatID))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(15) {
+		sb.WriteString("\tLocation: ")
+		sb.WriteString(c.Location.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(17) {
+		sb.WriteString("\tSlowmodeSeconds: ")
+		sb.WriteString(fmt.Sprint(c.SlowmodeSeconds))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(18) {
+		sb.WriteString("\tSlowmodeNextSendDate: ")
+		sb.WriteString(fmt.Sprint(c.SlowmodeNextSendDate))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(12) {
+		sb.WriteString("\tStatsDC: ")
+		sb.WriteString(fmt.Sprint(c.StatsDC))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(c.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelFull) Encode(b *bin.Buffer) error {
@@ -1087,6 +1268,7 @@ type ChatFullClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatFullClass
+	fmt.Stringer
 }
 
 // DecodeChatFull implements binary de-serialization for ChatFullClass.

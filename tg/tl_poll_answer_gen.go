@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PollAnswer represents TL type `pollAnswer#6ca9c2e9`.
 // A possible answer of a poll
@@ -30,6 +32,24 @@ type PollAnswer struct {
 
 // PollAnswerTypeID is TL type id of PollAnswer.
 const PollAnswerTypeID = 0x6ca9c2e9
+
+// String implements fmt.Stringer.
+func (p *PollAnswer) String() string {
+	if p == nil {
+		return "PollAnswer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PollAnswer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(p.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOption: ")
+	sb.WriteString(fmt.Sprint(p.Option))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PollAnswer) Encode(b *bin.Buffer) error {

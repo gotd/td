@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
 // Whether we can see the exact last online timestamp of the user
@@ -23,6 +25,18 @@ type InputPrivacyKeyStatusTimestamp struct {
 
 // InputPrivacyKeyStatusTimestampTypeID is TL type id of InputPrivacyKeyStatusTimestamp.
 const InputPrivacyKeyStatusTimestampTypeID = 0x4f96cb18
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyStatusTimestamp) String() string {
+	if i == nil {
+		return "InputPrivacyKeyStatusTimestamp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyStatusTimestamp")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type InputPrivacyKeyChatInvite struct {
 // InputPrivacyKeyChatInviteTypeID is TL type id of InputPrivacyKeyChatInvite.
 const InputPrivacyKeyChatInviteTypeID = 0xbdfb0426
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyChatInvite) String() string {
+	if i == nil {
+		return "InputPrivacyKeyChatInvite(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyChatInvite")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -106,6 +132,18 @@ type InputPrivacyKeyPhoneCall struct {
 // InputPrivacyKeyPhoneCallTypeID is TL type id of InputPrivacyKeyPhoneCall.
 const InputPrivacyKeyPhoneCallTypeID = 0xfabadc5f
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyPhoneCall) String() string {
+	if i == nil {
+		return "InputPrivacyKeyPhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyPhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -146,6 +184,18 @@ type InputPrivacyKeyPhoneP2P struct {
 
 // InputPrivacyKeyPhoneP2PTypeID is TL type id of InputPrivacyKeyPhoneP2P.
 const InputPrivacyKeyPhoneP2PTypeID = 0xdb9e70d2
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyPhoneP2P) String() string {
+	if i == nil {
+		return "InputPrivacyKeyPhoneP2P(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyPhoneP2P")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
@@ -191,6 +241,18 @@ type InputPrivacyKeyForwards struct {
 // InputPrivacyKeyForwardsTypeID is TL type id of InputPrivacyKeyForwards.
 const InputPrivacyKeyForwardsTypeID = 0xa4dd4c08
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyForwards) String() string {
+	if i == nil {
+		return "InputPrivacyKeyForwards(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyForwards")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyForwards) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -231,6 +293,18 @@ type InputPrivacyKeyProfilePhoto struct {
 
 // InputPrivacyKeyProfilePhotoTypeID is TL type id of InputPrivacyKeyProfilePhoto.
 const InputPrivacyKeyProfilePhotoTypeID = 0x5719bacc
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyProfilePhoto) String() string {
+	if i == nil {
+		return "InputPrivacyKeyProfilePhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyProfilePhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
@@ -273,6 +347,18 @@ type InputPrivacyKeyPhoneNumber struct {
 // InputPrivacyKeyPhoneNumberTypeID is TL type id of InputPrivacyKeyPhoneNumber.
 const InputPrivacyKeyPhoneNumberTypeID = 0x352dafa
 
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyPhoneNumber) String() string {
+	if i == nil {
+		return "InputPrivacyKeyPhoneNumber(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyPhoneNumber")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -313,6 +399,18 @@ type InputPrivacyKeyAddedByPhone struct {
 
 // InputPrivacyKeyAddedByPhoneTypeID is TL type id of InputPrivacyKeyAddedByPhone.
 const InputPrivacyKeyAddedByPhoneTypeID = 0xd1219bdd
+
+// String implements fmt.Stringer.
+func (i *InputPrivacyKeyAddedByPhone) String() string {
+	if i == nil {
+		return "InputPrivacyKeyAddedByPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPrivacyKeyAddedByPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
@@ -369,6 +467,7 @@ type InputPrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPrivacyKeyClass
+	fmt.Stringer
 }
 
 // DecodeInputPrivacyKey implements binary de-serialization for InputPrivacyKeyClass.

@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SMS represents TL type `sms#ed8bebfe`.
 //
@@ -24,6 +26,21 @@ type SMS struct {
 
 // SMSTypeID is TL type id of SMS.
 const SMSTypeID = 0xed8bebfe
+
+// String implements fmt.Stringer.
+func (s *SMS) String() string {
+	if s == nil {
+		return "SMS(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SMS")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(s.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SMS) Encode(b *bin.Buffer) error {

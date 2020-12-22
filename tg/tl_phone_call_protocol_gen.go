@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneCallProtocol represents TL type `phoneCallProtocol#fc878fc8`.
 // Protocol info for libtgvoip
@@ -44,6 +46,32 @@ type PhoneCallProtocol struct {
 
 // PhoneCallProtocolTypeID is TL type id of PhoneCallProtocol.
 const PhoneCallProtocolTypeID = 0xfc878fc8
+
+// String implements fmt.Stringer.
+func (p *PhoneCallProtocol) String() string {
+	if p == nil {
+		return "PhoneCallProtocol(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallProtocol")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMinLayer: ")
+	sb.WriteString(fmt.Sprint(p.MinLayer))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxLayer: ")
+	sb.WriteString(fmt.Sprint(p.MaxLayer))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.LibraryVersions {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {

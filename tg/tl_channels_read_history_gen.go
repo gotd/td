@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsReadHistoryRequest represents TL type `channels.readHistory#cc104937`.
 // Mark channel/supergroup¹ history as read
@@ -33,6 +35,24 @@ type ChannelsReadHistoryRequest struct {
 
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.
 const ChannelsReadHistoryRequestTypeID = 0xcc104937
+
+// String implements fmt.Stringer.
+func (r *ChannelsReadHistoryRequest) String() string {
+	if r == nil {
+		return "ChannelsReadHistoryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsReadHistoryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(r.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(r.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {

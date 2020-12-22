@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputMediaEmpty represents TL type `inputMediaEmpty#9664f57f`.
 // Empty media content of a message.
@@ -23,6 +25,18 @@ type InputMediaEmpty struct {
 
 // InputMediaEmptyTypeID is TL type id of InputMediaEmpty.
 const InputMediaEmptyTypeID = 0x9664f57f
+
+// String implements fmt.Stringer.
+func (i *InputMediaEmpty) String() string {
+	if i == nil {
+		return "InputMediaEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaEmpty) Encode(b *bin.Buffer) error {
@@ -82,6 +96,36 @@ type InputMediaUploadedPhoto struct {
 
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
 const InputMediaUploadedPhotoTypeID = 0x1e287d04
+
+// String implements fmt.Stringer.
+func (i *InputMediaUploadedPhoto) String() string {
+	if i == nil {
+		return "InputMediaUploadedPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaUploadedPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(i.File.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range i.Stickers {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
@@ -220,6 +264,29 @@ type InputMediaPhoto struct {
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
 const InputMediaPhotoTypeID = 0xb3ba0635
 
+// String implements fmt.Stringer.
+func (i *InputMediaPhoto) String() string {
+	if i == nil {
+		return "InputMediaPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -309,6 +376,21 @@ type InputMediaGeoPoint struct {
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
 const InputMediaGeoPointTypeID = 0xf9c44144
 
+// String implements fmt.Stringer.
+func (i *InputMediaGeoPoint) String() string {
+	if i == nil {
+		return "InputMediaGeoPoint(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaGeoPoint")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -370,6 +452,30 @@ type InputMediaContact struct {
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
 const InputMediaContactTypeID = 0xf8ab7dfb
+
+// String implements fmt.Stringer.
+func (i *InputMediaContact) String() string {
+	if i == nil {
+		return "InputMediaContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(i.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(i.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(i.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVcard: ")
+	sb.WriteString(fmt.Sprint(i.Vcard))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaContact) Encode(b *bin.Buffer) error {
@@ -473,6 +579,49 @@ type InputMediaUploadedDocument struct {
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
 const InputMediaUploadedDocumentTypeID = 0x5b38c6c1
+
+// String implements fmt.Stringer.
+func (i *InputMediaUploadedDocument) String() string {
+	if i == nil {
+		return "InputMediaUploadedDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaUploadedDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(i.File.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(i.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(i.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range i.Attributes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if i.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range i.Stickers {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
@@ -691,6 +840,29 @@ type InputMediaDocument struct {
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
 const InputMediaDocumentTypeID = 0x23ab23d2
 
+// String implements fmt.Stringer.
+func (i *InputMediaDocument) String() string {
+	if i == nil {
+		return "InputMediaDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -789,6 +961,36 @@ type InputMediaVenue struct {
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
 const InputMediaVenueTypeID = 0xc13d1c11
+
+// String implements fmt.Stringer.
+func (i *InputMediaVenue) String() string {
+	if i == nil {
+		return "InputMediaVenue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaVenue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(i.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(i.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProvider: ")
+	sb.WriteString(fmt.Sprint(i.Provider))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueID: ")
+	sb.WriteString(fmt.Sprint(i.VenueID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueType: ")
+	sb.WriteString(fmt.Sprint(i.VenueType))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
@@ -895,6 +1097,29 @@ type InputMediaPhotoExternal struct {
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
 const InputMediaPhotoExternalTypeID = 0xe5bbfe1a
 
+// String implements fmt.Stringer.
+func (i *InputMediaPhotoExternal) String() string {
+	if i == nil {
+		return "InputMediaPhotoExternal(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaPhotoExternal")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(i.URL))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -988,6 +1213,29 @@ type InputMediaDocumentExternal struct {
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
 const InputMediaDocumentExternalTypeID = 0xfb52dc99
 
+// String implements fmt.Stringer.
+func (i *InputMediaDocumentExternal) String() string {
+	if i == nil {
+		return "InputMediaDocumentExternal(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaDocumentExternal")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(i.URL))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tTTLSeconds: ")
+		sb.WriteString(fmt.Sprint(i.TTLSeconds))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1072,6 +1320,21 @@ type InputMediaGame struct {
 // InputMediaGameTypeID is TL type id of InputMediaGame.
 const InputMediaGameTypeID = 0xd33f43f3
 
+// String implements fmt.Stringer.
+func (i *InputMediaGame) String() string {
+	if i == nil {
+		return "InputMediaGame(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaGame")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1154,6 +1417,47 @@ type InputMediaInvoice struct {
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
 const InputMediaInvoiceTypeID = 0xf4e096c3
+
+// String implements fmt.Stringer.
+func (i *InputMediaInvoice) String() string {
+	if i == nil {
+		return "InputMediaInvoice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaInvoice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(i.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDescription: ")
+	sb.WriteString(fmt.Sprint(i.Description))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(i.Photo.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tInvoice: ")
+	sb.WriteString(i.Invoice.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPayload: ")
+	sb.WriteString(fmt.Sprint(i.Payload))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProvider: ")
+	sb.WriteString(fmt.Sprint(i.Provider))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProviderData: ")
+	sb.WriteString(i.ProviderData.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tStartParam: ")
+	sb.WriteString(fmt.Sprint(i.StartParam))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
@@ -1314,6 +1618,39 @@ type InputMediaGeoLive struct {
 
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
 const InputMediaGeoLiveTypeID = 0x971fa843
+
+// String implements fmt.Stringer.
+func (i *InputMediaGeoLive) String() string {
+	if i == nil {
+		return "InputMediaGeoLive(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaGeoLive")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tHeading: ")
+		sb.WriteString(fmt.Sprint(i.Heading))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tPeriod: ")
+		sb.WriteString(fmt.Sprint(i.Period))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(3) {
+		sb.WriteString("\tProximityNotificationRadius: ")
+		sb.WriteString(fmt.Sprint(i.ProximityNotificationRadius))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
@@ -1484,6 +1821,43 @@ type InputMediaPoll struct {
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
 const InputMediaPollTypeID = 0xf94e5f1
 
+// String implements fmt.Stringer.
+func (i *InputMediaPoll) String() string {
+	if i == nil {
+		return "InputMediaPoll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaPoll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPoll: ")
+	sb.WriteString(i.Poll.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range i.CorrectAnswers {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tSolution: ")
+		sb.WriteString(fmt.Sprint(i.Solution))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range i.SolutionEntities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1644,6 +2018,21 @@ type InputMediaDice struct {
 // InputMediaDiceTypeID is TL type id of InputMediaDice.
 const InputMediaDiceTypeID = 0xe66fbf7b
 
+// String implements fmt.Stringer.
+func (i *InputMediaDice) String() string {
+	if i == nil {
+		return "InputMediaDice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMediaDice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmoticon: ")
+	sb.WriteString(fmt.Sprint(i.Emoticon))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1714,6 +2103,7 @@ type InputMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputMediaClass
+	fmt.Stringer
 }
 
 // DecodeInputMedia implements binary de-serialization for InputMediaClass.

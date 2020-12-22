@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetScheduledHistoryRequest represents TL type `messages.getScheduledHistory#e2c2685b`.
 // Get scheduled messages
@@ -30,6 +32,24 @@ type MessagesGetScheduledHistoryRequest struct {
 
 // MessagesGetScheduledHistoryRequestTypeID is TL type id of MessagesGetScheduledHistoryRequest.
 const MessagesGetScheduledHistoryRequestTypeID = 0xe2c2685b
+
+// String implements fmt.Stringer.
+func (g *MessagesGetScheduledHistoryRequest) String() string {
+	if g == nil {
+		return "MessagesGetScheduledHistoryRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetScheduledHistoryRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {

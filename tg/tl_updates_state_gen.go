@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesState represents TL type `updates.state#a56c2a3e`.
 // Updates state.
@@ -37,6 +39,33 @@ type UpdatesState struct {
 
 // UpdatesStateTypeID is TL type id of UpdatesState.
 const UpdatesStateTypeID = 0xa56c2a3e
+
+// String implements fmt.Stringer.
+func (s *UpdatesState) String() string {
+	if s == nil {
+		return "UpdatesState(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesState")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(s.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQts: ")
+	sb.WriteString(fmt.Sprint(s.Qts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(s.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeq: ")
+	sb.WriteString(fmt.Sprint(s.Seq))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadCount: ")
+	sb.WriteString(fmt.Sprint(s.UnreadCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *UpdatesState) Encode(b *bin.Buffer) error {

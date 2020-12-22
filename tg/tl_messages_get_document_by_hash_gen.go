@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetDocumentByHashRequest represents TL type `messages.getDocumentByHash#338e2464`.
 // Get a document by its SHA256 hash, mainly used for gifs
@@ -29,6 +31,27 @@ type MessagesGetDocumentByHashRequest struct {
 
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.
 const MessagesGetDocumentByHashRequestTypeID = 0x338e2464
+
+// String implements fmt.Stringer.
+func (g *MessagesGetDocumentByHashRequest) String() string {
+	if g == nil {
+		return "MessagesGetDocumentByHashRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetDocumentByHashRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSha256: ")
+	sb.WriteString(fmt.Sprint(g.Sha256))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(g.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(g.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {

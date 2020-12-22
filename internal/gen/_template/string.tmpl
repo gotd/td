@@ -1,0 +1,54 @@
+{{define "string_derive" }}{{ $s := $ }}
+// String implements fmt.Stringer.
+func ({{ $s.Receiver }} *{{ $s.Name }}) String() string {
+    if {{ $s.Receiver }} == nil {
+        return "{{ $.Name }}(nil)"
+    }
+    var sb strings.Builder
+    sb.WriteString("{{ $.Name }}")
+{{- if $s.Vector }}
+    sb.WriteByte('[')
+    for _, e := range {{ $s.Receiver }}.Elems {
+        sb.WriteString(fmt.Sprint(e) + ",\n")
+    }
+    sb.WriteByte(']')
+{{- else }}
+    sb.WriteString("{\n")
+{{- range $f := $s.Fields }}
+    {{- if not $f.ConditionalBool }}
+    {{- if $f.Conditional }}
+    if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
+    {{- end }}
+    {{- if $f.Vector }}
+    sb.WriteByte('[')
+    for _, {{- if $f.DoubleVector }}row{{else}}v{{end}} := range {{ $s.Receiver }}.{{ $f.Name }} {
+    {{- if $f.DoubleVector }}
+        sb.WriteByte('[')
+        for _, v := range row {
+    {{- end }}
+        sb.WriteString(fmt.Sprint(v))
+    {{- if $f.DoubleVector }}
+        }
+        sb.WriteByte(']')
+    {{- end }}
+    }
+    sb.WriteByte(']')
+    {{- else }}
+    sb.WriteString("\t{{ $f.Name }}: ")
+    {{- if $f.Encoder }}
+    sb.WriteString({{ $s.Receiver }}.{{ $f.Name }}.String())
+    {{- else }}
+    sb.WriteString(fmt.Sprint({{ $s.Receiver }}.{{ $f.Name }}))
+    {{- end }}
+    sb.WriteString(",\n")
+    {{- end }}
+    {{- if $f.Conditional }}
+    }
+    {{- end }}
+    {{- end }}
+{{- end }}
+    sb.WriteString("}")
+{{- end }}
+    return sb.String()
+}
+{{- end }}

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureValueTypePersonalDetails represents TL type `secureValueTypePersonalDetails#9d2a81e3`.
 // Personal details
@@ -23,6 +25,18 @@ type SecureValueTypePersonalDetails struct {
 
 // SecureValueTypePersonalDetailsTypeID is TL type id of SecureValueTypePersonalDetails.
 const SecureValueTypePersonalDetailsTypeID = 0x9d2a81e3
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypePersonalDetails) String() string {
+	if s == nil {
+		return "SecureValueTypePersonalDetails(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypePersonalDetails")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type SecureValueTypePassport struct {
 // SecureValueTypePassportTypeID is TL type id of SecureValueTypePassport.
 const SecureValueTypePassportTypeID = 0x3dac6a00
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypePassport) String() string {
+	if s == nil {
+		return "SecureValueTypePassport(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypePassport")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassport) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -106,6 +132,18 @@ type SecureValueTypeDriverLicense struct {
 // SecureValueTypeDriverLicenseTypeID is TL type id of SecureValueTypeDriverLicense.
 const SecureValueTypeDriverLicenseTypeID = 0x6e425c4
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypeDriverLicense) String() string {
+	if s == nil {
+		return "SecureValueTypeDriverLicense(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeDriverLicense")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -146,6 +184,18 @@ type SecureValueTypeIdentityCard struct {
 
 // SecureValueTypeIdentityCardTypeID is TL type id of SecureValueTypeIdentityCard.
 const SecureValueTypeIdentityCardTypeID = 0xa0d0744b
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypeIdentityCard) String() string {
+	if s == nil {
+		return "SecureValueTypeIdentityCard(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeIdentityCard")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeIdentityCard) Encode(b *bin.Buffer) error {
@@ -191,6 +241,18 @@ type SecureValueTypeInternalPassport struct {
 // SecureValueTypeInternalPassportTypeID is TL type id of SecureValueTypeInternalPassport.
 const SecureValueTypeInternalPassportTypeID = 0x99a48f23
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypeInternalPassport) String() string {
+	if s == nil {
+		return "SecureValueTypeInternalPassport(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeInternalPassport")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -231,6 +293,18 @@ type SecureValueTypeAddress struct {
 
 // SecureValueTypeAddressTypeID is TL type id of SecureValueTypeAddress.
 const SecureValueTypeAddressTypeID = 0xcbe31e26
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypeAddress) String() string {
+	if s == nil {
+		return "SecureValueTypeAddress(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeAddress")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeAddress) Encode(b *bin.Buffer) error {
@@ -273,6 +347,18 @@ type SecureValueTypeUtilityBill struct {
 // SecureValueTypeUtilityBillTypeID is TL type id of SecureValueTypeUtilityBill.
 const SecureValueTypeUtilityBillTypeID = 0xfc36954e
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypeUtilityBill) String() string {
+	if s == nil {
+		return "SecureValueTypeUtilityBill(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeUtilityBill")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -314,6 +400,18 @@ type SecureValueTypeBankStatement struct {
 // SecureValueTypeBankStatementTypeID is TL type id of SecureValueTypeBankStatement.
 const SecureValueTypeBankStatementTypeID = 0x89137c0d
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypeBankStatement) String() string {
+	if s == nil {
+		return "SecureValueTypeBankStatement(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeBankStatement")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -354,6 +452,18 @@ type SecureValueTypeRentalAgreement struct {
 
 // SecureValueTypeRentalAgreementTypeID is TL type id of SecureValueTypeRentalAgreement.
 const SecureValueTypeRentalAgreementTypeID = 0x8b883488
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypeRentalAgreement) String() string {
+	if s == nil {
+		return "SecureValueTypeRentalAgreement(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeRentalAgreement")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeRentalAgreement) Encode(b *bin.Buffer) error {
@@ -399,6 +509,18 @@ type SecureValueTypePassportRegistration struct {
 // SecureValueTypePassportRegistrationTypeID is TL type id of SecureValueTypePassportRegistration.
 const SecureValueTypePassportRegistrationTypeID = 0x99e3806a
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypePassportRegistration) String() string {
+	if s == nil {
+		return "SecureValueTypePassportRegistration(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypePassportRegistration")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -439,6 +561,18 @@ type SecureValueTypeTemporaryRegistration struct {
 
 // SecureValueTypeTemporaryRegistrationTypeID is TL type id of SecureValueTypeTemporaryRegistration.
 const SecureValueTypeTemporaryRegistrationTypeID = 0xea02ec33
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypeTemporaryRegistration) String() string {
+	if s == nil {
+		return "SecureValueTypeTemporaryRegistration(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeTemporaryRegistration")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeTemporaryRegistration) Encode(b *bin.Buffer) error {
@@ -481,6 +615,18 @@ type SecureValueTypePhone struct {
 // SecureValueTypePhoneTypeID is TL type id of SecureValueTypePhone.
 const SecureValueTypePhoneTypeID = 0xb320aadb
 
+// String implements fmt.Stringer.
+func (s *SecureValueTypePhone) String() string {
+	if s == nil {
+		return "SecureValueTypePhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypePhone")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -521,6 +667,18 @@ type SecureValueTypeEmail struct {
 
 // SecureValueTypeEmailTypeID is TL type id of SecureValueTypeEmail.
 const SecureValueTypeEmailTypeID = 0x8e3ca7ee
+
+// String implements fmt.Stringer.
+func (s *SecureValueTypeEmail) String() string {
+	if s == nil {
+		return "SecureValueTypeEmail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueTypeEmail")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeEmail) Encode(b *bin.Buffer) error {
@@ -582,6 +740,7 @@ type SecureValueTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureValueTypeClass
+	fmt.Stringer
 }
 
 // DecodeSecureValueType implements binary de-serialization for SecureValueTypeClass.

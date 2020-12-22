@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesMessageEditData represents TL type `messages.messageEditData#26b5dde6`.
 // Message edit data for media
@@ -30,6 +32,21 @@ type MessagesMessageEditData struct {
 
 // MessagesMessageEditDataTypeID is TL type id of MessagesMessageEditData.
 const MessagesMessageEditDataTypeID = 0x26b5dde6
+
+// String implements fmt.Stringer.
+func (m *MessagesMessageEditData) String() string {
+	if m == nil {
+		return "MessagesMessageEditData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMessageEditData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {

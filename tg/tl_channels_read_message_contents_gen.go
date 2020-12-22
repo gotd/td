@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsReadMessageContentsRequest represents TL type `channels.readMessageContents#eab5dc38`.
 // Mark channel/supergroup¹ message contents as read
@@ -33,6 +35,26 @@ type ChannelsReadMessageContentsRequest struct {
 
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.
 const ChannelsReadMessageContentsRequestTypeID = 0xeab5dc38
+
+// String implements fmt.Stringer.
+func (r *ChannelsReadMessageContentsRequest) String() string {
+	if r == nil {
+		return "ChannelsReadMessageContentsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsReadMessageContentsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(r.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ChannelsReadMessageContentsRequest) Encode(b *bin.Buffer) error {

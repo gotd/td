@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthCancelCodeRequest represents TL type `auth.cancelCode#1f040578`.
 // Cancel the login verification code
@@ -30,6 +32,24 @@ type AuthCancelCodeRequest struct {
 
 // AuthCancelCodeRequestTypeID is TL type id of AuthCancelCodeRequest.
 const AuthCancelCodeRequestTypeID = 0x1f040578
+
+// String implements fmt.Stringer.
+func (c *AuthCancelCodeRequest) String() string {
+	if c == nil {
+		return "AuthCancelCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthCancelCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(c.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(c.PhoneCodeHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AuthCancelCodeRequest) Encode(b *bin.Buffer) error {

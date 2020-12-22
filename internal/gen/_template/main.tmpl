@@ -35,6 +35,8 @@ type {{ $s.Name }} struct {
 const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
 {{- end }}
 
+{{template "string_derive" $s }}
+
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
     if {{ $s.Receiver }} == nil {
@@ -299,6 +301,7 @@ type {{ $f.Name }} interface {
     bin.Encoder
     bin.Decoder
     construct() {{ $f.Name }}
+    fmt.Stringer
 }
 
 // Decode{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.

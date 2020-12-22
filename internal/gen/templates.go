@@ -18,11 +18,9 @@ func Template() *template.Template {
 			return x + y
 		},
 	})
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/utils.tmpl"))))
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/header.tmpl"))))
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/registry.tmpl"))))
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/client.tmpl"))))
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/main.tmpl"))))
-	tmpl = template.Must(tmpl.Parse(string(internal.MustAsset("_template/handlers.tmpl"))))
+	for _, assetName := range internal.AssetNames() {
+		tmpl = template.Must(tmpl.Parse(string(internal.MustAsset(assetName))))
+	}
+
 	return tmpl
 }

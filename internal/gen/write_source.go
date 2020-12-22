@@ -2,11 +2,12 @@ package gen
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"os"
 	"strings"
 	"text/template"
+
+	"golang.org/x/xerrors"
 )
 
 // config is input data for templates.
@@ -38,18 +39,33 @@ func outFileName(baseName string, namespace []string) string {
 	return s.String()
 }
 
+func (g *Generator) hasUpdateClass() bool {
+	for _, s := range g.structs {
+		if s.Interface == "UpdateClass" {
+			return true
+		}
+	}
+	return false
+}
+
 // WriteSource writes generated definitions to fs.
 func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Template) error {
 	buf := new(bytes.Buffer)
+	wrote := make(map[string]bool)
 	generate := func(templateName, name string, cfg config) error {
+		if wrote[name] {
+			return xerrors.Errorf("name collision (already wrote %s)", name)
+		}
+
 		buf.Reset()
 		if err := t.ExecuteTemplate(buf, templateName, cfg); err != nil {
-			return fmt.Errorf("failed to execute template '%s' for %s: %w", templateName, name, err)
+			return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, name, err)
 		}
 		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
 			_, _ = io.Copy(os.Stderr, buf)
-			return fmt.Errorf("failed to write file %s: %w", name, err)
+			return xerrors.Errorf("failed to write file %s: %w", name, err)
 		}
+		wrote[name] = true
 
 		return nil
 	}
@@ -79,31 +95,26 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 			Structs: []structDef{s},
 		}
 		name := outFileName(s.BaseName, s.Namespace)
+		if wrote[name] {
+			// Name collision.
+			name = outFileName(s.BaseName+"_const", s.Namespace)
+		}
 		if err := generate("main", name, cfg); err != nil {
 			return err
 		}
 	}
 
-	cfg := config{
-		Package: pkgName,
-		Structs: g.structs,
-	}
-
-	haveUpdateClass := false
-	for _, s := range cfg.Structs {
-		if s.Interface == "UpdateClass" {
-			haveUpdateClass = true
-			break
+	if g.hasUpdateClass() {
+		cfg := config{
+			Package: pkgName,
+			Structs: g.structs,
 		}
-	}
-
-	if haveUpdateClass {
 		if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
 			return err
 		}
 	}
 
-	cfg = config{
+	cfg := config{
 		Package:  pkgName,
 		Registry: g.registry,
 	}

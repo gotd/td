@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsLeaveChannelRequest represents TL type `channels.leaveChannel#f836aa95`.
 // Leave a channel/supergroup¹
@@ -31,6 +33,21 @@ type ChannelsLeaveChannelRequest struct {
 
 // ChannelsLeaveChannelRequestTypeID is TL type id of ChannelsLeaveChannelRequest.
 const ChannelsLeaveChannelRequestTypeID = 0xf836aa95
+
+// String implements fmt.Stringer.
+func (l *ChannelsLeaveChannelRequest) String() string {
+	if l == nil {
+		return "ChannelsLeaveChannelRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsLeaveChannelRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(l.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {

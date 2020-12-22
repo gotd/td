@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountResetWallPapersRequest represents TL type `account.resetWallPapers#bb3b9804`.
 // Delete installed wallpapers
@@ -23,6 +25,18 @@ type AccountResetWallPapersRequest struct {
 
 // AccountResetWallPapersRequestTypeID is TL type id of AccountResetWallPapersRequest.
 const AccountResetWallPapersRequestTypeID = 0xbb3b9804
+
+// String implements fmt.Stringer.
+func (r *AccountResetWallPapersRequest) String() string {
+	if r == nil {
+		return "AccountResetWallPapersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountResetWallPapersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountResetWallPapersRequest) Encode(b *bin.Buffer) error {

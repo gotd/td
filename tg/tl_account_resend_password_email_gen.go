@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountResendPasswordEmailRequest represents TL type `account.resendPasswordEmail#7a7f2a15`.
 // Resend the code to verify an email to use as 2FA recovery method¹.
@@ -26,6 +28,18 @@ type AccountResendPasswordEmailRequest struct {
 
 // AccountResendPasswordEmailRequestTypeID is TL type id of AccountResendPasswordEmailRequest.
 const AccountResendPasswordEmailRequestTypeID = 0x7a7f2a15
+
+// String implements fmt.Stringer.
+func (r *AccountResendPasswordEmailRequest) String() string {
+	if r == nil {
+		return "AccountResendPasswordEmailRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountResendPasswordEmailRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {

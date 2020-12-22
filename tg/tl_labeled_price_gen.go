@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LabeledPrice represents TL type `labeledPrice#cb296bf8`.
 // This object represents a portion of the price for goods or services.
@@ -30,6 +32,24 @@ type LabeledPrice struct {
 
 // LabeledPriceTypeID is TL type id of LabeledPrice.
 const LabeledPriceTypeID = 0xcb296bf8
+
+// String implements fmt.Stringer.
+func (l *LabeledPrice) String() string {
+	if l == nil {
+		return "LabeledPrice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LabeledPrice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLabel: ")
+	sb.WriteString(fmt.Sprint(l.Label))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAmount: ")
+	sb.WriteString(fmt.Sprint(l.Amount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *LabeledPrice) Encode(b *bin.Buffer) error {

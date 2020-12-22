@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsGetMessageStatsRequest represents TL type `stats.getMessageStats#b6e0a3f5`.
 // Get message statistics¹
@@ -37,6 +39,27 @@ type StatsGetMessageStatsRequest struct {
 
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.
 const StatsGetMessageStatsRequestTypeID = 0xb6e0a3f5
+
+// String implements fmt.Stringer.
+func (g *StatsGetMessageStatsRequest) String() string {
+	if g == nil {
+		return "StatsGetMessageStatsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsGetMessageStatsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(g.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *StatsGetMessageStatsRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPhotoEmpty represents TL type `inputPhotoEmpty#1cd7bf0d`.
 // Empty constructor.
@@ -23,6 +25,18 @@ type InputPhotoEmpty struct {
 
 // InputPhotoEmptyTypeID is TL type id of InputPhotoEmpty.
 const InputPhotoEmptyTypeID = 0x1cd7bf0d
+
+// String implements fmt.Stringer.
+func (i *InputPhotoEmpty) String() string {
+	if i == nil {
+		return "InputPhotoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhotoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
@@ -76,6 +90,27 @@ type InputPhoto struct {
 
 // InputPhotoTypeID is TL type id of InputPhoto.
 const InputPhotoTypeID = 0x3bb3b94a
+
+// String implements fmt.Stringer.
+func (i *InputPhoto) String() string {
+	if i == nil {
+		return "InputPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileReference: ")
+	sb.WriteString(fmt.Sprint(i.FileReference))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhoto) Encode(b *bin.Buffer) error {
@@ -150,6 +185,7 @@ type InputPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPhotoClass
+	fmt.Stringer
 }
 
 // DecodeInputPhoto implements binary de-serialization for InputPhotoClass.

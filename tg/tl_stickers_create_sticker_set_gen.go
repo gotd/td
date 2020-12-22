@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickersCreateStickerSetRequest represents TL type `stickers.createStickerSet#f1036780`.
 // Create a stickerset, bots only.
@@ -44,6 +46,40 @@ type StickersCreateStickerSetRequest struct {
 
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.
 const StickersCreateStickerSetRequestTypeID = 0xf1036780
+
+// String implements fmt.Stringer.
+func (c *StickersCreateStickerSetRequest) String() string {
+	if c == nil {
+		return "StickersCreateStickerSetRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickersCreateStickerSetRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(c.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(c.ShortName))
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(c.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range c.Stickers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {

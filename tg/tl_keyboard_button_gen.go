@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // KeyboardButton represents TL type `keyboardButton#a2fa4880`.
 // Bot keyboard button
@@ -25,6 +27,21 @@ type KeyboardButton struct {
 
 // KeyboardButtonTypeID is TL type id of KeyboardButton.
 const KeyboardButtonTypeID = 0xa2fa4880
+
+// String implements fmt.Stringer.
+func (k *KeyboardButton) String() string {
+	if k == nil {
+		return "KeyboardButton(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButton")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButton) Encode(b *bin.Buffer) error {
@@ -78,6 +95,24 @@ type KeyboardButtonUrl struct {
 
 // KeyboardButtonUrlTypeID is TL type id of KeyboardButtonUrl.
 const KeyboardButtonUrlTypeID = 0x258aff05
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonUrl) String() string {
+	if k == nil {
+		return "KeyboardButtonUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(k.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonUrl) Encode(b *bin.Buffer) error {
@@ -152,6 +187,27 @@ type KeyboardButtonCallback struct {
 
 // KeyboardButtonCallbackTypeID is TL type id of KeyboardButtonCallback.
 const KeyboardButtonCallbackTypeID = 0x35bbdb6b
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonCallback) String() string {
+	if k == nil {
+		return "KeyboardButtonCallback(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonCallback")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(k.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(k.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
@@ -230,6 +286,21 @@ type KeyboardButtonRequestPhone struct {
 // KeyboardButtonRequestPhoneTypeID is TL type id of KeyboardButtonRequestPhone.
 const KeyboardButtonRequestPhoneTypeID = 0xb16a6c29
 
+// String implements fmt.Stringer.
+func (k *KeyboardButtonRequestPhone) String() string {
+	if k == nil {
+		return "KeyboardButtonRequestPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonRequestPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -280,6 +351,21 @@ type KeyboardButtonRequestGeoLocation struct {
 
 // KeyboardButtonRequestGeoLocationTypeID is TL type id of KeyboardButtonRequestGeoLocation.
 const KeyboardButtonRequestGeoLocationTypeID = 0xfc796b3f
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonRequestGeoLocation) String() string {
+	if k == nil {
+		return "KeyboardButtonRequestGeoLocation(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonRequestGeoLocation")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
@@ -340,6 +426,27 @@ type KeyboardButtonSwitchInline struct {
 
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
 const KeyboardButtonSwitchInlineTypeID = 0x568a748
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonSwitchInline) String() string {
+	if k == nil {
+		return "KeyboardButtonSwitchInline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonSwitchInline")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(k.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQuery: ")
+	sb.WriteString(fmt.Sprint(k.Query))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
@@ -418,6 +525,21 @@ type KeyboardButtonGame struct {
 // KeyboardButtonGameTypeID is TL type id of KeyboardButtonGame.
 const KeyboardButtonGameTypeID = 0x50f41ccf
 
+// String implements fmt.Stringer.
+func (k *KeyboardButtonGame) String() string {
+	if k == nil {
+		return "KeyboardButtonGame(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonGame")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -468,6 +590,21 @@ type KeyboardButtonBuy struct {
 
 // KeyboardButtonBuyTypeID is TL type id of KeyboardButtonBuy.
 const KeyboardButtonBuyTypeID = 0xafd93fbb
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonBuy) String() string {
+	if k == nil {
+		return "KeyboardButtonBuy(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonBuy")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
@@ -547,6 +684,35 @@ type KeyboardButtonUrlAuth struct {
 
 // KeyboardButtonUrlAuthTypeID is TL type id of KeyboardButtonUrlAuth.
 const KeyboardButtonUrlAuthTypeID = 0x10b78d29
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonUrlAuth) String() string {
+	if k == nil {
+		return "KeyboardButtonUrlAuth(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonUrlAuth")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(k.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	if k.Flags.Has(0) {
+		sb.WriteString("\tFwdText: ")
+		sb.WriteString(fmt.Sprint(k.FwdText))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(k.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tButtonID: ")
+	sb.WriteString(fmt.Sprint(k.ButtonID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
@@ -675,6 +841,35 @@ type InputKeyboardButtonUrlAuth struct {
 // InputKeyboardButtonUrlAuthTypeID is TL type id of InputKeyboardButtonUrlAuth.
 const InputKeyboardButtonUrlAuthTypeID = 0xd02e7fd4
 
+// String implements fmt.Stringer.
+func (i *InputKeyboardButtonUrlAuth) String() string {
+	if i == nil {
+		return "InputKeyboardButtonUrlAuth(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputKeyboardButtonUrlAuth")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(i.Text))
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteString("\tFwdText: ")
+		sb.WriteString(fmt.Sprint(i.FwdText))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(i.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBot: ")
+	sb.WriteString(i.Bot.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -797,6 +992,24 @@ type KeyboardButtonRequestPoll struct {
 // KeyboardButtonRequestPollTypeID is TL type id of KeyboardButtonRequestPoll.
 const KeyboardButtonRequestPollTypeID = 0xbbc7515d
 
+// String implements fmt.Stringer.
+func (k *KeyboardButtonRequestPoll) String() string {
+	if k == nil {
+		return "KeyboardButtonRequestPoll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonRequestPoll")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(k.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(k.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -881,6 +1094,7 @@ type KeyboardButtonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() KeyboardButtonClass
+	fmt.Stringer
 }
 
 // DecodeKeyboardButton implements binary de-serialization for KeyboardButtonClass.

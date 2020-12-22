@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsPaymentReceipt represents TL type `payments.paymentReceipt#500911e1`.
 // Receipt
@@ -58,6 +60,57 @@ type PaymentsPaymentReceipt struct {
 
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
 const PaymentsPaymentReceiptTypeID = 0x500911e1
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentReceipt) String() string {
+	if p == nil {
+		return "PaymentsPaymentReceipt(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsPaymentReceipt")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(fmt.Sprint(p.BotID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInvoice: ")
+	sb.WriteString(p.Invoice.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tProviderID: ")
+	sb.WriteString(fmt.Sprint(p.ProviderID))
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tInfo: ")
+		sb.WriteString(p.Info.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tShipping: ")
+		sb.WriteString(p.Shipping.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCurrency: ")
+	sb.WriteString(fmt.Sprint(p.Currency))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotalAmount: ")
+	sb.WriteString(fmt.Sprint(p.TotalAmount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCredentialsTitle: ")
+	sb.WriteString(fmt.Sprint(p.CredentialsTitle))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {

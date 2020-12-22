@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SendMultipleSMSRequest represents TL type `sendMultipleSMS#df18e5ca`.
 //
@@ -24,6 +26,23 @@ type SendMultipleSMSRequest struct {
 
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
 const SendMultipleSMSRequestTypeID = 0xdf18e5ca
+
+// String implements fmt.Stringer.
+func (s *SendMultipleSMSRequest) String() string {
+	if s == nil {
+		return "SendMultipleSMSRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMultipleSMSRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range s.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {

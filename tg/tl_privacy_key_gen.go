@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PrivacyKeyStatusTimestamp represents TL type `privacyKeyStatusTimestamp#bc2eab30`.
 // Whether we can see the last online timestamp
@@ -23,6 +25,18 @@ type PrivacyKeyStatusTimestamp struct {
 
 // PrivacyKeyStatusTimestampTypeID is TL type id of PrivacyKeyStatusTimestamp.
 const PrivacyKeyStatusTimestampTypeID = 0xbc2eab30
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyStatusTimestamp) String() string {
+	if p == nil {
+		return "PrivacyKeyStatusTimestamp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyStatusTimestamp")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type PrivacyKeyChatInvite struct {
 // PrivacyKeyChatInviteTypeID is TL type id of PrivacyKeyChatInvite.
 const PrivacyKeyChatInviteTypeID = 0x500e6dfa
 
+// String implements fmt.Stringer.
+func (p *PrivacyKeyChatInvite) String() string {
+	if p == nil {
+		return "PrivacyKeyChatInvite(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyChatInvite")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -106,6 +132,18 @@ type PrivacyKeyPhoneCall struct {
 // PrivacyKeyPhoneCallTypeID is TL type id of PrivacyKeyPhoneCall.
 const PrivacyKeyPhoneCallTypeID = 0x3d662b7b
 
+// String implements fmt.Stringer.
+func (p *PrivacyKeyPhoneCall) String() string {
+	if p == nil {
+		return "PrivacyKeyPhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyPhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -146,6 +184,18 @@ type PrivacyKeyPhoneP2P struct {
 
 // PrivacyKeyPhoneP2PTypeID is TL type id of PrivacyKeyPhoneP2P.
 const PrivacyKeyPhoneP2PTypeID = 0x39491cc8
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyPhoneP2P) String() string {
+	if p == nil {
+		return "PrivacyKeyPhoneP2P(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyPhoneP2P")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
@@ -191,6 +241,18 @@ type PrivacyKeyForwards struct {
 // PrivacyKeyForwardsTypeID is TL type id of PrivacyKeyForwards.
 const PrivacyKeyForwardsTypeID = 0x69ec56a3
 
+// String implements fmt.Stringer.
+func (p *PrivacyKeyForwards) String() string {
+	if p == nil {
+		return "PrivacyKeyForwards(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyForwards")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyForwards) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -231,6 +293,18 @@ type PrivacyKeyProfilePhoto struct {
 
 // PrivacyKeyProfilePhotoTypeID is TL type id of PrivacyKeyProfilePhoto.
 const PrivacyKeyProfilePhotoTypeID = 0x96151fed
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyProfilePhoto) String() string {
+	if p == nil {
+		return "PrivacyKeyProfilePhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyProfilePhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
@@ -273,6 +347,18 @@ type PrivacyKeyPhoneNumber struct {
 // PrivacyKeyPhoneNumberTypeID is TL type id of PrivacyKeyPhoneNumber.
 const PrivacyKeyPhoneNumberTypeID = 0xd19ae46d
 
+// String implements fmt.Stringer.
+func (p *PrivacyKeyPhoneNumber) String() string {
+	if p == nil {
+		return "PrivacyKeyPhoneNumber(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyPhoneNumber")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -313,6 +399,18 @@ type PrivacyKeyAddedByPhone struct {
 
 // PrivacyKeyAddedByPhoneTypeID is TL type id of PrivacyKeyAddedByPhone.
 const PrivacyKeyAddedByPhoneTypeID = 0x42ffd42b
+
+// String implements fmt.Stringer.
+func (p *PrivacyKeyAddedByPhone) String() string {
+	if p == nil {
+		return "PrivacyKeyAddedByPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyKeyAddedByPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
@@ -369,6 +467,7 @@ type PrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PrivacyKeyClass
+	fmt.Stringer
 }
 
 // DecodePrivacyKey implements binary de-serialization for PrivacyKeyClass.

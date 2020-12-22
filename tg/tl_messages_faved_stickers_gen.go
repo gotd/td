@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesFavedStickersNotModified represents TL type `messages.favedStickersNotModified#9e8fa6d3`.
 // No new favorited stickers were found
@@ -23,6 +25,18 @@ type MessagesFavedStickersNotModified struct {
 
 // MessagesFavedStickersNotModifiedTypeID is TL type id of MessagesFavedStickersNotModified.
 const MessagesFavedStickersNotModifiedTypeID = 0x9e8fa6d3
+
+// String implements fmt.Stringer.
+func (f *MessagesFavedStickersNotModified) String() string {
+	if f == nil {
+		return "MessagesFavedStickersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFavedStickersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFavedStickersNotModified) Encode(b *bin.Buffer) error {
@@ -73,6 +87,31 @@ type MessagesFavedStickers struct {
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.
 const MessagesFavedStickersTypeID = 0xf37f2f16
+
+// String implements fmt.Stringer.
+func (f *MessagesFavedStickers) String() string {
+	if f == nil {
+		return "MessagesFavedStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFavedStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(f.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range f.Packs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.Stickers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFavedStickers) Encode(b *bin.Buffer) error {
@@ -172,6 +211,7 @@ type MessagesFavedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFavedStickersClass
+	fmt.Stringer
 }
 
 // DecodeMessagesFavedStickers implements binary de-serialization for MessagesFavedStickersClass.

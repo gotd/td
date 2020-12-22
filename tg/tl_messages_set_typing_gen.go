@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
 // Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
@@ -45,6 +47,32 @@ type MessagesSetTypingRequest struct {
 
 // MessagesSetTypingRequestTypeID is TL type id of MessagesSetTypingRequest.
 const MessagesSetTypingRequestTypeID = 0x58943ee2
+
+// String implements fmt.Stringer.
+func (s *MessagesSetTypingRequest) String() string {
+	if s == nil {
+		return "MessagesSetTypingRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetTypingRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tTopMsgID: ")
+		sb.WriteString(fmt.Sprint(s.TopMsgID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tAction: ")
+	sb.WriteString(s.Action.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {

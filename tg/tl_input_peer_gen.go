@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPeerEmpty represents TL type `inputPeerEmpty#7f3b18ea`.
 // An empty constructor, no user or chat is defined.
@@ -23,6 +25,18 @@ type InputPeerEmpty struct {
 
 // InputPeerEmptyTypeID is TL type id of InputPeerEmpty.
 const InputPeerEmptyTypeID = 0x7f3b18ea
+
+// String implements fmt.Stringer.
+func (i *InputPeerEmpty) String() string {
+	if i == nil {
+		return "InputPeerEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerEmpty) Encode(b *bin.Buffer) error {
@@ -64,6 +78,18 @@ type InputPeerSelf struct {
 
 // InputPeerSelfTypeID is TL type id of InputPeerSelf.
 const InputPeerSelfTypeID = 0x7da07ec9
+
+// String implements fmt.Stringer.
+func (i *InputPeerSelf) String() string {
+	if i == nil {
+		return "InputPeerSelf(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerSelf")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerSelf) Encode(b *bin.Buffer) error {
@@ -107,6 +133,21 @@ type InputPeerChat struct {
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
 const InputPeerChatTypeID = 0x179be863
+
+// String implements fmt.Stringer.
+func (i *InputPeerChat) String() string {
+	if i == nil {
+		return "InputPeerChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(i.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerChat) Encode(b *bin.Buffer) error {
@@ -163,6 +204,24 @@ type InputPeerUser struct {
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
 const InputPeerUserTypeID = 0x7b8e7de6
+
+// String implements fmt.Stringer.
+func (i *InputPeerUser) String() string {
+	if i == nil {
+		return "InputPeerUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerUser")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(i.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerUser) Encode(b *bin.Buffer) error {
@@ -227,6 +286,24 @@ type InputPeerChannel struct {
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
 const InputPeerChannelTypeID = 0x20adaef8
+
+// String implements fmt.Stringer.
+func (i *InputPeerChannel) String() string {
+	if i == nil {
+		return "InputPeerChannel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerChannel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(i.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerChannel) Encode(b *bin.Buffer) error {
@@ -293,6 +370,27 @@ type InputPeerUserFromMessage struct {
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
 const InputPeerUserFromMessageTypeID = 0x17bae2e6
+
+// String implements fmt.Stringer.
+func (i *InputPeerUserFromMessage) String() string {
+	if i == nil {
+		return "InputPeerUserFromMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerUserFromMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(i.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(i.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerUserFromMessage) Encode(b *bin.Buffer) error {
@@ -372,6 +470,27 @@ type InputPeerChannelFromMessage struct {
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.
 const InputPeerChannelFromMessageTypeID = 0x9c95f7bb
+
+// String implements fmt.Stringer.
+func (i *InputPeerChannelFromMessage) String() string {
+	if i == nil {
+		return "InputPeerChannelFromMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPeerChannelFromMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(i.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelID: ")
+	sb.WriteString(fmt.Sprint(i.ChannelID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPeerChannelFromMessage) Encode(b *bin.Buffer) error {
@@ -456,6 +575,7 @@ type InputPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPeerClass
+	fmt.Stringer
 }
 
 // DecodeInputPeer implements binary de-serialization for InputPeerClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
 // Channel statistics¹.
@@ -56,6 +58,65 @@ type StatsBroadcastStats struct {
 
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
 const StatsBroadcastStatsTypeID = 0xbdf78394
+
+// String implements fmt.Stringer.
+func (b *StatsBroadcastStats) String() string {
+	if b == nil {
+		return "StatsBroadcastStats(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsBroadcastStats")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeriod: ")
+	sb.WriteString(b.Period.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFollowers: ")
+	sb.WriteString(b.Followers.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tViewsPerPost: ")
+	sb.WriteString(b.ViewsPerPost.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSharesPerPost: ")
+	sb.WriteString(b.SharesPerPost.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tEnabledNotifications: ")
+	sb.WriteString(b.EnabledNotifications.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGrowthGraph: ")
+	sb.WriteString(b.GrowthGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFollowersGraph: ")
+	sb.WriteString(b.FollowersGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMuteGraph: ")
+	sb.WriteString(b.MuteGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopHoursGraph: ")
+	sb.WriteString(b.TopHoursGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tInteractionsGraph: ")
+	sb.WriteString(b.InteractionsGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tIvInteractionsGraph: ")
+	sb.WriteString(b.IvInteractionsGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tViewsBySourceGraph: ")
+	sb.WriteString(b.ViewsBySourceGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tNewFollowersBySourceGraph: ")
+	sb.WriteString(b.NewFollowersBySourceGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLanguagesGraph: ")
+	sb.WriteString(b.LanguagesGraph.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range b.RecentMessageInteractions {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *StatsBroadcastStats) Encode(buf *bin.Buffer) error {

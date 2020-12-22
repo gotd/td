@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountRegisterDeviceRequest represents TL type `account.registerDevice#68976c6f`.
 // Register device to receive PUSH notifications¹
@@ -49,6 +51,38 @@ type AccountRegisterDeviceRequest struct {
 
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
 const AccountRegisterDeviceRequestTypeID = 0x68976c6f
+
+// String implements fmt.Stringer.
+func (r *AccountRegisterDeviceRequest) String() string {
+	if r == nil {
+		return "AccountRegisterDeviceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountRegisterDeviceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTokenType: ")
+	sb.WriteString(fmt.Sprint(r.TokenType))
+	sb.WriteString(",\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(r.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAppSandbox: ")
+	sb.WriteString(fmt.Sprint(r.AppSandbox))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(r.Secret))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.OtherUids {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {

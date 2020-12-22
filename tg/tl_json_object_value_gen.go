@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // JsonObjectValue represents TL type `jsonObjectValue#c0de1bd9`.
 // JSON key: value pair
@@ -27,6 +29,24 @@ type JsonObjectValue struct {
 
 // JsonObjectValueTypeID is TL type id of JsonObjectValue.
 const JsonObjectValueTypeID = 0xc0de1bd9
+
+// String implements fmt.Stringer.
+func (j *JsonObjectValue) String() string {
+	if j == nil {
+		return "JsonObjectValue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonObjectValue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKey: ")
+	sb.WriteString(fmt.Sprint(j.Key))
+	sb.WriteString(",\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(j.Value.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (j *JsonObjectValue) Encode(b *bin.Buffer) error {

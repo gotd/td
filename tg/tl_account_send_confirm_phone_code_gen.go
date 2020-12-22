@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSendConfirmPhoneCodeRequest represents TL type `account.sendConfirmPhoneCode#1b3faa88`.
 // Send confirmation code to cancel account deletion, for more info click here »¹
@@ -33,6 +35,24 @@ type AccountSendConfirmPhoneCodeRequest struct {
 
 // AccountSendConfirmPhoneCodeRequestTypeID is TL type id of AccountSendConfirmPhoneCodeRequest.
 const AccountSendConfirmPhoneCodeRequestTypeID = 0x1b3faa88
+
+// String implements fmt.Stringer.
+func (s *AccountSendConfirmPhoneCodeRequest) String() string {
+	if s == nil {
+		return "AccountSendConfirmPhoneCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSendConfirmPhoneCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSettings: ")
+	sb.WriteString(s.Settings.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSendConfirmPhoneCodeRequest) Encode(b *bin.Buffer) error {

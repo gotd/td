@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a9e69f2e`.
 // Make a user admin in a legacy group¹.
@@ -32,6 +34,27 @@ type MessagesEditChatAdminRequest struct {
 
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.
 const MessagesEditChatAdminRequestTypeID = 0xa9e69f2e
+
+// String implements fmt.Stringer.
+func (e *MessagesEditChatAdminRequest) String() string {
+	if e == nil {
+		return "MessagesEditChatAdminRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesEditChatAdminRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(e.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(e.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tIsAdmin: ")
+	sb.WriteString(fmt.Sprint(e.IsAdmin))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {

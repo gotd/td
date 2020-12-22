@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Config represents TL type `config#330b4067`.
 //
@@ -144,6 +146,173 @@ type Config struct {
 
 // ConfigTypeID is TL type id of Config.
 const ConfigTypeID = 0x330b4067
+
+// String implements fmt.Stringer.
+func (c *Config) String() string {
+	if c == nil {
+		return "Config(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Config")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(c.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTestMode: ")
+	sb.WriteString(fmt.Sprint(c.TestMode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tThisDC: ")
+	sb.WriteString(fmt.Sprint(c.ThisDC))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.DCOptions {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tDCTxtDomainName: ")
+	sb.WriteString(fmt.Sprint(c.DCTxtDomainName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChatSizeMax: ")
+	sb.WriteString(fmt.Sprint(c.ChatSizeMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMegagroupSizeMax: ")
+	sb.WriteString(fmt.Sprint(c.MegagroupSizeMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tForwardedCountMax: ")
+	sb.WriteString(fmt.Sprint(c.ForwardedCountMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOnlineUpdatePeriodMs: ")
+	sb.WriteString(fmt.Sprint(c.OnlineUpdatePeriodMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOfflineBlurTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.OfflineBlurTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOfflineIdleTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.OfflineIdleTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOnlineCloudTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.OnlineCloudTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNotifyCloudDelayMs: ")
+	sb.WriteString(fmt.Sprint(c.NotifyCloudDelayMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNotifyDefaultDelayMs: ")
+	sb.WriteString(fmt.Sprint(c.NotifyDefaultDelayMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPushChatPeriodMs: ")
+	sb.WriteString(fmt.Sprint(c.PushChatPeriodMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPushChatLimit: ")
+	sb.WriteString(fmt.Sprint(c.PushChatLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSavedGifsLimit: ")
+	sb.WriteString(fmt.Sprint(c.SavedGifsLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEditTimeLimit: ")
+	sb.WriteString(fmt.Sprint(c.EditTimeLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRevokeTimeLimit: ")
+	sb.WriteString(fmt.Sprint(c.RevokeTimeLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRevokePmTimeLimit: ")
+	sb.WriteString(fmt.Sprint(c.RevokePmTimeLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRatingEDecay: ")
+	sb.WriteString(fmt.Sprint(c.RatingEDecay))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStickersRecentLimit: ")
+	sb.WriteString(fmt.Sprint(c.StickersRecentLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tStickersFavedLimit: ")
+	sb.WriteString(fmt.Sprint(c.StickersFavedLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannelsReadMediaPeriod: ")
+	sb.WriteString(fmt.Sprint(c.ChannelsReadMediaPeriod))
+	sb.WriteString(",\n")
+	if c.Flags.Has(0) {
+		sb.WriteString("\tTmpSessions: ")
+		sb.WriteString(fmt.Sprint(c.TmpSessions))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPinnedDialogsCountMax: ")
+	sb.WriteString(fmt.Sprint(c.PinnedDialogsCountMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPinnedInfolderCountMax: ")
+	sb.WriteString(fmt.Sprint(c.PinnedInfolderCountMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCallReceiveTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.CallReceiveTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCallRingTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.CallRingTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCallConnectTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.CallConnectTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCallPacketTimeoutMs: ")
+	sb.WriteString(fmt.Sprint(c.CallPacketTimeoutMs))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMeURLPrefix: ")
+	sb.WriteString(fmt.Sprint(c.MeURLPrefix))
+	sb.WriteString(",\n")
+	if c.Flags.Has(7) {
+		sb.WriteString("\tAutoupdateURLPrefix: ")
+		sb.WriteString(fmt.Sprint(c.AutoupdateURLPrefix))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(9) {
+		sb.WriteString("\tGifSearchUsername: ")
+		sb.WriteString(fmt.Sprint(c.GifSearchUsername))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(10) {
+		sb.WriteString("\tVenueSearchUsername: ")
+		sb.WriteString(fmt.Sprint(c.VenueSearchUsername))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(11) {
+		sb.WriteString("\tImgSearchUsername: ")
+		sb.WriteString(fmt.Sprint(c.ImgSearchUsername))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(12) {
+		sb.WriteString("\tStaticMapsProvider: ")
+		sb.WriteString(fmt.Sprint(c.StaticMapsProvider))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCaptionLengthMax: ")
+	sb.WriteString(fmt.Sprint(c.CaptionLengthMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessageLengthMax: ")
+	sb.WriteString(fmt.Sprint(c.MessageLengthMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tWebfileDCID: ")
+	sb.WriteString(fmt.Sprint(c.WebfileDCID))
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tSuggestedLangCode: ")
+		sb.WriteString(fmt.Sprint(c.SuggestedLangCode))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(2) {
+		sb.WriteString("\tLangPackVersion: ")
+		sb.WriteString(fmt.Sprint(c.LangPackVersion))
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(2) {
+		sb.WriteString("\tBaseLangPackVersion: ")
+		sb.WriteString(fmt.Sprint(c.BaseLangPackVersion))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *Config) Encode(b *bin.Buffer) error {

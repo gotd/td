@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountVerifyPhoneRequest represents TL type `account.verifyPhone#4dd3a7f6`.
 // Verify a phone number for telegram passport¹.
@@ -38,6 +40,27 @@ type AccountVerifyPhoneRequest struct {
 
 // AccountVerifyPhoneRequestTypeID is TL type id of AccountVerifyPhoneRequest.
 const AccountVerifyPhoneRequestTypeID = 0x4dd3a7f6
+
+// String implements fmt.Stringer.
+func (v *AccountVerifyPhoneRequest) String() string {
+	if v == nil {
+		return "AccountVerifyPhoneRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountVerifyPhoneRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(v.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(v.PhoneCodeHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCode: ")
+	sb.WriteString(fmt.Sprint(v.PhoneCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (v *AccountVerifyPhoneRequest) Encode(b *bin.Buffer) error {

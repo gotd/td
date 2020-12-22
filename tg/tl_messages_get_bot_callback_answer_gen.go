@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetBotCallbackAnswerRequest represents TL type `messages.getBotCallbackAnswer#9342ca07`.
 // Press an inline callback button and get a callback answer from the bot
@@ -46,6 +48,37 @@ type MessagesGetBotCallbackAnswerRequest struct {
 
 // MessagesGetBotCallbackAnswerRequestTypeID is TL type id of MessagesGetBotCallbackAnswerRequest.
 const MessagesGetBotCallbackAnswerRequestTypeID = 0x9342ca07
+
+// String implements fmt.Stringer.
+func (g *MessagesGetBotCallbackAnswerRequest) String() string {
+	if g == nil {
+		return "MessagesGetBotCallbackAnswerRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetBotCallbackAnswerRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tData: ")
+		sb.WriteString(fmt.Sprint(g.Data))
+		sb.WriteString(",\n")
+	}
+	if g.Flags.Has(2) {
+		sb.WriteString("\tPassword: ")
+		sb.WriteString(g.Password.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {

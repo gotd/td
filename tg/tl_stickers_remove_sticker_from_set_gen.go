@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickersRemoveStickerFromSetRequest represents TL type `stickers.removeStickerFromSet#f7760f51`.
 // Remove a sticker from the set where it belongs, bots only. The sticker set must have been created by the bot.
@@ -25,6 +27,21 @@ type StickersRemoveStickerFromSetRequest struct {
 
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
 const StickersRemoveStickerFromSetRequestTypeID = 0xf7760f51
+
+// String implements fmt.Stringer.
+func (r *StickersRemoveStickerFromSetRequest) String() string {
+	if r == nil {
+		return "StickersRemoveStickerFromSetRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickersRemoveStickerFromSetRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSticker: ")
+	sb.WriteString(r.Sticker.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {

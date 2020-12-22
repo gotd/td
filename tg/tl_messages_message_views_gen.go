@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesMessageViews represents TL type `messages.messageViews#b6c4f543`.
 // View, forward counter + info about replies
@@ -29,6 +31,33 @@ type MessagesMessageViews struct {
 
 // MessagesMessageViewsTypeID is TL type id of MessagesMessageViews.
 const MessagesMessageViewsTypeID = 0xb6c4f543
+
+// String implements fmt.Stringer.
+func (m *MessagesMessageViews) String() string {
+	if m == nil {
+		return "MessagesMessageViews(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMessageViews")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.Views {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMessageViews) Encode(b *bin.Buffer) error {

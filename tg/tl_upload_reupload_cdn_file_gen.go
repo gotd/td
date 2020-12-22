@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
 // Request a reupload of a certain file to a CDN DC¹.
@@ -30,6 +32,24 @@ type UploadReuploadCdnFileRequest struct {
 
 // UploadReuploadCdnFileRequestTypeID is TL type id of UploadReuploadCdnFileRequest.
 const UploadReuploadCdnFileRequestTypeID = 0x9b2754a8
+
+// String implements fmt.Stringer.
+func (r *UploadReuploadCdnFileRequest) String() string {
+	if r == nil {
+		return "UploadReuploadCdnFileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadReuploadCdnFileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFileToken: ")
+	sb.WriteString(fmt.Sprint(r.FileToken))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRequestToken: ")
+	sb.WriteString(fmt.Sprint(r.RequestToken))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *UploadReuploadCdnFileRequest) Encode(b *bin.Buffer) error {

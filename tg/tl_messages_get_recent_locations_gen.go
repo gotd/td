@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#bbc45b09`.
 // Get live location history of a certain user
@@ -35,6 +37,27 @@ type MessagesGetRecentLocationsRequest struct {
 
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.
 const MessagesGetRecentLocationsRequestTypeID = 0xbbc45b09
+
+// String implements fmt.Stringer.
+func (g *MessagesGetRecentLocationsRequest) String() string {
+	if g == nil {
+		return "MessagesGetRecentLocationsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetRecentLocationsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {

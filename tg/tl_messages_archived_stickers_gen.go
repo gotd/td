@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesArchivedStickers represents TL type `messages.archivedStickers#4fcba9c8`.
 // Archived stickersets
@@ -27,6 +29,26 @@ type MessagesArchivedStickers struct {
 
 // MessagesArchivedStickersTypeID is TL type id of MessagesArchivedStickers.
 const MessagesArchivedStickersTypeID = 0x4fcba9c8
+
+// String implements fmt.Stringer.
+func (a *MessagesArchivedStickers) String() string {
+	if a == nil {
+		return "MessagesArchivedStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesArchivedStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(a.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range a.Sets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {

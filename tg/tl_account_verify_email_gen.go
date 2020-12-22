@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountVerifyEmailRequest represents TL type `account.verifyEmail#ecba39db`.
 // Verify an email address for telegram passport¹.
@@ -30,6 +32,24 @@ type AccountVerifyEmailRequest struct {
 
 // AccountVerifyEmailRequestTypeID is TL type id of AccountVerifyEmailRequest.
 const AccountVerifyEmailRequestTypeID = 0xecba39db
+
+// String implements fmt.Stringer.
+func (v *AccountVerifyEmailRequest) String() string {
+	if v == nil {
+		return "AccountVerifyEmailRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountVerifyEmailRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmail: ")
+	sb.WriteString(fmt.Sprint(v.Email))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCode: ")
+	sb.WriteString(fmt.Sprint(v.Code))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {

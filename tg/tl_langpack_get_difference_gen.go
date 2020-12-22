@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangpackGetDifferenceRequest represents TL type `langpack.getDifference#cd984aa5`.
 // Get new strings in languagepack
@@ -29,6 +31,27 @@ type LangpackGetDifferenceRequest struct {
 
 // LangpackGetDifferenceRequestTypeID is TL type id of LangpackGetDifferenceRequest.
 const LangpackGetDifferenceRequestTypeID = 0xcd984aa5
+
+// String implements fmt.Stringer.
+func (g *LangpackGetDifferenceRequest) String() string {
+	if g == nil {
+		return "LangpackGetDifferenceRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangpackGetDifferenceRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangPack: ")
+	sb.WriteString(fmt.Sprint(g.LangPack))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromVersion: ")
+	sb.WriteString(fmt.Sprint(g.FromVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *LangpackGetDifferenceRequest) Encode(b *bin.Buffer) error {

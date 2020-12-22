@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetStickersRequest represents TL type `messages.getStickers#43d4f2c`.
 // Get stickers by emoji
@@ -30,6 +32,24 @@ type MessagesGetStickersRequest struct {
 
 // MessagesGetStickersRequestTypeID is TL type id of MessagesGetStickersRequest.
 const MessagesGetStickersRequestTypeID = 0x43d4f2c
+
+// String implements fmt.Stringer.
+func (g *MessagesGetStickersRequest) String() string {
+	if g == nil {
+		return "MessagesGetStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmoticon: ")
+	sb.WriteString(fmt.Sprint(g.Emoticon))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {

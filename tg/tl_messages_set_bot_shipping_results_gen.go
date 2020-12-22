@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
@@ -41,6 +43,36 @@ type MessagesSetBotShippingResultsRequest struct {
 
 // MessagesSetBotShippingResultsRequestTypeID is TL type id of MessagesSetBotShippingResultsRequest.
 const MessagesSetBotShippingResultsRequestTypeID = 0xe5f672fa
+
+// String implements fmt.Stringer.
+func (s *MessagesSetBotShippingResultsRequest) String() string {
+	if s == nil {
+		return "MessagesSetBotShippingResultsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetBotShippingResultsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(s.QueryID))
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tError: ")
+		sb.WriteString(fmt.Sprint(s.Error))
+		sb.WriteString(",\n")
+	}
+	if s.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range s.ShippingOptions {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {

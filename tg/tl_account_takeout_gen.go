@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountTakeout represents TL type `account.takeout#4dba4501`.
 // Takout info
@@ -25,6 +27,21 @@ type AccountTakeout struct {
 
 // AccountTakeoutTypeID is TL type id of AccountTakeout.
 const AccountTakeoutTypeID = 0x4dba4501
+
+// String implements fmt.Stringer.
+func (t *AccountTakeout) String() string {
+	if t == nil {
+		return "AccountTakeout(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountTakeout")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(t.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *AccountTakeout) Encode(b *bin.Buffer) error {

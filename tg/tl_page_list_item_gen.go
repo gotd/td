@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageListItemText represents TL type `pageListItemText#b92fb6cd`.
 // List item
@@ -25,6 +27,21 @@ type PageListItemText struct {
 
 // PageListItemTextTypeID is TL type id of PageListItemText.
 const PageListItemTextTypeID = 0xb92fb6cd
+
+// String implements fmt.Stringer.
+func (p *PageListItemText) String() string {
+	if p == nil {
+		return "PageListItemText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageListItemText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageListItemText) Encode(b *bin.Buffer) error {
@@ -81,6 +98,23 @@ type PageListItemBlocks struct {
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.
 const PageListItemBlocksTypeID = 0x25e073fc
+
+// String implements fmt.Stringer.
+func (p *PageListItemBlocks) String() string {
+	if p == nil {
+		return "PageListItemBlocks(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageListItemBlocks")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Blocks {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageListItemBlocks) Encode(b *bin.Buffer) error {
@@ -153,6 +187,7 @@ type PageListItemClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageListItemClass
+	fmt.Stringer
 }
 
 // DecodePageListItem implements binary de-serialization for PageListItemClass.

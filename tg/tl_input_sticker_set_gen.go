@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputStickerSetEmpty represents TL type `inputStickerSetEmpty#ffb62b95`.
 // Empty constructor
@@ -23,6 +25,18 @@ type InputStickerSetEmpty struct {
 
 // InputStickerSetEmptyTypeID is TL type id of InputStickerSetEmpty.
 const InputStickerSetEmptyTypeID = 0xffb62b95
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetEmpty) String() string {
+	if i == nil {
+		return "InputStickerSetEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickerSetEmpty) Encode(b *bin.Buffer) error {
@@ -68,6 +82,24 @@ type InputStickerSetID struct {
 
 // InputStickerSetIDTypeID is TL type id of InputStickerSetID.
 const InputStickerSetIDTypeID = 0x9de7a269
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetID) String() string {
+	if i == nil {
+		return "InputStickerSetID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickerSetID) Encode(b *bin.Buffer) error {
@@ -128,6 +160,21 @@ type InputStickerSetShortName struct {
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
 const InputStickerSetShortNameTypeID = 0x861cc8a0
 
+// String implements fmt.Stringer.
+func (i *InputStickerSetShortName) String() string {
+	if i == nil {
+		return "InputStickerSetShortName(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetShortName")
+	sb.WriteString("{\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(i.ShortName))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetShortName) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -177,6 +224,18 @@ type InputStickerSetAnimatedEmoji struct {
 // InputStickerSetAnimatedEmojiTypeID is TL type id of InputStickerSetAnimatedEmoji.
 const InputStickerSetAnimatedEmojiTypeID = 0x28703c8
 
+// String implements fmt.Stringer.
+func (i *InputStickerSetAnimatedEmoji) String() string {
+	if i == nil {
+		return "InputStickerSetAnimatedEmoji(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetAnimatedEmoji")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetAnimatedEmoji) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -222,6 +281,21 @@ type InputStickerSetDice struct {
 
 // InputStickerSetDiceTypeID is TL type id of InputStickerSetDice.
 const InputStickerSetDiceTypeID = 0xe67f520e
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetDice) String() string {
+	if i == nil {
+		return "InputStickerSetDice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetDice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmoticon: ")
+	sb.WriteString(fmt.Sprint(i.Emoticon))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickerSetDice) Encode(b *bin.Buffer) error {
@@ -283,6 +357,7 @@ type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputStickerSetClass
+	fmt.Stringer
 }
 
 // DecodeInputStickerSet implements binary de-serialization for InputStickerSetClass.

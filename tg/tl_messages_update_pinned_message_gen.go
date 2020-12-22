@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUpdatePinnedMessageRequest represents TL type `messages.updatePinnedMessage#d2aaf7ec`.
 // Pin a message
@@ -38,6 +40,27 @@ type MessagesUpdatePinnedMessageRequest struct {
 
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.
 const MessagesUpdatePinnedMessageRequestTypeID = 0xd2aaf7ec
+
+// String implements fmt.Stringer.
+func (u *MessagesUpdatePinnedMessageRequest) String() string {
+	if u == nil {
+		return "MessagesUpdatePinnedMessageRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUpdatePinnedMessageRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {

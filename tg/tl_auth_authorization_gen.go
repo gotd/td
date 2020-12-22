@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthAuthorization represents TL type `auth.authorization#cd050916`.
 // Contains user authorization info.
@@ -37,6 +39,29 @@ type AuthAuthorization struct {
 
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
 const AuthAuthorizationTypeID = 0xcd050916
+
+// String implements fmt.Stringer.
+func (a *AuthAuthorization) String() string {
+	if a == nil {
+		return "AuthAuthorization(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthAuthorization")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	if a.Flags.Has(0) {
+		sb.WriteString("\tTmpSessions: ")
+		sb.WriteString(fmt.Sprint(a.TmpSessions))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tUser: ")
+	sb.WriteString(a.User.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
@@ -137,6 +162,26 @@ type AuthAuthorizationSignUpRequired struct {
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.
 const AuthAuthorizationSignUpRequiredTypeID = 0x44747e9a
 
+// String implements fmt.Stringer.
+func (a *AuthAuthorizationSignUpRequired) String() string {
+	if a == nil {
+		return "AuthAuthorizationSignUpRequired(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthAuthorizationSignUpRequired")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	if a.Flags.Has(0) {
+		sb.WriteString("\tTermsOfService: ")
+		sb.WriteString(a.TermsOfService.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -219,6 +264,7 @@ type AuthAuthorizationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthAuthorizationClass
+	fmt.Stringer
 }
 
 // DecodeAuthAuthorization implements binary de-serialization for AuthAuthorizationClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
 // Returns content of a whole file or its part.
@@ -41,6 +43,30 @@ type UploadGetFileRequest struct {
 
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
 const UploadGetFileRequestTypeID = 0xb15a9afc
+
+// String implements fmt.Stringer.
+func (g *UploadGetFileRequest) String() string {
+	if g == nil {
+		return "UploadGetFileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadGetFileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLocation: ")
+	sb.WriteString(g.Location.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {

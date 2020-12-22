@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
 // Dialog filter AKA folder¹
@@ -103,6 +105,47 @@ type DialogFilter struct {
 
 // DialogFilterTypeID is TL type id of DialogFilter.
 const DialogFilterTypeID = 0x7438f7e8
+
+// String implements fmt.Stringer.
+func (d *DialogFilter) String() string {
+	if d == nil {
+		return "DialogFilter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogFilter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(d.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(d.Title))
+	sb.WriteString(",\n")
+	if d.Flags.Has(25) {
+		sb.WriteString("\tEmoticon: ")
+		sb.WriteString(fmt.Sprint(d.Emoticon))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range d.PinnedPeers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.IncludePeers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.ExcludePeers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DialogFilter) Encode(b *bin.Buffer) error {

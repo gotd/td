@@ -8,11 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"golang.org/x/net/proxy"
-
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/tgflow"
-	"github.com/gotd/td/transport"
 )
 
 func TestExternalE2EConnect(t *testing.T) {
@@ -24,8 +21,7 @@ func TestExternalE2EConnect(t *testing.T) {
 	defer cancel()
 
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:      telegram.AddrTest,
-		Transport: transport.Intermediate(transport.DialFunc(proxy.Dial)),
+		Addr: telegram.AddrTest,
 	})
 
 	if err := client.Connect(ctx); err != nil {

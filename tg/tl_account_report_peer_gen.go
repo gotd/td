@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountReportPeerRequest represents TL type `account.reportPeer#ae189d5f`.
 // Report a peer for violation of telegram's Terms of Service
@@ -27,6 +29,24 @@ type AccountReportPeerRequest struct {
 
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.
 const AccountReportPeerRequestTypeID = 0xae189d5f
+
+// String implements fmt.Stringer.
+func (r *AccountReportPeerRequest) String() string {
+	if r == nil {
+		return "AccountReportPeerRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountReportPeerRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tReason: ")
+	sb.WriteString(r.Reason.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {

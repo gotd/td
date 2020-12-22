@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StatsPercentValue represents TL type `statsPercentValue#cbce2fe0`.
 // Channel statistics percentage¹.
@@ -31,6 +33,24 @@ type StatsPercentValue struct {
 
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.
 const StatsPercentValueTypeID = 0xcbce2fe0
+
+// String implements fmt.Stringer.
+func (s *StatsPercentValue) String() string {
+	if s == nil {
+		return "StatsPercentValue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StatsPercentValue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPart: ")
+	sb.WriteString(fmt.Sprint(s.Part))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTotal: ")
+	sb.WriteString(fmt.Sprint(s.Total))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StatsPercentValue) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetAttachedStickersRequest represents TL type `messages.getAttachedStickers#cc5b67cc`.
 // Get stickers attached to a photo or video
@@ -25,6 +27,21 @@ type MessagesGetAttachedStickersRequest struct {
 
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.
 const MessagesGetAttachedStickersRequestTypeID = 0xcc5b67cc
+
+// String implements fmt.Stringer.
+func (g *MessagesGetAttachedStickersRequest) String() string {
+	if g == nil {
+		return "MessagesGetAttachedStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetAttachedStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMedia: ")
+	sb.WriteString(g.Media.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ThemeSettings represents TL type `themeSettings#9c14984a`.
 // Theme settings
@@ -44,6 +46,42 @@ type ThemeSettings struct {
 
 // ThemeSettingsTypeID is TL type id of ThemeSettings.
 const ThemeSettingsTypeID = 0x9c14984a
+
+// String implements fmt.Stringer.
+func (t *ThemeSettings) String() string {
+	if t == nil {
+		return "ThemeSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ThemeSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(t.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBaseTheme: ")
+	sb.WriteString(t.BaseTheme.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccentColor: ")
+	sb.WriteString(fmt.Sprint(t.AccentColor))
+	sb.WriteString(",\n")
+	if t.Flags.Has(0) {
+		sb.WriteString("\tMessageTopColor: ")
+		sb.WriteString(fmt.Sprint(t.MessageTopColor))
+		sb.WriteString(",\n")
+	}
+	if t.Flags.Has(0) {
+		sb.WriteString("\tMessageBottomColor: ")
+		sb.WriteString(fmt.Sprint(t.MessageBottomColor))
+		sb.WriteString(",\n")
+	}
+	if t.Flags.Has(1) {
+		sb.WriteString("\tWallpaper: ")
+		sb.WriteString(t.Wallpaper.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ThemeSettings) Encode(b *bin.Buffer) error {

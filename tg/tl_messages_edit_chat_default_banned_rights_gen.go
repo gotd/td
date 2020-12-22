@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesEditChatDefaultBannedRightsRequest represents TL type `messages.editChatDefaultBannedRights#a5866b41`.
 // Edit the default banned rights of a channel/supergroup/group¹.
@@ -30,6 +32,24 @@ type MessagesEditChatDefaultBannedRightsRequest struct {
 
 // MessagesEditChatDefaultBannedRightsRequestTypeID is TL type id of MessagesEditChatDefaultBannedRightsRequest.
 const MessagesEditChatDefaultBannedRightsRequestTypeID = 0xa5866b41
+
+// String implements fmt.Stringer.
+func (e *MessagesEditChatDefaultBannedRightsRequest) String() string {
+	if e == nil {
+		return "MessagesEditChatDefaultBannedRightsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesEditChatDefaultBannedRightsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(e.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBannedRights: ")
+	sb.WriteString(e.BannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BankCardOpenUrl represents TL type `bankCardOpenUrl#f568028a`.
 // Credit card info URL provided by the bank
@@ -27,6 +29,24 @@ type BankCardOpenUrl struct {
 
 // BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.
 const BankCardOpenUrlTypeID = 0xf568028a
+
+// String implements fmt.Stringer.
+func (b *BankCardOpenUrl) String() string {
+	if b == nil {
+		return "BankCardOpenUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BankCardOpenUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(b.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(b.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BankCardOpenUrl) Encode(buf *bin.Buffer) error {

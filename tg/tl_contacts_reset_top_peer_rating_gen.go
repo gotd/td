@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsResetTopPeerRatingRequest represents TL type `contacts.resetTopPeerRating#1ae373ac`.
 // Reset rating¹ of top peer
@@ -30,6 +32,24 @@ type ContactsResetTopPeerRatingRequest struct {
 
 // ContactsResetTopPeerRatingRequestTypeID is TL type id of ContactsResetTopPeerRatingRequest.
 const ContactsResetTopPeerRatingRequestTypeID = 0x1ae373ac
+
+// String implements fmt.Stringer.
+func (r *ContactsResetTopPeerRatingRequest) String() string {
+	if r == nil {
+		return "ContactsResetTopPeerRatingRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsResetTopPeerRatingRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCategory: ")
+	sb.WriteString(r.Category.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsTopPeersNotModified represents TL type `contacts.topPeersNotModified#de266ef5`.
 // Top peer info hasn't changed
@@ -23,6 +25,18 @@ type ContactsTopPeersNotModified struct {
 
 // ContactsTopPeersNotModifiedTypeID is TL type id of ContactsTopPeersNotModified.
 const ContactsTopPeersNotModifiedTypeID = 0xde266ef5
+
+// String implements fmt.Stringer.
+func (t *ContactsTopPeersNotModified) String() string {
+	if t == nil {
+		return "ContactsTopPeersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsTopPeersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
@@ -70,6 +84,33 @@ type ContactsTopPeers struct {
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.
 const ContactsTopPeersTypeID = 0x70b772a8
+
+// String implements fmt.Stringer.
+func (t *ContactsTopPeers) String() string {
+	if t == nil {
+		return "ContactsTopPeers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsTopPeers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range t.Categories {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range t.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range t.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
@@ -175,6 +216,18 @@ type ContactsTopPeersDisabled struct {
 // ContactsTopPeersDisabledTypeID is TL type id of ContactsTopPeersDisabled.
 const ContactsTopPeersDisabledTypeID = 0xb52c939d
 
+// String implements fmt.Stringer.
+func (t *ContactsTopPeersDisabled) String() string {
+	if t == nil {
+		return "ContactsTopPeersDisabled(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsTopPeersDisabled")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -225,6 +278,7 @@ type ContactsTopPeersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ContactsTopPeersClass
+	fmt.Stringer
 }
 
 // DecodeContactsTopPeers implements binary de-serialization for ContactsTopPeersClass.

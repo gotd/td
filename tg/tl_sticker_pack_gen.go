@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickerPack represents TL type `stickerPack#12b299d4`.
 // A stickerpack is a group of stickers associated to the same emoji.
@@ -31,6 +33,26 @@ type StickerPack struct {
 
 // StickerPackTypeID is TL type id of StickerPack.
 const StickerPackTypeID = 0x12b299d4
+
+// String implements fmt.Stringer.
+func (s *StickerPack) String() string {
+	if s == nil {
+		return "StickerPack(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickerPack")
+	sb.WriteString("{\n")
+	sb.WriteString("\tEmoticon: ")
+	sb.WriteString(fmt.Sprint(s.Emoticon))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Documents {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StickerPack) Encode(b *bin.Buffer) error {
