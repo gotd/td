@@ -179,7 +179,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 			}
 
 			wait <- struct{}{}
-			return client.Close(ctx)
+			return client.Close()
 		})
 
 		err := client.Connect(ctx)

@@ -1,13 +1,11 @@
 package telegram
 
-import (
-	"context"
-)
-
 // Close closes underlying connection.
-func (c *Client) Close(ctx context.Context) error {
+func (c *Client) Close() error {
 	c.cancel()
 
+	c.connMux.RLock()
+	defer c.connMux.RUnlock()
 	if err := c.conn.Close(); err != nil {
 		return err
 	}

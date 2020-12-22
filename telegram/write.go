@@ -11,6 +11,9 @@ func (c *Client) write(ctx context.Context, id int64, seq int32, message bin.Enc
 	if err := c.newEncryptedMessage(id, seq, message, b); err != nil {
 		return err
 	}
+
+	c.connMux.RLock()
+	defer c.connMux.RUnlock()
 	if err := c.conn.Send(ctx, b); err != nil {
 		return err
 	}
