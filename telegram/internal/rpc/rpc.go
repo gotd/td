@@ -18,30 +18,48 @@ import (
 type Config struct {
 	RetryInterval time.Duration
 	MaxRetries    int
+	Logger        *zap.Logger
 }
 
 // Engine handles RPC requests.
 type Engine struct {
-	rpc    map[int64]func(*bin.Buffer, error) error
-	rpcMux sync.RWMutex
+	send Send
 
-	ack    map[int64]func()
-	ackMux sync.RWMutex
+	mux sync.Mutex
+	rpc map[int64]func(*bin.Buffer, error) error
+	ack map[int64]func()
 
-	client Sender
-	log    *zap.Logger
-	cfg    Config
+	log           *zap.Logger
+	retryInterval time.Duration
+	maxRetries    int
 }
 
-// NewEngine creates new rpc engine.
-func NewEngine(client Sender, log *zap.Logger, cfg Config) *Engine {
+// Send is a function that sends requests to the server.
+type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error
+
+// NopSend does nothing.
+func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
+
+// New creates new rpc Engine.
+func New(send Send, cfg Config) *Engine {
+	if cfg.RetryInterval == 0 {
+		cfg.RetryInterval = time.Second * 10
+	}
+	if cfg.MaxRetries == 0 {
+		cfg.MaxRetries = 5
+	}
+	if cfg.Logger == nil {
+		cfg.Logger = zap.NewNop()
+	}
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
 		ack: map[int64]func(){},
 
-		client: client,
-		log:    log,
-		cfg:    cfg,
+		send: send,
+
+		log:           cfg.Logger,
+		maxRetries:    cfg.MaxRetries,
+		retryInterval: cfg.RetryInterval,
 	}
 }
 
@@ -53,17 +71,17 @@ type Request struct {
 	Output   bin.Decoder
 }
 
-// DoRequest performs RPC request.
-func (e *Engine) DoRequest(ctx context.Context, req Request) error {
+// Do performs RPC request.
+func (e *Engine) Do(ctx context.Context, req Request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
 	log := e.log.With(zap.Int64("msg_id", req.ID))
-	log.Debug("DoRequest called")
+	log.Debug("Do called")
+
+	done := make(chan struct{})
 
 	var (
-		// Shows that we received a response.
-		doneCh = make(chan struct{})
 		// Handler result.
 		resultErr error
 		// Needed to prevent multiple handler calls.
@@ -81,7 +99,7 @@ func (e *Engine) DoRequest(ctx context.Context, req Request) error {
 		}
 
 		defer retryClose()
-		defer close(doneCh)
+		defer close(done)
 
 		if rpcErr != nil {
 			resultErr = rpcErr
@@ -93,29 +111,29 @@ func (e *Engine) DoRequest(ctx context.Context, req Request) error {
 	}
 
 	// Setting callback that will be called if message is received.
-	e.rpcMux.Lock()
+	e.mux.Lock()
 	e.rpc[req.ID] = handler
-	e.rpcMux.Unlock()
+	e.mux.Unlock()
 
 	defer func() {
 		// Ensuring that callback can't be called after function return.
-		e.rpcMux.Lock()
+		e.mux.Lock()
 		delete(e.rpc, req.ID)
-		e.rpcMux.Unlock()
+		e.mux.Unlock()
 	}()
 
 	// Encoding request. Note that callback is already set.
-	if err := e.client.Send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("write: %w", err)
+	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+		return xerrors.Errorf("send: %w", err)
 	}
 
 	// Start retrying.
-	if err := e.rpcRetryUntilAck(retryCtx, req); err != nil {
+	if err := e.retryUntilAck(retryCtx, req); err != nil {
 		// If the retryCtx was canceled, then one of two things happened:
-		// 1. User canceled the original context.
-		// 2. The RPC result came and callback canceled retryCtx.
+		//   1. User canceled the original context.
+		//   2. The RPC result came and callback canceled retryCtx.
 		//
-		// If this is not an context.Canceled error, most likely we did not receive ACK
+		// If this is not an context.Canceled error, most likely we did not receive ack
 		// and exceeded the limit of attempts to send a request,
 		// or could not write data to the connection, so we return an error.
 		if !errors.Is(err, context.Canceled) {
@@ -126,45 +144,46 @@ func (e *Engine) DoRequest(ctx context.Context, req Request) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
-	case <-doneCh:
+	case <-done:
 		return resultErr
 	}
 }
 
-// rpcRetryUntilAck resends the request to the server until ACK is received
-// or context canceled.
+// retryUntilAck resends the request to the server until request is
+// acknowledged.
 //
 // Returns nil if ACK was received, otherwise return error.
-func (e *Engine) rpcRetryUntilAck(ctx context.Context, req Request) error {
+func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	ackChan := make(chan error)
-	go func() { ackChan <- e.waitACK(ctx, req.ID) }()
+	err := make(chan error)
+	go func() {
+		err <- e.waitAck(ctx, req.ID)
+	}()
 
-	log := e.log.Named("retryLoop").With(zap.Int64("msg_id", req.ID))
+	log := e.log.Named("retry").With(zap.Int64("msg_id", req.ID))
 
 	retries := 0
 	for {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
-		case ackErr := <-ackChan:
+		case ackErr := <-err:
 			if ackErr != nil {
 				return xerrors.Errorf("wait ack: %w", ackErr)
 			}
-
 			return nil
-			// TODO(ccln): use clock.
-		case <-time.After(e.cfg.RetryInterval):
-			log.Debug("Request ACK Timed out, resending...")
-			if err := e.client.Send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+		// TODO(ccln): use clock.
+		case <-time.After(e.retryInterval):
+			log.Debug("Request ACK timed out, resending")
+			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
 				log.Error("Resend failed", zap.Error(err))
 				return err
 			}
 
 			retries++
-			if retries >= e.cfg.MaxRetries {
+			if retries >= e.maxRetries {
 				log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
 				return xerrors.New("retry limit reached")
 			}
@@ -174,9 +193,9 @@ func (e *Engine) rpcRetryUntilAck(ctx context.Context, req Request) error {
 
 // NotifyResult notifies engine about received RPC response.
 func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
-	e.rpcMux.Lock()
+	e.mux.Lock()
 	fn, ok := e.rpc[msgID]
-	e.rpcMux.Unlock()
+	e.mux.Unlock()
 	if !ok {
 		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
 		return nil
@@ -187,9 +206,9 @@ func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
 
 // NotifyError notifies engine about received RPC error.
 func (e *Engine) NotifyError(msgID int64, rpcErr error) {
-	e.rpcMux.Lock()
+	e.mux.Lock()
 	fn, ok := e.rpc[msgID]
-	e.rpcMux.Unlock()
+	e.mux.Unlock()
 	if !ok {
 		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
 		return

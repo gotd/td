@@ -58,7 +58,7 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 		rand:           Zero{},
 		log:            zap.NewNop(),
 		sessionCreated: createCondOnce(),
-		rpc:            rpc.NewEngine(rpc.NoOpSender(), zap.NewNop(), rpc.Config{}),
+		rpc:            rpc.New(rpc.NopSend, rpc.Config{}),
 	}
 	c.sessionCreated.Done()
 

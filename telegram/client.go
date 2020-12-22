@@ -156,14 +156,11 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		),
 	}
 
-	client.rpc = rpc.NewEngine(
-		rpc.SendFunc(client.write),
-		opt.Logger.Named("rpc_engine"),
-		rpc.Config{
-			RetryInterval: opt.RetryInterval,
-			MaxRetries:    opt.MaxRetries,
-		},
-	)
+	client.rpc = rpc.New(client.write, rpc.Config{
+		Logger:        opt.Logger.Named("rpc"),
+		RetryInterval: opt.RetryInterval,
+		MaxRetries:    opt.MaxRetries,
+	})
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)

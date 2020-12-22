@@ -16,7 +16,7 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 
 	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
 
-	c.rpc.NotifyACKs(ack.MsgIds)
+	c.rpc.NotifyAcks(ack.MsgIds)
 
 	return nil
 }

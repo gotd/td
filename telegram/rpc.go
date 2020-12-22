@@ -30,7 +30,7 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 	}
 	c.sentContentMessagesMux.Unlock()
 
-	if err := c.rpc.DoRequest(ctx, req); err != nil {
+	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
 		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
 			// Should retry with new salt.
@@ -40,7 +40,7 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 				return xerrors.Errorf("badMsg update salt: %w", err)
 			}
 			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.ID))
-			return c.rpc.DoRequest(ctx, req)
+			return c.rpc.Do(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)
 	}

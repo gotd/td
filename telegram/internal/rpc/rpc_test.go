@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
 
@@ -14,29 +13,27 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
-type clientRequest struct {
+type request struct {
 	MsgID int64
 	SeqNo int32
 	Input bin.Encoder
 }
 
-type clientMock struct {
-	clientRequests chan clientRequest
-}
-
-func (cm *clientMock) Send(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-	cm.clientRequests <- clientRequest{
-		MsgID: msgID,
-		SeqNo: seqNo,
-		Input: in,
+func sendTo(c chan<- request) Send {
+	return func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
+		c <- request{
+			MsgID: msgID,
+			SeqNo: seqNo,
+			Input: in,
+		}
+		return nil
 	}
-	return nil
 }
 
 func TestRPCError(t *testing.T) {
 	var (
 		// What server expect.
-		serverExpect = clientRequest{
+		serverExpect = request{
 			MsgID: 1,
 			SeqNo: 1,
 			Input: &mt.PingRequest{PingID: 1337},
@@ -46,9 +43,9 @@ func TestRPCError(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan clientRequest, 10)
+	requests := make(chan request, 10)
 
-	e := NewEngine(&clientMock{requests}, zap.NewNop(), Config{
+	e := New(sendTo(requests), Config{
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
 	})
@@ -66,7 +63,7 @@ func TestRPCError(t *testing.T) {
 		// Simulate job.
 		time.Sleep(time.Second)
 
-		// Notify client about error.
+		// NotifyAcks client about error.
 		e.NotifyError(1, serverErrorResponse)
 
 		return nil
@@ -74,7 +71,7 @@ func TestRPCError(t *testing.T) {
 
 	// Client behavior.
 	eg.Go(func() error {
-		return e.DoRequest(context.Background(), Request{
+		return e.Do(context.Background(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input: &mt.PingRequest{
@@ -89,7 +86,7 @@ func TestRPCError(t *testing.T) {
 func TestRPCResult(t *testing.T) {
 	var (
 		// What server expect.
-		serverExpect = clientRequest{
+		serverExpect = request{
 			MsgID: 1,
 			SeqNo: 1,
 			Input: &mt.PingRequest{PingID: 1337},
@@ -102,9 +99,9 @@ func TestRPCResult(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan clientRequest, 10)
+	requests := make(chan request, 10)
 
-	e := NewEngine(&clientMock{requests}, zap.NewNop(), Config{
+	e := New(sendTo(requests), Config{
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
 	})
@@ -142,7 +139,7 @@ func TestRPCResult(t *testing.T) {
 	var out mt.Pong
 	// Client behavior.
 	eg.Go(func() error {
-		return e.DoRequest(context.Background(), Request{
+		return e.Do(context.Background(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
@@ -157,7 +154,7 @@ func TestRPCResult(t *testing.T) {
 func TestRPCAckThenResult(t *testing.T) {
 	var (
 		// What server expect.
-		serverExpect = clientRequest{
+		serverExpect = request{
 			MsgID: 1,
 			SeqNo: 1,
 			Input: &mt.PingRequest{PingID: 1337},
@@ -170,9 +167,9 @@ func TestRPCAckThenResult(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan clientRequest, 10)
+	requests := make(chan request, 10)
 
-	e := NewEngine(&clientMock{requests}, zap.NewNop(), Config{
+	e := New(sendTo(requests), Config{
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 	})
@@ -190,8 +187,8 @@ func TestRPCAckThenResult(t *testing.T) {
 		// Simulate job.
 		time.Sleep(time.Second * 2)
 
-		// Notify client ACK.
-		e.NotifyACKs([]int64{1})
+		// NotifyAcks client ACK.
+		e.NotifyAcks([]int64{1})
 
 		// Simulate job again.
 		time.Sleep(time.Second * 4)
@@ -215,7 +212,7 @@ func TestRPCAckThenResult(t *testing.T) {
 
 	var out mt.Pong
 	eg.Go(func() error {
-		return e.DoRequest(context.Background(), Request{
+		return e.Do(context.Background(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
@@ -230,7 +227,7 @@ func TestRPCAckThenResult(t *testing.T) {
 func TestRPCAckWithRetryResult(t *testing.T) {
 	var (
 		// What server expect.
-		serverExpect = clientRequest{
+		serverExpect = request{
 			MsgID: 1,
 			SeqNo: 1,
 			Input: &mt.PingRequest{PingID: 1337},
@@ -243,9 +240,9 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan clientRequest, 10)
+	requests := make(chan request, 10)
 
-	e := NewEngine(&clientMock{requests}, zap.NewNop(), Config{
+	e := New(sendTo(requests), Config{
 		RetryInterval: time.Second * 4,
 		MaxRetries:    5,
 	})
@@ -289,7 +286,7 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 	var out mt.Pong
 	// Client behavior.
 	eg.Go(func() error {
-		return e.DoRequest(context.Background(), Request{
+		return e.Do(context.Background(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
