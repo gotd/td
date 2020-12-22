@@ -93,9 +93,6 @@ type Client struct {
 	ackBatchSize int
 	ackInterval  time.Duration
 
-	maxRetries    int
-	retryInterval time.Duration
-
 	// callbacks for ping results protected by pingMux.
 	// Key is ping id.
 	ping    map[int64]func()
@@ -141,9 +138,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		ackSendChan:  make(chan int64),
 		ackInterval:  opt.AckInterval,
 		ackBatchSize: opt.AckBatchSize,
-
-		maxRetries:    opt.MaxRetries,
-		retryInterval: opt.RetryInterval,
 
 		ctx:    clientCtx,
 		cancel: clientCancel,
