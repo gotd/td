@@ -59,6 +59,7 @@ func (e *Engine) DoRequest(ctx context.Context, req Request) error {
 	defer retryClose()
 
 	log := e.log.With(zap.Int64("msg_id", req.ID))
+	log.Debug("DoRequest called")
 
 	var (
 		// Shows that we received a response.
@@ -70,11 +71,11 @@ func (e *Engine) DoRequest(ctx context.Context, req Request) error {
 	)
 
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
-		log.Info("handler called")
+		log.Debug("Handler called")
 
 		atomic.AddUint32(&handlerCalls, 1)
 		if atomic.LoadUint32(&handlerCalls) > 1 {
-			log.Warn("handler already called")
+			log.Warn("Handler already called")
 
 			return xerrors.Errorf("handler already called")
 		}
@@ -141,6 +142,8 @@ func (e *Engine) rpcRetryUntilAck(ctx context.Context, req Request) error {
 	ackChan := make(chan error)
 	go func() { ackChan <- e.waitACK(ctx, req.ID) }()
 
+	log := e.log.Named("retryLoop").With(zap.Int64("msg_id", req.ID))
+
 	retries := 0
 	for {
 		select {
@@ -154,15 +157,15 @@ func (e *Engine) rpcRetryUntilAck(ctx context.Context, req Request) error {
 			return nil
 			// TODO(ccln): use clock.
 		case <-time.After(e.cfg.RetryInterval):
-			e.log.Info("RPC Retrying", zap.Int64("msg_id", req.ID))
+			log.Debug("Request ACK Timed out, resending...")
 			if err := e.client.Send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				e.log.Error("Retry attempt failed", zap.Error(err))
+				log.Error("Resend failed", zap.Error(err))
 				return err
 			}
 
 			retries++
 			if retries >= e.cfg.MaxRetries {
-				e.log.Error("Retry limit reached", zap.Int64("request_id", req.ID))
+				log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
 				return xerrors.New("retry limit reached")
 			}
 		}
