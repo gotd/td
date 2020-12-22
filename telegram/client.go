@@ -206,14 +206,15 @@ func (c *Client) Connect(ctx context.Context) (err error) {
 
 // connect establishes connection in intermediate mode, creating new auth key
 // if needed.
-func (c *Client) connect(ctx context.Context) (err error) {
-	c.connMux.Lock()
-	defer c.connMux.Unlock()
-
-	c.conn, err = c.transport.DialContext(ctx, "tcp", c.addr)
+func (c *Client) connect(ctx context.Context) error {
+	conn, err := c.transport.DialContext(ctx, "tcp", c.addr)
 	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
+
+	c.connMux.Lock()
+	defer c.connMux.Unlock()
+	c.conn = conn
 
 	if c.authKey.Zero() {
 		c.log.Info("Generating new auth key")
