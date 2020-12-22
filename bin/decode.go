@@ -17,6 +17,18 @@ func (b *Buffer) PeekID() (uint32, error) {
 	return v, nil
 }
 
+// PeekN returns n bytes from Buffer to target, but does not consume it.
+//
+// Returns io.ErrUnexpectedEOF if buffer contains less that n bytes.
+// Expects that len(target) >= n.
+func (b *Buffer) PeekN(target []byte, n int) error {
+	if len(b.Buf) < n {
+		return io.ErrUnexpectedEOF
+	}
+	copy(target, b.Buf[:n])
+	return nil
+}
+
 // ID decodes type id from Buffer.
 func (b *Buffer) ID() (uint32, error) {
 	return b.Uint32()
@@ -47,10 +59,9 @@ func (b *Buffer) Int32() (int32, error) {
 // Returns io.ErrUnexpectedEOF if buffer contains less that n bytes.
 // Expects that len(target) >= n.
 func (b *Buffer) ConsumeN(target []byte, n int) error {
-	if len(b.Buf) < n {
-		return io.ErrUnexpectedEOF
+	if err := b.PeekN(target, n); err != nil {
+		return err
 	}
-	copy(target, b.Buf[:n])
 	b.Buf = b.Buf[n:]
 	return nil
 }
