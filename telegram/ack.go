@@ -15,18 +15,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 
 	log := c.log.Named("ack")
 
-	const (
-		maxBatchSize      = 20
-		forcedSendTimeout = time.Second * 15
-	)
-
-	var (
-		buf = make([]int64, 0, maxBatchSize)
-
-		// TODO(ernado): remove side-effect.
-		ticker = time.NewTicker(forcedSendTimeout)
-	)
-
+	var buf []int64
 	send := func() {
 		defer func() { buf = buf[:0] }()
 
@@ -38,6 +27,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 		log.Debug("ACK", zap.Int64s("message_ids", buf))
 	}
 
+	ticker := time.NewTicker(c.ackInterval) // TODO: remove side-effect
 	for {
 		select {
 		case <-ctx.Done():
@@ -48,9 +38,9 @@ func (c *Client) ackLoop(ctx context.Context) {
 			}
 		case msgID := <-c.ackSendChan:
 			buf = append(buf, msgID)
-			if len(buf) == maxBatchSize {
+			if len(buf) >= c.ackBatchSize {
 				send()
-				ticker.Reset(forcedSendTimeout)
+				ticker.Reset(c.ackInterval)
 			}
 		}
 	}

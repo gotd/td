@@ -56,7 +56,7 @@ func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
 
 func writeFull(w io.Writer, seqNo int, b *bin.Buffer) error {
 	if b.Len() > maxMessageSize {
-		return errInvalidMsgLen{n: b.Len()}
+		return invalidMsgLenErr{n: b.Len()}
 	}
 
 	write := bin.Buffer{Buf: make([]byte, 0, 4+4+b.Len()+4)}

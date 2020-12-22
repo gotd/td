@@ -5,6 +5,8 @@ import (
 	"net"
 	"sync/atomic"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/internal/proto/codec"
 )
 
@@ -23,7 +25,7 @@ func NewIntermediateServer(listener net.Listener) *Server {
 }
 
 // Handler is MTProto server connection handler.
-type Handler func(ctx context.Context, conn Connection) error
+type Handler func(ctx context.Context, conn Conn) error
 
 // Server is a simple MTProto server.
 type Server struct {
@@ -37,11 +39,12 @@ type Server struct {
 
 func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
 	if err := s.codec.ReadHeader(c); err != nil {
-		return err
+		return xerrors.Errorf("read header: %w", err)
 	}
 
-	return handler(ctx, Connection{
-		c, s.codec,
+	return handler(ctx, &connection{
+		conn:  c,
+		codec: s.codec,
 	})
 }
 

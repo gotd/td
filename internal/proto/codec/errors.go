@@ -46,16 +46,16 @@ func checkProtocolError(b *bin.Buffer) error {
 	return &ProtocolErr{Code: -code}
 }
 
-type errInvalidMsgLen struct {
+type invalidMsgLenErr struct {
 	n int
 }
 
-func (e errInvalidMsgLen) Error() string {
+func (e invalidMsgLenErr) Error() string {
 	return fmt.Sprintf("invalid message length %d", e.n)
 }
 
-func (e errInvalidMsgLen) Is(err error) bool {
-	_, ok := err.(errInvalidMsgLen)
+func (e invalidMsgLenErr) Is(err error) bool {
+	_, ok := err.(invalidMsgLenErr)
 	return ok
 }
 

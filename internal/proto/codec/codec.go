@@ -19,7 +19,7 @@ func readLen(r io.Reader, b *bin.Buffer) (int, error) {
 	}
 
 	if n <= 0 || n > maxMessageSize {
-		return 0, errInvalidMsgLen{n: n}
+		return 0, invalidMsgLenErr{n: n}
 	}
 
 	return n, nil

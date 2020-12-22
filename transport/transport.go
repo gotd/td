@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/proto/codec"
 )
 
@@ -50,19 +51,26 @@ func (t *Transport) Codec() Codec {
 	return t.constructor()
 }
 
+// Conn is transport connection.
+type Conn interface {
+	Send(ctx context.Context, b *bin.Buffer) error
+	Recv(ctx context.Context, b *bin.Buffer) error
+	Close() error
+}
+
 // DialContext creates new MTProto connection.
-func (t *Transport) DialContext(ctx context.Context, network, address string) (Connection, error) {
+func (t *Transport) DialContext(ctx context.Context, network, address string) (Conn, error) {
 	conn, err := t.dialer.DialContext(ctx, network, address)
 	if err != nil {
-		return Connection{}, xerrors.Errorf("dial: %w", err)
+		return nil, xerrors.Errorf("dial: %w", err)
 	}
 
 	connectionCodec := t.constructor()
 	if err := connectionCodec.WriteHeader(conn); err != nil {
-		return Connection{}, err
+		return nil, xerrors.Errorf("write header: %w", err)
 	}
 
-	return Connection{
+	return &connection{
 		conn:  conn,
 		codec: connectionCodec,
 	}, nil
