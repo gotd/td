@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // HelpGetPassportConfigRequest represents TL type `help.getPassportConfig#c661ad08`.
-// Get passport configuration
+// Get passport¹ configuration
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/help.getPassportConfig for reference.
 type HelpGetPassportConfigRequest struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 
@@ -61,7 +67,10 @@ var (
 )
 
 // HelpGetPassportConfig invokes method help.getPassportConfig#c661ad08 returning error if any.
-// Get passport configuration
+// Get passport¹ configuration
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/help.getPassportConfig for reference.
 func (c *Client) HelpGetPassportConfig(ctx context.Context, hash int) (HelpPassportConfigClass, error) {

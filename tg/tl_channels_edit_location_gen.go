@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/channels.editLocation for reference.
 type ChannelsEditLocationRequest struct {
-	// Geogroup
+	// Geogroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// New geolocation
 	GeoPoint InputGeoPointClass

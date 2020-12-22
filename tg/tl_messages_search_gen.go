@@ -19,9 +19,15 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.search for reference.
 type MessagesSearchRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// User or chat, histories with which are searched, or (inputPeerEmpty) constructor for global search
+	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for global search
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerEmpty
 	Peer InputPeerClass
 	// Text search request
 	Q string
@@ -29,7 +35,10 @@ type MessagesSearchRequest struct {
 	//
 	// Use SetFromID and GetFromID helpers.
 	FromID InputPeerClass
-	// Thread ID
+	// Thread ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -41,15 +50,30 @@ type MessagesSearchRequest struct {
 	MaxDate int
 	// Only return messages starting from the specified message ID
 	OffsetID int
-	// Additional offset
+	// Additional offset¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Number of results to return
+	// Number of results to return¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Maximum message ID to return
+	// Maximum message ID to return¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	MaxID int
-	// Minimum message ID to return
+	// Minimum message ID to return¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	MinID int
-	// Hash
+	// Hash¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Hash int
 }
 

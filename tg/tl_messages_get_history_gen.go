@@ -33,7 +33,10 @@ type MessagesGetHistoryRequest struct {
 	MaxID int
 	// If a positive value was transferred, the method will return only messages with IDs more than min_id
 	MinID int
-	// Result hash
+	// Result hash¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Hash int
 }
 

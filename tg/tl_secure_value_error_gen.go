@@ -19,7 +19,15 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/secureValueErrorData for reference.
 type SecureValueErrorData struct {
-	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeAddress
+	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
+	//  2) https://core.telegram.org/constructor/secureValueTypePassport
+	//  3) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
+	//  6) https://core.telegram.org/constructor/secureValueTypeAddress
 	Type SecureValueTypeClass
 	// Data hash
 	DataHash []byte
@@ -105,7 +113,13 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorFrontSide for reference.
 type SecureValueErrorFrontSide struct {
-	// One of secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport
+	// One of secureValueTypePassport¹, secureValueTypeDriverLicense², secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePassport
+	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
 	Type SecureValueTypeClass
 	// File hash
 	FileHash []byte
@@ -181,7 +195,11 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorReverseSide for reference.
 type SecureValueErrorReverseSide struct {
-	// One of secureValueTypeDriverLicense, secureValueTypeIdentityCard
+	// One of secureValueTypeDriverLicense¹, secureValueTypeIdentityCard²
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  2) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	Type SecureValueTypeClass
 	// File hash
 	FileHash []byte
@@ -257,7 +275,13 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorSelfie for reference.
 type SecureValueErrorSelfie struct {
-	// One of secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport
+	// One of secureValueTypePassport¹, secureValueTypeDriverLicense², secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePassport
+	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
 	Type SecureValueTypeClass
 	// File hash
 	FileHash []byte
@@ -333,7 +357,14 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorFile for reference.
 type SecureValueErrorFile struct {
-	// One of secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
+	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement², secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴, secureValueTypeTemporaryRegistration⁵
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypeUtilityBill
+	//  2) https://core.telegram.org/constructor/secureValueTypeBankStatement
+	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
+	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
+	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
 	// File hash
 	FileHash []byte
@@ -409,7 +440,14 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorFiles for reference.
 type SecureValueErrorFiles struct {
-	// One of secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
+	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement², secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴, secureValueTypeTemporaryRegistration⁵
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypeUtilityBill
+	//  2) https://core.telegram.org/constructor/secureValueTypeBankStatement
+	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
+	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
+	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
 	// File hash
 	FileHash [][]byte
@@ -570,7 +608,19 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFile for reference.
 type SecureValueErrorTranslationFile struct {
-	// One of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
+	// One of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶, secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸, secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
+	//  2) https://core.telegram.org/constructor/secureValueTypePassport
+	//  3) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
+	//  6) https://core.telegram.org/constructor/secureValueTypeUtilityBill
+	//  7) https://core.telegram.org/constructor/secureValueTypeBankStatement
+	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
+	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
+	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
 	// File hash
 	FileHash []byte
@@ -646,7 +696,19 @@ var (
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFiles for reference.
 type SecureValueErrorTranslationFiles struct {
-	// One of secureValueTypePersonalDetails, secureValueTypePassport, secureValueTypeDriverLicense, secureValueTypeIdentityCard, secureValueTypeInternalPassport, secureValueTypeUtilityBill, secureValueTypeBankStatement, secureValueTypeRentalAgreement, secureValueTypePassportRegistration, secureValueTypeTemporaryRegistration
+	// One of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶, secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸, secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
+	//  2) https://core.telegram.org/constructor/secureValueTypePassport
+	//  3) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
+	//  6) https://core.telegram.org/constructor/secureValueTypeUtilityBill
+	//  7) https://core.telegram.org/constructor/secureValueTypeBankStatement
+	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
+	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
+	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
 	Type SecureValueTypeClass
 	// Hash
 	FileHash [][]byte

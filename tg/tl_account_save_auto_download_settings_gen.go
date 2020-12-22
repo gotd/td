@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/account.saveAutoDownloadSettings for reference.
 type AccountSaveAutoDownloadSettingsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to save settings in the low data usage preset
 	Low bool

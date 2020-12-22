@@ -19,11 +19,17 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/upload.getFile for reference.
 type UploadGetFileRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
 	Precise bool
-	// Whether the current client supports CDN downloads
+	// Whether the current client supports CDN downloads¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	CDNSupported bool
 	// File location
 	Location InputFileLocationClass

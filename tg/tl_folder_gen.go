@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/folder for reference.
 type Folder struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Automatically add new channels to this folder
 	AutofillNewBroadcasts bool

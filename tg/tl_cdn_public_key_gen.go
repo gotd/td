@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // CdnPublicKey represents TL type `cdnPublicKey#c982eaba`.
-// Public key to use only during handshakes to CDN DCs.
+// Public key to use only during handshakes to CDN¹ DCs.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnPublicKey for reference.
 type CdnPublicKey struct {
-	// CDN DC ID
+	// CDN DC¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	DCID int
 	// RSA public key
 	PublicKey string

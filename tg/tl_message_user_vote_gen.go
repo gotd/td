@@ -86,7 +86,10 @@ var (
 )
 
 // MessageUserVoteInputOption represents TL type `messageUserVoteInputOption#36377430`.
-// How a user voted in a poll (reduced constructor, returned if an option was provided to messages.getPollVotes)
+// How a user voted in a poll (reduced constructor, returned if an option was provided to messages.getPollVotes¹)
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getPollVotes
 //
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {

@@ -19,13 +19,22 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/account.passwordInputSettings for reference.
 type AccountPasswordInputSettings struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The SRP algorithm to use
+	// The SRP algorithm¹ to use
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
 	NewAlgo PasswordKdfAlgoClass
-	// The computed password hash
+	// The computed password hash¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
 	NewPasswordHash []byte
@@ -37,7 +46,10 @@ type AccountPasswordInputSettings struct {
 	//
 	// Use SetEmail and GetEmail helpers.
 	Email string
-	// Telegram passport settings
+	// Telegram passport¹ settings
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
 	NewSecureSettings SecureSecretSettings

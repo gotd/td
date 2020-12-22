@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/messageViews for reference.
 type MessageViews struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Viewcount of message
 	//
@@ -29,7 +32,10 @@ type MessageViews struct {
 	//
 	// Use SetForwards and GetForwards helpers.
 	Forwards int
-	// Reply and thread information of message
+	// Reply and thread¹ information of message
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
 	Replies MessageReplies

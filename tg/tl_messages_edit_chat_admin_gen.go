@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a9e69f2e`.
-// Make a user admin in a legacy group.
+// Make a user admin in a legacy group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
@@ -86,7 +89,10 @@ var (
 )
 
 // MessagesEditChatAdmin invokes method messages.editChatAdmin#a9e69f2e returning error if any.
-// Make a user admin in a legacy group.
+// Make a user admin in a legacy group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 func (c *Client) MessagesEditChatAdmin(ctx context.Context, request *MessagesEditChatAdminRequest) (bool, error) {

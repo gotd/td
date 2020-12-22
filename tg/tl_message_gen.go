@@ -70,11 +70,17 @@ var (
 //
 // See https://core.telegram.org/constructor/message for reference.
 type Message struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is this an outgoing message
 	Out bool
-	// Whether we were mentioned in this message
+	// Whether we were mentioned¹ in this message
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/mentions
 	Mentioned bool
 	// Whether there are unread media attachments in this message
 	MediaUnread bool
@@ -82,13 +88,19 @@ type Message struct {
 	Silent bool
 	// Whether this is a channel post
 	Post bool
-	// Whether this is a scheduled message
+	// Whether this is a scheduled message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages
 	FromScheduled bool
 	// This is a legacy message: it has to be refetched with the new layer
 	Legacy bool
 	// Whether the message should be shown as not modified to the user, even if an edit date is present
 	EditHide bool
-	// Whether this message is pinned
+	// Whether this message is pinned¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pin
 	Pinned bool
 	// ID of the message
 	ID int
@@ -122,7 +134,10 @@ type Message struct {
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Message entities for styled text
+	// Message entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -134,7 +149,10 @@ type Message struct {
 	//
 	// Use SetForwards and GetForwards helpers.
 	Forwards int
-	// Info about post comments (for channels) or message replies (for groups)
+	// Info about post comments (for channels) or message replies (for groups)¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
 	Replies MessageReplies
@@ -146,7 +164,11 @@ type Message struct {
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// Multiple media messages sent using messages.sendMultiMedia with the same grouped ID indicate an album or media group
+	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID indicate an album or media group²
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendMultiMedia
+	//  2) https://core.telegram.org/api/files#albums-grouped-media
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
 	GroupedID int64
@@ -720,7 +742,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messageService for reference.
 type MessageService struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the message is outgoing
 	Out bool

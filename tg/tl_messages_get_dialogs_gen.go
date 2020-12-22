@@ -19,23 +19,41 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 type MessagesGetDialogsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Exclude pinned dialogs
 	ExcludePinned bool
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Offset peer for pagination
+	// Offset peer for pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetPeer InputPeerClass
 	// Number of list elements to be returned
 	Limit int
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

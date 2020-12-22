@@ -15,19 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountRegisterDeviceRequest represents TL type `account.registerDevice#68976c6f`.
-// Register device to receive PUSH notifications
+// Register device to receive PUSH notifications¹
+//
+// Links:
+//  1) https://core.telegram.org/api/push-updates
 //
 // See https://core.telegram.org/method/account.registerDevice for reference.
 type AccountRegisterDeviceRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Avoid receiving (silent and invisible background) notifications. Useful to save battery.
 	NoMuted bool
-	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 - Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 - APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates
+	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 - Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 - APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/push-updates
 	TokenType int
 	// Device token
 	Token string
-	// If (boolTrue) is transmitted, a sandbox-certificate will be used during transmission.
+	// If (boolTrue)¹ is transmitted, a sandbox-certificate will be used during transmission.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/boolTrue
 	AppSandbox bool
 	// For FCM and APNS VoIP, optional encryption key used to encrypt push notifications
 	Secret []byte
@@ -132,7 +144,10 @@ var (
 )
 
 // AccountRegisterDevice invokes method account.registerDevice#68976c6f returning error if any.
-// Register device to receive PUSH notifications
+// Register device to receive PUSH notifications¹
+//
+// Links:
+//  1) https://core.telegram.org/api/push-updates
 //
 // See https://core.telegram.org/method/account.registerDevice for reference.
 func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error) {

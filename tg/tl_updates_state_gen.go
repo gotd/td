@@ -21,7 +21,11 @@ var _ = fmt.Stringer(nil)
 type UpdatesState struct {
 	// Number of events occured in a text box
 	Pts int
-	// Position in a sequence of updates in secret chats. For further detailes refer to article secret chatsParameter was added in eigth layer.
+	// Position in a sequence of updates in secret chats. For further detailes refer to article secret chats¹Parameter was added in eigth layer².
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end
+	//  2) https://core.telegram.org/api/layers#layer-8
 	Qts int
 	// Date of condition
 	Date int

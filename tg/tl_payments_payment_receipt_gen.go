@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/payments.paymentReceipt for reference.
 type PaymentsPaymentReceipt struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Date of generation
 	Date int
@@ -37,9 +40,15 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Use SetShipping and GetShipping helpers.
 	Shipping ShippingOption
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
 	// Payment credential name
 	CredentialsTitle string

@@ -19,11 +19,17 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.getRecentStickers for reference.
 type MessagesGetRecentStickersRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Get stickers recently attached to photo or video files
 	Attached bool
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

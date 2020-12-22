@@ -120,7 +120,10 @@ var (
 )
 
 // WebDocumentNoProxy represents TL type `webDocumentNoProxy#f9c8bcc6`.
-// Remote document that can be downloaded without proxying through telegram
+// Remote document that can be downloaded without proxying through telegram¹
+//
+// Links:
+//  1) https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {

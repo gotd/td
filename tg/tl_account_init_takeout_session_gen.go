@@ -19,17 +19,29 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 type AccountInitTakeoutSessionRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to export contacts
 	Contacts bool
 	// Whether to export messages in private chats
 	MessageUsers bool
-	// Whether to export messages in legacy groups
+	// Whether to export messages in legacy groups¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	MessageChats bool
-	// Whether to export messages in supergroups
+	// Whether to export messages in supergroups¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	MessageMegagroups bool
-	// Whether to export messages in channels
+	// Whether to export messages in channels¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	MessageChannels bool
 	// Whether to export files
 	Files bool

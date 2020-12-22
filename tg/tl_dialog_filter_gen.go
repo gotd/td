@@ -15,41 +15,89 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
-// Dialog filter AKA folder
+// Dialog filter AKA folder¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/dialogFilter for reference.
 type DialogFilter struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to include all contacts in this folder
+	// Whether to include all contacts in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Contacts bool
-	// Whether to include all non-contacts in this folder
+	// Whether to include all non-contacts in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	NonContacts bool
-	// Whether to include all groups in this folder
+	// Whether to include all groups in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Groups bool
-	// Whether to include all channels in this folder
+	// Whether to include all channels in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Broadcasts bool
-	// Whether to include all bots in this folder
+	// Whether to include all bots in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Bots bool
-	// Whether to exclude muted chats from this folder
+	// Whether to exclude muted chats from this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ExcludeMuted bool
-	// Whether to exclude read chats from this folder
+	// Whether to exclude read chats from this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ExcludeRead bool
-	// Whether to exclude archived chats from this folder
+	// Whether to exclude archived chats from this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ExcludeArchived bool
-	// Folder ID
+	// Folder¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ID int
-	// Folder name
+	// Folder¹ name
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Title string
-	// Folder emoticon
+	// Folder¹ emoticon
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
 	Emoticon string
-	// Pinned chats, folders can have unlimited pinned chats
+	// Pinned chats, folders¹ can have unlimited pinned chats
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	PinnedPeers []InputPeerClass
-	// Include the following chats in this folder
+	// Include the following chats in this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	IncludePeers []InputPeerClass
-	// Exclude the following chats from this folder
+	// Exclude the following chats from this folder¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ExcludePeers []InputPeerClass
 }
 

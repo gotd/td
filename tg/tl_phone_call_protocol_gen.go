@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/phoneCallProtocol for reference.
 type PhoneCallProtocol struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to allow P2P connection to the other participant
 	UDPP2P bool
@@ -29,7 +32,13 @@ type PhoneCallProtocol struct {
 	MinLayer int
 	// Maximum layer for remote libtgvoip
 	MaxLayer int
-	// When using phone.requestCall and phone.acceptCall, specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall and in the phoneCallAccepted update received by the caller.
+	// When using phone.requestCall¹ and phone.acceptCall², specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall³ and in the phoneCallAccepted⁴ update received by the caller.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.requestCall
+	//  2) https://core.telegram.org/method/phone.acceptCall
+	//  3) https://core.telegram.org/method/phone.acceptCall
+	//  4) https://core.telegram.org/constructor/phoneCallAccepted
 	LibraryVersions []string
 }
 

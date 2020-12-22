@@ -154,7 +154,10 @@ var (
 type InputPeerUser struct {
 	// User identifier
 	UserID int
-	// access_hash value from the user constructor
+	// access_hash value from the user¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/user
 	AccessHash int64
 }
 
@@ -215,7 +218,10 @@ var (
 type InputPeerChannel struct {
 	// Channel identifier
 	ChannelID int
-	// access_hash value from the channel constructor
+	// access_hash value from the channel¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channel
 	AccessHash int64
 }
 
@@ -270,7 +276,10 @@ var (
 )
 
 // InputPeerUserFromMessage represents TL type `inputPeerUserFromMessage#17bae2e6`.
-// Defines a min user that was seen in a certain message of a certain chat.
+// Defines a min¹ user that was seen in a certain message of a certain chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
@@ -346,7 +355,10 @@ var (
 )
 
 // InputPeerChannelFromMessage represents TL type `inputPeerChannelFromMessage#9c95f7bb`.
-// Defines a min channel that was seen in a certain message of a certain chat.
+// Defines a min¹ channel that was seen in a certain message of a certain chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {

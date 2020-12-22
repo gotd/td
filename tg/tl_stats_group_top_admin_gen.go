@@ -21,11 +21,20 @@ var _ = fmt.Stringer(nil)
 type StatsGroupTopAdmin struct {
 	// User ID
 	UserID int
-	// Number of deleted messages for statistics period in consideration
+	// Number of deleted messages for statistics¹ period in consideration
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stats
 	Deleted int
-	// Number of kicked users for statistics period in consideration
+	// Number of kicked users for statistics¹ period in consideration
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stats
 	Kicked int
-	// Number of banned users for statistics period in consideration
+	// Number of banned users for statistics¹ period in consideration
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stats
 	Banned int
 }
 

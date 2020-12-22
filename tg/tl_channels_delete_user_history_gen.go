@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsDeleteUserHistoryRequest represents TL type `channels.deleteUserHistory#d10dd71b`.
-// Delete all messages sent by a certain user in a supergroup
+// Delete all messages sent by a certain user in a supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.deleteUserHistory for reference.
 type ChannelsDeleteUserHistoryRequest struct {
-	// Supergroup
+	// Supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// User whose messages should be deleted
 	UserID InputUserClass
@@ -81,7 +87,10 @@ var (
 )
 
 // ChannelsDeleteUserHistory invokes method channels.deleteUserHistory#d10dd71b returning error if any.
-// Delete all messages sent by a certain user in a supergroup
+// Delete all messages sent by a certain user in a supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.deleteUserHistory for reference.
 func (c *Client) ChannelsDeleteUserHistory(ctx context.Context, request *ChannelsDeleteUserHistoryRequest) (*MessagesAffectedHistory, error) {

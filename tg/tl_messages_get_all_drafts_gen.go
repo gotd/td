@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetAllDraftsRequest represents TL type `messages.getAllDrafts#6a3f8d65`.
-// Save get all message drafts.
+// Save get all message drafts¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.getAllDrafts for reference.
 type MessagesGetAllDraftsRequest struct {
@@ -51,7 +54,10 @@ var (
 )
 
 // MessagesGetAllDrafts invokes method messages.getAllDrafts#6a3f8d65 returning error if any.
-// Save get all message drafts.
+// Save get all message drafts¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.getAllDrafts for reference.
 func (c *Client) MessagesGetAllDrafts(ctx context.Context) (UpdatesClass, error) {

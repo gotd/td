@@ -15,19 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
-// Sends a current user typing event (see SendMessageAction for all event types) to a conversation partner or group.
+// Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
+//
+// Links:
+//  1) https://core.telegram.org/type/SendMessageAction
 //
 // See https://core.telegram.org/method/messages.setTyping for reference.
 type MessagesSetTypingRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Target user or group
 	Peer InputPeerClass
-	// Thread ID
+	// Thread ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
-	// Type of actionParameter added in Layer 17.
+	// Type of actionParameter added in Layer 17¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/layers#layer-17
 	Action SendMessageActionClass
 }
 
@@ -120,7 +132,10 @@ var (
 )
 
 // MessagesSetTyping invokes method messages.setTyping#58943ee2 returning error if any.
-// Sends a current user typing event (see SendMessageAction for all event types) to a conversation partner or group.
+// Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
+//
+// Links:
+//  1) https://core.telegram.org/type/SendMessageAction
 //
 // See https://core.telegram.org/method/messages.setTyping for reference.
 func (c *Client) MessagesSetTyping(ctx context.Context, request *MessagesSetTypingRequest) (bool, error) {

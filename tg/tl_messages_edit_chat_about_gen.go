@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesEditChatAboutRequest represents TL type `messages.editChatAbout#def60797`.
-// Edit the description of a group/supergroup/channel.
+// Edit the description of a group/supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
 type MessagesEditChatAboutRequest struct {
-	// The group/supergroup/channel.
+	// The group/supergroup/channel¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Peer InputPeerClass
 	// The new description
 	About string
@@ -76,7 +82,10 @@ var (
 )
 
 // MessagesEditChatAbout invokes method messages.editChatAbout#def60797 returning error if any.
-// Edit the description of a group/supergroup/channel.
+// Edit the description of a group/supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/messages.editChatAbout for reference.
 func (c *Client) MessagesEditChatAbout(ctx context.Context, request *MessagesEditChatAboutRequest) (bool, error) {

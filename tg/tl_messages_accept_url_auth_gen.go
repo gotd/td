@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
-// Use this to accept a Seamless Telegram Login authorization request, for more info click here »
+// Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
 type MessagesAcceptUrlAuthRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Set this flag to allow the bot to send messages to you (if requested)
 	WriteAllowed bool
@@ -108,7 +114,10 @@ var (
 )
 
 // MessagesAcceptUrlAuth invokes method messages.acceptUrlAuth#f729ea98 returning error if any.
-// Use this to accept a Seamless Telegram Login authorization request, for more info click here »
+// Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
 func (c *Client) MessagesAcceptUrlAuth(ctx context.Context, request *MessagesAcceptUrlAuthRequest) (UrlAuthResultClass, error) {

@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputClientProxy represents TL type `inputClientProxy#75588b3f`.
-// Info about an MTProxy used to connect.
+// Info about an MTProxy¹ used to connect.
+//
+// Links:
+//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 //
 // See https://core.telegram.org/constructor/inputClientProxy for reference.
 type InputClientProxy struct {

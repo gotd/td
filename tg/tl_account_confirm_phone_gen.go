@@ -15,13 +15,22 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountConfirmPhoneRequest represents TL type `account.confirmPhone#5f2178c3`.
-// Confirm a phone number to cancel account deletion, for more info click here »
+// Confirm a phone number to cancel account deletion, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/account-deletion
 //
 // See https://core.telegram.org/method/account.confirmPhone for reference.
 type AccountConfirmPhoneRequest struct {
-	// Phone code hash, for more info click here »
+	// Phone code hash, for more info click here »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/account-deletion
 	PhoneCodeHash string
-	// SMS code, for more info click here »
+	// SMS code, for more info click here »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/account-deletion
 	PhoneCode string
 }
 
@@ -71,7 +80,10 @@ var (
 )
 
 // AccountConfirmPhone invokes method account.confirmPhone#5f2178c3 returning error if any.
-// Confirm a phone number to cancel account deletion, for more info click here »
+// Confirm a phone number to cancel account deletion, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/account-deletion
 //
 // See https://core.telegram.org/method/account.confirmPhone for reference.
 func (c *Client) AccountConfirmPhone(ctx context.Context, request *AccountConfirmPhoneRequest) (bool, error) {

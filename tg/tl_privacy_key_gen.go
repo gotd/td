@@ -179,7 +179,10 @@ var (
 )
 
 // PrivacyKeyForwards represents TL type `privacyKeyForwards#69ec56a3`.
-// Whether messages forwarded from the user will be anonymously forwarded
+// Whether messages forwarded from the user will be anonymously forwarded¹
+//
+// Links:
+//  1) https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
 //
 // See https://core.telegram.org/constructor/privacyKeyForwards for reference.
 type PrivacyKeyForwards struct {

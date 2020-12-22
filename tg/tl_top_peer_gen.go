@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type TopPeer struct {
 	// Peer
 	Peer PeerClass
-	// Rating as computed in top peer rating »
+	// Rating as computed in top peer rating »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/top-rating
 	Rating float64
 }
 

@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type WallPaper struct {
 	// Identifier
 	ID int64
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Creator of the wallpaper
 	Creator bool
@@ -192,7 +195,10 @@ var (
 //
 // See https://core.telegram.org/constructor/wallPaperNoFile for reference.
 type WallPaperNoFile struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is the default wallpaper
 	Default bool

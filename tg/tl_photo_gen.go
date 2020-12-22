@@ -70,7 +70,10 @@ var (
 //
 // See https://core.telegram.org/constructor/photo for reference.
 type Photo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the photo has mask stickers attached to it
 	HasStickers bool
@@ -78,13 +81,19 @@ type Photo struct {
 	ID int64
 	// Access hash
 	AccessHash int64
-	// file reference
+	// file reference¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/file_reference
 	FileReference []byte
 	// Date of upload
 	Date int
 	// Available sizes for download
 	Sizes []PhotoSizeClass
-	// For animated profiles, the MPEG4 videos
+	// For animated profiles¹, the MPEG4 videos
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
 	VideoSizes []VideoSize

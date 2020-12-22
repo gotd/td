@@ -15,7 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // SecureData represents TL type `secureData#8aeabec3`.
-// Secure passport data, for more info see the passport docs »
+// Secure passport¹ data, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#securedata
 //
 // See https://core.telegram.org/constructor/secureData for reference.
 type SecureData struct {

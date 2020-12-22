@@ -15,15 +15,24 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetMegagroupStatsRequest represents TL type `stats.getMegagroupStats#dcdf8607`.
-// Get supergroup statistics
+// Get supergroup statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getMegagroupStats for reference.
 type StatsGetMegagroupStatsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
-	// Supergroup ID
+	// Supergroup ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 }
 
@@ -88,7 +97,10 @@ var (
 )
 
 // StatsGetMegagroupStats invokes method stats.getMegagroupStats#dcdf8607 returning error if any.
-// Get supergroup statistics
+// Get supergroup statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getMegagroupStats for reference.
 func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {

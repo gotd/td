@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
-// Uploaded secure file, for more info see the passport docs »
+// Uploaded secure file, for more info see the passport docs »¹
+//
+// Links:
+//  1) https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
@@ -106,7 +109,11 @@ var (
 )
 
 // InputSecureFile represents TL type `inputSecureFile#5367e5be`.
-// Preuploaded passport file, for more info see the passport docs »
+// Preuploaded passport¹ file, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {

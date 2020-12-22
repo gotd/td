@@ -21,9 +21,15 @@ var _ = fmt.Stringer(nil)
 type MessagesGetCommonChatsRequest struct {
 	// User ID
 	UserID InputUserClass
-	// Maximum ID of chat to return (see pagination)
+	// Maximum ID of chat to return (see pagination¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	MaxID int
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 

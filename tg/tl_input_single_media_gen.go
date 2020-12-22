@@ -15,11 +15,18 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // InputSingleMedia represents TL type `inputSingleMedia#1cc6e91f`.
-// A single media in an album or grouped media sent with messages.sendMultiMedia.
+// A single media in an album or grouped media¹ sent with messages.sendMultiMedia².
+//
+// Links:
+//  1) https://core.telegram.org/api/files#albums-grouped-media
+//  2) https://core.telegram.org/method/messages.sendMultiMedia
 //
 // See https://core.telegram.org/constructor/inputSingleMedia for reference.
 type InputSingleMedia struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The media
 	Media InputMediaClass
@@ -27,7 +34,10 @@ type InputSingleMedia struct {
 	RandomID int64
 	// A caption for the media
 	Message string
-	// Message entities for styled text
+	// Message entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

@@ -21,11 +21,20 @@ var _ = fmt.Stringer(nil)
 type AuthImportBotAuthorizationRequest struct {
 	// Reserved for future use
 	Flags int
-	// Application identifier (see. App configuration)
+	// Application identifier (see. App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIID int
-	// Application identifier hash (see. App configuration)
+	// Application identifier hash (see. App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIHash string
-	// Bot token (see bots)
+	// Bot token (see bots¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots
 	BotAuthToken string
 }
 

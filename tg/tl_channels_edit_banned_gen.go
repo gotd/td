@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditBannedRequest represents TL type `channels.editBanned#72796912`.
-// Ban/unban/kick a user in a supergroup/channel.
+// Ban/unban/kick a user in a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editBanned for reference.
 type ChannelsEditBannedRequest struct {
-	// The supergroup/channel.
+	// The supergroup/channel¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// The ID of the user whose banned rights should be modified
 	UserID InputUserClass
@@ -91,7 +97,10 @@ var (
 )
 
 // ChannelsEditBanned invokes method channels.editBanned#72796912 returning error if any.
-// Ban/unban/kick a user in a supergroup/channel.
+// Ban/unban/kick a user in a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editBanned for reference.
 func (c *Client) ChannelsEditBanned(ctx context.Context, request *ChannelsEditBannedRequest) (UpdatesClass, error) {

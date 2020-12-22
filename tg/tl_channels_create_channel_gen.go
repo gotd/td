@@ -15,15 +15,27 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
-// Create a supergroup/channel.
+// Create a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.
 type ChannelsCreateChannelRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to create a channel
+	// Whether to create a channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Broadcast bool
-	// Whether to create a supergroup
+	// Whether to create a supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Megagroup bool
 	// Channel title
 	Title string
@@ -168,7 +180,10 @@ var (
 )
 
 // ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.
-// Create a supergroup/channel.
+// Create a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.createChannel for reference.
 func (c *Client) ChannelsCreateChannel(ctx context.Context, request *ChannelsCreateChannelRequest) (UpdatesClass, error) {

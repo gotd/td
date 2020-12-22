@@ -60,9 +60,15 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaUploadedPhoto for reference.
 type InputMediaUploadedPhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// The uploaded file
+	// The uploaded file¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	File InputFileClass
 	// Attached mask stickers
 	//
@@ -198,7 +204,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaPhoto for reference.
 type InputMediaPhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Photo to be forwarded
 	ID InputPhotoClass
@@ -430,13 +439,19 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaUploadedDocument for reference.
 type InputMediaUploadedDocument struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
 	NosoundVideo bool
 	// Force the media file to be uploaded as document
 	ForceFile bool
-	// The uploaded file
+	// The uploaded file¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	File InputFileClass
 	// Thumbnail of the document, uploaded as for the file
 	//
@@ -660,7 +675,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaDocument for reference.
 type InputMediaDocument struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The document to be forwarded.
 	ID InputDocumentClass
@@ -861,7 +879,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaPhotoExternal for reference.
 type InputMediaPhotoExternal struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// URL of the photo
 	URL string
@@ -951,7 +972,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaDocumentExternal for reference.
 type InputMediaDocumentExternal struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// URL of the document
 	URL string
@@ -1093,11 +1117,17 @@ var (
 )
 
 // InputMediaInvoice represents TL type `inputMediaInvoice#f4e096c3`.
-// Generated invoice of a bot payment
+// Generated invoice of a bot payment¹
+//
+// Links:
+//  1) https://core.telegram.org/bots/payments
 //
 // See https://core.telegram.org/constructor/inputMediaInvoice for reference.
 type InputMediaInvoice struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Product name, 1-32 characters
 	Title string
@@ -1111,7 +1141,10 @@ type InputMediaInvoice struct {
 	Invoice Invoice
 	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
 	Payload []byte
-	// Payments provider token, obtained via Botfather
+	// Payments provider token, obtained via Botfather¹
+	//
+	// Links:
+	//  1) https://t.me/botfather
 	Provider string
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
 	ProviderData DataJSON
@@ -1243,17 +1276,26 @@ var (
 )
 
 // InputMediaGeoLive represents TL type `inputMediaGeoLive#971fa843`.
-// Live geolocation
+// Live geolocation¹
+//
+// Links:
+//  1) https://core.telegram.org/api/live-location
 //
 // See https://core.telegram.org/constructor/inputMediaGeoLive for reference.
 type InputMediaGeoLive struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether sending of the geolocation was stopped
 	Stopped bool
 	// Current geolocation
 	GeoPoint InputGeoPointClass
-	// For live locations, a direction in which the location moves, in degrees; 1-360.
+	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
@@ -1261,7 +1303,10 @@ type InputMediaGeoLive struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -1412,7 +1457,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMediaPoll for reference.
 type InputMediaPoll struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The poll to send
 	Poll Poll
@@ -1424,7 +1472,10 @@ type InputMediaPoll struct {
 	//
 	// Use SetSolution and GetSolution helpers.
 	Solution string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass
@@ -1579,7 +1630,10 @@ var (
 )
 
 // InputMediaDice represents TL type `inputMediaDice#e66fbf7b`.
-// Send a dice-based animated sticker
+// Send a dice-based animated sticker¹
+//
+// Links:
+//  1) https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {

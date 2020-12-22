@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type AuthSignInRequest struct {
 	// Phone number in the international format
 	PhoneNumber string
-	// SMS-message ID, obtained from auth.sendCode
+	// SMS-message ID, obtained from auth.sendCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
 	// Valid numerical code from the SMS-message
 	PhoneCode string

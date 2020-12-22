@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditAdminRequest represents TL type `channels.editAdmin#d33c8902`.
-// Modify the admin rights of a user in a supergroup/channel.
+// Modify the admin rights of a user in a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editAdmin for reference.
 type ChannelsEditAdminRequest struct {
-	// The supergroup/channel.
+	// The supergroup/channel¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// The ID of the user whose admin rights should be modified
 	UserID InputUserClass
@@ -101,7 +107,10 @@ var (
 )
 
 // ChannelsEditAdmin invokes method channels.editAdmin#d33c8902 returning error if any.
-// Modify the admin rights of a user in a supergroup/channel.
+// Modify the admin rights of a user in a supergroup/channel¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editAdmin for reference.
 func (c *Client) ChannelsEditAdmin(ctx context.Context, request *ChannelsEditAdminRequest) (UpdatesClass, error) {

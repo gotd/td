@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 type MessagesGetBotCallbackAnswerRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a "play game" button
 	Game bool
@@ -31,7 +34,11 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//
 	// Use SetData and GetData helpers.
 	Data []byte
-	// For buttons requiring you to verify your identity with your 2FA password, the SRP payload generated using SRP.
+	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP payload generated using SRP².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonCallback
+	//  2) https://core.telegram.org/api/srp
 	//
 	// Use SetPassword and GetPassword helpers.
 	Password InputCheckPasswordSRPClass

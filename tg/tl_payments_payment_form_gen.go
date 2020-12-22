@@ -19,11 +19,18 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/payments.paymentForm for reference.
 type PaymentsPaymentForm struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the user can choose to save credentials.
 	CanSaveCredentials bool
-	// Indicates that the user can save payment credentials, but only after setting up a 2FA password (currently the account doesn't have a 2FA password)
+	// Indicates that the user can save payment credentials, but only after setting up a 2FA password¹ (currently the account doesn't have a 2FA password²)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
+	//  2) https://core.telegram.org/api/srp
 	PasswordMissing bool
 	// Bot ID
 	BotID int

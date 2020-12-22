@@ -23,19 +23,34 @@ type MessagesGetRepliesRequest struct {
 	Peer InputPeerClass
 	// Message ID
 	MsgID int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetDate int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
 	MaxID int
 	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
 	MinID int
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

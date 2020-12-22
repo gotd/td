@@ -103,7 +103,10 @@ var (
 type InputUser struct {
 	// User identifier
 	UserID int
-	// access_hash value from the user constructor
+	// access_hash value from the user¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/user
 	AccessHash int64
 }
 
@@ -158,7 +161,10 @@ var (
 )
 
 // InputUserFromMessage represents TL type `inputUserFromMessage#2d117597`.
-// Defines a min user that was seen in a certain message of a certain chat.
+// Defines a min¹ user that was seen in a certain message of a certain chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {

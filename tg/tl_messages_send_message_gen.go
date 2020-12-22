@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.sendMessage for reference.
 type MessagesSendMessageRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Set this flag to disable generation of the webpage preview
 	NoWebpage bool
@@ -43,11 +46,17 @@ type MessagesSendMessageRequest struct {
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
 	ReplyMarkup ReplyMarkupClass
-	// Message entities for sending styled text
+	// Message entities¹ for sending styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
-	// Scheduled message date for scheduled messages
+	// Scheduled message date for scheduled messages¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
 	ScheduleDate int

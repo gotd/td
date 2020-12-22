@@ -15,19 +15,31 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
-// Send a result obtained using messages.getInlineBotResults.
+// Send a result obtained using messages.getInlineBotResults¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getInlineBotResults
 //
 // See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 type MessagesSendInlineBotResultRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to send the message silently (no notification will be triggered on the other client)
 	Silent bool
 	// Whether to send the message in background
 	Background bool
-	// Whether to clear the draft
+	// Whether to clear the draft¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/drafts
 	ClearDraft bool
-	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config)
+	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/config
 	HideVia bool
 	// Destination
 	Peer InputPeerClass
@@ -37,9 +49,15 @@ type MessagesSendInlineBotResultRequest struct {
 	ReplyToMsgID int
 	// Random ID to avoid resending the same query
 	RandomID int64
-	// Query ID from messages.getInlineBotResults
+	// Query ID from messages.getInlineBotResults¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	QueryID int64
-	// Result ID from messages.getInlineBotResults
+	// Result ID from messages.getInlineBotResults¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getInlineBotResults
 	ID string
 	// Scheduled message date for scheduled messages
 	//
@@ -212,7 +230,10 @@ var (
 )
 
 // MessagesSendInlineBotResult invokes method messages.sendInlineBotResult#220815b0 returning error if any.
-// Send a result obtained using messages.getInlineBotResults.
+// Send a result obtained using messages.getInlineBotResults¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getInlineBotResults
 //
 // See https://core.telegram.org/method/messages.sendInlineBotResult for reference.
 func (c *Client) MessagesSendInlineBotResult(ctx context.Context, request *MessagesSendInlineBotResultRequest) (UpdatesClass, error) {

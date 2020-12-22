@@ -21,9 +21,15 @@ var _ = fmt.Stringer(nil)
 type AuthSendCodeRequest struct {
 	// Phone number in international format
 	PhoneNumber string
-	// Application identifier (see App configuration)
+	// Application identifier (see App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIID int
-	// Application secret hash (see App configuration)
+	// Application secret hash (see App configuration¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/myapp
 	APIHash string
 	// Settings for the code type to send
 	Settings CodeSettings

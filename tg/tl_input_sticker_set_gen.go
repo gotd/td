@@ -209,7 +209,10 @@ var (
 )
 
 // InputStickerSetDice represents TL type `inputStickerSetDice#e67f520e`.
-// Used for fetching animated dice stickers
+// Used for fetching animated dice stickers¹
+//
+// Links:
+//  1) https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {

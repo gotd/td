@@ -15,15 +15,24 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // BotInlineMessageMediaAuto represents TL type `botInlineMessageMediaAuto#764cf810`.
-// Send whatever media is attached to the botInlineMediaResult
+// Send whatever media is attached to the botInlineMediaResult¹
+//
+// Links:
+//  1) https://core.telegram.org/constructor/botInlineMediaResult
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaAuto for reference.
 type BotInlineMessageMediaAuto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Caption
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -157,13 +166,19 @@ var (
 //
 // See https://core.telegram.org/constructor/botInlineMessageText for reference.
 type BotInlineMessageText struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
 	// The message
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -307,11 +322,17 @@ var (
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaGeo for reference.
 type BotInlineMessageMediaGeo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Geolocation
 	Geo GeoPointClass
-	// For live locations, a direction in which the location moves, in degrees; 1-360.
+	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
@@ -319,7 +340,10 @@ type BotInlineMessageMediaGeo struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
+	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -494,7 +518,10 @@ var (
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaVenue for reference.
 type BotInlineMessageMediaVenue struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Geolocation of venue
 	Geo GeoPointClass
@@ -644,7 +671,10 @@ var (
 //
 // See https://core.telegram.org/constructor/botInlineMessageMediaContact for reference.
 type BotInlineMessageMediaContact struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Phone number
 	PhoneNumber string

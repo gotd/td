@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type AuthCancelCodeRequest struct {
 	// Phone number
 	PhoneNumber string
-	// Phone code hash from auth.sendCode
+	// Phone code hash from auth.sendCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/auth.sendCode
 	PhoneCodeHash string
 }
 

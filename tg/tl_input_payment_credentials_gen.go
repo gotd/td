@@ -80,7 +80,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputPaymentCredentials for reference.
 type InputPaymentCredentials struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Save payment credential for future use
 	Save bool

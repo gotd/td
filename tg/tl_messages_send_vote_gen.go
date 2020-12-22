@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesSendVoteRequest represents TL type `messages.sendVote#10ea6184`.
-// Vote in a poll
+// Vote in a poll¹
+//
+// Links:
+//  1) https://core.telegram.org/constructor/poll
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
@@ -95,7 +98,10 @@ var (
 )
 
 // MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.
-// Vote in a poll
+// Vote in a poll¹
+//
+// Links:
+//  1) https://core.telegram.org/constructor/poll
 //
 // See https://core.telegram.org/method/messages.sendVote for reference.
 func (c *Client) MessagesSendVote(ctx context.Context, request *MessagesSendVoteRequest) (UpdatesClass, error) {

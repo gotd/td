@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/authorization for reference.
 type Authorization struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is the current session
 	Current bool
@@ -35,7 +38,10 @@ type Authorization struct {
 	Platform string
 	// System version
 	SystemVersion string
-	// API ID
+	// API ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/obtaining_api_id
 	APIID int
 	// App name
 	AppName string

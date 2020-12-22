@@ -15,7 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AuthRecoverPasswordRequest represents TL type `auth.recoverPassword#4ea56e92`.
-// Reset the 2FA password using the recovery code sent using auth.requestPasswordRecovery.
+// Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
+//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 type AuthRecoverPasswordRequest struct {
@@ -61,7 +65,11 @@ var (
 )
 
 // AuthRecoverPassword invokes method auth.recoverPassword#4ea56e92 returning error if any.
-// Reset the 2FA password using the recovery code sent using auth.requestPasswordRecovery.
+// Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
+//  2) https://core.telegram.org/method/auth.requestPasswordRecovery
 //
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 func (c *Client) AuthRecoverPassword(ctx context.Context, code string) (AuthAuthorizationClass, error) {

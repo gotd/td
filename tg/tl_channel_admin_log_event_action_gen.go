@@ -708,7 +708,10 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleBan represents TL type `channelAdminLogEventActionParticipantToggleBan#e6d83d7e`.
-// The banned rights of a user were changed
+// The banned rights¹ of a user were changed
+//
+// Links:
+//  1) https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
@@ -781,7 +784,10 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantToggleAdmin represents TL type `channelAdminLogEventActionParticipantToggleAdmin#d5676710`.
-// The admin rights of a user were changed
+// The admin rights¹ of a user were changed
+//
+// Links:
+//  1) https://core.telegram.org/api/rights
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
@@ -927,7 +933,10 @@ var (
 )
 
 // ChannelAdminLogEventActionTogglePreHistoryHidden represents TL type `channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1`.
-// The hidden prehistory setting was changed
+// The hidden prehistory setting was changed¹
+//
+// Links:
+//  1) https://core.telegram.org/method/channels.togglePreHistoryHidden
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
@@ -984,9 +993,15 @@ var (
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights for reference.
 type ChannelAdminLogEventActionDefaultBannedRights struct {
-	// Previous global banned rights
+	// Previous global banned rights¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	PrevBannedRights ChatBannedRights
-	// New glboal banned rights.
+	// New glboal banned rights¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	NewBannedRights ChatBannedRights
 }
 
@@ -1235,7 +1250,10 @@ var (
 )
 
 // ChannelAdminLogEventActionToggleSlowMode represents TL type `channelAdminLogEventActionToggleSlowMode#53909779`.
-// Slow mode setting for supergroups was changed
+// Slow mode setting for supergroups was changed¹
+//
+// Links:
+//  1) https://core.telegram.org/method/channels.toggleSlowMode
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {

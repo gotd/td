@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
-// Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured.
+// Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
@@ -61,7 +64,10 @@ var (
 )
 
 // AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.
-// Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured.
+// Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 func (c *Client) AccountDeleteAccount(ctx context.Context, reason string) (bool, error) {

@@ -487,7 +487,10 @@ var (
 )
 
 // MessageActionChatMigrateTo represents TL type `messageActionChatMigrateTo#51bdb021`.
-// Indicates the chat was migrated to the specified supergroup
+// Indicates the chat was migrated¹ to the specified supergroup
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/messageActionChatMigrateTo for reference.
 type MessageActionChatMigrateTo struct {
@@ -538,7 +541,10 @@ var (
 )
 
 // MessageActionChannelMigrateFrom represents TL type `messageActionChannelMigrateFrom#b055eaee`.
-// Indicates the channel was migrated from the specified chat
+// Indicates the channel was migrated¹ from the specified chat
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
@@ -746,11 +752,20 @@ var (
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSentMe for reference.
 type MessageActionPaymentSentMe struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
 	// Bot specified invoice payload
 	Payload []byte
@@ -895,9 +910,15 @@ var (
 //
 // See https://core.telegram.org/constructor/messageActionPaymentSent for reference.
 type MessageActionPaymentSent struct {
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
 }
 
@@ -956,7 +977,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messageActionPhoneCall for reference.
 type MessageActionPhoneCall struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is this a video call?
 	Video bool
@@ -1180,7 +1204,10 @@ var (
 )
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#abe9affe`.
-// The domain name of the website on which the user has logged in. More about Telegram Login »
+// The domain name of the website on which the user has logged in. More about Telegram Login »¹
+//
+// Links:
+//  1) https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
@@ -1231,7 +1258,10 @@ var (
 )
 
 // MessageActionSecureValuesSentMe represents TL type `messageActionSecureValuesSentMe#1b287353`.
-// Secure telegram passport values were received
+// Secure telegram passport¹ values were received
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
@@ -1303,7 +1333,10 @@ var (
 )
 
 // MessageActionSecureValuesSent represents TL type `messageActionSecureValuesSent#d95c6154`.
-// Request for secure telegram passport values was sent
+// Request for secure telegram passport¹ values was sent
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSent for reference.
 type MessageActionSecureValuesSent struct {
@@ -1415,7 +1448,10 @@ var (
 type MessageActionGeoProximityReached struct {
 	// The user or chat that is now in proximity of to_id
 	FromID PeerClass
-	// The user or chat that subscribed to live geolocation proximity alerts
+	// The user or chat that subscribed to live geolocation proximity alerts¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location#proximity-alert
 	ToID PeerClass
 	// Distance, in meters (0-100000)
 	Distance int

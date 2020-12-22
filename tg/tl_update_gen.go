@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdateNewMessage represents TL type `updateNewMessage#1f2b0afd`.
-// New message in a private chat or in a legacy group.
+// New message in a private chat or in a legacy group¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateNewMessage for reference.
 type UpdateNewMessage struct {
@@ -95,7 +98,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateMessageID for reference.
 type UpdateMessageID struct {
-	// id identifier of a respective Message
+	// id identifier of a respective Message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Message
 	ID int
 	// Previuosly transferred client random_id identifier
 	RandomID int64
@@ -160,7 +166,10 @@ type UpdateDeleteMessages struct {
 	Messages []int
 	// New quality of actions in a message box
 	Pts int
-	// Number of generated events
+	// Number of generated events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -238,7 +247,10 @@ var (
 type UpdateUserTyping struct {
 	// User id
 	UserID int
-	// Action typeParam added in Layer 17.
+	// Action typeParam added in Layer 17¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/layers#layer-17
 	Action SendMessageActionClass
 }
 
@@ -306,7 +318,10 @@ type UpdateChatUserTyping struct {
 	ChatID int
 	// User id
 	UserID int
-	// Type of actionParameter added in Layer 17.
+	// Type of actionParameter added in Layer 17¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/layers#layer-17
 	Action SendMessageActionClass
 }
 
@@ -502,11 +517,20 @@ var (
 type UpdateUserName struct {
 	// User identifier
 	UserID int
-	// New first name. Corresponds to the new value of real_first_name field of the userFull constructor.
+	// New first name. Corresponds to the new value of real_first_name field of the userFull¹ constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
 	FirstName string
-	// New last name. Corresponds to the new value of real_last_name field of the userFull constructor.
+	// New last name. Corresponds to the new value of real_last_name field of the userFull¹ constructor.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
 	LastName string
-	// New username.Parameter added in Layer 18.
+	// New username.Parameter added in Layer 18¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/layers#layer-18
 	Username string
 }
 
@@ -587,7 +611,10 @@ type UpdateUserPhoto struct {
 	Date int
 	// New profile photo
 	Photo UserProfilePhotoClass
-	// (boolTrue), if one of the previously used photos is set a profile photo.
+	// (boolTrue¹), if one of the previously used photos is set a profile photo.
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/boolTrue
 	Previous bool
 }
 
@@ -1212,7 +1239,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateServiceNotification for reference.
 type UpdateServiceNotification struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// (boolTrue) if the message must be displayed in a popup.
 	Popup bool
@@ -1220,13 +1250,19 @@ type UpdateServiceNotification struct {
 	//
 	// Use SetInboxDate and GetInboxDate helpers.
 	InboxDate int
-	// String, identical in format and contents to the type field in API errors. Describes type of service message. It is acceptable to ignore repeated messages of the same type within a short period of time (15 minutes).
+	// String, identical in format and contents to the type¹ field in API errors. Describes type of service message. It is acceptable to ignore repeated messages of the same type within a short period of time (15 minutes).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/errors#error-type
 	Type string
 	// Message text
 	Message string
 	// Media content (optional)
 	Media MessageMediaClass
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
 }
 
@@ -1504,9 +1540,15 @@ var (
 //
 // See https://core.telegram.org/constructor/updateReadHistoryInbox for reference.
 type UpdateReadHistoryInbox struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -1516,9 +1558,15 @@ type UpdateReadHistoryInbox struct {
 	MaxID int
 	// Number of messages that are still unread
 	StillUnreadCount int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -1643,9 +1691,15 @@ type UpdateReadHistoryOutbox struct {
 	Peer PeerClass
 	// Maximum ID of read outgoing messages
 	MaxID int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -1721,15 +1775,24 @@ var (
 )
 
 // UpdateWebPage represents TL type `updateWebPage#7f891213`.
-// An instant view webpage preview was generated
+// An instant view¹ webpage preview was generated
+//
+// Links:
+//  1) https://instantview.telegram.org
 //
 // See https://core.telegram.org/constructor/updateWebPage for reference.
 type UpdateWebPage struct {
 	// Webpage preview
 	Webpage WebPageClass
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -1797,15 +1860,24 @@ var (
 )
 
 // UpdateReadMessagesContents represents TL type `updateReadMessagesContents#68c13933`.
-// Contents of messages in the common message box were read
+// Contents of messages in the common message box¹ were read
+//
+// Links:
+//  1) https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
 	// IDs of read messages
 	Messages []int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -1882,11 +1954,17 @@ var (
 //
 // See https://core.telegram.org/constructor/updateChannelTooLong for reference.
 type UpdateChannelTooLong struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The channel
 	ChannelID int
-	// The PTS.
+	// The PTS¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
 	Pts int
@@ -2019,15 +2097,24 @@ var (
 )
 
 // UpdateNewChannelMessage represents TL type `updateNewChannelMessage#62ba04d9`.
-// A new message was sent in a channel/supergroup
+// A new message was sent in a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateNewChannelMessage for reference.
 type UpdateNewChannelMessage struct {
 	// New message
 	Message MessageClass
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -2095,13 +2182,22 @@ var (
 )
 
 // UpdateReadChannelInbox represents TL type `updateReadChannelInbox#330b5424`.
-// Incoming messages in a channel/supergroup were read
+// Incoming messages in a channel/supergroup¹ were read
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateReadChannelInbox for reference.
 type UpdateReadChannelInbox struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -2111,7 +2207,10 @@ type UpdateReadChannelInbox struct {
 	MaxID int
 	// Count of messages weren't read yet
 	StillUnreadCount int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 }
 
@@ -2215,7 +2314,10 @@ var (
 )
 
 // UpdateDeleteChannelMessages represents TL type `updateDeleteChannelMessages#c37521c9`.
-// Some messages in a supergroup/channel were deleted
+// Some messages in a supergroup/channel¹ were deleted
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateDeleteChannelMessages for reference.
 type UpdateDeleteChannelMessages struct {
@@ -2223,9 +2325,15 @@ type UpdateDeleteChannelMessages struct {
 	ChannelID int
 	// IDs of messages that were deleted
 	Messages []int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -2376,7 +2484,10 @@ var (
 )
 
 // UpdateChatParticipantAdmin represents TL type `updateChatParticipantAdmin#b6901959`.
-// Admin permissions of a user in a legacy group were changed
+// Admin permissions of a user in a legacy group¹ were changed
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChatParticipantAdmin for reference.
 type UpdateChatParticipantAdmin struct {
@@ -2512,7 +2623,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateStickerSetsOrder for reference.
 type UpdateStickerSetsOrder struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the updated stickers are mask stickers
 	Masks bool
@@ -2590,7 +2704,10 @@ var (
 )
 
 // UpdateStickerSets represents TL type `updateStickerSets#43ae3dec`.
-// Installed stickersets have changed, the client should refetch them using messages.getAllStickers
+// Installed stickersets have changed, the client should refetch them using messages.getAllStickers¹
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getAllStickers
 //
 // See https://core.telegram.org/constructor/updateStickerSets for reference.
 type UpdateStickerSets struct {
@@ -2631,7 +2748,10 @@ var (
 )
 
 // UpdateSavedGifs represents TL type `updateSavedGifs#9375341e`.
-// The saved gif list has changed, the client should refetch it using messages.getSavedGifs
+// The saved gif list has changed, the client should refetch it using messages.getSavedGifs¹
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getSavedGifs
 //
 // See https://core.telegram.org/constructor/updateSavedGifs for reference.
 type UpdateSavedGifs struct {
@@ -2676,7 +2796,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateBotInlineQuery for reference.
 type UpdateBotInlineQuery struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Query ID
 	QueryID int64
@@ -2797,11 +2920,17 @@ var (
 )
 
 // UpdateBotInlineSend represents TL type `updateBotInlineSend#e48f964`.
-// The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.
+// The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting¹ for details on how to enable these updates for your bot.
+//
+// Links:
+//  1) https://core.telegram.org/bots/inline#collecting-feedback
 //
 // See https://core.telegram.org/constructor/updateBotInlineSend for reference.
 type UpdateBotInlineSend struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// The user that chose the result
 	UserID int
@@ -2941,15 +3070,24 @@ var (
 )
 
 // UpdateEditChannelMessage represents TL type `updateEditChannelMessage#1b3f4df7`.
-// A message was edited in a channel/supergroup
+// A message was edited in a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateEditChannelMessage for reference.
 type UpdateEditChannelMessage struct {
 	// The new message
 	Message MessageClass
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -3021,7 +3159,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateBotCallbackQuery for reference.
 type UpdateBotCallbackQuery struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Query ID
 	QueryID int64
@@ -3187,9 +3328,15 @@ var (
 type UpdateEditMessage struct {
 	// The new edited message
 	Message MessageClass
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PTS count
+	// PTS count¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -3261,7 +3408,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateInlineBotCallbackQuery for reference.
 type UpdateInlineBotCallbackQuery struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Query ID
 	QueryID int64
@@ -3406,7 +3556,10 @@ var (
 )
 
 // UpdateReadChannelOutbox represents TL type `updateReadChannelOutbox#25d6c9c7`.
-// Outgoing messages in a channel/supergroup were read
+// Outgoing messages in a channel/supergroup¹ were read
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateReadChannelOutbox for reference.
 type UpdateReadChannelOutbox struct {
@@ -3467,7 +3620,10 @@ var (
 )
 
 // UpdateDraftMessage represents TL type `updateDraftMessage#ee2bb969`.
-// Notifies a change of a message draft.
+// Notifies a change of a message draft¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/constructor/updateDraftMessage for reference.
 type UpdateDraftMessage struct {
@@ -3620,7 +3776,10 @@ var (
 )
 
 // UpdateConfig represents TL type `updateConfig#a229dd06`.
-// The server-side configuration has changed; the client should re-fetch the config using help.getConfig
+// The server-side configuration has changed; the client should re-fetch the config using help.getConfig¹
+//
+// Links:
+//  1) https://core.telegram.org/method/help.getConfig
 //
 // See https://core.telegram.org/constructor/updateConfig for reference.
 type UpdateConfig struct {
@@ -3661,7 +3820,11 @@ var (
 )
 
 // UpdatePtsChanged represents TL type `updatePtsChanged#3354678f`.
-// Common message box sequence PTS has changed, state has to be refetched using updates.getState
+// Common message box sequence PTS¹ has changed, state has to be refetched using updates.getState²
+//
+// Links:
+//  1) https://core.telegram.org/api/updates
+//  2) https://core.telegram.org/api/updates#fetching-state
 //
 // See https://core.telegram.org/constructor/updatePtsChanged for reference.
 type UpdatePtsChanged struct {
@@ -3702,17 +3865,29 @@ var (
 )
 
 // UpdateChannelWebPage represents TL type `updateChannelWebPage#40771900`.
-// A webpage preview of a link in a channel/supergroup message was generated
+// A webpage preview of a link in a channel/supergroup¹ message was generated
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelWebPage for reference.
 type UpdateChannelWebPage struct {
-	// Channel/supergroup ID
+	// Channel/supergroup¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChannelID int
 	// Generated webpage preview
 	Webpage WebPageClass
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -3792,11 +3967,17 @@ var (
 //
 // See https://core.telegram.org/constructor/updateDialogPinned for reference.
 type UpdateDialogPinned struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the dialog was pinned
 	Pinned bool
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -3899,9 +4080,15 @@ var (
 //
 // See https://core.telegram.org/constructor/updatePinnedDialogs for reference.
 type UpdatePinnedDialogs struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -4225,7 +4412,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateBotPrecheckoutQuery for reference.
 type UpdateBotPrecheckoutQuery struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Unique query identifier
 	QueryID int64
@@ -4241,9 +4431,15 @@ type UpdateBotPrecheckoutQuery struct {
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
 	ShippingOptionID string
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
 }
 
@@ -4436,7 +4632,10 @@ var (
 )
 
 // UpdateLangPackTooLong represents TL type `updateLangPackTooLong#46560264`.
-// A language pack has changed, the client should manually fetch the changed strings using langpack.getDifference
+// A language pack has changed, the client should manually fetch the changed strings using langpack.getDifference¹
+//
+// Links:
+//  1) https://core.telegram.org/method/langpack.getDifference
 //
 // See https://core.telegram.org/constructor/updateLangPackTooLong for reference.
 type UpdateLangPackTooLong struct {
@@ -4538,7 +4737,10 @@ var (
 )
 
 // UpdateFavedStickers represents TL type `updateFavedStickers#e511996d`.
-// The list of favorited stickers was changed, the client should call messages.getFavedStickers to refetch the new list
+// The list of favorited stickers was changed, the client should call messages.getFavedStickers¹ to refetch the new list
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.getFavedStickers
 //
 // See https://core.telegram.org/constructor/updateFavedStickers for reference.
 type UpdateFavedStickers struct {
@@ -4579,11 +4781,17 @@ var (
 )
 
 // UpdateChannelReadMessagesContents represents TL type `updateChannelReadMessagesContents#89893b45`.
-// The specified channel/supergroup messages were read
+// The specified channel/supergroup¹ messages were read
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelReadMessagesContents for reference.
 type UpdateChannelReadMessagesContents struct {
-	// Channel/supergroup ID
+	// Channel/supergroup¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChannelID int
 	// IDs of messages that were read
 	Messages []int
@@ -4690,7 +4898,10 @@ var (
 )
 
 // UpdateChannelAvailableMessages represents TL type `updateChannelAvailableMessages#70db6837`.
-// The history of a channel/supergroup was hidden.
+// The history of a channel/supergroup¹ was hidden.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelAvailableMessages for reference.
 type UpdateChannelAvailableMessages struct {
@@ -4755,7 +4966,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateDialogUnreadMark for reference.
 type UpdateDialogUnreadMark struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Was the chat marked or unmarked as read
 	Unread bool
@@ -4833,7 +5047,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateMessagePoll for reference.
 type UpdateMessagePoll struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Poll ID
 	PollID int64
@@ -4929,7 +5146,10 @@ var (
 )
 
 // UpdateChatDefaultBannedRights represents TL type `updateChatDefaultBannedRights#54c01850`.
-// Default banned rights in a normal chat were updated
+// Default banned rights in a normal chat¹ were updated
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChatDefaultBannedRights for reference.
 type UpdateChatDefaultBannedRights struct {
@@ -5005,15 +5225,24 @@ var (
 )
 
 // UpdateFolderPeers represents TL type `updateFolderPeers#19360dc0`.
-// The peer list of a peer folder was updated
+// The peer list of a peer folder¹ was updated
+//
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/constructor/updateFolderPeers for reference.
 type UpdateFolderPeers struct {
 	// New peer list
 	FolderPeers []FolderPeer
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -5218,7 +5447,10 @@ var (
 )
 
 // UpdateNewScheduledMessage represents TL type `updateNewScheduledMessage#39a51dfb`.
-// A message was added to the schedule queue of a chat
+// A message was added to the schedule queue of a chat¹
+//
+// Links:
+//  1) https://core.telegram.org/api/scheduled-messages
 //
 // See https://core.telegram.org/constructor/updateNewScheduledMessage for reference.
 type UpdateNewScheduledMessage struct {
@@ -5274,7 +5506,10 @@ var (
 )
 
 // UpdateDeleteScheduledMessages represents TL type `updateDeleteScheduledMessages#90866cee`.
-// Some scheduled messages were deleted from the schedule queue of a chat
+// Some scheduled messages¹ were deleted from the schedule queue of a chat
+//
+// Links:
+//  1) https://core.telegram.org/api/scheduled-messages
 //
 // See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
@@ -5587,15 +5822,27 @@ var (
 )
 
 // UpdateDialogFilter represents TL type `updateDialogFilter#26ffde7d`.
-// A new folder was added
+// A new folder¹ was added
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilter for reference.
 type UpdateDialogFilter struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Folder ID
+	// Folder¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	ID int
-	// Folder info
+	// Folder¹ info
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
 	Filter DialogFilter
@@ -5677,11 +5924,17 @@ var (
 )
 
 // UpdateDialogFilterOrder represents TL type `updateDialogFilterOrder#a5d72105`.
-// New folder order
+// New folder¹ order
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilterOrder for reference.
 type UpdateDialogFilterOrder struct {
-	// Ordered folder IDs
+	// Ordered folder IDs¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Order []int
 }
 
@@ -5737,7 +5990,10 @@ var (
 )
 
 // UpdateDialogFilters represents TL type `updateDialogFilters#3504914f`.
-// Clients should update folder info
+// Clients should update folder¹ info
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/updateDialogFilters for reference.
 type UpdateDialogFilters struct {
@@ -5839,11 +6095,17 @@ var (
 )
 
 // UpdateChannelParticipant represents TL type `updateChannelParticipant#65d2b464`.
-// A participant has left, joined, was banned or admined in a channel or supergroup.
+// A participant has left, joined, was banned or admined in a channel or supergroup¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updateChannelParticipant for reference.
 type UpdateChannelParticipant struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Channel ID
 	ChannelID int
@@ -5859,7 +6121,10 @@ type UpdateChannelParticipant struct {
 	//
 	// Use SetNewParticipant and GetNewParticipant helpers.
 	NewParticipant ChannelParticipantClass
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -6069,23 +6334,45 @@ var (
 )
 
 // UpdateReadChannelDiscussionInbox represents TL type `updateReadChannelDiscussionInbox#1cc7de54`.
-// Incoming comments in a discussion thread were marked as read
+// Incoming comments in a discussion thread¹ were marked as read
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateReadChannelDiscussionInbox for reference.
 type UpdateReadChannelDiscussionInbox struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Discussion group ID
+	// Discussion group ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChannelID int
-	// ID of the group message that started the thread (message in linked discussion group)
+	// ID of the group message that started the thread¹ (message in linked discussion group)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	TopMsgID int
-	// Message ID of latest read incoming message for this thread
+	// Message ID of latest read incoming message for this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	ReadMaxID int
-	// If set, contains the ID of the channel that contains the post that started the comment thread in the discussion group (channel_id)
+	// If set, contains the ID of the channel¹ that contains the post that started the comment thread² in the discussion group (channel_id)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/api/threads
 	//
 	// Use SetBroadcastID and GetBroadcastID helpers.
 	BroadcastID int
-	// If set, contains the ID of the channel post that started the the comment thread
+	// If set, contains the ID of the channel post that started the the comment thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetBroadcastPost and GetBroadcastPost helpers.
 	BroadcastPost int
@@ -6208,15 +6495,27 @@ var (
 )
 
 // UpdateReadChannelDiscussionOutbox represents TL type `updateReadChannelDiscussionOutbox#4638a26c`.
-// Outgoing comments in a discussion thread were marked as read
+// Outgoing comments in a discussion thread¹ were marked as read
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateReadChannelDiscussionOutbox for reference.
 type UpdateReadChannelDiscussionOutbox struct {
-	// Supergroup ID
+	// Supergroup ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChannelID int
-	// ID of the group message that started the thread
+	// ID of the group message that started the thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	TopMsgID int
-	// Message ID of latest read outgoing message for this thread
+	// Message ID of latest read outgoing message for this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	ReadMaxID int
 }
 
@@ -6345,15 +6644,25 @@ var (
 )
 
 // UpdateChannelUserTyping represents TL type `updateChannelUserTyping#ff2abe9f`.
-// A user is typing in a supergroup, channel or message thread
+// A user is typing in a supergroup, channel¹ or message thread²
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/updateChannelUserTyping for reference.
 type UpdateChannelUserTyping struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Channel ID
 	ChannelID int
-	// Thread ID
+	// Thread ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int
@@ -6464,7 +6773,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updatePinnedMessages for reference.
 type UpdatePinnedMessages struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the messages were pinned or unpinned
 	Pinned bool
@@ -6472,9 +6784,15 @@ type UpdatePinnedMessages struct {
 	Peer PeerClass
 	// Message IDs
 	Messages []int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 
@@ -6577,11 +6895,17 @@ var (
 )
 
 // UpdatePinnedChannelMessages represents TL type `updatePinnedChannelMessages#8588878b`.
-// Messages were pinned/unpinned in a channel/supergroup
+// Messages were pinned/unpinned in a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/updatePinnedChannelMessages for reference.
 type UpdatePinnedChannelMessages struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the messages were pinned or unpinned
 	Pinned bool
@@ -6589,9 +6913,15 @@ type UpdatePinnedChannelMessages struct {
 	ChannelID int
 	// Messages
 	Messages []int
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 

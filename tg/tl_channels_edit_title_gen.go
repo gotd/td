@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsEditTitleRequest represents TL type `channels.editTitle#566decd0`.
-// Edit the name of a channel/supergroup
+// Edit the name of a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editTitle for reference.
 type ChannelsEditTitleRequest struct {
@@ -76,7 +79,10 @@ var (
 )
 
 // ChannelsEditTitle invokes method channels.editTitle#566decd0 returning error if any.
-// Edit the name of a channel/supergroup
+// Edit the name of a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.editTitle for reference.
 func (c *Client) ChannelsEditTitle(ctx context.Context, request *ChannelsEditTitleRequest) (UpdatesClass, error) {

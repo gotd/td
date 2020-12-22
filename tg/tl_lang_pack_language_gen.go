@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/langPackLanguage for reference.
 type LangPackLanguage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the language pack is official
 	Official bool
@@ -37,7 +40,10 @@ type LangPackLanguage struct {
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
 	BaseLangCode string
-	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
+	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
+	//
+	// Links:
+	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
 	PluralCode string
 	// Total number of non-deleted strings from the language pack
 	StringsCount int

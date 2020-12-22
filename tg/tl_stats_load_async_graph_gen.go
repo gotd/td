@@ -15,13 +15,22 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsLoadAsyncGraphRequest represents TL type `stats.loadAsyncGraph#621d5fa0`.
-// Load channel statistics graph asynchronously
+// Load channel statistics graph¹ asynchronously
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 type StatsLoadAsyncGraphRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Graph token from statsGraphAsync constructor
+	// Graph token from statsGraphAsync¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/statsGraphAsync
 	Token string
 	// Zoom value, if required
 	//
@@ -100,7 +109,10 @@ var (
 )
 
 // StatsLoadAsyncGraph invokes method stats.loadAsyncGraph#621d5fa0 returning error if any.
-// Load channel statistics graph asynchronously
+// Load channel statistics graph¹ asynchronously
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.loadAsyncGraph for reference.
 func (c *Client) StatsLoadAsyncGraph(ctx context.Context, request *StatsLoadAsyncGraphRequest) (StatsGraphClass, error) {

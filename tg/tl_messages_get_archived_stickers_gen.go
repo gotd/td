@@ -19,13 +19,22 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.getArchivedStickers for reference.
 type MessagesGetArchivedStickersRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Get mask stickers
 	Masks bool
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int64
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 

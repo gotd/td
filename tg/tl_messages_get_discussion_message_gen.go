@@ -15,11 +15,18 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
-// Get discussion message from the associated discussion group of a channel to show it on top of the comment section, without actually joining the group
+// Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 type MessagesGetDiscussionMessageRequest struct {
-	// Channel ID
+	// Channel ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Peer InputPeerClass
 	// Message ID
 	MsgID int
@@ -76,7 +83,11 @@ var (
 )
 
 // MessagesGetDiscussionMessage invokes method messages.getDiscussionMessage#446972fd returning error if any.
-// Get discussion message from the associated discussion group of a channel to show it on top of the comment section, without actually joining the group
+// Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {

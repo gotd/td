@@ -19,9 +19,15 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/inputGameID for reference.
 type InputGameID struct {
-	// game ID from Game constructor
+	// game ID from Game¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Game
 	ID int64
-	// access hash from Game constructor
+	// access hash from Game¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/Game
 	AccessHash int64
 }
 

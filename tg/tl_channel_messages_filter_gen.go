@@ -60,7 +60,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channelMessagesFilter for reference.
 type ChannelMessagesFilter struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to exclude new messages from the search
 	ExcludeNewMessages bool

@@ -76,7 +76,10 @@ var (
 )
 
 // MessageEntityMention represents TL type `messageEntityMention#fa04579d`.
-// Message entity mentioning the current user
+// Message entity mentioning¹ the current user
+//
+// Links:
+//  1) https://core.telegram.org/api/mentions
 //
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
@@ -259,7 +262,12 @@ var (
 )
 
 // MessageEntityUrl represents TL type `messageEntityUrl#6ed02538`.
-// Message entity representing an in-text url: https://google.com; for text urls, use messageEntityTextUrl.
+// Message entity representing an in-text url: https://google.com¹; for text urls², use messageEntityTextUrl³.
+//
+// Links:
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityTextUrl
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityUrl struct {
@@ -320,7 +328,10 @@ var (
 )
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
-// Message entity representing an email@example.com.
+// Message entity representing an email@example.com¹.
+//
+// Links:
+//  1) https://core.telegram.orgmailto:email@example.com
 //
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
@@ -635,7 +646,12 @@ var (
 )
 
 // MessageEntityTextUrl represents TL type `messageEntityTextUrl#76a6d327`.
-// Message entity representing a text url: for in-text urls like https://google.com use messageEntityUrl.
+// Message entity representing a text url¹: for in-text urls like https://google.com² use messageEntityUrl³.
+//
+// Links:
+//  1) https://google.com
+//  2) https://google.com
+//  3) https://core.telegram.org/constructor/messageEntityUrl
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextUrl struct {
@@ -706,7 +722,11 @@ var (
 )
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
-// Message entity representing a user mention: for creating a mention use inputMessageEntityMentionName.
+// Message entity representing a user mention¹: for creating a mention use inputMessageEntityMentionName².
+//
+// Links:
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/inputMessageEntityMentionName
 //
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
@@ -777,7 +797,11 @@ var (
 )
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
-// Message entity that can be used to create a user user mention: received mentions use the messageEntityMentionName constructor, instead.
+// Message entity that can be used to create a user user mention¹: received mentions use the messageEntityMentionName² constructor, instead.
+//
+// Links:
+//  1) https://core.telegram.org/api/mentions
+//  2) https://core.telegram.org/constructor/messageEntityMentionName
 //
 // See https://core.telegram.org/constructor/inputMessageEntityMentionName for reference.
 type InputMessageEntityMentionName struct {

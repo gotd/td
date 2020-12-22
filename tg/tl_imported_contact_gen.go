@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type ImportedContact struct {
 	// User identifier
 	UserID int
-	// The contact's client identifier (passed to one of the InputContact constructors)
+	// The contact's client identifier (passed to one of the InputContact¹ constructors)
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/InputContact
 	ClientID int64
 }
 

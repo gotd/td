@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ChannelsGetParticipantsRequest represents TL type `channels.getParticipants#123e05e9`.
-// Get the participants of a supergroup/channel
+// Get the participants of a supergroup/channel¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getParticipants for reference.
 type ChannelsGetParticipantsRequest struct {
@@ -23,11 +26,20 @@ type ChannelsGetParticipantsRequest struct {
 	Channel InputChannelClass
 	// Which participant types to fetch
 	Filter ChannelParticipantsFilterClass
-	// Offset
+	// Offset¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Offset int
-	// Limit
+	// Limit¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash
+	// Hash¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Hash int
 }
 
@@ -111,7 +123,10 @@ var (
 )
 
 // ChannelsGetParticipants invokes method channels.getParticipants#123e05e9 returning error if any.
-// Get the participants of a supergroup/channel
+// Get the participants of a supergroup/channel¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getParticipants for reference.
 func (c *Client) ChannelsGetParticipants(ctx context.Context, request *ChannelsGetParticipantsRequest) (ChannelsChannelParticipantsClass, error) {

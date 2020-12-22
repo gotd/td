@@ -19,11 +19,17 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/inputBotInlineResult for reference.
 type InputBotInlineResult struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// ID of result
 	ID string
-	// Result type (see bot API docs)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	Type string
 	// Result title
 	//
@@ -252,7 +258,10 @@ var (
 type InputBotInlineResultPhoto struct {
 	// Result ID
 	ID string
-	// Result type (see bot API docs)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	Type string
 	// Photo to send
 	Photo InputPhotoClass
@@ -341,11 +350,17 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineResultDocument for reference.
 type InputBotInlineResultDocument struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Result ID
 	ID string
-	// Result type (see bot API docs)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	Type string
 	// Result title
 	//

@@ -19,35 +19,62 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/secureValue for reference.
 type SecureValue struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Secure passport value type
+	// Secure passport¹ value type
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	Type SecureValueTypeClass
-	// Encrypted Telegram Passport element data
+	// Encrypted Telegram Passport¹ element data
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetData and GetData helpers.
 	Data SecureData
-	// Encrypted passport file with the front side of the document
+	// Encrypted passport¹ file with the front side of the document
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
 	FrontSide SecureFileClass
-	// Encrypted passport file with the reverse side of the document
+	// Encrypted passport¹ file with the reverse side of the document
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
 	ReverseSide SecureFileClass
-	// Encrypted passport file with a selfie of the user holding the document
+	// Encrypted passport¹ file with a selfie of the user holding the document
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSelfie and GetSelfie helpers.
 	Selfie SecureFileClass
-	// Array of encrypted passport files with translated versions of the provided documents
+	// Array of encrypted passport¹ files with translated versions of the provided documents
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTranslation and GetTranslation helpers.
 	Translation []SecureFileClass
-	// Array of encrypted passport files with photos the of the documents
+	// Array of encrypted passport¹ files with photos the of the documents
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFiles and GetFiles helpers.
 	Files []SecureFileClass
-	// Plaintext verified passport data
+	// Plaintext verified passport¹ data
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetPlainData and GetPlainData helpers.
 	PlainData SecurePlainDataClass

@@ -80,7 +80,10 @@ var (
 )
 
 // MessagesChatsSlice represents TL type `messages.chatsSlice#9cd81144`.
-// Partial list of chats, more would have to be fetched with pagination
+// Partial list of chats, more would have to be fetched with pagination¹
+//
+// Links:
+//  1) https://core.telegram.org/api/offsets
 //
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {

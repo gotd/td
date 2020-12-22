@@ -15,21 +15,39 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
-// Get new updates.
+// Get new updates¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 type UpdatesGetDifferenceRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// PTS, see updates.
+	// PTS, see updates¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates.differenceTooLong will be returned.Simply tells the server to not return the difference if it is bigger than pts_total_limitIf the remote pts is too big (> ~4000000), this field will default to 1000000
+	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates.differenceTooLong¹ will be returned.Simply tells the server to not return the difference if it is bigger than pts_total_limitIf the remote pts is too big (> ~4000000), this field will default to 1000000
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/updates.differenceTooLong
 	//
 	// Use SetPtsTotalLimit and GetPtsTotalLimit helpers.
 	PtsTotalLimit int
-	// date, see updates.
+	// date, see updates¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Date int
-	// QTS, see updates.
+	// QTS, see updates¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Qts int
 }
 
@@ -120,7 +138,10 @@ var (
 )
 
 // UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.
-// Get new updates.
+// Get new updates¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/updates
 //
 // See https://core.telegram.org/method/updates.getDifference for reference.
 func (c *Client) UpdatesGetDifference(ctx context.Context, request *UpdatesGetDifferenceRequest) (UpdatesDifferenceClass, error) {

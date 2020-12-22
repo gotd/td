@@ -56,15 +56,27 @@ var (
 )
 
 // InputCheckPasswordSRP represents TL type `inputCheckPasswordSRP#d27ff082`.
-// Constructor for checking the validity of a 2FA SRP password (see SRP)
+// Constructor for checking the validity of a 2FA SRP password (see SRP¹)
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/constructor/inputCheckPasswordSRP for reference.
 type InputCheckPasswordSRP struct {
-	// SRP ID
+	// SRP ID¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	SrpID int64
-	// A parameter (see SRP)
+	// A parameter (see SRP¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	A []byte
-	// M1 parameter (see SRP)
+	// M1 parameter (see SRP¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	M1 []byte
 }
 

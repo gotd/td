@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // True represents TL type `true#3fedd339`.
-// See predefined identifiers.
+// See predefined identifiers¹.
+//
+// Links:
+//  1) https://core.telegram.org/mtproto/TL-formal#predefined-identifiers
 //
 // See https://core.telegram.org/constructor/true for reference.
 type True struct {

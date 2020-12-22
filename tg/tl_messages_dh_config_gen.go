@@ -70,9 +70,15 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.dhConfig for reference.
 type MessagesDhConfig struct {
-	// New value prime, see Wikipedia
+	// New value prime, see Wikipedia¹
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	G int
-	// New value primitive root, see Wikipedia
+	// New value primitive root, see Wikipedia¹
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	P []byte
 	// Vestion of set of parameters
 	Version int

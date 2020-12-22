@@ -343,17 +343,27 @@ var (
 
 // ChannelParticipantsMentions represents TL type `channelParticipantsMentions#e04b5ceb`.
 // This filter is used when looking for supergroup members to mention.
-// This filter will automatically remove anonymous admins, and return even non-participant users that replied to a specific thread through the comment section of a channel.
+// This filter will automatically remove anonymous admins, and return even non-participant users that replied to a specific thread¹ through the comment section² of a channel.
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
+//  2) https://core.telegram.org/api/threads#channel-comments
 //
 // See https://core.telegram.org/constructor/channelParticipantsMentions for reference.
 type ChannelParticipantsMentions struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Filter by user name or username
 	//
 	// Use SetQ and GetQ helpers.
 	Q string
-	// Look only for users that posted in this thread
+	// Look only for users that posted in this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
 	TopMsgID int

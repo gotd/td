@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // ContactsToggleTopPeersRequest represents TL type `contacts.toggleTopPeers#8514bdda`.
-// Enable/disable top peers
+// Enable/disable top peers¹
+//
+// Links:
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 type ContactsToggleTopPeersRequest struct {
@@ -61,7 +64,10 @@ var (
 )
 
 // ContactsToggleTopPeers invokes method contacts.toggleTopPeers#8514bdda returning error if any.
-// Enable/disable top peers
+// Enable/disable top peers¹
+//
+// Links:
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 func (c *Client) ContactsToggleTopPeers(ctx context.Context, enabled bool) (bool, error) {

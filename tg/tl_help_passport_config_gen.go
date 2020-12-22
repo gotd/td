@@ -56,11 +56,17 @@ var (
 )
 
 // HelpPassportConfig represents TL type `help.passportConfig#a098d6af`.
-// Telegram passport configuration
+// Telegram passport¹ configuration
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/help.passportConfig for reference.
 type HelpPassportConfig struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Localization
 	CountriesLangs DataJSON

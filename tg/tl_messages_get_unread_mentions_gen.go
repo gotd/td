@@ -21,15 +21,30 @@ var _ = fmt.Stringer(nil)
 type MessagesGetUnreadMentionsRequest struct {
 	// Peer where to look for mentions
 	Peer InputPeerClass
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	AddOffset int
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Maximum message ID to return, see pagination
+	// Maximum message ID to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	MaxID int
-	// Minimum message ID to return, see pagination
+	// Minimum message ID to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	MinID int
 }
 

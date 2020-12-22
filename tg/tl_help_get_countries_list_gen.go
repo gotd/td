@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type HelpGetCountriesListRequest struct {
 	// Language code of the current user
 	LangCode string
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

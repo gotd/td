@@ -19,15 +19,27 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/dcOption for reference.
 type DcOption struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the specified IP is an IPv6 address
 	Ipv6 bool
-	// Whether this DC should only be used to download or upload files
+	// Whether this DC should only be used to download or upload files¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	MediaOnly bool
-	// Whether this DC only supports connection with transport obfuscation
+	// Whether this DC only supports connection with transport obfuscation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 	TcpoOnly bool
-	// Whether this is a CDN DC.
+	// Whether this is a CDN DC¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	CDN bool
 	// If set, this IP should be used when connecting through a proxy
 	Static bool
@@ -37,7 +49,10 @@ type DcOption struct {
 	IPAddress string
 	// Port
 	Port int
-	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation
+	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 	//
 	// Use SetSecret and GetSecret helpers.
 	Secret []byte

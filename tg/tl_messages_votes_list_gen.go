@@ -19,15 +19,24 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/messages.votesList for reference.
 type MessagesVotesList struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes)
+	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getPollVotes
 	Count int
 	// Vote info for each user
 	Votes []MessageUserVoteClass
 	// Info about users that voted in the poll
 	Users []UserClass
-	// Offset to use with the next messages.getPollVotes request, empty string if no more results are available.
+	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getPollVotes
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string

@@ -21,7 +21,10 @@ var _ = fmt.Stringer(nil)
 type Poll struct {
 	// ID of the poll
 	ID int64
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the poll is closed and doesn't accept any more answers
 	Closed bool
@@ -33,7 +36,10 @@ type Poll struct {
 	Quiz bool
 	// The question of the poll
 	Question string
-	// The possible answers, vote using messages.sendVote.
+	// The possible answers, vote using messages.sendVote¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendVote
 	Answers []PollAnswer
 	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
 	//

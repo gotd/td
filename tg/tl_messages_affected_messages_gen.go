@@ -19,9 +19,15 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/messages.affectedMessages for reference.
 type MessagesAffectedMessages struct {
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Number of events that were generated
+	// Number of events that were generated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
 }
 

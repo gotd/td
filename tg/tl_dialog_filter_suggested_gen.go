@@ -15,13 +15,22 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // DialogFilterSuggested represents TL type `dialogFilterSuggested#77744d4a`.
-// Suggested folders
+// Suggested folders¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/constructor/dialogFilterSuggested for reference.
 type DialogFilterSuggested struct {
-	// Folder info
+	// Folder info¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Filter DialogFilter
-	// Folder description
+	// Folder¹ description
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders
 	Description string
 }
 

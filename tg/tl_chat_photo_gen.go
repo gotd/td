@@ -60,7 +60,10 @@ var (
 //
 // See https://core.telegram.org/constructor/chatPhoto for reference.
 type ChatPhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the user has an animated profile picture
 	HasVideo bool

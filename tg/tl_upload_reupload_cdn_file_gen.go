@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
-// Request a reupload of a certain file to a CDN DC.
+// Request a reupload of a certain file to a CDN DC¹.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCdnFileRequest struct {
@@ -71,7 +74,10 @@ var (
 )
 
 // UploadReuploadCdnFile invokes method upload.reuploadCdnFile#9b2754a8 returning error if any.
-// Request a reupload of a certain file to a CDN DC.
+// Request a reupload of a certain file to a CDN DC¹.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) ([]FileHash, error) {

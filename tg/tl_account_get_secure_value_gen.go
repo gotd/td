@@ -15,7 +15,11 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
-// Get saved Telegram Passport document, for more info see the passport docs »
+// Get saved Telegram Passport¹ document, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
@@ -75,7 +79,11 @@ var (
 )
 
 // AccountGetSecureValue invokes method account.getSecureValue#73665bc2 returning error if any.
-// Get saved Telegram Passport document, for more info see the passport docs »
+// Get saved Telegram Passport¹ document, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 func (c *Client) AccountGetSecureValue(ctx context.Context, types []SecureValueTypeClass) ([]SecureValue, error) {

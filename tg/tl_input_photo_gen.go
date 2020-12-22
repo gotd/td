@@ -62,9 +62,15 @@ var (
 type InputPhoto struct {
 	// Photo identifier
 	ID int64
-	// access_hash value from the photo constructor
+	// access_hash value from the photo¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/photo
 	AccessHash int64
-	// File reference
+	// File reference¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/file_reference
 	FileReference []byte
 }
 

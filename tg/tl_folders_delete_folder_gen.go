@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // FoldersDeleteFolderRequest represents TL type `folders.deleteFolder#1c295881`.
-// Delete a peer folder
+// Delete a peer folder¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 type FoldersDeleteFolderRequest struct {
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 }
 
@@ -61,7 +67,10 @@ var (
 )
 
 // FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.
-// Delete a peer folder
+// Delete a peer folder¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/method/folders.deleteFolder for reference.
 func (c *Client) FoldersDeleteFolder(ctx context.Context, folderid int) (UpdatesClass, error) {

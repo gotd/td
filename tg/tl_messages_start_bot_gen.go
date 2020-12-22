@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // MessagesStartBotRequest represents TL type `messages.startBot#e6df7378`.
-// Start a conversation with a bot using a deep linking parameter
+// Start a conversation with a bot using a deep linking parameter¹
+//
+// Links:
+//  1) https://core.telegram.org/bots#deep-linking
 //
 // See https://core.telegram.org/method/messages.startBot for reference.
 type MessagesStartBotRequest struct {
@@ -25,7 +28,10 @@ type MessagesStartBotRequest struct {
 	Peer InputPeerClass
 	// Random ID to avoid resending the same message
 	RandomID int64
-	// Deep linking parameter
+	// Deep linking parameter¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots#deep-linking
 	StartParam string
 }
 
@@ -101,7 +107,10 @@ var (
 )
 
 // MessagesStartBot invokes method messages.startBot#e6df7378 returning error if any.
-// Start a conversation with a bot using a deep linking parameter
+// Start a conversation with a bot using a deep linking parameter¹
+//
+// Links:
+//  1) https://core.telegram.org/bots#deep-linking
 //
 // See https://core.telegram.org/method/messages.startBot for reference.
 func (c *Client) MessagesStartBot(ctx context.Context, request *MessagesStartBotRequest) (UpdatesClass, error) {

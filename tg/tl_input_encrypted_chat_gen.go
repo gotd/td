@@ -21,7 +21,12 @@ var _ = fmt.Stringer(nil)
 type InputEncryptedChat struct {
 	// Chat ID
 	ChatID int
-	// Checking sum from constructor encryptedChat, encryptedChatWaiting or encryptedChatRequested
+	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or encryptedChatRequested³
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/encryptedChat
+	//  2) https://core.telegram.org/constructor/encryptedChatWaiting
+	//  3) https://core.telegram.org/constructor/encryptedChatRequested
 	AccessHash int64
 }
 

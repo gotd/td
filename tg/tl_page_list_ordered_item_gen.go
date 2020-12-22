@@ -81,7 +81,10 @@ var (
 )
 
 // PageListOrderedItemBlocks represents TL type `pageListOrderedItemBlocks#98dd8936`.
-// Ordered list of IV blocks
+// Ordered list of IV¹ blocks
+//
+// Links:
+//  1) https://instantview.telegram.org
 //
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {

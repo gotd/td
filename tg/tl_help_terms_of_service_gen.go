@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/help.termsOfService for reference.
 type HelpTermsOfService struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether a prompt must be showed to the user, in order to accept the new terms.
 	Popup bool
@@ -27,7 +30,10 @@ type HelpTermsOfService struct {
 	ID DataJSON
 	// Text of the new terms
 	Text string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
 	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
 	//

@@ -121,7 +121,10 @@ var (
 //
 // See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a mask sticker
 	Mask bool
@@ -238,7 +241,10 @@ var (
 //
 // See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a round video
 	RoundMessage bool
@@ -343,7 +349,10 @@ var (
 //
 // See https://core.telegram.org/constructor/documentAttributeAudio for reference.
 type DocumentAttributeAudio struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a voice message
 	Voice bool

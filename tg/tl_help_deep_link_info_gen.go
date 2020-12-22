@@ -60,13 +60,19 @@ var (
 //
 // See https://core.telegram.org/constructor/help.deepLinkInfo for reference.
 type HelpDeepLinkInfo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// An update of the app is required to parse this link
 	UpdateApp bool
 	// Message to show to the user
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

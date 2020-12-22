@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
 type UpdatesGetChannelDifferenceRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Set to true to skip some possibly unneeded updates and reduce server-side load
 	Force bool
@@ -27,7 +30,10 @@ type UpdatesGetChannelDifferenceRequest struct {
 	Channel InputChannelClass
 	// Messsage filter
 	Filter ChannelMessagesFilterClass
-	// Persistent timestamp (see updates)
+	// Persistent timestamp (see updates¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass 10-100
 	Limit int

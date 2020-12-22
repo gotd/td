@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsDateRangeDays represents TL type `statsDateRangeDays#b637edaf`.
-// Channel statistics date range
+// Channel statistics¹ date range
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {

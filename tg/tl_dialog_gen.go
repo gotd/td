@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/dialog for reference.
 type Dialog struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is the dialog pinned
 	Pinned bool
@@ -35,11 +38,17 @@ type Dialog struct {
 	ReadOutboxMaxID int
 	// Number of unread messages
 	UnreadCount int
-	// Number of unread mentions
+	// Number of unread mentions¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/mentions
 	UnreadMentionsCount int
 	// Notification settings
 	NotifySettings PeerNotifySettings
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
 	Pts int
@@ -47,7 +56,10 @@ type Dialog struct {
 	//
 	// Use SetDraft and GetDraft helpers.
 	Draft DraftMessageClass
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -261,7 +273,10 @@ var (
 //
 // See https://core.telegram.org/constructor/dialogFolder for reference.
 type DialogFolder struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is this folder pinned
 	Pinned bool

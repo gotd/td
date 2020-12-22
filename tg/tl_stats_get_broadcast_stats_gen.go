@@ -15,11 +15,17 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // StatsGetBroadcastStatsRequest represents TL type `stats.getBroadcastStats#ab42441a`.
-// Get channel statistics
+// Get channel statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getBroadcastStats for reference.
 type StatsGetBroadcastStatsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
@@ -88,7 +94,10 @@ var (
 )
 
 // StatsGetBroadcastStats invokes method stats.getBroadcastStats#ab42441a returning error if any.
-// Get channel statistics
+// Get channel statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getBroadcastStats for reference.
 func (c *Client) StatsGetBroadcastStats(ctx context.Context, request *StatsGetBroadcastStatsRequest) (*StatsBroadcastStats, error) {

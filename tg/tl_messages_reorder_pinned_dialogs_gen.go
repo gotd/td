@@ -19,11 +19,17 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 type MessagesReorderPinnedDialogsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, dialogs pinned server-side but not present in the order field will be unpinned.
 	Force bool
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 	// New dialog order
 	Order []InputDialogPeerClass

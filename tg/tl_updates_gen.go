@@ -15,7 +15,10 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
-// Too many updates, it is necessary to execute updates.getDifference.
+// Too many updates, it is necessary to execute updates.getDifference¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/updates.getDifference
 //
 // See https://core.telegram.org/constructor/updatesTooLong for reference.
 type UpdatesTooLong struct {
@@ -60,7 +63,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateShortMessage for reference.
 type UpdateShortMessage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the message is outgoing
 	Out bool
@@ -76,11 +82,20 @@ type UpdateShortMessage struct {
 	UserID int
 	// The message
 	Message string
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PTS count
+	// PTS count¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
-	// date
+	// date¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Date int
 	// Info about a forwarded message
 	//
@@ -90,11 +105,17 @@ type UpdateShortMessage struct {
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
 	ViaBotID int
-	// Reply and thread information
+	// Reply and thread¹ information
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Entities for styled text
+	// Entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -349,7 +370,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updateShortChatMessage for reference.
 type UpdateShortChatMessage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the message is outgoing
 	Out bool
@@ -367,11 +391,20 @@ type UpdateShortChatMessage struct {
 	ChatID int
 	// Message
 	Message string
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PTS count
+	// PTS count¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
-	// date
+	// date¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Date int
 	// Info about a forwarded message
 	//
@@ -385,7 +418,10 @@ type UpdateShortChatMessage struct {
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
 	ReplyTo MessageReplyHeader
-	// Entities for styled text
+	// Entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -989,23 +1025,38 @@ var (
 //
 // See https://core.telegram.org/constructor/updateShortSentMessage for reference.
 type UpdateShortSentMessage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the message is outgoing
 	Out bool
 	// ID of the sent message
 	ID int
-	// PTS
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// PTS count
+	// PTS count¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	PtsCount int
-	// date
+	// date¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Date int
 	// Attached media
 	//
 	// Use SetMedia and GetMedia helpers.
 	Media MessageMediaClass
-	// Entities for styled text
+	// Entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

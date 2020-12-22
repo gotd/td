@@ -19,7 +19,10 @@ var _ = fmt.Stringer(nil)
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdateEmpty for reference.
 type HelpTermsOfServiceUpdateEmpty struct {
-	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate in expires seconds
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
 	Expires int
 }
 
@@ -66,11 +69,17 @@ var (
 )
 
 // HelpTermsOfServiceUpdate represents TL type `help.termsOfServiceUpdate#28ecf961`.
-// Info about an update of telegram's terms of service. If the terms of service are declined, then the account.deleteAccount method should be called with the reason "Decline ToS update"
+// Info about an update of telegram's terms of service. If the terms of service are declined, then the account.deleteAccount¹ method should be called with the reason "Decline ToS update"
+//
+// Links:
+//  1) https://core.telegram.org/method/account.deleteAccount
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdate for reference.
 type HelpTermsOfServiceUpdate struct {
-	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate in expires seconds
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
 	Expires int
 	// New terms of service
 	TermsOfService HelpTermsOfService
