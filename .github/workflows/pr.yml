@@ -31,6 +31,7 @@ jobs:
         uses: golangci/golangci-lint-action@v2.3.0
         with:
           version: latest
+          args: --timeout 5m
 
   tests-on-windows:
     runs-on: windows-latest
