@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/rpc"
+	"github.com/gotd/td/telegram/internal/rpc"
 
 	"go.uber.org/zap"
 )

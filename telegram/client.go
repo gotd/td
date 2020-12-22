@@ -15,7 +15,7 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/telegram/rpc"
+	"github.com/gotd/td/telegram/internal/rpc"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )

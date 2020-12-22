@@ -9,7 +9,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/rpc"
+	"github.com/gotd/td/telegram/internal/rpc"
 )
 
 func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
