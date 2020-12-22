@@ -10,15 +10,15 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
-// CustomTransport creates transport using user Codec constructor.
-func CustomTransport(dialer Dialer, constructor func() Codec) *Transport {
+// NewTransport creates transport using user Codec constructor.
+func NewTransport(dialer Dialer, codec func() Codec) *Transport {
 	if dialer == nil {
 		dialer = &net.Dialer{}
 	}
 
 	return &Transport{
 		dialer: dialer,
-		codec:  constructor,
+		codec:  codec,
 	}
 }
 
@@ -26,7 +26,7 @@ func CustomTransport(dialer Dialer, constructor func() Codec) *Transport {
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#intermediate
 func Intermediate(d Dialer) *Transport {
-	return CustomTransport(d, func() Codec {
+	return NewTransport(d, func() Codec {
 		return codec.Intermediate{}
 	})
 }
@@ -35,7 +35,7 @@ func Intermediate(d Dialer) *Transport {
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#full
 func Full(d Dialer) *Transport {
-	return CustomTransport(d, func() Codec {
+	return NewTransport(d, func() Codec {
 		return &codec.Full{}
 	})
 }
