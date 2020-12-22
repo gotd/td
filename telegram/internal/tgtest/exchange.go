@@ -3,7 +3,6 @@ package tgtest
 import (
 	"context"
 	"math/big"
-	"time"
 
 	"github.com/gotd/td/transport"
 
@@ -15,12 +14,12 @@ import (
 )
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKeyWithID, error) {
+func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Conn) (crypto.AuthKeyWithID, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMultiRequest
-	if err := s.readUnencrypted(ctx, conn, &pqReq); err != nil {
+	if err := s.decodeUnencrypted(r, &pqReq); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
 
@@ -83,7 +82,7 @@ func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.Auth
 		G:           g,
 		GA:          ga.Bytes(),
 		DhPrime:     dhPrime.Bytes(),
-		ServerTime:  int(time.Now().Unix()),
+		ServerTime:  int(s.clock().Unix()),
 	}
 
 	b.Reset()

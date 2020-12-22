@@ -3,7 +3,6 @@ package transport
 import (
 	"context"
 	"net"
-	"sync/atomic"
 
 	"golang.org/x/xerrors"
 
@@ -11,17 +10,27 @@ import (
 )
 
 // NewCustomServer creates new MTProto server with custom transport codec.
-func NewCustomServer(c Codec, listener net.Listener) *Server {
+func NewCustomServer(c func() Codec, listener net.Listener) *Server {
 	return &Server{
 		codec:    c,
 		listener: listener,
 	}
 }
 
+// NewFullServer creates new MTProto server with
+// Full transport codec.
+func NewFullServer(listener net.Listener) *Server {
+	return NewCustomServer(func() Codec {
+		return &codec.Full{}
+	}, listener)
+}
+
 // NewIntermediateServer creates new MTProto server with
 // Intermediate transport codec.
 func NewIntermediateServer(listener net.Listener) *Server {
-	return NewCustomServer(codec.Intermediate{}, listener)
+	return NewCustomServer(func() Codec {
+		return &codec.Intermediate{}
+	}, listener)
 }
 
 // Handler is MTProto server connection handler.
@@ -29,22 +38,22 @@ type Handler func(ctx context.Context, conn Conn) error
 
 // Server is a simple MTProto server.
 type Server struct {
-	codec    Codec
+	codec    func() Codec
 	listener net.Listener
 
 	ctx    context.Context
 	cancel context.CancelFunc
-	closed int64
 }
 
 func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
-	if err := s.codec.ReadHeader(c); err != nil {
+	transportCodec := s.codec()
+	if err := transportCodec.ReadHeader(c); err != nil {
 		return xerrors.Errorf("read header: %w", err)
 	}
 
 	return handler(ctx, &connection{
 		conn:  c,
-		codec: s.codec,
+		codec: transportCodec,
 	})
 }
 
@@ -62,21 +71,14 @@ func (s *Server) Serve(ctx context.Context, handler Handler) error {
 		if err != nil {
 			return err
 		}
-		if atomic.LoadInt64(&s.closed) == 1 {
-			break
-		}
 		go func() {
 			_ = s.serveConn(s.ctx, handler, conn)
 		}()
 	}
-
-	return nil
 }
 
 // Close stops server and closes given listener.
 func (s *Server) Close() error {
-	atomic.StoreInt64(&s.closed, 1)
-
 	if s.cancel != nil {
 		s.cancel()
 	}

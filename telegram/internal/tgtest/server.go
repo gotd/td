@@ -7,6 +7,9 @@ import (
 	"crypto/rsa"
 	"errors"
 	"net"
+	"time"
+
+	"github.com/gotd/td/bin"
 
 	"github.com/gotd/td/transport"
 
@@ -21,6 +24,7 @@ type Server struct {
 	cipher  crypto.Cipher
 	handler Handler
 
+	clock  func() time.Time
 	ctx    context.Context
 	cancel context.CancelFunc
 
@@ -49,14 +53,14 @@ func (s *Server) Close() {
 	_ = s.server.Close()
 }
 
-func NewServer(ctx context.Context, tb TB, codec transport.Codec, h Handler) *Server {
-	s := NewUnstartedServer(ctx, tb, codec)
+func NewServer(ctx context.Context, codec func() transport.Codec, h Handler) *Server {
+	s := NewUnstartedServer(ctx, codec)
 	s.SetHandler(h)
 	s.Start()
 	return s
 }
 
-func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Server {
+func NewUnstartedServer(ctx context.Context, codec func() transport.Codec) *Server {
 	k, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
@@ -67,6 +71,7 @@ func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Serv
 		server: transport.NewCustomServer(codec, newLocalListener()),
 		key:    k,
 		cipher: crypto.NewServerCipher(rand.Reader),
+		clock:  time.Now,
 		ctx:    ctx,
 		cancel: cancel,
 		users:  newUsers(),
@@ -76,6 +81,10 @@ func NewUnstartedServer(ctx context.Context, tb TB, codec transport.Codec) *Serv
 
 func (s *Server) SetHandler(handler Handler) {
 	s.handler = handler
+}
+
+func (s *Server) SetHandlerFunc(handler func(s Session, msgID int64, in *bin.Buffer) error) {
+	s.handler = HandlerFunc(handler)
 }
 
 func (s *Server) checkMsgID(id int64) error {

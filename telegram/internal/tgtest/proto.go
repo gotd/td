@@ -2,7 +2,6 @@ package tgtest
 
 import (
 	"context"
-	"time"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/proto"
@@ -15,7 +14,7 @@ func (s *Server) writeUnencrypted(ctx context.Context, conn transport.Conn, data
 		return err
 	}
 	msg := proto.UnencryptedMessage{
-		MessageID:   int64(proto.NewMessageID(time.Now(), proto.MessageServerResponse)),
+		MessageID:   int64(proto.NewMessageID(s.clock(), proto.MessageServerResponse)),
 		MessageData: b.Copy(),
 	}
 	b.Reset()
@@ -31,6 +30,11 @@ func (s *Server) readUnencrypted(ctx context.Context, conn transport.Conn, data 
 	if err := conn.Recv(ctx, b); err != nil {
 		return err
 	}
+
+	return s.decodeUnencrypted(b, data)
+}
+
+func (s *Server) decodeUnencrypted(b *bin.Buffer, data bin.Decoder) error {
 	var msg proto.UnencryptedMessage
 	if err := msg.Decode(b); err != nil {
 		return err
