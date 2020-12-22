@@ -62,15 +62,15 @@ type Conn interface {
 func (t *Transport) DialContext(ctx context.Context, network, address string) (Conn, error) {
 	conn, err := t.dialer.DialContext(ctx, network, address)
 	if err != nil {
-		return connection{}, xerrors.Errorf("dial: %w", err)
+		return nil, xerrors.Errorf("dial: %w", err)
 	}
 
 	connectionCodec := t.constructor()
 	if err := connectionCodec.WriteHeader(conn); err != nil {
-		return connection{}, err
+		return nil, xerrors.Errorf("write header: %w", err)
 	}
 
-	return connection{
+	return &connection{
 		conn:  conn,
 		codec: connectionCodec,
 	}, nil
