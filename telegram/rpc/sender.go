@@ -18,3 +18,10 @@ type SendFunc func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder
 func (f SendFunc) Send(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
 	return f(ctx, msgID, seqNo, in)
 }
+
+// NoOpSender just does nothing, always return nil
+func NoOpSender() SendFunc {
+	return func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
+		return nil
+	}
+}
