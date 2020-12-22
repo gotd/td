@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/telegram/internal/rpc"
 
 	"go.uber.org/zap"
 )
@@ -57,6 +58,7 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 		rand:           Zero{},
 		log:            zap.NewNop(),
 		sessionCreated: createCondOnce(),
+		rpc:            rpc.New(rpc.NopSend, rpc.Config{}),
 	}
 	c.sessionCreated.Done()
 

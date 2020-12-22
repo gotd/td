@@ -13,21 +13,10 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 	if err := ack.Decode(b); err != nil {
 		return xerrors.Errorf("decode: %w", err)
 	}
+
 	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
 
-	c.ackMux.Lock()
-	defer c.ackMux.Unlock()
-
-	for _, msgID := range ack.MsgIds {
-		fn, found := c.ack[msgID]
-		if !found {
-			c.log.Warn("ack callback is not set", zap.Int64("message_id", msgID))
-			continue
-		}
-
-		fn()
-		delete(c.ack, msgID)
-	}
+	c.rpc.NotifyAcks(ack.MsgIds)
 
 	return nil
 }

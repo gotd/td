@@ -3,20 +3,19 @@ package telegram
 import (
 	"context"
 	"errors"
-	"sync"
 	"sync/atomic"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/telegram/internal/rpc"
 )
 
 func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
 	c.sessionCreated.WaitIfNeeded()
 
-	req := request{
+	req := rpc.Request{
 		ID:     c.newMessageID(),
 		Input:  in,
 		Output: out,
@@ -31,7 +30,7 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 	}
 	c.sentContentMessagesMux.Unlock()
 
-	if err := c.rpcDoRequest(ctx, req); err != nil {
+	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
 		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
 			// Should retry with new salt.
@@ -40,8 +39,8 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 			if err := c.saveSession(c.ctx); err != nil {
 				return xerrors.Errorf("badMsg update salt: %w", err)
 			}
-
-			return c.rpcDoRequest(ctx, req)
+			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.ID))
+			return c.rpc.Do(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)
 	}
@@ -53,111 +52,4 @@ func (c *Client) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out
 // content requests (send message, etc).
 func (c *Client) rpcContent(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
 	return c.rpcDo(ctx, true, in, out)
-}
-
-type request struct {
-	ID       int64
-	Sequence int32
-	Input    bin.Encoder
-	Output   bin.Decoder
-}
-
-// rpcDoRequest starts an RPC request, setting handler for result and sending
-// it to Telegram server.
-func (c *Client) rpcDoRequest(ctx context.Context, req request) error {
-	log := c.log.With(zap.Int("message_id", int(req.ID)))
-	log.Debug("Do")
-
-	// Creating "done" channel and ensuring that it will be closed before
-	// method returns and only once.
-	done := make(chan struct{})
-	doneClose := sync.Once{}
-	closeDone := func() {
-		doneClose.Do(func() {
-			close(done)
-		})
-	}
-	defer closeDone()
-
-	retryCtx, retryClose := context.WithCancel(ctx)
-	defer retryClose()
-
-	// Will write error to that variable.
-	var resultErr error
-	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
-		defer func() { closeDone(); retryClose() }()
-
-		if rpcErr != nil {
-			resultErr = rpcErr
-			return nil
-		}
-
-		resultErr = req.Output.Decode(rpcBuff)
-		return resultErr
-	}
-
-	// Setting callback that will be called if message is received.
-	c.rpcMux.Lock()
-	c.rpc[req.ID] = handler
-	c.rpcMux.Unlock()
-
-	defer func() {
-		// Ensuring that callback can't be called after function return.
-		c.rpcMux.Lock()
-		delete(c.rpc, req.ID)
-		c.rpcMux.Unlock()
-	}()
-
-	// Encoding request. Note that callback is already set.
-	if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("write: %w", err)
-	}
-
-	// Start retrying.
-	if err := c.rpcRetryUntilAck(retryCtx, req); err != nil {
-		return err
-	}
-
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	case <-done:
-		return resultErr
-	}
-}
-
-func (c *Client) rpcRetryUntilAck(ctx context.Context, req request) error {
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	// Set ack callback for request.
-	c.ackMux.Lock()
-	c.ack[req.ID] = cancel
-	c.ackMux.Unlock()
-
-	defer func() {
-		c.ackMux.Lock()
-		delete(c.ack, req.ID)
-		c.ackMux.Unlock()
-	}()
-
-	retries := 0
-	for {
-		select {
-		case <-ctx.Done():
-			return nil
-			// TODO(ccln): use clock.
-		case <-time.After(c.retryInterval):
-			if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				c.log.Error("Retry attempt failed", zap.Error(err))
-				return err
-			}
-
-			retries++
-			if retries >= c.maxRetries {
-				c.log.Error("Retry limit reached", zap.Int64("request_id", req.ID))
-				return xerrors.New("retry limit reached")
-			}
-		}
-	}
 }
