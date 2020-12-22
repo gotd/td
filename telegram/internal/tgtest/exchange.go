@@ -15,7 +15,7 @@ import (
 )
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
-func (s *Server) exchange(ctx context.Context, conn transport.Connection) (crypto.AuthKeyWithID, error) {
+func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKeyWithID, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;

@@ -9,7 +9,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func (s *Server) writeUnencrypted(ctx context.Context, conn transport.Connection, data bin.Encoder) error {
+func (s *Server) writeUnencrypted(ctx context.Context, conn transport.Conn, data bin.Encoder) error {
 	b := &bin.Buffer{}
 	if err := data.Encode(b); err != nil {
 		return err
@@ -26,7 +26,7 @@ func (s *Server) writeUnencrypted(ctx context.Context, conn transport.Connection
 	return conn.Send(ctx, b)
 }
 
-func (s *Server) readUnencrypted(ctx context.Context, conn transport.Connection, data bin.Decoder) error {
+func (s *Server) readUnencrypted(ctx context.Context, conn transport.Conn, data bin.Decoder) error {
 	b := &bin.Buffer{}
 	if err := conn.Recv(ctx, b); err != nil {
 		return err

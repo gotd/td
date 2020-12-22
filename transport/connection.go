@@ -10,14 +10,14 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-// Connection is MTProto connection.
-type Connection struct {
+// connection is MTProto connection.
+type connection struct {
 	conn  net.Conn
 	codec Codec
 }
 
 // Send sends message from buffer using MTProto connection.
-func (c Connection) Send(ctx context.Context, b *bin.Buffer) error { // nolint:dupl
+func (c connection) Send(ctx context.Context, b *bin.Buffer) error {
 	deadline, ok := ctx.Deadline()
 	if ok {
 		if err := c.conn.SetWriteDeadline(deadline); err != nil {
@@ -39,7 +39,7 @@ func (c Connection) Send(ctx context.Context, b *bin.Buffer) error { // nolint:d
 }
 
 // Recv reads message to buffer using MTProto connection.
-func (c Connection) Recv(ctx context.Context, b *bin.Buffer) error { // nolint:dupl
+func (c connection) Recv(ctx context.Context, b *bin.Buffer) error {
 	deadline, ok := ctx.Deadline()
 	if ok {
 		if err := c.conn.SetReadDeadline(deadline); err != nil {
@@ -61,6 +61,6 @@ func (c Connection) Recv(ctx context.Context, b *bin.Buffer) error { // nolint:d
 }
 
 // Close closes MTProto connection.
-func (c Connection) Close() error {
+func (c connection) Close() error {
 	return c.conn.Close()
 }

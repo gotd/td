@@ -9,7 +9,7 @@ import (
 )
 
 type connection struct {
-	transport.Connection
+	transport.Conn
 	sent uint64
 }
 

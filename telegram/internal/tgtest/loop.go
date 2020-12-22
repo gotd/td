@@ -62,7 +62,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	}
 }
 
-func (s *Server) serveConn(ctx context.Context, conn transport.Connection) (err error) {
+func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
 	var k crypto.AuthKeyWithID
 	defer func() {
 		s.users.deleteConnection(k)
@@ -74,7 +74,7 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Connection) (err 
 		return xerrors.Errorf("key exchange failed: %w", err)
 	}
 	wrappedConn := &connection{
-		Connection: conn,
+		Conn: conn,
 	}
 	s.users.createSession(k, wrappedConn)
 

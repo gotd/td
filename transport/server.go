@@ -23,7 +23,7 @@ func NewIntermediateServer(listener net.Listener) *Server {
 }
 
 // Handler is MTProto server connection handler.
-type Handler func(ctx context.Context, conn Connection) error
+type Handler func(ctx context.Context, conn Conn) error
 
 // Server is a simple MTProto server.
 type Server struct {
@@ -40,8 +40,9 @@ func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) err
 		return err
 	}
 
-	return handler(ctx, Connection{
-		c, s.codec,
+	return handler(ctx, connection{
+		conn:  c,
+		codec: s.codec,
 	})
 }
 

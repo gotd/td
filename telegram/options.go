@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
@@ -10,6 +11,12 @@ import (
 
 	"github.com/gotd/td/transport"
 )
+
+// Transport is MTProto connection creator.
+type Transport interface {
+	Codec() transport.Codec
+	DialContext(ctx context.Context, network, address string) (transport.Conn, error)
+}
 
 // Options of Client.
 type Options struct {
@@ -24,7 +31,7 @@ type Options struct {
 	Addr string
 
 	// Transport to use. Default dialer will be used if not provided.
-	Transport *transport.Transport
+	Transport Transport
 	// Network to use. Defaults to tcp.
 	Network string
 	// Random is random source. Defaults to crypto.

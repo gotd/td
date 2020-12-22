@@ -46,8 +46,8 @@ type Client struct {
 	tg *tg.Client
 
 	// conn is owned by Client and not exposed.
-	transport *transport.Transport
-	conn      transport.Connection
+	transport Transport
+	conn      transport.Conn
 	addr      string
 
 	// Wrappers for external world, like current time, logs or PRNG.
