@@ -75,6 +75,8 @@ func (s *Server) Serve(ctx context.Context, handler Handler) error {
 
 // Close stops server and closes given listener.
 func (s *Server) Close() error {
+	atomic.StoreInt64(&s.closed, 1)
+
 	if s.cancel != nil {
 		s.cancel()
 	}
