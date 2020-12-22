@@ -21,9 +21,16 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/pollResults for reference.
 type PollResults struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Similar to min objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults to get the full poll results).
+	// Similar to min¹ objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults² to get the full poll results).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/min
+	//  2) https://core.telegram.org/method/messages.getPollResults
 	Min bool
 	// Poll results
 	//
@@ -41,7 +48,10 @@ type PollResults struct {
 	//
 	// Use SetSolution and GetSolution helpers.
 	Solution string
-	// Message entities for styled text in quiz solution
+	// Message entities for styled text in quiz solution¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
 	SolutionEntities []MessageEntityClass

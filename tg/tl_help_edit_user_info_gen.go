@@ -25,7 +25,10 @@ type HelpEditUserInfoRequest struct {
 	UserID InputUserClass
 	// Message
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
 }
 

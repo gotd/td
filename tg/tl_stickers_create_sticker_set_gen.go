@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
 type StickersCreateStickerSetRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a mask stickerset
 	Masks bool

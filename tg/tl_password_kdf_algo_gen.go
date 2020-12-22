@@ -70,17 +70,32 @@ var (
 )
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow represents TL type `passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a`.
-// This key derivation algorithm defines that SRP 2FA login must be used
+// This key derivation algorithm defines that SRP 2FA login¹ must be used
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/constructor/passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow for reference.
 type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
-	// One of two salts used by the derivation function (see SRP 2FA login)
+	// One of two salts used by the derivation function (see SRP 2FA login¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	Salt1 []byte
-	// One of two salts used by the derivation function (see SRP 2FA login)
+	// One of two salts used by the derivation function (see SRP 2FA login¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	Salt2 []byte
-	// Base (see SRP 2FA login)
+	// Base (see SRP 2FA login¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	G int
-	// 2048-bit modulus (see SRP 2FA login)
+	// 2048-bit modulus (see SRP 2FA login¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	P []byte
 }
 

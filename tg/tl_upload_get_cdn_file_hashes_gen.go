@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
-// Get SHA256 hashes for verifying downloaded CDN files
+// Get SHA256 hashes for verifying downloaded CDN¹ files
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 type UploadGetCdnFileHashesRequest struct {
@@ -91,7 +94,10 @@ var (
 )
 
 // UploadGetCdnFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.
-// Get SHA256 hashes for verifying downloaded CDN files
+// Get SHA256 hashes for verifying downloaded CDN¹ files
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 func (c *Client) UploadGetCdnFileHashes(ctx context.Context, request *UploadGetCdnFileHashesRequest) ([]FileHash, error) {

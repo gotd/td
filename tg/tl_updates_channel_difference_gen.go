@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/updates.channelDifferenceEmpty for reference.
 type UpdatesChannelDifferenceEmpty struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether there are more updates that must be fetched (always false)
 	Final bool
-	// The latest PTS
+	// The latest PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
@@ -146,7 +152,10 @@ var (
 //
 // See https://core.telegram.org/constructor/updates.channelDifferenceTooLong for reference.
 type UpdatesChannelDifferenceTooLong struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether there are more updates that must be fetched (always false)
 	Final bool
@@ -154,7 +163,10 @@ type UpdatesChannelDifferenceTooLong struct {
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
-	// Dialog containing the latest PTS that can be used to reset the channel state
+	// Dialog containing the latest PTS¹ that can be used to reset the channel state
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Dialog DialogClass
 	// The latest messages
 	Messages []MessageClass
@@ -363,11 +375,17 @@ var (
 //
 // See https://core.telegram.org/constructor/updates.channelDifference for reference.
 type UpdatesChannelDifference struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether there are more updates to be fetched using getDifference, starting from the provided pts
 	Final bool
-	// The PTS from which to start getting updates the next time
+	// The PTS¹ from which to start getting updates the next time
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//

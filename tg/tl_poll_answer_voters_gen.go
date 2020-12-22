@@ -21,13 +21,19 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/pollAnswerVoters for reference.
 type PollAnswerVoters struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether we have chosen this answer
 	Chosen bool
 	// For quizes, whether the option we have chosen is correct
 	Correct bool
-	// The param that has to be passed to messages.sendVote.
+	// The param that has to be passed to messages.sendVote¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendVote
 	Option []byte
 	// How many users voted for this option
 	Voters int

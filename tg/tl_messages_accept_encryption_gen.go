@@ -23,7 +23,10 @@ var _ = strings.Builder{}
 type MessagesAcceptEncryptionRequest struct {
 	// Secret chat ID
 	Peer InputEncryptedChat
-	// B = g ^ b mod p, see Wikipedia
+	// B = g ^ b mod p, see Wikipedia¹
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	GB []byte
 	// 64-bit fingerprint of the received key
 	KeyFingerprint int64

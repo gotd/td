@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/inputWebDocument for reference.
 type InputWebDocument struct {
-	// Remote document URL to be downloaded using the appropriate method
+	// Remote document URL to be downloaded using the appropriate method¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	URL string
 	// Remote file size
 	Size int

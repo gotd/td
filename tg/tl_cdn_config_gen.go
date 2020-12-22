@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // CdnConfig represents TL type `cdnConfig#5725e40a`.
-// Configuration for CDN file downloads.
+// Configuration for CDN¹ file downloads.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnConfig for reference.
 type CdnConfig struct {
-	// Vector of public keys to use only during handshakes to CDN DCs.
+	// Vector of public keys to use only during handshakes to CDN¹ DCs.
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	PublicKeys []CdnPublicKey
 }
 

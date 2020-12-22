@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // InputFile represents TL type `inputFile#f52ff27f`.
-// Defines a file saved in parts using the method upload.saveFilePart.
+// Defines a file saved in parts using the method upload.saveFilePart¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/upload.saveFilePart
 //
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
@@ -27,7 +30,10 @@ type InputFile struct {
 	Parts int
 	// Full name of the file
 	Name string
-	// In case the file's md5-hash was passed, contents of the file will be checked prior to use
+	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior to use
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
 	Md5Checksum string
 }
 
@@ -122,7 +128,10 @@ var (
 )
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
-// Assigns a big file (over 10Mb in size), saved in part using the method upload.saveBigFilePart.
+// Assigns a big file (over 10Mb in size), saved in part using the method upload.saveBigFilePart¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/upload.saveBigFilePart
 //
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {

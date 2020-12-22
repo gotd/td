@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/account.updateTheme for reference.
 type AccountUpdateThemeRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Theme format, a string that identifies the theming engines supported by the client
 	Format string

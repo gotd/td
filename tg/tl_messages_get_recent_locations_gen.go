@@ -23,9 +23,15 @@ var _ = strings.Builder{}
 type MessagesGetRecentLocationsRequest struct {
 	// User
 	Peer InputPeerClass
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

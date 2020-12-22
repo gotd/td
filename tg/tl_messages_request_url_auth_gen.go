@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
-// Get more info about a Seamless Telegram Login authorization request, for more info click here »
+// Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
@@ -109,7 +112,10 @@ var (
 )
 
 // MessagesRequestUrlAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
-// Get more info about a Seamless Telegram Login authorization request, for more info click here »
+// Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 func (c *Client) MessagesRequestUrlAuth(ctx context.Context, request *MessagesRequestUrlAuthRequest) (UrlAuthResultClass, error) {

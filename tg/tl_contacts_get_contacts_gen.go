@@ -21,7 +21,11 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/contacts.getContacts for reference.
 type ContactsGetContactsRequest struct {
-	// If there already is a full contact list on the client, a hash of a the list of contact IDs in ascending order may be passed in this parameter. If the contact set was not changed, (contacts.contactsNotModified) will be returned.
+	// If there already is a full contact list on the client, a hash¹ of a the list of contact IDs in ascending order may be passed in this parameter. If the contact set was not changed, (contacts.contactsNotModified)² will be returned.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
+	//  2) https://core.telegram.org/constructor/contacts.contactsNotModified
 	Hash int
 }
 

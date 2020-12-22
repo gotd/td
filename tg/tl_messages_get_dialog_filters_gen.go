@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
-// Get folders
+// Get folders¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getDialogFilters for reference.
 type MessagesGetDialogFiltersRequest struct {
@@ -65,7 +68,10 @@ var (
 )
 
 // MessagesGetDialogFilters invokes method messages.getDialogFilters#f19ed96d returning error if any.
-// Get folders
+// Get folders¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getDialogFilters for reference.
 func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilter, error) {

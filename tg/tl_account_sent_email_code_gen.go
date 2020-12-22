@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/account.sentEmailCode for reference.
 type AccountSentEmailCode struct {
-	// The email (to which the code was sent) must match this pattern
+	// The email (to which the code was sent) must match this pattern¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pattern
 	EmailPattern string
 	// The length of the verification code
 	Length int

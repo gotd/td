@@ -21,23 +21,38 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/account.password for reference.
 type AccountPassword struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the user has a recovery method configured
 	HasRecovery bool
-	// Whether telegram passport is enabled
+	// Whether telegram passport¹ is enabled
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	HasSecureValues bool
 	// Whether the user has a password
 	HasPassword bool
-	// The KDF algorithm for SRP two-factor authentication of the current password
+	// The KDF algorithm for SRP two-factor authentication¹ of the current password
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetCurrentAlgo and GetCurrentAlgo helpers.
 	CurrentAlgo PasswordKdfAlgoClass
-	// Srp B param for SRP authorization
+	// Srp B param for SRP authorization¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSrpB and GetSrpB helpers.
 	SrpB []byte
-	// Srp ID param for SRP authorization
+	// Srp ID param for SRP authorization¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSrpID and GetSrpID helpers.
 	SrpID int64
@@ -45,13 +60,23 @@ type AccountPassword struct {
 	//
 	// Use SetHint and GetHint helpers.
 	Hint string
-	// A password recovery email with the specified pattern is still awaiting verification
+	// A password recovery email¹ with the specified pattern² is still awaiting verification
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp#email-verification
+	//  2) https://core.telegram.org/api/pattern
 	//
 	// Use SetEmailUnconfirmedPattern and GetEmailUnconfirmedPattern helpers.
 	EmailUnconfirmedPattern string
-	// The KDF algorithm for SRP two-factor authentication to use when creating new passwords
+	// The KDF algorithm for SRP two-factor authentication¹ to use when creating new passwords
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	NewAlgo PasswordKdfAlgoClass
-	// The KDF algorithm for telegram passport
+	// The KDF algorithm for telegram passport¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	NewSecureAlgo SecurePasswordKdfAlgoClass
 	// Secure random string
 	SecureRandom []byte

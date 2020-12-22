@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountResendPasswordEmailRequest represents TL type `account.resendPasswordEmail#7a7f2a15`.
-// Resend the code to verify an email to use as 2FA recovery method.
+// Resend the code to verify an email to use as 2FA recovery method¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.resendPasswordEmail for reference.
 type AccountResendPasswordEmailRequest struct {
@@ -65,7 +68,10 @@ var (
 )
 
 // AccountResendPasswordEmail invokes method account.resendPasswordEmail#7a7f2a15 returning error if any.
-// Resend the code to verify an email to use as 2FA recovery method.
+// Resend the code to verify an email to use as 2FA recovery method¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/srp
 //
 // See https://core.telegram.org/method/account.resendPasswordEmail for reference.
 func (c *Client) AccountResendPasswordEmail(ctx context.Context) (bool, error) {

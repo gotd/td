@@ -23,7 +23,10 @@ var _ = strings.Builder{}
 type PollAnswer struct {
 	// Textual representation of the answer
 	Text string
-	// The param that has to be passed to messages.sendVote.
+	// The param that has to be passed to messages.sendVote¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.sendVote
 	Option []byte
 }
 

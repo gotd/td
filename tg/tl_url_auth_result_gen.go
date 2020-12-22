@@ -17,15 +17,24 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
-// Details about the authorization request, for more info click here »
+// Details about the authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultRequest for reference.
 type UrlAuthResultRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the bot would like to send messages to the user
 	RequestWriteAccess bool
-	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
+	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot¹ for more details.
+	//
+	// Links:
+	//  1) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot
 	Bot UserClass
 	// The domain name of the website on which the user will log in.
 	Domain string
@@ -126,7 +135,10 @@ var (
 )
 
 // UrlAuthResultAccepted represents TL type `urlAuthResultAccepted#8f8c0e4e`.
-// Details about an accepted authorization request, for more info click here »
+// Details about an accepted authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type UrlAuthResultAccepted struct {
@@ -192,7 +204,10 @@ var (
 )
 
 // UrlAuthResultDefault represents TL type `urlAuthResultDefault#a9d6db1f`.
-// Details about an accepted authorization request, for more info click here »
+// Details about an accepted authorization request, for more info click here »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/constructor/urlAuthResultDefault for reference.
 type UrlAuthResultDefault struct {

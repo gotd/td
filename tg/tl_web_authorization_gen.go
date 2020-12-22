@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // WebAuthorization represents TL type `webAuthorization#cac943f2`.
-// Represents a bot logged in using the Telegram login widget
+// Represents a bot logged in using the Telegram login widget¹
+//
+// Links:
+//  1) https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {

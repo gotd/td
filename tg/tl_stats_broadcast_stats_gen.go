@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
-// Channel statistics.
+// Channel statistics¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {

@@ -21,9 +21,15 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/account.uploadTheme for reference.
 type AccountUploadThemeRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Theme file uploaded as described in files »
+	// Theme file uploaded as described in files »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	File InputFileClass
 	// Thumbnail
 	//

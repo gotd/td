@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/draftMessageEmpty for reference.
 type DraftMessageEmpty struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// When was the draft last updated
 	//
@@ -117,11 +120,17 @@ var (
 )
 
 // DraftMessage represents TL type `draftMessage#fd8e711f`.
-// Represents a message draft.
+// Represents a message draft¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/constructor/draftMessage for reference.
 type DraftMessage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether no webpage preview will be generated
 	NoWebpage bool
@@ -131,7 +140,10 @@ type DraftMessage struct {
 	ReplyToMsgID int
 	// The draft
 	Message string
-	// Message entities for styled text.
+	// Message entities¹ for styled text.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

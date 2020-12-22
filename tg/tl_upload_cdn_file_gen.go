@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
-// The file was cleared from the temporary RAM cache of the CDN and has to be reuploaded.
+// The file was cleared from the temporary RAM cache of the CDN¹ and has to be reuploaded.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFileReuploadNeeded for reference.
 type UploadCdnFileReuploadNeeded struct {
-	// Request token (see CDN)
+	// Request token (see CDN¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	RequestToken []byte
 }
 
@@ -83,7 +89,10 @@ var (
 )
 
 // UploadCdnFile represents TL type `upload.cdnFile#a99fca4f`.
-// Represent a chunk of a CDN file.
+// Represent a chunk of a CDN¹ file.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCdnFile struct {

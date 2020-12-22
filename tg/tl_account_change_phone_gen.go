@@ -23,9 +23,15 @@ var _ = strings.Builder{}
 type AccountChangePhoneRequest struct {
 	// New phone number
 	PhoneNumber string
-	// Phone code hash received when calling account.sendChangePhoneCode
+	// Phone code hash received when calling account.sendChangePhoneCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.sendChangePhoneCode
 	PhoneCodeHash string
-	// Phone code received when calling account.sendChangePhoneCode
+	// Phone code received when calling account.sendChangePhoneCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.sendChangePhoneCode
 	PhoneCode string
 }
 

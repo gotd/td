@@ -87,7 +87,10 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneCallWaiting for reference.
 type PhoneCallWaiting struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is this a video call
 	Video bool
@@ -277,7 +280,10 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneCallRequested for reference.
 type PhoneCallRequested struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a video call
 	Video bool
@@ -291,7 +297,10 @@ type PhoneCallRequested struct {
 	AdminID int
 	// ID of the other participant of the phone call
 	ParticipantID int
-	// Parameter for key exchange
+	// Parameter for key exchange¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GAHash []byte
 	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
@@ -446,7 +455,10 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneCallAccepted for reference.
 type PhoneCallAccepted struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this is a video call
 	Video bool
@@ -460,7 +472,10 @@ type PhoneCallAccepted struct {
 	AdminID int
 	// ID of the other user in the call
 	ParticipantID int
-	// B parameter for secure E2E phone call key exchange
+	// B parameter for secure E2E phone call key exchange¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GB []byte
 	// Protocol to use for phone call
 	Protocol PhoneCallProtocol
@@ -615,7 +630,10 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneCall for reference.
 type PhoneCall struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether P2P connection to the other peer is allowed
 	P2PAllowed bool
@@ -631,9 +649,15 @@ type PhoneCall struct {
 	AdminID int
 	// User ID of the other participant in the call
 	ParticipantID int
-	// Parameter for key exchange
+	// Parameter for key exchange¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GAOrB []byte
-	// Key fingerprint
+	// Key fingerprint¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	KeyFingerprint int64
 	// Call protocol info to be passed to libtgvoip
 	Protocol PhoneCallProtocol
@@ -851,11 +875,20 @@ var (
 //
 // See https://core.telegram.org/constructor/phoneCallDiscarded for reference.
 type PhoneCallDiscarded struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the server required the user to rate the call
+	// Whether the server required the user to rate¹ the call
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.setCallRating
 	NeedRating bool
-	// Whether the server required the client to send the libtgvoip call debug data
+	// Whether the server required the client to send¹ the libtgvoip call debug data
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/phone.saveCallDebug
 	NeedDebug bool
 	// Whether the call was a video call
 	Video bool

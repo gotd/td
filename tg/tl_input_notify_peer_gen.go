@@ -194,7 +194,10 @@ var (
 )
 
 // InputNotifyBroadcasts represents TL type `inputNotifyBroadcasts#b1db7c7e`.
-// All channels
+// All channels¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/inputNotifyBroadcasts for reference.
 type InputNotifyBroadcasts struct {

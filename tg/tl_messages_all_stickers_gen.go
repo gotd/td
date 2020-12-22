@@ -74,7 +74,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.allStickers for reference.
 type MessagesAllStickers struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// All stickersets
 	Sets []StickerSet

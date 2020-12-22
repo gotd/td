@@ -205,9 +205,15 @@ var (
 //
 // See https://core.telegram.org/constructor/encryptedChatRequested for reference.
 type EncryptedChatRequested struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -221,7 +227,10 @@ type EncryptedChatRequested struct {
 	AdminID int
 	// ID of second chat participant
 	ParticipantID int
-	// A = g ^ a mod p, see Wikipedia
+	// A = g ^ a mod p, see Wikipedia¹
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	GA []byte
 }
 
@@ -393,7 +402,10 @@ type EncryptedChat struct {
 	AdminID int
 	// ID of the second chat participant
 	ParticipantID int
-	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia for more info
+	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia¹ for more info
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	GAOrB []byte
 	// 64-bit fingerprint of received key
 	KeyFingerprint int64

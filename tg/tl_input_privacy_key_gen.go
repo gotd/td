@@ -229,7 +229,10 @@ var (
 )
 
 // InputPrivacyKeyForwards represents TL type `inputPrivacyKeyForwards#a4dd4c08`.
-// Whether messages forwarded from this user will be anonymous
+// Whether messages forwarded from this user will be anonymous¹
+//
+// Links:
+//  1) https://telegram.org/blog/unsend-privacy-emoji#anonymous-forwarding
 //
 // See https://core.telegram.org/constructor/inputPrivacyKeyForwards for reference.
 type InputPrivacyKeyForwards struct {

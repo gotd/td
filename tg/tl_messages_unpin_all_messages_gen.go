@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#f025bc8b`.
-// Unpin all pinned messages
+// Unpin¹ all pinned messages
+//
+// Links:
+//  1) https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
@@ -83,7 +86,10 @@ var (
 )
 
 // MessagesUnpinAllMessages invokes method messages.unpinAllMessages#f025bc8b returning error if any.
-// Unpin all pinned messages
+// Unpin¹ all pinned messages
+//
+// Links:
+//  1) https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 func (c *Client) MessagesUnpinAllMessages(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {

@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/channels.checkUsername for reference.
 type ChannelsCheckUsernameRequest struct {
-	// The channel/supergroup that will assigned the specified username
+	// The channel/supergroup¹ that will assigned the specified username
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// The username to check
 	Username string

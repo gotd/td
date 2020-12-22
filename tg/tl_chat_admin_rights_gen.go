@@ -17,27 +17,57 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
-// Represents the rights of an admin in a channel/supergroup.
+// Represents the rights of an admin in a channel/supergroup¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/chatAdminRights for reference.
 type ChatAdminRights struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, allows the admin to modify the description of the channel/supergroup
+	// If set, allows the admin to modify the description of the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChangeInfo bool
-	// If set, allows the admin to post messages in the channel
+	// If set, allows the admin to post messages in the channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	PostMessages bool
-	// If set, allows the admin to also edit messages from other admins in the channel
+	// If set, allows the admin to also edit messages from other admins in the channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	EditMessages bool
-	// If set, allows the admin to also delete messages from other admins in the channel
+	// If set, allows the admin to also delete messages from other admins in the channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	DeleteMessages bool
-	// If set, allows the admin to ban users from the channel/supergroup
+	// If set, allows the admin to ban users from the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	BanUsers bool
-	// If set, allows the admin to invite users in the channel/supergroup
+	// If set, allows the admin to invite users in the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	InviteUsers bool
-	// If set, allows the admin to pin messages in the channel/supergroup
+	// If set, allows the admin to pin messages in the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup
+	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	AddAdmins bool
 	// Whether this admin is anonymous
 	Anonymous bool

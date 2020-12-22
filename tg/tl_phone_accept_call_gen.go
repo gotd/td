@@ -23,7 +23,10 @@ var _ = strings.Builder{}
 type PhoneAcceptCallRequest struct {
 	// The call to accept
 	Peer InputPhoneCall
-	// Parameter for E2E encryption key exchange »
+	// Parameter for E2E encryption key exchange »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GB []byte
 	// Phone call settings
 	Protocol PhoneCallProtocol

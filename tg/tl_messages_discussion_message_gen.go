@@ -17,23 +17,38 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesDiscussionMessage represents TL type `messages.discussionMessage#f5dd8f9d`.
-// Information about a message thread
+// Information about a message thread¹
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/constructor/messages.discussionMessage for reference.
 type MessagesDiscussionMessage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Discussion messages
 	Messages []MessageClass
-	// Message ID of latest reply in this thread
+	// Message ID of latest reply in this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetMaxID and GetMaxID helpers.
 	MaxID int
-	// Message ID of latest read incoming message in this thread
+	// Message ID of latest read incoming message in this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadInboxMaxID and GetReadInboxMaxID helpers.
 	ReadInboxMaxID int
-	// Message ID of latest read outgoing message in this thread
+	// Message ID of latest read outgoing message in this thread¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
 	ReadOutboxMaxID int

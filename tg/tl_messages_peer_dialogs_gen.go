@@ -29,7 +29,10 @@ type MessagesPeerDialogs struct {
 	Chats []ChatClass
 	// Users
 	Users []UserClass
-	// Current update state of dialog
+	// Current update state of dialog¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	State UpdatesState
 }
 

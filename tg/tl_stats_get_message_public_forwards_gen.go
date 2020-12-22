@@ -18,7 +18,10 @@ var _ = strings.Builder{}
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
 // Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
-// Will return a list of messages with peer_id equal to the public channel to which this message was forwarded.
+// Will return a list of messages¹ with peer_id equal to the public channel to which this message was forwarded.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/message
 //
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 type StatsGetMessagePublicForwardsRequest struct {
@@ -26,13 +29,25 @@ type StatsGetMessagePublicForwardsRequest struct {
 	Channel InputChannelClass
 	// Source message ID
 	MsgID int
-	// Initially 0, then set to the next_rate parameter of messages.messagesSlice
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messages.messagesSlice
 	OffsetRate int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetPeer InputPeerClass
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Maximum number of results to return, see pagination
+	// Maximum number of results to return, see pagination¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 
@@ -155,7 +170,10 @@ var (
 
 // StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.
 // Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
-// Will return a list of messages with peer_id equal to the public channel to which this message was forwarded.
+// Will return a list of messages¹ with peer_id equal to the public channel to which this message was forwarded.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/message
 //
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error) {

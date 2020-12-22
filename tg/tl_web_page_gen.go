@@ -166,7 +166,10 @@ var (
 //
 // See https://core.telegram.org/constructor/webPage for reference.
 type WebPage struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Preview ID
 	ID int64
@@ -174,7 +177,10 @@ type WebPage struct {
 	URL string
 	// Webpage URL to be displayed to the user
 	DisplayURL string
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
 	//
@@ -224,7 +230,10 @@ type WebPage struct {
 	//
 	// Use SetDocument and GetDocument helpers.
 	Document DocumentClass
-	// Page contents in instant view format
+	// Page contents in instant view¹ format
+	//
+	// Links:
+	//  1) https://instantview.telegram.org
 	//
 	// Use SetCachedPage and GetCachedPage helpers.
 	CachedPage Page
@@ -783,7 +792,10 @@ var (
 //
 // See https://core.telegram.org/constructor/webPageNotModified for reference.
 type WebPageNotModified struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Page view count
 	//

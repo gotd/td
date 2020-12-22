@@ -87,7 +87,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.featuredStickers for reference.
 type MessagesFeaturedStickers struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Total number of featured stickers
 	Count int

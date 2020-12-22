@@ -192,7 +192,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channelParticipantCreator for reference.
 type ChannelParticipantCreator struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// User ID
 	UserID int
@@ -318,7 +321,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channelParticipantAdmin for reference.
 type ChannelParticipantAdmin struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Can this admin promote other admins with the same permissions?
 	CanEdit bool
@@ -334,7 +340,10 @@ type ChannelParticipantAdmin struct {
 	PromotedBy int
 	// When did the user join
 	Date int
-	// Admin rights
+	// Admin rights¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	AdminRights ChatAdminRights
 	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
@@ -528,7 +537,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channelParticipantBanned for reference.
 type ChannelParticipantBanned struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the user has left the group
 	Left bool
@@ -538,7 +550,10 @@ type ChannelParticipantBanned struct {
 	KickedBy int
 	// When did the user join the group
 	Date int
-	// Banned rights
+	// Banned rights¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	BannedRights ChatBannedRights
 }
 

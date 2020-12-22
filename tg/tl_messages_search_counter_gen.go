@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesSearchCounter represents TL type `messages.searchCounter#e844ebff`.
-// Indicates how many results would be found by a messages.search call with the same parameters
+// Indicates how many results would be found by a messages.search¹ call with the same parameters
+//
+// Links:
+//  1) https://core.telegram.org/method/messages.search
 //
 // See https://core.telegram.org/constructor/messages.searchCounter for reference.
 type MessagesSearchCounter struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, the results may be inexact
 	Inexact bool

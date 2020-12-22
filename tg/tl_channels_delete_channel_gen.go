@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChannelsDeleteChannelRequest represents TL type `channels.deleteChannel#c0111fe3`.
-// Delete a channel/supergroup
+// Delete a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.deleteChannel for reference.
 type ChannelsDeleteChannelRequest struct {
-	// Channel/supergroup to delete
+	// Channel/supergroup¹ to delete
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 }
 
@@ -83,7 +89,10 @@ var (
 )
 
 // ChannelsDeleteChannel invokes method channels.deleteChannel#c0111fe3 returning error if any.
-// Delete a channel/supergroup
+// Delete a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.deleteChannel for reference.
 func (c *Client) ChannelsDeleteChannel(ctx context.Context, channel InputChannelClass) (UpdatesClass, error) {

@@ -76,7 +76,10 @@ var (
 type InputChannel struct {
 	// Channel ID
 	ChannelID int
-	// Access hash taken from the channel constructor
+	// Access hash taken from the channel¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channel
 	AccessHash int64
 }
 
@@ -149,7 +152,10 @@ var (
 )
 
 // InputChannelFromMessage represents TL type `inputChannelFromMessage#2a286531`.
-// Defines a min channel that was seen in a certain message of a certain chat.
+// Defines a min¹ channel that was seen in a certain message of a certain chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/min
 //
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {

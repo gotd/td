@@ -43,6 +43,8 @@ type fieldDef struct {
 	ConditionalIndex int
 	// ConditionalBool denotes whether value is fully encoded in ConditionalField as bit.
 	ConditionalBool bool
+	// Links from documentation
+	Links []string
 }
 
 // nolint:gocognit,gocyclo

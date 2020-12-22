@@ -21,9 +21,15 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.searchGlobal for reference.
 type MessagesSearchGlobalRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -35,13 +41,25 @@ type MessagesSearchGlobalRequest struct {
 	MinDate int
 	// If a positive value was transferred, the method will return only messages with date smaller than max_date
 	MaxDate int
-	// Initially 0, then set to the next_rate parameter of messages.messagesSlice
+	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/messages.messagesSlice
 	OffsetRate int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetPeer InputPeerClass
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	OffsetID int
-	// Offsets for pagination, for more info click here
+	// Offsets for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets
 	Limit int
 }
 

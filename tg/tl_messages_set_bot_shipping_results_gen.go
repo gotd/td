@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
-// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery update. Use this method to reply to shipping queries.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/updateBotShippingQuery
 //
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 type MessagesSetBotShippingResultsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Unique identifier for the query to be answered
 	QueryID int64
@@ -172,7 +178,10 @@ var (
 )
 
 // MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
-// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery update. Use this method to reply to shipping queries.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/updateBotShippingQuery
 //
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
 func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (bool, error) {

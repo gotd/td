@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesReadDiscussionRequest represents TL type `messages.readDiscussion#f731a9f4`.
-// Mark a thread as read
+// Mark a thread¹ as read
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
@@ -109,7 +112,10 @@ var (
 )
 
 // MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.
-// Mark a thread as read
+// Mark a thread¹ as read
+//
+// Links:
+//  1) https://core.telegram.org/api/threads
 //
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 func (c *Client) MessagesReadDiscussion(ctx context.Context, request *MessagesReadDiscussionRequest) (bool, error) {

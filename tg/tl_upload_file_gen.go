@@ -114,19 +114,37 @@ var (
 )
 
 // UploadFileCdnRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
-// The file must be downloaded from a CDN DC.
+// The file must be downloaded from a CDN DC¹.
+//
+// Links:
+//  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect for reference.
 type UploadFileCdnRedirect struct {
-	// CDN DC ID
+	// CDN DC¹ ID
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	DCID int
-	// File token (see CDN files)
+	// File token (see CDN files¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	FileToken []byte
-	// Encryption key (see CDN files)
+	// Encryption key (see CDN files¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	EncryptionKey []byte
-	// Encryption IV (see CDN files)
+	// Encryption IV (see CDN files¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	EncryptionIv []byte
-	// File hashes (see CDN files)
+	// File hashes (see CDN files¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/cdn
 	FileHashes []FileHash
 }
 

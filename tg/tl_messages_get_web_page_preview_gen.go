@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.getWebPagePreview for reference.
 type MessagesGetWebPagePreviewRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Message from which to extract the preview
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass

@@ -18,17 +18,30 @@ var _ = strings.Builder{}
 
 // CodeSettings represents TL type `codeSettings#debebe83`.
 // Settings used by telegram servers for sending the confirm code.
-// Example implementations: telegram for android, tdlib.
+// Example implementations: telegram for android¹, tdlib².
+//
+// Links:
+//  1) https://github.com/DrKLO/Telegram/blob/master/TMessagesProj/src/main/java/org/telegram/ui/LoginActivity.java
+//  2) https://github.com/tdlib/td/tree/master/td/telegram/SendCodeHelper.cpp
 //
 // See https://core.telegram.org/constructor/codeSettings for reference.
 type CodeSettings struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to allow phone verification via phone calls.
+	// Whether to allow phone verification via phone calls¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/auth
 	AllowFlashcall bool
 	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
 	CurrentNumber bool
-	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs
+	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
+	//
+	// Links:
+	//  1) https://developers.google.com/identity/sms-retriever/overview
 	AllowAppHash bool
 }
 

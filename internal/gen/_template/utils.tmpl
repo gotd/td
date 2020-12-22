@@ -17,3 +17,11 @@
 {{- else if $.Slice }}[]{{ $.Type }}
 {{- else }}{{ $.Type }}
 {{- end }}{{- end }}
+
+{{ define "print_links" }}
+//
+// Links:
+{{- range $i, $link := . }}
+//  {{ add $i 1 }}) {{ $link }}
+{{- end }}
+{{- end }}

@@ -88,11 +88,17 @@ var (
 )
 
 // DialogPeerFolder represents TL type `dialogPeerFolder#514519e2`.
-// Peer folder
+// Peer folder¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/constructor/dialogPeerFolder for reference.
 type DialogPeerFolder struct {
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 }
 

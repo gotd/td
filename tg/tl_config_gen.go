@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/config for reference.
 type Config struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether phone calls can be used
 	PhonecallsEnabled bool
@@ -29,17 +32,26 @@ type Config struct {
 	DefaultP2PContacts bool
 	// Whether the client should preload featured stickers
 	PreloadFeaturedStickers bool
-	// Whether the client should ignore phone entities
+	// Whether the client should ignore phone entities¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	IgnorePhoneEntities bool
 	// Whether incoming private messages can be deleted for both participants
 	RevokePmInbox bool
 	// Indicates that telegram is probably censored by governments/ISPs in the current region
 	BlockedMode bool
-	// Whether pfs was used
+	// Whether pfs¹ was used
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pfs
 	PFSEnabled bool
 	// Current date at the server
 	Date int
-	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig
+	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getConfig
 	Expires int
 	// Whether we're connected to the test DCs
 	TestMode bool
@@ -49,13 +61,25 @@ type Config struct {
 	DCOptions []DcOption
 	// Domain name for fetching encrypted DC list from DNS TXT record
 	DCTxtDomainName string
-	// Maximum member count for normal groups
+	// Maximum member count for normal groups¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChatSizeMax int
-	// Maximum member count for supergroups
+	// Maximum member count for supergroups¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	MegagroupSizeMax int
-	// Maximum number of messages that can be forwarded at once using messages.forwardMessages.
+	// Maximum number of messages that can be forwarded at once using messages.forwardMessages¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.forwardMessages
 	ForwardedCountMax int
-	// The client should update its online status every N milliseconds
+	// The client should update its online status¹ every N milliseconds
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.updateStatus
 	OnlineUpdatePeriodMs int
 	// Delay before offline status needs to be sent to the server
 	OfflineBlurTimeoutMs int
@@ -79,7 +103,10 @@ type Config struct {
 	RevokeTimeLimit int
 	// Only private messages with age smaller than the specified can be deleted
 	RevokePmTimeLimit int
-	// Exponential decay rate for computing top peer rating
+	// Exponential decay rate for computing top peer rating¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/top-rating
 	RatingEDecay int
 	// Maximum number of recent stickers
 	StickersRecentLimit int
@@ -87,7 +114,10 @@ type Config struct {
 	StickersFavedLimit int
 	// Indicates that round videos (video notes) and voice messages sent in channels and older than the specified period must be marked as read
 	ChannelsReadMediaPeriod int
-	// Temporary passport sessions
+	// Temporary passport¹ sessions
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
@@ -129,7 +159,10 @@ type Config struct {
 	CaptionLengthMax int
 	// Maximum length of messages (length in utf8 codepoints)
 	MessageLengthMax int
-	// DC ID to use to download webfiles
+	// DC ID to use to download webfiles¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	WebfileDCID int
 	// Suggested language code
 	//

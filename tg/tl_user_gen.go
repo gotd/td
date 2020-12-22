@@ -87,7 +87,10 @@ var (
 //
 // See https://core.telegram.org/constructor/user for reference.
 type User struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether this user indicates the currently logged in user
 	Self bool
@@ -107,7 +110,10 @@ type User struct {
 	Verified bool
 	// Access to this user must be restricted for the reason specified in restriction_reason
 	Restricted bool
-	// See min
+	// See min¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/min
 	Min bool
 	// Whether the bot can request our geolocation in inline mode
 	BotInlineGeo bool
@@ -147,7 +153,10 @@ type User struct {
 	//
 	// Use SetStatus and GetStatus helpers.
 	Status UserStatusClass
-	// Version of the bot_info field in userFull, incremented every time it changes
+	// Version of the bot_info field in userFull¹, incremented every time it changes
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
 	BotInfoVersion int

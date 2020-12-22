@@ -17,17 +17,32 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
-// Telegram Passport authorization form
+// Telegram Passport¹ authorization form
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/account.authorizationForm for reference.
 type AccountAuthorizationForm struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Required Telegram Passport documents
+	// Required Telegram Passport¹ documents
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	RequiredTypes []SecureRequiredTypeClass
-	// Already submitted Telegram Passport documents
+	// Already submitted Telegram Passport¹ documents
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	Values []SecureValue
-	// Telegram Passport errors
+	// Telegram Passport¹ errors
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	Errors []SecureValueErrorClass
 	// Info about the bot to which the form will be submitted
 	Users []UserClass

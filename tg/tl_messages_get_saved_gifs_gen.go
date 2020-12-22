@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.getSavedGifs for reference.
 type MessagesGetSavedGifsRequest struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

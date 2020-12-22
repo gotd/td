@@ -23,7 +23,10 @@ var _ = strings.Builder{}
 type InputFolderPeer struct {
 	// Peer
 	Peer InputPeerClass
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 }
 

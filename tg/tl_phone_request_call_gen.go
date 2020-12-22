@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/phone.requestCall for reference.
 type PhoneRequestCallRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to start a video call
 	Video bool
@@ -29,7 +32,10 @@ type PhoneRequestCallRequest struct {
 	UserID InputUserClass
 	// Random ID to avoid resending the same object
 	RandomID int
-	// Parameter for E2E encryption key exchange »
+	// Parameter for E2E encryption key exchange »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GAHash []byte
 	// Phone call settings
 	Protocol PhoneCallProtocol

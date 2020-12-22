@@ -17,7 +17,11 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // SecurePlainPhone represents TL type `securePlainPhone#7d6099dd`.
-// Phone number to use in telegram passport: it must be verified, first ».
+// Phone number to use in telegram passport¹: it must be verified, first »².
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#secureplaindata
 //
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
@@ -83,7 +87,11 @@ var (
 )
 
 // SecurePlainEmail represents TL type `securePlainEmail#21ec5a5f`.
-// Email address to use in telegram passport: it must be verified, first ».
+// Email address to use in telegram passport¹: it must be verified, first »².
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#secureplaindata
 //
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {

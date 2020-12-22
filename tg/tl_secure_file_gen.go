@@ -70,7 +70,11 @@ var (
 )
 
 // SecureFile represents TL type `secureFile#e0277a62`.
-// Secure passport file, for more info see the passport docs »
+// Secure passport¹ file, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#inputsecurefile
 //
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {

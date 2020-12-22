@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaAuto for reference.
 type InputBotInlineMessageMediaAuto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Caption
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -189,13 +195,19 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageText for reference.
 type InputBotInlineMessageText struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Disable webpage preview
 	NoWebpage bool
 	// Message
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -369,11 +381,17 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaGeo for reference.
 type InputBotInlineMessageMediaGeo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Geolocation
 	GeoPoint InputGeoPointClass
-	// For live locations, a direction in which the location moves, in degrees; 1-360
+	// For live locations¹, a direction in which the location moves, in degrees; 1-360
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
@@ -381,7 +399,10 @@ type InputBotInlineMessageMediaGeo struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -594,7 +615,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaVenue for reference.
 type InputBotInlineMessageMediaVenue struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Geolocation
 	GeoPoint InputGeoPointClass
@@ -782,7 +806,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageMediaContact for reference.
 type InputBotInlineMessageMediaContact struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Phone number
 	PhoneNumber string
@@ -939,7 +966,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputBotInlineMessageGame for reference.
 type InputBotInlineMessageGame struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Inline keyboard
 	//

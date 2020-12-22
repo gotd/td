@@ -17,13 +17,23 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountSaveSecureValueRequest represents TL type `account.saveSecureValue#899fe31d`.
-// Securely save Telegram Passport document, for more info see the passport docs »
+// Securely save Telegram Passport¹ document, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.saveSecureValue for reference.
 type AccountSaveSecureValueRequest struct {
-	// Secure value, for more info see the passport docs »
+	// Secure value, for more info see the passport docs »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport/encryption#encryption
 	Value InputSecureValue
-	// Passport secret hash, for more info see the passport docs »
+	// Passport secret hash, for more info see the passport docs »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport/encryption#encryption
 	SecureSecretID int64
 }
 
@@ -91,7 +101,11 @@ var (
 )
 
 // AccountSaveSecureValue invokes method account.saveSecureValue#899fe31d returning error if any.
-// Securely save Telegram Passport document, for more info see the passport docs »
+// Securely save Telegram Passport¹ document, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.saveSecureValue for reference.
 func (c *Client) AccountSaveSecureValue(ctx context.Context, request *AccountSaveSecureValueRequest) (*SecureValue, error) {

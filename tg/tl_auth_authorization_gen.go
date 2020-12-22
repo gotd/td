@@ -21,9 +21,15 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/auth.authorization for reference.
 type AuthAuthorization struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Temporary passport sessions
+	// Temporary passport¹ sessions
+	//
+	// Links:
+	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
 	TmpSessions int
@@ -135,11 +141,17 @@ var (
 )
 
 // AuthAuthorizationSignUpRequired represents TL type `auth.authorizationSignUpRequired#44747e9a`.
-// An account with this phone number doesn't exist on telegram: the user has to enter basic information and sign up
+// An account with this phone number doesn't exist on telegram: the user has to enter basic information and sign up¹
+//
+// Links:
+//  1) https://core.telegram.org/api/auth
 //
 // See https://core.telegram.org/constructor/auth.authorizationSignUpRequired for reference.
 type AuthAuthorizationSignUpRequired struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
 	//

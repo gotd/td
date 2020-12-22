@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 type ChannelsToggleSlowModeRequest struct {
-	// The supergroup
+	// The supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// Users will only be able to send one message every seconds seconds, 0 to disable the limitation
 	Seconds int

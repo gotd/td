@@ -76,7 +76,10 @@ var (
 type HelpCountriesList struct {
 	// Name, ISO code, localized name and phone codes/patterns of all available countries
 	Countries []HelpCountry
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 }
 

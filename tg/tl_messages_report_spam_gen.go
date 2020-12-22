@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesReportSpamRequest represents TL type `messages.reportSpam#cf1592db`.
-// Report a new incoming chat for spam, if the peer settings of the chat allow us to do that
+// Report a new incoming chat for spam, if the peer settings¹ of the chat allow us to do that
+//
+// Links:
+//  1) https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
@@ -83,7 +86,10 @@ var (
 )
 
 // MessagesReportSpam invokes method messages.reportSpam#cf1592db returning error if any.
-// Report a new incoming chat for spam, if the peer settings of the chat allow us to do that
+// Report a new incoming chat for spam, if the peer settings¹ of the chat allow us to do that
+//
+// Links:
+//  1) https://core.telegram.org/constructor/peerSettings
 //
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 func (c *Client) MessagesReportSpam(ctx context.Context, peer InputPeerClass) (bool, error) {

@@ -229,7 +229,10 @@ var (
 )
 
 // SecureValueTypeInternalPassport represents TL type `secureValueTypeInternalPassport#99a48f23`.
-// Internal passport
+// Internal passport¹
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/secureValueTypeInternalPassport for reference.
 type SecureValueTypeInternalPassport struct {
@@ -494,7 +497,10 @@ var (
 )
 
 // SecureValueTypePassportRegistration represents TL type `secureValueTypePassportRegistration#99e3806a`.
-// Internal registration passport
+// Internal registration passport¹
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/constructor/secureValueTypePassportRegistration for reference.
 type SecureValueTypePassportRegistration struct {

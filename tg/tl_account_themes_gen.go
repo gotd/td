@@ -74,7 +74,10 @@ var (
 //
 // See https://core.telegram.org/constructor/account.themes for reference.
 type AccountThemes struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// Themes
 	Themes []Theme

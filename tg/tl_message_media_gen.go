@@ -74,7 +74,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messageMediaPhoto for reference.
 type MessageMediaPhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Photo
 	//
@@ -455,7 +458,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messageMediaDocument for reference.
 type MessageMediaDocument struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Attached document
 	//
@@ -867,7 +873,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messageMediaInvoice for reference.
 type MessageMediaInvoice struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the shipping address was requested
 	ShippingAddressRequested bool
@@ -881,13 +890,23 @@ type MessageMediaInvoice struct {
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy button always attached to the message to a localized version of the word Receipt
+	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy¹ button always attached to the message² to a localized version of the word Receipt
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/keyboardButtonBuy
+	//  2) https://core.telegram.org/constructor/message
 	//
 	// Use SetReceiptMsgID and GetReceiptMsgID helpers.
 	ReceiptMsgID int
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments/currencies.json
 	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
 	StartParam string
@@ -1091,21 +1110,33 @@ var (
 )
 
 // MessageMediaGeoLive represents TL type `messageMediaGeoLive#b940c666`.
-// Indicates a live geolocation
+// Indicates a live geolocation¹
+//
+// Links:
+//  1) https://core.telegram.org/api/live-location
 //
 // See https://core.telegram.org/constructor/messageMediaGeoLive for reference.
 type MessageMediaGeoLive struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Geolocation
 	Geo GeoPointClass
-	// For live locations, a direction in which the location moves, in degrees; 1-360
+	// For live locations¹, a direction in which the location moves, in degrees; 1-360
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
 	Heading int
 	// Validity period of provided geolocation
 	Period int
-	// For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
+	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
 	ProximityNotificationRadius int
@@ -1335,11 +1366,17 @@ var (
 )
 
 // MessageMediaDice represents TL type `messageMediaDice#3f7ee58b`.
-// Dice-based animated sticker
+// Dice-based animated sticker¹
+//
+// Links:
+//  1) https://core.telegram.org/api/dice
 //
 // See https://core.telegram.org/constructor/messageMediaDice for reference.
 type MessageMediaDice struct {
-	// Dice value
+	// Dice value¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/dice
 	Value int
 	// The emoji, for now ,  and  are supported
 	Emoticon string

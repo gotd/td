@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // StatsGetMessageStatsRequest represents TL type `stats.getMessageStats#b6e0a3f5`.
-// Get message statistics
+// Get message statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
 type StatsGetMessageStatsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
 	Dark bool
@@ -121,7 +127,10 @@ var (
 )
 
 // StatsGetMessageStats invokes method stats.getMessageStats#b6e0a3f5 returning error if any.
-// Get message statistics
+// Get message statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
 func (c *Client) StatsGetMessageStats(ctx context.Context, request *StatsGetMessageStatsRequest) (*StatsMessageStats, error) {

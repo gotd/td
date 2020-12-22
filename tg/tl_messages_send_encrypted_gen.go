@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.sendEncrypted for reference.
 type MessagesSendEncryptedRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Send encrypted message without a notification
 	Silent bool
@@ -29,7 +32,10 @@ type MessagesSendEncryptedRequest struct {
 	Peer InputEncryptedChat
 	// Unique client message ID, necessary to avoid message resending
 	RandomID int64
-	// TL-serialization of DecryptedMessage type, encrypted with a key that was created during chat initialization
+	// TL-serialization of DecryptedMessage¹ type, encrypted with a key that was created during chat initialization
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DecryptedMessage
 	Data []byte
 }
 

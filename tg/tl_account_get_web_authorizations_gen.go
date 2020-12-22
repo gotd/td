@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountGetWebAuthorizationsRequest represents TL type `account.getWebAuthorizations#182e6d6f`.
-// Get web login widget authorizations
+// Get web login widget¹ authorizations
+//
+// Links:
+//  1) https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 type AccountGetWebAuthorizationsRequest struct {
@@ -65,7 +68,10 @@ var (
 )
 
 // AccountGetWebAuthorizations invokes method account.getWebAuthorizations#182e6d6f returning error if any.
-// Get web login widget authorizations
+// Get web login widget¹ authorizations
+//
+// Links:
+//  1) https://core.telegram.org/widgets/login
 //
 // See https://core.telegram.org/method/account.getWebAuthorizations for reference.
 func (c *Client) AccountGetWebAuthorizations(ctx context.Context) (*AccountWebAuthorizations, error) {

@@ -17,7 +17,11 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
-// This channel statistics graph must be generated asynchronously using stats.loadAsyncGraph to reduce server load
+// This channel statistics graph¹ must be generated asynchronously using stats.loadAsyncGraph² to reduce server load
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
+//  2) https://core.telegram.org/method/stats.loadAsyncGraph
 //
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
@@ -83,7 +87,10 @@ var (
 )
 
 // StatsGraphError represents TL type `statsGraphError#bedc9822`.
-// An error occurred while generating the statistics graph
+// An error occurred while generating the statistics graph¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
@@ -149,11 +156,17 @@ var (
 )
 
 // StatsGraph represents TL type `statsGraph#8ea464b6`.
-// Channel statistics graph
+// Channel statistics graph¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/statsGraph for reference.
 type StatsGraph struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Statistics data
 	JSON DataJSON

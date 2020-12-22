@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/invoice for reference.
 type Invoice struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Test invoice
 	Test bool
@@ -39,7 +42,10 @@ type Invoice struct {
 	PhoneToProvider bool
 	// Set this flag if user's email address should be sent to provider
 	EmailToProvider bool
-	// Three-letter ISO 4217 currency code
+	// Three-letter ISO 4217 currency¹ code
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
 	Prices []LabeledPrice

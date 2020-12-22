@@ -21,9 +21,15 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.uploadMedia for reference.
 type MessagesUploadMediaRequest struct {
-	// The chat, can be an inputPeerEmpty for bots
+	// The chat, can be an inputPeerEmpty¹ for bots
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/inputPeerEmpty
 	Peer InputPeerClass
-	// File uploaded in chunks as described in files »
+	// File uploaded in chunks as described in files »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files
 	Media InputMediaClass
 }
 

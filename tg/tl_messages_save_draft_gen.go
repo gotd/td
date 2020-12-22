@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesSaveDraftRequest represents TL type `messages.saveDraft#bc39e14b`.
-// Save a message draft associated to a chat.
+// Save a message draft¹ associated to a chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.saveDraft for reference.
 type MessagesSaveDraftRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Disable generation of the webpage preview
 	NoWebpage bool
@@ -33,7 +39,10 @@ type MessagesSaveDraftRequest struct {
 	Peer InputPeerClass
 	// The draft
 	Message string
-	// Message entities for styled text
+	// Message entities¹ for styled text
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass
@@ -205,7 +214,10 @@ var (
 )
 
 // MessagesSaveDraft invokes method messages.saveDraft#bc39e14b returning error if any.
-// Save a message draft associated to a chat.
+// Save a message draft¹ associated to a chat.
+//
+// Links:
+//  1) https://core.telegram.org/api/drafts
 //
 // See https://core.telegram.org/method/messages.saveDraft for reference.
 func (c *Client) MessagesSaveDraft(ctx context.Context, request *MessagesSaveDraftRequest) (bool, error) {

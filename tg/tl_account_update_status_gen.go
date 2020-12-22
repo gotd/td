@@ -21,7 +21,11 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/account.updateStatus for reference.
 type AccountUpdateStatusRequest struct {
-	// If (boolTrue) is transmitted, user status will change to (userStatusOffline).
+	// If (boolTrue)¹ is transmitted, user status will change to (userStatusOffline)².
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/boolTrue
+	//  2) https://core.telegram.org/constructor/userStatusOffline
 	Offline bool
 }
 

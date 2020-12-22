@@ -9,13 +9,19 @@
 // {{ trim $d }}
 {{- end }}
 {{- end }}
+{{- if $s.Links }}
+    {{- template "print_links" $s.Links }}
+{{- end }}
 {{- if $s.URL }}
 //
 // See {{ $s.URL }} for reference.
 {{- end }}
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
-    // {{ $f.Comment }}
+// {{ $f.Comment }}
+{{- if $f.Links}}
+    {{- template "print_links" $f.Links }}
+{{- end }}
 {{- if and ($f.Conditional) (not $f.ConditionalBool) }}
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
@@ -223,6 +229,9 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- range $d := $s.Docs }}
 // {{ trim $d }}
 {{- end }}
+{{- end }}
+{{- if $s.Links }}
+    {{- template "print_links" $s.Links }}
 {{- end }}
 {{- if $s.URL }}
 //

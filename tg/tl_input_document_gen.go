@@ -76,9 +76,15 @@ var (
 type InputDocument struct {
 	// Document ID
 	ID int64
-	// access_hash parameter from the document constructor
+	// access_hash parameter from the document¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/document
 	AccessHash int64
-	// File reference
+	// File reference¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/file_reference
 	FileReference []byte
 }
 

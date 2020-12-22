@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // HelpGetAppConfigRequest represents TL type `help.getAppConfig#98914110`.
-// Get app-specific configuration, see client configuration for more info on the result.
+// Get app-specific configuration, see client configuration¹ for more info on the result.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 type HelpGetAppConfigRequest struct {
@@ -65,7 +68,10 @@ var (
 )
 
 // HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.
-// Get app-specific configuration, see client configuration for more info on the result.
+// Get app-specific configuration, see client configuration¹ for more info on the result.
+//
+// Links:
+//  1) https://core.telegram.org/api/config#client-configuration
 //
 // See https://core.telegram.org/method/help.getAppConfig for reference.
 func (c *Client) HelpGetAppConfig(ctx context.Context) (JSONValueClass, error) {

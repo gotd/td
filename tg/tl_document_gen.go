@@ -87,13 +87,19 @@ var (
 //
 // See https://core.telegram.org/constructor/document for reference.
 type Document struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Document ID
 	ID int64
 	// Check sum, dependant on document ID
 	AccessHash int64
-	// File reference
+	// File reference¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/file_reference
 	FileReference []byte
 	// Creation date
 	Date int

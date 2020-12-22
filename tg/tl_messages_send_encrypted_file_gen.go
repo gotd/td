@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.sendEncryptedFile for reference.
 type MessagesSendEncryptedFileRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to send the file without triggering a notification
 	Silent bool
@@ -29,7 +32,10 @@ type MessagesSendEncryptedFileRequest struct {
 	Peer InputEncryptedChat
 	// Unique client message ID necessary to prevent message resending
 	RandomID int64
-	// TL-serialization of DecryptedMessage type, encrypted with a key generated during chat initialization
+	// TL-serialization of DecryptedMessage¹ type, encrypted with a key generated during chat initialization
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DecryptedMessage
 	Data []byte
 	// File attachment for the secret chat
 	File InputEncryptedFileClass

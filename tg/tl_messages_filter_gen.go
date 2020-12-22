@@ -551,7 +551,10 @@ var (
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterPhoneCalls for reference.
 type InputMessagesFilterPhoneCalls struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Return only missed phone calls
 	Missed bool
@@ -731,7 +734,10 @@ var (
 )
 
 // InputMessagesFilterMyMentions represents TL type `inputMessagesFilterMyMentions#c1f8e69a`.
-// Return only messages where the current user was mentioned.
+// Return only messages where the current user was mentioned¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/mentions
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterMyMentions for reference.
 type InputMessagesFilterMyMentions struct {

@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ContactsResetTopPeerRatingRequest represents TL type `contacts.resetTopPeerRating#1ae373ac`.
-// Reset rating of top peer
+// Reset rating¹ of top peer
+//
+// Links:
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 type ContactsResetTopPeerRatingRequest struct {
@@ -101,7 +104,10 @@ var (
 )
 
 // ContactsResetTopPeerRating invokes method contacts.resetTopPeerRating#1ae373ac returning error if any.
-// Reset rating of top peer
+// Reset rating¹ of top peer
+//
+// Links:
+//  1) https://core.telegram.org/api/top-rating
 //
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 func (c *Client) ContactsResetTopPeerRating(ctx context.Context, request *ContactsResetTopPeerRatingRequest) (bool, error) {

@@ -78,7 +78,10 @@ type InputEncryptedFileUploaded struct {
 	ID int64
 	// Number of saved parts
 	Parts int
-	// In case md5-HASH of the (already encrypted) file was transmitted, file content will be checked prior to use
+	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will be checked prior to use
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/MD5
 	Md5Checksum string
 	// 32-bit fingerprint of the key used to encrypt a file
 	KeyFingerprint int
@@ -179,9 +182,15 @@ var (
 //
 // See https://core.telegram.org/constructor/inputEncryptedFile for reference.
 type InputEncryptedFile struct {
-	// File ID, value of id parameter from encryptedFile
+	// File ID, value of id parameter from encryptedFile¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/encryptedFile
 	ID int64
-	// Checking sum, value of access_hash parameter from encryptedFile
+	// Checking sum, value of access_hash parameter from encryptedFile¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/encryptedFile
 	AccessHash int64
 }
 
@@ -254,7 +263,10 @@ var (
 )
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
-// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method upload.saveBigFilePart.
+// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method upload.saveBigFilePart¹.
+//
+// Links:
+//  1) https://core.telegram.org/method/upload.saveBigFilePart
 //
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {

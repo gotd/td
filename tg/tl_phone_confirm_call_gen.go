@@ -17,13 +17,19 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // PhoneConfirmCallRequest represents TL type `phone.confirmCall#2efe1722`.
-// Complete phone call E2E encryption key exchange »
+// Complete phone call E2E encryption key exchange »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/end-to-end/voice-calls
 //
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
 	// The phone call
 	Peer InputPhoneCall
-	// Parameter for E2E encryption key exchange »
+	// Parameter for E2E encryption key exchange »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/end-to-end/voice-calls
 	GA []byte
 	// Key fingerprint
 	KeyFingerprint int64
@@ -117,7 +123,10 @@ var (
 )
 
 // PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.
-// Complete phone call E2E encryption key exchange »
+// Complete phone call E2E encryption key exchange »¹
+//
+// Links:
+//  1) https://core.telegram.org/api/end-to-end/voice-calls
 //
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 func (c *Client) PhoneConfirmCall(ctx context.Context, request *PhoneConfirmCallRequest) (*PhonePhoneCall, error) {

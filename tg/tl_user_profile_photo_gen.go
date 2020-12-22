@@ -74,11 +74,20 @@ var (
 //
 // See https://core.telegram.org/constructor/userProfilePhoto for reference.
 type UserProfilePhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether an animated profile picture is available for this user
+	// Whether an animated profile picture¹ is available for this user
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	HasVideo bool
-	// Identifier of the respective photoParameter added in Layer 2
+	// Identifier of the respective photoParameter added in Layer 2¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/layers#layer-2
 	PhotoID int64
 	// Location of the file, corresponding to the small profile photo thumbnail
 	PhotoSmall FileLocationToBeDeprecated

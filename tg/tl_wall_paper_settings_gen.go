@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/wallPaperSettings for reference.
 type WallPaperSettings struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
 	Blur bool

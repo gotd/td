@@ -17,35 +17,77 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
-// Represents the rights of a normal user in a supergroup/channel/chat. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
+// Represents the rights of a normal user in a supergroup/channel/chat¹. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/chatBannedRights for reference.
 type ChatBannedRights struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, does not allow a user to view messages in a supergroup/channel/chat
+	// If set, does not allow a user to view messages in a supergroup/channel/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ViewMessages bool
-	// If set, does not allow a user to send messages in a supergroup/chat
+	// If set, does not allow a user to send messages in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendMessages bool
-	// If set, does not allow a user to send any media in a supergroup/chat
+	// If set, does not allow a user to send any media in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendMedia bool
-	// If set, does not allow a user to send stickers in a supergroup/chat
+	// If set, does not allow a user to send stickers in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendStickers bool
-	// If set, does not allow a user to send gifs in a supergroup/chat
+	// If set, does not allow a user to send gifs in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendGifs bool
-	// If set, does not allow a user to send games in a supergroup/chat
+	// If set, does not allow a user to send games in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendGames bool
-	// If set, does not allow a user to use inline bots in a supergroup/chat
+	// If set, does not allow a user to use inline bots in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendInline bool
-	// If set, does not allow a user to embed links in the messages of a supergroup/chat
+	// If set, does not allow a user to embed links in the messages of a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	EmbedLinks bool
-	// If set, does not allow a user to send stickers in a supergroup/chat
+	// If set, does not allow a user to send stickers in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	SendPolls bool
-	// If set, does not allow any user to change the description of a supergroup/chat
+	// If set, does not allow any user to change the description of a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	ChangeInfo bool
-	// If set, does not allow any user to invite users in a supergroup/chat
+	// If set, does not allow any user to invite users in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	InviteUsers bool
-	// If set, does not allow any user to pin messages in a supergroup/chat
+	// If set, does not allow any user to pin messages in a supergroup/chat¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
 	UntilDate int

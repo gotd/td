@@ -17,15 +17,29 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
-// Get channels/supergroups/geogroups we're admin in. Usually called when the user exceeds the limit for owned public channels/supergroups/geogroups, and the user is given the choice to remove one of his channels/supergroups/geogroups.
+// Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user exceeds the limit² for owned public channels/supergroups/geogroups³, and the user is given the choice to remove one of his channels/supergroups/geogroups.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/constructor/config
+//  3) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 type ChannelsGetAdminedPublicChannelsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Get geogroups
 	ByLocation bool
-	// If set and the user has reached the limit of owned public channels/supergroups/geogroups, instead of returning the channel list one of the specified errors will be returned.Useful to check if a new public channel can indeed be created, even before asking the user to enter a channel username to use in channels.checkUsername/channels.updateUsername.
+	// If set and the user has reached the limit of owned public channels/supergroups/geogroups¹, instead of returning the channel list one of the specified errors² will be returned.Useful to check if a new public channel can indeed be created, even before asking the user to enter a channel username to use in channels.checkUsername³/channels.updateUsername⁴.
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org#possible-errors
+	//  3) https://core.telegram.org/method/channels.checkUsername
+	//  4) https://core.telegram.org/method/channels.updateUsername
 	CheckLimit bool
 }
 
@@ -102,7 +116,12 @@ var (
 )
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.
-// Get channels/supergroups/geogroups we're admin in. Usually called when the user exceeds the limit for owned public channels/supergroups/geogroups, and the user is given the choice to remove one of his channels/supergroups/geogroups.
+// Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user exceeds the limit² for owned public channels/supergroups/geogroups³, and the user is given the choice to remove one of his channels/supergroups/geogroups.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//  2) https://core.telegram.org/constructor/config
+//  3) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getAdminedPublicChannels for reference.
 func (c *Client) ChannelsGetAdminedPublicChannels(ctx context.Context, request *ChannelsGetAdminedPublicChannelsRequest) (MessagesChatsClass, error) {

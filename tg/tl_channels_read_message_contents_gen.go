@@ -17,11 +17,17 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChannelsReadMessageContentsRequest represents TL type `channels.readMessageContents#eab5dc38`.
-// Mark channel/supergroup message contents as read
+// Mark channel/supergroup¹ message contents as read
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.readMessageContents for reference.
 type ChannelsReadMessageContentsRequest struct {
-	// Channel/supergroup
+	// Channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
 	// IDs of messages whose contents should be marked as read
 	ID []int
@@ -107,7 +113,10 @@ var (
 )
 
 // ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
-// Mark channel/supergroup message contents as read
+// Mark channel/supergroup¹ message contents as read
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.readMessageContents for reference.
 func (c *Client) ChannelsReadMessageContents(ctx context.Context, request *ChannelsReadMessageContentsRequest) (bool, error) {

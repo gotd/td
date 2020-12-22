@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/messages.getPinnedDialogs for reference.
 type MessagesGetPinnedDialogsRequest struct {
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 }
 

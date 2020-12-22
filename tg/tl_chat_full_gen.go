@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/chatFull for reference.
 type ChatFull struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Can we change the username of this chat
 	CanSetUsername bool
-	// Whether scheduled messages are available
+	// Whether scheduled messages¹ are available
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
 	// ID of the chat
 	ID int
@@ -45,11 +51,17 @@ type ChatFull struct {
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
 	BotInfo []BotInfo
-	// Message ID of the last pinned message
+	// Message ID of the last pinned message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
@@ -336,17 +348,26 @@ var (
 )
 
 // ChannelFull represents TL type `channelFull#f0e6672a`.
-// Full info about a channel/supergroup
+// Full info about a channel/supergroup¹
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/constructor/channelFull for reference.
 type ChannelFull struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Can we vew the participant list?
 	CanViewParticipants bool
 	// Can we set the channel's username?
 	CanSetUsername bool
-	// Can we associate a stickerpack to the supergroup?
+	// Can we associate¹ a stickerpack to the supergroup?
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/channels.setStickers
 	CanSetStickers bool
 	// Is the history before we joined hidden to us?
 	HiddenPrehistory bool
@@ -354,9 +375,15 @@ type ChannelFull struct {
 	CanSetLocation bool
 	// Whether scheduled messages are available
 	HasScheduled bool
-	// Can the user view channel/supergroup statistics
+	// Can the user view channel/supergroup statistics¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/stats
 	CanViewStats bool
-	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies
+	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/discussion
 	Blocked bool
 	// ID of the channel
 	ID int
@@ -370,11 +397,17 @@ type ChannelFull struct {
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
 	AdminsCount int
-	// Number of users kicked from the channel
+	// Number of users kicked¹ from the channel
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetKickedCount and GetKickedCount helpers.
 	KickedCount int
-	// Number of users banned from the channel
+	// Number of users banned¹ from the channel
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedCount and GetBannedCount helpers.
 	BannedCount int
@@ -396,15 +429,24 @@ type ChannelFull struct {
 	ExportedInvite ExportedChatInviteClass
 	// Info about bots in the channel/supergrup
 	BotInfo []BotInfo
-	// The chat ID from which this group was migrated
+	// The chat ID from which this group was migrated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromChatID and GetMigratedFromChatID helpers.
 	MigratedFromChatID int
-	// The message ID in the original chat at which this group was migrated
+	// The message ID in the original chat at which this group was migrated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromMaxID and GetMigratedFromMaxID helpers.
 	MigratedFromMaxID int
-	// Message ID of the last pinned message
+	// Message ID of the last pinned message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
@@ -416,11 +458,17 @@ type ChannelFull struct {
 	//
 	// Use SetAvailableMinID and GetAvailableMinID helpers.
 	AvailableMinID int
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int
-	// ID of the linked discussion chat for channels
+	// ID of the linked discussion chat¹ for channels
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetLinkedChatID and GetLinkedChatID helpers.
 	LinkedChatID int
@@ -440,7 +488,10 @@ type ChannelFull struct {
 	//
 	// Use SetStatsDC and GetStatsDC helpers.
 	StatsDC int
-	// Latest PTS for this channel
+	// Latest PTS¹ for this channel
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 }
 

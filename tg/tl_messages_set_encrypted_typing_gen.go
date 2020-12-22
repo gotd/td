@@ -23,7 +23,11 @@ var _ = strings.Builder{}
 type MessagesSetEncryptedTypingRequest struct {
 	// Secret chat ID
 	Peer InputEncryptedChat
-	// Typing.Possible values:(boolTrue), if the user started typing and more than 5 seconds have passed since the last request(boolFalse), if the user stopped typing
+	// Typing.Possible values:(boolTrue)¹, if the user started typing and more than 5 seconds have passed since the last request(boolFalse)², if the user stopped typing
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/boolTrue
+	//  2) https://core.telegram.org/constructor/boolFalse
 	Typing bool
 }
 

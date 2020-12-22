@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/botInlineResult for reference.
 type BotInlineResult struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Result ID
 	ID string
-	// Result type (see bot API docs)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	Type string
 	// Result title
 	//
@@ -311,11 +317,17 @@ var (
 //
 // See https://core.telegram.org/constructor/botInlineMediaResult for reference.
 type BotInlineMediaResult struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Result ID
 	ID string
-	// Result type (see bot API docs)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	Type string
 	// If type is photo, the photo to send
 	//
@@ -333,7 +345,10 @@ type BotInlineMediaResult struct {
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// Depending on the type and on the constructor, contains the caption of the media or the content of the message to be sent instead of the media
+	// Depending on the type and on the constructor¹, contains the caption of the media or the content of the message to be sent instead of the media
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/BotInlineMessage
 	SendMessage BotInlineMessageClass
 }
 

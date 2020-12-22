@@ -92,15 +92,31 @@ var (
 //
 // See https://core.telegram.org/constructor/chatInvite for reference.
 type ChatInvite struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this is a channel/supergroup or a normal group
+	// Whether this is a channel/supergroup¹ or a normal group²
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
+	//  2) https://core.telegram.org/api/channel
 	Channel bool
-	// Whether this is a channel
+	// Whether this is a channel¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Broadcast bool
-	// Whether this is a public channel/supergroup
+	// Whether this is a public channel/supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Public bool
-	// Whether this is a supergroup
+	// Whether this is a supergroup¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Megagroup bool
 	// Chat/supergroup/channel title
 	Title string

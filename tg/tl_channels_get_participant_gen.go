@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // ChannelsGetParticipantRequest represents TL type `channels.getParticipant#546dd7a6`.
-// Get info about a channel/supergroup participant
+// Get info about a channel/supergroup¹ participant
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
@@ -101,7 +104,10 @@ var (
 )
 
 // ChannelsGetParticipant invokes method channels.getParticipant#546dd7a6 returning error if any.
-// Get info about a channel/supergroup participant
+// Get info about a channel/supergroup¹ participant
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
 //
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 func (c *Client) ChannelsGetParticipant(ctx context.Context, request *ChannelsGetParticipantRequest) (*ChannelsChannelParticipant, error) {

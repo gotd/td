@@ -76,7 +76,10 @@ var (
 type HelpUserInfo struct {
 	// Info
 	Message string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
 	// Author
 	Author string

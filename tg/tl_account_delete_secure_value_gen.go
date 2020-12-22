@@ -17,7 +17,11 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
-// Delete stored Telegram Passport documents, for more info see the passport docs »
+// Delete stored Telegram Passport¹ documents, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
 type AccountDeleteSecureValueRequest struct {
@@ -94,7 +98,11 @@ var (
 )
 
 // AccountDeleteSecureValue invokes method account.deleteSecureValue#b880bc4b returning error if any.
-// Delete stored Telegram Passport documents, for more info see the passport docs »
+// Delete stored Telegram Passport¹ documents, for more info see the passport docs »²
+//
+// Links:
+//  1) https://core.telegram.org/passport
+//  2) https://core.telegram.org/passport/encryption#encryption
 //
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
 func (c *Client) AccountDeleteSecureValue(ctx context.Context, types []SecureValueTypeClass) (bool, error) {

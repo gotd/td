@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
-// Phone contact. The client_id is just an arbitrary contact ID: it should be set, for example, to an incremental number when using contacts.importContacts, in order to retry importing only the contacts that weren't imported successfully.
+// Phone contact. The client_id is just an arbitrary contact ID: it should be set, for example, to an incremental number when using contacts.importContacts¹, in order to retry importing only the contacts that weren't imported successfully.
+//
+// Links:
+//  1) https://core.telegram.org/method/contacts.importContacts
 //
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {

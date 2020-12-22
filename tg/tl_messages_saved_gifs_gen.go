@@ -74,7 +74,10 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.savedGifs for reference.
 type MessagesSavedGifs struct {
-	// Hash for pagination, for more info click here
+	// Hash for pagination, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
 	// List of saved gifs
 	Gifs []DocumentClass

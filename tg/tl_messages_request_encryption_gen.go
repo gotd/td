@@ -25,7 +25,10 @@ type MessagesRequestEncryptionRequest struct {
 	UserID InputUserClass
 	// Unique client request ID required to prevent resending. This also doubles as the chat ID.
 	RandomID int
-	// A = g ^ a mod p, see Wikipedia
+	// A = g ^ a mod p, see Wikipedia¹
+	//
+	// Links:
+	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 	GA []byte
 }
 

@@ -18,17 +18,29 @@ var _ = strings.Builder{}
 
 // AuthBindTempAuthKeyRequest represents TL type `auth.bindTempAuthKey#cdd42a05`.
 // Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
-// For more information, see Perfect Forward Secrecy.
+// For more information, see Perfect Forward Secrecy¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/pfs
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
 	// Permanent auth_key_id to bind to
 	PermAuthKeyID int64
-	// Random long from Binding message contents
+	// Random long from Binding message contents¹
+	//
+	// Links:
+	//  1) https://core.telegram.org#binding-message-contents
 	Nonce int64
-	// Unix timestamp to invalidate temporary key, see Binding message contents
+	// Unix timestamp to invalidate temporary key, see Binding message contents¹
+	//
+	// Links:
+	//  1) https://core.telegram.org#binding-message-contents
 	ExpiresAt int
-	// See Generating encrypted_message
+	// See Generating encrypted_message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org#generating-encrypted-message
 	EncryptedMessage []byte
 }
 
@@ -119,7 +131,10 @@ var (
 
 // AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.
 // Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
-// For more information, see Perfect Forward Secrecy.
+// For more information, see Perfect Forward Secrecy¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/pfs
 //
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (bool, error) {

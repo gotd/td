@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AuthLoginToken represents TL type `auth.loginToken#629f1980`.
-// Login token (for QR code login)
+// Login token (for QR code login¹)
+//
+// Links:
+//  1) https://core.telegram.org/api/qr-login
 //
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {

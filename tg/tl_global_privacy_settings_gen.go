@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/globalPrivacySettings for reference.
 type GlobalPrivacySettings struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to archive and mute new chats from non-contacts
 	ArchiveAndMuteNewNoncontactPeers bool

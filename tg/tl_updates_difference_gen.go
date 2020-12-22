@@ -313,7 +313,10 @@ var (
 type UpdatesDifferenceSlice struct {
 	// List of new messgaes
 	NewMessages []MessageClass
-	// New messages from the encrypted event sequence
+	// New messages from the encrypted event sequence¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	NewEncryptedMessages []EncryptedMessageClass
 	// List of updates
 	OtherUpdates []UpdateClass
@@ -518,7 +521,10 @@ var (
 )
 
 // UpdatesDifferenceTooLong represents TL type `updates.differenceTooLong#4afe8f6d`.
-// The difference is too long, and the specified state must be used to refetch updates.
+// The difference is too long¹, and the specified state must be used to refetch updates.
+//
+// Links:
+//  1) https://core.telegram.org/api/updates#recovering-gaps
 //
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {

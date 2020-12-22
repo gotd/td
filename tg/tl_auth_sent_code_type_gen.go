@@ -219,7 +219,10 @@ var (
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFlashCall for reference.
 type AuthSentCodeTypeFlashCall struct {
-	// pattern to match
+	// pattern¹ to match
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pattern
 	Pattern string
 }
 

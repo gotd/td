@@ -25,7 +25,10 @@ type ChannelsEditCreatorRequest struct {
 	Channel InputChannelClass
 	// New channel owner
 	UserID InputUserClass
-	// 2FA password of account
+	// 2FA password¹ of account
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/srp
 	Password InputCheckPasswordSRPClass
 }
 

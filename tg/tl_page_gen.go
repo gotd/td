@@ -17,17 +17,29 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // Page represents TL type `page#98657f0d`.
-// Instant view page
+// Instant view¹ page
+//
+// Links:
+//  1) https://instantview.telegram.org
 //
 // See https://core.telegram.org/constructor/page for reference.
 type Page struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview.
+	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview¹.
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.getWebPagePreview
 	Part bool
 	// Whether the page contains RTL text
 	Rtl bool
-	// Whether this is an IV v2 page
+	// Whether this is an IV v2¹ page
+	//
+	// Links:
+	//  1) https://instantview.telegram.org/docs#what-39s-new-in-2-0
 	V2 bool
 	// Original page HTTP URL
 	URL string

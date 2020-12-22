@@ -21,13 +21,22 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 type PhotosUploadProfilePhotoRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// File saved in parts by means of upload.saveFilePart method
+	// File saved in parts by means of upload.saveFilePart¹ method
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
 	File InputFileClass
-	// Animated profile picture video
+	// Animated profile picture¹ video
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass

@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
-// Supergroup statistics
+// Supergroup statistics¹
+//
+// Links:
+//  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/constructor/stats.megagroupStats for reference.
 type StatsMegagroupStats struct {

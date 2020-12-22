@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesGetSuggestedDialogFiltersRequest represents TL type `messages.getSuggestedDialogFilters#a29cd42c`.
-// Get suggested folders
+// Get suggested folders¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
 type MessagesGetSuggestedDialogFiltersRequest struct {
@@ -65,7 +68,10 @@ var (
 )
 
 // MessagesGetSuggestedDialogFilters invokes method messages.getSuggestedDialogFilters#a29cd42c returning error if any.
-// Get suggested folders
+// Get suggested folders¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders
 //
 // See https://core.telegram.org/method/messages.getSuggestedDialogFilters for reference.
 func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context) ([]DialogFilterSuggested, error) {

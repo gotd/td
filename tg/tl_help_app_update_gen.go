@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/help.appUpdate for reference.
 type HelpAppUpdate struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Unskippable, the new info must be shown to the user (with a popup or something else)
 	CanNotSkip bool
@@ -31,7 +34,10 @@ type HelpAppUpdate struct {
 	Version string
 	// Text description of the update
 	Text string
-	// Message entities for styled text
+	// Message entities for styled text¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
 	// Application binary
 	//

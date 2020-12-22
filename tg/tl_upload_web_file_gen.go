@@ -17,7 +17,10 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
-// Represents a chunk of an HTTP webfile downloaded through telegram's secure MTProto servers
+// Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto servers
+//
+// Links:
+//  1) https://core.telegram.org/api/files
 //
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {

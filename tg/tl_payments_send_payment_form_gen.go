@@ -21,11 +21,17 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 type PaymentsSendPaymentFormRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Message ID of form
 	MsgID int
-	// ID of saved and validated order info
+	// ID of saved and validated order info¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/payments.validatedRequestedInfo
 	//
 	// Use SetRequestedInfoID and GetRequestedInfoID helpers.
 	RequestedInfoID string

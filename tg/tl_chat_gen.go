@@ -87,7 +87,10 @@ var (
 //
 // See https://core.telegram.org/constructor/chat for reference.
 type Chat struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the current user is the creator of the group
 	Creator bool
@@ -95,7 +98,10 @@ type Chat struct {
 	Kicked bool
 	// Whether the current user has left the group
 	Left bool
-	// Whether the group was migrated
+	// Whether the group was migrated¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	Deactivated bool
 	// ID of the group
 	ID int
@@ -109,15 +115,24 @@ type Chat struct {
 	Date int
 	// Used in basic groups to reorder updates and make sure that all of them were received.
 	Version int
-	// Means this chat was upgraded to a supergroup
+	// Means this chat was upgraded¹ to a supergroup
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedTo and GetMigratedTo helpers.
 	MigratedTo InputChannelClass
-	// Admin rights of the user in the group
+	// Admin rights¹ of the user in the group
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
 	AdminRights ChatAdminRights
-	// Default banned rights of all users in the group
+	// Default banned rights¹ of all users in the group
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
 	DefaultBannedRights ChatBannedRights
@@ -470,7 +485,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channel for reference.
 type Channel struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the current user is the creator of this channel
 	Creator bool
@@ -486,7 +504,10 @@ type Channel struct {
 	Restricted bool
 	// Whether signatures are enabled (channels)
 	Signatures bool
-	// See min
+	// See min¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/min
 	Min bool
 	// This channel/supergroup is probably a scam
 	Scam bool
@@ -520,15 +541,24 @@ type Channel struct {
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason
-	// Admin rights of the user in this channel (see rights)
+	// Admin rights of the user in this channel (see rights¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
 	AdminRights ChatAdminRights
-	// Banned rights of the user in this channel (see rights)
+	// Banned rights of the user in this channel (see rights¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedRights and GetBannedRights helpers.
 	BannedRights ChatBannedRights
-	// Default chat rights (see rights)
+	// Default chat rights (see rights¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
 	DefaultBannedRights ChatBannedRights
@@ -1013,7 +1043,10 @@ var (
 //
 // See https://core.telegram.org/constructor/channelForbidden for reference.
 type ChannelForbidden struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Is this a channel
 	Broadcast bool

@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/peerSettings for reference.
 type PeerSettings struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether we can still report the user for spam
 	ReportSpam bool
@@ -35,7 +38,10 @@ type PeerSettings struct {
 	NeedContactsException bool
 	// Whether we can report a geogroup is irrelevant for this location
 	ReportGeo bool
-	// Whether this peer was automatically archived according to privacy settings
+	// Whether this peer was automatically archived according to privacy settings¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/globalPrivacySettings
 	Autoarchived bool
 	// Distance in meters between us and this peer
 	//

@@ -1047,7 +1047,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockPhoto for reference.
 type PageBlockPhoto struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Photo ID
 	PhotoID int64
@@ -1207,7 +1210,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockVideo for reference.
 type PageBlockVideo struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the video is set to autoplay
 	Autoplay bool
@@ -1394,7 +1400,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockEmbed for reference.
 type PageBlockEmbed struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the block should be full width
 	FullWidth bool
@@ -2088,7 +2097,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockAudio for reference.
 type PageBlockAudio struct {
-	// Audio ID (to be fetched from the container page constructor
+	// Audio ID (to be fetched from the container page¹ constructor
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/page
 	AudioID int64
 	// Audio caption
 	Caption PageCaption
@@ -2238,7 +2250,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockTable for reference.
 type PageBlockTable struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Does the table have a visible border?
 	Bordered bool
@@ -2454,7 +2469,10 @@ var (
 //
 // See https://core.telegram.org/constructor/pageBlockDetails for reference.
 type PageBlockDetails struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether the block is open by default
 	Open bool

@@ -161,13 +161,19 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.messagesSlice for reference.
 type MessagesMessagesSlice struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, indicates that the results may be inexact
 	Inexact bool
 	// Total number of messages in the list
 	Count int
-	// Rate to use in the offset_rate parameter in the next call to messages.searchGlobal
+	// Rate to use in the offset_rate parameter in the next call to messages.searchGlobal¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/messages.searchGlobal
 	//
 	// Use SetNextRate and GetNextRate helpers.
 	NextRate int
@@ -407,11 +413,17 @@ var (
 //
 // See https://core.telegram.org/constructor/messages.channelMessages for reference.
 type MessagesChannelMessages struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, returned results may be inexact
 	Inexact bool
-	// Event count after generation
+	// Event count after generation¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
 	Pts int
 	// Total number of results were found server-side (may not be all included here)
 	Count int

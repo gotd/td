@@ -17,13 +17,19 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // MessagesSetBotPrecheckoutResultsRequest represents TL type `messages.setBotPrecheckoutResults#9c2dd95`.
-// Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery update.
+// Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery¹ update.
 // Use this method to respond to such pre-checkout queries.
 // Note: Telegram must receive an answer within 10 seconds after the pre-checkout query was sent.
 //
+// Links:
+//  1) https://core.telegram.org/constructor/updateBotPrecheckoutQuery
+//
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 type MessagesSetBotPrecheckoutResultsRequest struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Set this flag if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order, otherwise do not set it, and set the error field, instead
 	Success bool
@@ -139,9 +145,12 @@ var (
 )
 
 // MessagesSetBotPrecheckoutResults invokes method messages.setBotPrecheckoutResults#9c2dd95 returning error if any.
-// Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery update.
+// Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery¹ update.
 // Use this method to respond to such pre-checkout queries.
 // Note: Telegram must receive an answer within 10 seconds after the pre-checkout query was sent.
+//
+// Links:
+//  1) https://core.telegram.org/constructor/updateBotPrecheckoutQuery
 //
 // See https://core.telegram.org/method/messages.setBotPrecheckoutResults for reference.
 func (c *Client) MessagesSetBotPrecheckoutResults(ctx context.Context, request *MessagesSetBotPrecheckoutResultsRequest) (bool, error) {

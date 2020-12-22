@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/userFull for reference.
 type UserFull struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether you have blocked this user
 	Blocked bool
@@ -31,7 +34,10 @@ type UserFull struct {
 	PhoneCallsPrivate bool
 	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
 	CanPinMessage bool
-	// Whether scheduled messages are available
+	// Whether scheduled messages¹ are available
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages
 	HasScheduled bool
 	// Whether the user can receive video calls
 	VideoCallsAvailable bool
@@ -53,13 +59,19 @@ type UserFull struct {
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
 	BotInfo BotInfo
-	// Message ID of the last pinned message
+	// Message ID of the last pinned message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
 	PinnedMsgID int
 	// Chats in common with this user
 	CommonChatsCount int
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
 	FolderID int

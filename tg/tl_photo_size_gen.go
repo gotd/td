@@ -21,7 +21,10 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/photoSizeEmpty for reference.
 type PhotoSizeEmpty struct {
-	// Thumbnail type (see. photoSize)
+	// Thumbnail type (see. photoSize¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/photoSize
 	Type string
 }
 
@@ -325,7 +328,10 @@ var (
 type PhotoStrippedSize struct {
 	// Thumbnail type
 	Type string
-	// Thumbnail data, see here for more info on decompression »
+	// Thumbnail data, see here for more info on decompression »¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#stripped-thumbnails
 	Bytes []byte
 }
 
@@ -533,7 +539,10 @@ var (
 type PhotoPathSize struct {
 	// Always j
 	Type string
-	// Compressed SVG path payload, see here for decompression instructions
+	// Compressed SVG path payload, see here for decompression instructions¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/files#vector-thumbnails
 	Bytes []byte
 }
 

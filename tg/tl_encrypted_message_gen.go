@@ -27,7 +27,10 @@ type EncryptedMessage struct {
 	ChatID int
 	// Date of sending
 	Date int
-	// TL-serialising of DecryptedMessage type, encrypted with the key creatied at stage of chat initialization
+	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DecryptedMessage
 	Bytes []byte
 	// Attached encrypted file
 	File EncryptedFileClass
@@ -150,7 +153,10 @@ type EncryptedMessageService struct {
 	ChatID int
 	// Date of sending
 	Date int
-	// TL-serialising of DecryptedMessage type, encrypted with the key creatied at stage of chat initialization
+	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DecryptedMessage
 	Bytes []byte
 }
 

@@ -17,15 +17,24 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
 // AccountVerifyPhoneRequest represents TL type `account.verifyPhone#4dd3a7f6`.
-// Verify a phone number for telegram passport.
+// Verify a phone number for telegram passport¹.
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 type AccountVerifyPhoneRequest struct {
 	// Phone number
 	PhoneNumber string
-	// Phone code hash received from the call to account.sendVerifyPhoneCode
+	// Phone code hash received from the call to account.sendVerifyPhoneCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
 	PhoneCodeHash string
-	// Code received after the call to account.sendVerifyPhoneCode
+	// Code received after the call to account.sendVerifyPhoneCode¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
 	PhoneCode string
 }
 
@@ -104,7 +113,10 @@ var (
 )
 
 // AccountVerifyPhone invokes method account.verifyPhone#4dd3a7f6 returning error if any.
-// Verify a phone number for telegram passport.
+// Verify a phone number for telegram passport¹.
+//
+// Links:
+//  1) https://core.telegram.org/passport
 //
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (bool, error) {

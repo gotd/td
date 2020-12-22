@@ -88,11 +88,17 @@ var (
 )
 
 // InputDialogPeerFolder represents TL type `inputDialogPeerFolder#64600527`.
-// All peers in a peer folder
+// All peers in a peer folder¹
+//
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
 //
 // See https://core.telegram.org/constructor/inputDialogPeerFolder for reference.
 type InputDialogPeerFolder struct {
-	// Peer folder ID, for more info click here
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
 	FolderID int
 }
 

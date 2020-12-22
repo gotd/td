@@ -21,35 +21,89 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventsFilter for reference.
 type ChannelAdminLogEventsFilter struct {
-	// Flags, see TL conditional fields
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Join events
+	// Join events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
 	Join bool
-	// Leave events
+	// Leave events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave
 	Leave bool
-	// Invite events
+	// Invite events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite
 	Invite bool
-	// Ban events
+	// Ban events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
 	Ban bool
-	// Unban events
+	// Unban events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
 	Unban bool
-	// Kick events
+	// Kick events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
 	Kick bool
-	// Unkick events
+	// Unkick events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
 	Unkick bool
-	// Admin promotion events
+	// Admin promotion events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
 	Promote bool
-	// Admin demotion events
+	// Admin demotion events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
 	Demote bool
-	// Info change events (when about, linked chat, location, photo, stickerset, title or username data of a channel gets modified)
+	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout
+	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat
+	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation
+	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto
+	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
+	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
+	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
 	Info bool
-	// Settings change events (invites, hidden prehistory, signatures, default banned rights)
+	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites
+	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
+	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
+	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
 	Settings bool
-	// Message pin events
+	// Message pin events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned
 	Pinned bool
-	// Message edit events
+	// Message edit events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage
 	Edit bool
-	// Message deletion events
+	// Message deletion events¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
 	Delete bool
 }
 
