@@ -91,8 +91,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
 		log.Debug("Handler called")
 
-		atomic.AddUint32(&handlerCalls, 1)
-		if atomic.LoadUint32(&handlerCalls) > 1 {
+		if calls := atomic.AddUint32(&handlerCalls, 1); calls > 1 {
 			log.Warn("Handler already called")
 
 			return xerrors.Errorf("handler already called")
