@@ -5,8 +5,10 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
+	"time"
 
 	"go.uber.org/zap"
+	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/transport"
@@ -43,6 +45,14 @@ type Options struct {
 	SessionStorage SessionStorage
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
+
+	// AckBatchSize is maximum ack-s to buffer.
+	AckBatchSize int
+	// AckInterval is maximum time to buffer ack.
+	AckInterval time.Duration
+
+	RetryInterval time.Duration
+	MaxRetries    int
 }
 
 func (opt *Options) setDefaults() {
@@ -60,6 +70,21 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.Addr == "" {
 		opt.Addr = AddrProduction
+	}
+	if opt.AckBatchSize == 0 {
+		opt.AckBatchSize = 20
+	}
+	if opt.AckInterval == 0 {
+		opt.AckInterval = time.Second * 15
+	}
+	if opt.Transport == nil {
+		opt.Transport = transport.Intermediate(transport.DialFunc(proxy.Dial))
+	}
+	if opt.RetryInterval == 0 {
+		opt.RetryInterval = time.Second * 5
+	}
+	if opt.MaxRetries == 0 {
+		opt.MaxRetries = 5
 	}
 	if len(opt.PublicKeys) == 0 {
 		// Using public keys that are included with distribution if not

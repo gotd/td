@@ -135,7 +135,7 @@ func (h *handler) handleMessage(k tgtest.Session, msgID int64, m *tg.MessagesSen
 	return h.server.SendResult(k, msgID, updates)
 }
 
-func testTransport(trp *transport.Transport) func(t *testing.T) {
+func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
 		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
@@ -157,6 +157,9 @@ func testTransport(trp *transport.Transport) func(t *testing.T) {
 			Transport:     trp,
 			Logger:        clientLogger,
 			UpdateHandler: dispatcher.Handle,
+			AckBatchSize:  1,
+			AckInterval:   time.Millisecond * 50,
+			RetryInterval: time.Millisecond * 50,
 		})
 		raw := tg.NewClient(client)
 

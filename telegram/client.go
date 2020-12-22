@@ -91,10 +91,14 @@ type Client struct {
 	// callbacks for ack protected by ackMux
 	ack    map[int64]func()
 	ackMux sync.Mutex
-
 	// ackSendChan is queue for outgoing message id's that require waiting for
-	// ACK from server.
-	ackSendChan chan int64
+	// ack from server.
+	ackSendChan  chan int64
+	ackBatchSize int
+	ackInterval  time.Duration
+
+	maxRetries    int
+	retryInterval time.Duration
 
 	// callbacks for ping results protected by pingMux.
 	// Key is ping id.
@@ -139,8 +143,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 		sessionCreated: createCondOnce(),
 
-		ack:         map[int64]func(){},
-		ackSendChan: make(chan int64),
+		ack:          map[int64]func(){},
+		ackSendChan:  make(chan int64),
+		ackInterval:  opt.AckInterval,
+		ackBatchSize: opt.AckBatchSize,
+
+		maxRetries:    opt.MaxRetries,
+		retryInterval: opt.RetryInterval,
 
 		ctx:    clientCtx,
 		cancel: clientCancel,

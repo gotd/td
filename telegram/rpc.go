@@ -141,27 +141,22 @@ func (c *Client) rpcRetryUntilAck(ctx context.Context, req request) error {
 		c.ackMux.Unlock()
 	}()
 
-	const (
-		ackMaxRequestResendRetries = 5
-		ackRequestResendTimeout    = time.Second * 15
-	)
-
 	retries := 0
 	for {
 		select {
 		case <-ctx.Done():
 			return nil
 			// TODO(ccln): use clock.
-		case <-time.After(ackRequestResendTimeout):
+		case <-time.After(c.retryInterval):
 			if err := c.write(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				c.log.Error("ack timeout resend request", zap.Error(err))
+				c.log.Error("Retry attempt failed", zap.Error(err))
 				return err
 			}
 
 			retries++
-			if retries == ackMaxRequestResendRetries {
-				c.log.Error("ack retry limit reached", zap.Int64("request-id", req.ID))
-				return xerrors.Errorf("retry limit reached")
+			if retries >= c.maxRetries {
+				c.log.Error("Retry limit reached", zap.Int64("request_id", req.ID))
+				return xerrors.New("retry limit reached")
 			}
 		}
 	}
