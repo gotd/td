@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"go.uber.org/zap"
-	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/transport"
@@ -76,9 +75,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.AckInterval == 0 {
 		opt.AckInterval = time.Second * 15
-	}
-	if opt.Transport == nil {
-		opt.Transport = transport.Intermediate(transport.DialFunc(proxy.Dial))
 	}
 	if opt.RetryInterval == 0 {
 		opt.RetryInterval = time.Second * 5
