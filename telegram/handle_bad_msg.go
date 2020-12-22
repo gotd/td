@@ -61,13 +61,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 			return err
 		}
 
-		c.rpcMux.Lock()
-		f, ok := c.rpc[bad.BadMsgID]
-		c.rpcMux.Unlock()
-		if ok {
-			return f(b, &badMessageError{Code: bad.ErrorCode})
-		}
-
+		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode})
 		return nil
 	case mt.BadServerSaltTypeID:
 		var bad mt.BadServerSalt
@@ -75,13 +69,7 @@ func (c *Client) handleBadMsg(b *bin.Buffer) error {
 			return err
 		}
 
-		c.rpcMux.Lock()
-		f, ok := c.rpc[bad.BadMsgID]
-		c.rpcMux.Unlock()
-		if ok {
-			return f(b, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
-		}
-
+		c.rpc.NotifyError(bad.BadMsgID, &badMessageError{Code: bad.ErrorCode, NewSalt: bad.NewServerSalt})
 		return nil
 	default:
 		return xerrors.Errorf("unknown type id 0x%d", id)

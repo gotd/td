@@ -45,32 +45,18 @@ func (c *Client) handleResult(b *bin.Buffer) error {
 			return xerrors.Errorf("error decode: %w", err)
 		}
 
-		c.rpcMux.Lock()
-		f, ok := c.rpc[res.RequestMessageID]
-		c.rpcMux.Unlock()
-		if ok {
-			e := &Error{
-				Code:    rpcErr.ErrorCode,
-				Message: rpcErr.ErrorMessage,
-			}
-			e.extractArgument()
-			return f(nil, e)
+		e := &Error{
+			Code:    rpcErr.ErrorCode,
+			Message: rpcErr.ErrorMessage,
 		}
+		e.extractArgument()
 
+		c.rpc.NotifyError(res.RequestMessageID, e)
 		return nil
 	}
 	if id == mt.PongTypeID {
 		return c.handlePong(b)
 	}
 
-	c.rpcMux.Lock()
-	f, ok := c.rpc[res.RequestMessageID]
-	c.rpcMux.Unlock()
-
-	if ok {
-		return f(b, nil)
-	}
-
-	c.log.Debug("Got unexpected result")
-	return nil
+	return c.rpc.NotifyResult(res.RequestMessageID, b)
 }

@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/telegram/rpc"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
@@ -84,14 +85,8 @@ type Client struct {
 	updateHandler  UpdateHandler  // immutable
 	sessionStorage SessionStorage // immutable
 
-	// callbacks for RPC requests, protected by rpcMux.
-	// Key is request message id.
-	rpc    map[int64]func(b *bin.Buffer, rpcErr error) error
-	rpcMux sync.Mutex
+	rpc *rpc.Engine
 
-	// callbacks for ack protected by ackMux
-	ack    map[int64]func()
-	ackMux sync.Mutex
 	// ackSendChan is queue for outgoing message id's that require waiting for
 	// ack from server.
 	ackSendChan  chan int64
@@ -140,11 +135,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cipher: crypto.NewClientCipher(opt.Random),
 		log:    opt.Logger,
 		ping:   map[int64]func(){},
-		rpc:    map[int64]func(b *bin.Buffer, rpcErr error) error{},
 
 		sessionCreated: createCondOnce(),
 
-		ack:          map[int64]func(){},
 		ackSendChan:  make(chan int64),
 		ackInterval:  opt.AckInterval,
 		ackBatchSize: opt.AckBatchSize,
@@ -168,6 +161,15 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
+
+	client.rpc = rpc.NewEngine(
+		rpc.SendFunc(client.write),
+		opt.Logger.Named("rpc_engine"),
+		rpc.Config{
+			RetryInterval: opt.RetryInterval,
+			MaxRetries:    opt.MaxRetries,
+		},
+	)
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
