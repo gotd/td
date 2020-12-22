@@ -67,7 +67,7 @@ func (i Intermediate) Read(r io.Reader, b *bin.Buffer) error {
 // writeIntermediate encodes b as payload to w.
 func writeIntermediate(w io.Writer, b *bin.Buffer) error {
 	if b.Len() > maxMessageSize {
-		return errInvalidMsgLen{n: b.Len()}
+		return invalidMsgLenErr{n: b.Len()}
 	}
 
 	// Re-using b.Buf if possible to reduce allocations.
