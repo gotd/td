@@ -36,11 +36,6 @@ func newUsers() *users {
 	}
 }
 
-func (c *users) createSession(key crypto.AuthKeyWithID, conn *connection) {
-	c.addConnection(key, conn)
-	c.addSession(key)
-}
-
 func (c *users) addConnection(key crypto.AuthKeyWithID, conn *connection) {
 	c.connsMux.Lock()
 	c.conns[key.AuthKeyID] = conn

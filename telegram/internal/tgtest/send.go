@@ -5,6 +5,9 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/tg"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
@@ -46,4 +49,40 @@ func (s *Server) SendResult(k Session, id int64, msg bin.Encoder) error {
 		RequestMessageID: id,
 		Result:           buf.Raw(),
 	})
+}
+
+func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
+	return s.Send(k, &mt.NewSessionCreated{
+		ServerSalt: serverSalt,
+	})
+}
+
+func (s *Server) SendConfig(k Session, id int64) error {
+	return s.SendResult(k, id, &tg.Config{})
+}
+
+func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
+	if len(updates) == 0 {
+		return nil
+	}
+
+	return s.Send(k, &tg.Updates{
+		Updates: updates,
+		Date:    int(s.clock().Unix()),
+	})
+}
+
+func (s *Server) SendAck(k Session, ids ...int64) error {
+	return s.Send(k, &mt.MsgsAck{MsgIds: ids})
+}
+
+func (s *Server) SendPong(k Session, msgID, pingID int64) error {
+	return s.Send(k, &mt.Pong{
+		MsgID:  msgID,
+		PingID: pingID,
+	})
+}
+
+func (s *Server) ForceDisconnect(k Session) {
+	s.users.deleteConnection(k.AuthKeyWithID)
 }

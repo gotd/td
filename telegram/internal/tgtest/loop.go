@@ -8,7 +8,6 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/transport"
 )
 
@@ -45,9 +44,8 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			AuthKeyWithID: key,
 		}
 		if !conn.didSentCreated() {
-			if err := s.Send(session, &mt.NewSessionCreated{
-				ServerSalt: int64(binary.LittleEndian.Uint64(key.AuthKeyID[:])),
-			}); err != nil {
+			salt := int64(binary.LittleEndian.Uint64(key.AuthKeyID[:]))
+			if err := s.sendSessionCreated(session, salt); err != nil {
 				return err
 			}
 			conn.sentCreated()
@@ -69,19 +67,28 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 		_ = conn.Close()
 	}()
 
-	k, err = s.exchange(ctx, conn)
-	if err != nil {
-		return xerrors.Errorf("key exchange failed: %w", err)
+	b := new(bin.Buffer)
+	if err := conn.Recv(ctx, b); err != nil {
+		return xerrors.Errorf("new conn read: %w", err)
+	}
+
+	var authKeyID [8]byte
+	if err := b.PeekN(authKeyID[:], len(authKeyID)); err != nil {
+		return xerrors.Errorf("peek id: %w", err)
+	}
+
+	k, ok := s.users.getSession(authKeyID)
+	if !ok {
+		k, err = s.exchange(ctx, b, conn)
+		if err != nil {
+			return xerrors.Errorf("key exchange failed: %w", err)
+		}
+		s.users.addSession(k)
 	}
 	wrappedConn := &connection{
 		Conn: conn,
 	}
-	s.users.createSession(k, wrappedConn)
-
-	err = s.handler.OnNewClient(k)
-	if err != nil {
-		return xerrors.Errorf("OnNewClient handler failed: %w", err)
-	}
+	s.users.addConnection(k, wrappedConn)
 
 	return s.rpcHandle(ctx, wrappedConn)
 }
