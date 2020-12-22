@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsPaymentResult represents TL type `payments.paymentResult#4e5f810d`.
 // Payment result
@@ -25,6 +27,21 @@ type PaymentsPaymentResult struct {
 
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
 const PaymentsPaymentResultTypeID = 0x4e5f810d
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentResult) String() string {
+	if p == nil {
+		return "PaymentsPaymentResult(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsPaymentResult")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUpdates: ")
+	sb.WriteString(p.Updates.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
@@ -81,6 +98,21 @@ type PaymentsPaymentVerificationNeeded struct {
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
 const PaymentsPaymentVerificationNeededTypeID = 0xd8411139
+
+// String implements fmt.Stringer.
+func (p *PaymentsPaymentVerificationNeeded) String() string {
+	if p == nil {
+		return "PaymentsPaymentVerificationNeeded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsPaymentVerificationNeeded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(p.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
@@ -139,6 +171,7 @@ type PaymentsPaymentResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PaymentsPaymentResultClass
+	fmt.Stringer
 }
 
 // DecodePaymentsPaymentResult implements binary de-serialization for PaymentsPaymentResultClass.

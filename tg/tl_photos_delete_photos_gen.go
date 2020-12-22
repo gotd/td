@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosDeletePhotosRequest represents TL type `photos.deletePhotos#87cf7f2f`.
 // Deletes profile photos.
@@ -25,6 +27,23 @@ type PhotosDeletePhotosRequest struct {
 
 // PhotosDeletePhotosRequestTypeID is TL type id of PhotosDeletePhotosRequest.
 const PhotosDeletePhotosRequestTypeID = 0x87cf7f2f
+
+// String implements fmt.Stringer.
+func (d *PhotosDeletePhotosRequest) String() string {
+	if d == nil {
+		return "PhotosDeletePhotosRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosDeletePhotosRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {

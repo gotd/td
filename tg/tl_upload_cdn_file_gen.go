@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
 // The file was cleared from the temporary RAM cache of the CDN and has to be reuploaded.
@@ -25,6 +27,21 @@ type UploadCdnFileReuploadNeeded struct {
 
 // UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
 const UploadCdnFileReuploadNeededTypeID = 0xeea8e46e
+
+// String implements fmt.Stringer.
+func (c *UploadCdnFileReuploadNeeded) String() string {
+	if c == nil {
+		return "UploadCdnFileReuploadNeeded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadCdnFileReuploadNeeded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tRequestToken: ")
+	sb.WriteString(fmt.Sprint(c.RequestToken))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *UploadCdnFileReuploadNeeded) Encode(b *bin.Buffer) error {
@@ -76,6 +93,21 @@ type UploadCdnFile struct {
 
 // UploadCdnFileTypeID is TL type id of UploadCdnFile.
 const UploadCdnFileTypeID = 0xa99fca4f
+
+// String implements fmt.Stringer.
+func (c *UploadCdnFile) String() string {
+	if c == nil {
+		return "UploadCdnFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UploadCdnFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(c.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *UploadCdnFile) Encode(b *bin.Buffer) error {
@@ -134,6 +166,7 @@ type UploadCdnFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UploadCdnFileClass
+	fmt.Stringer
 }
 
 // DecodeUploadCdnFile implements binary de-serialization for UploadCdnFileClass.

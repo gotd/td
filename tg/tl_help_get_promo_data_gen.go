@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetPromoDataRequest represents TL type `help.getPromoData#c0977421`.
 // Get MTProxy/Public Service Announcement information
@@ -23,6 +25,18 @@ type HelpGetPromoDataRequest struct {
 
 // HelpGetPromoDataRequestTypeID is TL type id of HelpGetPromoDataRequest.
 const HelpGetPromoDataRequestTypeID = 0xc0977421
+
+// String implements fmt.Stringer.
+func (g *HelpGetPromoDataRequest) String() string {
+	if g == nil {
+		return "HelpGetPromoDataRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetPromoDataRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {

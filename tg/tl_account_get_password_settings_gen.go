@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetPasswordSettingsRequest represents TL type `account.getPasswordSettings#9cd4eaf9`.
 // Get private info associated to the password info (recovery email, telegram passport info & so on)
@@ -25,6 +27,21 @@ type AccountGetPasswordSettingsRequest struct {
 
 // AccountGetPasswordSettingsRequestTypeID is TL type id of AccountGetPasswordSettingsRequest.
 const AccountGetPasswordSettingsRequestTypeID = 0x9cd4eaf9
+
+// String implements fmt.Stringer.
+func (g *AccountGetPasswordSettingsRequest) String() string {
+	if g == nil {
+		return "AccountGetPasswordSettingsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetPasswordSettingsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPassword: ")
+	sb.WriteString(g.Password.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAffectedHistory represents TL type `messages.affectedHistory#b45c69d1`.
 // Affected part of communication history with the user or in a chat.
@@ -29,6 +31,27 @@ type MessagesAffectedHistory struct {
 
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.
 const MessagesAffectedHistoryTypeID = 0xb45c69d1
+
+// String implements fmt.Stringer.
+func (a *MessagesAffectedHistory) String() string {
+	if a == nil {
+		return "MessagesAffectedHistory(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAffectedHistory")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(a.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(a.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(a.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {

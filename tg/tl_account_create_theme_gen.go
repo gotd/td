@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountCreateThemeRequest represents TL type `account.createTheme#8432c21f`.
 // Create a theme
@@ -37,6 +39,37 @@ type AccountCreateThemeRequest struct {
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
 const AccountCreateThemeRequestTypeID = 0x8432c21f
+
+// String implements fmt.Stringer.
+func (c *AccountCreateThemeRequest) String() string {
+	if c == nil {
+		return "AccountCreateThemeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountCreateThemeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSlug: ")
+	sb.WriteString(fmt.Sprint(c.Slug))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(c.Document.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(3) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(c.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {

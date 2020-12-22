@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthLoginToken represents TL type `auth.loginToken#629f1980`.
 // Login token (for QR code login)
@@ -27,6 +29,24 @@ type AuthLoginToken struct {
 
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
 const AuthLoginTokenTypeID = 0x629f1980
+
+// String implements fmt.Stringer.
+func (l *AuthLoginToken) String() string {
+	if l == nil {
+		return "AuthLoginToken(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthLoginToken")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(l.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(l.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
@@ -89,6 +109,24 @@ type AuthLoginTokenMigrateTo struct {
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
 const AuthLoginTokenMigrateToTypeID = 0x68e9916
 
+// String implements fmt.Stringer.
+func (l *AuthLoginTokenMigrateTo) String() string {
+	if l == nil {
+		return "AuthLoginTokenMigrateTo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthLoginTokenMigrateTo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDCID: ")
+	sb.WriteString(fmt.Sprint(l.DCID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tToken: ")
+	sb.WriteString(fmt.Sprint(l.Token))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -147,6 +185,21 @@ type AuthLoginTokenSuccess struct {
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
 const AuthLoginTokenSuccessTypeID = 0x390d5c5e
+
+// String implements fmt.Stringer.
+func (l *AuthLoginTokenSuccess) String() string {
+	if l == nil {
+		return "AuthLoginTokenSuccess(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthLoginTokenSuccess")
+	sb.WriteString("{\n")
+	sb.WriteString("\tAuthorization: ")
+	sb.WriteString(l.Authorization.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
@@ -211,6 +264,7 @@ type AuthLoginTokenClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthLoginTokenClass
+	fmt.Stringer
 }
 
 // DecodeAuthLoginToken implements binary de-serialization for AuthLoginTokenClass.

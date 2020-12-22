@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
 // Delete stored Telegram Passport documents, for more info see the passport docs »
@@ -25,6 +27,23 @@ type AccountDeleteSecureValueRequest struct {
 
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.
 const AccountDeleteSecureValueRequestTypeID = 0xb880bc4b
+
+// String implements fmt.Stringer.
+func (d *AccountDeleteSecureValueRequest) String() string {
+	if d == nil {
+		return "AccountDeleteSecureValueRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountDeleteSecureValueRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.Types {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *AccountDeleteSecureValueRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetSavedGifsRequest represents TL type `messages.getSavedGifs#83bf3d52`.
 // Get saved GIFs
@@ -25,6 +27,21 @@ type MessagesGetSavedGifsRequest struct {
 
 // MessagesGetSavedGifsRequestTypeID is TL type id of MessagesGetSavedGifsRequest.
 const MessagesGetSavedGifsRequestTypeID = 0x83bf3d52
+
+// String implements fmt.Stringer.
+func (g *MessagesGetSavedGifsRequest) String() string {
+	if g == nil {
+		return "MessagesGetSavedGifsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetSavedGifsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {

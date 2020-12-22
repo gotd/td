@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountPasswordSettings represents TL type `account.passwordSettings#9a5c33e5`.
 // Private info associated to the password info (recovery email, telegram passport info & so on)
@@ -33,6 +35,31 @@ type AccountPasswordSettings struct {
 
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.
 const AccountPasswordSettingsTypeID = 0x9a5c33e5
+
+// String implements fmt.Stringer.
+func (p *AccountPasswordSettings) String() string {
+	if p == nil {
+		return "AccountPasswordSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountPasswordSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tEmail: ")
+		sb.WriteString(fmt.Sprint(p.Email))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tSecureSettings: ")
+		sb.WriteString(p.SecureSettings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {

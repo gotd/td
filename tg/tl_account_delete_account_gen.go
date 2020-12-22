@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
 // Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured.
@@ -25,6 +27,21 @@ type AccountDeleteAccountRequest struct {
 
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
 const AccountDeleteAccountRequestTypeID = 0x418d4e0b
+
+// String implements fmt.Stringer.
+func (d *AccountDeleteAccountRequest) String() string {
+	if d == nil {
+		return "AccountDeleteAccountRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountDeleteAccountRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tReason: ")
+	sb.WriteString(fmt.Sprint(d.Reason))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {

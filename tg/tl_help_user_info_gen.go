@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpUserInfoEmpty represents TL type `help.userInfoEmpty#f3ae2eed`.
 // Internal use
@@ -23,6 +25,18 @@ type HelpUserInfoEmpty struct {
 
 // HelpUserInfoEmptyTypeID is TL type id of HelpUserInfoEmpty.
 const HelpUserInfoEmptyTypeID = 0xf3ae2eed
+
+// String implements fmt.Stringer.
+func (u *HelpUserInfoEmpty) String() string {
+	if u == nil {
+		return "HelpUserInfoEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpUserInfoEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *HelpUserInfoEmpty) Encode(b *bin.Buffer) error {
@@ -72,6 +86,32 @@ type HelpUserInfo struct {
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.
 const HelpUserInfoTypeID = 0x1eb3758
+
+// String implements fmt.Stringer.
+func (u *HelpUserInfo) String() string {
+	if u == nil {
+		return "HelpUserInfo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpUserInfo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(u.Message))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tAuthor: ")
+	sb.WriteString(fmt.Sprint(u.Author))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(u.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *HelpUserInfo) Encode(b *bin.Buffer) error {
@@ -168,6 +208,7 @@ type HelpUserInfoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpUserInfoClass
+	fmt.Stringer
 }
 
 // DecodeHelpUserInfo implements binary de-serialization for HelpUserInfoClass.

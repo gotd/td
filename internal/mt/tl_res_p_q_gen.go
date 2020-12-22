@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ResPQ represents TL type `resPQ#5162463`.
 type ResPQ struct {
@@ -28,6 +30,32 @@ type ResPQ struct {
 
 // ResPQTypeID is TL type id of ResPQ.
 const ResPQTypeID = 0x5162463
+
+// String implements fmt.Stringer.
+func (r *ResPQ) String() string {
+	if r == nil {
+		return "ResPQ(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ResPQ")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(r.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(r.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPq: ")
+	sb.WriteString(fmt.Sprint(r.Pq))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.ServerPublicKeyFingerprints {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ResPQ) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountAutoDownloadSettings represents TL type `account.autoDownloadSettings#63cacf26`.
 // Media autodownload settings
@@ -29,6 +31,27 @@ type AccountAutoDownloadSettings struct {
 
 // AccountAutoDownloadSettingsTypeID is TL type id of AccountAutoDownloadSettings.
 const AccountAutoDownloadSettingsTypeID = 0x63cacf26
+
+// String implements fmt.Stringer.
+func (a *AccountAutoDownloadSettings) String() string {
+	if a == nil {
+		return "AccountAutoDownloadSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountAutoDownloadSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLow: ")
+	sb.WriteString(a.Low.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMedium: ")
+	sb.WriteString(a.Medium.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tHigh: ")
+	sb.WriteString(a.High.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {

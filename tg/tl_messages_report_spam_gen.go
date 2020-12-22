@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReportSpamRequest represents TL type `messages.reportSpam#cf1592db`.
 // Report a new incoming chat for spam, if the peer settings of the chat allow us to do that
@@ -25,6 +27,21 @@ type MessagesReportSpamRequest struct {
 
 // MessagesReportSpamRequestTypeID is TL type id of MessagesReportSpamRequest.
 const MessagesReportSpamRequestTypeID = 0xcf1592db
+
+// String implements fmt.Stringer.
+func (r *MessagesReportSpamRequest) String() string {
+	if r == nil {
+		return "MessagesReportSpamRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReportSpamRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReportSpamRequest) Encode(b *bin.Buffer) error {

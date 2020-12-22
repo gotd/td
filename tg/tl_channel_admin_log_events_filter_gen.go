@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelAdminLogEventsFilter represents TL type `channelAdminLogEventsFilter#ea107ae4`.
 // Filter only certain admin log events
@@ -53,6 +55,21 @@ type ChannelAdminLogEventsFilter struct {
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
 const ChannelAdminLogEventsFilterTypeID = 0xea107ae4
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventsFilter) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventsFilter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventsFilter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {

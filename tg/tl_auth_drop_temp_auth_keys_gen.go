@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthDropTempAuthKeysRequest represents TL type `auth.dropTempAuthKeys#8e48a188`.
 // Delete all temporary authorization keys except for the ones specified
@@ -25,6 +27,23 @@ type AuthDropTempAuthKeysRequest struct {
 
 // AuthDropTempAuthKeysRequestTypeID is TL type id of AuthDropTempAuthKeysRequest.
 const AuthDropTempAuthKeysRequestTypeID = 0x8e48a188
+
+// String implements fmt.Stringer.
+func (d *AuthDropTempAuthKeysRequest) String() string {
+	if d == nil {
+		return "AuthDropTempAuthKeysRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthDropTempAuthKeysRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.ExceptAuthKeys {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {

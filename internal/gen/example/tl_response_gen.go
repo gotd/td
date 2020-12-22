@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ResponseID represents TL type `responseID#85d7fd8b`.
 //
@@ -24,6 +26,21 @@ type ResponseID struct {
 
 // ResponseIDTypeID is TL type id of ResponseID.
 const ResponseIDTypeID = 0x85d7fd8b
+
+// String implements fmt.Stringer.
+func (r *ResponseID) String() string {
+	if r == nil {
+		return "ResponseID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ResponseID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(r.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ResponseID) Encode(b *bin.Buffer) error {
@@ -74,6 +91,21 @@ type ResponseText struct {
 
 // ResponseTextTypeID is TL type id of ResponseText.
 const ResponseTextTypeID = 0xcb0244f2
+
+// String implements fmt.Stringer.
+func (r *ResponseText) String() string {
+	if r == nil {
+		return "ResponseText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ResponseText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(r.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ResponseText) Encode(b *bin.Buffer) error {
@@ -132,6 +164,7 @@ type ResponseClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ResponseClass
+	fmt.Stringer
 }
 
 // DecodeResponse implements binary de-serialization for ResponseClass.

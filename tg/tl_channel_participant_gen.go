@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelParticipant represents TL type `channelParticipant#15ebac1d`.
 // Channel/supergroup participant
@@ -27,6 +29,24 @@ type ChannelParticipant struct {
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
 const ChannelParticipantTypeID = 0x15ebac1d
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipant) String() string {
+	if c == nil {
+		return "ChannelParticipant(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipant")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipant) Encode(b *bin.Buffer) error {
@@ -90,6 +110,27 @@ type ChannelParticipantSelf struct {
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
 const ChannelParticipantSelfTypeID = 0xa3289a6d
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantSelf) String() string {
+	if c == nil {
+		return "ChannelParticipantSelf(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantSelf")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tInviterID: ")
+	sb.WriteString(fmt.Sprint(c.InviterID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
@@ -165,6 +206,32 @@ type ChannelParticipantCreator struct {
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
 const ChannelParticipantCreatorTypeID = 0x447dca4b
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantCreator) String() string {
+	if c == nil {
+		return "ChannelParticipantCreator(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantCreator")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminRights: ")
+	sb.WriteString(c.AdminRights.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(0) {
+		sb.WriteString("\tRank: ")
+		sb.WriteString(fmt.Sprint(c.Rank))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantCreator) Encode(b *bin.Buffer) error {
@@ -277,6 +344,43 @@ type ChannelParticipantAdmin struct {
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
 const ChannelParticipantAdminTypeID = 0xccbebbaf
+
+// String implements fmt.Stringer.
+func (c *ChannelParticipantAdmin) String() string {
+	if c == nil {
+		return "ChannelParticipantAdmin(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantAdmin")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	if c.Flags.Has(1) {
+		sb.WriteString("\tInviterID: ")
+		sb.WriteString(fmt.Sprint(c.InviterID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tPromotedBy: ")
+	sb.WriteString(fmt.Sprint(c.PromotedBy))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminRights: ")
+	sb.WriteString(c.AdminRights.String())
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tRank: ")
+		sb.WriteString(fmt.Sprint(c.Rank))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantAdmin) Encode(b *bin.Buffer) error {
@@ -441,6 +545,33 @@ type ChannelParticipantBanned struct {
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
 const ChannelParticipantBannedTypeID = 0x1c0facaf
 
+// String implements fmt.Stringer.
+func (c *ChannelParticipantBanned) String() string {
+	if c == nil {
+		return "ChannelParticipantBanned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantBanned")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKickedBy: ")
+	sb.WriteString(fmt.Sprint(c.KickedBy))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(c.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBannedRights: ")
+	sb.WriteString(c.BannedRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -534,6 +665,21 @@ type ChannelParticipantLeft struct {
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
 const ChannelParticipantLeftTypeID = 0xc3c6796b
 
+// String implements fmt.Stringer.
+func (c *ChannelParticipantLeft) String() string {
+	if c == nil {
+		return "ChannelParticipantLeft(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelParticipantLeft")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantLeft) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -595,6 +741,7 @@ type ChannelParticipantClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelParticipantClass
+	fmt.Stringer
 }
 
 // DecodeChannelParticipant implements binary de-serialization for ChannelParticipantClass.

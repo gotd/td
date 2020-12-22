@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsResolveUsernameRequest represents TL type `contacts.resolveUsername#f93ccba3`.
 // Resolve a @username to get peer info
@@ -25,6 +27,21 @@ type ContactsResolveUsernameRequest struct {
 
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.
 const ContactsResolveUsernameRequestTypeID = 0xf93ccba3
+
+// String implements fmt.Stringer.
+func (r *ContactsResolveUsernameRequest) String() string {
+	if r == nil {
+		return "ContactsResolveUsernameRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsResolveUsernameRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUsername: ")
+	sb.WriteString(fmt.Sprint(r.Username))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
 // Full list of messages with auxilary data.
@@ -29,6 +31,33 @@ type MessagesMessages struct {
 
 // MessagesMessagesTypeID is TL type id of MessagesMessages.
 const MessagesMessagesTypeID = 0x8c718e87
+
+// String implements fmt.Stringer.
+func (m *MessagesMessages) String() string {
+	if m == nil {
+		return "MessagesMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMessages")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range m.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMessages) Encode(b *bin.Buffer) error {
@@ -156,6 +185,49 @@ type MessagesMessagesSlice struct {
 
 // MessagesMessagesSliceTypeID is TL type id of MessagesMessagesSlice.
 const MessagesMessagesSliceTypeID = 0x3a54685e
+
+// String implements fmt.Stringer.
+func (m *MessagesMessagesSlice) String() string {
+	if m == nil {
+		return "MessagesMessagesSlice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMessagesSlice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(m.Count))
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tNextRate: ")
+		sb.WriteString(fmt.Sprint(m.NextRate))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(2) {
+		sb.WriteString("\tOffsetIDOffset: ")
+		sb.WriteString(fmt.Sprint(m.OffsetIDOffset))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range m.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
@@ -358,6 +430,47 @@ type MessagesChannelMessages struct {
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
 const MessagesChannelMessagesTypeID = 0x64479808
 
+// String implements fmt.Stringer.
+func (c *MessagesChannelMessages) String() string {
+	if c == nil {
+		return "MessagesChannelMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesChannelMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(c.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(c.Count))
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tOffsetIDOffset: ")
+		sb.WriteString(fmt.Sprint(c.OffsetIDOffset))
+		sb.WriteString(",\n")
+	}
+	sb.WriteByte('[')
+	for _, v := range c.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -526,6 +639,21 @@ type MessagesMessagesNotModified struct {
 // MessagesMessagesNotModifiedTypeID is TL type id of MessagesMessagesNotModified.
 const MessagesMessagesNotModifiedTypeID = 0x74535f21
 
+// String implements fmt.Stringer.
+func (m *MessagesMessagesNotModified) String() string {
+	if m == nil {
+		return "MessagesMessagesNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesMessagesNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(m.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessagesNotModified) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -585,6 +713,7 @@ type MessagesMessagesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesMessagesClass
+	fmt.Stringer
 }
 
 // DecodeMessagesMessages implements binary de-serialization for MessagesMessagesClass.

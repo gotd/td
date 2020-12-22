@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputBotInlineMessageMediaAuto represents TL type `inputBotInlineMessageMediaAuto#3380c786`.
 // A media
@@ -35,6 +37,36 @@ type InputBotInlineMessageMediaAuto struct {
 
 // InputBotInlineMessageMediaAutoTypeID is TL type id of InputBotInlineMessageMediaAuto.
 const InputBotInlineMessageMediaAutoTypeID = 0x3380c786
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageMediaAuto) String() string {
+	if i == nil {
+		return "InputBotInlineMessageMediaAuto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageMediaAuto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(i.Message))
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range i.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
@@ -175,6 +207,36 @@ type InputBotInlineMessageText struct {
 
 // InputBotInlineMessageTextTypeID is TL type id of InputBotInlineMessageText.
 const InputBotInlineMessageTextTypeID = 0x3dcd7a87
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageText) String() string {
+	if i == nil {
+		return "InputBotInlineMessageText(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageText")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(i.Message))
+	sb.WriteString(",\n")
+	if i.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range i.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
@@ -331,6 +393,44 @@ type InputBotInlineMessageMediaGeo struct {
 
 // InputBotInlineMessageMediaGeoTypeID is TL type id of InputBotInlineMessageMediaGeo.
 const InputBotInlineMessageMediaGeoTypeID = 0x96929a85
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageMediaGeo) String() string {
+	if i == nil {
+		return "InputBotInlineMessageMediaGeo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageMediaGeo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tHeading: ")
+		sb.WriteString(fmt.Sprint(i.Heading))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tPeriod: ")
+		sb.WriteString(fmt.Sprint(i.Period))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(3) {
+		sb.WriteString("\tProximityNotificationRadius: ")
+		sb.WriteString(fmt.Sprint(i.ProximityNotificationRadius))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
@@ -517,6 +617,44 @@ type InputBotInlineMessageMediaVenue struct {
 // InputBotInlineMessageMediaVenueTypeID is TL type id of InputBotInlineMessageMediaVenue.
 const InputBotInlineMessageMediaVenueTypeID = 0x417bbf11
 
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageMediaVenue) String() string {
+	if i == nil {
+		return "InputBotInlineMessageMediaVenue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageMediaVenue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGeoPoint: ")
+	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(i.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAddress: ")
+	sb.WriteString(fmt.Sprint(i.Address))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProvider: ")
+	sb.WriteString(fmt.Sprint(i.Provider))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueID: ")
+	sb.WriteString(fmt.Sprint(i.VenueID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVenueType: ")
+	sb.WriteString(fmt.Sprint(i.VenueType))
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -663,6 +801,38 @@ type InputBotInlineMessageMediaContact struct {
 // InputBotInlineMessageMediaContactTypeID is TL type id of InputBotInlineMessageMediaContact.
 const InputBotInlineMessageMediaContactTypeID = 0xa6edbffd
 
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageMediaContact) String() string {
+	if i == nil {
+		return "InputBotInlineMessageMediaContact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageMediaContact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(i.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFirstName: ")
+	sb.WriteString(fmt.Sprint(i.FirstName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLastName: ")
+	sb.WriteString(fmt.Sprint(i.LastName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVcard: ")
+	sb.WriteString(fmt.Sprint(i.Vcard))
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -780,6 +950,26 @@ type InputBotInlineMessageGame struct {
 // InputBotInlineMessageGameTypeID is TL type id of InputBotInlineMessageGame.
 const InputBotInlineMessageGameTypeID = 0x4b425864
 
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageGame) String() string {
+	if i == nil {
+		return "InputBotInlineMessageGame(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputBotInlineMessageGame")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -871,6 +1061,7 @@ type InputBotInlineMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputBotInlineMessageClass
+	fmt.Stringer
 }
 
 // DecodeInputBotInlineMessage implements binary de-serialization for InputBotInlineMessageClass.

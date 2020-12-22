@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetWebPageRequest represents TL type `messages.getWebPage#32ca8f91`.
 // Get instant view page
@@ -27,6 +29,24 @@ type MessagesGetWebPageRequest struct {
 
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
 const MessagesGetWebPageRequestTypeID = 0x32ca8f91
+
+// String implements fmt.Stringer.
+func (g *MessagesGetWebPageRequest) String() string {
+	if g == nil {
+		return "MessagesGetWebPageRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetWebPageRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(g.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {

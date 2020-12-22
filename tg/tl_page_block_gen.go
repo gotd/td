@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageBlockUnsupported represents TL type `pageBlockUnsupported#13567e8a`.
 // Unsupported IV element
@@ -23,6 +25,18 @@ type PageBlockUnsupported struct {
 
 // PageBlockUnsupportedTypeID is TL type id of PageBlockUnsupported.
 const PageBlockUnsupportedTypeID = 0x13567e8a
+
+// String implements fmt.Stringer.
+func (p *PageBlockUnsupported) String() string {
+	if p == nil {
+		return "PageBlockUnsupported(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockUnsupported")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type PageBlockTitle struct {
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
 const PageBlockTitleTypeID = 0x70abc3fd
+
+// String implements fmt.Stringer.
+func (p *PageBlockTitle) String() string {
+	if p == nil {
+		return "PageBlockTitle(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockTitle")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
@@ -122,6 +151,21 @@ type PageBlockSubtitle struct {
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
 const PageBlockSubtitleTypeID = 0x8ffa9a1f
+
+// String implements fmt.Stringer.
+func (p *PageBlockSubtitle) String() string {
+	if p == nil {
+		return "PageBlockSubtitle(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockSubtitle")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
@@ -180,6 +224,24 @@ type PageBlockAuthorDate struct {
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
 const PageBlockAuthorDateTypeID = 0xbaafe5e0
+
+// String implements fmt.Stringer.
+func (p *PageBlockAuthorDate) String() string {
+	if p == nil {
+		return "PageBlockAuthorDate(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockAuthorDate")
+	sb.WriteString("{\n")
+	sb.WriteString("\tAuthor: ")
+	sb.WriteString(p.Author.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublishedDate: ")
+	sb.WriteString(fmt.Sprint(p.PublishedDate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
@@ -245,6 +307,21 @@ type PageBlockHeader struct {
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
 const PageBlockHeaderTypeID = 0xbfd064ec
 
+// String implements fmt.Stringer.
+func (p *PageBlockHeader) String() string {
+	if p == nil {
+		return "PageBlockHeader(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockHeader")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -301,6 +378,21 @@ type PageBlockSubheader struct {
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
 const PageBlockSubheaderTypeID = 0xf12bb6e1
 
+// String implements fmt.Stringer.
+func (p *PageBlockSubheader) String() string {
+	if p == nil {
+		return "PageBlockSubheader(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockSubheader")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -356,6 +448,21 @@ type PageBlockParagraph struct {
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
 const PageBlockParagraphTypeID = 0x467a0766
+
+// String implements fmt.Stringer.
+func (p *PageBlockParagraph) String() string {
+	if p == nil {
+		return "PageBlockParagraph(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockParagraph")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
@@ -414,6 +521,24 @@ type PageBlockPreformatted struct {
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
 const PageBlockPreformattedTypeID = 0xc070d93e
+
+// String implements fmt.Stringer.
+func (p *PageBlockPreformatted) String() string {
+	if p == nil {
+		return "PageBlockPreformatted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockPreformatted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLanguage: ")
+	sb.WriteString(fmt.Sprint(p.Language))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
@@ -479,6 +604,21 @@ type PageBlockFooter struct {
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
 const PageBlockFooterTypeID = 0x48870999
 
+// String implements fmt.Stringer.
+func (p *PageBlockFooter) String() string {
+	if p == nil {
+		return "PageBlockFooter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockFooter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -533,6 +673,18 @@ type PageBlockDivider struct {
 // PageBlockDividerTypeID is TL type id of PageBlockDivider.
 const PageBlockDividerTypeID = 0xdb20b188
 
+// String implements fmt.Stringer.
+func (p *PageBlockDivider) String() string {
+	if p == nil {
+		return "PageBlockDivider(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockDivider")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockDivider) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -575,6 +727,21 @@ type PageBlockAnchor struct {
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
 const PageBlockAnchorTypeID = 0xce0d37b0
+
+// String implements fmt.Stringer.
+func (p *PageBlockAnchor) String() string {
+	if p == nil {
+		return "PageBlockAnchor(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockAnchor")
+	sb.WriteString("{\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(p.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
@@ -626,6 +793,23 @@ type PageBlockList struct {
 
 // PageBlockListTypeID is TL type id of PageBlockList.
 const PageBlockListTypeID = 0xe4e88011
+
+// String implements fmt.Stringer.
+func (p *PageBlockList) String() string {
+	if p == nil {
+		return "PageBlockList(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockList")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Items {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockList) Encode(b *bin.Buffer) error {
@@ -693,6 +877,24 @@ type PageBlockBlockquote struct {
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
 const PageBlockBlockquoteTypeID = 0x263d7c26
+
+// String implements fmt.Stringer.
+func (p *PageBlockBlockquote) String() string {
+	if p == nil {
+		return "PageBlockBlockquote(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockBlockquote")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
@@ -764,6 +966,24 @@ type PageBlockPullquote struct {
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
 const PageBlockPullquoteTypeID = 0x4f4456d3
+
+// String implements fmt.Stringer.
+func (p *PageBlockPullquote) String() string {
+	if p == nil {
+		return "PageBlockPullquote(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockPullquote")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
@@ -845,6 +1065,37 @@ type PageBlockPhoto struct {
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
 const PageBlockPhotoTypeID = 0x1759c560
+
+// String implements fmt.Stringer.
+func (p *PageBlockPhoto) String() string {
+	if p == nil {
+		return "PageBlockPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoID: ")
+	sb.WriteString(fmt.Sprint(p.PhotoID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(p.URL))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(0) {
+		sb.WriteString("\tWebpageID: ")
+		sb.WriteString(fmt.Sprint(p.WebpageID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
@@ -971,6 +1222,27 @@ type PageBlockVideo struct {
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
 const PageBlockVideoTypeID = 0x7c8fe7b6
 
+// String implements fmt.Stringer.
+func (p *PageBlockVideo) String() string {
+	if p == nil {
+		return "PageBlockVideo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockVideo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tVideoID: ")
+	sb.WriteString(fmt.Sprint(p.VideoID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1058,6 +1330,21 @@ type PageBlockCover struct {
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
 const PageBlockCoverTypeID = 0x39f23300
 
+// String implements fmt.Stringer.
+func (p *PageBlockCover) String() string {
+	if p == nil {
+		return "PageBlockCover(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockCover")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCover: ")
+	sb.WriteString(p.Cover.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1139,6 +1426,49 @@ type PageBlockEmbed struct {
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
 const PageBlockEmbedTypeID = 0xa8718dc5
+
+// String implements fmt.Stringer.
+func (p *PageBlockEmbed) String() string {
+	if p == nil {
+		return "PageBlockEmbed(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockEmbed")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(1) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(p.URL))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tHTML: ")
+		sb.WriteString(fmt.Sprint(p.HTML))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(4) {
+		sb.WriteString("\tPosterPhotoID: ")
+		sb.WriteString(fmt.Sprint(p.PosterPhotoID))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(5) {
+		sb.WriteString("\tW: ")
+		sb.WriteString(fmt.Sprint(p.W))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(5) {
+		sb.WriteString("\tH: ")
+		sb.WriteString(fmt.Sprint(p.H))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
@@ -1356,6 +1686,41 @@ type PageBlockEmbedPost struct {
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
 const PageBlockEmbedPostTypeID = 0xf259a80b
 
+// String implements fmt.Stringer.
+func (p *PageBlockEmbedPost) String() string {
+	if p == nil {
+		return "PageBlockEmbedPost(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockEmbedPost")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(p.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tWebpageID: ")
+	sb.WriteString(fmt.Sprint(p.WebpageID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAuthorPhotoID: ")
+	sb.WriteString(fmt.Sprint(p.AuthorPhotoID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAuthor: ")
+	sb.WriteString(fmt.Sprint(p.Author))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Blocks {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1471,6 +1836,26 @@ type PageBlockCollage struct {
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
 const PageBlockCollageTypeID = 0x65a0fa4d
 
+// String implements fmt.Stringer.
+func (p *PageBlockCollage) String() string {
+	if p == nil {
+		return "PageBlockCollage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockCollage")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Items {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1546,6 +1931,26 @@ type PageBlockSlideshow struct {
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
 const PageBlockSlideshowTypeID = 0x31f9590
 
+// String implements fmt.Stringer.
+func (p *PageBlockSlideshow) String() string {
+	if p == nil {
+		return "PageBlockSlideshow(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockSlideshow")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Items {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1619,6 +2024,21 @@ type PageBlockChannel struct {
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
 const PageBlockChannelTypeID = 0xef1751b5
 
+// String implements fmt.Stringer.
+func (p *PageBlockChannel) String() string {
+	if p == nil {
+		return "PageBlockChannel(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockChannel")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(p.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1676,6 +2096,24 @@ type PageBlockAudio struct {
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
 const PageBlockAudioTypeID = 0x804361ea
+
+// String implements fmt.Stringer.
+func (p *PageBlockAudio) String() string {
+	if p == nil {
+		return "PageBlockAudio(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockAudio")
+	sb.WriteString("{\n")
+	sb.WriteString("\tAudioID: ")
+	sb.WriteString(fmt.Sprint(p.AudioID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
@@ -1735,6 +2173,21 @@ type PageBlockKicker struct {
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
 const PageBlockKickerTypeID = 0x1e148390
+
+// String implements fmt.Stringer.
+func (p *PageBlockKicker) String() string {
+	if p == nil {
+		return "PageBlockKicker(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockKicker")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(p.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
@@ -1799,6 +2252,29 @@ type PageBlockTable struct {
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
 const PageBlockTableTypeID = 0xbf4dea82
+
+// String implements fmt.Stringer.
+func (p *PageBlockTable) String() string {
+	if p == nil {
+		return "PageBlockTable(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockTable")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(p.Title.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Rows {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockTable) Encode(b *bin.Buffer) error {
@@ -1903,6 +2379,23 @@ type PageBlockOrderedList struct {
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
 const PageBlockOrderedListTypeID = 0x9a8ae1e1
 
+// String implements fmt.Stringer.
+func (p *PageBlockOrderedList) String() string {
+	if p == nil {
+		return "PageBlockOrderedList(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockOrderedList")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Items {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1973,6 +2466,29 @@ type PageBlockDetails struct {
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
 const PageBlockDetailsTypeID = 0x76768bed
+
+// String implements fmt.Stringer.
+func (p *PageBlockDetails) String() string {
+	if p == nil {
+		return "PageBlockDetails(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockDetails")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Blocks {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(p.Title.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
@@ -2072,6 +2588,26 @@ type PageBlockRelatedArticles struct {
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
 const PageBlockRelatedArticlesTypeID = 0x16115a96
 
+// String implements fmt.Stringer.
+func (p *PageBlockRelatedArticles) String() string {
+	if p == nil {
+		return "PageBlockRelatedArticles(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockRelatedArticles")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(p.Title.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Articles {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2154,6 +2690,33 @@ type PageBlockMap struct {
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
 const PageBlockMapTypeID = 0xa44f3ef6
+
+// String implements fmt.Stringer.
+func (p *PageBlockMap) String() string {
+	if p == nil {
+		return "PageBlockMap(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageBlockMap")
+	sb.WriteString("{\n")
+	sb.WriteString("\tGeo: ")
+	sb.WriteString(p.Geo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tZoom: ")
+	sb.WriteString(fmt.Sprint(p.Zoom))
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(p.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(p.H))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCaption: ")
+	sb.WriteString(p.Caption.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageBlockMap) Encode(b *bin.Buffer) error {
@@ -2276,6 +2839,7 @@ type PageBlockClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageBlockClass
+	fmt.Stringer
 }
 
 // DecodePageBlock implements binary de-serialization for PageBlockClass.

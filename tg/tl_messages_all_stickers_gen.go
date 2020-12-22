@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAllStickersNotModified represents TL type `messages.allStickersNotModified#e86602c3`.
 // Info about all installed stickers hasn't changed
@@ -23,6 +25,18 @@ type MessagesAllStickersNotModified struct {
 
 // MessagesAllStickersNotModifiedTypeID is TL type id of MessagesAllStickersNotModified.
 const MessagesAllStickersNotModifiedTypeID = 0xe86602c3
+
+// String implements fmt.Stringer.
+func (a *MessagesAllStickersNotModified) String() string {
+	if a == nil {
+		return "MessagesAllStickersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAllStickersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAllStickersNotModified) Encode(b *bin.Buffer) error {
@@ -68,6 +82,26 @@ type MessagesAllStickers struct {
 
 // MessagesAllStickersTypeID is TL type id of MessagesAllStickers.
 const MessagesAllStickersTypeID = 0xedfd405f
+
+// String implements fmt.Stringer.
+func (a *MessagesAllStickers) String() string {
+	if a == nil {
+		return "MessagesAllStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAllStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(a.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range a.Sets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAllStickers) Encode(b *bin.Buffer) error {
@@ -145,6 +179,7 @@ type MessagesAllStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesAllStickersClass
+	fmt.Stringer
 }
 
 // DecodeMessagesAllStickers implements binary de-serialization for MessagesAllStickersClass.

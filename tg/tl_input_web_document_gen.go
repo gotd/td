@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputWebDocument represents TL type `inputWebDocument#9bed434d`.
 // The document
@@ -31,6 +33,32 @@ type InputWebDocument struct {
 
 // InputWebDocumentTypeID is TL type id of InputWebDocument.
 const InputWebDocumentTypeID = 0x9bed434d
+
+// String implements fmt.Stringer.
+func (i *InputWebDocument) String() string {
+	if i == nil {
+		return "InputWebDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputWebDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(i.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSize: ")
+	sb.WriteString(fmt.Sprint(i.Size))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMimeType: ")
+	sb.WriteString(fmt.Sprint(i.MimeType))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range i.Attributes {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputWebDocument) Encode(b *bin.Buffer) error {

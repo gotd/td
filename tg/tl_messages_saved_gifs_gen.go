@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSavedGifsNotModified represents TL type `messages.savedGifsNotModified#e8025ca2`.
 // No new saved gifs were found
@@ -23,6 +25,18 @@ type MessagesSavedGifsNotModified struct {
 
 // MessagesSavedGifsNotModifiedTypeID is TL type id of MessagesSavedGifsNotModified.
 const MessagesSavedGifsNotModifiedTypeID = 0xe8025ca2
+
+// String implements fmt.Stringer.
+func (s *MessagesSavedGifsNotModified) String() string {
+	if s == nil {
+		return "MessagesSavedGifsNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSavedGifsNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSavedGifsNotModified) Encode(b *bin.Buffer) error {
@@ -68,6 +82,26 @@ type MessagesSavedGifs struct {
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.
 const MessagesSavedGifsTypeID = 0x2e0709a5
+
+// String implements fmt.Stringer.
+func (s *MessagesSavedGifs) String() string {
+	if s == nil {
+		return "MessagesSavedGifs(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSavedGifs")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Gifs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSavedGifs) Encode(b *bin.Buffer) error {
@@ -148,6 +182,7 @@ type MessagesSavedGifsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesSavedGifsClass
+	fmt.Stringer
 }
 
 // DecodeMessagesSavedGifs implements binary de-serialization for MessagesSavedGifsClass.

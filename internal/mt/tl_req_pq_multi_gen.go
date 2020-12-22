@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ReqPqMulti represents TL type `req_pq_multi#be7e8ef1`.
 type ReqPqMulti struct {
@@ -22,6 +24,21 @@ type ReqPqMulti struct {
 
 // ReqPqMultiTypeID is TL type id of ReqPqMulti.
 const ReqPqMultiTypeID = 0xbe7e8ef1
+
+// String implements fmt.Stringer.
+func (r *ReqPqMulti) String() string {
+	if r == nil {
+		return "ReqPqMulti(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReqPqMulti")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(r.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ReqPqMulti) Encode(b *bin.Buffer) error {

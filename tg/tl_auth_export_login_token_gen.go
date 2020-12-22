@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
 // Generate a login token, for login via QR code.
@@ -31,6 +33,29 @@ type AuthExportLoginTokenRequest struct {
 
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
 const AuthExportLoginTokenRequestTypeID = 0xb1b41517
+
+// String implements fmt.Stringer.
+func (e *AuthExportLoginTokenRequest) String() string {
+	if e == nil {
+		return "AuthExportLoginTokenRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthExportLoginTokenRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tAPIID: ")
+	sb.WriteString(fmt.Sprint(e.APIID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIHash: ")
+	sb.WriteString(fmt.Sprint(e.APIHash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range e.ExceptIds {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PeerBlocked represents TL type `peerBlocked#e8fd8014`.
 // Information about a blocked peer
@@ -27,6 +29,24 @@ type PeerBlocked struct {
 
 // PeerBlockedTypeID is TL type id of PeerBlocked.
 const PeerBlockedTypeID = 0xe8fd8014
+
+// String implements fmt.Stringer.
+func (p *PeerBlocked) String() string {
+	if p == nil {
+		return "PeerBlocked(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerBlocked")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeerID: ")
+	sb.WriteString(p.PeerID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerBlocked) Encode(b *bin.Buffer) error {

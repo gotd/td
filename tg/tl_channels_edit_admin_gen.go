@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsEditAdminRequest represents TL type `channels.editAdmin#d33c8902`.
 // Modify the admin rights of a user in a supergroup/channel.
@@ -31,6 +33,30 @@ type ChannelsEditAdminRequest struct {
 
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.
 const ChannelsEditAdminRequestTypeID = 0xd33c8902
+
+// String implements fmt.Stringer.
+func (e *ChannelsEditAdminRequest) String() string {
+	if e == nil {
+		return "ChannelsEditAdminRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsEditAdminRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(e.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminRights: ")
+	sb.WriteString(e.AdminRights.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRank: ")
+	sb.WriteString(fmt.Sprint(e.Rank))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {

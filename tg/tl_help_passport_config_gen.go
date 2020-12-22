@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpPassportConfigNotModified represents TL type `help.passportConfigNotModified#bfb9f457`.
 // Password configuration not modified
@@ -23,6 +25,18 @@ type HelpPassportConfigNotModified struct {
 
 // HelpPassportConfigNotModifiedTypeID is TL type id of HelpPassportConfigNotModified.
 const HelpPassportConfigNotModifiedTypeID = 0xbfb9f457
+
+// String implements fmt.Stringer.
+func (p *HelpPassportConfigNotModified) String() string {
+	if p == nil {
+		return "HelpPassportConfigNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpPassportConfigNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
@@ -68,6 +82,24 @@ type HelpPassportConfig struct {
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
 const HelpPassportConfigTypeID = 0xa098d6af
+
+// String implements fmt.Stringer.
+func (p *HelpPassportConfig) String() string {
+	if p == nil {
+		return "HelpPassportConfig(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpPassportConfig")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(p.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCountriesLangs: ")
+	sb.WriteString(p.CountriesLangs.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
@@ -134,6 +166,7 @@ type HelpPassportConfigClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpPassportConfigClass
+	fmt.Stringer
 }
 
 // DecodeHelpPassportConfig implements binary de-serialization for HelpPassportConfigClass.

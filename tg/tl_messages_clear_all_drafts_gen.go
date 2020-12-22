@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesClearAllDraftsRequest represents TL type `messages.clearAllDrafts#7e58ee9c`.
 // Clear all drafts.
@@ -23,6 +25,18 @@ type MessagesClearAllDraftsRequest struct {
 
 // MessagesClearAllDraftsRequestTypeID is TL type id of MessagesClearAllDraftsRequest.
 const MessagesClearAllDraftsRequestTypeID = 0x7e58ee9c
+
+// String implements fmt.Stringer.
+func (c *MessagesClearAllDraftsRequest) String() string {
+	if c == nil {
+		return "MessagesClearAllDraftsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesClearAllDraftsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {

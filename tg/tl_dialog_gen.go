@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Dialog represents TL type `dialog#2c171f72`.
 // Chat
@@ -55,6 +57,57 @@ type Dialog struct {
 
 // DialogTypeID is TL type id of Dialog.
 const DialogTypeID = 0x2c171f72
+
+// String implements fmt.Stringer.
+func (d *Dialog) String() string {
+	if d == nil {
+		return "Dialog(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Dialog")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(d.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopMessage: ")
+	sb.WriteString(fmt.Sprint(d.TopMessage))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadInboxMaxID: ")
+	sb.WriteString(fmt.Sprint(d.ReadInboxMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReadOutboxMaxID: ")
+	sb.WriteString(fmt.Sprint(d.ReadOutboxMaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadMentionsCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadMentionsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNotifySettings: ")
+	sb.WriteString(d.NotifySettings.String())
+	sb.WriteString(",\n")
+	if d.Flags.Has(0) {
+		sb.WriteString("\tPts: ")
+		sb.WriteString(fmt.Sprint(d.Pts))
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(1) {
+		sb.WriteString("\tDraft: ")
+		sb.WriteString(d.Draft.String())
+		sb.WriteString(",\n")
+	}
+	if d.Flags.Has(4) {
+		sb.WriteString("\tFolderID: ")
+		sb.WriteString(fmt.Sprint(d.FolderID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *Dialog) Encode(b *bin.Buffer) error {
@@ -284,6 +337,42 @@ type DialogFolder struct {
 // DialogFolderTypeID is TL type id of DialogFolder.
 const DialogFolderTypeID = 0x71bd134c
 
+// String implements fmt.Stringer.
+func (d *DialogFolder) String() string {
+	if d == nil {
+		return "DialogFolder(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogFolder")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(d.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFolder: ")
+	sb.WriteString(d.Folder.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(d.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTopMessage: ")
+	sb.WriteString(fmt.Sprint(d.TopMessage))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadMutedPeersCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadMutedPeersCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadUnmutedPeersCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadUnmutedPeersCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadMutedMessagesCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadMutedMessagesCount))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUnreadUnmutedMessagesCount: ")
+	sb.WriteString(fmt.Sprint(d.UnreadUnmutedMessagesCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -412,6 +501,7 @@ type DialogClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DialogClass
+	fmt.Stringer
 }
 
 // DecodeDialog implements binary de-serialization for DialogClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ExportedMessageLink represents TL type `exportedMessageLink#5dab1af4`.
 // Link to a message in a supergroup/channel
@@ -27,6 +29,24 @@ type ExportedMessageLink struct {
 
 // ExportedMessageLinkTypeID is TL type id of ExportedMessageLink.
 const ExportedMessageLinkTypeID = 0x5dab1af4
+
+// String implements fmt.Stringer.
+func (e *ExportedMessageLink) String() string {
+	if e == nil {
+		return "ExportedMessageLink(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ExportedMessageLink")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLink: ")
+	sb.WriteString(fmt.Sprint(e.Link))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHTML: ")
+	sb.WriteString(fmt.Sprint(e.HTML))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {

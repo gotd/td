@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesFoundStickerSetsNotModified represents TL type `messages.foundStickerSetsNotModified#d54b65d`.
 // No further results were found
@@ -23,6 +25,18 @@ type MessagesFoundStickerSetsNotModified struct {
 
 // MessagesFoundStickerSetsNotModifiedTypeID is TL type id of MessagesFoundStickerSetsNotModified.
 const MessagesFoundStickerSetsNotModifiedTypeID = 0xd54b65d
+
+// String implements fmt.Stringer.
+func (f *MessagesFoundStickerSetsNotModified) String() string {
+	if f == nil {
+		return "MessagesFoundStickerSetsNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFoundStickerSetsNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
@@ -68,6 +82,26 @@ type MessagesFoundStickerSets struct {
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.
 const MessagesFoundStickerSetsTypeID = 0x5108d648
+
+// String implements fmt.Stringer.
+func (f *MessagesFoundStickerSets) String() string {
+	if f == nil {
+		return "MessagesFoundStickerSets(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFoundStickerSets")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(f.Hash))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range f.Sets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
@@ -148,6 +182,7 @@ type MessagesFoundStickerSetsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFoundStickerSetsClass
+	fmt.Stringer
 }
 
 // DecodeMessagesFoundStickerSets implements binary de-serialization for MessagesFoundStickerSetsClass.

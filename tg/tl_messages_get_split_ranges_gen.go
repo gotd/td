@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
 // Get message ranges for saving the user's chat history
@@ -23,6 +25,18 @@ type MessagesGetSplitRangesRequest struct {
 
 // MessagesGetSplitRangesRequestTypeID is TL type id of MessagesGetSplitRangesRequest.
 const MessagesGetSplitRangesRequestTypeID = 0x1cff7e08
+
+// String implements fmt.Stringer.
+func (g *MessagesGetSplitRangesRequest) String() string {
+	if g == nil {
+		return "MessagesGetSplitRangesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetSplitRangesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetSplitRangesRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetRecentMeUrlsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
 // Get recently used t.me links
@@ -25,6 +27,21 @@ type HelpGetRecentMeUrlsRequest struct {
 
 // HelpGetRecentMeUrlsRequestTypeID is TL type id of HelpGetRecentMeUrlsRequest.
 const HelpGetRecentMeUrlsRequestTypeID = 0x3dc0f114
+
+// String implements fmt.Stringer.
+func (g *HelpGetRecentMeUrlsRequest) String() string {
+	if g == nil {
+		return "HelpGetRecentMeUrlsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetRecentMeUrlsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tReferer: ")
+	sb.WriteString(fmt.Sprint(g.Referer))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetRecentMeUrlsRequest) Encode(b *bin.Buffer) error {

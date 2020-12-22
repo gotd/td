@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountGetAuthorizationFormRequest represents TL type `account.getAuthorizationForm#b86ba8e1`.
 // Returns a Telegram Passport authorization form for sharing data with a service
@@ -29,6 +31,27 @@ type AccountGetAuthorizationFormRequest struct {
 
 // AccountGetAuthorizationFormRequestTypeID is TL type id of AccountGetAuthorizationFormRequest.
 const AccountGetAuthorizationFormRequestTypeID = 0xb86ba8e1
+
+// String implements fmt.Stringer.
+func (g *AccountGetAuthorizationFormRequest) String() string {
+	if g == nil {
+		return "AccountGetAuthorizationFormRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountGetAuthorizationFormRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tBotID: ")
+	sb.WriteString(fmt.Sprint(g.BotID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tScope: ")
+	sb.WriteString(fmt.Sprint(g.Scope))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublicKey: ")
+	sb.WriteString(fmt.Sprint(g.PublicKey))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {

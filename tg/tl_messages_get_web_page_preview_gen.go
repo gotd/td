@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetWebPagePreviewRequest represents TL type `messages.getWebPagePreview#8b68b0cc`.
 // Get preview of webpage
@@ -31,6 +33,31 @@ type MessagesGetWebPagePreviewRequest struct {
 
 // MessagesGetWebPagePreviewRequestTypeID is TL type id of MessagesGetWebPagePreviewRequest.
 const MessagesGetWebPagePreviewRequestTypeID = 0x8b68b0cc
+
+// String implements fmt.Stringer.
+func (g *MessagesGetWebPagePreviewRequest) String() string {
+	if g == nil {
+		return "MessagesGetWebPagePreviewRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetWebPagePreviewRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(g.Message))
+	sb.WriteString(",\n")
+	if g.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range g.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {

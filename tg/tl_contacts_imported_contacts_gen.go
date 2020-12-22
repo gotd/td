@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
 // Info on succesfully imported contacts.
@@ -31,6 +33,38 @@ type ContactsImportedContacts struct {
 
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.
 const ContactsImportedContactsTypeID = 0x77d01c3b
+
+// String implements fmt.Stringer.
+func (i *ContactsImportedContacts) String() string {
+	if i == nil {
+		return "ContactsImportedContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsImportedContacts")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Imported {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range i.PopularInvites {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range i.RetryContacts {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range i.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSaveSecureValueRequest represents TL type `account.saveSecureValue#899fe31d`.
 // Securely save Telegram Passport document, for more info see the passport docs »
@@ -27,6 +29,24 @@ type AccountSaveSecureValueRequest struct {
 
 // AccountSaveSecureValueRequestTypeID is TL type id of AccountSaveSecureValueRequest.
 const AccountSaveSecureValueRequestTypeID = 0x899fe31d
+
+// String implements fmt.Stringer.
+func (s *AccountSaveSecureValueRequest) String() string {
+	if s == nil {
+		return "AccountSaveSecureValueRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSaveSecureValueRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(s.Value.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecureSecretID: ")
+	sb.WriteString(fmt.Sprint(s.SecureSecretID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSaveSecureValueRequest) Encode(b *bin.Buffer) error {

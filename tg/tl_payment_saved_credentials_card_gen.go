@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentSavedCredentialsCard represents TL type `paymentSavedCredentialsCard#cdc27a1f`.
 // Saved credit card
@@ -27,6 +29,24 @@ type PaymentSavedCredentialsCard struct {
 
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.
 const PaymentSavedCredentialsCardTypeID = 0xcdc27a1f
+
+// String implements fmt.Stringer.
+func (p *PaymentSavedCredentialsCard) String() string {
+	if p == nil {
+		return "PaymentSavedCredentialsCard(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentSavedCredentialsCard")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(p.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {

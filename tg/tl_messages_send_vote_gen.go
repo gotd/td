@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendVoteRequest represents TL type `messages.sendVote#10ea6184`.
 // Vote in a poll
@@ -29,6 +31,29 @@ type MessagesSendVoteRequest struct {
 
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.
 const MessagesSendVoteRequestTypeID = 0x10ea6184
+
+// String implements fmt.Stringer.
+func (s *MessagesSendVoteRequest) String() string {
+	if s == nil {
+		return "MessagesSendVoteRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendVoteRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(s.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range s.Options {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendVoteRequest) Encode(b *bin.Buffer) error {

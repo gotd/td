@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#72d4742c`.
 // Installs a previously uploaded photo as a profile photo.
@@ -25,6 +27,21 @@ type PhotosUpdateProfilePhotoRequest struct {
 
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
 const PhotosUpdateProfilePhotoRequestTypeID = 0x72d4742c
+
+// String implements fmt.Stringer.
+func (u *PhotosUpdateProfilePhotoRequest) String() string {
+	if u == nil {
+		return "PhotosUpdateProfilePhotoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosUpdateProfilePhotoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(u.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {

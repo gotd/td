@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DialogFilterSuggestedVector is a box for Vector<DialogFilterSuggested>
 type DialogFilterSuggestedVector struct {
 	// Elements of Vector<DialogFilterSuggested>
 	Elems []DialogFilterSuggested
+}
+
+// String implements fmt.Stringer.
+func (vec *DialogFilterSuggestedVector) String() string {
+	if vec == nil {
+		return "DialogFilterSuggestedVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogFilterSuggestedVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

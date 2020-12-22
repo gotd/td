@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputFile represents TL type `inputFile#f52ff27f`.
 // Defines a file saved in parts using the method upload.saveFilePart.
@@ -31,6 +33,30 @@ type InputFile struct {
 
 // InputFileTypeID is TL type id of InputFile.
 const InputFileTypeID = 0xf52ff27f
+
+// String implements fmt.Stringer.
+func (i *InputFile) String() string {
+	if i == nil {
+		return "InputFile(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputFile")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParts: ")
+	sb.WriteString(fmt.Sprint(i.Parts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(i.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMd5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputFile) Encode(b *bin.Buffer) error {
@@ -111,6 +137,27 @@ type InputFileBig struct {
 // InputFileBigTypeID is TL type id of InputFileBig.
 const InputFileBigTypeID = 0xfa4f0bb5
 
+// String implements fmt.Stringer.
+func (i *InputFileBig) String() string {
+	if i == nil {
+		return "InputFileBig(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputFileBig")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParts: ")
+	sb.WriteString(fmt.Sprint(i.Parts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(i.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputFileBig) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -184,6 +231,7 @@ type InputFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputFileClass
+	fmt.Stringer
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.

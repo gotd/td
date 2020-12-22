@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
 // Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
@@ -29,6 +31,29 @@ type ChannelsReportSpamRequest struct {
 
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.
 const ChannelsReportSpamRequestTypeID = 0xfe087810
+
+// String implements fmt.Stringer.
+func (r *ChannelsReportSpamRequest) String() string {
+	if r == nil {
+		return "ChannelsReportSpamRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsReportSpamRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(r.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(r.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.ID {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureRequiredType represents TL type `secureRequiredType#829d99da`.
 // Required type
@@ -33,6 +35,24 @@ type SecureRequiredType struct {
 
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
 const SecureRequiredTypeTypeID = 0x829d99da
+
+// String implements fmt.Stringer.
+func (s *SecureRequiredType) String() string {
+	if s == nil {
+		return "SecureRequiredType(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureRequiredType")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
@@ -128,6 +148,23 @@ type SecureRequiredTypeOneOf struct {
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.
 const SecureRequiredTypeOneOfTypeID = 0x27477b4
 
+// String implements fmt.Stringer.
+func (s *SecureRequiredTypeOneOf) String() string {
+	if s == nil {
+		return "SecureRequiredTypeOneOf(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureRequiredTypeOneOf")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range s.Types {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -199,6 +236,7 @@ type SecureRequiredTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureRequiredTypeClass
+	fmt.Stringer
 }
 
 // DecodeSecureRequiredType implements binary de-serialization for SecureRequiredTypeClass.

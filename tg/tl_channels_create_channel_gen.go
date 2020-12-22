@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
 // Create a supergroup/channel.
@@ -41,6 +43,37 @@ type ChannelsCreateChannelRequest struct {
 
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.
 const ChannelsCreateChannelRequestTypeID = 0x3d5fb10f
+
+// String implements fmt.Stringer.
+func (c *ChannelsCreateChannelRequest) String() string {
+	if c == nil {
+		return "ChannelsCreateChannelRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsCreateChannelRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(c.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAbout: ")
+	sb.WriteString(fmt.Sprint(c.About))
+	sb.WriteString(",\n")
+	if c.Flags.Has(2) {
+		sb.WriteString("\tGeoPoint: ")
+		sb.WriteString(c.GeoPoint.String())
+		sb.WriteString(",\n")
+	}
+	if c.Flags.Has(2) {
+		sb.WriteString("\tAddress: ")
+		sb.WriteString(fmt.Sprint(c.Address))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {

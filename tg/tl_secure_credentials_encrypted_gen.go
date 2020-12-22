@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureCredentialsEncrypted represents TL type `secureCredentialsEncrypted#33f0ea47`.
 // Encrypted credentials required to decrypt telegram passport data.
@@ -29,6 +31,27 @@ type SecureCredentialsEncrypted struct {
 
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.
 const SecureCredentialsEncryptedTypeID = 0x33f0ea47
+
+// String implements fmt.Stringer.
+func (s *SecureCredentialsEncrypted) String() string {
+	if s == nil {
+		return "SecureCredentialsEncrypted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureCredentialsEncrypted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(s.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecret: ")
+	sb.WriteString(fmt.Sprint(s.Secret))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureCredentialsEncrypted) Encode(b *bin.Buffer) error {

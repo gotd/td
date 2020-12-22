@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPhoneCall represents TL type `inputPhoneCall#1e36fded`.
 // Phone call
@@ -27,6 +29,24 @@ type InputPhoneCall struct {
 
 // InputPhoneCallTypeID is TL type id of InputPhoneCall.
 const InputPhoneCallTypeID = 0x1e36fded
+
+// String implements fmt.Stringer.
+func (i *InputPhoneCall) String() string {
+	if i == nil {
+		return "InputPhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPhoneCall) Encode(b *bin.Buffer) error {

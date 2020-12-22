@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#f025bc8b`.
 // Unpin all pinned messages
@@ -25,6 +27,21 @@ type MessagesUnpinAllMessagesRequest struct {
 
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
 const MessagesUnpinAllMessagesRequestTypeID = 0xf025bc8b
+
+// String implements fmt.Stringer.
+func (u *MessagesUnpinAllMessagesRequest) String() string {
+	if u == nil {
+		return "MessagesUnpinAllMessagesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesUnpinAllMessagesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(u.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
 // Type of verification code that will be sent next if you call the resendCode method: SMS code
@@ -23,6 +25,18 @@ type AuthCodeTypeSms struct {
 
 // AuthCodeTypeSmsTypeID is TL type id of AuthCodeTypeSms.
 const AuthCodeTypeSmsTypeID = 0x72a3158c
+
+// String implements fmt.Stringer.
+func (c *AuthCodeTypeSms) String() string {
+	if c == nil {
+		return "AuthCodeTypeSms(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthCodeTypeSms")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeSms) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type AuthCodeTypeCall struct {
 // AuthCodeTypeCallTypeID is TL type id of AuthCodeTypeCall.
 const AuthCodeTypeCallTypeID = 0x741cd3e3
 
+// String implements fmt.Stringer.
+func (c *AuthCodeTypeCall) String() string {
+	if c == nil {
+		return "AuthCodeTypeCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthCodeTypeCall")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeCall) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -105,6 +131,18 @@ type AuthCodeTypeFlashCall struct {
 
 // AuthCodeTypeFlashCallTypeID is TL type id of AuthCodeTypeFlashCall.
 const AuthCodeTypeFlashCallTypeID = 0x226ccefb
+
+// String implements fmt.Stringer.
+func (c *AuthCodeTypeFlashCall) String() string {
+	if c == nil {
+		return "AuthCodeTypeFlashCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthCodeTypeFlashCall")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
@@ -156,6 +194,7 @@ type AuthCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthCodeTypeClass
+	fmt.Stringer
 }
 
 // DecodeAuthCodeType implements binary de-serialization for AuthCodeTypeClass.

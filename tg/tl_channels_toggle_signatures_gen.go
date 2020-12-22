@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsToggleSignaturesRequest represents TL type `channels.toggleSignatures#1f69b606`.
 // Enable/disable message signatures in channels
@@ -27,6 +29,24 @@ type ChannelsToggleSignaturesRequest struct {
 
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.
 const ChannelsToggleSignaturesRequestTypeID = 0x1f69b606
+
+// String implements fmt.Stringer.
+func (t *ChannelsToggleSignaturesRequest) String() string {
+	if t == nil {
+		return "ChannelsToggleSignaturesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsToggleSignaturesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(t.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tEnabled: ")
+	sb.WriteString(fmt.Sprint(t.Enabled))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {

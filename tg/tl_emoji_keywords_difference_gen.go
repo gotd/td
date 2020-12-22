@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EmojiKeywordsDifference represents TL type `emojiKeywordsDifference#5cc761bd`.
 // Changes to emoji keywords
@@ -31,6 +33,32 @@ type EmojiKeywordsDifference struct {
 
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.
 const EmojiKeywordsDifferenceTypeID = 0x5cc761bd
+
+// String implements fmt.Stringer.
+func (e *EmojiKeywordsDifference) String() string {
+	if e == nil {
+		return "EmojiKeywordsDifference(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EmojiKeywordsDifference")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(e.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFromVersion: ")
+	sb.WriteString(fmt.Sprint(e.FromVersion))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(e.Version))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range e.Keywords {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {

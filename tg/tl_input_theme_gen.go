@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputTheme represents TL type `inputTheme#3c5693e9`.
 // Theme
@@ -27,6 +29,24 @@ type InputTheme struct {
 
 // InputThemeTypeID is TL type id of InputTheme.
 const InputThemeTypeID = 0x3c5693e9
+
+// String implements fmt.Stringer.
+func (i *InputTheme) String() string {
+	if i == nil {
+		return "InputTheme(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputTheme")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputTheme) Encode(b *bin.Buffer) error {
@@ -87,6 +107,21 @@ type InputThemeSlug struct {
 // InputThemeSlugTypeID is TL type id of InputThemeSlug.
 const InputThemeSlugTypeID = 0xf5890df1
 
+// String implements fmt.Stringer.
+func (i *InputThemeSlug) String() string {
+	if i == nil {
+		return "InputThemeSlug(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputThemeSlug")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSlug: ")
+	sb.WriteString(fmt.Sprint(i.Slug))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -144,6 +179,7 @@ type InputThemeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputThemeClass
+	fmt.Stringer
 }
 
 // DecodeInputTheme implements binary de-serialization for InputThemeClass.

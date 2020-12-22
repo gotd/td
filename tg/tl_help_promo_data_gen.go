@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpPromoDataEmpty represents TL type `help.promoDataEmpty#98f6ac75`.
 // No PSA/MTProxy info is available
@@ -25,6 +27,21 @@ type HelpPromoDataEmpty struct {
 
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
 const HelpPromoDataEmptyTypeID = 0x98f6ac75
+
+// String implements fmt.Stringer.
+func (p *HelpPromoDataEmpty) String() string {
+	if p == nil {
+		return "HelpPromoDataEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpPromoDataEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(p.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
@@ -94,6 +111,47 @@ type HelpPromoData struct {
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
 const HelpPromoDataTypeID = 0x8c39793f
+
+// String implements fmt.Stringer.
+func (p *HelpPromoData) String() string {
+	if p == nil {
+		return "HelpPromoData(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpPromoData")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(p.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(p.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if p.Flags.Has(1) {
+		sb.WriteString("\tPsaType: ")
+		sb.WriteString(fmt.Sprint(p.PsaType))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tPsaMessage: ")
+		sb.WriteString(fmt.Sprint(p.PsaMessage))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *HelpPromoData) Encode(b *bin.Buffer) error {
@@ -277,6 +335,7 @@ type HelpPromoDataClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpPromoDataClass
+	fmt.Stringer
 }
 
 // DecodeHelpPromoData implements binary de-serialization for HelpPromoDataClass.

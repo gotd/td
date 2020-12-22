@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdateStatusRequest represents TL type `account.updateStatus#6628562c`.
 // Updates online user status.
@@ -25,6 +27,21 @@ type AccountUpdateStatusRequest struct {
 
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.
 const AccountUpdateStatusRequestTypeID = 0x6628562c
+
+// String implements fmt.Stringer.
+func (u *AccountUpdateStatusRequest) String() string {
+	if u == nil {
+		return "AccountUpdateStatusRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdateStatusRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOffline: ")
+	sb.WriteString(fmt.Sprint(u.Offline))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UserAuth represents TL type `user.auth#f4815592`.
 //
@@ -24,6 +26,21 @@ type UserAuth struct {
 
 // UserAuthTypeID is TL type id of UserAuth.
 const UserAuthTypeID = 0xf4815592
+
+// String implements fmt.Stringer.
+func (a *UserAuth) String() string {
+	if a == nil {
+		return "UserAuth(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserAuth")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFoo: ")
+	sb.WriteString(fmt.Sprint(a.Foo))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *UserAuth) Encode(b *bin.Buffer) error {
@@ -74,6 +91,21 @@ type UserAuthPassword struct {
 
 // UserAuthPasswordTypeID is TL type id of UserAuthPassword.
 const UserAuthPasswordTypeID = 0x5981e317
+
+// String implements fmt.Stringer.
+func (a *UserAuthPassword) String() string {
+	if a == nil {
+		return "UserAuthPassword(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserAuthPassword")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPwd: ")
+	sb.WriteString(fmt.Sprint(a.Pwd))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *UserAuthPassword) Encode(b *bin.Buffer) error {
@@ -132,6 +164,7 @@ type UserAuthClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserAuthClass
+	fmt.Stringer
 }
 
 // DecodeUserAuth implements binary de-serialization for UserAuthClass.

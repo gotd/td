@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetOnlinesRequest represents TL type `messages.getOnlines#6e2be050`.
 // Get count of online users in a chat
@@ -25,6 +27,21 @@ type MessagesGetOnlinesRequest struct {
 
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
 const MessagesGetOnlinesRequestTypeID = 0x6e2be050
+
+// String implements fmt.Stringer.
+func (g *MessagesGetOnlinesRequest) String() string {
+	if g == nil {
+		return "MessagesGetOnlinesRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetOnlinesRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(g.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetOnlinesRequest) Encode(b *bin.Buffer) error {

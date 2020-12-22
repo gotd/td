@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BotInfo represents TL type `botInfo#98e81d3a`.
 // Info about bots (available bot commands, etc)
@@ -29,6 +31,29 @@ type BotInfo struct {
 
 // BotInfoTypeID is TL type id of BotInfo.
 const BotInfoTypeID = 0x98e81d3a
+
+// String implements fmt.Stringer.
+func (b *BotInfo) String() string {
+	if b == nil {
+		return "BotInfo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInfo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(b.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDescription: ")
+	sb.WriteString(fmt.Sprint(b.Description))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range b.Commands {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BotInfo) Encode(buf *bin.Buffer) error {

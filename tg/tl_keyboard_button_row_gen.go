@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // KeyboardButtonRow represents TL type `keyboardButtonRow#77608b83`.
 // Inline keyboard row
@@ -25,6 +27,23 @@ type KeyboardButtonRow struct {
 
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.
 const KeyboardButtonRowTypeID = 0x77608b83
+
+// String implements fmt.Stringer.
+func (k *KeyboardButtonRow) String() string {
+	if k == nil {
+		return "KeyboardButtonRow(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("KeyboardButtonRow")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range k.Buttons {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {

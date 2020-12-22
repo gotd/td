@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SendMessageTypingAction represents TL type `sendMessageTypingAction#16bf744e`.
 // User is typing.
@@ -23,6 +25,18 @@ type SendMessageTypingAction struct {
 
 // SendMessageTypingActionTypeID is TL type id of SendMessageTypingAction.
 const SendMessageTypingActionTypeID = 0x16bf744e
+
+// String implements fmt.Stringer.
+func (s *SendMessageTypingAction) String() string {
+	if s == nil {
+		return "SendMessageTypingAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageTypingAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
@@ -65,6 +79,18 @@ type SendMessageCancelAction struct {
 // SendMessageCancelActionTypeID is TL type id of SendMessageCancelAction.
 const SendMessageCancelActionTypeID = 0xfd5ec8f5
 
+// String implements fmt.Stringer.
+func (s *SendMessageCancelAction) String() string {
+	if s == nil {
+		return "SendMessageCancelAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageCancelAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageCancelAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -105,6 +131,18 @@ type SendMessageRecordVideoAction struct {
 
 // SendMessageRecordVideoActionTypeID is TL type id of SendMessageRecordVideoAction.
 const SendMessageRecordVideoActionTypeID = 0xa187d66f
+
+// String implements fmt.Stringer.
+func (s *SendMessageRecordVideoAction) String() string {
+	if s == nil {
+		return "SendMessageRecordVideoAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageRecordVideoAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordVideoAction) Encode(b *bin.Buffer) error {
@@ -148,6 +186,21 @@ type SendMessageUploadVideoAction struct {
 
 // SendMessageUploadVideoActionTypeID is TL type id of SendMessageUploadVideoAction.
 const SendMessageUploadVideoActionTypeID = 0xe9763aec
+
+// String implements fmt.Stringer.
+func (s *SendMessageUploadVideoAction) String() string {
+	if s == nil {
+		return "SendMessageUploadVideoAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageUploadVideoAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
@@ -198,6 +251,18 @@ type SendMessageRecordAudioAction struct {
 // SendMessageRecordAudioActionTypeID is TL type id of SendMessageRecordAudioAction.
 const SendMessageRecordAudioActionTypeID = 0xd52f73f7
 
+// String implements fmt.Stringer.
+func (s *SendMessageRecordAudioAction) String() string {
+	if s == nil {
+		return "SendMessageRecordAudioAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageRecordAudioAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordAudioAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -240,6 +305,21 @@ type SendMessageUploadAudioAction struct {
 
 // SendMessageUploadAudioActionTypeID is TL type id of SendMessageUploadAudioAction.
 const SendMessageUploadAudioActionTypeID = 0xf351d7ab
+
+// String implements fmt.Stringer.
+func (s *SendMessageUploadAudioAction) String() string {
+	if s == nil {
+		return "SendMessageUploadAudioAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageUploadAudioAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
@@ -292,6 +372,21 @@ type SendMessageUploadPhotoAction struct {
 // SendMessageUploadPhotoActionTypeID is TL type id of SendMessageUploadPhotoAction.
 const SendMessageUploadPhotoActionTypeID = 0xd1d34a26
 
+// String implements fmt.Stringer.
+func (s *SendMessageUploadPhotoAction) String() string {
+	if s == nil {
+		return "SendMessageUploadPhotoAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageUploadPhotoAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -343,6 +438,21 @@ type SendMessageUploadDocumentAction struct {
 // SendMessageUploadDocumentActionTypeID is TL type id of SendMessageUploadDocumentAction.
 const SendMessageUploadDocumentActionTypeID = 0xaa0cd9e4
 
+// String implements fmt.Stringer.
+func (s *SendMessageUploadDocumentAction) String() string {
+	if s == nil {
+		return "SendMessageUploadDocumentAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageUploadDocumentAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -392,6 +502,18 @@ type SendMessageGeoLocationAction struct {
 // SendMessageGeoLocationActionTypeID is TL type id of SendMessageGeoLocationAction.
 const SendMessageGeoLocationActionTypeID = 0x176f8ba1
 
+// String implements fmt.Stringer.
+func (s *SendMessageGeoLocationAction) String() string {
+	if s == nil {
+		return "SendMessageGeoLocationAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageGeoLocationAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageGeoLocationAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -432,6 +554,18 @@ type SendMessageChooseContactAction struct {
 
 // SendMessageChooseContactActionTypeID is TL type id of SendMessageChooseContactAction.
 const SendMessageChooseContactActionTypeID = 0x628cbc6f
+
+// String implements fmt.Stringer.
+func (s *SendMessageChooseContactAction) String() string {
+	if s == nil {
+		return "SendMessageChooseContactAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageChooseContactAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageChooseContactAction) Encode(b *bin.Buffer) error {
@@ -474,6 +608,18 @@ type SendMessageGamePlayAction struct {
 // SendMessageGamePlayActionTypeID is TL type id of SendMessageGamePlayAction.
 const SendMessageGamePlayActionTypeID = 0xdd6a8f48
 
+// String implements fmt.Stringer.
+func (s *SendMessageGamePlayAction) String() string {
+	if s == nil {
+		return "SendMessageGamePlayAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageGamePlayAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageGamePlayAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -514,6 +660,18 @@ type SendMessageRecordRoundAction struct {
 
 // SendMessageRecordRoundActionTypeID is TL type id of SendMessageRecordRoundAction.
 const SendMessageRecordRoundActionTypeID = 0x88f27fbc
+
+// String implements fmt.Stringer.
+func (s *SendMessageRecordRoundAction) String() string {
+	if s == nil {
+		return "SendMessageRecordRoundAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageRecordRoundAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordRoundAction) Encode(b *bin.Buffer) error {
@@ -557,6 +715,21 @@ type SendMessageUploadRoundAction struct {
 
 // SendMessageUploadRoundActionTypeID is TL type id of SendMessageUploadRoundAction.
 const SendMessageUploadRoundActionTypeID = 0x243e1c66
+
+// String implements fmt.Stringer.
+func (s *SendMessageUploadRoundAction) String() string {
+	if s == nil {
+		return "SendMessageUploadRoundAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageUploadRoundAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
@@ -626,6 +799,7 @@ type SendMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SendMessageActionClass
+	fmt.Stringer
 }
 
 // DecodeSendMessageAction implements binary de-serialization for SendMessageActionClass.

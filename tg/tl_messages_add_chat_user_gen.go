@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAddChatUserRequest represents TL type `messages.addChatUser#f9a0aa09`.
 // Adds a user to a chat and sends a service message on it.
@@ -29,6 +31,27 @@ type MessagesAddChatUserRequest struct {
 
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
 const MessagesAddChatUserRequestTypeID = 0xf9a0aa09
+
+// String implements fmt.Stringer.
+func (a *MessagesAddChatUserRequest) String() string {
+	if a == nil {
+		return "MessagesAddChatUserRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAddChatUserRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(a.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(a.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFwdLimit: ")
+	sb.WriteString(fmt.Sprint(a.FwdLimit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {

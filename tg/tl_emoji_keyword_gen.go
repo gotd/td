@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EmojiKeyword represents TL type `emojiKeyword#d5b3b9f9`.
 // Emoji keyword
@@ -27,6 +29,26 @@ type EmojiKeyword struct {
 
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
 const EmojiKeywordTypeID = 0xd5b3b9f9
+
+// String implements fmt.Stringer.
+func (e *EmojiKeyword) String() string {
+	if e == nil {
+		return "EmojiKeyword(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EmojiKeyword")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKeyword: ")
+	sb.WriteString(fmt.Sprint(e.Keyword))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range e.Emoticons {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
@@ -97,6 +119,26 @@ type EmojiKeywordDeleted struct {
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.
 const EmojiKeywordDeletedTypeID = 0x236df622
+
+// String implements fmt.Stringer.
+func (e *EmojiKeywordDeleted) String() string {
+	if e == nil {
+		return "EmojiKeywordDeleted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EmojiKeywordDeleted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tKeyword: ")
+	sb.WriteString(fmt.Sprint(e.Keyword))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range e.Emoticons {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
@@ -172,6 +214,7 @@ type EmojiKeywordClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EmojiKeywordClass
+	fmt.Stringer
 }
 
 // DecodeEmojiKeyword implements binary de-serialization for EmojiKeywordClass.

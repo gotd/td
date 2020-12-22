@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PollResults represents TL type `pollResults#badcc1a3`.
 // Results of poll
@@ -47,6 +49,52 @@ type PollResults struct {
 
 // PollResultsTypeID is TL type id of PollResults.
 const PollResultsTypeID = 0xbadcc1a3
+
+// String implements fmt.Stringer.
+func (p *PollResults) String() string {
+	if p == nil {
+		return "PollResults(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PollResults")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range p.Results {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tTotalVoters: ")
+		sb.WriteString(fmt.Sprint(p.TotalVoters))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range p.RecentVoters {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if p.Flags.Has(4) {
+		sb.WriteString("\tSolution: ")
+		sb.WriteString(fmt.Sprint(p.Solution))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(4) {
+		sb.WriteByte('[')
+		for _, v := range p.SolutionEntities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PollResults) Encode(b *bin.Buffer) error {

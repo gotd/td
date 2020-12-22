@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendEncryptedFileRequest represents TL type `messages.sendEncryptedFile#5559481d`.
 // Sends a message with a file attachment to a secret chat
@@ -35,6 +37,33 @@ type MessagesSendEncryptedFileRequest struct {
 
 // MessagesSendEncryptedFileRequestTypeID is TL type id of MessagesSendEncryptedFileRequest.
 const MessagesSendEncryptedFileRequestTypeID = 0x5559481d
+
+// String implements fmt.Stringer.
+func (s *MessagesSendEncryptedFileRequest) String() string {
+	if s == nil {
+		return "MessagesSendEncryptedFileRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendEncryptedFileRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(s.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(s.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFile: ")
+	sb.WriteString(s.File.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsGetPaymentFormRequest represents TL type `payments.getPaymentForm#99f09745`.
 // Get a payment form
@@ -25,6 +27,21 @@ type PaymentsGetPaymentFormRequest struct {
 
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
 const PaymentsGetPaymentFormRequestTypeID = 0x99f09745
+
+// String implements fmt.Stringer.
+func (g *PaymentsGetPaymentFormRequest) String() string {
+	if g == nil {
+		return "PaymentsGetPaymentFormRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsGetPaymentFormRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(g.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {

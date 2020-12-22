@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneSendSignalingDataRequest represents TL type `phone.sendSignalingData#ff7a9383`.
 // Send VoIP signaling data
@@ -27,6 +29,24 @@ type PhoneSendSignalingDataRequest struct {
 
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
 const PhoneSendSignalingDataRequestTypeID = 0xff7a9383
+
+// String implements fmt.Stringer.
+func (s *PhoneSendSignalingDataRequest) String() string {
+	if s == nil {
+		return "PhoneSendSignalingDataRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneSendSignalingDataRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(fmt.Sprint(s.Data))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {

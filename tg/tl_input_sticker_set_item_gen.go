@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputStickerSetItem represents TL type `inputStickerSetItem#ffa0a496`.
 // Sticker in a stickerset
@@ -33,6 +35,32 @@ type InputStickerSetItem struct {
 
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
 const InputStickerSetItemTypeID = 0xffa0a496
+
+// String implements fmt.Stringer.
+func (i *InputStickerSetItem) String() string {
+	if i == nil {
+		return "InputStickerSetItem(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickerSetItem")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDocument: ")
+	sb.WriteString(i.Document.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tEmoji: ")
+	sb.WriteString(fmt.Sprint(i.Emoji))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tMaskCoords: ")
+		sb.WriteString(i.MaskCoords.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {

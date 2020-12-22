@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputSecureValue represents TL type `inputSecureValue#db21d0a7`.
 // Secure value, for more info see the passport docs »
@@ -55,6 +57,63 @@ type InputSecureValue struct {
 
 // InputSecureValueTypeID is TL type id of InputSecureValue.
 const InputSecureValueTypeID = 0xdb21d0a7
+
+// String implements fmt.Stringer.
+func (i *InputSecureValue) String() string {
+	if i == nil {
+		return "InputSecureValue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputSecureValue")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(i.Type.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tData: ")
+		sb.WriteString(i.Data.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tFrontSide: ")
+		sb.WriteString(i.FrontSide.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(2) {
+		sb.WriteString("\tReverseSide: ")
+		sb.WriteString(i.ReverseSide.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(3) {
+		sb.WriteString("\tSelfie: ")
+		sb.WriteString(i.Selfie.String())
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(6) {
+		sb.WriteByte('[')
+		for _, v := range i.Translation {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(4) {
+		sb.WriteByte('[')
+		for _, v := range i.Files {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if i.Flags.Has(5) {
+		sb.WriteString("\tPlainData: ")
+		sb.WriteString(i.PlainData.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputSecureValue) Encode(b *bin.Buffer) error {

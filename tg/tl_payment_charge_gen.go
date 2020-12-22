@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentCharge represents TL type `paymentCharge#ea02c27e`.
 // Payment identifier
@@ -27,6 +29,24 @@ type PaymentCharge struct {
 
 // PaymentChargeTypeID is TL type id of PaymentCharge.
 const PaymentChargeTypeID = 0xea02c27e
+
+// String implements fmt.Stringer.
+func (p *PaymentCharge) String() string {
+	if p == nil {
+		return "PaymentCharge(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentCharge")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProviderChargeID: ")
+	sb.WriteString(fmt.Sprint(p.ProviderChargeID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentCharge) Encode(b *bin.Buffer) error {

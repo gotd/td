@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAffectedMessages represents TL type `messages.affectedMessages#84d19185`.
 // Events affected by operation
@@ -27,6 +29,24 @@ type MessagesAffectedMessages struct {
 
 // MessagesAffectedMessagesTypeID is TL type id of MessagesAffectedMessages.
 const MessagesAffectedMessagesTypeID = 0x84d19185
+
+// String implements fmt.Stringer.
+func (a *MessagesAffectedMessages) String() string {
+	if a == nil {
+		return "MessagesAffectedMessages(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAffectedMessages")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPts: ")
+	sb.WriteString(fmt.Sprint(a.Pts))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPtsCount: ")
+	sb.WriteString(fmt.Sprint(a.PtsCount))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {

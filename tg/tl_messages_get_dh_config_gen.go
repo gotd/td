@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
 // Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
@@ -27,6 +29,24 @@ type MessagesGetDhConfigRequest struct {
 
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
 const MessagesGetDhConfigRequestTypeID = 0x26cf8950
+
+// String implements fmt.Stringer.
+func (g *MessagesGetDhConfigRequest) String() string {
+	if g == nil {
+		return "MessagesGetDhConfigRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetDhConfigRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(g.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomLength: ")
+	sb.WriteString(fmt.Sprint(g.RandomLength))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {

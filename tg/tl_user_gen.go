@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
 // Empty constructor, non-existent user.
@@ -25,6 +27,21 @@ type UserEmpty struct {
 
 // UserEmptyTypeID is TL type id of UserEmpty.
 const UserEmptyTypeID = 0x200250ba
+
+// String implements fmt.Stringer.
+func (u *UserEmpty) String() string {
+	if u == nil {
+		return "UserEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UserEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UserEmpty) Encode(b *bin.Buffer) error {
@@ -150,6 +167,81 @@ type User struct {
 
 // UserTypeID is TL type id of User.
 const UserTypeID = 0x938458c1
+
+// String implements fmt.Stringer.
+func (u *User) String() string {
+	if u == nil {
+		return "User(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("User")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(u.ID))
+	sb.WriteString(",\n")
+	if u.Flags.Has(0) {
+		sb.WriteString("\tAccessHash: ")
+		sb.WriteString(fmt.Sprint(u.AccessHash))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tFirstName: ")
+		sb.WriteString(fmt.Sprint(u.FirstName))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(2) {
+		sb.WriteString("\tLastName: ")
+		sb.WriteString(fmt.Sprint(u.LastName))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(3) {
+		sb.WriteString("\tUsername: ")
+		sb.WriteString(fmt.Sprint(u.Username))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(4) {
+		sb.WriteString("\tPhone: ")
+		sb.WriteString(fmt.Sprint(u.Phone))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(5) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(u.Photo.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(6) {
+		sb.WriteString("\tStatus: ")
+		sb.WriteString(u.Status.String())
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(14) {
+		sb.WriteString("\tBotInfoVersion: ")
+		sb.WriteString(fmt.Sprint(u.BotInfoVersion))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(18) {
+		sb.WriteByte('[')
+		for _, v := range u.RestrictionReason {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if u.Flags.Has(19) {
+		sb.WriteString("\tBotInlinePlaceholder: ")
+		sb.WriteString(fmt.Sprint(u.BotInlinePlaceholder))
+		sb.WriteString(",\n")
+	}
+	if u.Flags.Has(22) {
+		sb.WriteString("\tLangCode: ")
+		sb.WriteString(fmt.Sprint(u.LangCode))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
@@ -652,6 +744,7 @@ type UserClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserClass
+	fmt.Stringer
 }
 
 // DecodeUser implements binary de-serialization for UserClass.

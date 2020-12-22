@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDialogs represents TL type `messages.dialogs#15ba6c40`.
 // Full list of chats with messages and auxiliary data.
@@ -31,6 +33,38 @@ type MessagesDialogs struct {
 
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
 const MessagesDialogsTypeID = 0x15ba6c40
+
+// String implements fmt.Stringer.
+func (d *MessagesDialogs) String() string {
+	if d == nil {
+		return "MessagesDialogs(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDialogs")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range d.Dialogs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
@@ -171,6 +205,41 @@ type MessagesDialogsSlice struct {
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
 const MessagesDialogsSliceTypeID = 0x71e094f3
 
+// String implements fmt.Stringer.
+func (d *MessagesDialogsSlice) String() string {
+	if d == nil {
+		return "MessagesDialogsSlice(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDialogsSlice")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(d.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range d.Dialogs {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Messages {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range d.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -310,6 +379,21 @@ type MessagesDialogsNotModified struct {
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.
 const MessagesDialogsNotModifiedTypeID = 0xf0e3e596
 
+// String implements fmt.Stringer.
+func (d *MessagesDialogsNotModified) String() string {
+	if d == nil {
+		return "MessagesDialogsNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDialogsNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(d.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -368,6 +452,7 @@ type MessagesDialogsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesDialogsClass
+	fmt.Stringer
 }
 
 // DecodeMessagesDialogs implements binary de-serialization for MessagesDialogsClass.

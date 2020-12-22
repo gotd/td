@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsContactsNotModified represents TL type `contacts.contactsNotModified#b74ba9d2`.
 // Contact list on the server is the same as the list on the client.
@@ -23,6 +25,18 @@ type ContactsContactsNotModified struct {
 
 // ContactsContactsNotModifiedTypeID is TL type id of ContactsContactsNotModified.
 const ContactsContactsNotModifiedTypeID = 0xb74ba9d2
+
+// String implements fmt.Stringer.
+func (c *ContactsContactsNotModified) String() string {
+	if c == nil {
+		return "ContactsContactsNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsContactsNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ContactsContactsNotModified) Encode(b *bin.Buffer) error {
@@ -70,6 +84,31 @@ type ContactsContacts struct {
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
 const ContactsContactsTypeID = 0xeae87e42
+
+// String implements fmt.Stringer.
+func (c *ContactsContacts) String() string {
+	if c == nil {
+		return "ContactsContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsContacts")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range c.Contacts {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tSavedCount: ")
+	sb.WriteString(fmt.Sprint(c.SavedCount))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ContactsContacts) Encode(b *bin.Buffer) error {
@@ -169,6 +208,7 @@ type ContactsContactsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ContactsContactsClass
+	fmt.Stringer
 }
 
 // DecodeContactsContacts implements binary de-serialization for ContactsContactsClass.

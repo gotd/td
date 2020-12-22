@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsChannelParticipant represents TL type `channels.channelParticipant#d0d9b163`.
 // Represents a channel participant
@@ -27,6 +29,26 @@ type ChannelsChannelParticipant struct {
 
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.
 const ChannelsChannelParticipantTypeID = 0xd0d9b163
+
+// String implements fmt.Stringer.
+func (c *ChannelsChannelParticipant) String() string {
+	if c == nil {
+		return "ChannelsChannelParticipant(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsChannelParticipant")
+	sb.WriteString("{\n")
+	sb.WriteString("\tParticipant: ")
+	sb.WriteString(c.Participant.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipant) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Message represents TL type `message#ec200d96`.
 //
@@ -24,6 +26,21 @@ type Message struct {
 
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0xec200d96
+
+// String implements fmt.Stringer.
+func (m *Message) String() string {
+	if m == nil {
+		return "Message(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Message")
+	sb.WriteString("{\n")
+	sb.WriteString("\tErr: ")
+	sb.WriteString(m.Err.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {

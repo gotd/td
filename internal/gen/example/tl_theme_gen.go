@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Theme represents TL type `theme#28f1114`.
 //
@@ -24,6 +26,21 @@ type Theme struct {
 
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
+
+// String implements fmt.Stringer.
+func (t *Theme) String() string {
+	if t == nil {
+		return "Theme(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Theme")
+	sb.WriteString("{\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(t.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {

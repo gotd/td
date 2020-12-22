@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthImportBotAuthorizationRequest represents TL type `auth.importBotAuthorization#67a3ff2c`.
 // Login as a bot
@@ -31,6 +33,30 @@ type AuthImportBotAuthorizationRequest struct {
 
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.
 const AuthImportBotAuthorizationRequestTypeID = 0x67a3ff2c
+
+// String implements fmt.Stringer.
+func (i *AuthImportBotAuthorizationRequest) String() string {
+	if i == nil {
+		return "AuthImportBotAuthorizationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthImportBotAuthorizationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(fmt.Sprint(i.Flags))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIID: ")
+	sb.WriteString(fmt.Sprint(i.APIID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAPIHash: ")
+	sb.WriteString(fmt.Sprint(i.APIHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBotAuthToken: ")
+	sb.WriteString(fmt.Sprint(i.BotAuthToken))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureValueHash represents TL type `secureValueHash#ed1ecdb0`.
 // Secure value hash
@@ -27,6 +29,24 @@ type SecureValueHash struct {
 
 // SecureValueHashTypeID is TL type id of SecureValueHash.
 const SecureValueHashTypeID = 0xed1ecdb0
+
+// String implements fmt.Stringer.
+func (s *SecureValueHash) String() string {
+	if s == nil {
+		return "SecureValueHash(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureValueHash")
+	sb.WriteString("{\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(s.Type.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(s.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureValueHash) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TextEmpty represents TL type `textEmpty#dc3d824f`.
 // Empty rich text element
@@ -23,6 +25,18 @@ type TextEmpty struct {
 
 // TextEmptyTypeID is TL type id of TextEmpty.
 const TextEmptyTypeID = 0xdc3d824f
+
+// String implements fmt.Stringer.
+func (t *TextEmpty) String() string {
+	if t == nil {
+		return "TextEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEmpty) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type TextPlain struct {
 
 // TextPlainTypeID is TL type id of TextPlain.
 const TextPlainTypeID = 0x744694e0
+
+// String implements fmt.Stringer.
+func (t *TextPlain) String() string {
+	if t == nil {
+		return "TextPlain(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextPlain")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(t.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextPlain) Encode(b *bin.Buffer) error {
@@ -117,6 +146,21 @@ type TextBold struct {
 
 // TextBoldTypeID is TL type id of TextBold.
 const TextBoldTypeID = 0x6724abc4
+
+// String implements fmt.Stringer.
+func (t *TextBold) String() string {
+	if t == nil {
+		return "TextBold(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextBold")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextBold) Encode(b *bin.Buffer) error {
@@ -174,6 +218,21 @@ type TextItalic struct {
 // TextItalicTypeID is TL type id of TextItalic.
 const TextItalicTypeID = 0xd912a59c
 
+// String implements fmt.Stringer.
+func (t *TextItalic) String() string {
+	if t == nil {
+		return "TextItalic(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextItalic")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextItalic) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -229,6 +288,21 @@ type TextUnderline struct {
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
 const TextUnderlineTypeID = 0xc12622c4
+
+// String implements fmt.Stringer.
+func (t *TextUnderline) String() string {
+	if t == nil {
+		return "TextUnderline(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextUnderline")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextUnderline) Encode(b *bin.Buffer) error {
@@ -286,6 +360,21 @@ type TextStrike struct {
 // TextStrikeTypeID is TL type id of TextStrike.
 const TextStrikeTypeID = 0x9bf8bb95
 
+// String implements fmt.Stringer.
+func (t *TextStrike) String() string {
+	if t == nil {
+		return "TextStrike(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextStrike")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextStrike) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -341,6 +430,21 @@ type TextFixed struct {
 
 // TextFixedTypeID is TL type id of TextFixed.
 const TextFixedTypeID = 0x6c3f19b9
+
+// String implements fmt.Stringer.
+func (t *TextFixed) String() string {
+	if t == nil {
+		return "TextFixed(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextFixed")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextFixed) Encode(b *bin.Buffer) error {
@@ -401,6 +505,27 @@ type TextUrl struct {
 
 // TextUrlTypeID is TL type id of TextUrl.
 const TextUrlTypeID = 0x3c2884c1
+
+// String implements fmt.Stringer.
+func (t *TextUrl) String() string {
+	if t == nil {
+		return "TextUrl(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextUrl")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(t.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("\tWebpageID: ")
+	sb.WriteString(fmt.Sprint(t.WebpageID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextUrl) Encode(b *bin.Buffer) error {
@@ -476,6 +601,24 @@ type TextEmail struct {
 // TextEmailTypeID is TL type id of TextEmail.
 const TextEmailTypeID = 0xde5a0dd6
 
+// String implements fmt.Stringer.
+func (t *TextEmail) String() string {
+	if t == nil {
+		return "TextEmail(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEmail")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tEmail: ")
+	sb.WriteString(fmt.Sprint(t.Email))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEmail) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -539,6 +682,23 @@ type TextConcat struct {
 
 // TextConcatTypeID is TL type id of TextConcat.
 const TextConcatTypeID = 0x7e6260d7
+
+// String implements fmt.Stringer.
+func (t *TextConcat) String() string {
+	if t == nil {
+		return "TextConcat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextConcat")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range t.Texts {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextConcat) Encode(b *bin.Buffer) error {
@@ -605,6 +765,21 @@ type TextSubscript struct {
 // TextSubscriptTypeID is TL type id of TextSubscript.
 const TextSubscriptTypeID = 0xed6a8504
 
+// String implements fmt.Stringer.
+func (t *TextSubscript) String() string {
+	if t == nil {
+		return "TextSubscript(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextSubscript")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextSubscript) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -661,6 +836,21 @@ type TextSuperscript struct {
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
 const TextSuperscriptTypeID = 0xc7fb5e01
 
+// String implements fmt.Stringer.
+func (t *TextSuperscript) String() string {
+	if t == nil {
+		return "TextSuperscript(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextSuperscript")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -716,6 +906,21 @@ type TextMarked struct {
 
 // TextMarkedTypeID is TL type id of TextMarked.
 const TextMarkedTypeID = 0x34b8621
+
+// String implements fmt.Stringer.
+func (t *TextMarked) String() string {
+	if t == nil {
+		return "TextMarked(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextMarked")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextMarked) Encode(b *bin.Buffer) error {
@@ -774,6 +979,24 @@ type TextPhone struct {
 
 // TextPhoneTypeID is TL type id of TextPhone.
 const TextPhoneTypeID = 0x1ccb966a
+
+// String implements fmt.Stringer.
+func (t *TextPhone) String() string {
+	if t == nil {
+		return "TextPhone(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextPhone")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhone: ")
+	sb.WriteString(fmt.Sprint(t.Phone))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextPhone) Encode(b *bin.Buffer) error {
@@ -843,6 +1066,27 @@ type TextImage struct {
 // TextImageTypeID is TL type id of TextImage.
 const TextImageTypeID = 0x81ccf4f
 
+// String implements fmt.Stringer.
+func (t *TextImage) String() string {
+	if t == nil {
+		return "TextImage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextImage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDocumentID: ")
+	sb.WriteString(fmt.Sprint(t.DocumentID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tW: ")
+	sb.WriteString(fmt.Sprint(t.W))
+	sb.WriteString(",\n")
+	sb.WriteString("\tH: ")
+	sb.WriteString(fmt.Sprint(t.H))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (t *TextImage) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -911,6 +1155,24 @@ type TextAnchor struct {
 
 // TextAnchorTypeID is TL type id of TextAnchor.
 const TextAnchorTypeID = 0x35553762
+
+// String implements fmt.Stringer.
+func (t *TextAnchor) String() string {
+	if t == nil {
+		return "TextAnchor(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextAnchor")
+	sb.WriteString("{\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(t.Text.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tName: ")
+	sb.WriteString(fmt.Sprint(t.Name))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextAnchor) Encode(b *bin.Buffer) error {
@@ -996,6 +1258,7 @@ type RichTextClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() RichTextClass
+	fmt.Stringer
 }
 
 // DecodeRichText implements binary de-serialization for RichTextClass.

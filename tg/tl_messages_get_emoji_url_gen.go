@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetEmojiURLRequest represents TL type `messages.getEmojiURL#d5b10c26`.
 // Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
@@ -25,6 +27,21 @@ type MessagesGetEmojiURLRequest struct {
 
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.
 const MessagesGetEmojiURLRequestTypeID = 0xd5b10c26
+
+// String implements fmt.Stringer.
+func (g *MessagesGetEmojiURLRequest) String() string {
+	if g == nil {
+		return "MessagesGetEmojiURLRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetEmojiURLRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLangCode: ")
+	sb.WriteString(fmt.Sprint(g.LangCode))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiURLRequest) Encode(b *bin.Buffer) error {

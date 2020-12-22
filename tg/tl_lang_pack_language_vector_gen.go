@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LangPackLanguageVector is a box for Vector<LangPackLanguage>
 type LangPackLanguageVector struct {
 	// Elements of Vector<LangPackLanguage>
 	Elems []LangPackLanguage
+}
+
+// String implements fmt.Stringer.
+func (vec *LangPackLanguageVector) String() string {
+	if vec == nil {
+		return "LangPackLanguageVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LangPackLanguageVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

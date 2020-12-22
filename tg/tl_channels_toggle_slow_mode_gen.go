@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsToggleSlowModeRequest represents TL type `channels.toggleSlowMode#edd49ef0`.
 // Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
@@ -27,6 +29,24 @@ type ChannelsToggleSlowModeRequest struct {
 
 // ChannelsToggleSlowModeRequestTypeID is TL type id of ChannelsToggleSlowModeRequest.
 const ChannelsToggleSlowModeRequestTypeID = 0xedd49ef0
+
+// String implements fmt.Stringer.
+func (t *ChannelsToggleSlowModeRequest) String() string {
+	if t == nil {
+		return "ChannelsToggleSlowModeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsToggleSlowModeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(t.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSeconds: ")
+	sb.WriteString(fmt.Sprint(t.Seconds))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSlowModeRequest) Encode(b *bin.Buffer) error {

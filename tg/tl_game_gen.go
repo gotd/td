@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Game represents TL type `game#bdf9653b`.
 // Indicates an already sent game
@@ -41,6 +43,44 @@ type Game struct {
 
 // GameTypeID is TL type id of Game.
 const GameTypeID = 0xbdf9653b
+
+// String implements fmt.Stringer.
+func (g *Game) String() string {
+	if g == nil {
+		return "Game(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Game")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(g.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(g.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(g.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tShortName: ")
+	sb.WriteString(fmt.Sprint(g.ShortName))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTitle: ")
+	sb.WriteString(fmt.Sprint(g.Title))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDescription: ")
+	sb.WriteString(fmt.Sprint(g.Description))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoto: ")
+	sb.WriteString(g.Photo.String())
+	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(g.Document.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *Game) Encode(b *bin.Buffer) error {

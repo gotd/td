@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputPaymentCredentialsSaved represents TL type `inputPaymentCredentialsSaved#c10eb2cf`.
 // Saved payment credentials
@@ -27,6 +29,24 @@ type InputPaymentCredentialsSaved struct {
 
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
 const InputPaymentCredentialsSavedTypeID = 0xc10eb2cf
+
+// String implements fmt.Stringer.
+func (i *InputPaymentCredentialsSaved) String() string {
+	if i == nil {
+		return "InputPaymentCredentialsSaved(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPaymentCredentialsSaved")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tTmpPassword: ")
+	sb.WriteString(fmt.Sprint(i.TmpPassword))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
@@ -90,6 +110,24 @@ type InputPaymentCredentials struct {
 
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
 const InputPaymentCredentialsTypeID = 0x3417d728
+
+// String implements fmt.Stringer.
+func (i *InputPaymentCredentials) String() string {
+	if i == nil {
+		return "InputPaymentCredentials(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPaymentCredentials")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tData: ")
+	sb.WriteString(i.Data.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
@@ -160,6 +198,21 @@ type InputPaymentCredentialsApplePay struct {
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
 const InputPaymentCredentialsApplePayTypeID = 0xaa1c39f
 
+// String implements fmt.Stringer.
+func (i *InputPaymentCredentialsApplePay) String() string {
+	if i == nil {
+		return "InputPaymentCredentialsApplePay(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPaymentCredentialsApplePay")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPaymentData: ")
+	sb.WriteString(i.PaymentData.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -212,6 +265,24 @@ type InputPaymentCredentialsAndroidPay struct {
 
 // InputPaymentCredentialsAndroidPayTypeID is TL type id of InputPaymentCredentialsAndroidPay.
 const InputPaymentCredentialsAndroidPayTypeID = 0xca05d50e
+
+// String implements fmt.Stringer.
+func (i *InputPaymentCredentialsAndroidPay) String() string {
+	if i == nil {
+		return "InputPaymentCredentialsAndroidPay(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputPaymentCredentialsAndroidPay")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPaymentToken: ")
+	sb.WriteString(i.PaymentToken.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGoogleTransactionID: ")
+	sb.WriteString(fmt.Sprint(i.GoogleTransactionID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsAndroidPay) Encode(b *bin.Buffer) error {
@@ -280,6 +351,7 @@ type InputPaymentCredentialsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPaymentCredentialsClass
+	fmt.Stringer
 }
 
 // DecodeInputPaymentCredentials implements binary de-serialization for InputPaymentCredentialsClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ReceivedNotifyMessageVector is a box for Vector<ReceivedNotifyMessage>
 type ReceivedNotifyMessageVector struct {
 	// Elements of Vector<ReceivedNotifyMessage>
 	Elems []ReceivedNotifyMessage
+}
+
+// String implements fmt.Stringer.
+func (vec *ReceivedNotifyMessageVector) String() string {
+	if vec == nil {
+		return "ReceivedNotifyMessageVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReceivedNotifyMessageVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#e04232f3`.
 // Autodownload settings
@@ -41,6 +43,33 @@ type AutoDownloadSettings struct {
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
 const AutoDownloadSettingsTypeID = 0xe04232f3
+
+// String implements fmt.Stringer.
+func (a *AutoDownloadSettings) String() string {
+	if a == nil {
+		return "AutoDownloadSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AutoDownloadSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(a.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhotoSizeMax: ")
+	sb.WriteString(fmt.Sprint(a.PhotoSizeMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVideoSizeMax: ")
+	sb.WriteString(fmt.Sprint(a.VideoSizeMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tFileSizeMax: ")
+	sb.WriteString(fmt.Sprint(a.FileSizeMax))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVideoUploadMaxbitrate: ")
+	sb.WriteString(fmt.Sprint(a.VideoUploadMaxbitrate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {

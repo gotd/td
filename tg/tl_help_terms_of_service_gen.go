@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpTermsOfService represents TL type `help.termsOfService#780a0310`.
 // Info about the latest telegram Terms Of Service
@@ -37,6 +39,37 @@ type HelpTermsOfService struct {
 
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.
 const HelpTermsOfServiceTypeID = 0x780a0310
+
+// String implements fmt.Stringer.
+func (t *HelpTermsOfService) String() string {
+	if t == nil {
+		return "HelpTermsOfService(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpTermsOfService")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(t.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(t.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(t.Text))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range t.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	if t.Flags.Has(1) {
+		sb.WriteString("\tMinAgeConfirm: ")
+		sb.WriteString(fmt.Sprint(t.MinAgeConfirm))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {

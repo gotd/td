@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsExportMessageLinkRequest represents TL type `channels.exportMessageLink#e63fadeb`.
 // Get link and embed info of a message in a channel/supergroup
@@ -33,6 +35,27 @@ type ChannelsExportMessageLinkRequest struct {
 
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.
 const ChannelsExportMessageLinkRequestTypeID = 0xe63fadeb
+
+// String implements fmt.Stringer.
+func (e *ChannelsExportMessageLinkRequest) String() string {
+	if e == nil {
+		return "ChannelsExportMessageLinkRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsExportMessageLinkRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(e.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(e.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {

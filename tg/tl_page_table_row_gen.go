@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PageTableRow represents TL type `pageTableRow#e0c0c5e5`.
 // Table row
@@ -25,6 +27,23 @@ type PageTableRow struct {
 
 // PageTableRowTypeID is TL type id of PageTableRow.
 const PageTableRowTypeID = 0xe0c0c5e5
+
+// String implements fmt.Stringer.
+func (p *PageTableRow) String() string {
+	if p == nil {
+		return "PageTableRow(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PageTableRow")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Cells {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PageTableRow) Encode(b *bin.Buffer) error {

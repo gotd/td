@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
 // Intialize account takeout session
@@ -41,6 +43,26 @@ type AccountInitTakeoutSessionRequest struct {
 
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.
 const AccountInitTakeoutSessionRequestTypeID = 0xf05b4804
+
+// String implements fmt.Stringer.
+func (i *AccountInitTakeoutSessionRequest) String() string {
+	if i == nil {
+		return "AccountInitTakeoutSessionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountInitTakeoutSessionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	if i.Flags.Has(5) {
+		sb.WriteString("\tFileMaxSize: ")
+		sb.WriteString(fmt.Sprint(i.FileMaxSize))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {

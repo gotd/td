@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
 // Get folders
@@ -23,6 +25,18 @@ type MessagesGetDialogFiltersRequest struct {
 
 // MessagesGetDialogFiltersRequestTypeID is TL type id of MessagesGetDialogFiltersRequest.
 const MessagesGetDialogFiltersRequestTypeID = 0xf19ed96d
+
+// String implements fmt.Stringer.
+func (g *MessagesGetDialogFiltersRequest) String() string {
+	if g == nil {
+		return "MessagesGetDialogFiltersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetDialogFiltersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {

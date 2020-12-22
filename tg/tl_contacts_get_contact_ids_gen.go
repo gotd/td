@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactsGetContactIDsRequest represents TL type `contacts.getContactIDs#2caa4a42`.
 // Get contact by telegram IDs
@@ -25,6 +27,21 @@ type ContactsGetContactIDsRequest struct {
 
 // ContactsGetContactIDsRequestTypeID is TL type id of ContactsGetContactIDsRequest.
 const ContactsGetContactIDsRequestTypeID = 0x2caa4a42
+
+// String implements fmt.Stringer.
+func (g *ContactsGetContactIDsRequest) String() string {
+	if g == nil {
+		return "ContactsGetContactIDsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactsGetContactIDsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(g.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {

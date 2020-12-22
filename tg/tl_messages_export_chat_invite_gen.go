@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesExportChatInviteRequest represents TL type `messages.exportChatInvite#df7534c`.
 // Export an invite link for a chat
@@ -25,6 +27,21 @@ type MessagesExportChatInviteRequest struct {
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
 const MessagesExportChatInviteRequestTypeID = 0xdf7534c
+
+// String implements fmt.Stringer.
+func (e *MessagesExportChatInviteRequest) String() string {
+	if e == nil {
+		return "MessagesExportChatInviteRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesExportChatInviteRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(e.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // NewSessionCreated represents TL type `new_session_created#9ec20908`.
 type NewSessionCreated struct {
@@ -26,6 +28,27 @@ type NewSessionCreated struct {
 
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
 const NewSessionCreatedTypeID = 0x9ec20908
+
+// String implements fmt.Stringer.
+func (n *NewSessionCreated) String() string {
+	if n == nil {
+		return "NewSessionCreated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("NewSessionCreated")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFirstMsgID: ")
+	sb.WriteString(fmt.Sprint(n.FirstMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUniqueID: ")
+	sb.WriteString(fmt.Sprint(n.UniqueID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerSalt: ")
+	sb.WriteString(fmt.Sprint(n.ServerSalt))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (n *NewSessionCreated) Encode(b *bin.Buffer) error {

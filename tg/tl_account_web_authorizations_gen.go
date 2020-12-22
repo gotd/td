@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountWebAuthorizations represents TL type `account.webAuthorizations#ed56c9fc`.
 // Web authorizations
@@ -27,6 +29,28 @@ type AccountWebAuthorizations struct {
 
 // AccountWebAuthorizationsTypeID is TL type id of AccountWebAuthorizations.
 const AccountWebAuthorizationsTypeID = 0xed56c9fc
+
+// String implements fmt.Stringer.
+func (w *AccountWebAuthorizations) String() string {
+	if w == nil {
+		return "AccountWebAuthorizations(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountWebAuthorizations")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range w.Authorizations {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range w.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *AccountWebAuthorizations) Encode(b *bin.Buffer) error {

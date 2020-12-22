@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesInactiveChats represents TL type `messages.inactiveChats#a927fec5`.
 // Inactive chat list
@@ -29,6 +31,33 @@ type MessagesInactiveChats struct {
 
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.
 const MessagesInactiveChatsTypeID = 0xa927fec5
+
+// String implements fmt.Stringer.
+func (i *MessagesInactiveChats) String() string {
+	if i == nil {
+		return "MessagesInactiveChats(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesInactiveChats")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range i.Dates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range i.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range i.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {

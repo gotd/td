@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsSetStickersRequest represents TL type `channels.setStickers#ea8ca4f9`.
 // Associate a stickerset to the supergroup
@@ -27,6 +29,24 @@ type ChannelsSetStickersRequest struct {
 
 // ChannelsSetStickersRequestTypeID is TL type id of ChannelsSetStickersRequest.
 const ChannelsSetStickersRequestTypeID = 0xea8ca4f9
+
+// String implements fmt.Stringer.
+func (s *ChannelsSetStickersRequest) String() string {
+	if s == nil {
+		return "ChannelsSetStickersRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsSetStickersRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChannel: ")
+	sb.WriteString(s.Channel.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(s.Stickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {

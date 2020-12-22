@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageRange represents TL type `messageRange#ae30253`.
 // Indicates a range of chat messages
@@ -27,6 +29,24 @@ type MessageRange struct {
 
 // MessageRangeTypeID is TL type id of MessageRange.
 const MessageRangeTypeID = 0xae30253
+
+// String implements fmt.Stringer.
+func (m *MessageRange) String() string {
+	if m == nil {
+		return "MessageRange(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageRange")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMinID: ")
+	sb.WriteString(fmt.Sprint(m.MinID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(m.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageRange) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesFeaturedStickersNotModified represents TL type `messages.featuredStickersNotModified#c6dc0c66`.
 // Featured stickers haven't changed
@@ -25,6 +27,21 @@ type MessagesFeaturedStickersNotModified struct {
 
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
 const MessagesFeaturedStickersNotModifiedTypeID = 0xc6dc0c66
+
+// String implements fmt.Stringer.
+func (f *MessagesFeaturedStickersNotModified) String() string {
+	if f == nil {
+		return "MessagesFeaturedStickersNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFeaturedStickersNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(f.Count))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
@@ -82,6 +99,34 @@ type MessagesFeaturedStickers struct {
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
 const MessagesFeaturedStickersTypeID = 0xb6abc341
+
+// String implements fmt.Stringer.
+func (f *MessagesFeaturedStickers) String() string {
+	if f == nil {
+		return "MessagesFeaturedStickers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesFeaturedStickers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(f.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(f.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range f.Sets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range f.Unread {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
@@ -187,6 +232,7 @@ type MessagesFeaturedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFeaturedStickersClass
+	fmt.Stringer
 }
 
 // DecodeMessagesFeaturedStickers implements binary de-serialization for MessagesFeaturedStickersClass.

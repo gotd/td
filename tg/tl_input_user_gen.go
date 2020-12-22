@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputUserEmpty represents TL type `inputUserEmpty#b98886cf`.
 // Empty constructor, does not define a user.
@@ -23,6 +25,18 @@ type InputUserEmpty struct {
 
 // InputUserEmptyTypeID is TL type id of InputUserEmpty.
 const InputUserEmptyTypeID = 0xb98886cf
+
+// String implements fmt.Stringer.
+func (i *InputUserEmpty) String() string {
+	if i == nil {
+		return "InputUserEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputUserEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputUserEmpty) Encode(b *bin.Buffer) error {
@@ -64,6 +78,18 @@ type InputUserSelf struct {
 
 // InputUserSelfTypeID is TL type id of InputUserSelf.
 const InputUserSelfTypeID = 0xf7c1b13f
+
+// String implements fmt.Stringer.
+func (i *InputUserSelf) String() string {
+	if i == nil {
+		return "InputUserSelf(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputUserSelf")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputUserSelf) Encode(b *bin.Buffer) error {
@@ -109,6 +135,24 @@ type InputUser struct {
 
 // InputUserTypeID is TL type id of InputUser.
 const InputUserTypeID = 0xd8292816
+
+// String implements fmt.Stringer.
+func (i *InputUser) String() string {
+	if i == nil {
+		return "InputUser(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputUser")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(i.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(i.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputUser) Encode(b *bin.Buffer) error {
@@ -172,6 +216,27 @@ type InputUserFromMessage struct {
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
 const InputUserFromMessageTypeID = 0x2d117597
+
+// String implements fmt.Stringer.
+func (i *InputUserFromMessage) String() string {
+	if i == nil {
+		return "InputUserFromMessage(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputUserFromMessage")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(i.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(i.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputUserFromMessage) Encode(b *bin.Buffer) error {
@@ -253,6 +318,7 @@ type InputUserClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputUserClass
+	fmt.Stringer
 }
 
 // DecodeInputUser implements binary de-serialization for InputUserClass.

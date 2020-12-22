@@ -5,6 +5,7 @@ package mt
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ReqDHParams represents TL type `req_DH_params#d712e4be`.
 type ReqDHParams struct {
@@ -32,6 +34,36 @@ type ReqDHParams struct {
 
 // ReqDHParamsTypeID is TL type id of ReqDHParams.
 const ReqDHParamsTypeID = 0xd712e4be
+
+// String implements fmt.Stringer.
+func (r *ReqDHParams) String() string {
+	if r == nil {
+		return "ReqDHParams(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReqDHParams")
+	sb.WriteString("{\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(r.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tServerNonce: ")
+	sb.WriteString(fmt.Sprint(r.ServerNonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(r.P))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQ: ")
+	sb.WriteString(fmt.Sprint(r.Q))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPublicKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(r.PublicKeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptedData: ")
+	sb.WriteString(fmt.Sprint(r.EncryptedData))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ReqDHParams) Encode(b *bin.Buffer) error {

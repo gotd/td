@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // LongVector is a box for Vector<long>
 type LongVector struct {
 	// Elements of Vector<long>
 	Elems []int64
+}
+
+// String implements fmt.Stringer.
+func (vec *LongVector) String() string {
+	if vec == nil {
+		return "LongVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("LongVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

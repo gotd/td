@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsChannelParticipants represents TL type `channels.channelParticipants#f56ee2a8`.
 // Represents multiple channel participants
@@ -29,6 +31,31 @@ type ChannelsChannelParticipants struct {
 
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
 const ChannelsChannelParticipantsTypeID = 0xf56ee2a8
+
+// String implements fmt.Stringer.
+func (c *ChannelsChannelParticipants) String() string {
+	if c == nil {
+		return "ChannelsChannelParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsChannelParticipants")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(c.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Participants {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range c.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
@@ -123,6 +150,18 @@ type ChannelsChannelParticipantsNotModified struct {
 // ChannelsChannelParticipantsNotModifiedTypeID is TL type id of ChannelsChannelParticipantsNotModified.
 const ChannelsChannelParticipantsNotModifiedTypeID = 0xf0173fe9
 
+// String implements fmt.Stringer.
+func (c *ChannelsChannelParticipantsNotModified) String() string {
+	if c == nil {
+		return "ChannelsChannelParticipantsNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsChannelParticipantsNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipantsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -174,6 +213,7 @@ type ChannelsChannelParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelsChannelParticipantsClass
+	fmt.Stringer
 }
 
 // DecodeChannelsChannelParticipants implements binary de-serialization for ChannelsChannelParticipantsClass.

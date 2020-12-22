@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDeleteChatUserRequest represents TL type `messages.deleteChatUser#e0611f16`.
 // Deletes a user from a chat and sends a service message on it.
@@ -27,6 +29,24 @@ type MessagesDeleteChatUserRequest struct {
 
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.
 const MessagesDeleteChatUserRequestTypeID = 0xe0611f16
+
+// String implements fmt.Stringer.
+func (d *MessagesDeleteChatUserRequest) String() string {
+	if d == nil {
+		return "MessagesDeleteChatUserRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDeleteChatUserRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(d.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(d.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {

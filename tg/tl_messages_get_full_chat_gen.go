@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetFullChatRequest represents TL type `messages.getFullChat#3b831c66`.
 // Returns full chat info according to its ID.
@@ -25,6 +27,21 @@ type MessagesGetFullChatRequest struct {
 
 // MessagesGetFullChatRequestTypeID is TL type id of MessagesGetFullChatRequest.
 const MessagesGetFullChatRequestTypeID = 0x3b831c66
+
+// String implements fmt.Stringer.
+func (g *MessagesGetFullChatRequest) String() string {
+	if g == nil {
+		return "MessagesGetFullChatRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetFullChatRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(g.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetFullChatRequest) Encode(b *bin.Buffer) error {

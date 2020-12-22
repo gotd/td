@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
 // Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login for more info.
@@ -27,6 +29,24 @@ type AuthResendCodeRequest struct {
 
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
 const AuthResendCodeRequestTypeID = 0x3ef1a9bf
+
+// String implements fmt.Stringer.
+func (r *AuthResendCodeRequest) String() string {
+	if r == nil {
+		return "AuthResendCodeRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthResendCodeRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPhoneNumber: ")
+	sb.WriteString(fmt.Sprint(r.PhoneNumber))
+	sb.WriteString(",\n")
+	sb.WriteString("\tPhoneCodeHash: ")
+	sb.WriteString(fmt.Sprint(r.PhoneCodeHash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
 // Empty constructor
@@ -25,6 +27,21 @@ type PhoneCallEmpty struct {
 
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
 const PhoneCallEmptyTypeID = 0x5366c915
+
+// String implements fmt.Stringer.
+func (p *PhoneCallEmpty) String() string {
+	if p == nil {
+		return "PhoneCallEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallEmpty) Encode(b *bin.Buffer) error {
@@ -94,6 +111,44 @@ type PhoneCallWaiting struct {
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
 const PhoneCallWaitingTypeID = 0x1b8f4ad1
+
+// String implements fmt.Stringer.
+func (p *PhoneCallWaiting) String() string {
+	if p == nil {
+		return "PhoneCallWaiting(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallWaiting")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(p.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(p.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(p.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(p.Protocol.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tReceiveDate: ")
+		sb.WriteString(fmt.Sprint(p.ReceiveDate))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
@@ -245,6 +300,42 @@ type PhoneCallRequested struct {
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
 const PhoneCallRequestedTypeID = 0x87eabb53
 
+// String implements fmt.Stringer.
+func (p *PhoneCallRequested) String() string {
+	if p == nil {
+		return "PhoneCallRequested(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallRequested")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(p.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(p.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(p.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGAHash: ")
+	sb.WriteString(fmt.Sprint(p.GAHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(p.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -377,6 +468,42 @@ type PhoneCallAccepted struct {
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
 const PhoneCallAcceptedTypeID = 0x997c454a
+
+// String implements fmt.Stringer.
+func (p *PhoneCallAccepted) String() string {
+	if p == nil {
+		return "PhoneCallAccepted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallAccepted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(p.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(p.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(p.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGB: ")
+	sb.WriteString(fmt.Sprint(p.GB))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(p.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
@@ -518,6 +645,53 @@ type PhoneCall struct {
 
 // PhoneCallTypeID is TL type id of PhoneCall.
 const PhoneCallTypeID = 0x8742ae7f
+
+// String implements fmt.Stringer.
+func (p *PhoneCall) String() string {
+	if p == nil {
+		return "PhoneCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAccessHash: ")
+	sb.WriteString(fmt.Sprint(p.AccessHash))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDate: ")
+	sb.WriteString(fmt.Sprint(p.Date))
+	sb.WriteString(",\n")
+	sb.WriteString("\tAdminID: ")
+	sb.WriteString(fmt.Sprint(p.AdminID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tParticipantID: ")
+	sb.WriteString(fmt.Sprint(p.ParticipantID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tGAOrB: ")
+	sb.WriteString(fmt.Sprint(p.GAOrB))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(p.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("\tProtocol: ")
+	sb.WriteString(p.Protocol.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range p.Connections {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tStartDate: ")
+	sb.WriteString(fmt.Sprint(p.StartDate))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PhoneCall) Encode(b *bin.Buffer) error {
@@ -700,6 +874,34 @@ type PhoneCallDiscarded struct {
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
 const PhoneCallDiscardedTypeID = 0x50ca4de1
 
+// String implements fmt.Stringer.
+func (p *PhoneCallDiscarded) String() string {
+	if p == nil {
+		return "PhoneCallDiscarded(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneCallDiscarded")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(p.ID))
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tReason: ")
+		sb.WriteString(p.Reason.String())
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tDuration: ")
+		sb.WriteString(fmt.Sprint(p.Duration))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -854,6 +1056,7 @@ type PhoneCallClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneCallClass
+	fmt.Stringer
 }
 
 // DecodePhoneCall implements binary de-serialization for PhoneCallClass.

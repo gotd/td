@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // DialogFilterSuggested represents TL type `dialogFilterSuggested#77744d4a`.
 // Suggested folders
@@ -27,6 +29,24 @@ type DialogFilterSuggested struct {
 
 // DialogFilterSuggestedTypeID is TL type id of DialogFilterSuggested.
 const DialogFilterSuggestedTypeID = 0x77744d4a
+
+// String implements fmt.Stringer.
+func (d *DialogFilterSuggested) String() string {
+	if d == nil {
+		return "DialogFilterSuggested(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("DialogFilterSuggested")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFilter: ")
+	sb.WriteString(d.Filter.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDescription: ")
+	sb.WriteString(fmt.Sprint(d.Description))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {

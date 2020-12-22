@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PeerNotifySettings represents TL type `peerNotifySettings#af509d20`.
 // Notification settings.
@@ -37,6 +39,31 @@ type PeerNotifySettings struct {
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
 const PeerNotifySettingsTypeID = 0xaf509d20
+
+// String implements fmt.Stringer.
+func (p *PeerNotifySettings) String() string {
+	if p == nil {
+		return "PeerNotifySettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerNotifySettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(2) {
+		sb.WriteString("\tMuteUntil: ")
+		sb.WriteString(fmt.Sprint(p.MuteUntil))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(3) {
+		sb.WriteString("\tSound: ")
+		sb.WriteString(fmt.Sprint(p.Sound))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {

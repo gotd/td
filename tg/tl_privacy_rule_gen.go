@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PrivacyValueAllowContacts represents TL type `privacyValueAllowContacts#fffe1bac`.
 // Allow all contacts
@@ -23,6 +25,18 @@ type PrivacyValueAllowContacts struct {
 
 // PrivacyValueAllowContactsTypeID is TL type id of PrivacyValueAllowContacts.
 const PrivacyValueAllowContactsTypeID = 0xfffe1bac
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowContacts) String() string {
+	if p == nil {
+		return "PrivacyValueAllowContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueAllowContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
@@ -64,6 +78,18 @@ type PrivacyValueAllowAll struct {
 
 // PrivacyValueAllowAllTypeID is TL type id of PrivacyValueAllowAll.
 const PrivacyValueAllowAllTypeID = 0x65427b82
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowAll) String() string {
+	if p == nil {
+		return "PrivacyValueAllowAll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueAllowAll")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowAll) Encode(b *bin.Buffer) error {
@@ -107,6 +133,23 @@ type PrivacyValueAllowUsers struct {
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
 const PrivacyValueAllowUsersTypeID = 0x4d5bbe0c
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowUsers) String() string {
+	if p == nil {
+		return "PrivacyValueAllowUsers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueAllowUsers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
@@ -166,6 +209,18 @@ type PrivacyValueDisallowContacts struct {
 // PrivacyValueDisallowContactsTypeID is TL type id of PrivacyValueDisallowContacts.
 const PrivacyValueDisallowContactsTypeID = 0xf888fa1a
 
+// String implements fmt.Stringer.
+func (p *PrivacyValueDisallowContacts) String() string {
+	if p == nil {
+		return "PrivacyValueDisallowContacts(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueDisallowContacts")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -206,6 +261,18 @@ type PrivacyValueDisallowAll struct {
 
 // PrivacyValueDisallowAllTypeID is TL type id of PrivacyValueDisallowAll.
 const PrivacyValueDisallowAllTypeID = 0x8b73e763
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueDisallowAll) String() string {
+	if p == nil {
+		return "PrivacyValueDisallowAll(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueDisallowAll")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
@@ -249,6 +316,23 @@ type PrivacyValueDisallowUsers struct {
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
 const PrivacyValueDisallowUsersTypeID = 0xc7f49b7
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueDisallowUsers) String() string {
+	if p == nil {
+		return "PrivacyValueDisallowUsers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueDisallowUsers")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
@@ -310,6 +394,23 @@ type PrivacyValueAllowChatParticipants struct {
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
 const PrivacyValueAllowChatParticipantsTypeID = 0x18be796b
 
+// String implements fmt.Stringer.
+func (p *PrivacyValueAllowChatParticipants) String() string {
+	if p == nil {
+		return "PrivacyValueAllowChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueAllowChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -369,6 +470,23 @@ type PrivacyValueDisallowChatParticipants struct {
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
 const PrivacyValueDisallowChatParticipantsTypeID = 0xacae0690
+
+// String implements fmt.Stringer.
+func (p *PrivacyValueDisallowChatParticipants) String() string {
+	if p == nil {
+		return "PrivacyValueDisallowChatParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PrivacyValueDisallowChatParticipants")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range p.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
@@ -442,6 +560,7 @@ type PrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PrivacyRuleClass
+	fmt.Stringer
 }
 
 // DecodePrivacyRule implements binary de-serialization for PrivacyRuleClass.

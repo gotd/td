@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesAcceptEncryptionRequest represents TL type `messages.acceptEncryption#3dbc0415`.
 // Confirms creation of a secret chat
@@ -29,6 +31,27 @@ type MessagesAcceptEncryptionRequest struct {
 
 // MessagesAcceptEncryptionRequestTypeID is TL type id of MessagesAcceptEncryptionRequest.
 const MessagesAcceptEncryptionRequestTypeID = 0x3dbc0415
+
+// String implements fmt.Stringer.
+func (a *MessagesAcceptEncryptionRequest) String() string {
+	if a == nil {
+		return "MessagesAcceptEncryptionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesAcceptEncryptionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(a.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tGB: ")
+	sb.WriteString(fmt.Sprint(a.GB))
+	sb.WriteString(",\n")
+	sb.WriteString("\tKeyFingerprint: ")
+	sb.WriteString(fmt.Sprint(a.KeyFingerprint))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {

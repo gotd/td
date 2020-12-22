@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetAppUpdateRequest represents TL type `help.getAppUpdate#522d5a7d`.
 // Returns information on update availability for the current application.
@@ -25,6 +27,21 @@ type HelpGetAppUpdateRequest struct {
 
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.
 const HelpGetAppUpdateRequestTypeID = 0x522d5a7d
+
+// String implements fmt.Stringer.
+func (g *HelpGetAppUpdateRequest) String() string {
+	if g == nil {
+		return "HelpGetAppUpdateRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetAppUpdateRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSource: ")
+	sb.WriteString(fmt.Sprint(g.Source))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#c97df020`.
 // Notify the other user in a private chat that a screenshot of the chat was taken
@@ -29,6 +31,27 @@ type MessagesSendScreenshotNotificationRequest struct {
 
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.
 const MessagesSendScreenshotNotificationRequestTypeID = 0xc97df020
+
+// String implements fmt.Stringer.
+func (s *MessagesSendScreenshotNotificationRequest) String() string {
+	if s == nil {
+		return "MessagesSendScreenshotNotificationRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSendScreenshotNotificationRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tReplyToMsgID: ")
+	sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(s.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error {

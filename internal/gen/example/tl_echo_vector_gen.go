@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // EchoVectorRequest represents TL type `echoVector#d4785939`.
 //
@@ -24,6 +26,23 @@ type EchoVectorRequest struct {
 
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
 const EchoVectorRequestTypeID = 0xd4785939
+
+// String implements fmt.Stringer.
+func (e *EchoVectorRequest) String() string {
+	if e == nil {
+		return "EchoVectorRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("EchoVectorRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range e.Ids {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {

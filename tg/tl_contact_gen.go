@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // Contact represents TL type `contact#f911c994`.
 // A contact of the current user that is registered in the system.
@@ -27,6 +29,24 @@ type Contact struct {
 
 // ContactTypeID is TL type id of Contact.
 const ContactTypeID = 0xf911c994
+
+// String implements fmt.Stringer.
+func (c *Contact) String() string {
+	if c == nil {
+		return "Contact(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("Contact")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(fmt.Sprint(c.UserID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMutual: ")
+	sb.WriteString(fmt.Sprint(c.Mutual))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *Contact) Encode(b *bin.Buffer) error {

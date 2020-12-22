@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentRequestedInfo represents TL type `paymentRequestedInfo#909c3f94`.
 // Order info provided by the user
@@ -41,6 +43,41 @@ type PaymentRequestedInfo struct {
 
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.
 const PaymentRequestedInfoTypeID = 0x909c3f94
+
+// String implements fmt.Stringer.
+func (p *PaymentRequestedInfo) String() string {
+	if p == nil {
+		return "PaymentRequestedInfo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentRequestedInfo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(p.Flags.String())
+	sb.WriteString(",\n")
+	if p.Flags.Has(0) {
+		sb.WriteString("\tName: ")
+		sb.WriteString(fmt.Sprint(p.Name))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(1) {
+		sb.WriteString("\tPhone: ")
+		sb.WriteString(fmt.Sprint(p.Phone))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(2) {
+		sb.WriteString("\tEmail: ")
+		sb.WriteString(fmt.Sprint(p.Email))
+		sb.WriteString(",\n")
+	}
+	if p.Flags.Has(3) {
+		sb.WriteString("\tShippingAddress: ")
+		sb.WriteString(p.ShippingAddress.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PaymentRequestedInfo) Encode(b *bin.Buffer) error {

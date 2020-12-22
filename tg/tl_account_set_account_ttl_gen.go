@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountSetAccountTTLRequest represents TL type `account.setAccountTTL#2442485e`.
 // Set account self-destruction period
@@ -25,6 +27,21 @@ type AccountSetAccountTTLRequest struct {
 
 // AccountSetAccountTTLRequestTypeID is TL type id of AccountSetAccountTTLRequest.
 const AccountSetAccountTTLRequestTypeID = 0x2442485e
+
+// String implements fmt.Stringer.
+func (s *AccountSetAccountTTLRequest) String() string {
+	if s == nil {
+		return "AccountSetAccountTTLRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountSetAccountTTLRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tTTL: ")
+	sb.WriteString(s.TTL.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *AccountSetAccountTTLRequest) Encode(b *bin.Buffer) error {

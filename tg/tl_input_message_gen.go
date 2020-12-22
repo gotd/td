@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputMessageID represents TL type `inputMessageID#a676a322`.
 // Message by ID
@@ -25,6 +27,21 @@ type InputMessageID struct {
 
 // InputMessageIDTypeID is TL type id of InputMessageID.
 const InputMessageIDTypeID = 0xa676a322
+
+// String implements fmt.Stringer.
+func (i *InputMessageID) String() string {
+	if i == nil {
+		return "InputMessageID(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessageID")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessageID) Encode(b *bin.Buffer) error {
@@ -77,6 +94,21 @@ type InputMessageReplyTo struct {
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
 const InputMessageReplyToTypeID = 0xbad88395
 
+// String implements fmt.Stringer.
+func (i *InputMessageReplyTo) String() string {
+	if i == nil {
+		return "InputMessageReplyTo(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessageReplyTo")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageReplyTo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -126,6 +158,18 @@ type InputMessagePinned struct {
 // InputMessagePinnedTypeID is TL type id of InputMessagePinned.
 const InputMessagePinnedTypeID = 0x86872538
 
+// String implements fmt.Stringer.
+func (i *InputMessagePinned) String() string {
+	if i == nil {
+		return "InputMessagePinned(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessagePinned")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagePinned) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -170,6 +214,24 @@ type InputMessageCallbackQuery struct {
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.
 const InputMessageCallbackQueryTypeID = 0xacfa1a7e
+
+// String implements fmt.Stringer.
+func (i *InputMessageCallbackQuery) String() string {
+	if i == nil {
+		return "InputMessageCallbackQuery(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputMessageCallbackQuery")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(i.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(i.QueryID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputMessageCallbackQuery) Encode(b *bin.Buffer) error {
@@ -238,6 +300,7 @@ type InputMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputMessageClass
+	fmt.Stringer
 }
 
 // DecodeInputMessage implements binary de-serialization for InputMessageClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesDhConfigNotModified represents TL type `messages.dhConfigNotModified#c0e24635`.
 // Configuring parameters did not change.
@@ -25,6 +27,21 @@ type MessagesDhConfigNotModified struct {
 
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
 const MessagesDhConfigNotModifiedTypeID = 0xc0e24635
+
+// String implements fmt.Stringer.
+func (d *MessagesDhConfigNotModified) String() string {
+	if d == nil {
+		return "MessagesDhConfigNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDhConfigNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("\tRandom: ")
+	sb.WriteString(fmt.Sprint(d.Random))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDhConfigNotModified) Encode(b *bin.Buffer) error {
@@ -82,6 +99,30 @@ type MessagesDhConfig struct {
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
 const MessagesDhConfigTypeID = 0x2c221edd
+
+// String implements fmt.Stringer.
+func (d *MessagesDhConfig) String() string {
+	if d == nil {
+		return "MessagesDhConfig(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesDhConfig")
+	sb.WriteString("{\n")
+	sb.WriteString("\tG: ")
+	sb.WriteString(fmt.Sprint(d.G))
+	sb.WriteString(",\n")
+	sb.WriteString("\tP: ")
+	sb.WriteString(fmt.Sprint(d.P))
+	sb.WriteString(",\n")
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(d.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandom: ")
+	sb.WriteString(fmt.Sprint(d.Random))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (d *MessagesDhConfig) Encode(b *bin.Buffer) error {
@@ -164,6 +205,7 @@ type MessagesDhConfigClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesDhConfigClass
+	fmt.Stringer
 }
 
 // DecodeMessagesDhConfig implements binary de-serialization for MessagesDhConfigClass.

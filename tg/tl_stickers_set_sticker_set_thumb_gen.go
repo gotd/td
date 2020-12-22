@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#9a364e30`.
 // Set stickerset thumbnail
@@ -27,6 +29,24 @@ type StickersSetStickerSetThumbRequest struct {
 
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.
 const StickersSetStickerSetThumbRequestTypeID = 0x9a364e30
+
+// String implements fmt.Stringer.
+func (s *StickersSetStickerSetThumbRequest) String() string {
+	if s == nil {
+		return "StickersSetStickerSetThumbRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("StickersSetStickerSetThumbRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tStickerset: ")
+	sb.WriteString(s.Stickerset.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tThumb: ")
+	sb.WriteString(s.Thumb.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {

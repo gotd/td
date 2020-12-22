@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesGetPeerDialogsRequest represents TL type `messages.getPeerDialogs#e470bcfd`.
 // Get dialog info of specified peers
@@ -25,6 +27,23 @@ type MessagesGetPeerDialogsRequest struct {
 
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.
 const MessagesGetPeerDialogsRequestTypeID = 0xe470bcfd
+
+// String implements fmt.Stringer.
+func (g *MessagesGetPeerDialogsRequest) String() string {
+	if g == nil {
+		return "MessagesGetPeerDialogsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesGetPeerDialogsRequest")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range g.Peers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerDialogsRequest) Encode(b *bin.Buffer) error {

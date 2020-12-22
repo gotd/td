@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BotInlineResult represents TL type `botInlineResult#11965f3a`.
 // Generic result
@@ -51,6 +53,55 @@ type BotInlineResult struct {
 
 // BotInlineResultTypeID is TL type id of BotInlineResult.
 const BotInlineResultTypeID = 0x11965f3a
+
+// String implements fmt.Stringer.
+func (b *BotInlineResult) String() string {
+	if b == nil {
+		return "BotInlineResult(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineResult")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(b.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(b.Type))
+	sb.WriteString(",\n")
+	if b.Flags.Has(1) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(b.Title))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(b.Description))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(3) {
+		sb.WriteString("\tURL: ")
+		sb.WriteString(fmt.Sprint(b.URL))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(4) {
+		sb.WriteString("\tThumb: ")
+		sb.WriteString(b.Thumb.String())
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(5) {
+		sb.WriteString("\tContent: ")
+		sb.WriteString(b.Content.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(b.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
@@ -289,6 +340,50 @@ type BotInlineMediaResult struct {
 // BotInlineMediaResultTypeID is TL type id of BotInlineMediaResult.
 const BotInlineMediaResultTypeID = 0x17db940b
 
+// String implements fmt.Stringer.
+func (b *BotInlineMediaResult) String() string {
+	if b == nil {
+		return "BotInlineMediaResult(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BotInlineMediaResult")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(b.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(b.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tType: ")
+	sb.WriteString(fmt.Sprint(b.Type))
+	sb.WriteString(",\n")
+	if b.Flags.Has(0) {
+		sb.WriteString("\tPhoto: ")
+		sb.WriteString(b.Photo.String())
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(1) {
+		sb.WriteString("\tDocument: ")
+		sb.WriteString(b.Document.String())
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(2) {
+		sb.WriteString("\tTitle: ")
+		sb.WriteString(fmt.Sprint(b.Title))
+		sb.WriteString(",\n")
+	}
+	if b.Flags.Has(3) {
+		sb.WriteString("\tDescription: ")
+		sb.WriteString(fmt.Sprint(b.Description))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("\tSendMessage: ")
+	sb.WriteString(b.SendMessage.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -485,6 +580,7 @@ type BotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BotInlineResultClass
+	fmt.Stringer
 }
 
 // DecodeBotInlineResult implements binary de-serialization for BotInlineResultClass.

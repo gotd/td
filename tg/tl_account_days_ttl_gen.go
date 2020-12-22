@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountDaysTTL represents TL type `accountDaysTTL#b8d0afdf`.
 // Time to live in days of the current account
@@ -25,6 +27,21 @@ type AccountDaysTTL struct {
 
 // AccountDaysTTLTypeID is TL type id of AccountDaysTTL.
 const AccountDaysTTLTypeID = 0xb8d0afdf
+
+// String implements fmt.Stringer.
+func (a *AccountDaysTTL) String() string {
+	if a == nil {
+		return "AccountDaysTTL(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountDaysTTL")
+	sb.WriteString("{\n")
+	sb.WriteString("\tDays: ")
+	sb.WriteString(fmt.Sprint(a.Days))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {

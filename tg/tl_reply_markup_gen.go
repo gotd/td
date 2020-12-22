@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ReplyKeyboardHide represents TL type `replyKeyboardHide#a03e5b85`.
 // Hide sent bot keyboard
@@ -27,6 +29,21 @@ type ReplyKeyboardHide struct {
 
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
 const ReplyKeyboardHideTypeID = 0xa03e5b85
+
+// String implements fmt.Stringer.
+func (r *ReplyKeyboardHide) String() string {
+	if r == nil {
+		return "ReplyKeyboardHide(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReplyKeyboardHide")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
@@ -92,6 +109,21 @@ type ReplyKeyboardForceReply struct {
 
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
 const ReplyKeyboardForceReplyTypeID = 0xf4108aa0
+
+// String implements fmt.Stringer.
+func (r *ReplyKeyboardForceReply) String() string {
+	if r == nil {
+		return "ReplyKeyboardForceReply(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReplyKeyboardForceReply")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
@@ -171,6 +203,26 @@ type ReplyKeyboardMarkup struct {
 
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
 const ReplyKeyboardMarkupTypeID = 0x3502758c
+
+// String implements fmt.Stringer.
+func (r *ReplyKeyboardMarkup) String() string {
+	if r == nil {
+		return "ReplyKeyboardMarkup(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReplyKeyboardMarkup")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(r.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range r.Rows {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
@@ -272,6 +324,23 @@ type ReplyInlineMarkup struct {
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
 const ReplyInlineMarkupTypeID = 0x48a30254
 
+// String implements fmt.Stringer.
+func (r *ReplyInlineMarkup) String() string {
+	if r == nil {
+		return "ReplyInlineMarkup(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ReplyInlineMarkup")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range r.Rows {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -342,6 +411,7 @@ type ReplyMarkupClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ReplyMarkupClass
+	fmt.Stringer
 }
 
 // DecodeReplyMarkup implements binary de-serialization for ReplyMarkupClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
 // Constructor may be interpreted as a booleanfalse value.
@@ -23,6 +25,18 @@ type BoolFalse struct {
 
 // BoolFalseTypeID is TL type id of BoolFalse.
 const BoolFalseTypeID = 0xbc799737
+
+// String implements fmt.Stringer.
+func (b *BoolFalse) String() string {
+	if b == nil {
+		return "BoolFalse(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BoolFalse")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BoolFalse) Encode(buf *bin.Buffer) error {
@@ -64,6 +78,18 @@ type BoolTrue struct {
 
 // BoolTrueTypeID is TL type id of BoolTrue.
 const BoolTrueTypeID = 0x997275b5
+
+// String implements fmt.Stringer.
+func (b *BoolTrue) String() string {
+	if b == nil {
+		return "BoolTrue(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("BoolTrue")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *BoolTrue) Encode(buf *bin.Buffer) error {
@@ -114,6 +140,7 @@ type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BoolClass
+	fmt.Stringer
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.

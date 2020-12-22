@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthExportedAuthorization represents TL type `auth.exportedAuthorization#df969c2d`.
 // Data for copying of authorization between data centres.
@@ -27,6 +29,24 @@ type AuthExportedAuthorization struct {
 
 // AuthExportedAuthorizationTypeID is TL type id of AuthExportedAuthorization.
 const AuthExportedAuthorizationTypeID = 0xdf969c2d
+
+// String implements fmt.Stringer.
+func (e *AuthExportedAuthorization) String() string {
+	if e == nil {
+		return "AuthExportedAuthorization(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthExportedAuthorization")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(fmt.Sprint(e.ID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tBytes: ")
+	sb.WriteString(fmt.Sprint(e.Bytes))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *AuthExportedAuthorization) Encode(b *bin.Buffer) error {

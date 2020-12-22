@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // JsonNull represents TL type `jsonNull#3f6d7b68`.
 // null JSON value
@@ -23,6 +25,18 @@ type JsonNull struct {
 
 // JsonNullTypeID is TL type id of JsonNull.
 const JsonNullTypeID = 0x3f6d7b68
+
+// String implements fmt.Stringer.
+func (j *JsonNull) String() string {
+	if j == nil {
+		return "JsonNull(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonNull")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (j *JsonNull) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type JsonBool struct {
 
 // JsonBoolTypeID is TL type id of JsonBool.
 const JsonBoolTypeID = 0xc7345e6a
+
+// String implements fmt.Stringer.
+func (j *JsonBool) String() string {
+	if j == nil {
+		return "JsonBool(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonBool")
+	sb.WriteString("{\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(fmt.Sprint(j.Value))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (j *JsonBool) Encode(b *bin.Buffer) error {
@@ -118,6 +147,21 @@ type JsonNumber struct {
 // JsonNumberTypeID is TL type id of JsonNumber.
 const JsonNumberTypeID = 0x2be0dfa4
 
+// String implements fmt.Stringer.
+func (j *JsonNumber) String() string {
+	if j == nil {
+		return "JsonNumber(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonNumber")
+	sb.WriteString("{\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(fmt.Sprint(j.Value))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonNumber) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -169,6 +213,21 @@ type JsonString struct {
 // JsonStringTypeID is TL type id of JsonString.
 const JsonStringTypeID = 0xb71e767a
 
+// String implements fmt.Stringer.
+func (j *JsonString) String() string {
+	if j == nil {
+		return "JsonString(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonString")
+	sb.WriteString("{\n")
+	sb.WriteString("\tValue: ")
+	sb.WriteString(fmt.Sprint(j.Value))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonString) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -219,6 +278,23 @@ type JsonArray struct {
 
 // JsonArrayTypeID is TL type id of JsonArray.
 const JsonArrayTypeID = 0xf7444763
+
+// String implements fmt.Stringer.
+func (j *JsonArray) String() string {
+	if j == nil {
+		return "JsonArray(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonArray")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range j.Value {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (j *JsonArray) Encode(b *bin.Buffer) error {
@@ -284,6 +360,23 @@ type JsonObject struct {
 
 // JsonObjectTypeID is TL type id of JsonObject.
 const JsonObjectTypeID = 0x99c1d49d
+
+// String implements fmt.Stringer.
+func (j *JsonObject) String() string {
+	if j == nil {
+		return "JsonObject(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("JsonObject")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range j.Value {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (j *JsonObject) Encode(b *bin.Buffer) error {
@@ -357,6 +450,7 @@ type JSONValueClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() JSONValueClass
+	fmt.Stringer
 }
 
 // DecodeJSONValue implements binary de-serialization for JSONValueClass.

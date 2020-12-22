@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatInviteEmpty represents TL type `chatInviteEmpty#69df3769`.
 // No info is associated to the chat invite
@@ -23,6 +25,18 @@ type ChatInviteEmpty struct {
 
 // ChatInviteEmptyTypeID is TL type id of ChatInviteEmpty.
 const ChatInviteEmptyTypeID = 0x69df3769
+
+// String implements fmt.Stringer.
+func (c *ChatInviteEmpty) String() string {
+	if c == nil {
+		return "ChatInviteEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatInviteEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatInviteEmpty) Encode(b *bin.Buffer) error {
@@ -66,6 +80,21 @@ type ChatInviteExported struct {
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
 const ChatInviteExportedTypeID = 0xfc2e05bc
+
+// String implements fmt.Stringer.
+func (c *ChatInviteExported) String() string {
+	if c == nil {
+		return "ChatInviteExported(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatInviteExported")
+	sb.WriteString("{\n")
+	sb.WriteString("\tLink: ")
+	sb.WriteString(fmt.Sprint(c.Link))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
@@ -124,6 +153,7 @@ type ExportedChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ExportedChatInviteClass
+	fmt.Stringer
 }
 
 // DecodeExportedChatInvite implements binary de-serialization for ExportedChatInviteClass.

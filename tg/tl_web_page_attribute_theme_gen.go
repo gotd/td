@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // WebPageAttributeTheme represents TL type `webPageAttributeTheme#54b56617`.
 // Page theme
@@ -33,6 +35,33 @@ type WebPageAttributeTheme struct {
 
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.
 const WebPageAttributeThemeTypeID = 0x54b56617
+
+// String implements fmt.Stringer.
+func (w *WebPageAttributeTheme) String() string {
+	if w == nil {
+		return "WebPageAttributeTheme(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("WebPageAttributeTheme")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(w.Flags.String())
+	sb.WriteString(",\n")
+	if w.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range w.Documents {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if w.Flags.Has(1) {
+		sb.WriteString("\tSettings: ")
+		sb.WriteString(w.Settings.String())
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {

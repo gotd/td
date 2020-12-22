@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // RestrictionReason represents TL type `restrictionReason#d072acb4`.
 // Restriction reason.
@@ -30,6 +32,27 @@ type RestrictionReason struct {
 
 // RestrictionReasonTypeID is TL type id of RestrictionReason.
 const RestrictionReasonTypeID = 0xd072acb4
+
+// String implements fmt.Stringer.
+func (r *RestrictionReason) String() string {
+	if r == nil {
+		return "RestrictionReason(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("RestrictionReason")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPlatform: ")
+	sb.WriteString(fmt.Sprint(r.Platform))
+	sb.WriteString(",\n")
+	sb.WriteString("\tReason: ")
+	sb.WriteString(fmt.Sprint(r.Reason))
+	sb.WriteString(",\n")
+	sb.WriteString("\tText: ")
+	sb.WriteString(fmt.Sprint(r.Text))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *RestrictionReason) Encode(b *bin.Buffer) error {

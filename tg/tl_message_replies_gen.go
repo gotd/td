@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
 // Info about the comment section of a channel post, or a simple message thread
@@ -47,6 +49,49 @@ type MessageReplies struct {
 
 // MessageRepliesTypeID is TL type id of MessageReplies.
 const MessageRepliesTypeID = 0x4128faac
+
+// String implements fmt.Stringer.
+func (m *MessageReplies) String() string {
+	if m == nil {
+		return "MessageReplies(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageReplies")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tReplies: ")
+	sb.WriteString(fmt.Sprint(m.Replies))
+	sb.WriteString(",\n")
+	sb.WriteString("\tRepliesPts: ")
+	sb.WriteString(fmt.Sprint(m.RepliesPts))
+	sb.WriteString(",\n")
+	if m.Flags.Has(1) {
+		sb.WriteByte('[')
+		for _, v := range m.RecentRepliers {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	if m.Flags.Has(0) {
+		sb.WriteString("\tChannelID: ")
+		sb.WriteString(fmt.Sprint(m.ChannelID))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(2) {
+		sb.WriteString("\tMaxID: ")
+		sb.WriteString(fmt.Sprint(m.MaxID))
+		sb.WriteString(",\n")
+	}
+	if m.Flags.Has(3) {
+		sb.WriteString("\tReadMaxID: ")
+		sb.WriteString(fmt.Sprint(m.ReadMaxID))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageReplies) Encode(b *bin.Buffer) error {

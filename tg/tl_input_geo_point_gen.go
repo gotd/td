@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputGeoPointEmpty represents TL type `inputGeoPointEmpty#e4c123d6`.
 // Empty GeoPoint constructor.
@@ -23,6 +25,18 @@ type InputGeoPointEmpty struct {
 
 // InputGeoPointEmptyTypeID is TL type id of InputGeoPointEmpty.
 const InputGeoPointEmptyTypeID = 0xe4c123d6
+
+// String implements fmt.Stringer.
+func (i *InputGeoPointEmpty) String() string {
+	if i == nil {
+		return "InputGeoPointEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputGeoPointEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputGeoPointEmpty) Encode(b *bin.Buffer) error {
@@ -74,6 +88,32 @@ type InputGeoPoint struct {
 
 // InputGeoPointTypeID is TL type id of InputGeoPoint.
 const InputGeoPointTypeID = 0x48222faf
+
+// String implements fmt.Stringer.
+func (i *InputGeoPoint) String() string {
+	if i == nil {
+		return "InputGeoPoint(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputGeoPoint")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tLat: ")
+	sb.WriteString(fmt.Sprint(i.Lat))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLong: ")
+	sb.WriteString(fmt.Sprint(i.Long))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tAccuracyRadius: ")
+		sb.WriteString(fmt.Sprint(i.AccuracyRadius))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputGeoPoint) Encode(b *bin.Buffer) error {
@@ -173,6 +213,7 @@ type InputGeoPointClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputGeoPointClass
+	fmt.Stringer
 }
 
 // DecodeInputGeoPoint implements binary de-serialization for InputGeoPointClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesStickerSetInstallResultSuccess represents TL type `messages.stickerSetInstallResultSuccess#38641628`.
 // The stickerset was installed successfully
@@ -23,6 +25,18 @@ type MessagesStickerSetInstallResultSuccess struct {
 
 // MessagesStickerSetInstallResultSuccessTypeID is TL type id of MessagesStickerSetInstallResultSuccess.
 const MessagesStickerSetInstallResultSuccessTypeID = 0x38641628
+
+// String implements fmt.Stringer.
+func (s *MessagesStickerSetInstallResultSuccess) String() string {
+	if s == nil {
+		return "MessagesStickerSetInstallResultSuccess(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesStickerSetInstallResultSuccess")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
@@ -68,6 +82,23 @@ type MessagesStickerSetInstallResultArchive struct {
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.
 const MessagesStickerSetInstallResultArchiveTypeID = 0x35e410a8
+
+// String implements fmt.Stringer.
+func (s *MessagesStickerSetInstallResultArchive) String() string {
+	if s == nil {
+		return "MessagesStickerSetInstallResultArchive(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesStickerSetInstallResultArchive")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range s.Sets {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
@@ -142,6 +173,7 @@ type MessagesStickerSetInstallResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesStickerSetInstallResultClass
+	fmt.Stringer
 }
 
 // DecodeMessagesStickerSetInstallResult implements binary de-serialization for MessagesStickerSetInstallResultClass.

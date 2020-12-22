@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // CdnConfig represents TL type `cdnConfig#5725e40a`.
 // Configuration for CDN file downloads.
@@ -25,6 +27,23 @@ type CdnConfig struct {
 
 // CdnConfigTypeID is TL type id of CdnConfig.
 const CdnConfigTypeID = 0x5725e40a
+
+// String implements fmt.Stringer.
+func (c *CdnConfig) String() string {
+	if c == nil {
+		return "CdnConfig(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("CdnConfig")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range c.PublicKeys {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *CdnConfig) Encode(b *bin.Buffer) error {

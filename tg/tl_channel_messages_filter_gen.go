@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelMessagesFilterEmpty represents TL type `channelMessagesFilterEmpty#94d42ee7`.
 // No filter
@@ -23,6 +25,18 @@ type ChannelMessagesFilterEmpty struct {
 
 // ChannelMessagesFilterEmptyTypeID is TL type id of ChannelMessagesFilterEmpty.
 const ChannelMessagesFilterEmptyTypeID = 0x94d42ee7
+
+// String implements fmt.Stringer.
+func (c *ChannelMessagesFilterEmpty) String() string {
+	if c == nil {
+		return "ChannelMessagesFilterEmpty(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelMessagesFilterEmpty")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
@@ -70,6 +84,26 @@ type ChannelMessagesFilter struct {
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
 const ChannelMessagesFilterTypeID = 0xcd77d957
+
+// String implements fmt.Stringer.
+func (c *ChannelMessagesFilter) String() string {
+	if c == nil {
+		return "ChannelMessagesFilter(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelMessagesFilter")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range c.Ranges {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
@@ -157,6 +191,7 @@ type ChannelMessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
+	fmt.Stringer
 }
 
 // DecodeChannelMessagesFilter implements binary de-serialization for ChannelMessagesFilterClass.

@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
 // Rate a call
@@ -33,6 +35,30 @@ type PhoneSetCallRatingRequest struct {
 
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
 const PhoneSetCallRatingRequestTypeID = 0x59ead627
+
+// String implements fmt.Stringer.
+func (s *PhoneSetCallRatingRequest) String() string {
+	if s == nil {
+		return "PhoneSetCallRatingRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneSetCallRatingRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(s.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRating: ")
+	sb.WriteString(fmt.Sprint(s.Rating))
+	sb.WriteString(",\n")
+	sb.WriteString("\tComment: ")
+	sb.WriteString(fmt.Sprint(s.Comment))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {

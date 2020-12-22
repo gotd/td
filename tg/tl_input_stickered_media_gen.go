@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputStickeredMediaPhoto represents TL type `inputStickeredMediaPhoto#4a992157`.
 // A photo with stickers attached
@@ -25,6 +27,21 @@ type InputStickeredMediaPhoto struct {
 
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
 const InputStickeredMediaPhotoTypeID = 0x4a992157
+
+// String implements fmt.Stringer.
+func (i *InputStickeredMediaPhoto) String() string {
+	if i == nil {
+		return "InputStickeredMediaPhoto(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickeredMediaPhoto")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaPhoto) Encode(b *bin.Buffer) error {
@@ -81,6 +98,21 @@ type InputStickeredMediaDocument struct {
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.
 const InputStickeredMediaDocumentTypeID = 0x438865b
+
+// String implements fmt.Stringer.
+func (i *InputStickeredMediaDocument) String() string {
+	if i == nil {
+		return "InputStickeredMediaDocument(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputStickeredMediaDocument")
+	sb.WriteString("{\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(i.ID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaDocument) Encode(b *bin.Buffer) error {
@@ -144,6 +176,7 @@ type InputStickeredMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputStickeredMediaClass
+	fmt.Stringer
 }
 
 // DecodeInputStickeredMedia implements binary de-serialization for InputStickeredMediaClass.

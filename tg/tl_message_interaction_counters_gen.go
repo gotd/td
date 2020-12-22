@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessageInteractionCounters represents TL type `messageInteractionCounters#ad4fc9bd`.
 // Message interaction counters
@@ -29,6 +31,27 @@ type MessageInteractionCounters struct {
 
 // MessageInteractionCountersTypeID is TL type id of MessageInteractionCounters.
 const MessageInteractionCountersTypeID = 0xad4fc9bd
+
+// String implements fmt.Stringer.
+func (m *MessageInteractionCounters) String() string {
+	if m == nil {
+		return "MessageInteractionCounters(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageInteractionCounters")
+	sb.WriteString("{\n")
+	sb.WriteString("\tMsgID: ")
+	sb.WriteString(fmt.Sprint(m.MsgID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tViews: ")
+	sb.WriteString(fmt.Sprint(m.Views))
+	sb.WriteString(",\n")
+	sb.WriteString("\tForwards: ")
+	sb.WriteString(fmt.Sprint(m.Forwards))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {

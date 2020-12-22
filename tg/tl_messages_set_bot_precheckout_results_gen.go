@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesSetBotPrecheckoutResultsRequest represents TL type `messages.setBotPrecheckoutResults#9c2dd95`.
 // Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery update.
@@ -35,6 +37,29 @@ type MessagesSetBotPrecheckoutResultsRequest struct {
 
 // MessagesSetBotPrecheckoutResultsRequestTypeID is TL type id of MessagesSetBotPrecheckoutResultsRequest.
 const MessagesSetBotPrecheckoutResultsRequestTypeID = 0x9c2dd95
+
+// String implements fmt.Stringer.
+func (s *MessagesSetBotPrecheckoutResultsRequest) String() string {
+	if s == nil {
+		return "MessagesSetBotPrecheckoutResultsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesSetBotPrecheckoutResultsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(s.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tQueryID: ")
+	sb.WriteString(fmt.Sprint(s.QueryID))
+	sb.WriteString(",\n")
+	if s.Flags.Has(0) {
+		sb.WriteString("\tError: ")
+		sb.WriteString(fmt.Sprint(s.Error))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {

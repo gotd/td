@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesReadMentionsRequest represents TL type `messages.readMentions#f0189d3`.
 // Mark mentions as read
@@ -25,6 +27,21 @@ type MessagesReadMentionsRequest struct {
 
 // MessagesReadMentionsRequestTypeID is TL type id of MessagesReadMentionsRequest.
 const MessagesReadMentionsRequestTypeID = 0xf0189d3
+
+// String implements fmt.Stringer.
+func (r *MessagesReadMentionsRequest) String() string {
+	if r == nil {
+		return "MessagesReadMentionsRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesReadMentionsRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(r.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {

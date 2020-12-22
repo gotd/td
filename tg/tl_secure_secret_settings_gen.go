@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // SecureSecretSettings represents TL type `secureSecretSettings#1527bcac`.
 // Secure settings
@@ -29,6 +31,27 @@ type SecureSecretSettings struct {
 
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.
 const SecureSecretSettingsTypeID = 0x1527bcac
+
+// String implements fmt.Stringer.
+func (s *SecureSecretSettings) String() string {
+	if s == nil {
+		return "SecureSecretSettings(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SecureSecretSettings")
+	sb.WriteString("{\n")
+	sb.WriteString("\tSecureAlgo: ")
+	sb.WriteString(s.SecureAlgo.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecureSecret: ")
+	sb.WriteString(fmt.Sprint(s.SecureSecret))
+	sb.WriteString(",\n")
+	sb.WriteString("\tSecureSecretID: ")
+	sb.WriteString(fmt.Sprint(s.SecureSecretID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {

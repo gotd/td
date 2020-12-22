@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountAuthorizations represents TL type `account.authorizations#1250abde`.
 // Logged-in sessions
@@ -25,6 +27,23 @@ type AccountAuthorizations struct {
 
 // AccountAuthorizationsTypeID is TL type id of AccountAuthorizations.
 const AccountAuthorizationsTypeID = 0x1250abde
+
+// String implements fmt.Stringer.
+func (a *AccountAuthorizations) String() string {
+	if a == nil {
+		return "AccountAuthorizations(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountAuthorizations")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range a.Authorizations {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *AccountAuthorizations) Encode(b *bin.Buffer) error {

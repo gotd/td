@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountFinishTakeoutSessionRequest represents TL type `account.finishTakeoutSession#1d2652ee`.
 // Finish account takeout session
@@ -27,6 +29,21 @@ type AccountFinishTakeoutSessionRequest struct {
 
 // AccountFinishTakeoutSessionRequestTypeID is TL type id of AccountFinishTakeoutSessionRequest.
 const AccountFinishTakeoutSessionRequestTypeID = 0x1d2652ee
+
+// String implements fmt.Stringer.
+func (f *AccountFinishTakeoutSessionRequest) String() string {
+	if f == nil {
+		return "AccountFinishTakeoutSessionRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountFinishTakeoutSessionRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(f.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {

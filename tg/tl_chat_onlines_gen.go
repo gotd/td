@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChatOnlines represents TL type `chatOnlines#f041e250`.
 // Number of online users in a chat
@@ -25,6 +27,21 @@ type ChatOnlines struct {
 
 // ChatOnlinesTypeID is TL type id of ChatOnlines.
 const ChatOnlinesTypeID = 0xf041e250
+
+// String implements fmt.Stringer.
+func (c *ChatOnlines) String() string {
+	if c == nil {
+		return "ChatOnlines(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChatOnlines")
+	sb.WriteString("{\n")
+	sb.WriteString("\tOnlines: ")
+	sb.WriteString(fmt.Sprint(c.Onlines))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *ChatOnlines) Encode(b *bin.Buffer) error {

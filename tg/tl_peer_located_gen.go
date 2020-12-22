@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PeerLocated represents TL type `peerLocated#ca461b5d`.
 // Peer geolocated nearby
@@ -29,6 +31,27 @@ type PeerLocated struct {
 
 // PeerLocatedTypeID is TL type id of PeerLocated.
 const PeerLocatedTypeID = 0xca461b5d
+
+// String implements fmt.Stringer.
+func (p *PeerLocated) String() string {
+	if p == nil {
+		return "PeerLocated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerLocated")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(p.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(p.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("\tDistance: ")
+	sb.WriteString(fmt.Sprint(p.Distance))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (p *PeerLocated) Encode(b *bin.Buffer) error {
@@ -102,6 +125,21 @@ type PeerSelfLocated struct {
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
 const PeerSelfLocatedTypeID = 0xf8ec284b
 
+// String implements fmt.Stringer.
+func (p *PeerSelfLocated) String() string {
+	if p == nil {
+		return "PeerSelfLocated(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PeerSelfLocated")
+	sb.WriteString("{\n")
+	sb.WriteString("\tExpires: ")
+	sb.WriteString(fmt.Sprint(p.Expires))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -159,6 +197,7 @@ type PeerLocatedClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PeerLocatedClass
+	fmt.Stringer
 }
 
 // DecodePeerLocated implements binary de-serialization for PeerLocatedClass.

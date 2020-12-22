@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PaymentsClearSavedInfoRequest represents TL type `payments.clearSavedInfo#d83d70c1`.
 // Clear saved payment information
@@ -29,6 +31,21 @@ type PaymentsClearSavedInfoRequest struct {
 
 // PaymentsClearSavedInfoRequestTypeID is TL type id of PaymentsClearSavedInfoRequest.
 const PaymentsClearSavedInfoRequestTypeID = 0xd83d70c1
+
+// String implements fmt.Stringer.
+func (c *PaymentsClearSavedInfoRequest) String() string {
+	if c == nil {
+		return "PaymentsClearSavedInfoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PaymentsClearSavedInfoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(c.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {

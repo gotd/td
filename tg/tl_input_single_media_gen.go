@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputSingleMedia represents TL type `inputSingleMedia#1cc6e91f`.
 // A single media in an album or grouped media sent with messages.sendMultiMedia.
@@ -35,6 +37,37 @@ type InputSingleMedia struct {
 
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
 const InputSingleMediaTypeID = 0x1cc6e91f
+
+// String implements fmt.Stringer.
+func (i *InputSingleMedia) String() string {
+	if i == nil {
+		return "InputSingleMedia(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputSingleMedia")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(i.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tMedia: ")
+	sb.WriteString(i.Media.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tRandomID: ")
+	sb.WriteString(fmt.Sprint(i.RandomID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMessage: ")
+	sb.WriteString(fmt.Sprint(i.Message))
+	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteByte('[')
+		for _, v := range i.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputSingleMedia) Encode(b *bin.Buffer) error {

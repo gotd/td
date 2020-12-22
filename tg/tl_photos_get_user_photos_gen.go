@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhotosGetUserPhotosRequest represents TL type `photos.getUserPhotos#91cd32a8`.
 // Returns the list of user photos.
@@ -31,6 +33,30 @@ type PhotosGetUserPhotosRequest struct {
 
 // PhotosGetUserPhotosRequestTypeID is TL type id of PhotosGetUserPhotosRequest.
 const PhotosGetUserPhotosRequestTypeID = 0x91cd32a8
+
+// String implements fmt.Stringer.
+func (g *PhotosGetUserPhotosRequest) String() string {
+	if g == nil {
+		return "PhotosGetUserPhotosRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhotosGetUserPhotosRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(g.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tOffset: ")
+	sb.WriteString(fmt.Sprint(g.Offset))
+	sb.WriteString(",\n")
+	sb.WriteString("\tMaxID: ")
+	sb.WriteString(fmt.Sprint(g.MaxID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tLimit: ")
+	sb.WriteString(fmt.Sprint(g.Limit))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {

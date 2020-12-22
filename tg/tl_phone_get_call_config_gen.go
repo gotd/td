@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // PhoneGetCallConfigRequest represents TL type `phone.getCallConfig#55451fa9`.
 // Get phone call configuration to be passed to libtgvoip's shared config
@@ -23,6 +25,18 @@ type PhoneGetCallConfigRequest struct {
 
 // PhoneGetCallConfigRequestTypeID is TL type id of PhoneGetCallConfigRequest.
 const PhoneGetCallConfigRequestTypeID = 0x55451fa9
+
+// String implements fmt.Stringer.
+func (g *PhoneGetCallConfigRequest) String() string {
+	if g == nil {
+		return "PhoneGetCallConfigRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("PhoneGetCallConfigRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *PhoneGetCallConfigRequest) Encode(b *bin.Buffer) error {

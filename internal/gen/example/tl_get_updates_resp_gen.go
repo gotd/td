@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // GetUpdatesResp represents TL type `getUpdatesResp#2b4b45c`.
 //
@@ -24,6 +26,23 @@ type GetUpdatesResp struct {
 
 // GetUpdatesRespTypeID is TL type id of GetUpdatesResp.
 const GetUpdatesRespTypeID = 0x2b4b45c
+
+// String implements fmt.Stringer.
+func (g *GetUpdatesResp) String() string {
+	if g == nil {
+		return "GetUpdatesResp(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("GetUpdatesResp")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range g.Updates {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *GetUpdatesResp) Encode(b *bin.Buffer) error {

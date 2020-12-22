@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AccountUpdateDeviceLockedRequest represents TL type `account.updateDeviceLocked#38df3532`.
 // When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications.
@@ -25,6 +27,21 @@ type AccountUpdateDeviceLockedRequest struct {
 
 // AccountUpdateDeviceLockedRequestTypeID is TL type id of AccountUpdateDeviceLockedRequest.
 const AccountUpdateDeviceLockedRequestTypeID = 0x38df3532
+
+// String implements fmt.Stringer.
+func (u *AccountUpdateDeviceLockedRequest) String() string {
+	if u == nil {
+		return "AccountUpdateDeviceLockedRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AccountUpdateDeviceLockedRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeriod: ")
+	sb.WriteString(fmt.Sprint(u.Period))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {

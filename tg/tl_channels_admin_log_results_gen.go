@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ChannelsAdminLogResults represents TL type `channels.adminLogResults#ed8af74d`.
 // Admin log events
@@ -29,6 +31,33 @@ type ChannelsAdminLogResults struct {
 
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
 const ChannelsAdminLogResultsTypeID = 0xed8af74d
+
+// String implements fmt.Stringer.
+func (a *ChannelsAdminLogResults) String() string {
+	if a == nil {
+		return "ChannelsAdminLogResults(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelsAdminLogResults")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range a.Events {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range a.Chats {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteByte('[')
+	for _, v := range a.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {

@@ -5,6 +5,7 @@ package td
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TextEntities represents TL type `textEntities#cf89c258`.
 //
@@ -24,6 +26,23 @@ type TextEntities struct {
 
 // TextEntitiesTypeID is TL type id of TextEntities.
 const TextEntitiesTypeID = 0xcf89c258
+
+// String implements fmt.Stringer.
+func (t *TextEntities) String() string {
+	if t == nil {
+		return "TextEntities(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TextEntities")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range t.Entities {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TextEntities) Encode(b *bin.Buffer) error {

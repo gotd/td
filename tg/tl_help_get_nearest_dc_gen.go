@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetNearestDcRequest represents TL type `help.getNearestDc#1fb33026`.
 // Returns info on data centre nearest to the user.
@@ -23,6 +25,18 @@ type HelpGetNearestDcRequest struct {
 
 // HelpGetNearestDcRequestTypeID is TL type id of HelpGetNearestDcRequest.
 const HelpGetNearestDcRequestTypeID = 0x1fb33026
+
+// String implements fmt.Stringer.
+func (g *HelpGetNearestDcRequest) String() string {
+	if g == nil {
+		return "HelpGetNearestDcRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetNearestDcRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetNearestDcRequest) Encode(b *bin.Buffer) error {

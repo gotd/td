@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,11 +14,27 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // ContactStatusVector is a box for Vector<ContactStatus>
 type ContactStatusVector struct {
 	// Elements of Vector<ContactStatus>
 	Elems []ContactStatus
+}
+
+// String implements fmt.Stringer.
+func (vec *ContactStatusVector) String() string {
+	if vec == nil {
+		return "ContactStatusVector(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ContactStatusVector")
+	sb.WriteByte('[')
+	for _, e := range vec.Elems {
+		sb.WriteString(fmt.Sprint(e) + ",\n")
+	}
+	sb.WriteByte(']')
+	return sb.String()
 }
 
 // Encode implements bin.Encoder.

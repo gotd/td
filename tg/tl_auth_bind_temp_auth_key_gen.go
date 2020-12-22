@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // AuthBindTempAuthKeyRequest represents TL type `auth.bindTempAuthKey#cdd42a05`.
 // Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
@@ -32,6 +34,30 @@ type AuthBindTempAuthKeyRequest struct {
 
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.
 const AuthBindTempAuthKeyRequestTypeID = 0xcdd42a05
+
+// String implements fmt.Stringer.
+func (b *AuthBindTempAuthKeyRequest) String() string {
+	if b == nil {
+		return "AuthBindTempAuthKeyRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("AuthBindTempAuthKeyRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPermAuthKeyID: ")
+	sb.WriteString(fmt.Sprint(b.PermAuthKeyID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tNonce: ")
+	sb.WriteString(fmt.Sprint(b.Nonce))
+	sb.WriteString(",\n")
+	sb.WriteString("\tExpiresAt: ")
+	sb.WriteString(fmt.Sprint(b.ExpiresAt))
+	sb.WriteString(",\n")
+	sb.WriteString("\tEncryptedMessage: ")
+	sb.WriteString(fmt.Sprint(b.EncryptedMessage))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (b *AuthBindTempAuthKeyRequest) Encode(buf *bin.Buffer) error {

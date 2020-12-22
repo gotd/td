@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // MessagesEditInlineBotMessageRequest represents TL type `messages.editInlineBotMessage#83557dba`.
 // Edit an inline bot message
@@ -45,6 +47,46 @@ type MessagesEditInlineBotMessageRequest struct {
 
 // MessagesEditInlineBotMessageRequestTypeID is TL type id of MessagesEditInlineBotMessageRequest.
 const MessagesEditInlineBotMessageRequestTypeID = 0x83557dba
+
+// String implements fmt.Stringer.
+func (e *MessagesEditInlineBotMessageRequest) String() string {
+	if e == nil {
+		return "MessagesEditInlineBotMessageRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessagesEditInlineBotMessageRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(e.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tID: ")
+	sb.WriteString(e.ID.String())
+	sb.WriteString(",\n")
+	if e.Flags.Has(11) {
+		sb.WriteString("\tMessage: ")
+		sb.WriteString(fmt.Sprint(e.Message))
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(14) {
+		sb.WriteString("\tMedia: ")
+		sb.WriteString(e.Media.String())
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(2) {
+		sb.WriteString("\tReplyMarkup: ")
+		sb.WriteString(e.ReplyMarkup.String())
+		sb.WriteString(",\n")
+	}
+	if e.Flags.Has(3) {
+		sb.WriteByte('[')
+		for _, v := range e.Entities {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {

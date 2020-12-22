@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpGetUserInfoRequest represents TL type `help.getUserInfo#38a08d3`.
 // Internal use
@@ -25,6 +27,21 @@ type HelpGetUserInfoRequest struct {
 
 // HelpGetUserInfoRequestTypeID is TL type id of HelpGetUserInfoRequest.
 const HelpGetUserInfoRequestTypeID = 0x38a08d3
+
+// String implements fmt.Stringer.
+func (g *HelpGetUserInfoRequest) String() string {
+	if g == nil {
+		return "HelpGetUserInfoRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpGetUserInfoRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tUserID: ")
+	sb.WriteString(g.UserID.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {

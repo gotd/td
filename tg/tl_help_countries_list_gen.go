@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // HelpCountriesListNotModified represents TL type `help.countriesListNotModified#93cc1f32`.
 // The country list has not changed
@@ -23,6 +25,18 @@ type HelpCountriesListNotModified struct {
 
 // HelpCountriesListNotModifiedTypeID is TL type id of HelpCountriesListNotModified.
 const HelpCountriesListNotModifiedTypeID = 0x93cc1f32
+
+// String implements fmt.Stringer.
+func (c *HelpCountriesListNotModified) String() string {
+	if c == nil {
+		return "HelpCountriesListNotModified(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpCountriesListNotModified")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
@@ -68,6 +82,26 @@ type HelpCountriesList struct {
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
 const HelpCountriesListTypeID = 0x87d0759e
+
+// String implements fmt.Stringer.
+func (c *HelpCountriesList) String() string {
+	if c == nil {
+		return "HelpCountriesList(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("HelpCountriesList")
+	sb.WriteString("{\n")
+	sb.WriteByte('[')
+	for _, v := range c.Countries {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tHash: ")
+	sb.WriteString(fmt.Sprint(c.Hash))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
@@ -145,6 +179,7 @@ type HelpCountriesListClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpCountriesListClass
+	fmt.Stringer
 }
 
 // DecodeHelpCountriesList implements binary de-serialization for HelpCountriesListClass.

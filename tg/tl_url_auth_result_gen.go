@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
 // Details about the authorization request, for more info click here »
@@ -31,6 +33,27 @@ type UrlAuthResultRequest struct {
 
 // UrlAuthResultRequestTypeID is TL type id of UrlAuthResultRequest.
 const UrlAuthResultRequestTypeID = 0x92d33a0e
+
+// String implements fmt.Stringer.
+func (u *UrlAuthResultRequest) String() string {
+	if u == nil {
+		return "UrlAuthResultRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UrlAuthResultRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(u.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tBot: ")
+	sb.WriteString(u.Bot.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tDomain: ")
+	sb.WriteString(fmt.Sprint(u.Domain))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultRequest) Encode(b *bin.Buffer) error {
@@ -114,6 +137,21 @@ type UrlAuthResultAccepted struct {
 // UrlAuthResultAcceptedTypeID is TL type id of UrlAuthResultAccepted.
 const UrlAuthResultAcceptedTypeID = 0x8f8c0e4e
 
+// String implements fmt.Stringer.
+func (u *UrlAuthResultAccepted) String() string {
+	if u == nil {
+		return "UrlAuthResultAccepted(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UrlAuthResultAccepted")
+	sb.WriteString("{\n")
+	sb.WriteString("\tURL: ")
+	sb.WriteString(fmt.Sprint(u.URL))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultAccepted) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -162,6 +200,18 @@ type UrlAuthResultDefault struct {
 
 // UrlAuthResultDefaultTypeID is TL type id of UrlAuthResultDefault.
 const UrlAuthResultDefaultTypeID = 0xa9d6db1f
+
+// String implements fmt.Stringer.
+func (u *UrlAuthResultDefault) String() string {
+	if u == nil {
+		return "UrlAuthResultDefault(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UrlAuthResultDefault")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultDefault) Encode(b *bin.Buffer) error {
@@ -213,6 +263,7 @@ type UrlAuthResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UrlAuthResultClass
+	fmt.Stringer
 }
 
 // DecodeUrlAuthResult implements binary de-serialization for UrlAuthResultClass.

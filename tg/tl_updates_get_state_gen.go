@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // UpdatesGetStateRequest represents TL type `updates.getState#edd4882a`.
 // Returns a current state of updates.
@@ -23,6 +25,18 @@ type UpdatesGetStateRequest struct {
 
 // UpdatesGetStateRequestTypeID is TL type id of UpdatesGetStateRequest.
 const UpdatesGetStateRequestTypeID = 0xedd4882a
+
+// String implements fmt.Stringer.
+func (g *UpdatesGetStateRequest) String() string {
+	if g == nil {
+		return "UpdatesGetStateRequest(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdatesGetStateRequest")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (g *UpdatesGetStateRequest) Encode(b *bin.Buffer) error {

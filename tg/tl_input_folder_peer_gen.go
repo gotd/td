@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // InputFolderPeer represents TL type `inputFolderPeer#fbd2c296`.
 // Peer in a folder
@@ -27,6 +29,24 @@ type InputFolderPeer struct {
 
 // InputFolderPeerTypeID is TL type id of InputFolderPeer.
 const InputFolderPeerTypeID = 0xfbd2c296
+
+// String implements fmt.Stringer.
+func (i *InputFolderPeer) String() string {
+	if i == nil {
+		return "InputFolderPeer(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputFolderPeer")
+	sb.WriteString("{\n")
+	sb.WriteString("\tPeer: ")
+	sb.WriteString(i.Peer.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tFolderID: ")
+	sb.WriteString(fmt.Sprint(i.FolderID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (i *InputFolderPeer) Encode(b *bin.Buffer) error {

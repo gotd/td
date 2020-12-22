@@ -5,6 +5,7 @@ package tg
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/gotd/td/bin"
 )
@@ -13,6 +14,7 @@ import (
 var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
+var _ = strings.Builder{}
 
 // TopPeerCategoryPeers represents TL type `topPeerCategoryPeers#fb834291`.
 // Top peer category
@@ -29,6 +31,29 @@ type TopPeerCategoryPeers struct {
 
 // TopPeerCategoryPeersTypeID is TL type id of TopPeerCategoryPeers.
 const TopPeerCategoryPeersTypeID = 0xfb834291
+
+// String implements fmt.Stringer.
+func (t *TopPeerCategoryPeers) String() string {
+	if t == nil {
+		return "TopPeerCategoryPeers(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("TopPeerCategoryPeers")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCategory: ")
+	sb.WriteString(t.Category.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCount: ")
+	sb.WriteString(fmt.Sprint(t.Count))
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range t.Peers {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
 
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryPeers) Encode(b *bin.Buffer) error {
