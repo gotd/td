@@ -31,10 +31,10 @@ func (s *Server) readUnencrypted(ctx context.Context, conn transport.Conn, data 
 		return err
 	}
 
-	return s.decodeUnencrypted(ctx, b, data)
+	return s.decodeUnencrypted(b, data)
 }
 
-func (s *Server) decodeUnencrypted(ctx context.Context, b *bin.Buffer, data bin.Decoder) error {
+func (s *Server) decodeUnencrypted(b *bin.Buffer, data bin.Decoder) error {
 	var msg proto.UnencryptedMessage
 	if err := msg.Decode(b); err != nil {
 		return err

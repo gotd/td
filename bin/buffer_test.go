@@ -25,7 +25,7 @@ func TestExpandReset(t *testing.T) {
 	a.Equal(before-2, b.Len())
 }
 
-func TestCopy(t *testing.T)  {
+func TestCopy(t *testing.T) {
 	b := Buffer{}
 	b.PutInt(10)
 	copyBuf := b.Copy()

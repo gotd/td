@@ -29,7 +29,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 		defer cancel()
 
 		testMessage := "ну че там с деньгами?"
-		suite := tgtest.NewSuite(t, ctx, log)
+		suite := tgtest.NewSuite(ctx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
 		srv.Start()
 		defer srv.Close()
@@ -128,9 +128,11 @@ func testReconnect(trp Transport) func(t *testing.T) {
 				if _, ok := alreadyConnected[s.AuthKeyID]; !ok {
 					srv.ForceDisconnect(s)
 					alreadyConnected[s.AuthKeyID] = struct{}{}
-				} else {
-					wait <- struct{}{}
+					return nil
 				}
+
+				wait <- struct{}{}
+				return srv.SendResult(s, msgID, &tg.Updates{})
 			}
 
 			return nil
@@ -159,7 +161,6 @@ func testReconnect(trp Transport) func(t *testing.T) {
 		})
 
 		<-wait
-		return
 	}
 }
 

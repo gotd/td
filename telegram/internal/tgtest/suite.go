@@ -13,6 +13,6 @@ type Suite struct {
 	Log *zap.Logger
 }
 
-func NewSuite(TB testing.TB, ctx context.Context, log *zap.Logger) Suite {
-	return Suite{TB: TB, Ctx: ctx, Log: log}
+func NewSuite(ctx context.Context, tb testing.TB, log *zap.Logger) Suite {
+	return Suite{TB: tb, Ctx: ctx, Log: log}
 }

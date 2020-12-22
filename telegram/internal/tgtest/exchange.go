@@ -19,7 +19,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMultiRequest
-	if err := s.decodeUnencrypted(ctx, r, &pqReq); err != nil {
+	if err := s.decodeUnencrypted(r, &pqReq); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
 
