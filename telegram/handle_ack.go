@@ -26,7 +26,6 @@ func (c *Client) handleAck(b *bin.Buffer) error {
 		}
 
 		fn()
-		delete(c.ack, msgID)
 	}
 
 	return nil
