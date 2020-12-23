@@ -120,7 +120,7 @@ jobs:
       - name: Send coverage
         uses: codecov/codecov-action@v1
         with:
-          file: coverage.out
+          file: profile.out
   check-generated:
     runs-on: ubuntu-latest
     steps:
