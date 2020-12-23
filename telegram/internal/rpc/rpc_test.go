@@ -1,7 +1,7 @@
 package rpc
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 	"time"
 
@@ -20,31 +20,26 @@ type request struct {
 	Input bin.Encoder
 }
 
-func sendTo(c chan<- request) Send {
-	return func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-		c <- request{
-			MsgID: msgID,
-			SeqNo: seqNo,
-			Input: in,
-		}
-		return nil
-	}
-}
-
 var defaultNow = time.Date(2010, 10, 10, 3, 45, 12, 23, time.UTC)
+
+const (
+	reqID  = 1
+	pingID = 1337
+	seqNo  = 1
+)
 
 func TestRPCError(t *testing.T) {
 	clock := neo.NewTime(defaultNow)
 	observer := clock.Observe()
+	expectedErr := errors.New("server side error")
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
 		// Waiting request from client.
-		req := <-incoming
 		assert.Equal(t, request{
-			MsgID: 1,
-			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: 1337},
-		}, req)
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
 
 		// Make sure that client calls time.After
 		// before time travel
@@ -54,21 +49,21 @@ func TestRPCError(t *testing.T) {
 		clock.Travel(time.Second)
 
 		// Notify client about error.
-		e.NotifyError(req.MsgID, fmt.Errorf("omg"))
+		e.NotifyError(reqID, expectedErr)
 
 		return nil
 	}
 
 	client := func(t *testing.T, e *Engine) error {
 		err := e.Do(context.TODO(), Request{
-			ID:       1,
-			Sequence: 1,
+			ID:       reqID,
+			Sequence: seqNo,
 			Input: &mt.PingRequest{
-				PingID: 1337,
+				PingID: pingID,
 			},
 		})
+		assert.True(t, errors.Is(err, expectedErr), "expected error")
 
-		assert.EqualError(t, err, "omg")
 		return nil
 	}
 
@@ -85,15 +80,14 @@ func TestRPCResult(t *testing.T) {
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
 		// Waiting request from client.
-		req := <-incoming
 		assert.Equal(t, request{
-			MsgID: 1,
-			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: 1337},
-		}, req)
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
 
 		// Make sure that engine calls time.After
-		// brefore time travel.
+		// before time travel.
 		<-observer
 
 		// Simulate job.
@@ -101,29 +95,29 @@ func TestRPCResult(t *testing.T) {
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		// Send response.
-		return e.NotifyResult(req.MsgID, &b)
+		return e.NotifyResult(reqID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
 		var out mt.Pong
 		err := e.Do(context.TODO(), Request{
-			ID:       1,
-			Sequence: 1,
-			Input:    &mt.PingRequest{PingID: 1337},
+			ID:       reqID,
+			Sequence: seqNo,
+			Input:    &mt.PingRequest{PingID: pingID},
 			Output:   &out,
 		})
 
 		assert.NoError(t, err)
 		assert.Equal(t, mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}, out)
 		return nil
 	}
@@ -141,12 +135,11 @@ func TestRPCAckThenResult(t *testing.T) {
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
 		// Wait request from client.
-		req := <-incoming
 		assert.Equal(t, request{
 			MsgID: 1,
 			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: 1337},
-		}, req)
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
 
 		// Make sure that client calls time.After
 		// before time travel.
@@ -156,36 +149,34 @@ func TestRPCAckThenResult(t *testing.T) {
 		clock.Travel(time.Second * 2)
 
 		// Acknowledge request.
-		e.NotifyAcks([]int64{req.MsgID})
+		e.NotifyAcks([]int64{reqID})
 
 		// Simulate request processing.
 		clock.Travel(time.Second * 1)
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		// Send response.
-		return e.NotifyResult(req.MsgID, &b)
+		return e.NotifyResult(reqID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
 		var out mt.Pong
-		err := e.Do(context.TODO(), Request{
-			ID:       1,
-			Sequence: 1,
-			Input:    &mt.PingRequest{PingID: 1337},
+		assert.NoError(t, e.Do(context.TODO(), Request{
+			ID:       reqID,
+			Sequence: seqNo,
+			Input:    &mt.PingRequest{PingID: pingID},
 			Output:   &out,
-		})
-
-		assert.NoError(t, err)
+		}))
 		assert.Equal(t, mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}, out)
 
 		return nil
@@ -204,12 +195,11 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
 		// Waiting request from client.
-		req := <-incoming
 		assert.Equal(t, request{
-			MsgID: 1,
-			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: 1337},
-		}, req)
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
 
 		// Make sure that client calls time.After
 		// before time travel.
@@ -222,38 +212,35 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		clock.Travel(time.Second * 6)
 
 		// Receive request.
-		req = <-incoming
 		assert.Equal(t, request{
-			MsgID: 1,
-			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: 1337},
-		}, req)
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		// Send response.
-		return e.NotifyResult(req.MsgID, &b)
+		return e.NotifyResult(reqID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
 		var out mt.Pong
-		err := e.Do(context.TODO(), Request{
+		assert.NoError(t, e.Do(context.TODO(), Request{
 			ID:       1,
 			Sequence: 1,
-			Input:    &mt.PingRequest{PingID: 1337},
+			Input:    &mt.PingRequest{PingID: pingID},
 			Output:   &out,
-		})
-
-		assert.NoError(t, err)
+		}))
 		assert.Equal(t, mt.Pong{
-			MsgID:  1,
-			PingID: 1337,
+			MsgID:  reqID,
+			PingID: pingID,
 		}, out)
 
 		return nil
@@ -278,7 +265,14 @@ func runTest(
 	requests := make(chan request)
 	defer close(requests)
 
-	e := New(sendTo(requests), cfg)
+	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
+		requests <- request{
+			MsgID: msgID,
+			SeqNo: seqNo,
+			Input: in,
+		}
+		return nil
+	}, cfg)
 
 	var g errgroup.Group
 	g.Go(func() error { return server(t, e, requests) })
