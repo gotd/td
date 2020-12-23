@@ -26,3 +26,15 @@ are on roadmap. If you have idea for new feature, please open feature request fi
 
 Also, it will be great to [contact](.github/SUPPORT.md) developers to discuss implementation
 details.
+
+## Schema update
+
+If new layer is released in [tdesktop](https://github.com/telegramdesktop/tdesktop) repo, one can
+use it to update to latest schema:
+
+```console
+$ make download_schema generate
+```
+
+Please don't do it too early, because it is possible to have multiple versions of
+layer.
