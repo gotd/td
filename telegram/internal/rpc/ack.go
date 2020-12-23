@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"context"
+	"sync"
 
 	"go.uber.org/zap"
 )
@@ -24,10 +25,15 @@ func (e *Engine) NotifyAcks(ids []int64) {
 
 // waitAck blocks until acknowledgement on message id is received.
 func (e *Engine) waitAck(ctx context.Context, id int64) error {
-	got := make(chan struct{})
+	done := make(chan struct{})
+	var ackOnce sync.Once
 
 	e.mux.Lock()
-	e.ack[id] = func() { close(got) }
+	e.ack[id] = func() {
+		ackOnce.Do(func() {
+			close(done)
+		})
+	}
 	e.mux.Unlock()
 
 	defer func() {
@@ -39,7 +45,7 @@ func (e *Engine) waitAck(ctx context.Context, id int64) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
-	case <-got:
+	case <-done:
 		return nil
 	}
 }

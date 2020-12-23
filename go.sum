@@ -116,6 +116,8 @@ github.com/gotd/ige v0.1.5 h1:qITql4hZpqPM/DSeO5IVlxzXJxrs4ZZiKRwPif2K76U=
 github.com/gotd/ige v0.1.5/go.mod h1:LbvqjUuGELVuHcKjfJZ2NPNzegICQU4eqrPAkXy0nTs=
 github.com/gotd/neo v0.1.0 h1:zt7b33+DDA0kzpSO/lb5IYrGUu+vW/GnbTD1R3/j48o=
 github.com/gotd/neo v0.1.0/go.mod h1:h7OoFKzXwzBP0UgOJ9Q+eG1D8qWlJPrN75JM5SGNvE0=
+github.com/gotd/neo v0.1.1 h1:R0+UERZZubPcaQbA0sR6n2EV8uy6tt/0SpfUlKfQq+U=
+github.com/gotd/neo v0.1.1/go.mod h1:9A2a4bn9zL6FADufBdt7tZt+WMhvZoc5gWXihOPoiBQ=
 github.com/gotd/tl v0.2.0 h1:kY0lKrNBL/ApU2enzsR2or0U/hoh4y1Msf1SJjS7/qY=
 github.com/gotd/tl v0.2.0/go.mod h1:9xGV9pH5N+LDoNmbeuOor9AjJaQzlj4KP5EguI1LMM8=
 github.com/gotd/xor v0.1.0 h1:kg9XdEeTpbZbvsyjQq2l+UbgvZanJFRSazrI06+qXG0=
@@ -289,6 +291,8 @@ golang.org/x/sync v0.0.0-20190227155943-e225da77a7e6/go.mod h1:RxMgew5VJxzue5/jJ
 golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9 h1:SQFwaSi55rU7vdNs9Yr0Z324VNlrF+0wMqRXT4St8ck=
 golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
+golang.org/x/sync v0.0.0-20201207232520-09787c993a3a h1:DcqTD9SDLc+1P/r1EmRBwnVsrOwW+kk2vWf9n+1sGhs=
+golang.org/x/sync v0.0.0-20201207232520-09787c993a3a/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sys v0.0.0-20180830151530-49385e6e1522/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20181205085412-a5c9d58dba9a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=

@@ -46,7 +46,7 @@ func TestRPCError(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan request, 1)
+	requests := make(chan request)
 	defer close(requests)
 
 	clock := neo.NewTime(defaultNow)
@@ -57,12 +57,13 @@ func TestRPCError(t *testing.T) {
 		Clock:         clock,
 	})
 
-	var g errgroup.Group
+	g, gCtx := errgroup.WithContext(context.Background())
+	observe := clock.Observe()
 
-	// Server behavior.
 	g.Go(func() error {
 		// Waiting request from client.
 		req := <-requests
+		<-observe
 
 		// Verify client request.
 		assert.Equal(t, serverExpect, req)
@@ -71,14 +72,14 @@ func TestRPCError(t *testing.T) {
 		clock.Travel(time.Second)
 
 		// NotifyAcks client about error.
-		e.NotifyError(1, serverErrorResponse)
+		e.NotifyError(req.MsgID, serverErrorResponse)
 
 		return nil
 	})
 
 	// Client behavior.
 	g.Go(func() error {
-		return e.Do(context.Background(), Request{
+		return e.Do(gCtx, Request{
 			ID:       1,
 			Sequence: 1,
 			Input: &mt.PingRequest{
@@ -106,7 +107,7 @@ func TestRPCResult(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan request, 1)
+	requests := make(chan request)
 	defer close(requests)
 
 	clock := neo.NewTime(defaultNow)
@@ -114,31 +115,28 @@ func TestRPCResult(t *testing.T) {
 	e := New(sendTo(requests), Config{
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
+		Clock:         clock,
 	})
 
-	var g errgroup.Group
+	g, gCtx := errgroup.WithContext(context.Background())
+	observe := clock.Observe()
 
-	// Server behavior.
 	g.Go(func() error {
 		// Waiting request from client.
 		req := <-requests
-
-		// Validating request.
 		assert.Equal(t, serverExpect, req)
 
 		// Simulate job.
+		<-observe
 		clock.Travel(time.Second * 2)
 
-		b := new(bin.Buffer)
-		var serverPong mt.Pong
-		serverPong.MsgID = 1
-		serverPong.PingID = 1337
-		if err := serverPong.Encode(b); err != nil {
+		var b bin.Buffer
+		if err := b.Encode(&serverResponse); err != nil {
 			return err
 		}
 
 		// Send response.
-		if err := e.NotifyResult(1, b); err != nil {
+		if err := e.NotifyResult(req.MsgID, &b); err != nil {
 			return err
 		}
 
@@ -148,7 +146,7 @@ func TestRPCResult(t *testing.T) {
 	var out mt.Pong
 	// Client behavior.
 	g.Go(func() error {
-		return e.Do(context.Background(), Request{
+		return e.Do(gCtx, Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
@@ -176,7 +174,7 @@ func TestRPCAckThenResult(t *testing.T) {
 	)
 
 	// Channel of client requests sent to the server.
-	requests := make(chan request, 1)
+	requests := make(chan request)
 	defer close(requests)
 
 	clock := neo.NewTime(defaultNow)
@@ -187,44 +185,37 @@ func TestRPCAckThenResult(t *testing.T) {
 		Clock:         clock,
 	})
 
-	var g errgroup.Group
+	g, gCtx := errgroup.WithContext(context.Background())
+	observe := clock.Observe()
 
 	// Server behavior.
 	g.Go(func() error {
 		// Wait request from client.
 		req := <-requests
-
-		// Validate request.
 		assert.Equal(t, serverExpect, req)
 
-		// Simulate job.
+		// Simulate request processing.
+		<-observe
 		clock.Travel(time.Second * 2)
 
-		// NotifyAcks client ACK.
-		e.NotifyAcks([]int64{1})
+		// Acknowledge request.
+		e.NotifyAcks([]int64{req.MsgID})
 
-		// Simulate job again.
-		clock.Travel(time.Second * 4)
+		// Simulate request processing.
+		clock.Travel(time.Second * 1)
 
-		b := new(bin.Buffer)
-		var serverPong mt.Pong
-		serverPong.MsgID = 1
-		serverPong.PingID = 1337
-		if err := serverPong.Encode(b); err != nil {
+		var b bin.Buffer
+		if err := b.Encode(&serverResponse); err != nil {
 			return err
 		}
 
 		// Send response.
-		if err := e.NotifyResult(1, b); err != nil {
-			return err
-		}
-
-		return nil
+		return e.NotifyResult(req.MsgID, &b)
 	})
 
 	var out mt.Pong
 	g.Go(func() error {
-		return e.Do(context.Background(), Request{
+		return e.Do(gCtx, Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
@@ -251,10 +242,8 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		}
 	)
 
-	t.Skip("TODO(ernado): fix race")
-
 	// Channel of client requests sent to the server.
-	requests := make(chan request, 1)
+	requests := make(chan request)
 	defer close(requests)
 
 	clock := neo.NewTime(defaultNow)
@@ -265,44 +254,35 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		Clock:         clock,
 	})
 
-	var eg errgroup.Group
+	g, gCtx := errgroup.WithContext(context.Background())
 
 	// Server behavior.
-	eg.Go(func() error {
-		// Wait request from client.
+	g.Go(func() error {
+		observe := clock.Observe()
+
+		// Receive request.
 		req := <-requests
-
-		// Validate request.
 		assert.Equal(t, serverExpect, req)
 
-		// Simulate request loss.
+		// Receive retry.
+		<-observe
 		clock.Travel(time.Second * 6)
-
-		// Wait that request again.
 		req = <-requests
-
-		// Validate it.
 		assert.Equal(t, serverExpect, req)
 
-		var pong mt.Pong
-		pong.MsgID = 1
-		pong.PingID = 1337
-		b := new(bin.Buffer)
-		if err := pong.Encode(b); err != nil {
+		var b bin.Buffer
+		if err := b.Encode(&serverResponse); err != nil {
 			return err
 		}
 
 		// Send response.
-		if err := e.NotifyResult(1, b); err != nil {
-			return err
-		}
-		return nil
+		return e.NotifyResult(req.MsgID, &b)
 	})
 
 	var out mt.Pong
 	// Client behavior.
-	eg.Go(func() error {
-		return e.Do(context.Background(), Request{
+	g.Go(func() error {
+		return e.Do(gCtx, Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: 1337},
@@ -310,6 +290,6 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		})
 	})
 
-	assert.NoError(t, eg.Wait())
+	assert.NoError(t, g.Wait())
 	assert.Equal(t, serverResponse, out)
 }

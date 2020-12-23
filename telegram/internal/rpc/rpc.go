@@ -4,6 +4,7 @@ package rpc
 import (
 	"context"
 	"errors"
+	"fmt"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -86,7 +87,8 @@ type Request struct {
 	Output   bin.Decoder
 }
 
-// Do performs RPC request.
+// Do sends request to server and blocks until response is received, performing
+// multiple retries if needed.
 func (e *Engine) Do(ctx context.Context, req Request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
@@ -142,7 +144,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	}
 
 	// Start retrying.
-	if err := e.retryUntilAck(retryCtx, req); err != nil {
+	if err := e.retryUntilAck(retryCtx, req); err != nil && !errors.Is(err, context.Canceled) {
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the original context.
 		//   2. The RPC result came and callback canceled retryCtx.
@@ -150,9 +152,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		// If this is not an context.Canceled error, most likely we did not receive ack
 		// and exceeded the limit of attempts to send a request,
 		// or could not write data to the connection, so we return an error.
-		if !errors.Is(err, context.Canceled) {
-			return xerrors.Errorf("retryUntilAck: %w", err)
-		}
+		return xerrors.Errorf("retryUntilAck: %w", err)
 	}
 
 	select {
@@ -163,17 +163,35 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	}
 }
 
+// RetryLimitReachedErr means that server does not acknowledge request
+// after multiple retries.
+type RetryLimitReachedErr struct {
+	Retries int
+}
+
+func (r *RetryLimitReachedErr) Error() string {
+	return fmt.Sprintf("retry limit reached after %d attempts", r.Retries)
+}
+
+// Is reports whether err is RetryLimitReachedErr.
+func (r *RetryLimitReachedErr) Is(err error) bool {
+	_, ok := err.(*RetryLimitReachedErr)
+	return ok
+}
+
 // retryUntilAck resends the request to the server until request is
 // acknowledged.
 //
-// Returns nil if ACK was received, otherwise return error.
+// Returns nil if acknowledge was received or error otherwise.
 func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	err := make(chan error)
+	done := make(chan struct{})
+	var err error
 	go func() {
-		err <- e.waitAck(ctx, req.ID)
+		err = e.waitAck(ctx, req.ID)
+		close(done)
 	}()
 
 	log := e.log.Named("retry").With(zap.Int64("msg_id", req.ID))
@@ -183,22 +201,24 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
-		case ackErr := <-err:
-			if ackErr != nil {
-				return xerrors.Errorf("wait ack: %w", ackErr)
+		case <-done:
+			if err != nil {
+				return xerrors.Errorf("wait ack: %w", err)
 			}
 			return nil
 		case <-e.clock.After(e.retryInterval):
-			log.Debug("Request ACK timed out, resending")
+			log.Debug("Acknowledge timed out, performing retry")
 			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				log.Error("Resend failed", zap.Error(err))
+				log.Error("Retry failed", zap.Error(err))
 				return err
 			}
 
 			retries++
 			if retries >= e.maxRetries {
 				log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
-				return xerrors.New("retry limit reached")
+				return &RetryLimitReachedErr{
+					Retries: retries,
+				}
 			}
 		}
 	}
