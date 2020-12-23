@@ -14,12 +14,22 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// Clock abstracts temporal effects.
+type Clock interface {
+	After(d time.Duration) <-chan time.Time
+}
+
 // Config of rpc engine.
 type Config struct {
 	RetryInterval time.Duration
 	MaxRetries    int
 	Logger        *zap.Logger
+	Clock         Clock
 }
+
+type systemClock struct{}
+
+func (systemClock) After(d time.Duration) <-chan time.Time { return time.After(d) }
 
 // Engine handles RPC requests.
 type Engine struct {
@@ -29,6 +39,7 @@ type Engine struct {
 	rpc map[int64]func(*bin.Buffer, error) error
 	ack map[int64]func()
 
+	clock         Clock
 	log           *zap.Logger
 	retryInterval time.Duration
 	maxRetries    int
@@ -51,6 +62,9 @@ func New(send Send, cfg Config) *Engine {
 	if cfg.Logger == nil {
 		cfg.Logger = zap.NewNop()
 	}
+	if cfg.Clock == nil {
+		cfg.Clock = systemClock{}
+	}
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
 		ack: map[int64]func(){},
@@ -60,6 +74,7 @@ func New(send Send, cfg Config) *Engine {
 		log:           cfg.Logger,
 		maxRetries:    cfg.MaxRetries,
 		retryInterval: cfg.RetryInterval,
+		clock:         cfg.Clock,
 	}
 }
 
@@ -173,8 +188,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 				return xerrors.Errorf("wait ack: %w", ackErr)
 			}
 			return nil
-		// TODO(ccln): use clock.
-		case <-time.After(e.retryInterval):
+		case <-e.clock.After(e.retryInterval):
 			log.Debug("Request ACK timed out, resending")
 			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
 				log.Error("Resend failed", zap.Error(err))
