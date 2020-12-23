@@ -272,6 +272,8 @@ func runTest(
 	server func(t *testing.T, e *Engine, incoming <-chan request) error,
 	client func(t *testing.T, e *Engine) error,
 ) {
+	t.Helper()
+
 	// Channel of client requests sent to the server.
 	requests := make(chan request)
 	defer close(requests)
