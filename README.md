@@ -42,18 +42,18 @@ You can use `td/telegram/tgflow` package to deal with user auth.
 
 ```go
 codePrompt := func(ctx context.Context) (string, error) {
-	// Safely get authentication code from terminal here,
-	// like in https://play.golang.org/p/l-9IP1mrhA
-	return code, nil
+    // Safely get authentication code from terminal here,
+    // like in https://play.golang.org/p/l-9IP1mrhA
+    return code, nil
 }
 // This will setup and perform authentication flow.
 // If account does not require 2FA password, use tgflow.CodeOnlyAuth
 // instead of tgflow.ConstantAuth.
 if err := tgflow.NewAuth(
-	tgflow.ConstantAuth(phone, password, tgflow.CodeAuthenticatorFunc(codePrompt)),
-	telegram.SendCodeOptions{},
+    tgflow.ConstantAuth(phone, password, tgflow.CodeAuthenticatorFunc(codePrompt)),
+    telegram.SendCodeOptions{},
 ).Run(ctx, client); err != nil {
-	panic(err)
+    panic(err)
 }
 ```
 #### Bot
@@ -130,25 +130,21 @@ Also, the corresponding [auth.signIn](https://core.telegram.org/method/auth.sign
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {}
 ```
 
-The generated constructors contain detailed official documentation:
+The generated constructors contain detailed official documentation, including links:
 ```go
-// AccountInstallThemeRequest represents TL type `account.installTheme#7ae43737`.
-// Install a theme
+// FoldersDeleteFolderRequest represents TL type `folders.deleteFolder#1c295881`.
+// Delete a peer folder¹
 //
-// See https://core.telegram.org/method/account.installTheme for reference.
-type AccountInstallThemeRequest struct {
-	// Flags, see TL conditional fields
-	Flags bin.Fields
-	// Whether to install the dark version
-	Dark bool
-	// Theme format, a string that identifies the theming engines supported by the client
-	//
-	// Use SetFormat and GetFormat helpers.
-	Format string
-	// Theme to install
-	//
-	// Use SetTheme and GetTheme helpers.
-	Theme InputThemeClass
+// Links:
+//  1) https://core.telegram.org/api/folders#peer-folders
+//
+// See https://core.telegram.org/method/folders.deleteFolder for reference.
+type FoldersDeleteFolderRequest struct {
+    // Peer folder ID, for more info click here¹
+    //
+    // Links:
+    //  1) https://core.telegram.org/api/folders#peer-folders
+    FolderID int
 }
 ```
 
