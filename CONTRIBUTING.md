@@ -38,3 +38,25 @@ $ make download_schema generate
 
 Please don't do it too early, because it is possible to have multiple versions of
 layer.
+
+## Fuzzing
+
+This project uses fuzzing to increase overall stability and decrease
+possibility of DOS attacks.
+
+To start fuzzing locally, install [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz):
+```console
+# Using temp directory to avoid modifying current go.mod.
+$ mkdir /tmp/fuzz && cd /tmp/fuzz
+$ GO111MODULE=on go get github.com/dvyukov/go-fuzz/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz-build
+```
+
+After that, you will be able to prepare fuzzing target binary:
+```console
+$ make fuzz_telegram_build
+```
+Now you can start fuzzer locally:
+```console
+$ make fuzz_telegram
+```
+Please refer to [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz) for advanced usage.
