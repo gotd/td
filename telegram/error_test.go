@@ -7,16 +7,32 @@ import (
 )
 
 func TestErrorParse(t *testing.T) {
-	e := Error{
-		Code:    420,
-		Message: "FLOOD_WAIT_359",
-	}
-	e.extractArgument()
+	t.Run("FLOOD_WAIT", func(t *testing.T) {
+		e := Error{
+			Code:    420,
+			Message: "FLOOD_WAIT_359",
+		}
+		e.extractArgument()
 
-	require.Equal(t, Error{
-		Code:     420,
-		Message:  "FLOOD_WAIT_359",
-		Type:     "FLOOD_WAIT",
-		Argument: 359,
-	}, e)
+		require.Equal(t, Error{
+			Code:     420,
+			Message:  "FLOOD_WAIT_359",
+			Type:     "FLOOD_WAIT",
+			Argument: 359,
+		}, e)
+	})
+	t.Run("Middle", func(t *testing.T) {
+		e := Error{
+			Code:    169,
+			Message: "GO_1337_METERS_AWAY",
+		}
+		e.extractArgument()
+
+		require.Equal(t, Error{
+			Code:     169,
+			Message:  "GO_1337_METERS_AWAY",
+			Type:     "GO_METERS_AWAY",
+			Argument: 1337,
+		}, e)
+	})
 }

@@ -29,23 +29,30 @@ func (e *Error) extractArgument() {
 	if len(parts) < 2 {
 		return
 	}
-	// Ignoring non-digit last part.
-	last := parts[len(parts)-1]
-	for _, r := range last {
-		if !unicode.IsDigit(r) {
+
+	var nonDigit []string
+Parts:
+	for _, part := range parts {
+		for _, r := range part {
+			if unicode.IsDigit(r) {
+				continue
+			}
+
+			// Found non-digit part, skipping.
+			nonDigit = append(nonDigit, part)
+			continue Parts
+		}
+
+		// Found digit-only part, using as argument.
+		argument, err := strconv.Atoi(part)
+		if err != nil {
+			// Should be unreachable.
 			return
 		}
-	}
-	argument, err := strconv.Atoi(last)
-	if err != nil {
-		// Should be unreachable.
-		return
+		e.Argument = argument
 	}
 
-	// Argument is last underscored part, type is prefix without
-	// last underscore, e.g: FLOOD_WAIT_3 -> (FLOOD_WAIT, 3).
-	e.Argument = argument
-	e.Type = strings.Join(parts[:len(parts)-1], "_")
+	e.Type = strings.Join(nonDigit, "_")
 }
 
 func (e Error) Error() string {
