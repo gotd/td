@@ -3,10 +3,5 @@
 set -e
 touch coverage.out
 
-for d in $(go list ./... | grep -v vendor); do
-    go test --timeout 5m -coverprofile=profile.out -covermode=atomic "$d"
-    if [[ -f profile.out ]]; then
-        cat profile.out >> coverage.out
-        rm profile.out
-    fi
-done
+echo 'mode: atomic' > coverage.out
+go list ./... | grep -v /cmd | grep -v /vendor | xargs -n1 -I{} sh -c 'go test -covermode=atomic -coverprofile=profile.out -coverpkg $(go list ./... ) {} && tail -n +2 profile.out >> coverage.out || exit 255' && rm coverage.tmp
