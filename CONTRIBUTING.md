@@ -44,14 +44,7 @@ layer.
 This project uses fuzzing to increase overall stability and decrease
 possibility of DOS attacks.
 
-To start fuzzing locally, install [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz):
-```console
-# Using temp directory to avoid modifying current go.mod.
-$ mkdir /tmp/fuzz && cd /tmp/fuzz
-$ GO111MODULE=on go get github.com/dvyukov/go-fuzz/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz-build
-```
-
-After that, you will be able to prepare fuzzing target binary:
+To prepare fuzzing binary, use following:
 ```console
 $ make fuzz_telegram_build
 ```
