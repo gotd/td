@@ -1,6 +1,4 @@
-# td
-
-[![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td)
+# td [![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td)
 
 Telegram client implementation in go.
 
