@@ -8,6 +8,7 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1
 	github.com/gotd/getdoc v0.2.0
 	github.com/gotd/ige v0.1.5
+	github.com/gotd/neo v0.1.0
 	github.com/gotd/tl v0.2.0
 	github.com/gotd/xor v0.1.1
 	github.com/stretchr/testify v1.6.1
