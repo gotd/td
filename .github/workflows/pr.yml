@@ -42,7 +42,7 @@ jobs:
         with:
           go-version: 1.15
       - name: Run tests
-        run: go test ./...
+        run: go test --timeout 5m ./...
         continue-on-error: true
   tests-on-macos:
     runs-on: macos-latest
