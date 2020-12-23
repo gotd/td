@@ -187,10 +187,10 @@ func TestRPCAckThenResult(t *testing.T) {
 		Clock:         clock,
 	})
 
-	var eg errgroup.Group
+	var g errgroup.Group
 
 	// Server behavior.
-	eg.Go(func() error {
+	g.Go(func() error {
 		// Wait request from client.
 		req := <-requests
 
@@ -223,7 +223,7 @@ func TestRPCAckThenResult(t *testing.T) {
 	})
 
 	var out mt.Pong
-	eg.Go(func() error {
+	g.Go(func() error {
 		return e.Do(context.Background(), Request{
 			ID:       1,
 			Sequence: 1,
@@ -232,7 +232,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		})
 	})
 
-	assert.NoError(t, eg.Wait())
+	assert.NoError(t, g.Wait())
 	assert.Equal(t, serverResponse, out)
 }
 
