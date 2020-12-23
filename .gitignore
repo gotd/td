@@ -3,3 +3,5 @@ _bin/*
 
 *-fuzz.zip
 /cmd/gotdecho/gotdecho
+
+*.out
