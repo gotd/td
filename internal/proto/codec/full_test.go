@@ -9,7 +9,7 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-func testData() (packet, payload []byte) {
+func fullTestData() (packet, payload []byte) {
 	return []byte{
 		15, 0, 0, 0, // length
 		1, 0, 0, 0, // seqNo
@@ -18,21 +18,19 @@ func testData() (packet, payload []byte) {
 	}, []byte("abc")
 }
 
-func Test_writeFull(t *testing.T) {
-	packet, payload := testData()
-	b := bytes.NewBuffer(nil)
+func TestFull(t *testing.T) {
+	packet, payload := fullTestData()
+	t.Run("write", func(t *testing.T) {
+		b := bytes.NewBuffer(nil)
 
-	buf := &bin.Buffer{Buf: payload}
-	err := writeFull(b, 1, buf)
-	require.NoError(t, err)
+		buf := &bin.Buffer{Buf: payload}
+		err := writeFull(b, 1, buf)
+		require.NoError(t, err)
 
-	require.Equal(t, packet, b.Bytes())
-}
+		require.Equal(t, packet, b.Bytes())
+	})
 
-func Test_readFull(t *testing.T) {
-	packet, payload := testData()
-
-	t.Run("ok", func(t *testing.T) {
+	t.Run("read", func(t *testing.T) {
 		b := &bin.Buffer{}
 		err := readFull(bytes.NewBuffer(packet), 1, b)
 		require.NoError(t, err)
