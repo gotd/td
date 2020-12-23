@@ -20,11 +20,6 @@ func (c *Client) reconnect() error {
 		}
 
 		c.log.Debug("Reconnected")
-
-		if err := c.ensureState(c.ctx); err != nil {
-			c.log.With(zap.Error(err)).Error("Failed to get state after reconnect")
-			return
-		}
 	}()
 
 	return nil
