@@ -663,6 +663,27 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
 					return err
 				}
 			}
+		case *UpdateChat:
+			if handler, ok := u.handlers[UpdateChatTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
+				if err := handler(uctx, update); err != nil {
+					return err
+				}
+			}
+		case *UpdateGroupCallParticipants:
+			if handler, ok := u.handlers[UpdateGroupCallParticipantsTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
+				if err := handler(uctx, update); err != nil {
+					return err
+				}
+			}
+		case *UpdateGroupCall:
+			if handler, ok := u.handlers[UpdateGroupCallTypeID]; ok {
+				uctx.lazyInitFromUpdates(updates)
+				if err := handler(uctx, update); err != nil {
+					return err
+				}
+			}
 		}
 	}
 	return nil
@@ -1515,5 +1536,35 @@ type PinnedChannelMessagesHandler func(ctx UpdateContext, update *UpdatePinnedCh
 func (u UpdateDispatcher) OnPinnedChannelMessages(handler PinnedChannelMessagesHandler) {
 	u.handlers[UpdatePinnedChannelMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
 		return handler(ctx, update.(*UpdatePinnedChannelMessages))
+	}
+}
+
+// ChatHandler is a Chat event handler.
+type ChatHandler func(ctx UpdateContext, update *UpdateChat) error
+
+// OnChat sets Chat handler.
+func (u UpdateDispatcher) OnChat(handler ChatHandler) {
+	u.handlers[UpdateChatTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateChat))
+	}
+}
+
+// GroupCallParticipantsHandler is a GroupCallParticipants event handler.
+type GroupCallParticipantsHandler func(ctx UpdateContext, update *UpdateGroupCallParticipants) error
+
+// OnGroupCallParticipants sets GroupCallParticipants handler.
+func (u UpdateDispatcher) OnGroupCallParticipants(handler GroupCallParticipantsHandler) {
+	u.handlers[UpdateGroupCallParticipantsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateGroupCallParticipants))
+	}
+}
+
+// GroupCallHandler is a GroupCall event handler.
+type GroupCallHandler func(ctx UpdateContext, update *UpdateGroupCall) error
+
+// OnGroupCall sets GroupCall handler.
+func (u UpdateDispatcher) OnGroupCall(handler GroupCallHandler) {
+	u.handlers[UpdateGroupCallTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateGroupCall))
 	}
 }

@@ -10,6 +10,9 @@ generate:
 	go generate ./...
 .PHONY: generate
 
+download_schema:
+	go run ./cmd/dltl -f api.tl -o _schema/telegram.tl
+.PHONY: download_schema
 
 check_generated: generate
 	git diff --exit-code

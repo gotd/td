@@ -3526,7 +3526,7 @@ var (
 	_ UpdateClass = &UpdateSavedGifs{}
 )
 
-// UpdateBotInlineQuery represents TL type `updateBotInlineQuery#54826690`.
+// UpdateBotInlineQuery represents TL type `updateBotInlineQuery#3f2038db`.
 // An incoming inline query
 //
 // See https://core.telegram.org/constructor/updateBotInlineQuery for reference.
@@ -3546,12 +3546,16 @@ type UpdateBotInlineQuery struct {
 	//
 	// Use SetGeo and GetGeo helpers.
 	Geo GeoPointClass
+	// PeerType field of UpdateBotInlineQuery.
+	//
+	// Use SetPeerType and GetPeerType helpers.
+	PeerType InlineQueryPeerTypeClass
 	// Offset to navigate through results
 	Offset string
 }
 
 // UpdateBotInlineQueryTypeID is TL type id of UpdateBotInlineQuery.
-const UpdateBotInlineQueryTypeID = 0x54826690
+const UpdateBotInlineQueryTypeID = 0x3f2038db
 
 // String implements fmt.Stringer.
 func (u *UpdateBotInlineQuery) String() string {
@@ -3578,6 +3582,11 @@ func (u *UpdateBotInlineQuery) String() string {
 		sb.WriteString(u.Geo.String())
 		sb.WriteString(",\n")
 	}
+	if u.Flags.Has(1) {
+		sb.WriteString("\tPeerType: ")
+		sb.WriteString(u.PeerType.String())
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("\tOffset: ")
 	sb.WriteString(fmt.Sprint(u.Offset))
 	sb.WriteString(",\n")
@@ -3588,21 +3597,29 @@ func (u *UpdateBotInlineQuery) String() string {
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateBotInlineQuery#54826690 as nil")
+		return fmt.Errorf("can't encode updateBotInlineQuery#3f2038db as nil")
 	}
 	b.PutID(UpdateBotInlineQueryTypeID)
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateBotInlineQuery#54826690: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field flags: %w", err)
 	}
 	b.PutLong(u.QueryID)
 	b.PutInt(u.UserID)
 	b.PutString(u.Query)
 	if u.Flags.Has(0) {
 		if u.Geo == nil {
-			return fmt.Errorf("unable to encode updateBotInlineQuery#54826690: field geo is nil")
+			return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field geo is nil")
 		}
 		if err := u.Geo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateBotInlineQuery#54826690: field geo: %w", err)
+			return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field geo: %w", err)
+		}
+	}
+	if u.Flags.Has(1) {
+		if u.PeerType == nil {
+			return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field peer_type is nil")
+		}
+		if err := u.PeerType.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field peer_type: %w", err)
 		}
 	}
 	b.PutString(u.Offset)
@@ -3624,51 +3641,73 @@ func (u *UpdateBotInlineQuery) GetGeo() (value GeoPointClass, ok bool) {
 	return u.Geo, true
 }
 
+// SetPeerType sets value of PeerType conditional field.
+func (u *UpdateBotInlineQuery) SetPeerType(value InlineQueryPeerTypeClass) {
+	u.Flags.Set(1)
+	u.PeerType = value
+}
+
+// GetPeerType returns value of PeerType conditional field and
+// boolean which is true if field was set.
+func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.PeerType, true
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateBotInlineQuery) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateBotInlineQuery#54826690 to nil")
+		return fmt.Errorf("can't decode updateBotInlineQuery#3f2038db to nil")
 	}
 	if err := b.ConsumeID(UpdateBotInlineQueryTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: %w", err)
+		return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: %w", err)
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field flags: %w", err)
 		}
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field query_id: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field query_id: %w", err)
 		}
 		u.QueryID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field user_id: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field query: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field query: %w", err)
 		}
 		u.Query = value
 	}
 	if u.Flags.Has(0) {
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field geo: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field geo: %w", err)
 		}
 		u.Geo = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodeInlineQueryPeerType(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field peer_type: %w", err)
+		}
+		u.PeerType = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateBotInlineQuery#54826690: field offset: %w", err)
+			return fmt.Errorf("unable to decode updateBotInlineQuery#3f2038db: field offset: %w", err)
 		}
 		u.Offset = value
 	}
@@ -8817,6 +8856,258 @@ var (
 	_ UpdateClass = &UpdatePinnedChannelMessages{}
 )
 
+// UpdateChat represents TL type `updateChat#1330a196`.
+//
+// See https://core.telegram.org/constructor/updateChat for reference.
+type UpdateChat struct {
+	// ChatID field of UpdateChat.
+	ChatID int
+}
+
+// UpdateChatTypeID is TL type id of UpdateChat.
+const UpdateChatTypeID = 0x1330a196
+
+// String implements fmt.Stringer.
+func (u *UpdateChat) String() string {
+	if u == nil {
+		return "UpdateChat(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateChat")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChat) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChat#1330a196 as nil")
+	}
+	b.PutID(UpdateChatTypeID)
+	b.PutInt(u.ChatID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChat) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChat#1330a196 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChat#1330a196: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChat#1330a196: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChat) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChat.
+var (
+	_ bin.Encoder = &UpdateChat{}
+	_ bin.Decoder = &UpdateChat{}
+
+	_ UpdateClass = &UpdateChat{}
+)
+
+// UpdateGroupCallParticipants represents TL type `updateGroupCallParticipants#f2ebdb4e`.
+//
+// See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
+type UpdateGroupCallParticipants struct {
+	// Call field of UpdateGroupCallParticipants.
+	Call InputGroupCall
+	// Participants field of UpdateGroupCallParticipants.
+	Participants []GroupCallParticipant
+	// Version field of UpdateGroupCallParticipants.
+	Version int
+}
+
+// UpdateGroupCallParticipantsTypeID is TL type id of UpdateGroupCallParticipants.
+const UpdateGroupCallParticipantsTypeID = 0xf2ebdb4e
+
+// String implements fmt.Stringer.
+func (u *UpdateGroupCallParticipants) String() string {
+	if u == nil {
+		return "UpdateGroupCallParticipants(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateGroupCallParticipants")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(u.Call.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range u.Participants {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("\tVersion: ")
+	sb.WriteString(fmt.Sprint(u.Version))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateGroupCallParticipants) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCallParticipants#f2ebdb4e as nil")
+	}
+	b.PutID(UpdateGroupCallParticipantsTypeID)
+	if err := u.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCallParticipants#f2ebdb4e: field call: %w", err)
+	}
+	b.PutVectorHeader(len(u.Participants))
+	for idx, v := range u.Participants {
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateGroupCallParticipants#f2ebdb4e: field participants element with index %d: %w", idx, err)
+		}
+	}
+	b.PutInt(u.Version)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateGroupCallParticipants) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCallParticipants#f2ebdb4e to nil")
+	}
+	if err := b.ConsumeID(UpdateGroupCallParticipantsTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: %w", err)
+	}
+	{
+		if err := u.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field call: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field participants: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			var value GroupCallParticipant
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field participants: %w", err)
+			}
+			u.Participants = append(u.Participants, value)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCallParticipants#f2ebdb4e: field version: %w", err)
+		}
+		u.Version = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCallParticipants) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCallParticipants.
+var (
+	_ bin.Encoder = &UpdateGroupCallParticipants{}
+	_ bin.Decoder = &UpdateGroupCallParticipants{}
+
+	_ UpdateClass = &UpdateGroupCallParticipants{}
+)
+
+// UpdateGroupCall represents TL type `updateGroupCall#a45eb99b`.
+//
+// See https://core.telegram.org/constructor/updateGroupCall for reference.
+type UpdateGroupCall struct {
+	// ChatID field of UpdateGroupCall.
+	ChatID int
+	// Call field of UpdateGroupCall.
+	Call GroupCallClass
+}
+
+// UpdateGroupCallTypeID is TL type id of UpdateGroupCall.
+const UpdateGroupCallTypeID = 0xa45eb99b
+
+// String implements fmt.Stringer.
+func (u *UpdateGroupCall) String() string {
+	if u == nil {
+		return "UpdateGroupCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("UpdateGroupCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tChatID: ")
+	sb.WriteString(fmt.Sprint(u.ChatID))
+	sb.WriteString(",\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(u.Call.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateGroupCall) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateGroupCall#a45eb99b as nil")
+	}
+	b.PutID(UpdateGroupCallTypeID)
+	b.PutInt(u.ChatID)
+	if u.Call == nil {
+		return fmt.Errorf("unable to encode updateGroupCall#a45eb99b: field call is nil")
+	}
+	if err := u.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateGroupCall#a45eb99b: field call: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateGroupCall) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateGroupCall#a45eb99b to nil")
+	}
+	if err := b.ConsumeID(UpdateGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateGroupCall#a45eb99b: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCall#a45eb99b: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := DecodeGroupCall(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateGroupCall#a45eb99b: field call: %w", err)
+		}
+		u.Call = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateGroupCall) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateGroupCall.
+var (
+	_ bin.Encoder = &UpdateGroupCall{}
+	_ bin.Decoder = &UpdateGroupCall{}
+
+	_ UpdateClass = &UpdateGroupCall{}
+)
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.
@@ -8862,7 +9153,7 @@ var (
 //  case *UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
 //  case *UpdateStickerSets: // updateStickerSets#43ae3dec
 //  case *UpdateSavedGifs: // updateSavedGifs#9375341e
-//  case *UpdateBotInlineQuery: // updateBotInlineQuery#54826690
+//  case *UpdateBotInlineQuery: // updateBotInlineQuery#3f2038db
 //  case *UpdateBotInlineSend: // updateBotInlineSend#e48f964
 //  case *UpdateEditChannelMessage: // updateEditChannelMessage#1b3f4df7
 //  case *UpdateBotCallbackQuery: // updateBotCallbackQuery#e73547e1
@@ -8912,6 +9203,9 @@ var (
 //  case *UpdateChannelUserTyping: // updateChannelUserTyping#ff2abe9f
 //  case *UpdatePinnedMessages: // updatePinnedMessages#ed85eab5
 //  case *UpdatePinnedChannelMessages: // updatePinnedChannelMessages#8588878b
+//  case *UpdateChat: // updateChat#1330a196
+//  case *UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
+//  case *UpdateGroupCall: // updateGroupCall#a45eb99b
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -9174,7 +9468,7 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 		}
 		return &v, nil
 	case UpdateBotInlineQueryTypeID:
-		// Decoding updateBotInlineQuery#54826690.
+		// Decoding updateBotInlineQuery#3f2038db.
 		v := UpdateBotInlineQuery{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
@@ -9519,6 +9813,27 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdatePinnedChannelMessagesTypeID:
 		// Decoding updatePinnedChannelMessages#8588878b.
 		v := UpdatePinnedChannelMessages{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatTypeID:
+		// Decoding updateChat#1330a196.
+		v := UpdateChat{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateGroupCallParticipantsTypeID:
+		// Decoding updateGroupCallParticipants#f2ebdb4e.
+		v := UpdateGroupCallParticipants{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateGroupCallTypeID:
+		// Decoding updateGroupCall#a45eb99b.
+		v := UpdateGroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

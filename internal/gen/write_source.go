@@ -12,8 +12,7 @@ import (
 
 // config is input data for templates.
 type config struct {
-	RPC bool
-
+	Layer      int
 	Package    string
 	Structs    []structDef
 	Interfaces []interfaceDef
@@ -117,6 +116,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	cfg := config{
 		Package:  pkgName,
 		Registry: g.registry,
+		Layer:    g.schema.Layer,
 	}
 
 	if err := generate("registry", "tl_registry_gen.go", cfg); err != nil {

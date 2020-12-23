@@ -1662,6 +1662,341 @@ var (
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSlowMode{}
 )
 
+// ChannelAdminLogEventActionStartGroupCall represents TL type `channelAdminLogEventActionStartGroupCall#23209745`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
+type ChannelAdminLogEventActionStartGroupCall struct {
+	// Call field of ChannelAdminLogEventActionStartGroupCall.
+	Call InputGroupCall
+}
+
+// ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
+const ChannelAdminLogEventActionStartGroupCallTypeID = 0x23209745
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionStartGroupCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionStartGroupCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(c.Call.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionStartGroupCall) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionStartGroupCall#23209745 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionStartGroupCallTypeID)
+	if err := c.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionStartGroupCall) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionStartGroupCall#23209745 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionStartGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionStartGroupCall#23209745: %w", err)
+	}
+	{
+		if err := c.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionStartGroupCall) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionStartGroupCall.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.Decoder = &ChannelAdminLogEventActionStartGroupCall{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStartGroupCall{}
+)
+
+// ChannelAdminLogEventActionDiscardGroupCall represents TL type `channelAdminLogEventActionDiscardGroupCall#db9f9140`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
+type ChannelAdminLogEventActionDiscardGroupCall struct {
+	// Call field of ChannelAdminLogEventActionDiscardGroupCall.
+	Call InputGroupCall
+}
+
+// ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
+const ChannelAdminLogEventActionDiscardGroupCallTypeID = 0xdb9f9140
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionDiscardGroupCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionDiscardGroupCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(c.Call.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDiscardGroupCall#db9f9140 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionDiscardGroupCallTypeID)
+	if err := c.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDiscardGroupCall#db9f9140 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionDiscardGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionDiscardGroupCall#db9f9140: %w", err)
+	}
+	{
+		if err := c.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionDiscardGroupCall) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionDiscardGroupCall.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.Decoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDiscardGroupCall{}
+)
+
+// ChannelAdminLogEventActionParticipantMute represents TL type `channelAdminLogEventActionParticipantMute#f92424d2`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantMute for reference.
+type ChannelAdminLogEventActionParticipantMute struct {
+	// Participant field of ChannelAdminLogEventActionParticipantMute.
+	Participant GroupCallParticipant
+}
+
+// ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
+const ChannelAdminLogEventActionParticipantMuteTypeID = 0xf92424d2
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantMute) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantMute(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantMute")
+	sb.WriteString("{\n")
+	sb.WriteString("\tParticipant: ")
+	sb.WriteString(c.Participant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantMute) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantMute#f92424d2 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantMuteTypeID)
+	if err := c.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantMute#f92424d2: field participant: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantMute) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantMute#f92424d2 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantMuteTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantMute#f92424d2: %w", err)
+	}
+	{
+		if err := c.Participant.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantMute#f92424d2: field participant: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantMute) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantMute.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.Decoder = &ChannelAdminLogEventActionParticipantMute{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantMute{}
+)
+
+// ChannelAdminLogEventActionParticipantUnmute represents TL type `channelAdminLogEventActionParticipantUnmute#e64429c0`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute for reference.
+type ChannelAdminLogEventActionParticipantUnmute struct {
+	// Participant field of ChannelAdminLogEventActionParticipantUnmute.
+	Participant GroupCallParticipant
+}
+
+// ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
+const ChannelAdminLogEventActionParticipantUnmuteTypeID = 0xe64429c0
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantUnmute) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantUnmute(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionParticipantUnmute")
+	sb.WriteString("{\n")
+	sb.WriteString("\tParticipant: ")
+	sb.WriteString(c.Participant.String())
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantUnmute) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantUnmute#e64429c0 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantUnmuteTypeID)
+	if err := c.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantUnmute#e64429c0: field participant: %w", err)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantUnmute) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantUnmute#e64429c0 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantUnmuteTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantUnmute#e64429c0: %w", err)
+	}
+	{
+		if err := c.Participant.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantUnmute#e64429c0: field participant: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantUnmute) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantUnmute.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.Decoder = &ChannelAdminLogEventActionParticipantUnmute{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantUnmute{}
+)
+
+// ChannelAdminLogEventActionToggleGroupCallSetting represents TL type `channelAdminLogEventActionToggleGroupCallSetting#56d6a247`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting for reference.
+type ChannelAdminLogEventActionToggleGroupCallSetting struct {
+	// JoinMuted field of ChannelAdminLogEventActionToggleGroupCallSetting.
+	JoinMuted bool
+}
+
+// ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
+const ChannelAdminLogEventActionToggleGroupCallSettingTypeID = 0x56d6a247
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionToggleGroupCallSetting(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("ChannelAdminLogEventActionToggleGroupCallSetting")
+	sb.WriteString("{\n")
+	sb.WriteString("\tJoinMuted: ")
+	sb.WriteString(fmt.Sprint(c.JoinMuted))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleGroupCallSetting#56d6a247 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionToggleGroupCallSettingTypeID)
+	b.PutBool(c.JoinMuted)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleGroupCallSetting#56d6a247 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionToggleGroupCallSettingTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleGroupCallSetting#56d6a247: %w", err)
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionToggleGroupCallSetting#56d6a247: field join_muted: %w", err)
+		}
+		c.JoinMuted = value
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionToggleGroupCallSetting) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleGroupCallSetting.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.Decoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+)
+
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
@@ -1693,6 +2028,11 @@ var (
 //  case *ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#a26f881b
 //  case *ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
 //  case *ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
+//  case *ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
+//  case *ChannelAdminLogEventActionDiscardGroupCall: // channelAdminLogEventActionDiscardGroupCall#db9f9140
+//  case *ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
+//  case *ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
+//  case *ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -1852,6 +2192,41 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionToggleSlowModeTypeID:
 		// Decoding channelAdminLogEventActionToggleSlowMode#53909779.
 		v := ChannelAdminLogEventActionToggleSlowMode{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionStartGroupCallTypeID:
+		// Decoding channelAdminLogEventActionStartGroupCall#23209745.
+		v := ChannelAdminLogEventActionStartGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionDiscardGroupCallTypeID:
+		// Decoding channelAdminLogEventActionDiscardGroupCall#db9f9140.
+		v := ChannelAdminLogEventActionDiscardGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantMuteTypeID:
+		// Decoding channelAdminLogEventActionParticipantMute#f92424d2.
+		v := ChannelAdminLogEventActionParticipantMute{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantUnmuteTypeID:
+		// Decoding channelAdminLogEventActionParticipantUnmute#e64429c0.
+		v := ChannelAdminLogEventActionParticipantUnmute{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionToggleGroupCallSettingTypeID:
+		// Decoding channelAdminLogEventActionToggleGroupCallSetting#56d6a247.
+		v := ChannelAdminLogEventActionToggleGroupCallSetting{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

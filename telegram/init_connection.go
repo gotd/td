@@ -18,7 +18,7 @@ func (c *Client) initConnection(ctx context.Context) error {
 
 	var response tg.Config
 	if err := c.rpcContent(ctx, proto.InvokeWithLayer{
-		Layer: proto.Layer,
+		Layer: tg.Layer,
 		Query: proto.InitConnection{
 			ID:             c.appID,
 			SystemLangCode: "en",
