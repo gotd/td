@@ -251,6 +251,8 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		}
 	)
 
+	t.Skip("TODO(ernado): fix race")
+
 	// Channel of client requests sent to the server.
 	requests := make(chan request, 1)
 	defer close(requests)
