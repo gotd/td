@@ -105,6 +105,8 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
 	Delete bool
+	// GroupCall field of ChannelAdminLogEventsFilter.
+	GroupCall bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -263,6 +265,15 @@ func (c *ChannelAdminLogEventsFilter) SetDelete(value bool) {
 	}
 }
 
+// SetGroupCall sets value of GroupCall conditional field.
+func (c *ChannelAdminLogEventsFilter) SetGroupCall(value bool) {
+	if value {
+		c.Flags.Set(14)
+	} else {
+		c.Flags.Unset(14)
+	}
+}
+
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -290,6 +301,7 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	c.Pinned = c.Flags.Has(11)
 	c.Edit = c.Flags.Has(12)
 	c.Delete = c.Flags.Has(13)
+	c.GroupCall = c.Flags.Has(14)
 	return nil
 }
 

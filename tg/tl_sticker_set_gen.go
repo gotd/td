@@ -16,7 +16,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 
-// StickerSet represents TL type `stickerSet#eeb46f27`.
+// StickerSet represents TL type `stickerSet#40e237a8`.
 // Represents a stickerset (stickerpack)
 //
 // See https://core.telegram.org/constructor/stickerSet for reference.
@@ -46,10 +46,10 @@ type StickerSet struct {
 	Title string
 	// Short name of stickerset to use in tg://addstickers?set=short_name
 	ShortName string
-	// Thumbnail for stickerset
+	// Thumbs field of StickerSet.
 	//
-	// Use SetThumb and GetThumb helpers.
-	Thumb PhotoSizeClass
+	// Use SetThumbs and GetThumbs helpers.
+	Thumbs []PhotoSizeClass
 	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
@@ -61,7 +61,7 @@ type StickerSet struct {
 }
 
 // StickerSetTypeID is TL type id of StickerSet.
-const StickerSetTypeID = 0xeeb46f27
+const StickerSetTypeID = 0x40e237a8
 
 // String implements fmt.Stringer.
 func (s *StickerSet) String() string {
@@ -92,9 +92,11 @@ func (s *StickerSet) String() string {
 	sb.WriteString(fmt.Sprint(s.ShortName))
 	sb.WriteString(",\n")
 	if s.Flags.Has(4) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(s.Thumb.String())
-		sb.WriteString(",\n")
+		sb.WriteByte('[')
+		for _, v := range s.Thumbs {
+			sb.WriteString(fmt.Sprint(v))
+		}
+		sb.WriteByte(']')
 	}
 	if s.Flags.Has(4) {
 		sb.WriteString("\tThumbDCID: ")
@@ -114,11 +116,11 @@ func (s *StickerSet) String() string {
 // Encode implements bin.Encoder.
 func (s *StickerSet) Encode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't encode stickerSet#eeb46f27 as nil")
+		return fmt.Errorf("can't encode stickerSet#40e237a8 as nil")
 	}
 	b.PutID(StickerSetTypeID)
 	if err := s.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode stickerSet#eeb46f27: field flags: %w", err)
+		return fmt.Errorf("unable to encode stickerSet#40e237a8: field flags: %w", err)
 	}
 	if s.Flags.Has(0) {
 		b.PutInt(s.InstalledDate)
@@ -128,11 +130,14 @@ func (s *StickerSet) Encode(b *bin.Buffer) error {
 	b.PutString(s.Title)
 	b.PutString(s.ShortName)
 	if s.Flags.Has(4) {
-		if s.Thumb == nil {
-			return fmt.Errorf("unable to encode stickerSet#eeb46f27: field thumb is nil")
-		}
-		if err := s.Thumb.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode stickerSet#eeb46f27: field thumb: %w", err)
+		b.PutVectorHeader(len(s.Thumbs))
+		for idx, v := range s.Thumbs {
+			if v == nil {
+				return fmt.Errorf("unable to encode stickerSet#40e237a8: field thumbs element with index %d is nil", idx)
+			}
+			if err := v.Encode(b); err != nil {
+				return fmt.Errorf("unable to encode stickerSet#40e237a8: field thumbs element with index %d: %w", idx, err)
+			}
 		}
 	}
 	if s.Flags.Has(4) {
@@ -194,19 +199,19 @@ func (s *StickerSet) GetInstalledDate() (value int, ok bool) {
 	return s.InstalledDate, true
 }
 
-// SetThumb sets value of Thumb conditional field.
-func (s *StickerSet) SetThumb(value PhotoSizeClass) {
+// SetThumbs sets value of Thumbs conditional field.
+func (s *StickerSet) SetThumbs(value []PhotoSizeClass) {
 	s.Flags.Set(4)
-	s.Thumb = value
+	s.Thumbs = value
 }
 
-// GetThumb returns value of Thumb conditional field and
+// GetThumbs returns value of Thumbs conditional field and
 // boolean which is true if field was set.
-func (s *StickerSet) GetThumb() (value PhotoSizeClass, ok bool) {
+func (s *StickerSet) GetThumbs() (value []PhotoSizeClass, ok bool) {
 	if !s.Flags.Has(4) {
 		return value, false
 	}
-	return s.Thumb, true
+	return s.Thumbs, true
 }
 
 // SetThumbDCID sets value of ThumbDCID conditional field.
@@ -227,14 +232,14 @@ func (s *StickerSet) GetThumbDCID() (value int, ok bool) {
 // Decode implements bin.Decoder.
 func (s *StickerSet) Decode(b *bin.Buffer) error {
 	if s == nil {
-		return fmt.Errorf("can't decode stickerSet#eeb46f27 to nil")
+		return fmt.Errorf("can't decode stickerSet#40e237a8 to nil")
 	}
 	if err := b.ConsumeID(StickerSetTypeID); err != nil {
-		return fmt.Errorf("unable to decode stickerSet#eeb46f27: %w", err)
+		return fmt.Errorf("unable to decode stickerSet#40e237a8: %w", err)
 	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field flags: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field flags: %w", err)
 		}
 	}
 	s.Archived = s.Flags.Has(1)
@@ -244,63 +249,69 @@ func (s *StickerSet) Decode(b *bin.Buffer) error {
 	if s.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field installed_date: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field installed_date: %w", err)
 		}
 		s.InstalledDate = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field id: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field id: %w", err)
 		}
 		s.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field access_hash: %w", err)
 		}
 		s.AccessHash = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field title: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field title: %w", err)
 		}
 		s.Title = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field short_name: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field short_name: %w", err)
 		}
 		s.ShortName = value
 	}
 	if s.Flags.Has(4) {
-		value, err := DecodePhotoSize(b)
+		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field thumb: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field thumbs: %w", err)
 		}
-		s.Thumb = value
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodePhotoSize(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode stickerSet#40e237a8: field thumbs: %w", err)
+			}
+			s.Thumbs = append(s.Thumbs, value)
+		}
 	}
 	if s.Flags.Has(4) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field thumb_dc_id: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field thumb_dc_id: %w", err)
 		}
 		s.ThumbDCID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field count: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field count: %w", err)
 		}
 		s.Count = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode stickerSet#eeb46f27: field hash: %w", err)
+			return fmt.Errorf("unable to decode stickerSet#40e237a8: field hash: %w", err)
 		}
 		s.Hash = value
 	}

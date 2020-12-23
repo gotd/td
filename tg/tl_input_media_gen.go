@@ -819,7 +819,7 @@ var (
 	_ InputMediaClass = &InputMediaUploadedDocument{}
 )
 
-// InputMediaDocument represents TL type `inputMediaDocument#23ab23d2`.
+// InputMediaDocument represents TL type `inputMediaDocument#33473058`.
 // Forwarded document
 //
 // See https://core.telegram.org/constructor/inputMediaDocument for reference.
@@ -835,10 +835,14 @@ type InputMediaDocument struct {
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
 	TTLSeconds int
+	// Query field of InputMediaDocument.
+	//
+	// Use SetQuery and GetQuery helpers.
+	Query string
 }
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
-const InputMediaDocumentTypeID = 0x23ab23d2
+const InputMediaDocumentTypeID = 0x33473058
 
 // String implements fmt.Stringer.
 func (i *InputMediaDocument) String() string {
@@ -859,6 +863,11 @@ func (i *InputMediaDocument) String() string {
 		sb.WriteString(fmt.Sprint(i.TTLSeconds))
 		sb.WriteString(",\n")
 	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tQuery: ")
+		sb.WriteString(fmt.Sprint(i.Query))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("}")
 	return sb.String()
 }
@@ -866,20 +875,23 @@ func (i *InputMediaDocument) String() string {
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputMediaDocument#23ab23d2 as nil")
+		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
 	}
 	b.PutID(InputMediaDocumentTypeID)
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#23ab23d2: field flags: %w", err)
+		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field flags: %w", err)
 	}
 	if i.ID == nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#23ab23d2: field id is nil")
+		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id is nil")
 	}
 	if err := i.ID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputMediaDocument#23ab23d2: field id: %w", err)
+		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field id: %w", err)
 	}
 	if i.Flags.Has(0) {
 		b.PutInt(i.TTLSeconds)
+	}
+	if i.Flags.Has(1) {
+		b.PutString(i.Query)
 	}
 	return nil
 }
@@ -899,32 +911,54 @@ func (i *InputMediaDocument) GetTTLSeconds() (value int, ok bool) {
 	return i.TTLSeconds, true
 }
 
+// SetQuery sets value of Query conditional field.
+func (i *InputMediaDocument) SetQuery(value string) {
+	i.Flags.Set(1)
+	i.Query = value
+}
+
+// GetQuery returns value of Query conditional field and
+// boolean which is true if field was set.
+func (i *InputMediaDocument) GetQuery() (value string, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return i.Query, true
+}
+
 // Decode implements bin.Decoder.
 func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputMediaDocument#23ab23d2 to nil")
+		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
 	}
 	if err := b.ConsumeID(InputMediaDocumentTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: %w", err)
+		return fmt.Errorf("unable to decode inputMediaDocument#33473058: %w", err)
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: field flags: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field flags: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: field id: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field id: %w", err)
 		}
 		i.ID = value
 	}
 	if i.Flags.Has(0) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode inputMediaDocument#23ab23d2: field ttl_seconds: %w", err)
+			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field ttl_seconds: %w", err)
 		}
 		i.TTLSeconds = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field query: %w", err)
+		}
+		i.Query = value
 	}
 	return nil
 }
@@ -2088,7 +2122,7 @@ var (
 //  case *InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
 //  case *InputMediaContact: // inputMediaContact#f8ab7dfb
 //  case *InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
-//  case *InputMediaDocument: // inputMediaDocument#23ab23d2
+//  case *InputMediaDocument: // inputMediaDocument#33473058
 //  case *InputMediaVenue: // inputMediaVenue#c13d1c11
 //  case *InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
 //  case *InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
@@ -2156,7 +2190,7 @@ func DecodeInputMedia(buf *bin.Buffer) (InputMediaClass, error) {
 		}
 		return &v, nil
 	case InputMediaDocumentTypeID:
-		// Decoding inputMediaDocument#23ab23d2.
+		// Decoding inputMediaDocument#33473058.
 		v := InputMediaDocument{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputMediaClass: %w", err)

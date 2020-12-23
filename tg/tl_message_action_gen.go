@@ -1933,6 +1933,207 @@ var (
 	_ MessageActionClass = &MessageActionGeoProximityReached{}
 )
 
+// MessageActionGroupCall represents TL type `messageActionGroupCall#7a0d7f42`.
+//
+// See https://core.telegram.org/constructor/messageActionGroupCall for reference.
+type MessageActionGroupCall struct {
+	// Flags field of MessageActionGroupCall.
+	Flags bin.Fields
+	// Call field of MessageActionGroupCall.
+	Call InputGroupCall
+	// Duration field of MessageActionGroupCall.
+	//
+	// Use SetDuration and GetDuration helpers.
+	Duration int
+}
+
+// MessageActionGroupCallTypeID is TL type id of MessageActionGroupCall.
+const MessageActionGroupCallTypeID = 0x7a0d7f42
+
+// String implements fmt.Stringer.
+func (m *MessageActionGroupCall) String() string {
+	if m == nil {
+		return "MessageActionGroupCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionGroupCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(m.Flags.String())
+	sb.WriteString(",\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(m.Call.String())
+	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tDuration: ")
+		sb.WriteString(fmt.Sprint(m.Duration))
+		sb.WriteString(",\n")
+	}
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGroupCall) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGroupCall#7a0d7f42 as nil")
+	}
+	b.PutID(MessageActionGroupCallTypeID)
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field flags: %w", err)
+	}
+	if err := m.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field call: %w", err)
+	}
+	if m.Flags.Has(0) {
+		b.PutInt(m.Duration)
+	}
+	return nil
+}
+
+// SetDuration sets value of Duration conditional field.
+func (m *MessageActionGroupCall) SetDuration(value int) {
+	m.Flags.Set(0)
+	m.Duration = value
+}
+
+// GetDuration returns value of Duration conditional field and
+// boolean which is true if field was set.
+func (m *MessageActionGroupCall) GetDuration() (value int, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.Duration, true
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGroupCall) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGroupCall#7a0d7f42 to nil")
+	}
+	if err := b.ConsumeID(MessageActionGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGroupCall#7a0d7f42: %w", err)
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGroupCall#7a0d7f42: field flags: %w", err)
+		}
+	}
+	{
+		if err := m.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGroupCall#7a0d7f42: field call: %w", err)
+		}
+	}
+	if m.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGroupCall#7a0d7f42: field duration: %w", err)
+		}
+		m.Duration = value
+	}
+	return nil
+}
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGroupCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGroupCall.
+var (
+	_ bin.Encoder = &MessageActionGroupCall{}
+	_ bin.Decoder = &MessageActionGroupCall{}
+
+	_ MessageActionClass = &MessageActionGroupCall{}
+)
+
+// MessageActionInviteToGroupCall represents TL type `messageActionInviteToGroupCall#76b9f11a`.
+//
+// See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
+type MessageActionInviteToGroupCall struct {
+	// Call field of MessageActionInviteToGroupCall.
+	Call InputGroupCall
+	// Users field of MessageActionInviteToGroupCall.
+	Users []int
+}
+
+// MessageActionInviteToGroupCallTypeID is TL type id of MessageActionInviteToGroupCall.
+const MessageActionInviteToGroupCallTypeID = 0x76b9f11a
+
+// String implements fmt.Stringer.
+func (m *MessageActionInviteToGroupCall) String() string {
+	if m == nil {
+		return "MessageActionInviteToGroupCall(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("MessageActionInviteToGroupCall")
+	sb.WriteString("{\n")
+	sb.WriteString("\tCall: ")
+	sb.WriteString(m.Call.String())
+	sb.WriteString(",\n")
+	sb.WriteByte('[')
+	for _, v := range m.Users {
+		sb.WriteString(fmt.Sprint(v))
+	}
+	sb.WriteByte(']')
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionInviteToGroupCall) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionInviteToGroupCall#76b9f11a as nil")
+	}
+	b.PutID(MessageActionInviteToGroupCallTypeID)
+	if err := m.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionInviteToGroupCall#76b9f11a: field call: %w", err)
+	}
+	b.PutVectorHeader(len(m.Users))
+	for _, v := range m.Users {
+		b.PutInt(v)
+	}
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionInviteToGroupCall) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionInviteToGroupCall#76b9f11a to nil")
+	}
+	if err := b.ConsumeID(MessageActionInviteToGroupCallTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionInviteToGroupCall#76b9f11a: %w", err)
+	}
+	{
+		if err := m.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionInviteToGroupCall#76b9f11a: field call: %w", err)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionInviteToGroupCall#76b9f11a: field users: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Int()
+			if err != nil {
+				return fmt.Errorf("unable to decode messageActionInviteToGroupCall#76b9f11a: field users: %w", err)
+			}
+			m.Users = append(m.Users, value)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionInviteToGroupCall) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionInviteToGroupCall.
+var (
+	_ bin.Encoder = &MessageActionInviteToGroupCall{}
+	_ bin.Decoder = &MessageActionInviteToGroupCall{}
+
+	_ MessageActionClass = &MessageActionInviteToGroupCall{}
+)
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.
@@ -1967,6 +2168,8 @@ var (
 //  case *MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
 //  case *MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
 //  case *MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
+//  case *MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
+//  case *MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -2147,6 +2350,20 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionGeoProximityReachedTypeID:
 		// Decoding messageActionGeoProximityReached#98e0d697.
 		v := MessageActionGeoProximityReached{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGroupCallTypeID:
+		// Decoding messageActionGroupCall#7a0d7f42.
+		v := MessageActionGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionInviteToGroupCallTypeID:
+		// Decoding messageActionInviteToGroupCall#76b9f11a.
+		v := MessageActionInviteToGroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

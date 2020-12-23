@@ -770,6 +770,58 @@ var (
 	_ SendMessageActionClass = &SendMessageUploadRoundAction{}
 )
 
+// SpeakingInGroupCallAction represents TL type `speakingInGroupCallAction#d92c2285`.
+//
+// See https://core.telegram.org/constructor/speakingInGroupCallAction for reference.
+type SpeakingInGroupCallAction struct {
+}
+
+// SpeakingInGroupCallActionTypeID is TL type id of SpeakingInGroupCallAction.
+const SpeakingInGroupCallActionTypeID = 0xd92c2285
+
+// String implements fmt.Stringer.
+func (s *SpeakingInGroupCallAction) String() string {
+	if s == nil {
+		return "SpeakingInGroupCallAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SpeakingInGroupCallAction")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// Encode implements bin.Encoder.
+func (s *SpeakingInGroupCallAction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode speakingInGroupCallAction#d92c2285 as nil")
+	}
+	b.PutID(SpeakingInGroupCallActionTypeID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (s *SpeakingInGroupCallAction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode speakingInGroupCallAction#d92c2285 to nil")
+	}
+	if err := b.ConsumeID(SpeakingInGroupCallActionTypeID); err != nil {
+		return fmt.Errorf("unable to decode speakingInGroupCallAction#d92c2285: %w", err)
+	}
+	return nil
+}
+
+// construct implements constructor of SendMessageActionClass.
+func (s SpeakingInGroupCallAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SpeakingInGroupCallAction.
+var (
+	_ bin.Encoder = &SpeakingInGroupCallAction{}
+	_ bin.Decoder = &SpeakingInGroupCallAction{}
+
+	_ SendMessageActionClass = &SpeakingInGroupCallAction{}
+)
+
 // SendMessageActionClass represents SendMessageAction generic type.
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.
@@ -793,6 +845,7 @@ var (
 //  case *SendMessageGamePlayAction: // sendMessageGamePlayAction#dd6a8f48
 //  case *SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
 //  case *SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
+//  case *SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
 //  default: panic(v)
 //  }
 type SendMessageActionClass interface {
@@ -896,6 +949,13 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 	case SendMessageUploadRoundActionTypeID:
 		// Decoding sendMessageUploadRoundAction#243e1c66.
 		v := SendMessageUploadRoundAction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SpeakingInGroupCallActionTypeID:
+		// Decoding speakingInGroupCallAction#d92c2285.
+		v := SpeakingInGroupCallAction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
 		}

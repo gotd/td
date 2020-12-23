@@ -103,6 +103,10 @@ type Chat struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Deactivated bool
+	// CallActive field of Chat.
+	CallActive bool
+	// CallNotEmpty field of Chat.
+	CallNotEmpty bool
 	// ID of the group
 	ID int
 	// Title
@@ -266,6 +270,24 @@ func (c *Chat) SetDeactivated(value bool) {
 	}
 }
 
+// SetCallActive sets value of CallActive conditional field.
+func (c *Chat) SetCallActive(value bool) {
+	if value {
+		c.Flags.Set(23)
+	} else {
+		c.Flags.Unset(23)
+	}
+}
+
+// SetCallNotEmpty sets value of CallNotEmpty conditional field.
+func (c *Chat) SetCallNotEmpty(value bool) {
+	if value {
+		c.Flags.Set(24)
+	} else {
+		c.Flags.Unset(24)
+	}
+}
+
 // SetMigratedTo sets value of MigratedTo conditional field.
 func (c *Chat) SetMigratedTo(value InputChannelClass) {
 	c.Flags.Set(6)
@@ -328,6 +350,8 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 	c.Kicked = c.Flags.Has(1)
 	c.Left = c.Flags.Has(2)
 	c.Deactivated = c.Flags.Has(5)
+	c.CallActive = c.Flags.Has(23)
+	c.CallNotEmpty = c.Flags.Has(24)
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -519,6 +543,8 @@ type Channel struct {
 	SlowmodeEnabled bool
 	// CallActive field of Channel.
 	CallActive bool
+	// CallNotEmpty field of Channel.
+	CallNotEmpty bool
 	// ID of the channel
 	ID int
 	// Access hash
@@ -809,6 +835,15 @@ func (c *Channel) SetCallActive(value bool) {
 	}
 }
 
+// SetCallNotEmpty sets value of CallNotEmpty conditional field.
+func (c *Channel) SetCallNotEmpty(value bool) {
+	if value {
+		c.Flags.Set(24)
+	} else {
+		c.Flags.Unset(24)
+	}
+}
+
 // SetAccessHash sets value of AccessHash conditional field.
 func (c *Channel) SetAccessHash(value int64) {
 	c.Flags.Set(13)
@@ -940,6 +975,7 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 	c.HasGeo = c.Flags.Has(21)
 	c.SlowmodeEnabled = c.Flags.Has(22)
 	c.CallActive = c.Flags.Has(23)
+	c.CallNotEmpty = c.Flags.Has(24)
 	{
 		value, err := b.Int()
 		if err != nil {
