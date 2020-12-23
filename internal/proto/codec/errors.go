@@ -33,7 +33,22 @@ func (p ProtocolErr) Error() string {
 	}
 }
 
+var errMessageMustBePadded = errors.New("message must be padded by 4")
+
 const maxMessageSize = 1024 * 1024 // 1mb
+
+func checkOutgoingMessage(b *bin.Buffer) error {
+	length := b.Len()
+	if length > maxMessageSize {
+		return invalidMsgLenErr{n: length}
+	}
+
+	if length%4 != 0 {
+		return errMessageMustBePadded
+	}
+
+	return nil
+}
 
 func checkProtocolError(b *bin.Buffer) error {
 	if b.Len() != bin.Word {

@@ -31,6 +31,9 @@ func codecs() []struct {
 		{"intermediate", func() codec {
 			return Intermediate{}
 		}},
+		{"padded intermediate", func() codec {
+			return PaddedIntermediate{}
+		}},
 		{"full", func() codec {
 			return &Full{}
 		}},

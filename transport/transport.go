@@ -22,12 +22,30 @@ func NewTransport(dialer Dialer, getCodec func() Codec) *Transport {
 	}
 }
 
+// Abridged creates Abridged transport.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports#abridged
+func Abridged(d Dialer) *Transport {
+	return NewTransport(d, func() Codec {
+		return codec.Abridged{}
+	})
+}
+
 // Intermediate creates Intermediate transport.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#intermediate
 func Intermediate(d Dialer) *Transport {
 	return NewTransport(d, func() Codec {
 		return codec.Intermediate{}
+	})
+}
+
+// PaddedIntermediate creates Padded intermediate transport.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
+func PaddedIntermediate(d Dialer) *Transport {
+	return NewTransport(d, func() Codec {
+		return codec.PaddedIntermediate{}
 	})
 }
 

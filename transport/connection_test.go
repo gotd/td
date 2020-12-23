@@ -29,7 +29,7 @@ func TestConnection(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	buf := bytes.Repeat([]byte{1, 2, 3}, 50)
+	buf := bytes.Repeat([]byte{1, 2, 3, 4}, 50)
 	done := make(chan struct{})
 	go func() {
 		defer close(done)
@@ -44,7 +44,7 @@ func TestConnection(t *testing.T) {
 	}()
 
 	if err := left.Send(ctx, &bin.Buffer{Buf: buf}); err != nil {
-		t.Error(err)
+		t.Fatal(err)
 	}
 
 	<-done
