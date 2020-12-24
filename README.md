@@ -72,13 +72,10 @@ You can use generated `tg.Client` that allows calling any MTProto methods
 directly.
 
 ```go
-client, err := telegram.Dial(ctx, telegram.Options{
-    // Grab these from https://my.telegram.org/apps.
-    // Never share it or hardcode!
-    AppID:   appID,
-    AppHash: appHash,
-})
-if err != nil {
+// Grab these from https://my.telegram.org/apps.
+// Never share it or hardcode!
+client := telegram.NewClient(appID, appHash, telegram.Options{})
+if err := client.Connect(ctx); != nil {
     panic(err)
 }
 // Grab token from @BotFather.
