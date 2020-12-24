@@ -146,8 +146,9 @@ func testReconnect(trp Transport) func(t *testing.T) {
 			Transport:     trp,
 			Logger:        log.Named("client"),
 			AckBatchSize:  1,
-			AckInterval:   time.Millisecond * 50,
-			RetryInterval: time.Millisecond * 50,
+			AckInterval:   time.Second * 5,
+			RetryInterval: time.Second * 15,
+			MaxRetries:    3,
 		})
 
 		err := client.Connect(ctx)
