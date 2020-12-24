@@ -39,7 +39,7 @@ func getDecryptInit(init [64]byte) (initRev [48]byte) {
 	return
 }
 
-func generateKeys(randSource io.Reader, secret []byte, protocol [4]byte, dc int16) (k obfuscated2, err error) {
+func generateKeys(randSource io.Reader, secret []byte, protocol [4]byte, dc int) (k obfuscated2, err error) {
 	init, err := generateInit(randSource)
 	if err != nil {
 		return
@@ -146,7 +146,7 @@ func (o obfuscated2IO) Read(b []byte) (n int, err error) {
 // MTProxyObfuscated2 implements MTProxy transport wrapper.
 type MTProxyObfuscated2 struct {
 	Codec  TaggedCodec
-	DC     int16
+	DC     int
 	Secret []byte
 	obs    obfuscated2
 }
