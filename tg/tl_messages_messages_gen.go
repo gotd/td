@@ -285,8 +285,10 @@ func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
 func (m *MessagesMessagesSlice) SetInexact(value bool) {
 	if value {
 		m.Flags.Set(1)
+		m.Inexact = true
 	} else {
 		m.Flags.Unset(1)
+		m.Inexact = false
 	}
 }
 
@@ -531,8 +533,10 @@ func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 func (c *MessagesChannelMessages) SetInexact(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Inexact = true
 	} else {
 		c.Flags.Unset(1)
+		c.Inexact = false
 	}
 }
 

@@ -134,8 +134,10 @@ func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {
 func (b *MessagesBotResults) SetGallery(value bool) {
 	if value {
 		b.Flags.Set(0)
+		b.Gallery = true
 	} else {
 		b.Flags.Unset(0)
+		b.Gallery = false
 	}
 }
 

@@ -127,8 +127,10 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 func (t *Theme) SetCreator(value bool) {
 	if value {
 		t.Flags.Set(0)
+		t.Creator = true
 	} else {
 		t.Flags.Unset(0)
+		t.Creator = false
 	}
 }
 
@@ -136,8 +138,10 @@ func (t *Theme) SetCreator(value bool) {
 func (t *Theme) SetDefault(value bool) {
 	if value {
 		t.Flags.Set(1)
+		t.Default = true
 	} else {
 		t.Flags.Unset(1)
+		t.Default = false
 	}
 }
 

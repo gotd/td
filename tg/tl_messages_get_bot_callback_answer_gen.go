@@ -114,8 +114,10 @@ func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 func (g *MessagesGetBotCallbackAnswerRequest) SetGame(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.Game = true
 	} else {
 		g.Flags.Unset(1)
+		g.Game = false
 	}
 }
 

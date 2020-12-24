@@ -400,8 +400,10 @@ func (m *Message) Encode(b *bin.Buffer) error {
 func (m *Message) SetOut(value bool) {
 	if value {
 		m.Flags.Set(1)
+		m.Out = true
 	} else {
 		m.Flags.Unset(1)
+		m.Out = false
 	}
 }
 
@@ -409,8 +411,10 @@ func (m *Message) SetOut(value bool) {
 func (m *Message) SetMentioned(value bool) {
 	if value {
 		m.Flags.Set(4)
+		m.Mentioned = true
 	} else {
 		m.Flags.Unset(4)
+		m.Mentioned = false
 	}
 }
 
@@ -418,8 +422,10 @@ func (m *Message) SetMentioned(value bool) {
 func (m *Message) SetMediaUnread(value bool) {
 	if value {
 		m.Flags.Set(5)
+		m.MediaUnread = true
 	} else {
 		m.Flags.Unset(5)
+		m.MediaUnread = false
 	}
 }
 
@@ -427,8 +433,10 @@ func (m *Message) SetMediaUnread(value bool) {
 func (m *Message) SetSilent(value bool) {
 	if value {
 		m.Flags.Set(13)
+		m.Silent = true
 	} else {
 		m.Flags.Unset(13)
+		m.Silent = false
 	}
 }
 
@@ -436,8 +444,10 @@ func (m *Message) SetSilent(value bool) {
 func (m *Message) SetPost(value bool) {
 	if value {
 		m.Flags.Set(14)
+		m.Post = true
 	} else {
 		m.Flags.Unset(14)
+		m.Post = false
 	}
 }
 
@@ -445,8 +455,10 @@ func (m *Message) SetPost(value bool) {
 func (m *Message) SetFromScheduled(value bool) {
 	if value {
 		m.Flags.Set(18)
+		m.FromScheduled = true
 	} else {
 		m.Flags.Unset(18)
+		m.FromScheduled = false
 	}
 }
 
@@ -454,8 +466,10 @@ func (m *Message) SetFromScheduled(value bool) {
 func (m *Message) SetLegacy(value bool) {
 	if value {
 		m.Flags.Set(19)
+		m.Legacy = true
 	} else {
 		m.Flags.Unset(19)
+		m.Legacy = false
 	}
 }
 
@@ -463,8 +477,10 @@ func (m *Message) SetLegacy(value bool) {
 func (m *Message) SetEditHide(value bool) {
 	if value {
 		m.Flags.Set(21)
+		m.EditHide = true
 	} else {
 		m.Flags.Unset(21)
+		m.EditHide = false
 	}
 }
 
@@ -472,8 +488,10 @@ func (m *Message) SetEditHide(value bool) {
 func (m *Message) SetPinned(value bool) {
 	if value {
 		m.Flags.Set(24)
+		m.Pinned = true
 	} else {
 		m.Flags.Unset(24)
+		m.Pinned = false
 	}
 }
 
@@ -978,8 +996,10 @@ func (m *MessageService) Encode(b *bin.Buffer) error {
 func (m *MessageService) SetOut(value bool) {
 	if value {
 		m.Flags.Set(1)
+		m.Out = true
 	} else {
 		m.Flags.Unset(1)
+		m.Out = false
 	}
 }
 
@@ -987,8 +1007,10 @@ func (m *MessageService) SetOut(value bool) {
 func (m *MessageService) SetMentioned(value bool) {
 	if value {
 		m.Flags.Set(4)
+		m.Mentioned = true
 	} else {
 		m.Flags.Unset(4)
+		m.Mentioned = false
 	}
 }
 
@@ -996,8 +1018,10 @@ func (m *MessageService) SetMentioned(value bool) {
 func (m *MessageService) SetMediaUnread(value bool) {
 	if value {
 		m.Flags.Set(5)
+		m.MediaUnread = true
 	} else {
 		m.Flags.Unset(5)
+		m.MediaUnread = false
 	}
 }
 
@@ -1005,8 +1029,10 @@ func (m *MessageService) SetMediaUnread(value bool) {
 func (m *MessageService) SetSilent(value bool) {
 	if value {
 		m.Flags.Set(13)
+		m.Silent = true
 	} else {
 		m.Flags.Unset(13)
+		m.Silent = false
 	}
 }
 
@@ -1014,8 +1040,10 @@ func (m *MessageService) SetSilent(value bool) {
 func (m *MessageService) SetPost(value bool) {
 	if value {
 		m.Flags.Set(14)
+		m.Post = true
 	} else {
 		m.Flags.Unset(14)
+		m.Post = false
 	}
 }
 
@@ -1023,8 +1051,10 @@ func (m *MessageService) SetPost(value bool) {
 func (m *MessageService) SetLegacy(value bool) {
 	if value {
 		m.Flags.Set(19)
+		m.Legacy = true
 	} else {
 		m.Flags.Unset(19)
+		m.Legacy = false
 	}
 }
 

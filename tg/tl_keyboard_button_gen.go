@@ -227,8 +227,10 @@ func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 func (k *KeyboardButtonCallback) SetRequiresPassword(value bool) {
 	if value {
 		k.Flags.Set(0)
+		k.RequiresPassword = true
 	} else {
 		k.Flags.Unset(0)
+		k.RequiresPassword = false
 	}
 }
 
@@ -466,8 +468,10 @@ func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 func (k *KeyboardButtonSwitchInline) SetSamePeer(value bool) {
 	if value {
 		k.Flags.Set(0)
+		k.SamePeer = true
 	} else {
 		k.Flags.Unset(0)
+		k.SamePeer = false
 	}
 }
 
@@ -897,8 +901,10 @@ func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 func (i *InputKeyboardButtonUrlAuth) SetRequestWriteAccess(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.RequestWriteAccess = true
 	} else {
 		i.Flags.Unset(0)
+		i.RequestWriteAccess = false
 	}
 }
 
@@ -1027,8 +1033,10 @@ func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 func (k *KeyboardButtonRequestPoll) SetQuiz(value bool) {
 	if value {
 		k.Flags.Set(0)
+		k.Quiz = true
 	} else {
 		k.Flags.Unset(0)
+		k.Quiz = false
 	}
 }
 

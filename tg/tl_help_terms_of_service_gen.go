@@ -109,8 +109,10 @@ func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 func (t *HelpTermsOfService) SetPopup(value bool) {
 	if value {
 		t.Flags.Set(0)
+		t.Popup = true
 	} else {
 		t.Flags.Unset(0)
+		t.Popup = false
 	}
 }
 

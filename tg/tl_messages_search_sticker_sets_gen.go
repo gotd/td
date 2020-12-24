@@ -79,8 +79,10 @@ func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSearchStickerSetsRequest) SetExcludeFeatured(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.ExcludeFeatured = true
 	} else {
 		s.Flags.Unset(0)
+		s.ExcludeFeatured = false
 	}
 }
 

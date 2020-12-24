@@ -677,8 +677,10 @@ func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
 	if value {
 		i.Flags.Set(3)
+		i.NosoundVideo = true
 	} else {
 		i.Flags.Unset(3)
+		i.NosoundVideo = false
 	}
 }
 
@@ -686,8 +688,10 @@ func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
 func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
 	if value {
 		i.Flags.Set(4)
+		i.ForceFile = true
 	} else {
 		i.Flags.Unset(4)
+		i.ForceFile = false
 	}
 }
 
@@ -1717,8 +1721,10 @@ func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 func (i *InputMediaGeoLive) SetStopped(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Stopped = true
 	} else {
 		i.Flags.Unset(0)
+		i.Stopped = false
 	}
 }
 

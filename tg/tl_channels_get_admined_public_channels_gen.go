@@ -77,8 +77,10 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 func (g *ChannelsGetAdminedPublicChannelsRequest) SetByLocation(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.ByLocation = true
 	} else {
 		g.Flags.Unset(0)
+		g.ByLocation = false
 	}
 }
 
@@ -86,8 +88,10 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetByLocation(value bool) {
 func (g *ChannelsGetAdminedPublicChannelsRequest) SetCheckLimit(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.CheckLimit = true
 	} else {
 		g.Flags.Unset(1)
+		g.CheckLimit = false
 	}
 }
 

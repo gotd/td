@@ -101,8 +101,10 @@ func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 func (g *UpdatesGetChannelDifferenceRequest) SetForce(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.Force = true
 	} else {
 		g.Flags.Unset(0)
+		g.Force = false
 	}
 }
 

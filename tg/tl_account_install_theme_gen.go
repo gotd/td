@@ -93,8 +93,10 @@ func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 func (i *AccountInstallThemeRequest) SetDark(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Dark = true
 	} else {
 		i.Flags.Unset(0)
+		i.Dark = false
 	}
 }
 

@@ -594,8 +594,10 @@ func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 func (i *InputMessagesFilterPhoneCalls) SetMissed(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Missed = true
 	} else {
 		i.Flags.Unset(0)
+		i.Missed = false
 	}
 }
 

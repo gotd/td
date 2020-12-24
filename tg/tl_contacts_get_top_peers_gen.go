@@ -105,8 +105,10 @@ func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 func (g *ContactsGetTopPeersRequest) SetCorrespondents(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.Correspondents = true
 	} else {
 		g.Flags.Unset(0)
+		g.Correspondents = false
 	}
 }
 
@@ -114,8 +116,10 @@ func (g *ContactsGetTopPeersRequest) SetCorrespondents(value bool) {
 func (g *ContactsGetTopPeersRequest) SetBotsPm(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.BotsPm = true
 	} else {
 		g.Flags.Unset(1)
+		g.BotsPm = false
 	}
 }
 
@@ -123,8 +127,10 @@ func (g *ContactsGetTopPeersRequest) SetBotsPm(value bool) {
 func (g *ContactsGetTopPeersRequest) SetBotsInline(value bool) {
 	if value {
 		g.Flags.Set(2)
+		g.BotsInline = true
 	} else {
 		g.Flags.Unset(2)
+		g.BotsInline = false
 	}
 }
 
@@ -132,8 +138,10 @@ func (g *ContactsGetTopPeersRequest) SetBotsInline(value bool) {
 func (g *ContactsGetTopPeersRequest) SetPhoneCalls(value bool) {
 	if value {
 		g.Flags.Set(3)
+		g.PhoneCalls = true
 	} else {
 		g.Flags.Unset(3)
+		g.PhoneCalls = false
 	}
 }
 
@@ -141,8 +149,10 @@ func (g *ContactsGetTopPeersRequest) SetPhoneCalls(value bool) {
 func (g *ContactsGetTopPeersRequest) SetForwardUsers(value bool) {
 	if value {
 		g.Flags.Set(4)
+		g.ForwardUsers = true
 	} else {
 		g.Flags.Unset(4)
+		g.ForwardUsers = false
 	}
 }
 
@@ -150,8 +160,10 @@ func (g *ContactsGetTopPeersRequest) SetForwardUsers(value bool) {
 func (g *ContactsGetTopPeersRequest) SetForwardChats(value bool) {
 	if value {
 		g.Flags.Set(5)
+		g.ForwardChats = true
 	} else {
 		g.Flags.Unset(5)
+		g.ForwardChats = false
 	}
 }
 
@@ -159,8 +171,10 @@ func (g *ContactsGetTopPeersRequest) SetForwardChats(value bool) {
 func (g *ContactsGetTopPeersRequest) SetGroups(value bool) {
 	if value {
 		g.Flags.Set(10)
+		g.Groups = true
 	} else {
 		g.Flags.Unset(10)
+		g.Groups = false
 	}
 }
 
@@ -168,8 +182,10 @@ func (g *ContactsGetTopPeersRequest) SetGroups(value bool) {
 func (g *ContactsGetTopPeersRequest) SetChannels(value bool) {
 	if value {
 		g.Flags.Set(15)
+		g.Channels = true
 	} else {
 		g.Flags.Unset(15)
+		g.Channels = false
 	}
 }
 

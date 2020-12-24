@@ -97,8 +97,10 @@ func (f *Folder) Encode(b *bin.Buffer) error {
 func (f *Folder) SetAutofillNewBroadcasts(value bool) {
 	if value {
 		f.Flags.Set(0)
+		f.AutofillNewBroadcasts = true
 	} else {
 		f.Flags.Unset(0)
+		f.AutofillNewBroadcasts = false
 	}
 }
 
@@ -106,8 +108,10 @@ func (f *Folder) SetAutofillNewBroadcasts(value bool) {
 func (f *Folder) SetAutofillPublicGroups(value bool) {
 	if value {
 		f.Flags.Set(1)
+		f.AutofillPublicGroups = true
 	} else {
 		f.Flags.Unset(1)
+		f.AutofillPublicGroups = false
 	}
 }
 
@@ -115,8 +119,10 @@ func (f *Folder) SetAutofillPublicGroups(value bool) {
 func (f *Folder) SetAutofillNewCorrespondents(value bool) {
 	if value {
 		f.Flags.Set(2)
+		f.AutofillNewCorrespondents = true
 	} else {
 		f.Flags.Unset(2)
+		f.AutofillNewCorrespondents = false
 	}
 }
 

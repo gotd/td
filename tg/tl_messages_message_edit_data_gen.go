@@ -64,8 +64,10 @@ func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 func (m *MessagesMessageEditData) SetCaption(value bool) {
 	if value {
 		m.Flags.Set(0)
+		m.Caption = true
 	} else {
 		m.Flags.Unset(0)
+		m.Caption = false
 	}
 }
 

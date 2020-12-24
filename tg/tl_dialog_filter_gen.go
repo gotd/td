@@ -195,8 +195,10 @@ func (d *DialogFilter) Encode(b *bin.Buffer) error {
 func (d *DialogFilter) SetContacts(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.Contacts = true
 	} else {
 		d.Flags.Unset(0)
+		d.Contacts = false
 	}
 }
 
@@ -204,8 +206,10 @@ func (d *DialogFilter) SetContacts(value bool) {
 func (d *DialogFilter) SetNonContacts(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.NonContacts = true
 	} else {
 		d.Flags.Unset(1)
+		d.NonContacts = false
 	}
 }
 
@@ -213,8 +217,10 @@ func (d *DialogFilter) SetNonContacts(value bool) {
 func (d *DialogFilter) SetGroups(value bool) {
 	if value {
 		d.Flags.Set(2)
+		d.Groups = true
 	} else {
 		d.Flags.Unset(2)
+		d.Groups = false
 	}
 }
 
@@ -222,8 +228,10 @@ func (d *DialogFilter) SetGroups(value bool) {
 func (d *DialogFilter) SetBroadcasts(value bool) {
 	if value {
 		d.Flags.Set(3)
+		d.Broadcasts = true
 	} else {
 		d.Flags.Unset(3)
+		d.Broadcasts = false
 	}
 }
 
@@ -231,8 +239,10 @@ func (d *DialogFilter) SetBroadcasts(value bool) {
 func (d *DialogFilter) SetBots(value bool) {
 	if value {
 		d.Flags.Set(4)
+		d.Bots = true
 	} else {
 		d.Flags.Unset(4)
+		d.Bots = false
 	}
 }
 
@@ -240,8 +250,10 @@ func (d *DialogFilter) SetBots(value bool) {
 func (d *DialogFilter) SetExcludeMuted(value bool) {
 	if value {
 		d.Flags.Set(11)
+		d.ExcludeMuted = true
 	} else {
 		d.Flags.Unset(11)
+		d.ExcludeMuted = false
 	}
 }
 
@@ -249,8 +261,10 @@ func (d *DialogFilter) SetExcludeMuted(value bool) {
 func (d *DialogFilter) SetExcludeRead(value bool) {
 	if value {
 		d.Flags.Set(12)
+		d.ExcludeRead = true
 	} else {
 		d.Flags.Unset(12)
+		d.ExcludeRead = false
 	}
 }
 
@@ -258,8 +272,10 @@ func (d *DialogFilter) SetExcludeRead(value bool) {
 func (d *DialogFilter) SetExcludeArchived(value bool) {
 	if value {
 		d.Flags.Set(13)
+		d.ExcludeArchived = true
 	} else {
 		d.Flags.Unset(13)
+		d.ExcludeArchived = false
 	}
 }
 

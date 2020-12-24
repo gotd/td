@@ -183,8 +183,10 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 func (p *AccountPassword) SetHasRecovery(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.HasRecovery = true
 	} else {
 		p.Flags.Unset(0)
+		p.HasRecovery = false
 	}
 }
 
@@ -192,8 +194,10 @@ func (p *AccountPassword) SetHasRecovery(value bool) {
 func (p *AccountPassword) SetHasSecureValues(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.HasSecureValues = true
 	} else {
 		p.Flags.Unset(1)
+		p.HasSecureValues = false
 	}
 }
 
@@ -201,8 +205,10 @@ func (p *AccountPassword) SetHasSecureValues(value bool) {
 func (p *AccountPassword) SetHasPassword(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.HasPassword = true
 	} else {
 		p.Flags.Unset(2)
+		p.HasPassword = false
 	}
 }
 

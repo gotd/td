@@ -95,8 +95,10 @@ func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 func (i *AccountInitTakeoutSessionRequest) SetContacts(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Contacts = true
 	} else {
 		i.Flags.Unset(0)
+		i.Contacts = false
 	}
 }
 
@@ -104,8 +106,10 @@ func (i *AccountInitTakeoutSessionRequest) SetContacts(value bool) {
 func (i *AccountInitTakeoutSessionRequest) SetMessageUsers(value bool) {
 	if value {
 		i.Flags.Set(1)
+		i.MessageUsers = true
 	} else {
 		i.Flags.Unset(1)
+		i.MessageUsers = false
 	}
 }
 
@@ -113,8 +117,10 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageUsers(value bool) {
 func (i *AccountInitTakeoutSessionRequest) SetMessageChats(value bool) {
 	if value {
 		i.Flags.Set(2)
+		i.MessageChats = true
 	} else {
 		i.Flags.Unset(2)
+		i.MessageChats = false
 	}
 }
 
@@ -122,8 +128,10 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChats(value bool) {
 func (i *AccountInitTakeoutSessionRequest) SetMessageMegagroups(value bool) {
 	if value {
 		i.Flags.Set(3)
+		i.MessageMegagroups = true
 	} else {
 		i.Flags.Unset(3)
+		i.MessageMegagroups = false
 	}
 }
 
@@ -131,8 +139,10 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageMegagroups(value bool) {
 func (i *AccountInitTakeoutSessionRequest) SetMessageChannels(value bool) {
 	if value {
 		i.Flags.Set(4)
+		i.MessageChannels = true
 	} else {
 		i.Flags.Unset(4)
+		i.MessageChannels = false
 	}
 }
 
@@ -140,8 +150,10 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChannels(value bool) {
 func (i *AccountInitTakeoutSessionRequest) SetFiles(value bool) {
 	if value {
 		i.Flags.Set(5)
+		i.Files = true
 	} else {
 		i.Flags.Unset(5)
+		i.Files = false
 	}
 }
 

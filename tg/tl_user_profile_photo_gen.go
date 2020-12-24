@@ -151,8 +151,10 @@ func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 func (u *UserProfilePhoto) SetHasVideo(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.HasVideo = true
 	} else {
 		u.Flags.Unset(0)
+		u.HasVideo = false
 	}
 }
 

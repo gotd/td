@@ -203,8 +203,10 @@ func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 func (p *HelpPromoData) SetProxy(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Proxy = true
 	} else {
 		p.Flags.Unset(0)
+		p.Proxy = false
 	}
 }
 

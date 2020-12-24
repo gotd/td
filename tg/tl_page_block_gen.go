@@ -1269,8 +1269,10 @@ func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 func (p *PageBlockVideo) SetAutoplay(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Autoplay = true
 	} else {
 		p.Flags.Unset(0)
+		p.Autoplay = false
 	}
 }
 
@@ -1278,8 +1280,10 @@ func (p *PageBlockVideo) SetAutoplay(value bool) {
 func (p *PageBlockVideo) SetLoop(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Loop = true
 	} else {
 		p.Flags.Unset(1)
+		p.Loop = false
 	}
 }
 
@@ -1513,8 +1517,10 @@ func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 func (p *PageBlockEmbed) SetFullWidth(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.FullWidth = true
 	} else {
 		p.Flags.Unset(0)
+		p.FullWidth = false
 	}
 }
 
@@ -1522,8 +1528,10 @@ func (p *PageBlockEmbed) SetFullWidth(value bool) {
 func (p *PageBlockEmbed) SetAllowScrolling(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.AllowScrolling = true
 	} else {
 		p.Flags.Unset(3)
+		p.AllowScrolling = false
 	}
 }
 
@@ -2319,8 +2327,10 @@ func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 func (p *PageBlockTable) SetBordered(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Bordered = true
 	} else {
 		p.Flags.Unset(0)
+		p.Bordered = false
 	}
 }
 
@@ -2328,8 +2338,10 @@ func (p *PageBlockTable) SetBordered(value bool) {
 func (p *PageBlockTable) SetStriped(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Striped = true
 	} else {
 		p.Flags.Unset(1)
+		p.Striped = false
 	}
 }
 
@@ -2539,8 +2551,10 @@ func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 func (p *PageBlockDetails) SetOpen(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Open = true
 	} else {
 		p.Flags.Unset(0)
+		p.Open = false
 	}
 }
 

@@ -80,8 +80,10 @@ func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 func (b *ContactsBlockFromRepliesRequest) SetDeleteMessage(value bool) {
 	if value {
 		b.Flags.Set(0)
+		b.DeleteMessage = true
 	} else {
 		b.Flags.Unset(0)
+		b.DeleteMessage = false
 	}
 }
 
@@ -89,8 +91,10 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteMessage(value bool) {
 func (b *ContactsBlockFromRepliesRequest) SetDeleteHistory(value bool) {
 	if value {
 		b.Flags.Set(1)
+		b.DeleteHistory = true
 	} else {
 		b.Flags.Unset(1)
+		b.DeleteHistory = false
 	}
 }
 
@@ -98,8 +102,10 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteHistory(value bool) {
 func (b *ContactsBlockFromRepliesRequest) SetReportSpam(value bool) {
 	if value {
 		b.Flags.Set(2)
+		b.ReportSpam = true
 	} else {
 		b.Flags.Unset(2)
+		b.ReportSpam = false
 	}
 }
 

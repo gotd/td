@@ -130,8 +130,10 @@ func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 func (c *ChannelMessagesFilter) SetExcludeNewMessages(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.ExcludeNewMessages = true
 	} else {
 		c.Flags.Unset(1)
+		c.ExcludeNewMessages = false
 	}
 }
 

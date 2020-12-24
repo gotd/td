@@ -90,8 +90,10 @@ func (a *MessagesAcceptUrlAuthRequest) Encode(b *bin.Buffer) error {
 func (a *MessagesAcceptUrlAuthRequest) SetWriteAllowed(value bool) {
 	if value {
 		a.Flags.Set(0)
+		a.WriteAllowed = true
 	} else {
 		a.Flags.Unset(0)
+		a.WriteAllowed = false
 	}
 }
 

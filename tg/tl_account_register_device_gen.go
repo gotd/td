@@ -108,8 +108,10 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 func (r *AccountRegisterDeviceRequest) SetNoMuted(value bool) {
 	if value {
 		r.Flags.Set(0)
+		r.NoMuted = true
 	} else {
 		r.Flags.Unset(0)
+		r.NoMuted = false
 	}
 }
 

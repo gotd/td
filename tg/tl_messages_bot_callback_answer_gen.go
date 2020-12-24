@@ -98,8 +98,10 @@ func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
 func (b *MessagesBotCallbackAnswer) SetAlert(value bool) {
 	if value {
 		b.Flags.Set(1)
+		b.Alert = true
 	} else {
 		b.Flags.Unset(1)
+		b.Alert = false
 	}
 }
 
@@ -107,8 +109,10 @@ func (b *MessagesBotCallbackAnswer) SetAlert(value bool) {
 func (b *MessagesBotCallbackAnswer) SetHasURL(value bool) {
 	if value {
 		b.Flags.Set(3)
+		b.HasURL = true
 	} else {
 		b.Flags.Unset(3)
+		b.HasURL = false
 	}
 }
 
@@ -116,8 +120,10 @@ func (b *MessagesBotCallbackAnswer) SetHasURL(value bool) {
 func (b *MessagesBotCallbackAnswer) SetNativeUI(value bool) {
 	if value {
 		b.Flags.Set(4)
+		b.NativeUI = true
 	} else {
 		b.Flags.Unset(4)
+		b.NativeUI = false
 	}
 }
 

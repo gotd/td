@@ -81,8 +81,10 @@ func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 func (g *MessagesGetStatsURLRequest) SetDark(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.Dark = true
 	} else {
 		g.Flags.Unset(0)
+		g.Dark = false
 	}
 }
 

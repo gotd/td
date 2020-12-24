@@ -987,8 +987,10 @@ func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 func (m *MessageMediaInvoice) SetShippingAddressRequested(value bool) {
 	if value {
 		m.Flags.Set(1)
+		m.ShippingAddressRequested = true
 	} else {
 		m.Flags.Unset(1)
+		m.ShippingAddressRequested = false
 	}
 }
 
@@ -996,8 +998,10 @@ func (m *MessageMediaInvoice) SetShippingAddressRequested(value bool) {
 func (m *MessageMediaInvoice) SetTest(value bool) {
 	if value {
 		m.Flags.Set(3)
+		m.Test = true
 	} else {
 		m.Flags.Unset(3)
+		m.Test = false
 	}
 }
 

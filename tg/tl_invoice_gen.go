@@ -100,8 +100,10 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 func (i *Invoice) SetTest(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Test = true
 	} else {
 		i.Flags.Unset(0)
+		i.Test = false
 	}
 }
 
@@ -109,8 +111,10 @@ func (i *Invoice) SetTest(value bool) {
 func (i *Invoice) SetNameRequested(value bool) {
 	if value {
 		i.Flags.Set(1)
+		i.NameRequested = true
 	} else {
 		i.Flags.Unset(1)
+		i.NameRequested = false
 	}
 }
 
@@ -118,8 +122,10 @@ func (i *Invoice) SetNameRequested(value bool) {
 func (i *Invoice) SetPhoneRequested(value bool) {
 	if value {
 		i.Flags.Set(2)
+		i.PhoneRequested = true
 	} else {
 		i.Flags.Unset(2)
+		i.PhoneRequested = false
 	}
 }
 
@@ -127,8 +133,10 @@ func (i *Invoice) SetPhoneRequested(value bool) {
 func (i *Invoice) SetEmailRequested(value bool) {
 	if value {
 		i.Flags.Set(3)
+		i.EmailRequested = true
 	} else {
 		i.Flags.Unset(3)
+		i.EmailRequested = false
 	}
 }
 
@@ -136,8 +144,10 @@ func (i *Invoice) SetEmailRequested(value bool) {
 func (i *Invoice) SetShippingAddressRequested(value bool) {
 	if value {
 		i.Flags.Set(4)
+		i.ShippingAddressRequested = true
 	} else {
 		i.Flags.Unset(4)
+		i.ShippingAddressRequested = false
 	}
 }
 
@@ -145,8 +155,10 @@ func (i *Invoice) SetShippingAddressRequested(value bool) {
 func (i *Invoice) SetFlexible(value bool) {
 	if value {
 		i.Flags.Set(5)
+		i.Flexible = true
 	} else {
 		i.Flags.Unset(5)
+		i.Flexible = false
 	}
 }
 
@@ -154,8 +166,10 @@ func (i *Invoice) SetFlexible(value bool) {
 func (i *Invoice) SetPhoneToProvider(value bool) {
 	if value {
 		i.Flags.Set(6)
+		i.PhoneToProvider = true
 	} else {
 		i.Flags.Unset(6)
+		i.PhoneToProvider = false
 	}
 }
 
@@ -163,8 +177,10 @@ func (i *Invoice) SetPhoneToProvider(value bool) {
 func (i *Invoice) SetEmailToProvider(value bool) {
 	if value {
 		i.Flags.Set(7)
+		i.EmailToProvider = true
 	} else {
 		i.Flags.Unset(7)
+		i.EmailToProvider = false
 	}
 }
 

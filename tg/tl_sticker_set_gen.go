@@ -152,8 +152,10 @@ func (s *StickerSet) Encode(b *bin.Buffer) error {
 func (s *StickerSet) SetArchived(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Archived = true
 	} else {
 		s.Flags.Unset(1)
+		s.Archived = false
 	}
 }
 
@@ -161,8 +163,10 @@ func (s *StickerSet) SetArchived(value bool) {
 func (s *StickerSet) SetOfficial(value bool) {
 	if value {
 		s.Flags.Set(2)
+		s.Official = true
 	} else {
 		s.Flags.Unset(2)
+		s.Official = false
 	}
 }
 
@@ -170,8 +174,10 @@ func (s *StickerSet) SetOfficial(value bool) {
 func (s *StickerSet) SetMasks(value bool) {
 	if value {
 		s.Flags.Set(3)
+		s.Masks = true
 	} else {
 		s.Flags.Unset(3)
+		s.Masks = false
 	}
 }
 
@@ -179,8 +185,10 @@ func (s *StickerSet) SetMasks(value bool) {
 func (s *StickerSet) SetAnimated(value bool) {
 	if value {
 		s.Flags.Set(5)
+		s.Animated = true
 	} else {
 		s.Flags.Unset(5)
+		s.Animated = false
 	}
 }
 

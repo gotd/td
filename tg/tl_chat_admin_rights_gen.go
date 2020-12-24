@@ -109,8 +109,10 @@ func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 func (c *ChatAdminRights) SetChangeInfo(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.ChangeInfo = true
 	} else {
 		c.Flags.Unset(0)
+		c.ChangeInfo = false
 	}
 }
 
@@ -118,8 +120,10 @@ func (c *ChatAdminRights) SetChangeInfo(value bool) {
 func (c *ChatAdminRights) SetPostMessages(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.PostMessages = true
 	} else {
 		c.Flags.Unset(1)
+		c.PostMessages = false
 	}
 }
 
@@ -127,8 +131,10 @@ func (c *ChatAdminRights) SetPostMessages(value bool) {
 func (c *ChatAdminRights) SetEditMessages(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.EditMessages = true
 	} else {
 		c.Flags.Unset(2)
+		c.EditMessages = false
 	}
 }
 
@@ -136,8 +142,10 @@ func (c *ChatAdminRights) SetEditMessages(value bool) {
 func (c *ChatAdminRights) SetDeleteMessages(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.DeleteMessages = true
 	} else {
 		c.Flags.Unset(3)
+		c.DeleteMessages = false
 	}
 }
 
@@ -145,8 +153,10 @@ func (c *ChatAdminRights) SetDeleteMessages(value bool) {
 func (c *ChatAdminRights) SetBanUsers(value bool) {
 	if value {
 		c.Flags.Set(4)
+		c.BanUsers = true
 	} else {
 		c.Flags.Unset(4)
+		c.BanUsers = false
 	}
 }
 
@@ -154,8 +164,10 @@ func (c *ChatAdminRights) SetBanUsers(value bool) {
 func (c *ChatAdminRights) SetInviteUsers(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.InviteUsers = true
 	} else {
 		c.Flags.Unset(5)
+		c.InviteUsers = false
 	}
 }
 
@@ -163,8 +175,10 @@ func (c *ChatAdminRights) SetInviteUsers(value bool) {
 func (c *ChatAdminRights) SetPinMessages(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.PinMessages = true
 	} else {
 		c.Flags.Unset(7)
+		c.PinMessages = false
 	}
 }
 
@@ -172,8 +186,10 @@ func (c *ChatAdminRights) SetPinMessages(value bool) {
 func (c *ChatAdminRights) SetAddAdmins(value bool) {
 	if value {
 		c.Flags.Set(9)
+		c.AddAdmins = true
 	} else {
 		c.Flags.Unset(9)
+		c.AddAdmins = false
 	}
 }
 
@@ -181,8 +197,10 @@ func (c *ChatAdminRights) SetAddAdmins(value bool) {
 func (c *ChatAdminRights) SetAnonymous(value bool) {
 	if value {
 		c.Flags.Set(10)
+		c.Anonymous = true
 	} else {
 		c.Flags.Unset(10)
+		c.Anonymous = false
 	}
 }
 
@@ -190,8 +208,10 @@ func (c *ChatAdminRights) SetAnonymous(value bool) {
 func (c *ChatAdminRights) SetManageCall(value bool) {
 	if value {
 		c.Flags.Set(11)
+		c.ManageCall = true
 	} else {
 		c.Flags.Unset(11)
+		c.ManageCall = false
 	}
 }
 

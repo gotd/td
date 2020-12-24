@@ -101,8 +101,10 @@ func (c *HelpCountry) Encode(b *bin.Buffer) error {
 func (c *HelpCountry) SetHidden(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Hidden = true
 	} else {
 		c.Flags.Unset(0)
+		c.Hidden = false
 	}
 }
 

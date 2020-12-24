@@ -64,8 +64,10 @@ func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 func (c *MessagesClearRecentStickersRequest) SetAttached(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Attached = true
 	} else {
 		c.Flags.Unset(0)
+		c.Attached = false
 	}
 }
 

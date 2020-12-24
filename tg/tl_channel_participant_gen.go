@@ -419,8 +419,10 @@ func (c *ChannelParticipantAdmin) Encode(b *bin.Buffer) error {
 func (c *ChannelParticipantAdmin) SetCanEdit(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.CanEdit = true
 	} else {
 		c.Flags.Unset(0)
+		c.CanEdit = false
 	}
 }
 
@@ -428,8 +430,10 @@ func (c *ChannelParticipantAdmin) SetCanEdit(value bool) {
 func (c *ChannelParticipantAdmin) SetSelf(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Self = true
 	} else {
 		c.Flags.Unset(1)
+		c.Self = false
 	}
 }
 
@@ -609,8 +613,10 @@ func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 func (c *ChannelParticipantBanned) SetLeft(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Left = true
 	} else {
 		c.Flags.Unset(0)
+		c.Left = false
 	}
 }
 

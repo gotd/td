@@ -143,8 +143,10 @@ func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 func (c *ChannelAdminLogEventsFilter) SetJoin(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Join = true
 	} else {
 		c.Flags.Unset(0)
+		c.Join = false
 	}
 }
 
@@ -152,8 +154,10 @@ func (c *ChannelAdminLogEventsFilter) SetJoin(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetLeave(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Leave = true
 	} else {
 		c.Flags.Unset(1)
+		c.Leave = false
 	}
 }
 
@@ -161,8 +165,10 @@ func (c *ChannelAdminLogEventsFilter) SetLeave(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetInvite(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.Invite = true
 	} else {
 		c.Flags.Unset(2)
+		c.Invite = false
 	}
 }
 
@@ -170,8 +176,10 @@ func (c *ChannelAdminLogEventsFilter) SetInvite(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetBan(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.Ban = true
 	} else {
 		c.Flags.Unset(3)
+		c.Ban = false
 	}
 }
 
@@ -179,8 +187,10 @@ func (c *ChannelAdminLogEventsFilter) SetBan(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetUnban(value bool) {
 	if value {
 		c.Flags.Set(4)
+		c.Unban = true
 	} else {
 		c.Flags.Unset(4)
+		c.Unban = false
 	}
 }
 
@@ -188,8 +198,10 @@ func (c *ChannelAdminLogEventsFilter) SetUnban(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetKick(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.Kick = true
 	} else {
 		c.Flags.Unset(5)
+		c.Kick = false
 	}
 }
 
@@ -197,8 +209,10 @@ func (c *ChannelAdminLogEventsFilter) SetKick(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetUnkick(value bool) {
 	if value {
 		c.Flags.Set(6)
+		c.Unkick = true
 	} else {
 		c.Flags.Unset(6)
+		c.Unkick = false
 	}
 }
 
@@ -206,8 +220,10 @@ func (c *ChannelAdminLogEventsFilter) SetUnkick(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetPromote(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.Promote = true
 	} else {
 		c.Flags.Unset(7)
+		c.Promote = false
 	}
 }
 
@@ -215,8 +231,10 @@ func (c *ChannelAdminLogEventsFilter) SetPromote(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetDemote(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.Demote = true
 	} else {
 		c.Flags.Unset(8)
+		c.Demote = false
 	}
 }
 
@@ -224,8 +242,10 @@ func (c *ChannelAdminLogEventsFilter) SetDemote(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetInfo(value bool) {
 	if value {
 		c.Flags.Set(9)
+		c.Info = true
 	} else {
 		c.Flags.Unset(9)
+		c.Info = false
 	}
 }
 
@@ -233,8 +253,10 @@ func (c *ChannelAdminLogEventsFilter) SetInfo(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetSettings(value bool) {
 	if value {
 		c.Flags.Set(10)
+		c.Settings = true
 	} else {
 		c.Flags.Unset(10)
+		c.Settings = false
 	}
 }
 
@@ -242,8 +264,10 @@ func (c *ChannelAdminLogEventsFilter) SetSettings(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetPinned(value bool) {
 	if value {
 		c.Flags.Set(11)
+		c.Pinned = true
 	} else {
 		c.Flags.Unset(11)
+		c.Pinned = false
 	}
 }
 
@@ -251,8 +275,10 @@ func (c *ChannelAdminLogEventsFilter) SetPinned(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetEdit(value bool) {
 	if value {
 		c.Flags.Set(12)
+		c.Edit = true
 	} else {
 		c.Flags.Unset(12)
+		c.Edit = false
 	}
 }
 
@@ -260,8 +286,10 @@ func (c *ChannelAdminLogEventsFilter) SetEdit(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetDelete(value bool) {
 	if value {
 		c.Flags.Set(13)
+		c.Delete = true
 	} else {
 		c.Flags.Unset(13)
+		c.Delete = false
 	}
 }
 
@@ -269,8 +297,10 @@ func (c *ChannelAdminLogEventsFilter) SetDelete(value bool) {
 func (c *ChannelAdminLogEventsFilter) SetGroupCall(value bool) {
 	if value {
 		c.Flags.Set(14)
+		c.GroupCall = true
 	} else {
 		c.Flags.Unset(14)
+		c.GroupCall = false
 	}
 }
 

@@ -317,8 +317,10 @@ func (u *User) Encode(b *bin.Buffer) error {
 func (u *User) SetSelf(value bool) {
 	if value {
 		u.Flags.Set(10)
+		u.Self = true
 	} else {
 		u.Flags.Unset(10)
+		u.Self = false
 	}
 }
 
@@ -326,8 +328,10 @@ func (u *User) SetSelf(value bool) {
 func (u *User) SetContact(value bool) {
 	if value {
 		u.Flags.Set(11)
+		u.Contact = true
 	} else {
 		u.Flags.Unset(11)
+		u.Contact = false
 	}
 }
 
@@ -335,8 +339,10 @@ func (u *User) SetContact(value bool) {
 func (u *User) SetMutualContact(value bool) {
 	if value {
 		u.Flags.Set(12)
+		u.MutualContact = true
 	} else {
 		u.Flags.Unset(12)
+		u.MutualContact = false
 	}
 }
 
@@ -344,8 +350,10 @@ func (u *User) SetMutualContact(value bool) {
 func (u *User) SetDeleted(value bool) {
 	if value {
 		u.Flags.Set(13)
+		u.Deleted = true
 	} else {
 		u.Flags.Unset(13)
+		u.Deleted = false
 	}
 }
 
@@ -353,8 +361,10 @@ func (u *User) SetDeleted(value bool) {
 func (u *User) SetBot(value bool) {
 	if value {
 		u.Flags.Set(14)
+		u.Bot = true
 	} else {
 		u.Flags.Unset(14)
+		u.Bot = false
 	}
 }
 
@@ -362,8 +372,10 @@ func (u *User) SetBot(value bool) {
 func (u *User) SetBotChatHistory(value bool) {
 	if value {
 		u.Flags.Set(15)
+		u.BotChatHistory = true
 	} else {
 		u.Flags.Unset(15)
+		u.BotChatHistory = false
 	}
 }
 
@@ -371,8 +383,10 @@ func (u *User) SetBotChatHistory(value bool) {
 func (u *User) SetBotNochats(value bool) {
 	if value {
 		u.Flags.Set(16)
+		u.BotNochats = true
 	} else {
 		u.Flags.Unset(16)
+		u.BotNochats = false
 	}
 }
 
@@ -380,8 +394,10 @@ func (u *User) SetBotNochats(value bool) {
 func (u *User) SetVerified(value bool) {
 	if value {
 		u.Flags.Set(17)
+		u.Verified = true
 	} else {
 		u.Flags.Unset(17)
+		u.Verified = false
 	}
 }
 
@@ -389,8 +405,10 @@ func (u *User) SetVerified(value bool) {
 func (u *User) SetRestricted(value bool) {
 	if value {
 		u.Flags.Set(18)
+		u.Restricted = true
 	} else {
 		u.Flags.Unset(18)
+		u.Restricted = false
 	}
 }
 
@@ -398,8 +416,10 @@ func (u *User) SetRestricted(value bool) {
 func (u *User) SetMin(value bool) {
 	if value {
 		u.Flags.Set(20)
+		u.Min = true
 	} else {
 		u.Flags.Unset(20)
+		u.Min = false
 	}
 }
 
@@ -407,8 +427,10 @@ func (u *User) SetMin(value bool) {
 func (u *User) SetBotInlineGeo(value bool) {
 	if value {
 		u.Flags.Set(21)
+		u.BotInlineGeo = true
 	} else {
 		u.Flags.Unset(21)
+		u.BotInlineGeo = false
 	}
 }
 
@@ -416,8 +438,10 @@ func (u *User) SetBotInlineGeo(value bool) {
 func (u *User) SetSupport(value bool) {
 	if value {
 		u.Flags.Set(23)
+		u.Support = true
 	} else {
 		u.Flags.Unset(23)
+		u.Support = false
 	}
 }
 
@@ -425,8 +449,10 @@ func (u *User) SetSupport(value bool) {
 func (u *User) SetScam(value bool) {
 	if value {
 		u.Flags.Set(24)
+		u.Scam = true
 	} else {
 		u.Flags.Unset(24)
+		u.Scam = false
 	}
 }
 
@@ -434,8 +460,10 @@ func (u *User) SetScam(value bool) {
 func (u *User) SetApplyMinPhoto(value bool) {
 	if value {
 		u.Flags.Set(25)
+		u.ApplyMinPhoto = true
 	} else {
 		u.Flags.Unset(25)
+		u.ApplyMinPhoto = false
 	}
 }
 

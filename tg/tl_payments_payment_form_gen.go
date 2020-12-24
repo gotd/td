@@ -166,8 +166,10 @@ func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
 func (p *PaymentsPaymentForm) SetCanSaveCredentials(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.CanSaveCredentials = true
 	} else {
 		p.Flags.Unset(2)
+		p.CanSaveCredentials = false
 	}
 }
 
@@ -175,8 +177,10 @@ func (p *PaymentsPaymentForm) SetCanSaveCredentials(value bool) {
 func (p *PaymentsPaymentForm) SetPasswordMissing(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.PasswordMissing = true
 	} else {
 		p.Flags.Unset(3)
+		p.PasswordMissing = false
 	}
 }
 

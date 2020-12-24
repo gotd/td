@@ -98,8 +98,10 @@ func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 func (r *PhoneRequestCallRequest) SetVideo(value bool) {
 	if value {
 		r.Flags.Set(0)
+		r.Video = true
 	} else {
 		r.Flags.Unset(0)
+		r.Video = false
 	}
 }
 

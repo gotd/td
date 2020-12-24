@@ -199,8 +199,10 @@ func (c *ChatInvite) Encode(b *bin.Buffer) error {
 func (c *ChatInvite) SetChannel(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Channel = true
 	} else {
 		c.Flags.Unset(0)
+		c.Channel = false
 	}
 }
 
@@ -208,8 +210,10 @@ func (c *ChatInvite) SetChannel(value bool) {
 func (c *ChatInvite) SetBroadcast(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Broadcast = true
 	} else {
 		c.Flags.Unset(1)
+		c.Broadcast = false
 	}
 }
 
@@ -217,8 +221,10 @@ func (c *ChatInvite) SetBroadcast(value bool) {
 func (c *ChatInvite) SetPublic(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.Public = true
 	} else {
 		c.Flags.Unset(2)
+		c.Public = false
 	}
 }
 
@@ -226,8 +232,10 @@ func (c *ChatInvite) SetPublic(value bool) {
 func (c *ChatInvite) SetMegagroup(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.Megagroup = true
 	} else {
 		c.Flags.Unset(3)
+		c.Megagroup = false
 	}
 }
 

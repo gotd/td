@@ -79,8 +79,10 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 func (c *CodeSettings) SetAllowFlashcall(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.AllowFlashcall = true
 	} else {
 		c.Flags.Unset(0)
+		c.AllowFlashcall = false
 	}
 }
 
@@ -88,8 +90,10 @@ func (c *CodeSettings) SetAllowFlashcall(value bool) {
 func (c *CodeSettings) SetCurrentNumber(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.CurrentNumber = true
 	} else {
 		c.Flags.Unset(1)
+		c.CurrentNumber = false
 	}
 }
 
@@ -97,8 +101,10 @@ func (c *CodeSettings) SetCurrentNumber(value bool) {
 func (c *CodeSettings) SetAllowAppHash(value bool) {
 	if value {
 		c.Flags.Set(4)
+		c.AllowAppHash = true
 	} else {
 		c.Flags.Unset(4)
+		c.AllowAppHash = false
 	}
 }
 

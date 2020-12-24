@@ -89,8 +89,10 @@ func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 func (r *MessagesReorderPinnedDialogsRequest) SetForce(value bool) {
 	if value {
 		r.Flags.Set(0)
+		r.Force = true
 	} else {
 		r.Flags.Unset(0)
+		r.Force = false
 	}
 }
 

@@ -64,8 +64,10 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 func (g *GlobalPrivacySettings) SetArchiveAndMuteNewNoncontactPeers(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.ArchiveAndMuteNewNoncontactPeers = true
 	} else {
 		g.Flags.Unset(0)
+		g.ArchiveAndMuteNewNoncontactPeers = false
 	}
 }
 

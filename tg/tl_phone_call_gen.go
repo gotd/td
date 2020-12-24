@@ -180,8 +180,10 @@ func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 func (p *PhoneCallWaiting) SetVideo(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.Video = true
 	} else {
 		p.Flags.Unset(6)
+		p.Video = false
 	}
 }
 
@@ -370,8 +372,10 @@ func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 func (p *PhoneCallRequested) SetVideo(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.Video = true
 	} else {
 		p.Flags.Unset(6)
+		p.Video = false
 	}
 }
 
@@ -545,8 +549,10 @@ func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 func (p *PhoneCallAccepted) SetVideo(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.Video = true
 	} else {
 		p.Flags.Unset(6)
+		p.Video = false
 	}
 }
 
@@ -753,8 +759,10 @@ func (p *PhoneCall) Encode(b *bin.Buffer) error {
 func (p *PhoneCall) SetP2PAllowed(value bool) {
 	if value {
 		p.Flags.Set(5)
+		p.P2PAllowed = true
 	} else {
 		p.Flags.Unset(5)
+		p.P2PAllowed = false
 	}
 }
 
@@ -762,8 +770,10 @@ func (p *PhoneCall) SetP2PAllowed(value bool) {
 func (p *PhoneCall) SetVideo(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.Video = true
 	} else {
 		p.Flags.Unset(6)
+		p.Video = false
 	}
 }
 
@@ -963,8 +973,10 @@ func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.NeedRating = true
 	} else {
 		p.Flags.Unset(2)
+		p.NeedRating = false
 	}
 }
 
@@ -972,8 +984,10 @@ func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 func (p *PhoneCallDiscarded) SetNeedDebug(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.NeedDebug = true
 	} else {
 		p.Flags.Unset(3)
+		p.NeedDebug = false
 	}
 }
 
@@ -981,8 +995,10 @@ func (p *PhoneCallDiscarded) SetNeedDebug(value bool) {
 func (p *PhoneCallDiscarded) SetVideo(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.Video = true
 	} else {
 		p.Flags.Unset(6)
+		p.Video = false
 	}
 }
 

@@ -83,8 +83,10 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 func (d *MessagesDeleteHistoryRequest) SetJustClear(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.JustClear = true
 	} else {
 		d.Flags.Unset(0)
+		d.JustClear = false
 	}
 }
 
@@ -92,8 +94,10 @@ func (d *MessagesDeleteHistoryRequest) SetJustClear(value bool) {
 func (d *MessagesDeleteHistoryRequest) SetRevoke(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.Revoke = true
 	} else {
 		d.Flags.Unset(1)
+		d.Revoke = false
 	}
 }
 

@@ -66,8 +66,10 @@ func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 func (c *PaymentsClearSavedInfoRequest) SetCredentials(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Credentials = true
 	} else {
 		c.Flags.Unset(0)
+		c.Credentials = false
 	}
 }
 
@@ -75,8 +77,10 @@ func (c *PaymentsClearSavedInfoRequest) SetCredentials(value bool) {
 func (c *PaymentsClearSavedInfoRequest) SetInfo(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Info = true
 	} else {
 		c.Flags.Unset(1)
+		c.Info = false
 	}
 }
 

@@ -191,8 +191,10 @@ func (c *ChatFull) Encode(b *bin.Buffer) error {
 func (c *ChatFull) SetCanSetUsername(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.CanSetUsername = true
 	} else {
 		c.Flags.Unset(7)
+		c.CanSetUsername = false
 	}
 }
 
@@ -200,8 +202,10 @@ func (c *ChatFull) SetCanSetUsername(value bool) {
 func (c *ChatFull) SetHasScheduled(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.HasScheduled = true
 	} else {
 		c.Flags.Unset(8)
+		c.HasScheduled = false
 	}
 }
 
@@ -771,8 +775,10 @@ func (c *ChannelFull) Encode(b *bin.Buffer) error {
 func (c *ChannelFull) SetCanViewParticipants(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.CanViewParticipants = true
 	} else {
 		c.Flags.Unset(3)
+		c.CanViewParticipants = false
 	}
 }
 
@@ -780,8 +786,10 @@ func (c *ChannelFull) SetCanViewParticipants(value bool) {
 func (c *ChannelFull) SetCanSetUsername(value bool) {
 	if value {
 		c.Flags.Set(6)
+		c.CanSetUsername = true
 	} else {
 		c.Flags.Unset(6)
+		c.CanSetUsername = false
 	}
 }
 
@@ -789,8 +797,10 @@ func (c *ChannelFull) SetCanSetUsername(value bool) {
 func (c *ChannelFull) SetCanSetStickers(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.CanSetStickers = true
 	} else {
 		c.Flags.Unset(7)
+		c.CanSetStickers = false
 	}
 }
 
@@ -798,8 +808,10 @@ func (c *ChannelFull) SetCanSetStickers(value bool) {
 func (c *ChannelFull) SetHiddenPrehistory(value bool) {
 	if value {
 		c.Flags.Set(10)
+		c.HiddenPrehistory = true
 	} else {
 		c.Flags.Unset(10)
+		c.HiddenPrehistory = false
 	}
 }
 
@@ -807,8 +819,10 @@ func (c *ChannelFull) SetHiddenPrehistory(value bool) {
 func (c *ChannelFull) SetCanSetLocation(value bool) {
 	if value {
 		c.Flags.Set(16)
+		c.CanSetLocation = true
 	} else {
 		c.Flags.Unset(16)
+		c.CanSetLocation = false
 	}
 }
 
@@ -816,8 +830,10 @@ func (c *ChannelFull) SetCanSetLocation(value bool) {
 func (c *ChannelFull) SetHasScheduled(value bool) {
 	if value {
 		c.Flags.Set(19)
+		c.HasScheduled = true
 	} else {
 		c.Flags.Unset(19)
+		c.HasScheduled = false
 	}
 }
 
@@ -825,8 +841,10 @@ func (c *ChannelFull) SetHasScheduled(value bool) {
 func (c *ChannelFull) SetCanViewStats(value bool) {
 	if value {
 		c.Flags.Set(20)
+		c.CanViewStats = true
 	} else {
 		c.Flags.Unset(20)
+		c.CanViewStats = false
 	}
 }
 
@@ -834,8 +852,10 @@ func (c *ChannelFull) SetCanViewStats(value bool) {
 func (c *ChannelFull) SetBlocked(value bool) {
 	if value {
 		c.Flags.Set(22)
+		c.Blocked = true
 	} else {
 		c.Flags.Unset(22)
+		c.Blocked = false
 	}
 }
 

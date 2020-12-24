@@ -94,8 +94,10 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 func (a *AutoDownloadSettings) SetDisabled(value bool) {
 	if value {
 		a.Flags.Set(0)
+		a.Disabled = true
 	} else {
 		a.Flags.Unset(0)
+		a.Disabled = false
 	}
 }
 
@@ -103,8 +105,10 @@ func (a *AutoDownloadSettings) SetDisabled(value bool) {
 func (a *AutoDownloadSettings) SetVideoPreloadLarge(value bool) {
 	if value {
 		a.Flags.Set(1)
+		a.VideoPreloadLarge = true
 	} else {
 		a.Flags.Unset(1)
+		a.VideoPreloadLarge = false
 	}
 }
 
@@ -112,8 +116,10 @@ func (a *AutoDownloadSettings) SetVideoPreloadLarge(value bool) {
 func (a *AutoDownloadSettings) SetAudioPreloadNext(value bool) {
 	if value {
 		a.Flags.Set(2)
+		a.AudioPreloadNext = true
 	} else {
 		a.Flags.Unset(2)
+		a.AudioPreloadNext = false
 	}
 }
 
@@ -121,8 +127,10 @@ func (a *AutoDownloadSettings) SetAudioPreloadNext(value bool) {
 func (a *AutoDownloadSettings) SetPhonecallsLessData(value bool) {
 	if value {
 		a.Flags.Set(3)
+		a.PhonecallsLessData = true
 	} else {
 		a.Flags.Unset(3)
+		a.PhonecallsLessData = false
 	}
 }
 

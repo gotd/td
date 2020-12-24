@@ -75,8 +75,10 @@ func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 func (m *MessagesMarkDialogUnreadRequest) SetUnread(value bool) {
 	if value {
 		m.Flags.Set(0)
+		m.Unread = true
 	} else {
 		m.Flags.Unset(0)
+		m.Unread = false
 	}
 }
 

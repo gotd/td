@@ -91,8 +91,10 @@ func (s *MessagesSetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSetInlineGameScoreRequest) SetEditMessage(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.EditMessage = true
 	} else {
 		s.Flags.Unset(0)
+		s.EditMessage = false
 	}
 }
 
@@ -100,8 +102,10 @@ func (s *MessagesSetInlineGameScoreRequest) SetEditMessage(value bool) {
 func (s *MessagesSetInlineGameScoreRequest) SetForce(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Force = true
 	} else {
 		s.Flags.Unset(1)
+		s.Force = false
 	}
 }
 

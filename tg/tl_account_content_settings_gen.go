@@ -66,8 +66,10 @@ func (c *AccountContentSettings) Encode(b *bin.Buffer) error {
 func (c *AccountContentSettings) SetSensitiveEnabled(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.SensitiveEnabled = true
 	} else {
 		c.Flags.Unset(0)
+		c.SensitiveEnabled = false
 	}
 }
 
@@ -75,8 +77,10 @@ func (c *AccountContentSettings) SetSensitiveEnabled(value bool) {
 func (c *AccountContentSettings) SetSensitiveCanChange(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.SensitiveCanChange = true
 	} else {
 		c.Flags.Unset(1)
+		c.SensitiveCanChange = false
 	}
 }
 

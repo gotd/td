@@ -81,8 +81,10 @@ func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 func (g *AccountGetNotifyExceptionsRequest) SetCompareSound(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.CompareSound = true
 	} else {
 		g.Flags.Unset(1)
+		g.CompareSound = false
 	}
 }
 

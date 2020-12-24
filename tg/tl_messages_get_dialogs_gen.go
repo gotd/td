@@ -126,8 +126,10 @@ func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 func (g *MessagesGetDialogsRequest) SetExcludePinned(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.ExcludePinned = true
 	} else {
 		g.Flags.Unset(0)
+		g.ExcludePinned = false
 	}
 }
 

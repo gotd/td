@@ -98,8 +98,10 @@ func (d *DcOption) Encode(b *bin.Buffer) error {
 func (d *DcOption) SetIpv6(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.Ipv6 = true
 	} else {
 		d.Flags.Unset(0)
+		d.Ipv6 = false
 	}
 }
 
@@ -107,8 +109,10 @@ func (d *DcOption) SetIpv6(value bool) {
 func (d *DcOption) SetMediaOnly(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.MediaOnly = true
 	} else {
 		d.Flags.Unset(1)
+		d.MediaOnly = false
 	}
 }
 
@@ -116,8 +120,10 @@ func (d *DcOption) SetMediaOnly(value bool) {
 func (d *DcOption) SetTcpoOnly(value bool) {
 	if value {
 		d.Flags.Set(2)
+		d.TcpoOnly = true
 	} else {
 		d.Flags.Unset(2)
+		d.TcpoOnly = false
 	}
 }
 
@@ -125,8 +131,10 @@ func (d *DcOption) SetTcpoOnly(value bool) {
 func (d *DcOption) SetCDN(value bool) {
 	if value {
 		d.Flags.Set(3)
+		d.CDN = true
 	} else {
 		d.Flags.Unset(3)
+		d.CDN = false
 	}
 }
 
@@ -134,8 +142,10 @@ func (d *DcOption) SetCDN(value bool) {
 func (d *DcOption) SetStatic(value bool) {
 	if value {
 		d.Flags.Set(4)
+		d.Static = true
 	} else {
 		d.Flags.Unset(4)
+		d.Static = false
 	}
 }
 

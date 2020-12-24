@@ -98,8 +98,10 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 func (g *GroupCallParticipant) SetMuted(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.Muted = true
 	} else {
 		g.Flags.Unset(0)
+		g.Muted = false
 	}
 }
 
@@ -107,8 +109,10 @@ func (g *GroupCallParticipant) SetMuted(value bool) {
 func (g *GroupCallParticipant) SetLeft(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.Left = true
 	} else {
 		g.Flags.Unset(1)
+		g.Left = false
 	}
 }
 
@@ -116,8 +120,10 @@ func (g *GroupCallParticipant) SetLeft(value bool) {
 func (g *GroupCallParticipant) SetCanSelfUnmute(value bool) {
 	if value {
 		g.Flags.Set(2)
+		g.CanSelfUnmute = true
 	} else {
 		g.Flags.Unset(2)
+		g.CanSelfUnmute = false
 	}
 }
 
@@ -125,8 +131,10 @@ func (g *GroupCallParticipant) SetCanSelfUnmute(value bool) {
 func (g *GroupCallParticipant) SetJustJoined(value bool) {
 	if value {
 		g.Flags.Set(4)
+		g.JustJoined = true
 	} else {
 		g.Flags.Unset(4)
+		g.JustJoined = false
 	}
 }
 
@@ -134,8 +142,10 @@ func (g *GroupCallParticipant) SetJustJoined(value bool) {
 func (g *GroupCallParticipant) SetVersioned(value bool) {
 	if value {
 		g.Flags.Set(5)
+		g.Versioned = true
 	} else {
 		g.Flags.Unset(5)
+		g.Versioned = false
 	}
 }
 
