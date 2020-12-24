@@ -2,3 +2,5 @@ ignore:
   # Ignore generated files.
   - "**/tl_*_gen.go"
   - "**/bindata.go"
+  # Ignore commands (examples or internal utilities).
+  - "cmd/*/*.go"
