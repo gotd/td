@@ -18,7 +18,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/tgflow"
 	"github.com/gotd/td/tg"
 )
 
@@ -65,7 +64,7 @@ func run(ctx context.Context) error {
 	}
 
 	if self, err := client.Self(ctx); err != nil || self.Bot {
-		if err := tgflow.NewAuth(tgflow.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
+		if err := telegram.NewAuth(telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
 			return xerrors.Errorf("failed to auth: %w", err)
 		}
 	}

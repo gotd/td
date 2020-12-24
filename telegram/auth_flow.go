@@ -1,4 +1,4 @@
-package tgflow
+package telegram
 
 import (
 	"context"
@@ -11,26 +11,24 @@ import (
 	"strings"
 
 	"golang.org/x/xerrors"
-
-	"github.com/gotd/td/telegram"
 )
 
 // NewAuth initializes new authentication flow.
-func NewAuth(auth UserAuthenticator, opt telegram.SendCodeOptions) Auth {
-	return Auth{
+func NewAuth(auth UserAuthenticator, opt SendCodeOptions) AuthFlow {
+	return AuthFlow{
 		Auth:    auth,
 		Options: opt,
 	}
 }
 
-// Auth simplifies boilerplate for authentication flow.
-type Auth struct {
+// AuthFlow simplifies boilerplate for authentication flow.
+type AuthFlow struct {
 	Auth    UserAuthenticator
-	Options telegram.SendCodeOptions
+	Options SendCodeOptions
 }
 
 // Run starts authentication flow on client.
-func (f Auth) Run(ctx context.Context, client AuthFlowClient) error {
+func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	if f.Auth == nil {
 		return xerrors.New("no UserAuthenticator provided")
 	}
@@ -48,7 +46,7 @@ func (f Auth) Run(ctx context.Context, client AuthFlowClient) error {
 	}
 
 	signInErr := client.AuthSignIn(ctx, phone, code, hash)
-	if errors.Is(signInErr, telegram.ErrPasswordAuthNeeded) {
+	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
 			return xerrors.Errorf("failed to get password: %w", err)
@@ -67,10 +65,10 @@ func (f Auth) Run(ctx context.Context, client AuthFlowClient) error {
 	return nil
 }
 
-// AuthFlowClient abstracts telegram client for Auth.
+// AuthFlowClient abstracts telegram client for AuthFlow.
 type AuthFlowClient interface {
 	AuthSignIn(ctx context.Context, phone, code, codeHash string) error
-	AuthSendCode(ctx context.Context, phone string, options telegram.SendCodeOptions) (codeHash string, err error)
+	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
 	AuthPassword(ctx context.Context, password string) error
 }
 

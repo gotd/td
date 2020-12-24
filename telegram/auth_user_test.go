@@ -3,7 +3,6 @@ package telegram
 import (
 	"context"
 	"encoding/hex"
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -92,16 +91,25 @@ func TestClient_AuthSignIn(t *testing.T) {
 		return nil, xerrors.New("unexpected")
 	})
 
-	// 1. Request code from server to device.
-	h, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
-	require.NoError(t, err)
-	require.Equal(t, codeHash, h)
+	t.Run("Manual", func(t *testing.T) {
+		// 1. Request code from server to device.
+		h, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
+		require.NoError(t, err)
+		require.Equal(t, codeHash, h)
 
-	// 2. Send code from device to server.
-	// Server is responding with 2FA password prompt.
-	signInErr := client.AuthSignIn(ctx, phone, code, h)
-	require.True(t, errors.Is(signInErr, ErrPasswordAuthNeeded), "password needed error expected: %v", signInErr)
+		// 2. Send code from device to server.
+		// Server is responding with 2FA password prompt.
+		signInErr := client.AuthSignIn(ctx, phone, code, h)
+		requireErr(t, ErrPasswordAuthNeeded, signInErr)
 
-	// 3. Provide 2FA password.
-	require.NoError(t, client.AuthPassword(ctx, password))
+		// 3. Provide 2FA password.
+		require.NoError(t, client.AuthPassword(ctx, password))
+	})
+	t.Run("AuthFlow", func(t *testing.T) {
+		// Using flow helper.
+		u := ConstantAuth(phone, password, CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
+			return code, nil
+		}))
+		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client))
+	})
 }

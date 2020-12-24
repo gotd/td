@@ -96,7 +96,7 @@ func run(ctx context.Context) error {
 	if err != nil {
 		return xerrors.Errorf("failed to get auth status: %w", err)
 	}
-	logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+	logger.With(zap.Bool("authorized", auth.Authorized)).Info("AuthFlow status")
 	if !auth.Authorized {
 		if err := client.AuthBot(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
 			return xerrors.Errorf("failed to perform bot login: %w", err)

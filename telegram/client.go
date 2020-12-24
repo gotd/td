@@ -220,7 +220,7 @@ func (c *Client) connect(ctx context.Context) error {
 			return xerrors.Errorf("failed to save session: %w", err)
 		}
 
-		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("Auth key generated")
+		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("AuthFlow key generated")
 	}
 	return nil
 }

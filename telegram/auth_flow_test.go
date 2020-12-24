@@ -1,4 +1,4 @@
-package tgflow_test
+package telegram_test
 
 import (
 	"bufio"
@@ -14,16 +14,15 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/tgflow"
 )
 
 func TestConstantAuth(t *testing.T) {
-	askCode := tgflow.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
+	askCode := telegram.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
 		return "123", nil
 	})
 
 	a := require.New(t)
-	auth := tgflow.ConstantAuth("phone", "password", askCode)
+	auth := telegram.ConstantAuth("phone", "password", askCode)
 	ctx := context.Background()
 
 	result, err := auth.Code(ctx)
@@ -40,12 +39,12 @@ func TestConstantAuth(t *testing.T) {
 }
 
 func TestCodeOnlyAuth(t *testing.T) {
-	askCode := tgflow.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
+	askCode := telegram.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
 		return "123", nil
 	})
 
 	a := require.New(t)
-	auth := tgflow.CodeOnlyAuth("phone", askCode)
+	auth := telegram.CodeOnlyAuth("phone", askCode)
 	ctx := context.Background()
 
 	result, err := auth.Code(ctx)
@@ -72,15 +71,15 @@ func ExampleTestAuth() {
 		panic(err)
 	}
 
-	if err := tgflow.NewAuth(
-		tgflow.TestAuth(rand.Reader, dcID),
+	if err := telegram.NewAuth(
+		telegram.TestAuth(rand.Reader, dcID),
 		telegram.SendCodeOptions{},
 	).Run(ctx, client); err != nil {
 		panic(err)
 	}
 }
 
-func ExampleAuth_Run() {
+func ExampleAuthFlow_Run() {
 	check := func(err error) {
 		if err != nil {
 			panic(err)
@@ -113,8 +112,8 @@ func ExampleAuth_Run() {
 		return code, nil
 	}
 
-	check(tgflow.NewAuth(
-		tgflow.ConstantAuth(phone, pass, tgflow.CodeAuthenticatorFunc(codeAsk)),
+	check(telegram.NewAuth(
+		telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
 		telegram.SendCodeOptions{},
 	).Run(ctx, client))
 }

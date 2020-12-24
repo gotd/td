@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/tgflow"
 	"github.com/gotd/td/transport"
 )
 
@@ -32,7 +31,10 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 			_ = client.Close()
 		}()
 
-		if err := tgflow.NewAuth(tgflow.TestAuth(rand.Reader, 2), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
+		if err := telegram.NewAuth(
+			telegram.TestAuth(rand.Reader, 2),
+			telegram.SendCodeOptions{},
+		).Run(ctx, client); err != nil {
 			t.Fatal(err)
 		}
 
@@ -82,7 +84,10 @@ func TestMTProxy(t *testing.T) {
 		_ = client.Close()
 	}()
 
-	if err := tgflow.NewAuth(tgflow.TestAuth(rand.Reader, 2), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
+	if err := telegram.NewAuth(
+		telegram.TestAuth(rand.Reader, 2),
+		telegram.SendCodeOptions{},
+	).Run(ctx, client); err != nil {
 		t.Fatal(err)
 	}
 
