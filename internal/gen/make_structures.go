@@ -186,7 +186,7 @@ func (g *Generator) makeStructures() error {
 			switch {
 			case !ok && strings.HasPrefix(t.Class, "Vector<"):
 				var err error
-				class, err = g.instantiateVector(t.Class)
+				class, err = g.makeVector(t.Class)
 				if err != nil {
 					return err
 				}

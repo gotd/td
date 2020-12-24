@@ -6,7 +6,7 @@ import (
 	"github.com/gotd/tl"
 )
 
-func (g *Generator) instantiateVector(className string) (class classBinding, err error) {
+func (g *Generator) makeVector(className string) (class classBinding, err error) {
 	class, ok := g.classes[className]
 	if ok {
 		return class, nil
