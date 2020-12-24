@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"crypto/rsa"
+	"os"
 	"testing"
 	"time"
 
@@ -166,7 +167,9 @@ func testReconnect(trp Transport) func(t *testing.T) {
 }
 
 func TestReconnect(t *testing.T) {
-	t.Skip("TODO: Fix flaky test")
+	if os.Getenv("GOTD_TEST_RECONNECT") != "1" {
+		t.Skip("TODO: Fix flaky test")
+	}
 
 	t.Run("intermediate", testReconnect(transport.Intermediate(nil)))
 	t.Run("full", testReconnect(transport.Full(nil)))
