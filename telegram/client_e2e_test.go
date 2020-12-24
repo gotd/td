@@ -78,10 +78,10 @@ func testTransport(trp Transport) func(t *testing.T) {
 }
 
 func TestClient(t *testing.T) {
-	t.Run("abridged", testTransport(transport.Abridged(nil)))
-	t.Run("intermediate", testTransport(transport.Intermediate(nil)))
-	t.Run("padded intermediate", testTransport(transport.PaddedIntermediate(nil)))
-	t.Run("full", testTransport(transport.Full(nil)))
+	t.Run("Abridged", testTransport(transport.Abridged(nil)))
+	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
+	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
+	t.Run("Full", testTransport(transport.Full(nil)))
 }
 
 type syncHashSet struct {
