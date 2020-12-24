@@ -38,19 +38,23 @@ You can see `cmd/gotdecho` for echo bot example.
 
 #### User
 
-You can use `td/telegram/tgflow` package to deal with user auth.
+You can use `td/telegram/AuthFlow` to simplify user authentication flow.
 
 ```go
 codePrompt := func(ctx context.Context) (string, error) {
-    // Safely get authentication code from terminal here,
-    // like in https://play.golang.org/p/l-9IP1mrhA
-    return code, nil
+    // NB: Use "golang.org/x/crypto/ssh/terminal" to prompt password.
+    fmt.Print("Enter code: ")
+    code, err := bufio.NewReader(os.Stdin).ReadString('\n')
+    if err != nil {
+        return "", err
+    }
+    return strings.TrimSpace(code), nil
 }
 // This will setup and perform authentication flow.
-// If account does not require 2FA password, use tgflow.CodeOnlyAuth
-// instead of tgflow.ConstantAuth.
-if err := tgflow.NewAuth(
-    tgflow.ConstantAuth(phone, password, tgflow.CodeAuthenticatorFunc(codePrompt)),
+// If account does not require 2FA password, use telegram.CodeOnlyAuth
+// instead of telegram.ConstantAuth.
+if err := telegram.NewAuth(
+    telegram.ConstantAuth(phone, password, telegram.CodeAuthenticatorFunc(codePrompt)),
     telegram.SendCodeOptions{},
 ).Run(ctx, client); err != nil {
     panic(err)
