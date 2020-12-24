@@ -14,6 +14,15 @@ import (
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
+func testError(err tg.Error) (bin.Encoder, error) {
+	e := &Error{
+		Message: err.Text,
+		Code:    err.Code,
+	}
+	e.extractArgument()
+	return nil, e
+}
+
 func newTestClient(h testHandler) *Client {
 	var engine *rpc.Engine
 
@@ -36,6 +45,8 @@ func newTestClient(h testHandler) *Client {
 		clock:          time.Now,
 		rand:           rand.New(rand.NewSource(1)),
 		sessionCreated: createCondOnce(),
+		appID:          TestAppID,
+		appHash:        TestAppHash,
 	}
 	client.tg = tg.NewClient(client)
 	client.sessionCreated.Done()

@@ -14,7 +14,11 @@ import (
 func TestClient_AuthBot(t *testing.T) {
 	const token = "12345:token"
 	require.NoError(t, newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-		assert.Equal(t, &tg.AuthImportBotAuthorizationRequest{BotAuthToken: token}, body)
+		assert.Equal(t, &tg.AuthImportBotAuthorizationRequest{
+			BotAuthToken: token,
+			APIID:        TestAppID,
+			APIHash:      TestAppHash,
+		}, body)
 		u := &tg.User{}
 		u.SetBot(true)
 		return &tg.AuthAuthorization{User: u}, nil
