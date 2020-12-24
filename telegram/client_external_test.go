@@ -55,9 +55,14 @@ func TestExternalE2EConnect(t *testing.T) {
 }
 
 func TestMTProxy(t *testing.T) {
-	secret, err := hex.DecodeString("8a96ef6e42a18c21837580cd1c91c5a8")
+	addr, ok := os.LookupEnv("GOTD_MTPROXY_ADDR")
+	if !ok {
+		t.Skip("Skipped. Set GOTD_MTPROXY_ADDR to enable external e2e mtproxy test.")
+	}
+
+	secret, err := hex.DecodeString(os.Getenv("GOTD_MTPROXY_SECRET"))
 	if err != nil {
-		t.Fatal(err)
+		t.Fatal("secret parsing failed", err)
 	}
 
 	trp := transport.MTProxy(nil, 2, secret)
@@ -66,7 +71,7 @@ func TestMTProxy(t *testing.T) {
 	defer cancel()
 
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:      "localhost:3128",
+		Addr:      addr,
 		Transport: trp,
 	})
 
