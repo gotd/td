@@ -104,6 +104,14 @@ func messageKey(messageKeyLarge []byte) bin.Int128 {
 	return v
 }
 
+// SHA256 returns SHA256 hash.
+func SHA256(from []byte) []byte {
+	h := getSHA256()
+	defer sha256Pool.Put(h)
+	_, _ = h.Write(from)
+	return h.Sum(nil)
+}
+
 // sha256a returns sha256_a value.
 //
 // sha256_a = SHA256 (msg_key + substr (auth_key, x, 36));

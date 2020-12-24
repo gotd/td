@@ -35,6 +35,14 @@ func (p ProtocolErr) Error() string {
 
 const maxMessageSize = 1024 * 1024 // 1mb
 
+func checkOutgoingMessage(b *bin.Buffer) error {
+	length := b.Len()
+	if length > maxMessageSize {
+		return invalidMsgLenErr{n: length}
+	}
+	return nil
+}
+
 func checkProtocolError(b *bin.Buffer) error {
 	if b.Len() != bin.Word {
 		return nil

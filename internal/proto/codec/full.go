@@ -32,6 +32,10 @@ func (i *Full) ReadHeader(r io.Reader) (err error) {
 
 // Write encode to writer message from given buffer.
 func (i *Full) Write(w io.Writer, b *bin.Buffer) error {
+	if err := checkOutgoingMessage(b); err != nil {
+		return err
+	}
+
 	if err := writeFull(w, int(atomic.LoadInt64(&i.wSeqNo)), b); err != nil {
 		return xerrors.Errorf("write full: %w", err)
 	}
@@ -55,10 +59,6 @@ func (i *Full) Read(r io.Reader, b *bin.Buffer) error {
 }
 
 func writeFull(w io.Writer, seqNo int, b *bin.Buffer) error {
-	if b.Len() > maxMessageSize {
-		return invalidMsgLenErr{n: b.Len()}
-	}
-
 	write := bin.Buffer{Buf: make([]byte, 0, 4+4+b.Len()+4)}
 	// Length: length+seqno+payload+crc length encoded as 4 length bytes
 	// (little endian, the length of the length field must be included, too)

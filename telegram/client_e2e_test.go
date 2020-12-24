@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rsa"
 	"os"
+	"sync"
 	"testing"
 	"time"
 
@@ -77,8 +78,32 @@ func testTransport(trp Transport) func(t *testing.T) {
 }
 
 func TestClient(t *testing.T) {
+	t.Run("abridged", testTransport(transport.Abridged(nil)))
 	t.Run("intermediate", testTransport(transport.Intermediate(nil)))
+	t.Run("padded intermediate", testTransport(transport.PaddedIntermediate(nil)))
 	t.Run("full", testTransport(transport.Full(nil)))
+}
+
+type syncHashSet struct {
+	set map[[8]byte]struct{}
+	m   sync.Mutex
+}
+
+func newSyncHashSet() *syncHashSet {
+	return &syncHashSet{set: map[[8]byte]struct{}{}}
+}
+
+func (s *syncHashSet) Add(k [8]byte) {
+	s.m.Lock()
+	s.set[k] = struct{}{}
+	s.m.Unlock()
+}
+
+func (s *syncHashSet) Has(k [8]byte) (ok bool) {
+	s.m.Lock()
+	_, ok = s.set[k]
+	s.m.Unlock()
+	return
 }
 
 func testReconnect(trp Transport) func(t *testing.T) {
@@ -91,7 +116,8 @@ func testReconnect(trp Transport) func(t *testing.T) {
 		defer cancel()
 
 		srv := tgtest.NewUnstartedServer(ctx, trp.Codec)
-		alreadyConnected := map[[8]byte]struct{}{}
+
+		alreadyConnected := newSyncHashSet()
 		wait := make(chan struct{})
 		srv.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
 			id, err := in.PeekID()
@@ -126,9 +152,9 @@ func testReconnect(trp Transport) func(t *testing.T) {
 				}
 				require.Equal(t, testMessage, m.Message)
 
-				if _, ok := alreadyConnected[s.AuthKeyID]; !ok {
+				if alreadyConnected.Has(s.AuthKeyID) {
 					srv.ForceDisconnect(s)
-					alreadyConnected[s.AuthKeyID] = struct{}{}
+					alreadyConnected.Add(s.AuthKeyID)
 					return nil
 				}
 

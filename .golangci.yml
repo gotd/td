@@ -84,7 +84,7 @@ issues:
       text: "commentedOutCode"
       source: "SHA1"
 
-    - path: "intermediate\\.go"
+    - path: codec
       linters: [gochecknoglobals]
 
     # Exclude go:generate from lll
