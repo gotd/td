@@ -3,6 +3,9 @@ package telegram
 import (
 	"context"
 	"encoding/hex"
+	"math/rand"
+	"strconv"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -112,4 +115,46 @@ func TestClient_AuthSignIn(t *testing.T) {
 		}))
 		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client))
 	})
+}
+
+func TestClientTestAuth(t *testing.T) {
+	const (
+		codeHash = "hash"
+		dcID     = 2
+	)
+	ctx := context.Background()
+	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+		switch req := body.(type) {
+		case *tg.AuthSendCodeRequest:
+			assert.Equal(t, &tg.AuthSendCodeRequest{
+				PhoneNumber: req.PhoneNumber,
+				APIHash:     TestAppHash,
+				APIID:       TestAppID,
+				Settings:    tg.CodeSettings{},
+			}, req)
+			return &tg.AuthSentCode{
+				Type:          &tg.AuthSentCodeTypeApp{},
+				PhoneCodeHash: codeHash,
+			}, nil
+		case *tg.AuthSignInRequest:
+			if !strings.HasPrefix(req.PhoneNumber, "99966") {
+				t.Fatalf("unexpected phone number %s", req.PhoneNumber)
+			}
+			dcPart := req.PhoneNumber[5:6]
+			assert.Equal(t, strconv.Itoa(dcID), dcPart, "dc part of phone number")
+			assert.Equal(t, &tg.AuthSignInRequest{
+				PhoneNumber:   req.PhoneNumber,
+				PhoneCodeHash: codeHash,
+				PhoneCode:     strings.Repeat(dcPart, 5),
+			}, req)
+			return &tg.AuthAuthorization{
+				User: &tg.User{ID: 1},
+			}, nil
+		}
+		return nil, xerrors.New("unexpected")
+	})
+	require.NoError(t, NewAuth(
+		TestAuth(rand.New(rand.NewSource(1)), dcID),
+		SendCodeOptions{},
+	).Run(ctx, client))
 }
