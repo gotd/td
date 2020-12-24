@@ -105,6 +105,8 @@ jobs:
           - 1.15
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
       - name: Install Go
         uses: actions/setup-go@v2
         with:
