@@ -102,8 +102,10 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ if $f.DoubleSl
 {{- if $f.ConditionalBool }}
     if value {
         {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
+        {{ $s.Receiver }}.{{ $f.Name }} = true
     } else {
         {{ $s.Receiver }}.{{ $f.ConditionalField }}.Unset({{ $f.ConditionalIndex }})
+        {{ $s.Receiver }}.{{ $f.Name }} = false
     }
 {{- else }}
     {{ $s.Receiver }}.{{ $f.ConditionalField }}.Set({{ $f.ConditionalIndex }})
