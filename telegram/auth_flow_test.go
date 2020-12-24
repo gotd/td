@@ -86,13 +86,14 @@ func ExampleAuthFlow_Run() {
 		}
 	}
 
-	appIDString := os.Getenv("APP_ID")
-	appHash := os.Getenv("APP_HASH")
-	phone := os.Getenv("PHONE")
-	pass := os.Getenv("PASSWORD")
-
+	var (
+		appIDString = os.Getenv("APP_ID")
+		appHash     = os.Getenv("APP_HASH")
+		phone       = os.Getenv("PHONE")
+		pass        = os.Getenv("PASSWORD")
+	)
 	if appIDString == "" || appHash == "" || phone == "" || pass == "" {
-		log.Fatal("PHONE, PASSWORD, APP_ID or APP_HASH is not set: skip")
+		log.Fatal("PHONE, PASSWORD, APP_ID or APP_HASH is not set")
 	}
 
 	appID, err := strconv.Atoi(appIDString)
