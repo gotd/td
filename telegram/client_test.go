@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
-
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/telegram/internal/rpc"
 	"github.com/gotd/td/tg"
 )
@@ -62,6 +62,7 @@ func newTestClient(h testHandler) *Client {
 		sessionCreated: createCondOnce(),
 		appID:          TestAppID,
 		appHash:        TestAppHash,
+		authKey:        crypto.AuthKey{}.WithID(),
 	}
 	client.tg = tg.NewClient(client)
 	client.sessionCreated.Done()
