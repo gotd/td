@@ -94,11 +94,15 @@ func newSyncHashSet() *syncHashSet {
 }
 
 func (s *syncHashSet) Add(k [8]byte) {
+	s.m.Lock()
 	s.set[k] = struct{}{}
+	s.m.Unlock()
 }
 
 func (s *syncHashSet) Has(k [8]byte) (ok bool) {
+	s.m.Lock()
 	_, ok = s.set[k]
+	s.m.Unlock()
 	return
 }
 

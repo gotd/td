@@ -76,7 +76,7 @@ func (i PaddedIntermediate) Read(r io.Reader, b *bin.Buffer) error {
 
 func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) error {
 	length := b.Len()
-	n := mathrand.Intn(4)
+	n := mathrand.Intn(4) // #nosec
 	b.Expand(n)
 
 	_, err := io.ReadFull(randSource, b.Buf[length:length+n])
