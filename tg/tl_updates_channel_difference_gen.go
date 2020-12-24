@@ -85,8 +85,10 @@ func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Final = true
 	} else {
 		c.Flags.Unset(0)
+		c.Final = false
 	}
 }
 
@@ -269,8 +271,10 @@ func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Final = true
 	} else {
 		c.Flags.Unset(0)
+		c.Final = false
 	}
 }
 
@@ -503,8 +507,10 @@ func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 func (c *UpdatesChannelDifference) SetFinal(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Final = true
 	} else {
 		c.Flags.Unset(0)
+		c.Final = false
 	}
 }
 

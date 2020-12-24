@@ -239,8 +239,10 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 func (u *UpdateShortMessage) SetOut(value bool) {
 	if value {
 		u.Flags.Set(1)
+		u.Out = true
 	} else {
 		u.Flags.Unset(1)
+		u.Out = false
 	}
 }
 
@@ -248,8 +250,10 @@ func (u *UpdateShortMessage) SetOut(value bool) {
 func (u *UpdateShortMessage) SetMentioned(value bool) {
 	if value {
 		u.Flags.Set(4)
+		u.Mentioned = true
 	} else {
 		u.Flags.Unset(4)
+		u.Mentioned = false
 	}
 }
 
@@ -257,8 +261,10 @@ func (u *UpdateShortMessage) SetMentioned(value bool) {
 func (u *UpdateShortMessage) SetMediaUnread(value bool) {
 	if value {
 		u.Flags.Set(5)
+		u.MediaUnread = true
 	} else {
 		u.Flags.Unset(5)
+		u.MediaUnread = false
 	}
 }
 
@@ -266,8 +272,10 @@ func (u *UpdateShortMessage) SetMediaUnread(value bool) {
 func (u *UpdateShortMessage) SetSilent(value bool) {
 	if value {
 		u.Flags.Set(13)
+		u.Silent = true
 	} else {
 		u.Flags.Unset(13)
+		u.Silent = false
 	}
 }
 
@@ -604,8 +612,10 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 func (u *UpdateShortChatMessage) SetOut(value bool) {
 	if value {
 		u.Flags.Set(1)
+		u.Out = true
 	} else {
 		u.Flags.Unset(1)
+		u.Out = false
 	}
 }
 
@@ -613,8 +623,10 @@ func (u *UpdateShortChatMessage) SetOut(value bool) {
 func (u *UpdateShortChatMessage) SetMentioned(value bool) {
 	if value {
 		u.Flags.Set(4)
+		u.Mentioned = true
 	} else {
 		u.Flags.Unset(4)
+		u.Mentioned = false
 	}
 }
 
@@ -622,8 +634,10 @@ func (u *UpdateShortChatMessage) SetMentioned(value bool) {
 func (u *UpdateShortChatMessage) SetMediaUnread(value bool) {
 	if value {
 		u.Flags.Set(5)
+		u.MediaUnread = true
 	} else {
 		u.Flags.Unset(5)
+		u.MediaUnread = false
 	}
 }
 
@@ -631,8 +645,10 @@ func (u *UpdateShortChatMessage) SetMediaUnread(value bool) {
 func (u *UpdateShortChatMessage) SetSilent(value bool) {
 	if value {
 		u.Flags.Set(13)
+		u.Silent = true
 	} else {
 		u.Flags.Unset(13)
+		u.Silent = false
 	}
 }
 
@@ -1357,8 +1373,10 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 func (u *UpdateShortSentMessage) SetOut(value bool) {
 	if value {
 		u.Flags.Set(1)
+		u.Out = true
 	} else {
 		u.Flags.Unset(1)
+		u.Out = false
 	}
 }
 

@@ -87,8 +87,10 @@ func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 func (g *ContactsGetLocatedRequest) SetBackground(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.Background = true
 	} else {
 		g.Flags.Unset(1)
+		g.Background = false
 	}
 }
 

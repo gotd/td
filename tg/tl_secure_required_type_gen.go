@@ -79,8 +79,10 @@ func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 func (s *SecureRequiredType) SetNativeNames(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.NativeNames = true
 	} else {
 		s.Flags.Unset(0)
+		s.NativeNames = false
 	}
 }
 
@@ -88,8 +90,10 @@ func (s *SecureRequiredType) SetNativeNames(value bool) {
 func (s *SecureRequiredType) SetSelfieRequired(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.SelfieRequired = true
 	} else {
 		s.Flags.Unset(1)
+		s.SelfieRequired = false
 	}
 }
 
@@ -97,8 +101,10 @@ func (s *SecureRequiredType) SetSelfieRequired(value bool) {
 func (s *SecureRequiredType) SetTranslationRequired(value bool) {
 	if value {
 		s.Flags.Set(2)
+		s.TranslationRequired = true
 	} else {
 		s.Flags.Unset(2)
+		s.TranslationRequired = false
 	}
 }
 

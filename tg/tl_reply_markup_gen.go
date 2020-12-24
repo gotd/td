@@ -64,8 +64,10 @@ func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 func (r *ReplyKeyboardHide) SetSelective(value bool) {
 	if value {
 		r.Flags.Set(2)
+		r.Selective = true
 	} else {
 		r.Flags.Unset(2)
+		r.Selective = false
 	}
 }
 
@@ -147,8 +149,10 @@ func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 	if value {
 		r.Flags.Set(1)
+		r.SingleUse = true
 	} else {
 		r.Flags.Unset(1)
+		r.SingleUse = false
 	}
 }
 
@@ -156,8 +160,10 @@ func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 func (r *ReplyKeyboardForceReply) SetSelective(value bool) {
 	if value {
 		r.Flags.Set(2)
+		r.Selective = true
 	} else {
 		r.Flags.Unset(2)
+		r.Selective = false
 	}
 }
 
@@ -255,8 +261,10 @@ func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 	if value {
 		r.Flags.Set(0)
+		r.Resize = true
 	} else {
 		r.Flags.Unset(0)
+		r.Resize = false
 	}
 }
 
@@ -264,8 +272,10 @@ func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 func (r *ReplyKeyboardMarkup) SetSingleUse(value bool) {
 	if value {
 		r.Flags.Set(1)
+		r.SingleUse = true
 	} else {
 		r.Flags.Unset(1)
+		r.SingleUse = false
 	}
 }
 
@@ -273,8 +283,10 @@ func (r *ReplyKeyboardMarkup) SetSingleUse(value bool) {
 func (r *ReplyKeyboardMarkup) SetSelective(value bool) {
 	if value {
 		r.Flags.Set(2)
+		r.Selective = true
 	} else {
 		r.Flags.Unset(2)
+		r.Selective = false
 	}
 }
 

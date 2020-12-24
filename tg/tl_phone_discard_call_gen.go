@@ -95,8 +95,10 @@ func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 func (d *PhoneDiscardCallRequest) SetVideo(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.Video = true
 	} else {
 		d.Flags.Unset(0)
+		d.Video = false
 	}
 }
 

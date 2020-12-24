@@ -167,8 +167,10 @@ func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 func (e *MessagesEditMessageRequest) SetNoWebpage(value bool) {
 	if value {
 		e.Flags.Set(1)
+		e.NoWebpage = true
 	} else {
 		e.Flags.Unset(1)
+		e.NoWebpage = false
 	}
 }
 

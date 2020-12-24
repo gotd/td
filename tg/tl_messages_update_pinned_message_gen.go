@@ -85,8 +85,10 @@ func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 func (u *MessagesUpdatePinnedMessageRequest) SetSilent(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Silent = true
 	} else {
 		u.Flags.Unset(0)
+		u.Silent = false
 	}
 }
 
@@ -94,8 +96,10 @@ func (u *MessagesUpdatePinnedMessageRequest) SetSilent(value bool) {
 func (u *MessagesUpdatePinnedMessageRequest) SetUnpin(value bool) {
 	if value {
 		u.Flags.Set(1)
+		u.Unpin = true
 	} else {
 		u.Flags.Unset(1)
+		u.Unpin = false
 	}
 }
 
@@ -103,8 +107,10 @@ func (u *MessagesUpdatePinnedMessageRequest) SetUnpin(value bool) {
 func (u *MessagesUpdatePinnedMessageRequest) SetPmOneside(value bool) {
 	if value {
 		u.Flags.Set(2)
+		u.PmOneside = true
 	} else {
 		u.Flags.Unset(2)
+		u.PmOneside = false
 	}
 }
 

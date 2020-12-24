@@ -113,8 +113,10 @@ func (p *PageTableCell) Encode(b *bin.Buffer) error {
 func (p *PageTableCell) SetHeader(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Header = true
 	} else {
 		p.Flags.Unset(0)
+		p.Header = false
 	}
 }
 
@@ -122,8 +124,10 @@ func (p *PageTableCell) SetHeader(value bool) {
 func (p *PageTableCell) SetAlignCenter(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.AlignCenter = true
 	} else {
 		p.Flags.Unset(3)
+		p.AlignCenter = false
 	}
 }
 
@@ -131,8 +135,10 @@ func (p *PageTableCell) SetAlignCenter(value bool) {
 func (p *PageTableCell) SetAlignRight(value bool) {
 	if value {
 		p.Flags.Set(4)
+		p.AlignRight = true
 	} else {
 		p.Flags.Unset(4)
+		p.AlignRight = false
 	}
 }
 
@@ -140,8 +146,10 @@ func (p *PageTableCell) SetAlignRight(value bool) {
 func (p *PageTableCell) SetValignMiddle(value bool) {
 	if value {
 		p.Flags.Set(5)
+		p.ValignMiddle = true
 	} else {
 		p.Flags.Unset(5)
+		p.ValignMiddle = false
 	}
 }
 
@@ -149,8 +157,10 @@ func (p *PageTableCell) SetValignMiddle(value bool) {
 func (p *PageTableCell) SetValignBottom(value bool) {
 	if value {
 		p.Flags.Set(6)
+		p.ValignBottom = true
 	} else {
 		p.Flags.Unset(6)
+		p.ValignBottom = false
 	}
 }
 

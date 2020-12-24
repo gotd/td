@@ -78,8 +78,10 @@ func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 func (s *PaymentsSavedInfo) SetHasSavedCredentials(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.HasSavedCredentials = true
 	} else {
 		s.Flags.Unset(1)
+		s.HasSavedCredentials = false
 	}
 }
 

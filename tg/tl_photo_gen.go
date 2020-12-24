@@ -201,8 +201,10 @@ func (p *Photo) Encode(b *bin.Buffer) error {
 func (p *Photo) SetHasStickers(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.HasStickers = true
 	} else {
 		p.Flags.Unset(0)
+		p.HasStickers = false
 	}
 }
 

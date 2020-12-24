@@ -139,8 +139,10 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 func (c *ChatPhoto) SetHasVideo(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.HasVideo = true
 	} else {
 		c.Flags.Unset(0)
+		c.HasVideo = false
 	}
 }
 

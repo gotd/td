@@ -286,8 +286,10 @@ func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
 func (i *InputBotInlineMessageText) SetNoWebpage(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.NoWebpage = true
 	} else {
 		i.Flags.Unset(0)
+		i.NoWebpage = false
 	}
 }
 

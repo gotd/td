@@ -100,8 +100,10 @@ func (s *MessagesSetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSetBotCallbackAnswerRequest) SetAlert(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Alert = true
 	} else {
 		s.Flags.Unset(1)
+		s.Alert = false
 	}
 }
 

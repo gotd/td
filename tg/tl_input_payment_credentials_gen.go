@@ -151,8 +151,10 @@ func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 func (i *InputPaymentCredentials) SetSave(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Save = true
 	} else {
 		i.Flags.Unset(0)
+		i.Save = false
 	}
 }
 

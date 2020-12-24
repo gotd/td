@@ -219,8 +219,10 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 func (d *DraftMessage) SetNoWebpage(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.NoWebpage = true
 	} else {
 		d.Flags.Unset(1)
+		d.NoWebpage = false
 	}
 }
 

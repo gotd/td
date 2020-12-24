@@ -87,8 +87,10 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSetBotPrecheckoutResultsRequest) SetSuccess(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Success = true
 	} else {
 		s.Flags.Unset(1)
+		s.Success = false
 	}
 }
 

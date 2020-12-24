@@ -74,8 +74,10 @@ func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 func (s *AccountSaveAutoDownloadSettingsRequest) SetLow(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.Low = true
 	} else {
 		s.Flags.Unset(0)
+		s.Low = false
 	}
 }
 
@@ -83,8 +85,10 @@ func (s *AccountSaveAutoDownloadSettingsRequest) SetLow(value bool) {
 func (s *AccountSaveAutoDownloadSettingsRequest) SetHigh(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.High = true
 	} else {
 		s.Flags.Unset(1)
+		s.High = false
 	}
 }
 

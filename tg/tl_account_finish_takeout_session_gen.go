@@ -64,8 +64,10 @@ func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 func (f *AccountFinishTakeoutSessionRequest) SetSuccess(value bool) {
 	if value {
 		f.Flags.Set(0)
+		f.Success = true
 	} else {
 		f.Flags.Unset(0)
+		f.Success = false
 	}
 }
 

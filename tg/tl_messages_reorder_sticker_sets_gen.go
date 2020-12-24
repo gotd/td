@@ -75,8 +75,10 @@ func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 func (r *MessagesReorderStickerSetsRequest) SetMasks(value bool) {
 	if value {
 		r.Flags.Set(0)
+		r.Masks = true
 	} else {
 		r.Flags.Unset(0)
+		r.Masks = false
 	}
 }
 

@@ -95,8 +95,10 @@ func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.UDPP2P = true
 	} else {
 		p.Flags.Unset(0)
+		p.UDPP2P = false
 	}
 }
 
@@ -104,8 +106,10 @@ func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
 func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.UDPReflector = true
 	} else {
 		p.Flags.Unset(1)
+		p.UDPReflector = false
 	}
 }
 

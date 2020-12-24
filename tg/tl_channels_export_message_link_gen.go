@@ -86,8 +86,10 @@ func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
 	if value {
 		e.Flags.Set(0)
+		e.Grouped = true
 	} else {
 		e.Flags.Unset(0)
+		e.Grouped = false
 	}
 }
 
@@ -95,8 +97,10 @@ func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
 func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
 	if value {
 		e.Flags.Set(1)
+		e.Thread = true
 	} else {
 		e.Flags.Unset(1)
+		e.Thread = false
 	}
 }
 

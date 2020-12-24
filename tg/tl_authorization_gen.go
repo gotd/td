@@ -143,8 +143,10 @@ func (a *Authorization) Encode(b *bin.Buffer) error {
 func (a *Authorization) SetCurrent(value bool) {
 	if value {
 		a.Flags.Set(0)
+		a.Current = true
 	} else {
 		a.Flags.Unset(0)
+		a.Current = false
 	}
 }
 
@@ -152,8 +154,10 @@ func (a *Authorization) SetCurrent(value bool) {
 func (a *Authorization) SetOfficialApp(value bool) {
 	if value {
 		a.Flags.Set(1)
+		a.OfficialApp = true
 	} else {
 		a.Flags.Unset(1)
+		a.OfficialApp = false
 	}
 }
 
@@ -161,8 +165,10 @@ func (a *Authorization) SetOfficialApp(value bool) {
 func (a *Authorization) SetPasswordPending(value bool) {
 	if value {
 		a.Flags.Set(2)
+		a.PasswordPending = true
 	} else {
 		a.Flags.Unset(2)
+		a.PasswordPending = false
 	}
 }
 

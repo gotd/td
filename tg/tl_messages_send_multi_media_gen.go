@@ -122,8 +122,10 @@ func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSendMultiMediaRequest) SetSilent(value bool) {
 	if value {
 		s.Flags.Set(5)
+		s.Silent = true
 	} else {
 		s.Flags.Unset(5)
+		s.Silent = false
 	}
 }
 
@@ -131,8 +133,10 @@ func (s *MessagesSendMultiMediaRequest) SetSilent(value bool) {
 func (s *MessagesSendMultiMediaRequest) SetBackground(value bool) {
 	if value {
 		s.Flags.Set(6)
+		s.Background = true
 	} else {
 		s.Flags.Unset(6)
+		s.Background = false
 	}
 }
 
@@ -140,8 +144,10 @@ func (s *MessagesSendMultiMediaRequest) SetBackground(value bool) {
 func (s *MessagesSendMultiMediaRequest) SetClearDraft(value bool) {
 	if value {
 		s.Flags.Set(7)
+		s.ClearDraft = true
 	} else {
 		s.Flags.Unset(7)
+		s.ClearDraft = false
 	}
 }
 

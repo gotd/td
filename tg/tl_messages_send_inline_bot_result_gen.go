@@ -138,8 +138,10 @@ func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSendInlineBotResultRequest) SetSilent(value bool) {
 	if value {
 		s.Flags.Set(5)
+		s.Silent = true
 	} else {
 		s.Flags.Unset(5)
+		s.Silent = false
 	}
 }
 
@@ -147,8 +149,10 @@ func (s *MessagesSendInlineBotResultRequest) SetSilent(value bool) {
 func (s *MessagesSendInlineBotResultRequest) SetBackground(value bool) {
 	if value {
 		s.Flags.Set(6)
+		s.Background = true
 	} else {
 		s.Flags.Unset(6)
+		s.Background = false
 	}
 }
 
@@ -156,8 +160,10 @@ func (s *MessagesSendInlineBotResultRequest) SetBackground(value bool) {
 func (s *MessagesSendInlineBotResultRequest) SetClearDraft(value bool) {
 	if value {
 		s.Flags.Set(7)
+		s.ClearDraft = true
 	} else {
 		s.Flags.Unset(7)
+		s.ClearDraft = false
 	}
 }
 
@@ -165,8 +171,10 @@ func (s *MessagesSendInlineBotResultRequest) SetClearDraft(value bool) {
 func (s *MessagesSendInlineBotResultRequest) SetHideVia(value bool) {
 	if value {
 		s.Flags.Set(11)
+		s.HideVia = true
 	} else {
 		s.Flags.Unset(11)
+		s.HideVia = false
 	}
 }
 

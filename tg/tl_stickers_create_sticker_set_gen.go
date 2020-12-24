@@ -119,8 +119,10 @@ func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Masks = true
 	} else {
 		c.Flags.Unset(0)
+		c.Masks = false
 	}
 }
 
@@ -128,8 +130,10 @@ func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
 func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Animated = true
 	} else {
 		c.Flags.Unset(1)
+		c.Animated = false
 	}
 }
 

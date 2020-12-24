@@ -91,8 +91,10 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 func (p *PeerSettings) SetReportSpam(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.ReportSpam = true
 	} else {
 		p.Flags.Unset(0)
+		p.ReportSpam = false
 	}
 }
 
@@ -100,8 +102,10 @@ func (p *PeerSettings) SetReportSpam(value bool) {
 func (p *PeerSettings) SetAddContact(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.AddContact = true
 	} else {
 		p.Flags.Unset(1)
+		p.AddContact = false
 	}
 }
 
@@ -109,8 +113,10 @@ func (p *PeerSettings) SetAddContact(value bool) {
 func (p *PeerSettings) SetBlockContact(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.BlockContact = true
 	} else {
 		p.Flags.Unset(2)
+		p.BlockContact = false
 	}
 }
 
@@ -118,8 +124,10 @@ func (p *PeerSettings) SetBlockContact(value bool) {
 func (p *PeerSettings) SetShareContact(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.ShareContact = true
 	} else {
 		p.Flags.Unset(3)
+		p.ShareContact = false
 	}
 }
 
@@ -127,8 +135,10 @@ func (p *PeerSettings) SetShareContact(value bool) {
 func (p *PeerSettings) SetNeedContactsException(value bool) {
 	if value {
 		p.Flags.Set(4)
+		p.NeedContactsException = true
 	} else {
 		p.Flags.Unset(4)
+		p.NeedContactsException = false
 	}
 }
 
@@ -136,8 +146,10 @@ func (p *PeerSettings) SetNeedContactsException(value bool) {
 func (p *PeerSettings) SetReportGeo(value bool) {
 	if value {
 		p.Flags.Set(5)
+		p.ReportGeo = true
 	} else {
 		p.Flags.Unset(5)
+		p.ReportGeo = false
 	}
 }
 
@@ -145,8 +157,10 @@ func (p *PeerSettings) SetReportGeo(value bool) {
 func (p *PeerSettings) SetAutoarchived(value bool) {
 	if value {
 		p.Flags.Set(7)
+		p.Autoarchived = true
 	} else {
 		p.Flags.Unset(7)
+		p.Autoarchived = false
 	}
 }
 

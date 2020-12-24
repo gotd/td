@@ -191,8 +191,10 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 func (g *GroupCall) SetJoinMuted(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.JoinMuted = true
 	} else {
 		g.Flags.Unset(1)
+		g.JoinMuted = false
 	}
 }
 
@@ -200,8 +202,10 @@ func (g *GroupCall) SetJoinMuted(value bool) {
 func (g *GroupCall) SetCanChangeJoinMuted(value bool) {
 	if value {
 		g.Flags.Set(2)
+		g.CanChangeJoinMuted = true
 	} else {
 		g.Flags.Unset(2)
+		g.CanChangeJoinMuted = false
 	}
 }
 

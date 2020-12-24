@@ -81,8 +81,10 @@ func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 func (p *PollAnswerVoters) SetChosen(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Chosen = true
 	} else {
 		p.Flags.Unset(0)
+		p.Chosen = false
 	}
 }
 
@@ -90,8 +92,10 @@ func (p *PollAnswerVoters) SetChosen(value bool) {
 func (p *PollAnswerVoters) SetCorrect(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Correct = true
 	} else {
 		p.Flags.Unset(1)
+		p.Correct = false
 	}
 }
 

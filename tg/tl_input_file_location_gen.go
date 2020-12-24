@@ -790,8 +790,10 @@ func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 func (i *InputPeerPhotoFileLocation) SetBig(value bool) {
 	if value {
 		i.Flags.Set(0)
+		i.Big = true
 	} else {
 		i.Flags.Unset(0)
+		i.Big = false
 	}
 }
 

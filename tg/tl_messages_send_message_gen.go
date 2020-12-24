@@ -162,8 +162,10 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSendMessageRequest) SetNoWebpage(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.NoWebpage = true
 	} else {
 		s.Flags.Unset(1)
+		s.NoWebpage = false
 	}
 }
 
@@ -171,8 +173,10 @@ func (s *MessagesSendMessageRequest) SetNoWebpage(value bool) {
 func (s *MessagesSendMessageRequest) SetSilent(value bool) {
 	if value {
 		s.Flags.Set(5)
+		s.Silent = true
 	} else {
 		s.Flags.Unset(5)
+		s.Silent = false
 	}
 }
 
@@ -180,8 +184,10 @@ func (s *MessagesSendMessageRequest) SetSilent(value bool) {
 func (s *MessagesSendMessageRequest) SetBackground(value bool) {
 	if value {
 		s.Flags.Set(6)
+		s.Background = true
 	} else {
 		s.Flags.Unset(6)
+		s.Background = false
 	}
 }
 
@@ -189,8 +195,10 @@ func (s *MessagesSendMessageRequest) SetBackground(value bool) {
 func (s *MessagesSendMessageRequest) SetClearDraft(value bool) {
 	if value {
 		s.Flags.Set(7)
+		s.ClearDraft = true
 	} else {
 		s.Flags.Unset(7)
+		s.ClearDraft = false
 	}
 }
 

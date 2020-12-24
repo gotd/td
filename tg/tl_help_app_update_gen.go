@@ -130,8 +130,10 @@ func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 func (a *HelpAppUpdate) SetCanNotSkip(value bool) {
 	if value {
 		a.Flags.Set(0)
+		a.CanNotSkip = true
 	} else {
 		a.Flags.Unset(0)
+		a.CanNotSkip = false
 	}
 }
 

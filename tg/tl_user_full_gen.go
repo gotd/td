@@ -183,8 +183,10 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 func (u *UserFull) SetBlocked(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Blocked = true
 	} else {
 		u.Flags.Unset(0)
+		u.Blocked = false
 	}
 }
 
@@ -192,8 +194,10 @@ func (u *UserFull) SetBlocked(value bool) {
 func (u *UserFull) SetPhoneCallsAvailable(value bool) {
 	if value {
 		u.Flags.Set(4)
+		u.PhoneCallsAvailable = true
 	} else {
 		u.Flags.Unset(4)
+		u.PhoneCallsAvailable = false
 	}
 }
 
@@ -201,8 +205,10 @@ func (u *UserFull) SetPhoneCallsAvailable(value bool) {
 func (u *UserFull) SetPhoneCallsPrivate(value bool) {
 	if value {
 		u.Flags.Set(5)
+		u.PhoneCallsPrivate = true
 	} else {
 		u.Flags.Unset(5)
+		u.PhoneCallsPrivate = false
 	}
 }
 
@@ -210,8 +216,10 @@ func (u *UserFull) SetPhoneCallsPrivate(value bool) {
 func (u *UserFull) SetCanPinMessage(value bool) {
 	if value {
 		u.Flags.Set(7)
+		u.CanPinMessage = true
 	} else {
 		u.Flags.Unset(7)
+		u.CanPinMessage = false
 	}
 }
 
@@ -219,8 +227,10 @@ func (u *UserFull) SetCanPinMessage(value bool) {
 func (u *UserFull) SetHasScheduled(value bool) {
 	if value {
 		u.Flags.Set(12)
+		u.HasScheduled = true
 	} else {
 		u.Flags.Unset(12)
+		u.HasScheduled = false
 	}
 }
 
@@ -228,8 +238,10 @@ func (u *UserFull) SetHasScheduled(value bool) {
 func (u *UserFull) SetVideoCallsAvailable(value bool) {
 	if value {
 		u.Flags.Set(13)
+		u.VideoCallsAvailable = true
 	} else {
 		u.Flags.Unset(13)
+		u.VideoCallsAvailable = false
 	}
 }
 

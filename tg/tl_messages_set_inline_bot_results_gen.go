@@ -120,8 +120,10 @@ func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.Gallery = true
 	} else {
 		s.Flags.Unset(0)
+		s.Gallery = false
 	}
 }
 
@@ -129,8 +131,10 @@ func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
 func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Private = true
 	} else {
 		s.Flags.Unset(1)
+		s.Private = false
 	}
 }
 

@@ -1323,8 +1323,10 @@ func (m *MessageActionPhoneCall) Encode(b *bin.Buffer) error {
 func (m *MessageActionPhoneCall) SetVideo(value bool) {
 	if value {
 		m.Flags.Set(2)
+		m.Video = true
 	} else {
 		m.Flags.Unset(2)
+		m.Video = false
 	}
 }
 

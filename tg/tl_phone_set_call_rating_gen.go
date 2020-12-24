@@ -84,8 +84,10 @@ func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 func (s *PhoneSetCallRatingRequest) SetUserInitiative(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.UserInitiative = true
 	} else {
 		s.Flags.Unset(0)
+		s.UserInitiative = false
 	}
 }
 

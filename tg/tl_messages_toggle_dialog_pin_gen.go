@@ -75,8 +75,10 @@ func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 func (t *MessagesToggleDialogPinRequest) SetPinned(value bool) {
 	if value {
 		t.Flags.Set(0)
+		t.Pinned = true
 	} else {
 		t.Flags.Unset(0)
+		t.Pinned = false
 	}
 }
 

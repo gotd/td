@@ -113,8 +113,10 @@ func (w *WallPaper) Encode(b *bin.Buffer) error {
 func (w *WallPaper) SetCreator(value bool) {
 	if value {
 		w.Flags.Set(0)
+		w.Creator = true
 	} else {
 		w.Flags.Unset(0)
+		w.Creator = false
 	}
 }
 
@@ -122,8 +124,10 @@ func (w *WallPaper) SetCreator(value bool) {
 func (w *WallPaper) SetDefault(value bool) {
 	if value {
 		w.Flags.Set(1)
+		w.Default = true
 	} else {
 		w.Flags.Unset(1)
+		w.Default = false
 	}
 }
 
@@ -131,8 +135,10 @@ func (w *WallPaper) SetDefault(value bool) {
 func (w *WallPaper) SetPattern(value bool) {
 	if value {
 		w.Flags.Set(3)
+		w.Pattern = true
 	} else {
 		w.Flags.Unset(3)
+		w.Pattern = false
 	}
 }
 
@@ -140,8 +146,10 @@ func (w *WallPaper) SetPattern(value bool) {
 func (w *WallPaper) SetDark(value bool) {
 	if value {
 		w.Flags.Set(4)
+		w.Dark = true
 	} else {
 		w.Flags.Unset(4)
+		w.Dark = false
 	}
 }
 
@@ -288,8 +296,10 @@ func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 func (w *WallPaperNoFile) SetDefault(value bool) {
 	if value {
 		w.Flags.Set(1)
+		w.Default = true
 	} else {
 		w.Flags.Unset(1)
+		w.Default = false
 	}
 }
 
@@ -297,8 +307,10 @@ func (w *WallPaperNoFile) SetDefault(value bool) {
 func (w *WallPaperNoFile) SetDark(value bool) {
 	if value {
 		w.Flags.Set(4)
+		w.Dark = true
 	} else {
 		w.Flags.Unset(4)
+		w.Dark = false
 	}
 }
 

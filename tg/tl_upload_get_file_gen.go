@@ -92,8 +92,10 @@ func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 func (g *UploadGetFileRequest) SetPrecise(value bool) {
 	if value {
 		g.Flags.Set(0)
+		g.Precise = true
 	} else {
 		g.Flags.Unset(0)
+		g.Precise = false
 	}
 }
 
@@ -101,8 +103,10 @@ func (g *UploadGetFileRequest) SetPrecise(value bool) {
 func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
 	if value {
 		g.Flags.Set(1)
+		g.CDNSupported = true
 	} else {
 		g.Flags.Unset(1)
+		g.CDNSupported = false
 	}
 }
 

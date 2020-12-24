@@ -84,8 +84,10 @@ func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {
 func (s *MessagesSearchCounter) SetInexact(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.Inexact = true
 	} else {
 		s.Flags.Unset(1)
+		s.Inexact = false
 	}
 }
 

@@ -76,8 +76,10 @@ func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 func (j *PhoneJoinGroupCallRequest) SetMuted(value bool) {
 	if value {
 		j.Flags.Set(0)
+		j.Muted = true
 	} else {
 		j.Flags.Unset(0)
+		j.Muted = false
 	}
 }
 

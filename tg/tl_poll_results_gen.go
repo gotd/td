@@ -153,8 +153,10 @@ func (p *PollResults) Encode(b *bin.Buffer) error {
 func (p *PollResults) SetMin(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Min = true
 	} else {
 		p.Flags.Unset(0)
+		p.Min = false
 	}
 }
 

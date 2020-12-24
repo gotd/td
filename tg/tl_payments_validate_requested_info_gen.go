@@ -78,8 +78,10 @@ func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 func (v *PaymentsValidateRequestedInfoRequest) SetSave(value bool) {
 	if value {
 		v.Flags.Set(0)
+		v.Save = true
 	} else {
 		v.Flags.Unset(0)
+		v.Save = false
 	}
 }
 

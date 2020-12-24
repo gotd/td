@@ -317,8 +317,10 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 func (f *FieldsMessage) SetEscape(value bool) {
 	if value {
 		f.Flags.Set(0)
+		f.Escape = true
 	} else {
 		f.Flags.Unset(0)
+		f.Escape = false
 	}
 }
 

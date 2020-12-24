@@ -143,8 +143,10 @@ func (p *Page) Encode(b *bin.Buffer) error {
 func (p *Page) SetPart(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Part = true
 	} else {
 		p.Flags.Unset(0)
+		p.Part = false
 	}
 }
 
@@ -152,8 +154,10 @@ func (p *Page) SetPart(value bool) {
 func (p *Page) SetRtl(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Rtl = true
 	} else {
 		p.Flags.Unset(1)
+		p.Rtl = false
 	}
 }
 
@@ -161,8 +165,10 @@ func (p *Page) SetRtl(value bool) {
 func (p *Page) SetV2(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.V2 = true
 	} else {
 		p.Flags.Unset(2)
+		p.V2 = false
 	}
 }
 

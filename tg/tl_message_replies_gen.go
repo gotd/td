@@ -146,8 +146,10 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 func (m *MessageReplies) SetComments(value bool) {
 	if value {
 		m.Flags.Set(0)
+		m.Comments = true
 	} else {
 		m.Flags.Unset(0)
+		m.Comments = false
 	}
 }
 

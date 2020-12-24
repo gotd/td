@@ -68,8 +68,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 func (t *PhoneToggleGroupCallSettingsRequest) SetJoinMuted(value bool) {
 	if value {
 		t.Flags.Set(0)
+		t.JoinMuted = true
 	} else {
 		t.Flags.Unset(0)
+		t.JoinMuted = false
 	}
 }
 

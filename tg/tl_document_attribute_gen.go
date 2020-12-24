@@ -227,8 +227,10 @@ func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
 func (d *DocumentAttributeSticker) SetMask(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.Mask = true
 	} else {
 		d.Flags.Unset(1)
+		d.Mask = false
 	}
 }
 
@@ -362,8 +364,10 @@ func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 func (d *DocumentAttributeVideo) SetRoundMessage(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.RoundMessage = true
 	} else {
 		d.Flags.Unset(0)
+		d.RoundMessage = false
 	}
 }
 
@@ -371,8 +375,10 @@ func (d *DocumentAttributeVideo) SetRoundMessage(value bool) {
 func (d *DocumentAttributeVideo) SetSupportsStreaming(value bool) {
 	if value {
 		d.Flags.Set(1)
+		d.SupportsStreaming = true
 	} else {
 		d.Flags.Unset(1)
+		d.SupportsStreaming = false
 	}
 }
 
@@ -516,8 +522,10 @@ func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 func (d *DocumentAttributeAudio) SetVoice(value bool) {
 	if value {
 		d.Flags.Set(10)
+		d.Voice = true
 	} else {
 		d.Flags.Unset(10)
+		d.Voice = false
 	}
 }
 

@@ -148,8 +148,10 @@ func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 func (d *HelpDeepLinkInfo) SetUpdateApp(value bool) {
 	if value {
 		d.Flags.Set(0)
+		d.UpdateApp = true
 	} else {
 		d.Flags.Unset(0)
+		d.UpdateApp = false
 	}
 }
 

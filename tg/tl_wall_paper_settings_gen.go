@@ -114,8 +114,10 @@ func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 func (w *WallPaperSettings) SetBlur(value bool) {
 	if value {
 		w.Flags.Set(1)
+		w.Blur = true
 	} else {
 		w.Flags.Unset(1)
+		w.Blur = false
 	}
 }
 
@@ -123,8 +125,10 @@ func (w *WallPaperSettings) SetBlur(value bool) {
 func (w *WallPaperSettings) SetMotion(value bool) {
 	if value {
 		w.Flags.Set(2)
+		w.Motion = true
 	} else {
 		w.Flags.Unset(2)
+		w.Motion = false
 	}
 }
 

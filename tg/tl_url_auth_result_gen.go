@@ -87,8 +87,10 @@ func (u *UrlAuthResultRequest) Encode(b *bin.Buffer) error {
 func (u *UrlAuthResultRequest) SetRequestWriteAccess(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.RequestWriteAccess = true
 	} else {
 		u.Flags.Unset(0)
+		u.RequestWriteAccess = false
 	}
 }
 

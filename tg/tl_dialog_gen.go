@@ -165,8 +165,10 @@ func (d *Dialog) Encode(b *bin.Buffer) error {
 func (d *Dialog) SetPinned(value bool) {
 	if value {
 		d.Flags.Set(2)
+		d.Pinned = true
 	} else {
 		d.Flags.Unset(2)
+		d.Pinned = false
 	}
 }
 
@@ -174,8 +176,10 @@ func (d *Dialog) SetPinned(value bool) {
 func (d *Dialog) SetUnreadMark(value bool) {
 	if value {
 		d.Flags.Set(3)
+		d.UnreadMark = true
 	} else {
 		d.Flags.Unset(3)
+		d.UnreadMark = false
 	}
 }
 
@@ -418,8 +422,10 @@ func (d *DialogFolder) Encode(b *bin.Buffer) error {
 func (d *DialogFolder) SetPinned(value bool) {
 	if value {
 		d.Flags.Set(2)
+		d.Pinned = true
 	} else {
 		d.Flags.Unset(2)
+		d.Pinned = false
 	}
 }
 

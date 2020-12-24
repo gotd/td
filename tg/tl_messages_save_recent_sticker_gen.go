@@ -81,8 +81,10 @@ func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSaveRecentStickerRequest) SetAttached(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.Attached = true
 	} else {
 		s.Flags.Unset(0)
+		s.Attached = false
 	}
 }
 

@@ -131,8 +131,10 @@ func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 func (c *ChatBannedRights) SetViewMessages(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.ViewMessages = true
 	} else {
 		c.Flags.Unset(0)
+		c.ViewMessages = false
 	}
 }
 
@@ -140,8 +142,10 @@ func (c *ChatBannedRights) SetViewMessages(value bool) {
 func (c *ChatBannedRights) SetSendMessages(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.SendMessages = true
 	} else {
 		c.Flags.Unset(1)
+		c.SendMessages = false
 	}
 }
 
@@ -149,8 +153,10 @@ func (c *ChatBannedRights) SetSendMessages(value bool) {
 func (c *ChatBannedRights) SetSendMedia(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.SendMedia = true
 	} else {
 		c.Flags.Unset(2)
+		c.SendMedia = false
 	}
 }
 
@@ -158,8 +164,10 @@ func (c *ChatBannedRights) SetSendMedia(value bool) {
 func (c *ChatBannedRights) SetSendStickers(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.SendStickers = true
 	} else {
 		c.Flags.Unset(3)
+		c.SendStickers = false
 	}
 }
 
@@ -167,8 +175,10 @@ func (c *ChatBannedRights) SetSendStickers(value bool) {
 func (c *ChatBannedRights) SetSendGifs(value bool) {
 	if value {
 		c.Flags.Set(4)
+		c.SendGifs = true
 	} else {
 		c.Flags.Unset(4)
+		c.SendGifs = false
 	}
 }
 
@@ -176,8 +186,10 @@ func (c *ChatBannedRights) SetSendGifs(value bool) {
 func (c *ChatBannedRights) SetSendGames(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.SendGames = true
 	} else {
 		c.Flags.Unset(5)
+		c.SendGames = false
 	}
 }
 
@@ -185,8 +197,10 @@ func (c *ChatBannedRights) SetSendGames(value bool) {
 func (c *ChatBannedRights) SetSendInline(value bool) {
 	if value {
 		c.Flags.Set(6)
+		c.SendInline = true
 	} else {
 		c.Flags.Unset(6)
+		c.SendInline = false
 	}
 }
 
@@ -194,8 +208,10 @@ func (c *ChatBannedRights) SetSendInline(value bool) {
 func (c *ChatBannedRights) SetEmbedLinks(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.EmbedLinks = true
 	} else {
 		c.Flags.Unset(7)
+		c.EmbedLinks = false
 	}
 }
 
@@ -203,8 +219,10 @@ func (c *ChatBannedRights) SetEmbedLinks(value bool) {
 func (c *ChatBannedRights) SetSendPolls(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.SendPolls = true
 	} else {
 		c.Flags.Unset(8)
+		c.SendPolls = false
 	}
 }
 
@@ -212,8 +230,10 @@ func (c *ChatBannedRights) SetSendPolls(value bool) {
 func (c *ChatBannedRights) SetChangeInfo(value bool) {
 	if value {
 		c.Flags.Set(10)
+		c.ChangeInfo = true
 	} else {
 		c.Flags.Unset(10)
+		c.ChangeInfo = false
 	}
 }
 
@@ -221,8 +241,10 @@ func (c *ChatBannedRights) SetChangeInfo(value bool) {
 func (c *ChatBannedRights) SetInviteUsers(value bool) {
 	if value {
 		c.Flags.Set(15)
+		c.InviteUsers = true
 	} else {
 		c.Flags.Unset(15)
+		c.InviteUsers = false
 	}
 }
 
@@ -230,8 +252,10 @@ func (c *ChatBannedRights) SetInviteUsers(value bool) {
 func (c *ChatBannedRights) SetPinMessages(value bool) {
 	if value {
 		c.Flags.Set(17)
+		c.PinMessages = true
 	} else {
 		c.Flags.Unset(17)
+		c.PinMessages = false
 	}
 }
 

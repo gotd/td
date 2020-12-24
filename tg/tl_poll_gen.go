@@ -122,8 +122,10 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 func (p *Poll) SetClosed(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Closed = true
 	} else {
 		p.Flags.Unset(0)
+		p.Closed = false
 	}
 }
 
@@ -131,8 +133,10 @@ func (p *Poll) SetClosed(value bool) {
 func (p *Poll) SetPublicVoters(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.PublicVoters = true
 	} else {
 		p.Flags.Unset(1)
+		p.PublicVoters = false
 	}
 }
 
@@ -140,8 +144,10 @@ func (p *Poll) SetPublicVoters(value bool) {
 func (p *Poll) SetMultipleChoice(value bool) {
 	if value {
 		p.Flags.Set(2)
+		p.MultipleChoice = true
 	} else {
 		p.Flags.Unset(2)
+		p.MultipleChoice = false
 	}
 }
 
@@ -149,8 +155,10 @@ func (p *Poll) SetMultipleChoice(value bool) {
 func (p *Poll) SetQuiz(value bool) {
 	if value {
 		p.Flags.Set(3)
+		p.Quiz = true
 	} else {
 		p.Flags.Unset(3)
+		p.Quiz = false
 	}
 }
 

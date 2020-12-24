@@ -116,8 +116,10 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 func (c *ChannelsCreateChannelRequest) SetBroadcast(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Broadcast = true
 	} else {
 		c.Flags.Unset(0)
+		c.Broadcast = false
 	}
 }
 
@@ -125,8 +127,10 @@ func (c *ChannelsCreateChannelRequest) SetBroadcast(value bool) {
 func (c *ChannelsCreateChannelRequest) SetMegagroup(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Megagroup = true
 	} else {
 		c.Flags.Unset(1)
+		c.Megagroup = false
 	}
 }
 

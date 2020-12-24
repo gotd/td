@@ -90,8 +90,10 @@ func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 func (p *PeerNotifySettings) SetShowPreviews(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.ShowPreviews = true
 	} else {
 		p.Flags.Unset(0)
+		p.ShowPreviews = false
 	}
 }
 
@@ -99,8 +101,10 @@ func (p *PeerNotifySettings) SetShowPreviews(value bool) {
 func (p *PeerNotifySettings) SetSilent(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Silent = true
 	} else {
 		p.Flags.Unset(1)
+		p.Silent = false
 	}
 }
 

@@ -125,8 +125,10 @@ func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 func (l *LangPackLanguage) SetOfficial(value bool) {
 	if value {
 		l.Flags.Set(0)
+		l.Official = true
 	} else {
 		l.Flags.Unset(0)
+		l.Official = false
 	}
 }
 
@@ -134,8 +136,10 @@ func (l *LangPackLanguage) SetOfficial(value bool) {
 func (l *LangPackLanguage) SetRtl(value bool) {
 	if value {
 		l.Flags.Set(2)
+		l.Rtl = true
 	} else {
 		l.Flags.Unset(2)
+		l.Rtl = false
 	}
 }
 
@@ -143,8 +147,10 @@ func (l *LangPackLanguage) SetRtl(value bool) {
 func (l *LangPackLanguage) SetBeta(value bool) {
 	if value {
 		l.Flags.Set(3)
+		l.Beta = true
 	} else {
 		l.Flags.Unset(3)
+		l.Beta = false
 	}
 }
 

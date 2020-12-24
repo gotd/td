@@ -87,8 +87,10 @@ func (s *MessagesSendEncryptedRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSendEncryptedRequest) SetSilent(value bool) {
 	if value {
 		s.Flags.Set(0)
+		s.Silent = true
 	} else {
 		s.Flags.Unset(0)
+		s.Silent = false
 	}
 }
 

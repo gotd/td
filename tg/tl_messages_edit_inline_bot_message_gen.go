@@ -143,8 +143,10 @@ func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 func (e *MessagesEditInlineBotMessageRequest) SetNoWebpage(value bool) {
 	if value {
 		e.Flags.Set(1)
+		e.NoWebpage = true
 	} else {
 		e.Flags.Unset(1)
+		e.NoWebpage = false
 	}
 }
 

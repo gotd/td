@@ -1678,8 +1678,10 @@ func (u *UpdateServiceNotification) Encode(b *bin.Buffer) error {
 func (u *UpdateServiceNotification) SetPopup(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Popup = true
 	} else {
 		u.Flags.Unset(0)
+		u.Popup = false
 	}
 }
 
@@ -3368,8 +3370,10 @@ func (u *UpdateStickerSetsOrder) Encode(b *bin.Buffer) error {
 func (u *UpdateStickerSetsOrder) SetMasks(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Masks = true
 	} else {
 		u.Flags.Unset(0)
+		u.Masks = false
 	}
 }
 
@@ -5103,8 +5107,10 @@ func (u *UpdateDialogPinned) Encode(b *bin.Buffer) error {
 func (u *UpdateDialogPinned) SetPinned(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Pinned = true
 	} else {
 		u.Flags.Unset(0)
+		u.Pinned = false
 	}
 }
 
@@ -6344,8 +6350,10 @@ func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 func (u *UpdateDialogUnreadMark) SetUnread(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Unread = true
 	} else {
 		u.Flags.Unset(0)
+		u.Unread = false
 	}
 }
 
@@ -8636,8 +8644,10 @@ func (u *UpdatePinnedMessages) Encode(b *bin.Buffer) error {
 func (u *UpdatePinnedMessages) SetPinned(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Pinned = true
 	} else {
 		u.Flags.Unset(0)
+		u.Pinned = false
 	}
 }
 
@@ -8789,8 +8799,10 @@ func (u *UpdatePinnedChannelMessages) Encode(b *bin.Buffer) error {
 func (u *UpdatePinnedChannelMessages) SetPinned(value bool) {
 	if value {
 		u.Flags.Set(0)
+		u.Pinned = true
 	} else {
 		u.Flags.Unset(0)
+		u.Pinned = false
 	}
 }
 

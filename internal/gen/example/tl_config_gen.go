@@ -397,8 +397,10 @@ func (c *Config) Encode(b *bin.Buffer) error {
 func (c *Config) SetPhonecallsEnabled(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.PhonecallsEnabled = true
 	} else {
 		c.Flags.Unset(1)
+		c.PhonecallsEnabled = false
 	}
 }
 
@@ -406,8 +408,10 @@ func (c *Config) SetPhonecallsEnabled(value bool) {
 func (c *Config) SetDefaultP2PContacts(value bool) {
 	if value {
 		c.Flags.Set(3)
+		c.DefaultP2PContacts = true
 	} else {
 		c.Flags.Unset(3)
+		c.DefaultP2PContacts = false
 	}
 }
 
@@ -415,8 +419,10 @@ func (c *Config) SetDefaultP2PContacts(value bool) {
 func (c *Config) SetPreloadFeaturedStickers(value bool) {
 	if value {
 		c.Flags.Set(4)
+		c.PreloadFeaturedStickers = true
 	} else {
 		c.Flags.Unset(4)
+		c.PreloadFeaturedStickers = false
 	}
 }
 
@@ -424,8 +430,10 @@ func (c *Config) SetPreloadFeaturedStickers(value bool) {
 func (c *Config) SetIgnorePhoneEntities(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.IgnorePhoneEntities = true
 	} else {
 		c.Flags.Unset(5)
+		c.IgnorePhoneEntities = false
 	}
 }
 
@@ -433,8 +441,10 @@ func (c *Config) SetIgnorePhoneEntities(value bool) {
 func (c *Config) SetRevokePmInbox(value bool) {
 	if value {
 		c.Flags.Set(6)
+		c.RevokePmInbox = true
 	} else {
 		c.Flags.Unset(6)
+		c.RevokePmInbox = false
 	}
 }
 
@@ -442,8 +452,10 @@ func (c *Config) SetRevokePmInbox(value bool) {
 func (c *Config) SetBlockedMode(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.BlockedMode = true
 	} else {
 		c.Flags.Unset(8)
+		c.BlockedMode = false
 	}
 }
 
@@ -451,8 +463,10 @@ func (c *Config) SetBlockedMode(value bool) {
 func (c *Config) SetPFSEnabled(value bool) {
 	if value {
 		c.Flags.Set(13)
+		c.PFSEnabled = true
 	} else {
 		c.Flags.Unset(13)
+		c.PFSEnabled = false
 	}
 }
 

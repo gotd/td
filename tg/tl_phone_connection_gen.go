@@ -220,8 +220,10 @@ func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
 	if value {
 		p.Flags.Set(0)
+		p.Turn = true
 	} else {
 		p.Flags.Unset(0)
+		p.Turn = false
 	}
 }
 
@@ -229,8 +231,10 @@ func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
 func (p *PhoneConnectionWebrtc) SetStun(value bool) {
 	if value {
 		p.Flags.Set(1)
+		p.Stun = true
 	} else {
 		p.Flags.Unset(1)
+		p.Stun = false
 	}
 }
 

@@ -84,8 +84,10 @@ func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 func (t *MessagesToggleStickerSetsRequest) SetUninstall(value bool) {
 	if value {
 		t.Flags.Set(0)
+		t.Uninstall = true
 	} else {
 		t.Flags.Unset(0)
+		t.Uninstall = false
 	}
 }
 
@@ -93,8 +95,10 @@ func (t *MessagesToggleStickerSetsRequest) SetUninstall(value bool) {
 func (t *MessagesToggleStickerSetsRequest) SetArchive(value bool) {
 	if value {
 		t.Flags.Set(1)
+		t.Archive = true
 	} else {
 		t.Flags.Unset(1)
+		t.Archive = false
 	}
 }
 
@@ -102,8 +106,10 @@ func (t *MessagesToggleStickerSetsRequest) SetArchive(value bool) {
 func (t *MessagesToggleStickerSetsRequest) SetUnarchive(value bool) {
 	if value {
 		t.Flags.Set(2)
+		t.Unarchive = true
 	} else {
 		t.Flags.Unset(2)
+		t.Unarchive = false
 	}
 }
 

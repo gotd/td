@@ -238,8 +238,10 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 func (c *Chat) SetCreator(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Creator = true
 	} else {
 		c.Flags.Unset(0)
+		c.Creator = false
 	}
 }
 
@@ -247,8 +249,10 @@ func (c *Chat) SetCreator(value bool) {
 func (c *Chat) SetKicked(value bool) {
 	if value {
 		c.Flags.Set(1)
+		c.Kicked = true
 	} else {
 		c.Flags.Unset(1)
+		c.Kicked = false
 	}
 }
 
@@ -256,8 +260,10 @@ func (c *Chat) SetKicked(value bool) {
 func (c *Chat) SetLeft(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.Left = true
 	} else {
 		c.Flags.Unset(2)
+		c.Left = false
 	}
 }
 
@@ -265,8 +271,10 @@ func (c *Chat) SetLeft(value bool) {
 func (c *Chat) SetDeactivated(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.Deactivated = true
 	} else {
 		c.Flags.Unset(5)
+		c.Deactivated = false
 	}
 }
 
@@ -274,8 +282,10 @@ func (c *Chat) SetDeactivated(value bool) {
 func (c *Chat) SetCallActive(value bool) {
 	if value {
 		c.Flags.Set(23)
+		c.CallActive = true
 	} else {
 		c.Flags.Unset(23)
+		c.CallActive = false
 	}
 }
 
@@ -283,8 +293,10 @@ func (c *Chat) SetCallActive(value bool) {
 func (c *Chat) SetCallNotEmpty(value bool) {
 	if value {
 		c.Flags.Set(24)
+		c.CallNotEmpty = true
 	} else {
 		c.Flags.Unset(24)
+		c.CallNotEmpty = false
 	}
 }
 
@@ -722,8 +734,10 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 func (c *Channel) SetCreator(value bool) {
 	if value {
 		c.Flags.Set(0)
+		c.Creator = true
 	} else {
 		c.Flags.Unset(0)
+		c.Creator = false
 	}
 }
 
@@ -731,8 +745,10 @@ func (c *Channel) SetCreator(value bool) {
 func (c *Channel) SetLeft(value bool) {
 	if value {
 		c.Flags.Set(2)
+		c.Left = true
 	} else {
 		c.Flags.Unset(2)
+		c.Left = false
 	}
 }
 
@@ -740,8 +756,10 @@ func (c *Channel) SetLeft(value bool) {
 func (c *Channel) SetBroadcast(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.Broadcast = true
 	} else {
 		c.Flags.Unset(5)
+		c.Broadcast = false
 	}
 }
 
@@ -749,8 +767,10 @@ func (c *Channel) SetBroadcast(value bool) {
 func (c *Channel) SetVerified(value bool) {
 	if value {
 		c.Flags.Set(7)
+		c.Verified = true
 	} else {
 		c.Flags.Unset(7)
+		c.Verified = false
 	}
 }
 
@@ -758,8 +778,10 @@ func (c *Channel) SetVerified(value bool) {
 func (c *Channel) SetMegagroup(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.Megagroup = true
 	} else {
 		c.Flags.Unset(8)
+		c.Megagroup = false
 	}
 }
 
@@ -767,8 +789,10 @@ func (c *Channel) SetMegagroup(value bool) {
 func (c *Channel) SetRestricted(value bool) {
 	if value {
 		c.Flags.Set(9)
+		c.Restricted = true
 	} else {
 		c.Flags.Unset(9)
+		c.Restricted = false
 	}
 }
 
@@ -776,8 +800,10 @@ func (c *Channel) SetRestricted(value bool) {
 func (c *Channel) SetSignatures(value bool) {
 	if value {
 		c.Flags.Set(11)
+		c.Signatures = true
 	} else {
 		c.Flags.Unset(11)
+		c.Signatures = false
 	}
 }
 
@@ -785,8 +811,10 @@ func (c *Channel) SetSignatures(value bool) {
 func (c *Channel) SetMin(value bool) {
 	if value {
 		c.Flags.Set(12)
+		c.Min = true
 	} else {
 		c.Flags.Unset(12)
+		c.Min = false
 	}
 }
 
@@ -794,8 +822,10 @@ func (c *Channel) SetMin(value bool) {
 func (c *Channel) SetScam(value bool) {
 	if value {
 		c.Flags.Set(19)
+		c.Scam = true
 	} else {
 		c.Flags.Unset(19)
+		c.Scam = false
 	}
 }
 
@@ -803,8 +833,10 @@ func (c *Channel) SetScam(value bool) {
 func (c *Channel) SetHasLink(value bool) {
 	if value {
 		c.Flags.Set(20)
+		c.HasLink = true
 	} else {
 		c.Flags.Unset(20)
+		c.HasLink = false
 	}
 }
 
@@ -812,8 +844,10 @@ func (c *Channel) SetHasLink(value bool) {
 func (c *Channel) SetHasGeo(value bool) {
 	if value {
 		c.Flags.Set(21)
+		c.HasGeo = true
 	} else {
 		c.Flags.Unset(21)
+		c.HasGeo = false
 	}
 }
 
@@ -821,8 +855,10 @@ func (c *Channel) SetHasGeo(value bool) {
 func (c *Channel) SetSlowmodeEnabled(value bool) {
 	if value {
 		c.Flags.Set(22)
+		c.SlowmodeEnabled = true
 	} else {
 		c.Flags.Unset(22)
+		c.SlowmodeEnabled = false
 	}
 }
 
@@ -830,8 +866,10 @@ func (c *Channel) SetSlowmodeEnabled(value bool) {
 func (c *Channel) SetCallActive(value bool) {
 	if value {
 		c.Flags.Set(23)
+		c.CallActive = true
 	} else {
 		c.Flags.Unset(23)
+		c.CallActive = false
 	}
 }
 
@@ -839,8 +877,10 @@ func (c *Channel) SetCallActive(value bool) {
 func (c *Channel) SetCallNotEmpty(value bool) {
 	if value {
 		c.Flags.Set(24)
+		c.CallNotEmpty = true
 	} else {
 		c.Flags.Unset(24)
+		c.CallNotEmpty = false
 	}
 }
 
@@ -1154,8 +1194,10 @@ func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 func (c *ChannelForbidden) SetBroadcast(value bool) {
 	if value {
 		c.Flags.Set(5)
+		c.Broadcast = true
 	} else {
 		c.Flags.Unset(5)
+		c.Broadcast = false
 	}
 }
 
@@ -1163,8 +1205,10 @@ func (c *ChannelForbidden) SetBroadcast(value bool) {
 func (c *ChannelForbidden) SetMegagroup(value bool) {
 	if value {
 		c.Flags.Set(8)
+		c.Megagroup = true
 	} else {
 		c.Flags.Unset(8)
+		c.Megagroup = false
 	}
 }
 

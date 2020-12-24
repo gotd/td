@@ -124,8 +124,10 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
 	if value {
 		f.Flags.Set(5)
+		f.Silent = true
 	} else {
 		f.Flags.Unset(5)
+		f.Silent = false
 	}
 }
 
@@ -133,8 +135,10 @@ func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
 func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
 	if value {
 		f.Flags.Set(6)
+		f.Background = true
 	} else {
 		f.Flags.Unset(6)
+		f.Background = false
 	}
 }
 
@@ -142,8 +146,10 @@ func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
 func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
 	if value {
 		f.Flags.Set(8)
+		f.WithMyScore = true
 	} else {
 		f.Flags.Unset(8)
+		f.WithMyScore = false
 	}
 }
 

@@ -121,8 +121,10 @@ func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 func (s *MessagesSaveDraftRequest) SetNoWebpage(value bool) {
 	if value {
 		s.Flags.Set(1)
+		s.NoWebpage = true
 	} else {
 		s.Flags.Unset(1)
+		s.NoWebpage = false
 	}
 }
 
