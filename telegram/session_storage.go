@@ -93,6 +93,9 @@ func (c *Client) loadSession(ctx context.Context) error {
 		// Will create session after key exchange.
 		return nil
 	}
+	if err != nil {
+		return xerrors.Errorf("failed to load session: %w", err)
+	}
 
 	// NB: Any change to unmarshalling can break clients in backward
 	// incompatible way.
