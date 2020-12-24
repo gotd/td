@@ -9,10 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/td/transport"
-
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/tgflow"
+	"github.com/gotd/td/transport"
 )
 
 func testTransport(trp telegram.Transport) func(t *testing.T) {

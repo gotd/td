@@ -3,7 +3,6 @@ package codec
 import (
 	"crypto/rand"
 	"io"
-	mathrand "math/rand"
 
 	"golang.org/x/xerrors"
 
@@ -76,10 +75,15 @@ func (i PaddedIntermediate) Read(r io.Reader, b *bin.Buffer) error {
 
 func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) error {
 	length := b.Len()
-	n := mathrand.Intn(4) // #nosec
-	b.Expand(n)
 
-	_, err := io.ReadFull(randSource, b.Buf[length:length+n])
+	var n [1]byte
+	if _, err := randSource.Read(n[:]); err != nil {
+		return err
+	}
+	n[0] %= 4
+	b.Expand(int(n[0]))
+
+	_, err := io.ReadFull(randSource, b.Buf[length:length+int(n[0])])
 	if err != nil {
 		return err
 	}
