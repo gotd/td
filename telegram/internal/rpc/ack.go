@@ -26,7 +26,7 @@ func (e *Engine) NotifyAcks(ids []int64) {
 // waitAck blocks until acknowledgement on message id is received.
 func (e *Engine) waitAck(ctx context.Context, id int64) error {
 	log := e.log.With(zap.Int64("msg_id", id))
-	log.Debug("Wait for Ack")
+	log.Debug("Waiting for Ack")
 
 	done := make(chan struct{})
 	var ackOnce sync.Once
