@@ -3,7 +3,6 @@ package telegram
 import (
 	"context"
 	"crypto/md5"
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -13,7 +12,6 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
@@ -34,16 +32,6 @@ func testError(err tg.Error) (bin.Encoder, error) {
 	}
 	e.extractArgument()
 	return nil, e
-}
-
-// requireErr asserts that errors.Is(actual, expected) is true.
-func requireErr(t testing.TB, expected, actual error, msgAndArgs ...interface{}) {
-	t.Helper()
-	if !errors.Is(actual, expected) {
-		require.Fail(t, fmt.Sprintf("Error chain does not match target:\n"+
-			"expected: %q\n"+
-			"actual  : %q", expected, actual), msgAndArgs...)
-	}
 }
 
 func newTestClient(h testHandler) *Client {

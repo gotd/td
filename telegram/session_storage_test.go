@@ -5,6 +5,8 @@ import (
 	"io"
 	"testing"
 
+	"github.com/gotd/td/internal/testutil"
+
 	"github.com/stretchr/testify/require"
 )
 
@@ -47,7 +49,7 @@ func TestClientSessionStorage(t *testing.T) {
 				return expectedErr
 			},
 		}
-		requireErr(t, expectedErr, client.loadSession(ctx))
-		requireErr(t, expectedErr, client.saveSession(ctx))
+		testutil.RequireErr(t, expectedErr, client.loadSession(ctx))
+		testutil.RequireErr(t, expectedErr, client.saveSession(ctx))
 	})
 }

@@ -8,6 +8,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gotd/td/internal/testutil"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
@@ -103,7 +105,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 		// 2. Send code from device to server.
 		// Server is responding with 2FA password prompt.
 		signInErr := client.AuthSignIn(ctx, phone, code, h)
-		requireErr(t, ErrPasswordAuthNeeded, signInErr)
+		testutil.RequireErr(t, ErrPasswordAuthNeeded, signInErr)
 
 		// 3. Provide 2FA password.
 		require.NoError(t, client.AuthPassword(ctx, password))
