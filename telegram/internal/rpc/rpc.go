@@ -209,6 +209,10 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 		case <-e.clock.After(e.retryInterval):
 			log.Debug("Acknowledge timed out, performing retry")
 			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+				if errors.Is(err, context.Canceled) {
+					return nil
+				}
+
 				log.Error("Retry failed", zap.Error(err))
 				return err
 			}
