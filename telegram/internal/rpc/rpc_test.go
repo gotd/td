@@ -304,12 +304,18 @@ func runTest(
 	defer close(requests)
 
 	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-		requests <- request{
+		req := request{
 			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: in,
 		}
-		return nil
+
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case requests <- req:
+			return nil
+		}
 	}, cfg)
 
 	var g errgroup.Group
