@@ -32,3 +32,10 @@ func TestCopy(t *testing.T) {
 	copyBuf[0] = 1
 	require.Equal(t, byte(10), b.Buf[0], "buffer overwritten from copy")
 }
+
+func TestBuffer_ResetN(t *testing.T) {
+	var b Buffer
+	require.Zero(t, testing.AllocsPerRun(100, func() {
+		b.ResetN(1024)
+	}))
+}
