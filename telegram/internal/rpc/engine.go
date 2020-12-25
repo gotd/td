@@ -233,7 +233,7 @@ func (e *Engine) isClosed() bool {
 }
 
 // Close closes the engine.
-// All Do method calls of closed engine will return EngineClosedErr error.
+// All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) Close() {
 	atomic.StoreUint32(&e.closed, 1)
 	e.wg.Wait()
