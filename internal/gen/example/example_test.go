@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/tmap"
 )
 
 func BenchmarkMessage_Encode(b *testing.B) {
@@ -280,4 +281,12 @@ func BenchmarkDecodeAbstractMessage(b *testing.B) {
 			}
 		}
 	})
+}
+
+func TestRegistry(t *testing.T) {
+	c := tmap.NewConstructor(
+		TypesConstructorMap(),
+	)
+	require.NotNil(t, c.New(TextEntityTypeStrikethroughTypeID))
+	require.Nil(t, c.New(0x1))
 }

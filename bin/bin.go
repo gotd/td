@@ -42,3 +42,9 @@ type Encoder interface {
 type Decoder interface {
 	Decode(b *Buffer) error
 }
+
+// Object wraps Decoder and Encoder interface and represents TL Object.
+type Object interface {
+	Decoder
+	Encoder
+}
