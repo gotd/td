@@ -7,10 +7,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/rpc"
-
 	"go.uber.org/zap"
+
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/telegram/internal/rpc"
 )
 
 func TestClientHandleMessage(t *testing.T) {
@@ -71,17 +72,12 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		// TODO(ernado): Investigate big allocations and reduce threshold
 		const allocThreshold = 512
-		const runs = 10
-		t.Run(f.Name(), func(t *testing.T) {
-			allocations := testing.AllocsPerRun(runs, func() {
-				_ = c.handleMessage(&bin.Buffer{Buf: data})
-			})
-			t.Log(allocations)
-			if allocations > allocThreshold {
-				t.Errorf("Allocates too much")
-			}
+
+		testutil.MaxAlloc(t, allocThreshold, func() {
+			_ = c.handleMessage(&bin.Buffer{Buf: data})
 		})
 	}
 }
