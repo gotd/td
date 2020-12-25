@@ -219,7 +219,7 @@ func TestRPCAckThenResult(t *testing.T) {
 	}, server, client)
 }
 
-func TestRPCAckWithRetryResult(t *testing.T) {
+func TestRPCWithRetryResult(t *testing.T) {
 	clock := neo.NewTime(defaultNow)
 	observer := clock.Observe()
 	log := zaptest.NewLogger(t)
