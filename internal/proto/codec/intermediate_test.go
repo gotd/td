@@ -45,7 +45,7 @@ func BenchmarkReadIntermediate(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		reader.Reset(raw)
-		if err := readIntermediate(reader, buf); err != nil {
+		if err := readIntermediate(reader, buf, false); err != nil {
 			b.Fatal(err)
 		}
 		buf.Reset()
@@ -60,7 +60,7 @@ func TestIntermediate(t *testing.T) {
 			t.Fatal(err)
 		}
 		var out bin.Buffer
-		if err := readIntermediate(buf, &out); err != nil {
+		if err := readIntermediate(buf, &out, false); err != nil {
 			t.Fatal(err)
 		}
 		require.Equal(t, msg, out.Buf)
