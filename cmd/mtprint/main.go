@@ -4,7 +4,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"os"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -13,14 +15,21 @@ import (
 )
 
 func main() {
-	// TODO: Streaming mode.
+	inputName := flag.String("f", "", "input file (blank for stdin)")
 	flag.Parse()
-	name := flag.Arg(0)
-	if name == "" {
-		panic("no file provided")
+
+	var reader io.Reader = os.Stdin
+	if *inputName != "" {
+		f, err := os.Open(*inputName)
+		if err != nil {
+			panic(err)
+		}
+		defer func() { _ = f.Close() }()
+		reader = f
 	}
 
-	buf, err := ioutil.ReadFile(name) // #nosec
+	// TODO: Streaming mode via intermediate protocol.
+	buf, err := ioutil.ReadAll(reader)
 	if err != nil {
 		panic(err)
 	}
