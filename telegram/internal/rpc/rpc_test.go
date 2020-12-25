@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
 
@@ -32,29 +33,37 @@ func TestRPCError(t *testing.T) {
 	clock := neo.NewTime(defaultNow)
 	observer := clock.Observe()
 	expectedErr := errors.New("server side error")
+	log := zaptest.NewLogger(t)
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
-		// Waiting request from client.
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
 		assert.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
 
+		log.Info("Got ping request")
+
 		// Make sure that client calls time.After
 		// before time travel
 		<-observer
 
-		// Simulate job.
+		log.Info("Traveling into the future for a second (simulate job)")
 		clock.Travel(time.Second)
 
-		// Notify client about error.
+		log.Info("Sending RPC error")
 		e.NotifyError(reqID, expectedErr)
 
 		return nil
 	}
 
 	client := func(t *testing.T, e *Engine) error {
+		log := log.Named("client")
+
+		log.Info("Sending ping request")
 		err := e.Do(context.TODO(), Request{
 			ID:       reqID,
 			Sequence: seqNo,
@@ -62,6 +71,8 @@ func TestRPCError(t *testing.T) {
 				PingID: pingID,
 			},
 		})
+
+		log.Info("Got pong response")
 		assert.True(t, errors.Is(err, expectedErr), "expected error")
 
 		return nil
@@ -71,26 +82,31 @@ func TestRPCError(t *testing.T) {
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
 		Clock:         clock,
+		Logger:        log.Named("rpc"),
 	}, server, client)
 }
 
 func TestRPCResult(t *testing.T) {
 	clock := neo.NewTime(defaultNow)
 	observer := clock.Observe()
+	log := zaptest.NewLogger(t)
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
-		// Waiting request from client.
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
 		assert.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
 
+		log.Info("Got ping request")
 		// Make sure that engine calls time.After
 		// before time travel.
 		<-observer
 
-		// Simulate job.
+		log.Info("Traveling into the future for 2 seconds (simulate job)")
 		clock.Travel(time.Second * 2)
 
 		var b bin.Buffer
@@ -101,72 +117,14 @@ func TestRPCResult(t *testing.T) {
 			return err
 		}
 
-		// Send response.
+		log.Info("Sending pong response")
 		return e.NotifyResult(reqID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
-		var out mt.Pong
-		err := e.Do(context.TODO(), Request{
-			ID:       reqID,
-			Sequence: seqNo,
-			Input:    &mt.PingRequest{PingID: pingID},
-			Output:   &out,
-		})
+		log := log.Named("client")
 
-		assert.NoError(t, err)
-		assert.Equal(t, mt.Pong{
-			MsgID:  reqID,
-			PingID: pingID,
-		}, out)
-		return nil
-	}
-
-	runTest(t, Config{
-		RetryInterval: time.Second * 4,
-		MaxRetries:    2,
-		Clock:         clock,
-	}, server, client)
-}
-
-func TestRPCAckThenResult(t *testing.T) {
-	clock := neo.NewTime(defaultNow)
-	observer := clock.Observe()
-
-	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
-		// Wait request from client.
-		assert.Equal(t, request{
-			MsgID: 1,
-			SeqNo: 1,
-			Input: &mt.PingRequest{PingID: pingID},
-		}, <-incoming)
-
-		// Make sure that client calls time.After
-		// before time travel.
-		<-observer
-
-		// Simulate request processing.
-		clock.Travel(time.Second * 2)
-
-		// Acknowledge request.
-		e.NotifyAcks([]int64{reqID})
-
-		// Simulate request processing.
-		clock.Travel(time.Second * 1)
-
-		var b bin.Buffer
-		if err := b.Encode(&mt.Pong{
-			MsgID:  reqID,
-			PingID: pingID,
-		}); err != nil {
-			return err
-		}
-
-		// Send response.
-		return e.NotifyResult(reqID, &b)
-	}
-
-	client := func(t *testing.T, e *Engine) error {
+		log.Info("Sending ping request")
 		var out mt.Pong
 		assert.NoError(t, e.Do(context.TODO(), Request{
 			ID:       reqID,
@@ -174,6 +132,8 @@ func TestRPCAckThenResult(t *testing.T) {
 			Input:    &mt.PingRequest{PingID: pingID},
 			Output:   &out,
 		}))
+
+		log.Info("Got pong response")
 		assert.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
@@ -186,15 +146,19 @@ func TestRPCAckThenResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
+		Logger:        log.Named("rpc"),
 	}, server, client)
 }
 
-func TestRPCAckWithRetryResult(t *testing.T) {
+func TestRPCAckThenResult(t *testing.T) {
 	clock := neo.NewTime(defaultNow)
 	observer := clock.Observe()
+	log := zaptest.NewLogger(t)
 
 	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
-		// Waiting request from client.
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
 		assert.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
@@ -205,18 +169,14 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		// before time travel.
 		<-observer
 
-		// Simulate request loss.
-		//
-		// Client have retry interval set to 4s,
-		// so we must receive request again.
-		clock.Travel(time.Second * 6)
+		log.Info("Traveling into the future for 2 seconds (simulate job)")
+		clock.Travel(time.Second * 2)
 
-		// Receive request.
-		assert.Equal(t, request{
-			MsgID: reqID,
-			SeqNo: seqNo,
-			Input: &mt.PingRequest{PingID: pingID},
-		}, <-incoming)
+		log.Info("Sending ACK")
+		e.NotifyAcks([]int64{reqID})
+
+		log.Info("Traveling into the future for 6 seconds (simulate request processing)")
+		clock.Travel(time.Second * 6)
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
@@ -226,11 +186,86 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 			return err
 		}
 
-		// Send response.
+		log.Info("Sending response")
 		return e.NotifyResult(reqID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
+		log := log.Named("client")
+
+		log.Info("Sending ping request")
+		var out mt.Pong
+		assert.NoError(t, e.Do(context.TODO(), Request{
+			ID:       reqID,
+			Sequence: seqNo,
+			Input:    &mt.PingRequest{PingID: pingID},
+			Output:   &out,
+		}))
+
+		log.Info("Got pong response")
+		assert.Equal(t, mt.Pong{
+			MsgID:  reqID,
+			PingID: pingID,
+		}, out)
+
+		return nil
+	}
+
+	runTest(t, Config{
+		RetryInterval: time.Second * 4,
+		MaxRetries:    2,
+		Clock:         clock,
+		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
+func TestRPCAckWithRetryResult(t *testing.T) {
+	clock := neo.NewTime(defaultNow)
+	observer := clock.Observe()
+	log := zaptest.NewLogger(t)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
+		assert.Equal(t, request{
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
+		log.Info("Got ping request")
+
+		// Make sure that client calls time.After
+		// before time travel.
+		<-observer
+
+		log.Info("Traveling into the future for 6 seconds (simulate request loss)")
+		clock.Travel(time.Second * 6)
+
+		log.Info("Waiting re-sending request")
+		assert.Equal(t, request{
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
+		log.Info("Got ping request")
+
+		var b bin.Buffer
+		if err := b.Encode(&mt.Pong{
+			MsgID:  reqID,
+			PingID: pingID,
+		}); err != nil {
+			return err
+		}
+
+		log.Info("Send pong response")
+		return e.NotifyResult(reqID, &b)
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		log := log.Named("client")
+
+		log.Info("Sending ping request")
 		var out mt.Pong
 		assert.NoError(t, e.Do(context.TODO(), Request{
 			ID:       1,
@@ -238,6 +273,8 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 			Input:    &mt.PingRequest{PingID: pingID},
 			Output:   &out,
 		}))
+
+		log.Info("Got pong response")
 		assert.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
@@ -250,6 +287,7 @@ func TestRPCAckWithRetryResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    5,
 		Clock:         clock,
+		Logger:        log.Named("rpc"),
 	}, server, client)
 }
 

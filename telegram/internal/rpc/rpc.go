@@ -66,6 +66,13 @@ func New(send Send, cfg Config) *Engine {
 	if cfg.Clock == nil {
 		cfg.Clock = systemClock{}
 	}
+
+	cfg.Logger.Info(
+		"init_config",
+		zap.Duration("retry_interval", cfg.RetryInterval),
+		zap.Int("max_retries", cfg.MaxRetries),
+	)
+
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
 		ack: map[int64]func(){},
