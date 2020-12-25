@@ -2,15 +2,15 @@ package telegram
 
 import (
 	"context"
-	"crypto/rand"
 	"errors"
 	"fmt"
 	"io"
-	"math/big"
 	"strconv"
 	"strings"
 
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/internal/crypto"
 )
 
 // NewAuth initializes new authentication flow.
@@ -145,7 +145,7 @@ func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
 func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 5.
 	// The n value is from 0000 to 9999.
-	n, err := rand.Int(randReader, big.NewInt(1000))
+	n, err := crypto.RandInt64n(randReader, 1000)
 	if err != nil {
 		panic(err)
 	}

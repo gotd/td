@@ -4,13 +4,12 @@ import (
 	"context"
 	"math/big"
 
-	"github.com/gotd/td/transport"
-
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/transport"
 )
 
 // nolint:gocognit,gocyclo // TODO(tdakkota): simplify
@@ -36,6 +35,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 		return crypto.AuthKeyWithID{}, xerrors.Errorf("failed to generate pq: %w", err)
 	}
 
+	s.log.Debug("send pq")
 	if err := s.writeUnencrypted(ctx, conn, &mt.ResPQ{
 		Pq:          pq.Bytes(),
 		Nonce:       pqReq.Nonce,
@@ -55,6 +55,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 	if err := s.readUnencrypted(ctx, conn, &dhParams); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
+	s.log.Debug("received client DH params request")
 
 	var b bin.Buffer
 	b.Put(crypto.RSADecryptHashed(dhParams.EncryptedData, s.key))
@@ -97,6 +98,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 		return crypto.AuthKeyWithID{}, err
 	}
 
+	s.log.Debug("send server DH params")
 	// 5. Server responds with Server_DH_Params.
 	if err := s.writeUnencrypted(ctx, conn, &mt.ServerDHParamsOk{
 		Nonce:           pqReq.Nonce,
@@ -110,6 +112,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 	if err := s.readUnencrypted(ctx, conn, &clientDhParams); err != nil {
 		return crypto.AuthKeyWithID{}, err
 	}
+	s.log.Debug("received client DH params")
 
 	decrypted, err := crypto.DecryptExchangeAnswer(clientDhParams.EncryptedData, key, iv)
 	if err != nil {
@@ -131,6 +134,7 @@ func (s *Server) exchange(ctx context.Context, r *bin.Buffer, conn transport.Con
 	// 8. Server responds in one of three ways:
 	// dh_gen_ok#3bcbf734 nonce:int128 server_nonce:int128
 	// 	new_nonce_hash1:int128 = Set_client_DH_params_answer;
+	s.log.Debug("send server nonce_hash1")
 	if err := s.writeUnencrypted(ctx, conn, &mt.DhGenOk{
 		Nonce:         pqReq.Nonce,
 		ServerNonce:   serverNonce,

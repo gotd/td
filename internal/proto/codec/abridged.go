@@ -54,6 +54,10 @@ func (i Abridged) Write(w io.Writer, b *bin.Buffer) error {
 		return err
 	}
 
+	if err := checkAlign(b, 4); err != nil {
+		return err
+	}
+
 	if err := writeAbridged(w, b); err != nil {
 		return xerrors.Errorf("write abridged: %w", err)
 	}

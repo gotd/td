@@ -62,7 +62,7 @@ func (i Intermediate) Write(w io.Writer, b *bin.Buffer) error {
 
 // Read fills buffer with received message.
 func (i Intermediate) Read(r io.Reader, b *bin.Buffer) error {
-	if err := readIntermediate(r, b); err != nil {
+	if err := readIntermediate(r, b, false); err != nil {
 		return xerrors.Errorf("read intermediate: %w", err)
 	}
 
@@ -89,7 +89,7 @@ func writeIntermediate(w io.Writer, b *bin.Buffer) error {
 }
 
 // readIntermediate reads payload from r to b.
-func readIntermediate(r io.Reader, b *bin.Buffer) error {
+func readIntermediate(r io.Reader, b *bin.Buffer, padding bool) error {
 	n, err := readLen(r, b)
 	if err != nil {
 		return err
@@ -98,6 +98,11 @@ func readIntermediate(r io.Reader, b *bin.Buffer) error {
 	b.ResetN(n)
 	if _, err := io.ReadFull(r, b.Buf); err != nil {
 		return fmt.Errorf("failed to read payload: %w", err)
+	}
+
+	if padding {
+		paddingLength := n % 4
+		b.Buf = b.Buf[:n-paddingLength]
 	}
 
 	return nil

@@ -9,12 +9,12 @@ import (
 	"net"
 	"time"
 
+	"go.uber.org/zap"
+
 	"github.com/gotd/td/bin"
-
-	"github.com/gotd/td/transport"
-
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/transport"
 )
 
 type Server struct {
@@ -27,6 +27,7 @@ type Server struct {
 	clock  func() time.Time
 	ctx    context.Context
 	cancel context.CancelFunc
+	log    *zap.Logger
 
 	users *users
 }
@@ -39,9 +40,13 @@ func (s *Server) Addr() net.Addr {
 	return s.server.Addr()
 }
 
+func (s *Server) Serve() error {
+	return s.serve()
+}
+
 func (s *Server) Start() {
 	go func() {
-		_ = s.serve()
+		_ = s.Serve()
 	}()
 }
 
@@ -53,20 +58,20 @@ func (s *Server) Close() {
 	_ = s.server.Close()
 }
 
-func NewServer(ctx context.Context, codec func() transport.Codec, h Handler) *Server {
-	s := NewUnstartedServer(ctx, codec)
+func NewServer(suite Suite, codec func() transport.Codec, h Handler) *Server {
+	s := NewUnstartedServer(suite, codec)
 	s.SetHandler(h)
 	s.Start()
 	return s
 }
 
-func NewUnstartedServer(ctx context.Context, codec func() transport.Codec) *Server {
+func NewUnstartedServer(suite Suite, codec func() transport.Codec) *Server {
 	k, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel := context.WithCancel(suite.Ctx)
 	s := &Server{
 		server: transport.NewCustomServer(codec, newLocalListener()),
 		key:    k,
@@ -74,6 +79,7 @@ func NewUnstartedServer(ctx context.Context, codec func() transport.Codec) *Serv
 		clock:  time.Now,
 		ctx:    ctx,
 		cancel: cancel,
+		log:    suite.Log.Named("server"),
 		users:  newUsers(),
 	}
 	return s
