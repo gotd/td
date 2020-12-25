@@ -38,6 +38,10 @@ func TestShouldReconnect(t *testing.T) {
 				Err:     syscall.EBADMSG,
 				Syscall: "read",
 			}),
+			xerrors.Errorf("bad: %w", &os.SyscallError{
+				Err:     syscall.EPIPE,
+				Syscall: "bad",
+			}),
 		} {
 			assert.False(t, shouldReconnect(err), "should not reconnect on %v", err)
 		}
