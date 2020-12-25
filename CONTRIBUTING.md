@@ -2,7 +2,7 @@
 
 This project uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-Before creating pull request, please read [coding guidelines](https://wiki.crdb.io/wiki/spaces/CRDB/pages/181371303/Go+coding+guidelines) and
+Before creating pull request, please read [coding guidelines](https://github.com/uber-go/guide/blob/master/style.md) and
 follow some existing [pull requests](https://github.com/gotd/td/pulls).
 
 General tradeoffs:
@@ -53,3 +53,38 @@ Now you can start fuzzer locally:
 $ make fuzz_telegram
 ```
 Please refer to [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz) for advanced usage.
+
+
+## Coding guidance
+
+Please read [Uber code style](https://github.com/uber-go/guide/blob/master/style.md).
+
+### Newlines
+
+Don't move first argument to next line if it is not grouped
+with other arguments.
+
+<table>
+<thead><tr><th>Bad</th><th>Good</th></tr></thead>
+<tbody>
+<tr><td>
+
+```go
+log.Info(
+    "init_config",
+    zap.Duration("retry_interval", cfg.RetryInterval),
+    zap.Int("max_retries", cfg.MaxRetries),
+)
+```
+
+</td><td>
+
+```go
+log.Info("init_config",
+    zap.Duration("retry_interval", cfg.RetryInterval),
+    zap.Int("max_retries", cfg.MaxRetries),
+)
+```
+
+</td></tr>
+</tbody></table>
