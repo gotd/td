@@ -59,10 +59,10 @@ Please refer to [dvyukov/go-fuzz](https://github.com/dvyukov/go-fuzz) for advanc
 Please test that hot paths are not allocating too much.
 ```go
 func TestBuffer_ResetN(t *testing.T) {
-	var b Buffer
-	require.Zero(t, testing.AllocsPerRun(100, func() {
-		b.ResetN(1024)
-	}))
+    var b Buffer
+    testutil.ZeroAlloc(t, func() {
+        b.ResetN(1024)
+    })
 }
 ```
 

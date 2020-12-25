@@ -4,6 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/testutil"
 )
 
 func TestExpandReset(t *testing.T) {
@@ -35,7 +37,7 @@ func TestCopy(t *testing.T) {
 
 func TestBuffer_ResetN(t *testing.T) {
 	var b Buffer
-	require.Zero(t, testing.AllocsPerRun(100, func() {
+	testutil.ZeroAlloc(t, func() {
 		b.ResetN(1024)
-	}))
+	})
 }
