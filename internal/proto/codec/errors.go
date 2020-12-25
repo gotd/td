@@ -37,8 +37,16 @@ const maxMessageSize = 1024 * 1024 // 1mb
 
 func checkOutgoingMessage(b *bin.Buffer) error {
 	length := b.Len()
-	if length > maxMessageSize {
+	if length > maxMessageSize || length == 0 {
 		return invalidMsgLenErr{n: length}
+	}
+	return nil
+}
+
+func checkAlign(b *bin.Buffer, n int) error {
+	length := b.Len()
+	if length%n != 0 {
+		return alignedPayloadExpectedErr{expected: n}
 	}
 	return nil
 }
@@ -52,6 +60,19 @@ func checkProtocolError(b *bin.Buffer) error {
 		return err
 	}
 	return &ProtocolErr{Code: -code}
+}
+
+type alignedPayloadExpectedErr struct {
+	expected int
+}
+
+func (e alignedPayloadExpectedErr) Error() string {
+	return fmt.Sprintf("payload is not aligned, expected align by %d", e.expected)
+}
+
+func (e alignedPayloadExpectedErr) Is(err error) bool {
+	_, ok := err.(alignedPayloadExpectedErr)
+	return ok
 }
 
 type invalidMsgLenErr struct {

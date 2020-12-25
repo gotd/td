@@ -54,6 +54,10 @@ func (i PaddedIntermediate) Write(w io.Writer, b *bin.Buffer) error {
 		return err
 	}
 
+	if err := checkAlign(b, 4); err != nil {
+		return err
+	}
+
 	if err := writePaddedIntermediate(rand.Reader, w, b); err != nil {
 		return xerrors.Errorf("write padded intermediate: %w", err)
 	}
@@ -92,7 +96,7 @@ func writePaddedIntermediate(randSource io.Reader, w io.Writer, b *bin.Buffer) e
 }
 
 func readPaddedIntermediate(r io.Reader, b *bin.Buffer) error {
-	if err := readIntermediate(r, b); err != nil {
+	if err := readIntermediate(r, b, true); err != nil {
 		return err
 	}
 

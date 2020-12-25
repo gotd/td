@@ -148,13 +148,27 @@ type MTProxyObfuscated2 struct {
 	Codec  TaggedCodec
 	DC     int
 	Secret []byte
+	Rand   io.Reader
 	obs    obfuscated2
+}
+
+func (o *MTProxyObfuscated2) generateKeys() error {
+	if o.Rand == nil {
+		o.Rand = rand.Reader
+	}
+
+	obs, err := generateKeys(o.Rand, o.Secret, o.Codec.ObfuscatedTag(), o.DC)
+	if err != nil {
+		return err
+	}
+	o.obs = obs
+
+	return nil
 }
 
 // WriteHeader sends protocol tag.
 func (o *MTProxyObfuscated2) WriteHeader(w io.Writer) (err error) {
-	o.obs, err = generateKeys(rand.Reader, o.Secret, o.Codec.ObfuscatedTag(), o.DC)
-	if err != nil {
+	if err := o.generateKeys(); err != nil {
 		return err
 	}
 
