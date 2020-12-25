@@ -4,7 +4,6 @@ package rpc
 import (
 	"context"
 	"errors"
-	"fmt"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -14,23 +13,6 @@ import (
 
 	"github.com/gotd/td/bin"
 )
-
-// Clock abstracts temporal effects.
-type Clock interface {
-	After(d time.Duration) <-chan time.Time
-}
-
-// Config of rpc engine.
-type Config struct {
-	RetryInterval time.Duration
-	MaxRetries    int
-	Logger        *zap.Logger
-	Clock         Clock
-}
-
-type systemClock struct{}
-
-func (systemClock) After(d time.Duration) <-chan time.Time { return time.After(d) }
 
 // Engine handles RPC requests.
 type Engine struct {
@@ -54,18 +36,7 @@ func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) erro
 
 // New creates new rpc Engine.
 func New(send Send, cfg Config) *Engine {
-	if cfg.RetryInterval == 0 {
-		cfg.RetryInterval = time.Second * 10
-	}
-	if cfg.MaxRetries == 0 {
-		cfg.MaxRetries = 5
-	}
-	if cfg.Logger == nil {
-		cfg.Logger = zap.NewNop()
-	}
-	if cfg.Clock == nil {
-		cfg.Clock = systemClock{}
-	}
+	cfg.setDefaults()
 
 	cfg.Logger.Info(
 		"init_config",
@@ -168,22 +139,6 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	case <-done:
 		return resultErr
 	}
-}
-
-// RetryLimitReachedErr means that server does not acknowledge request
-// after multiple retries.
-type RetryLimitReachedErr struct {
-	Retries int
-}
-
-func (r *RetryLimitReachedErr) Error() string {
-	return fmt.Sprintf("retry limit reached after %d attempts", r.Retries)
-}
-
-// Is reports whether err is RetryLimitReachedErr.
-func (r *RetryLimitReachedErr) Is(err error) bool {
-	_, ok := err.(*RetryLimitReachedErr)
-	return ok
 }
 
 // retryUntilAck resends the request to the server until request is
