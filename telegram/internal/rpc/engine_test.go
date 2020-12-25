@@ -323,4 +323,6 @@ func runTest(
 	g.Go(func() error { return client(t, e) })
 
 	assert.NoError(t, g.Wait())
+	e.Close()
+	assert.NoError(t, cfg.Logger.Sync())
 }
