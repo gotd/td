@@ -64,6 +64,14 @@ func TestBuffer_ResetN(t *testing.T) {
         b.ResetN(1024)
     })
 }
+
+func TestAllocs(t *testing.T) {
+    const allocThreshold = 512
+
+    testutil.MaxAlloc(t, allocThreshold, func() {
+        _ = c.handleMessage(&bin.Buffer{Buf: data})
+    })
+}
 ```
 
 ## Coding guidance
