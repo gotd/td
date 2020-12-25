@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"net"
 	"sync/atomic"
 
@@ -136,6 +135,15 @@ func (c *Client) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMess
 	return msg, nil
 }
 
+func (c *Client) isDone() bool {
+	select {
+	case <-c.ctx.Done():
+		return true
+	default:
+		return false
+	}
+}
+
 func (c *Client) readLoop(ctx context.Context) {
 	b := new(bin.Buffer)
 	log := c.log.Named("read")
@@ -153,9 +161,11 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		if errors.Is(err, io.EOF) {
-			// Nothing was received.
-			// TODO(ernado): also check ctx done
+		if shouldReconnect(err) {
+			if c.isDone() {
+				// Ignoring connection error after client close.
+				return
+			}
 			if err := c.reconnect(); err != nil {
 				c.log.With(zap.Error(err)).Error("Failed to reconnect")
 			}
@@ -182,14 +192,13 @@ func (c *Client) readLoop(ctx context.Context) {
 			continue
 		}
 
-		select {
-		case <-ctx.Done():
+		if c.isDone() {
 			c.log.Debug("Read loop done (closing)")
 			return
-		default:
-			// Notifying about possible errors.
-			log.With(zap.Error(err)).Error("Read returned error")
 		}
+
+		// Notifying about unhandled errors.
+		log.With(zap.Error(err)).Error("Read returned error")
 	}
 }
 
