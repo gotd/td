@@ -51,11 +51,14 @@ func (c *Client) handleUnknown(b *bin.Buffer) error {
 }
 
 func (c *Client) handleMessage(b *bin.Buffer) error {
+	c.trace.Message(b)
+
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
+
 	typeStr := "unknown"
 	if s := c.types.Get(id); s != "" {
 		typeStr = s
@@ -64,6 +67,7 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 		zap.String("type_id", fmt.Sprintf("0x%x", id)),
 		zap.String("type_str", typeStr),
 	).Debug("HandleMessage")
+
 	switch id {
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)

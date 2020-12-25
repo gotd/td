@@ -41,6 +41,18 @@ const (
 	TestAppHash = "344583e45741c457fe1862106095a5eb"
 )
 
+type tracer struct {
+	// OnMessage is called on every incoming message if set.
+	OnMessage func(b *bin.Buffer)
+}
+
+func (t tracer) Message(b *bin.Buffer) {
+	if t.OnMessage == nil {
+		return
+	}
+	t.OnMessage(b)
+}
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
@@ -51,6 +63,7 @@ type Client struct {
 	conn      transport.Conn
 	connMux   sync.RWMutex
 	addr      string
+	trace     tracer
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
