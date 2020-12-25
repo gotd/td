@@ -40,9 +40,13 @@ func (s *Server) Addr() net.Addr {
 	return s.server.Addr()
 }
 
+func (s *Server) Serve() error {
+	return s.serve()
+}
+
 func (s *Server) Start() {
 	go func() {
-		_ = s.serve()
+		_ = s.Serve()
 	}()
 }
 

@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -26,53 +27,61 @@ func testTransport(trp Transport) func(t *testing.T) {
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
+		g, gctx := errgroup.WithContext(ctx)
 
 		testMessage := "ну че там с деньгами?"
-		suite := tgtest.NewSuite(ctx, t, log)
+		suite := tgtest.NewSuite(gctx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
-		srv.Start()
-		defer srv.Close()
-
-		dispatcher := tg.NewUpdateDispatcher()
-		clientLogger := log.Named("client")
-		client := NewClient(1, "hash", Options{
-			PublicKeys:    []*rsa.PublicKey{srv.Key()},
-			Addr:          srv.Addr().String(),
-			Transport:     trp,
-			Logger:        clientLogger,
-			UpdateHandler: dispatcher.Handle,
-			AckBatchSize:  1,
-			AckInterval:   time.Millisecond * 50,
-			RetryInterval: time.Millisecond * 50,
+		g.Go(func() error {
+			defer srv.Close()
+			return srv.Serve()
 		})
 
-		wait := make(chan struct{})
-		dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
-			message := update.Message.(*tg.Message).Message
-			clientLogger.With(zap.String("message", message)).
-				Info("got message")
-			require.Equal(t, testMessage, message)
-
-			err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-				Peer:    &tg.InputPeerUser{},
-				Message: "какими деньгами?",
+		g.Go(func() error {
+			dispatcher := tg.NewUpdateDispatcher()
+			clientLogger := log.Named("client")
+			client := NewClient(1, "hash", Options{
+				PublicKeys:    []*rsa.PublicKey{srv.Key()},
+				Addr:          srv.Addr().String(),
+				Transport:     trp,
+				Logger:        clientLogger,
+				UpdateHandler: dispatcher.Handle,
+				AckBatchSize:  1,
+				AckInterval:   time.Millisecond * 50,
+				RetryInterval: time.Millisecond * 50,
 			})
-			if err != nil {
+
+			wait := make(chan struct{})
+			dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+				message := update.Message.(*tg.Message).Message
+				clientLogger.With(zap.String("message", message)).
+					Info("got message")
+				require.Equal(t, testMessage, message)
+
+				err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+					Peer:    &tg.InputPeerUser{},
+					Message: "какими деньгами?",
+				})
+				if err != nil {
+					return err
+				}
+
+				close(wait)
+				return nil
+			})
+
+			if err := client.Connect(ctx); err != nil {
 				return err
 			}
+			<-wait
 
-			wait <- struct{}{}
+			srv.Close()
 			return client.Close()
 		})
 
-		err := client.Connect(ctx)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		<-wait
+		_ = g.Wait()
 	}
 }
 
