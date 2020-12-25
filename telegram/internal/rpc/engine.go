@@ -154,14 +154,13 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 //
 // Returns nil if acknowledge was received or error otherwise.
 func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
-	e.wg.Add(2)
-	defer e.wg.Done()
-
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	done := make(chan struct{})
 	var err error
+
+	e.wg.Add(1)
 	go func() {
 		defer e.wg.Done()
 		err = e.waitAck(ctx, req.ID)
