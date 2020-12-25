@@ -13,6 +13,7 @@ require (
 	github.com/gotd/neo v0.1.1
 	github.com/gotd/tl v0.3.0
 	github.com/gotd/xor v0.1.1
+	github.com/k0kubun/pp v2.4.0+incompatible
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.16.0

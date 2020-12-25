@@ -3,19 +3,15 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/tg"
+	"github.com/gotd/td/internal/proto/codec"
 )
 
 func main() {
 	inputName := flag.String("f", "", "input file (blank for stdin)")
+	format := flag.String("format", "go", "print format")
 	flag.Parse()
 
 	var reader io.Reader = os.Stdin
@@ -28,30 +24,8 @@ func main() {
 		reader = f
 	}
 
-	// TODO: Streaming mode via intermediate protocol.
-	buf, err := ioutil.ReadAll(reader)
-	if err != nil {
+	p := NewPrinter(reader, formats(*format), codec.Intermediate{})
+	if err := p.Print(os.Stdout); err != nil {
 		panic(err)
 	}
-
-	b := &bin.Buffer{Buf: buf}
-	id, err := b.PeekID()
-	if err != nil {
-		panic(err)
-	}
-
-	c := tmap.NewConstructor(
-		tg.TypesConstructorMap(),
-		mt.TypesConstructorMap(),
-	)
-	v := c.New(id)
-	if v == nil {
-		panic(fmt.Sprintf("failed to find type 0x%x", id))
-	}
-
-	if err := v.Decode(b); err != nil {
-		panic(err)
-	}
-
-	fmt.Print(v)
 }
