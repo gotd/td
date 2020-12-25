@@ -25,6 +25,9 @@ type Engine struct {
 	log           *zap.Logger
 	retryInterval time.Duration
 	maxRetries    int
+
+	wg     sync.WaitGroup
+	closed uint32
 }
 
 // Send is a function that sends requests to the server.
@@ -66,6 +69,13 @@ type Request struct {
 // Do sends request to server and blocks until response is received, performing
 // multiple retries if needed.
 func (e *Engine) Do(ctx context.Context, req Request) error {
+	if e.isClosed() {
+		return ErrEngineClosed
+	}
+
+	e.wg.Add(1)
+	defer e.wg.Done()
+
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
@@ -149,7 +159,10 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 
 	done := make(chan struct{})
 	var err error
+
+	e.wg.Add(1)
 	go func() {
+		defer e.wg.Done()
 		err = e.waitAck(ctx, req.ID)
 		close(done)
 	}()
@@ -213,4 +226,16 @@ func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 
 	// Callback with rpcError always return nil.
 	_ = fn(nil, rpcErr)
+}
+
+func (e *Engine) isClosed() bool {
+	return atomic.LoadUint32(&e.closed) == 1
+}
+
+// Close closes the engine.
+// All Do method calls of closed engine will return ErrEngineClosed error.
+func (e *Engine) Close() {
+	atomic.StoreUint32(&e.closed, 1)
+	e.log.Info("Close called")
+	e.wg.Wait()
 }

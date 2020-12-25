@@ -4,6 +4,8 @@ package telegram
 func (c *Client) Close() error {
 	c.cancel()
 
+	c.rpc.Close()
+
 	c.connMux.RLock()
 	defer c.connMux.RUnlock()
 	if err := c.conn.Close(); err != nil {
