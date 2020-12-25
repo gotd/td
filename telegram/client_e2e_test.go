@@ -10,7 +10,6 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 
 	"github.com/gotd/td/bin"
@@ -24,7 +23,7 @@ import (
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
-		log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.DebugLevel))
+		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
 		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
@@ -78,12 +77,10 @@ func testTransport(trp Transport) func(t *testing.T) {
 }
 
 func TestClient(t *testing.T) {
-	for range [10]struct{}{} {
-		t.Run("Abridged", testTransport(transport.Abridged(nil)))
-		t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
-		t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
-		t.Run("Full", testTransport(transport.Full(nil)))
-	}
+	t.Run("Abridged", testTransport(transport.Abridged(nil)))
+	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
+	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
+	t.Run("Full", testTransport(transport.Full(nil)))
 }
 
 type syncHashSet struct {
@@ -112,7 +109,7 @@ func testReconnect(trp Transport) func(t *testing.T) {
 	testMessage := "какими деньгами?"
 	return func(t *testing.T) {
 		t.Helper()
-		log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.DebugLevel))
+		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
 		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
