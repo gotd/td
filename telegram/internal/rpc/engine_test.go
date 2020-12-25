@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"errors"
+	"sync"
 	"testing"
 	"time"
 
@@ -9,6 +10,7 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
@@ -287,6 +289,77 @@ func TestRPCWithRetryResult(t *testing.T) {
 		RetryInterval: time.Second * 4,
 		MaxRetries:    5,
 		Clock:         clock,
+		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
+func TestEngineGracefulShutdown(t *testing.T) {
+	var (
+		log             = zaptest.NewLogger(t)
+		expectedErr     = xerrors.New("server side error")
+		requestsCount   = 10
+		serverRecv      sync.WaitGroup
+		canSendResponse sync.Mutex
+	)
+
+	serverRecv.Add(requestsCount)
+	canSendResponse.Lock()
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		log := log.Named("server")
+
+		var batch []request
+		for i := 0; i < requestsCount; i++ {
+			batch = append(batch, <-incoming)
+			serverRecv.Done()
+		}
+		e.log.Info("Got all requests")
+
+		canSendResponse.Lock()
+		e.log.Info("Sending responses")
+		for _, req := range batch {
+			log.Info("send response")
+			e.NotifyError(req.MsgID, expectedErr)
+		}
+		canSendResponse.Unlock()
+
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		var (
+			msgID int64
+			seqNo int32
+		)
+
+		for i := 0; i < requestsCount; i++ {
+			go func(t *testing.T, msgID int64, seqNo int32) {
+				var out mt.Pong
+				assert.Equal(t, e.Do(context.TODO(), Request{
+					ID:       msgID,
+					Sequence: seqNo,
+					Input:    &mt.PingRequest{PingID: pingID},
+					Output:   &out,
+				}), expectedErr)
+			}(t, msgID, seqNo)
+
+			msgID++
+			seqNo++
+		}
+
+		// wait until server receive all requests
+		serverRecv.Wait()
+		// allow server to send responses
+		canSendResponse.Unlock()
+		// close the engine
+		e.Close()
+
+		return nil
+	}
+
+	runTest(t, Config{
+		RetryInterval: time.Second * 5,
+		MaxRetries:    5,
 		Logger:        log.Named("rpc"),
 	}, server, client)
 }
