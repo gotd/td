@@ -8,15 +8,14 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zaptest"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
-
-	"github.com/stretchr/testify/require"
-
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -25,7 +24,8 @@ import (
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		t.Helper()
-		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
+		log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.DebugLevel))
+		defer func() { _ = log.Sync() }()
 
 		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
 		defer cancel()
@@ -78,10 +78,12 @@ func testTransport(trp Transport) func(t *testing.T) {
 }
 
 func TestClient(t *testing.T) {
-	t.Run("Abridged", testTransport(transport.Abridged(nil)))
-	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
-	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
-	t.Run("Full", testTransport(transport.Full(nil)))
+	for range [10]struct{}{} {
+		t.Run("Abridged", testTransport(transport.Abridged(nil)))
+		t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
+		t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
+		t.Run("Full", testTransport(transport.Full(nil)))
+	}
 }
 
 type syncHashSet struct {
@@ -110,12 +112,13 @@ func testReconnect(trp Transport) func(t *testing.T) {
 	testMessage := "какими деньгами?"
 	return func(t *testing.T) {
 		t.Helper()
-		log, _ := zap.NewDevelopment(zap.IncreaseLevel(zapcore.DebugLevel))
+		log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.DebugLevel))
+		defer func() { _ = log.Sync() }()
 
 		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
 		defer cancel()
 
-		srv := tgtest.NewUnstartedServer(ctx, trp.Codec)
+		srv := tgtest.NewUnstartedServer(tgtest.NewSuite(ctx, t, log), trp.Codec)
 
 		alreadyConnected := newSyncHashSet()
 		wait := make(chan struct{})

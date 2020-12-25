@@ -31,7 +31,7 @@ type testTransportHandler struct {
 }
 
 func TestTransport(s Suite, message string, codec func() transport.Codec) *Server {
-	srv := NewUnstartedServer(s.Ctx, codec)
+	srv := NewUnstartedServer(s, codec)
 	h := testTransport(s, srv, message)
 	srv.SetHandler(h)
 
@@ -42,7 +42,7 @@ func testTransport(s Suite, server *Server, message string) *testTransportHandle
 	return &testTransportHandler{
 		server:  server,
 		t:       s.TB,
-		logger:  s.Log.Named("server"),
+		logger:  s.Log.Named("handler"),
 		message: message,
 		types: tmap.New(
 			mt.TypesMap(),

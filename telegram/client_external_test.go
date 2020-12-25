@@ -66,7 +66,10 @@ func TestMTProxy(t *testing.T) {
 		t.Fatal("secret parsing failed", err)
 	}
 
-	trp := transport.MTProxy(nil, 2, secret)
+	trp, err := transport.MTProxy(nil, 2, secret)
+	if err != nil {
+		t.Fatal("secret invalid", err)
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()

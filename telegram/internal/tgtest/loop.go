@@ -44,6 +44,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			AuthKeyWithID: key,
 		}
 		if !conn.didSentCreated() {
+			s.log.Debug("send handleSessionCreated event")
 			salt := int64(binary.LittleEndian.Uint64(key.AuthKeyID[:]))
 			if err := s.sendSessionCreated(session, salt); err != nil {
 				return err
@@ -61,6 +62,8 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 }
 
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
+	s.log.Debug("user connected")
+
 	var k crypto.AuthKeyWithID
 	defer func() {
 		s.users.deleteConnection(k)
@@ -79,11 +82,14 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 
 	k, ok := s.users.getSession(authKeyID)
 	if !ok {
+		s.log.Debug("starting key exchange")
 		k, err = s.exchange(ctx, b, conn)
 		if err != nil {
 			return xerrors.Errorf("key exchange failed: %w", err)
 		}
 		s.users.addSession(k)
+	} else {
+		s.log.Debug("session already created, skip key exchange")
 	}
 	wrappedConn := &connection{
 		Conn: conn,
