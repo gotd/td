@@ -22,34 +22,34 @@ func (c *Client) createAuthKey(ctx context.Context) error {
 	// 1. DH exchange initiation.
 	nonce, err := crypto.RandInt128(c.rand)
 	if err != nil {
-		return err
+		return xerrors.Errorf("client nonce generation: %w", err)
 	}
 	b := new(bin.Buffer)
 	if err := c.newUnencryptedMessage(&mt.ReqPqMultiRequest{Nonce: nonce}, b); err != nil {
 		return err
 	}
 	if err := c.conn.Send(ctx, b); err != nil {
-		return xerrors.Errorf("failed to write request: %w", err)
+		return xerrors.Errorf("write ReqPqMultiRequest: %w", err)
 	}
 	b.Reset()
 
 	// 2. Server sends response of the form
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
 	if err := c.conn.Recv(ctx, b); err != nil {
-		return xerrors.Errorf("failed to read response: %w", err)
+		return xerrors.Errorf("read ResPQ message: %w", err)
 	}
 	plaintextMsg := proto.UnencryptedMessage{}
 	if err := plaintextMsg.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode response: %w", err)
+		return xerrors.Errorf("decode ResPQ message: %w", err)
 	}
 
 	b.ResetTo(plaintextMsg.MessageData)
 	res := mt.ResPQ{}
 	if err := res.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode response: %w", err)
+		return err
 	}
 	if res.Nonce != nonce {
-		return xerrors.New("nonce mismatch")
+		return xerrors.New("ResPQ nonce mismatch")
 	}
 
 	// Selecting first public key that match fingerprint.
@@ -80,7 +80,7 @@ Loop:
 	// Performing proof of work.
 	p, q, err := crypto.DecomposePQ(pq, c.rand)
 	if err != nil {
-		return xerrors.Errorf("failed to decompose pq: %w", err)
+		return xerrors.Errorf("decompose pq: %w", err)
 	}
 
 	// 4. Client sends query to server.
@@ -88,7 +88,7 @@ Loop:
 	//   public_key_fingerprint:long encrypted_data:string = Server_DH_Params
 	newNonce, err := crypto.RandInt256(c.rand)
 	if err != nil {
-		return xerrors.Errorf("failed to generate new nonce: %w", err)
+		return xerrors.Errorf("generate new nonce: %w", err)
 	}
 	pqInnerData := &mt.PQInnerData{
 		Pq:          pq.Bytes(),
@@ -105,7 +105,7 @@ Loop:
 	// `encrypted_data := RSA (data_with_hash, server_public_key);`
 	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
 	if err != nil {
-		return err
+		return xerrors.Errorf("encrypted_data generation: %w", err)
 	}
 	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
@@ -119,41 +119,41 @@ Loop:
 		return err
 	}
 	if err := c.conn.Send(ctx, b); err != nil {
-		return xerrors.Errorf("failed to write request: %w", err)
+		return xerrors.Errorf("write ReqDHParamsRequest: %w", err)
 	}
 	b.Reset()
 
 	// 5. Server responds with Server_DH_Params.
 	if err := c.conn.Recv(ctx, b); err != nil {
-		return xerrors.Errorf("failed to read response: %w", err)
+		return xerrors.Errorf("read ServerDHParams message: %w", err)
 	}
 	if err := plaintextMsg.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode response: %w", err)
+		return xerrors.Errorf("decode ServerDHParams message: %w", err)
 	}
 
 	b.ResetTo(plaintextMsg.MessageData)
 	dhParams, err := mt.DecodeServerDHParams(b)
 	if err != nil {
-		return xerrors.Errorf("failed to decode Server_DH_Params: %w", err)
+		return err
 	}
 	switch p := dhParams.(type) {
 	case *mt.ServerDHParamsOk:
 		// Success.
 		if p.Nonce != nonce {
-			return xerrors.New("nonce mismatch")
+			return xerrors.New("ServerDHParamsOk nonce mismatch")
 		}
 
 		key, iv := crypto.TempAESKeys(newNonce.BigInt(), res.ServerNonce.BigInt())
 		// Decrypting inner data.
 		data, err := crypto.DecryptExchangeAnswer(p.EncryptedAnswer, key, iv)
 		if err != nil {
-			return err
+			return xerrors.Errorf("exchange answer decrypt: %w", err)
 		}
 		b.ResetTo(data)
 
 		innerData := mt.ServerDHInnerData{}
 		if err := innerData.Decode(b); err != nil {
-			return xerrors.Errorf("failed to decode server DH inner data: %w", err)
+			return err
 		}
 
 		dhPrime := big.NewInt(0).SetBytes(innerData.DhPrime)
@@ -164,7 +164,7 @@ Loop:
 		randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
 		bParam, err := rand.Int(c.rand, randMax)
 		if err != nil {
-			return err
+			return xerrors.Errorf("number b generation: %w", err)
 		}
 		// g_b = g^b mod dh_prime
 		gB := big.NewInt(0).Exp(g, bParam, dhPrime)
@@ -187,7 +187,7 @@ Loop:
 		}
 		clientEncrypted, err := crypto.EncryptExchangeAnswer(c.rand, b.Buf, key, iv)
 		if err != nil {
-			return err
+			return xerrors.Errorf("exchange answer encrypt: %w", err)
 		}
 
 		setParamsReq := &mt.SetClientDHParamsRequest{
@@ -200,7 +200,7 @@ Loop:
 			return err
 		}
 		if err := c.conn.Send(ctx, b); err != nil {
-			return err
+			return xerrors.Errorf("write SetClientDHParamsRequest: %w", err)
 		}
 
 		// 7. Computing auth_key using formula (g_a)^b mod dh_prime
@@ -208,15 +208,15 @@ Loop:
 
 		b.Reset()
 		if err := c.conn.Recv(ctx, b); err != nil {
-			return xerrors.Errorf("failed to read response: %w", err)
+			return xerrors.Errorf("read DhGenOk message: %w", err)
 		}
 		if err := plaintextMsg.Decode(b); err != nil {
-			return xerrors.Errorf("failed to decode response: %w", err)
+			return xerrors.Errorf("decode DhGenOk message: %w", err)
 		}
 		b.ResetTo(plaintextMsg.MessageData)
 		dhSetRes, err := mt.DecodeSetClientDHParamsAnswer(b)
 		if err != nil {
-			return xerrors.Errorf("failed to decode answer: %w", err)
+			return xerrors.Errorf("decode DhGenOk answer: %w", err)
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
