@@ -76,6 +76,7 @@ func (s *structDef) fillFromClass(class classBinding) {
 type bindingDef struct {
 	HexID string // id in hex
 	Raw   string // raw tl type
+	Name  string // go type
 }
 
 func (g *Generator) docStruct(k string) getdoc.Constructor {
@@ -204,6 +205,7 @@ func (g *Generator) makeStructures() error {
 		g.registry = append(g.registry, bindingDef{
 			HexID: s.HexID,
 			Raw:   s.RawType,
+			Name:  s.Name,
 		})
 	}
 
