@@ -1,4 +1,3 @@
-// Package rpc implements rpc engine.
 package rpc
 
 import (
@@ -38,8 +37,7 @@ func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) erro
 func New(send Send, cfg Config) *Engine {
 	cfg.setDefaults()
 
-	cfg.Logger.Info(
-		"init_config",
+	cfg.Logger.Info("init_config",
 		zap.Duration("retry_interval", cfg.RetryInterval),
 		zap.Int("max_retries", cfg.MaxRetries),
 	)
