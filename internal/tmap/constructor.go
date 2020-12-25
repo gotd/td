@@ -2,6 +2,7 @@ package tmap
 
 import "github.com/gotd/td/bin"
 
+// Constructor maps type id to type constructor.
 type Constructor struct {
 	types map[uint32]func() bin.Object
 }

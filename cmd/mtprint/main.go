@@ -20,7 +20,7 @@ func main() {
 		panic("no file provided")
 	}
 
-	buf, err := ioutil.ReadFile(name)
+	buf, err := ioutil.ReadFile(name) // #nosec
 	if err != nil {
 		panic(err)
 	}
