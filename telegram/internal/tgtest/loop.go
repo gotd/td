@@ -91,8 +91,11 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 
 	k, ok := s.users.getSession(authKeyID)
 	if !ok {
+		conn := NewBufferedConn(conn)
+		conn.Push(b)
+
 		s.log.Debug("starting key exchange")
-		k, err = s.exchange(ctx, b, conn)
+		k, err = s.exchange(ctx, conn)
 		if err != nil {
 			return xerrors.Errorf("key exchange failed: %w", err)
 		}
