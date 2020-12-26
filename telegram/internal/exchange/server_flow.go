@@ -16,21 +16,14 @@ import (
 // Run runs server-side flow.
 // If b parameter is not nil, it will be used as first read message.
 // Otherwise, it will be read from connection.
-func (s ServerExchange) Run(ctx context.Context, b *bin.Buffer) (ServerExchangeResult, error) {
+func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMultiRequest
-
-	if b != nil {
-		if err := s.decodeUnencrypted(b, &pqReq); err != nil {
-			return ServerExchangeResult{}, err
-		}
-	} else {
-		b = new(bin.Buffer)
-		if err := s.readUnencrypted(ctx, b, &pqReq); err != nil {
-			return ServerExchangeResult{}, err
-		}
+	b := new(bin.Buffer)
+	if err := s.readUnencrypted(ctx, b, &pqReq); err != nil {
+		return ServerExchangeResult{}, err
 	}
 	s.log.Debug("Received client ReqPqMultiRequest")
 
@@ -42,7 +35,7 @@ func (s ServerExchange) Run(ctx context.Context, b *bin.Buffer) (ServerExchangeR
 	// 2. Server sends response of the form
 	//
 	// resPQ#05162463 nonce:int128 server_nonce:int128 pq:string server_public_key_fingerprints:Vector long = ResPQ;
-	pq, err := s.pq()
+	pq, err := s.rng.PQ()
 	if err != nil {
 		return ServerExchangeResult{}, xerrors.Errorf("generate pq: %w", err)
 	}
@@ -81,13 +74,13 @@ func (s ServerExchange) Run(ctx context.Context, b *bin.Buffer) (ServerExchangeR
 		return ServerExchangeResult{}, err
 	}
 
-	dhPrime, err := s.dhPrime()
+	dhPrime, err := s.rng.DhPrime()
 	if err != nil {
 		return ServerExchangeResult{}, xerrors.Errorf("generate dh_prime: %w", err)
 	}
 
 	g := 3
-	a, ga, err := s.ga(g, dhPrime)
+	a, ga, err := s.rng.GA(g, dhPrime)
 	if err != nil {
 		return ServerExchangeResult{}, xerrors.Errorf("generate g_a: %w", err)
 	}

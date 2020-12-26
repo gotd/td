@@ -2,6 +2,9 @@ package exchange
 
 import (
 	"context"
+	"time"
+
+	"github.com/gotd/td/transport"
 
 	"golang.org/x/xerrors"
 
@@ -10,7 +13,8 @@ import (
 )
 
 type unencryptedWriter struct {
-	Config
+	clock  func() time.Time
+	conn   transport.Conn
 	input  proto.MessageType
 	output proto.MessageType
 }
@@ -39,10 +43,6 @@ func (w unencryptedWriter) readUnencrypted(ctx context.Context, b *bin.Buffer, d
 		return err
 	}
 
-	return w.decodeUnencrypted(b, data)
-}
-
-func (w unencryptedWriter) decodeUnencrypted(b *bin.Buffer, data bin.Decoder) error {
 	var msg proto.UnencryptedMessage
 	if err := msg.Decode(b); err != nil {
 		return err

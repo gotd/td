@@ -17,9 +17,7 @@ import (
 func TestExchange(t *testing.T) {
 	a := require.New(t)
 
-	randSource := rand.Reader
-	clock := time.Now
-	key, err := rsa.GenerateKey(randSource, 2048)
+	key, err := rsa.GenerateKey(rand.Reader, 2048)
 	a.NoError(err)
 	log := zaptest.NewLogger(t)
 
@@ -31,16 +29,20 @@ func TestExchange(t *testing.T) {
 
 	g, gctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		cfg := NewConfig(clock, randSource, client, log.Named("client"))
-		_, err := NewClientExchange(cfg, &key.PublicKey).Run(gctx)
+		_, err := NewExchanger(client).
+			WithLogger(log.Named("client")).
+			Client([]*rsa.PublicKey{&key.PublicKey}).
+			Run(gctx)
 		if err != nil {
 			cancel()
 		}
 		return err
 	})
 	g.Go(func() error {
-		cfg := NewConfig(clock, randSource, server, log.Named("server"))
-		_, err := NewServerExchange(cfg, key).Run(ctx, nil)
+		_, err := NewExchanger(server).
+			WithLogger(log.Named("server")).
+			Server(key).
+			Run(gctx)
 		if err != nil {
 			cancel()
 		}

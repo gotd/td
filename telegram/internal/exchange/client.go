@@ -2,27 +2,20 @@ package exchange
 
 import (
 	"crypto/rsa"
+	"io"
+
+	"go.uber.org/zap"
 
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/proto"
 )
 
 // ClientExchange is a client-side key exchange flow.
 type ClientExchange struct {
 	unencryptedWriter
-	keys []*rsa.PublicKey
-}
+	rand io.Reader
+	log  *zap.Logger
 
-// NewClientExchange creates new ClientExchange.
-func NewClientExchange(c Config, keys ...*rsa.PublicKey) ClientExchange {
-	return ClientExchange{
-		unencryptedWriter: unencryptedWriter{
-			Config: c,
-			input:  proto.MessageServerResponse,
-			output: proto.MessageFromClient,
-		},
-		keys: keys,
-	}
+	keys []*rsa.PublicKey
 }
 
 // ClientExchangeResult contains client part of key exchange result.

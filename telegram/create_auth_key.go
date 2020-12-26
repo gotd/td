@@ -9,8 +9,11 @@ import (
 
 // createAuthKey generates new authorization key.
 func (c *Client) createAuthKey(ctx context.Context) error {
-	cfg := exchange.NewConfig(c.clock, c.rand, c.conn, c.log.Named("exchange"))
-	r, err := exchange.NewClientExchange(cfg, c.rsaPublicKeys...).Run(ctx)
+	r, err := exchange.NewExchanger(c.conn).
+		WithClock(c.clock).
+		WithLogger(c.log.Named("exchange")).
+		WithRand(c.rand).
+		Client(c.rsaPublicKeys).Run(ctx)
 	if err != nil {
 		return err
 	}

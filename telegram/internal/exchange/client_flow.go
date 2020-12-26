@@ -4,8 +4,6 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
-	"encoding/hex"
-	"fmt"
 	"math/big"
 
 	"go.uber.org/zap"
@@ -97,7 +95,6 @@ Loop:
 		return ClientExchangeResult{}, err
 	}
 
-	unencryptedData := b.Copy()
 	// `encrypted_data := RSA (data_with_hash, server_public_key);`
 	encryptedData, err := crypto.RSAEncryptHashed(b.Buf, selectedPubKey, c.rand)
 	if err != nil {
@@ -118,7 +115,6 @@ Loop:
 
 	// 5. Server responds with Server_DH_Params.
 	if err := c.conn.Recv(ctx, b); err != nil {
-		fmt.Println(hex.EncodeToString(unencryptedData))
 		return ClientExchangeResult{}, xerrors.Errorf("read ServerDHParams message: %w", err)
 	}
 	c.log.Debug("Received server ServerDHParams")
