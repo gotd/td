@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
-	"errors"
 	"net"
 	"time"
 
@@ -13,7 +12,6 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
 )
 
@@ -93,13 +91,12 @@ func (s *Server) SetHandlerFunc(handler func(s Session, msgID int64, in *bin.Buf
 	s.handler = HandlerFunc(handler)
 }
 
-func (s *Server) checkMsgID(id int64) error {
-	if proto.MessageID(id).Type() != proto.MessageFromClient {
-		return errors.New("bad msg type")
-	}
-	return nil
-}
-
 func (s *Server) serve() error {
-	return s.server.Serve(s.ctx, s.serveConn)
+	return s.server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
+		err := s.serveConn(ctx, conn)
+		if err != nil {
+			s.log.With(zap.Error(err)).Info("connection error")
+		}
+		return err
+	})
 }

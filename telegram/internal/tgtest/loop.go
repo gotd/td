@@ -3,6 +3,8 @@ package tgtest
 import (
 	"context"
 	"encoding/binary"
+	"errors"
+	"io"
 
 	"golang.org/x/xerrors"
 
@@ -18,9 +20,15 @@ type Session struct {
 
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var b bin.Buffer
+	var key crypto.AuthKeyWithID
 	for {
 		b.Reset()
 		if err := conn.Recv(ctx, &b); err != nil {
+			if errors.Is(err, io.EOF) {
+				// Client disconnected.
+				s.users.deleteConnection(key)
+				return nil
+			}
 			return xerrors.Errorf("read from client: %w", err)
 		}
 
@@ -29,10 +37,11 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			return xerrors.Errorf("encrypted message decode: %w", err)
 		}
 
-		key, ok := s.users.getSession(m.AuthKeyID)
+		k, ok := s.users.getSession(m.AuthKeyID)
 		if !ok {
 			return xerrors.Errorf("invalid session")
 		}
+		key := k
 
 		msg, err := s.cipher.Decrypt(key, m)
 		if err != nil {
