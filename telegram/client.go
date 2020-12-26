@@ -117,19 +117,6 @@ type Client struct {
 	types *tmap.Map
 }
 
-func (c *Client) newUnencryptedMessage(payload bin.Encoder, b *bin.Buffer) error {
-	b.Reset()
-	if err := payload.Encode(b); err != nil {
-		return err
-	}
-	msg := proto.UnencryptedMessage{
-		MessageID:   c.newMessageID(),
-		MessageData: b.Copy(),
-	}
-	b.Reset()
-	return msg.Encode(b)
-}
-
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.

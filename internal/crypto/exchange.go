@@ -2,7 +2,7 @@ package crypto
 
 import (
 	"crypto/aes"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec
 	"errors"
 	"io"
 
@@ -57,6 +57,8 @@ func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, 
 	return
 }
 
+// NonceHash1 computes nonce_hash_1.
+// See https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete.
 func NonceHash1(newNonce bin.Int256, key AuthKey) (r bin.Int128) {
 	var buf []byte
 	buf = append(buf, newNonce[:]...)

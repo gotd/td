@@ -13,13 +13,15 @@ import (
 	"github.com/gotd/td/internal/crypto"
 )
 
+// ServerExchange is a server-side key exchange flow.
 type ServerExchange struct {
 	unencryptedWriter
 	key *rsa.PrivateKey
 }
 
-func NewServerExchange(c Config, key *rsa.PrivateKey) *ServerExchange {
-	return &ServerExchange{
+// NewServerExchange creates new ServerExchange.
+func NewServerExchange(c Config, key *rsa.PrivateKey) ServerExchange {
+	return ServerExchange{
 		unencryptedWriter: unencryptedWriter{
 			Config: c,
 			input:  proto.MessageFromClient,
@@ -29,12 +31,13 @@ func NewServerExchange(c Config, key *rsa.PrivateKey) *ServerExchange {
 	}
 }
 
+// ServerExchangeResult contains server part of key exchange result.
 type ServerExchangeResult struct {
 	Key        crypto.AuthKeyWithID
 	ServerSalt int64
 }
 
-func (s *ServerExchange) bigFromHex(hexString string) (p *big.Int, err error) {
+func (s ServerExchange) bigFromHex(hexString string) (p *big.Int, err error) {
 	data, err := hex.DecodeString(hexString)
 	if err != nil {
 		return nil, xerrors.Errorf("failed to decode hex string: %w", err)
@@ -44,11 +47,11 @@ func (s *ServerExchange) bigFromHex(hexString string) (p *big.Int, err error) {
 }
 
 // nolint:unparam
-func (s *ServerExchange) pq() (pq *big.Int, err error) {
+func (s ServerExchange) pq() (pq *big.Int, err error) {
 	return big.NewInt(0x17ED48941A08F981), nil
 }
 
-func (s *ServerExchange) ga(g int, dhPrime *big.Int) (a, ga *big.Int, err error) {
+func (s ServerExchange) ga(g int, dhPrime *big.Int) (a, ga *big.Int, err error) {
 	if err := crypto.CheckGP(g, dhPrime); err != nil {
 		return nil, nil, err
 	}
@@ -74,7 +77,7 @@ func (s *ServerExchange) ga(g int, dhPrime *big.Int) (a, ga *big.Int, err error)
 	}
 }
 
-func (s *ServerExchange) dhPrime() (p *big.Int, err error) {
+func (s ServerExchange) dhPrime() (p *big.Int, err error) {
 	return s.bigFromHex("C71CAEB9C6B1C9048E6C522F70F13F73980D40238E3E21C14934D037563D930F" +
 		"48198A0AA7C14058229493D22530F4DBFA336F6E0AC925139543AED44CCE7C37" +
 		"20FD51F69458705AC68CD4FE6B6B13ABDC9746512969328454F18FAF8C595F64" +

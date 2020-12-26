@@ -19,6 +19,7 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
+// Run runs client-side flow.
 func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	// 1. DH exchange initiation.
 	nonce, err := crypto.RandInt128(c.rand)

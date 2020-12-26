@@ -13,19 +13,22 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
+// Run runs server-side flow.
+// If b parameter is not nil, it will be used as first read message.
+// Otherwise, it will be read from connection.
 func (s ServerExchange) Run(ctx context.Context, b *bin.Buffer) (ServerExchangeResult, error) {
 	// 1. Client sends query to server
 	//
 	// req_pq_multi#be7e8ef1 nonce:int128 = ResPQ;
 	var pqReq mt.ReqPqMultiRequest
 
-	if b == nil {
-		b = new(bin.Buffer)
-		if err := s.readUnencrypted(ctx, b, &pqReq); err != nil {
+	if b != nil {
+		if err := s.decodeUnencrypted(b, &pqReq); err != nil {
 			return ServerExchangeResult{}, err
 		}
 	} else {
-		if err := s.decodeUnencrypted(b, &pqReq); err != nil {
+		b = new(bin.Buffer)
+		if err := s.readUnencrypted(ctx, b, &pqReq); err != nil {
 			return ServerExchangeResult{}, err
 		}
 	}

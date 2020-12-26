@@ -2,6 +2,7 @@ package crypto
 
 import "math/big"
 
+// Prime checks that given number is prime.
 func Prime(p *big.Int) bool {
 	// TODO(tdakkota): maybe it should be smaller?
 	// 1 - 1/4^64 is equal to 0.9999999999999999999999999999999999999970612641229442812300781587

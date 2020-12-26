@@ -33,11 +33,17 @@ func TestExchange(t *testing.T) {
 	g.Go(func() error {
 		cfg := NewConfig(clock, randSource, client, log.Named("client"))
 		_, err := NewClientExchange(cfg, &key.PublicKey).Run(gctx)
+		if err != nil {
+			cancel()
+		}
 		return err
 	})
 	g.Go(func() error {
 		cfg := NewConfig(clock, randSource, server, log.Named("server"))
 		_, err := NewServerExchange(cfg, key).Run(ctx, nil)
+		if err != nil {
+			cancel()
+		}
 		return err
 	})
 
