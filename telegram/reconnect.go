@@ -21,7 +21,9 @@ func (c *Client) reconnect() error {
 
 	go func() {
 		if err := c.initConnection(c.ctx); err != nil {
-			c.log.With(zap.Error(err)).Error("Failed to init connection after reconnect")
+			if !c.isDone() {
+				c.log.Error("Failed to init connection after reconnect", zap.Error(err))
+			}
 			return
 		}
 
