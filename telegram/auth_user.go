@@ -58,7 +58,7 @@ type SendCodeOptions struct {
 }
 
 // AuthSendCode requests code for provided phone number, returning code hash
-// and error if any. Use tgflow.AuthFlow to reduce boilerplate.
+// and error if any. Use AuthFlow to reduce boilerplate.
 //
 // This method should be called first in user authentication flow.
 func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error) {

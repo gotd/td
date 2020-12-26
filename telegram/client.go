@@ -31,7 +31,7 @@ const (
 	AddrTest       = "149.154.167.40:443"
 )
 
-// Test-only credentials. Can be used with AddrTest and tgflow.TestAuth to
+// Test-only credentials. Can be used with AddrTest and TestAuth to
 // test authentication.
 //
 // Reference:
