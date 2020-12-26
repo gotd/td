@@ -105,10 +105,12 @@ func messageKey(messageKeyLarge []byte) bin.Int128 {
 }
 
 // SHA256 returns SHA256 hash.
-func SHA256(from []byte) []byte {
+func SHA256(from ...[]byte) []byte {
 	h := getSHA256()
 	defer sha256Pool.Put(h)
-	_, _ = h.Write(from)
+	for _, b := range from {
+		_, _ = h.Write(b)
+	}
 	return h.Sum(nil)
 }
 

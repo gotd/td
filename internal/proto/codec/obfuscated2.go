@@ -56,8 +56,8 @@ func generateKeys(randSource io.Reader, secret []byte, protocol [4]byte, dc int)
 	decryptIV := append(make([]byte, 0, 16), initRev[32:48]...)
 	secret = secret[0:16]
 
-	encryptKey = crypto.SHA256(append(encryptKey, secret...))
-	decryptKey = crypto.SHA256(append(decryptKey, secret...))
+	encryptKey = crypto.SHA256(encryptKey, secret)
+	decryptKey = crypto.SHA256(decryptKey, secret)
 
 	k.Encrypt, err = createCTR(encryptKey, encryptIV)
 	if err != nil {

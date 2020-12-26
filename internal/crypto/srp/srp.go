@@ -2,7 +2,6 @@
 package srp
 
 import (
-	"crypto/sha256"
 	"crypto/sha512"
 	"io"
 	"math/big"
@@ -10,6 +9,7 @@ import (
 	"golang.org/x/crypto/pbkdf2"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/xor"
 )
 
@@ -52,7 +52,7 @@ type Answer struct {
 //
 // See https://core.telegram.org/api/srp#checking-the-password-with-srp.
 func (s SRP) Hash(password, srpB, random []byte, i Input) (Answer, error) {
-	if err := s.checkPG(i.G, i.P); err != nil {
+	if err := s.checkGP(i.G, i.P); err != nil {
 		return Answer{}, xerrors.Errorf("failed to validate algo: %w", err)
 	}
 
@@ -148,12 +148,7 @@ func (s SRP) bigExp(x, y, m *big.Int) *big.Int {
 //
 // H(data) := sha256(data)
 func (s SRP) hash(data ...[]byte) []byte {
-	h := sha256.New()
-
-	for _, buf := range data {
-		_, _ = h.Write(buf)
-	}
-	return h.Sum(nil)
+	return crypto.SHA256(data...)
 }
 
 // The salting hashing function SH is defined as follows:
@@ -181,77 +176,28 @@ func (s SRP) pbkdf2(ph1, salt1 []byte, n int) []byte {
 	return pbkdf2.Key(ph1, salt1, n, 64, sha512.New)
 }
 
-func (s SRP) checkPG(g int, pBytes []byte) error {
+func (s SRP) checkGP(g int, pBytes []byte) error {
 	p := s.bigFromBytes(pBytes)
 
 	// The client is expected to check whether p is a safe 2048-bit prime
 	// (meaning that both p and (p-1)/2 are prime, and that 2^2047 < p < 2^2048)
 	if p.BitLen() != 2048 {
-		return xerrors.Errorf("p should be 2^2047 < p < 2^2048")
+		return xerrors.New("p should be 2^2047 < p < 2^2048")
 	}
 
-	// Since g is always equal to 2, 3, 4, 5, 6 or 7,
-	// this is easily done using quadratic reciprocity law, yielding a simple condition on p mod 4g -- namely,
-	var result bool
-	switch g {
-	case 2:
-		// p mod 8 = 7 for g = 2;
-		result = checkSubgroup(p, 8, 7)
-	case 3:
-		// p mod 3 = 2 for g = 3;
-		result = checkSubgroup(p, 3, 2)
-	case 4:
-		// no extra condition for g = 4
-		result = true
-	case 5:
-		// p mod 5 = 1 or 4 for g = 5;
-		result = checkSubgroup(p, 5, 1, 4)
-	case 6:
-		// p mod 24 = 19 or 23 for g = 6;
-		result = checkSubgroup(p, 24, 19, 23)
-	case 7:
-		// and p mod 7 = 3, 5 or 6 for g = 7.
-		result = checkSubgroup(p, 7, 3, 5, 6)
-	default:
-		return xerrors.Errorf("unexpected g: g should be equal to 2, 3, 4, 5, 6 or 7")
+	if err := crypto.CheckGP(g, p); err != nil {
+		return err
 	}
 
-	if !result {
-		return xerrors.Errorf("g should be a quadratic residue mod p")
+	if !crypto.Prime(p) {
+		return xerrors.New("p is not prime number")
 	}
 
-	// ProbablyPrime performs n Miller-Rabin tests to check whether x is prime.
-	// If it returns true, x is prime with probability 1 - 1/4^n. If it returns false, x is not prime.
-	//
-	// TODO(tdakkota): maybe it should be smaller?
-	// 1 - 1/4^64 is equal to 0.9999999999999999999999999999999999999970612641229442812300781587
-	const probabilityN = 64
-
-	// p should be prime
-	if !p.ProbablyPrime(probabilityN) {
-		return xerrors.Errorf("p is not prime number")
-	}
-
-	// Create new big.Int, because ProbablyPrime is mutating operation
-	p = s.bigFromBytes(pBytes)
-	// (p-1)/2 should be prime
 	sub := p.Sub(p, big.NewInt(1))
 	pr := p.Quo(sub, big.NewInt(2))
-	if !pr.ProbablyPrime(probabilityN) {
-		return xerrors.Errorf("(p-1)/2 is not prime number")
+	if !crypto.Prime(pr) {
+		return xerrors.New("(p-1)/2 is not prime number")
 	}
 
 	return nil
-}
-
-func checkSubgroup(p *big.Int, divider int64, expected ...int64) bool {
-	rem := new(big.Int).Rem(p, big.NewInt(divider)).Int64()
-
-	for _, e := range expected {
-		if rem == e {
-			return true
-		}
-	}
-
-	return false
 }
