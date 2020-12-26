@@ -5,6 +5,7 @@ Telegram client implementation in go.
 * [Security policy](.github/SECURITY.md)
 * [User support and dev chat](.github/SUPPORT.md)
 * [Roadmap](ROADMAP.md)
+* [Contributing](CONTRIBUTING.md)
 
 ## Status
 
