@@ -93,3 +93,16 @@ func (t *Transport) DialContext(ctx context.Context, network, address string) (C
 		codec: connCodec,
 	}, nil
 }
+
+// Pipe creates a in-memory MTProto connection.
+func (t *Transport) Pipe() (Conn, Conn) {
+	a, b := net.Pipe()
+
+	return &connection{
+			conn:  a,
+			codec: t.codec(),
+		}, &connection{
+			conn:  b,
+			codec: t.codec(),
+		}
+}
