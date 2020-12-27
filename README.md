@@ -164,13 +164,13 @@ Special thanks:
     * Telegram server for end-to-end testing
     * Multiple major refactorings, including critical cryptographical scope reduction
     * Code generation improvements (vector support, multiple modes for pretty-print)
-    * RPC Engine
     * And many other cool things and performance improvements
 * [zweihander](https://github.com/zweihander)
     * Background pings
     * Automatic reconnection
     * Message acknowledgements
     * Retries
+    * RPC Engine
 
 ## Reference
 
