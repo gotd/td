@@ -151,6 +151,27 @@ type FoldersDeleteFolderRequest struct {
 }
 ```
 
+## Contributions
+
+Huge thanks to every contributor, dealing with a project of such scale is impossible alone.
+
+Special thanks:
+* [tdakkota](https://github.com/tdakkota)
+    * Two-factor authentication (SRP)
+    * Proxy support
+    * Update dispatcher
+    * Complete transport support (abridged, padded intermediate and full)
+    * Telegram server for end-to-end testing
+    * Multiple major refactorings, including critical cryptographical scope reduction
+    * Code generation improvements (vector support, multiple modes for pretty-print)
+    * RPC Engine
+    * And many other cool things and performance improvements
+* [zweihander](https://github.com/zweihander)
+    * Background pings
+    * Automatic reconnection
+    * Message acknowledgements
+    * Retries
+
 ## Reference
 
 The MTProto protocol description is [hosted](https://core.telegram.org/mtproto#general-description) by Telegram.
