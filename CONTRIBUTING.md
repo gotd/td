@@ -11,6 +11,31 @@ General tradeoffs:
 * Simplicity > speed
 * Consistency > elegancy
 
+## Testing
+
+Use **staging server**! Don't test on production!
+
+Each phone number is limited to only a certain amount of logins per day (e.g. 5, but this is subject to change)
+after which the API will return a FLOOD error until the next day.
+This might not be enough for testing the implementation of User Authorization
+flows in client applications.
+
+### Staging server
+
+You can use `AddrTest` with `TestAppID` and `TestAppHash` to connect to Telegram
+staging server.
+
+It is also possible to use [test phone numbers](https://core.telegram.org/api/auth#test-phone-numbers) on staging directly or
+via `TestAuth` helper.
+
+### Testing group
+
+The [@gotd_test](https://t.me/gotd_test) group can be used to test clients
+on production, it should be relatively safe to test updates handling (i.e. passive)
+functions like that.
+
+Please, use staging instead.
+
 ## Optimizations
 
 Please provide [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) output if your PR
