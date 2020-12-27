@@ -89,14 +89,10 @@ func run(ctx context.Context) error {
 	if err := client.Connect(ctx); err != nil {
 		return xerrors.Errorf("failed to connect: %w", err)
 	}
-	logger.Info("Client started.")
+	logger.Info("Connected")
 
-	auth, err := client.AuthStatus(dialCtx)
-	if err != nil {
-		return xerrors.Errorf("failed to get auth status: %w", err)
-	}
-	logger.With(zap.Bool("authorized", auth.Authorized)).Info("AuthFlow status")
-	if !auth.Authorized {
+	self, err := client.Self(ctx)
+	if err != nil || !self.Bot {
 		if err := client.AuthBot(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
 			return xerrors.Errorf("failed to perform bot login: %w", err)
 		}

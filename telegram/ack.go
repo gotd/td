@@ -24,7 +24,7 @@ func (c *Client) ackLoop(ctx context.Context) {
 			return
 		}
 
-		log.Debug("ACK", zap.Int64s("message_ids", buf))
+		log.Debug("ACK", zap.Int64s("msg_ids", buf))
 	}
 
 	ticker := time.NewTicker(c.ackInterval) // TODO: remove side-effect

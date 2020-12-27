@@ -18,7 +18,7 @@ func (c *Client) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b
 		typeID, err := b.PeekID()
 		if err == nil {
 			c.log.With(
-				zap.Int64("message_id", id),
+				zap.Int64("msg_id", id),
 				zap.String("message_type", fmt.Sprintf("0x%x", typeID)),
 				zap.String("message_type_str", c.types.Get(typeID)),
 			).Debug("Request")
