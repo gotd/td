@@ -167,7 +167,7 @@ Special thanks:
     * And many other cool things and performance improvements
 * [zweihander](https://github.com/zweihander)
     * Background pings
-    * Automatic reconnection
+    * Links in generated documentation
     * Message acknowledgements
     * Retries
     * RPC Engine
