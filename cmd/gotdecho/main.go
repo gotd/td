@@ -11,8 +11,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gotd/td/transport"
-
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
@@ -20,6 +18,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/transport"
 )
 
 func run(ctx context.Context) error {
