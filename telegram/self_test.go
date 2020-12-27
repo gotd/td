@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
@@ -13,14 +12,28 @@ import (
 
 func TestClient_Self(t *testing.T) {
 	ctx := context.Background()
-	self, err := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-		assert.IsType(t, &tg.UsersGetUsersRequest{}, body)
+
+	inv := mockInvoker(func(input *bin.Buffer) (bin.Encoder, error) {
+		var req tg.UsersGetUsersRequest
+		if err := req.Decode(input); err != nil {
+			return nil, err
+		}
+
 		u := &tg.User{ID: 1}
 		u.SetBot(true)
 		return &tg.UserClassVector{
 			Elems: []tg.UserClass{u},
 		}, nil
-	}).Self(ctx)
+	})
+
+	client := &Client{
+		RPC:     tg.NewClient(inv),
+		mtp:     inv,
+		appID:   1,
+		appHash: "foo",
+	}
+
+	self, err := client.Self(ctx)
 	require.NoError(t, err)
 
 	expected := &tg.User{ID: 1}

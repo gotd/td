@@ -15,14 +15,15 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/mtproto/tgtest"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
-	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
-func testTransport(trp telegram.Transport) func(t *testing.T) {
+func testTransport(trp mtproto.Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
@@ -30,12 +31,13 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 
-		client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-			Addr:      telegram.AddrTest,
-			Transport: trp,
+		client, err := telegram.New(mtproto.TestAppID, mtproto.TestAppHash, telegram.Options{
+			MTProto: mtproto.Options{
+				Addr:      mtproto.AddrTest,
+				Transport: trp,
+			},
 		})
-
-		if err := client.Connect(ctx); err != nil {
+		if err != nil {
 			t.Fatal(err)
 		}
 
@@ -90,10 +92,10 @@ func TestE2EUsersDialog(t *testing.T) {
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
 	cfg := e2etest.TestConfig{
-		AppID:   telegram.TestAppID,
-		AppHash: telegram.TestAppHash,
+		AppID:   mtproto.TestAppID,
+		AppHash: mtproto.TestAppHash,
 		DcID:    2,
-		Addr:    telegram.AddrTest,
+		Addr:    mtproto.AddrTest,
 	}
 	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
 

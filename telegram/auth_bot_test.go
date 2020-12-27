@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
@@ -13,21 +12,50 @@ import (
 
 func TestClient_AuthBot(t *testing.T) {
 	const token = "12345:token"
+
 	t.Run("AuthAuthorization", func(t *testing.T) {
-		require.NoError(t, newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-			assert.Equal(t, &tg.AuthImportBotAuthorizationRequest{
+		inv := mockInvoker(func(input *bin.Buffer) (bin.Encoder, error) {
+			var req tg.AuthImportBotAuthorizationRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
+			require.Equal(t, &tg.AuthImportBotAuthorizationRequest{
 				BotAuthToken: token,
-				APIID:        TestAppID,
-				APIHash:      TestAppHash,
-			}, body)
+				APIID:        1,
+				APIHash:      "hash",
+			}, &req)
+
 			u := &tg.User{}
 			u.SetBot(true)
 			return &tg.AuthAuthorization{User: u}, nil
-		}).AuthBot(context.Background(), token))
+		})
+
+		client := &Client{
+			RPC:     tg.NewClient(inv),
+			mtp:     inv,
+			appID:   1,
+			appHash: "hash",
+		}
+
+		require.NoError(t, client.AuthBot(context.Background(), token))
 	})
 	t.Run("AuthAuthorizationSignUpRequired", func(t *testing.T) {
-		require.Error(t, newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+		inv := mockInvoker(func(input *bin.Buffer) (bin.Encoder, error) {
+			var req tg.AuthImportBotAuthorizationRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			return &tg.AuthAuthorizationSignUpRequired{}, nil
-		}).AuthBot(context.Background(), token))
+		})
+
+		client := &Client{
+			RPC:     tg.NewClient(inv),
+			appID:   1,
+			appHash: "hash",
+		}
+
+		require.Error(t, client.AuthBot(context.Background(), token))
 	})
 }

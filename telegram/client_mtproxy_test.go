@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/transport"
 )
@@ -31,12 +32,13 @@ func TestMTProxy(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:      addr,
-		Transport: trp,
+	client, err := telegram.New(mtproto.TestAppID, mtproto.TestAppHash, telegram.Options{
+		MTProto: mtproto.Options{
+			Addr:      addr,
+			Transport: trp,
+		},
 	})
-
-	if err := client.Connect(ctx); err != nil {
+	if err != nil {
 		t.Fatal(err)
 	}
 

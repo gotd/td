@@ -29,7 +29,11 @@ func (b EchoBot) Run(ctx context.Context) error {
 	logger := b.suite.Log.Named("echo user")
 
 	dispatcher := tg.NewUpdateDispatcher()
-	client := b.suite.Client(logger, dispatcher.Handle)
+	client, err := b.suite.Client(logger, dispatcher.Handle)
+	if err != nil {
+		return xerrors.Errorf("create client: %w", err)
+	}
+
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
 		switch m := u.Message.(type) {
 		case *tg.Message:
@@ -61,12 +65,6 @@ func (b EchoBot) Run(ctx context.Context) error {
 
 		return nil
 	})
-
-	err := client.Connect(ctx)
-	if err != nil {
-		return xerrors.Errorf("connect: %w", err)
-	}
-	logger.Info("Client started.")
 
 	auth, err := client.AuthStatus(ctx)
 	if err != nil {

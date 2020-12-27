@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/net/proxy"
 
-	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/transport"
 )
 
@@ -16,7 +16,7 @@ func ExampleDialFunc() {
 	// Creating connection.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	client := telegram.NewClient(1, "appHash", telegram.Options{
+	client := mtproto.NewClient(1, "appHash", mtproto.Options{
 		Transport: trp,
 	})
 

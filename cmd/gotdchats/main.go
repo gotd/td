@@ -17,6 +17,7 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
@@ -31,7 +32,7 @@ func run(ctx context.Context) error {
 	)
 	flag.Parse()
 
-	var storage telegram.SessionStorage
+	var storage mtproto.SessionStorage
 	if *persisted {
 		// Setting up session storage.
 		home, err := os.UserHomeDir()
@@ -42,25 +43,26 @@ func run(ctx context.Context) error {
 		if err := os.MkdirAll(sessionDir, 0600); err != nil {
 			return err
 		}
-		storage = &telegram.FileSessionStorage{
+		storage = &mtproto.FileSessionStorage{
 			Path: filepath.Join(sessionDir, "session-user.json"),
 		}
 	}
 
 	dispatcher := tg.NewUpdateDispatcher()
 	// Creating connection.
-	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
-	defer cancel()
-	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:           telegram.AddrTest,
-		Logger:         logger,
-		SessionStorage: storage,
-		Transport:      transport.Intermediate(transport.DialFunc(proxy.Dial)),
-		UpdateHandler:  dispatcher.Handle,
+	// dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
+	// defer cancel()
+	client, err := telegram.New(mtproto.TestAppID, mtproto.TestAppHash, telegram.Options{
+		UpdateHandler: dispatcher.Handle,
+		MTProto: mtproto.Options{
+			Addr:           mtproto.AddrTest,
+			Logger:         logger,
+			SessionStorage: storage,
+			Transport:      transport.Intermediate(transport.DialFunc(proxy.Dial)),
+		},
 	})
-
-	if err := client.Connect(dialCtx); err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
+	if err != nil {
+		return err
 	}
 
 	if self, err := client.Self(ctx); err != nil || self.Bot {
@@ -69,12 +71,12 @@ func run(ctx context.Context) error {
 		}
 	}
 
-	c := tg.NewClient(client)
+	// c := tg.NewClient(client)
 
 	for range time.NewTicker(time.Second * 5).C {
-		chats, err := c.MessagesGetAllChats(ctx, nil)
+		chats, err := client.RPC.MessagesGetAllChats(ctx, nil)
 
-		var rpcErr *telegram.Error
+		var rpcErr *mtproto.Error
 		if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
 			// Server told us to wait N seconds before sending next message.
 			logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")

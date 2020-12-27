@@ -16,6 +16,7 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -50,15 +51,21 @@ func run(ctx context.Context) error {
 	// Creating connection.
 	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
 	defer cancel()
-	client := telegram.NewClient(appID, appHash, telegram.Options{
-		Logger: logger,
-		SessionStorage: &telegram.FileSessionStorage{
-			Path: filepath.Join(sessionDir, "session.json"),
-		},
-
-		Transport:     transport.Intermediate(transport.DialFunc(proxy.Dial)),
+	client, err := telegram.New(appID, appHash, telegram.Options{
+		Logger:        logger,
 		UpdateHandler: dispatcher.Handle,
+		MTProto: mtproto.Options{
+			Logger: logger,
+			SessionStorage: &mtproto.FileSessionStorage{
+				Path: filepath.Join(sessionDir, "session.json"),
+			},
+
+			Transport: transport.Intermediate(transport.DialFunc(proxy.Dial)),
+		},
 	})
+	if err != nil {
+		return err
+	}
 
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
 		switch m := u.Message.(type) {
@@ -86,26 +93,22 @@ func run(ctx context.Context) error {
 		return nil
 	})
 
-	if err := client.Connect(ctx); err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
+	auth, err := client.AuthStatus(dialCtx)
+	if err != nil {
+		return xerrors.Errorf("failed to get auth status: %w", err)
 	}
-	logger.Info("Connected")
-
-	self, err := client.Self(ctx)
-	if err != nil || !self.Bot {
+	logger.With(zap.Bool("authorized", auth.Authorized)).Info("AuthFlow status")
+	if !auth.Authorized {
 		if err := client.AuthBot(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
 			return xerrors.Errorf("failed to perform bot login: %w", err)
 		}
 		logger.Info("Bot login ok")
 	}
 
-	// Using tg.Client for directly calling RPC.
-	raw := tg.NewClient(client)
-
 	// Getting state is required to process updates in your code.
 	// Currently missed updates are not processed, so only new
 	// messages will be handled.
-	state, err := raw.UpdatesGetState(ctx)
+	state, err := client.RPC.UpdatesGetState(ctx)
 	if err != nil {
 		return xerrors.Errorf("failed to get state: %w", err)
 	}

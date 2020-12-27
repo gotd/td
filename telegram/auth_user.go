@@ -8,13 +8,14 @@ import (
 
 	"github.com/gotd/td/internal/crypto/srp"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/mtproto"
 )
 
 // AuthPassword performs login via secure remote password (aka 2FA).
 //
 // Method can be called after AuthSignIn to provide password if requested.
 func (c *Client) AuthPassword(ctx context.Context, password string) error {
-	p, err := c.tg.AccountGetPassword(ctx)
+	p, err := c.RPC.AccountGetPassword(ctx)
 	if err != nil {
 		return xerrors.Errorf("get SRP parameters: %w", err)
 	}
@@ -30,7 +31,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 		return xerrors.Errorf("create SRP answer: %w", err)
 	}
 
-	auth, err := c.tg.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
+	auth, err := c.RPC.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
 		SrpID: p.SrpID,
 		A:     a.A,
 		M1:    a.M1,
@@ -73,7 +74,7 @@ func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCod
 		settings.SetCurrentNumber(true)
 	}
 
-	sentCode, err := c.tg.AuthSendCode(ctx, &tg.AuthSendCodeRequest{
+	sentCode, err := c.RPC.AuthSendCode(ctx, &tg.AuthSendCodeRequest{
 		PhoneNumber: phone,
 		APIID:       c.appID,
 		APIHash:     c.appHash,
@@ -97,12 +98,12 @@ var ErrPasswordAuthNeeded = errors.New("2FA required")
 //
 // To obtain codeHash, use AuthSendCode.
 func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) error {
-	a, err := c.tg.AuthSignIn(ctx, &tg.AuthSignInRequest{
+	a, err := c.RPC.AuthSignIn(ctx, &tg.AuthSignInRequest{
 		PhoneNumber:   phone,
 		PhoneCodeHash: codeHash,
 		PhoneCode:     code,
 	})
-	var rpcErr *Error
+	var rpcErr *mtproto.Error
 	if errors.As(err, &rpcErr) && rpcErr.Message == "SESSION_PASSWORD_NEEDED" {
 		return ErrPasswordAuthNeeded
 	}

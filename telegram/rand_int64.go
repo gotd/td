@@ -1,6 +1,8 @@
 package telegram
 
-import "github.com/gotd/td/internal/crypto"
+import (
+	"github.com/gotd/td/internal/crypto"
+)
 
 // RandInt64 returns new random int64 from random source.
 //

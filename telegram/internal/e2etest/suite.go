@@ -8,8 +8,9 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/mtproto/tgtest"
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/telegram/internal/tgtest"
 )
 
 // TestConfig contains some common test server settings.
@@ -40,12 +41,14 @@ func NewSuite(suite tgtest.Suite, config TestConfig, randomSource io.Reader) *Su
 	}
 }
 
-// Client creates new *telegram.Client using this suite.
-func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
-	return telegram.NewClient(s.AppID, s.AppHash, telegram.Options{
-		Addr:          s.Addr,
-		Logger:        logger,
+// Client creates new *mtproto.Client using this suite.
+func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) (*telegram.Client, error) {
+	return telegram.New(s.AppID, s.AppHash, telegram.Options{
 		UpdateHandler: handler,
+		MTProto: mtproto.Options{
+			Addr:   s.Addr,
+			Logger: logger,
+		},
 	})
 }
 

@@ -15,9 +15,11 @@ func (c *Client) SendMessage(ctx context.Context, req *tg.MessagesSendMessageReq
 		}
 		req.RandomID = id
 	}
-	updates, err := c.tg.MessagesSendMessage(ctx, req)
+
+	updates, err := c.RPC.MessagesSendMessage(ctx, req)
 	if err != nil {
 		return err
 	}
-	return c.processUpdates(updates)
+
+	return c.dh.processUpdates(updates)
 }

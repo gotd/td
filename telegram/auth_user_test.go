@@ -15,6 +15,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 
@@ -34,32 +35,55 @@ func TestClient_AuthSignIn(t *testing.T) {
 		codeHash = "hash"
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-		switch req := body.(type) {
-		case *tg.AuthSendCodeRequest:
+
+	inv := mockInvoker(func(input *bin.Buffer) (bin.Encoder, error) {
+		id, err := input.PeekID()
+		if err != nil {
+			return nil, err
+		}
+
+		switch id {
+		case tg.AuthSendCodeRequestTypeID:
+			var req tg.AuthSendCodeRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			settings := tg.CodeSettings{}
 			settings.SetCurrentNumber(true)
 			assert.Equal(t, &tg.AuthSendCodeRequest{
 				PhoneNumber: phone,
-				APIHash:     TestAppHash,
-				APIID:       TestAppID,
+				APIHash:     "foo",
+				APIID:       1,
 				Settings:    settings,
-			}, req)
+			}, &req)
+
 			return &tg.AuthSentCode{
 				Type:          &tg.AuthSentCodeTypeApp{},
 				PhoneCodeHash: codeHash,
 			}, nil
-		case *tg.AuthSignInRequest:
-			assert.Equal(t, &tg.AuthSignInRequest{
+		case tg.AuthSignInRequestTypeID:
+			var req tg.AuthSignInRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
+			require.Equal(t, &tg.AuthSignInRequest{
 				PhoneNumber:   phone,
 				PhoneCodeHash: codeHash,
 				PhoneCode:     code,
-			}, req)
+			}, &req)
+
 			return testError(tg.Error{
 				Code: 401,
 				Text: "SESSION_PASSWORD_NEEDED",
 			})
-		case *tg.AccountGetPasswordRequest:
+		case tg.AccountGetPasswordRequestTypeID:
+			var req tg.AccountGetPasswordRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			algo := &tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{
 				Salt1: getHex(t, "4D11FB6BEC38F9D2546BB0F61E4F1C99A1BC0DB8F0D5F35B1291B37B213123D7ED48F3C6794D495B"),
 				Salt2: getHex(t, "A1B181AAFE88188680AE32860D60BB01"),
@@ -79,7 +103,12 @@ func TestClient_AuthSignIn(t *testing.T) {
 			}
 			pwd.SetCurrentAlgo(algo)
 			return pwd, nil
-		case *tg.AuthCheckPasswordRequest:
+		case tg.AuthCheckPasswordRequestTypeID:
+			var req tg.AuthCheckPasswordRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			// TODO(ernado): Check actual secure remote password here.
 			switch pwd := req.Password.(type) {
 			case *tg.InputCheckPasswordSRP:
@@ -89,12 +118,21 @@ func TestClient_AuthSignIn(t *testing.T) {
 			default:
 				t.Errorf("unexpectd pwd type %T", pwd)
 			}
+
 			return &tg.AuthAuthorization{
 				User: &tg.User{ID: 1},
 			}, nil
+		default:
+			return nil, xerrors.Errorf("unexpected input: %T", input)
 		}
-		return nil, xerrors.New("unexpected")
 	})
+
+	client := &Client{
+		RPC:     tg.NewClient(inv),
+		mtp:     inv,
+		appID:   1,
+		appHash: "foo",
+	}
 
 	t.Run("Manual", func(t *testing.T) {
 		// 1. Request code from server to device.
@@ -125,20 +163,37 @@ func TestClientTestAuth(t *testing.T) {
 		dcID     = 2
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-		switch req := body.(type) {
-		case *tg.AuthSendCodeRequest:
+
+	inv := mockInvoker(func(input *bin.Buffer) (bin.Encoder, error) {
+		id, err := input.PeekID()
+		if err != nil {
+			return nil, err
+		}
+
+		switch id {
+		case tg.AuthSendCodeRequestTypeID:
+			var req tg.AuthSendCodeRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			assert.Equal(t, &tg.AuthSendCodeRequest{
 				PhoneNumber: req.PhoneNumber,
-				APIHash:     TestAppHash,
-				APIID:       TestAppID,
+				APIHash:     "hash",
+				APIID:       1,
 				Settings:    tg.CodeSettings{},
-			}, req)
+			}, &req)
+
 			return &tg.AuthSentCode{
 				Type:          &tg.AuthSentCodeTypeApp{},
 				PhoneCodeHash: codeHash,
 			}, nil
-		case *tg.AuthSignInRequest:
+		case tg.AuthSignInRequestTypeID:
+			var req tg.AuthSignInRequest
+			if err := req.Decode(input); err != nil {
+				return nil, err
+			}
+
 			if !strings.HasPrefix(req.PhoneNumber, "99966") {
 				t.Fatalf("unexpected phone number %s", req.PhoneNumber)
 			}
@@ -148,15 +203,32 @@ func TestClientTestAuth(t *testing.T) {
 				PhoneNumber:   req.PhoneNumber,
 				PhoneCodeHash: codeHash,
 				PhoneCode:     strings.Repeat(dcPart, 5),
-			}, req)
+			}, &req)
 			return &tg.AuthAuthorization{
 				User: &tg.User{ID: 1},
 			}, nil
 		}
 		return nil, xerrors.New("unexpected")
 	})
+
+	client := &Client{
+		RPC:     tg.NewClient(inv),
+		mtp:     inv,
+		appID:   1,
+		appHash: "hash",
+	}
+
 	require.NoError(t, NewAuth(
 		TestAuth(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
 	).Run(ctx, client))
+}
+
+func testError(err tg.Error) (bin.Encoder, error) {
+	e := &mtproto.Error{
+		Message: err.Text,
+		Code:    err.Code,
+	}
+	// e.extractArgument()
+	return nil, e
 }

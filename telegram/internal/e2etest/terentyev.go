@@ -36,7 +36,11 @@ func (u User) Run(ctx context.Context) error {
 	defer func() { _ = logger.Sync() }()
 
 	dispatcher := tg.NewUpdateDispatcher()
-	client := u.suite.Client(logger, dispatcher.Handle)
+	client, err := u.suite.Client(logger, dispatcher.Handle)
+	if err != nil {
+		return xerrors.Errorf("create client: %w", err)
+	}
+
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 		expectedMsgText := <-u.message
 		msg, ok := update.Message.(*tg.Message)
@@ -48,10 +52,6 @@ func (u User) Run(ctx context.Context) error {
 		return nil
 	})
 
-	err := client.Connect(ctx)
-	if err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
-	}
 	defer func() {
 		_ = client.Close()
 	}()

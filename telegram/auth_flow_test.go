@@ -13,6 +13,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 )
 
@@ -64,10 +65,12 @@ func ExampleTestAuth() {
 	const dcID = 2
 
 	ctx := context.Background()
-	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr: telegram.AddrTest,
+	client, err := telegram.New(mtproto.TestAppID, mtproto.TestAppHash, telegram.Options{
+		MTProto: mtproto.Options{
+			Addr: mtproto.AddrTest,
+		},
 	})
-	if err := client.Connect(ctx); err != nil {
+	if err != nil {
 		panic(err)
 	}
 
@@ -100,8 +103,8 @@ func ExampleAuthFlow_Run() {
 	check(err)
 
 	ctx := context.Background()
-	client := telegram.NewClient(appID, appHash, telegram.Options{})
-	check(client.Connect(ctx))
+	client, err := telegram.New(appID, appHash, telegram.Options{})
+	check(err)
 
 	codeAsk := func(ctx context.Context) (string, error) {
 		fmt.Print("code:")
