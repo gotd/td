@@ -63,12 +63,12 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 	}
 	c.sessionCreated.Done()
 
-	corpus, err := ioutil.ReadDir(filepath.Join("_fuzz", "handle_message", "corpus"))
+	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))
 	if os.IsNotExist(err) {
 		t.Skip("No corpus")
 	}
 	for _, f := range corpus {
-		data, err := ioutil.ReadFile(filepath.Join("_fuzz", "handle_message", "corpus", f.Name()))
+		data, err := ioutil.ReadFile(filepath.Join("..", "_fuzz", "handle_message", "corpus", f.Name()))
 		if err != nil {
 			t.Fatal(err)
 		}
