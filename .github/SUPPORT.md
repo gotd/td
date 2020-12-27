@@ -18,17 +18,18 @@ but doing it on staging server is better.
 **Do not share your application id and hash!**
 They cannot be rotated and are bound to your Telegram account.
 
-From [official documentation](https://core.telegram.org/api/obtaining_api_id):
+> Before using the MTProto Telegram API, please note that all API client
+> libraries are strictly monitored to prevent abuse.
 
-Before using the MTProto Telegram API, please note that all API client
-libraries are strictly monitored to prevent abuse.
+> If you use the Telegram API for flooding, spamming, faking subscriber and
+> view counters of channels, you will be banned forever.
 
-If you use the Telegram API for flooding, spamming, faking subscriber and
-view counters of channels, you will be banned forever.
+> Due to excessive abuse of the Telegram API, **all accounts that sign up or
+> log in using unofficial Telegram API clients are automatically
+> put under observation** to avoid violations of the [Terms of Service](https://core.telegram.org/api/terms).
+> &mdash; <cite>[Official documentation][1]</cite>
 
-Due to excessive abuse of the Telegram API, **all accounts that sign up or
-log in using unofficial Telegram API clients are automatically
-put under observation** to avoid violations of the Terms of Service.
+[1]: https://core.telegram.org/api/obtaining_api_id
 
 So, some summary:
 

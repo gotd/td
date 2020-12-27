@@ -7,6 +7,8 @@ Telegram client implementation in go.
 * [Roadmap](ROADMAP.md)
 * [Contributing](CONTRIBUTING.md)
 
+Before using this library, read [How Not To Get Banned](https://github.com/gotd/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned) guide.
+
 ## Status
 
 Work in progress. Only go1.15 is supported and no backward compatibility is provided.
