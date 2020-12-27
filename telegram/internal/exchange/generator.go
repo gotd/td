@@ -20,6 +20,7 @@ type ServerRNG interface {
 
 var _ ServerRNG = TestServerRNG{}
 
+// TestServerRNG implements testing-only ServerRNG.
 type TestServerRNG struct {
 	rand io.Reader
 }
@@ -33,11 +34,14 @@ func (s TestServerRNG) bigFromHex(hexString string) (p *big.Int, err error) {
 	return big.NewInt(0).SetBytes(data), nil
 }
 
+// PQ always returns testing pq value.
+//
 // nolint:unparam
 func (s TestServerRNG) PQ() (pq *big.Int, err error) {
 	return big.NewInt(0x17ED48941A08F981), nil
 }
 
+// GA returns testing a and g_a params.
 func (s TestServerRNG) GA(g int, dhPrime *big.Int) (a, ga *big.Int, err error) {
 	if err := crypto.CheckGP(g, dhPrime); err != nil {
 		return nil, nil, err
@@ -64,6 +68,7 @@ func (s TestServerRNG) GA(g int, dhPrime *big.Int) (a, ga *big.Int, err error) {
 	}
 }
 
+// DhPrime always returns testing dh_prime.
 func (s TestServerRNG) DhPrime() (p *big.Int, err error) {
 	return s.bigFromHex("C71CAEB9C6B1C9048E6C522F70F13F73980D40238E3E21C14934D037563D930F" +
 		"48198A0AA7C14058229493D22530F4DBFA336F6E0AC925139543AED44CCE7C37" +

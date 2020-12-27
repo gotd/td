@@ -8,13 +8,13 @@ import (
 	"io"
 	"time"
 
-	"github.com/gotd/td/internal/proto"
-
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
 )
 
+// Exchanger is builder for key exchangers.
 type Exchanger struct {
 	clock func() time.Time
 	rand  io.Reader
@@ -29,8 +29,8 @@ func (e Exchanger) WithClock(clock func() time.Time) Exchanger {
 }
 
 // WithRand sets exchange flow random source.
-func (e Exchanger) WithRand(rand io.Reader) Exchanger {
-	e.rand = rand
+func (e Exchanger) WithRand(reader io.Reader) Exchanger {
+	e.rand = reader
 	return e
 }
 
