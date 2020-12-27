@@ -103,7 +103,7 @@ func TestSRP_checkPG(t *testing.T) {
 		t.Fatal("no err expected", err)
 	}
 
-	err = s.checkPG(3, p)
+	err = s.checkGP(3, p)
 	if err != nil {
 		t.Fatal("no err expected", err)
 	}

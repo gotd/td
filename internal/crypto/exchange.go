@@ -2,12 +2,14 @@ package crypto
 
 import (
 	"crypto/aes"
+	"crypto/sha1" // #nosec
 	"errors"
 	"io"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/ige"
+	"github.com/gotd/td/bin"
 )
 
 // DecryptExchangeAnswer decrypts messages created during key exchange.
@@ -53,4 +55,21 @@ func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, 
 	i := ige.NewIGEEncrypter(cipher, iv)
 	i.CryptBlocks(dst, answerWithHash)
 	return
+}
+
+// NonceHash1 computes nonce_hash_1.
+// See https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete.
+func NonceHash1(newNonce bin.Int256, key AuthKey) (r bin.Int128) {
+	var buf []byte
+	buf = append(buf, newNonce[:]...)
+	buf = append(buf, 1)
+	buf = append(buf, sha(key[:])[0:8]...)
+	buf = sha(buf)[4:20]
+	copy(r[:], buf)
+	return
+}
+
+func sha(v []byte) []byte {
+	h := sha1.Sum(v) // #nosec
+	return h[:]
 }

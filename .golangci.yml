@@ -78,7 +78,8 @@ issues:
   exclude-rules:
     # TODO(ernado): Should we refactor Parse() functions?
     - linters: [gocyclo, gocognit]
-      text: "createAuthKey"
+      path: exchange
+      text: "Run"
 
     - linters: [gocritic]
       text: "commentedOutCode"

@@ -2,9 +2,13 @@ package crypto
 
 import (
 	"bytes"
+	"crypto/rand"
+	"crypto/rsa"
 	"encoding/base64"
 	mathrand "math/rand"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestRSAEncrypt(t *testing.T) {
@@ -36,4 +40,18 @@ BSqi+FEREW/2aWSgSwIDAQAB
 	if _, err := RSAEncryptHashed(bytes.Repeat([]byte{1, 2, 3}, 1000), key, rnd); err == nil {
 		t.Error("should error")
 	}
+}
+
+func TestRSADecryptHashed(t *testing.T) {
+	a := require.New(t)
+	src := rand.Reader
+	k, err := rsa.GenerateKey(src, 2048)
+	a.NoError(err)
+
+	plaintext := []byte("abcd")
+	encrypted, err := RSAEncryptHashed(plaintext, &k.PublicKey, src)
+	a.NoError(err)
+	decrypted, err := RSADecryptHashed(encrypted, k)
+	a.NoError(err)
+	a.Equal(plaintext, decrypted[:len(plaintext)])
 }

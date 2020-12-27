@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"crypto/rsa"
+	"errors"
 	"os"
 	"sync"
 	"testing"
@@ -23,11 +24,10 @@ import (
 
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
-		t.Helper()
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 		defer cancel()
 		g, gctx := errgroup.WithContext(ctx)
 
@@ -53,7 +53,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 				RetryInterval: time.Millisecond * 50,
 			})
 
-			wait := make(chan struct{})
+			waitForMessage := make(chan struct{})
 			dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 				message := update.Message.(*tg.Message).Message
 				clientLogger.With(zap.String("message", message)).
@@ -68,20 +68,22 @@ func testTransport(trp Transport) func(t *testing.T) {
 					return err
 				}
 
-				close(wait)
+				close(waitForMessage)
 				return nil
 			})
 
+			defer srv.Close() // stop server in any case
 			if err := client.Connect(ctx); err != nil {
 				return err
 			}
-			<-wait
+			<-waitForMessage
 
-			srv.Close()
 			return client.Close()
 		})
 
-		_ = g.Wait()
+		if err := g.Wait(); !errors.Is(err, context.Canceled) {
+			require.NoError(t, err)
+		}
 	}
 }
 
