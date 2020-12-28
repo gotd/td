@@ -235,9 +235,15 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- if $s.Links }}
     {{- template "print_links" $s.Links }}
 {{- end }}
+{{- if $s.Errors }}
+    {{- template "print_errors" $s.Errors }}
+{{- end }}
 {{- if $s.URL }}
 //
 // See {{ $s.URL }} for reference.
+{{- end }}
+{{- if $s.BotCanUse }}
+// Can be used by bots.
 {{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}

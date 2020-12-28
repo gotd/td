@@ -8,7 +8,7 @@ require (
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
 	github.com/go-openapi/inflect v0.19.0
 	github.com/go-playground/validator/v10 v10.4.1
-	github.com/gotd/getdoc v0.2.0
+	github.com/gotd/getdoc v0.3.2
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.1
 	github.com/gotd/tl v0.3.0
@@ -16,6 +16,7 @@ require (
 	github.com/k0kubun/pp v2.4.0+incompatible
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stretchr/testify v1.6.1
+	github.com/yudai/pp v2.0.1+incompatible
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7

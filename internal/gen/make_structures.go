@@ -57,12 +57,14 @@ type structDef struct {
 	// Like https://core.telegram.org/method/account.getPrivacy
 	// Or https://core.telegram.org/constructor/account.privacyRules
 	URL string
-
 	// Docs is comments from documentation.
 	Docs []string
-
 	// Links from documentation
 	Links []string
+	// BotCanUse denotes whether method can be used by bots.
+	BotCanUse bool
+	// Errors is list of possible errors.
+	Errors []getdoc.Error
 }
 
 func (s *structDef) fillFromClass(class classBinding) {
@@ -132,6 +134,8 @@ func (g *Generator) makeStructures() error {
 		if t.Method != "" {
 			s.Docs = docMethod.Description
 			s.Links = docMethod.Links
+			s.BotCanUse = docMethod.BotCanUse
+			s.Errors = docMethod.Errors
 		}
 		if g.docBase != nil {
 			// Assuming constructor by default.

@@ -25,3 +25,11 @@
 //  {{ add $i 1 }}) {{ $link }}
 {{- end }}
 {{- end }}
+
+{{ define "print_errors" }}
+//
+// Possible errors:
+{{- range $err := . }}
+//  {{ $err.Code }} {{ $err.Type }}: {{ $err.Description }}
+{{- end }}
+{{- end }}
