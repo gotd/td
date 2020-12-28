@@ -79,7 +79,7 @@ func newCorpusTracer(t testing.TB) func(b *bin.Buffer) {
 		tg.TypesMap(),
 		proto.TypesMap(),
 	)
-	dir := filepath.Join("_fuzz", "handle_message", "corpus")
+	dir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
 
 	return func(b *bin.Buffer) {
 		id, _ := b.PeekID()
