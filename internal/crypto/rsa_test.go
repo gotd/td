@@ -54,5 +54,43 @@ func TestRSADecryptHashed(t *testing.T) {
 	a.NoError(err)
 	decrypted, err := RSADecryptHashed(encrypted, k)
 	a.NoError(err)
-	a.Equal(plaintext, decrypted[:len(plaintext)])
+	a.Equal(plaintext, decrypted)
+}
+
+func TestRSAEncryptHashedCorpus(t *testing.T) {
+	reader := mathrand.New(mathrand.NewSource(0))
+	k, err := rsa.GenerateKey(reader, 2048)
+	require.NoError(t, err)
+
+	for _, s := range []string{
+		"\xbd\xbf\xef\x1e\x11p",
+	} {
+		t.Run(s, func(t *testing.T) {
+			data := []byte(s)
+			encrypted, err := RSAEncryptHashed(data, &k.PublicKey, reader)
+			require.NoError(t, err)
+
+			decrypted, err := RSADecryptHashed(encrypted, k)
+			require.NoError(t, err)
+
+			require.Equal(t, data, decrypted)
+		})
+	}
+}
+
+func TestRSAEncryptHashedFuzz(t *testing.T) {
+	src := mathrand.New(mathrand.NewSource(1))
+	k, err := rsa.GenerateKey(src, 2048)
+	require.NoError(t, err)
+
+	for i := 0; i < 100; i++ {
+		n, err := RandInt64n(src, rsaDataLen)
+		require.NoError(t, err)
+		data := make([]byte, int(n))
+		encrypted, err := RSAEncryptHashed(data, &k.PublicKey, src)
+		require.NoError(t, err)
+		decrypted, err := RSADecryptHashed(encrypted, k)
+		require.NoError(t, err)
+		require.Equal(t, data, decrypted)
+	}
 }

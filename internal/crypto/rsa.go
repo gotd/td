@@ -15,15 +15,19 @@ import (
 	"crypto/sha1"
 )
 
-const rsaDataLen = 255
+const (
+	rsaLen         = 256
+	rsaWithHashLen = 255
+	rsaDataLen     = rsaWithHashLen - sha1.Size
+)
 
 // RSAEncryptHashed encrypts given data with RSA, prefixing with a hash.
 func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, error) {
 	// Preparing `data_with_hash`.
 	// data_with_hash := SHA1(data) + data + (any random bytes);
 	// such that the length equals 255 bytes;
-	var dataWithHash [rsaDataLen]byte
-	if (len(data) + sha1.Size) > rsaDataLen {
+	var dataWithHash [rsaWithHashLen]byte
+	if len(data) > rsaDataLen {
 		return nil, fmt.Errorf("data length %d is too big", len(data))
 	}
 
@@ -44,7 +48,7 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	z := new(big.Int).SetBytes(dataWithHash[:])
 	e := big.NewInt(int64(key.E))
 	c := new(big.Int).Exp(z, e, key.N)
-	res := make([]byte, 256)
+	res := make([]byte, rsaLen)
 	c.FillBytes(res)
 
 	return res, nil
@@ -55,13 +59,8 @@ func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte, err error) {
 	c := new(big.Int).SetBytes(data)
 	m := new(big.Int).Exp(c, key.D, key.N)
 
-	dataWithHash := m.Bytes()
-	if len(dataWithHash) != rsaDataLen {
-		// This can be caused by invalid keys.
-		return nil, xerrors.Errorf("got unexpected length of plaintext (%d instead of %d)",
-			len(dataWithHash), rsaDataLen,
-		)
-	}
+	dataWithHash := make([]byte, rsaWithHashLen)
+	m.FillBytes(dataWithHash)
 
 	hash := dataWithHash[:sha1.Size]
 	paddedData := dataWithHash[sha1.Size:]
@@ -69,7 +68,7 @@ func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte, err error) {
 	// Guessing such data that sha1(data) == hash.
 	h := sha1.New() // #nosec
 	var currentHash []byte
-	for i := 0; i < len(paddedData); i++ {
+	for i := 0; i <= len(paddedData); i++ {
 		h.Reset()
 
 		data := paddedData[:len(paddedData)-i]
