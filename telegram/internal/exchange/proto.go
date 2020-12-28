@@ -4,12 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/gotd/td/transport"
-
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/transport"
 )
 
 type unencryptedWriter struct {
