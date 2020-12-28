@@ -80,6 +80,9 @@ var (
 // MessagesReceivedQueue invokes method messages.receivedQueue#55a5bb66 returning error if any.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
 //
+// Possible errors:
+//  400 MSG_WAIT_FAILED: A waiting call returned an error
+//
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
 func (c *Client) MessagesReceivedQueue(ctx context.Context, maxqts int) ([]int64, error) {
 	var result LongVector

@@ -98,6 +98,12 @@ var (
 // AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.
 // Edits notification settings from a given user/group, from all users/all groups.
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 SETTINGS_INVALID: Invalid settings were provided
+//
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 func (c *Client) AccountUpdateNotifySettings(ctx context.Context, request *AccountUpdateNotifySettingsRequest) (bool, error) {
 	var result BoolBox

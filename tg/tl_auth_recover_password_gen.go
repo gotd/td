@@ -88,6 +88,9 @@ var (
 //  1) https://core.telegram.org/api/srp
 //  2) https://core.telegram.org/method/auth.requestPasswordRecovery
 //
+// Possible errors:
+//  400 CODE_EMPTY: The provided code is empty
+//
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 func (c *Client) AuthRecoverPassword(ctx context.Context, code string) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox

@@ -85,7 +85,14 @@ var (
 // ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.
 // Get full info about a channel
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
+// Can be used by bots.
 func (c *Client) ChannelsGetFullChannel(ctx context.Context, channel InputChannelClass) (*MessagesChatFull, error) {
 	var result MessagesChatFull
 

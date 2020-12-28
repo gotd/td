@@ -99,7 +99,12 @@ var (
 // Links:
 //  1) https://core.telegram.org/cdn
 //
+// Possible errors:
+//  400 CDN_METHOD_INVALID: You can't call this method in a CDN DC
+//  400 RSA_DECRYPT_FAILED: Internal RSA decryption failed
+//
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
+// Can be used by bots.
 func (c *Client) UploadGetCdnFileHashes(ctx context.Context, request *UploadGetCdnFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
 

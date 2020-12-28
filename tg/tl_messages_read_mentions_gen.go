@@ -85,6 +85,12 @@ var (
 // MessagesReadMentions invokes method messages.readMentions#f0189d3 returning error if any.
 // Mark mentions as read
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.readMentions for reference.
 func (c *Client) MessagesReadMentions(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory

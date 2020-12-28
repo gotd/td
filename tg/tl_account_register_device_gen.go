@@ -185,6 +185,9 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/push-updates
 //
+// Possible errors:
+//  400 TOKEN_INVALID: The provided token is invalid
+//
 // See https://core.telegram.org/method/account.registerDevice for reference.
 func (c *Client) AccountRegisterDevice(ctx context.Context, request *AccountRegisterDeviceRequest) (bool, error) {
 	var result BoolBox

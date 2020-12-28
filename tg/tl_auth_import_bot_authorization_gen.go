@@ -128,7 +128,14 @@ var (
 // AuthImportBotAuthorization invokes method auth.importBotAuthorization#67a3ff2c returning error if any.
 // Login as a bot
 //
+// Possible errors:
+//  400 ACCESS_TOKEN_EXPIRED: Bot token expired
+//  400 ACCESS_TOKEN_INVALID: The provided token is not valid
+//  400 API_ID_INVALID: The api_id/api_hash combination is invalid
+//  401 AUTH_KEY_INVALID: Auth key invalid
+//
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
+// Can be used by bots.
 func (c *Client) AuthImportBotAuthorization(ctx context.Context, request *AuthImportBotAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

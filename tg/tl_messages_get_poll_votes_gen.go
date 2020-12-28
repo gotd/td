@@ -199,6 +199,11 @@ var (
 // MessagesGetPollVotes invokes method messages.getPollVotes#b86e380e returning error if any.
 // Get poll results for non-anonymous polls
 //
+// Possible errors:
+//  403 BROADCAST_FORBIDDEN:
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  403 POLL_VOTE_REQUIRED: Cast a vote in the poll before calling this method
+//
 // See https://core.telegram.org/method/messages.getPollVotes for reference.
 func (c *Client) MessagesGetPollVotes(ctx context.Context, request *MessagesGetPollVotesRequest) (*MessagesVotesList, error) {
 	var result MessagesVotesList

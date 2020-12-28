@@ -116,7 +116,13 @@ var (
 // MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.
 // Get highscores of a game
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot
+//
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetGameHighScores(ctx context.Context, request *MessagesGetGameHighScoresRequest) (*MessagesHighScores, error) {
 	var result MessagesHighScores
 

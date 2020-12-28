@@ -68,6 +68,7 @@ var (
 // Get global privacy settings
 //
 // See https://core.telegram.org/method/account.getGlobalPrivacySettings for reference.
+// Can be used by bots.
 func (c *Client) AccountGetGlobalPrivacySettings(ctx context.Context) (*GlobalPrivacySettings, error) {
 	var result GlobalPrivacySettings
 

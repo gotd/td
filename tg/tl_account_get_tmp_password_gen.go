@@ -98,6 +98,10 @@ var (
 // AccountGetTmpPassword invokes method account.getTmpPassword#449e0b51 returning error if any.
 // Get temporary payment password
 //
+// Possible errors:
+//  400 PASSWORD_HASH_INVALID: The provided password hash is invalid
+//  400 TMP_PASSWORD_DISABLED: The temporary password is disabled
+//
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 func (c *Client) AccountGetTmpPassword(ctx context.Context, request *AccountGetTmpPasswordRequest) (*AccountTmpPassword, error) {
 	var result AccountTmpPassword

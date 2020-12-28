@@ -117,6 +117,9 @@ var (
 // LangpackGetStrings invokes method langpack.getStrings#efea3803 returning error if any.
 // Get strings from a language pack
 //
+// Possible errors:
+//  400 LANG_PACK_INVALID: The provided language pack is invalid
+//
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStringsRequest) ([]LangPackStringClass, error) {
 	var result LangPackStringClassVector

@@ -80,6 +80,9 @@ var (
 // AccountSetAccountTTL invokes method account.setAccountTTL#2442485e returning error if any.
 // Set account self-destruction period
 //
+// Possible errors:
+//  400 TTL_DAYS_INVALID: The provided TTL is invalid
+//
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
 func (c *Client) AccountSetAccountTTL(ctx context.Context, ttl AccountDaysTTL) (bool, error) {
 	var result BoolBox

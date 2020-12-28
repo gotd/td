@@ -210,6 +210,9 @@ var (
 // AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.
 // Intialize account takeout session
 //
+// Possible errors:
+//  420 TAKEOUT_INIT_DELAY_X: Wait X seconds before initing takeout
+//
 // See https://core.telegram.org/method/account.initTakeoutSession for reference.
 func (c *Client) AccountInitTakeoutSession(ctx context.Context, request *AccountInitTakeoutSessionRequest) (*AccountTakeout, error) {
 	var result AccountTakeout

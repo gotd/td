@@ -94,6 +94,7 @@ var (
 // Set bot command list
 //
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
+// Can be used by bots.
 func (c *Client) BotsSetBotCommands(ctx context.Context, commands []BotCommand) (bool, error) {
 	var result BoolBox
 

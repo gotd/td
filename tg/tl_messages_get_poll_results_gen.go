@@ -98,6 +98,9 @@ var (
 // MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.
 // Get poll results
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//
 // See https://core.telegram.org/method/messages.getPollResults for reference.
 func (c *Client) MessagesGetPollResults(ctx context.Context, request *MessagesGetPollResultsRequest) (UpdatesClass, error) {
 	var result UpdatesBox

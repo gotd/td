@@ -80,6 +80,12 @@ var (
 // AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.
 // Changes username for the current user.
 //
+// Possible errors:
+//  401 AUTH_KEY_PERM_EMPTY: The temporary auth key must be binded to the permanent auth key to use these methods.
+//  400 USERNAME_INVALID: Unacceptable username
+//  400 USERNAME_NOT_MODIFIED: Username is not different from the current username
+//  400 USERNAME_OCCUPIED: Username is taken
+//
 // See https://core.telegram.org/method/account.updateUsername for reference.
 func (c *Client) AccountUpdateUsername(ctx context.Context, username string) (UserClass, error) {
 	var result UserBox

@@ -85,7 +85,13 @@ var (
 // UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.
 // Returns extended user info by ID.
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/users.getFullUser for reference.
+// Can be used by bots.
 func (c *Client) UsersGetFullUser(ctx context.Context, id InputUserClass) (*UserFull, error) {
 	var result UserFull
 

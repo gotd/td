@@ -103,7 +103,12 @@ var (
 // ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.
 // Associate a stickerset to the supergroup
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 PARTICIPANTS_TOO_FEW: Not enough participants
+//
 // See https://core.telegram.org/method/channels.setStickers for reference.
+// Can be used by bots.
 func (c *Client) ChannelsSetStickers(ctx context.Context, request *ChannelsSetStickersRequest) (bool, error) {
 	var result BoolBox
 

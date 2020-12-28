@@ -162,7 +162,19 @@ var (
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
 // Returns the difference between the current state of updates of a certain channel and transmitted.
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  403 CHANNEL_PUBLIC_GROUP_NA: channel/supergroup not available
+//  400 FROM_MESSAGE_BOT_DISABLED: Bots can't use fromMessage min constructors
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 PERSISTENT_TIMESTAMP_EMPTY: Persistent timestamp empty
+//  400 PERSISTENT_TIMESTAMP_INVALID: Persistent timestamp invalid
+//  400 PINNED_DIALOGS_TOO_MUCH: Too many pinned dialogs
+//  400 RANGES_INVALID: Invalid range provided
+//
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
+// Can be used by bots.
 func (c *Client) UpdatesGetChannelDifference(ctx context.Context, request *UpdatesGetChannelDifferenceRequest) (UpdatesChannelDifferenceClass, error) {
 	var result UpdatesChannelDifferenceBox
 

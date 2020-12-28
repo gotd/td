@@ -111,6 +111,10 @@ var (
 // AccountGetTheme invokes method account.getTheme#8d9d742b returning error if any.
 // Get theme information
 //
+// Possible errors:
+//  400 THEME_FORMAT_INVALID: Invalid theme format provided
+//  400 THEME_INVALID: Invalid theme provided
+//
 // See https://core.telegram.org/method/account.getTheme for reference.
 func (c *Client) AccountGetTheme(ctx context.Context, request *AccountGetThemeRequest) (*Theme, error) {
 	var result Theme

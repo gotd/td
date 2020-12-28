@@ -275,7 +275,12 @@ var (
 // MessagesEditInlineBotMessage invokes method messages.editInlineBotMessage#83557dba returning error if any.
 // Edit an inline bot message
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MESSAGE_NOT_MODIFIED: The message text has not changed
+//
 // See https://core.telegram.org/method/messages.editInlineBotMessage for reference.
+// Can be used by bots.
 func (c *Client) MessagesEditInlineBotMessage(ctx context.Context, request *MessagesEditInlineBotMessageRequest) (bool, error) {
 	var result BoolBox
 

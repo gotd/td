@@ -80,6 +80,11 @@ var (
 // MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.
 // Check the validity of a chat invite link and get basic info about it
 //
+// Possible errors:
+//  400 INVITE_HASH_EMPTY: The invite hash is empty
+//  400 INVITE_HASH_EXPIRED: The invite link has expired
+//  400 INVITE_HASH_INVALID: The invite hash is invalid
+//
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 func (c *Client) MessagesCheckChatInvite(ctx context.Context, hash string) (ChatInviteClass, error) {
 	var result ChatInviteBox

@@ -175,7 +175,12 @@ var (
 // Links:
 //  1) https://core.telegram.org/constructor/message
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
+// Can be used by bots.
 func (c *Client) StatsGetMessagePublicForwards(ctx context.Context, request *StatsGetMessagePublicForwardsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

@@ -103,7 +103,11 @@ var (
 // StickersSetStickerSetThumb invokes method stickers.setStickerSetThumb#9a364e30 returning error if any.
 // Set stickerset thumbnail
 //
+// Possible errors:
+//  400 STICKERSET_INVALID: The provided sticker set is invalid
+//
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
+// Can be used by bots.
 func (c *Client) StickersSetStickerSetThumb(ctx context.Context, request *StickersSetStickerSetThumbRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 

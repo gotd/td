@@ -112,6 +112,10 @@ var (
 // AccountChangePhone invokes method account.changePhone#70c32edb returning error if any.
 // Change the phone number of the current account
 //
+// Possible errors:
+//  400 PHONE_CODE_EMPTY: phone_code is missing
+//  400 PHONE_NUMBER_INVALID: The phone number is invalid
+//
 // See https://core.telegram.org/method/account.changePhone for reference.
 func (c *Client) AccountChangePhone(ctx context.Context, request *AccountChangePhoneRequest) (UserClass, error) {
 	var result UserBox

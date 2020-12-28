@@ -114,6 +114,10 @@ var (
 // MessagesRequestEncryption invokes method messages.requestEncryption#f64daf43 returning error if any.
 // Sends a request to start a secret chat to the user.
 //
+// Possible errors:
+//  400 DH_G_A_INVALID: g_a invalid
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 func (c *Client) MessagesRequestEncryption(ctx context.Context, request *MessagesRequestEncryptionRequest) (EncryptedChatClass, error) {
 	var result EncryptedChatBox

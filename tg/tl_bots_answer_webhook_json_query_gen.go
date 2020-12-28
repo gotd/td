@@ -93,7 +93,12 @@ var (
 // BotsAnswerWebhookJSONQuery invokes method bots.answerWebhookJSONQuery#e6213f4d returning error if any.
 // Answers a custom query; for bots only
 //
+// Possible errors:
+//  400 QUERY_ID_INVALID: The query ID is invalid
+//  400 USER_BOT_INVALID: This method can only be called by a bot
+//
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
+// Can be used by bots.
 func (c *Client) BotsAnswerWebhookJSONQuery(ctx context.Context, request *BotsAnswerWebhookJSONQueryRequest) (bool, error) {
 	var result BoolBox
 

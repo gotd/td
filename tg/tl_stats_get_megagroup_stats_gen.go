@@ -125,6 +125,7 @@ var (
 //  1) https://core.telegram.org/api/stats
 //
 // See https://core.telegram.org/method/stats.getMegagroupStats for reference.
+// Can be used by bots.
 func (c *Client) StatsGetMegagroupStats(ctx context.Context, request *StatsGetMegagroupStatsRequest) (*StatsMegagroupStats, error) {
 	var result StatsMegagroupStats
 

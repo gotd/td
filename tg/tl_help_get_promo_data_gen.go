@@ -68,6 +68,7 @@ var (
 // Get MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.getPromoData for reference.
+// Can be used by bots.
 func (c *Client) HelpGetPromoData(ctx context.Context) (HelpPromoDataClass, error) {
 	var result HelpPromoDataBox
 

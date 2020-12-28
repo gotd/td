@@ -220,7 +220,22 @@ var (
 // StickersCreateStickerSet invokes method stickers.createStickerSet#f1036780 returning error if any.
 // Create a stickerset, bots only.
 //
+// Possible errors:
+//  400 BOT_MISSING: This method can only be run by a bot
+//  400 PACK_SHORT_NAME_INVALID: Short pack name invalid
+//  400 PACK_SHORT_NAME_OCCUPIED: A stickerpack with this name already exists
+//  400 PACK_TITLE_INVALID: The stickerpack title is invalid
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 SHORTNAME_OCCUPY_FAILED: An internal error occurred
+//  400 STICKERS_EMPTY: No sticker provided
+//  400 STICKER_EMOJI_INVALID: Sticker emoji invalid
+//  400 STICKER_FILE_INVALID: Sticker file invalid
+//  400 STICKER_PNG_DIMENSIONS: Sticker png dimensions invalid
+//  400 STICKER_PNG_NOPNG: One of the specified stickers is not a valid PNG file
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/stickers.createStickerSet for reference.
+// Can be used by bots.
 func (c *Client) StickersCreateStickerSet(ctx context.Context, request *StickersCreateStickerSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 

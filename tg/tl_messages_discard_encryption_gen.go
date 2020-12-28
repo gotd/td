@@ -80,6 +80,11 @@ var (
 // MessagesDiscardEncryption invokes method messages.discardEncryption#edd923c5 returning error if any.
 // Cancels a request for creation and/or delete info on secret chat.
 //
+// Possible errors:
+//  400 CHAT_ID_EMPTY: The provided chat ID is empty
+//  400 ENCRYPTION_ALREADY_DECLINED: The secret chat was already declined
+//  400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid
+//
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 func (c *Client) MessagesDiscardEncryption(ctx context.Context, chatid int) (bool, error) {
 	var result BoolBox

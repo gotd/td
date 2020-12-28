@@ -124,6 +124,15 @@ var (
 // ChannelsEditCreator invokes method channels.editCreator#8f38cd1f returning error if any.
 // Transfer channel ownership
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//  400 PASSWORD_HASH_INVALID: The provided password hash is invalid
+//  400 PASSWORD_MISSING: You must enable 2FA in order to transfer ownership of a channel
+//  400 PASSWORD_TOO_FRESH_X: The password was modified less than 24 hours ago, try again in X seconds
+//  400 SESSION_TOO_FRESH_X: This session was created less than 24 hours ago, try again in X seconds
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/channels.editCreator for reference.
 func (c *Client) ChannelsEditCreator(ctx context.Context, request *ChannelsEditCreatorRequest) (UpdatesClass, error) {
 	var result UpdatesBox

@@ -85,6 +85,9 @@ var (
 // HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.
 // Internal use
 //
+// Possible errors:
+//  403 USER_INVALID: Invalid user provided
+//
 // See https://core.telegram.org/method/help.getUserInfo for reference.
 func (c *Client) HelpGetUserInfo(ctx context.Context, userid InputUserClass) (HelpUserInfoClass, error) {
 	var result HelpUserInfoBox

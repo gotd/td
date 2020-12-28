@@ -121,7 +121,11 @@ var (
 // MessagesDeleteMessages invokes method messages.deleteMessages#e58e95d2 returning error if any.
 // Deletes messages by their identifiers.
 //
+// Possible errors:
+//  403 MESSAGE_DELETE_FORBIDDEN: You can't delete one of the messages you tried to delete, most likely because it is a service message.
+//
 // See https://core.telegram.org/method/messages.deleteMessages for reference.
+// Can be used by bots.
 func (c *Client) MessagesDeleteMessages(ctx context.Context, request *MessagesDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
 

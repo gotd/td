@@ -98,7 +98,12 @@ var (
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
 // Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
 //
+// Possible errors:
+//  400 BOT_MISSING: This method can only be run by a bot
+//  400 STICKERSET_INVALID: The provided sticker set is invalid
+//
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
+// Can be used by bots.
 func (c *Client) StickersAddStickerToSet(ctx context.Context, request *StickersAddStickerToSetRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 

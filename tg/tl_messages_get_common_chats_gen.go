@@ -117,6 +117,10 @@ var (
 // MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.
 // Get chats in common with a user
 //
+// Possible errors:
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
 func (c *Client) MessagesGetCommonChats(ctx context.Context, request *MessagesGetCommonChatsRequest) (MessagesChatsClass, error) {
 	var result MessagesChatsBox

@@ -101,6 +101,13 @@ var (
 // ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.
 // Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
 //
+// Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//  400 CHAT_NOT_MODIFIED: The pinned message wasn't modified
+//  400 INPUT_METHOD_INVALID_1192227_X: Invalid method
+//  400 INPUT_METHOD_INVALID_1604042050_X: Invalid method
+//  400 SECONDS_INVALID: Invalid duration provided
+//
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 func (c *Client) ChannelsToggleSlowMode(ctx context.Context, request *ChannelsToggleSlowModeRequest) (UpdatesClass, error) {
 	var result UpdatesBox

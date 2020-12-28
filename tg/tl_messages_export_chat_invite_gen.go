@@ -85,7 +85,15 @@ var (
 // MessagesExportChatInvite invokes method messages.exportChatInvite#df7534c returning error if any.
 // Export an invite link for a chat
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//  400 CHAT_ID_INVALID: The provided chat id is invalid
+//  403 CHAT_WRITE_FORBIDDEN: You can't write in this chat
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
+// Can be used by bots.
 func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerClass) (ExportedChatInviteClass, error) {
 	var result ExportedChatInviteBox
 

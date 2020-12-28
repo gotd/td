@@ -93,6 +93,9 @@ var (
 // LangpackGetLangPack invokes method langpack.getLangPack#f2f2330a returning error if any.
 // Get localization pack strings
 //
+// Possible errors:
+//  400 LANG_PACK_INVALID: The provided language pack is invalid
+//
 // See https://core.telegram.org/method/langpack.getLangPack for reference.
 func (c *Client) LangpackGetLangPack(ctx context.Context, request *LangpackGetLangPackRequest) (*LangPackDifference, error) {
 	var result LangPackDifference

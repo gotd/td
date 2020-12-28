@@ -97,6 +97,7 @@ var (
 // Get name, ISO code, localized name and phone codes/patterns of all available countries
 //
 // See https://core.telegram.org/method/help.getCountriesList for reference.
+// Can be used by bots.
 func (c *Client) HelpGetCountriesList(ctx context.Context, request *HelpGetCountriesListRequest) (HelpCountriesListClass, error) {
 	var result HelpCountriesListBox
 

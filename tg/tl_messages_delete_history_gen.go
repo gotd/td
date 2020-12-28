@@ -142,6 +142,12 @@ var (
 // MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.
 // Deletes communication history.
 //
+// Possible errors:
+//  400 CHAT_ID_INVALID: The provided chat id is invalid
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.deleteHistory for reference.
 func (c *Client) MessagesDeleteHistory(ctx context.Context, request *MessagesDeleteHistoryRequest) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory

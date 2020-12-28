@@ -97,6 +97,9 @@ var (
 // AccountFinishTakeoutSession invokes method account.finishTakeoutSession#1d2652ee returning error if any.
 // Finish account takeout session
 //
+// Possible errors:
+//  403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first
+//
 // See https://core.telegram.org/method/account.finishTakeoutSession for reference.
 func (c *Client) AccountFinishTakeoutSession(ctx context.Context, request *AccountFinishTakeoutSessionRequest) (bool, error) {
 	var result BoolBox

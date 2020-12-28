@@ -67,6 +67,9 @@ var (
 // ContactsGetSaved invokes method contacts.getSaved#82f1e39f returning error if any.
 // Get all contacts
 //
+// Possible errors:
+//  403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first
+//
 // See https://core.telegram.org/method/contacts.getSaved for reference.
 func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, error) {
 	var result SavedPhoneContactVector

@@ -205,6 +205,7 @@ var (
 // Get messages in a reply thread
 //
 // See https://core.telegram.org/method/messages.getReplies for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetReplies(ctx context.Context, request *MessagesGetRepliesRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox
 

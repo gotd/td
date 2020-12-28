@@ -191,7 +191,12 @@ var (
 // MessagesSetBotCallbackAnswer invokes method messages.setBotCallbackAnswer#d58f130a returning error if any.
 // Set the callback answer to a user button press (bots only)
 //
+// Possible errors:
+//  400 QUERY_ID_INVALID: The query ID is invalid
+//  400 URL_INVALID: Invalid URL provided
+//
 // See https://core.telegram.org/method/messages.setBotCallbackAnswer for reference.
+// Can be used by bots.
 func (c *Client) MessagesSetBotCallbackAnswer(ctx context.Context, request *MessagesSetBotCallbackAnswerRequest) (bool, error) {
 	var result BoolBox
 

@@ -112,6 +112,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/discussion
 //
+// Possible errors:
+//  400 BROADCAST_ID_INVALID: Broadcast ID invalid
+//  400 LINK_NOT_MODIFIED: Discussion link not modified
+//  400 MEGAGROUP_ID_INVALID: Invalid supergroup ID
+//
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 func (c *Client) ChannelsSetDiscussionGroup(ctx context.Context, request *ChannelsSetDiscussionGroupRequest) (bool, error) {
 	var result BoolBox

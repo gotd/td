@@ -243,6 +243,9 @@ var (
 // ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.
 // Get most used peers
 //
+// Possible errors:
+//  400 TYPES_EMPTY: No top peer type was provided
+//
 // See https://core.telegram.org/method/contacts.getTopPeers for reference.
 func (c *Client) ContactsGetTopPeers(ctx context.Context, request *ContactsGetTopPeersRequest) (ContactsTopPeersClass, error) {
 	var result ContactsTopPeersBox

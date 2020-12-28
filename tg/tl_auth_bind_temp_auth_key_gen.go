@@ -136,7 +136,14 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/pfs
 //
+// Possible errors:
+//  400 ENCRYPTED_MESSAGE_INVALID: Encrypted message is incorrect
+//  400 INPUT_REQUEST_TOO_LONG: The request is too big
+//  400 TEMP_AUTH_KEY_ALREADY_BOUND: The passed temporary key is already bound to another perm_auth_key_id
+//  400 TEMP_AUTH_KEY_EMPTY: The request was not performed with a temporary authorization key
+//
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
+// Can be used by bots.
 func (c *Client) AuthBindTempAuthKey(ctx context.Context, request *AuthBindTempAuthKeyRequest) (bool, error) {
 	var result BoolBox
 

@@ -104,6 +104,14 @@ var (
 // AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.
 // Set a new 2FA password
 //
+// Possible errors:
+//  400 EMAIL_UNCONFIRMED: Email unconfirmed
+//  400 EMAIL_UNCONFIRMED_X: The provided email isn't confirmed, X is the length of the verification code that was just sent to the email: use account.verifyEmail to enter the received verification code and enable the recovery email.
+//  400 NEW_SALT_INVALID: The new salt is invalid
+//  400 NEW_SETTINGS_INVALID: The new password settings are invalid
+//  400 PASSWORD_HASH_INVALID: The old password hash is invalid
+//  400 SRP_ID_INVALID: Invalid SRP ID provided
+//
 // See https://core.telegram.org/method/account.updatePasswordSettings for reference.
 func (c *Client) AccountUpdatePasswordSettings(ctx context.Context, request *AccountUpdatePasswordSettingsRequest) (bool, error) {
 	var result BoolBox

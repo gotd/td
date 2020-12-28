@@ -103,6 +103,10 @@ var (
 // AccountReportPeer invokes method account.reportPeer#ae189d5f returning error if any.
 // Report a peer for violation of telegram's Terms of Service
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/account.reportPeer for reference.
 func (c *Client) AccountReportPeer(ctx context.Context, request *AccountReportPeerRequest) (bool, error) {
 	var result BoolBox

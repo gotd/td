@@ -110,6 +110,7 @@ var (
 //  2) https://core.telegram.org/api/discussion
 //
 // See https://core.telegram.org/method/messages.getDiscussionMessage for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetDiscussionMessage(ctx context.Context, request *MessagesGetDiscussionMessageRequest) (*MessagesDiscussionMessage, error) {
 	var result MessagesDiscussionMessage
 

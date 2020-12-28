@@ -124,7 +124,12 @@ var (
 // PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.
 // Returns the list of user photos.
 //
+// Possible errors:
+//  400 MAX_ID_INVALID: The provided max ID is invalid
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
+// Can be used by bots.
 func (c *Client) PhotosGetUserPhotos(ctx context.Context, request *PhotosGetUserPhotosRequest) (PhotosPhotosClass, error) {
 	var result PhotosPhotosBox
 

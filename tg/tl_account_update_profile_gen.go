@@ -185,6 +185,10 @@ var (
 // AccountUpdateProfile invokes method account.updateProfile#78515775 returning error if any.
 // Updates user profile.
 //
+// Possible errors:
+//  400 ABOUT_TOO_LONG: About string too long
+//  400 FIRSTNAME_INVALID: The first name is invalid
+//
 // See https://core.telegram.org/method/account.updateProfile for reference.
 func (c *Client) AccountUpdateProfile(ctx context.Context, request *AccountUpdateProfileRequest) (UserClass, error) {
 	var result UserBox

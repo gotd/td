@@ -134,7 +134,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/stats
 //
+// Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//
 // See https://core.telegram.org/method/stats.getMessageStats for reference.
+// Can be used by bots.
 func (c *Client) StatsGetMessageStats(ctx context.Context, request *StatsGetMessageStatsRequest) (*StatsMessageStats, error) {
 	var result StatsMessageStats
 

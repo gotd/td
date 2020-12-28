@@ -142,6 +142,9 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/folders
 //
+// Possible errors:
+//  400 FILTER_ID_INVALID: The specified filter ID is invalid
+//
 // See https://core.telegram.org/method/messages.updateDialogFilter for reference.
 func (c *Client) MessagesUpdateDialogFilter(ctx context.Context, request *MessagesUpdateDialogFilterRequest) (bool, error) {
 	var result BoolBox

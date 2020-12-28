@@ -148,6 +148,12 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/channel
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//
 // See https://core.telegram.org/method/channels.exportMessageLink for reference.
 func (c *Client) ChannelsExportMessageLink(ctx context.Context, request *ChannelsExportMessageLinkRequest) (*ExportedMessageLink, error) {
 	var result ExportedMessageLink

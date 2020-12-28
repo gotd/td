@@ -109,6 +109,13 @@ var (
 // MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.
 // Creates a new chat.
 //
+// Possible errors:
+//  400 CHAT_INVALID: Invalid chat
+//  400 CHAT_TITLE_EMPTY: No chat title provided
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted
+//  400 USERS_TOO_FEW: Not enough users (to create a chat, for example)
+//  403 USER_RESTRICTED: You're spamreported, you can't create channels or chats.
+//
 // See https://core.telegram.org/method/messages.createChat for reference.
 func (c *Client) MessagesCreateChat(ctx context.Context, request *MessagesCreateChatRequest) (UpdatesClass, error) {
 	var result UpdatesBox

@@ -93,6 +93,9 @@ var (
 // AccountSendChangePhoneCode invokes method account.sendChangePhoneCode#82574ae5 returning error if any.
 // Verify a new phone number to associate to the current account
 //
+// Possible errors:
+//  400 PHONE_NUMBER_INVALID: The phone number is invalid
+//
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 func (c *Client) AccountSendChangePhoneCode(ctx context.Context, request *AccountSendChangePhoneCodeRequest) (*AuthSentCode, error) {
 	var result AuthSentCode

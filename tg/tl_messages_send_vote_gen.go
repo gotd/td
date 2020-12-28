@@ -128,6 +128,13 @@ var (
 // Links:
 //  1) https://core.telegram.org/constructor/poll
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 MESSAGE_POLL_CLOSED: Poll closed
+//  400 OPTIONS_TOO_MUCH: Too many options provided
+//  400 OPTION_INVALID: Invalid option selected
+//  400 REVOTE_NOT_ALLOWED: You cannot change your vote
+//
 // See https://core.telegram.org/method/messages.sendVote for reference.
 func (c *Client) MessagesSendVote(ctx context.Context, request *MessagesSendVoteRequest) (UpdatesClass, error) {
 	var result UpdatesBox

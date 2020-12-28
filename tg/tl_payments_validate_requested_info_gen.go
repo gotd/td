@@ -123,6 +123,9 @@ var (
 // PaymentsValidateRequestedInfo invokes method payments.validateRequestedInfo#770a8e74 returning error if any.
 // Submit requested order information for validation
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//
 // See https://core.telegram.org/method/payments.validateRequestedInfo for reference.
 func (c *Client) PaymentsValidateRequestedInfo(ctx context.Context, request *PaymentsValidateRequestedInfoRequest) (*PaymentsValidatedRequestedInfo, error) {
 	var result PaymentsValidatedRequestedInfo

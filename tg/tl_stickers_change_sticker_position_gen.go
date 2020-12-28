@@ -98,7 +98,12 @@ var (
 // StickersChangeStickerPosition invokes method stickers.changeStickerPosition#ffb6d4ca returning error if any.
 // Changes the absolute position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot
 //
+// Possible errors:
+//  400 BOT_MISSING: This method can only be run by a bot
+//  400 STICKER_INVALID: The provided sticker is invalid
+//
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
+// Can be used by bots.
 func (c *Client) StickersChangeStickerPosition(ctx context.Context, request *StickersChangeStickerPositionRequest) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 

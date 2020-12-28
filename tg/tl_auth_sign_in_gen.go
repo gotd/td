@@ -109,6 +109,13 @@ var (
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.
 // Signs in a user with a validated phone number.
 //
+// Possible errors:
+//  400 PHONE_CODE_EMPTY: phone_code from the SMS is empty
+//  400 PHONE_CODE_EXPIRED: SMS expired
+//  400 PHONE_CODE_INVALID: Invalid SMS code was sent
+//  400 PHONE_NUMBER_INVALID: Invalid phone number
+//  400 PHONE_NUMBER_UNOCCUPIED: The code is valid but no user with the given number is registered
+//
 // See https://core.telegram.org/method/auth.signIn for reference.
 func (c *Client) AuthSignIn(ctx context.Context, request *AuthSignInRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox

@@ -127,6 +127,9 @@ var (
 // MessagesReport invokes method messages.report#bd82b658 returning error if any.
 // Report a message in a chat for violation of telegram's Terms of Service
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.report for reference.
 func (c *Client) MessagesReport(ctx context.Context, request *MessagesReportRequest) (bool, error) {
 	var result BoolBox

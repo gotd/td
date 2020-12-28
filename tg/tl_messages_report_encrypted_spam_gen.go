@@ -80,6 +80,9 @@ var (
 // MessagesReportEncryptedSpam invokes method messages.reportEncryptedSpam#4b0c8c0f returning error if any.
 // Report a secret chat for spam
 //
+// Possible errors:
+//  400 CHAT_ID_INVALID: The provided chat id is invalid
+//
 // See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
 func (c *Client) MessagesReportEncryptedSpam(ctx context.Context, peer InputEncryptedChat) (bool, error) {
 	var result BoolBox

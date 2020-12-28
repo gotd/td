@@ -128,6 +128,9 @@ var (
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.
 // Returns URL with the chat statistics. Currently this method can be used only for channels
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.getStatsURL for reference.
 func (c *Client) MessagesGetStatsURL(ctx context.Context, request *MessagesGetStatsURLRequest) (*StatsURL, error) {
 	var result StatsURL

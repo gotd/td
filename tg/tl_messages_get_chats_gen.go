@@ -91,7 +91,12 @@ var (
 // MessagesGetChats invokes method messages.getChats#3c6aa187 returning error if any.
 // Returns chat basic info on their IDs.
 //
+// Possible errors:
+//  400 CHAT_ID_INVALID: The provided chat id is invalid
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.getChats for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetChats(ctx context.Context, id []int) (MessagesChatsClass, error) {
 	var result MessagesChatsBox
 

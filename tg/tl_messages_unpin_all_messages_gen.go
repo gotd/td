@@ -92,6 +92,7 @@ var (
 //  1) https://core.telegram.org/api/pin
 //
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
+// Can be used by bots.
 func (c *Client) MessagesUnpinAllMessages(ctx context.Context, peer InputPeerClass) (*MessagesAffectedHistory, error) {
 	var result MessagesAffectedHistory
 

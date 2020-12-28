@@ -246,7 +246,16 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/files#albums-grouped-media
 //
+// Possible errors:
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//  400 MEDIA_EMPTY: The provided media object is invalid
+//  400 MEDIA_INVALID: Media invalid
+//  400 MULTI_MEDIA_TOO_LONG: Too many media files for album
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 RANDOM_ID_EMPTY: Random ID empty
+//
 // See https://core.telegram.org/method/messages.sendMultiMedia for reference.
+// Can be used by bots.
 func (c *Client) MessagesSendMultiMedia(ctx context.Context, request *MessagesSendMultiMediaRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

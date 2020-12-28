@@ -86,6 +86,10 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/auth
 //
+// Possible errors:
+//  406 FRESH_RESET_AUTHORISATION_FORBIDDEN: You can't logout other sessions if less than 24 hours have passed since you logged on the current session
+//  400 HASH_INVALID: The provided hash is invalid
+//
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 func (c *Client) AccountResetAuthorization(ctx context.Context, hash int64) (bool, error) {
 	var result BoolBox

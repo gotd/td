@@ -185,6 +185,9 @@ var (
 // PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2b8879b3 returning error if any.
 // Send compiled payment form
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//
 // See https://core.telegram.org/method/payments.sendPaymentForm for reference.
 func (c *Client) PaymentsSendPaymentForm(ctx context.Context, request *PaymentsSendPaymentFormRequest) (PaymentsPaymentResultClass, error) {
 	var result PaymentsPaymentResultBox

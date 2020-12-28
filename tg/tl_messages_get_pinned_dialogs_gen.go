@@ -83,6 +83,9 @@ var (
 // MessagesGetPinnedDialogs invokes method messages.getPinnedDialogs#d6b94df2 returning error if any.
 // Get pinned dialogs
 //
+// Possible errors:
+//  400 FOLDER_ID_INVALID: Invalid folder ID
+//
 // See https://core.telegram.org/method/messages.getPinnedDialogs for reference.
 func (c *Client) MessagesGetPinnedDialogs(ctx context.Context, folderid int) (*MessagesPeerDialogs, error) {
 	var result MessagesPeerDialogs

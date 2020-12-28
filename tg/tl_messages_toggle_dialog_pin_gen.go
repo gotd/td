@@ -115,6 +115,9 @@ var (
 // MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.
 // Pin/unpin a dialog
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.toggleDialogPin for reference.
 func (c *Client) MessagesToggleDialogPin(ctx context.Context, request *MessagesToggleDialogPinRequest) (bool, error) {
 	var result BoolBox

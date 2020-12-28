@@ -216,6 +216,11 @@ var (
 // MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.
 // Returns the current user dialog list.
 //
+// Possible errors:
+//  400 FOLDER_ID_INVALID: Invalid folder ID
+//  400 INPUT_CONSTRUCTOR_INVALID: The provided constructor is invalid
+//  400 OFFSET_PEER_ID_INVALID: The provided offset peer is invalid
+//
 // See https://core.telegram.org/method/messages.getDialogs for reference.
 func (c *Client) MessagesGetDialogs(ctx context.Context, request *MessagesGetDialogsRequest) (MessagesDialogsClass, error) {
 	var result MessagesDialogsBox

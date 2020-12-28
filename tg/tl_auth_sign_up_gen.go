@@ -119,6 +119,17 @@ var (
 // AuthSignUp invokes method auth.signUp#80eee427 returning error if any.
 // Registers a validated phone number in the system.
 //
+// Possible errors:
+//  400 FIRSTNAME_INVALID: Invalid first name
+//  400 INPUT_REQUEST_TOO_LONG: The request is too big
+//  400 LASTNAME_INVALID: Invalid last name
+//  400 PHONE_CODE_EMPTY: phone_code from a SMS is empty
+//  400 PHONE_CODE_EXPIRED: SMS expired
+//  400 PHONE_CODE_INVALID: Invalid SMS code was sent
+//  400 PHONE_NUMBER_FLOOD: You asked for the code too many times.
+//  400 PHONE_NUMBER_INVALID: Invalid phone number
+//  400 PHONE_NUMBER_OCCUPIED: The phone number is already in use
+//
 // See https://core.telegram.org/method/auth.signUp for reference.
 func (c *Client) AuthSignUp(ctx context.Context, request *AuthSignUpRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox

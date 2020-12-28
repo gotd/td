@@ -122,7 +122,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/passport
 //
+// Possible errors:
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
+// Can be used by bots.
 func (c *Client) UsersSetSecureValueErrors(ctx context.Context, request *UsersSetSecureValueErrorsRequest) (bool, error) {
 	var result BoolBox
 

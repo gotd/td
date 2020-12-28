@@ -98,6 +98,9 @@ var (
 // MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.
 // Add GIF to saved gifs list
 //
+// Possible errors:
+//  400 GIF_ID_INVALID: The provided GIF ID is invalid
+//
 // See https://core.telegram.org/method/messages.saveGif for reference.
 func (c *Client) MessagesSaveGif(ctx context.Context, request *MessagesSaveGifRequest) (bool, error) {
 	var result BoolBox

@@ -98,6 +98,10 @@ var (
 // ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.
 // Enable/disable message signatures in channels
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHAT_ID_INVALID: The provided chat id is invalid
+//
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 func (c *Client) ChannelsToggleSignatures(ctx context.Context, request *ChannelsToggleSignaturesRequest) (UpdatesClass, error) {
 	var result UpdatesBox

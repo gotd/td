@@ -107,6 +107,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/channel
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//
 // See https://core.telegram.org/method/channels.readHistory for reference.
 func (c *Client) ChannelsReadHistory(ctx context.Context, request *ChannelsReadHistoryRequest) (bool, error) {
 	var result BoolBox

@@ -118,7 +118,14 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/channel
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  403 MESSAGE_DELETE_FORBIDDEN: You can't delete one of the messages you tried to delete, most likely because it is a service message.
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//
 // See https://core.telegram.org/method/channels.deleteMessages for reference.
+// Can be used by bots.
 func (c *Client) ChannelsDeleteMessages(ctx context.Context, request *ChannelsDeleteMessagesRequest) (*MessagesAffectedMessages, error) {
 	var result MessagesAffectedMessages
 

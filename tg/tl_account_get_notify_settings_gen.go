@@ -85,6 +85,9 @@ var (
 // AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.
 // Gets current notification settings for a given user/group, from all users/all groups.
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 func (c *Client) AccountGetNotifySettings(ctx context.Context, peer InputNotifyPeerClass) (*PeerNotifySettings, error) {
 	var result PeerNotifySettings

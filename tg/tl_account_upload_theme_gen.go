@@ -169,6 +169,9 @@ var (
 // AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.
 // Upload theme
 //
+// Possible errors:
+//  400 THEME_FILE_INVALID: Invalid theme file provided
+//
 // See https://core.telegram.org/method/account.uploadTheme for reference.
 func (c *Client) AccountUploadTheme(ctx context.Context, request *AccountUploadThemeRequest) (DocumentClass, error) {
 	var result DocumentBox

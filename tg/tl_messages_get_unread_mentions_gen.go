@@ -165,6 +165,11 @@ var (
 // MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.
 // Get unread messages where we were mentioned
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 func (c *Client) MessagesGetUnreadMentions(ctx context.Context, request *MessagesGetUnreadMentionsRequest) (MessagesMessagesClass, error) {
 	var result MessagesMessagesBox

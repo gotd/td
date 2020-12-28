@@ -85,7 +85,11 @@ var (
 // MessagesGetStickerSet invokes method messages.getStickerSet#2619a90e returning error if any.
 // Get info about a stickerset
 //
+// Possible errors:
+//  400 STICKERSET_INVALID: The provided sticker set is invalid
+//
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
+// Can be used by bots.
 func (c *Client) MessagesGetStickerSet(ctx context.Context, stickerset InputStickerSetClass) (*MessagesStickerSet, error) {
 	var result MessagesStickerSet
 

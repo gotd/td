@@ -86,6 +86,7 @@ var (
 // Hide MTProxy/Public Service Announcement information
 //
 // See https://core.telegram.org/method/help.hidePromoData for reference.
+// Can be used by bots.
 func (c *Client) HelpHidePromoData(ctx context.Context, peer InputPeerClass) (bool, error) {
 	var result BoolBox
 

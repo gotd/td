@@ -142,6 +142,9 @@ var (
 // MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.
 // Reorder pinned dialogs
 //
+// Possible errors:
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.reorderPinnedDialogs for reference.
 func (c *Client) MessagesReorderPinnedDialogs(ctx context.Context, request *MessagesReorderPinnedDialogsRequest) (bool, error) {
 	var result BoolBox

@@ -81,6 +81,7 @@ var (
 // Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
+// Can be used by bots.
 func (c *Client) HelpDismissSuggestion(ctx context.Context, suggestion string) (bool, error) {
 	var result BoolBox
 

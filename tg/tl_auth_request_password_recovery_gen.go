@@ -75,6 +75,9 @@ var (
 //  1) https://core.telegram.org/api/srp
 //  2) https://core.telegram.org/api/srp#email-verification
 //
+// Possible errors:
+//  400 PASSWORD_EMPTY: The provided password is empty
+//
 // See https://core.telegram.org/method/auth.requestPasswordRecovery for reference.
 func (c *Client) AuthRequestPasswordRecovery(ctx context.Context) (*AuthPasswordRecovery, error) {
 	var result AuthPasswordRecovery

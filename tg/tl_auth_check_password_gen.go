@@ -94,6 +94,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/srp
 //
+// Possible errors:
+//  400 PASSWORD_HASH_INVALID: The provided password isn't valid
+//  400 SRP_ID_INVALID: Invalid SRP ID provided
+//  400 SRP_PASSWORD_CHANGED: Password has changed
+//
 // See https://core.telegram.org/method/auth.checkPassword for reference.
 func (c *Client) AuthCheckPassword(ctx context.Context, password InputCheckPasswordSRPClass) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox

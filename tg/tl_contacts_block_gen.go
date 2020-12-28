@@ -85,6 +85,12 @@ var (
 // ContactsBlock invokes method contacts.block#68cc1411 returning error if any.
 // Adds the user to the blacklist.
 //
+// Possible errors:
+//  400 CONTACT_ID_INVALID: The provided contact ID is invalid
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted
+//  400 MSG_ID_INVALID: Invalid message ID provided
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/contacts.block for reference.
 func (c *Client) ContactsBlock(ctx context.Context, id InputPeerClass) (bool, error) {
 	var result BoolBox

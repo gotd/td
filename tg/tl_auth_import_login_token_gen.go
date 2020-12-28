@@ -90,6 +90,9 @@ var (
 //  1) https://core.telegram.org/api/qr-login
 //  2) https://core.telegram.org/api/qr-login
 //
+// Possible errors:
+//  400 AUTH_TOKEN_EXPIRED: The authorization token has expired
+//
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 func (c *Client) AuthImportLoginToken(ctx context.Context, token []byte) (AuthLoginTokenClass, error) {
 	var result AuthLoginTokenBox

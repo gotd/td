@@ -157,6 +157,12 @@ var (
 // MessagesSendEncryptedFile invokes method messages.sendEncryptedFile#5559481d returning error if any.
 // Sends a message with a file attachment to a secret chat
 //
+// Possible errors:
+//  400 DATA_TOO_LONG: Data too long
+//  400 ENCRYPTION_DECLINED: The secret chat was declined
+//  400 MD5_CHECKSUM_INVALID: The MD5 checksums do not match
+//  400 MSG_WAIT_FAILED: A waiting call returned an error
+//
 // See https://core.telegram.org/method/messages.sendEncryptedFile for reference.
 func (c *Client) MessagesSendEncryptedFile(ctx context.Context, request *MessagesSendEncryptedFileRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox

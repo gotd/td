@@ -201,6 +201,15 @@ var (
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.
 // Updates current user profile photo.
 //
+// Possible errors:
+//  400 FILE_PARTS_INVALID: The number of file parts is invalid
+//  400 IMAGE_PROCESS_FAILED: Failure while processing image
+//  400 PHOTO_CROP_FILE_MISSING: Photo crop file missing
+//  400 PHOTO_CROP_SIZE_SMALL: Photo is too small
+//  400 PHOTO_EXT_INVALID: The extension of the photo is invalid
+//  400 PHOTO_FILE_MISSING: Profile photo file missing
+//  400 VIDEO_FILE_INVALID: The specified video file is invalid
+//
 // See https://core.telegram.org/method/photos.uploadProfilePhoto for reference.
 func (c *Client) PhotosUploadProfilePhoto(ctx context.Context, request *PhotosUploadProfilePhotoRequest) (*PhotosPhoto, error) {
 	var result PhotosPhoto

@@ -183,7 +183,11 @@ var (
 // Links:
 //  1) https://core.telegram.org/constructor/updateBotShippingQuery
 //
+// Possible errors:
+//  400 QUERY_ID_INVALID: The query ID is invalid
+//
 // See https://core.telegram.org/method/messages.setBotShippingResults for reference.
+// Can be used by bots.
 func (c *Client) MessagesSetBotShippingResults(ctx context.Context, request *MessagesSetBotShippingResultsRequest) (bool, error) {
 	var result BoolBox
 

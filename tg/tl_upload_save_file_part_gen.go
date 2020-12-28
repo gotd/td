@@ -106,7 +106,12 @@ var (
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.
 // Saves a part of file for futher sending to one of the methods.
 //
+// Possible errors:
+//  400 FILE_PART_EMPTY: The provided file part is empty
+//  400 FILE_PART_INVALID: The file part number is invalid
+//
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
+// Can be used by bots.
 func (c *Client) UploadSaveFilePart(ctx context.Context, request *UploadSaveFilePartRequest) (bool, error) {
 	var result BoolBox
 

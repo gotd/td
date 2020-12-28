@@ -93,6 +93,9 @@ var (
 // MessagesReadEncryptedHistory invokes method messages.readEncryptedHistory#7f4b690a returning error if any.
 // Marks message history within a secret chat as read.
 //
+// Possible errors:
+//  400 MSG_WAIT_FAILED: A waiting call returned an error
+//
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 func (c *Client) MessagesReadEncryptedHistory(ctx context.Context, request *MessagesReadEncryptedHistoryRequest) (bool, error) {
 	var result BoolBox

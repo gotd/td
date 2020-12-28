@@ -93,7 +93,12 @@ var (
 // AuthImportAuthorization invokes method auth.importAuthorization#e3ef9613 returning error if any.
 // Logs in a user using a key transmitted from his native data-centre.
 //
+// Possible errors:
+//  400 AUTH_BYTES_INVALID: The provided authorization is invalid
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
+// Can be used by bots.
 func (c *Client) AuthImportAuthorization(ctx context.Context, request *AuthImportAuthorizationRequest) (AuthAuthorizationClass, error) {
 	var result AuthAuthorizationBox
 

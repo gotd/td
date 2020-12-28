@@ -68,6 +68,7 @@ var (
 // Logs out the user.
 //
 // See https://core.telegram.org/method/auth.logOut for reference.
+// Can be used by bots.
 func (c *Client) AuthLogOut(ctx context.Context) (bool, error) {
 	var result BoolBox
 

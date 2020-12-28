@@ -89,6 +89,9 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/channel
 //
+// Possible errors:
+//  403 TAKEOUT_REQUIRED: A takeout session has to be initialized, first
+//
 // See https://core.telegram.org/method/channels.getLeftChannels for reference.
 func (c *Client) ChannelsGetLeftChannels(ctx context.Context, offset int) (MessagesChatsClass, error) {
 	var result MessagesChatsBox

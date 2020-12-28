@@ -128,6 +128,10 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/end-to-end/voice-calls
 //
+// Possible errors:
+//  400 CALL_ALREADY_DECLINED: The call was already declined
+//  400 CALL_PEER_INVALID: The provided call peer object is invalid
+//
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 func (c *Client) PhoneConfirmCall(ctx context.Context, request *PhoneConfirmCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall

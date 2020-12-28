@@ -119,6 +119,9 @@ var (
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.
 // Edit location of geogroup
 //
+// Possible errors:
+//  400 MEGAGROUP_REQUIRED: You can only use this method on a supergroup
+//
 // See https://core.telegram.org/method/channels.editLocation for reference.
 func (c *Client) ChannelsEditLocation(ctx context.Context, request *ChannelsEditLocationRequest) (bool, error) {
 	var result BoolBox

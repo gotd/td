@@ -109,6 +109,13 @@ var (
 // MessagesSendEncryptedService invokes method messages.sendEncryptedService#32d439a4 returning error if any.
 // Sends a service message to a secret chat.
 //
+// Possible errors:
+//  400 DATA_INVALID: Encrypted data invalid
+//  400 ENCRYPTION_DECLINED: The secret chat was declined
+//  400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid
+//  400 MSG_WAIT_FAILED: A waiting call returned an error
+//  403 USER_IS_BLOCKED: You were blocked by this user
+//
 // See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 func (c *Client) MessagesSendEncryptedService(ctx context.Context, request *MessagesSendEncryptedServiceRequest) (MessagesSentEncryptedMessageClass, error) {
 	var result MessagesSentEncryptedMessageBox

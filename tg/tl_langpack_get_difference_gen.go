@@ -106,6 +106,9 @@ var (
 // LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.
 // Get new strings in languagepack
 //
+// Possible errors:
+//  400 LANG_PACK_INVALID: The provided language pack is invalid
+//
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 func (c *Client) LangpackGetDifference(ctx context.Context, request *LangpackGetDifferenceRequest) (*LangPackDifference, error) {
 	var result LangPackDifference

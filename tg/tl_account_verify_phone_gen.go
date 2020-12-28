@@ -118,6 +118,9 @@ var (
 // Links:
 //  1) https://core.telegram.org/passport
 //
+// Possible errors:
+//  400 PHONE_CODE_EXPIRED: The phone code you provided has expired, this may happen if it was sent to any chat on telegram (if the code is sent through a telegram chat (not the official account) to avoid it append or prepend to the code some chars)
+//
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 func (c *Client) AccountVerifyPhone(ctx context.Context, request *AccountVerifyPhoneRequest) (bool, error) {
 	var result BoolBox

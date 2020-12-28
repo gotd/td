@@ -173,7 +173,13 @@ var (
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
 // Use this method to set the score of the specified user in a game sent as a normal message (bots only).
 //
+// Possible errors:
+//  400 MESSAGE_ID_INVALID: The provided message id is invalid
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//  400 USER_BOT_REQUIRED: This method can only be called by a bot
+//
 // See https://core.telegram.org/method/messages.setGameScore for reference.
+// Can be used by bots.
 func (c *Client) MessagesSetGameScore(ctx context.Context, request *MessagesSetGameScoreRequest) (UpdatesClass, error) {
 	var result UpdatesBox
 

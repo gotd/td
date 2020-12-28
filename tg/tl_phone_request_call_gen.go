@@ -157,6 +157,13 @@ var (
 // PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.
 // Start a telegram phone call
 //
+// Possible errors:
+//  400 CALL_PROTOCOL_FLAGS_INVALID: Call protocol flags invalid
+//  400 PARTICIPANT_VERSION_OUTDATED: The other participant does not use an up to date telegram client with support for calls
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//  403 USER_IS_BLOCKED: You were blocked by this user
+//  403 USER_PRIVACY_RESTRICTED: The user's privacy settings do not allow you to do this
+//
 // See https://core.telegram.org/method/phone.requestCall for reference.
 func (c *Client) PhoneRequestCall(ctx context.Context, request *PhoneRequestCallRequest) (*PhonePhoneCall, error) {
 	var result PhonePhoneCall

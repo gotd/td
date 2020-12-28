@@ -93,6 +93,9 @@ var (
 // Links:
 //  1) https://core.telegram.org/api/qr-login
 //
+// Possible errors:
+//  400 AUTH_TOKEN_INVALIDX: The specified auth token is invalid
+//
 // See https://core.telegram.org/method/auth.acceptLoginToken for reference.
 func (c *Client) AuthAcceptLoginToken(ctx context.Context, token []byte) (*Authorization, error) {
 	var result Authorization

@@ -127,6 +127,12 @@ var (
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
 // Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
 //
+// Possible errors:
+//  400 CHANNEL_INVALID: The provided channel is invalid
+//  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this
+//  400 INPUT_USER_DEACTIVATED: The specified user was deleted
+//  400 USER_ID_INVALID: The provided user ID is invalid
+//
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 func (c *Client) ChannelsReportSpam(ctx context.Context, request *ChannelsReportSpamRequest) (bool, error) {
 	var result BoolBox

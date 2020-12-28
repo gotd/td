@@ -85,6 +85,10 @@ var (
 // MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.
 // Get count of online users in a chat
 //
+// Possible errors:
+//  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
+//  400 PEER_ID_INVALID: The provided peer id is invalid
+//
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 func (c *Client) MessagesGetOnlines(ctx context.Context, peer InputPeerClass) (*ChatOnlines, error) {
 	var result ChatOnlines

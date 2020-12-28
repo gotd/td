@@ -94,6 +94,7 @@ var (
 // Send VoIP signaling data
 //
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
+// Can be used by bots.
 func (c *Client) PhoneSendSignalingData(ctx context.Context, request *PhoneSendSignalingDataRequest) (bool, error) {
 	var result BoolBox
 
