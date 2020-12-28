@@ -27,7 +27,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 		g, gctx := errgroup.WithContext(ctx)
 
