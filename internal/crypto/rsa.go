@@ -36,9 +36,9 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	copy(dataWithHash[sha1.Size:], data)
 
 	// Encrypting "dataWithHash" with RSA.
-	z := big.NewInt(0).SetBytes(dataWithHash[:])
+	z := new(big.Int).SetBytes(dataWithHash[:])
 	e := big.NewInt(int64(key.E))
-	c := big.NewInt(0).Exp(z, e, key.N)
+	c := new(big.Int).Exp(z, e, key.N)
 	res := make([]byte, 256)
 	copy(res, c.Bytes())
 
@@ -47,8 +47,8 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 
 // RSADecryptHashed decrypts given data with RSA.
 func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte, err error) {
-	c := big.NewInt(0).SetBytes(data)
-	m := big.NewInt(0).Exp(c, key.D, key.N)
+	c := new(big.Int).SetBytes(data)
+	m := new(big.Int).Exp(c, key.D, key.N)
 
 	r = m.Bytes()
 	r = r[sha1.Size:]

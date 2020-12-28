@@ -24,7 +24,7 @@ func TestExchange(t *testing.T) {
 	i := transport.Intermediate(nil)
 	client, server := i.Pipe()
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	g, gctx := errgroup.WithContext(ctx)
