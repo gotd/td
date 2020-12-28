@@ -35,12 +35,11 @@ func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) (
 	if _, err := io.ReadFull(randomSource, dataWithHash[:]); err != nil {
 		return nil, err
 	}
-	h := sha1.New() // #nosec
-	if _, err := h.Write(data); err != nil {
-		return nil, err
-	}
+
+	h := sha1.Sum(data) // #nosec
+
 	// Replacing first 20 bytes with sha1(data).
-	copy(dataWithHash[:sha1.Size], h.Sum(nil))
+	copy(dataWithHash[:sha1.Size], h[:])
 	// Replacing other bytes with data itself.
 	copy(dataWithHash[sha1.Size:], data)
 
@@ -66,15 +65,10 @@ func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte, err error) {
 	paddedData := dataWithHash[sha1.Size:]
 
 	// Guessing such data that sha1(data) == hash.
-	h := sha1.New() // #nosec
-	var currentHash []byte
 	for i := 0; i <= len(paddedData); i++ {
-		h.Reset()
-
 		data := paddedData[:len(paddedData)-i]
-		_, _ = h.Write(data)
-		currentHash = h.Sum(currentHash[:0])
-		if bytes.Equal(currentHash, hash) {
+		h := sha1.Sum(data) // #nosec
+		if bytes.Equal(h[:], hash) {
 			// Found.
 			return data, nil
 		}
