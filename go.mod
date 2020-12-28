@@ -16,7 +16,6 @@ require (
 	github.com/k0kubun/pp v2.4.0+incompatible
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stretchr/testify v1.6.1
-	github.com/yudai/pp v2.0.1+incompatible
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7
