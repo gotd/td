@@ -11,10 +11,8 @@ func sha1BigInt(a, b *big.Int) []byte {
 	buf = append(buf, a.Bytes()...)
 	buf = append(buf, b.Bytes()...)
 
-	h := sha1.New() // #nosec
-	_, _ = h.Write(buf)
-
-	return h.Sum(nil)
+	h := sha1.Sum(buf) // #nosec
+	return h[:]
 }
 
 // TempAESKeys returns tmp_aes_key and tmp_aes_iv based on new_nonce and

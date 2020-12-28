@@ -14,19 +14,16 @@ func GuessDataWithHash(dataWithHash []byte) []byte {
 		// Data length too small.
 		return nil
 	}
+
 	v := dataWithHash[:sha1.Size]
-	h := sha1.New() // #nosec
-	var currentHash []byte
 	for i := 0; i < 16; i++ {
-		h.Reset()
 		if len(dataWithHash)-i < sha1.Size {
 			// End of slice reached.
 			return nil
 		}
 		data := dataWithHash[sha1.Size : len(dataWithHash)-i]
-		_, _ = h.Write(data)
-		currentHash = h.Sum(currentHash[:0])
-		if bytes.Equal(currentHash, v) {
+		h := sha1.Sum(data) // #nosec
+		if bytes.Equal(h[:], v) {
 			// Found.
 			return data
 		}

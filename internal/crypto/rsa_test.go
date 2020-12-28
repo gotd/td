@@ -28,11 +28,12 @@ BSqi+FEREW/2aWSgSwIDAQAB
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedBase64 := "fxiV3AFhhauM5Dfgo50VzYBS9TxTMWPymU+cKt1HBwg9wPtIcXj3B2csCRSdCSCcjpBWJ" +
-		"6NLk2QFsv+7IEeVHKXekpVBQ1aU4p52jPYSlqQZs0/BzYKxnexwD6qjYqvXJi60LD4S3fl7eCQnVoiL25vh" +
-		"64F3a2cdYoiFQXgx7t4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-		"AAAAAAAAAAAAAAAAAAAAAA=="
+	expectedBase64 := "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+		"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/GJXcAWGFq4zkN+CjnRXNgFL1" +
+		"PFMxY/KZT5wq3UcHCD3A+0hxePcHZywJFJ0JIJyOkFYno0uTZAWy/7sgR5Ucpd6SlUFDVp" +
+		"TinnaM9hKWpBmzT8HNgrGd7HAPqqNiq9cmLrQsPhLd+Xt4JCdWiIvbm+HrgXdrZx1iiIVB" +
+		"eDHu3g=="
 	gotBase64 := base64.StdEncoding.EncodeToString(result)
 	if expectedBase64 != gotBase64 {
 		t.Error(gotBase64)
@@ -53,5 +54,43 @@ func TestRSADecryptHashed(t *testing.T) {
 	a.NoError(err)
 	decrypted, err := RSADecryptHashed(encrypted, k)
 	a.NoError(err)
-	a.Equal(plaintext, decrypted[:len(plaintext)])
+	a.Equal(plaintext, decrypted)
+}
+
+func TestRSAEncryptHashedCorpus(t *testing.T) {
+	reader := mathrand.New(mathrand.NewSource(0))
+	k, err := rsa.GenerateKey(reader, 2048)
+	require.NoError(t, err)
+
+	for _, s := range []string{
+		"\xbd\xbf\xef\x1e\x11p",
+	} {
+		t.Run(s, func(t *testing.T) {
+			data := []byte(s)
+			encrypted, err := RSAEncryptHashed(data, &k.PublicKey, reader)
+			require.NoError(t, err)
+
+			decrypted, err := RSADecryptHashed(encrypted, k)
+			require.NoError(t, err)
+
+			require.Equal(t, data, decrypted)
+		})
+	}
+}
+
+func TestRSAEncryptHashedFuzz(t *testing.T) {
+	src := mathrand.New(mathrand.NewSource(1))
+	k, err := rsa.GenerateKey(src, 2048)
+	require.NoError(t, err)
+
+	for i := 0; i < 100; i++ {
+		n, err := RandInt64n(src, rsaDataLen)
+		require.NoError(t, err)
+		data := make([]byte, int(n))
+		encrypted, err := RSAEncryptHashed(data, &k.PublicKey, src)
+		require.NoError(t, err)
+		decrypted, err := RSADecryptHashed(encrypted, k)
+		require.NoError(t, err)
+		require.Equal(t, data, decrypted)
+	}
 }
