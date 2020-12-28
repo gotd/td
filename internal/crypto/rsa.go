@@ -59,8 +59,8 @@ func RSADecryptHashed(data []byte, key *rsa.PrivateKey) (r []byte, err error) {
 	c := new(big.Int).SetBytes(data)
 	m := new(big.Int).Exp(c, key.D, key.N)
 
-	dataWithHash := make([]byte, rsaWithHashLen)
-	m.FillBytes(dataWithHash)
+	var dataWithHash [rsaWithHashLen]byte
+	m.FillBytes(dataWithHash[:])
 
 	hash := dataWithHash[:sha1.Size]
 	paddedData := dataWithHash[sha1.Size:]
