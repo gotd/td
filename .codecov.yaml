@@ -4,3 +4,7 @@ ignore:
   - "**/bindata.go"
   # Ignore commands (examples or internal utilities).
   - "cmd/*/*.go"
+
+coverage:
+  status:
+    patch: off
