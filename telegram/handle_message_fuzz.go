@@ -18,10 +18,10 @@ func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 
 func FuzzHandleMessage(data []byte) int {
 	c := &Client{
-		rand:  Zero{},
-		rpc:   rpc.New(rpc.NopSend, rpc.Config{}),
-		log:   zap.NewNop(),
-		msgID: newMsgIDGen(time.Now, 100, proto.MessageFromClient),
+		rand:      Zero{},
+		rpc:       rpc.New(rpc.NopSend, rpc.Config{}),
+		log:       zap.NewNop(),
+		messageID: proto.NewMessageIDGen(time.Now, 1),
 
 		sessionCreated: createCondOnce(),
 	}
