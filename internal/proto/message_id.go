@@ -1,6 +1,7 @@
 package proto
 
 import (
+	"sync"
 	"time"
 )
 
@@ -94,4 +95,75 @@ func NewMessageID(now time.Time, typ MessageType) MessageID {
 		yield = yieldClient
 	}
 	return MessageID(newMessageID(now, yield))
+}
+
+// MessageIDGen is message id generator that provides collision prevention.
+//
+// The main reason of such structure is that now() can return same time during
+// multiple calls and that leads to duplicate message id.
+type MessageIDGen struct {
+	// mux protects buf and cursor, which is ring buffer for
+	// recent generated message ids.
+	mux    sync.Mutex
+	buf    []int64
+	cursor int
+
+	now func() time.Time
+}
+
+// contains returns true if id was generated previously or false
+// if (probably) not generated.
+//
+// Assumes mux locked.
+func (g *MessageIDGen) contains(id int64) bool {
+	for i := range g.buf {
+		if g.buf[i] == id {
+			return true
+		}
+	}
+	return false
+}
+
+// add saves id as already generated.
+//
+// Assumes mux locked.
+func (g *MessageIDGen) add(id int64) {
+	if g.cursor >= len(g.buf) {
+		g.cursor = 0
+	}
+	g.buf[g.cursor] = id
+	g.cursor++
+}
+
+// New generates new message id for provided type, protecting from collisions
+// that are caused by low memory resolution.
+func (g *MessageIDGen) New(t MessageType) int64 {
+	g.mux.Lock()
+	defer g.mux.Unlock()
+
+	now := g.now()
+	id := int64(NewMessageID(now, t))
+
+	const resolution = time.Nanosecond * 5
+
+	for g.contains(id) {
+		now = now.Add(resolution)
+		id = int64(NewMessageID(now, t))
+	}
+
+	g.add(id)
+
+	return id
+}
+
+// NewMessageIDGen creates new message id generator.
+//
+// Current time will be provided by now() function.
+// The n parameter configures capacity of message id history, bigger n results
+// in bigger memory consumption.
+func NewMessageIDGen(now func() time.Time, n int) *MessageIDGen {
+	return &MessageIDGen{
+		buf: make([]int64, n),
+		now: now,
+	}
 }

@@ -3,6 +3,8 @@ package proto
 import (
 	"testing"
 	"time"
+
+	"github.com/gotd/neo"
 )
 
 func TestMessageID(t *testing.T) {
@@ -39,5 +41,45 @@ func BenchmarkNewMessageID(b *testing.B) {
 		if NewMessageID(now, MessageFromServer).Type() != MessageFromServer {
 			b.Fatal("Mismatch")
 		}
+	}
+}
+
+func TestMessageIDGen(t *testing.T) {
+	date := time.Date(1991, 1, 3, 14, 44, 33, 513, time.UTC)
+	clock := neo.NewTime(date)
+
+	gen := NewMessageIDGen(clock.Now, 10)
+	met := make(map[int64]bool)
+
+	for i := 0; i < 1000; i++ {
+		if i%10 == 0 {
+			clock.Travel(time.Millisecond * 100)
+		}
+
+		id := gen.New(MessageFromClient)
+		if met[id] {
+			t.Fatal("met")
+		}
+
+		met[id] = true
+	}
+}
+
+func BenchmarkMsgIDGen_New(b *testing.B) {
+	b.ReportAllocs()
+
+	date := time.Date(1991, 1, 3, 14, 44, 33, 513, time.UTC)
+	var dateCalls int
+	now := func() time.Time {
+		if dateCalls%100 == 0 {
+			date = date.Add(time.Millisecond)
+		}
+		return date
+	}
+
+	gen := NewMessageIDGen(now, 100)
+
+	for i := 0; i < b.N; i++ {
+		_ = gen.New(MessageFromServer)
 	}
 }

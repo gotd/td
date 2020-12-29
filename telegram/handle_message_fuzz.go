@@ -3,9 +3,12 @@
 package telegram
 
 import (
+	"time"
+
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/telegram/internal/rpc"
 )
 
@@ -15,9 +18,10 @@ func (Zero) Read(p []byte) (n int, err error) { return len(p), nil }
 
 func FuzzHandleMessage(data []byte) int {
 	c := &Client{
-		rand: Zero{},
-		rpc:  rpc.New(rpc.NopSend, rpc.Config{}),
-		log:  zap.NewNop(),
+		rand:      Zero{},
+		rpc:       rpc.New(rpc.NopSend, rpc.Config{}),
+		log:       zap.NewNop(),
+		messageID: proto.NewMessageIDGen(time.Now, 1),
 
 		sessionCreated: createCondOnce(),
 	}

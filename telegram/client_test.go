@@ -59,6 +59,7 @@ func newTestClient(h testHandler) *Client {
 		appID:          TestAppID,
 		appHash:        TestAppHash,
 		authKey:        crypto.AuthKey{}.WithID(),
+		messageID:      proto.NewMessageIDGen(time.Now, 100),
 	}
 	client.tg = tg.NewClient(client)
 	client.sessionCreated.Done()

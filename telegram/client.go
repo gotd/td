@@ -53,6 +53,10 @@ func (t tracer) Message(b *bin.Buffer) {
 	t.OnMessage(b)
 }
 
+type messageIDGen interface {
+	New(t proto.MessageType) int64
+}
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
@@ -67,10 +71,11 @@ type Client struct {
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
-	clock  func() time.Time
-	rand   io.Reader
-	cipher crypto.Cipher
-	log    *zap.Logger
+	clock     func() time.Time
+	rand      io.Reader
+	cipher    crypto.Cipher
+	log       *zap.Logger
+	messageID messageIDGen
 
 	sessionCreated *condOnce
 
@@ -122,16 +127,21 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
+	now := time.Now
+
+	const defaultMsgIDGenBuf = 100
+
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
 		addr:      opt.Addr,
 		transport: opt.Transport,
 
-		clock:  time.Now,
-		rand:   opt.Random,
-		cipher: crypto.NewClientCipher(opt.Random),
-		log:    opt.Logger,
-		ping:   map[int64]func(){},
+		clock:     now,
+		rand:      opt.Random,
+		cipher:    crypto.NewClientCipher(opt.Random),
+		log:       opt.Logger,
+		ping:      map[int64]func(){},
+		messageID: proto.NewMessageIDGen(now, defaultMsgIDGenBuf),
 
 		sessionCreated: createCondOnce(),
 
