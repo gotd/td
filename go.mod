@@ -16,9 +16,11 @@ require (
 	github.com/k0kubun/pp v2.4.0+incompatible
 	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stretchr/testify v1.6.1
+	github.com/tdakkota/astbuilders v0.1.0
+	github.com/tdakkota/gomacro v0.0.0-20201229083007-19625852c2ec
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
-	golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7
+	golang.org/x/net v0.0.0-20200625001655-4c5254603344
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 )

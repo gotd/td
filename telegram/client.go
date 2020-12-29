@@ -10,7 +10,6 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
@@ -40,18 +39,6 @@ const (
 	TestAppID   = 17349
 	TestAppHash = "344583e45741c457fe1862106095a5eb"
 )
-
-type tracer struct {
-	// OnMessage is called on every incoming message if set.
-	OnMessage func(b *bin.Buffer)
-}
-
-func (t tracer) Message(b *bin.Buffer) {
-	if t.OnMessage == nil {
-		return
-	}
-	t.OnMessage(b)
-}
 
 type messageIDGen interface {
 	New(t proto.MessageType) int64
