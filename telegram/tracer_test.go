@@ -12,7 +12,7 @@ import (
 func TestTrace_OnMessage(t *testing.T) {
 	client := newTestClient(nil)
 	var traceCalled bool
-	client.trace.OnMessage = func(b *bin.Buffer) {
+	client.trace.Message = func(b *bin.Buffer) {
 		assert.Empty(t, b.Buf)
 		traceCalled = true
 	}

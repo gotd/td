@@ -50,7 +50,7 @@ func (c *Client) handleUnknown(b *bin.Buffer) error {
 }
 
 func (c *Client) handleMessage(b *bin.Buffer) error {
-	c.trace.Message(b)
+	c.trace.OnMessage(b)
 
 	id, err := b.PeekID()
 	if err != nil {
