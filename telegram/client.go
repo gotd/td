@@ -115,6 +115,8 @@ type Client struct {
 	rsaPublicKeys []*rsa.PublicKey
 
 	types *tmap.Map
+
+	msgID *msgIDGen
 }
 
 // NewClient creates new unstarted client.
@@ -122,12 +124,14 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
+	now := time.Now
+
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
 		addr:      opt.Addr,
 		transport: opt.Transport,
 
-		clock:  time.Now,
+		clock:  now,
 		rand:   opt.Random,
 		cipher: crypto.NewClientCipher(opt.Random),
 		log:    opt.Logger,
@@ -148,6 +152,10 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		sessionStorage: opt.SessionStorage,
 		rsaPublicKeys:  opt.PublicKeys,
 		updateHandler:  opt.UpdateHandler,
+
+		// Ring-buffer that contains 100 last generated id's to reduce
+		// collisions possibility.
+		msgID: newMsgIDGen(now, 100, proto.MessageFromClient),
 
 		types: tmap.New(
 			mt.TypesMap(),
