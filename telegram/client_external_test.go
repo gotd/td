@@ -72,9 +72,12 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 			}
 
 			var rpcErr *telegram.Error
-			if errors.As(err, &rpcErr) && rpcErr.Type == "AUTH_KEY_UNREGISTERED" {
-				time.Sleep(time.Second)
-				continue // retry
+			if errors.As(err, &rpcErr) {
+				switch rpcErr.Type {
+				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED":
+					time.Sleep(time.Second)
+					continue
+				}
 			}
 
 			break // unrecoverable error
