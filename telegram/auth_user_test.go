@@ -8,13 +8,12 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gotd/td/internal/testutil"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/tg"
 )
 
