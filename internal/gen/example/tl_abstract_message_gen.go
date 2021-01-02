@@ -268,6 +268,8 @@ type FieldsMessage struct {
 	// Flags field of FieldsMessage.
 	Flags bin.Fields
 	// Escape field of FieldsMessage.
+	//
+	// Use SetEscape and GetEscape helpers.
 	Escape bool
 	// TTLSeconds field of FieldsMessage.
 	//
@@ -289,6 +291,11 @@ func (f *FieldsMessage) String() string {
 	sb.WriteString("\tFlags: ")
 	sb.WriteString(f.Flags.String())
 	sb.WriteString(",\n")
+	if f.Flags.Has(0) {
+		sb.WriteString("\tEscape: ")
+		sb.WriteString(fmt.Sprint(f.Escape))
+		sb.WriteString(",\n")
+	}
 	if f.Flags.Has(1) {
 		sb.WriteString("\tTTLSeconds: ")
 		sb.WriteString(fmt.Sprint(f.TTLSeconds))
@@ -307,6 +314,9 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode fieldsMessage#947225b5: field flags: %w", err)
 	}
+	if f.Flags.Has(0) {
+		b.PutBool(f.Escape)
+	}
 	if f.Flags.Has(1) {
 		b.PutInt(f.TTLSeconds)
 	}
@@ -315,13 +325,17 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 
 // SetEscape sets value of Escape conditional field.
 func (f *FieldsMessage) SetEscape(value bool) {
-	if value {
-		f.Flags.Set(0)
-		f.Escape = true
-	} else {
-		f.Flags.Unset(0)
-		f.Escape = false
+	f.Flags.Set(0)
+	f.Escape = value
+}
+
+// GetEscape returns value of Escape conditional field and
+// boolean which is true if field was set.
+func (f *FieldsMessage) GetEscape() (value bool, ok bool) {
+	if !f.Flags.Has(0) {
+		return value, false
 	}
+	return f.Escape, true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -352,7 +366,13 @@ func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field flags: %w", err)
 		}
 	}
-	f.Escape = f.Flags.Has(0)
+	if f.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field escape: %w", err)
+		}
+		f.Escape = value
+	}
 	if f.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
