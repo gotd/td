@@ -25,6 +25,8 @@ type PhoneToggleGroupCallSettingsRequest struct {
 	// Call field of PhoneToggleGroupCallSettingsRequest.
 	Call InputGroupCall
 	// JoinMuted field of PhoneToggleGroupCallSettingsRequest.
+	//
+	// Use SetJoinMuted and GetJoinMuted helpers.
 	JoinMuted bool
 }
 
@@ -45,6 +47,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	sb.WriteString("\tCall: ")
 	sb.WriteString(t.Call.String())
 	sb.WriteString(",\n")
+	if t.Flags.Has(0) {
+		sb.WriteString("\tJoinMuted: ")
+		sb.WriteString(fmt.Sprint(t.JoinMuted))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("}")
 	return sb.String()
 }
@@ -61,18 +68,25 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 	if err := t.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
 	}
+	if t.Flags.Has(0) {
+		b.PutBool(t.JoinMuted)
+	}
 	return nil
 }
 
 // SetJoinMuted sets value of JoinMuted conditional field.
 func (t *PhoneToggleGroupCallSettingsRequest) SetJoinMuted(value bool) {
-	if value {
-		t.Flags.Set(0)
-		t.JoinMuted = true
-	} else {
-		t.Flags.Unset(0)
-		t.JoinMuted = false
+	t.Flags.Set(0)
+	t.JoinMuted = value
+}
+
+// GetJoinMuted returns value of JoinMuted conditional field and
+// boolean which is true if field was set.
+func (t *PhoneToggleGroupCallSettingsRequest) GetJoinMuted() (value bool, ok bool) {
+	if !t.Flags.Has(0) {
+		return value, false
 	}
+	return t.JoinMuted, true
 }
 
 // Decode implements bin.Decoder.
@@ -93,7 +107,13 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
 		}
 	}
-	t.JoinMuted = t.Flags.Has(0)
+	if t.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field join_muted: %w", err)
+		}
+		t.JoinMuted = value
+	}
 	return nil
 }
 

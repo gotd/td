@@ -990,6 +990,8 @@ type KeyboardButtonRequestPoll struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If set, only quiz polls can be sent
+	//
+	// Use SetQuiz and GetQuiz helpers.
 	Quiz bool
 	// Button text
 	Text string
@@ -1009,6 +1011,11 @@ func (k *KeyboardButtonRequestPoll) String() string {
 	sb.WriteString("\tFlags: ")
 	sb.WriteString(k.Flags.String())
 	sb.WriteString(",\n")
+	if k.Flags.Has(0) {
+		sb.WriteString("\tQuiz: ")
+		sb.WriteString(fmt.Sprint(k.Quiz))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("\tText: ")
 	sb.WriteString(fmt.Sprint(k.Text))
 	sb.WriteString(",\n")
@@ -1025,19 +1032,26 @@ func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
 	}
+	if k.Flags.Has(0) {
+		b.PutBool(k.Quiz)
+	}
 	b.PutString(k.Text)
 	return nil
 }
 
 // SetQuiz sets value of Quiz conditional field.
 func (k *KeyboardButtonRequestPoll) SetQuiz(value bool) {
-	if value {
-		k.Flags.Set(0)
-		k.Quiz = true
-	} else {
-		k.Flags.Unset(0)
-		k.Quiz = false
+	k.Flags.Set(0)
+	k.Quiz = value
+}
+
+// GetQuiz returns value of Quiz conditional field and
+// boolean which is true if field was set.
+func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
+	if !k.Flags.Has(0) {
+		return value, false
 	}
+	return k.Quiz, true
 }
 
 // Decode implements bin.Decoder.
@@ -1053,7 +1067,13 @@ func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
 		}
 	}
-	k.Quiz = k.Flags.Has(0)
+	if k.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field quiz: %w", err)
+		}
+		k.Quiz = value
+	}
 	{
 		value, err := b.String()
 		if err != nil {

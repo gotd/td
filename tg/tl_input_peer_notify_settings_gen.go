@@ -27,8 +27,12 @@ type InputPeerNotifySettings struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// If the text of the message shall be displayed in notification
+	//
+	// Use SetShowPreviews and GetShowPreviews helpers.
 	ShowPreviews bool
 	// Peer was muted?
+	//
+	// Use SetSilent and GetSilent helpers.
 	Silent bool
 	// Date until which all notifications shall be switched off
 	//
@@ -54,6 +58,16 @@ func (i *InputPeerNotifySettings) String() string {
 	sb.WriteString("\tFlags: ")
 	sb.WriteString(i.Flags.String())
 	sb.WriteString(",\n")
+	if i.Flags.Has(0) {
+		sb.WriteString("\tShowPreviews: ")
+		sb.WriteString(fmt.Sprint(i.ShowPreviews))
+		sb.WriteString(",\n")
+	}
+	if i.Flags.Has(1) {
+		sb.WriteString("\tSilent: ")
+		sb.WriteString(fmt.Sprint(i.Silent))
+		sb.WriteString(",\n")
+	}
 	if i.Flags.Has(2) {
 		sb.WriteString("\tMuteUntil: ")
 		sb.WriteString(fmt.Sprint(i.MuteUntil))
@@ -77,6 +91,12 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
 	}
+	if i.Flags.Has(0) {
+		b.PutBool(i.ShowPreviews)
+	}
+	if i.Flags.Has(1) {
+		b.PutBool(i.Silent)
+	}
 	if i.Flags.Has(2) {
 		b.PutInt(i.MuteUntil)
 	}
@@ -88,24 +108,32 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 
 // SetShowPreviews sets value of ShowPreviews conditional field.
 func (i *InputPeerNotifySettings) SetShowPreviews(value bool) {
-	if value {
-		i.Flags.Set(0)
-		i.ShowPreviews = true
-	} else {
-		i.Flags.Unset(0)
-		i.ShowPreviews = false
+	i.Flags.Set(0)
+	i.ShowPreviews = value
+}
+
+// GetShowPreviews returns value of ShowPreviews conditional field and
+// boolean which is true if field was set.
+func (i *InputPeerNotifySettings) GetShowPreviews() (value bool, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
 	}
+	return i.ShowPreviews, true
 }
 
 // SetSilent sets value of Silent conditional field.
 func (i *InputPeerNotifySettings) SetSilent(value bool) {
-	if value {
-		i.Flags.Set(1)
-		i.Silent = true
-	} else {
-		i.Flags.Unset(1)
-		i.Silent = false
+	i.Flags.Set(1)
+	i.Silent = value
+}
+
+// GetSilent returns value of Silent conditional field and
+// boolean which is true if field was set.
+func (i *InputPeerNotifySettings) GetSilent() (value bool, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
 	}
+	return i.Silent, true
 }
 
 // SetMuteUntil sets value of MuteUntil conditional field.
@@ -151,8 +179,20 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
 		}
 	}
-	i.ShowPreviews = i.Flags.Has(0)
-	i.Silent = i.Flags.Has(1)
+	if i.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field show_previews: %w", err)
+		}
+		i.ShowPreviews = value
+	}
+	if i.Flags.Has(1) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field silent: %w", err)
+		}
+		i.Silent = value
+	}
 	if i.Flags.Has(2) {
 		value, err := b.Int()
 		if err != nil {
