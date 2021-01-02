@@ -35,15 +35,15 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	}
 	phone, err := f.Auth.Phone(ctx)
 	if err != nil {
-		return xerrors.Errorf("failed to get phone: %w", err)
+		return xerrors.Errorf("get phone: %w", err)
 	}
 	hash, err := client.AuthSendCode(ctx, phone, f.Options)
 	if err != nil {
-		return xerrors.Errorf("failed to send code: %w", err)
+		return xerrors.Errorf("send code: %w", err)
 	}
 	code, err := f.Auth.Code(ctx)
 	if err != nil {
-		return xerrors.Errorf("failed to get code: %w", err)
+		return xerrors.Errorf("get code: %w", err)
 	}
 
 	signInErr := client.AuthSignIn(ctx, phone, code, hash)

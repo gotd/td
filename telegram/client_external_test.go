@@ -15,6 +15,7 @@ import (
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
@@ -35,7 +36,7 @@ func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transp
 	})
 
 	if err := client.Connect(ctx); err != nil {
-		return err
+		return xerrors.Errorf("connect: %w", err)
 	}
 
 	defer func() {
@@ -46,11 +47,11 @@ func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transp
 		telegram.TestAuth(rand.Reader, 2),
 		telegram.SendCodeOptions{},
 	).Run(ctx, client); err != nil {
-		return err
+		return xerrors.Errorf("auth: %w", err)
 	}
 
 	if _, err := client.Self(ctx); err != nil {
-		return err
+		return xerrors.Errorf("self: %w", err)
 	}
 
 	return nil
