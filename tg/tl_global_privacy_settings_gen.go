@@ -27,6 +27,8 @@ type GlobalPrivacySettings struct {
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
 	// Whether to archive and mute new chats from non-contacts
+	//
+	// Use SetArchiveAndMuteNewNoncontactPeers and GetArchiveAndMuteNewNoncontactPeers helpers.
 	ArchiveAndMuteNewNoncontactPeers bool
 }
 
@@ -44,6 +46,11 @@ func (g *GlobalPrivacySettings) String() string {
 	sb.WriteString("\tFlags: ")
 	sb.WriteString(g.Flags.String())
 	sb.WriteString(",\n")
+	if g.Flags.Has(0) {
+		sb.WriteString("\tArchiveAndMuteNewNoncontactPeers: ")
+		sb.WriteString(fmt.Sprint(g.ArchiveAndMuteNewNoncontactPeers))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("}")
 	return sb.String()
 }
@@ -57,18 +64,25 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode globalPrivacySettings#bea2f424: field flags: %w", err)
 	}
+	if g.Flags.Has(0) {
+		b.PutBool(g.ArchiveAndMuteNewNoncontactPeers)
+	}
 	return nil
 }
 
 // SetArchiveAndMuteNewNoncontactPeers sets value of ArchiveAndMuteNewNoncontactPeers conditional field.
 func (g *GlobalPrivacySettings) SetArchiveAndMuteNewNoncontactPeers(value bool) {
-	if value {
-		g.Flags.Set(0)
-		g.ArchiveAndMuteNewNoncontactPeers = true
-	} else {
-		g.Flags.Unset(0)
-		g.ArchiveAndMuteNewNoncontactPeers = false
+	g.Flags.Set(0)
+	g.ArchiveAndMuteNewNoncontactPeers = value
+}
+
+// GetArchiveAndMuteNewNoncontactPeers returns value of ArchiveAndMuteNewNoncontactPeers conditional field and
+// boolean which is true if field was set.
+func (g *GlobalPrivacySettings) GetArchiveAndMuteNewNoncontactPeers() (value bool, ok bool) {
+	if !g.Flags.Has(0) {
+		return value, false
 	}
+	return g.ArchiveAndMuteNewNoncontactPeers, true
 }
 
 // Decode implements bin.Decoder.
@@ -84,7 +98,13 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field flags: %w", err)
 		}
 	}
-	g.ArchiveAndMuteNewNoncontactPeers = g.Flags.Has(0)
+	if g.Flags.Has(0) {
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field archive_and_mute_new_noncontact_peers: %w", err)
+		}
+		g.ArchiveAndMuteNewNoncontactPeers = value
+	}
 	return nil
 }
 

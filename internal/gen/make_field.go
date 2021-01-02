@@ -137,7 +137,7 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 		f.Conditional = true
 		f.ConditionalIndex = flag.Index
 		f.ConditionalField = pascal(flag.Name)
-		if f.Type == "bool" && !f.Vector {
+		if f.Type == "bool" && !f.Vector && baseType.Name == "true" {
 			f.ConditionalBool = true
 		}
 	}
