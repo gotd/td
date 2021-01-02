@@ -115,3 +115,37 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 
 	return nil
 }
+
+// AuthAcceptTOS accepts version of Terms Of Service.
+func (c *Client) AuthAcceptTOS(ctx context.Context, id tg.DataJSON) error {
+	_, err := c.tg.HelpAcceptTermsOfService(ctx, id)
+	return err
+}
+
+// SignUp wraps parameters for AuthSignUp.
+type SignUp struct {
+	PhoneNumber   string
+	PhoneCodeHash string
+	FirstName     string
+	LastName      string
+}
+
+// AuthSignUp registers a validated phone number in the system.
+//
+// To obtain codeHash, use AuthSendCode.
+// Use AuthFlow helper to handle authentication flow.
+func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
+	auth, err := c.tg.AuthSignUp(ctx, &tg.AuthSignUpRequest{
+		LastName:      s.LastName,
+		PhoneCodeHash: s.PhoneCodeHash,
+		PhoneNumber:   s.PhoneNumber,
+		FirstName:     s.FirstName,
+	})
+	if err != nil {
+		return xerrors.Errorf("request: %w", err)
+	}
+	if err := c.checkAuthResult(auth); err != nil {
+		return xerrors.Errorf("check: %w", err)
+	}
+	return nil
+}
