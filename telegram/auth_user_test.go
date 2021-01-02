@@ -160,3 +160,60 @@ func TestClientTestAuth(t *testing.T) {
 		SendCodeOptions{},
 	).Run(ctx, client))
 }
+
+func TestClientTestSignUp(t *testing.T) {
+	const (
+		dcID     = 2
+		codeHash = "hash"
+		tosID    = "foo"
+	)
+	ctx := context.Background()
+	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+		switch req := body.(type) {
+		case *tg.AuthSendCodeRequest:
+			assert.Equal(t, &tg.AuthSendCodeRequest{
+				PhoneNumber: req.PhoneNumber,
+				APIHash:     TestAppHash,
+				APIID:       TestAppID,
+				Settings:    tg.CodeSettings{},
+			}, req)
+			return &tg.AuthSentCode{
+				Type:          &tg.AuthSentCodeTypeApp{},
+				PhoneCodeHash: codeHash,
+			}, nil
+		case *tg.AuthSignUpRequest:
+			assert.Equal(t, &tg.AuthSignUpRequest{
+				PhoneNumber:   req.PhoneNumber,
+				PhoneCodeHash: codeHash,
+				FirstName:     "Test",
+				LastName:      "User",
+			}, req)
+			return &tg.AuthAuthorization{
+				User: &tg.User{ID: 1},
+			}, nil
+		case *tg.HelpAcceptTermsOfServiceRequest:
+			return &tg.BoolTrue{}, nil
+		case *tg.AuthSignInRequest:
+			if !strings.HasPrefix(req.PhoneNumber, "99966") {
+				t.Fatalf("unexpected phone number %s", req.PhoneNumber)
+			}
+			dcPart := req.PhoneNumber[5:6]
+			assert.Equal(t, strconv.Itoa(dcID), dcPart, "dc part of phone number")
+			assert.Equal(t, &tg.AuthSignInRequest{
+				PhoneNumber:   req.PhoneNumber,
+				PhoneCodeHash: codeHash,
+				PhoneCode:     strings.Repeat(dcPart, 5),
+			}, req)
+
+			res := &tg.AuthAuthorizationSignUpRequired{}
+			res.SetTermsOfService(tg.HelpTermsOfService{ID: tg.DataJSON{Data: tosID}})
+
+			return res, nil
+		}
+		return nil, xerrors.New("unexpected")
+	})
+	require.NoError(t, NewAuth(
+		TestAuth(rand.New(rand.NewSource(1)), dcID),
+		SendCodeOptions{},
+	).Run(ctx, client))
+}

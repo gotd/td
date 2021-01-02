@@ -73,8 +73,10 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 			return xerrors.Errorf("sign up info not provided: %w", err)
 		}
 		if err := client.AuthSignUp(ctx, SignUp{
-			FirstName: info.FirstName,
-			LastName:  info.LastName,
+			PhoneNumber:   phone,
+			PhoneCodeHash: hash,
+			FirstName:     info.FirstName,
+			LastName:      info.LastName,
 		}); err != nil {
 			return xerrors.Errorf("sign up: %w", err)
 		}
