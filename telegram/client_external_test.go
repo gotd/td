@@ -3,6 +3,7 @@ package telegram_test
 import (
 	"context"
 	"crypto/rand"
+	"errors"
 	"os"
 	"strconv"
 	"strings"
@@ -22,37 +23,64 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transport) error {
+	t.Helper()
+
+	log := zaptest.NewLogger(t)
+	defer func() { _ = log.Sync() }()
+
+	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
+		Addr:      telegram.AddrTest,
+		Transport: trp,
+	})
+
+	if err := client.Connect(ctx); err != nil {
+		return err
+	}
+
+	defer func() {
+		_ = client.Close()
+	}()
+
+	if err := telegram.NewAuth(
+		telegram.TestAuth(rand.Reader, 2),
+		telegram.SendCodeOptions{},
+	).Run(ctx, client); err != nil {
+		return err
+	}
+
+	if _, err := client.Self(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func testTransport(trp telegram.Transport) func(t *testing.T) {
 	return func(t *testing.T) {
-		log := zaptest.NewLogger(t)
-		defer func() { _ = log.Sync() }()
-
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 
-		client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-			Addr:      telegram.AddrTest,
-			Transport: trp,
-		})
+		var err error
 
-		if err := client.Connect(ctx); err != nil {
-			t.Fatal(err)
+		// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.
+		// It is expected and client implementation is unlikely to cause
+		// such errors, so just doing retries with sleep.
+		for i := 0; i < 10; i++ {
+			if err = testTransportAttempt(ctx, t, trp); err == nil {
+				return // ok
+			}
+
+			var rpcErr *telegram.Error
+			if errors.As(err, &rpcErr) && rpcErr.Type == "AUTH_KEY_UNREGISTERED" {
+				time.Sleep(time.Second)
+				continue // retry
+			}
+
+			break // unrecoverable error
 		}
 
-		defer func() {
-			_ = client.Close()
-		}()
-
-		if err := telegram.NewAuth(
-			telegram.TestAuth(rand.Reader, 2),
-			telegram.SendCodeOptions{},
-		).Run(ctx, client); err != nil {
-			t.Fatal(err)
-		}
-
-		if _, err := client.Self(ctx); err != nil {
-			t.Fatal(err)
-		}
+		t.Fatal(err)
 	}
 }
 
@@ -61,10 +89,10 @@ func TestExternalE2EConnect(t *testing.T) {
 		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
 	}
 
-	t.Run("abridged", testTransport(transport.Abridged(nil)))
-	t.Run("intermediate", testTransport(transport.Intermediate(nil)))
-	t.Run("padded intermediate", testTransport(transport.PaddedIntermediate(nil)))
-	t.Run("full", testTransport(transport.Full(nil)))
+	t.Run("Abridged", testTransport(transport.Abridged(nil)))
+	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
+	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
+	t.Run("Full", testTransport(transport.Full(nil)))
 }
 
 const dialog = `— Да?

@@ -11,6 +11,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/tg"
 )
 
 // NewAuth initializes new authentication flow.
@@ -46,20 +47,43 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	}
 
 	signInErr := client.AuthSignIn(ctx, phone, code, hash)
+
 	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
-			return xerrors.Errorf("failed to get password: %w", err)
+			return xerrors.Errorf("get password: %w", err)
 		}
-
 		if err := client.AuthPassword(ctx, password); err != nil {
-			return xerrors.Errorf("failed to sign in with password: %w", err)
+			return xerrors.Errorf("sign in with password: %w", err)
 		}
 
 		return nil
 	}
+
+	var signUpRequired *SignUpRequired
+	if errors.As(signInErr, &signUpRequired) {
+		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
+			return xerrors.Errorf("confirm TOS: %w", err)
+		}
+		if err := client.AuthAcceptTOS(ctx, signUpRequired.TermsOfService.ID); err != nil {
+			return xerrors.Errorf("accept TOS: %w", err)
+		}
+		info, err := f.Auth.SignUp(ctx)
+		if err != nil {
+			return xerrors.Errorf("sign up info not provided: %w", err)
+		}
+		if err := client.AuthSignUp(ctx, SignUp{
+			FirstName: info.FirstName,
+			LastName:  info.LastName,
+		}); err != nil {
+			return xerrors.Errorf("sign up: %w", err)
+		}
+
+		return nil
+	}
+
 	if signInErr != nil {
-		return xerrors.Errorf("failed to sign in: %w", signInErr)
+		return xerrors.Errorf("sign in: %w", signInErr)
 	}
 
 	return nil
@@ -70,6 +94,8 @@ type AuthFlowClient interface {
 	AuthSignIn(ctx context.Context, phone, code, codeHash string) error
 	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
 	AuthPassword(ctx context.Context, password string) error
+	AuthAcceptTOS(ctx context.Context, id tg.DataJSON) error
+	AuthSignUp(ctx context.Context, s SignUp) error
 }
 
 // CodeAuthenticator asks user for received authentication code.
@@ -85,16 +111,32 @@ func (c CodeAuthenticatorFunc) Code(ctx context.Context) (string, error) {
 	return c(ctx)
 }
 
+// UserInfo represents user info required for sign up.
+type UserInfo struct {
+	FirstName string
+	LastName  string
+}
+
 // UserAuthenticator asks user for phone, password and received authentication code.
 type UserAuthenticator interface {
 	Phone(ctx context.Context) (string, error)
 	Password(ctx context.Context) (string, error)
+	AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error
+	SignUp(ctx context.Context) (UserInfo, error)
 	CodeAuthenticator
 }
 
 type constantAuth struct {
 	phone, password string
 	CodeAuthenticator
+}
+
+func (c constantAuth) SignUp(ctx context.Context) (UserInfo, error) {
+	return UserInfo{}, xerrors.New("not implemented")
+}
+
+func (c constantAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
+	return &SignUpRequired{TermsOfService: tos}
 }
 
 func (c constantAuth) Phone(ctx context.Context) (string, error) {
@@ -123,6 +165,14 @@ type codeOnlyAuth struct {
 	CodeAuthenticator
 }
 
+func (c codeOnlyAuth) SignUp(ctx context.Context) (UserInfo, error) {
+	return UserInfo{}, xerrors.New("not implemented")
+}
+
+func (c codeOnlyAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
+	return &SignUpRequired{TermsOfService: tos}
+}
+
 func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {
 	return c.phone, nil
 }
@@ -139,9 +189,30 @@ func CodeOnlyAuth(phone string, code CodeAuthenticator) UserAuthenticator {
 	}
 }
 
+type testAuth struct {
+	code  string
+	phone string
+}
+
+func (t testAuth) Phone(ctx context.Context) (string, error)    { return t.phone, nil }
+func (t testAuth) Password(ctx context.Context) (string, error) { return "", ErrPasswordNotProvided }
+func (t testAuth) Code(ctx context.Context) (string, error)     { return t.code, nil }
+
+func (t testAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
+	return nil
+}
+
+func (t testAuth) SignUp(ctx context.Context) (UserInfo, error) {
+	return UserInfo{
+		FirstName: "Test",
+		LastName:  "User",
+	}, nil
+}
+
 // TestAuth returns UserAuthenticator that authenticates via testing credentials.
 //
-// Can be used only with testing server.
+// Can be used only with testing server. Will perform sign up if test user is
+// not registered.
 func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 5.
 	// The n value is from 0000 to 9999.
@@ -152,7 +223,8 @@ func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	code := strings.Repeat(strconv.Itoa(dc), 5)
 	phone := fmt.Sprintf("99966%d%04d", dc, n)
 
-	return CodeOnlyAuth(phone, CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
-		return code, nil
-	}))
+	return testAuth{
+		code:  code,
+		phone: phone,
+	}
 }
