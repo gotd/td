@@ -8,3 +8,6 @@ ignore:
 coverage:
   status:
     patch: off
+    project:
+      default:
+        threshold: 0.5%
