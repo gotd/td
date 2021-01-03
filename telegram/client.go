@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"io"
+	"sync"
 
 	"github.com/gotd/td/internal/clock"
 
@@ -38,6 +39,7 @@ type conn interface {
 	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 	Connect(ctx context.Context) error
 	Close() error
+	Config() tg.Config
 }
 
 // Client represents a MTProto client to Telegram.
@@ -45,7 +47,10 @@ type Client struct {
 	// tg provides RPC calls via Client.
 	tg *tg.Client
 
-	conn  conn
+	connMux sync.Mutex
+	connOpt mtproto.Options
+	conn    conn
+
 	trace tracer
 
 	// Wrappers for external world, like current time, logs or PRNG.
@@ -79,11 +84,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
 	}
-
-	// Initializing connection.
-	client.conn = mtproto.NewConn(client.appID, client.appHash, mtproto.Options{
+	client.connOpt = mtproto.Options{
 		PublicKeys:     opt.PublicKeys,
-		Addr:           opt.Addr,
 		Transport:      opt.Transport,
 		Network:        opt.Network,
 		Random:         opt.Random,
@@ -96,7 +98,15 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		MaxRetries:     opt.MaxRetries,
 		MessageID:      opt.MessageID,
 		Clock:          opt.Clock,
-	})
+	}
+
+	// Initializing connection.
+	client.conn = mtproto.NewConn(
+		client.appID,
+		client.appHash,
+		opt.Addr,
+		client.connOpt,
+	)
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)

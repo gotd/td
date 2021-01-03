@@ -99,9 +99,6 @@ func (c *Conn) processContainerMessage(msg proto.Message) error {
 }
 
 func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessageData, error) {
-	c.mux.Lock()
-	defer c.mux.Unlock()
-
 	b.Reset()
 	if err := c.conn.Recv(ctx, b); err != nil {
 		return nil, err

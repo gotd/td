@@ -12,8 +12,6 @@ func (c *Conn) write(ctx context.Context, id int64, seq int32, message bin.Encod
 		return err
 	}
 
-	c.connMux.RLock()
-	defer c.connMux.RUnlock()
 	if err := c.conn.Send(ctx, b); err != nil {
 		return err
 	}

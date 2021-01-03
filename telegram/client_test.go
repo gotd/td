@@ -49,8 +49,9 @@ func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.
 	})
 }
 
-func (t testConn) Connect(ctx context.Context) error { return nil }
-func (t testConn) Close() error                      { return nil }
+func (testConn) Connect(ctx context.Context) error { return nil }
+func (testConn) Config() tg.Config                 { return tg.Config{} }
+func (testConn) Close() error                      { return nil }
 
 func newTestClient(h testHandler) *Client {
 	var engine *rpc.Engine

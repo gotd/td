@@ -25,24 +25,6 @@ import (
 // Handler will be called on received message from Telegram.
 type Handler func(b *bin.Buffer) error
 
-// Available MTProto default server addresses.
-//
-// See https://my.telegram.org/apps.
-const (
-	AddrProduction = "149.154.167.50:443"
-	AddrTest       = "149.154.167.40:443"
-)
-
-// Test-only credentials. Can be used with AddrTest and TestAuth to
-// test authentication.
-//
-// Reference:
-//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
-const (
-	TestAppID   = 17349
-	TestAppHash = "344583e45741c457fe1862106095a5eb"
-)
-
 // MessageIDSource is message id generator.
 type MessageIDSource interface {
 	New(t proto.MessageType) int64
@@ -50,17 +32,14 @@ type MessageIDSource interface {
 
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
-	mux sync.Mutex
-
 	// tg provides RPC calls via Conn.
 	tg *tg.Client
 
-	// conn is owned by Conn and not exposed.
 	transport Transport
-	connMux   sync.RWMutex
 	conn      transport.Conn
 	addr      string
 	trace     tracer
+	cfg       tg.Config
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -114,17 +93,15 @@ type Conn struct {
 }
 
 // NewConn creates new unstarted connection.
-func NewConn(appID int, appHash string, opt Options) *Conn {
+func NewConn(appID int, appHash, addr string, opt Options) *Conn {
 	// Set default values, if user does not set.
 	opt.setDefaults()
-
-	now := time.Now
 
 	const defaultMsgIDGenBuf = 100
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Conn{
-		addr:      opt.Addr,
+		addr:      addr,
 		transport: opt.Transport,
 
 		clock:     opt.Clock,
@@ -132,7 +109,7 @@ func NewConn(appID int, appHash string, opt Options) *Conn {
 		cipher:    crypto.NewClientCipher(opt.Random),
 		log:       opt.Logger,
 		ping:      map[int64]func(){},
-		messageID: proto.NewMessageIDGen(now, defaultMsgIDGenBuf),
+		messageID: proto.NewMessageIDGen(opt.Clock.Now, defaultMsgIDGenBuf),
 
 		sessionCreated: createCondOnce(),
 
@@ -205,9 +182,7 @@ func (c *Conn) connect(ctx context.Context) error {
 	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
-
-	c.mux.Lock()
-	defer c.mux.Unlock()
+	c.log.Info("Connected", zap.String("addr", c.addr))
 	c.conn = conn
 
 	if c.authKey.Zero() {
