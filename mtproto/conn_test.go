@@ -1,4 +1,4 @@
-package telegram
+package mtproto
 
 import (
 	"context"
@@ -9,13 +9,14 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
-
-	"github.com/gotd/td/internal/clock"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
@@ -25,34 +26,7 @@ import (
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
-func testError(err tg.Error) (bin.Encoder, error) {
-	e := &Error{
-		Message: err.Text,
-		Code:    err.Code,
-	}
-	e.ExtractArgument()
-	return nil, e
-}
-
-type testConn struct {
-	id     int64
-	engine *rpc.Engine
-}
-
-func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	t.id++
-	return t.engine.Do(ctx, rpc.Request{
-		Input:    input,
-		Output:   output,
-		ID:       t.id,
-		Sequence: int32(t.id),
-	})
-}
-
-func (t testConn) Connect(ctx context.Context) error { return nil }
-func (t testConn) Close() error                      { return nil }
-
-func newTestClient(h testHandler) *Client {
+func newTestClient(h testHandler) *Conn {
 	var engine *rpc.Engine
 
 	engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
@@ -68,15 +42,19 @@ func newTestClient(h testHandler) *Client {
 		return nil
 	}, rpc.Config{})
 
-	client := &Client{
-		log:     zap.NewNop(),
-		clock:   clock.System,
-		rand:    rand.New(rand.NewSource(1)),
-		appID:   TestAppID,
-		appHash: TestAppHash,
-		conn:    &testConn{engine: engine},
+	client := &Conn{
+		rpc:            engine,
+		log:            zap.NewNop(),
+		clock:          clock.System,
+		rand:           rand.New(rand.NewSource(1)),
+		sessionCreated: createCondOnce(),
+		appID:          TestAppID,
+		appHash:        TestAppHash,
+		authKey:        crypto.AuthKey{}.WithID(),
+		messageID:      proto.NewMessageIDGen(time.Now, 100),
 	}
 	client.tg = tg.NewClient(client)
+	client.sessionCreated.Done()
 
 	return client
 }

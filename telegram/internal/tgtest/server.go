@@ -6,7 +6,8 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"net"
-	"time"
+
+	"github.com/gotd/td/internal/clock"
 
 	"go.uber.org/zap"
 
@@ -22,7 +23,7 @@ type Server struct {
 	cipher  crypto.Cipher
 	handler Handler
 
-	clock  func() time.Time
+	clock  clock.Clock
 	ctx    context.Context
 	cancel context.CancelFunc
 	log    *zap.Logger
@@ -74,7 +75,7 @@ func NewUnstartedServer(suite Suite, codec func() transport.Codec) *Server {
 		server: transport.NewCustomServer(codec, newLocalListener()),
 		key:    k,
 		cipher: crypto.NewServerCipher(rand.Reader),
-		clock:  time.Now,
+		clock:  clock.System,
 		ctx:    ctx,
 		cancel: cancel,
 		log:    suite.Log.Named("server"),

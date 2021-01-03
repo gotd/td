@@ -1,4 +1,4 @@
-package telegram
+package mtproto
 
 import (
 	"context"
@@ -11,9 +11,8 @@ import (
 
 	"github.com/gotd/td/internal/proto"
 
-	"github.com/gotd/td/mtproto"
-
 	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/transport"
 )
@@ -24,7 +23,7 @@ type Transport interface {
 	DialContext(ctx context.Context, network, address string) (transport.Conn, error)
 }
 
-// Options of Client.
+// Options of Conn.
 type Options struct {
 	// PublicKeys of telegram.
 	//
@@ -46,9 +45,9 @@ type Options struct {
 	Logger *zap.Logger
 	// SessionStorage will be used to load and save session data.
 	// NB: Very sensitive data, save with care.
-	SessionStorage mtproto.SessionStorage
-	// UpdateHandler will be called on received update.
-	UpdateHandler UpdateHandler
+	SessionStorage SessionStorage
+	// Handler will be called on received message.
+	Handler Handler
 
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
@@ -57,9 +56,8 @@ type Options struct {
 
 	RetryInterval time.Duration
 	MaxRetries    int
-
-	MessageID mtproto.MessageIDSource
-	Clock     clock.Clock
+	MessageID     MessageIDSource
+	Clock         clock.Clock
 }
 
 func (opt *Options) setDefaults() {
@@ -95,5 +93,17 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
+	}
+	if len(opt.PublicKeys) == 0 {
+		// Using public keys that are included with distribution if not
+		// provided.
+		//
+		// This should never fail and keys should be valid for recent
+		// library versions.
+		keys, err := vendoredKeys()
+		if err != nil {
+			panic(xerrors.Errorf("load vendored keys: %w", err))
+		}
+		opt.PublicKeys = keys
 	}
 }
