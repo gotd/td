@@ -6,8 +6,8 @@ func (c *Conn) Close() error {
 
 	c.rpc.Close()
 
-	c.connMux.RLock()
-	defer c.connMux.RUnlock()
+	c.mux.RLock()
+	defer c.mux.RUnlock()
 	if err := c.conn.Close(); err != nil {
 		return err
 	}

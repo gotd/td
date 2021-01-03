@@ -50,17 +50,15 @@ type MessageIDSource interface {
 
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
-	mux sync.Mutex
-
 	// tg provides RPC calls via Conn.
 	tg *tg.Client
 
-	// conn is owned by Conn and not exposed.
+	mux       sync.RWMutex
 	transport Transport
-	connMux   sync.RWMutex
 	conn      transport.Conn
 	addr      string
 	trace     tracer
+	cfg       tg.Config
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
