@@ -49,14 +49,14 @@ type Conn struct {
 	log       *zap.Logger
 	messageID MessageIDSource
 
-	sessionCreated *condOnce
-
 	// Access to authKey and authKeyID is not synchronized because
 	// serial access ensured in Dial (i.e. no concurrent access possible).
 	authKey crypto.AuthKeyWithID
 
-	salt    int64 // atomic access only
-	session int64 // atomic access only
+	salt           int64 // atomic access only
+	sessionID      int64 // atomic access only
+	sessionCreated *condOnce
+	session        SessionStorage // immutable
 
 	// sentContentMessages is count of created content messages, used to
 	// compute sequence number within session.
@@ -70,8 +70,7 @@ type Conn struct {
 	appID   int    // immutable
 	appHash string // immutable
 
-	handler        Handler        // immutable
-	sessionStorage SessionStorage // immutable
+	handler Handler // immutable
 
 	rpc *rpc.Engine
 
@@ -123,9 +122,9 @@ func NewConn(appID int, appHash, addr string, opt Options) *Conn {
 		appID:   appID,
 		appHash: appHash,
 
-		sessionStorage: opt.SessionStorage,
-		rsaPublicKeys:  opt.PublicKeys,
-		handler:        opt.Handler,
+		session:       opt.SessionStorage,
+		rsaPublicKeys: opt.PublicKeys,
+		handler:       opt.Handler,
 
 		types: tmap.New(
 			mt.TypesMap(),
@@ -196,7 +195,9 @@ func (c *Conn) connect(ctx context.Context) error {
 			return xerrors.Errorf("failed to save session: %w", err)
 		}
 
-		c.log.With(zap.Duration("duration", c.clock.Now().Sub(start))).Info("AuthFlow key generated")
+		c.log.With(
+			zap.Duration("duration", c.clock.Now().Sub(start)),
+		).Info("Auth key generated")
 	}
 	return nil
 }

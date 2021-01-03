@@ -21,7 +21,7 @@ type Data struct {
 	Salt      int64
 }
 
-// SessionStorage is secure persistent storage for client session.
+// Storage is secure persistent storage for client session.
 //
 // NB: Implementation security is important, attacker can use not only for
 // connecting as authenticated user or bot, but even decrypting previous
@@ -34,6 +34,7 @@ type Storage interface {
 // ErrNotFound means that session is not found in storage.
 var ErrNotFound = errors.New("session storage: not found")
 
+// Loader wraps Storage implementing Data (un-)marshaling.
 type Loader struct {
 	Storage Storage
 }
@@ -45,6 +46,7 @@ type jsonData struct {
 
 const latestVersion = 1
 
+// Load loads Data from Storage.
 func (l *Loader) Load(ctx context.Context) (*Data, error) {
 	buf, err := l.Storage.LoadSession(ctx)
 	if err != nil {
@@ -54,13 +56,14 @@ func (l *Loader) Load(ctx context.Context) (*Data, error) {
 	if err := json.Unmarshal(buf, &v); err != nil {
 		return nil, xerrors.Errorf("unmarshal: %w", err)
 	}
-	if v.Version < latestVersion {
+	if v.Version != latestVersion {
 		// HACK(ernado): backward compatibility super shenanigan.
-		return nil, xerrors.Errorf("version mismatch: %w", ErrNotFound)
+		return nil, xerrors.Errorf("version mismatch (%d != %d): %w", v.Version, latestVersion, ErrNotFound)
 	}
 	return &v.Data, err
 }
 
+// Save saves Data to Storage.
 func (l *Loader) Save(ctx context.Context, data *Data) error {
 	v := jsonData{
 		Version: latestVersion,

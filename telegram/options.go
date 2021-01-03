@@ -43,7 +43,7 @@ type Options struct {
 	Logger *zap.Logger
 	// SessionStorage will be used to load and save session data.
 	// NB: Very sensitive data, save with care.
-	SessionStorage mtproto.SessionStorage
+	SessionStorage SessionStorage
 	// UpdateHandler will be called on received update.
 	UpdateHandler UpdateHandler
 

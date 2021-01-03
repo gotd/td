@@ -2,126 +2,76 @@ package mtproto
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
-	"io/ioutil"
-	"os"
 	"sync/atomic"
+
+	"go.uber.org/zap"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/session"
 )
 
-// SessionStorage is secure persistent storage for client session.
-//
-// NB: Implementation security is important, attacker can use not only for
-// connecting as authenticated user or bot, but even decrypting previous
-// messages in some situations.
+// SessionStorage persists session data.
 type SessionStorage interface {
-	LoadSession(ctx context.Context) ([]byte, error)
-	StoreSession(ctx context.Context, data []byte) error
-}
-
-// ErrSessionNotFound means that session is not found in storage.
-var ErrSessionNotFound = errors.New("session storage: not found")
-
-// FileSessionStorage implements SessionStorage for file system as file
-// stored in Path.
-type FileSessionStorage struct {
-	Path string
-}
-
-// LoadSession loads session from file.
-func (f *FileSessionStorage) LoadSession(_ context.Context) ([]byte, error) {
-	if f == nil {
-		return nil, xerrors.New("nil session storage is invalid")
-	}
-	data, err := ioutil.ReadFile(f.Path)
-	if os.IsNotExist(err) {
-		return nil, ErrSessionNotFound
-	}
-	if err != nil {
-		return nil, xerrors.Errorf("read: %w", err)
-	}
-	return data, nil
-}
-
-// StoreSession stores session to file.
-func (f *FileSessionStorage) StoreSession(_ context.Context, data []byte) error {
-	if f == nil {
-		return xerrors.New("nil session storage is invalid")
-	}
-	return ioutil.WriteFile(f.Path, data, 0600)
-}
-
-// NB: any changes to this structure will break backward compatibility
-// to all clients.
-type jsonSession struct {
-	Salt      int64  `json:"salt"`
-	AuthKey   []byte `json:"auth_key"`
-	AuthKeyID []byte `json:"auth_key_id"`
+	Load(ctx context.Context) (*session.Data, error)
+	Save(ctx context.Context, data *session.Data) error
 }
 
 func (c *Conn) saveSession(ctx context.Context) error {
-	if c.sessionStorage == nil {
+	if c.session == nil {
 		return nil
 	}
 
-	sess := jsonSession{
-		Salt:      atomic.LoadInt64(&c.salt),
-		AuthKeyID: c.authKey.AuthKeyID[:],
-		AuthKey:   c.authKey.AuthKey[:],
+	// TODO: fix race condition here
+	data, err := c.session.Load(ctx)
+	if errors.Is(err, session.ErrNotFound) {
+		data = &session.Data{}
+	} else if err != nil {
+		return xerrors.Errorf("load: %w", err)
 	}
-	data, err := json.Marshal(sess)
-	if err != nil {
-		return xerrors.Errorf("marshal: %w", err)
-	}
-	if err := c.sessionStorage.StoreSession(ctx, data); err != nil {
-		return xerrors.Errorf("store: %w", err)
+
+	data.Salt = atomic.LoadInt64(&c.salt)
+	data.AuthKeyID = c.authKey.AuthKeyID[:]
+	data.AuthKey = c.authKey.AuthKey[:]
+	data.Config = c.cfg
+	data.Addr = c.addr
+
+	if err := c.session.Save(ctx, data); err != nil {
+		return xerrors.Errorf("save: %w", err)
 	}
 
 	return nil
 }
 
 func (c *Conn) loadSession(ctx context.Context) error {
-	if c.sessionStorage == nil {
+	if c.session == nil {
 		return nil
 	}
-	data, err := c.sessionStorage.LoadSession(ctx)
-	if errors.Is(err, ErrSessionNotFound) {
+
+	data, err := c.session.Load(ctx)
+	if errors.Is(err, session.ErrNotFound) {
 		// Will create session after key exchange.
+		c.log.Debug("Session not found", zap.Error(err))
 		return nil
 	}
 	if err != nil {
 		return xerrors.Errorf("failed to load session: %w", err)
 	}
 
-	// NB: Any change to unmarshalling can break clients in backward
-	// incompatible way.
-	var sess jsonSession
-	if err := json.Unmarshal(data, &sess); err != nil {
-		// Probably we can re-create session anyway via explicit config
-		// option.
-		return xerrors.Errorf("unmarshal: %w", err)
-	}
-
 	// Validating auth key.
-	var authKey crypto.AuthKey
-	copy(authKey[:], sess.AuthKey)
-	var authKeyID [8]byte
-	copy(authKeyID[:], sess.AuthKeyID)
+	var k crypto.AuthKeyWithID
+	copy(k.AuthKey[:], data.AuthKey)
+	copy(k.AuthKeyID[:], data.AuthKeyID)
 
-	if authKey.ID() != authKeyID {
+	if k.AuthKey.ID() != k.AuthKeyID {
 		return xerrors.New("auth key id does not match (corrupted session data)")
 	}
 
-	// Success.
-	c.authKey = crypto.AuthKeyWithID{
-		AuthKey:   authKey,
-		AuthKeyID: authKeyID,
-	}
-	atomic.StoreInt64(&c.salt, sess.Salt)
+	c.cfg = data.Config
+	c.authKey = k
+	atomic.StoreInt64(&c.salt, data.Salt)
 	c.log.Info("Session loaded from storage")
 
 	// Generating new session id.
@@ -129,7 +79,7 @@ func (c *Conn) loadSession(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	atomic.StoreInt64(&c.session, sessID)
+	atomic.StoreInt64(&c.sessionID, sessID)
 
 	return nil
 }

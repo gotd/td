@@ -2,8 +2,13 @@ package telegram
 
 import (
 	"context"
+	"errors"
 	"io"
 	"sync"
+
+	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/session"
 
 	"github.com/gotd/td/internal/clock"
 
@@ -84,13 +89,21 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
 	}
+
+	var sessionStorage mtproto.SessionStorage
+	if opt.SessionStorage != nil {
+		sessionStorage = &session.Loader{
+			Storage: opt.SessionStorage,
+		}
+	}
+
 	client.connOpt = mtproto.Options{
 		PublicKeys:     opt.PublicKeys,
 		Transport:      opt.Transport,
 		Network:        opt.Network,
 		Random:         opt.Random,
 		Logger:         opt.Logger,
-		SessionStorage: opt.SessionStorage,
+		SessionStorage: sessionStorage,
 		Handler:        client.handleMessage,
 		AckBatchSize:   opt.AckBatchSize,
 		AckInterval:    opt.AckInterval,
@@ -114,9 +127,38 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	return client
 }
 
+func (c *Client) restoreConnection(ctx context.Context) error {
+	if c.connOpt.SessionStorage == nil {
+		return nil
+	}
+	data, err := c.connOpt.SessionStorage.Load(ctx)
+	if errors.Is(err, session.ErrNotFound) {
+		return nil
+	}
+	if err != nil {
+		return xerrors.Errorf("load: %w", err)
+	}
+
+	// Re-initializing connection from persisted state.
+	c.log.Info("Connection restored from state",
+		zap.String("addr", data.Addr),
+	)
+	c.conn = mtproto.NewConn(
+		c.appID,
+		c.appHash,
+		data.Addr,
+		c.connOpt,
+	)
+
+	return nil
+}
+
 // Connect initializes connection to Telegram server and starts internal
 // read loop.
 func (c *Client) Connect(ctx context.Context) error {
+	if err := c.restoreConnection(ctx); err != nil {
+		return xerrors.Errorf("restore: %w", err)
+	}
 	if err := c.conn.Connect(ctx); err != nil {
 		return err
 	}

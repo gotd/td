@@ -25,7 +25,7 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 		}
 	}
 	d := crypto.EncryptedMessageData{
-		SessionID:              atomic.LoadInt64(&c.session),
+		SessionID:              atomic.LoadInt64(&c.sessionID),
 		Salt:                   atomic.LoadInt64(&c.salt),
 		MessageID:              id,
 		SeqNo:                  seq,

@@ -109,7 +109,7 @@ func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessag
 		return nil, xerrors.Errorf("decrypt: %w", err)
 	}
 
-	if msg.SessionID != atomic.LoadInt64(&c.session) {
+	if msg.SessionID != atomic.LoadInt64(&c.sessionID) {
 		return nil, xerrors.Errorf("invalid session")
 	}
 

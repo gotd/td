@@ -19,7 +19,7 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	}
 
 	c.authKey = r.AuthKey
-	atomic.StoreInt64(&c.session, r.SessionID)
+	atomic.StoreInt64(&c.sessionID, r.SessionID)
 	atomic.StoreInt64(&c.salt, r.ServerSalt)
 
 	return nil
