@@ -21,7 +21,7 @@ type InitConnection struct {
 	LangPack       string
 	LangCode       string
 
-	Query TType
+	Query bin.Object
 }
 
 // InitConnectionID is TL type id of initConnection#c1cd5ea9.

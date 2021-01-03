@@ -2,21 +2,15 @@ package telegram
 
 import (
 	"context"
-	"crypto/rsa"
 	"io"
-	"sync"
-	"time"
+
+	"github.com/gotd/td/internal/clock"
 
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/telegram/internal/rpc"
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
 )
 
 // UpdateHandler will be called on received updates from Telegram.
@@ -40,8 +34,10 @@ const (
 	TestAppHash = "344583e45741c457fe1862106095a5eb"
 )
 
-type messageIDGen interface {
-	New(t proto.MessageType) int64
+type conn interface {
+	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Connect(ctx context.Context) error
+	Close() error
 }
 
 // Client represents a MTProto client to Telegram.
@@ -49,64 +45,22 @@ type Client struct {
 	// tg provides RPC calls via Client.
 	tg *tg.Client
 
-	// conn is owned by Client and not exposed.
-	transport Transport
-	conn      transport.Conn
-	connMux   sync.RWMutex
-	addr      string
-	trace     tracer
+	conn  conn
+	trace tracer
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
-	clock     func() time.Time
-	rand      io.Reader
-	cipher    crypto.Cipher
-	log       *zap.Logger
-	messageID messageIDGen
-
-	sessionCreated *condOnce
-
-	// Access to authKey and authKeyID is not synchronized because
-	// serial access ensured in Dial (i.e. no concurrent access possible).
-	authKey crypto.AuthKeyWithID
-
-	salt    int64 // atomic access only
-	session int64 // atomic access only
-
-	// sentContentMessages is count of created content messages, used to
-	// compute sequence number within session.
-	//
-	// protected by sentContentMessagesMux.
-	sentContentMessages    int32
-	sentContentMessagesMux sync.Mutex
+	clock clock.Clock
+	rand  io.Reader
+	log   *zap.Logger
 
 	ctx    context.Context
 	cancel context.CancelFunc
-	wg     sync.WaitGroup
 
 	appID   int    // immutable
 	appHash string // immutable
 
-	updateHandler  UpdateHandler  // immutable
-	sessionStorage SessionStorage // immutable
-
-	rpc *rpc.Engine
-
-	// ackSendChan is queue for outgoing message id's that require waiting for
-	// ack from server.
-	ackSendChan  chan int64
-	ackBatchSize int
-	ackInterval  time.Duration
-
-	// callbacks for ping results protected by pingMux.
-	// Key is ping id.
-	ping    map[int64]func()
-	pingMux sync.Mutex
-
-	// immutable
-	rsaPublicKeys []*rsa.PublicKey
-
-	types *tmap.Map
+	updateHandler UpdateHandler // immutable
 }
 
 // NewClient creates new unstarted client.
@@ -114,49 +68,34 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
-	now := time.Now
-
-	const defaultMsgIDGenBuf = 100
-
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		addr:      opt.Addr,
-		transport: opt.Transport,
-
-		clock:     now,
-		rand:      opt.Random,
-		cipher:    crypto.NewClientCipher(opt.Random),
-		log:       opt.Logger,
-		ping:      map[int64]func(){},
-		messageID: proto.NewMessageIDGen(now, defaultMsgIDGenBuf),
-
-		sessionCreated: createCondOnce(),
-
-		ackSendChan:  make(chan int64),
-		ackInterval:  opt.AckInterval,
-		ackBatchSize: opt.AckBatchSize,
-
-		ctx:    clientCtx,
-		cancel: clientCancel,
-
-		appID:   appID,
-		appHash: appHash,
-
-		sessionStorage: opt.SessionStorage,
-		rsaPublicKeys:  opt.PublicKeys,
-		updateHandler:  opt.UpdateHandler,
-
-		types: tmap.New(
-			mt.TypesMap(),
-			tg.TypesMap(),
-			proto.TypesMap(),
-		),
+		clock:         opt.Clock,
+		rand:          opt.Random,
+		log:           opt.Logger,
+		ctx:           clientCtx,
+		cancel:        clientCancel,
+		appID:         appID,
+		appHash:       appHash,
+		updateHandler: opt.UpdateHandler,
 	}
 
-	client.rpc = rpc.New(client.write, rpc.Config{
-		Logger:        opt.Logger.Named("rpc"),
-		RetryInterval: opt.RetryInterval,
-		MaxRetries:    opt.MaxRetries,
+	// Initializing connection.
+	client.conn = mtproto.NewConn(client.appID, client.appHash, mtproto.Options{
+		PublicKeys:     opt.PublicKeys,
+		Addr:           opt.Addr,
+		Transport:      opt.Transport,
+		Network:        opt.Network,
+		Random:         opt.Random,
+		Logger:         opt.Logger,
+		SessionStorage: opt.SessionStorage,
+		Handler:        client.handleMessage,
+		AckBatchSize:   opt.AckBatchSize,
+		AckInterval:    opt.AckInterval,
+		RetryInterval:  opt.RetryInterval,
+		MaxRetries:     opt.MaxRetries,
+		MessageID:      opt.MessageID,
+		Clock:          opt.Clock,
 	})
 
 	// Initializing internal RPC caller.
@@ -167,57 +106,14 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 // Connect initializes connection to Telegram server and starts internal
 // read loop.
-func (c *Client) Connect(ctx context.Context) (err error) {
-	// Loading session from storage if provided.
-	if err := c.loadSession(ctx); err != nil {
-		// TODO: Add opt-in config to ignore session load failures.
-		return xerrors.Errorf("load session: %w", err)
+func (c *Client) Connect(ctx context.Context) error {
+	if err := c.conn.Connect(ctx); err != nil {
+		return err
 	}
-
-	// Starting connection.
-	//
-	// This will send initial packet to telegram and perform key exchange
-	// if needed.
-	if err := c.connect(ctx); err != nil {
-		return xerrors.Errorf("start: %w", err)
-	}
-
-	// Spawning goroutines.
-	go c.readLoop(c.ctx)
-	go c.ackLoop(c.ctx)
-	go c.pingLoop(c.ctx)
-
-	if err := c.initConnection(ctx); err != nil {
-		return xerrors.Errorf("init: %w", err)
-	}
-
 	return nil
 }
 
-// connect establishes connection in intermediate mode, creating new auth key
-// if needed.
-func (c *Client) connect(ctx context.Context) error {
-	conn, err := c.transport.DialContext(ctx, "tcp", c.addr)
-	if err != nil {
-		return xerrors.Errorf("dial failed: %w", err)
-	}
-
-	c.connMux.Lock()
-	defer c.connMux.Unlock()
-	c.conn = conn
-
-	if c.authKey.Zero() {
-		c.log.Info("Generating new auth key")
-		start := c.clock()
-		if err := c.createAuthKey(ctx); err != nil {
-			return xerrors.Errorf("create auth key: %w", err)
-		}
-
-		if err := c.saveSession(ctx); err != nil {
-			return xerrors.Errorf("failed to save session: %w", err)
-		}
-
-		c.log.With(zap.Duration("duration", c.clock().Sub(start))).Info("AuthFlow key generated")
-	}
-	return nil
+func (c *Client) handleMessage(b *bin.Buffer) error {
+	c.trace.OnMessage(b)
+	return c.handleUpdates(b)
 }

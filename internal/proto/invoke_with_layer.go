@@ -13,7 +13,7 @@ import (
 // https://core.telegram.org/method/invokeWithLayer
 type InvokeWithLayer struct {
 	Layer int
-	Query TType
+	Query bin.Object
 }
 
 // InvokeWithLayerID is TL type id of invokeWithLayer#da9b0d0d.

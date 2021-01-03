@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/telegram/internal/exchange"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/transport"
 )
 

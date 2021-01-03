@@ -68,7 +68,7 @@ func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
 
 	return s.Send(k, &tg.Updates{
 		Updates: updates,
-		Date:    int(s.clock().Unix()),
+		Date:    int(s.clock.Now().Unix()),
 	})
 }
 
