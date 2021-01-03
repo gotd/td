@@ -6,16 +6,13 @@ import (
 	"io"
 	"sync"
 
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/session"
-
-	"github.com/gotd/td/internal/clock"
-
-	"go.uber.org/zap"
-
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/clock"
 	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/session"
 	"github.com/gotd/td/tg"
 )
 
