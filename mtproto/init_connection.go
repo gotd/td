@@ -49,9 +49,7 @@ func (c *Conn) initConnection(ctx context.Context, t connType) error {
 		return xerrors.Errorf("request: %w", err)
 	}
 
-	c.mux.Lock()
 	c.cfg = response
-	c.mux.Unlock()
 
 	c.log.Debug("Got config")
 	return nil

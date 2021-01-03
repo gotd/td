@@ -86,7 +86,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 	client.connOpt = mtproto.Options{
 		PublicKeys:     opt.PublicKeys,
-		Addr:           opt.Addr,
 		Transport:      opt.Transport,
 		Network:        opt.Network,
 		Random:         opt.Random,
@@ -102,7 +101,12 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 	}
 
 	// Initializing connection.
-	client.conn = mtproto.NewConn(client.appID, client.appHash, client.connOpt)
+	client.conn = mtproto.NewConn(
+		client.appID,
+		client.appHash,
+		opt.Addr,
+		client.connOpt,
+	)
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)

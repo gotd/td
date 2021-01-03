@@ -28,11 +28,6 @@ type Options struct {
 	// If not provided, embedded public keys will be used.
 	PublicKeys []*rsa.PublicKey
 
-	// Addr to connect.
-	//
-	// If not provided, AddrProduction will be used by default.
-	Addr string
-
 	// Transport to use. Default dialer will be used if not provided.
 	Transport Transport
 	// Network to use. Defaults to tcp.
@@ -70,9 +65,6 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
-	}
-	if opt.Addr == "" {
-		opt.Addr = AddrProduction
 	}
 	if opt.AckBatchSize == 0 {
 		opt.AckBatchSize = 20

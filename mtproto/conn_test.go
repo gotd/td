@@ -24,6 +24,11 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+const (
+	testAppID   = 13245
+	testAppHash = "ffaa11bbaa"
+)
+
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
 func newTestClient(h testHandler) *Conn {
@@ -48,8 +53,8 @@ func newTestClient(h testHandler) *Conn {
 		clock:          clock.System,
 		rand:           rand.New(rand.NewSource(1)),
 		sessionCreated: createCondOnce(),
-		appID:          TestAppID,
-		appHash:        TestAppHash,
+		appID:          testAppID,
+		appHash:        testAppHash,
 		authKey:        crypto.AuthKey{}.WithID(),
 		messageID:      proto.NewMessageIDGen(time.Now, 100),
 	}

@@ -24,12 +24,11 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 			// Re-trying request on another connection.
 			return c.invokeRaw(ctx, input, output)
 		}
+		return err
 	}
 	return nil
 }
 
 func (c *Client) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	c.connMux.Lock()
-	defer c.connMux.Unlock()
 	return c.conn.InvokeRaw(ctx, input, output)
 }
