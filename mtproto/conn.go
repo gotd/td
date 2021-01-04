@@ -192,6 +192,8 @@ func (c *Conn) connect(ctx context.Context) error {
 		c.log.With(
 			zap.Duration("duration", c.clock.Now().Sub(start)),
 		).Info("Auth key generated")
+	} else {
+		c.log.Info("Key already exists")
 	}
 	return nil
 }

@@ -67,16 +67,12 @@ func ExampleTestAuth() {
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Addr: telegram.AddrTest,
 	})
-	go func() {
-		if err := client.Run(ctx); err != nil {
-			panic(err)
-		}
-	}()
-
-	if err := telegram.NewAuth(
-		telegram.TestAuth(rand.Reader, dcID),
-		telegram.SendCodeOptions{},
-	).Run(ctx, client); err != nil {
+	if err := client.Run(ctx, func(ctx context.Context) error {
+		return telegram.NewAuth(
+			telegram.TestAuth(rand.Reader, dcID),
+			telegram.SendCodeOptions{},
+		).Run(ctx, client)
+	}); err != nil {
 		panic(err)
 	}
 }
@@ -103,8 +99,6 @@ func ExampleAuthFlow_Run() {
 
 	ctx := context.Background()
 	client := telegram.NewClient(appID, appHash, telegram.Options{})
-	go func() { check(client.Run(ctx)) }()
-
 	codeAsk := func(ctx context.Context) (string, error) {
 		fmt.Print("code:")
 		code, err := bufio.NewReader(os.Stdin).ReadString('\n')
@@ -115,8 +109,10 @@ func ExampleAuthFlow_Run() {
 		return code, nil
 	}
 
-	check(telegram.NewAuth(
-		telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
-		telegram.SendCodeOptions{},
-	).Run(ctx, client))
+	check(client.Run(ctx, func(ctx context.Context) error {
+		return telegram.NewAuth(
+			telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
+			telegram.SendCodeOptions{},
+		).Run(ctx, client)
+	}))
 }

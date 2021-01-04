@@ -13,7 +13,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/mtproto"
@@ -49,7 +48,6 @@ func run(ctx context.Context) error {
 	}
 
 	dispatcher := tg.NewUpdateDispatcher()
-	// Creating connection.
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Addr:           telegram.AddrTest,
 		Logger:         logger,
@@ -58,46 +56,41 @@ func run(ctx context.Context) error {
 		UpdateHandler:  dispatcher.Handle,
 	})
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-	g, gCtx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		return client.Run(gCtx)
+	return client.Run(ctx, func(ctx context.Context) error {
+		if self, err := client.Self(ctx); err != nil || self.Bot {
+			if err := telegram.NewAuth(
+				telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{},
+			).Run(ctx, client); err != nil {
+				return xerrors.Errorf("auth: %w", err)
+			}
+		}
+
+		c := tg.NewClient(client)
+		for range time.NewTicker(time.Second * 5).C {
+			chats, err := c.MessagesGetAllChats(ctx, nil)
+
+			var rpcErr *mtproto.Error
+			if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
+				// Server told us to wait N seconds before sending next message.
+				logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")
+				time.Sleep(time.Second * time.Duration(rpcErr.Argument))
+				continue
+			}
+
+			if err != nil {
+				return xerrors.Errorf("failed to get chats: %w", err)
+			}
+
+			switch chats.(type) {
+			case *tg.MessagesChats: // messages.chats#64ff9fd5
+				logger.Info("Chats")
+			case *tg.MessagesChatsSlice: // messages.chatsSlice#9cd81144
+				logger.Info("Slice")
+			}
+		}
+
+		return nil
 	})
-
-	if self, err := client.Self(ctx); err != nil || self.Bot {
-		if err := telegram.NewAuth(telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
-			return xerrors.Errorf("failed to auth: %w", err)
-		}
-	}
-
-	c := tg.NewClient(client)
-
-	for range time.NewTicker(time.Second * 5).C {
-		chats, err := c.MessagesGetAllChats(ctx, nil)
-
-		var rpcErr *mtproto.Error
-		if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
-			// Server told us to wait N seconds before sending next message.
-			logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")
-			time.Sleep(time.Second * time.Duration(rpcErr.Argument))
-			continue
-		}
-
-		if err != nil {
-			return xerrors.Errorf("failed to get chats: %w", err)
-		}
-
-		switch chats.(type) {
-		case *tg.MessagesChats: // messages.chats#64ff9fd5
-			logger.Info("Chats")
-		case *tg.MessagesChatsSlice: // messages.chatsSlice#9cd81144
-			logger.Info("Slice")
-		}
-	}
-
-	cancel()
-	return g.Wait()
 }
 
 func main() {

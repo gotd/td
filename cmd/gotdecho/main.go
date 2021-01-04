@@ -8,12 +8,10 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strconv"
-	"syscall"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
@@ -57,9 +55,6 @@ func run(ctx context.Context) error {
 		UpdateHandler: dispatcher.Handle,
 	})
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
 		switch m := u.Message.(type) {
 		case *tg.Message:
@@ -86,47 +81,46 @@ func run(ctx context.Context) error {
 		return nil
 	})
 
-	g, gCtx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		return client.Run(gCtx)
-	})
-
-	self, err := client.Self(ctx)
-	if err != nil || !self.Bot {
-		if err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
-			return xerrors.Errorf("failed to perform bot login: %w", err)
+	return client.Run(ctx, func(ctx context.Context) error {
+		self, err := client.Self(ctx)
+		if err != nil || !self.Bot {
+			if err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
+				return xerrors.Errorf("failed to perform bot login: %w", err)
+			}
+			logger.Info("Bot login ok")
 		}
-		logger.Info("Bot login ok")
-	}
 
-	// Using tg.Client for directly calling RPC.
-	raw := tg.NewClient(client)
+		state, err := tg.NewClient(client).UpdatesGetState(ctx)
+		if err != nil {
+			return xerrors.Errorf("failed to get state: %w", err)
+		}
+		logger.Sugar().Infof("Got state: %+v", state)
 
-	// Getting state is required to process updates in your code.
-	// Currently missed updates are not processed, so only new
-	// messages will be handled.
-	state, err := raw.UpdatesGetState(ctx)
-	if err != nil {
-		return xerrors.Errorf("failed to get state: %w", err)
-	}
-	logger.Sugar().Infof("Got state: %+v", state)
+		<-ctx.Done()
+		return ctx.Err()
+	})
+}
 
-	// Reading updates until SIGTERM.
+func withSignal(ctx context.Context) (context.Context, context.CancelFunc) {
+	ctx, cancel := context.WithCancel(ctx)
 	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-
-	<-c
-	logger.Info("Shutting down")
-	cancel()
-	if err := g.Wait(); err != nil {
-		return err
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		select {
+		case <-c:
+			cancel()
+		case <-ctx.Done():
+		}
+	}()
+	return ctx, func() {
+		signal.Stop(c)
+		cancel()
 	}
-	logger.Info("Graceful shutdown completed")
-	return nil
 }
 
 func main() {
-	ctx := context.Background()
+	ctx, cancel := withSignal(context.Background())
+	defer cancel()
 
 	if err := run(ctx); err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "%+v\n", err)

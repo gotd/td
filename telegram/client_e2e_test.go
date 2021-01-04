@@ -9,10 +9,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -39,27 +41,16 @@ func testTransport(trp Transport) func(t *testing.T) {
 			defer srv.Close()
 			return srv.Serve()
 		})
-
-		waitForMessage := make(chan struct{})
-
 		g.Go(func() error {
-			select {
-			case <-waitForMessage:
-				cancel()
-				return nil
-			case <-ctx.Done():
-				t.Error("No message were received")
-				return ctx.Err()
-			}
-		})
-		g.Go(func() error {
+			defer srv.Close()
+
 			dispatcher := tg.NewUpdateDispatcher()
-			clientLogger := log.Named("client")
+			logger := log.Named("client")
 			client := NewClient(1, "hash", Options{
 				PublicKeys:     []*rsa.PublicKey{srv.Key()},
 				Addr:           srv.Addr().String(),
 				Transport:      trp,
-				Logger:         clientLogger,
+				Logger:         logger,
 				UpdateHandler:  dispatcher.Handle,
 				AckBatchSize:   1,
 				AckInterval:    time.Millisecond * 50,
@@ -67,28 +58,32 @@ func testTransport(trp Transport) func(t *testing.T) {
 				SessionStorage: &session.StorageMemory{},
 			})
 
-			dispatcher.OnNewMessage(func(gCtx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+			waitForMessage := make(chan struct{})
+			dispatcher.OnNewMessage(func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 				message := update.Message.(*tg.Message).Message
-				clientLogger.With(zap.String("message", message)).
-					Info("got message")
-				require.Equal(t, testMessage, message)
-
-				err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				logger.Info("Got message", zap.String("text", message))
+				assert.Equal(t, testMessage, message)
+				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Peer:    &tg.InputPeerUser{},
 					Message: "какими деньгами?",
-				})
-				if err != nil {
+				}); err != nil {
 					return err
 				}
-
+				logger.Info("Closing waitForMessage")
 				close(waitForMessage)
-
 				return nil
 			})
 
-			defer srv.Close() // stop server in any case
-
-			return client.Run(gCtx)
+			return client.Run(gCtx, func(ctx context.Context) error {
+				select {
+				case <-ctx.Done():
+					t.Error("Failed to wait for message")
+					return ctx.Err()
+				case <-waitForMessage:
+					logger.Info("Returning")
+					return nil
+				}
+			})
 		})
 
 		log.Debug("Waiting")
@@ -202,12 +197,14 @@ func testReconnect(trp Transport) func(t *testing.T) {
 
 		g, gCtx := errgroup.WithContext(ctx)
 		g.Go(func() error {
-			return client.Run(gCtx)
-		})
-		g.Go(func() error {
-			return client.SendMessage(gCtx, &tg.MessagesSendMessageRequest{
-				Peer:    &tg.InputPeerUser{},
-				Message: testMessage,
+			return client.Run(gCtx, func(ctx context.Context) error {
+				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+					Peer:    &tg.InputPeerUser{},
+					Message: testMessage,
+				}); err != nil {
+					return xerrors.Errorf("send: %w", err)
+				}
+				return nil
 			})
 		})
 		g.Go(func() error {

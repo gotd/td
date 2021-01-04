@@ -2,6 +2,7 @@ package transport_test
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"golang.org/x/net/proxy"
@@ -20,5 +21,8 @@ func ExampleDialFunc() {
 		Transport: trp,
 	})
 
-	go func() { _ = client.Run(ctx) }()
+	_ = client.Run(ctx, func(ctx context.Context) error {
+		fmt.Println("Started")
+		return nil
+	})
 }

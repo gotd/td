@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -63,34 +62,31 @@ func (b EchoBot) Run(ctx context.Context) error {
 		return nil
 	})
 
-	g, gCtx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		return client.Run(gCtx)
+	return client.Run(ctx, func(ctx context.Context) error {
+		auth, err := client.AuthStatus(ctx)
+		if err != nil {
+			return xerrors.Errorf("get auth status: %w", err)
+		}
+		logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+
+		if err := b.suite.Authenticate(ctx, client); err != nil {
+			return xerrors.Errorf("authenticate: %w", err)
+		}
+
+		me, err := client.Self(ctx)
+		if err != nil {
+			return xerrors.Errorf("get self: %w", err)
+		}
+		logger.With(
+			zap.String("user", me.Username),
+			zap.Int("id", me.ID),
+		).Info("Logged in")
+
+		select {
+		case b.auth <- me:
+			return nil
+		case <-ctx.Done():
+			return ctx.Err()
+		}
 	})
-
-	auth, err := client.AuthStatus(ctx)
-	if err != nil {
-		return xerrors.Errorf("get auth status: %w", err)
-	}
-	logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
-
-	if err := b.suite.Authenticate(ctx, client); err != nil {
-		return xerrors.Errorf("authenticate: %w", err)
-	}
-
-	me, err := client.Self(ctx)
-	if err != nil {
-		return xerrors.Errorf("get self: %w", err)
-	}
-	logger.With(
-		zap.String("user", me.Username),
-		zap.Int("id", me.ID),
-	).Info("logged")
-	b.auth <- me
-
-	if err := g.Wait(); err != nil {
-		return err
-	}
-	logger.Info("Graceful shutdown completed")
-	return nil
 }

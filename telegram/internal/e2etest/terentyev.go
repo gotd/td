@@ -5,7 +5,6 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -49,51 +48,40 @@ func (u User) Run(ctx context.Context) error {
 		return nil
 	})
 
-	runCtx, runCancel := context.WithCancel(ctx)
-	defer runCancel()
+	return client.Run(ctx, func(ctx context.Context) error {
+		logger.Info("Client started")
 
-	g, gCtx := errgroup.WithContext(runCtx)
-	g.Go(func() error {
-		return client.Run(gCtx)
+		auth, err := client.AuthStatus(ctx)
+		if err != nil {
+			return xerrors.Errorf("get auth status: %w", err)
+		}
+		logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+		if err := u.suite.Authenticate(ctx, client); err != nil {
+			return xerrors.Errorf("authenticate: %w", err)
+		}
+
+		for _, message := range u.text {
+			randomID, err := client.RandInt64()
+			if err != nil {
+				return err
+			}
+
+			err = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				RandomID: randomID,
+				Message:  message,
+				Peer: &tg.InputPeerUser{
+					UserID:     u.botID.ID,
+					AccessHash: u.botID.AccessHash,
+				},
+			})
+			if err != nil {
+				return err
+			}
+
+			u.message <- message
+		}
+
+		logger.Info("Shutting down")
+		return nil
 	})
-
-	logger.Info("Client started.")
-
-	auth, err := client.AuthStatus(ctx)
-	if err != nil {
-		return xerrors.Errorf("get auth status: %w", err)
-	}
-	logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
-	if err := u.suite.Authenticate(ctx, client); err != nil {
-		return xerrors.Errorf("authenticate: %w", err)
-	}
-
-	for _, message := range u.text {
-		randomID, err := client.RandInt64()
-		if err != nil {
-			return err
-		}
-
-		err = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-			RandomID: randomID,
-			Message:  message,
-			Peer: &tg.InputPeerUser{
-				UserID:     u.botID.ID,
-				AccessHash: u.botID.AccessHash,
-			},
-		})
-		if err != nil {
-			return err
-		}
-
-		u.message <- message
-	}
-
-	logger.Info("Shutting down")
-	runCancel()
-	if err := g.Wait(); err != nil {
-		return xerrors.Errorf("wait: %w", err)
-	}
-	logger.Info("Graceful shutdown completed")
-	return nil
 }

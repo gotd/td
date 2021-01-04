@@ -8,8 +8,6 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
-// 	case mt.NewSessionCreatedTypeID:
-
 func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 	var s mt.NewSessionCreated
 	if err := s.Decode(b); err != nil {

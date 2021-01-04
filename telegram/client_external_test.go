@@ -35,28 +35,20 @@ func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transp
 		Addr:      telegram.AddrTest,
 		Transport: trp,
 	})
+	return client.Run(ctx, func(ctx context.Context) error {
+		if err := telegram.NewAuth(
+			telegram.TestAuth(rand.Reader, 2),
+			telegram.SendCodeOptions{},
+		).Run(ctx, client); err != nil {
+			return xerrors.Errorf("auth: %w", err)
+		}
 
-	runCtx, runCancel := context.WithCancel(ctx)
+		if _, err := client.Self(ctx); err != nil {
+			return xerrors.Errorf("self: %w", err)
+		}
 
-	g, gCtx := errgroup.WithContext(runCtx)
-	g.Go(func() error {
-		return client.Run(gCtx)
+		return nil
 	})
-	defer func() { _ = g.Wait() }()
-	defer runCancel()
-
-	if err := telegram.NewAuth(
-		telegram.TestAuth(rand.Reader, 2),
-		telegram.SendCodeOptions{},
-	).Run(ctx, client); err != nil {
-		return xerrors.Errorf("auth: %w", err)
-	}
-
-	if _, err := client.Self(ctx); err != nil {
-		return xerrors.Errorf("self: %w", err)
-	}
-
-	return nil
 }
 
 func testTransport(trp telegram.Transport) func(t *testing.T) {

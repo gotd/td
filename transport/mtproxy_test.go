@@ -44,5 +44,8 @@ func ExampleMTProxy() {
 		Transport: trp,
 	})
 
-	go func() { _ = client.Run(ctx) }()
+	_ = client.Run(ctx, func(ctx context.Context) error {
+		fmt.Println("Started")
+		return nil
+	})
 }

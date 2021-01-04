@@ -3,12 +3,15 @@ package telegram
 import (
 	"context"
 	"errors"
+	"fmt"
 	"io"
 
 	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
@@ -67,6 +70,7 @@ type Client struct {
 	appID   int    // immutable
 	appHash string // immutable
 	storage clientStorage
+	ready   chan struct{}
 
 	updateHandler UpdateHandler // immutable
 }
@@ -136,21 +140,66 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		return xerrors.Errorf("load: %w", err)
 	}
 
+	// Restoring persisted auth key.
+	connOpt := c.connOpt
+	var key crypto.AuthKeyWithID
+	copy(key.AuthKey[:], data.AuthKey)
+	copy(key.AuthKeyID[:], data.AuthKeyID)
+	connOpt.Key = key
+	connOpt.Salt = data.Salt
+	c.connOpt = connOpt
+
+	if key.AuthKey.ID() != key.AuthKeyID {
+		return xerrors.New("corrupted key")
+	}
+
 	// Re-initializing connection from persisted state.
 	c.log.Info("Connection restored from state",
 		zap.String("addr", data.Addr),
+		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
 	)
 	c.conn = c.createConn(data.Addr, connModeUpdates)
 
 	return nil
 }
 
-// Run starts client session and blocks until closing.
-func (c *Client) Run(ctx context.Context) error {
+// Run starts client session and block until connection close.
+// The f callback is called on successful session initialization and Run
+// will return on f() result.
+//
+// Context of callback will be canceled if fatal error is detected.
+func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
+	c.ready = make(chan struct{})
 	if err := c.restoreConnection(ctx); err != nil {
-		return xerrors.Errorf("restore: %w", err)
+		return err
 	}
-	return c.conn.Run(ctx)
+
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return c.conn.Run(gCtx)
+	})
+	g.Go(func() error {
+		select {
+		case <-gCtx.Done():
+			return gCtx.Err()
+		case <-c.ready:
+			if err := f(gCtx); err != nil {
+				return xerrors.Errorf("callback: %w", err)
+			}
+			// Should call cancel() to cancel gCtx.
+			// This will terminate c.conn.Run().
+			cancel()
+			return nil
+		}
+	})
+	if err := g.Wait(); !xerrors.Is(err, context.Canceled) {
+		return err
+	}
+
+	return nil
 }
 
 func (c *Client) handleMessage(b *bin.Buffer) error {
@@ -158,7 +207,7 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 	return c.handleUpdates(b)
 }
 
-func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
+func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) error {
 	if c.storage == nil {
 		return nil
 	}
@@ -179,19 +228,31 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	data.AuthKeyID = s.Key.AuthKeyID[:]
 	data.DC = cfg.ThisDC
 	data.Addr = addr
+	data.Salt = s.Salt
 
 	if err := c.storage.Save(c.ctx, data); err != nil {
 		return xerrors.Errorf("save: %w", err)
 	}
 
+	c.log.Debug("Data saved",
+		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
+	)
+	return nil
+}
+
+func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
+	if err := c.saveSession(addr, cfg, s); err != nil {
+		return xerrors.Errorf("save: %w", err)
+	}
+	close(c.ready)
 	return nil
 }
 
 func (c *Client) createConn(addr string, mode connMode) clientConn {
-	return newConn(c,
+	return newConn(
+		c,
 		addr,
 		c.appID,
-		c.appHash,
 		mode,
 		c.connOpt,
 	)
