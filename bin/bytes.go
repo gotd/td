@@ -48,7 +48,7 @@ func decodeBytes(b []byte) (n int, v []byte, err error) {
 	if len(b[1:]) < int(vLen) {
 		return 0, nil, io.ErrUnexpectedEOF
 	}
-	if vLen >= maxSmallStringLength {
+	if vLen > maxSmallStringLength {
 		return 0, nil, errors.New("invalid length")
 	}
 	return nearestPaddedValueLength(int(vLen) + 1), b[1 : vLen+1], nil

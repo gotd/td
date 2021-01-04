@@ -23,6 +23,7 @@ func TestBytesDecodeEncode(t *testing.T) {
 			0x20, 0x75, 0x70, 0x2c,
 			0x20, 0x4e, 0x65, 0x6f,
 		},
+		bytes.Repeat([]byte{1}, 253),
 	} {
 		buf := encodeBytes(nil, b)
 		if len(buf)%4 != 0 {

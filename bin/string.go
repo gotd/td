@@ -53,7 +53,7 @@ func decodeString(b []byte) (n int, v string, err error) {
 	if len(b) < (int(strLen) + 1) {
 		return 0, "", io.ErrUnexpectedEOF
 	}
-	if strLen >= maxSmallStringLength {
+	if strLen > maxSmallStringLength {
 		return 0, "", errors.New("invalid length")
 	}
 	return nearestPaddedValueLength(int(strLen) + 1), string(b[1 : strLen+1]), nil

@@ -18,6 +18,7 @@ func TestStringDecodeEncode(t *testing.T) {
 		"ba",
 		"what are you doing?",
 		"кек",
+		strings.Repeat("a", 253),
 	} {
 		buf := encodeString(nil, s)
 		if len(buf)%4 != 0 {
