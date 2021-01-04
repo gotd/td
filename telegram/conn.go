@@ -62,9 +62,11 @@ type conn struct {
 	clock   clock.Clock
 	log     *zap.Logger
 	latest  time.Time
-	handler mtproto.Handler
 	session *condOnce
 	mux     sync.Mutex
+
+	onMessage mtproto.Handler
+	onSession onSessionHandler
 }
 
 func (c *conn) Config() tg.Config {
@@ -168,7 +170,7 @@ func (c *conn) handleMessage(b *bin.Buffer) error {
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
 	default:
-		return c.handler(b)
+		return c.onMessage(b)
 	}
 }
 
@@ -210,7 +212,12 @@ func (c *conn) init(ctx context.Context) error {
 	// Now connection can be used for requests.
 	c.latest = c.clock.Now()
 	c.cfg = response
+	onSessionErr := c.onSession(c.addr, c.cfg, c.proto.Session())
 	c.mux.Unlock()
+
+	if onSessionErr != nil {
+		return xerrors.Errorf("onSession: %w", onSessionErr)
+	}
 
 	return nil
 }
@@ -268,24 +275,28 @@ func (c *conn) onReconnect() error {
 	return nil
 }
 
+type onSessionHandler func(addr string, cfg tg.Config, session mtproto.Session) error
+
 func newConn(
 	addr string,
 	appID int,
 	appHash string,
 	mode connMode,
+	onSession onSessionHandler,
 	opt mtproto.Options,
 ) *conn {
 	c := &conn{
-		appID:   appID,
-		appHash: appHash,
-		mode:    mode,
-		dc:      0,
-		addr:    addr,
-		opt:     opt,
-		clock:   opt.Clock,
-		log:     opt.Logger.Named("conn"),
-		handler: opt.Handler,
-		session: createCondOnce(),
+		appID:     appID,
+		appHash:   appHash,
+		mode:      mode,
+		dc:        0,
+		addr:      addr,
+		opt:       opt,
+		clock:     opt.Clock,
+		log:       opt.Logger.Named("conn"),
+		onMessage: opt.Handler,
+		session:   createCondOnce(),
+		onSession: onSession,
 	}
 	c.opt.Handler = c.handleMessage
 	c.opt.OnReconnect = c.onReconnect

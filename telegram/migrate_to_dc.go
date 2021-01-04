@@ -8,10 +8,6 @@ import (
 	"golang.org/x/xerrors"
 )
 
-func (c *Client) createConn(addr string, mode connMode) clientConn {
-	return newConn(addr, c.appID, c.appHash, mode, c.connOpt)
-}
-
 func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 	c.log.Info("Migrating to another DC", zap.Int("dc", dcID))
 	c.connMux.Lock()

@@ -167,3 +167,43 @@ func (c *Client) handleMessage(b *bin.Buffer) error {
 	c.trace.OnMessage(b)
 	return c.handleUpdates(b)
 }
+
+func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
+	if c.storage == nil {
+		return nil
+	}
+
+	data, err := c.storage.Load(c.ctx)
+	if errors.Is(err, session.ErrNotFound) {
+		// Initializing new state.
+		err = nil
+		data = &session.Data{}
+	}
+	if err != nil {
+		return xerrors.Errorf("load: %w", err)
+	}
+
+	// Updating previous data.
+	data.Config = cfg
+	data.AuthKey = s.Key.AuthKey[:]
+	data.AuthKeyID = s.Key.AuthKeyID[:]
+	data.DC = cfg.ThisDC
+	data.Addr = addr
+
+	if err := c.storage.Save(c.ctx, data); err != nil {
+		return xerrors.Errorf("save: %w", err)
+	}
+
+	return nil
+}
+
+func (c *Client) createConn(addr string, mode connMode) clientConn {
+	return newConn(
+		addr,
+		c.appID,
+		c.appHash,
+		mode,
+		c.onSession,
+		c.connOpt,
+	)
+}

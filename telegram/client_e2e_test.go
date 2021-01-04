@@ -17,6 +17,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -43,14 +44,15 @@ func testTransport(trp Transport) func(t *testing.T) {
 			dispatcher := tg.NewUpdateDispatcher()
 			clientLogger := log.Named("client")
 			client := NewClient(1, "hash", Options{
-				PublicKeys:    []*rsa.PublicKey{srv.Key()},
-				Addr:          srv.Addr().String(),
-				Transport:     trp,
-				Logger:        clientLogger,
-				UpdateHandler: dispatcher.Handle,
-				AckBatchSize:  1,
-				AckInterval:   time.Millisecond * 50,
-				RetryInterval: time.Millisecond * 50,
+				PublicKeys:     []*rsa.PublicKey{srv.Key()},
+				Addr:           srv.Addr().String(),
+				Transport:      trp,
+				Logger:         clientLogger,
+				UpdateHandler:  dispatcher.Handle,
+				AckBatchSize:   1,
+				AckInterval:    time.Millisecond * 50,
+				RetryInterval:  time.Millisecond * 50,
+				SessionStorage: &session.StorageMemory{},
 			})
 
 			waitForMessage := make(chan struct{})
