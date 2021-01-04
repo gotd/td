@@ -134,9 +134,9 @@ func (c *Conn) readLoop(ctx context.Context) error {
 
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return xerrors.Errorf("read loop: %w", ctx.Err())
 		default:
-			return err
+			return xerrors.Errorf("read: %w", err)
 		}
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
 )
@@ -28,7 +29,7 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return xerrors.Errorf("acl: %w", ctx.Err())
 		case <-ticker.C:
 			if len(buf) > 0 {
 				send()

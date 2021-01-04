@@ -103,7 +103,7 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return xerrors.Errorf("ping loop: %w", ctx.Err())
 		case <-ticker.C:
 			if err := func() error {
 				ctx, cancel := context.WithTimeout(ctx, timeout)
@@ -111,7 +111,7 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 
 				return c.pingDelayDisconnect(ctx, disconnectDelay)
 			}(); err != nil {
-				return err
+				return xerrors.Errorf("disconnect (pong missed): %w", err)
 			}
 		}
 	}
