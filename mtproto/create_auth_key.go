@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"sync/atomic"
 
 	"github.com/gotd/td/internal/exchange"
 )
@@ -18,9 +17,11 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 		return err
 	}
 
+	c.sessionMux.Lock()
 	c.authKey = r.AuthKey
-	atomic.StoreInt64(&c.sessionID, r.SessionID)
-	atomic.StoreInt64(&c.salt, r.ServerSalt)
+	c.sessionID = r.SessionID
+	c.salt = r.ServerSalt
+	c.sessionMux.Unlock()
 
 	return nil
 }

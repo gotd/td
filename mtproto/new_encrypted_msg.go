@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"fmt"
-	"sync/atomic"
 
 	"go.uber.org/zap"
 
@@ -24,15 +23,16 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 			).Debug("Request")
 		}
 	}
+	session := c.session()
 	d := crypto.EncryptedMessageData{
-		SessionID:              atomic.LoadInt64(&c.sessionID),
-		Salt:                   atomic.LoadInt64(&c.salt),
+		SessionID:              session.ID,
+		Salt:                   session.Salt,
 		MessageID:              id,
 		SeqNo:                  seq,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 	}
-	if err := c.cipher.Encrypt(c.authKey, d, b); err != nil {
+	if err := c.cipher.Encrypt(session.Key, d, b); err != nil {
 		return err
 	}
 

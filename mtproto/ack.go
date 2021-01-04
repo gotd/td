@@ -9,10 +9,7 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
-func (c *Conn) ackLoop(ctx context.Context) {
-	c.wg.Add(1)
-	defer c.wg.Done()
-
+func (c *Conn) ackLoop(ctx context.Context) error {
 	log := c.log.Named("ack")
 
 	var buf []int64
@@ -31,7 +28,7 @@ func (c *Conn) ackLoop(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return ctx.Err()
 		case <-ticker.C:
 			if len(buf) > 0 {
 				send()

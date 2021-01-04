@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"net"
-	"sync/atomic"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -18,10 +17,7 @@ import (
 )
 
 func (c *Conn) handleOther(b *bin.Buffer) error {
-	if c.handler != nil {
-		return c.handler(b)
-	}
-	return nil
+	return c.handler.OnMessage(b)
 }
 
 func (c *Conn) handleMessage(b *bin.Buffer) error {
@@ -43,6 +39,8 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	).Debug("HandleMessage")
 
 	switch id {
+	case mt.NewSessionCreatedTypeID:
+		return c.handleSessionCreated(b)
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)
 	case proto.MessageContainerTypeID:
@@ -56,7 +54,7 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	case proto.GZIPTypeID:
 		return c.handleGZIP(b)
 	default:
-		return c.handleOther(b)
+		return c.handler.OnMessage(b)
 	}
 }
 
@@ -84,34 +82,23 @@ func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessag
 		return nil, err
 	}
 
-	msg, err := c.cipher.DecryptFromBuffer(c.authKey, b)
+	session := c.session()
+	msg, err := c.cipher.DecryptFromBuffer(session.Key, b)
 	if err != nil {
 		return nil, xerrors.Errorf("decrypt: %w", err)
 	}
 
-	if msg.SessionID != atomic.LoadInt64(&c.sessionID) {
+	if msg.SessionID != session.ID {
 		return nil, xerrors.Errorf("invalid session")
 	}
 
 	return msg, nil
 }
 
-func (c *Conn) isDone() bool {
-	select {
-	case <-c.ctx.Done():
-		return true
-	default:
-		return false
-	}
-}
-
-func (c *Conn) readLoop(ctx context.Context) {
+func (c *Conn) readLoop(ctx context.Context) error {
 	b := new(bin.Buffer)
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
-
-	c.wg.Add(1)
-	defer c.wg.Done()
 
 	for {
 		msg, err := c.read(ctx, b)
@@ -119,17 +106,6 @@ func (c *Conn) readLoop(ctx context.Context) {
 			// Reading ok.
 			go func() { _ = c.handleEncryptedMessage(msg) }()
 
-			continue
-		}
-
-		if shouldReconnect(err) {
-			if c.isDone() {
-				// Ignoring connection error after client close.
-				return
-			}
-			if err := c.reconnect(); err != nil {
-				c.log.With(zap.Error(err)).Error("Failed to reconnect")
-			}
 			continue
 		}
 
@@ -141,25 +117,23 @@ func (c *Conn) readLoop(ctx context.Context) {
 			continue
 		}
 
+		// Checking if key exists on server.
 		var protoErr *codec.ProtocolErr
 		if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
 			c.log.Warn("Re-generating keys (server not found key that we provided)")
 			if err := c.createAuthKey(ctx); err != nil {
-				// Probably fatal error.
-				c.log.With(zap.Error(err)).Error("Unable to create auth key")
+				return xerrors.Errorf("unable to create auth key: %w", err)
 			}
-
-			c.log.Info("Created auth keys")
+			c.log.Info("Re-created auth keys")
 			continue
 		}
 
-		if c.isDone() {
-			c.log.Debug("Read loop done (closing)")
-			return
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			return err
 		}
-
-		// Notifying about unhandled errors.
-		log.With(zap.Error(err)).Error("Read returned error")
 	}
 }
 

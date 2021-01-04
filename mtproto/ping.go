@@ -2,10 +2,8 @@ package mtproto
 
 import (
 	"context"
-	"errors"
 	"time"
 
-	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -90,12 +88,7 @@ func (c *Conn) waitPong(ctx context.Context, pingID int64) error {
 	}
 }
 
-func (c *Conn) pingLoop(ctx context.Context) {
-	c.wg.Add(1)
-	defer c.wg.Done()
-
-	log := c.log.Named("pinger")
-
+func (c *Conn) pingLoop(ctx context.Context) error {
 	const (
 		timeout   = time.Second * 15
 		frequency = time.Minute
@@ -110,7 +103,7 @@ func (c *Conn) pingLoop(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return ctx.Err()
 		case <-ticker.C:
 			if err := func() error {
 				ctx, cancel := context.WithTimeout(ctx, timeout)
@@ -118,19 +111,7 @@ func (c *Conn) pingLoop(ctx context.Context) {
 
 				return c.pingDelayDisconnect(ctx, disconnectDelay)
 			}(); err != nil {
-				if errors.Is(err, context.Canceled) {
-					return
-				}
-
-				log.Warn("ping error", zap.Error(err))
-				ticker.Stop()
-
-				if err := c.reconnect(); err != nil {
-					// TODO(ccln): what next???
-					log.Error("reconnect", zap.Error(err))
-				}
-
-				ticker.Reset(frequency)
+				return err
 			}
 		}
 	}

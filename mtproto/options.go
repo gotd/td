@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
@@ -49,12 +50,16 @@ type Options struct {
 	MaxRetries    int
 	MessageID     MessageIDSource
 	Clock         clock.Clock
-	OnReconnect   func() error
 	Types         *tmap.Map
 
 	Key  crypto.AuthKeyWithID
 	Salt int64
 }
+
+type nopHandler struct{}
+
+func (nopHandler) OnMessage(b *bin.Buffer) error   { return nil }
+func (nopHandler) OnSession(session Session) error { return nil }
 
 func (opt *Options) setDefaults() {
 	if opt.Transport == nil {
@@ -98,5 +103,8 @@ func (opt *Options) setDefaults() {
 			panic(xerrors.Errorf("load vendored keys: %w", err))
 		}
 		opt.PublicKeys = keys
+	}
+	if opt.Handler == nil {
+		opt.Handler = nopHandler{}
 	}
 }
