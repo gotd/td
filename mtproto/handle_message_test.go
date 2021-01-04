@@ -12,14 +12,25 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/tg"
 )
 
-func TestClientHandleMessage(t *testing.T) {
-	t.Skip("TODO")
+type testUpdateDecodeHandler struct{}
 
+func (testUpdateDecodeHandler) OnMessage(b *bin.Buffer) error {
+	_, err := tg.DecodeUpdate(b)
+	return err
+}
+
+func (testUpdateDecodeHandler) OnSession(session Session) error {
+	return nil
+}
+
+func TestClientHandleMessage(t *testing.T) {
 	c := &Conn{
-		rand: Zero{},
-		log:  zap.NewNop(),
+		rand:    Zero{},
+		log:     zap.NewNop(),
+		handler: testUpdateDecodeHandler{},
 	}
 
 	for i, input := range []string{
@@ -58,9 +69,10 @@ func TestClientHandleMessage(t *testing.T) {
 
 func TestClientHandleMessageCorpus(t *testing.T) {
 	c := &Conn{
-		rand: Zero{},
-		log:  zap.NewNop(),
-		rpc:  rpc.New(rpc.NopSend, rpc.Options{}),
+		rand:    Zero{},
+		log:     zap.NewNop(),
+		rpc:     rpc.New(rpc.NopSend, rpc.Options{}),
+		handler: testUpdateDecodeHandler{},
 	}
 
 	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))
