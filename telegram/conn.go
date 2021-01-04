@@ -257,17 +257,6 @@ func (c *conn) handleSessionCreated(_ *bin.Buffer) error {
 	return nil
 }
 
-func (c *conn) reconnect(ctx context.Context) error {
-	if err := c.proto.Reconnect(context.Background()); err != nil {
-		_ = c.Close()
-		return err
-	}
-	if err := c.init(ctx); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (c *conn) onReconnect() error {
 	c.session.Reset()
 	c.log.Debug("onReconnect")
