@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/mtproto"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
@@ -26,7 +27,7 @@ import (
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
 func testError(err tg.Error) (bin.Encoder, error) {
-	e := &Error{
+	e := &mtproto.Error{
 		Message: err.Text,
 		Code:    err.Code,
 	}

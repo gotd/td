@@ -17,6 +17,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
@@ -72,7 +73,7 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 				return // ok
 			}
 
-			var rpcErr *telegram.Error
+			var rpcErr *mtproto.Error
 			if errors.As(err, &rpcErr) {
 				switch rpcErr.Type {
 				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED":

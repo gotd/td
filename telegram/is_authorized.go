@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 
@@ -19,7 +20,7 @@ type AuthStatus struct {
 func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 	u, err := c.Self(ctx)
 	if err != nil {
-		var rpcErr *Error
+		var rpcErr *mtproto.Error
 		if errors.As(err, &rpcErr) && rpcErr.Message == "AUTH_KEY_UNREGISTERED" {
 			return &AuthStatus{}, nil
 		}
