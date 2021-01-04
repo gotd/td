@@ -7,7 +7,7 @@ import (
 	"crypto/rsa"
 	"io"
 
-	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/clock"
 
 	"go.uber.org/zap"
 

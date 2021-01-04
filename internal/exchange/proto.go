@@ -3,7 +3,7 @@ package exchange
 import (
 	"context"
 
-	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/clock"
 
 	"golang.org/x/xerrors"
 

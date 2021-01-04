@@ -10,7 +10,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gotd/td/internal/clock"
 	"github.com/gotd/td/mtproto"
 
 	"github.com/stretchr/testify/assert"
@@ -72,7 +71,6 @@ func newTestClient(h testHandler) *Client {
 
 	client := &Client{
 		log:     zap.NewNop(),
-		clock:   clock.System,
 		rand:    rand.New(rand.NewSource(1)),
 		appID:   TestAppID,
 		appHash: TestAppHash,

@@ -10,7 +10,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/clock"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
@@ -63,11 +62,10 @@ type Client struct {
 
 	trace tracer
 
-	// Wrappers for external world, like current time, logs or PRNG.
+	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
-	clock clock.Clock
-	rand  io.Reader
-	log   *zap.Logger
+	rand io.Reader
+	log  *zap.Logger
 
 	ctx    context.Context
 	cancel context.CancelFunc
@@ -86,7 +84,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		clock:         opt.Clock,
 		rand:          opt.Random,
 		log:           opt.Logger,
 		ctx:           clientCtx,

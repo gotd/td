@@ -4,23 +4,16 @@ import (
 	"time"
 
 	"go.uber.org/zap"
+
+	"github.com/gotd/td/clock"
 )
-
-// Clock abstracts temporal effects.
-type Clock interface {
-	After(d time.Duration) <-chan time.Time
-}
-
-type systemClock struct{}
-
-func (systemClock) After(d time.Duration) <-chan time.Time { return time.After(d) }
 
 // Config of rpc engine.
 type Config struct {
 	RetryInterval time.Duration
 	MaxRetries    int
 	Logger        *zap.Logger
-	Clock         Clock
+	Clock         clock.Clock
 }
 
 func (cfg *Config) setDefaults() {
@@ -34,6 +27,6 @@ func (cfg *Config) setDefaults() {
 		cfg.Logger = zap.NewNop()
 	}
 	if cfg.Clock == nil {
-		cfg.Clock = systemClock{}
+		cfg.Clock = clock.System
 	}
 }

@@ -9,7 +9,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/transport"
