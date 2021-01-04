@@ -24,7 +24,7 @@ var _ = strings.Builder{}
 //
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
-	// getSession hash
+	// Session hash
 	Hash int64
 }
 
