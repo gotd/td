@@ -67,7 +67,7 @@ func newTestClient(h testHandler) *Client {
 			return engine.NotifyResult(msgID, &b)
 		}
 		return nil
-	}, rpc.Config{})
+	}, rpc.Options{})
 
 	client := &Client{
 		log:     zap.NewNop(),

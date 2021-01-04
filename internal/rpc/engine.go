@@ -11,6 +11,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/clock"
 )
 
 // Engine handles RPC requests.
@@ -21,7 +22,7 @@ type Engine struct {
 	rpc map[int64]func(*bin.Buffer, error) error
 	ack map[int64]func()
 
-	clock         Clock
+	clock         clock.Clock
 	log           *zap.Logger
 	retryInterval time.Duration
 	maxRetries    int
@@ -37,7 +38,7 @@ type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) er
 func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
 
 // New creates new rpc Engine.
-func New(send Send, cfg Config) *Engine {
+func New(send Send, cfg Options) *Engine {
 	cfg.setDefaults()
 
 	cfg.Logger.Info("Initialized",

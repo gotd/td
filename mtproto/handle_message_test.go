@@ -60,7 +60,7 @@ func TestClientHandleMessageCorpus(t *testing.T) {
 	c := &Conn{
 		rand: Zero{},
 		log:  zap.NewNop(),
-		rpc:  rpc.New(rpc.NopSend, rpc.Config{}),
+		rpc:  rpc.New(rpc.NopSend, rpc.Options{}),
 	}
 
 	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))

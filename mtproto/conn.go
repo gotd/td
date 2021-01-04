@@ -122,7 +122,7 @@ func NewConn(addr string, opt Options) *Conn {
 		authKey: opt.Key,
 		salt:    opt.Salt,
 	}
-	conn.rpc = rpc.New(conn.write, rpc.Config{
+	conn.rpc = rpc.New(conn.write, rpc.Options{
 		Logger:        opt.Logger.Named("rpc"),
 		RetryInterval: opt.RetryInterval,
 		MaxRetries:    opt.MaxRetries,

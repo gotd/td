@@ -80,7 +80,7 @@ func TestRPCError(t *testing.T) {
 		return nil
 	}
 
-	runTest(t, Config{
+	runTest(t, Options{
 		RetryInterval: time.Second * 3,
 		MaxRetries:    2,
 		Clock:         clock,
@@ -144,7 +144,7 @@ func TestRPCResult(t *testing.T) {
 		return nil
 	}
 
-	runTest(t, Config{
+	runTest(t, Options{
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
@@ -213,7 +213,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		return nil
 	}
 
-	runTest(t, Config{
+	runTest(t, Options{
 		RetryInterval: time.Second * 4,
 		MaxRetries:    2,
 		Clock:         clock,
@@ -285,7 +285,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		return nil
 	}
 
-	runTest(t, Config{
+	runTest(t, Options{
 		RetryInterval: time.Second * 4,
 		MaxRetries:    5,
 		Clock:         clock,
@@ -357,7 +357,7 @@ func TestEngineGracefulShutdown(t *testing.T) {
 		return nil
 	}
 
-	runTest(t, Config{
+	runTest(t, Options{
 		RetryInterval: time.Second * 5,
 		MaxRetries:    5,
 		Logger:        log.Named("rpc"),
@@ -366,7 +366,7 @@ func TestEngineGracefulShutdown(t *testing.T) {
 
 func runTest(
 	t *testing.T,
-	cfg Config,
+	cfg Options,
 	server func(t *testing.T, e *Engine, incoming <-chan request) error,
 	client func(t *testing.T, e *Engine) error,
 ) {

@@ -40,7 +40,7 @@ func newTestClient(h testHandler) *Conn {
 			return engine.NotifyResult(msgID, &b)
 		}
 		return nil
-	}, rpc.Config{})
+	}, rpc.Options{})
 
 	client := &Conn{
 		rpc:       engine,

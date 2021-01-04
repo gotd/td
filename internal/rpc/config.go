@@ -8,15 +8,15 @@ import (
 	"github.com/gotd/td/clock"
 )
 
-// Config of rpc engine.
-type Config struct {
+// Options of rpc engine.
+type Options struct {
 	RetryInterval time.Duration
 	MaxRetries    int
 	Logger        *zap.Logger
 	Clock         clock.Clock
 }
 
-func (cfg *Config) setDefaults() {
+func (cfg *Options) setDefaults() {
 	if cfg.RetryInterval == 0 {
 		cfg.RetryInterval = time.Second * 10
 	}
