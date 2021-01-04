@@ -117,7 +117,7 @@ func (c *conn) switchState(next connState) error {
 	}
 
 	// TODO(ernado): implement FSM
-	c.log.Info("State change",
+	c.log.Debug("State change",
 		zap.Stringer("from", c.state),
 		zap.Stringer("to", next),
 	)
@@ -128,6 +128,7 @@ func (c *conn) switchState(next connState) error {
 }
 
 func (c *conn) connect(ctx context.Context) error {
+	c.log.Debug("Connecting")
 	if err := c.switchState(connConnecting); err != nil {
 		return xerrors.Errorf("state: %w", err)
 	}
@@ -141,6 +142,7 @@ func (c *conn) connect(ctx context.Context) error {
 }
 
 func (c *conn) Connect(ctx context.Context) error {
+	c.log.Info("Connect")
 	if err := c.connect(ctx); err != nil {
 		return err
 	}
@@ -157,6 +159,7 @@ func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 		return xerrors.Errorf("track: %w", err)
 	}
 	defer done()
+	c.session.WaitIfNeeded()
 
 	return c.proto.InvokeRaw(ctx, input, output)
 }
@@ -175,6 +178,7 @@ func (c *conn) handleMessage(b *bin.Buffer) error {
 }
 
 func (c *conn) init(ctx context.Context) error {
+	c.log.Debug("Initializing")
 	if err := c.switchState(connInitializing); err != nil {
 		return xerrors.Errorf("state: %w", err)
 	}
@@ -223,6 +227,7 @@ func (c *conn) init(ctx context.Context) error {
 }
 
 func (c *conn) Close() error {
+	c.log.Debug("Closing")
 	if err := c.switchState(connClosing); err != nil {
 		return err
 	}
@@ -247,6 +252,7 @@ func (c *conn) handleSessionCreated(_ *bin.Buffer) error {
 
 	// This should be persisted.
 	_ = c.proto.Session()
+	c.log.Debug("Session created")
 
 	return nil
 }
@@ -264,12 +270,28 @@ func (c *conn) reconnect(ctx context.Context) error {
 
 func (c *conn) onReconnect() error {
 	c.session.Reset()
+	c.log.Debug("onReconnect")
 	if err := c.switchState(connReconnecting); err != nil {
 		return err
 	}
+	ctx := context.Background()
+	if err := c.proto.Reconnect(ctx); err != nil {
+		if closeErr := c.Close(); closeErr != nil {
+			return xerrors.Errorf("close after reconnect failure: %w", err)
+		}
+		return xerrors.Errorf("reconnect: %w", err)
+	}
+
+	// The onReconnect invocation occurs in mtproto read loop, so we can't
+	// perform blocking connection initialization.
 	go func() {
-		if err := c.reconnect(context.Background()); err != nil {
-			c.log.Error("Failed to reconnect", zap.Error(err))
+		if err := c.init(ctx); err != nil {
+			// What should we do here?
+			c.log.Error("Failed to reconnect, closing", zap.Error(err))
+
+			if closeErr := c.Close(); closeErr != nil {
+				c.log.Error("Failed to reconnect", zap.Error(err))
+			}
 		}
 	}()
 	return nil
