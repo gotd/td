@@ -11,6 +11,9 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tg"
@@ -37,11 +40,16 @@ const (
 	TestAppHash = "344583e45741c457fe1862106095a5eb"
 )
 
-type conn interface {
-	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
-	Connect(ctx context.Context) error
-	Close() error
+type clientStorage interface {
+	Load(ctx context.Context) (*session.Data, error)
+	Save(ctx context.Context, data *session.Data) error
+}
+
+type clientConn interface {
 	Config() tg.Config
+	Close() error
+	Connect(ctx context.Context) error
+	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 
 // Client represents a MTProto client to Telegram.
@@ -51,7 +59,7 @@ type Client struct {
 
 	connMux sync.Mutex
 	connOpt mtproto.Options
-	conn    conn
+	conn    clientConn
 
 	trace tracer
 
@@ -66,6 +74,7 @@ type Client struct {
 
 	appID   int    // immutable
 	appHash string // immutable
+	storage clientStorage
 
 	updateHandler UpdateHandler // immutable
 }
@@ -87,36 +96,33 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		updateHandler: opt.UpdateHandler,
 	}
 
-	var sessionStorage mtproto.SessionStorage
 	if opt.SessionStorage != nil {
-		sessionStorage = &session.Loader{
+		client.storage = &session.Loader{
 			Storage: opt.SessionStorage,
 		}
 	}
 
 	client.connOpt = mtproto.Options{
-		PublicKeys:     opt.PublicKeys,
-		Transport:      opt.Transport,
-		Network:        opt.Network,
-		Random:         opt.Random,
-		Logger:         opt.Logger,
-		SessionStorage: sessionStorage,
-		Handler:        client.handleMessage,
-		AckBatchSize:   opt.AckBatchSize,
-		AckInterval:    opt.AckInterval,
-		RetryInterval:  opt.RetryInterval,
-		MaxRetries:     opt.MaxRetries,
-		MessageID:      opt.MessageID,
-		Clock:          opt.Clock,
-	}
+		PublicKeys:    opt.PublicKeys,
+		Transport:     opt.Transport,
+		Network:       opt.Network,
+		Random:        opt.Random,
+		Logger:        opt.Logger,
+		Handler:       client.handleMessage,
+		AckBatchSize:  opt.AckBatchSize,
+		AckInterval:   opt.AckInterval,
+		RetryInterval: opt.RetryInterval,
+		MaxRetries:    opt.MaxRetries,
+		MessageID:     opt.MessageID,
+		Clock:         opt.Clock,
 
-	// Initializing connection.
-	client.conn = mtproto.NewConn(
-		client.appID,
-		client.appHash,
-		opt.Addr,
-		client.connOpt,
-	)
+		Types: tmap.New(
+			tg.TypesMap(),
+			mt.TypesMap(),
+			proto.TypesMap(),
+		),
+	}
+	client.conn = client.createConn(opt.Addr, connModeUpdates)
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
@@ -125,10 +131,10 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {
-	if c.connOpt.SessionStorage == nil {
+	if c.storage == nil {
 		return nil
 	}
-	data, err := c.connOpt.SessionStorage.Load(ctx)
+	data, err := c.storage.Load(ctx)
 	if errors.Is(err, session.ErrNotFound) {
 		return nil
 	}
@@ -140,12 +146,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	c.log.Info("Connection restored from state",
 		zap.String("addr", data.Addr),
 	)
-	c.conn = mtproto.NewConn(
-		c.appID,
-		c.appHash,
-		data.Addr,
-		c.connOpt,
-	)
+	c.conn = c.createConn(data.Addr, connModeUpdates)
 
 	return nil
 }

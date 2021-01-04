@@ -53,7 +53,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			AuthKeyWithID: key,
 		}
 		if !conn.didSentCreated() {
-			s.log.Debug("send handleSessionCreated event")
+			s.log.Debug("Send handleSessionCreated event")
 			salt := int64(binary.LittleEndian.Uint64(key.AuthKeyID[:]))
 			if err := s.sendSessionCreated(session, salt); err != nil {
 				return err

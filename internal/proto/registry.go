@@ -7,5 +7,6 @@ func TypesMap() map[uint32]string {
 		ResultTypeID:           "rpc_result",
 		GZIPTypeID:             "gzip",
 		0xda9b0d0d:             "invoke_with_layer",
+		0xc1cd5ea9:             "initConnection",
 	}
 }

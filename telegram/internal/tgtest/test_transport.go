@@ -54,7 +54,7 @@ func testTransport(s Suite, server *Server, message string) *testTransportHandle
 
 func (h *testTransportHandler) hello(k Session, message string) error {
 	h.logger.With(zap.String("message", message)).
-		Info("sent message")
+		Info("Sent message")
 
 	return h.server.SendUpdates(k, &tg.UpdateNewMessage{
 		Message: &tg.Message{
@@ -73,7 +73,7 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 
 	h.logger.With(
 		zap.String("id", fmt.Sprintf("%x", id)),
-	).Info("new message")
+	).Info("New message")
 
 	switch id {
 	case proto.InvokeWithLayerID:
@@ -86,7 +86,7 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 		if err := layerInvoke.Decode(in); err != nil {
 			return err
 		}
-		h.logger.Info("new client connected, invoke received")
+		h.logger.Info("New client connected, invoke received")
 
 		if err := h.server.SendConfig(k, msgID); err != nil {
 			return err

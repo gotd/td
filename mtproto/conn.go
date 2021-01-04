@@ -7,18 +7,15 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gotd/td/internal/clock"
-
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/clock"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
@@ -30,16 +27,27 @@ type MessageIDSource interface {
 	New(t proto.MessageType) int64
 }
 
+// Session represents connection state.
+type Session struct {
+	Key  crypto.AuthKeyWithID
+	Salt int64
+}
+
+// Session returns current connection session info.
+func (c *Conn) Session() Session {
+	return Session{
+		Key:  c.authKey,
+		Salt: c.salt,
+	}
+}
+
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
-	// tg provides RPC calls via Conn.
-	tg *tg.Client
-
-	transport Transport
-	conn      transport.Conn
-	addr      string
-	trace     tracer
-	cfg       tg.Config
+	transport   Transport
+	conn        transport.Conn
+	addr        string
+	trace       tracer
+	onReconnect func() error
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
@@ -49,14 +57,9 @@ type Conn struct {
 	log       *zap.Logger
 	messageID MessageIDSource
 
-	// Access to authKey and authKeyID is not synchronized because
-	// serial access ensured in Dial (i.e. no concurrent access possible).
-	authKey crypto.AuthKeyWithID
-
-	salt           int64 // atomic access only
-	sessionID      int64 // atomic access only
-	sessionCreated *condOnce
-	session        SessionStorage // immutable
+	authKey   crypto.AuthKeyWithID
+	salt      int64 // atomic access only
+	sessionID int64 // atomic access only
 
 	// sentContentMessages is count of created content messages, used to
 	// compute sequence number within session.
@@ -66,9 +69,6 @@ type Conn struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 	wg     sync.WaitGroup
-
-	appID   int    // immutable
-	appHash string // immutable
 
 	handler Handler // immutable
 
@@ -92,68 +92,48 @@ type Conn struct {
 }
 
 // NewConn creates new unstarted connection.
-func NewConn(appID int, appHash, addr string, opt Options) *Conn {
+func NewConn(addr string, opt Options) *Conn {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
-	const defaultMsgIDGenBuf = 100
-
-	clientCtx, clientCancel := context.WithCancel(context.Background())
-	client := &Conn{
-		addr:      addr,
-		transport: opt.Transport,
-
-		clock:     opt.Clock,
-		rand:      opt.Random,
-		cipher:    crypto.NewClientCipher(opt.Random),
-		log:       opt.Logger,
-		ping:      map[int64]func(){},
-		messageID: proto.NewMessageIDGen(opt.Clock.Now, defaultMsgIDGenBuf),
-
-		sessionCreated: createCondOnce(),
+	connCtx, connCancel := context.WithCancel(context.Background())
+	conn := &Conn{
+		addr:        addr,
+		transport:   opt.Transport,
+		onReconnect: opt.OnReconnect,
+		clock:       opt.Clock,
+		rand:        opt.Random,
+		cipher:      crypto.NewClientCipher(opt.Random),
+		log:         opt.Logger,
+		ping:        map[int64]func(){},
+		messageID:   opt.MessageID,
 
 		ackSendChan:  make(chan int64),
 		ackInterval:  opt.AckInterval,
 		ackBatchSize: opt.AckBatchSize,
 
-		ctx:    clientCtx,
-		cancel: clientCancel,
+		ctx:    connCtx,
+		cancel: connCancel,
 
-		appID:   appID,
-		appHash: appHash,
-
-		session:       opt.SessionStorage,
 		rsaPublicKeys: opt.PublicKeys,
 		handler:       opt.Handler,
+		types:         opt.Types,
 
-		types: tmap.New(
-			mt.TypesMap(),
-			tg.TypesMap(),
-			proto.TypesMap(),
-		),
+		authKey: opt.Key,
+		salt:    opt.Salt,
 	}
-
-	client.rpc = rpc.New(client.write, rpc.Config{
+	conn.rpc = rpc.New(conn.write, rpc.Config{
 		Logger:        opt.Logger.Named("rpc"),
 		RetryInterval: opt.RetryInterval,
 		MaxRetries:    opt.MaxRetries,
 	})
 
-	// Initializing internal RPC caller.
-	client.tg = tg.NewClient(client)
-
-	return client
+	return conn
 }
 
 // Connect initializes connection to Telegram server and starts internal
 // read loop.
 func (c *Conn) Connect(ctx context.Context) (err error) {
-	// Loading session from storage if provided.
-	if err := c.loadSession(ctx); err != nil {
-		// TODO: Add opt-in config to ignore session load failures.
-		return xerrors.Errorf("load session: %w", err)
-	}
-
 	// Starting connection.
 	//
 	// This will send initial packet to telegram and perform key exchange
@@ -167,10 +147,15 @@ func (c *Conn) Connect(ctx context.Context) (err error) {
 	go c.ackLoop(c.ctx)
 	go c.pingLoop(c.ctx)
 
-	if err := c.initConnection(ctx, connDefault); err != nil {
-		return xerrors.Errorf("init: %w", err)
-	}
+	return nil
+}
 
+// Reconnect performs re-connection. Same as Connect, but does not
+// start new goroutines.
+func (c *Conn) Reconnect(ctx context.Context) error {
+	if err := c.connect(ctx); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -189,10 +174,6 @@ func (c *Conn) connect(ctx context.Context) error {
 		start := c.clock.Now()
 		if err := c.createAuthKey(ctx); err != nil {
 			return xerrors.Errorf("create auth key: %w", err)
-		}
-
-		if err := c.saveSession(ctx); err != nil {
-			return xerrors.Errorf("failed to save session: %w", err)
 		}
 
 		c.log.With(

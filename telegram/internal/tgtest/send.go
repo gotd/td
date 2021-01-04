@@ -58,6 +58,7 @@ func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
 }
 
 func (s *Server) SendConfig(k Session, id int64) error {
+	s.log.Debug("SendConfig")
 	return s.SendResult(k, id, &tg.Config{})
 }
 

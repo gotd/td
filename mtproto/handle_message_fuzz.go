@@ -22,8 +22,6 @@ func FuzzHandleMessage(data []byte) int {
 		rpc:       rpc.New(rpc.NopSend, rpc.Config{}),
 		log:       zap.NewNop(),
 		messageID: proto.NewMessageIDGen(time.Now, 1),
-
-		sessionCreated: createCondOnce(),
 	}
 	if err := c.handleMessage(&bin.Buffer{Buf: data}); err != nil {
 		return 0

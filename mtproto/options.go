@@ -11,7 +11,9 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/clock"
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/transport"
 )
 
@@ -36,12 +38,8 @@ type Options struct {
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
 	Logger *zap.Logger
-	// SessionStorage will be used to load and save session data.
-	// NB: Very sensitive data, save with care.
-	SessionStorage SessionStorage
 	// Handler will be called on received message.
 	Handler Handler
-
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
 	// AckInterval is maximum time to buffer ack.
@@ -51,6 +49,11 @@ type Options struct {
 	MaxRetries    int
 	MessageID     MessageIDSource
 	Clock         clock.Clock
+	OnReconnect   func() error
+	Types         *tmap.Map
+
+	Key  crypto.AuthKeyWithID
+	Salt int64
 }
 
 func (opt *Options) setDefaults() {

@@ -1,4 +1,4 @@
-package mtproto
+package telegram
 
 import "sync"
 

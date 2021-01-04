@@ -17,25 +17,7 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
-func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
-	var ns mt.NewSessionCreated
-	if err := ns.Decode(b); err != nil {
-		return xerrors.Errorf("failed to decode: %x", err)
-	}
-
-	atomic.StoreInt64(&c.salt, ns.ServerSalt)
-	c.sessionCreated.Done()
-
-	if err := c.saveSession(c.ctx); err != nil {
-		return xerrors.Errorf("failed to save session: %w", err)
-	}
-
-	c.log.Info("Session created")
-
-	return nil
-}
-
-func (c *Conn) handleUnknown(b *bin.Buffer) error {
+func (c *Conn) handleOther(b *bin.Buffer) error {
 	if c.handler != nil {
 		return c.handler(b)
 	}
@@ -65,8 +47,6 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 		return c.handleBadMsg(b)
 	case proto.MessageContainerTypeID:
 		return c.processContainer(b)
-	case mt.NewSessionCreatedTypeID:
-		return c.handleSessionCreated(b)
 	case proto.ResultTypeID:
 		return c.handleResult(b)
 	case mt.PongTypeID:
@@ -76,7 +56,7 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	case proto.GZIPTypeID:
 		return c.handleGZIP(b)
 	default:
-		return c.handleUnknown(b)
+		return c.handleOther(b)
 	}
 }
 

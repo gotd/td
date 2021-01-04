@@ -6,9 +6,11 @@ import (
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
-
-	"github.com/gotd/td/mtproto"
 )
+
+func (c *Client) createConn(addr string, mode connMode) clientConn {
+	return newConn(addr, c.appID, c.appHash, mode, c.connOpt)
+}
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 	c.log.Info("Migrating to another DC", zap.Int("dc", dcID))
@@ -35,7 +37,7 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 	if err := c.conn.Close(); err != nil {
 		c.log.Warn("Failed to close old connection", zap.Error(err))
 	}
-	c.conn = mtproto.NewConn(c.appID, c.appHash, addr, c.connOpt)
+	c.conn = c.createConn(addr, connModeUpdates)
 	if err := c.conn.Connect(ctx); err != nil {
 		return xerrors.Errorf("connect: %w", err)
 	}

@@ -7,28 +7,15 @@ import (
 	"os"
 	"syscall"
 
-	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 )
 
 func (c *Conn) reconnect() error {
-	c.sessionCreated.Reset()
 	c.log.Debug("Disconnected. Trying to re-connect")
 
-	if err := c.connect(c.ctx); err != nil {
-		return xerrors.Errorf("connect: %w", err)
+	if err := c.onReconnect(); err != nil {
+		return xerrors.Errorf("onReconnect: %w", err)
 	}
-
-	go func() {
-		if err := c.initConnection(c.ctx, connDefault); err != nil {
-			if !c.isDone() {
-				c.log.Error("Failed to init connection after reconnect", zap.Error(err))
-			}
-			return
-		}
-
-		c.log.Debug("Reconnected")
-	}()
 
 	return nil
 }

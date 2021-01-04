@@ -58,12 +58,10 @@ func TestClientHandleMessage(t *testing.T) {
 
 func TestClientHandleMessageCorpus(t *testing.T) {
 	c := &Conn{
-		rand:           Zero{},
-		log:            zap.NewNop(),
-		sessionCreated: createCondOnce(),
-		rpc:            rpc.New(rpc.NopSend, rpc.Config{}),
+		rand: Zero{},
+		log:  zap.NewNop(),
+		rpc:  rpc.New(rpc.NopSend, rpc.Config{}),
 	}
-	c.sessionCreated.Done()
 
 	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))
 	if os.IsNotExist(err) {

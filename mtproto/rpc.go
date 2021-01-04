@@ -13,13 +13,18 @@ import (
 )
 
 func (c *Conn) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
-	c.sessionCreated.WaitIfNeeded()
-
 	req := rpc.Request{
 		ID:     c.newMessageID(),
 		Input:  in,
 		Output: out,
 	}
+
+	log := c.log.With(
+		zap.Bool("content_msg", contentMsg),
+		zap.Int64("msg_id", req.ID),
+	)
+	log.Debug("rpcDo start")
+	defer log.Debug("rpcDo end")
 
 	c.sentContentMessagesMux.Lock()
 	// Atomically calculating and updating sequence number.
@@ -36,9 +41,6 @@ func (c *Conn) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out b
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
-			if err := c.saveSession(c.ctx); err != nil {
-				return xerrors.Errorf("badMsg update salt: %w", err)
-			}
 			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.ID))
 			return c.rpc.Do(ctx, req)
 		}
