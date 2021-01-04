@@ -13,6 +13,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/mtproto"
@@ -49,8 +50,6 @@ func run(ctx context.Context) error {
 
 	dispatcher := tg.NewUpdateDispatcher()
 	// Creating connection.
-	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
-	defer cancel()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Addr:           telegram.AddrTest,
 		Logger:         logger,
@@ -59,9 +58,12 @@ func run(ctx context.Context) error {
 		UpdateHandler:  dispatcher.Handle,
 	})
 
-	if err := client.Connect(dialCtx); err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
-	}
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
 
 	if self, err := client.Self(ctx); err != nil || self.Bot {
 		if err := telegram.NewAuth(telegram.TestAuth(rand.Reader, *dcID), telegram.SendCodeOptions{}).Run(ctx, client); err != nil {
@@ -94,7 +96,8 @@ func run(ctx context.Context) error {
 		}
 	}
 
-	return nil
+	cancel()
+	return g.Wait()
 }
 
 func main() {

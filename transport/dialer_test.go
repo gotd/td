@@ -20,11 +20,5 @@ func ExampleDialFunc() {
 		Transport: trp,
 	})
 
-	if err := client.Connect(ctx); err != nil {
-		panic(err)
-	}
-
-	if err := client.Close(); err != nil {
-		panic(err)
-	}
+	go func() { _ = client.Run(ctx) }()
 }

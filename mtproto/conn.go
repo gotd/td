@@ -133,30 +133,38 @@ func goGroup(ctx context.Context, g *errgroup.Group, f func(ctx context.Context)
 	})
 }
 
+func (c *Conn) handleClose(ctx context.Context) error {
+	<-ctx.Done()
+	c.rpc.Close()
+	if err := c.conn.Close(); err != nil {
+		c.log.Debug("Failed to cleanup connection", zap.Error(err))
+	}
+	return nil
+}
+
 // Run initializes MTProto connection to server and blocks until disconnection.
 //
 // When connection is ready, Handler.OnSession is called.
-func (c *Conn) Run(ctx context.Context) error {
+func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error {
 	// Starting connection.
 	//
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	c.log.Debug("Run: start")
+	defer c.log.Debug("Run: end")
 	if err := c.connect(ctx); err != nil {
 		return xerrors.Errorf("start: %w", err)
 	}
-	defer func() {
-		// Cleaning up state.
-		c.rpc.Close()
-		if err := c.conn.Close(); err != nil {
-			c.log.Debug("Failed to cleanup connection", zap.Error(err))
-		}
-	}()
 	{
 		// All goroutines are bound to current call.
 		g, gCtx := errgroup.WithContext(ctx)
+		goGroup(gCtx, g, c.handleClose)
 		goGroup(gCtx, g, c.pingLoop)
 		goGroup(gCtx, g, c.readLoop)
 		goGroup(gCtx, g, c.ackLoop)
+		goGroup(gCtx, g, f)
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
 		}

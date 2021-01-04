@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -62,11 +63,10 @@ func (b EchoBot) Run(ctx context.Context) error {
 		return nil
 	})
 
-	err := client.Connect(ctx)
-	if err != nil {
-		return xerrors.Errorf("connect: %w", err)
-	}
-	logger.Info("Client started.")
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
 
 	auth, err := client.AuthStatus(ctx)
 	if err != nil {
@@ -88,9 +88,7 @@ func (b EchoBot) Run(ctx context.Context) error {
 	).Info("logged")
 	b.auth <- me
 
-	<-ctx.Done()
-	logger.Info("Shutting down")
-	if err := client.Close(); err != nil {
+	if err := g.Wait(); err != nil {
 		return err
 	}
 	logger.Info("Graceful shutdown completed")

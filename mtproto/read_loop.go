@@ -16,10 +16,6 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
-func (c *Conn) handleOther(b *bin.Buffer) error {
-	return c.handler.OnMessage(b)
-}
-
 func (c *Conn) handleMessage(b *bin.Buffer) error {
 	c.trace.OnMessage(b)
 
@@ -99,6 +95,7 @@ func (c *Conn) readLoop(ctx context.Context) error {
 	b := new(bin.Buffer)
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
+	defer log.Debug("Read loop done")
 
 	for {
 		msg, err := c.read(ctx, b)
@@ -107,6 +104,13 @@ func (c *Conn) readLoop(ctx context.Context) error {
 			go func() { _ = c.handleEncryptedMessage(msg) }()
 
 			continue
+		}
+
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			// Next.
 		}
 
 		// Checking for read timeout.

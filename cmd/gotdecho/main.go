@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"strconv"
 	"syscall"
-	"time"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/net/proxy"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
@@ -47,9 +47,6 @@ func run(ctx context.Context) error {
 	}
 
 	dispatcher := tg.NewUpdateDispatcher()
-	// Creating connection.
-	dialCtx, cancel := context.WithTimeout(ctx, time.Second*5)
-	defer cancel()
 	client := telegram.NewClient(appID, appHash, telegram.Options{
 		Logger: logger,
 		SessionStorage: &telegram.FileSessionStorage{
@@ -59,6 +56,9 @@ func run(ctx context.Context) error {
 		Transport:     transport.Intermediate(transport.DialFunc(proxy.Dial)),
 		UpdateHandler: dispatcher.Handle,
 	})
+
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
 
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
 		switch m := u.Message.(type) {
@@ -86,14 +86,14 @@ func run(ctx context.Context) error {
 		return nil
 	})
 
-	if err := client.Connect(ctx); err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
-	}
-	logger.Info("Connected")
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
 
 	self, err := client.Self(ctx)
 	if err != nil || !self.Bot {
-		if err := client.AuthBot(dialCtx, os.Getenv("BOT_TOKEN")); err != nil {
+		if err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
 			return xerrors.Errorf("failed to perform bot login: %w", err)
 		}
 		logger.Info("Bot login ok")
@@ -117,7 +117,8 @@ func run(ctx context.Context) error {
 
 	<-c
 	logger.Info("Shutting down")
-	if err := client.Close(); err != nil {
+	cancel()
+	if err := g.Wait(); err != nil {
 		return err
 	}
 	logger.Info("Graceful shutdown completed")

@@ -5,6 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -48,13 +49,14 @@ func (u User) Run(ctx context.Context) error {
 		return nil
 	})
 
-	err := client.Connect(ctx)
-	if err != nil {
-		return xerrors.Errorf("failed to connect: %w", err)
-	}
-	defer func() {
-		_ = client.Close()
-	}()
+	runCtx, runCancel := context.WithCancel(ctx)
+	defer runCancel()
+
+	g, gCtx := errgroup.WithContext(runCtx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
+
 	logger.Info("Client started.")
 
 	auth, err := client.AuthStatus(ctx)
@@ -88,8 +90,9 @@ func (u User) Run(ctx context.Context) error {
 	}
 
 	logger.Info("Shutting down")
-	if err := client.Close(); err != nil {
-		return err
+	runCancel()
+	if err := g.Wait(); err != nil {
+		return xerrors.Errorf("wait: %w", err)
 	}
 	logger.Info("Graceful shutdown completed")
 	return nil

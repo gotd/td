@@ -10,7 +10,6 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
@@ -18,10 +17,7 @@ import (
 
 type protoConn interface {
 	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
-	Connect(ctx context.Context) error
-	Reconnect(ctx context.Context) error
-	Session() mtproto.Session
-	Close() error
+	Run(ctx context.Context, f func(ctx context.Context) error) error
 }
 
 //go:generate go run golang.org/x/tools/cmd/stringer -type=connState
@@ -48,25 +44,42 @@ const (
 	connModeCDN
 )
 
+type connHandler interface {
+	onSession(addr string, cfg tg.Config, s mtproto.Session) error
+	onMessage(b *bin.Buffer) error
+}
+
 type conn struct {
+	addr    string
 	cfg     tg.Config
 	appID   int
 	appHash string
 	mode    connMode
 	state   connState
 	proto   protoConn
-	dc      int
-	addr    string
 	opt     mtproto.Options
 	ongoing int
 	clock   clock.Clock
 	log     *zap.Logger
 	latest  time.Time
-	session *condOnce
 	mux     sync.Mutex
 
-	onMessage mtproto.Handler
-	onSession onSessionHandler
+	handler connHandler
+
+	sessionInitOnce sync.Once
+	sessionInit     chan struct{}
+}
+
+func (c *conn) OnSession(session mtproto.Session) error {
+	c.sessionInitOnce.Do(func() {
+		close(c.sessionInit)
+	})
+
+	c.mux.Lock()
+	cfg := c.cfg
+	c.mux.Unlock()
+
+	return c.handler.onSession(c.addr, cfg, session)
 }
 
 func (c *conn) Config() tg.Config {
@@ -127,29 +140,17 @@ func (c *conn) switchState(next connState) error {
 	return nil
 }
 
-func (c *conn) connect(ctx context.Context) error {
-	c.log.Debug("Connecting")
-	if err := c.switchState(connConnecting); err != nil {
-		return xerrors.Errorf("state: %w", err)
-	}
-	if err := c.proto.Connect(ctx); err != nil {
-		return xerrors.Errorf("connect: %w", err)
-	}
-	if err := c.switchState(connConnected); err != nil {
-		return xerrors.Errorf("state: %w", err)
-	}
-	return nil
+func (c *conn) Run(ctx context.Context) error {
+	return c.proto.Run(ctx, c.init)
 }
 
-func (c *conn) Connect(ctx context.Context) error {
-	c.log.Info("Connect")
-	if err := c.connect(ctx); err != nil {
-		return err
+func (c *conn) waitSession(ctx context.Context) error {
+	select {
+	case <-c.sessionInit:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
 	}
-	if err := c.init(ctx); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -159,22 +160,15 @@ func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 		return xerrors.Errorf("track: %w", err)
 	}
 	defer done()
-	c.session.WaitIfNeeded()
+	if err := c.waitSession(ctx); err != nil {
+		return xerrors.Errorf("waitSession: %w", err)
+	}
 
 	return c.proto.InvokeRaw(ctx, input, output)
 }
 
-func (c *conn) handleMessage(b *bin.Buffer) error {
-	id, err := b.PeekID()
-	if err != nil {
-		return xerrors.Errorf("peek id: %w", err)
-	}
-	switch id {
-	case mt.NewSessionCreatedTypeID:
-		return c.handleSessionCreated(b)
-	default:
-		return c.onMessage(b)
-	}
+func (c *conn) OnMessage(b *bin.Buffer) error {
+	return c.handler.onMessage(b)
 }
 
 func (c *conn) init(ctx context.Context) error {
@@ -216,101 +210,31 @@ func (c *conn) init(ctx context.Context) error {
 	// Now connection can be used for requests.
 	c.latest = c.clock.Now()
 	c.cfg = response
-	onSessionErr := c.onSession(c.addr, c.cfg, c.proto.Session())
 	c.mux.Unlock()
 
-	if onSessionErr != nil {
-		return xerrors.Errorf("onSession: %w", onSessionErr)
-	}
-
 	return nil
 }
-
-func (c *conn) Close() error {
-	c.log.Debug("Closing")
-	if err := c.switchState(connClosing); err != nil {
-		return err
-	}
-	if err := c.proto.Close(); err != nil {
-		return err
-	}
-	if err := c.switchState(connClosed); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (c *conn) handleSessionCreated(_ *bin.Buffer) error {
-	c.mux.Lock()
-	defer c.mux.Unlock()
-
-	if err := c.switchState(connIdle); err != nil {
-		return err
-	}
-	c.session.Done()
-
-	// This should be persisted.
-	_ = c.proto.Session()
-	c.log.Debug("Session created")
-
-	return nil
-}
-
-func (c *conn) onReconnect() error {
-	c.session.Reset()
-	c.log.Debug("onReconnect")
-	if err := c.switchState(connReconnecting); err != nil {
-		return err
-	}
-	ctx := context.Background()
-	if err := c.proto.Reconnect(ctx); err != nil {
-		if closeErr := c.Close(); closeErr != nil {
-			return xerrors.Errorf("close after reconnect failure: %w", err)
-		}
-		return xerrors.Errorf("reconnect: %w", err)
-	}
-
-	// The onReconnect invocation occurs in mtproto read loop, so we can't
-	// perform blocking connection initialization.
-	go func() {
-		if err := c.init(ctx); err != nil {
-			// What should we do here?
-			c.log.Error("Failed to reconnect, closing", zap.Error(err))
-
-			if closeErr := c.Close(); closeErr != nil {
-				c.log.Error("Failed to reconnect", zap.Error(err))
-			}
-		}
-	}()
-	return nil
-}
-
-type onSessionHandler func(addr string, cfg tg.Config, session mtproto.Session) error
 
 func newConn(
+	handler connHandler,
 	addr string,
 	appID int,
 	appHash string,
 	mode connMode,
-	onSession onSessionHandler,
 	opt mtproto.Options,
 ) *conn {
 	c := &conn{
-		appID:     appID,
-		appHash:   appHash,
-		mode:      mode,
-		dc:        0,
-		addr:      addr,
-		opt:       opt,
-		clock:     opt.Clock,
-		log:       opt.Logger.Named("conn"),
-		onMessage: opt.Handler,
-		session:   createCondOnce(),
-		onSession: onSession,
+		appID:       appID,
+		appHash:     appHash,
+		mode:        mode,
+		addr:        addr,
+		opt:         opt,
+		clock:       opt.Clock,
+		log:         opt.Logger.Named("conn"),
+		handler:     handler,
+		sessionInit: make(chan struct{}),
 	}
-	c.opt.Handler = c.handleMessage
-	c.opt.OnReconnect = c.onReconnect
-	c.proto = mtproto.NewConn(c.addr, c.opt)
+	c.opt.Handler = c
+	c.proto = mtproto.New(c.addr, c.opt)
 	return c
 }

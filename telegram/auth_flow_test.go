@@ -67,9 +67,11 @@ func ExampleTestAuth() {
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Addr: telegram.AddrTest,
 	})
-	if err := client.Connect(ctx); err != nil {
-		panic(err)
-	}
+	go func() {
+		if err := client.Run(ctx); err != nil {
+			panic(err)
+		}
+	}()
 
 	if err := telegram.NewAuth(
 		telegram.TestAuth(rand.Reader, dcID),
@@ -101,7 +103,7 @@ func ExampleAuthFlow_Run() {
 
 	ctx := context.Background()
 	client := telegram.NewClient(appID, appHash, telegram.Options{})
-	check(client.Connect(ctx))
+	go func() { check(client.Run(ctx)) }()
 
 	codeAsk := func(ctx context.Context) (string, error) {
 		fmt.Print("code:")

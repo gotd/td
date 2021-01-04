@@ -30,16 +30,28 @@ func testTransport(trp Transport) func(t *testing.T) {
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
-		g, gctx := errgroup.WithContext(ctx)
+		g, gCtx := errgroup.WithContext(ctx)
 
 		testMessage := "ну че там с деньгами?"
-		suite := tgtest.NewSuite(gctx, t, log)
+		suite := tgtest.NewSuite(gCtx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
 		g.Go(func() error {
 			defer srv.Close()
 			return srv.Serve()
 		})
 
+		waitForMessage := make(chan struct{})
+
+		g.Go(func() error {
+			select {
+			case <-waitForMessage:
+				cancel()
+				return nil
+			case <-ctx.Done():
+				t.Error("No message were received")
+				return ctx.Err()
+			}
+		})
 		g.Go(func() error {
 			dispatcher := tg.NewUpdateDispatcher()
 			clientLogger := log.Named("client")
@@ -55,8 +67,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 				SessionStorage: &session.StorageMemory{},
 			})
 
-			waitForMessage := make(chan struct{})
-			dispatcher.OnNewMessage(func(uctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+			dispatcher.OnNewMessage(func(gCtx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 				message := update.Message.(*tg.Message).Message
 				clientLogger.With(zap.String("message", message)).
 					Info("got message")
@@ -71,18 +82,16 @@ func testTransport(trp Transport) func(t *testing.T) {
 				}
 
 				close(waitForMessage)
+
 				return nil
 			})
 
 			defer srv.Close() // stop server in any case
-			if err := client.Connect(ctx); err != nil {
-				return err
-			}
-			<-waitForMessage
 
-			return client.Close()
+			return client.Run(gCtx)
 		})
 
+		log.Debug("Waiting")
 		if err := g.Wait(); !errors.Is(err, context.Canceled) {
 			require.NoError(t, err)
 		}
@@ -191,17 +200,30 @@ func testReconnect(trp Transport) func(t *testing.T) {
 			MaxRetries:    5,
 		})
 
-		err := client.Connect(ctx)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		_ = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-			Peer:    &tg.InputPeerUser{},
-			Message: testMessage,
+		g, gCtx := errgroup.WithContext(ctx)
+		g.Go(func() error {
+			return client.Run(gCtx)
+		})
+		g.Go(func() error {
+			return client.SendMessage(gCtx, &tg.MessagesSendMessageRequest{
+				Peer:    &tg.InputPeerUser{},
+				Message: testMessage,
+			})
+		})
+		g.Go(func() error {
+			select {
+			case <-wait:
+				cancel()
+				return nil
+			case <-gCtx.Done():
+				t.Error("failed to wait")
+				return gCtx.Err()
+			}
 		})
 
-		<-wait
+		if err := g.Wait(); err != nil {
+			t.Error(err)
+		}
 	}
 }
 

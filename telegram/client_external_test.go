@@ -36,13 +36,14 @@ func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transp
 		Transport: trp,
 	})
 
-	if err := client.Connect(ctx); err != nil {
-		return xerrors.Errorf("connect: %w", err)
-	}
+	runCtx, runCancel := context.WithCancel(ctx)
 
-	defer func() {
-		_ = client.Close()
-	}()
+	g, gCtx := errgroup.WithContext(runCtx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
+	defer func() { _ = g.Wait() }()
+	defer runCancel()
 
 	if err := telegram.NewAuth(
 		telegram.TestAuth(rand.Reader, 2),

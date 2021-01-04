@@ -8,6 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"golang.org/x/sync/errgroup"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/transport"
 )
@@ -36,13 +38,14 @@ func TestMTProxy(t *testing.T) {
 		Transport: trp,
 	})
 
-	if err := client.Connect(ctx); err != nil {
-		t.Fatal(err)
-	}
+	runCtx, runCancel := context.WithCancel(ctx)
 
-	defer func() {
-		_ = client.Close()
-	}()
+	g, gCtx := errgroup.WithContext(runCtx)
+	g.Go(func() error {
+		return client.Run(gCtx)
+	})
+	defer func() { _ = g.Wait() }()
+	defer runCancel()
 
 	if err := telegram.NewAuth(
 		telegram.TestAuth(rand.Reader, 2),

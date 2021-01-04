@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"io"
-	"sync"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -45,22 +44,17 @@ type clientStorage interface {
 }
 
 type clientConn interface {
-	Config() tg.Config
-	Close() error
-	Connect(ctx context.Context) error
+	Run(ctx context.Context) error
 	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
 }
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
-	tg *tg.Client
-
-	connMux sync.Mutex
+	tg      *tg.Client
 	connOpt mtproto.Options
 	conn    clientConn
-
-	trace tracer
+	trace   tracer
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
@@ -75,6 +69,10 @@ type Client struct {
 	storage clientStorage
 
 	updateHandler UpdateHandler // immutable
+}
+
+func (c *Client) onMessage(b *bin.Buffer) error {
+	return c.handleMessage(b)
 }
 
 // NewClient creates new unstarted client.
@@ -105,7 +103,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		Network:       opt.Network,
 		Random:        opt.Random,
 		Logger:        opt.Logger,
-		Handler:       client.handleMessage,
 		AckBatchSize:  opt.AckBatchSize,
 		AckInterval:   opt.AckInterval,
 		RetryInterval: opt.RetryInterval,
@@ -148,16 +145,12 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	return nil
 }
 
-// Connect initializes connection to Telegram server and starts internal
-// read loop.
-func (c *Client) Connect(ctx context.Context) error {
+// Run starts client session and blocks until closing.
+func (c *Client) Run(ctx context.Context) error {
 	if err := c.restoreConnection(ctx); err != nil {
 		return xerrors.Errorf("restore: %w", err)
 	}
-	if err := c.conn.Connect(ctx); err != nil {
-		return err
-	}
-	return nil
+	return c.conn.Run(ctx)
 }
 
 func (c *Client) handleMessage(b *bin.Buffer) error {
@@ -195,12 +188,11 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 }
 
 func (c *Client) createConn(addr string, mode connMode) clientConn {
-	return newConn(
+	return newConn(c,
 		addr,
 		c.appID,
 		c.appHash,
 		mode,
-		c.onSession,
 		c.connOpt,
 	)
 }
