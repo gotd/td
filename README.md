@@ -82,20 +82,19 @@ directly.
 ```go
 // Grab these from https://my.telegram.org/apps.
 // Never share it or hardcode!
-client := telegram.NewClient(appID, appHash, telegram.Options{})
-if err := client.Connect(ctx); != nil {
-    panic(err)
+telegram.NewClient(appID, appHash, telegram.Options{}).Run(ctx, func(ctx context.Context) error) {
+  // Grab token from @BotFather.
+  if err := client.AuthBot(ctx, "token:12345"); err != nil {
+    return err
+  }
+  state, err := tg.NewClient(client).UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
+  if err != nil {
+    return err
+  }
+  // Got state: &{Pts:197 Qts:0 Date:1606855030 Seq:1 UnreadCount:106}
+  // This will close client and cleanup resources.
+  return nil
 }
-// Grab token from @BotFather.
-if err := client.AuthBot(ctx, "token:12345"); err != nil {
-    panic(err)
-}
-// updates.getState#edd4882a
-state, err := tg.NewClient(client).UpdatesGetState(ctx, &tg.UpdatesGetStateRequest{})
-if err != nil {
-    panic(err)
-}
-// Got state: &{Pts:197 Qts:0 Date:1606855030 Seq:1 UnreadCount:106}
 ```
 
 ### Generated code
