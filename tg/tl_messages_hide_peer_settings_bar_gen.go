@@ -40,7 +40,7 @@ func (h *MessagesHidePeerSettingsBarRequest) String() string {
 	sb.WriteString("MessagesHidePeerSettingsBarRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(h.Peer.String())
+	sb.WriteString(fmt.Sprint(h.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

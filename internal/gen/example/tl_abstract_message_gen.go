@@ -289,7 +289,7 @@ func (f *FieldsMessage) String() string {
 	sb.WriteString("FieldsMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(f.Flags.String())
+	sb.WriteString(fmt.Sprint(f.Flags))
 	sb.WriteString(",\n")
 	if f.Flags.Has(0) {
 		sb.WriteString("\tEscape: ")

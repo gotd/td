@@ -37,7 +37,7 @@ func (g *MessagesGetAttachedStickersRequest) String() string {
 	sb.WriteString("MessagesGetAttachedStickersRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tMedia: ")
-	sb.WriteString(g.Media.String())
+	sb.WriteString(fmt.Sprint(g.Media))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

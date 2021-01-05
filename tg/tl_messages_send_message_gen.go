@@ -76,10 +76,10 @@ func (s *MessagesSendMessageRequest) String() string {
 	sb.WriteString("MessagesSendMessageRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tReplyToMsgID: ")
@@ -94,7 +94,7 @@ func (s *MessagesSendMessageRequest) String() string {
 	sb.WriteString(",\n")
 	if s.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(s.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(s.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	if s.Flags.Has(3) {

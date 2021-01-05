@@ -103,7 +103,7 @@ func (g *GeoPoint) String() string {
 	sb.WriteString("GeoPoint")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tLong: ")
 	sb.WriteString(fmt.Sprint(g.Long))

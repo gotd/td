@@ -37,7 +37,7 @@ func (e *MessagesExportChatInviteRequest) String() string {
 	sb.WriteString("MessagesExportChatInviteRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(e.Peer.String())
+	sb.WriteString(fmt.Sprint(e.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

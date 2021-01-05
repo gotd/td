@@ -97,29 +97,29 @@ func (i *InputSecureValue) String() string {
 	sb.WriteString("InputSecureValue")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tType: ")
-	sb.WriteString(i.Type.String())
+	sb.WriteString(fmt.Sprint(i.Type))
 	sb.WriteString(",\n")
 	if i.Flags.Has(0) {
 		sb.WriteString("\tData: ")
-		sb.WriteString(i.Data.String())
+		sb.WriteString(fmt.Sprint(i.Data))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(1) {
 		sb.WriteString("\tFrontSide: ")
-		sb.WriteString(i.FrontSide.String())
+		sb.WriteString(fmt.Sprint(i.FrontSide))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReverseSide: ")
-		sb.WriteString(i.ReverseSide.String())
+		sb.WriteString(fmt.Sprint(i.ReverseSide))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(3) {
 		sb.WriteString("\tSelfie: ")
-		sb.WriteString(i.Selfie.String())
+		sb.WriteString(fmt.Sprint(i.Selfie))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(6) {
@@ -138,7 +138,7 @@ func (i *InputSecureValue) String() string {
 	}
 	if i.Flags.Has(5) {
 		sb.WriteString("\tPlainData: ")
-		sb.WriteString(i.PlainData.String())
+		sb.WriteString(fmt.Sprint(i.PlainData))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

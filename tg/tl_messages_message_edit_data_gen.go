@@ -42,7 +42,7 @@ func (m *MessagesMessageEditData) String() string {
 	sb.WriteString("MessagesMessageEditData")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -64,7 +64,7 @@ func (p *PageRelatedArticle) String() string {
 	sb.WriteString("PageRelatedArticle")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tURL: ")
 	sb.WriteString(fmt.Sprint(p.URL))

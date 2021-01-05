@@ -46,14 +46,14 @@ func (c *ChatParticipantsForbidden) String() string {
 	sb.WriteString("ChatParticipantsForbidden")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tChatID: ")
 	sb.WriteString(fmt.Sprint(c.ChatID))
 	sb.WriteString(",\n")
 	if c.Flags.Has(0) {
 		sb.WriteString("\tSelfParticipant: ")
-		sb.WriteString(c.SelfParticipant.String())
+		sb.WriteString(fmt.Sprint(c.SelfParticipant))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

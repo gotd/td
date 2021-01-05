@@ -70,7 +70,7 @@ func (d *MessagesDiscussionMessage) String() string {
 	sb.WriteString("MessagesDiscussionMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range d.Messages {

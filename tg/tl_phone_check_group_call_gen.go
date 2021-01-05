@@ -38,7 +38,7 @@ func (c *PhoneCheckGroupCallRequest) String() string {
 	sb.WriteString("PhoneCheckGroupCallRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(c.Call.String())
+	sb.WriteString(fmt.Sprint(c.Call))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSource: ")
 	sb.WriteString(fmt.Sprint(c.Source))

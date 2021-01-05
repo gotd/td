@@ -42,7 +42,7 @@ func (s *BotsSendCustomRequestRequest) String() string {
 	sb.WriteString(fmt.Sprint(s.CustomMethod))
 	sb.WriteString(",\n")
 	sb.WriteString("\tParams: ")
-	sb.WriteString(s.Params.String())
+	sb.WriteString(fmt.Sprint(s.Params))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

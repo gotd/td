@@ -41,7 +41,7 @@ func (r *ContactsResolvedPeer) String() string {
 	sb.WriteString("ContactsResolvedPeer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range r.Chats {

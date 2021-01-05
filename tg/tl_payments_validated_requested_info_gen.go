@@ -44,7 +44,7 @@ func (v *PaymentsValidatedRequestedInfo) String() string {
 	sb.WriteString("PaymentsValidatedRequestedInfo")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(v.Flags.String())
+	sb.WriteString(fmt.Sprint(v.Flags))
 	sb.WriteString(",\n")
 	if v.Flags.Has(0) {
 		sb.WriteString("\tID: ")

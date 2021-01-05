@@ -255,7 +255,7 @@ func (w *WebPage) String() string {
 	sb.WriteString("WebPage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(w.ID))
@@ -291,7 +291,7 @@ func (w *WebPage) String() string {
 	}
 	if w.Flags.Has(4) {
 		sb.WriteString("\tPhoto: ")
-		sb.WriteString(w.Photo.String())
+		sb.WriteString(fmt.Sprint(w.Photo))
 		sb.WriteString(",\n")
 	}
 	if w.Flags.Has(5) {
@@ -326,12 +326,12 @@ func (w *WebPage) String() string {
 	}
 	if w.Flags.Has(9) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(w.Document.String())
+		sb.WriteString(fmt.Sprint(w.Document))
 		sb.WriteString(",\n")
 	}
 	if w.Flags.Has(10) {
 		sb.WriteString("\tCachedPage: ")
-		sb.WriteString(w.CachedPage.String())
+		sb.WriteString(fmt.Sprint(w.CachedPage))
 		sb.WriteString(",\n")
 	}
 	if w.Flags.Has(12) {
@@ -815,7 +815,7 @@ func (w *WebPageNotModified) String() string {
 	sb.WriteString("WebPageNotModified")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	if w.Flags.Has(0) {
 		sb.WriteString("\tCachedPageViews: ")

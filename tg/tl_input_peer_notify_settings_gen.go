@@ -56,7 +56,7 @@ func (i *InputPeerNotifySettings) String() string {
 	sb.WriteString("InputPeerNotifySettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	if i.Flags.Has(0) {
 		sb.WriteString("\tShowPreviews: ")

@@ -41,7 +41,7 @@ func (c *MessagesChatFull) String() string {
 	sb.WriteString("MessagesChatFull")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFullChat: ")
-	sb.WriteString(c.FullChat.String())
+	sb.WriteString(fmt.Sprint(c.FullChat))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range c.Chats {

@@ -39,7 +39,7 @@ func (i *ChannelsInviteToChannelRequest) String() string {
 	sb.WriteString("ChannelsInviteToChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(i.Channel.String())
+	sb.WriteString(fmt.Sprint(i.Channel))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range i.Users {

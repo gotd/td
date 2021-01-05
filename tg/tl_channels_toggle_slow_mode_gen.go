@@ -42,7 +42,7 @@ func (t *ChannelsToggleSlowModeRequest) String() string {
 	sb.WriteString("ChannelsToggleSlowModeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(t.Channel.String())
+	sb.WriteString(fmt.Sprint(t.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSeconds: ")
 	sb.WriteString(fmt.Sprint(t.Seconds))

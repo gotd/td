@@ -45,7 +45,7 @@ func (r *ChannelsReadMessageContentsRequest) String() string {
 	sb.WriteString("ChannelsReadMessageContentsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(r.Channel.String())
+	sb.WriteString(fmt.Sprint(r.Channel))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range r.ID {

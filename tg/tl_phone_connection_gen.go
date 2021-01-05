@@ -174,7 +174,7 @@ func (p *PhoneConnectionWebrtc) String() string {
 	sb.WriteString("PhoneConnectionWebrtc")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(p.ID))

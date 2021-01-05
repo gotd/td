@@ -188,10 +188,10 @@ func (s *StatsGraph) String() string {
 	sb.WriteString("StatsGraph")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tJSON: ")
-	sb.WriteString(s.JSON.String())
+	sb.WriteString(fmt.Sprint(s.JSON))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tZoomToken: ")

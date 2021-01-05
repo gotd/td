@@ -246,7 +246,7 @@ func (m *MessageActionChatEditPhoto) String() string {
 	sb.WriteString("MessageActionChatEditPhoto")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(m.Photo.String())
+	sb.WriteString(fmt.Sprint(m.Photo))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -1006,7 +1006,7 @@ func (m *MessageActionPaymentSentMe) String() string {
 	sb.WriteString("MessageActionPaymentSentMe")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCurrency: ")
 	sb.WriteString(fmt.Sprint(m.Currency))
@@ -1019,7 +1019,7 @@ func (m *MessageActionPaymentSentMe) String() string {
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tInfo: ")
-		sb.WriteString(m.Info.String())
+		sb.WriteString(fmt.Sprint(m.Info))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(1) {
@@ -1028,7 +1028,7 @@ func (m *MessageActionPaymentSentMe) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tCharge: ")
-	sb.WriteString(m.Charge.String())
+	sb.WriteString(fmt.Sprint(m.Charge))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -1276,14 +1276,14 @@ func (m *MessageActionPhoneCall) String() string {
 	sb.WriteString("MessageActionPhoneCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCallID: ")
 	sb.WriteString(fmt.Sprint(m.CallID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tReason: ")
-		sb.WriteString(m.Reason.String())
+		sb.WriteString(fmt.Sprint(m.Reason))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(1) {
@@ -1628,7 +1628,7 @@ func (m *MessageActionSecureValuesSentMe) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tCredentials: ")
-	sb.WriteString(m.Credentials.String())
+	sb.WriteString(fmt.Sprint(m.Credentials))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -1858,10 +1858,10 @@ func (m *MessageActionGeoProximityReached) String() string {
 	sb.WriteString("MessageActionGeoProximityReached")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFromID: ")
-	sb.WriteString(m.FromID.String())
+	sb.WriteString(fmt.Sprint(m.FromID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tToID: ")
-	sb.WriteString(m.ToID.String())
+	sb.WriteString(fmt.Sprint(m.ToID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDistance: ")
 	sb.WriteString(fmt.Sprint(m.Distance))
@@ -1961,10 +1961,10 @@ func (m *MessageActionGroupCall) String() string {
 	sb.WriteString("MessageActionGroupCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(m.Call.String())
+	sb.WriteString(fmt.Sprint(m.Call))
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tDuration: ")
@@ -2069,7 +2069,7 @@ func (m *MessageActionInviteToGroupCall) String() string {
 	sb.WriteString("MessageActionInviteToGroupCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(m.Call.String())
+	sb.WriteString(fmt.Sprint(m.Call))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range m.Users {

@@ -38,7 +38,7 @@ func (i *PhoneInviteToGroupCallRequest) String() string {
 	sb.WriteString("PhoneInviteToGroupCallRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(i.Call.String())
+	sb.WriteString(fmt.Sprint(i.Call))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range i.Users {

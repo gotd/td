@@ -62,7 +62,7 @@ func (t *Theme) String() string {
 	sb.WriteString("Theme")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(t.Flags.String())
+	sb.WriteString(fmt.Sprint(t.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(t.ID))
@@ -78,12 +78,12 @@ func (t *Theme) String() string {
 	sb.WriteString(",\n")
 	if t.Flags.Has(2) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(t.Document.String())
+		sb.WriteString(fmt.Sprint(t.Document))
 		sb.WriteString(",\n")
 	}
 	if t.Flags.Has(3) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(t.Settings.String())
+		sb.WriteString(fmt.Sprint(t.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tInstallsCount: ")

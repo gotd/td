@@ -56,7 +56,7 @@ func (g *GroupCallParticipant) String() string {
 	sb.WriteString("GroupCallParticipant")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
 	sb.WriteString(fmt.Sprint(g.UserID))

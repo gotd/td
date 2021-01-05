@@ -59,14 +59,14 @@ func (m *MessageReplyHeader) String() string {
 	sb.WriteString("MessageReplyHeader")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tReplyToMsgID: ")
 	sb.WriteString(fmt.Sprint(m.ReplyToMsgID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tReplyToPeerID: ")
-		sb.WriteString(m.ReplyToPeerID.String())
+		sb.WriteString(fmt.Sprint(m.ReplyToPeerID))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(1) {

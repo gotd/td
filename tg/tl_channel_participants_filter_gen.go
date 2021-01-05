@@ -479,7 +479,7 @@ func (c *ChannelParticipantsMentions) String() string {
 	sb.WriteString("ChannelParticipantsMentions")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	if c.Flags.Has(0) {
 		sb.WriteString("\tQ: ")

@@ -37,7 +37,7 @@ func (r *MessagesReportEncryptedSpamRequest) String() string {
 	sb.WriteString("MessagesReportEncryptedSpamRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

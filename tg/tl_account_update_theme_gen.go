@@ -60,13 +60,13 @@ func (u *AccountUpdateThemeRequest) String() string {
 	sb.WriteString("AccountUpdateThemeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFormat: ")
 	sb.WriteString(fmt.Sprint(u.Format))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTheme: ")
-	sb.WriteString(u.Theme.String())
+	sb.WriteString(fmt.Sprint(u.Theme))
 	sb.WriteString(",\n")
 	if u.Flags.Has(0) {
 		sb.WriteString("\tSlug: ")
@@ -80,12 +80,12 @@ func (u *AccountUpdateThemeRequest) String() string {
 	}
 	if u.Flags.Has(2) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(u.Document.String())
+		sb.WriteString(fmt.Sprint(u.Document))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(3) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(u.Settings.String())
+		sb.WriteString(fmt.Sprint(u.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

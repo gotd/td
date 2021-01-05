@@ -65,7 +65,7 @@ func (c *ChannelsCreateChannelRequest) String() string {
 	sb.WriteString("ChannelsCreateChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTitle: ")
 	sb.WriteString(fmt.Sprint(c.Title))
@@ -75,7 +75,7 @@ func (c *ChannelsCreateChannelRequest) String() string {
 	sb.WriteString(",\n")
 	if c.Flags.Has(2) {
 		sb.WriteString("\tGeoPoint: ")
-		sb.WriteString(c.GeoPoint.String())
+		sb.WriteString(fmt.Sprint(c.GeoPoint))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(2) {

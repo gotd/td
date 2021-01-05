@@ -42,7 +42,7 @@ func (s *HelpSupport) String() string {
 	sb.WriteString(fmt.Sprint(s.PhoneNumber))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUser: ")
-	sb.WriteString(s.User.String())
+	sb.WriteString(fmt.Sprint(s.User))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -39,7 +39,7 @@ func (s *AccountSetPrivacyRequest) String() string {
 	sb.WriteString("AccountSetPrivacyRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tKey: ")
-	sb.WriteString(s.Key.String())
+	sb.WriteString(fmt.Sprint(s.Key))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range s.Rules {

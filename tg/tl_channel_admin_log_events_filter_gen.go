@@ -121,7 +121,7 @@ func (c *ChannelAdminLogEventsFilter) String() string {
 	sb.WriteString("ChannelAdminLogEventsFilter")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

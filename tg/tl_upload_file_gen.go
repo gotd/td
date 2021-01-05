@@ -41,7 +41,7 @@ func (f *UploadFile) String() string {
 	sb.WriteString("UploadFile")
 	sb.WriteString("{\n")
 	sb.WriteString("\tType: ")
-	sb.WriteString(f.Type.String())
+	sb.WriteString(fmt.Sprint(f.Type))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMtime: ")
 	sb.WriteString(fmt.Sprint(f.Mtime))

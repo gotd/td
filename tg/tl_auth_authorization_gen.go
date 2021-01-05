@@ -49,7 +49,7 @@ func (a *AuthAuthorization) String() string {
 	sb.WriteString("AuthAuthorization")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	if a.Flags.Has(0) {
 		sb.WriteString("\tTmpSessions: ")
@@ -57,7 +57,7 @@ func (a *AuthAuthorization) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tUser: ")
-	sb.WriteString(a.User.String())
+	sb.WriteString(fmt.Sprint(a.User))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -171,11 +171,11 @@ func (a *AuthAuthorizationSignUpRequired) String() string {
 	sb.WriteString("AuthAuthorizationSignUpRequired")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	if a.Flags.Has(0) {
 		sb.WriteString("\tTermsOfService: ")
-		sb.WriteString(a.TermsOfService.String())
+		sb.WriteString(fmt.Sprint(a.TermsOfService))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

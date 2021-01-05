@@ -92,7 +92,7 @@ func (c *ChannelLocation) String() string {
 	sb.WriteString("ChannelLocation")
 	sb.WriteString("{\n")
 	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(c.GeoPoint.String())
+	sb.WriteString(fmt.Sprint(c.GeoPoint))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAddress: ")
 	sb.WriteString(fmt.Sprint(c.Address))

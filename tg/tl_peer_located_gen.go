@@ -41,7 +41,7 @@ func (p *PeerLocated) String() string {
 	sb.WriteString("PeerLocated")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(p.Peer.String())
+	sb.WriteString(fmt.Sprint(p.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tExpires: ")
 	sb.WriteString(fmt.Sprint(p.Expires))

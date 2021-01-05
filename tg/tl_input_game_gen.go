@@ -124,7 +124,7 @@ func (i *InputGameShortName) String() string {
 	sb.WriteString("InputGameShortName")
 	sb.WriteString("{\n")
 	sb.WriteString("\tBotID: ")
-	sb.WriteString(i.BotID.String())
+	sb.WriteString(fmt.Sprint(i.BotID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tShortName: ")
 	sb.WriteString(fmt.Sprint(i.ShortName))

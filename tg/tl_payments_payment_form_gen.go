@@ -74,13 +74,13 @@ func (p *PaymentsPaymentForm) String() string {
 	sb.WriteString("PaymentsPaymentForm")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tBotID: ")
 	sb.WriteString(fmt.Sprint(p.BotID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tInvoice: ")
-	sb.WriteString(p.Invoice.String())
+	sb.WriteString(fmt.Sprint(p.Invoice))
 	sb.WriteString(",\n")
 	sb.WriteString("\tProviderID: ")
 	sb.WriteString(fmt.Sprint(p.ProviderID))
@@ -95,17 +95,17 @@ func (p *PaymentsPaymentForm) String() string {
 	}
 	if p.Flags.Has(4) {
 		sb.WriteString("\tNativeParams: ")
-		sb.WriteString(p.NativeParams.String())
+		sb.WriteString(fmt.Sprint(p.NativeParams))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(0) {
 		sb.WriteString("\tSavedInfo: ")
-		sb.WriteString(p.SavedInfo.String())
+		sb.WriteString(fmt.Sprint(p.SavedInfo))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(1) {
 		sb.WriteString("\tSavedCredentials: ")
-		sb.WriteString(p.SavedCredentials.String())
+		sb.WriteString(fmt.Sprint(p.SavedCredentials))
 		sb.WriteString(",\n")
 	}
 	sb.WriteByte('[')

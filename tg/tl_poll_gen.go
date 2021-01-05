@@ -68,7 +68,7 @@ func (p *Poll) String() string {
 	sb.WriteString(fmt.Sprint(p.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQuestion: ")
 	sb.WriteString(fmt.Sprint(p.Question))

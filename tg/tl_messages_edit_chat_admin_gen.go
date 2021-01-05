@@ -47,7 +47,7 @@ func (e *MessagesEditChatAdminRequest) String() string {
 	sb.WriteString(fmt.Sprint(e.ChatID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(e.UserID.String())
+	sb.WriteString(fmt.Sprint(e.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tIsAdmin: ")
 	sb.WriteString(fmt.Sprint(e.IsAdmin))

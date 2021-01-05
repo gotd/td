@@ -43,7 +43,7 @@ func (l *ChannelsLeaveChannelRequest) String() string {
 	sb.WriteString("ChannelsLeaveChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(l.Channel.String())
+	sb.WriteString(fmt.Sprint(l.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

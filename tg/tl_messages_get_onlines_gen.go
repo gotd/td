@@ -37,7 +37,7 @@ func (g *MessagesGetOnlinesRequest) String() string {
 	sb.WriteString("MessagesGetOnlinesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

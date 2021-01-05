@@ -63,10 +63,10 @@ func (e *MessagesEditInlineBotMessageRequest) String() string {
 	sb.WriteString("MessagesEditInlineBotMessageRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(e.Flags.String())
+	sb.WriteString(fmt.Sprint(e.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(e.ID.String())
+	sb.WriteString(fmt.Sprint(e.ID))
 	sb.WriteString(",\n")
 	if e.Flags.Has(11) {
 		sb.WriteString("\tMessage: ")
@@ -75,12 +75,12 @@ func (e *MessagesEditInlineBotMessageRequest) String() string {
 	}
 	if e.Flags.Has(14) {
 		sb.WriteString("\tMedia: ")
-		sb.WriteString(e.Media.String())
+		sb.WriteString(fmt.Sprint(e.Media))
 		sb.WriteString(",\n")
 	}
 	if e.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(e.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(e.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	if e.Flags.Has(3) {

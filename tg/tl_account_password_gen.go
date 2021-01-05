@@ -94,11 +94,11 @@ func (p *AccountPassword) String() string {
 	sb.WriteString("AccountPassword")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(2) {
 		sb.WriteString("\tCurrentAlgo: ")
-		sb.WriteString(p.CurrentAlgo.String())
+		sb.WriteString(fmt.Sprint(p.CurrentAlgo))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(2) {
@@ -122,10 +122,10 @@ func (p *AccountPassword) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tNewAlgo: ")
-	sb.WriteString(p.NewAlgo.String())
+	sb.WriteString(fmt.Sprint(p.NewAlgo))
 	sb.WriteString(",\n")
 	sb.WriteString("\tNewSecureAlgo: ")
-	sb.WriteString(p.NewSecureAlgo.String())
+	sb.WriteString(fmt.Sprint(p.NewSecureAlgo))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSecureRandom: ")
 	sb.WriteString(fmt.Sprint(p.SecureRandom))

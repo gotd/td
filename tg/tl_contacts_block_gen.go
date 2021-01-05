@@ -37,7 +37,7 @@ func (b *ContactsBlockRequest) String() string {
 	sb.WriteString("ContactsBlockRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(b.ID.String())
+	sb.WriteString(fmt.Sprint(b.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -65,7 +65,7 @@ func (g *UpdatesGetDifferenceRequest) String() string {
 	sb.WriteString("UpdatesGetDifferenceRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPts: ")
 	sb.WriteString(fmt.Sprint(g.Pts))

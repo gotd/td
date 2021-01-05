@@ -52,7 +52,7 @@ func (i *InputAppEvent) String() string {
 	sb.WriteString(fmt.Sprint(i.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tData: ")
-	sb.WriteString(i.Data.String())
+	sb.WriteString(fmt.Sprint(i.Data))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

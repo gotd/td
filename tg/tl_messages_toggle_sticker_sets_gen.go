@@ -48,7 +48,7 @@ func (t *MessagesToggleStickerSetsRequest) String() string {
 	sb.WriteString("MessagesToggleStickerSetsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(t.Flags.String())
+	sb.WriteString(fmt.Sprint(t.Flags))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range t.Stickersets {

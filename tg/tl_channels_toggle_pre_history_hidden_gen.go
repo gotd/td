@@ -39,7 +39,7 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
 	sb.WriteString("ChannelsTogglePreHistoryHiddenRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(t.Channel.String())
+	sb.WriteString(fmt.Sprint(t.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tEnabled: ")
 	sb.WriteString(fmt.Sprint(t.Enabled))

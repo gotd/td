@@ -56,7 +56,7 @@ func (v *MessagesVotesList) String() string {
 	sb.WriteString("MessagesVotesList")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(v.Flags.String())
+	sb.WriteString(fmt.Sprint(v.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCount: ")
 	sb.WriteString(fmt.Sprint(v.Count))

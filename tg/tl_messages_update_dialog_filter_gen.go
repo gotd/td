@@ -55,14 +55,14 @@ func (u *MessagesUpdateDialogFilterRequest) String() string {
 	sb.WriteString("MessagesUpdateDialogFilterRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(u.ID))
 	sb.WriteString(",\n")
 	if u.Flags.Has(0) {
 		sb.WriteString("\tFilter: ")
-		sb.WriteString(u.Filter.String())
+		sb.WriteString(fmt.Sprint(u.Filter))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

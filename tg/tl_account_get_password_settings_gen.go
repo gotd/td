@@ -43,7 +43,7 @@ func (g *AccountGetPasswordSettingsRequest) String() string {
 	sb.WriteString("AccountGetPasswordSettingsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPassword: ")
-	sb.WriteString(g.Password.String())
+	sb.WriteString(fmt.Sprint(g.Password))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

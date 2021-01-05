@@ -37,7 +37,7 @@ func (g *UsersGetFullUserRequest) String() string {
 	sb.WriteString("UsersGetFullUserRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(g.ID.String())
+	sb.WriteString(fmt.Sprint(g.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

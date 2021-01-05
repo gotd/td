@@ -60,10 +60,10 @@ func (i *InputThemeSettings) String() string {
 	sb.WriteString("InputThemeSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tBaseTheme: ")
-	sb.WriteString(i.BaseTheme.String())
+	sb.WriteString(fmt.Sprint(i.BaseTheme))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAccentColor: ")
 	sb.WriteString(fmt.Sprint(i.AccentColor))
@@ -80,12 +80,12 @@ func (i *InputThemeSettings) String() string {
 	}
 	if i.Flags.Has(1) {
 		sb.WriteString("\tWallpaper: ")
-		sb.WriteString(i.Wallpaper.String())
+		sb.WriteString(fmt.Sprint(i.Wallpaper))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(1) {
 		sb.WriteString("\tWallpaperSettings: ")
-		sb.WriteString(i.WallpaperSettings.String())
+		sb.WriteString(fmt.Sprint(i.WallpaperSettings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

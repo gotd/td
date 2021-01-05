@@ -64,10 +64,10 @@ func (s *MessagesSendMultiMediaRequest) String() string {
 	sb.WriteString("MessagesSendMultiMediaRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tReplyToMsgID: ")

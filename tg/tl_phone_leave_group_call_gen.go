@@ -38,7 +38,7 @@ func (l *PhoneLeaveGroupCallRequest) String() string {
 	sb.WriteString("PhoneLeaveGroupCallRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(l.Call.String())
+	sb.WriteString(fmt.Sprint(l.Call))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSource: ")
 	sb.WriteString(fmt.Sprint(l.Source))

@@ -38,7 +38,7 @@ func (c *PhoneCreateGroupCallRequest) String() string {
 	sb.WriteString("PhoneCreateGroupCallRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(c.Peer.String())
+	sb.WriteString(fmt.Sprint(c.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tRandomID: ")
 	sb.WriteString(fmt.Sprint(c.RandomID))

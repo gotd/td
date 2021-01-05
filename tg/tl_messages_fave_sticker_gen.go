@@ -39,7 +39,7 @@ func (f *MessagesFaveStickerRequest) String() string {
 	sb.WriteString("MessagesFaveStickerRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(f.ID.String())
+	sb.WriteString(fmt.Sprint(f.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUnfave: ")
 	sb.WriteString(fmt.Sprint(f.Unfave))

@@ -38,7 +38,7 @@ func (u *Update) String() string {
 	sb.WriteString("Update")
 	sb.WriteString("{\n")
 	sb.WriteString("\tMsg: ")
-	sb.WriteString(u.Msg.String())
+	sb.WriteString(fmt.Sprint(u.Msg))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDelay: ")
 	sb.WriteString(fmt.Sprint(u.Delay))

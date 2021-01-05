@@ -39,7 +39,7 @@ func (r *MessagesReadHistoryRequest) String() string {
 	sb.WriteString("MessagesReadHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMaxID: ")
 	sb.WriteString(fmt.Sprint(r.MaxID))

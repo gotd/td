@@ -48,10 +48,10 @@ func (g *ContactsGetLocatedRequest) String() string {
 	sb.WriteString("ContactsGetLocatedRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(g.GeoPoint.String())
+	sb.WriteString(fmt.Sprint(g.GeoPoint))
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tSelfExpires: ")

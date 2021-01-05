@@ -44,7 +44,7 @@ func (s *MessagesSendEncryptedServiceRequest) String() string {
 	sb.WriteString("MessagesSendEncryptedServiceRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tRandomID: ")
 	sb.WriteString(fmt.Sprint(s.RandomID))

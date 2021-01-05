@@ -45,7 +45,7 @@ func (r *ChannelsReadHistoryRequest) String() string {
 	sb.WriteString("ChannelsReadHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(r.Channel.String())
+	sb.WriteString(fmt.Sprint(r.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMaxID: ")
 	sb.WriteString(fmt.Sprint(r.MaxID))

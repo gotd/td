@@ -73,7 +73,7 @@ func (a *Authorization) String() string {
 	sb.WriteString("Authorization")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tHash: ")
 	sb.WriteString(fmt.Sprint(a.Hash))

@@ -101,7 +101,7 @@ func (i *InputGeoPoint) String() string {
 	sb.WriteString("InputGeoPoint")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tLat: ")
 	sb.WriteString(fmt.Sprint(i.Lat))

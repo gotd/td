@@ -67,7 +67,7 @@ func (l *LangPackLanguage) String() string {
 	sb.WriteString("LangPackLanguage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(l.Flags.String())
+	sb.WriteString(fmt.Sprint(l.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tName: ")
 	sb.WriteString(fmt.Sprint(l.Name))

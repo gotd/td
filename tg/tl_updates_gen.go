@@ -147,7 +147,7 @@ func (u *UpdateShortMessage) String() string {
 	sb.WriteString("UpdateShortMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(u.ID))
@@ -169,7 +169,7 @@ func (u *UpdateShortMessage) String() string {
 	sb.WriteString(",\n")
 	if u.Flags.Has(2) {
 		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(u.FwdFrom.String())
+		sb.WriteString(fmt.Sprint(u.FwdFrom))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(11) {
@@ -179,7 +179,7 @@ func (u *UpdateShortMessage) String() string {
 	}
 	if u.Flags.Has(3) {
 		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(u.ReplyTo.String())
+		sb.WriteString(fmt.Sprint(u.ReplyTo))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(7) {
@@ -516,7 +516,7 @@ func (u *UpdateShortChatMessage) String() string {
 	sb.WriteString("UpdateShortChatMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(u.ID))
@@ -541,7 +541,7 @@ func (u *UpdateShortChatMessage) String() string {
 	sb.WriteString(",\n")
 	if u.Flags.Has(2) {
 		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(u.FwdFrom.String())
+		sb.WriteString(fmt.Sprint(u.FwdFrom))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(11) {
@@ -551,7 +551,7 @@ func (u *UpdateShortChatMessage) String() string {
 	}
 	if u.Flags.Has(3) {
 		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(u.ReplyTo.String())
+		sb.WriteString(fmt.Sprint(u.ReplyTo))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(7) {
@@ -845,7 +845,7 @@ func (u *UpdateShort) String() string {
 	sb.WriteString("UpdateShort")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUpdate: ")
-	sb.WriteString(u.Update.String())
+	sb.WriteString(fmt.Sprint(u.Update))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(u.Date))
@@ -1304,7 +1304,7 @@ func (u *UpdateShortSentMessage) String() string {
 	sb.WriteString("UpdateShortSentMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(u.ID))
@@ -1320,7 +1320,7 @@ func (u *UpdateShortSentMessage) String() string {
 	sb.WriteString(",\n")
 	if u.Flags.Has(9) {
 		sb.WriteString("\tMedia: ")
-		sb.WriteString(u.Media.String())
+		sb.WriteString(fmt.Sprint(u.Media))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(7) {

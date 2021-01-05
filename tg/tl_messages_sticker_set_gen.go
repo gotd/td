@@ -41,7 +41,7 @@ func (s *MessagesStickerSet) String() string {
 	sb.WriteString("MessagesStickerSet")
 	sb.WriteString("{\n")
 	sb.WriteString("\tSet: ")
-	sb.WriteString(s.Set.String())
+	sb.WriteString(fmt.Sprint(s.Set))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range s.Packs {

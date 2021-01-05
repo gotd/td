@@ -57,7 +57,7 @@ func (p *AccountPasswordSettings) String() string {
 	sb.WriteString("AccountPasswordSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(0) {
 		sb.WriteString("\tEmail: ")
@@ -66,7 +66,7 @@ func (p *AccountPasswordSettings) String() string {
 	}
 	if p.Flags.Has(1) {
 		sb.WriteString("\tSecureSettings: ")
-		sb.WriteString(p.SecureSettings.String())
+		sb.WriteString(fmt.Sprint(p.SecureSettings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

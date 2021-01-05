@@ -41,10 +41,10 @@ func (r *ChannelsReportSpamRequest) String() string {
 	sb.WriteString("ChannelsReportSpamRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(r.Channel.String())
+	sb.WriteString(fmt.Sprint(r.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(r.UserID.String())
+	sb.WriteString(fmt.Sprint(r.UserID))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range r.ID {

@@ -44,7 +44,7 @@ func (s *MessagesSendVoteRequest) String() string {
 	sb.WriteString("MessagesSendVoteRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(s.MsgID))

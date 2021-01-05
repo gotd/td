@@ -55,7 +55,7 @@ func (m *MessageViews) String() string {
 	sb.WriteString("MessageViews")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tViews: ")
@@ -69,7 +69,7 @@ func (m *MessageViews) String() string {
 	}
 	if m.Flags.Has(2) {
 		sb.WriteString("\tReplies: ")
-		sb.WriteString(m.Replies.String())
+		sb.WriteString(fmt.Sprint(m.Replies))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

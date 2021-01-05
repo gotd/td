@@ -48,7 +48,7 @@ func (d *DialogFilterSuggested) String() string {
 	sb.WriteString("DialogFilterSuggested")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFilter: ")
-	sb.WriteString(d.Filter.String())
+	sb.WriteString(fmt.Sprint(d.Filter))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDescription: ")
 	sb.WriteString(fmt.Sprint(d.Description))

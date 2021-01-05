@@ -91,17 +91,17 @@ func (s *MessagesSearchRequest) String() string {
 	sb.WriteString("MessagesSearchRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQ: ")
 	sb.WriteString(fmt.Sprint(s.Q))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tFromID: ")
-		sb.WriteString(s.FromID.String())
+		sb.WriteString(fmt.Sprint(s.FromID))
 		sb.WriteString(",\n")
 	}
 	if s.Flags.Has(1) {
@@ -110,7 +110,7 @@ func (s *MessagesSearchRequest) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tFilter: ")
-	sb.WriteString(s.Filter.String())
+	sb.WriteString(fmt.Sprint(s.Filter))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMinDate: ")
 	sb.WriteString(fmt.Sprint(s.MinDate))

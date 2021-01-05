@@ -45,7 +45,7 @@ func (e *MessagesEditChatAboutRequest) String() string {
 	sb.WriteString("MessagesEditChatAboutRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(e.Peer.String())
+	sb.WriteString(fmt.Sprint(e.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAbout: ")
 	sb.WriteString(fmt.Sprint(e.About))

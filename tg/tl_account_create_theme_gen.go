@@ -52,7 +52,7 @@ func (c *AccountCreateThemeRequest) String() string {
 	sb.WriteString("AccountCreateThemeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSlug: ")
 	sb.WriteString(fmt.Sprint(c.Slug))
@@ -62,12 +62,12 @@ func (c *AccountCreateThemeRequest) String() string {
 	sb.WriteString(",\n")
 	if c.Flags.Has(2) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(c.Document.String())
+		sb.WriteString(fmt.Sprint(c.Document))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(3) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(c.Settings.String())
+		sb.WriteString(fmt.Sprint(c.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

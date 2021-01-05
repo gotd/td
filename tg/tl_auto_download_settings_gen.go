@@ -56,7 +56,7 @@ func (a *AutoDownloadSettings) String() string {
 	sb.WriteString("AutoDownloadSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhotoSizeMax: ")
 	sb.WriteString(fmt.Sprint(a.PhotoSizeMax))

@@ -56,7 +56,7 @@ func (b *MessagesBotCallbackAnswer) String() string {
 	sb.WriteString("MessagesBotCallbackAnswer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(b.Flags.String())
+	sb.WriteString(fmt.Sprint(b.Flags))
 	sb.WriteString(",\n")
 	if b.Flags.Has(0) {
 		sb.WriteString("\tMessage: ")

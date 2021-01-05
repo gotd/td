@@ -39,7 +39,7 @@ func (c *ChannelsChannelParticipant) String() string {
 	sb.WriteString("ChannelsChannelParticipant")
 	sb.WriteString("{\n")
 	sb.WriteString("\tParticipant: ")
-	sb.WriteString(c.Participant.String())
+	sb.WriteString(fmt.Sprint(c.Participant))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range c.Users {

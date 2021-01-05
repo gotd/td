@@ -46,11 +46,11 @@ func (s *PaymentsSavedInfo) String() string {
 	sb.WriteString("PaymentsSavedInfo")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tSavedInfo: ")
-		sb.WriteString(s.SavedInfo.String())
+		sb.WriteString(fmt.Sprint(s.SavedInfo))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

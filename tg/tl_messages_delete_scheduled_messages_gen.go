@@ -39,7 +39,7 @@ func (d *MessagesDeleteScheduledMessagesRequest) String() string {
 	sb.WriteString("MessagesDeleteScheduledMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(d.Peer.String())
+	sb.WriteString(fmt.Sprint(d.Peer))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range d.ID {

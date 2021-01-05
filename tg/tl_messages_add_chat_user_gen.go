@@ -44,7 +44,7 @@ func (a *MessagesAddChatUserRequest) String() string {
 	sb.WriteString(fmt.Sprint(a.ChatID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(a.UserID.String())
+	sb.WriteString(fmt.Sprint(a.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFwdLimit: ")
 	sb.WriteString(fmt.Sprint(a.FwdLimit))

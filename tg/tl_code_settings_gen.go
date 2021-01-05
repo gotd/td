@@ -57,7 +57,7 @@ func (c *CodeSettings) String() string {
 	sb.WriteString("CodeSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

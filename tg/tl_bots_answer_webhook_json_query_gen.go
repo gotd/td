@@ -42,7 +42,7 @@ func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
 	sb.WriteString(fmt.Sprint(a.QueryID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tData: ")
-	sb.WriteString(a.Data.String())
+	sb.WriteString(fmt.Sprint(a.Data))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

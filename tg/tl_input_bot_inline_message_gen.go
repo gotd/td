@@ -53,7 +53,7 @@ func (i *InputBotInlineMessageMediaAuto) String() string {
 	sb.WriteString("InputBotInlineMessageMediaAuto")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMessage: ")
 	sb.WriteString(fmt.Sprint(i.Message))
@@ -67,7 +67,7 @@ func (i *InputBotInlineMessageMediaAuto) String() string {
 	}
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -229,7 +229,7 @@ func (i *InputBotInlineMessageText) String() string {
 	sb.WriteString("InputBotInlineMessageText")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMessage: ")
 	sb.WriteString(fmt.Sprint(i.Message))
@@ -243,7 +243,7 @@ func (i *InputBotInlineMessageText) String() string {
 	}
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -426,10 +426,10 @@ func (i *InputBotInlineMessageMediaGeo) String() string {
 	sb.WriteString("InputBotInlineMessageMediaGeo")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(fmt.Sprint(i.GeoPoint))
 	sb.WriteString(",\n")
 	if i.Flags.Has(0) {
 		sb.WriteString("\tHeading: ")
@@ -448,7 +448,7 @@ func (i *InputBotInlineMessageMediaGeo) String() string {
 	}
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -652,10 +652,10 @@ func (i *InputBotInlineMessageMediaVenue) String() string {
 	sb.WriteString("InputBotInlineMessageMediaVenue")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(fmt.Sprint(i.GeoPoint))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTitle: ")
 	sb.WriteString(fmt.Sprint(i.Title))
@@ -674,7 +674,7 @@ func (i *InputBotInlineMessageMediaVenue) String() string {
 	sb.WriteString(",\n")
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -839,7 +839,7 @@ func (i *InputBotInlineMessageMediaContact) String() string {
 	sb.WriteString("InputBotInlineMessageMediaContact")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhoneNumber: ")
 	sb.WriteString(fmt.Sprint(i.PhoneNumber))
@@ -855,7 +855,7 @@ func (i *InputBotInlineMessageMediaContact) String() string {
 	sb.WriteString(",\n")
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -991,11 +991,11 @@ func (i *InputBotInlineMessageGame) String() string {
 	sb.WriteString("InputBotInlineMessageGame")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	if i.Flags.Has(2) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(i.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

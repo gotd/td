@@ -42,7 +42,7 @@ func (s *AccountSetContentSettingsRequest) String() string {
 	sb.WriteString("AccountSetContentSettingsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

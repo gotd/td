@@ -179,7 +179,7 @@ func (i *InputChannelFromMessage) String() string {
 	sb.WriteString("InputChannelFromMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(i.Peer.String())
+	sb.WriteString(fmt.Sprint(i.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(i.MsgID))

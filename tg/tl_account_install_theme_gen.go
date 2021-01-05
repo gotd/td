@@ -50,7 +50,7 @@ func (i *AccountInstallThemeRequest) String() string {
 	sb.WriteString("AccountInstallThemeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	if i.Flags.Has(1) {
 		sb.WriteString("\tFormat: ")
@@ -59,7 +59,7 @@ func (i *AccountInstallThemeRequest) String() string {
 	}
 	if i.Flags.Has(1) {
 		sb.WriteString("\tTheme: ")
-		sb.WriteString(i.Theme.String())
+		sb.WriteString(fmt.Sprint(i.Theme))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

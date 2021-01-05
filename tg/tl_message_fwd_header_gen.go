@@ -70,11 +70,11 @@ func (m *MessageFwdHeader) String() string {
 	sb.WriteString("MessageFwdHeader")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	if m.Flags.Has(0) {
 		sb.WriteString("\tFromID: ")
-		sb.WriteString(m.FromID.String())
+		sb.WriteString(fmt.Sprint(m.FromID))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(5) {
@@ -97,7 +97,7 @@ func (m *MessageFwdHeader) String() string {
 	}
 	if m.Flags.Has(4) {
 		sb.WriteString("\tSavedFromPeer: ")
-		sb.WriteString(m.SavedFromPeer.String())
+		sb.WriteString(fmt.Sprint(m.SavedFromPeer))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(4) {

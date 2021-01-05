@@ -44,7 +44,7 @@ func (e *HelpEditUserInfoRequest) String() string {
 	sb.WriteString("HelpEditUserInfoRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(e.UserID.String())
+	sb.WriteString(fmt.Sprint(e.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMessage: ")
 	sb.WriteString(fmt.Sprint(e.Message))

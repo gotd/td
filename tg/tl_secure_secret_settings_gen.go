@@ -41,7 +41,7 @@ func (s *SecureSecretSettings) String() string {
 	sb.WriteString("SecureSecretSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tSecureAlgo: ")
-	sb.WriteString(s.SecureAlgo.String())
+	sb.WriteString(fmt.Sprint(s.SecureAlgo))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSecureSecret: ")
 	sb.WriteString(fmt.Sprint(s.SecureSecret))

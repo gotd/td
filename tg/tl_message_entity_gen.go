@@ -1058,7 +1058,7 @@ func (i *InputMessageEntityMentionName) String() string {
 	sb.WriteString(fmt.Sprint(i.Length))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(i.UserID.String())
+	sb.WriteString(fmt.Sprint(i.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

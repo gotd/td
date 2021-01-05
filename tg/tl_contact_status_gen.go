@@ -42,7 +42,7 @@ func (c *ContactStatus) String() string {
 	sb.WriteString(fmt.Sprint(c.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tStatus: ")
-	sb.WriteString(c.Status.String())
+	sb.WriteString(fmt.Sprint(c.Status))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -58,17 +58,17 @@ func (s *AuthSentCode) String() string {
 	sb.WriteString("AuthSentCode")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tType: ")
-	sb.WriteString(s.Type.String())
+	sb.WriteString(fmt.Sprint(s.Type))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhoneCodeHash: ")
 	sb.WriteString(fmt.Sprint(s.PhoneCodeHash))
 	sb.WriteString(",\n")
 	if s.Flags.Has(1) {
 		sb.WriteString("\tNextType: ")
-		sb.WriteString(s.NextType.String())
+		sb.WriteString(fmt.Sprint(s.NextType))
 		sb.WriteString(",\n")
 	}
 	if s.Flags.Has(2) {

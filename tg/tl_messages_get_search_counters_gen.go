@@ -42,7 +42,7 @@ func (g *MessagesGetSearchCountersRequest) String() string {
 	sb.WriteString("MessagesGetSearchCountersRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range g.Filters {

@@ -37,7 +37,7 @@ func (g *ChannelsGetFullChannelRequest) String() string {
 	sb.WriteString("ChannelsGetFullChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(g.Channel.String())
+	sb.WriteString(fmt.Sprint(g.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

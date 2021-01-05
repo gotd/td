@@ -246,7 +246,7 @@ func (e *EncryptedChatRequested) String() string {
 	sb.WriteString("EncryptedChatRequested")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(e.Flags.String())
+	sb.WriteString(fmt.Sprint(e.Flags))
 	sb.WriteString(",\n")
 	if e.Flags.Has(0) {
 		sb.WriteString("\tFolderID: ")

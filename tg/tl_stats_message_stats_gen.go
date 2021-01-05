@@ -37,7 +37,7 @@ func (m *StatsMessageStats) String() string {
 	sb.WriteString("StatsMessageStats")
 	sb.WriteString("{\n")
 	sb.WriteString("\tViewsGraph: ")
-	sb.WriteString(m.ViewsGraph.String())
+	sb.WriteString(fmt.Sprint(m.ViewsGraph))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

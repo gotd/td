@@ -126,7 +126,7 @@ func (i *InputWebFileGeoPointLocation) String() string {
 	sb.WriteString("InputWebFileGeoPointLocation")
 	sb.WriteString("{\n")
 	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(i.GeoPoint.String())
+	sb.WriteString(fmt.Sprint(i.GeoPoint))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAccessHash: ")
 	sb.WriteString(fmt.Sprint(i.AccessHash))

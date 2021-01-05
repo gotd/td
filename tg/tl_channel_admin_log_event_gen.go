@@ -52,7 +52,7 @@ func (c *ChannelAdminLogEvent) String() string {
 	sb.WriteString(fmt.Sprint(c.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAction: ")
-	sb.WriteString(c.Action.String())
+	sb.WriteString(fmt.Sprint(c.Action))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

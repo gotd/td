@@ -51,7 +51,7 @@ func (c *UpdatesChannelDifferenceEmpty) String() string {
 	sb.WriteString("UpdatesChannelDifferenceEmpty")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPts: ")
 	sb.WriteString(fmt.Sprint(c.Pts))
@@ -190,7 +190,7 @@ func (c *UpdatesChannelDifferenceTooLong) String() string {
 	sb.WriteString("UpdatesChannelDifferenceTooLong")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	if c.Flags.Has(1) {
 		sb.WriteString("\tTimeout: ")
@@ -198,7 +198,7 @@ func (c *UpdatesChannelDifferenceTooLong) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tDialog: ")
-	sb.WriteString(c.Dialog.String())
+	sb.WriteString(fmt.Sprint(c.Dialog))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range c.Messages {
@@ -417,7 +417,7 @@ func (c *UpdatesChannelDifference) String() string {
 	sb.WriteString("UpdatesChannelDifference")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPts: ")
 	sb.WriteString(fmt.Sprint(c.Pts))

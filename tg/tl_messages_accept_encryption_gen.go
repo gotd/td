@@ -44,7 +44,7 @@ func (a *MessagesAcceptEncryptionRequest) String() string {
 	sb.WriteString("MessagesAcceptEncryptionRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(a.Peer.String())
+	sb.WriteString(fmt.Sprint(a.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tGB: ")
 	sb.WriteString(fmt.Sprint(a.GB))

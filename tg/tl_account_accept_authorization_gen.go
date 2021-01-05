@@ -59,7 +59,7 @@ func (a *AccountAcceptAuthorizationRequest) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tCredentials: ")
-	sb.WriteString(a.Credentials.String())
+	sb.WriteString(fmt.Sprint(a.Credentials))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

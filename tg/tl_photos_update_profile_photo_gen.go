@@ -37,7 +37,7 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 	sb.WriteString("PhotosUpdateProfilePhotoRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(u.ID.String())
+	sb.WriteString(fmt.Sprint(u.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

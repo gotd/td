@@ -56,7 +56,7 @@ func (p *PaymentRequestedInfo) String() string {
 	sb.WriteString("PaymentRequestedInfo")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(0) {
 		sb.WriteString("\tName: ")
@@ -75,7 +75,7 @@ func (p *PaymentRequestedInfo) String() string {
 	}
 	if p.Flags.Has(3) {
 		sb.WriteString("\tShippingAddress: ")
-		sb.WriteString(p.ShippingAddress.String())
+		sb.WriteString(fmt.Sprint(p.ShippingAddress))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

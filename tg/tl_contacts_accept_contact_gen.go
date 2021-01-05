@@ -40,7 +40,7 @@ func (a *ContactsAcceptContactRequest) String() string {
 	sb.WriteString("ContactsAcceptContactRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(a.ID.String())
+	sb.WriteString(fmt.Sprint(a.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

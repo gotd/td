@@ -37,7 +37,7 @@ func (a *HelpAcceptTermsOfServiceRequest) String() string {
 	sb.WriteString("HelpAcceptTermsOfServiceRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(a.ID.String())
+	sb.WriteString(fmt.Sprint(a.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -55,7 +55,7 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 	sb.WriteString("ChannelsGetAdminedPublicChannelsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

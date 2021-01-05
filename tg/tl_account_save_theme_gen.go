@@ -39,7 +39,7 @@ func (s *AccountSaveThemeRequest) String() string {
 	sb.WriteString("AccountSaveThemeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tTheme: ")
-	sb.WriteString(s.Theme.String())
+	sb.WriteString(fmt.Sprint(s.Theme))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUnsave: ")
 	sb.WriteString(fmt.Sprint(s.Unsave))

@@ -44,7 +44,7 @@ func (g *GlobalPrivacySettings) String() string {
 	sb.WriteString("GlobalPrivacySettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tArchiveAndMuteNewNoncontactPeers: ")

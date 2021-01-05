@@ -49,7 +49,7 @@ func (g *MessagesGetWebPagePreviewRequest) String() string {
 	sb.WriteString("MessagesGetWebPagePreviewRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMessage: ")
 	sb.WriteString(fmt.Sprint(g.Message))

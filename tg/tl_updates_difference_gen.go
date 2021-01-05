@@ -151,7 +151,7 @@ func (d *UpdatesDifference) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tState: ")
-	sb.WriteString(d.State.String())
+	sb.WriteString(fmt.Sprint(d.State))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -365,7 +365,7 @@ func (d *UpdatesDifferenceSlice) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tIntermediateState: ")
-	sb.WriteString(d.IntermediateState.String())
+	sb.WriteString(fmt.Sprint(d.IntermediateState))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

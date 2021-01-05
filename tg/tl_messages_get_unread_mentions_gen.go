@@ -62,7 +62,7 @@ func (g *MessagesGetUnreadMentionsRequest) String() string {
 	sb.WriteString("MessagesGetUnreadMentionsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tOffsetID: ")
 	sb.WriteString(fmt.Sprint(g.OffsetID))

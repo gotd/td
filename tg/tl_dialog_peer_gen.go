@@ -37,7 +37,7 @@ func (d *DialogPeer) String() string {
 	sb.WriteString("DialogPeer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(d.Peer.String())
+	sb.WriteString(fmt.Sprint(d.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

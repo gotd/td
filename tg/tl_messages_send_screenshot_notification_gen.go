@@ -41,7 +41,7 @@ func (s *MessagesSendScreenshotNotificationRequest) String() string {
 	sb.WriteString("MessagesSendScreenshotNotificationRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tReplyToMsgID: ")
 	sb.WriteString(fmt.Sprint(s.ReplyToMsgID))

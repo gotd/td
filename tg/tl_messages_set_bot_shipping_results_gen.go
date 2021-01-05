@@ -53,7 +53,7 @@ func (s *MessagesSetBotShippingResultsRequest) String() string {
 	sb.WriteString("MessagesSetBotShippingResultsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQueryID: ")
 	sb.WriteString(fmt.Sprint(s.QueryID))

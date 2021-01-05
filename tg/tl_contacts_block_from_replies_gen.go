@@ -54,7 +54,7 @@ func (b *ContactsBlockFromRepliesRequest) String() string {
 	sb.WriteString("ContactsBlockFromRepliesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(b.Flags.String())
+	sb.WriteString(fmt.Sprint(b.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(b.MsgID))

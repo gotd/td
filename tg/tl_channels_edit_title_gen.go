@@ -42,7 +42,7 @@ func (e *ChannelsEditTitleRequest) String() string {
 	sb.WriteString("ChannelsEditTitleRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(e.Channel.String())
+	sb.WriteString(fmt.Sprint(e.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTitle: ")
 	sb.WriteString(fmt.Sprint(e.Title))

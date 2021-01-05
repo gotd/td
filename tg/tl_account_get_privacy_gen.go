@@ -37,7 +37,7 @@ func (g *AccountGetPrivacyRequest) String() string {
 	sb.WriteString("AccountGetPrivacyRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tKey: ")
-	sb.WriteString(g.Key.String())
+	sb.WriteString(fmt.Sprint(g.Key))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

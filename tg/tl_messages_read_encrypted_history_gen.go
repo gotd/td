@@ -39,7 +39,7 @@ func (r *MessagesReadEncryptedHistoryRequest) String() string {
 	sb.WriteString("MessagesReadEncryptedHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMaxDate: ")
 	sb.WriteString(fmt.Sprint(r.MaxDate))

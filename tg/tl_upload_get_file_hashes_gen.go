@@ -39,7 +39,7 @@ func (g *UploadGetFileHashesRequest) String() string {
 	sb.WriteString("UploadGetFileHashesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tLocation: ")
-	sb.WriteString(g.Location.String())
+	sb.WriteString(fmt.Sprint(g.Location))
 	sb.WriteString(",\n")
 	sb.WriteString("\tOffset: ")
 	sb.WriteString(fmt.Sprint(g.Offset))

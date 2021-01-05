@@ -39,7 +39,7 @@ func (s *MessagesSaveGifRequest) String() string {
 	sb.WriteString("MessagesSaveGifRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(s.ID.String())
+	sb.WriteString(fmt.Sprint(s.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUnsave: ")
 	sb.WriteString(fmt.Sprint(s.Unsave))

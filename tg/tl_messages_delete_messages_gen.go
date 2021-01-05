@@ -44,7 +44,7 @@ func (d *MessagesDeleteMessagesRequest) String() string {
 	sb.WriteString("MessagesDeleteMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range d.ID {

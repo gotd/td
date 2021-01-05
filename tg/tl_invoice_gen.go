@@ -63,7 +63,7 @@ func (i *Invoice) String() string {
 	sb.WriteString("Invoice")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCurrency: ")
 	sb.WriteString(fmt.Sprint(i.Currency))

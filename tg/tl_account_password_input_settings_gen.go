@@ -69,11 +69,11 @@ func (p *AccountPasswordInputSettings) String() string {
 	sb.WriteString("AccountPasswordInputSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(0) {
 		sb.WriteString("\tNewAlgo: ")
-		sb.WriteString(p.NewAlgo.String())
+		sb.WriteString(fmt.Sprint(p.NewAlgo))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(0) {
@@ -93,7 +93,7 @@ func (p *AccountPasswordInputSettings) String() string {
 	}
 	if p.Flags.Has(2) {
 		sb.WriteString("\tNewSecureSettings: ")
-		sb.WriteString(p.NewSecureSettings.String())
+		sb.WriteString(fmt.Sprint(p.NewSecureSettings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

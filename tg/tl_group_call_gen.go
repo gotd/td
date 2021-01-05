@@ -143,7 +143,7 @@ func (g *GroupCall) String() string {
 	sb.WriteString("GroupCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(g.ID))
@@ -156,7 +156,7 @@ func (g *GroupCall) String() string {
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tParams: ")
-		sb.WriteString(g.Params.String())
+		sb.WriteString(fmt.Sprint(g.Params))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tVersion: ")

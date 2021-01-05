@@ -36,7 +36,7 @@ func (d *PhoneDiscardGroupCallRequest) String() string {
 	sb.WriteString("PhoneDiscardGroupCallRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(d.Call.String())
+	sb.WriteString(fmt.Sprint(d.Call))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -47,7 +47,7 @@ func (g *MessagesGetRecentStickersRequest) String() string {
 	sb.WriteString("MessagesGetRecentStickersRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tHash: ")
 	sb.WriteString(fmt.Sprint(g.Hash))

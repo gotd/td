@@ -41,7 +41,7 @@ func (r *MessagesReportRequest) String() string {
 	sb.WriteString("MessagesReportRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range r.ID {
@@ -49,7 +49,7 @@ func (r *MessagesReportRequest) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tReason: ")
-	sb.WriteString(r.Reason.String())
+	sb.WriteString(fmt.Sprint(r.Reason))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

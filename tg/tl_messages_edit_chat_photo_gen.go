@@ -42,7 +42,7 @@ func (e *MessagesEditChatPhotoRequest) String() string {
 	sb.WriteString(fmt.Sprint(e.ChatID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(e.Photo.String())
+	sb.WriteString(fmt.Sprint(e.Photo))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

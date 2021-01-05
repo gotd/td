@@ -52,7 +52,7 @@ func (c *HelpCountry) String() string {
 	sb.WriteString("HelpCountry")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tIso2: ")
 	sb.WriteString(fmt.Sprint(c.Iso2))

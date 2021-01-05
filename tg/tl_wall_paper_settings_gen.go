@@ -60,7 +60,7 @@ func (w *WallPaperSettings) String() string {
 	sb.WriteString("WallPaperSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	if w.Flags.Has(0) {
 		sb.WriteString("\tBackgroundColor: ")

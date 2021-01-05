@@ -42,7 +42,7 @@ func (g *MessagesGetScheduledHistoryRequest) String() string {
 	sb.WriteString("MessagesGetScheduledHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tHash: ")
 	sb.WriteString(fmt.Sprint(g.Hash))

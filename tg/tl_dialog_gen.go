@@ -79,10 +79,10 @@ func (d *Dialog) String() string {
 	sb.WriteString("Dialog")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(d.Peer.String())
+	sb.WriteString(fmt.Sprint(d.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTopMessage: ")
 	sb.WriteString(fmt.Sprint(d.TopMessage))
@@ -100,7 +100,7 @@ func (d *Dialog) String() string {
 	sb.WriteString(fmt.Sprint(d.UnreadMentionsCount))
 	sb.WriteString(",\n")
 	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(d.NotifySettings.String())
+	sb.WriteString(fmt.Sprint(d.NotifySettings))
 	sb.WriteString(",\n")
 	if d.Flags.Has(0) {
 		sb.WriteString("\tPts: ")
@@ -109,7 +109,7 @@ func (d *Dialog) String() string {
 	}
 	if d.Flags.Has(1) {
 		sb.WriteString("\tDraft: ")
-		sb.WriteString(d.Draft.String())
+		sb.WriteString(fmt.Sprint(d.Draft))
 		sb.WriteString(",\n")
 	}
 	if d.Flags.Has(4) {
@@ -365,13 +365,13 @@ func (d *DialogFolder) String() string {
 	sb.WriteString("DialogFolder")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFolder: ")
-	sb.WriteString(d.Folder.String())
+	sb.WriteString(fmt.Sprint(d.Folder))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(d.Peer.String())
+	sb.WriteString(fmt.Sprint(d.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTopMessage: ")
 	sb.WriteString(fmt.Sprint(d.TopMessage))

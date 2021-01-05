@@ -36,7 +36,7 @@ func (s *SendRequest) String() string {
 	sb.WriteString("SendRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tMsg: ")
-	sb.WriteString(s.Msg.String())
+	sb.WriteString(fmt.Sprint(s.Msg))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

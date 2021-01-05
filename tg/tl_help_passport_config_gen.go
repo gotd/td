@@ -101,7 +101,7 @@ func (p *HelpPassportConfig) String() string {
 	sb.WriteString(fmt.Sprint(p.Hash))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCountriesLangs: ")
-	sb.WriteString(p.CountriesLangs.String())
+	sb.WriteString(fmt.Sprint(p.CountriesLangs))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

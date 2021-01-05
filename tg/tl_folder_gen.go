@@ -54,7 +54,7 @@ func (f *Folder) String() string {
 	sb.WriteString("Folder")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(f.Flags.String())
+	sb.WriteString(fmt.Sprint(f.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(f.ID))
@@ -64,7 +64,7 @@ func (f *Folder) String() string {
 	sb.WriteString(",\n")
 	if f.Flags.Has(3) {
 		sb.WriteString("\tPhoto: ")
-		sb.WriteString(f.Photo.String())
+		sb.WriteString(fmt.Sprint(f.Photo))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

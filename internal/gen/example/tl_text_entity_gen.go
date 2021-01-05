@@ -46,7 +46,7 @@ func (t *TextEntity) String() string {
 	sb.WriteString(fmt.Sprint(t.Length))
 	sb.WriteString(",\n")
 	sb.WriteString("\tType: ")
-	sb.WriteString(t.Type.String())
+	sb.WriteString(fmt.Sprint(t.Type))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

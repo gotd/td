@@ -37,7 +37,7 @@ func (g *MessagesGetStickerSetRequest) String() string {
 	sb.WriteString("MessagesGetStickerSetRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tStickerset: ")
-	sb.WriteString(g.Stickerset.String())
+	sb.WriteString(fmt.Sprint(g.Stickerset))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

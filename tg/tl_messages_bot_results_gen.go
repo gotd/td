@@ -58,7 +58,7 @@ func (b *MessagesBotResults) String() string {
 	sb.WriteString("MessagesBotResults")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(b.Flags.String())
+	sb.WriteString(fmt.Sprint(b.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQueryID: ")
 	sb.WriteString(fmt.Sprint(b.QueryID))
@@ -70,7 +70,7 @@ func (b *MessagesBotResults) String() string {
 	}
 	if b.Flags.Has(2) {
 		sb.WriteString("\tSwitchPm: ")
-		sb.WriteString(b.SwitchPm.String())
+		sb.WriteString(fmt.Sprint(b.SwitchPm))
 		sb.WriteString(",\n")
 	}
 	sb.WriteByte('[')

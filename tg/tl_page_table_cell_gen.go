@@ -62,11 +62,11 @@ func (p *PageTableCell) String() string {
 	sb.WriteString("PageTableCell")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(7) {
 		sb.WriteString("\tText: ")
-		sb.WriteString(p.Text.String())
+		sb.WriteString(fmt.Sprint(p.Text))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(1) {

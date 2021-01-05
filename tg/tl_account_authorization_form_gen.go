@@ -64,7 +64,7 @@ func (a *AccountAuthorizationForm) String() string {
 	sb.WriteString("AccountAuthorizationForm")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range a.RequiredTypes {

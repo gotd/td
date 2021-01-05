@@ -48,7 +48,7 @@ func (w *WebPageAttributeTheme) String() string {
 	sb.WriteString("WebPageAttributeTheme")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	if w.Flags.Has(0) {
 		sb.WriteByte('[')
@@ -59,7 +59,7 @@ func (w *WebPageAttributeTheme) String() string {
 	}
 	if w.Flags.Has(1) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(w.Settings.String())
+		sb.WriteString(fmt.Sprint(w.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

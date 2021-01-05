@@ -49,7 +49,7 @@ func (s *AccountSaveSecureValueRequest) String() string {
 	sb.WriteString("AccountSaveSecureValueRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tValue: ")
-	sb.WriteString(s.Value.String())
+	sb.WriteString(fmt.Sprint(s.Value))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSecureSecretID: ")
 	sb.WriteString(fmt.Sprint(s.SecureSecretID))

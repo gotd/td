@@ -39,7 +39,7 @@ func (u *ChannelsUpdateUsernameRequest) String() string {
 	sb.WriteString("ChannelsUpdateUsernameRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(u.Channel.String())
+	sb.WriteString(fmt.Sprint(u.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUsername: ")
 	sb.WriteString(fmt.Sprint(u.Username))

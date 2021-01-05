@@ -37,7 +37,7 @@ func (g *MessagesGetPeerSettingsRequest) String() string {
 	sb.WriteString("MessagesGetPeerSettingsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

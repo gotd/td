@@ -60,7 +60,7 @@ func (e *EncryptedMessage) String() string {
 	sb.WriteString(fmt.Sprint(e.Bytes))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFile: ")
-	sb.WriteString(e.File.String())
+	sb.WriteString(fmt.Sprint(e.File))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

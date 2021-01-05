@@ -70,7 +70,7 @@ func (p *PaymentsPaymentReceipt) String() string {
 	sb.WriteString("PaymentsPaymentReceipt")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(p.Date))
@@ -79,19 +79,19 @@ func (p *PaymentsPaymentReceipt) String() string {
 	sb.WriteString(fmt.Sprint(p.BotID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tInvoice: ")
-	sb.WriteString(p.Invoice.String())
+	sb.WriteString(fmt.Sprint(p.Invoice))
 	sb.WriteString(",\n")
 	sb.WriteString("\tProviderID: ")
 	sb.WriteString(fmt.Sprint(p.ProviderID))
 	sb.WriteString(",\n")
 	if p.Flags.Has(0) {
 		sb.WriteString("\tInfo: ")
-		sb.WriteString(p.Info.String())
+		sb.WriteString(fmt.Sprint(p.Info))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(1) {
 		sb.WriteString("\tShipping: ")
-		sb.WriteString(p.Shipping.String())
+		sb.WriteString(fmt.Sprint(p.Shipping))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tCurrency: ")

@@ -146,7 +146,7 @@ func (l *LangPackStringPluralized) String() string {
 	sb.WriteString("LangPackStringPluralized")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(l.Flags.String())
+	sb.WriteString(fmt.Sprint(l.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tKey: ")
 	sb.WriteString(fmt.Sprint(l.Key))

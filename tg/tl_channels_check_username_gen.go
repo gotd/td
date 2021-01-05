@@ -42,7 +42,7 @@ func (c *ChannelsCheckUsernameRequest) String() string {
 	sb.WriteString("ChannelsCheckUsernameRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(c.Channel.String())
+	sb.WriteString(fmt.Sprint(c.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUsername: ")
 	sb.WriteString(fmt.Sprint(c.Username))

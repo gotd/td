@@ -70,17 +70,17 @@ func (g *ChannelsGetAdminLogRequest) String() string {
 	sb.WriteString("ChannelsGetAdminLogRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(g.Channel.String())
+	sb.WriteString(fmt.Sprint(g.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQ: ")
 	sb.WriteString(fmt.Sprint(g.Q))
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tEventsFilter: ")
-		sb.WriteString(g.EventsFilter.String())
+		sb.WriteString(fmt.Sprint(g.EventsFilter))
 		sb.WriteString(",\n")
 	}
 	if g.Flags.Has(1) {

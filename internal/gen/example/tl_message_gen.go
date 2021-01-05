@@ -36,7 +36,7 @@ func (m *Message) String() string {
 	sb.WriteString("Message")
 	sb.WriteString("{\n")
 	sb.WriteString("\tErr: ")
-	sb.WriteString(m.Err.String())
+	sb.WriteString(fmt.Sprint(m.Err))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

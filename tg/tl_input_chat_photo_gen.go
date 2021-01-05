@@ -108,16 +108,16 @@ func (i *InputChatUploadedPhoto) String() string {
 	sb.WriteString("InputChatUploadedPhoto")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	if i.Flags.Has(0) {
 		sb.WriteString("\tFile: ")
-		sb.WriteString(i.File.String())
+		sb.WriteString(fmt.Sprint(i.File))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(1) {
 		sb.WriteString("\tVideo: ")
-		sb.WriteString(i.Video.String())
+		sb.WriteString(fmt.Sprint(i.Video))
 		sb.WriteString(",\n")
 	}
 	if i.Flags.Has(2) {
@@ -274,7 +274,7 @@ func (i *InputChatPhoto) String() string {
 	sb.WriteString("InputChatPhoto")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(i.ID.String())
+	sb.WriteString(fmt.Sprint(i.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

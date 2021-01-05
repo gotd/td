@@ -37,7 +37,7 @@ func (g *HelpGetUserInfoRequest) String() string {
 	sb.WriteString("HelpGetUserInfoRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(g.UserID.String())
+	sb.WriteString(fmt.Sprint(g.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -74,7 +74,7 @@ func (m *MessageReplies) String() string {
 	sb.WriteString("MessageReplies")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tReplies: ")
 	sb.WriteString(fmt.Sprint(m.Replies))

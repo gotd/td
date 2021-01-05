@@ -45,7 +45,7 @@ func (d *ChannelsDeleteMessagesRequest) String() string {
 	sb.WriteString("ChannelsDeleteMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(d.Channel.String())
+	sb.WriteString(fmt.Sprint(d.Channel))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range d.ID {

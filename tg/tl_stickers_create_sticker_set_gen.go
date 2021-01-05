@@ -56,10 +56,10 @@ func (c *StickersCreateStickerSetRequest) String() string {
 	sb.WriteString("StickersCreateStickerSetRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(c.UserID.String())
+	sb.WriteString(fmt.Sprint(c.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTitle: ")
 	sb.WriteString(fmt.Sprint(c.Title))
@@ -69,7 +69,7 @@ func (c *StickersCreateStickerSetRequest) String() string {
 	sb.WriteString(",\n")
 	if c.Flags.Has(2) {
 		sb.WriteString("\tThumb: ")
-		sb.WriteString(c.Thumb.String())
+		sb.WriteString(fmt.Sprint(c.Thumb))
 		sb.WriteString(",\n")
 	}
 	sb.WriteByte('[')

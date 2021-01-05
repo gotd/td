@@ -37,7 +37,7 @@ func (s *AccountSetAccountTTLRequest) String() string {
 	sb.WriteString("AccountSetAccountTTLRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tTTL: ")
-	sb.WriteString(s.TTL.String())
+	sb.WriteString(fmt.Sprint(s.TTL))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

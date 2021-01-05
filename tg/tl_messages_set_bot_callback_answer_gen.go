@@ -54,7 +54,7 @@ func (s *MessagesSetBotCallbackAnswerRequest) String() string {
 	sb.WriteString("MessagesSetBotCallbackAnswerRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQueryID: ")
 	sb.WriteString(fmt.Sprint(s.QueryID))

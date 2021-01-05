@@ -39,7 +39,7 @@ func (g *MessagesGetPollResultsRequest) String() string {
 	sb.WriteString("MessagesGetPollResultsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(g.MsgID))

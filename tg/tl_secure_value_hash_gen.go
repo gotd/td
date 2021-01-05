@@ -39,7 +39,7 @@ func (s *SecureValueHash) String() string {
 	sb.WriteString("SecureValueHash")
 	sb.WriteString("{\n")
 	sb.WriteString("\tType: ")
-	sb.WriteString(s.Type.String())
+	sb.WriteString(fmt.Sprint(s.Type))
 	sb.WriteString(",\n")
 	sb.WriteString("\tHash: ")
 	sb.WriteString(fmt.Sprint(s.Hash))

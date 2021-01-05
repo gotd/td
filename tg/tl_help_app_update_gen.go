@@ -61,7 +61,7 @@ func (a *HelpAppUpdate) String() string {
 	sb.WriteString("HelpAppUpdate")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(a.Flags.String())
+	sb.WriteString(fmt.Sprint(a.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(a.ID))
@@ -79,7 +79,7 @@ func (a *HelpAppUpdate) String() string {
 	sb.WriteByte(']')
 	if a.Flags.Has(1) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(a.Document.String())
+		sb.WriteString(fmt.Sprint(a.Document))
 		sb.WriteString(",\n")
 	}
 	if a.Flags.Has(2) {

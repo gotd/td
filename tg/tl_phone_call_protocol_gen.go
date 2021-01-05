@@ -56,7 +56,7 @@ func (p *PhoneCallProtocol) String() string {
 	sb.WriteString("PhoneCallProtocol")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMinLayer: ")
 	sb.WriteString(fmt.Sprint(p.MinLayer))

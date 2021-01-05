@@ -42,7 +42,7 @@ func (f *AccountFinishTakeoutSessionRequest) String() string {
 	sb.WriteString("AccountFinishTakeoutSessionRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(f.Flags.String())
+	sb.WriteString(fmt.Sprint(f.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

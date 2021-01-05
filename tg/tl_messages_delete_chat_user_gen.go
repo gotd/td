@@ -42,7 +42,7 @@ func (d *MessagesDeleteChatUserRequest) String() string {
 	sb.WriteString(fmt.Sprint(d.ChatID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(d.UserID.String())
+	sb.WriteString(fmt.Sprint(d.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

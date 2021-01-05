@@ -44,7 +44,7 @@ func (r *MessagesReorderStickerSetsRequest) String() string {
 	sb.WriteString("MessagesReorderStickerSetsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(r.Flags.String())
+	sb.WriteString(fmt.Sprint(r.Flags))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range r.Order {

@@ -44,7 +44,7 @@ func (d *DraftMessageEmpty) String() string {
 	sb.WriteString("DraftMessageEmpty")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	if d.Flags.Has(0) {
 		sb.WriteString("\tDate: ")
@@ -163,7 +163,7 @@ func (d *DraftMessage) String() string {
 	sb.WriteString("DraftMessage")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	if d.Flags.Has(0) {
 		sb.WriteString("\tReplyToMsgID: ")

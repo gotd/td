@@ -34,7 +34,7 @@ func (m *MsgCopy) String() string {
 	sb.WriteString("MsgCopy")
 	sb.WriteString("{\n")
 	sb.WriteString("\tOrigMessage: ")
-	sb.WriteString(m.OrigMessage.String())
+	sb.WriteString(fmt.Sprint(m.OrigMessage))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

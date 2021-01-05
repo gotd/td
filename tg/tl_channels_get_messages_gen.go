@@ -42,7 +42,7 @@ func (g *ChannelsGetMessagesRequest) String() string {
 	sb.WriteString("ChannelsGetMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(g.Channel.String())
+	sb.WriteString(fmt.Sprint(g.Channel))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range g.ID {

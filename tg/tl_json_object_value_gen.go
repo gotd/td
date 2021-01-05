@@ -42,7 +42,7 @@ func (j *JsonObjectValue) String() string {
 	sb.WriteString(fmt.Sprint(j.Key))
 	sb.WriteString(",\n")
 	sb.WriteString("\tValue: ")
-	sb.WriteString(j.Value.String())
+	sb.WriteString(fmt.Sprint(j.Value))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

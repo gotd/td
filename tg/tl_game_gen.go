@@ -56,7 +56,7 @@ func (g *Game) String() string {
 	sb.WriteString("Game")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(g.ID))
@@ -74,11 +74,11 @@ func (g *Game) String() string {
 	sb.WriteString(fmt.Sprint(g.Description))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(g.Photo.String())
+	sb.WriteString(fmt.Sprint(g.Photo))
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(g.Document.String())
+		sb.WriteString(fmt.Sprint(g.Document))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

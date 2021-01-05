@@ -39,7 +39,7 @@ func (c *StickersChangeStickerPositionRequest) String() string {
 	sb.WriteString("StickersChangeStickerPositionRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tSticker: ")
-	sb.WriteString(c.Sticker.String())
+	sb.WriteString(fmt.Sprint(c.Sticker))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPosition: ")
 	sb.WriteString(fmt.Sprint(c.Position))

@@ -68,7 +68,7 @@ func (p *MessagesPeerDialogs) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tState: ")
-	sb.WriteString(p.State.String())
+	sb.WriteString(fmt.Sprint(p.State))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

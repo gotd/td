@@ -39,7 +39,7 @@ func (i *MessagesInstallStickerSetRequest) String() string {
 	sb.WriteString("MessagesInstallStickerSetRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tStickerset: ")
-	sb.WriteString(i.Stickerset.String())
+	sb.WriteString(fmt.Sprint(i.Stickerset))
 	sb.WriteString(",\n")
 	sb.WriteString("\tArchived: ")
 	sb.WriteString(fmt.Sprint(i.Archived))

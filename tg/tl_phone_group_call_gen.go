@@ -42,7 +42,7 @@ func (g *PhoneGroupCall) String() string {
 	sb.WriteString("PhoneGroupCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(g.Call.String())
+	sb.WriteString(fmt.Sprint(g.Call))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range g.Participants {

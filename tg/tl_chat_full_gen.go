@@ -83,7 +83,7 @@ func (c *ChatFull) String() string {
 	sb.WriteString("ChatFull")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(c.ID))
@@ -92,18 +92,18 @@ func (c *ChatFull) String() string {
 	sb.WriteString(fmt.Sprint(c.About))
 	sb.WriteString(",\n")
 	sb.WriteString("\tParticipants: ")
-	sb.WriteString(c.Participants.String())
+	sb.WriteString(fmt.Sprint(c.Participants))
 	sb.WriteString(",\n")
 	if c.Flags.Has(2) {
 		sb.WriteString("\tChatPhoto: ")
-		sb.WriteString(c.ChatPhoto.String())
+		sb.WriteString(fmt.Sprint(c.ChatPhoto))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(c.NotifySettings.String())
+	sb.WriteString(fmt.Sprint(c.NotifySettings))
 	sb.WriteString(",\n")
 	sb.WriteString("\tExportedInvite: ")
-	sb.WriteString(c.ExportedInvite.String())
+	sb.WriteString(fmt.Sprint(c.ExportedInvite))
 	sb.WriteString(",\n")
 	if c.Flags.Has(3) {
 		sb.WriteByte('[')
@@ -124,7 +124,7 @@ func (c *ChatFull) String() string {
 	}
 	if c.Flags.Has(12) {
 		sb.WriteString("\tCall: ")
-		sb.WriteString(c.Call.String())
+		sb.WriteString(fmt.Sprint(c.Call))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -549,7 +549,7 @@ func (c *ChannelFull) String() string {
 	sb.WriteString("ChannelFull")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(c.ID))
@@ -592,13 +592,13 @@ func (c *ChannelFull) String() string {
 	sb.WriteString(fmt.Sprint(c.UnreadCount))
 	sb.WriteString(",\n")
 	sb.WriteString("\tChatPhoto: ")
-	sb.WriteString(c.ChatPhoto.String())
+	sb.WriteString(fmt.Sprint(c.ChatPhoto))
 	sb.WriteString(",\n")
 	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(c.NotifySettings.String())
+	sb.WriteString(fmt.Sprint(c.NotifySettings))
 	sb.WriteString(",\n")
 	sb.WriteString("\tExportedInvite: ")
-	sb.WriteString(c.ExportedInvite.String())
+	sb.WriteString(fmt.Sprint(c.ExportedInvite))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range c.BotInfo {
@@ -622,7 +622,7 @@ func (c *ChannelFull) String() string {
 	}
 	if c.Flags.Has(8) {
 		sb.WriteString("\tStickerset: ")
-		sb.WriteString(c.Stickerset.String())
+		sb.WriteString(fmt.Sprint(c.Stickerset))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(9) {
@@ -642,7 +642,7 @@ func (c *ChannelFull) String() string {
 	}
 	if c.Flags.Has(15) {
 		sb.WriteString("\tLocation: ")
-		sb.WriteString(c.Location.String())
+		sb.WriteString(fmt.Sprint(c.Location))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(17) {
@@ -665,7 +665,7 @@ func (c *ChannelFull) String() string {
 	sb.WriteString(",\n")
 	if c.Flags.Has(21) {
 		sb.WriteString("\tCall: ")
-		sb.WriteString(c.Call.String())
+		sb.WriteString(fmt.Sprint(c.Call))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

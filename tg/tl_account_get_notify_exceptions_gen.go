@@ -46,11 +46,11 @@ func (g *AccountGetNotifyExceptionsRequest) String() string {
 	sb.WriteString("AccountGetNotifyExceptionsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	if g.Flags.Has(0) {
 		sb.WriteString("\tPeer: ")
-		sb.WriteString(g.Peer.String())
+		sb.WriteString(fmt.Sprint(g.Peer))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

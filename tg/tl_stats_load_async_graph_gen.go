@@ -52,7 +52,7 @@ func (l *StatsLoadAsyncGraphRequest) String() string {
 	sb.WriteString("StatsLoadAsyncGraphRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(l.Flags.String())
+	sb.WriteString(fmt.Sprint(l.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tToken: ")
 	sb.WriteString(fmt.Sprint(l.Token))

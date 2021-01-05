@@ -44,7 +44,7 @@ func (g *AccountGetThemeRequest) String() string {
 	sb.WriteString(fmt.Sprint(g.Format))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTheme: ")
-	sb.WriteString(g.Theme.String())
+	sb.WriteString(fmt.Sprint(g.Theme))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDocumentID: ")
 	sb.WriteString(fmt.Sprint(g.DocumentID))

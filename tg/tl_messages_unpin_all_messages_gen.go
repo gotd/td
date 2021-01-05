@@ -40,7 +40,7 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 	sb.WriteString("MessagesUnpinAllMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(u.Peer.String())
+	sb.WriteString(fmt.Sprint(u.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

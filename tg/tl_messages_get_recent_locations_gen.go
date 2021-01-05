@@ -47,7 +47,7 @@ func (g *MessagesGetRecentLocationsRequest) String() string {
 	sb.WriteString("MessagesGetRecentLocationsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tLimit: ")
 	sb.WriteString(fmt.Sprint(g.Limit))

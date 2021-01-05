@@ -39,7 +39,7 @@ func (p *PeerBlocked) String() string {
 	sb.WriteString("PeerBlocked")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeerID: ")
-	sb.WriteString(p.PeerID.String())
+	sb.WriteString(fmt.Sprint(p.PeerID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(p.Date))

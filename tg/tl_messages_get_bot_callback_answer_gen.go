@@ -58,10 +58,10 @@ func (g *MessagesGetBotCallbackAnswerRequest) String() string {
 	sb.WriteString("MessagesGetBotCallbackAnswerRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(g.MsgID))
@@ -73,7 +73,7 @@ func (g *MessagesGetBotCallbackAnswerRequest) String() string {
 	}
 	if g.Flags.Has(2) {
 		sb.WriteString("\tPassword: ")
-		sb.WriteString(g.Password.String())
+		sb.WriteString(fmt.Sprint(g.Password))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

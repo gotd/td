@@ -52,7 +52,7 @@ func (u *AccountUpdateProfileRequest) String() string {
 	sb.WriteString("AccountUpdateProfileRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	if u.Flags.Has(0) {
 		sb.WriteString("\tFirstName: ")

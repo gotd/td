@@ -41,7 +41,7 @@ func (t *TopPeerCategoryPeers) String() string {
 	sb.WriteString("TopPeerCategoryPeers")
 	sb.WriteString("{\n")
 	sb.WriteString("\tCategory: ")
-	sb.WriteString(t.Category.String())
+	sb.WriteString(fmt.Sprint(t.Category))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCount: ")
 	sb.WriteString(fmt.Sprint(t.Count))

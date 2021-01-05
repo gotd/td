@@ -61,7 +61,7 @@ func (p *PeerSettings) String() string {
 	sb.WriteString("PeerSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	if p.Flags.Has(6) {
 		sb.WriteString("\tGeoDistance: ")

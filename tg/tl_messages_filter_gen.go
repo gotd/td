@@ -572,7 +572,7 @@ func (i *InputMessagesFilterPhoneCalls) String() string {
 	sb.WriteString("InputMessagesFilterPhoneCalls")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

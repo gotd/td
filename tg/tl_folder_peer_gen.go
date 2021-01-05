@@ -42,7 +42,7 @@ func (f *FolderPeer) String() string {
 	sb.WriteString("FolderPeer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(f.Peer.String())
+	sb.WriteString(fmt.Sprint(f.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFolderID: ")
 	sb.WriteString(fmt.Sprint(f.FolderID))

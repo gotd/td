@@ -42,7 +42,7 @@ func (p *PageListOrderedItemText) String() string {
 	sb.WriteString(fmt.Sprint(p.Num))
 	sb.WriteString(",\n")
 	sb.WriteString("\tText: ")
-	sb.WriteString(p.Text.String())
+	sb.WriteString(fmt.Sprint(p.Text))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

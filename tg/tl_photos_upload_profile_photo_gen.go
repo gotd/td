@@ -58,16 +58,16 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 	sb.WriteString("PhotosUploadProfilePhotoRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	if u.Flags.Has(0) {
 		sb.WriteString("\tFile: ")
-		sb.WriteString(u.File.String())
+		sb.WriteString(fmt.Sprint(u.File))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(1) {
 		sb.WriteString("\tVideo: ")
-		sb.WriteString(u.Video.String())
+		sb.WriteString(fmt.Sprint(u.Video))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(2) {

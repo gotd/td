@@ -54,7 +54,7 @@ func (g *MessagesGetHistoryRequest) String() string {
 	sb.WriteString("MessagesGetHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(g.Peer.String())
+	sb.WriteString(fmt.Sprint(g.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tOffsetID: ")
 	sb.WriteString(fmt.Sprint(g.OffsetID))

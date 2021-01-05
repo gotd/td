@@ -39,7 +39,7 @@ func (g *AccountGetTmpPasswordRequest) String() string {
 	sb.WriteString("AccountGetTmpPasswordRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPassword: ")
-	sb.WriteString(g.Password.String())
+	sb.WriteString(fmt.Sprint(g.Password))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeriod: ")
 	sb.WriteString(fmt.Sprint(g.Period))

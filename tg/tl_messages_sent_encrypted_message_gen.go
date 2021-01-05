@@ -108,7 +108,7 @@ func (s *MessagesSentEncryptedFile) String() string {
 	sb.WriteString(fmt.Sprint(s.Date))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFile: ")
-	sb.WriteString(s.File.String())
+	sb.WriteString(fmt.Sprint(s.File))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -47,7 +47,7 @@ func (g *MessagesGetCommonChatsRequest) String() string {
 	sb.WriteString("MessagesGetCommonChatsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(g.UserID.String())
+	sb.WriteString(fmt.Sprint(g.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMaxID: ")
 	sb.WriteString(fmt.Sprint(g.MaxID))

@@ -71,7 +71,7 @@ func (g *MessagesGetDialogsRequest) String() string {
 	sb.WriteString("MessagesGetDialogsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(g.Flags.String())
+	sb.WriteString(fmt.Sprint(g.Flags))
 	sb.WriteString(",\n")
 	if g.Flags.Has(1) {
 		sb.WriteString("\tFolderID: ")
@@ -85,7 +85,7 @@ func (g *MessagesGetDialogsRequest) String() string {
 	sb.WriteString(fmt.Sprint(g.OffsetID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tOffsetPeer: ")
-	sb.WriteString(g.OffsetPeer.String())
+	sb.WriteString(fmt.Sprint(g.OffsetPeer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tLimit: ")
 	sb.WriteString(fmt.Sprint(g.Limit))

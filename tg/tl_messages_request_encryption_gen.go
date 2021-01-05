@@ -44,7 +44,7 @@ func (r *MessagesRequestEncryptionRequest) String() string {
 	sb.WriteString("MessagesRequestEncryptionRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUserID: ")
-	sb.WriteString(r.UserID.String())
+	sb.WriteString(fmt.Sprint(r.UserID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tRandomID: ")
 	sb.WriteString(fmt.Sprint(r.RandomID))

@@ -51,7 +51,7 @@ func (p *PollAnswerVoters) String() string {
 	sb.WriteString("PollAnswerVoters")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(p.Flags.String())
+	sb.WriteString(fmt.Sprint(p.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tOption: ")
 	sb.WriteString(fmt.Sprint(p.Option))

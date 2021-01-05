@@ -154,7 +154,7 @@ func (c *Chat) String() string {
 	sb.WriteString("Chat")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(c.ID))
@@ -163,7 +163,7 @@ func (c *Chat) String() string {
 	sb.WriteString(fmt.Sprint(c.Title))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(c.Photo.String())
+	sb.WriteString(fmt.Sprint(c.Photo))
 	sb.WriteString(",\n")
 	sb.WriteString("\tParticipantsCount: ")
 	sb.WriteString(fmt.Sprint(c.ParticipantsCount))
@@ -176,17 +176,17 @@ func (c *Chat) String() string {
 	sb.WriteString(",\n")
 	if c.Flags.Has(6) {
 		sb.WriteString("\tMigratedTo: ")
-		sb.WriteString(c.MigratedTo.String())
+		sb.WriteString(fmt.Sprint(c.MigratedTo))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(14) {
 		sb.WriteString("\tAdminRights: ")
-		sb.WriteString(c.AdminRights.String())
+		sb.WriteString(fmt.Sprint(c.AdminRights))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(18) {
 		sb.WriteString("\tDefaultBannedRights: ")
-		sb.WriteString(c.DefaultBannedRights.String())
+		sb.WriteString(fmt.Sprint(c.DefaultBannedRights))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -618,7 +618,7 @@ func (c *Channel) String() string {
 	sb.WriteString("Channel")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(c.ID))
@@ -637,7 +637,7 @@ func (c *Channel) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(c.Photo.String())
+	sb.WriteString(fmt.Sprint(c.Photo))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(c.Date))
@@ -654,17 +654,17 @@ func (c *Channel) String() string {
 	}
 	if c.Flags.Has(14) {
 		sb.WriteString("\tAdminRights: ")
-		sb.WriteString(c.AdminRights.String())
+		sb.WriteString(fmt.Sprint(c.AdminRights))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(15) {
 		sb.WriteString("\tBannedRights: ")
-		sb.WriteString(c.BannedRights.String())
+		sb.WriteString(fmt.Sprint(c.BannedRights))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(18) {
 		sb.WriteString("\tDefaultBannedRights: ")
-		sb.WriteString(c.DefaultBannedRights.String())
+		sb.WriteString(fmt.Sprint(c.DefaultBannedRights))
 		sb.WriteString(",\n")
 	}
 	if c.Flags.Has(17) {
@@ -1152,7 +1152,7 @@ func (c *ChannelForbidden) String() string {
 	sb.WriteString("ChannelForbidden")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(c.ID))

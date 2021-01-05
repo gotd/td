@@ -49,7 +49,7 @@ func (m *Message) String() string {
 	sb.WriteString(fmt.Sprint(m.Bytes))
 	sb.WriteString(",\n")
 	sb.WriteString("\tBody: ")
-	sb.WriteString(m.Body.String())
+	sb.WriteString(fmt.Sprint(m.Body))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

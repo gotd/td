@@ -56,10 +56,10 @@ func (t *ThemeSettings) String() string {
 	sb.WriteString("ThemeSettings")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(t.Flags.String())
+	sb.WriteString(fmt.Sprint(t.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tBaseTheme: ")
-	sb.WriteString(t.BaseTheme.String())
+	sb.WriteString(fmt.Sprint(t.BaseTheme))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAccentColor: ")
 	sb.WriteString(fmt.Sprint(t.AccentColor))
@@ -76,7 +76,7 @@ func (t *ThemeSettings) String() string {
 	}
 	if t.Flags.Has(1) {
 		sb.WriteString("\tWallpaper: ")
-		sb.WriteString(t.Wallpaper.String())
+		sb.WriteString(fmt.Sprint(t.Wallpaper))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

@@ -45,7 +45,7 @@ func (d *ChannelsDeleteHistoryRequest) String() string {
 	sb.WriteString("ChannelsDeleteHistoryRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(d.Channel.String())
+	sb.WriteString(fmt.Sprint(d.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMaxID: ")
 	sb.WriteString(fmt.Sprint(d.MaxID))

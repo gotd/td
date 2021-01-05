@@ -69,7 +69,7 @@ func (b *BotInlineResult) String() string {
 	sb.WriteString("BotInlineResult")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(b.Flags.String())
+	sb.WriteString(fmt.Sprint(b.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(b.ID))
@@ -94,16 +94,16 @@ func (b *BotInlineResult) String() string {
 	}
 	if b.Flags.Has(4) {
 		sb.WriteString("\tThumb: ")
-		sb.WriteString(b.Thumb.String())
+		sb.WriteString(fmt.Sprint(b.Thumb))
 		sb.WriteString(",\n")
 	}
 	if b.Flags.Has(5) {
 		sb.WriteString("\tContent: ")
-		sb.WriteString(b.Content.String())
+		sb.WriteString(fmt.Sprint(b.Content))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(b.SendMessage.String())
+	sb.WriteString(fmt.Sprint(b.SendMessage))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -364,7 +364,7 @@ func (b *BotInlineMediaResult) String() string {
 	sb.WriteString("BotInlineMediaResult")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(b.Flags.String())
+	sb.WriteString(fmt.Sprint(b.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(b.ID))
@@ -374,12 +374,12 @@ func (b *BotInlineMediaResult) String() string {
 	sb.WriteString(",\n")
 	if b.Flags.Has(0) {
 		sb.WriteString("\tPhoto: ")
-		sb.WriteString(b.Photo.String())
+		sb.WriteString(fmt.Sprint(b.Photo))
 		sb.WriteString(",\n")
 	}
 	if b.Flags.Has(1) {
 		sb.WriteString("\tDocument: ")
-		sb.WriteString(b.Document.String())
+		sb.WriteString(fmt.Sprint(b.Document))
 		sb.WriteString(",\n")
 	}
 	if b.Flags.Has(2) {
@@ -393,7 +393,7 @@ func (b *BotInlineMediaResult) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(b.SendMessage.String())
+	sb.WriteString(fmt.Sprint(b.SendMessage))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

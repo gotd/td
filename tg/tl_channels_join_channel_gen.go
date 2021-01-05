@@ -37,7 +37,7 @@ func (j *ChannelsJoinChannelRequest) String() string {
 	sb.WriteString("ChannelsJoinChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(j.Channel.String())
+	sb.WriteString(fmt.Sprint(j.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

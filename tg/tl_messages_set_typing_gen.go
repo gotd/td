@@ -57,10 +57,10 @@ func (s *MessagesSetTypingRequest) String() string {
 	sb.WriteString("MessagesSetTypingRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(s.Peer.String())
+	sb.WriteString(fmt.Sprint(s.Peer))
 	sb.WriteString(",\n")
 	if s.Flags.Has(0) {
 		sb.WriteString("\tTopMsgID: ")
@@ -68,7 +68,7 @@ func (s *MessagesSetTypingRequest) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tAction: ")
-	sb.WriteString(s.Action.String())
+	sb.WriteString(fmt.Sprint(s.Action))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

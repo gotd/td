@@ -43,7 +43,7 @@ func (d *ChannelsDeleteChannelRequest) String() string {
 	sb.WriteString("ChannelsDeleteChannelRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tChannel: ")
-	sb.WriteString(d.Channel.String())
+	sb.WriteString(fmt.Sprint(d.Channel))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

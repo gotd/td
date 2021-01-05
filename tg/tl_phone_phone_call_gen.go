@@ -39,7 +39,7 @@ func (p *PhonePhoneCall) String() string {
 	sb.WriteString("PhonePhoneCall")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPhoneCall: ")
-	sb.WriteString(p.PhoneCall.String())
+	sb.WriteString(fmt.Sprint(p.PhoneCall))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range p.Users {

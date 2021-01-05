@@ -48,7 +48,7 @@ func (s *AccountSendConfirmPhoneCodeRequest) String() string {
 	sb.WriteString(fmt.Sprint(s.Hash))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSettings: ")
-	sb.WriteString(s.Settings.String())
+	sb.WriteString(fmt.Sprint(s.Settings))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

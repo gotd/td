@@ -186,7 +186,7 @@ func (u *User) String() string {
 	sb.WriteString("User")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(u.ID))
@@ -218,12 +218,12 @@ func (u *User) String() string {
 	}
 	if u.Flags.Has(5) {
 		sb.WriteString("\tPhoto: ")
-		sb.WriteString(u.Photo.String())
+		sb.WriteString(fmt.Sprint(u.Photo))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(6) {
 		sb.WriteString("\tStatus: ")
-		sb.WriteString(u.Status.String())
+		sb.WriteString(fmt.Sprint(u.Status))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(14) {

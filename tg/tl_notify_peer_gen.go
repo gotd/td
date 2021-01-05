@@ -37,7 +37,7 @@ func (n *NotifyPeer) String() string {
 	sb.WriteString("NotifyPeer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(n.Peer.String())
+	sb.WriteString(fmt.Sprint(n.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

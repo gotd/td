@@ -56,7 +56,7 @@ func (d *DcOption) String() string {
 	sb.WriteString("DcOption")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(d.ID))

@@ -37,7 +37,7 @@ func (r *StickersRemoveStickerFromSetRequest) String() string {
 	sb.WriteString("StickersRemoveStickerFromSetRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tSticker: ")
-	sb.WriteString(r.Sticker.String())
+	sb.WriteString(fmt.Sprint(r.Sticker))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

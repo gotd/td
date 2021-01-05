@@ -63,7 +63,7 @@ func (w *WallPaper) String() string {
 	sb.WriteString(fmt.Sprint(w.ID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAccessHash: ")
 	sb.WriteString(fmt.Sprint(w.AccessHash))
@@ -72,11 +72,11 @@ func (w *WallPaper) String() string {
 	sb.WriteString(fmt.Sprint(w.Slug))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDocument: ")
-	sb.WriteString(w.Document.String())
+	sb.WriteString(fmt.Sprint(w.Document))
 	sb.WriteString(",\n")
 	if w.Flags.Has(2) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(w.Settings.String())
+		sb.WriteString(fmt.Sprint(w.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")
@@ -264,11 +264,11 @@ func (w *WallPaperNoFile) String() string {
 	sb.WriteString("WallPaperNoFile")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(w.Flags.String())
+	sb.WriteString(fmt.Sprint(w.Flags))
 	sb.WriteString(",\n")
 	if w.Flags.Has(2) {
 		sb.WriteString("\tSettings: ")
-		sb.WriteString(w.Settings.String())
+		sb.WriteString(fmt.Sprint(w.Settings))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

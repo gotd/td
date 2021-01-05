@@ -190,7 +190,7 @@ func (c *Config) String() string {
 	sb.WriteString("Config")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(c.Date))

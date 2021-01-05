@@ -54,7 +54,7 @@ func (w *UploadWebFile) String() string {
 	sb.WriteString(fmt.Sprint(w.MimeType))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFileType: ")
-	sb.WriteString(w.FileType.String())
+	sb.WriteString(fmt.Sprint(w.FileType))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMtime: ")
 	sb.WriteString(fmt.Sprint(w.Mtime))

@@ -58,10 +58,10 @@ func (f *MessagesForwardMessagesRequest) String() string {
 	sb.WriteString("MessagesForwardMessagesRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(f.Flags.String())
+	sb.WriteString(fmt.Sprint(f.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFromPeer: ")
-	sb.WriteString(f.FromPeer.String())
+	sb.WriteString(fmt.Sprint(f.FromPeer))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range f.ID {
@@ -74,7 +74,7 @@ func (f *MessagesForwardMessagesRequest) String() string {
 	}
 	sb.WriteByte(']')
 	sb.WriteString("\tToPeer: ")
-	sb.WriteString(f.ToPeer.String())
+	sb.WriteString(fmt.Sprint(f.ToPeer))
 	sb.WriteString(",\n")
 	if f.Flags.Has(10) {
 		sb.WriteString("\tScheduleDate: ")

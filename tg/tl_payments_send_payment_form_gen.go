@@ -55,7 +55,7 @@ func (s *PaymentsSendPaymentFormRequest) String() string {
 	sb.WriteString("PaymentsSendPaymentFormRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(s.MsgID))
@@ -71,7 +71,7 @@ func (s *PaymentsSendPaymentFormRequest) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tCredentials: ")
-	sb.WriteString(s.Credentials.String())
+	sb.WriteString(fmt.Sprint(s.Credentials))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

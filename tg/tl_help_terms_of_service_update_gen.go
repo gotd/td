@@ -117,7 +117,7 @@ func (t *HelpTermsOfServiceUpdate) String() string {
 	sb.WriteString(fmt.Sprint(t.Expires))
 	sb.WriteString(",\n")
 	sb.WriteString("\tTermsOfService: ")
-	sb.WriteString(t.TermsOfService.String())
+	sb.WriteString(fmt.Sprint(t.TermsOfService))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

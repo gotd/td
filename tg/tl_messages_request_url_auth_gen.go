@@ -44,7 +44,7 @@ func (r *MessagesRequestUrlAuthRequest) String() string {
 	sb.WriteString("MessagesRequestUrlAuthRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(r.Peer.String())
+	sb.WriteString(fmt.Sprint(r.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMsgID: ")
 	sb.WriteString(fmt.Sprint(r.MsgID))

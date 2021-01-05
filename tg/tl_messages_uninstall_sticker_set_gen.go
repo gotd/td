@@ -37,7 +37,7 @@ func (u *MessagesUninstallStickerSetRequest) String() string {
 	sb.WriteString("MessagesUninstallStickerSetRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tStickerset: ")
-	sb.WriteString(u.Stickerset.String())
+	sb.WriteString(fmt.Sprint(u.Stickerset))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

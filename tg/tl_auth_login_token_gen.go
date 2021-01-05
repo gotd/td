@@ -198,7 +198,7 @@ func (l *AuthLoginTokenSuccess) String() string {
 	sb.WriteString("AuthLoginTokenSuccess")
 	sb.WriteString("{\n")
 	sb.WriteString("\tAuthorization: ")
-	sb.WriteString(l.Authorization.String())
+	sb.WriteString(fmt.Sprint(l.Authorization))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

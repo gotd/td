@@ -42,10 +42,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	sb.WriteString("PhoneToggleGroupCallSettingsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(t.Flags.String())
+	sb.WriteString(fmt.Sprint(t.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tCall: ")
-	sb.WriteString(t.Call.String())
+	sb.WriteString(fmt.Sprint(t.Call))
 	sb.WriteString(",\n")
 	if t.Flags.Has(0) {
 		sb.WriteString("\tJoinMuted: ")

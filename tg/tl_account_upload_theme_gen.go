@@ -53,14 +53,14 @@ func (u *AccountUploadThemeRequest) String() string {
 	sb.WriteString("AccountUploadThemeRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFile: ")
-	sb.WriteString(u.File.String())
+	sb.WriteString(fmt.Sprint(u.File))
 	sb.WriteString(",\n")
 	if u.Flags.Has(0) {
 		sb.WriteString("\tThumb: ")
-		sb.WriteString(u.Thumb.String())
+		sb.WriteString(fmt.Sprint(u.Thumb))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tFileName: ")

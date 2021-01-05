@@ -89,10 +89,10 @@ func (u *UserFull) String() string {
 	sb.WriteString("UserFull")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(u.Flags.String())
+	sb.WriteString(fmt.Sprint(u.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUser: ")
-	sb.WriteString(u.User.String())
+	sb.WriteString(fmt.Sprint(u.User))
 	sb.WriteString(",\n")
 	if u.Flags.Has(1) {
 		sb.WriteString("\tAbout: ")
@@ -100,19 +100,19 @@ func (u *UserFull) String() string {
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tSettings: ")
-	sb.WriteString(u.Settings.String())
+	sb.WriteString(fmt.Sprint(u.Settings))
 	sb.WriteString(",\n")
 	if u.Flags.Has(2) {
 		sb.WriteString("\tProfilePhoto: ")
-		sb.WriteString(u.ProfilePhoto.String())
+		sb.WriteString(fmt.Sprint(u.ProfilePhoto))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(u.NotifySettings.String())
+	sb.WriteString(fmt.Sprint(u.NotifySettings))
 	sb.WriteString(",\n")
 	if u.Flags.Has(3) {
 		sb.WriteString("\tBotInfo: ")
-		sb.WriteString(u.BotInfo.String())
+		sb.WriteString(fmt.Sprint(u.BotInfo))
 		sb.WriteString(",\n")
 	}
 	if u.Flags.Has(6) {

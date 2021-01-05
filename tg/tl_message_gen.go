@@ -207,22 +207,22 @@ func (m *Message) String() string {
 	sb.WriteString("Message")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(m.ID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(8) {
 		sb.WriteString("\tFromID: ")
-		sb.WriteString(m.FromID.String())
+		sb.WriteString(fmt.Sprint(m.FromID))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tPeerID: ")
-	sb.WriteString(m.PeerID.String())
+	sb.WriteString(fmt.Sprint(m.PeerID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(2) {
 		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(m.FwdFrom.String())
+		sb.WriteString(fmt.Sprint(m.FwdFrom))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(11) {
@@ -232,7 +232,7 @@ func (m *Message) String() string {
 	}
 	if m.Flags.Has(3) {
 		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(m.ReplyTo.String())
+		sb.WriteString(fmt.Sprint(m.ReplyTo))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tDate: ")
@@ -243,12 +243,12 @@ func (m *Message) String() string {
 	sb.WriteString(",\n")
 	if m.Flags.Has(9) {
 		sb.WriteString("\tMedia: ")
-		sb.WriteString(m.Media.String())
+		sb.WriteString(fmt.Sprint(m.Media))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(6) {
 		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(m.ReplyMarkup.String())
+		sb.WriteString(fmt.Sprint(m.ReplyMarkup))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(7) {
@@ -270,7 +270,7 @@ func (m *Message) String() string {
 	}
 	if m.Flags.Has(23) {
 		sb.WriteString("\tReplies: ")
-		sb.WriteString(m.Replies.String())
+		sb.WriteString(fmt.Sprint(m.Replies))
 		sb.WriteString(",\n")
 	}
 	if m.Flags.Has(15) {
@@ -925,29 +925,29 @@ func (m *MessageService) String() string {
 	sb.WriteString("MessageService")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(m.Flags.String())
+	sb.WriteString(fmt.Sprint(m.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(m.ID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(8) {
 		sb.WriteString("\tFromID: ")
-		sb.WriteString(m.FromID.String())
+		sb.WriteString(fmt.Sprint(m.FromID))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tPeerID: ")
-	sb.WriteString(m.PeerID.String())
+	sb.WriteString(fmt.Sprint(m.PeerID))
 	sb.WriteString(",\n")
 	if m.Flags.Has(3) {
 		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(m.ReplyTo.String())
+		sb.WriteString(fmt.Sprint(m.ReplyTo))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("\tDate: ")
 	sb.WriteString(fmt.Sprint(m.Date))
 	sb.WriteString(",\n")
 	sb.WriteString("\tAction: ")
-	sb.WriteString(m.Action.String())
+	sb.WriteString(fmt.Sprint(m.Action))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

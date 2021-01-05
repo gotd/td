@@ -105,7 +105,7 @@ func (c *ChatBannedRights) String() string {
 	sb.WriteString("ChatBannedRights")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(c.Flags.String())
+	sb.WriteString(fmt.Sprint(c.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tUntilDate: ")
 	sb.WriteString(fmt.Sprint(c.UntilDate))

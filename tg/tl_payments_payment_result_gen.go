@@ -37,7 +37,7 @@ func (p *PaymentsPaymentResult) String() string {
 	sb.WriteString("PaymentsPaymentResult")
 	sb.WriteString("{\n")
 	sb.WriteString("\tUpdates: ")
-	sb.WriteString(p.Updates.String())
+	sb.WriteString(fmt.Sprint(p.Updates))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

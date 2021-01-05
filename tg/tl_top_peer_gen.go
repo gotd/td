@@ -42,7 +42,7 @@ func (t *TopPeer) String() string {
 	sb.WriteString("TopPeer")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPeer: ")
-	sb.WriteString(t.Peer.String())
+	sb.WriteString(fmt.Sprint(t.Peer))
 	sb.WriteString(",\n")
 	sb.WriteString("\tRating: ")
 	sb.WriteString(fmt.Sprint(t.Rating))

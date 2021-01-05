@@ -43,7 +43,7 @@ func (c *AuthCheckPasswordRequest) String() string {
 	sb.WriteString("AuthCheckPasswordRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPassword: ")
-	sb.WriteString(c.Password.String())
+	sb.WriteString(fmt.Sprint(c.Password))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

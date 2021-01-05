@@ -104,7 +104,7 @@ func (d *HelpDeepLinkInfo) String() string {
 	sb.WriteString("HelpDeepLinkInfo")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(d.Flags.String())
+	sb.WriteString(fmt.Sprint(d.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tMessage: ")
 	sb.WriteString(fmt.Sprint(d.Message))

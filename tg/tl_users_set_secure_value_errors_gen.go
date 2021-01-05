@@ -43,7 +43,7 @@ func (s *UsersSetSecureValueErrorsRequest) String() string {
 	sb.WriteString("UsersSetSecureValueErrorsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tID: ")
-	sb.WriteString(s.ID.String())
+	sb.WriteString(fmt.Sprint(s.ID))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range s.Errors {

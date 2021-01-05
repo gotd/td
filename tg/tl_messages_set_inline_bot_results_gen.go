@@ -58,7 +58,7 @@ func (s *MessagesSetInlineBotResultsRequest) String() string {
 	sb.WriteString("MessagesSetInlineBotResultsRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(s.Flags.String())
+	sb.WriteString(fmt.Sprint(s.Flags))
 	sb.WriteString(",\n")
 	sb.WriteString("\tQueryID: ")
 	sb.WriteString(fmt.Sprint(s.QueryID))
@@ -78,7 +78,7 @@ func (s *MessagesSetInlineBotResultsRequest) String() string {
 	}
 	if s.Flags.Has(3) {
 		sb.WriteString("\tSwitchPm: ")
-		sb.WriteString(s.SwitchPm.String())
+		sb.WriteString(fmt.Sprint(s.SwitchPm))
 		sb.WriteString(",\n")
 	}
 	sb.WriteString("}")

@@ -39,7 +39,7 @@ func (r *RPCResult) String() string {
 	sb.WriteString(fmt.Sprint(r.ReqMsgID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tResult: ")
-	sb.WriteString(r.Result.String())
+	sb.WriteString(fmt.Sprint(r.Result))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()

@@ -65,7 +65,7 @@ func (i *AccountInitTakeoutSessionRequest) String() string {
 	sb.WriteString("AccountInitTakeoutSessionRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tFlags: ")
-	sb.WriteString(i.Flags.String())
+	sb.WriteString(fmt.Sprint(i.Flags))
 	sb.WriteString(",\n")
 	if i.Flags.Has(5) {
 		sb.WriteString("\tFileMaxSize: ")

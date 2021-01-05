@@ -39,7 +39,7 @@ func (p *PhotosPhoto) String() string {
 	sb.WriteString("PhotosPhoto")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPhoto: ")
-	sb.WriteString(p.Photo.String())
+	sb.WriteString(fmt.Sprint(p.Photo))
 	sb.WriteString(",\n")
 	sb.WriteByte('[')
 	for _, v := range p.Users {

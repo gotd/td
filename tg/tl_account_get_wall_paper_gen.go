@@ -37,7 +37,7 @@ func (g *AccountGetWallPaperRequest) String() string {
 	sb.WriteString("AccountGetWallPaperRequest")
 	sb.WriteString("{\n")
 	sb.WriteString("\tWallpaper: ")
-	sb.WriteString(g.Wallpaper.String())
+	sb.WriteString(fmt.Sprint(g.Wallpaper))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
