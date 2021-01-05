@@ -23,16 +23,16 @@ func (c *Conn) newEncryptedMessage(id int64, seq int32, payload bin.Encoder, b *
 			).Debug("Request")
 		}
 	}
-	session := c.session()
+	s := c.session()
 	d := crypto.EncryptedMessageData{
-		SessionID:              session.ID,
-		Salt:                   session.Salt,
+		SessionID:              s.ID,
+		Salt:                   s.Salt,
 		MessageID:              id,
 		SeqNo:                  seq,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
 	}
-	if err := c.cipher.Encrypt(session.Key, d, b); err != nil {
+	if err := c.cipher.Encrypt(s.Key, d, b); err != nil {
 		return err
 	}
 

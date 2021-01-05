@@ -149,7 +149,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	connOpt.Salt = data.Salt
 	c.connOpt = connOpt
 
-	if key.AuthKey.ID() != key.AuthKeyID {
+	if connOpt.Key.AuthKey.ID() != connOpt.Key.AuthKeyID {
 		return xerrors.New("corrupted key")
 	}
 

@@ -121,14 +121,23 @@ func (c *Conn) readLoop(ctx context.Context) error {
 			continue
 		}
 
-		// Checking if key exists on server.
 		var protoErr *codec.ProtocolErr
 		if errors.As(err, &protoErr) && protoErr.Code == codec.CodeAuthKeyNotFound {
+			if c.session().ID == 0 {
+				// The 404 error can also be caused by zero session id.
+				// See https://github.com/gotd/td/issues/107
+				//
+				// We should recover from this in createAuthKey, but in general
+				// this code branch should be unreachable.
+				c.log.Warn("BUG: zero session id found")
+			}
 			c.log.Warn("Re-generating keys (server not found key that we provided)")
 			if err := c.createAuthKey(ctx); err != nil {
 				return xerrors.Errorf("unable to create auth key: %w", err)
 			}
 			c.log.Info("Re-created auth keys")
+			// Request will be retried by ack loop.
+			// Probably we can speed-up this.
 			continue
 		}
 

@@ -49,6 +49,20 @@ func (c *Conn) session() Session {
 	}
 }
 
+// newSessionID sets session id to random value.
+func (c *Conn) newSessionID() error {
+	id, err := crypto.RandInt64(c.rand)
+	if err != nil {
+		return err
+	}
+
+	c.sessionMux.Lock()
+	defer c.sessionMux.Unlock()
+	c.sessionID = id
+
+	return nil
+}
+
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
 	transport     Transport
@@ -135,6 +149,7 @@ func goGroup(ctx context.Context, g *errgroup.Group, f func(ctx context.Context)
 
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
+	c.log.Debug("Closing")
 	c.rpc.Close()
 	if err := c.conn.Close(); err != nil {
 		c.log.Debug("Failed to cleanup connection", zap.Error(err))
@@ -182,7 +197,9 @@ func (c *Conn) connect(ctx context.Context) error {
 	c.log.Info("Dialed transport", zap.String("addr", c.addr))
 	c.conn = conn
 
-	if c.session().Key.Zero() {
+	session := c.session()
+
+	if session.Key.Zero() {
 		c.log.Info("Generating new auth key")
 		start := c.clock.Now()
 		if err := c.createAuthKey(ctx); err != nil {
@@ -192,8 +209,19 @@ func (c *Conn) connect(ctx context.Context) error {
 		c.log.With(
 			zap.Duration("duration", c.clock.Now().Sub(start)),
 		).Info("Auth key generated")
-	} else {
-		c.log.Info("Key already exists")
+		return nil
 	}
+
+	c.log.Info("Key already exists")
+	if session.ID == 0 {
+		// NB: Telegram can return 404 error if session id is zero.
+		//
+		// See https://github.com/gotd/td/issues/107.
+		c.log.Debug("Generating new session id")
+		if err := c.newSessionID(); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
