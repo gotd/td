@@ -43,3 +43,17 @@ fuzz_rsa_clear:
 	rm -f _fuzz/rsa/crashers/*
 	rm -f _fuzz/rsa/suppressions/*
 .PHONY: fuzz_rsa_clear
+
+
+fuzz_flow:
+	go run github.com/dvyukov/go-fuzz/go-fuzz -bin internal/exchange/flow-fuzz.zip -workdir _fuzz/flow
+.PHONY: fuzz_flow
+
+fuzz_flow_build:
+	cd internal/exchange && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzFlow -tags fuzz -o flow-fuzz.zip
+.PHONY: fuzz_flow_build
+
+fuzz_flow_clear:
+	rm -f _fuzz/flow/crashers/*
+	rm -f _fuzz/flow/suppressions/*
+.PHONY: fuzz_flow_clear

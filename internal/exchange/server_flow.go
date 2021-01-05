@@ -8,7 +8,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 )
@@ -137,9 +136,8 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 	gB := big.NewInt(0).SetBytes(clientInnerData.GB)
-	authKeyBytes := big.NewInt(0).Exp(gB, a, dhPrime).Bytes()
 	var authKey crypto.AuthKey
-	copy(authKey[:], authKeyBytes)
+	big.NewInt(0).Exp(gB, a, dhPrime).FillBytes(authKey[:])
 
 	// DH key exchange complete
 	// 8. Server responds in one of three ways:
