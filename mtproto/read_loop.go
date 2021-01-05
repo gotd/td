@@ -152,8 +152,6 @@ func (c *Conn) readLoop(ctx context.Context) error {
 }
 
 func (c *Conn) readEncryptedMessages() error {
-	defer c.log.Debug("readEncryptedMessages: done")
-
 	b := new(bin.Buffer)
 	for msg := range c.messages {
 		b.ResetTo(msg.Data())
