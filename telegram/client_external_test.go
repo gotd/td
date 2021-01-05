@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/rand"
 	"errors"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -66,10 +67,17 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 				return // ok
 			}
 
+			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
+				// Possibly server closed connection.
+				time.Sleep(time.Second)
+				continue
+			}
+
 			var rpcErr *mtproto.Error
 			if errors.As(err, &rpcErr) {
 				switch rpcErr.Type {
 				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED":
+					// Possibly server started garbage collection.
 					time.Sleep(time.Second)
 					continue
 				}
