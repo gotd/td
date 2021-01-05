@@ -231,10 +231,6 @@ github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UV
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.6.1 h1:hDPOHmpOpP40lSULcqw7IrRb/u7w6RpDC9399XyoNd0=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/tdakkota/astbuilders v0.1.0 h1:w0yTiToymwb7Opz6n493jmJEvSAsO24NutoQtFSgyTw=
-github.com/tdakkota/astbuilders v0.1.0/go.mod h1:SKIwFkvE4CGNIRr/arqkWCKzhHVSDCYTxiIsyXhWrVE=
-github.com/tdakkota/gomacro v0.0.0-20201229083007-19625852c2ec h1:GDmt0b5L+YRdenAObkY3gtewbGf39/qDYo7cLWax7Ls=
-github.com/tdakkota/gomacro v0.0.0-20201229083007-19625852c2ec/go.mod h1:gHZT9KAenDWZyputlzvtsN6efztfBiXbip+iK2pheVI=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
 github.com/urfave/negroni v1.0.0/go.mod h1:Meg73S6kFm/4PpbYdq35yYWoCZ9mS/YSx+lKnmiohz4=

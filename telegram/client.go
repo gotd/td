@@ -57,7 +57,6 @@ type Client struct {
 	tg      *tg.Client
 	connOpt mtproto.Options
 	conn    clientConn
-	trace   tracer
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
@@ -76,7 +75,7 @@ type Client struct {
 }
 
 func (c *Client) onMessage(b *bin.Buffer) error {
-	return c.handleMessage(b)
+	return c.handleUpdates(b)
 }
 
 // NewClient creates new unstarted client.
@@ -200,11 +199,6 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	}
 
 	return nil
-}
-
-func (c *Client) handleMessage(b *bin.Buffer) error {
-	c.trace.OnMessage(b)
-	return c.handleUpdates(b)
 }
 
 func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) error {

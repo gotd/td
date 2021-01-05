@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
+	"runtime"
 	"time"
 
 	"go.uber.org/zap"
@@ -30,7 +31,6 @@ type Options struct {
 	//
 	// If not provided, embedded public keys will be used.
 	PublicKeys []*rsa.PublicKey
-
 	// Transport to use. Default dialer will be used if not provided.
 	Transport Transport
 	// Network to use. Defaults to tcp.
@@ -45,21 +45,57 @@ type Options struct {
 	AckBatchSize int
 	// AckInterval is maximum time to buffer ack.
 	AckInterval time.Duration
-
+	// RetryInterval is duration between retries.
 	RetryInterval time.Duration
-	MaxRetries    int
-	MessageID     MessageIDSource
-	Clock         clock.Clock
-	Types         *tmap.Map
-
-	Key  crypto.AuthKeyWithID
+	// MaxRetries is max retry count until rpc request failure.
+	MaxRetries int
+	// MessageID is message id source. Share source between connection to
+	// reduce collision probability.
+	MessageID MessageIDSource
+	// Clock is current time source. Defaults to system time.
+	Clock clock.Clock
+	// Types map, used in verbose logging of incoming message.
+	Types *tmap.Map
+	// Key that can be used to restore previous connection.
+	Key crypto.AuthKeyWithID
+	// Salt from server that can be used to restore previous connection.
 	Salt int64
+	// ReadConcurrency limits maximum concurrently handled messages.
+	// Can be CPU or IO bound depending on message handlers.
+	// Defaults to GOMAXPROCS if it is not less than 10.
+	ReadConcurrency int
 }
 
 type nopHandler struct{}
 
 func (nopHandler) OnMessage(b *bin.Buffer) error   { return nil }
 func (nopHandler) OnSession(session Session) error { return nil }
+
+func (opt *Options) setDefaultPublicKeys() {
+	// Using public keys that are included with distribution if not
+	// provided.
+	//
+	// This should never fail and keys should be valid for recent
+	// library versions.
+	keys, err := vendoredKeys()
+	if err != nil {
+		panic(xerrors.Errorf("load vendored keys: %w", err))
+	}
+	opt.PublicKeys = keys
+}
+
+func (opt *Options) setDefaultConcurrency() {
+	opt.ReadConcurrency = runtime.GOMAXPROCS(0)
+
+	// In container environment small GOMAXPROCS are common (like 1 or 2),
+	// but such low concurrency is unfortunate, because most calls will
+	// be io bound.
+	const minConcurrency = 10
+
+	if opt.ReadConcurrency < minConcurrency {
+		opt.ReadConcurrency = minConcurrency
+	}
+}
 
 func (opt *Options) setDefaults() {
 	if opt.Transport == nil {
@@ -93,18 +129,12 @@ func (opt *Options) setDefaults() {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
 	if len(opt.PublicKeys) == 0 {
-		// Using public keys that are included with distribution if not
-		// provided.
-		//
-		// This should never fail and keys should be valid for recent
-		// library versions.
-		keys, err := vendoredKeys()
-		if err != nil {
-			panic(xerrors.Errorf("load vendored keys: %w", err))
-		}
-		opt.PublicKeys = keys
+		opt.setDefaultPublicKeys()
 	}
 	if opt.Handler == nil {
 		opt.Handler = nopHandler{}
+	}
+	if opt.ReadConcurrency == 0 {
+		opt.setDefaultConcurrency()
 	}
 }

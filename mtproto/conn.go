@@ -68,7 +68,6 @@ type Conn struct {
 	transport     Transport
 	conn          transport.Conn
 	addr          string
-	trace         tracer
 	handler       Handler
 	rpc           *rpc.Engine
 	rsaPublicKeys []*rsa.PublicKey
@@ -103,6 +102,9 @@ type Conn struct {
 	// Key is ping id.
 	ping    map[int64]func()
 	pingMux sync.Mutex
+
+	readConcurrency int
+	messages        chan *crypto.EncryptedMessageData
 }
 
 // New creates new unstarted connection.
@@ -130,6 +132,9 @@ func New(addr string, opt Options) *Conn {
 
 		authKey: opt.Key,
 		salt:    opt.Salt,
+
+		readConcurrency: opt.ReadConcurrency,
+		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),
 	}
 	conn.rpc = rpc.New(conn.write, rpc.Options{
 		Logger:        opt.Logger.Named("rpc"),
@@ -147,6 +152,7 @@ func goGroup(ctx context.Context, g *errgroup.Group, f func(ctx context.Context)
 	})
 }
 
+// handleClose closes rpc engine and underlying connection on context done.
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
 	c.log.Debug("Closing")
@@ -180,6 +186,9 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		goGroup(gCtx, g, c.readLoop)
 		goGroup(gCtx, g, c.ackLoop)
 		goGroup(gCtx, g, f)
+		for i := 0; i < c.readConcurrency; i++ {
+			g.Go(c.readEncryptedMessages)
+		}
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
 		}
@@ -187,8 +196,8 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	return nil
 }
 
-// connect establishes connection in intermediate mode, creating new auth key
-// if needed.
+// connect establishes connection using configured transport, creating
+// new auth key if needed.
 func (c *Conn) connect(ctx context.Context) error {
 	conn, err := c.transport.DialContext(ctx, "tcp", c.addr)
 	if err != nil {
@@ -206,9 +215,9 @@ func (c *Conn) connect(ctx context.Context) error {
 			return xerrors.Errorf("create auth key: %w", err)
 		}
 
-		c.log.With(
+		c.log.Info("Auth key generated",
 			zap.Duration("duration", c.clock.Now().Sub(start)),
-		).Info("Auth key generated")
+		)
 		return nil
 	}
 

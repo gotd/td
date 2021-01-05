@@ -17,8 +17,6 @@ import (
 )
 
 func (c *Conn) handleMessage(b *bin.Buffer) error {
-	c.trace.OnMessage(b)
-
 	id, err := b.PeekID()
 	if err != nil {
 		// Empty body.
@@ -96,14 +94,17 @@ func (c *Conn) readLoop(ctx context.Context) error {
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
 	defer log.Debug("Read loop done")
+	defer close(c.messages)
 
 	for {
 		msg, err := c.read(ctx, b)
 		if err == nil {
-			// Reading ok.
-			go func() { _ = c.handleEncryptedMessage(msg) }()
-
-			continue
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case c.messages <- msg:
+				continue
+			}
 		}
 
 		select {
@@ -150,18 +151,25 @@ func (c *Conn) readLoop(ctx context.Context) error {
 	}
 }
 
-func (c *Conn) handleEncryptedMessage(msg *crypto.EncryptedMessageData) error {
+func (c *Conn) readEncryptedMessages() error {
+	defer c.log.Debug("readEncryptedMessages: done")
+
 	b := new(bin.Buffer)
-	b.ResetTo(msg.Data())
+	for msg := range c.messages {
+		b.ResetTo(msg.Data())
 
-	if err := c.handleMessage(b); err != nil {
-		c.log.Error("handle", zap.Error(err))
-		return err
-	}
+		if err := c.handleMessage(b); err != nil {
+			// Probably we can return here, but this will shutdown whole
+			// connection which can be unexpected.
+			c.log.Warn("Error while handling message", zap.Error(err))
+			// Sending acknowledge even on error. Client should restore
+			// from missing updates via explicit pts check and getDiff call.
+		}
 
-	needAck := (msg.SeqNo & 0x01) != 0
-	if needAck {
-		c.ackSendChan <- msg.MessageID
+		needAck := (msg.SeqNo & 0x01) != 0
+		if needAck {
+			c.ackSendChan <- msg.MessageID
+		}
 	}
 
 	return nil
