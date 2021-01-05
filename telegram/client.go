@@ -7,6 +7,7 @@ import (
 	"io"
 	"runtime/debug"
 	"strings"
+	"sync"
 
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
@@ -56,9 +57,14 @@ type clientConn interface {
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
-	tg      *tg.Client
-	connOpt mtproto.Options
-	conn    clientConn
+	tg *tg.Client
+
+	connMux  sync.Mutex
+	connAddr string
+	connOpt  mtproto.Options
+	conn     clientConn
+	cfg      tg.Config
+	restart  chan struct{}
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
@@ -71,7 +77,9 @@ type Client struct {
 	appID   int    // immutable
 	appHash string // immutable
 	storage clientStorage
-	ready   chan struct{}
+
+	ready     chan struct{}
+	readyOnce sync.Once
 
 	updateHandler UpdateHandler // immutable
 }
@@ -99,6 +107,9 @@ func getVersion() string {
 	return ""
 }
 
+// Port is default port used by telegram.
+const Port = 443
+
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
@@ -113,6 +124,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
+		connAddr:      opt.Addr,
 	}
 
 	// Including version into client logger to help with debugging.
@@ -145,7 +157,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(opt.Addr, connModeUpdates)
+	client.conn = client.createConn(connModeUpdates)
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
@@ -166,15 +178,11 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	}
 
 	// Restoring persisted auth key.
-	connOpt := c.connOpt
 	var key crypto.AuthKeyWithID
 	copy(key.AuthKey[:], data.AuthKey)
 	copy(key.AuthKeyID[:], data.AuthKeyID)
-	connOpt.Key = key
-	connOpt.Salt = data.Salt
-	c.connOpt = connOpt
 
-	if connOpt.Key.AuthKey.ID() != connOpt.Key.AuthKeyID {
+	if key.AuthKey.ID() != key.AuthKeyID {
 		return xerrors.New("corrupted key")
 	}
 
@@ -183,9 +191,72 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		zap.String("addr", data.Addr),
 		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
 	)
-	c.conn = c.createConn(data.Addr, connModeUpdates)
+
+	c.connMux.Lock()
+	c.connOpt.Key = key
+	c.connOpt.Salt = data.Salt
+	c.connAddr = data.Addr
+	c.conn = c.createConn(connModeUpdates)
+	c.connMux.Unlock()
 
 	return nil
+}
+
+func (c *Client) runUntilRestart(ctx context.Context) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	g, gCtx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		return c.conn.Run(ctx)
+	})
+	g.Go(func() error {
+		select {
+		case <-gCtx.Done():
+			return gCtx.Err()
+		case <-c.restart:
+			c.log.Debug("Restart triggered")
+			// Should call cancel() to cancel gCtx.
+			cancel()
+
+			return nil
+		}
+	})
+
+	return g.Wait()
+}
+
+func (c *Client) reconnectUntilClosed(ctx context.Context) error {
+	c.restart = make(chan struct{})
+
+	for {
+		err := c.runUntilRestart(ctx)
+		if err == nil {
+			return nil
+		}
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+			c.log.Info("Restarting connection", zap.Error(err))
+
+			c.connMux.Lock()
+			c.conn = c.createConn(connModeUpdates)
+			c.connMux.Unlock()
+		}
+	}
+}
+
+func (c *Client) onReady() {
+	c.log.Debug("Ready")
+	c.readyOnce.Do(func() {
+		close(c.ready)
+	})
+}
+
+func (c *Client) resetReady() {
+	c.ready = make(chan struct{})
+	c.readyOnce = sync.Once{}
 }
 
 // Run starts client session and block until connection close.
@@ -197,7 +268,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	c.log.Info("Starting")
 	defer c.log.Info("Closed")
 
-	c.ready = make(chan struct{})
+	c.resetReady()
 	if err := c.restoreConnection(ctx); err != nil {
 		return err
 	}
@@ -207,7 +278,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 
 	g, gCtx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		return c.conn.Run(gCtx)
+		return c.reconnectUntilClosed(gCtx)
 	})
 	g.Go(func() error {
 		select {
@@ -267,14 +338,20 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	if err := c.saveSession(addr, cfg, s); err != nil {
 		return xerrors.Errorf("save: %w", err)
 	}
-	close(c.ready)
+
+	c.connMux.Lock()
+	c.connAddr = addr
+	c.cfg = cfg
+	c.onReady()
+	c.connMux.Unlock()
+
 	return nil
 }
 
-func (c *Client) createConn(addr string, mode connMode) clientConn {
+func (c *Client) createConn(mode connMode) clientConn {
 	return newConn(
 		c,
-		addr,
+		c.connAddr,
 		c.appID,
 		mode,
 		c.connOpt,

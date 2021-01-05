@@ -5,6 +5,9 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
+	"net"
+	"strconv"
+	"strings"
 	"time"
 
 	"go.uber.org/zap"
@@ -59,6 +62,12 @@ type Options struct {
 	Clock     clock.Clock
 }
 
+func (opt *Options) normalizeAddr() {
+	if _, _, err := net.SplitHostPort(opt.Addr); err != nil && !strings.Contains(opt.Addr, ":") {
+		opt.Addr = net.JoinHostPort(opt.Addr, strconv.Itoa(Port))
+	}
+}
+
 func (opt *Options) setDefaults() {
 	if opt.Transport == nil {
 		opt.Transport = transport.Intermediate(nil)
@@ -93,4 +102,6 @@ func (opt *Options) setDefaults() {
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
+
+	opt.normalizeAddr()
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -18,6 +19,9 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 		// Handling datacenter migration request.
 		var rpcErr *mtproto.Error
 		if errors.As(err, &rpcErr) && rpcErr.Type == "USER_MIGRATE" {
+			c.log.Info("Got USER_MIGRATE: Starting migration to another dc",
+				zap.Int("dc", rpcErr.Argument),
+			)
 			if err := c.migrateToDc(c.ctx, rpcErr.Argument); err != nil {
 				return xerrors.Errorf("migrate to dc: %w", err)
 			}
@@ -30,5 +34,9 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 }
 
 func (c *Client) invokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return c.conn.InvokeRaw(ctx, input, output)
+	c.connMux.Lock()
+	conn := c.conn
+	c.connMux.Unlock()
+
+	return conn.InvokeRaw(ctx, input, output)
 }

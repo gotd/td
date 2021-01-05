@@ -105,6 +105,8 @@ type Conn struct {
 
 	readConcurrency int
 	messages        chan *crypto.EncryptedMessageData
+
+	closed bool
 }
 
 // New creates new unstarted connection.
@@ -160,6 +162,7 @@ func (c *Conn) handleClose(ctx context.Context) error {
 	if err := c.conn.Close(); err != nil {
 		c.log.Debug("Failed to cleanup connection", zap.Error(err))
 	}
+	c.closed = true
 	return nil
 }
 
@@ -171,6 +174,9 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	//
 	// This will send initial packet to telegram and perform key exchange
 	// if needed.
+	if c.closed {
+		return xerrors.New("failed to Run closed connection")
+	}
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	c.log.Debug("Run: start")

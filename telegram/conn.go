@@ -49,12 +49,19 @@ type conn struct {
 
 	sessionInitOnce sync.Once
 	sessionInit     chan struct{}
+	gotConfig       chan struct{}
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
+	c.log.Info("SessionInit")
+
 	c.sessionInitOnce.Do(func() {
 		close(c.sessionInit)
 	})
+
+	// Waiting for config, because OnSession can occur before we set config.
+	// This can probably block forever.
+	<-c.gotConfig
 
 	c.mux.Lock()
 	cfg := c.cfg
@@ -149,6 +156,7 @@ func (c *conn) init(ctx context.Context) error {
 	c.latest = c.clock.Now()
 	c.cfg = cfg
 	c.mux.Unlock()
+	close(c.gotConfig)
 
 	return nil
 }
@@ -168,6 +176,7 @@ func newConn(
 		log:         opt.Logger.Named("conn"),
 		handler:     handler,
 		sessionInit: make(chan struct{}),
+		gotConfig:   make(chan struct{}),
 	}
 	opt.Handler = c
 	c.proto = mtproto.New(addr, opt)
