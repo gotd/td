@@ -82,7 +82,8 @@ directly.
 ```go
 // Grab these from https://my.telegram.org/apps.
 // Never share it or hardcode!
-telegram.NewClient(appID, appHash, telegram.Options{}).Run(ctx, func(ctx context.Context) error) {
+client := telegram.NewClient(appID, appHash, telegram.Options{})
+client.Run(ctx, func(ctx context.Context) error) {
   // Grab token from @BotFather.
   if err := client.AuthBot(ctx, "token:12345"); err != nil {
     return err
