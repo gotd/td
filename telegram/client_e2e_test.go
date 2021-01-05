@@ -18,7 +18,6 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
-	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
@@ -143,10 +142,10 @@ func testReconnect(trp Transport) func(t *testing.T) {
 			}
 
 			switch id {
-			case proto.InvokeWithLayerID:
-				layerInvoke := proto.InvokeWithLayer{
-					Query: &proto.InitConnection{
-						Query: proto.GetConfig{},
+			case tg.InvokeWithLayerRequestTypeID:
+				layerInvoke := tg.InvokeWithLayerRequest{
+					Query: &tg.InitConnectionRequest{
+						Query: &tg.HelpGetConfigRequest{},
 					},
 				}
 

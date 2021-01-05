@@ -76,10 +76,10 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 	).Info("New message")
 
 	switch id {
-	case proto.InvokeWithLayerID:
-		layerInvoke := proto.InvokeWithLayer{
-			Query: &proto.InitConnection{
-				Query: proto.GetConfig{},
+	case tg.InvokeWithLayerRequestTypeID:
+		layerInvoke := tg.InvokeWithLayerRequest{
+			Query: &tg.InitConnectionRequest{
+				Query: &tg.HelpGetConfigRequest{},
 			},
 		}
 

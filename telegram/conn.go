@@ -10,7 +10,6 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
@@ -120,23 +119,23 @@ func (c *conn) init(ctx context.Context) error {
 	// TODO(ernado): Make versions configurable.
 	const notAvailable = "n/a"
 
-	q := proto.InitConnection{
-		ID:             c.appID,
+	q := &tg.InitConnectionRequest{
+		APIID:          c.appID,
 		SystemLangCode: "en",
 		LangCode:       "en",
 		SystemVersion:  notAvailable,
 		DeviceModel:    notAvailable,
 		AppVersion:     notAvailable,
 		LangPack:       "",
-		Query:          proto.GetConfig{},
+		Query:          &tg.HelpGetConfigRequest{},
 	}
-	var req bin.Object = proto.InvokeWithLayer{
+	var req bin.Object = &tg.InvokeWithLayerRequest{
 		Layer: tg.Layer,
 		Query: q,
 	}
 	if c.mode == connModeData || c.mode == connModeCDN {
 		// This connection will not receive updates.
-		req = proto.InvokeWithoutUpdates{
+		req = &tg.InvokeWithoutUpdatesRequest{
 			Query: req,
 		}
 	}
