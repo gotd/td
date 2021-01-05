@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"runtime/debug"
+	"strings"
 
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
@@ -78,6 +80,25 @@ func (c *Client) onMessage(b *bin.Buffer) error {
 	return c.handleUpdates(b)
 }
 
+// getVersion optimistically gets current client version.
+//
+// Does not handle replace directives.
+func getVersion() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return ""
+	}
+	// Hard-coded package name. Probably we can generate this via parsing
+	// the go.mod file.
+	const pkg = "github.com/gotd/td"
+	for _, d := range info.Deps {
+		if strings.HasPrefix(d.Path, pkg) {
+			return d.Version
+		}
+	}
+	return ""
+}
+
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
 	// Set default values, if user does not set.
@@ -92,6 +113,11 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
+	}
+
+	// Including version into client logger to help with debugging.
+	if v := getVersion(); v != "" {
+		client.log = client.log.With(zap.String("v", v))
 	}
 
 	if opt.SessionStorage != nil {
@@ -168,6 +194,9 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 //
 // Context of callback will be canceled if fatal error is detected.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
+	c.log.Info("Starting")
+	defer c.log.Info("Closed")
+
 	c.ready = make(chan struct{})
 	if err := c.restoreConnection(ctx); err != nil {
 		return err
