@@ -33,7 +33,7 @@ func (c *Conn) handlePong(b *bin.Buffer) error {
 	if err := pong.Decode(b); err != nil {
 		return xerrors.Errorf("decode: %x", err)
 	}
-	c.log.Info("Pong")
+	c.log.Debug("Pong")
 
 	c.pingMux.Lock()
 	f, ok := c.ping[pong.PingID]
