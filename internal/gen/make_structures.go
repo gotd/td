@@ -110,11 +110,6 @@ func (g *Generator) makeStructures() error {
 		if !ok {
 			return xerrors.Errorf("failed to find type binding for %q", typeKey)
 		}
-		if len(sd.Definition.GenericParams) > 0 {
-			// TODO(ernado): Support generic params.
-			// Such definitions are rare and can be implemented manually.
-			continue
-		}
 		s := structDef{
 			Namespace: t.Namespace,
 			Name:      t.Name,

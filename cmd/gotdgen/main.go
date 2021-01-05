@@ -3,6 +3,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"go/format"
 	"io/ioutil"
 	"os"
@@ -84,9 +85,9 @@ func main() {
 	}
 	g, err := gen.NewGenerator(schema, *docBase)
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("%+v", err))
 	}
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
-		panic(err)
+		panic(fmt.Sprintf("%+v", err))
 	}
 }

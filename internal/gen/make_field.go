@@ -123,11 +123,16 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 		} else {
 			// Type is generic.
 			t, ok := g.classes[baseType.String()]
+			if param.Type.GenericRef {
+				ok = true
+				t.RawType = param.Type.Name
+				t.Name = "bin.Object"
+			}
 			if !ok {
 				return fieldDef{}, xerrors.Errorf("classes[%s] not found", baseType)
 			}
 			f.Type = t.Name
-			if !t.Singular {
+			if !t.Singular && !param.Type.GenericRef {
 				f.Interface = t.Name
 				f.InterfaceFunc = t.Func
 			}

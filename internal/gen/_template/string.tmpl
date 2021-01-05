@@ -36,7 +36,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) String() string {
     {{- else }}
     sb.WriteString("\t{{ $f.Name }}: ")
     {{- if $f.Encoder }}
-    sb.WriteString({{ $s.Receiver }}.{{ $f.Name }}.String())
+    sb.WriteString(fmt.Sprint({{ $s.Receiver }}.{{ $f.Name }}))
     {{- else }}
     sb.WriteString(fmt.Sprint({{ $s.Receiver }}.{{ $f.Name }}))
     {{- end }}
