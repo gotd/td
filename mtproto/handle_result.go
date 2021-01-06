@@ -15,9 +15,9 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 	if err := res.Decode(b); err != nil {
 		return xerrors.Errorf("decode: %x", err)
 	}
-	c.log.With(
+	c.logWithType(b).Debug("Handle result",
 		zap.Int64("msg_id", res.RequestMessageID),
-	).Debug("Handle result")
+	)
 
 	// Handling gzipped results.
 	id, err := b.PeekID()
@@ -32,6 +32,9 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 
 		// Replacing buffer so callback will deal with uncompressed data.
 		b = content
+		c.logWithType(b).Debug("Decompressed",
+			zap.Int64("msg_id", res.RequestMessageID),
+		)
 
 		// Replacing id with inner id if error is compressed for any reason.
 		if id, err = b.PeekID(); err != nil {

@@ -3,7 +3,6 @@ package mtproto
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net"
 
 	"go.uber.org/zap"
@@ -23,15 +22,7 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 		return xerrors.Errorf("failed to determine message type: %w", err)
 	}
 
-	typeStr := "unknown"
-	if s := c.types.Get(id); s != "" {
-		typeStr = s
-	}
-	c.log.With(
-		zap.String("type_id", fmt.Sprintf("0x%x", id)),
-		zap.String("type_str", typeStr),
-	).Debug("HandleMessage")
-
+	c.logWithType(b).Debug("Handle message")
 	switch id {
 	case mt.NewSessionCreatedTypeID:
 		return c.handleSessionCreated(b)
