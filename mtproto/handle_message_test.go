@@ -128,7 +128,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 				switch id {
 				case tg.UpdatesTypeID:
 					allocThreshold = 512
-				case tg.TextBoldTypeID, tg.MessageTypeID:
+				case tg.TextBoldTypeID, tg.MessageTypeID, tg.InputMediaUploadedDocumentTypeID:
 					allocThreshold = 256
 				}
 			}
