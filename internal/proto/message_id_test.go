@@ -35,7 +35,7 @@ func TestMessageID(t *testing.T) {
 		}
 	})
 	t.Run("String", func(t *testing.T) {
-		require.Equal(t, "5bbe8e4e00003520 (FromClient, 2018-10-11T23:42:06Z)", id.String())
+		require.Equal(t, "5bbe8e4e00003520 (FromClient, 2018-10-10T23:42:06Z)", id.String())
 	})
 }
 
