@@ -15,7 +15,7 @@ func (e *Engine) NotifyAcks(ids []int64) {
 		e.mux.Unlock()
 
 		if !ok {
-			e.log.Warn("Acknowledge callback not set", zap.Int64("msg_id", id))
+			e.log.Debug("Acknowledge callback not set", zap.Int64("msg_id", id))
 			continue
 		}
 
