@@ -36,12 +36,28 @@ func (h fuzzHandler) OnMessage(b *bin.Buffer) error {
 	if err := v.Decode(b); err != nil {
 		return xerrors.Errorf("decode: %w", err)
 	}
+
+	// Performing decode cycle.
+	var newBuff bin.Buffer
+	newV := h.types.New(id)
+	if err := v.Encode(&newBuff); err != nil {
+		panic(err)
+	}
+	if err := newV.Decode(&newBuff); err != nil {
+		panic(err)
+	}
+
 	return nil
 }
 
 func (fuzzHandler) OnSession(session Session) error { return nil }
 
-func FuzzHandleMessage(data []byte) int {
+var (
+	conn *Conn
+	buf  *bin.Buffer
+)
+
+func init() {
 	handler := fuzzHandler{
 		// Handler will try to dynamically decode any incoming message.
 		types: tmap.NewConstructor(
@@ -56,7 +72,14 @@ func FuzzHandleMessage(data []byte) int {
 		messageID: proto.NewMessageIDGen(time.Now, 1),
 		handler:   handler,
 	}
-	if err := c.handleMessage(&bin.Buffer{Buf: data}); err != nil {
+
+	conn = c
+	buf = &bin.Buffer{}
+}
+
+func FuzzHandleMessage(data []byte) int {
+	buf.ResetTo(data)
+	if err := conn.handleMessage(buf); err != nil {
 		return 0
 	}
 	return 1
