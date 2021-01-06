@@ -7,30 +7,53 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/tg"
 )
 
-type testUpdateDecodeHandler struct{}
-
-func (testUpdateDecodeHandler) OnMessage(b *bin.Buffer) error {
-	_, err := tg.DecodeUpdate(b)
-	return err
+type testUpdateHandler struct {
+	types *tmap.Constructor
 }
 
-func (testUpdateDecodeHandler) OnSession(session Session) error {
+func (h testUpdateHandler) OnMessage(b *bin.Buffer) error {
+	id, err := b.PeekID()
+	if err != nil {
+		return err
+	}
+	v := h.types.New(id)
+	if v == nil {
+		return xerrors.New("not found")
+	}
+	if err := v.Decode(b); err != nil {
+		return xerrors.Errorf("decode: %w", err)
+	}
 	return nil
 }
 
-func TestClientHandleMessage(t *testing.T) {
+func (testUpdateHandler) OnSession(session Session) error { return nil }
+
+func newTestHandler() Handler {
+	return &testUpdateHandler{
+		types: tmap.NewConstructor(
+			tg.TypesConstructorMap(),
+			mt.TypesConstructorMap(),
+		),
+	}
+}
+
+func TestConnHandleMessage(t *testing.T) {
 	c := &Conn{
 		rand:    Zero{},
 		log:     zap.NewNop(),
-		handler: testUpdateDecodeHandler{},
+		handler: newTestHandler(),
 	}
 
 	for i, input := range []string{
@@ -67,29 +90,52 @@ func TestClientHandleMessage(t *testing.T) {
 	}
 }
 
-func TestClientHandleMessageCorpus(t *testing.T) {
+func TestConnHandleMessageCorpus(t *testing.T) {
 	c := &Conn{
 		rand:    Zero{},
 		log:     zap.NewNop(),
 		rpc:     rpc.New(rpc.NopSend, rpc.Options{}),
-		handler: testUpdateDecodeHandler{},
+		handler: newTestHandler(),
 	}
 
 	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))
-	if os.IsNotExist(err) {
-		t.Skip("No corpus")
+	if os.IsNotExist(err) || testutil.Race {
+		t.Skip("Skipped")
 	}
+	b := &bin.Buffer{}
+	types := tmap.New(
+		tg.TypesMap(),
+		mt.TypesMap(),
+	)
+
 	for _, f := range corpus {
-		data, err := ioutil.ReadFile(filepath.Join("..", "_fuzz", "handle_message", "corpus", f.Name()))
-		if err != nil {
-			t.Fatal(err)
-		}
+		t.Run(f.Name(), func(t *testing.T) {
+			data, err := ioutil.ReadFile(filepath.Join("..", "_fuzz", "handle_message", "corpus", f.Name()))
+			require.NoError(t, err)
 
-		// TODO(ernado): Investigate big allocations and reduce threshold
-		const allocThreshold = 512
+			// Default to 128 bytes per invocation.
+			allocThreshold := 128
 
-		testutil.MaxAlloc(t, allocThreshold, func() {
-			_ = c.handleMessage(&bin.Buffer{Buf: data})
+			// Adjusting threshold for specific types.
+			//
+			// Probably there should be better way to do this, but
+			// manually ensuring allocation distribution by type is
+			// pretty ok.
+			b.ResetTo(data)
+			if id, err := b.PeekID(); err == nil {
+				t.Logf("Type: 0x%x %s", id, types.Get(id))
+				switch id {
+				case tg.UpdatesTypeID:
+					allocThreshold = 512
+				case tg.TextBoldTypeID, tg.MessageTypeID:
+					allocThreshold = 256
+				}
+			}
+
+			testutil.MaxAlloc(t, allocThreshold, func() {
+				b.ResetTo(data)
+				_ = c.handleMessage(b)
+			})
 		})
 	}
 }
