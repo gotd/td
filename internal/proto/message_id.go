@@ -41,8 +41,8 @@ func newMessageID(now time.Time, yield int) int64 {
 type MessageID int64
 
 func (id MessageID) String() string {
-	return fmt.Sprintf("%d (%s, %s)",
-		id, id.Type(), id.Time().Format(time.RFC3339),
+	return fmt.Sprintf("%x (%s, %s)",
+		int64(id), id.Type(), id.Time().Format(time.RFC3339),
 	)
 }
 

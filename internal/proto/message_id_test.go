@@ -4,6 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/neo"
 	"github.com/gotd/td/internal/testutil"
 )
@@ -14,7 +16,7 @@ func TestMessageID(t *testing.T) {
 	if id.Type() != MessageFromClient {
 		t.Fatal("invalid type")
 	}
-	if id != 6610877768685073696 {
+	if id != 0x5bbe8e4e00003520 {
 		t.Error("mismatch")
 	}
 	delta := id.Time().Sub(now)
@@ -31,6 +33,9 @@ func TestMessageID(t *testing.T) {
 		if NewMessageID(now, 100).Type() != MessageFromClient {
 			t.Error("Mismatch")
 		}
+	})
+	t.Run("String", func(t *testing.T) {
+		require.Equal(t, "5bbe8e4e00003520 (FromClient, 2018-10-11T02:42:06+03:00)", id.String())
 	})
 }
 
