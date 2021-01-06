@@ -92,7 +92,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 	}
 }
 
-func TestClient(t *testing.T) {
+func TestClientE2E(t *testing.T) {
 	t.Run("Abridged", testTransport(transport.Abridged(nil)))
 	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
 	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
