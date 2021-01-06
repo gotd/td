@@ -151,12 +151,3 @@ func TestBuffer_PutVectorHeader(t *testing.T) {
 		})
 	}
 }
-
-func BenchmarkBuffer_PutPadding(b *testing.B) {
-	b.ReportAllocs()
-	buf := new(Buffer)
-	for i := 0; i < b.N; i++ {
-		buf.PutPadding(1024)
-		buf.Reset()
-	}
-}

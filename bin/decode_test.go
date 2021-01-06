@@ -18,7 +18,6 @@ func TestDecoder_ID(t *testing.T) {
 	b.PutLong(100)
 	b.PutDouble(1.5)
 	b.PutVectorHeader(10)
-	b.PutPadding(100)
 
 	a := require.New(t)
 
@@ -49,9 +48,6 @@ func TestDecoder_ID(t *testing.T) {
 	gotVectorHead, err := b.VectorHeader()
 	a.NoError(err)
 	a.Equal(10, gotVectorHead)
-	if err := b.ConsumePadding(100); err != nil {
-		t.Fatal(err)
-	}
 	require.Zero(t, b.Len(), "buffer should be fully consumed")
 }
 
