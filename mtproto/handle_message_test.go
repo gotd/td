@@ -98,7 +98,8 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 		handler: newTestHandler(),
 	}
 
-	corpus, err := ioutil.ReadDir(filepath.Join("..", "_fuzz", "handle_message", "corpus"))
+	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
+	corpus, err := ioutil.ReadDir(corpusDir)
 	if os.IsNotExist(err) || testutil.Race {
 		t.Skip("Skipped")
 	}
@@ -110,7 +111,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 
 	for _, f := range corpus {
 		t.Run(f.Name(), func(t *testing.T) {
-			data, err := ioutil.ReadFile(filepath.Join("..", "_fuzz", "handle_message", "corpus", f.Name()))
+			data, err := ioutil.ReadFile(filepath.Join(corpusDir, f.Name()))
 			require.NoError(t, err)
 
 			// Default to 128 bytes per invocation.
