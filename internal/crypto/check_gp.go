@@ -11,7 +11,7 @@ import (
 // and that g generates a cyclic subgroup of prime order (p-1)/2, i.e. is a quadratic residue mod p.
 // Also check that g is 2, 3, 4, 5, 6 or 7.
 //
-// This function is needed by some Telegram algorithms(AuthKey generation, SRP 2FA).
+// This function is needed by some Telegram algorithms(Key generation, SRP 2FA).
 // See https://core.telegram.org/mtproto/auth_key.
 // See https://core.telegram.org/api/srp.
 func CheckGP(g int, p *big.Int) error {

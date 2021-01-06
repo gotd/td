@@ -57,7 +57,7 @@ type Options struct {
 	// Types map, used in verbose logging of incoming message.
 	Types *tmap.Map
 	// Key that can be used to restore previous connection.
-	Key crypto.AuthKeyWithID
+	Key crypto.AuthKey
 	// Salt from server that can be used to restore previous connection.
 	Salt int64
 	// ReadConcurrency limits maximum concurrently handled messages.

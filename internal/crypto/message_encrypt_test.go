@@ -11,7 +11,7 @@ import (
 func TestEncrypt(t *testing.T) {
 	c := NewClientCipher(Zero{})
 
-	var authKey AuthKey
+	var authKey Key
 	for i := 0; i < 256; i++ {
 		authKey[i] = byte(i)
 	}

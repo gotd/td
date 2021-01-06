@@ -168,9 +168,9 @@ func testReconnect(trp Transport) func(t *testing.T) {
 				}
 				require.Equal(t, testMessage, m.Message)
 
-				if alreadyConnected.Has(s.AuthKeyID) {
+				if alreadyConnected.Has(s.ID) {
 					srv.ForceDisconnect(s)
-					alreadyConnected.Add(s.AuthKeyID)
+					alreadyConnected.Add(s.ID)
 					return nil
 				}
 

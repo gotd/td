@@ -212,7 +212,7 @@ Loop:
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
-			var key crypto.AuthKey
+			var key crypto.Key
 			authKey.FillBytes(key[:])
 			authKeyID := key.ID()
 
@@ -231,7 +231,7 @@ Loop:
 			}
 
 			return ClientExchangeResult{
-				AuthKey:    crypto.AuthKeyWithID{AuthKey: key, AuthKeyID: authKeyID},
+				AuthKey:    crypto.AuthKey{Value: key, ID: authKeyID},
 				SessionID:  sessionID,
 				ServerSalt: serverSalt,
 			}, nil

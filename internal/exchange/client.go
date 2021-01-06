@@ -20,7 +20,7 @@ type ClientExchange struct {
 
 // ClientExchangeResult contains client part of key exchange result.
 type ClientExchangeResult struct {
-	AuthKey    crypto.AuthKeyWithID
+	AuthKey    crypto.AuthKey
 	SessionID  int64
 	ServerSalt int64
 }

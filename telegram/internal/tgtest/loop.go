@@ -15,12 +15,12 @@ import (
 
 type Session struct {
 	SessionID int64
-	crypto.AuthKeyWithID
+	crypto.AuthKey
 }
 
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var b bin.Buffer
-	var key crypto.AuthKeyWithID
+	var key crypto.AuthKey
 	for {
 		b.Reset()
 		if err := conn.Recv(ctx, &b); err != nil {
@@ -49,12 +49,12 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		}
 
 		session := Session{
-			SessionID:     msg.SessionID,
-			AuthKeyWithID: key,
+			SessionID: msg.SessionID,
+			AuthKey:   key,
 		}
 		if !conn.didSentCreated() {
 			s.log.Debug("Send handleSessionCreated event")
-			salt := int64(binary.LittleEndian.Uint64(key.AuthKeyID[:]))
+			salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
 			if err := s.sendSessionCreated(session, salt); err != nil {
 				return err
 			}
@@ -73,7 +73,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
 	s.log.Debug("user connected")
 
-	var k crypto.AuthKeyWithID
+	var k crypto.AuthKey
 	defer func() {
 		s.users.deleteConnection(k)
 		_ = conn.Close()

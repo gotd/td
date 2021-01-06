@@ -14,7 +14,7 @@ import (
 )
 
 func (s *Server) Send(k Session, encoder bin.Encoder) error {
-	conn, ok := s.users.getConnection(k.AuthKeyWithID)
+	conn, ok := s.users.getConnection(k.AuthKey)
 	if !ok {
 		return errors.New("invalid key: connection not found")
 	}
@@ -30,7 +30,7 @@ func (s *Server) Send(k Session, encoder bin.Encoder) error {
 		MessageDataWithPadding: b.Copy(),
 	}
 
-	err := s.cipher.Encrypt(k.AuthKeyWithID, data, &b)
+	err := s.cipher.Encrypt(k.AuthKey, data, &b)
 	if err != nil {
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}
@@ -85,5 +85,5 @@ func (s *Server) SendPong(k Session, msgID, pingID int64) error {
 }
 
 func (s *Server) ForceDisconnect(k Session) {
-	s.users.deleteConnection(k.AuthKeyWithID)
+	s.users.deleteConnection(k.AuthKey)
 }

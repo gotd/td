@@ -182,11 +182,11 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	}
 
 	// Restoring persisted auth key.
-	var key crypto.AuthKeyWithID
-	copy(key.AuthKey[:], data.AuthKey)
-	copy(key.AuthKeyID[:], data.AuthKeyID)
+	var key crypto.AuthKey
+	copy(key.Value[:], data.AuthKey)
+	copy(key.ID[:], data.AuthKeyID)
 
-	if key.AuthKey.ID() != key.AuthKeyID {
+	if key.Value.ID() != key.ID {
 		return xerrors.New("corrupted key")
 	}
 
@@ -330,8 +330,8 @@ func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) erro
 
 	// Updating previous data.
 	data.Config = cfg
-	data.AuthKey = s.Key.AuthKey[:]
-	data.AuthKeyID = s.Key.AuthKeyID[:]
+	data.AuthKey = s.Key.Value[:]
+	data.AuthKeyID = s.Key.ID[:]
 	data.DC = cfg.ThisDC
 	data.Addr = addr
 	data.Salt = s.Salt

@@ -22,7 +22,7 @@ func (conn *connection) sentCreated() {
 }
 
 type users struct {
-	sessions    map[[8]byte]crypto.AuthKeyWithID
+	sessions    map[[8]byte]crypto.AuthKey
 	sessionsMux sync.Mutex
 
 	conns    map[[8]byte]*connection
@@ -32,41 +32,41 @@ type users struct {
 func newUsers() *users {
 	return &users{
 		conns:    map[[8]byte]*connection{},
-		sessions: map[[8]byte]crypto.AuthKeyWithID{},
+		sessions: map[[8]byte]crypto.AuthKey{},
 	}
 }
 
-func (c *users) addConnection(key crypto.AuthKeyWithID, conn *connection) {
+func (c *users) addConnection(key crypto.AuthKey, conn *connection) {
 	c.connsMux.Lock()
-	c.conns[key.AuthKeyID] = conn
+	c.conns[key.ID] = conn
 	c.connsMux.Unlock()
 }
 
-func (c *users) getConnection(key crypto.AuthKeyWithID) (conn *connection, ok bool) {
+func (c *users) getConnection(key crypto.AuthKey) (conn *connection, ok bool) {
 	c.connsMux.Lock()
-	conn, ok = c.conns[key.AuthKeyID]
+	conn, ok = c.conns[key.ID]
 	c.connsMux.Unlock()
 
 	return
 }
 
-func (c *users) deleteConnection(key crypto.AuthKeyWithID) {
+func (c *users) deleteConnection(key crypto.AuthKey) {
 	c.connsMux.Lock()
-	conn := c.conns[key.AuthKeyID]
+	conn := c.conns[key.ID]
 	if conn != nil {
 		_ = conn.Close()
 	}
-	delete(c.conns, key.AuthKeyID)
+	delete(c.conns, key.ID)
 	c.connsMux.Unlock()
 }
 
-func (c *users) addSession(key crypto.AuthKeyWithID) {
+func (c *users) addSession(key crypto.AuthKey) {
 	c.sessionsMux.Lock()
-	c.sessions[key.AuthKeyID] = key
+	c.sessions[key.ID] = key
 	c.sessionsMux.Unlock()
 }
 
-func (c *users) getSession(k [8]byte) (s crypto.AuthKeyWithID, ok bool) {
+func (c *users) getSession(k [8]byte) (s crypto.AuthKey, ok bool) {
 	c.connsMux.Lock()
 	s, ok = c.sessions[k]
 	c.connsMux.Unlock()

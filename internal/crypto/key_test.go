@@ -7,7 +7,7 @@ import (
 )
 
 func TestAuthKeyID(t *testing.T) {
-	var k AuthKey
+	var k Key
 	for i := 0; i < 256; i++ {
 		k[i] = byte(i)
 	}
@@ -21,7 +21,7 @@ func TestAuthKeyID(t *testing.T) {
 }
 
 func TestCalcKey(t *testing.T) {
-	var k AuthKey
+	var k Key
 	for i := 0; i < 256; i++ {
 		k[i] = byte(i)
 	}

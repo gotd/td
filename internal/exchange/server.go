@@ -21,6 +21,6 @@ type ServerExchange struct {
 
 // ServerExchangeResult contains server part of key exchange result.
 type ServerExchangeResult struct {
-	Key        crypto.AuthKeyWithID
+	Key        crypto.AuthKey
 	ServerSalt int64
 }

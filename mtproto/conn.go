@@ -34,7 +34,7 @@ type MessageIDSource interface {
 // Session represents connection state.
 type Session struct {
 	ID   int64
-	Key  crypto.AuthKeyWithID
+	Key  crypto.AuthKey
 	Salt int64
 }
 
@@ -63,6 +63,10 @@ func (c *Conn) newSessionID() error {
 	return nil
 }
 
+type cipher interface {
+	DecryptFromBuffer(k crypto.AuthKey, buf *bin.Buffer) (*crypto.EncryptedMessageData, error)
+}
+
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
 	transport     Transport
@@ -83,7 +87,7 @@ type Conn struct {
 
 	// use session() to access authKey, salt or sessionID.
 	sessionMux sync.RWMutex
-	authKey    crypto.AuthKeyWithID
+	authKey    crypto.AuthKey
 	salt       int64
 	sessionID  int64
 

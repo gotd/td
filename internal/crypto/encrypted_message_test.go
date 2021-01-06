@@ -15,7 +15,7 @@ func TestEncryptedMessage_Encode(t *testing.T) {
 
 	payload := []byte{1, 2, 3, 4}
 
-	var authKey AuthKey
+	var authKey Key
 	k.FillBytes(authKey[:])
 
 	d := EncryptedMessage{

@@ -8,14 +8,14 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKeyWithID, error) {
+func (s *Server) exchange(ctx context.Context, conn transport.Conn) (crypto.AuthKey, error) {
 	r, err := exchange.NewExchanger(conn).
 		WithClock(s.clock).
 		WithLogger(s.log.Named("exchange")).
 		WithRand(s.cipher.Rand()).
 		Server(s.key).Run(ctx)
 	if err != nil {
-		return crypto.AuthKeyWithID{}, err
+		return crypto.AuthKey{}, err
 	}
 
 	return r.Key, nil

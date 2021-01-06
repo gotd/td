@@ -10,7 +10,7 @@ import (
 )
 
 // DecryptFromBuffer decodes EncryptedMessage and decrypts it.
-func (c Cipher) DecryptFromBuffer(k AuthKeyWithID, buf *bin.Buffer) (*EncryptedMessageData, error) {
+func (c Cipher) DecryptFromBuffer(k AuthKey, buf *bin.Buffer) (*EncryptedMessageData, error) {
 	msg := &EncryptedMessage{}
 	if err := msg.Decode(buf); err != nil {
 		return nil, err
@@ -20,7 +20,7 @@ func (c Cipher) DecryptFromBuffer(k AuthKeyWithID, buf *bin.Buffer) (*EncryptedM
 }
 
 // Decrypt decrypts data from encrypted message using AES-IGE.
-func (c Cipher) Decrypt(k AuthKeyWithID, encrypted *EncryptedMessage) (*EncryptedMessageData, error) {
+func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessageData, error) {
 	plaintext, err := c.DecryptMessage(k, encrypted)
 	if err != nil {
 		return nil, err
@@ -28,7 +28,7 @@ func (c Cipher) Decrypt(k AuthKeyWithID, encrypted *EncryptedMessage) (*Encrypte
 
 	side := c.encryptSide.DecryptSide()
 	// Checking SHA256 hash value of msg_key
-	msgKey := MessageKey(k.AuthKey, plaintext, side)
+	msgKey := MessageKey(k.Value, plaintext, side)
 	if msgKey != encrypted.MsgKey {
 		return nil, xerrors.Errorf("msg_key is invalid")
 	}
@@ -52,15 +52,15 @@ func (c Cipher) Decrypt(k AuthKeyWithID, encrypted *EncryptedMessage) (*Encrypte
 }
 
 // DecryptMessage decrypts data from encrypted message using AES-IGE.
-func (c Cipher) DecryptMessage(k AuthKeyWithID, encrypted *EncryptedMessage) ([]byte, error) {
-	if k.AuthKeyID != encrypted.AuthKeyID {
+func (c Cipher) DecryptMessage(k AuthKey, encrypted *EncryptedMessage) ([]byte, error) {
+	if k.ID != encrypted.AuthKeyID {
 		return nil, xerrors.New("unknown auth key id")
 	}
 	if len(encrypted.EncryptedData)%16 != 0 {
 		return nil, xerrors.New("invalid encrypted data padding")
 	}
 
-	key, iv := Keys(k.AuthKey, encrypted.MsgKey, c.encryptSide.DecryptSide())
+	key, iv := Keys(k.Value, encrypted.MsgKey, c.encryptSide.DecryptSide())
 	cipher, err := aes.NewCipher(key[:])
 	if err != nil {
 		return nil, err

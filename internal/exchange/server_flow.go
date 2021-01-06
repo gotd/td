@@ -136,7 +136,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 	}
 
 	gB := big.NewInt(0).SetBytes(clientInnerData.GB)
-	var authKey crypto.AuthKey
+	var authKey crypto.Key
 	big.NewInt(0).Exp(gB, a, dhPrime).FillBytes(authKey[:])
 
 	// DH key exchange complete

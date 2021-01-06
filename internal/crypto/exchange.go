@@ -59,7 +59,7 @@ func EncryptExchangeAnswer(rand io.Reader, answer, key, iv []byte) (dst []byte, 
 
 // NonceHash1 computes nonce_hash_1.
 // See https://core.telegram.org/mtproto/auth_key#dh-key-exchange-complete.
-func NonceHash1(newNonce bin.Int256, key AuthKey) (r bin.Int128) {
+func NonceHash1(newNonce bin.Int256, key Key) (r bin.Int128) {
 	var buf []byte
 	buf = append(buf, newNonce[:]...)
 	buf = append(buf, 1)

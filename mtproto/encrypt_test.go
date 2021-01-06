@@ -44,7 +44,7 @@ func BenchmarkEncryption(b *testing.B) {
 		log:  zap.NewNop(),
 	}
 	for i := 0; i < 256; i++ {
-		c.authKey.AuthKey[i] = byte(i)
+		c.authKey.Value[i] = byte(i)
 	}
 
 	for _, payload := range []int{
