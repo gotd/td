@@ -84,7 +84,7 @@ func (m MessageType) String() string {
 func (id MessageID) Time() time.Time {
 	intPart := int64(id) >> 32
 	fracPart := int64(int32(id))
-	return time.Unix(intPart, fracPart)
+	return time.Unix(intPart, fracPart).UTC()
 }
 
 // Type returns message type.
