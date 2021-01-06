@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gotd/neo"
+	"github.com/gotd/td/internal/testutil"
 )
 
 func TestMessageID(t *testing.T) {
@@ -36,7 +37,7 @@ func TestMessageID(t *testing.T) {
 func BenchmarkNewMessageID(b *testing.B) {
 	// Note that most overhead will be from time.Now() calls.
 	// Just ensuring that NewMessageID itself is reasonably fast.
-	now := time.Date(2018, 10, 10, 23, 42, 6, 13600, time.UTC)
+	now := testutil.Date()
 	for i := 0; i < b.N; i++ {
 		if NewMessageID(now, MessageFromServer).Type() != MessageFromServer {
 			b.Fatal("Mismatch")
@@ -45,7 +46,7 @@ func BenchmarkNewMessageID(b *testing.B) {
 }
 
 func TestMessageIDGen(t *testing.T) {
-	date := time.Date(1991, 1, 3, 14, 44, 33, 513, time.UTC)
+	date := testutil.Date()
 	clock := neo.NewTime(date)
 
 	gen := NewMessageIDGen(clock.Now, 10)
@@ -68,7 +69,7 @@ func TestMessageIDGen(t *testing.T) {
 func BenchmarkMsgIDGen_New(b *testing.B) {
 	b.ReportAllocs()
 
-	date := time.Date(1991, 1, 3, 14, 44, 33, 513, time.UTC)
+	date := testutil.Date()
 	var dateCalls int
 	now := func() time.Time {
 		if dateCalls%100 == 0 {

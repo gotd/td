@@ -12,6 +12,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
 )
 
@@ -26,6 +27,7 @@ type Server struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 	log    *zap.Logger
+	msgID  *proto.MessageIDGen
 
 	users *users
 }
@@ -79,6 +81,7 @@ func NewUnstartedServer(suite Suite, codec func() transport.Codec) *Server {
 		cancel: cancel,
 		log:    suite.Log.Named("server"),
 		users:  newUsers(),
+		msgID:  proto.NewMessageIDGen(clock.System.Now, 100),
 	}
 	return s
 }

@@ -13,7 +13,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 )
 
-func (s *Server) Send(k Session, encoder bin.Encoder) error {
+func (s *Server) Send(k Session, t proto.MessageType, encoder bin.Encoder) error {
 	conn, ok := s.users.getConnection(k.AuthKey)
 	if !ok {
 		return errors.New("invalid key: connection not found")
@@ -28,6 +28,7 @@ func (s *Server) Send(k Session, encoder bin.Encoder) error {
 		SessionID:              k.SessionID,
 		MessageDataLen:         int32(b.Len()),
 		MessageDataWithPadding: b.Copy(),
+		MessageID:              s.msgID.New(t),
 	}
 
 	err := s.cipher.Encrypt(k.AuthKey, data, &b)
@@ -45,14 +46,14 @@ func (s *Server) SendResult(k Session, id int64, msg bin.Encoder) error {
 		return xerrors.Errorf("failed to encode result data: %w", err)
 	}
 
-	return s.Send(k, &proto.Result{
+	return s.Send(k, proto.MessageServerResponse, &proto.Result{
 		RequestMessageID: id,
 		Result:           buf.Raw(),
 	})
 }
 
 func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
-	return s.Send(k, &mt.NewSessionCreated{
+	return s.Send(k, proto.MessageFromServer, &mt.NewSessionCreated{
 		ServerSalt: serverSalt,
 	})
 }
@@ -67,18 +68,18 @@ func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
 		return nil
 	}
 
-	return s.Send(k, &tg.Updates{
+	return s.Send(k, proto.MessageFromServer, &tg.Updates{
 		Updates: updates,
 		Date:    int(s.clock.Now().Unix()),
 	})
 }
 
 func (s *Server) SendAck(k Session, ids ...int64) error {
-	return s.Send(k, &mt.MsgsAck{MsgIds: ids})
+	return s.Send(k, proto.MessageFromServer, &mt.MsgsAck{MsgIds: ids})
 }
 
 func (s *Server) SendPong(k Session, msgID, pingID int64) error {
-	return s.Send(k, &mt.Pong{
+	return s.Send(k, proto.MessageServerResponse, &mt.Pong{
 		MsgID:  msgID,
 		PingID: pingID,
 	})

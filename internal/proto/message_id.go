@@ -1,6 +1,7 @@
 package proto
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -39,6 +40,12 @@ func newMessageID(now time.Time, yield int) int64 {
 // MessageID represents 64-bit message id.
 type MessageID int64
 
+func (id MessageID) String() string {
+	return fmt.Sprintf("%d (%s, %s)",
+		id, id.Type(), id.Time().Format(time.RFC3339),
+	)
+}
+
 // MessageType is type of message determined by message id.
 //
 // A message is rejected over 300 seconds after it is created or
@@ -59,6 +66,19 @@ const (
 	// MessageFromServer is a message from the server.
 	MessageFromServer
 )
+
+func (m MessageType) String() string {
+	switch m {
+	case MessageFromClient:
+		return "FromClient"
+	case MessageServerResponse:
+		return "ServerResponse"
+	case MessageFromServer:
+		return "FromServer"
+	default:
+		return "Unknown"
+	}
+}
 
 // Time returns approximate time when MessageID were generated.
 func (id MessageID) Time() time.Time {

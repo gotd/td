@@ -12,6 +12,8 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/testutil"
+
 	"github.com/gotd/neo"
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -23,7 +25,7 @@ type request struct {
 	Input bin.Encoder
 }
 
-var defaultNow = time.Date(2010, 10, 10, 3, 45, 12, 23, time.UTC)
+var defaultNow = testutil.Date()
 
 const (
 	reqID  = 1
