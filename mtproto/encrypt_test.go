@@ -7,6 +7,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 )
 
 type testPayload struct {
@@ -40,8 +41,9 @@ func benchPayload(b *testing.B, c *Conn, n int) {
 
 func BenchmarkEncryption(b *testing.B) {
 	c := &Conn{
-		rand: Zero{},
-		log:  zap.NewNop(),
+		rand:   Zero{},
+		log:    zap.NewNop(),
+		cipher: crypto.NewClientCipher(Zero{}),
 	}
 	for i := 0; i < 256; i++ {
 		c.authKey.Value[i] = byte(i)
