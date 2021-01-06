@@ -18,6 +18,7 @@ func TestFields(t *testing.T) {
 	require.True(t, f.Has(0))
 	require.False(t, f.Has(2))
 	require.False(t, f.Has(10))
+	require.Equal(t, "100011", f.String())
 	t.Run("Encode", func(t *testing.T) {
 		var b Buffer
 		require.NoError(t, f.Encode(&b))

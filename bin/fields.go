@@ -8,11 +8,8 @@ import "strconv"
 type Fields uint32
 
 // String implement fmt.Stringer
-func (f *Fields) String() string {
-	if f == nil {
-		return ""
-	}
-	return strconv.FormatUint(uint64(*f), 2)
+func (f Fields) String() string {
+	return strconv.FormatUint(uint64(f), 2)
 }
 
 // Decode implements Decoder.
