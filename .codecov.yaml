@@ -4,6 +4,8 @@ ignore:
   - "**/bindata.go"
   # Ignore commands (examples or internal utilities).
   - "cmd/*/*.go"
+  # Ignore testing utilities
+  - "telegram/internal/*test/*"
 
 coverage:
   status:
