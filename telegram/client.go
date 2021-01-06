@@ -9,11 +9,13 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
@@ -68,8 +70,9 @@ type Client struct {
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
-	rand io.Reader
-	log  *zap.Logger
+	rand  io.Reader
+	log   *zap.Logger
+	clock clock.Clock
 
 	ctx    context.Context
 	cancel context.CancelFunc
@@ -125,6 +128,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
 		connAddr:      opt.Addr,
+		clock:         opt.Clock,
 	}
 
 	// Including version into client logger to help with debugging.
@@ -229,6 +233,13 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	c.restart = make(chan struct{})
 
+	// TODO: Make this configurable.
+	// Note that we currently have no timeout on connection, so this is
+	// potentially eternal.
+	b := backoff.NewExponentialBackOff()
+	b.Clock = c.clock
+	b.MaxElapsedTime = 0
+
 	for {
 		err := c.runUntilRestart(ctx)
 		if err == nil {
@@ -237,7 +248,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
-		default:
+		case <-c.clock.After(b.NextBackOff()):
 			c.log.Info("Restarting connection", zap.Error(err))
 
 			c.connMux.Lock()
@@ -290,6 +301,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 			}
 			// Should call cancel() to cancel gCtx.
 			// This will terminate c.conn.Run().
+			c.log.Debug("Callback returned, stopping")
 			cancel()
 			return nil
 		}

@@ -3,6 +3,7 @@ module github.com/gotd/td
 go 1.15
 
 require (
+	github.com/cenkalti/backoff/v4 v4.1.0
 	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
 	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
