@@ -15,6 +15,7 @@ import (
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/transport"
 )
@@ -66,6 +67,11 @@ type Options struct {
 	ReadConcurrency int
 	// Cipher defines message crypto.
 	Cipher Cipher
+
+	// Private options.
+
+	// engine for replacing RPC engine.
+	engine *rpc.Engine
 }
 
 type nopHandler struct{}

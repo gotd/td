@@ -21,32 +21,23 @@ const (
 )
 
 func (c badMessageError) Error() string {
-	switch c.Code {
-	case codeMessageIDTooLow:
-		return "msg_id too low"
-	case codeMessageIDTooHigh:
-		return "msg_id too high"
-	case 18:
-		return "incorrect two lower order msg_id bits"
-	case 19:
-		return "container msg_id is the same as msg_id of a previously received message"
-	case 20:
-		return "message too old"
-	case 32:
-		// the server has already received a message with a lower msg_id
-		// but with either a higher or an equal and odd seqno
-		return "msg_seqno too low"
-	case 33:
-		return "msg_seqno too high"
-	case 34:
-		return "even msg_seqno expected, but odd received"
-	case 35:
-		return "odd msg_seqno expected, but even received"
-	case codeIncorrectServerSalt:
-		return "incorrect server salt"
-	default:
+	description := map[int]string{
+		codeMessageIDTooLow:     "msg_id too low",
+		codeMessageIDTooHigh:    "msg_id too high",
+		codeIncorrectServerSalt: "incorrect server salt",
+
+		18: "incorrect two lower order msg_id bits",
+		19: "container msg_id is the same as msg_id of a previously received message",
+		20: "message too old",
+		32: "msg_seqno too low",
+		33: "msg_seqno too high",
+		34: "even msg_seqno expected, but odd received",
+		35: "odd msg_seqno expected, but even received",
+	}[c.Code]
+	if description == "" {
 		return fmt.Sprintf("bad msg error code %d", c.Code)
 	}
+	return description
 }
 
 func (c *Conn) handleBadMsg(b *bin.Buffer) error {

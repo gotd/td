@@ -15,7 +15,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
@@ -42,14 +41,15 @@ func newTestClient(h testHandler) *Conn {
 		return nil
 	}, rpc.Options{})
 
-	client := &Conn{
-		rpc:       engine,
-		log:       zap.NewNop(),
-		clock:     clock.System,
-		rand:      rand.New(rand.NewSource(1)),
-		authKey:   crypto.Key{}.WithID(),
-		messageID: proto.NewMessageIDGen(time.Now, 100),
-	}
+	client := New("localhost:443", Options{
+		Logger:    zap.NewNop(),
+		Random:    rand.New(rand.NewSource(1)),
+		Key:       crypto.Key{}.WithID(),
+		MessageID: proto.NewMessageIDGen(time.Now, 100),
+
+		engine: engine,
+	})
+
 	return client
 }
 

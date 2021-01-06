@@ -143,13 +143,17 @@ func New(addr string, opt Options) *Conn {
 
 		readConcurrency: opt.ReadConcurrency,
 		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),
+
+		rpc: opt.engine,
 	}
-	conn.rpc = rpc.New(conn.write, rpc.Options{
-		Logger:        opt.Logger.Named("rpc"),
-		RetryInterval: opt.RetryInterval,
-		MaxRetries:    opt.MaxRetries,
-		Clock:         opt.Clock,
-	})
+	if conn.rpc == nil {
+		conn.rpc = rpc.New(conn.write, rpc.Options{
+			Logger:        opt.Logger.Named("rpc"),
+			RetryInterval: opt.RetryInterval,
+			MaxRetries:    opt.MaxRetries,
+			Clock:         opt.Clock,
+		})
+	}
 
 	return conn
 }
