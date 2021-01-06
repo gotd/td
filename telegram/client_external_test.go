@@ -76,7 +76,7 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 			var rpcErr *mtproto.Error
 			if errors.As(err, &rpcErr) {
 				switch rpcErr.Type {
-				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED":
+				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED", "API_ID_PUBLISHED_FLOOD":
 					// Possibly server started garbage collection.
 					time.Sleep(time.Second)
 					continue
