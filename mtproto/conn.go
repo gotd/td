@@ -63,8 +63,10 @@ func (c *Conn) newSessionID() error {
 	return nil
 }
 
-type cipher interface {
+// Cipher handles message encryption and decryption.
+type Cipher interface {
 	DecryptFromBuffer(k crypto.AuthKey, buf *bin.Buffer) (*crypto.EncryptedMessageData, error)
+	Encrypt(key crypto.AuthKey, data crypto.EncryptedMessageData, b *bin.Buffer) error
 }
 
 // Conn represents a MTProto client to Telegram.
@@ -81,7 +83,7 @@ type Conn struct {
 	// Should be immutable.
 	clock     clock.Clock
 	rand      io.Reader
-	cipher    crypto.Cipher
+	cipher    Cipher
 	log       *zap.Logger
 	messageID MessageIDSource
 
@@ -123,7 +125,7 @@ func New(addr string, opt Options) *Conn {
 		transport: opt.Transport,
 		clock:     opt.Clock,
 		rand:      opt.Random,
-		cipher:    crypto.NewClientCipher(opt.Random),
+		cipher:    opt.Cipher,
 		log:       opt.Logger,
 		ping:      map[int64]func(){},
 		messageID: opt.MessageID,

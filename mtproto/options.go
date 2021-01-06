@@ -64,6 +64,8 @@ type Options struct {
 	// Can be CPU or IO bound depending on message handlers.
 	// Defaults to GOMAXPROCS if it is not less than 10.
 	ReadConcurrency int
+	// Cipher defines message crypto.
+	Cipher Cipher
 }
 
 type nopHandler struct{}
@@ -136,5 +138,8 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.ReadConcurrency == 0 {
 		opt.setDefaultConcurrency()
+	}
+	if opt.Cipher == nil {
+		opt.Cipher = crypto.NewClientCipher(opt.Random)
 	}
 }

@@ -4,9 +4,8 @@ import (
 	"crypto/aes"
 	"io"
 
-	"github.com/gotd/td/bin"
-
 	"github.com/gotd/ige"
+	"github.com/gotd/td/bin"
 )
 
 func countPadding(l int) int { return 16 + (16 - (l % 16)) }
