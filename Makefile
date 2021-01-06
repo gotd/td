@@ -19,11 +19,11 @@ check_generated: generate
 .PHONY: check_generated
 
 fuzz_telegram:
-	go run github.com/dvyukov/go-fuzz/go-fuzz -bin telegram/telegram-fuzz.zip -workdir _fuzz/handle_message
+	go run github.com/dvyukov/go-fuzz/go-fuzz -bin mtproto/telegram-fuzz.zip -workdir _fuzz/handle_message
 .PHONY: fuzz_telegram
 
 fuzz_telegram_build:
-	cd telegram && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzHandleMessage -tags fuzz -o telegram-fuzz.zip
+	cd mtproto && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzHandleMessage -tags fuzz -o telegram-fuzz.zip
 .PHONY: fuzz_telegram_build
 
 fuzz_telegram_clear:
