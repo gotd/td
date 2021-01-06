@@ -156,7 +156,7 @@ func (g *MessageIDGen) add(id int64) {
 }
 
 // New generates new message id for provided type, protecting from collisions
-// that are caused by low memory resolution.
+// that are caused by low system time resolution.
 func (g *MessageIDGen) New(t MessageType) int64 {
 	g.mux.Lock()
 	defer g.mux.Unlock()
