@@ -7,10 +7,6 @@ import (
 	"github.com/gotd/td/internal/proto"
 )
 
-func (c *Conn) gzip(b *bin.Buffer) (*bin.Buffer, error) {
-	return gzip(b)
-}
-
 func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 	var content proto.GZIP
 	if err := content.Decode(b); err != nil {
@@ -20,7 +16,7 @@ func gzip(b *bin.Buffer) (*bin.Buffer, error) {
 }
 
 func (c *Conn) handleGZIP(b *bin.Buffer) error {
-	content, err := c.gzip(b)
+	content, err := gzip(b)
 	if err != nil {
 		return xerrors.Errorf("unzip: %w", err)
 	}

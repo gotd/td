@@ -25,7 +25,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		return err
 	}
 	if id == proto.GZIPTypeID {
-		content, err := c.gzip(b)
+		content, err := gzip(b)
 		if err != nil {
 			return xerrors.Errorf("decompress: %w", err)
 		}
