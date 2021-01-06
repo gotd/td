@@ -52,18 +52,6 @@ func (b *Buffer) Copy() []byte {
 	return append([]byte{}, b.Buf...)
 }
 
-// Write implements io.Writer.
-func (b *Buffer) Write(p []byte) (n int, err error) {
-	b.Buf = append(b.Buf, p...)
-	return len(p), nil
-}
-
-// WriteTo implements io.WriterTo.
-func (b Buffer) WriteTo(w io.Writer) (n int64, err error) {
-	wroteN, err := w.Write(b.Buf)
-	return int64(wroteN), err
-}
-
 // Raw returns internal byte slice.
 func (b Buffer) Raw() []byte {
 	return b.Buf
