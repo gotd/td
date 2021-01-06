@@ -11,56 +11,9 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/proto/codec"
 )
-
-func (c *Conn) handleMessage(b *bin.Buffer) error {
-	id, err := b.PeekID()
-	if err != nil {
-		// Empty body.
-		return xerrors.Errorf("failed to determine message type: %w", err)
-	}
-
-	c.logWithType(b).Debug("Handle message")
-	switch id {
-	case mt.NewSessionCreatedTypeID:
-		return c.handleSessionCreated(b)
-	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
-		return c.handleBadMsg(b)
-	case proto.MessageContainerTypeID:
-		return c.processContainer(b)
-	case proto.ResultTypeID:
-		return c.handleResult(b)
-	case mt.PongTypeID:
-		return c.handlePong(b)
-	case mt.MsgsAckTypeID:
-		return c.handleAck(b)
-	case proto.GZIPTypeID:
-		return c.handleGZIP(b)
-	default:
-		return c.handler.OnMessage(b)
-	}
-}
-
-func (c *Conn) processContainer(b *bin.Buffer) error {
-	var container proto.MessageContainer
-	if err := container.Decode(b); err != nil {
-		return xerrors.Errorf("container: %w", err)
-	}
-	for _, msg := range container.Messages {
-		if err := c.processContainerMessage(msg); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (c *Conn) processContainerMessage(msg proto.Message) error {
-	b := &bin.Buffer{Buf: msg.Body}
-	return c.handleMessage(b)
-}
 
 // errRejected is returned on invalid message that should not be processed.
 var errRejected = errors.New("message rejected")
