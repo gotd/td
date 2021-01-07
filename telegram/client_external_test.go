@@ -32,18 +32,10 @@ func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transp
 	log := zaptest.NewLogger(t)
 	defer func() { _ = log.Sync() }()
 
-	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:      telegram.AddrTest,
+	return telegram.TestClient(ctx, telegram.Options{
+		Logger:    log.Named("client"),
 		Transport: trp,
-	})
-	return client.Run(ctx, func(ctx context.Context) error {
-		if err := telegram.NewAuth(
-			telegram.TestAuth(rand.Reader, 2),
-			telegram.SendCodeOptions{},
-		).Run(ctx, client); err != nil {
-			return xerrors.Errorf("auth: %w", err)
-		}
-
+	}, func(ctx context.Context, client *telegram.Client) error {
 		if _, err := client.Self(ctx); err != nil {
 			return xerrors.Errorf("self: %w", err)
 		}
