@@ -8,7 +8,6 @@ require (
 	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/go-bindata/go-bindata v3.1.2+incompatible
 	github.com/go-openapi/inflect v0.19.0
-	github.com/go-playground/validator/v10 v10.4.1
 	github.com/gotd/getdoc v0.4.0
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.1
