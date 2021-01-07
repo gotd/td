@@ -22,7 +22,7 @@ func sessionDir() (string, error) {
 
 	dir, err := os.UserHomeDir()
 	if err != nil {
-		dir = "./"
+		dir = "."
 	}
 
 	return filepath.Abs(filepath.Join(dir, ".td"))
@@ -30,6 +30,11 @@ func sessionDir() (string, error) {
 
 // OptionsFromEnvironment fills unfilled field in opts parameter
 // using environment variables.
+//
+// Variables:
+// SESSION_FILE: path to session file
+// SESSION_DIR: path to session directory, if SESSION_FILE is not set
+// ALL_PROXY, NO_PROXY: see https://pkg.go.dev/golang.org/x/net/proxy#FromEnvironment
 func OptionsFromEnvironment(opts Options) (Options, error) {
 	// Setting up session storage if not provided.
 	if opts.SessionStorage == nil {
@@ -39,7 +44,7 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 			if err != nil {
 				return Options{}, xerrors.Errorf("SESSION_DIR not set or invalid: %w", err)
 			}
-			sessionFile = filepath.Join(dir, "session.join")
+			sessionFile = filepath.Join(dir, "session.json")
 		}
 
 		dir, _ := filepath.Split(sessionFile)
@@ -59,8 +64,12 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 	return opts, nil
 }
 
-// ClientFromEnvironment creates client using environment variables
-// but not connects to server.
+// ClientFromEnvironment creates client using OptionsFromEnvironment
+// but does not connect to server.
+//
+// Variables:
+// APP_ID — app_id of Telegram app.
+// APP_HASH — app_hash of Telegram app.
 func ClientFromEnvironment(opts Options) (*Client, error) {
 	appID, err := strconv.Atoi(os.Getenv("APP_ID"))
 	if err != nil {
@@ -80,8 +89,11 @@ func ClientFromEnvironment(opts Options) (*Client, error) {
 	return NewClient(appID, appHash, opts), nil
 }
 
-// BotFromEnvironment creates bot client using environment variables
+// BotFromEnvironment creates bot client using ClientFromEnvironment
 // connects to server and authenticates it.
+//
+// Variables:
+// BOT_TOKEN — token from BotFather.
 func BotFromEnvironment(ctx context.Context, opts Options, cb func(ctx context.Context, client *Client) error) error {
 	client, err := ClientFromEnvironment(opts)
 	if err != nil {
