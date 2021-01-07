@@ -126,9 +126,16 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 			if id, err := b.PeekID(); err == nil {
 				t.Logf("Type: 0x%x %s", id, types.Get(id))
 				switch id {
-				case tg.UpdatesTypeID:
+				case tg.UpdatesTypeID,
+					tg.TextFixedTypeID,
+					tg.InputPeerChannelFromMessageTypeID,
+					tg.PageBlockRelatedArticlesTypeID:
 					allocThreshold = 512
-				case tg.TextBoldTypeID, tg.MessageTypeID, tg.InputMediaUploadedDocumentTypeID:
+				case tg.TextBoldTypeID,
+					tg.TextItalicTypeID,
+					tg.TextMarkedTypeID,
+					tg.MessageTypeID,
+					tg.InputMediaUploadedDocumentTypeID:
 					allocThreshold = 256
 				}
 			}
