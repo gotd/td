@@ -14,7 +14,7 @@ func (c *Conn) handleAck(b *bin.Buffer) error {
 		return xerrors.Errorf("decode: %w", err)
 	}
 
-	c.log.With(zap.Int64s("messages", ack.MsgIds)).Debug("Ack")
+	c.log.With(zap.Int64s("msg_ids", ack.MsgIds)).Debug("Ack")
 
 	c.rpc.NotifyAcks(ack.MsgIds)
 
