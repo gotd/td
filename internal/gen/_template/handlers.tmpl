@@ -39,7 +39,7 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
 	}
 
     u.Chats = make(map[int]*Chat, len(updates.Chats))
-    u.Channels = make(map[int]*Channels, len(updates.Chats))
+    u.Channels = make(map[int]*Channel, len(updates.Chats))
 	for _, class := range updates.Chats {
         switch chat := class.(type) {
         case *Chat:
