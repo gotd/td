@@ -5,7 +5,6 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/go-playground/validator/v10"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/getdoc"
@@ -21,8 +20,7 @@ func definitionType(d tl.Definition) string {
 
 // Generator generates go types from tl.Schema.
 type Generator struct {
-	schema    *tl.Schema
-	validator *validator.Validate
+	schema *tl.Schema
 
 	// classes type bindings, key is TL type.
 	classes map[string]classBinding
@@ -49,10 +47,9 @@ type Generator struct {
 // If blank string provided, no documentation links are generated.
 func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 	g := &Generator{
-		schema:    s,
-		classes:   map[string]classBinding{},
-		types:     map[string]typeBinding{},
-		validator: validator.New(),
+		schema:  s,
+		classes: map[string]classBinding{},
+		types:   map[string]typeBinding{},
 	}
 	if docBase != "" {
 		u, err := url.Parse(docBase)
@@ -77,8 +74,7 @@ func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 	if err := g.makeStructures(); err != nil {
 		return nil, xerrors.Errorf("failed to generate go structures: %w", err)
 	}
-	if err := g.makeInterfaces(); err != nil {
-		return nil, xerrors.Errorf("failed go generate go interfaces: %w", err)
-	}
+	g.makeInterfaces()
+
 	return g, nil
 }
