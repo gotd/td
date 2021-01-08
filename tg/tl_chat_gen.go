@@ -28,6 +28,17 @@ type ChatEmpty struct {
 // ChatEmptyTypeID is TL type id of ChatEmpty.
 const ChatEmptyTypeID = 0x9ba2d800
 
+func (c *ChatEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatEmpty) String() string {
 	if c == nil {
@@ -145,6 +156,62 @@ type Chat struct {
 // ChatTypeID is TL type id of Chat.
 const ChatTypeID = 0x3bda1bde
 
+func (c *Chat) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Creator == false) {
+		return false
+	}
+	if !(c.Kicked == false) {
+		return false
+	}
+	if !(c.Left == false) {
+		return false
+	}
+	if !(c.Deactivated == false) {
+		return false
+	}
+	if !(c.CallActive == false) {
+		return false
+	}
+	if !(c.CallNotEmpty == false) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.Photo == nil) {
+		return false
+	}
+	if !(c.ParticipantsCount == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Version == 0) {
+		return false
+	}
+	if !(c.MigratedTo == nil) {
+		return false
+	}
+	if !(c.AdminRights.Zero()) {
+		return false
+	}
+	if !(c.DefaultBannedRights.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *Chat) String() string {
 	if c == nil {
@@ -199,6 +266,33 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chat#3bda1bde as nil")
 	}
 	b.PutID(ChatTypeID)
+	if !(c.Creator == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Kicked == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.Left == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.Deactivated == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.CallActive == false) {
+		c.Flags.Set(23)
+	}
+	if !(c.CallNotEmpty == false) {
+		c.Flags.Set(24)
+	}
+	if !(c.MigratedTo == nil) {
+		c.Flags.Set(6)
+	}
+	if !(c.AdminRights.Zero()) {
+		c.Flags.Set(14)
+	}
+	if !(c.DefaultBannedRights.Zero()) {
+		c.Flags.Set(18)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chat#3bda1bde: field flags: %w", err)
 	}
@@ -451,6 +545,20 @@ type ChatForbidden struct {
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
 const ChatForbiddenTypeID = 0x7328bdb
 
+func (c *ChatForbidden) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatForbidden) String() string {
 	if c == nil {
@@ -609,6 +717,95 @@ type Channel struct {
 // ChannelTypeID is TL type id of Channel.
 const ChannelTypeID = 0xd31a961e
 
+func (c *Channel) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Creator == false) {
+		return false
+	}
+	if !(c.Left == false) {
+		return false
+	}
+	if !(c.Broadcast == false) {
+		return false
+	}
+	if !(c.Verified == false) {
+		return false
+	}
+	if !(c.Megagroup == false) {
+		return false
+	}
+	if !(c.Restricted == false) {
+		return false
+	}
+	if !(c.Signatures == false) {
+		return false
+	}
+	if !(c.Min == false) {
+		return false
+	}
+	if !(c.Scam == false) {
+		return false
+	}
+	if !(c.HasLink == false) {
+		return false
+	}
+	if !(c.HasGeo == false) {
+		return false
+	}
+	if !(c.SlowmodeEnabled == false) {
+		return false
+	}
+	if !(c.CallActive == false) {
+		return false
+	}
+	if !(c.CallNotEmpty == false) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.AccessHash == 0) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.Username == "") {
+		return false
+	}
+	if !(c.Photo == nil) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Version == 0) {
+		return false
+	}
+	if !(c.RestrictionReason == nil) {
+		return false
+	}
+	if !(c.AdminRights.Zero()) {
+		return false
+	}
+	if !(c.BannedRights.Zero()) {
+		return false
+	}
+	if !(c.DefaultBannedRights.Zero()) {
+		return false
+	}
+	if !(c.ParticipantsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *Channel) String() string {
 	if c == nil {
@@ -682,6 +879,69 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channel#d31a961e as nil")
 	}
 	b.PutID(ChannelTypeID)
+	if !(c.Creator == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Left == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.Broadcast == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.Verified == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.Megagroup == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.Restricted == false) {
+		c.Flags.Set(9)
+	}
+	if !(c.Signatures == false) {
+		c.Flags.Set(11)
+	}
+	if !(c.Min == false) {
+		c.Flags.Set(12)
+	}
+	if !(c.Scam == false) {
+		c.Flags.Set(19)
+	}
+	if !(c.HasLink == false) {
+		c.Flags.Set(20)
+	}
+	if !(c.HasGeo == false) {
+		c.Flags.Set(21)
+	}
+	if !(c.SlowmodeEnabled == false) {
+		c.Flags.Set(22)
+	}
+	if !(c.CallActive == false) {
+		c.Flags.Set(23)
+	}
+	if !(c.CallNotEmpty == false) {
+		c.Flags.Set(24)
+	}
+	if !(c.AccessHash == 0) {
+		c.Flags.Set(13)
+	}
+	if !(c.Username == "") {
+		c.Flags.Set(6)
+	}
+	if !(c.RestrictionReason == nil) {
+		c.Flags.Set(9)
+	}
+	if !(c.AdminRights.Zero()) {
+		c.Flags.Set(14)
+	}
+	if !(c.BannedRights.Zero()) {
+		c.Flags.Set(15)
+	}
+	if !(c.DefaultBannedRights.Zero()) {
+		c.Flags.Set(18)
+	}
+	if !(c.ParticipantsCount == 0) {
+		c.Flags.Set(17)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channel#d31a961e: field flags: %w", err)
 	}
@@ -1143,6 +1403,35 @@ type ChannelForbidden struct {
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
 const ChannelForbiddenTypeID = 0x289da732
 
+func (c *ChannelForbidden) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Broadcast == false) {
+		return false
+	}
+	if !(c.Megagroup == false) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.AccessHash == 0) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.UntilDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelForbidden) String() string {
 	if c == nil {
@@ -1178,6 +1467,15 @@ func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
 	}
 	b.PutID(ChannelForbiddenTypeID)
+	if !(c.Broadcast == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.Megagroup == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.UntilDate == 0) {
+		c.Flags.Set(16)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelForbidden#289da732: field flags: %w", err)
 	}
@@ -1305,7 +1603,9 @@ type ChatClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChat implements binary de-serialization for ChatClass.

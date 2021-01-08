@@ -34,6 +34,17 @@ type CdnConfig struct {
 // CdnConfigTypeID is TL type id of CdnConfig.
 const CdnConfigTypeID = 0x5725e40a
 
+func (c *CdnConfig) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PublicKeys == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *CdnConfig) String() string {
 	if c == nil {

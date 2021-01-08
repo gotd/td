@@ -32,6 +32,23 @@ type MessagesInactiveChats struct {
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.
 const MessagesInactiveChatsTypeID = 0xa927fec5
 
+func (i *MessagesInactiveChats) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Dates == nil) {
+		return false
+	}
+	if !(i.Chats == nil) {
+		return false
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *MessagesInactiveChats) String() string {
 	if i == nil {

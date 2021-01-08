@@ -31,9 +31,10 @@ func NewUpdateDispatcher() UpdateDispatcher {
 type UpdateContext struct {
 	context.Context
 
-	Users map[int]*User
-	Chats map[int]*Chat
-	init  bool
+	Users    map[int]*User
+	Chats    map[int]*Chat
+	Channels map[int]*Channel
+	init     bool
 }
 
 func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
@@ -52,12 +53,14 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
 	}
 
 	u.Chats = make(map[int]*Chat, len(updates.Chats))
+	u.Channels = make(map[int]*Channel, len(updates.Chats))
 	for _, class := range updates.Chats {
-		chat, ok := class.(*Chat)
-		if !ok {
-			continue
+		switch chat := class.(type) {
+		case *Chat:
+			u.Chats[chat.ID] = chat
+		case *Channel:
+			u.Channels[chat.ID] = chat
 		}
-		u.Chats[chat.ID] = chat
 	}
 }
 

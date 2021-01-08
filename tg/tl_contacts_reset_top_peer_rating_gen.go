@@ -33,6 +33,20 @@ type ContactsResetTopPeerRatingRequest struct {
 // ContactsResetTopPeerRatingRequestTypeID is TL type id of ContactsResetTopPeerRatingRequest.
 const ContactsResetTopPeerRatingRequestTypeID = 0x1ae373ac
 
+func (r *ContactsResetTopPeerRatingRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Category == nil) {
+		return false
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ContactsResetTopPeerRatingRequest) String() string {
 	if r == nil {

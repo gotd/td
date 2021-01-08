@@ -46,6 +46,32 @@ type HelpTermsOfService struct {
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.
 const HelpTermsOfServiceTypeID = 0x780a0310
 
+func (t *HelpTermsOfService) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Popup == false) {
+		return false
+	}
+	if !(t.ID.Zero()) {
+		return false
+	}
+	if !(t.Text == "") {
+		return false
+	}
+	if !(t.Entities == nil) {
+		return false
+	}
+	if !(t.MinAgeConfirm == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *HelpTermsOfService) String() string {
 	if t == nil {
@@ -83,6 +109,12 @@ func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
 	}
 	b.PutID(HelpTermsOfServiceTypeID)
+	if !(t.Popup == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.MinAgeConfirm == 0) {
+		t.Flags.Set(1)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.termsOfService#780a0310: field flags: %w", err)
 	}

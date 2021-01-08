@@ -35,6 +35,29 @@ type BigMessage struct {
 // BigMessageTypeID is TL type id of BigMessage.
 const BigMessageTypeID = 0x7490dcc5
 
+func (b *BigMessage) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.ID == 0) {
+		return false
+	}
+	if !(b.Count == 0) {
+		return false
+	}
+	if !(b.TargetId == 0) {
+		return false
+	}
+	if !(b.Escape == false) {
+		return false
+	}
+	if !(b.Summary == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BigMessage) String() string {
 	if b == nil {
@@ -142,6 +165,14 @@ type NoMessage struct {
 // NoMessageTypeID is TL type id of NoMessage.
 const NoMessageTypeID = 0xee6324c4
 
+func (n *NoMessage) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NoMessage) String() string {
 	if n == nil {
@@ -195,6 +226,17 @@ type TargetsMessage struct {
 
 // TargetsMessageTypeID is TL type id of TargetsMessage.
 const TargetsMessageTypeID = 0xcc6136f1
+
+func (t *TargetsMessage) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Targets == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TargetsMessage) String() string {
@@ -280,6 +322,23 @@ type FieldsMessage struct {
 // FieldsMessageTypeID is TL type id of FieldsMessage.
 const FieldsMessageTypeID = 0x947225b5
 
+func (f *FieldsMessage) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Flags.Zero()) {
+		return false
+	}
+	if !(f.Escape == false) {
+		return false
+	}
+	if !(f.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *FieldsMessage) String() string {
 	if f == nil {
@@ -311,6 +370,12 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
 	}
 	b.PutID(FieldsMessageTypeID)
+	if !(f.Escape == false) {
+		f.Flags.Set(0)
+	}
+	if !(f.TTLSeconds == 0) {
+		f.Flags.Set(1)
+	}
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode fieldsMessage#947225b5: field flags: %w", err)
 	}
@@ -405,6 +470,17 @@ type BytesMessage struct {
 // BytesMessageTypeID is TL type id of BytesMessage.
 const BytesMessageTypeID = 0xf990a67d
 
+func (b *BytesMessage) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Data == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BytesMessage) String() string {
 	if b == nil {
@@ -480,7 +556,9 @@ type AbstractMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AbstractMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAbstractMessage implements binary de-serialization for AbstractMessageClass.

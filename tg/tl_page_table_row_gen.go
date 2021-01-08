@@ -28,6 +28,17 @@ type PageTableRow struct {
 // PageTableRowTypeID is TL type id of PageTableRow.
 const PageTableRowTypeID = 0xe0c0c5e5
 
+func (p *PageTableRow) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Cells == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageTableRow) String() string {
 	if p == nil {

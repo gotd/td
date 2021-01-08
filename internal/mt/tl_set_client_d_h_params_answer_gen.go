@@ -29,6 +29,23 @@ type DhGenOk struct {
 // DhGenOkTypeID is TL type id of DhGenOk.
 const DhGenOkTypeID = 0x3bcbf734
 
+func (d *DhGenOk) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.NewNonceHash1 == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DhGenOk) String() string {
 	if d == nil {
@@ -118,6 +135,23 @@ type DhGenRetry struct {
 // DhGenRetryTypeID is TL type id of DhGenRetry.
 const DhGenRetryTypeID = 0x46dc1fb9
 
+func (d *DhGenRetry) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.NewNonceHash2 == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DhGenRetry) String() string {
 	if d == nil {
@@ -206,6 +240,23 @@ type DhGenFail struct {
 
 // DhGenFailTypeID is TL type id of DhGenFail.
 const DhGenFailTypeID = 0xa69dae02
+
+func (d *DhGenFail) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(d.NewNonceHash3 == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *DhGenFail) String() string {
@@ -300,7 +351,9 @@ type SetClientDHParamsAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SetClientDHParamsAnswerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSetClientDHParamsAnswer implements binary de-serialization for SetClientDHParamsAnswerClass.

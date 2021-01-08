@@ -29,6 +29,23 @@ type FutureSalts struct {
 // FutureSaltsTypeID is TL type id of FutureSalts.
 const FutureSaltsTypeID = 0xae500895
 
+func (f *FutureSalts) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.ReqMsgID == 0) {
+		return false
+	}
+	if !(f.Now == 0) {
+		return false
+	}
+	if !(f.Salts == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *FutureSalts) String() string {
 	if f == nil {

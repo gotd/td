@@ -32,6 +32,23 @@ type MessagesReportRequest struct {
 // MessagesReportRequestTypeID is TL type id of MessagesReportRequest.
 const MessagesReportRequestTypeID = 0xbd82b658
 
+func (r *MessagesReportRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+	if !(r.ID == nil) {
+		return false
+	}
+	if !(r.Reason == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReportRequest) String() string {
 	if r == nil {

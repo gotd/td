@@ -30,6 +30,20 @@ type MessageRange struct {
 // MessageRangeTypeID is TL type id of MessageRange.
 const MessageRangeTypeID = 0xae30253
 
+func (m *MessageRange) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MinID == 0) {
+		return false
+	}
+	if !(m.MaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageRange) String() string {
 	if m == nil {

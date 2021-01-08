@@ -30,6 +30,20 @@ type LangPackString struct {
 // LangPackStringTypeID is TL type id of LangPackString.
 const LangPackStringTypeID = 0xcad181f6
 
+func (l *LangPackString) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Key == "") {
+		return false
+	}
+	if !(l.Value == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LangPackString) String() string {
 	if l == nil {
@@ -137,6 +151,38 @@ type LangPackStringPluralized struct {
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
 const LangPackStringPluralizedTypeID = 0x6c47ac9f
 
+func (l *LangPackStringPluralized) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Flags.Zero()) {
+		return false
+	}
+	if !(l.Key == "") {
+		return false
+	}
+	if !(l.ZeroValue == "") {
+		return false
+	}
+	if !(l.OneValue == "") {
+		return false
+	}
+	if !(l.TwoValue == "") {
+		return false
+	}
+	if !(l.FewValue == "") {
+		return false
+	}
+	if !(l.ManyValue == "") {
+		return false
+	}
+	if !(l.OtherValue == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LangPackStringPluralized) String() string {
 	if l == nil {
@@ -189,6 +235,21 @@ func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
 	}
 	b.PutID(LangPackStringPluralizedTypeID)
+	if !(l.ZeroValue == "") {
+		l.Flags.Set(0)
+	}
+	if !(l.OneValue == "") {
+		l.Flags.Set(1)
+	}
+	if !(l.TwoValue == "") {
+		l.Flags.Set(2)
+	}
+	if !(l.FewValue == "") {
+		l.Flags.Set(3)
+	}
+	if !(l.ManyValue == "") {
+		l.Flags.Set(4)
+	}
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode langPackStringPluralized#6c47ac9f: field flags: %w", err)
 	}
@@ -375,6 +436,17 @@ type LangPackStringDeleted struct {
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
 const LangPackStringDeletedTypeID = 0x2979eeb2
 
+func (l *LangPackStringDeleted) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Key == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LangPackStringDeleted) String() string {
 	if l == nil {
@@ -448,7 +520,9 @@ type LangPackStringClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() LangPackStringClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeLangPackString implements binary de-serialization for LangPackStringClass.

@@ -27,6 +27,20 @@ type RPCResult struct {
 // RPCResultTypeID is TL type id of RPCResult.
 const RPCResultTypeID = 0xf35c6d01
 
+func (r *RPCResult) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ReqMsgID == 0) {
+		return false
+	}
+	if !(r.Result.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RPCResult) String() string {
 	if r == nil {

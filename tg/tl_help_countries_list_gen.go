@@ -26,6 +26,14 @@ type HelpCountriesListNotModified struct {
 // HelpCountriesListNotModifiedTypeID is TL type id of HelpCountriesListNotModified.
 const HelpCountriesListNotModifiedTypeID = 0x93cc1f32
 
+func (c *HelpCountriesListNotModified) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *HelpCountriesListNotModified) String() string {
 	if c == nil {
@@ -85,6 +93,20 @@ type HelpCountriesList struct {
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
 const HelpCountriesListTypeID = 0x87d0759e
+
+func (c *HelpCountriesList) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Countries == nil) {
+		return false
+	}
+	if !(c.Hash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *HelpCountriesList) String() string {
@@ -182,7 +204,9 @@ type HelpCountriesListClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpCountriesListClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpCountriesList implements binary de-serialization for HelpCountriesListClass.

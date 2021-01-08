@@ -28,6 +28,17 @@ type AccountGetPrivacyRequest struct {
 // AccountGetPrivacyRequestTypeID is TL type id of AccountGetPrivacyRequest.
 const AccountGetPrivacyRequestTypeID = 0xdadbc950
 
+func (g *AccountGetPrivacyRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Key == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetPrivacyRequest) String() string {
 	if g == nil {

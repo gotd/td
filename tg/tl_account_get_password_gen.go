@@ -26,6 +26,14 @@ type AccountGetPasswordRequest struct {
 // AccountGetPasswordRequestTypeID is TL type id of AccountGetPasswordRequest.
 const AccountGetPasswordRequestTypeID = 0x548a30f5
 
+func (g *AccountGetPasswordRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetPasswordRequest) String() string {
 	if g == nil {

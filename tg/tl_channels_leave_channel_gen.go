@@ -34,6 +34,17 @@ type ChannelsLeaveChannelRequest struct {
 // ChannelsLeaveChannelRequestTypeID is TL type id of ChannelsLeaveChannelRequest.
 const ChannelsLeaveChannelRequestTypeID = 0xf836aa95
 
+func (l *ChannelsLeaveChannelRequest) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Channel == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *ChannelsLeaveChannelRequest) String() string {
 	if l == nil {

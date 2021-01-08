@@ -33,6 +33,26 @@ type PhoneEditGroupCallMemberRequest struct {
 // PhoneEditGroupCallMemberRequestTypeID is TL type id of PhoneEditGroupCallMemberRequest.
 const PhoneEditGroupCallMemberRequestTypeID = 0x63146ae4
 
+func (e *PhoneEditGroupCallMemberRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.Muted == false) {
+		return false
+	}
+	if !(e.Call.Zero()) {
+		return false
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *PhoneEditGroupCallMemberRequest) String() string {
 	if e == nil {
@@ -60,6 +80,9 @@ func (e *PhoneEditGroupCallMemberRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.editGroupCallMember#63146ae4 as nil")
 	}
 	b.PutID(PhoneEditGroupCallMemberRequestTypeID)
+	if !(e.Muted == false) {
+		e.Flags.Set(0)
+	}
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.editGroupCallMember#63146ae4: field flags: %w", err)
 	}

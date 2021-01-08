@@ -26,6 +26,14 @@ type AuthLogOutRequest struct {
 // AuthLogOutRequestTypeID is TL type id of AuthLogOutRequest.
 const AuthLogOutRequestTypeID = 0x5717da40
 
+func (l *AuthLogOutRequest) Zero() bool {
+	if l == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *AuthLogOutRequest) String() string {
 	if l == nil {

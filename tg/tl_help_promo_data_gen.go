@@ -28,6 +28,17 @@ type HelpPromoDataEmpty struct {
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
 const HelpPromoDataEmptyTypeID = 0x98f6ac75
 
+func (p *HelpPromoDataEmpty) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Expires == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *HelpPromoDataEmpty) String() string {
 	if p == nil {
@@ -115,6 +126,38 @@ type HelpPromoData struct {
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
 const HelpPromoDataTypeID = 0x8c39793f
 
+func (p *HelpPromoData) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Proxy == false) {
+		return false
+	}
+	if !(p.Expires == 0) {
+		return false
+	}
+	if !(p.Peer == nil) {
+		return false
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+	if !(p.PsaType == "") {
+		return false
+	}
+	if !(p.PsaMessage == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *HelpPromoData) String() string {
 	if p == nil {
@@ -162,6 +205,15 @@ func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
 	}
 	b.PutID(HelpPromoDataTypeID)
+	if !(p.Proxy == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.PsaType == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.PsaMessage == "") {
+		p.Flags.Set(2)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.promoData#8c39793f: field flags: %w", err)
 	}
@@ -340,7 +392,9 @@ type HelpPromoDataClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpPromoDataClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpPromoData implements binary de-serialization for HelpPromoDataClass.

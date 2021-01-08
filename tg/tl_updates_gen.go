@@ -29,6 +29,14 @@ type UpdatesTooLong struct {
 // UpdatesTooLongTypeID is TL type id of UpdatesTooLong.
 const UpdatesTooLongTypeID = 0xe317af7e
 
+func (u *UpdatesTooLong) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatesTooLong) String() string {
 	if u == nil {
@@ -138,6 +146,59 @@ type UpdateShortMessage struct {
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
 const UpdateShortMessageTypeID = 0x2296d2c8
 
+func (u *UpdateShortMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Out == false) {
+		return false
+	}
+	if !(u.Mentioned == false) {
+		return false
+	}
+	if !(u.MediaUnread == false) {
+		return false
+	}
+	if !(u.Silent == false) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Message == "") {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.FwdFrom.Zero()) {
+		return false
+	}
+	if !(u.ViaBotID == 0) {
+		return false
+	}
+	if !(u.ReplyTo.Zero()) {
+		return false
+	}
+	if !(u.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateShortMessage) String() string {
 	if u == nil {
@@ -199,6 +260,30 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortMessage#2296d2c8 as nil")
 	}
 	b.PutID(UpdateShortMessageTypeID)
+	if !(u.Out == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Mentioned == false) {
+		u.Flags.Set(4)
+	}
+	if !(u.MediaUnread == false) {
+		u.Flags.Set(5)
+	}
+	if !(u.Silent == false) {
+		u.Flags.Set(13)
+	}
+	if !(u.FwdFrom.Zero()) {
+		u.Flags.Set(2)
+	}
+	if !(u.ViaBotID == 0) {
+		u.Flags.Set(11)
+	}
+	if !(u.ReplyTo.Zero()) {
+		u.Flags.Set(3)
+	}
+	if !(u.Entities == nil) {
+		u.Flags.Set(7)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field flags: %w", err)
 	}
@@ -507,6 +592,62 @@ type UpdateShortChatMessage struct {
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
 const UpdateShortChatMessageTypeID = 0x402d5dbb
 
+func (u *UpdateShortChatMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Out == false) {
+		return false
+	}
+	if !(u.Mentioned == false) {
+		return false
+	}
+	if !(u.MediaUnread == false) {
+		return false
+	}
+	if !(u.Silent == false) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.FromID == 0) {
+		return false
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Message == "") {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.FwdFrom.Zero()) {
+		return false
+	}
+	if !(u.ViaBotID == 0) {
+		return false
+	}
+	if !(u.ReplyTo.Zero()) {
+		return false
+	}
+	if !(u.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateShortChatMessage) String() string {
 	if u == nil {
@@ -571,6 +712,30 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortChatMessage#402d5dbb as nil")
 	}
 	b.PutID(UpdateShortChatMessageTypeID)
+	if !(u.Out == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Mentioned == false) {
+		u.Flags.Set(4)
+	}
+	if !(u.MediaUnread == false) {
+		u.Flags.Set(5)
+	}
+	if !(u.Silent == false) {
+		u.Flags.Set(13)
+	}
+	if !(u.FwdFrom.Zero()) {
+		u.Flags.Set(2)
+	}
+	if !(u.ViaBotID == 0) {
+		u.Flags.Set(11)
+	}
+	if !(u.ReplyTo.Zero()) {
+		u.Flags.Set(3)
+	}
+	if !(u.Entities == nil) {
+		u.Flags.Set(7)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field flags: %w", err)
 	}
@@ -836,6 +1001,20 @@ type UpdateShort struct {
 // UpdateShortTypeID is TL type id of UpdateShort.
 const UpdateShortTypeID = 0x78d4dec1
 
+func (u *UpdateShort) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Update == nil) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateShort) String() string {
 	if u == nil {
@@ -927,6 +1106,32 @@ type UpdatesCombined struct {
 
 // UpdatesCombinedTypeID is TL type id of UpdatesCombined.
 const UpdatesCombinedTypeID = 0x725b04c3
+
+func (u *UpdatesCombined) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Updates == nil) {
+		return false
+	}
+	if !(u.Users == nil) {
+		return false
+	}
+	if !(u.Chats == nil) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.SeqStart == 0) {
+		return false
+	}
+	if !(u.Seq == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdatesCombined) String() string {
@@ -1103,6 +1308,29 @@ type Updates struct {
 
 // UpdatesTypeID is TL type id of Updates.
 const UpdatesTypeID = 0x74ae4240
+
+func (u *Updates) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Updates == nil) {
+		return false
+	}
+	if !(u.Users == nil) {
+		return false
+	}
+	if !(u.Chats == nil) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Seq == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *Updates) String() string {
@@ -1295,6 +1523,38 @@ type UpdateShortSentMessage struct {
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.
 const UpdateShortSentMessageTypeID = 0x11f1331c
 
+func (u *UpdateShortSentMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Out == false) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Media == nil) {
+		return false
+	}
+	if !(u.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateShortSentMessage) String() string {
 	if u == nil {
@@ -1340,6 +1600,15 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortSentMessage#11f1331c as nil")
 	}
 	b.PutID(UpdateShortSentMessageTypeID)
+	if !(u.Out == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.Media == nil) {
+		u.Flags.Set(9)
+	}
+	if !(u.Entities == nil) {
+		u.Flags.Set(7)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field flags: %w", err)
 	}
@@ -1509,7 +1778,9 @@ type UpdatesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUpdates implements binary de-serialization for UpdatesClass.

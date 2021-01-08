@@ -27,6 +27,20 @@ type Pong struct {
 // PongTypeID is TL type id of Pong.
 const PongTypeID = 0x347773c5
 
+func (p *Pong) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.MsgID == 0) {
+		return false
+	}
+	if !(p.PingID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *Pong) String() string {
 	if p == nil {

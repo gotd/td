@@ -26,6 +26,14 @@ type EncryptedFileEmpty struct {
 // EncryptedFileEmptyTypeID is TL type id of EncryptedFileEmpty.
 const EncryptedFileEmptyTypeID = 0xc21f497e
 
+func (e *EncryptedFileEmpty) Zero() bool {
+	if e == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedFileEmpty) String() string {
 	if e == nil {
@@ -88,6 +96,29 @@ type EncryptedFile struct {
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
 const EncryptedFileTypeID = 0x4a70994c
+
+func (e *EncryptedFile) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.AccessHash == 0) {
+		return false
+	}
+	if !(e.Size == 0) {
+		return false
+	}
+	if !(e.DCID == 0) {
+		return false
+	}
+	if !(e.KeyFingerprint == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (e *EncryptedFile) String() string {
@@ -205,7 +236,9 @@ type EncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeEncryptedFile implements binary de-serialization for EncryptedFileClass.

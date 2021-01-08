@@ -26,6 +26,14 @@ type Null struct {
 // NullTypeID is TL type id of Null.
 const NullTypeID = 0x56730bcc
 
+func (n *Null) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *Null) String() string {
 	if n == nil {

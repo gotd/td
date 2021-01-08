@@ -31,6 +31,17 @@ type MessagesGetPinnedDialogsRequest struct {
 // MessagesGetPinnedDialogsRequestTypeID is TL type id of MessagesGetPinnedDialogsRequest.
 const MessagesGetPinnedDialogsRequestTypeID = 0xd6b94df2
 
+func (g *MessagesGetPinnedDialogsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetPinnedDialogsRequest) String() string {
 	if g == nil {

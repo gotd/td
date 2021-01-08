@@ -28,6 +28,17 @@ type AccountGetNotifySettingsRequest struct {
 // AccountGetNotifySettingsRequestTypeID is TL type id of AccountGetNotifySettingsRequest.
 const AccountGetNotifySettingsRequestTypeID = 0x12b3ad31
 
+func (g *AccountGetNotifySettingsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetNotifySettingsRequest) String() string {
 	if g == nil {

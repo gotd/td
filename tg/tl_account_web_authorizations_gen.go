@@ -30,6 +30,20 @@ type AccountWebAuthorizations struct {
 // AccountWebAuthorizationsTypeID is TL type id of AccountWebAuthorizations.
 const AccountWebAuthorizationsTypeID = 0xed56c9fc
 
+func (w *AccountWebAuthorizations) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Authorizations == nil) {
+		return false
+	}
+	if !(w.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *AccountWebAuthorizations) String() string {
 	if w == nil {

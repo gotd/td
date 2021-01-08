@@ -33,6 +33,20 @@ type HelpGetCountriesListRequest struct {
 // HelpGetCountriesListRequestTypeID is TL type id of HelpGetCountriesListRequest.
 const HelpGetCountriesListRequestTypeID = 0x735787a8
 
+func (g *HelpGetCountriesListRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangCode == "") {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetCountriesListRequest) String() string {
 	if g == nil {

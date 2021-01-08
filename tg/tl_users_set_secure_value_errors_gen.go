@@ -34,6 +34,20 @@ type UsersSetSecureValueErrorsRequest struct {
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.
 const UsersSetSecureValueErrorsRequestTypeID = 0x90c894b5
 
+func (s *UsersSetSecureValueErrorsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ID == nil) {
+		return false
+	}
+	if !(s.Errors == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *UsersSetSecureValueErrorsRequest) String() string {
 	if s == nil {

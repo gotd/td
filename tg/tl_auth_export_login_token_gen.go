@@ -44,6 +44,23 @@ type AuthExportLoginTokenRequest struct {
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
 const AuthExportLoginTokenRequestTypeID = 0xb1b41517
 
+func (e *AuthExportLoginTokenRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.APIID == 0) {
+		return false
+	}
+	if !(e.APIHash == "") {
+		return false
+	}
+	if !(e.ExceptIds == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *AuthExportLoginTokenRequest) String() string {
 	if e == nil {

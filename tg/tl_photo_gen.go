@@ -28,6 +28,17 @@ type PhotoEmpty struct {
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
 const PhotoEmptyTypeID = 0x2331b22d
 
+func (p *PhotoEmpty) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotoEmpty) String() string {
 	if p == nil {
@@ -121,6 +132,41 @@ type Photo struct {
 // PhotoTypeID is TL type id of Photo.
 const PhotoTypeID = 0xfb197a65
 
+func (p *Photo) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.HasStickers == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.AccessHash == 0) {
+		return false
+	}
+	if !(p.FileReference == nil) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.Sizes == nil) {
+		return false
+	}
+	if !(p.VideoSizes == nil) {
+		return false
+	}
+	if !(p.DCID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *Photo) String() string {
 	if p == nil {
@@ -169,6 +215,12 @@ func (p *Photo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photo#fb197a65 as nil")
 	}
 	b.PutID(PhotoTypeID)
+	if !(p.HasStickers == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.VideoSizes == nil) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode photo#fb197a65: field flags: %w", err)
 	}
@@ -330,7 +382,9 @@ type PhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhoto implements binary de-serialization for PhotoClass.

@@ -28,6 +28,17 @@ type DocumentEmpty struct {
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
 const DocumentEmptyTypeID = 0x36f8c871
 
+func (d *DocumentEmpty) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentEmpty) String() string {
 	if d == nil {
@@ -124,6 +135,47 @@ type Document struct {
 // DocumentTypeID is TL type id of Document.
 const DocumentTypeID = 0x1e87342b
 
+func (d *Document) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.ID == 0) {
+		return false
+	}
+	if !(d.AccessHash == 0) {
+		return false
+	}
+	if !(d.FileReference == nil) {
+		return false
+	}
+	if !(d.Date == 0) {
+		return false
+	}
+	if !(d.MimeType == "") {
+		return false
+	}
+	if !(d.Size == 0) {
+		return false
+	}
+	if !(d.Thumbs == nil) {
+		return false
+	}
+	if !(d.VideoThumbs == nil) {
+		return false
+	}
+	if !(d.DCID == 0) {
+		return false
+	}
+	if !(d.Attributes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *Document) String() string {
 	if d == nil {
@@ -185,6 +237,12 @@ func (d *Document) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode document#1e87342b as nil")
 	}
 	b.PutID(DocumentTypeID)
+	if !(d.Thumbs == nil) {
+		d.Flags.Set(0)
+	}
+	if !(d.VideoThumbs == nil) {
+		d.Flags.Set(1)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode document#1e87342b: field flags: %w", err)
 	}
@@ -389,7 +447,9 @@ type DocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DocumentClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDocument implements binary de-serialization for DocumentClass.

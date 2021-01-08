@@ -26,6 +26,14 @@ type MessagesSavedGifsNotModified struct {
 // MessagesSavedGifsNotModifiedTypeID is TL type id of MessagesSavedGifsNotModified.
 const MessagesSavedGifsNotModifiedTypeID = 0xe8025ca2
 
+func (s *MessagesSavedGifsNotModified) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSavedGifsNotModified) String() string {
 	if s == nil {
@@ -85,6 +93,20 @@ type MessagesSavedGifs struct {
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.
 const MessagesSavedGifsTypeID = 0x2e0709a5
+
+func (s *MessagesSavedGifs) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Hash == 0) {
+		return false
+	}
+	if !(s.Gifs == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *MessagesSavedGifs) String() string {
@@ -185,7 +207,9 @@ type MessagesSavedGifsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesSavedGifsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesSavedGifs implements binary de-serialization for MessagesSavedGifsClass.

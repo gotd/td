@@ -63,6 +63,44 @@ type DcOption struct {
 // DcOptionTypeID is TL type id of DcOption.
 const DcOptionTypeID = 0x18b7a10d
 
+func (d *DcOption) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Ipv6 == false) {
+		return false
+	}
+	if !(d.MediaOnly == false) {
+		return false
+	}
+	if !(d.TcpoOnly == false) {
+		return false
+	}
+	if !(d.CDN == false) {
+		return false
+	}
+	if !(d.Static == false) {
+		return false
+	}
+	if !(d.ID == 0) {
+		return false
+	}
+	if !(d.IPAddress == "") {
+		return false
+	}
+	if !(d.Port == 0) {
+		return false
+	}
+	if !(d.Secret == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DcOption) String() string {
 	if d == nil {
@@ -98,6 +136,24 @@ func (d *DcOption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
 	}
 	b.PutID(DcOptionTypeID)
+	if !(d.Ipv6 == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.MediaOnly == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.TcpoOnly == false) {
+		d.Flags.Set(2)
+	}
+	if !(d.CDN == false) {
+		d.Flags.Set(3)
+	}
+	if !(d.Static == false) {
+		d.Flags.Set(4)
+	}
+	if !(d.Secret == nil) {
+		d.Flags.Set(10)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dcOption#18b7a10d: field flags: %w", err)
 	}

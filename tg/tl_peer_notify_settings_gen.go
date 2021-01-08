@@ -47,6 +47,29 @@ type PeerNotifySettings struct {
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
 const PeerNotifySettingsTypeID = 0xaf509d20
 
+func (p *PeerNotifySettings) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.ShowPreviews == false) {
+		return false
+	}
+	if !(p.Silent == false) {
+		return false
+	}
+	if !(p.MuteUntil == 0) {
+		return false
+	}
+	if !(p.Sound == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerNotifySettings) String() string {
 	if p == nil {
@@ -88,6 +111,18 @@ func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
 	}
 	b.PutID(PeerNotifySettingsTypeID)
+	if !(p.ShowPreviews == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Silent == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.MuteUntil == 0) {
+		p.Flags.Set(2)
+	}
+	if !(p.Sound == "") {
+		p.Flags.Set(3)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode peerNotifySettings#af509d20: field flags: %w", err)
 	}

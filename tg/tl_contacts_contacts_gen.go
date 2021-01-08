@@ -26,6 +26,14 @@ type ContactsContactsNotModified struct {
 // ContactsContactsNotModifiedTypeID is TL type id of ContactsContactsNotModified.
 const ContactsContactsNotModifiedTypeID = 0xb74ba9d2
 
+func (c *ContactsContactsNotModified) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ContactsContactsNotModified) String() string {
 	if c == nil {
@@ -84,6 +92,23 @@ type ContactsContacts struct {
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
 const ContactsContactsTypeID = 0xeae87e42
+
+func (c *ContactsContacts) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Contacts == nil) {
+		return false
+	}
+	if !(c.SavedCount == 0) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ContactsContacts) String() string {
@@ -208,7 +233,9 @@ type ContactsContactsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ContactsContactsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeContactsContacts implements binary de-serialization for ContactsContactsClass.

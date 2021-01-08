@@ -29,6 +29,14 @@ type MessagesClearAllDraftsRequest struct {
 // MessagesClearAllDraftsRequestTypeID is TL type id of MessagesClearAllDraftsRequest.
 const MessagesClearAllDraftsRequestTypeID = 0x7e58ee9c
 
+func (c *MessagesClearAllDraftsRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesClearAllDraftsRequest) String() string {
 	if c == nil {

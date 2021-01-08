@@ -22,6 +22,17 @@ type ReceivedNotifyMessageVector struct {
 	Elems []ReceivedNotifyMessage
 }
 
+func (vec *ReceivedNotifyMessageVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *ReceivedNotifyMessageVector) String() string {
 	if vec == nil {

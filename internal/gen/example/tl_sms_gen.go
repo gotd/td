@@ -27,6 +27,17 @@ type SMS struct {
 // SMSTypeID is TL type id of SMS.
 const SMSTypeID = 0xed8bebfe
 
+func (s *SMS) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SMS) String() string {
 	if s == nil {

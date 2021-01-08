@@ -47,6 +47,41 @@ type WebAuthorization struct {
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
 const WebAuthorizationTypeID = 0xcac943f2
 
+func (w *WebAuthorization) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Hash == 0) {
+		return false
+	}
+	if !(w.BotID == 0) {
+		return false
+	}
+	if !(w.Domain == "") {
+		return false
+	}
+	if !(w.Browser == "") {
+		return false
+	}
+	if !(w.Platform == "") {
+		return false
+	}
+	if !(w.DateCreated == 0) {
+		return false
+	}
+	if !(w.DateActive == 0) {
+		return false
+	}
+	if !(w.IP == "") {
+		return false
+	}
+	if !(w.Region == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebAuthorization) String() string {
 	if w == nil {

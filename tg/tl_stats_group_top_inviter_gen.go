@@ -33,6 +33,20 @@ type StatsGroupTopInviter struct {
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.
 const StatsGroupTopInviterTypeID = 0x31962a4c
 
+func (s *StatsGroupTopInviter) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.UserID == 0) {
+		return false
+	}
+	if !(s.Invitations == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsGroupTopInviter) String() string {
 	if s == nil {

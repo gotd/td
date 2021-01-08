@@ -40,6 +40,26 @@ type MessagesSearchCounter struct {
 // MessagesSearchCounterTypeID is TL type id of MessagesSearchCounter.
 const MessagesSearchCounterTypeID = 0xe844ebff
 
+func (s *MessagesSearchCounter) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Inexact == false) {
+		return false
+	}
+	if !(s.Filter == nil) {
+		return false
+	}
+	if !(s.Count == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSearchCounter) String() string {
 	if s == nil {
@@ -67,6 +87,9 @@ func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.searchCounter#e844ebff as nil")
 	}
 	b.PutID(MessagesSearchCounterTypeID)
+	if !(s.Inexact == false) {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.searchCounter#e844ebff: field flags: %w", err)
 	}

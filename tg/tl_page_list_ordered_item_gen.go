@@ -30,6 +30,20 @@ type PageListOrderedItemText struct {
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
 const PageListOrderedItemTextTypeID = 0x5e068047
 
+func (p *PageListOrderedItemText) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Num == "") {
+		return false
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageListOrderedItemText) String() string {
 	if p == nil {
@@ -116,6 +130,20 @@ type PageListOrderedItemBlocks struct {
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
 const PageListOrderedItemBlocksTypeID = 0x98dd8936
+
+func (p *PageListOrderedItemBlocks) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Num == "") {
+		return false
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageListOrderedItemBlocks) String() string {
@@ -216,7 +244,9 @@ type PageListOrderedItemClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageListOrderedItemClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePageListOrderedItem implements binary de-serialization for PageListOrderedItemClass.

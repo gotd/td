@@ -60,6 +60,41 @@ type BotInlineResult struct {
 // BotInlineResultTypeID is TL type id of BotInlineResult.
 const BotInlineResultTypeID = 0x11965f3a
 
+func (b *BotInlineResult) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.ID == "") {
+		return false
+	}
+	if !(b.Type == "") {
+		return false
+	}
+	if !(b.Title == "") {
+		return false
+	}
+	if !(b.Description == "") {
+		return false
+	}
+	if !(b.URL == "") {
+		return false
+	}
+	if !(b.Thumb == nil) {
+		return false
+	}
+	if !(b.Content == nil) {
+		return false
+	}
+	if !(b.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineResult) String() string {
 	if b == nil {
@@ -115,6 +150,21 @@ func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
 	}
 	buf.PutID(BotInlineResultTypeID)
+	if !(b.Title == "") {
+		b.Flags.Set(1)
+	}
+	if !(b.Description == "") {
+		b.Flags.Set(2)
+	}
+	if !(b.URL == "") {
+		b.Flags.Set(3)
+	}
+	if !(b.Thumb == nil) {
+		b.Flags.Set(4)
+	}
+	if !(b.Content == nil) {
+		b.Flags.Set(5)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field flags: %w", err)
 	}
@@ -355,6 +405,38 @@ type BotInlineMediaResult struct {
 // BotInlineMediaResultTypeID is TL type id of BotInlineMediaResult.
 const BotInlineMediaResultTypeID = 0x17db940b
 
+func (b *BotInlineMediaResult) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.ID == "") {
+		return false
+	}
+	if !(b.Type == "") {
+		return false
+	}
+	if !(b.Photo == nil) {
+		return false
+	}
+	if !(b.Document == nil) {
+		return false
+	}
+	if !(b.Title == "") {
+		return false
+	}
+	if !(b.Description == "") {
+		return false
+	}
+	if !(b.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMediaResult) String() string {
 	if b == nil {
@@ -405,6 +487,18 @@ func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
 	}
 	buf.PutID(BotInlineMediaResultTypeID)
+	if !(b.Photo == nil) {
+		b.Flags.Set(0)
+	}
+	if !(b.Document == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.Title == "") {
+		b.Flags.Set(2)
+	}
+	if !(b.Description == "") {
+		b.Flags.Set(3)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field flags: %w", err)
 	}
@@ -595,7 +689,9 @@ type BotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BotInlineResultClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeBotInlineResult implements binary de-serialization for BotInlineResultClass.

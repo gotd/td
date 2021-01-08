@@ -30,6 +30,20 @@ type PeerBlocked struct {
 // PeerBlockedTypeID is TL type id of PeerBlocked.
 const PeerBlockedTypeID = 0xe8fd8014
 
+func (p *PeerBlocked) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.PeerID == nil) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerBlocked) String() string {
 	if p == nil {

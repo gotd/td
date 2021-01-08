@@ -34,6 +34,17 @@ type MessagesUpdateDialogFiltersOrderRequest struct {
 // MessagesUpdateDialogFiltersOrderRequestTypeID is TL type id of MessagesUpdateDialogFiltersOrderRequest.
 const MessagesUpdateDialogFiltersOrderRequestTypeID = 0xc563c1e4
 
+func (u *MessagesUpdateDialogFiltersOrderRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUpdateDialogFiltersOrderRequest) String() string {
 	if u == nil {

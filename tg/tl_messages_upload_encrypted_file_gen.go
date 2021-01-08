@@ -30,6 +30,20 @@ type MessagesUploadEncryptedFileRequest struct {
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.
 const MessagesUploadEncryptedFileRequestTypeID = 0x5057c497
 
+func (u *MessagesUploadEncryptedFileRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer.Zero()) {
+		return false
+	}
+	if !(u.File == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUploadEncryptedFileRequest) String() string {
 	if u == nil {

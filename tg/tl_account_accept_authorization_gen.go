@@ -36,6 +36,29 @@ type AccountAcceptAuthorizationRequest struct {
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.
 const AccountAcceptAuthorizationRequestTypeID = 0xe7027c94
 
+func (a *AccountAcceptAuthorizationRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.BotID == 0) {
+		return false
+	}
+	if !(a.Scope == "") {
+		return false
+	}
+	if !(a.PublicKey == "") {
+		return false
+	}
+	if !(a.ValueHashes == nil) {
+		return false
+	}
+	if !(a.Credentials.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AccountAcceptAuthorizationRequest) String() string {
 	if a == nil {

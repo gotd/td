@@ -22,6 +22,17 @@ type LangPackStringClassVector struct {
 	Elems []LangPackStringClass
 }
 
+func (vec *LangPackStringClassVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *LangPackStringClassVector) String() string {
 	if vec == nil {

@@ -41,6 +41,23 @@ type StatsGetMegagroupStatsRequest struct {
 // StatsGetMegagroupStatsRequestTypeID is TL type id of StatsGetMegagroupStatsRequest.
 const StatsGetMegagroupStatsRequestTypeID = 0xdcdf8607
 
+func (g *StatsGetMegagroupStatsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Dark == false) {
+		return false
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *StatsGetMegagroupStatsRequest) String() string {
 	if g == nil {
@@ -65,6 +82,9 @@ func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
 	}
 	b.PutID(StatsGetMegagroupStatsRequestTypeID)
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.getMegagroupStats#dcdf8607: field flags: %w", err)
 	}

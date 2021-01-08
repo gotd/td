@@ -43,6 +43,26 @@ type UrlAuthResultRequest struct {
 // UrlAuthResultRequestTypeID is TL type id of UrlAuthResultRequest.
 const UrlAuthResultRequestTypeID = 0x92d33a0e
 
+func (u *UrlAuthResultRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.RequestWriteAccess == false) {
+		return false
+	}
+	if !(u.Bot == nil) {
+		return false
+	}
+	if !(u.Domain == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UrlAuthResultRequest) String() string {
 	if u == nil {
@@ -70,6 +90,9 @@ func (u *UrlAuthResultRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
 	}
 	b.PutID(UrlAuthResultRequestTypeID)
+	if !(u.RequestWriteAccess == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode urlAuthResultRequest#92d33a0e: field flags: %w", err)
 	}
@@ -151,6 +174,17 @@ type UrlAuthResultAccepted struct {
 // UrlAuthResultAcceptedTypeID is TL type id of UrlAuthResultAccepted.
 const UrlAuthResultAcceptedTypeID = 0x8f8c0e4e
 
+func (u *UrlAuthResultAccepted) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UrlAuthResultAccepted) String() string {
 	if u == nil {
@@ -218,6 +252,14 @@ type UrlAuthResultDefault struct {
 // UrlAuthResultDefaultTypeID is TL type id of UrlAuthResultDefault.
 const UrlAuthResultDefaultTypeID = 0xa9d6db1f
 
+func (u *UrlAuthResultDefault) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UrlAuthResultDefault) String() string {
 	if u == nil {
@@ -280,7 +322,9 @@ type UrlAuthResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UrlAuthResultClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUrlAuthResult implements binary de-serialization for UrlAuthResultClass.

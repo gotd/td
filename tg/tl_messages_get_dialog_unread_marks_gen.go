@@ -26,6 +26,14 @@ type MessagesGetDialogUnreadMarksRequest struct {
 // MessagesGetDialogUnreadMarksRequestTypeID is TL type id of MessagesGetDialogUnreadMarksRequest.
 const MessagesGetDialogUnreadMarksRequestTypeID = 0x22e24e22
 
+func (g *MessagesGetDialogUnreadMarksRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetDialogUnreadMarksRequest) String() string {
 	if g == nil {

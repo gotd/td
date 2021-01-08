@@ -26,6 +26,14 @@ type HelpGetInviteTextRequest struct {
 // HelpGetInviteTextRequestTypeID is TL type id of HelpGetInviteTextRequest.
 const HelpGetInviteTextRequestTypeID = 0x4d392343
 
+func (g *HelpGetInviteTextRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetInviteTextRequest) String() string {
 	if g == nil {

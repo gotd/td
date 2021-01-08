@@ -22,6 +22,17 @@ type MessagesSearchCounterVector struct {
 	Elems []MessagesSearchCounter
 }
 
+func (vec *MessagesSearchCounterVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *MessagesSearchCounterVector) String() string {
 	if vec == nil {

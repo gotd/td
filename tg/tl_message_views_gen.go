@@ -46,6 +46,26 @@ type MessageViews struct {
 // MessageViewsTypeID is TL type id of MessageViews.
 const MessageViewsTypeID = 0x455b853d
 
+func (m *MessageViews) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Views == 0) {
+		return false
+	}
+	if !(m.Forwards == 0) {
+		return false
+	}
+	if !(m.Replies.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageViews) String() string {
 	if m == nil {
@@ -82,6 +102,15 @@ func (m *MessageViews) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageViews#455b853d as nil")
 	}
 	b.PutID(MessageViewsTypeID)
+	if !(m.Views == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.Forwards == 0) {
+		m.Flags.Set(1)
+	}
+	if !(m.Replies.Zero()) {
+		m.Flags.Set(2)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageViews#455b853d: field flags: %w", err)
 	}

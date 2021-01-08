@@ -30,6 +30,20 @@ type MessagesEditChatPhotoRequest struct {
 // MessagesEditChatPhotoRequestTypeID is TL type id of MessagesEditChatPhotoRequest.
 const MessagesEditChatPhotoRequestTypeID = 0xca4c79d8
 
+func (e *MessagesEditChatPhotoRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ChatID == 0) {
+		return false
+	}
+	if !(e.Photo == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditChatPhotoRequest) String() string {
 	if e == nil {

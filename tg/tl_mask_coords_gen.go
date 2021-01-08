@@ -35,6 +35,26 @@ type MaskCoords struct {
 // MaskCoordsTypeID is TL type id of MaskCoords.
 const MaskCoordsTypeID = 0xaed6dbb2
 
+func (m *MaskCoords) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.N == 0) {
+		return false
+	}
+	if !(m.X == 0) {
+		return false
+	}
+	if !(m.Y == 0) {
+		return false
+	}
+	if !(m.Zoom == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MaskCoords) String() string {
 	if m == nil {

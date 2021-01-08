@@ -30,6 +30,20 @@ type StickersSetStickerSetThumbRequest struct {
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.
 const StickersSetStickerSetThumbRequestTypeID = 0x9a364e30
 
+func (s *StickersSetStickerSetThumbRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Stickerset == nil) {
+		return false
+	}
+	if !(s.Thumb == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StickersSetStickerSetThumbRequest) String() string {
 	if s == nil {

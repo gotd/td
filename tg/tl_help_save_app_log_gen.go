@@ -28,6 +28,17 @@ type HelpSaveAppLogRequest struct {
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.
 const HelpSaveAppLogRequestTypeID = 0x6f02f748
 
+func (s *HelpSaveAppLogRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Events == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *HelpSaveAppLogRequest) String() string {
 	if s == nil {

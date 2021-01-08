@@ -41,6 +41,32 @@ type MessagesSetInlineGameScoreRequest struct {
 // MessagesSetInlineGameScoreRequestTypeID is TL type id of MessagesSetInlineGameScoreRequest.
 const MessagesSetInlineGameScoreRequestTypeID = 0x15ad9f64
 
+func (s *MessagesSetInlineGameScoreRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.EditMessage == false) {
+		return false
+	}
+	if !(s.Force == false) {
+		return false
+	}
+	if !(s.ID.Zero()) {
+		return false
+	}
+	if !(s.UserID == nil) {
+		return false
+	}
+	if !(s.Score == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetInlineGameScoreRequest) String() string {
 	if s == nil {
@@ -71,6 +97,12 @@ func (s *MessagesSetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setInlineGameScore#15ad9f64 as nil")
 	}
 	b.PutID(MessagesSetInlineGameScoreRequestTypeID)
+	if !(s.EditMessage == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.Force == false) {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setInlineGameScore#15ad9f64: field flags: %w", err)
 	}

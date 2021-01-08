@@ -26,6 +26,14 @@ type UpdatesGetStateRequest struct {
 // UpdatesGetStateRequestTypeID is TL type id of UpdatesGetStateRequest.
 const UpdatesGetStateRequestTypeID = 0xedd4882a
 
+func (g *UpdatesGetStateRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UpdatesGetStateRequest) String() string {
 	if g == nil {

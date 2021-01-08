@@ -28,6 +28,17 @@ type ChatOnlines struct {
 // ChatOnlinesTypeID is TL type id of ChatOnlines.
 const ChatOnlinesTypeID = 0xf041e250
 
+func (c *ChatOnlines) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Onlines == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatOnlines) String() string {
 	if c == nil {

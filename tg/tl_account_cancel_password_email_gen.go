@@ -29,6 +29,14 @@ type AccountCancelPasswordEmailRequest struct {
 // AccountCancelPasswordEmailRequestTypeID is TL type id of AccountCancelPasswordEmailRequest.
 const AccountCancelPasswordEmailRequestTypeID = 0xc1cbd5b6
 
+func (c *AccountCancelPasswordEmailRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountCancelPasswordEmailRequest) String() string {
 	if c == nil {

@@ -28,6 +28,17 @@ type MessagesGetEmojiKeywordsLanguagesRequest struct {
 // MessagesGetEmojiKeywordsLanguagesRequestTypeID is TL type id of MessagesGetEmojiKeywordsLanguagesRequest.
 const MessagesGetEmojiKeywordsLanguagesRequestTypeID = 0x4e9963b2
 
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangCodes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) String() string {
 	if g == nil {

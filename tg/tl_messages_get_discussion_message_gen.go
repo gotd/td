@@ -37,6 +37,20 @@ type MessagesGetDiscussionMessageRequest struct {
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.
 const MessagesGetDiscussionMessageRequestTypeID = 0x446972fd
 
+func (g *MessagesGetDiscussionMessageRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetDiscussionMessageRequest) String() string {
 	if g == nil {

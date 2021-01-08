@@ -37,6 +37,26 @@ type MessagesGetStatsURLRequest struct {
 // MessagesGetStatsURLRequestTypeID is TL type id of MessagesGetStatsURLRequest.
 const MessagesGetStatsURLRequestTypeID = 0x812c2ae6
 
+func (g *MessagesGetStatsURLRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Dark == false) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.Params == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetStatsURLRequest) String() string {
 	if g == nil {
@@ -64,6 +84,9 @@ func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getStatsURL#812c2ae6 as nil")
 	}
 	b.PutID(MessagesGetStatsURLRequestTypeID)
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getStatsURL#812c2ae6: field flags: %w", err)
 	}

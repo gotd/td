@@ -30,6 +30,20 @@ type MessageEntityUnknown struct {
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
 const MessageEntityUnknownTypeID = 0xbb92ba95
 
+func (m *MessageEntityUnknown) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityUnknown) String() string {
 	if m == nil {
@@ -112,6 +126,20 @@ type MessageEntityMention struct {
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
 const MessageEntityMentionTypeID = 0xfa04579d
 
+func (m *MessageEntityMention) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityMention) String() string {
 	if m == nil {
@@ -191,6 +219,20 @@ type MessageEntityHashtag struct {
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
 const MessageEntityHashtagTypeID = 0x6f635b0d
 
+func (m *MessageEntityHashtag) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityHashtag) String() string {
 	if m == nil {
@@ -269,6 +311,20 @@ type MessageEntityBotCommand struct {
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
 const MessageEntityBotCommandTypeID = 0x6cef8ac7
+
+func (m *MessageEntityBotCommand) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityBotCommand) String() string {
@@ -354,6 +410,20 @@ type MessageEntityUrl struct {
 // MessageEntityUrlTypeID is TL type id of MessageEntityUrl.
 const MessageEntityUrlTypeID = 0x6ed02538
 
+func (m *MessageEntityUrl) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityUrl) String() string {
 	if m == nil {
@@ -436,6 +506,20 @@ type MessageEntityEmail struct {
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
 const MessageEntityEmailTypeID = 0x64e475c2
 
+func (m *MessageEntityEmail) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityEmail) String() string {
 	if m == nil {
@@ -514,6 +598,20 @@ type MessageEntityBold struct {
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
 const MessageEntityBoldTypeID = 0xbd610bc9
+
+func (m *MessageEntityBold) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityBold) String() string {
@@ -594,6 +692,20 @@ type MessageEntityItalic struct {
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
 const MessageEntityItalicTypeID = 0x826f8b60
 
+func (m *MessageEntityItalic) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityItalic) String() string {
 	if m == nil {
@@ -672,6 +784,20 @@ type MessageEntityCode struct {
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
 const MessageEntityCodeTypeID = 0x28a20571
+
+func (m *MessageEntityCode) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityCode) String() string {
@@ -753,6 +879,23 @@ type MessageEntityPre struct {
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
 const MessageEntityPreTypeID = 0x73924be0
+
+func (m *MessageEntityPre) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.Language == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityPre) String() string {
@@ -851,6 +994,23 @@ type MessageEntityTextUrl struct {
 // MessageEntityTextUrlTypeID is TL type id of MessageEntityTextUrl.
 const MessageEntityTextUrlTypeID = 0x76a6d327
 
+func (m *MessageEntityTextUrl) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityTextUrl) String() string {
 	if m == nil {
@@ -946,6 +1106,23 @@ type MessageEntityMentionName struct {
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
 const MessageEntityMentionNameTypeID = 0x352dca58
+
+func (m *MessageEntityMentionName) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityMentionName) String() string {
@@ -1043,6 +1220,23 @@ type InputMessageEntityMentionName struct {
 // InputMessageEntityMentionNameTypeID is TL type id of InputMessageEntityMentionName.
 const InputMessageEntityMentionNameTypeID = 0x208e68c9
 
+func (i *InputMessageEntityMentionName) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Offset == 0) {
+		return false
+	}
+	if !(i.Length == 0) {
+		return false
+	}
+	if !(i.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessageEntityMentionName) String() string {
 	if i == nil {
@@ -1138,6 +1332,20 @@ type MessageEntityPhone struct {
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
 const MessageEntityPhoneTypeID = 0x9b69e34b
 
+func (m *MessageEntityPhone) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityPhone) String() string {
 	if m == nil {
@@ -1216,6 +1424,20 @@ type MessageEntityCashtag struct {
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
 const MessageEntityCashtagTypeID = 0x4c4e743f
+
+func (m *MessageEntityCashtag) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityCashtag) String() string {
@@ -1296,6 +1518,20 @@ type MessageEntityUnderline struct {
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
 const MessageEntityUnderlineTypeID = 0x9c4e7e8b
 
+func (m *MessageEntityUnderline) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityUnderline) String() string {
 	if m == nil {
@@ -1374,6 +1610,20 @@ type MessageEntityStrike struct {
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
 const MessageEntityStrikeTypeID = 0xbf0693d4
+
+func (m *MessageEntityStrike) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityStrike) String() string {
@@ -1454,6 +1704,20 @@ type MessageEntityBlockquote struct {
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
 const MessageEntityBlockquoteTypeID = 0x20df5d0
 
+func (m *MessageEntityBlockquote) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEntityBlockquote) String() string {
 	if m == nil {
@@ -1532,6 +1796,20 @@ type MessageEntityBankCard struct {
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.
 const MessageEntityBankCardTypeID = 0x761e6af4
+
+func (m *MessageEntityBankCard) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Offset == 0) {
+		return false
+	}
+	if !(m.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageEntityBankCard) String() string {
@@ -1633,7 +1911,9 @@ type MessageEntityClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageEntityClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessageEntity implements binary de-serialization for MessageEntityClass.

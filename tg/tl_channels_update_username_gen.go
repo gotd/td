@@ -30,6 +30,20 @@ type ChannelsUpdateUsernameRequest struct {
 // ChannelsUpdateUsernameRequestTypeID is TL type id of ChannelsUpdateUsernameRequest.
 const ChannelsUpdateUsernameRequestTypeID = 0x3514b3de
 
+func (u *ChannelsUpdateUsernameRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Channel == nil) {
+		return false
+	}
+	if !(u.Username == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *ChannelsUpdateUsernameRequest) String() string {
 	if u == nil {

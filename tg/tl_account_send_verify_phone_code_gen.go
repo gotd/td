@@ -33,6 +33,20 @@ type AccountSendVerifyPhoneCodeRequest struct {
 // AccountSendVerifyPhoneCodeRequestTypeID is TL type id of AccountSendVerifyPhoneCodeRequest.
 const AccountSendVerifyPhoneCodeRequestTypeID = 0xa5a356f9
 
+func (s *AccountSendVerifyPhoneCodeRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.PhoneNumber == "") {
+		return false
+	}
+	if !(s.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSendVerifyPhoneCodeRequest) String() string {
 	if s == nil {

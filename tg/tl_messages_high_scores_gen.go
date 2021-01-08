@@ -30,6 +30,20 @@ type MessagesHighScores struct {
 // MessagesHighScoresTypeID is TL type id of MessagesHighScores.
 const MessagesHighScoresTypeID = 0x9a3bfd99
 
+func (h *MessagesHighScores) Zero() bool {
+	if h == nil {
+		return true
+	}
+	if !(h.Scores == nil) {
+		return false
+	}
+	if !(h.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (h *MessagesHighScores) String() string {
 	if h == nil {

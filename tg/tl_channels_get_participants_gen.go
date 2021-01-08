@@ -48,6 +48,29 @@ type ChannelsGetParticipantsRequest struct {
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.
 const ChannelsGetParticipantsRequestTypeID = 0x123e05e9
 
+func (g *ChannelsGetParticipantsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.Filter == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetParticipantsRequest) String() string {
 	if g == nil {

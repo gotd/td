@@ -28,6 +28,17 @@ type MessagesExportChatInviteRequest struct {
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
 const MessagesExportChatInviteRequestTypeID = 0xdf7534c
 
+func (e *MessagesExportChatInviteRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesExportChatInviteRequest) String() string {
 	if e == nil {

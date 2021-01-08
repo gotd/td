@@ -32,6 +32,23 @@ type MessagesAffectedHistory struct {
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.
 const MessagesAffectedHistoryTypeID = 0xb45c69d1
 
+func (a *MessagesAffectedHistory) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Pts == 0) {
+		return false
+	}
+	if !(a.PtsCount == 0) {
+		return false
+	}
+	if !(a.Offset == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *MessagesAffectedHistory) String() string {
 	if a == nil {

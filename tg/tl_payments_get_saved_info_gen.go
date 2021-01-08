@@ -26,6 +26,14 @@ type PaymentsGetSavedInfoRequest struct {
 // PaymentsGetSavedInfoRequestTypeID is TL type id of PaymentsGetSavedInfoRequest.
 const PaymentsGetSavedInfoRequestTypeID = 0x227d824b
 
+func (g *PaymentsGetSavedInfoRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PaymentsGetSavedInfoRequest) String() string {
 	if g == nil {

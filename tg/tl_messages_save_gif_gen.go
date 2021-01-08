@@ -30,6 +30,20 @@ type MessagesSaveGifRequest struct {
 // MessagesSaveGifRequestTypeID is TL type id of MessagesSaveGifRequest.
 const MessagesSaveGifRequestTypeID = 0x327a30cb
 
+func (s *MessagesSaveGifRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ID == nil) {
+		return false
+	}
+	if !(s.Unsave == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSaveGifRequest) String() string {
 	if s == nil {

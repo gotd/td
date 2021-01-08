@@ -61,6 +61,41 @@ type MessageFwdHeader struct {
 // MessageFwdHeaderTypeID is TL type id of MessageFwdHeader.
 const MessageFwdHeaderTypeID = 0x5f777dce
 
+func (m *MessageFwdHeader) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.FromID == nil) {
+		return false
+	}
+	if !(m.FromName == "") {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+	if !(m.ChannelPost == 0) {
+		return false
+	}
+	if !(m.PostAuthor == "") {
+		return false
+	}
+	if !(m.SavedFromPeer == nil) {
+		return false
+	}
+	if !(m.SavedFromMsgID == 0) {
+		return false
+	}
+	if !(m.PsaType == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageFwdHeader) String() string {
 	if m == nil {
@@ -120,6 +155,27 @@ func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
 	}
 	b.PutID(MessageFwdHeaderTypeID)
+	if !(m.FromID == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.FromName == "") {
+		m.Flags.Set(5)
+	}
+	if !(m.ChannelPost == 0) {
+		m.Flags.Set(2)
+	}
+	if !(m.PostAuthor == "") {
+		m.Flags.Set(3)
+	}
+	if !(m.SavedFromPeer == nil) {
+		m.Flags.Set(4)
+	}
+	if !(m.SavedFromMsgID == 0) {
+		m.Flags.Set(4)
+	}
+	if !(m.PsaType == "") {
+		m.Flags.Set(6)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageFwdHeader#5f777dce: field flags: %w", err)
 	}

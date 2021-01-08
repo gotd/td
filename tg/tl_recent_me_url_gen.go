@@ -28,6 +28,17 @@ type RecentMeUrlUnknown struct {
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
 const RecentMeUrlUnknownTypeID = 0x46e1d13d
 
+func (r *RecentMeUrlUnknown) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RecentMeUrlUnknown) String() string {
 	if r == nil {
@@ -95,6 +106,20 @@ type RecentMeUrlUser struct {
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
 const RecentMeUrlUserTypeID = 0x8dbc3336
+
+func (r *RecentMeUrlUser) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.URL == "") {
+		return false
+	}
+	if !(r.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *RecentMeUrlUser) String() string {
@@ -175,6 +200,20 @@ type RecentMeUrlChat struct {
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
 const RecentMeUrlChatTypeID = 0xa01b22f9
 
+func (r *RecentMeUrlChat) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.URL == "") {
+		return false
+	}
+	if !(r.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RecentMeUrlChat) String() string {
 	if r == nil {
@@ -253,6 +292,20 @@ type RecentMeUrlChatInvite struct {
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
 const RecentMeUrlChatInviteTypeID = 0xeb49081d
+
+func (r *RecentMeUrlChatInvite) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.URL == "") {
+		return false
+	}
+	if !(r.ChatInvite == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *RecentMeUrlChatInvite) String() string {
@@ -337,6 +390,20 @@ type RecentMeUrlStickerSet struct {
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
 const RecentMeUrlStickerSetTypeID = 0xbc0a57dc
+
+func (r *RecentMeUrlStickerSet) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.URL == "") {
+		return false
+	}
+	if !(r.Set == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *RecentMeUrlStickerSet) String() string {
@@ -429,7 +496,9 @@ type RecentMeUrlClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() RecentMeUrlClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeRecentMeUrl implements binary de-serialization for RecentMeUrlClass.

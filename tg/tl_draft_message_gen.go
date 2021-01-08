@@ -35,6 +35,20 @@ type DraftMessageEmpty struct {
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
 const DraftMessageEmptyTypeID = 0x1b0c841a
 
+func (d *DraftMessageEmpty) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DraftMessageEmpty) String() string {
 	if d == nil {
@@ -61,6 +75,9 @@ func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
 	}
 	b.PutID(DraftMessageEmptyTypeID)
+	if !(d.Date == 0) {
+		d.Flags.Set(0)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode draftMessageEmpty#1b0c841a: field flags: %w", err)
 	}
@@ -154,6 +171,32 @@ type DraftMessage struct {
 // DraftMessageTypeID is TL type id of DraftMessage.
 const DraftMessageTypeID = 0xfd8e711f
 
+func (d *DraftMessage) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.NoWebpage == false) {
+		return false
+	}
+	if !(d.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(d.Message == "") {
+		return false
+	}
+	if !(d.Entities == nil) {
+		return false
+	}
+	if !(d.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DraftMessage) String() string {
 	if d == nil {
@@ -193,6 +236,15 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
 	}
 	b.PutID(DraftMessageTypeID)
+	if !(d.NoWebpage == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.ReplyToMsgID == 0) {
+		d.Flags.Set(0)
+	}
+	if !(d.Entities == nil) {
+		d.Flags.Set(3)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode draftMessage#fd8e711f: field flags: %w", err)
 	}
@@ -336,7 +388,9 @@ type DraftMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DraftMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDraftMessage implements binary de-serialization for DraftMessageClass.

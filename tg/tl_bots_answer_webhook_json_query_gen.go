@@ -30,6 +30,20 @@ type BotsAnswerWebhookJSONQueryRequest struct {
 // BotsAnswerWebhookJSONQueryRequestTypeID is TL type id of BotsAnswerWebhookJSONQueryRequest.
 const BotsAnswerWebhookJSONQueryRequestTypeID = 0xe6213f4d
 
+func (a *BotsAnswerWebhookJSONQueryRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.QueryID == 0) {
+		return false
+	}
+	if !(a.Data.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
 	if a == nil {

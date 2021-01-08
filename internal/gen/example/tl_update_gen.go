@@ -29,6 +29,20 @@ type Update struct {
 // UpdateTypeID is TL type id of Update.
 const UpdateTypeID = 0xb03e2ef8
 
+func (u *Update) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Msg == nil) {
+		return false
+	}
+	if !(u.Delay == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *Update) String() string {
 	if u == nil {

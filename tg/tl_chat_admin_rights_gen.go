@@ -78,6 +78,47 @@ type ChatAdminRights struct {
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
 const ChatAdminRightsTypeID = 0x5fb224d5
 
+func (c *ChatAdminRights) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ChangeInfo == false) {
+		return false
+	}
+	if !(c.PostMessages == false) {
+		return false
+	}
+	if !(c.EditMessages == false) {
+		return false
+	}
+	if !(c.DeleteMessages == false) {
+		return false
+	}
+	if !(c.BanUsers == false) {
+		return false
+	}
+	if !(c.InviteUsers == false) {
+		return false
+	}
+	if !(c.PinMessages == false) {
+		return false
+	}
+	if !(c.AddAdmins == false) {
+		return false
+	}
+	if !(c.Anonymous == false) {
+		return false
+	}
+	if !(c.ManageCall == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatAdminRights) String() string {
 	if c == nil {
@@ -99,6 +140,36 @@ func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatAdminRights#5fb224d5 as nil")
 	}
 	b.PutID(ChatAdminRightsTypeID)
+	if !(c.ChangeInfo == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.PostMessages == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.EditMessages == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.DeleteMessages == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.BanUsers == false) {
+		c.Flags.Set(4)
+	}
+	if !(c.InviteUsers == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.PinMessages == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.AddAdmins == false) {
+		c.Flags.Set(9)
+	}
+	if !(c.Anonymous == false) {
+		c.Flags.Set(10)
+	}
+	if !(c.ManageCall == false) {
+		c.Flags.Set(11)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatAdminRights#5fb224d5: field flags: %w", err)
 	}

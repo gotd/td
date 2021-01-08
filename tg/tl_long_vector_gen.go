@@ -22,6 +22,17 @@ type LongVector struct {
 	Elems []int64
 }
 
+func (vec *LongVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *LongVector) String() string {
 	if vec == nil {

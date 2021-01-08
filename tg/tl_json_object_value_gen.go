@@ -30,6 +30,20 @@ type JsonObjectValue struct {
 // JsonObjectValueTypeID is TL type id of JsonObjectValue.
 const JsonObjectValueTypeID = 0xc0de1bd9
 
+func (j *JsonObjectValue) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Key == "") {
+		return false
+	}
+	if !(j.Value == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *JsonObjectValue) String() string {
 	if j == nil {

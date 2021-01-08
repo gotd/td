@@ -47,6 +47,29 @@ type MessagesVotesList struct {
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
 const MessagesVotesListTypeID = 0x823f649
 
+func (v *MessagesVotesList) Zero() bool {
+	if v == nil {
+		return true
+	}
+	if !(v.Flags.Zero()) {
+		return false
+	}
+	if !(v.Count == 0) {
+		return false
+	}
+	if !(v.Votes == nil) {
+		return false
+	}
+	if !(v.Users == nil) {
+		return false
+	}
+	if !(v.NextOffset == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (v *MessagesVotesList) String() string {
 	if v == nil {
@@ -86,6 +109,9 @@ func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
 	}
 	b.PutID(MessagesVotesListTypeID)
+	if !(v.NextOffset == "") {
+		v.Flags.Set(0)
+	}
 	if err := v.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.votesList#823f649: field flags: %w", err)
 	}

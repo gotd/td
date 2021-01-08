@@ -37,6 +37,26 @@ type MessagesSaveRecentStickerRequest struct {
 // MessagesSaveRecentStickerRequestTypeID is TL type id of MessagesSaveRecentStickerRequest.
 const MessagesSaveRecentStickerRequestTypeID = 0x392718f8
 
+func (s *MessagesSaveRecentStickerRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Attached == false) {
+		return false
+	}
+	if !(s.ID == nil) {
+		return false
+	}
+	if !(s.Unsave == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSaveRecentStickerRequest) String() string {
 	if s == nil {
@@ -64,6 +84,9 @@ func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.saveRecentSticker#392718f8 as nil")
 	}
 	b.PutID(MessagesSaveRecentStickerRequestTypeID)
+	if !(s.Attached == false) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.saveRecentSticker#392718f8: field flags: %w", err)
 	}

@@ -28,6 +28,17 @@ type ContactsResolveUsernameRequest struct {
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.
 const ContactsResolveUsernameRequestTypeID = 0xf93ccba3
 
+func (r *ContactsResolveUsernameRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Username == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ContactsResolveUsernameRequest) String() string {
 	if r == nil {

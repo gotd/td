@@ -30,6 +30,20 @@ type EmojiKeyword struct {
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
 const EmojiKeywordTypeID = 0xd5b3b9f9
 
+func (e *EmojiKeyword) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Keyword == "") {
+		return false
+	}
+	if !(e.Emoticons == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EmojiKeyword) String() string {
 	if e == nil {
@@ -119,6 +133,20 @@ type EmojiKeywordDeleted struct {
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.
 const EmojiKeywordDeletedTypeID = 0x236df622
+
+func (e *EmojiKeywordDeleted) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Keyword == "") {
+		return false
+	}
+	if !(e.Emoticons == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (e *EmojiKeywordDeleted) String() string {
@@ -214,7 +242,9 @@ type EmojiKeywordClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EmojiKeywordClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeEmojiKeyword implements binary de-serialization for EmojiKeywordClass.

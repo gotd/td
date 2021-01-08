@@ -31,6 +31,26 @@ type MsgDetailedInfo struct {
 // MsgDetailedInfoTypeID is TL type id of MsgDetailedInfo.
 const MsgDetailedInfoTypeID = 0x276d3ec6
 
+func (m *MsgDetailedInfo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgID == 0) {
+		return false
+	}
+	if !(m.AnswerMsgID == 0) {
+		return false
+	}
+	if !(m.Bytes == 0) {
+		return false
+	}
+	if !(m.Status == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgDetailedInfo) String() string {
 	if m == nil {
@@ -131,6 +151,23 @@ type MsgNewDetailedInfo struct {
 // MsgNewDetailedInfoTypeID is TL type id of MsgNewDetailedInfo.
 const MsgNewDetailedInfoTypeID = 0x809db6df
 
+func (m *MsgNewDetailedInfo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.AnswerMsgID == 0) {
+		return false
+	}
+	if !(m.Bytes == 0) {
+		return false
+	}
+	if !(m.Status == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgNewDetailedInfo) String() string {
 	if m == nil {
@@ -223,7 +260,9 @@ type MsgDetailedInfoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MsgDetailedInfoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMsgDetailedInfo implements binary de-serialization for MsgDetailedInfoClass.

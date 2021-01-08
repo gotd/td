@@ -40,6 +40,29 @@ type UpdatesState struct {
 // UpdatesStateTypeID is TL type id of UpdatesState.
 const UpdatesStateTypeID = 0xa56c2a3e
 
+func (s *UpdatesState) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Pts == 0) {
+		return false
+	}
+	if !(s.Qts == 0) {
+		return false
+	}
+	if !(s.Date == 0) {
+		return false
+	}
+	if !(s.Seq == 0) {
+		return false
+	}
+	if !(s.UnreadCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *UpdatesState) String() string {
 	if s == nil {

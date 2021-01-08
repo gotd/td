@@ -33,6 +33,20 @@ type AccountSentEmailCode struct {
 // AccountSentEmailCodeTypeID is TL type id of AccountSentEmailCode.
 const AccountSentEmailCodeTypeID = 0x811f854f
 
+func (s *AccountSentEmailCode) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.EmailPattern == "") {
+		return false
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSentEmailCode) String() string {
 	if s == nil {

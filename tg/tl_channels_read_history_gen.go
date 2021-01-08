@@ -36,6 +36,20 @@ type ChannelsReadHistoryRequest struct {
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.
 const ChannelsReadHistoryRequestTypeID = 0xcc104937
 
+func (r *ChannelsReadHistoryRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Channel == nil) {
+		return false
+	}
+	if !(r.MaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ChannelsReadHistoryRequest) String() string {
 	if r == nil {

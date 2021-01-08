@@ -30,6 +30,20 @@ type ContactStatus struct {
 // ContactStatusTypeID is TL type id of ContactStatus.
 const ContactStatusTypeID = 0xd3680c61
 
+func (c *ContactStatus) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.Status == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ContactStatus) String() string {
 	if c == nil {

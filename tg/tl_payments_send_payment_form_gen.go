@@ -46,6 +46,29 @@ type PaymentsSendPaymentFormRequest struct {
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.
 const PaymentsSendPaymentFormRequestTypeID = 0x2b8879b3
 
+func (s *PaymentsSendPaymentFormRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.MsgID == 0) {
+		return false
+	}
+	if !(s.RequestedInfoID == "") {
+		return false
+	}
+	if !(s.ShippingOptionID == "") {
+		return false
+	}
+	if !(s.Credentials == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *PaymentsSendPaymentFormRequest) String() string {
 	if s == nil {
@@ -83,6 +106,12 @@ func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.sendPaymentForm#2b8879b3 as nil")
 	}
 	b.PutID(PaymentsSendPaymentFormRequestTypeID)
+	if !(s.RequestedInfoID == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.ShippingOptionID == "") {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.sendPaymentForm#2b8879b3: field flags: %w", err)
 	}

@@ -30,6 +30,20 @@ type MessagesCreateChatRequest struct {
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
 const MessagesCreateChatRequestTypeID = 0x9cb126e
 
+func (c *MessagesCreateChatRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesCreateChatRequest) String() string {
 	if c == nil {

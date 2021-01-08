@@ -36,6 +36,20 @@ type ChannelsDeleteMessagesRequest struct {
 // ChannelsDeleteMessagesRequestTypeID is TL type id of ChannelsDeleteMessagesRequest.
 const ChannelsDeleteMessagesRequestTypeID = 0x84c1fd4e
 
+func (d *ChannelsDeleteMessagesRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Channel == nil) {
+		return false
+	}
+	if !(d.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *ChannelsDeleteMessagesRequest) String() string {
 	if d == nil {

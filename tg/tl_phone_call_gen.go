@@ -28,6 +28,17 @@ type PhoneCallEmpty struct {
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
 const PhoneCallEmptyTypeID = 0x5366c915
 
+func (p *PhoneCallEmpty) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallEmpty) String() string {
 	if p == nil {
@@ -115,6 +126,41 @@ type PhoneCallWaiting struct {
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
 const PhoneCallWaitingTypeID = 0x1b8f4ad1
 
+func (p *PhoneCallWaiting) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.AccessHash == 0) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.AdminID == 0) {
+		return false
+	}
+	if !(p.ParticipantID == 0) {
+		return false
+	}
+	if !(p.Protocol.Zero()) {
+		return false
+	}
+	if !(p.ReceiveDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallWaiting) String() string {
 	if p == nil {
@@ -159,6 +205,12 @@ func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallWaiting#1b8f4ad1 as nil")
 	}
 	b.PutID(PhoneCallWaitingTypeID)
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+	if !(p.ReceiveDate == 0) {
+		p.Flags.Set(0)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallWaiting#1b8f4ad1: field flags: %w", err)
 	}
@@ -311,6 +363,41 @@ type PhoneCallRequested struct {
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
 const PhoneCallRequestedTypeID = 0x87eabb53
 
+func (p *PhoneCallRequested) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.AccessHash == 0) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.AdminID == 0) {
+		return false
+	}
+	if !(p.ParticipantID == 0) {
+		return false
+	}
+	if !(p.GAHash == nil) {
+		return false
+	}
+	if !(p.Protocol.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallRequested) String() string {
 	if p == nil {
@@ -353,6 +440,9 @@ func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallRequested#87eabb53 as nil")
 	}
 	b.PutID(PhoneCallRequestedTypeID)
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallRequested#87eabb53: field flags: %w", err)
 	}
@@ -488,6 +578,41 @@ type PhoneCallAccepted struct {
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
 const PhoneCallAcceptedTypeID = 0x997c454a
 
+func (p *PhoneCallAccepted) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.AccessHash == 0) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.AdminID == 0) {
+		return false
+	}
+	if !(p.ParticipantID == 0) {
+		return false
+	}
+	if !(p.GB == nil) {
+		return false
+	}
+	if !(p.Protocol.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallAccepted) String() string {
 	if p == nil {
@@ -530,6 +655,9 @@ func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallAccepted#997c454a as nil")
 	}
 	b.PutID(PhoneCallAcceptedTypeID)
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallAccepted#997c454a: field flags: %w", err)
 	}
@@ -676,6 +804,53 @@ type PhoneCall struct {
 // PhoneCallTypeID is TL type id of PhoneCall.
 const PhoneCallTypeID = 0x8742ae7f
 
+func (p *PhoneCall) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.P2PAllowed == false) {
+		return false
+	}
+	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.AccessHash == 0) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.AdminID == 0) {
+		return false
+	}
+	if !(p.ParticipantID == 0) {
+		return false
+	}
+	if !(p.GAOrB == nil) {
+		return false
+	}
+	if !(p.KeyFingerprint == 0) {
+		return false
+	}
+	if !(p.Protocol.Zero()) {
+		return false
+	}
+	if !(p.Connections == nil) {
+		return false
+	}
+	if !(p.StartDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCall) String() string {
 	if p == nil {
@@ -729,6 +904,12 @@ func (p *PhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCall#8742ae7f as nil")
 	}
 	b.PutID(PhoneCallTypeID)
+	if !(p.P2PAllowed == false) {
+		p.Flags.Set(5)
+	}
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCall#8742ae7f: field flags: %w", err)
 	}
@@ -917,6 +1098,35 @@ type PhoneCallDiscarded struct {
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
 const PhoneCallDiscardedTypeID = 0x50ca4de1
 
+func (p *PhoneCallDiscarded) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.NeedRating == false) {
+		return false
+	}
+	if !(p.NeedDebug == false) {
+		return false
+	}
+	if !(p.Video == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.Reason == nil) {
+		return false
+	}
+	if !(p.Duration == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallDiscarded) String() string {
 	if p == nil {
@@ -951,6 +1161,21 @@ func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
 	}
 	b.PutID(PhoneCallDiscardedTypeID)
+	if !(p.NeedRating == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.NeedDebug == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.Video == false) {
+		p.Flags.Set(6)
+	}
+	if !(p.Reason == nil) {
+		p.Flags.Set(0)
+	}
+	if !(p.Duration == 0) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallDiscarded#50ca4de1: field flags: %w", err)
 	}
@@ -1105,7 +1330,9 @@ type PhoneCallClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneCallClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhoneCall implements binary de-serialization for PhoneCallClass.

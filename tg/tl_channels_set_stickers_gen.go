@@ -30,6 +30,20 @@ type ChannelsSetStickersRequest struct {
 // ChannelsSetStickersRequestTypeID is TL type id of ChannelsSetStickersRequest.
 const ChannelsSetStickersRequestTypeID = 0xea8ca4f9
 
+func (s *ChannelsSetStickersRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Channel == nil) {
+		return false
+	}
+	if !(s.Stickerset == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *ChannelsSetStickersRequest) String() string {
 	if s == nil {

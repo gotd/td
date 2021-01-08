@@ -49,6 +49,32 @@ type MessagesGetBotCallbackAnswerRequest struct {
 // MessagesGetBotCallbackAnswerRequestTypeID is TL type id of MessagesGetBotCallbackAnswerRequest.
 const MessagesGetBotCallbackAnswerRequestTypeID = 0x9342ca07
 
+func (g *MessagesGetBotCallbackAnswerRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Game == false) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+	if !(g.Data == nil) {
+		return false
+	}
+	if !(g.Password == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetBotCallbackAnswerRequest) String() string {
 	if g == nil {
@@ -86,6 +112,15 @@ func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
 	}
 	b.PutID(MessagesGetBotCallbackAnswerRequestTypeID)
+	if !(g.Game == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.Data == nil) {
+		g.Flags.Set(0)
+	}
+	if !(g.Password == nil) {
+		g.Flags.Set(2)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)
 	}

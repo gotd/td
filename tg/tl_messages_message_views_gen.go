@@ -32,6 +32,23 @@ type MessagesMessageViews struct {
 // MessagesMessageViewsTypeID is TL type id of MessagesMessageViews.
 const MessagesMessageViewsTypeID = 0xb6c4f543
 
+func (m *MessagesMessageViews) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Views == nil) {
+		return false
+	}
+	if !(m.Chats == nil) {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMessageViews) String() string {
 	if m == nil {

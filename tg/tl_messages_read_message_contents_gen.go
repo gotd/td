@@ -28,6 +28,17 @@ type MessagesReadMessageContentsRequest struct {
 // MessagesReadMessageContentsRequestTypeID is TL type id of MessagesReadMessageContentsRequest.
 const MessagesReadMessageContentsRequestTypeID = 0x36a73f77
 
+func (r *MessagesReadMessageContentsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReadMessageContentsRequest) String() string {
 	if r == nil {

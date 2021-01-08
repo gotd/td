@@ -32,6 +32,17 @@ type AccountUpdateStatusRequest struct {
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.
 const AccountUpdateStatusRequestTypeID = 0x6628562c
 
+func (u *AccountUpdateStatusRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Offline == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdateStatusRequest) String() string {
 	if u == nil {

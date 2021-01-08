@@ -25,6 +25,14 @@ type String struct {
 // StringTypeID is TL type id of String.
 const StringTypeID = 0xb5286e24
 
+func (s *String) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *String) String() string {
 	if s == nil {

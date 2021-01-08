@@ -28,6 +28,17 @@ type DialogPeer struct {
 // DialogPeerTypeID is TL type id of DialogPeer.
 const DialogPeerTypeID = 0xe56dbf05
 
+func (d *DialogPeer) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DialogPeer) String() string {
 	if d == nil {
@@ -105,6 +116,17 @@ type DialogPeerFolder struct {
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.
 const DialogPeerFolderTypeID = 0x514519e2
 
+func (d *DialogPeerFolder) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DialogPeerFolder) String() string {
 	if d == nil {
@@ -177,7 +199,9 @@ type DialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DialogPeerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDialogPeer implements binary de-serialization for DialogPeerClass.

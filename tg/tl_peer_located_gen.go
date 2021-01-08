@@ -32,6 +32,23 @@ type PeerLocated struct {
 // PeerLocatedTypeID is TL type id of PeerLocated.
 const PeerLocatedTypeID = 0xca461b5d
 
+func (p *PeerLocated) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Peer == nil) {
+		return false
+	}
+	if !(p.Expires == 0) {
+		return false
+	}
+	if !(p.Distance == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerLocated) String() string {
 	if p == nil {
@@ -125,6 +142,17 @@ type PeerSelfLocated struct {
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
 const PeerSelfLocatedTypeID = 0xf8ec284b
 
+func (p *PeerSelfLocated) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Expires == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerSelfLocated) String() string {
 	if p == nil {
@@ -197,7 +225,9 @@ type PeerLocatedClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PeerLocatedClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePeerLocated implements binary de-serialization for PeerLocatedClass.

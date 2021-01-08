@@ -49,6 +49,32 @@ type MessagesGetPollVotesRequest struct {
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.
 const MessagesGetPollVotesRequestTypeID = 0xb86e380e
 
+func (g *MessagesGetPollVotesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+	if !(g.Option == nil) {
+		return false
+	}
+	if !(g.Offset == "") {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetPollVotesRequest) String() string {
 	if g == nil {
@@ -89,6 +115,12 @@ func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
 	}
 	b.PutID(MessagesGetPollVotesRequestTypeID)
+	if !(g.Option == nil) {
+		g.Flags.Set(0)
+	}
+	if !(g.Offset == "") {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getPollVotes#b86e380e: field flags: %w", err)
 	}

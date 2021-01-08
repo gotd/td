@@ -28,6 +28,17 @@ type MessagesReceivedQueueRequest struct {
 // MessagesReceivedQueueRequestTypeID is TL type id of MessagesReceivedQueueRequest.
 const MessagesReceivedQueueRequestTypeID = 0x55a5bb66
 
+func (r *MessagesReceivedQueueRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.MaxQts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReceivedQueueRequest) String() string {
 	if r == nil {

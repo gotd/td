@@ -32,6 +32,23 @@ type MessagesChatFull struct {
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.
 const MessagesChatFullTypeID = 0xe5d7d19c
 
+func (c *MessagesChatFull) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.FullChat == nil) {
+		return false
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesChatFull) String() string {
 	if c == nil {

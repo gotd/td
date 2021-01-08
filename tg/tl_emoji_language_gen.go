@@ -28,6 +28,17 @@ type EmojiLanguage struct {
 // EmojiLanguageTypeID is TL type id of EmojiLanguage.
 const EmojiLanguageTypeID = 0xb3fb5361
 
+func (e *EmojiLanguage) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.LangCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EmojiLanguage) String() string {
 	if e == nil {

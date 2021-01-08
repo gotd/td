@@ -70,6 +70,53 @@ type Dialog struct {
 // DialogTypeID is TL type id of Dialog.
 const DialogTypeID = 0x2c171f72
 
+func (d *Dialog) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Pinned == false) {
+		return false
+	}
+	if !(d.UnreadMark == false) {
+		return false
+	}
+	if !(d.Peer == nil) {
+		return false
+	}
+	if !(d.TopMessage == 0) {
+		return false
+	}
+	if !(d.ReadInboxMaxID == 0) {
+		return false
+	}
+	if !(d.ReadOutboxMaxID == 0) {
+		return false
+	}
+	if !(d.UnreadCount == 0) {
+		return false
+	}
+	if !(d.UnreadMentionsCount == 0) {
+		return false
+	}
+	if !(d.NotifySettings.Zero()) {
+		return false
+	}
+	if !(d.Pts == 0) {
+		return false
+	}
+	if !(d.Draft == nil) {
+		return false
+	}
+	if !(d.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *Dialog) String() string {
 	if d == nil {
@@ -127,6 +174,21 @@ func (d *Dialog) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
 	}
 	b.PutID(DialogTypeID)
+	if !(d.Pinned == false) {
+		d.Flags.Set(2)
+	}
+	if !(d.UnreadMark == false) {
+		d.Flags.Set(3)
+	}
+	if !(d.Pts == 0) {
+		d.Flags.Set(0)
+	}
+	if !(d.Draft == nil) {
+		d.Flags.Set(1)
+	}
+	if !(d.FolderID == 0) {
+		d.Flags.Set(4)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialog#2c171f72: field flags: %w", err)
 	}
@@ -356,6 +418,41 @@ type DialogFolder struct {
 // DialogFolderTypeID is TL type id of DialogFolder.
 const DialogFolderTypeID = 0x71bd134c
 
+func (d *DialogFolder) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Pinned == false) {
+		return false
+	}
+	if !(d.Folder.Zero()) {
+		return false
+	}
+	if !(d.Peer == nil) {
+		return false
+	}
+	if !(d.TopMessage == 0) {
+		return false
+	}
+	if !(d.UnreadMutedPeersCount == 0) {
+		return false
+	}
+	if !(d.UnreadUnmutedPeersCount == 0) {
+		return false
+	}
+	if !(d.UnreadMutedMessagesCount == 0) {
+		return false
+	}
+	if !(d.UnreadUnmutedMessagesCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DialogFolder) String() string {
 	if d == nil {
@@ -398,6 +495,9 @@ func (d *DialogFolder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
 	}
 	b.PutID(DialogFolderTypeID)
+	if !(d.Pinned == false) {
+		d.Flags.Set(2)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFolder#71bd134c: field flags: %w", err)
 	}
@@ -522,7 +622,9 @@ type DialogClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DialogClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDialog implements binary de-serialization for DialogClass.

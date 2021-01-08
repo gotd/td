@@ -30,6 +30,20 @@ type MessagesGetEmojiKeywordsDifferenceRequest struct {
 // MessagesGetEmojiKeywordsDifferenceRequestTypeID is TL type id of MessagesGetEmojiKeywordsDifferenceRequest.
 const MessagesGetEmojiKeywordsDifferenceRequestTypeID = 0x1508b6af
 
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangCode == "") {
+		return false
+	}
+	if !(g.FromVersion == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) String() string {
 	if g == nil {

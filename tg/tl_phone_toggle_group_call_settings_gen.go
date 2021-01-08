@@ -33,6 +33,23 @@ type PhoneToggleGroupCallSettingsRequest struct {
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.
 const PhoneToggleGroupCallSettingsRequestTypeID = 0x74bbb43d
 
+func (t *PhoneToggleGroupCallSettingsRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Call.Zero()) {
+		return false
+	}
+	if !(t.JoinMuted == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	if t == nil {
@@ -62,6 +79,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
 	}
 	b.PutID(PhoneToggleGroupCallSettingsRequestTypeID)
+	if !(t.JoinMuted == false) {
+		t.Flags.Set(0)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
 	}

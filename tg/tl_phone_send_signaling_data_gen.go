@@ -30,6 +30,20 @@ type PhoneSendSignalingDataRequest struct {
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
 const PhoneSendSignalingDataRequestTypeID = 0xff7a9383
 
+func (s *PhoneSendSignalingDataRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer.Zero()) {
+		return false
+	}
+	if !(s.Data == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *PhoneSendSignalingDataRequest) String() string {
 	if s == nil {

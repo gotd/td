@@ -26,6 +26,14 @@ type InputStickerSetEmpty struct {
 // InputStickerSetEmptyTypeID is TL type id of InputStickerSetEmpty.
 const InputStickerSetEmptyTypeID = 0xffb62b95
 
+func (i *InputStickerSetEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputStickerSetEmpty) String() string {
 	if i == nil {
@@ -82,6 +90,20 @@ type InputStickerSetID struct {
 
 // InputStickerSetIDTypeID is TL type id of InputStickerSetID.
 const InputStickerSetIDTypeID = 0x9de7a269
+
+func (i *InputStickerSetID) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputStickerSetID) String() string {
@@ -160,6 +182,17 @@ type InputStickerSetShortName struct {
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
 const InputStickerSetShortNameTypeID = 0x861cc8a0
 
+func (i *InputStickerSetShortName) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ShortName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputStickerSetShortName) String() string {
 	if i == nil {
@@ -224,6 +257,14 @@ type InputStickerSetAnimatedEmoji struct {
 // InputStickerSetAnimatedEmojiTypeID is TL type id of InputStickerSetAnimatedEmoji.
 const InputStickerSetAnimatedEmojiTypeID = 0x28703c8
 
+func (i *InputStickerSetAnimatedEmoji) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputStickerSetAnimatedEmoji) String() string {
 	if i == nil {
@@ -281,6 +322,17 @@ type InputStickerSetDice struct {
 
 // InputStickerSetDiceTypeID is TL type id of InputStickerSetDice.
 const InputStickerSetDiceTypeID = 0xe67f520e
+
+func (i *InputStickerSetDice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Emoticon == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputStickerSetDice) String() string {
@@ -357,7 +409,9 @@ type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputStickerSetClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputStickerSet implements binary de-serialization for InputStickerSetClass.

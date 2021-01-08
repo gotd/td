@@ -26,6 +26,14 @@ type AccountResetWallPapersRequest struct {
 // AccountResetWallPapersRequestTypeID is TL type id of AccountResetWallPapersRequest.
 const AccountResetWallPapersRequestTypeID = 0xbb3b9804
 
+func (r *AccountResetWallPapersRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountResetWallPapersRequest) String() string {
 	if r == nil {

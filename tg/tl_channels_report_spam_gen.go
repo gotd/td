@@ -32,6 +32,23 @@ type ChannelsReportSpamRequest struct {
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.
 const ChannelsReportSpamRequestTypeID = 0xfe087810
 
+func (r *ChannelsReportSpamRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Channel == nil) {
+		return false
+	}
+	if !(r.UserID == nil) {
+		return false
+	}
+	if !(r.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ChannelsReportSpamRequest) String() string {
 	if r == nil {

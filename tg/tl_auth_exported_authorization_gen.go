@@ -30,6 +30,20 @@ type AuthExportedAuthorization struct {
 // AuthExportedAuthorizationTypeID is TL type id of AuthExportedAuthorization.
 const AuthExportedAuthorizationTypeID = 0xdf969c2d
 
+func (e *AuthExportedAuthorization) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *AuthExportedAuthorization) String() string {
 	if e == nil {

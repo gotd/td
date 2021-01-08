@@ -34,6 +34,17 @@ type AccountResetWebAuthorizationRequest struct {
 // AccountResetWebAuthorizationRequestTypeID is TL type id of AccountResetWebAuthorizationRequest.
 const AccountResetWebAuthorizationRequestTypeID = 0x2d01b9ef
 
+func (r *AccountResetWebAuthorizationRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountResetWebAuthorizationRequest) String() string {
 	if r == nil {

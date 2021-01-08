@@ -26,6 +26,14 @@ type InputDocumentEmpty struct {
 // InputDocumentEmptyTypeID is TL type id of InputDocumentEmpty.
 const InputDocumentEmptyTypeID = 0x72f0eaae
 
+func (i *InputDocumentEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputDocumentEmpty) String() string {
 	if i == nil {
@@ -90,6 +98,23 @@ type InputDocument struct {
 
 // InputDocumentTypeID is TL type id of InputDocument.
 const InputDocumentTypeID = 0x1abfb575
+
+func (i *InputDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputDocument) String() string {
@@ -185,7 +210,9 @@ type InputDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputDocumentClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputDocument implements binary de-serialization for InputDocumentClass.

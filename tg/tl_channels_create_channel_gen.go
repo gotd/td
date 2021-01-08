@@ -56,6 +56,35 @@ type ChannelsCreateChannelRequest struct {
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.
 const ChannelsCreateChannelRequestTypeID = 0x3d5fb10f
 
+func (c *ChannelsCreateChannelRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Broadcast == false) {
+		return false
+	}
+	if !(c.Megagroup == false) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.About == "") {
+		return false
+	}
+	if !(c.GeoPoint == nil) {
+		return false
+	}
+	if !(c.Address == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelsCreateChannelRequest) String() string {
 	if c == nil {
@@ -93,6 +122,18 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
 	}
 	b.PutID(ChannelsCreateChannelRequestTypeID)
+	if !(c.Broadcast == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Megagroup == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.GeoPoint == nil) {
+		c.Flags.Set(2)
+	}
+	if !(c.Address == "") {
+		c.Flags.Set(2)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.createChannel#3d5fb10f: field flags: %w", err)
 	}

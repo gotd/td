@@ -26,6 +26,14 @@ type AccountGetAccountTTLRequest struct {
 // AccountGetAccountTTLRequestTypeID is TL type id of AccountGetAccountTTLRequest.
 const AccountGetAccountTTLRequestTypeID = 0x8fc711d
 
+func (g *AccountGetAccountTTLRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetAccountTTLRequest) String() string {
 	if g == nil {

@@ -28,6 +28,17 @@ type AccountCheckUsernameRequest struct {
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.
 const AccountCheckUsernameRequestTypeID = 0x2714d86c
 
+func (c *AccountCheckUsernameRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Username == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountCheckUsernameRequest) String() string {
 	if c == nil {

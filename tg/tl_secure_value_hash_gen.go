@@ -30,6 +30,20 @@ type SecureValueHash struct {
 // SecureValueHashTypeID is TL type id of SecureValueHash.
 const SecureValueHashTypeID = 0xed1ecdb0
 
+func (s *SecureValueHash) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.Hash == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueHash) String() string {
 	if s == nil {

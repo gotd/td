@@ -28,6 +28,17 @@ type AuthExportAuthorizationRequest struct {
 // AuthExportAuthorizationRequestTypeID is TL type id of AuthExportAuthorizationRequest.
 const AuthExportAuthorizationRequestTypeID = 0xe5bfffcd
 
+func (e *AuthExportAuthorizationRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.DCID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *AuthExportAuthorizationRequest) String() string {
 	if e == nil {

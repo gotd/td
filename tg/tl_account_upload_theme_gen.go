@@ -44,6 +44,29 @@ type AccountUploadThemeRequest struct {
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.
 const AccountUploadThemeRequestTypeID = 0x1c3db333
 
+func (u *AccountUploadThemeRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.File == nil) {
+		return false
+	}
+	if !(u.Thumb == nil) {
+		return false
+	}
+	if !(u.FileName == "") {
+		return false
+	}
+	if !(u.MimeType == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUploadThemeRequest) String() string {
 	if u == nil {
@@ -79,6 +102,9 @@ func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
 	}
 	b.PutID(AccountUploadThemeRequestTypeID)
+	if !(u.Thumb == nil) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.uploadTheme#1c3db333: field flags: %w", err)
 	}

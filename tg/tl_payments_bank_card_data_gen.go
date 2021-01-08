@@ -30,6 +30,20 @@ type PaymentsBankCardData struct {
 // PaymentsBankCardDataTypeID is TL type id of PaymentsBankCardData.
 const PaymentsBankCardDataTypeID = 0x3e24e573
 
+func (b *PaymentsBankCardData) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Title == "") {
+		return false
+	}
+	if !(b.OpenUrls == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *PaymentsBankCardData) String() string {
 	if b == nil {

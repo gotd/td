@@ -31,6 +31,17 @@ type MessagesGetSavedGifsRequest struct {
 // MessagesGetSavedGifsRequestTypeID is TL type id of MessagesGetSavedGifsRequest.
 const MessagesGetSavedGifsRequestTypeID = 0x83bf3d52
 
+func (g *MessagesGetSavedGifsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetSavedGifsRequest) String() string {
 	if g == nil {

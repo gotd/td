@@ -28,6 +28,17 @@ type MessagesDiscardEncryptionRequest struct {
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
 const MessagesDiscardEncryptionRequestTypeID = 0xedd923c5
 
+func (d *MessagesDiscardEncryptionRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDiscardEncryptionRequest) String() string {
 	if d == nil {

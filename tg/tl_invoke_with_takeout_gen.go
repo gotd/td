@@ -30,6 +30,20 @@ type InvokeWithTakeoutRequest struct {
 // InvokeWithTakeoutRequestTypeID is TL type id of InvokeWithTakeoutRequest.
 const InvokeWithTakeoutRequestTypeID = 0xaca9fd2e
 
+func (i *InvokeWithTakeoutRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.TakeoutID == 0) {
+		return false
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InvokeWithTakeoutRequest) String() string {
 	if i == nil {

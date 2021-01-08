@@ -36,6 +36,17 @@ type AuthAcceptLoginTokenRequest struct {
 // AuthAcceptLoginTokenRequestTypeID is TL type id of AuthAcceptLoginTokenRequest.
 const AuthAcceptLoginTokenRequestTypeID = 0xe894ad4d
 
+func (a *AuthAcceptLoginTokenRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Token == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AuthAcceptLoginTokenRequest) String() string {
 	if a == nil {

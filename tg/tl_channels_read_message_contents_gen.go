@@ -36,6 +36,20 @@ type ChannelsReadMessageContentsRequest struct {
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.
 const ChannelsReadMessageContentsRequestTypeID = 0xeab5dc38
 
+func (r *ChannelsReadMessageContentsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Channel == nil) {
+		return false
+	}
+	if !(r.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ChannelsReadMessageContentsRequest) String() string {
 	if r == nil {

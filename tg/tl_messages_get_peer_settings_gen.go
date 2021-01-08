@@ -28,6 +28,17 @@ type MessagesGetPeerSettingsRequest struct {
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
 const MessagesGetPeerSettingsRequestTypeID = 0x3672e09c
 
+func (g *MessagesGetPeerSettingsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetPeerSettingsRequest) String() string {
 	if g == nil {

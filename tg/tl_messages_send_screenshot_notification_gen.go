@@ -32,6 +32,23 @@ type MessagesSendScreenshotNotificationRequest struct {
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.
 const MessagesSendScreenshotNotificationRequestTypeID = 0xc97df020
 
+func (s *MessagesSendScreenshotNotificationRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(s.RandomID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSendScreenshotNotificationRequest) String() string {
 	if s == nil {

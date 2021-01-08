@@ -31,6 +31,26 @@ type ClientDHInnerData struct {
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
 const ClientDHInnerDataTypeID = 0x6643b654
 
+func (c *ClientDHInnerData) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(c.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(c.RetryID == 0) {
+		return false
+	}
+	if !(c.GB == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ClientDHInnerData) String() string {
 	if c == nil {

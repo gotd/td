@@ -58,6 +58,41 @@ type Page struct {
 // PageTypeID is TL type id of Page.
 const PageTypeID = 0x98657f0d
 
+func (p *Page) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Part == false) {
+		return false
+	}
+	if !(p.Rtl == false) {
+		return false
+	}
+	if !(p.V2 == false) {
+		return false
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+	if !(p.Photos == nil) {
+		return false
+	}
+	if !(p.Documents == nil) {
+		return false
+	}
+	if !(p.Views == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *Page) String() string {
 	if p == nil {
@@ -102,6 +137,18 @@ func (p *Page) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode page#98657f0d as nil")
 	}
 	b.PutID(PageTypeID)
+	if !(p.Part == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Rtl == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.V2 == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.Views == 0) {
+		p.Flags.Set(3)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode page#98657f0d: field flags: %w", err)
 	}

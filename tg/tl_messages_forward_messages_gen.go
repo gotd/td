@@ -49,6 +49,41 @@ type MessagesForwardMessagesRequest struct {
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
 const MessagesForwardMessagesRequestTypeID = 0xd9fee60e
 
+func (f *MessagesForwardMessagesRequest) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Flags.Zero()) {
+		return false
+	}
+	if !(f.Silent == false) {
+		return false
+	}
+	if !(f.Background == false) {
+		return false
+	}
+	if !(f.WithMyScore == false) {
+		return false
+	}
+	if !(f.FromPeer == nil) {
+		return false
+	}
+	if !(f.ID == nil) {
+		return false
+	}
+	if !(f.RandomID == nil) {
+		return false
+	}
+	if !(f.ToPeer == nil) {
+		return false
+	}
+	if !(f.ScheduleDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *MessagesForwardMessagesRequest) String() string {
 	if f == nil {
@@ -91,6 +126,18 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
 	}
 	b.PutID(MessagesForwardMessagesRequestTypeID)
+	if !(f.Silent == false) {
+		f.Flags.Set(5)
+	}
+	if !(f.Background == false) {
+		f.Flags.Set(6)
+	}
+	if !(f.WithMyScore == false) {
+		f.Flags.Set(8)
+	}
+	if !(f.ScheduleDate == 0) {
+		f.Flags.Set(10)
+	}
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.forwardMessages#d9fee60e: field flags: %w", err)
 	}

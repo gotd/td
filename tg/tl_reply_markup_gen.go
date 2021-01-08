@@ -33,6 +33,20 @@ type ReplyKeyboardHide struct {
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
 const ReplyKeyboardHideTypeID = 0xa03e5b85
 
+func (r *ReplyKeyboardHide) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.Selective == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReplyKeyboardHide) String() string {
 	if r == nil {
@@ -54,6 +68,9 @@ func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
 	}
 	b.PutID(ReplyKeyboardHideTypeID)
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardHide#a03e5b85: field flags: %w", err)
 	}
@@ -118,6 +135,23 @@ type ReplyKeyboardForceReply struct {
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
 const ReplyKeyboardForceReplyTypeID = 0xf4108aa0
 
+func (r *ReplyKeyboardForceReply) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.SingleUse == false) {
+		return false
+	}
+	if !(r.Selective == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReplyKeyboardForceReply) String() string {
 	if r == nil {
@@ -139,6 +173,12 @@ func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardForceReply#f4108aa0 as nil")
 	}
 	b.PutID(ReplyKeyboardForceReplyTypeID)
+	if !(r.SingleUse == false) {
+		r.Flags.Set(1)
+	}
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardForceReply#f4108aa0: field flags: %w", err)
 	}
@@ -219,6 +259,29 @@ type ReplyKeyboardMarkup struct {
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
 const ReplyKeyboardMarkupTypeID = 0x3502758c
 
+func (r *ReplyKeyboardMarkup) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.Resize == false) {
+		return false
+	}
+	if !(r.SingleUse == false) {
+		return false
+	}
+	if !(r.Selective == false) {
+		return false
+	}
+	if !(r.Rows == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReplyKeyboardMarkup) String() string {
 	if r == nil {
@@ -245,6 +308,15 @@ func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardMarkup#3502758c as nil")
 	}
 	b.PutID(ReplyKeyboardMarkupTypeID)
+	if !(r.Resize == false) {
+		r.Flags.Set(0)
+	}
+	if !(r.SingleUse == false) {
+		r.Flags.Set(1)
+	}
+	if !(r.Selective == false) {
+		r.Flags.Set(2)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode replyKeyboardMarkup#3502758c: field flags: %w", err)
 	}
@@ -345,6 +417,17 @@ type ReplyInlineMarkup struct {
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
 const ReplyInlineMarkupTypeID = 0x48a30254
 
+func (r *ReplyInlineMarkup) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Rows == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReplyInlineMarkup) String() string {
 	if r == nil {
@@ -432,7 +515,9 @@ type ReplyMarkupClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ReplyMarkupClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeReplyMarkup implements binary de-serialization for ReplyMarkupClass.

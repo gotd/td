@@ -30,6 +30,20 @@ type StickersAddStickerToSetRequest struct {
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
 const StickersAddStickerToSetRequestTypeID = 0x8653febe
 
+func (a *StickersAddStickerToSetRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Stickerset == nil) {
+		return false
+	}
+	if !(a.Sticker.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *StickersAddStickerToSetRequest) String() string {
 	if a == nil {

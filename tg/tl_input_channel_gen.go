@@ -26,6 +26,14 @@ type InputChannelEmpty struct {
 // InputChannelEmptyTypeID is TL type id of InputChannelEmpty.
 const InputChannelEmptyTypeID = 0xee8c1e86
 
+func (i *InputChannelEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputChannelEmpty) String() string {
 	if i == nil {
@@ -85,6 +93,20 @@ type InputChannel struct {
 
 // InputChannelTypeID is TL type id of InputChannel.
 const InputChannelTypeID = 0xafeb712e
+
+func (i *InputChannel) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChannelID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputChannel) String() string {
@@ -169,6 +191,23 @@ type InputChannelFromMessage struct {
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
 const InputChannelFromMessageTypeID = 0x2a286531
+
+func (i *InputChannelFromMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.MsgID == 0) {
+		return false
+	}
+	if !(i.ChannelID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputChannelFromMessage) String() string {
@@ -270,7 +309,9 @@ type InputChannelClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputChannelClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputChannel implements binary de-serialization for InputChannelClass.

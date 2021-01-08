@@ -31,6 +31,17 @@ type MessagesGetFavedStickersRequest struct {
 // MessagesGetFavedStickersRequestTypeID is TL type id of MessagesGetFavedStickersRequest.
 const MessagesGetFavedStickersRequestTypeID = 0x21ce0b0e
 
+func (g *MessagesGetFavedStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetFavedStickersRequest) String() string {
 	if g == nil {

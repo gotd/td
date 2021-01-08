@@ -26,6 +26,14 @@ type AccountGetAutoDownloadSettingsRequest struct {
 // AccountGetAutoDownloadSettingsRequestTypeID is TL type id of AccountGetAutoDownloadSettingsRequest.
 const AccountGetAutoDownloadSettingsRequestTypeID = 0x56da0b3f
 
+func (g *AccountGetAutoDownloadSettingsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetAutoDownloadSettingsRequest) String() string {
 	if g == nil {

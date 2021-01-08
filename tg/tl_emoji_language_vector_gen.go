@@ -22,6 +22,17 @@ type EmojiLanguageVector struct {
 	Elems []EmojiLanguage
 }
 
+func (vec *EmojiLanguageVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *EmojiLanguageVector) String() string {
 	if vec == nil {

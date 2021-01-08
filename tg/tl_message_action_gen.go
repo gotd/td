@@ -26,6 +26,14 @@ type MessageActionEmpty struct {
 // MessageActionEmptyTypeID is TL type id of MessageActionEmpty.
 const MessageActionEmptyTypeID = 0xb6aef7b0
 
+func (m *MessageActionEmpty) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionEmpty) String() string {
 	if m == nil {
@@ -82,6 +90,20 @@ type MessageActionChatCreate struct {
 
 // MessageActionChatCreateTypeID is TL type id of MessageActionChatCreate.
 const MessageActionChatCreateTypeID = 0xa6638b9a
+
+func (m *MessageActionChatCreate) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChatCreate) String() string {
@@ -171,6 +193,17 @@ type MessageActionChatEditTitle struct {
 // MessageActionChatEditTitleTypeID is TL type id of MessageActionChatEditTitle.
 const MessageActionChatEditTitleTypeID = 0xb5a1ce5a
 
+func (m *MessageActionChatEditTitle) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionChatEditTitle) String() string {
 	if m == nil {
@@ -236,6 +269,17 @@ type MessageActionChatEditPhoto struct {
 
 // MessageActionChatEditPhotoTypeID is TL type id of MessageActionChatEditPhoto.
 const MessageActionChatEditPhotoTypeID = 0x7fcb13a8
+
+func (m *MessageActionChatEditPhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Photo == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChatEditPhoto) String() string {
@@ -306,6 +350,14 @@ type MessageActionChatDeletePhoto struct {
 // MessageActionChatDeletePhotoTypeID is TL type id of MessageActionChatDeletePhoto.
 const MessageActionChatDeletePhotoTypeID = 0x95e3fbef
 
+func (m *MessageActionChatDeletePhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionChatDeletePhoto) String() string {
 	if m == nil {
@@ -360,6 +412,17 @@ type MessageActionChatAddUser struct {
 
 // MessageActionChatAddUserTypeID is TL type id of MessageActionChatAddUser.
 const MessageActionChatAddUserTypeID = 0x488a7337
+
+func (m *MessageActionChatAddUser) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChatAddUser) String() string {
@@ -438,6 +501,17 @@ type MessageActionChatDeleteUser struct {
 // MessageActionChatDeleteUserTypeID is TL type id of MessageActionChatDeleteUser.
 const MessageActionChatDeleteUserTypeID = 0xb2ae9b0c
 
+func (m *MessageActionChatDeleteUser) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionChatDeleteUser) String() string {
 	if m == nil {
@@ -504,6 +578,17 @@ type MessageActionChatJoinedByLink struct {
 // MessageActionChatJoinedByLinkTypeID is TL type id of MessageActionChatJoinedByLink.
 const MessageActionChatJoinedByLinkTypeID = 0xf89cf5e8
 
+func (m *MessageActionChatJoinedByLink) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.InviterID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionChatJoinedByLink) String() string {
 	if m == nil {
@@ -569,6 +654,17 @@ type MessageActionChannelCreate struct {
 
 // MessageActionChannelCreateTypeID is TL type id of MessageActionChannelCreate.
 const MessageActionChannelCreateTypeID = 0x95d2ac92
+
+func (m *MessageActionChannelCreate) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Title == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChannelCreate) String() string {
@@ -638,6 +734,17 @@ type MessageActionChatMigrateTo struct {
 
 // MessageActionChatMigrateToTypeID is TL type id of MessageActionChatMigrateTo.
 const MessageActionChatMigrateToTypeID = 0x51bdb021
+
+func (m *MessageActionChatMigrateTo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ChannelID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChatMigrateTo) String() string {
@@ -709,6 +816,20 @@ type MessageActionChannelMigrateFrom struct {
 
 // MessageActionChannelMigrateFromTypeID is TL type id of MessageActionChannelMigrateFrom.
 const MessageActionChannelMigrateFromTypeID = 0xb055eaee
+
+func (m *MessageActionChannelMigrateFrom) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionChannelMigrateFrom) String() string {
@@ -785,6 +906,14 @@ type MessageActionPinMessage struct {
 // MessageActionPinMessageTypeID is TL type id of MessageActionPinMessage.
 const MessageActionPinMessageTypeID = 0x94bd38ed
 
+func (m *MessageActionPinMessage) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionPinMessage) String() string {
 	if m == nil {
@@ -837,6 +966,14 @@ type MessageActionHistoryClear struct {
 
 // MessageActionHistoryClearTypeID is TL type id of MessageActionHistoryClear.
 const MessageActionHistoryClearTypeID = 0x9fbab604
+
+func (m *MessageActionHistoryClear) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionHistoryClear) String() string {
@@ -894,6 +1031,20 @@ type MessageActionGameScore struct {
 
 // MessageActionGameScoreTypeID is TL type id of MessageActionGameScore.
 const MessageActionGameScoreTypeID = 0x92a72876
+
+func (m *MessageActionGameScore) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.GameID == 0) {
+		return false
+	}
+	if !(m.Score == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionGameScore) String() string {
@@ -997,6 +1148,35 @@ type MessageActionPaymentSentMe struct {
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
 const MessageActionPaymentSentMeTypeID = 0x8f31b327
 
+func (m *MessageActionPaymentSentMe) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.TotalAmount == 0) {
+		return false
+	}
+	if !(m.Payload == nil) {
+		return false
+	}
+	if !(m.Info.Zero()) {
+		return false
+	}
+	if !(m.ShippingOptionID == "") {
+		return false
+	}
+	if !(m.Charge.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionPaymentSentMe) String() string {
 	if m == nil {
@@ -1040,6 +1220,12 @@ func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageActionPaymentSentMe#8f31b327 as nil")
 	}
 	b.PutID(MessageActionPaymentSentMeTypeID)
+	if !(m.Info.Zero()) {
+		m.Flags.Set(0)
+	}
+	if !(m.ShippingOptionID == "") {
+		m.Flags.Set(1)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionPaymentSentMe#8f31b327: field flags: %w", err)
 	}
@@ -1175,6 +1361,20 @@ type MessageActionPaymentSent struct {
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
 const MessageActionPaymentSentTypeID = 0x40699cd0
 
+func (m *MessageActionPaymentSent) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.TotalAmount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionPaymentSent) String() string {
 	if m == nil {
@@ -1267,6 +1467,29 @@ type MessageActionPhoneCall struct {
 // MessageActionPhoneCallTypeID is TL type id of MessageActionPhoneCall.
 const MessageActionPhoneCallTypeID = 0x80e11a7f
 
+func (m *MessageActionPhoneCall) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Video == false) {
+		return false
+	}
+	if !(m.CallID == 0) {
+		return false
+	}
+	if !(m.Reason == nil) {
+		return false
+	}
+	if !(m.Duration == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionPhoneCall) String() string {
 	if m == nil {
@@ -1301,6 +1524,15 @@ func (m *MessageActionPhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageActionPhoneCall#80e11a7f as nil")
 	}
 	b.PutID(MessageActionPhoneCallTypeID)
+	if !(m.Video == false) {
+		m.Flags.Set(2)
+	}
+	if !(m.Reason == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.Duration == 0) {
+		m.Flags.Set(1)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionPhoneCall#80e11a7f: field flags: %w", err)
 	}
@@ -1419,6 +1651,14 @@ type MessageActionScreenshotTaken struct {
 // MessageActionScreenshotTakenTypeID is TL type id of MessageActionScreenshotTaken.
 const MessageActionScreenshotTakenTypeID = 0x4792929b
 
+func (m *MessageActionScreenshotTaken) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionScreenshotTaken) String() string {
 	if m == nil {
@@ -1473,6 +1713,17 @@ type MessageActionCustomAction struct {
 
 // MessageActionCustomActionTypeID is TL type id of MessageActionCustomAction.
 const MessageActionCustomActionTypeID = 0xfae69f56
+
+func (m *MessageActionCustomAction) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Message == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionCustomAction) String() string {
@@ -1542,6 +1793,17 @@ type MessageActionBotAllowed struct {
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
 const MessageActionBotAllowedTypeID = 0xabe9affe
+
+func (m *MessageActionBotAllowed) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Domain == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionBotAllowed) String() string {
@@ -1613,6 +1875,20 @@ type MessageActionSecureValuesSentMe struct {
 
 // MessageActionSecureValuesSentMeTypeID is TL type id of MessageActionSecureValuesSentMe.
 const MessageActionSecureValuesSentMeTypeID = 0x1b287353
+
+func (m *MessageActionSecureValuesSentMe) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Values == nil) {
+		return false
+	}
+	if !(m.Credentials.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionSecureValuesSentMe) String() string {
@@ -1707,6 +1983,17 @@ type MessageActionSecureValuesSent struct {
 // MessageActionSecureValuesSentTypeID is TL type id of MessageActionSecureValuesSent.
 const MessageActionSecureValuesSentTypeID = 0xd95c6154
 
+func (m *MessageActionSecureValuesSent) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Types == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionSecureValuesSent) String() string {
 	if m == nil {
@@ -1787,6 +2074,14 @@ type MessageActionContactSignUp struct {
 // MessageActionContactSignUpTypeID is TL type id of MessageActionContactSignUp.
 const MessageActionContactSignUpTypeID = 0xf3f25f76
 
+func (m *MessageActionContactSignUp) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionContactSignUp) String() string {
 	if m == nil {
@@ -1848,6 +2143,23 @@ type MessageActionGeoProximityReached struct {
 
 // MessageActionGeoProximityReachedTypeID is TL type id of MessageActionGeoProximityReached.
 const MessageActionGeoProximityReachedTypeID = 0x98e0d697
+
+func (m *MessageActionGeoProximityReached) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.FromID == nil) {
+		return false
+	}
+	if !(m.ToID == nil) {
+		return false
+	}
+	if !(m.Distance == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionGeoProximityReached) String() string {
@@ -1952,6 +2264,23 @@ type MessageActionGroupCall struct {
 // MessageActionGroupCallTypeID is TL type id of MessageActionGroupCall.
 const MessageActionGroupCallTypeID = 0x7a0d7f42
 
+func (m *MessageActionGroupCall) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Call.Zero()) {
+		return false
+	}
+	if !(m.Duration == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageActionGroupCall) String() string {
 	if m == nil {
@@ -1981,6 +2310,9 @@ func (m *MessageActionGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageActionGroupCall#7a0d7f42 as nil")
 	}
 	b.PutID(MessageActionGroupCallTypeID)
+	if !(m.Duration == 0) {
+		m.Flags.Set(0)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageActionGroupCall#7a0d7f42: field flags: %w", err)
 	}
@@ -2059,6 +2391,20 @@ type MessageActionInviteToGroupCall struct {
 
 // MessageActionInviteToGroupCallTypeID is TL type id of MessageActionInviteToGroupCall.
 const MessageActionInviteToGroupCallTypeID = 0x76b9f11a
+
+func (m *MessageActionInviteToGroupCall) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Call.Zero()) {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageActionInviteToGroupCall) String() string {
@@ -2178,7 +2524,9 @@ type MessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageActionClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessageAction implements binary de-serialization for MessageActionClass.

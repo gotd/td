@@ -56,6 +56,29 @@ type UpdatesGetDifferenceRequest struct {
 // UpdatesGetDifferenceRequestTypeID is TL type id of UpdatesGetDifferenceRequest.
 const UpdatesGetDifferenceRequestTypeID = 0x25939651
 
+func (g *UpdatesGetDifferenceRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Pts == 0) {
+		return false
+	}
+	if !(g.PtsTotalLimit == 0) {
+		return false
+	}
+	if !(g.Date == 0) {
+		return false
+	}
+	if !(g.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UpdatesGetDifferenceRequest) String() string {
 	if g == nil {
@@ -91,6 +114,9 @@ func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
 	}
 	b.PutID(UpdatesGetDifferenceRequestTypeID)
+	if !(g.PtsTotalLimit == 0) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.getDifference#25939651: field flags: %w", err)
 	}

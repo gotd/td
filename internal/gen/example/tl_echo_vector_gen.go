@@ -27,6 +27,17 @@ type EchoVectorRequest struct {
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
 const EchoVectorRequestTypeID = 0xd4785939
 
+func (e *EchoVectorRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Ids == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EchoVectorRequest) String() string {
 	if e == nil {

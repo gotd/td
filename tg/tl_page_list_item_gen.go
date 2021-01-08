@@ -28,6 +28,17 @@ type PageListItemText struct {
 // PageListItemTextTypeID is TL type id of PageListItemText.
 const PageListItemTextTypeID = 0xb92fb6cd
 
+func (p *PageListItemText) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageListItemText) String() string {
 	if p == nil {
@@ -98,6 +109,17 @@ type PageListItemBlocks struct {
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.
 const PageListItemBlocksTypeID = 0x25e073fc
+
+func (p *PageListItemBlocks) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageListItemBlocks) String() string {
@@ -187,7 +209,9 @@ type PageListItemClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageListItemClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePageListItem implements binary de-serialization for PageListItemClass.

@@ -30,6 +30,20 @@ type UpdatesDifferenceEmpty struct {
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
 const UpdatesDifferenceEmptyTypeID = 0x5d75a138
 
+func (d *UpdatesDifferenceEmpty) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Date == 0) {
+		return false
+	}
+	if !(d.Seq == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *UpdatesDifferenceEmpty) String() string {
 	if d == nil {
@@ -116,6 +130,32 @@ type UpdatesDifference struct {
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
 const UpdatesDifferenceTypeID = 0xf49ca0
+
+func (d *UpdatesDifference) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.NewMessages == nil) {
+		return false
+	}
+	if !(d.NewEncryptedMessages == nil) {
+		return false
+	}
+	if !(d.OtherUpdates == nil) {
+		return false
+	}
+	if !(d.Chats == nil) {
+		return false
+	}
+	if !(d.Users == nil) {
+		return false
+	}
+	if !(d.State.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *UpdatesDifference) String() string {
@@ -331,6 +371,32 @@ type UpdatesDifferenceSlice struct {
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
 const UpdatesDifferenceSliceTypeID = 0xa8fb1981
 
+func (d *UpdatesDifferenceSlice) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.NewMessages == nil) {
+		return false
+	}
+	if !(d.NewEncryptedMessages == nil) {
+		return false
+	}
+	if !(d.OtherUpdates == nil) {
+		return false
+	}
+	if !(d.Chats == nil) {
+		return false
+	}
+	if !(d.Users == nil) {
+		return false
+	}
+	if !(d.IntermediateState.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *UpdatesDifferenceSlice) String() string {
 	if d == nil {
@@ -535,6 +601,17 @@ type UpdatesDifferenceTooLong struct {
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.
 const UpdatesDifferenceTooLongTypeID = 0x4afe8f6d
 
+func (d *UpdatesDifferenceTooLong) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Pts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *UpdatesDifferenceTooLong) String() string {
 	if d == nil {
@@ -609,7 +686,9 @@ type UpdatesDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesDifferenceClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUpdatesDifference implements binary de-serialization for UpdatesDifferenceClass.

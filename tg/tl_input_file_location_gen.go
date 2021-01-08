@@ -37,6 +37,26 @@ type InputFileLocation struct {
 // InputFileLocationTypeID is TL type id of InputFileLocation.
 const InputFileLocationTypeID = 0xdfdaabe1
 
+func (i *InputFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+	if !(i.Secret == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputFileLocation) String() string {
 	if i == nil {
@@ -144,6 +164,20 @@ type InputEncryptedFileLocation struct {
 // InputEncryptedFileLocationTypeID is TL type id of InputEncryptedFileLocation.
 const InputEncryptedFileLocationTypeID = 0xf5235d55
 
+func (i *InputEncryptedFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputEncryptedFileLocation) String() string {
 	if i == nil {
@@ -232,6 +266,26 @@ type InputDocumentFileLocation struct {
 
 // InputDocumentFileLocationTypeID is TL type id of InputDocumentFileLocation.
 const InputDocumentFileLocationTypeID = 0xbad07584
+
+func (i *InputDocumentFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+	if !(i.ThumbSize == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputDocumentFileLocation) String() string {
@@ -343,6 +397,20 @@ type InputSecureFileLocation struct {
 // InputSecureFileLocationTypeID is TL type id of InputSecureFileLocation.
 const InputSecureFileLocationTypeID = 0xcbc7ee28
 
+func (i *InputSecureFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputSecureFileLocation) String() string {
 	if i == nil {
@@ -417,6 +485,14 @@ type InputTakeoutFileLocation struct {
 
 // InputTakeoutFileLocationTypeID is TL type id of InputTakeoutFileLocation.
 const InputTakeoutFileLocationTypeID = 0x29be5899
+
+func (i *InputTakeoutFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputTakeoutFileLocation) String() string {
@@ -494,6 +570,26 @@ type InputPhotoFileLocation struct {
 
 // InputPhotoFileLocationTypeID is TL type id of InputPhotoFileLocation.
 const InputPhotoFileLocationTypeID = 0x40181ffe
+
+func (i *InputPhotoFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+	if !(i.ThumbSize == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPhotoFileLocation) String() string {
@@ -603,6 +699,32 @@ type InputPhotoLegacyFileLocation struct {
 
 // InputPhotoLegacyFileLocationTypeID is TL type id of InputPhotoLegacyFileLocation.
 const InputPhotoLegacyFileLocationTypeID = 0xd83466f3
+
+func (i *InputPhotoLegacyFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+	if !(i.Secret == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPhotoLegacyFileLocation) String() string {
@@ -742,6 +864,29 @@ type InputPeerPhotoFileLocation struct {
 // InputPeerPhotoFileLocationTypeID is TL type id of InputPeerPhotoFileLocation.
 const InputPeerPhotoFileLocationTypeID = 0x27d69997
 
+func (i *InputPeerPhotoFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Big == false) {
+		return false
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPeerPhotoFileLocation) String() string {
 	if i == nil {
@@ -772,6 +917,9 @@ func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#27d69997 as nil")
 	}
 	b.PutID(InputPeerPhotoFileLocationTypeID)
+	if !(i.Big == false) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerPhotoFileLocation#27d69997: field flags: %w", err)
 	}
@@ -864,6 +1012,23 @@ type InputStickerSetThumb struct {
 
 // InputStickerSetThumbTypeID is TL type id of InputStickerSetThumb.
 const InputStickerSetThumbTypeID = 0xdbaeae9
+
+func (i *InputStickerSetThumb) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Stickerset == nil) {
+		return false
+	}
+	if !(i.VolumeID == 0) {
+		return false
+	}
+	if !(i.LocalID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputStickerSetThumb) String() string {
@@ -971,7 +1136,9 @@ type InputFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputFileLocationClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputFileLocation implements binary de-serialization for InputFileLocationClass.

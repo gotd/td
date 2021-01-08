@@ -26,6 +26,14 @@ type InputReportReasonSpam struct {
 // InputReportReasonSpamTypeID is TL type id of InputReportReasonSpam.
 const InputReportReasonSpamTypeID = 0x58dbcab8
 
+func (i *InputReportReasonSpam) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputReportReasonSpam) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputReportReasonViolence struct {
 
 // InputReportReasonViolenceTypeID is TL type id of InputReportReasonViolence.
 const InputReportReasonViolenceTypeID = 0x1e22c78d
+
+func (i *InputReportReasonViolence) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputReportReasonViolence) String() string {
@@ -132,6 +148,14 @@ type InputReportReasonPornography struct {
 // InputReportReasonPornographyTypeID is TL type id of InputReportReasonPornography.
 const InputReportReasonPornographyTypeID = 0x2e59d922
 
+func (i *InputReportReasonPornography) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputReportReasonPornography) String() string {
 	if i == nil {
@@ -184,6 +208,14 @@ type InputReportReasonChildAbuse struct {
 
 // InputReportReasonChildAbuseTypeID is TL type id of InputReportReasonChildAbuse.
 const InputReportReasonChildAbuseTypeID = 0xadf44ee3
+
+func (i *InputReportReasonChildAbuse) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputReportReasonChildAbuse) String() string {
@@ -239,6 +271,17 @@ type InputReportReasonOther struct {
 
 // InputReportReasonOtherTypeID is TL type id of InputReportReasonOther.
 const InputReportReasonOtherTypeID = 0xe1746d0a
+
+func (i *InputReportReasonOther) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputReportReasonOther) String() string {
@@ -304,6 +347,14 @@ type InputReportReasonCopyright struct {
 // InputReportReasonCopyrightTypeID is TL type id of InputReportReasonCopyright.
 const InputReportReasonCopyrightTypeID = 0x9b89f93a
 
+func (i *InputReportReasonCopyright) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputReportReasonCopyright) String() string {
 	if i == nil {
@@ -356,6 +407,14 @@ type InputReportReasonGeoIrrelevant struct {
 
 // InputReportReasonGeoIrrelevantTypeID is TL type id of InputReportReasonGeoIrrelevant.
 const InputReportReasonGeoIrrelevantTypeID = 0xdbd4feed
+
+func (i *InputReportReasonGeoIrrelevant) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputReportReasonGeoIrrelevant) String() string {
@@ -423,7 +482,9 @@ type ReportReasonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ReportReasonClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeReportReason implements binary de-serialization for ReportReasonClass.

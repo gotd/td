@@ -43,6 +43,23 @@ type StatsLoadAsyncGraphRequest struct {
 // StatsLoadAsyncGraphRequestTypeID is TL type id of StatsLoadAsyncGraphRequest.
 const StatsLoadAsyncGraphRequestTypeID = 0x621d5fa0
 
+func (l *StatsLoadAsyncGraphRequest) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Flags.Zero()) {
+		return false
+	}
+	if !(l.Token == "") {
+		return false
+	}
+	if !(l.X == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *StatsLoadAsyncGraphRequest) String() string {
 	if l == nil {
@@ -72,6 +89,9 @@ func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
 	}
 	b.PutID(StatsLoadAsyncGraphRequestTypeID)
+	if !(l.X == 0) {
+		l.Flags.Set(0)
+	}
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)
 	}

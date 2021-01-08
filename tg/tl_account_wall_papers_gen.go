@@ -26,6 +26,14 @@ type AccountWallPapersNotModified struct {
 // AccountWallPapersNotModifiedTypeID is TL type id of AccountWallPapersNotModified.
 const AccountWallPapersNotModifiedTypeID = 0x1c199183
 
+func (w *AccountWallPapersNotModified) Zero() bool {
+	if w == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *AccountWallPapersNotModified) String() string {
 	if w == nil {
@@ -85,6 +93,20 @@ type AccountWallPapers struct {
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
 const AccountWallPapersTypeID = 0x702b65a9
+
+func (w *AccountWallPapers) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Hash == 0) {
+		return false
+	}
+	if !(w.Wallpapers == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (w *AccountWallPapers) String() string {
@@ -185,7 +207,9 @@ type AccountWallPapersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AccountWallPapersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAccountWallPapers implements binary de-serialization for AccountWallPapersClass.

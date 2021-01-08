@@ -49,6 +49,29 @@ type AuthSentCode struct {
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
 const AuthSentCodeTypeID = 0x5e002502
 
+func (s *AuthSentCode) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.PhoneCodeHash == "") {
+		return false
+	}
+	if !(s.NextType == nil) {
+		return false
+	}
+	if !(s.Timeout == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AuthSentCode) String() string {
 	if s == nil {
@@ -86,6 +109,12 @@ func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCode#5e002502 as nil")
 	}
 	b.PutID(AuthSentCodeTypeID)
+	if !(s.NextType == nil) {
+		s.Flags.Set(1)
+	}
+	if !(s.Timeout == 0) {
+		s.Flags.Set(2)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.sentCode#5e002502: field flags: %w", err)
 	}

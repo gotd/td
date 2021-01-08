@@ -42,6 +42,26 @@ type SecureValueErrorData struct {
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
 const SecureValueErrorDataTypeID = 0xe8a40bd9
 
+func (s *SecureValueErrorData) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.DataHash == nil) {
+		return false
+	}
+	if !(s.Field == "") {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueErrorData) String() string {
 	if s == nil {
@@ -156,6 +176,23 @@ type SecureValueErrorFrontSide struct {
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
 const SecureValueErrorFrontSideTypeID = 0xbe3dfa
 
+func (s *SecureValueErrorFrontSide) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueErrorFrontSide) String() string {
 	if s == nil {
@@ -256,6 +293,23 @@ type SecureValueErrorReverseSide struct {
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
 const SecureValueErrorReverseSideTypeID = 0x868a2aa5
+
+func (s *SecureValueErrorReverseSide) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueErrorReverseSide) String() string {
@@ -359,6 +413,23 @@ type SecureValueErrorSelfie struct {
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
 const SecureValueErrorSelfieTypeID = 0xe537ced6
+
+func (s *SecureValueErrorSelfie) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueErrorSelfie) String() string {
@@ -464,6 +535,23 @@ type SecureValueErrorFile struct {
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
 const SecureValueErrorFileTypeID = 0x7a700873
 
+func (s *SecureValueErrorFile) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueErrorFile) String() string {
 	if s == nil {
@@ -567,6 +655,23 @@ type SecureValueErrorFiles struct {
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
 const SecureValueErrorFilesTypeID = 0x666220e9
+
+func (s *SecureValueErrorFiles) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueErrorFiles) String() string {
@@ -675,6 +780,23 @@ type SecureValueError struct {
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
 const SecureValueErrorTypeID = 0x869d758f
+
+func (s *SecureValueError) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.Hash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueError) String() string {
@@ -785,6 +907,23 @@ type SecureValueErrorTranslationFile struct {
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
 const SecureValueErrorTranslationFileTypeID = 0xa1144770
 
+func (s *SecureValueErrorTranslationFile) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueErrorTranslationFile) String() string {
 	if s == nil {
@@ -893,6 +1032,23 @@ type SecureValueErrorTranslationFiles struct {
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.
 const SecureValueErrorTranslationFilesTypeID = 0x34636dd8
+
+func (s *SecureValueErrorTranslationFiles) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueErrorTranslationFiles) String() string {
@@ -1011,7 +1167,9 @@ type SecureValueErrorClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureValueErrorClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecureValueError implements binary de-serialization for SecureValueErrorClass.

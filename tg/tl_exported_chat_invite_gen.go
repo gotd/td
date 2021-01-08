@@ -26,6 +26,14 @@ type ChatInviteEmpty struct {
 // ChatInviteEmptyTypeID is TL type id of ChatInviteEmpty.
 const ChatInviteEmptyTypeID = 0x69df3769
 
+func (c *ChatInviteEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatInviteEmpty) String() string {
 	if c == nil {
@@ -80,6 +88,17 @@ type ChatInviteExported struct {
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
 const ChatInviteExportedTypeID = 0xfc2e05bc
+
+func (c *ChatInviteExported) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Link == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChatInviteExported) String() string {
@@ -153,7 +172,9 @@ type ExportedChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ExportedChatInviteClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeExportedChatInvite implements binary de-serialization for ExportedChatInviteClass.

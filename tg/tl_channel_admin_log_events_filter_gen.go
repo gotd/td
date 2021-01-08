@@ -112,6 +112,62 @@ type ChannelAdminLogEventsFilter struct {
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
 const ChannelAdminLogEventsFilterTypeID = 0xea107ae4
 
+func (c *ChannelAdminLogEventsFilter) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Join == false) {
+		return false
+	}
+	if !(c.Leave == false) {
+		return false
+	}
+	if !(c.Invite == false) {
+		return false
+	}
+	if !(c.Ban == false) {
+		return false
+	}
+	if !(c.Unban == false) {
+		return false
+	}
+	if !(c.Kick == false) {
+		return false
+	}
+	if !(c.Unkick == false) {
+		return false
+	}
+	if !(c.Promote == false) {
+		return false
+	}
+	if !(c.Demote == false) {
+		return false
+	}
+	if !(c.Info == false) {
+		return false
+	}
+	if !(c.Settings == false) {
+		return false
+	}
+	if !(c.Pinned == false) {
+		return false
+	}
+	if !(c.Edit == false) {
+		return false
+	}
+	if !(c.Delete == false) {
+		return false
+	}
+	if !(c.GroupCall == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventsFilter) String() string {
 	if c == nil {
@@ -133,6 +189,51 @@ func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
 	}
 	b.PutID(ChannelAdminLogEventsFilterTypeID)
+	if !(c.Join == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Leave == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.Invite == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.Ban == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.Unban == false) {
+		c.Flags.Set(4)
+	}
+	if !(c.Kick == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.Unkick == false) {
+		c.Flags.Set(6)
+	}
+	if !(c.Promote == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.Demote == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.Info == false) {
+		c.Flags.Set(9)
+	}
+	if !(c.Settings == false) {
+		c.Flags.Set(10)
+	}
+	if !(c.Pinned == false) {
+		c.Flags.Set(11)
+	}
+	if !(c.Edit == false) {
+		c.Flags.Set(12)
+	}
+	if !(c.Delete == false) {
+		c.Flags.Set(13)
+	}
+	if !(c.GroupCall == false) {
+		c.Flags.Set(14)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
 	}

@@ -26,6 +26,14 @@ type StorageFileUnknown struct {
 // StorageFileUnknownTypeID is TL type id of StorageFileUnknown.
 const StorageFileUnknownTypeID = 0xaa963b05
 
+func (f *StorageFileUnknown) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *StorageFileUnknown) String() string {
 	if f == nil {
@@ -78,6 +86,14 @@ type StorageFilePartial struct {
 
 // StorageFilePartialTypeID is TL type id of StorageFilePartial.
 const StorageFilePartialTypeID = 0x40bc6f52
+
+func (f *StorageFilePartial) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *StorageFilePartial) String() string {
@@ -132,6 +148,14 @@ type StorageFileJpeg struct {
 // StorageFileJpegTypeID is TL type id of StorageFileJpeg.
 const StorageFileJpegTypeID = 0x7efe0e
 
+func (f *StorageFileJpeg) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *StorageFileJpeg) String() string {
 	if f == nil {
@@ -184,6 +208,14 @@ type StorageFileGif struct {
 
 // StorageFileGifTypeID is TL type id of StorageFileGif.
 const StorageFileGifTypeID = 0xcae1aadf
+
+func (f *StorageFileGif) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *StorageFileGif) String() string {
@@ -238,6 +270,14 @@ type StorageFilePng struct {
 // StorageFilePngTypeID is TL type id of StorageFilePng.
 const StorageFilePngTypeID = 0xa4f63c0
 
+func (f *StorageFilePng) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *StorageFilePng) String() string {
 	if f == nil {
@@ -290,6 +330,14 @@ type StorageFilePdf struct {
 
 // StorageFilePdfTypeID is TL type id of StorageFilePdf.
 const StorageFilePdfTypeID = 0xae1e508d
+
+func (f *StorageFilePdf) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *StorageFilePdf) String() string {
@@ -344,6 +392,14 @@ type StorageFileMp3 struct {
 // StorageFileMp3TypeID is TL type id of StorageFileMp3.
 const StorageFileMp3TypeID = 0x528a0677
 
+func (f *StorageFileMp3) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *StorageFileMp3) String() string {
 	if f == nil {
@@ -396,6 +452,14 @@ type StorageFileMov struct {
 
 // StorageFileMovTypeID is TL type id of StorageFileMov.
 const StorageFileMovTypeID = 0x4b09ebbc
+
+func (f *StorageFileMov) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *StorageFileMov) String() string {
@@ -450,6 +514,14 @@ type StorageFileMp4 struct {
 // StorageFileMp4TypeID is TL type id of StorageFileMp4.
 const StorageFileMp4TypeID = 0xb3cea0e4
 
+func (f *StorageFileMp4) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *StorageFileMp4) String() string {
 	if f == nil {
@@ -502,6 +574,14 @@ type StorageFileWebp struct {
 
 // StorageFileWebpTypeID is TL type id of StorageFileWebp.
 const StorageFileWebpTypeID = 0x1081464c
+
+func (f *StorageFileWebp) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *StorageFileWebp) String() string {
@@ -572,7 +652,9 @@ type StorageFileTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StorageFileTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeStorageFileType implements binary de-serialization for StorageFileTypeClass.

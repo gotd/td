@@ -26,6 +26,14 @@ type SecurePasswordKdfAlgoUnknown struct {
 // SecurePasswordKdfAlgoUnknownTypeID is TL type id of SecurePasswordKdfAlgoUnknown.
 const SecurePasswordKdfAlgoUnknownTypeID = 0x4a8537
 
+func (s *SecurePasswordKdfAlgoUnknown) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecurePasswordKdfAlgoUnknown) String() string {
 	if s == nil {
@@ -80,6 +88,17 @@ type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
 const SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID = 0xbbf2dda0
+
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Salt == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) String() string {
@@ -148,6 +167,17 @@ type SecurePasswordKdfAlgoSHA512 struct {
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
 const SecurePasswordKdfAlgoSHA512TypeID = 0x86471d92
+
+func (s *SecurePasswordKdfAlgoSHA512) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Salt == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecurePasswordKdfAlgoSHA512) String() string {
@@ -222,7 +252,9 @@ type SecurePasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecurePasswordKdfAlgoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecurePasswordKdfAlgo implements binary de-serialization for SecurePasswordKdfAlgoClass.

@@ -30,6 +30,20 @@ type AccountSaveThemeRequest struct {
 // AccountSaveThemeRequestTypeID is TL type id of AccountSaveThemeRequest.
 const AccountSaveThemeRequestTypeID = 0xf257106c
 
+func (s *AccountSaveThemeRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Theme == nil) {
+		return false
+	}
+	if !(s.Unsave == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSaveThemeRequest) String() string {
 	if s == nil {

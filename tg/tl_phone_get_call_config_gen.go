@@ -26,6 +26,14 @@ type PhoneGetCallConfigRequest struct {
 // PhoneGetCallConfigRequestTypeID is TL type id of PhoneGetCallConfigRequest.
 const PhoneGetCallConfigRequestTypeID = 0x55451fa9
 
+func (g *PhoneGetCallConfigRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhoneGetCallConfigRequest) String() string {
 	if g == nil {

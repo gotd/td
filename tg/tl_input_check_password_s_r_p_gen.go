@@ -26,6 +26,14 @@ type InputCheckPasswordEmpty struct {
 // InputCheckPasswordEmptyTypeID is TL type id of InputCheckPasswordEmpty.
 const InputCheckPasswordEmptyTypeID = 0x9880f658
 
+func (i *InputCheckPasswordEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputCheckPasswordEmpty) String() string {
 	if i == nil {
@@ -96,6 +104,23 @@ type InputCheckPasswordSRP struct {
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
 const InputCheckPasswordSRPTypeID = 0xd27ff082
+
+func (i *InputCheckPasswordSRP) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.SrpID == 0) {
+		return false
+	}
+	if !(i.A == nil) {
+		return false
+	}
+	if !(i.M1 == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputCheckPasswordSRP) String() string {
@@ -191,7 +216,9 @@ type InputCheckPasswordSRPClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputCheckPasswordSRP implements binary de-serialization for InputCheckPasswordSRPClass.

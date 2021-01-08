@@ -26,6 +26,14 @@ type PrivacyKeyStatusTimestamp struct {
 // PrivacyKeyStatusTimestampTypeID is TL type id of PrivacyKeyStatusTimestamp.
 const PrivacyKeyStatusTimestampTypeID = 0xbc2eab30
 
+func (p *PrivacyKeyStatusTimestamp) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyKeyStatusTimestamp) String() string {
 	if p == nil {
@@ -78,6 +86,14 @@ type PrivacyKeyChatInvite struct {
 
 // PrivacyKeyChatInviteTypeID is TL type id of PrivacyKeyChatInvite.
 const PrivacyKeyChatInviteTypeID = 0x500e6dfa
+
+func (p *PrivacyKeyChatInvite) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyKeyChatInvite) String() string {
@@ -132,6 +148,14 @@ type PrivacyKeyPhoneCall struct {
 // PrivacyKeyPhoneCallTypeID is TL type id of PrivacyKeyPhoneCall.
 const PrivacyKeyPhoneCallTypeID = 0x3d662b7b
 
+func (p *PrivacyKeyPhoneCall) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyKeyPhoneCall) String() string {
 	if p == nil {
@@ -184,6 +208,14 @@ type PrivacyKeyPhoneP2P struct {
 
 // PrivacyKeyPhoneP2PTypeID is TL type id of PrivacyKeyPhoneP2P.
 const PrivacyKeyPhoneP2PTypeID = 0x39491cc8
+
+func (p *PrivacyKeyPhoneP2P) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyKeyPhoneP2P) String() string {
@@ -241,6 +273,14 @@ type PrivacyKeyForwards struct {
 // PrivacyKeyForwardsTypeID is TL type id of PrivacyKeyForwards.
 const PrivacyKeyForwardsTypeID = 0x69ec56a3
 
+func (p *PrivacyKeyForwards) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyKeyForwards) String() string {
 	if p == nil {
@@ -293,6 +333,14 @@ type PrivacyKeyProfilePhoto struct {
 
 // PrivacyKeyProfilePhotoTypeID is TL type id of PrivacyKeyProfilePhoto.
 const PrivacyKeyProfilePhotoTypeID = 0x96151fed
+
+func (p *PrivacyKeyProfilePhoto) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyKeyProfilePhoto) String() string {
@@ -347,6 +395,14 @@ type PrivacyKeyPhoneNumber struct {
 // PrivacyKeyPhoneNumberTypeID is TL type id of PrivacyKeyPhoneNumber.
 const PrivacyKeyPhoneNumberTypeID = 0xd19ae46d
 
+func (p *PrivacyKeyPhoneNumber) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyKeyPhoneNumber) String() string {
 	if p == nil {
@@ -399,6 +455,14 @@ type PrivacyKeyAddedByPhone struct {
 
 // PrivacyKeyAddedByPhoneTypeID is TL type id of PrivacyKeyAddedByPhone.
 const PrivacyKeyAddedByPhoneTypeID = 0x42ffd42b
+
+func (p *PrivacyKeyAddedByPhone) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyKeyAddedByPhone) String() string {
@@ -467,7 +531,9 @@ type PrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PrivacyKeyClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePrivacyKey implements binary de-serialization for PrivacyKeyClass.

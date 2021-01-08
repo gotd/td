@@ -26,6 +26,14 @@ type InputPrivacyValueAllowContacts struct {
 // InputPrivacyValueAllowContactsTypeID is TL type id of InputPrivacyValueAllowContacts.
 const InputPrivacyValueAllowContactsTypeID = 0xd09e07b
 
+func (i *InputPrivacyValueAllowContacts) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueAllowContacts) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputPrivacyValueAllowAll struct {
 
 // InputPrivacyValueAllowAllTypeID is TL type id of InputPrivacyValueAllowAll.
 const InputPrivacyValueAllowAllTypeID = 0x184b35ce
+
+func (i *InputPrivacyValueAllowAll) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueAllowAll) String() string {
@@ -133,6 +149,17 @@ type InputPrivacyValueAllowUsers struct {
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
 const InputPrivacyValueAllowUsersTypeID = 0x131cc67f
+
+func (i *InputPrivacyValueAllowUsers) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueAllowUsers) String() string {
@@ -214,6 +241,14 @@ type InputPrivacyValueDisallowContacts struct {
 // InputPrivacyValueDisallowContactsTypeID is TL type id of InputPrivacyValueDisallowContacts.
 const InputPrivacyValueDisallowContactsTypeID = 0xba52007
 
+func (i *InputPrivacyValueDisallowContacts) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueDisallowContacts) String() string {
 	if i == nil {
@@ -266,6 +301,14 @@ type InputPrivacyValueDisallowAll struct {
 
 // InputPrivacyValueDisallowAllTypeID is TL type id of InputPrivacyValueDisallowAll.
 const InputPrivacyValueDisallowAllTypeID = 0xd66b66c9
+
+func (i *InputPrivacyValueDisallowAll) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueDisallowAll) String() string {
@@ -321,6 +364,17 @@ type InputPrivacyValueDisallowUsers struct {
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
 const InputPrivacyValueDisallowUsersTypeID = 0x90110467
+
+func (i *InputPrivacyValueDisallowUsers) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueDisallowUsers) String() string {
@@ -404,6 +458,17 @@ type InputPrivacyValueAllowChatParticipants struct {
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
 const InputPrivacyValueAllowChatParticipantsTypeID = 0x4c81c1ba
 
+func (i *InputPrivacyValueAllowChatParticipants) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Chats == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueAllowChatParticipants) String() string {
 	if i == nil {
@@ -480,6 +545,17 @@ type InputPrivacyValueDisallowChatParticipants struct {
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.
 const InputPrivacyValueDisallowChatParticipantsTypeID = 0xd82363af
+
+func (i *InputPrivacyValueDisallowChatParticipants) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Chats == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyValueDisallowChatParticipants) String() string {
@@ -570,7 +646,9 @@ type InputPrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPrivacyRuleClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputPrivacyRule implements binary de-serialization for InputPrivacyRuleClass.

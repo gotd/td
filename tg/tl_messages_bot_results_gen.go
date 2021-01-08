@@ -49,6 +49,38 @@ type MessagesBotResults struct {
 // MessagesBotResultsTypeID is TL type id of MessagesBotResults.
 const MessagesBotResultsTypeID = 0x947ca848
 
+func (b *MessagesBotResults) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.Gallery == false) {
+		return false
+	}
+	if !(b.QueryID == 0) {
+		return false
+	}
+	if !(b.NextOffset == "") {
+		return false
+	}
+	if !(b.SwitchPm.Zero()) {
+		return false
+	}
+	if !(b.Results == nil) {
+		return false
+	}
+	if !(b.CacheTime == 0) {
+		return false
+	}
+	if !(b.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *MessagesBotResults) String() string {
 	if b == nil {
@@ -96,6 +128,15 @@ func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.botResults#947ca848 as nil")
 	}
 	buf.PutID(MessagesBotResultsTypeID)
+	if !(b.Gallery == false) {
+		b.Flags.Set(0)
+	}
+	if !(b.NextOffset == "") {
+		b.Flags.Set(1)
+	}
+	if !(b.SwitchPm.Zero()) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode messages.botResults#947ca848: field flags: %w", err)
 	}

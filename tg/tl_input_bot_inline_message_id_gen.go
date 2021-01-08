@@ -32,6 +32,23 @@ type InputBotInlineMessageID struct {
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.
 const InputBotInlineMessageIDTypeID = 0x890c3d89
 
+func (i *InputBotInlineMessageID) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.DCID == 0) {
+		return false
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputBotInlineMessageID) String() string {
 	if i == nil {

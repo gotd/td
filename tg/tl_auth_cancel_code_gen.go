@@ -33,6 +33,20 @@ type AuthCancelCodeRequest struct {
 // AuthCancelCodeRequestTypeID is TL type id of AuthCancelCodeRequest.
 const AuthCancelCodeRequestTypeID = 0x1f040578
 
+func (c *AuthCancelCodeRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PhoneNumber == "") {
+		return false
+	}
+	if !(c.PhoneCodeHash == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AuthCancelCodeRequest) String() string {
 	if c == nil {

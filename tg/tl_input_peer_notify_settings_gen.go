@@ -47,6 +47,29 @@ type InputPeerNotifySettings struct {
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
 const InputPeerNotifySettingsTypeID = 0x9c3d198e
 
+func (i *InputPeerNotifySettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ShowPreviews == false) {
+		return false
+	}
+	if !(i.Silent == false) {
+		return false
+	}
+	if !(i.MuteUntil == 0) {
+		return false
+	}
+	if !(i.Sound == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPeerNotifySettings) String() string {
 	if i == nil {
@@ -88,6 +111,18 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
 	}
 	b.PutID(InputPeerNotifySettingsTypeID)
+	if !(i.ShowPreviews == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Silent == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.MuteUntil == 0) {
+		i.Flags.Set(2)
+	}
+	if !(i.Sound == "") {
+		i.Flags.Set(3)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
 	}

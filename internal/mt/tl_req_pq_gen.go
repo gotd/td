@@ -25,6 +25,17 @@ type ReqPqRequest struct {
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.
 const ReqPqRequestTypeID = 0x60469778
 
+func (r *ReqPqRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Nonce == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReqPqRequest) String() string {
 	if r == nil {

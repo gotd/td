@@ -47,6 +47,29 @@ type PaymentRequestedInfo struct {
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.
 const PaymentRequestedInfoTypeID = 0x909c3f94
 
+func (p *PaymentRequestedInfo) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Name == "") {
+		return false
+	}
+	if !(p.Phone == "") {
+		return false
+	}
+	if !(p.Email == "") {
+		return false
+	}
+	if !(p.ShippingAddress.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentRequestedInfo) String() string {
 	if p == nil {
@@ -88,6 +111,18 @@ func (p *PaymentRequestedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode paymentRequestedInfo#909c3f94 as nil")
 	}
 	b.PutID(PaymentRequestedInfoTypeID)
+	if !(p.Name == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.Phone == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.Email == "") {
+		p.Flags.Set(2)
+	}
+	if !(p.ShippingAddress.Zero()) {
+		p.Flags.Set(3)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode paymentRequestedInfo#909c3f94: field flags: %w", err)
 	}

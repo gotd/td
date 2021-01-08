@@ -87,6 +87,44 @@ type SecureValue struct {
 // SecureValueTypeID is TL type id of SecureValue.
 const SecureValueTypeID = 0x187fa0ca
 
+func (s *SecureValue) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+	if !(s.Data.Zero()) {
+		return false
+	}
+	if !(s.FrontSide == nil) {
+		return false
+	}
+	if !(s.ReverseSide == nil) {
+		return false
+	}
+	if !(s.Selfie == nil) {
+		return false
+	}
+	if !(s.Translation == nil) {
+		return false
+	}
+	if !(s.Files == nil) {
+		return false
+	}
+	if !(s.PlainData == nil) {
+		return false
+	}
+	if !(s.Hash == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValue) String() string {
 	if s == nil {
@@ -153,6 +191,27 @@ func (s *SecureValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
 	}
 	b.PutID(SecureValueTypeID)
+	if !(s.Data.Zero()) {
+		s.Flags.Set(0)
+	}
+	if !(s.FrontSide == nil) {
+		s.Flags.Set(1)
+	}
+	if !(s.ReverseSide == nil) {
+		s.Flags.Set(2)
+	}
+	if !(s.Selfie == nil) {
+		s.Flags.Set(3)
+	}
+	if !(s.Translation == nil) {
+		s.Flags.Set(6)
+	}
+	if !(s.Files == nil) {
+		s.Flags.Set(4)
+	}
+	if !(s.PlainData == nil) {
+		s.Flags.Set(5)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode secureValue#187fa0ca: field flags: %w", err)
 	}

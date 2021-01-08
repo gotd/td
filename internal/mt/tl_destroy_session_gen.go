@@ -25,6 +25,17 @@ type DestroySessionRequest struct {
 // DestroySessionRequestTypeID is TL type id of DestroySessionRequest.
 const DestroySessionRequestTypeID = 0xe7512126
 
+func (d *DestroySessionRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.SessionID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DestroySessionRequest) String() string {
 	if d == nil {

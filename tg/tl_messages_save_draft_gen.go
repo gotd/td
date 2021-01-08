@@ -51,6 +51,32 @@ type MessagesSaveDraftRequest struct {
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.
 const MessagesSaveDraftRequestTypeID = 0xbc39e14b
 
+func (s *MessagesSaveDraftRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.NoWebpage == false) {
+		return false
+	}
+	if !(s.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.Message == "") {
+		return false
+	}
+	if !(s.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSaveDraftRequest) String() string {
 	if s == nil {
@@ -90,6 +116,15 @@ func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.saveDraft#bc39e14b as nil")
 	}
 	b.PutID(MessagesSaveDraftRequestTypeID)
+	if !(s.NoWebpage == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.ReplyToMsgID == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.Entities == nil) {
+		s.Flags.Set(3)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.saveDraft#bc39e14b: field flags: %w", err)
 	}

@@ -28,6 +28,17 @@ type MessagesFeaturedStickersNotModified struct {
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
 const MessagesFeaturedStickersNotModifiedTypeID = 0xc6dc0c66
 
+func (f *MessagesFeaturedStickersNotModified) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Count == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *MessagesFeaturedStickersNotModified) String() string {
 	if f == nil {
@@ -102,6 +113,26 @@ type MessagesFeaturedStickers struct {
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
 const MessagesFeaturedStickersTypeID = 0xb6abc341
+
+func (f *MessagesFeaturedStickers) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Hash == 0) {
+		return false
+	}
+	if !(f.Count == 0) {
+		return false
+	}
+	if !(f.Sets == nil) {
+		return false
+	}
+	if !(f.Unread == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *MessagesFeaturedStickers) String() string {
@@ -235,7 +266,9 @@ type MessagesFeaturedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFeaturedStickersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesFeaturedStickers implements binary de-serialization for MessagesFeaturedStickersClass.

@@ -32,6 +32,23 @@ type LangpackGetDifferenceRequest struct {
 // LangpackGetDifferenceRequestTypeID is TL type id of LangpackGetDifferenceRequest.
 const LangpackGetDifferenceRequestTypeID = 0xcd984aa5
 
+func (g *LangpackGetDifferenceRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangPack == "") {
+		return false
+	}
+	if !(g.LangCode == "") {
+		return false
+	}
+	if !(g.FromVersion == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *LangpackGetDifferenceRequest) String() string {
 	if g == nil {

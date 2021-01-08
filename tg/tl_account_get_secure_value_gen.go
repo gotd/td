@@ -32,6 +32,17 @@ type AccountGetSecureValueRequest struct {
 // AccountGetSecureValueRequestTypeID is TL type id of AccountGetSecureValueRequest.
 const AccountGetSecureValueRequestTypeID = 0x73665bc2
 
+func (g *AccountGetSecureValueRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Types == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetSecureValueRequest) String() string {
 	if g == nil {

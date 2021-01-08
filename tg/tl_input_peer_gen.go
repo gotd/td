@@ -26,6 +26,14 @@ type InputPeerEmpty struct {
 // InputPeerEmptyTypeID is TL type id of InputPeerEmpty.
 const InputPeerEmptyTypeID = 0x7f3b18ea
 
+func (i *InputPeerEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPeerEmpty) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputPeerSelf struct {
 
 // InputPeerSelfTypeID is TL type id of InputPeerSelf.
 const InputPeerSelfTypeID = 0x7da07ec9
+
+func (i *InputPeerSelf) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerSelf) String() string {
@@ -133,6 +149,17 @@ type InputPeerChat struct {
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
 const InputPeerChatTypeID = 0x179be863
+
+func (i *InputPeerChat) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerChat) String() string {
@@ -204,6 +231,20 @@ type InputPeerUser struct {
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
 const InputPeerUserTypeID = 0x7b8e7de6
+
+func (i *InputPeerUser) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.UserID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerUser) String() string {
@@ -286,6 +327,20 @@ type InputPeerChannel struct {
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
 const InputPeerChannelTypeID = 0x20adaef8
+
+func (i *InputPeerChannel) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChannelID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerChannel) String() string {
@@ -370,6 +425,23 @@ type InputPeerUserFromMessage struct {
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
 const InputPeerUserFromMessageTypeID = 0x17bae2e6
+
+func (i *InputPeerUserFromMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.MsgID == 0) {
+		return false
+	}
+	if !(i.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerUserFromMessage) String() string {
@@ -470,6 +542,23 @@ type InputPeerChannelFromMessage struct {
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.
 const InputPeerChannelFromMessageTypeID = 0x9c95f7bb
+
+func (i *InputPeerChannelFromMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.MsgID == 0) {
+		return false
+	}
+	if !(i.ChannelID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPeerChannelFromMessage) String() string {
@@ -575,7 +664,9 @@ type InputPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPeerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputPeer implements binary de-serialization for InputPeerClass.

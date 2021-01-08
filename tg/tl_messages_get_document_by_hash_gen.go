@@ -32,6 +32,23 @@ type MessagesGetDocumentByHashRequest struct {
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.
 const MessagesGetDocumentByHashRequestTypeID = 0x338e2464
 
+func (g *MessagesGetDocumentByHashRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Sha256 == nil) {
+		return false
+	}
+	if !(g.Size == 0) {
+		return false
+	}
+	if !(g.MimeType == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetDocumentByHashRequest) String() string {
 	if g == nil {

@@ -26,6 +26,14 @@ type HelpUserInfoEmpty struct {
 // HelpUserInfoEmptyTypeID is TL type id of HelpUserInfoEmpty.
 const HelpUserInfoEmptyTypeID = 0xf3ae2eed
 
+func (u *HelpUserInfoEmpty) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *HelpUserInfoEmpty) String() string {
 	if u == nil {
@@ -89,6 +97,26 @@ type HelpUserInfo struct {
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.
 const HelpUserInfoTypeID = 0x1eb3758
+
+func (u *HelpUserInfo) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == "") {
+		return false
+	}
+	if !(u.Entities == nil) {
+		return false
+	}
+	if !(u.Author == "") {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *HelpUserInfo) String() string {
@@ -211,7 +239,9 @@ type HelpUserInfoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpUserInfoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpUserInfo implements binary de-serialization for HelpUserInfoClass.

@@ -26,6 +26,14 @@ type ChannelLocationEmpty struct {
 // ChannelLocationEmptyTypeID is TL type id of ChannelLocationEmpty.
 const ChannelLocationEmptyTypeID = 0xbfb5ad8b
 
+func (c *ChannelLocationEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelLocationEmpty) String() string {
 	if c == nil {
@@ -82,6 +90,20 @@ type ChannelLocation struct {
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
 const ChannelLocationTypeID = 0x209b82db
+
+func (c *ChannelLocation) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.GeoPoint == nil) {
+		return false
+	}
+	if !(c.Address == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelLocation) String() string {
@@ -171,7 +193,9 @@ type ChannelLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelLocationClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelLocation implements binary de-serialization for ChannelLocationClass.

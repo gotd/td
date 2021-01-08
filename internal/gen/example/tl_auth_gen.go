@@ -27,6 +27,17 @@ type Auth struct {
 // AuthTypeID is TL type id of Auth.
 const AuthTypeID = 0xf8bb4a38
 
+func (a *Auth) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Name == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *Auth) String() string {
 	if a == nil {
@@ -93,6 +104,20 @@ type AuthPassword struct {
 
 // AuthPasswordTypeID is TL type id of AuthPassword.
 const AuthPasswordTypeID = 0x29bacabb
+
+func (a *AuthPassword) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Name == "") {
+		return false
+	}
+	if !(a.Password == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (a *AuthPassword) String() string {
@@ -177,7 +202,9 @@ type AuthClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAuth implements binary de-serialization for AuthClass.

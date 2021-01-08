@@ -25,6 +25,17 @@ type MsgsStateReq struct {
 // MsgsStateReqTypeID is TL type id of MsgsStateReq.
 const MsgsStateReqTypeID = 0xda69fb52
 
+func (m *MsgsStateReq) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgIds == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgsStateReq) String() string {
 	if m == nil {

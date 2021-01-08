@@ -28,6 +28,17 @@ type HelpGetDeepLinkInfoRequest struct {
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.
 const HelpGetDeepLinkInfoRequestTypeID = 0x3fedc75f
 
+func (g *HelpGetDeepLinkInfoRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Path == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetDeepLinkInfoRequest) String() string {
 	if g == nil {

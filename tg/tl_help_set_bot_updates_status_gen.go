@@ -30,6 +30,20 @@ type HelpSetBotUpdatesStatusRequest struct {
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.
 const HelpSetBotUpdatesStatusRequestTypeID = 0xec22cfcd
 
+func (s *HelpSetBotUpdatesStatusRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.PendingUpdatesCount == 0) {
+		return false
+	}
+	if !(s.Message == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *HelpSetBotUpdatesStatusRequest) String() string {
 	if s == nil {

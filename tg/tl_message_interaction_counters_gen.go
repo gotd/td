@@ -32,6 +32,23 @@ type MessageInteractionCounters struct {
 // MessageInteractionCountersTypeID is TL type id of MessageInteractionCounters.
 const MessageInteractionCountersTypeID = 0xad4fc9bd
 
+func (m *MessageInteractionCounters) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgID == 0) {
+		return false
+	}
+	if !(m.Views == 0) {
+		return false
+	}
+	if !(m.Forwards == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageInteractionCounters) String() string {
 	if m == nil {

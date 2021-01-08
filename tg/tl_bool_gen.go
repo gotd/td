@@ -26,6 +26,14 @@ type BoolFalse struct {
 // BoolFalseTypeID is TL type id of BoolFalse.
 const BoolFalseTypeID = 0xbc799737
 
+func (b *BoolFalse) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BoolFalse) String() string {
 	if b == nil {
@@ -78,6 +86,14 @@ type BoolTrue struct {
 
 // BoolTrueTypeID is TL type id of BoolTrue.
 const BoolTrueTypeID = 0x997275b5
+
+func (b *BoolTrue) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (b *BoolTrue) String() string {
@@ -140,7 +156,9 @@ type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BoolClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeBool implements binary de-serialization for BoolClass.

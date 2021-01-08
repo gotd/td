@@ -27,6 +27,20 @@ type MsgsStateInfo struct {
 // MsgsStateInfoTypeID is TL type id of MsgsStateInfo.
 const MsgsStateInfoTypeID = 0x4deb57d
 
+func (m *MsgsStateInfo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ReqMsgID == 0) {
+		return false
+	}
+	if !(m.Info == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgsStateInfo) String() string {
 	if m == nil {

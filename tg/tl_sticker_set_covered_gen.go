@@ -30,6 +30,20 @@ type StickerSetCovered struct {
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
 const StickerSetCoveredTypeID = 0x6410a5d2
 
+func (s *StickerSetCovered) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Set.Zero()) {
+		return false
+	}
+	if !(s.Cover == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StickerSetCovered) String() string {
 	if s == nil {
@@ -113,6 +127,20 @@ type StickerSetMultiCovered struct {
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
 const StickerSetMultiCoveredTypeID = 0x3407e51b
+
+func (s *StickerSetMultiCovered) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Set.Zero()) {
+		return false
+	}
+	if !(s.Covers == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *StickerSetMultiCovered) String() string {
@@ -213,7 +241,9 @@ type StickerSetCoveredClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StickerSetCoveredClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeStickerSetCovered implements binary de-serialization for StickerSetCoveredClass.

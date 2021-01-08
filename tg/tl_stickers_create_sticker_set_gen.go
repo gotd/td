@@ -47,6 +47,38 @@ type StickersCreateStickerSetRequest struct {
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.
 const StickersCreateStickerSetRequestTypeID = 0xf1036780
 
+func (c *StickersCreateStickerSetRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Masks == false) {
+		return false
+	}
+	if !(c.Animated == false) {
+		return false
+	}
+	if !(c.UserID == nil) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.ShortName == "") {
+		return false
+	}
+	if !(c.Thumb == nil) {
+		return false
+	}
+	if !(c.Stickers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *StickersCreateStickerSetRequest) String() string {
 	if c == nil {
@@ -87,6 +119,15 @@ func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickers.createStickerSet#f1036780 as nil")
 	}
 	b.PutID(StickersCreateStickerSetRequestTypeID)
+	if !(c.Masks == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Animated == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.Thumb == nil) {
+		c.Flags.Set(2)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stickers.createStickerSet#f1036780: field flags: %w", err)
 	}

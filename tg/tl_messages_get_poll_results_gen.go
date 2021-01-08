@@ -30,6 +30,20 @@ type MessagesGetPollResultsRequest struct {
 // MessagesGetPollResultsRequestTypeID is TL type id of MessagesGetPollResultsRequest.
 const MessagesGetPollResultsRequestTypeID = 0x73bb643b
 
+func (g *MessagesGetPollResultsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetPollResultsRequest) String() string {
 	if g == nil {

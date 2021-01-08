@@ -26,6 +26,14 @@ type HelpPassportConfigNotModified struct {
 // HelpPassportConfigNotModifiedTypeID is TL type id of HelpPassportConfigNotModified.
 const HelpPassportConfigNotModifiedTypeID = 0xbfb9f457
 
+func (p *HelpPassportConfigNotModified) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *HelpPassportConfigNotModified) String() string {
 	if p == nil {
@@ -88,6 +96,20 @@ type HelpPassportConfig struct {
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
 const HelpPassportConfigTypeID = 0xa098d6af
+
+func (p *HelpPassportConfig) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Hash == 0) {
+		return false
+	}
+	if !(p.CountriesLangs.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *HelpPassportConfig) String() string {
@@ -172,7 +194,9 @@ type HelpPassportConfigClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpPassportConfigClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpPassportConfig implements binary de-serialization for HelpPassportConfigClass.

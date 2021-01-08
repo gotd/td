@@ -41,6 +41,23 @@ type AccountVerifyPhoneRequest struct {
 // AccountVerifyPhoneRequestTypeID is TL type id of AccountVerifyPhoneRequest.
 const AccountVerifyPhoneRequestTypeID = 0x4dd3a7f6
 
+func (v *AccountVerifyPhoneRequest) Zero() bool {
+	if v == nil {
+		return true
+	}
+	if !(v.PhoneNumber == "") {
+		return false
+	}
+	if !(v.PhoneCodeHash == "") {
+		return false
+	}
+	if !(v.PhoneCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (v *AccountVerifyPhoneRequest) String() string {
 	if v == nil {

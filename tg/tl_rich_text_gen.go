@@ -26,6 +26,14 @@ type TextEmpty struct {
 // TextEmptyTypeID is TL type id of TextEmpty.
 const TextEmptyTypeID = 0xdc3d824f
 
+func (t *TextEmpty) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEmpty) String() string {
 	if t == nil {
@@ -80,6 +88,17 @@ type TextPlain struct {
 
 // TextPlainTypeID is TL type id of TextPlain.
 const TextPlainTypeID = 0x744694e0
+
+func (t *TextPlain) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextPlain) String() string {
@@ -146,6 +165,17 @@ type TextBold struct {
 
 // TextBoldTypeID is TL type id of TextBold.
 const TextBoldTypeID = 0x6724abc4
+
+func (t *TextBold) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextBold) String() string {
@@ -218,6 +248,17 @@ type TextItalic struct {
 // TextItalicTypeID is TL type id of TextItalic.
 const TextItalicTypeID = 0xd912a59c
 
+func (t *TextItalic) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextItalic) String() string {
 	if t == nil {
@@ -288,6 +329,17 @@ type TextUnderline struct {
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
 const TextUnderlineTypeID = 0xc12622c4
+
+func (t *TextUnderline) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextUnderline) String() string {
@@ -360,6 +412,17 @@ type TextStrike struct {
 // TextStrikeTypeID is TL type id of TextStrike.
 const TextStrikeTypeID = 0x9bf8bb95
 
+func (t *TextStrike) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextStrike) String() string {
 	if t == nil {
@@ -430,6 +493,17 @@ type TextFixed struct {
 
 // TextFixedTypeID is TL type id of TextFixed.
 const TextFixedTypeID = 0x6c3f19b9
+
+func (t *TextFixed) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextFixed) String() string {
@@ -505,6 +579,23 @@ type TextUrl struct {
 
 // TextUrlTypeID is TL type id of TextUrl.
 const TextUrlTypeID = 0x3c2884c1
+
+func (t *TextUrl) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.URL == "") {
+		return false
+	}
+	if !(t.WebpageID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextUrl) String() string {
@@ -601,6 +692,20 @@ type TextEmail struct {
 // TextEmailTypeID is TL type id of TextEmail.
 const TextEmailTypeID = 0xde5a0dd6
 
+func (t *TextEmail) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.Email == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEmail) String() string {
 	if t == nil {
@@ -682,6 +787,17 @@ type TextConcat struct {
 
 // TextConcatTypeID is TL type id of TextConcat.
 const TextConcatTypeID = 0x7e6260d7
+
+func (t *TextConcat) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Texts == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextConcat) String() string {
@@ -765,6 +881,17 @@ type TextSubscript struct {
 // TextSubscriptTypeID is TL type id of TextSubscript.
 const TextSubscriptTypeID = 0xed6a8504
 
+func (t *TextSubscript) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextSubscript) String() string {
 	if t == nil {
@@ -836,6 +963,17 @@ type TextSuperscript struct {
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
 const TextSuperscriptTypeID = 0xc7fb5e01
 
+func (t *TextSuperscript) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextSuperscript) String() string {
 	if t == nil {
@@ -906,6 +1044,17 @@ type TextMarked struct {
 
 // TextMarkedTypeID is TL type id of TextMarked.
 const TextMarkedTypeID = 0x34b8621
+
+func (t *TextMarked) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextMarked) String() string {
@@ -979,6 +1128,20 @@ type TextPhone struct {
 
 // TextPhoneTypeID is TL type id of TextPhone.
 const TextPhoneTypeID = 0x1ccb966a
+
+func (t *TextPhone) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.Phone == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextPhone) String() string {
@@ -1065,6 +1228,23 @@ type TextImage struct {
 
 // TextImageTypeID is TL type id of TextImage.
 const TextImageTypeID = 0x81ccf4f
+
+func (t *TextImage) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.DocumentID == 0) {
+		return false
+	}
+	if !(t.W == 0) {
+		return false
+	}
+	if !(t.H == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextImage) String() string {
@@ -1155,6 +1335,20 @@ type TextAnchor struct {
 
 // TextAnchorTypeID is TL type id of TextAnchor.
 const TextAnchorTypeID = 0x35553762
+
+func (t *TextAnchor) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Text == nil) {
+		return false
+	}
+	if !(t.Name == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextAnchor) String() string {
@@ -1258,7 +1452,9 @@ type RichTextClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() RichTextClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeRichText implements binary de-serialization for RichTextClass.

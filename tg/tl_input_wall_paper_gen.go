@@ -30,6 +30,20 @@ type InputWallPaper struct {
 // InputWallPaperTypeID is TL type id of InputWallPaper.
 const InputWallPaperTypeID = 0xe630b979
 
+func (i *InputWallPaper) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputWallPaper) String() string {
 	if i == nil {
@@ -107,6 +121,17 @@ type InputWallPaperSlug struct {
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.
 const InputWallPaperSlugTypeID = 0x72091c80
 
+func (i *InputWallPaperSlug) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputWallPaperSlug) String() string {
 	if i == nil {
@@ -171,6 +196,14 @@ type InputWallPaperNoFile struct {
 // InputWallPaperNoFileTypeID is TL type id of InputWallPaperNoFile.
 const InputWallPaperNoFileTypeID = 0x8427bbac
 
+func (i *InputWallPaperNoFile) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputWallPaperNoFile) String() string {
 	if i == nil {
@@ -233,7 +266,9 @@ type InputWallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputWallPaperClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputWallPaper implements binary de-serialization for InputWallPaperClass.

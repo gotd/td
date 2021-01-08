@@ -30,6 +30,20 @@ type BotCommand struct {
 // BotCommandTypeID is TL type id of BotCommand.
 const BotCommandTypeID = 0xc27ac8c7
 
+func (b *BotCommand) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Command == "") {
+		return false
+	}
+	if !(b.Description == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotCommand) String() string {
 	if b == nil {

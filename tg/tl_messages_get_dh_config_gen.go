@@ -33,6 +33,20 @@ type MessagesGetDhConfigRequest struct {
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
 const MessagesGetDhConfigRequestTypeID = 0x26cf8950
 
+func (g *MessagesGetDhConfigRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Version == 0) {
+		return false
+	}
+	if !(g.RandomLength == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetDhConfigRequest) String() string {
 	if g == nil {

@@ -26,6 +26,14 @@ type MessagesGetSplitRangesRequest struct {
 // MessagesGetSplitRangesRequestTypeID is TL type id of MessagesGetSplitRangesRequest.
 const MessagesGetSplitRangesRequestTypeID = 0x1cff7e08
 
+func (g *MessagesGetSplitRangesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetSplitRangesRequest) String() string {
 	if g == nil {

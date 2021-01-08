@@ -35,6 +35,23 @@ type MessagesMarkDialogUnreadRequest struct {
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
 const MessagesMarkDialogUnreadRequestTypeID = 0xc286d98f
 
+func (m *MessagesMarkDialogUnreadRequest) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Unread == false) {
+		return false
+	}
+	if !(m.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMarkDialogUnreadRequest) String() string {
 	if m == nil {
@@ -59,6 +76,9 @@ func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
 	}
 	b.PutID(MessagesMarkDialogUnreadRequestTypeID)
+	if !(m.Unread == false) {
+		m.Flags.Set(0)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.markDialogUnread#c286d98f: field flags: %w", err)
 	}

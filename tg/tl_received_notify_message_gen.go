@@ -30,6 +30,20 @@ type ReceivedNotifyMessage struct {
 // ReceivedNotifyMessageTypeID is TL type id of ReceivedNotifyMessage.
 const ReceivedNotifyMessageTypeID = 0xa384b779
 
+func (r *ReceivedNotifyMessage) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ID == 0) {
+		return false
+	}
+	if !(r.Flags == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReceivedNotifyMessage) String() string {
 	if r == nil {

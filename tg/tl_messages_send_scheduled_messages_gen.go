@@ -30,6 +30,20 @@ type MessagesSendScheduledMessagesRequest struct {
 // MessagesSendScheduledMessagesRequestTypeID is TL type id of MessagesSendScheduledMessagesRequest.
 const MessagesSendScheduledMessagesRequestTypeID = 0xbd38850a
 
+func (s *MessagesSendScheduledMessagesRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSendScheduledMessagesRequest) String() string {
 	if s == nil {

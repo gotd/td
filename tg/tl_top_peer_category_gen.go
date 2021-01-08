@@ -26,6 +26,14 @@ type TopPeerCategoryBotsPM struct {
 // TopPeerCategoryBotsPMTypeID is TL type id of TopPeerCategoryBotsPM.
 const TopPeerCategoryBotsPMTypeID = 0xab661b5b
 
+func (t *TopPeerCategoryBotsPM) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryBotsPM) String() string {
 	if t == nil {
@@ -78,6 +86,14 @@ type TopPeerCategoryBotsInline struct {
 
 // TopPeerCategoryBotsInlineTypeID is TL type id of TopPeerCategoryBotsInline.
 const TopPeerCategoryBotsInlineTypeID = 0x148677e2
+
+func (t *TopPeerCategoryBotsInline) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryBotsInline) String() string {
@@ -132,6 +148,14 @@ type TopPeerCategoryCorrespondents struct {
 // TopPeerCategoryCorrespondentsTypeID is TL type id of TopPeerCategoryCorrespondents.
 const TopPeerCategoryCorrespondentsTypeID = 0x637b7ed
 
+func (t *TopPeerCategoryCorrespondents) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryCorrespondents) String() string {
 	if t == nil {
@@ -184,6 +208,14 @@ type TopPeerCategoryGroups struct {
 
 // TopPeerCategoryGroupsTypeID is TL type id of TopPeerCategoryGroups.
 const TopPeerCategoryGroupsTypeID = 0xbd17a14a
+
+func (t *TopPeerCategoryGroups) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryGroups) String() string {
@@ -238,6 +270,14 @@ type TopPeerCategoryChannels struct {
 // TopPeerCategoryChannelsTypeID is TL type id of TopPeerCategoryChannels.
 const TopPeerCategoryChannelsTypeID = 0x161d9628
 
+func (t *TopPeerCategoryChannels) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryChannels) String() string {
 	if t == nil {
@@ -290,6 +330,14 @@ type TopPeerCategoryPhoneCalls struct {
 
 // TopPeerCategoryPhoneCallsTypeID is TL type id of TopPeerCategoryPhoneCalls.
 const TopPeerCategoryPhoneCallsTypeID = 0x1e76a78c
+
+func (t *TopPeerCategoryPhoneCalls) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryPhoneCalls) String() string {
@@ -344,6 +392,14 @@ type TopPeerCategoryForwardUsers struct {
 // TopPeerCategoryForwardUsersTypeID is TL type id of TopPeerCategoryForwardUsers.
 const TopPeerCategoryForwardUsersTypeID = 0xa8406ca9
 
+func (t *TopPeerCategoryForwardUsers) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryForwardUsers) String() string {
 	if t == nil {
@@ -396,6 +452,14 @@ type TopPeerCategoryForwardChats struct {
 
 // TopPeerCategoryForwardChatsTypeID is TL type id of TopPeerCategoryForwardChats.
 const TopPeerCategoryForwardChatsTypeID = 0xfbeec0f0
+
+func (t *TopPeerCategoryForwardChats) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryForwardChats) String() string {
@@ -464,7 +528,9 @@ type TopPeerCategoryClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() TopPeerCategoryClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeTopPeerCategory implements binary de-serialization for TopPeerCategoryClass.

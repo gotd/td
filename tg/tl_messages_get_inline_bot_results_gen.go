@@ -43,6 +43,32 @@ type MessagesGetInlineBotResultsRequest struct {
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.
 const MessagesGetInlineBotResultsRequestTypeID = 0x514e999d
 
+func (g *MessagesGetInlineBotResultsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Bot == nil) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.GeoPoint == nil) {
+		return false
+	}
+	if !(g.Query == "") {
+		return false
+	}
+	if !(g.Offset == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetInlineBotResultsRequest) String() string {
 	if g == nil {
@@ -81,6 +107,9 @@ func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
 	}
 	b.PutID(MessagesGetInlineBotResultsRequestTypeID)
+	if !(g.GeoPoint == nil) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getInlineBotResults#514e999d: field flags: %w", err)
 	}

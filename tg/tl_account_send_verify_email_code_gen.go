@@ -31,6 +31,17 @@ type AccountSendVerifyEmailCodeRequest struct {
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
 const AccountSendVerifyEmailCodeRequestTypeID = 0x7011509f
 
+func (s *AccountSendVerifyEmailCodeRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Email == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSendVerifyEmailCodeRequest) String() string {
 	if s == nil {

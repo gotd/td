@@ -26,6 +26,14 @@ type MessagesStickerSetInstallResultSuccess struct {
 // MessagesStickerSetInstallResultSuccessTypeID is TL type id of MessagesStickerSetInstallResultSuccess.
 const MessagesStickerSetInstallResultSuccessTypeID = 0x38641628
 
+func (s *MessagesStickerSetInstallResultSuccess) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesStickerSetInstallResultSuccess) String() string {
 	if s == nil {
@@ -82,6 +90,17 @@ type MessagesStickerSetInstallResultArchive struct {
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.
 const MessagesStickerSetInstallResultArchiveTypeID = 0x35e410a8
+
+func (s *MessagesStickerSetInstallResultArchive) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Sets == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *MessagesStickerSetInstallResultArchive) String() string {
@@ -173,7 +192,9 @@ type MessagesStickerSetInstallResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesStickerSetInstallResultClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesStickerSetInstallResult implements binary de-serialization for MessagesStickerSetInstallResultClass.

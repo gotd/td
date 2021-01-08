@@ -28,6 +28,17 @@ type ContactsUnblockRequest struct {
 // ContactsUnblockRequestTypeID is TL type id of ContactsUnblockRequest.
 const ContactsUnblockRequestTypeID = 0xbea65d50
 
+func (u *ContactsUnblockRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *ContactsUnblockRequest) String() string {
 	if u == nil {

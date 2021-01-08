@@ -34,6 +34,17 @@ type ChannelsGetLeftChannelsRequest struct {
 // ChannelsGetLeftChannelsRequestTypeID is TL type id of ChannelsGetLeftChannelsRequest.
 const ChannelsGetLeftChannelsRequestTypeID = 0x8341ecc0
 
+func (g *ChannelsGetLeftChannelsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetLeftChannelsRequest) String() string {
 	if g == nil {

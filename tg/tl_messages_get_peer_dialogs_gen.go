@@ -28,6 +28,17 @@ type MessagesGetPeerDialogsRequest struct {
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.
 const MessagesGetPeerDialogsRequestTypeID = 0xe470bcfd
 
+func (g *MessagesGetPeerDialogsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetPeerDialogsRequest) String() string {
 	if g == nil {

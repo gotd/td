@@ -33,6 +33,17 @@ type HelpGetAppChangelogRequest struct {
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.
 const HelpGetAppChangelogRequestTypeID = 0x9010ef6f
 
+func (g *HelpGetAppChangelogRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.PrevAppVersion == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetAppChangelogRequest) String() string {
 	if g == nil {

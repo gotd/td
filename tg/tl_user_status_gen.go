@@ -26,6 +26,14 @@ type UserStatusEmpty struct {
 // UserStatusEmptyTypeID is TL type id of UserStatusEmpty.
 const UserStatusEmptyTypeID = 0x9d05049
 
+func (u *UserStatusEmpty) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserStatusEmpty) String() string {
 	if u == nil {
@@ -80,6 +88,17 @@ type UserStatusOnline struct {
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
 const UserStatusOnlineTypeID = 0xedb93949
+
+func (u *UserStatusOnline) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Expires == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UserStatusOnline) String() string {
@@ -147,6 +166,17 @@ type UserStatusOffline struct {
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.
 const UserStatusOfflineTypeID = 0x8c703f
 
+func (u *UserStatusOffline) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.WasOnline == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserStatusOffline) String() string {
 	if u == nil {
@@ -211,6 +241,14 @@ type UserStatusRecently struct {
 // UserStatusRecentlyTypeID is TL type id of UserStatusRecently.
 const UserStatusRecentlyTypeID = 0xe26f42f1
 
+func (u *UserStatusRecently) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserStatusRecently) String() string {
 	if u == nil {
@@ -264,6 +302,14 @@ type UserStatusLastWeek struct {
 // UserStatusLastWeekTypeID is TL type id of UserStatusLastWeek.
 const UserStatusLastWeekTypeID = 0x7bf09fc
 
+func (u *UserStatusLastWeek) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserStatusLastWeek) String() string {
 	if u == nil {
@@ -316,6 +362,14 @@ type UserStatusLastMonth struct {
 
 // UserStatusLastMonthTypeID is TL type id of UserStatusLastMonth.
 const UserStatusLastMonthTypeID = 0x77ebc742
+
+func (u *UserStatusLastMonth) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UserStatusLastMonth) String() string {
@@ -382,7 +436,9 @@ type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserStatusClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUserStatus implements binary de-serialization for UserStatusClass.

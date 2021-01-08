@@ -26,6 +26,14 @@ type SecureFileEmpty struct {
 // SecureFileEmptyTypeID is TL type id of SecureFileEmpty.
 const SecureFileEmptyTypeID = 0x64199744
 
+func (s *SecureFileEmpty) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureFileEmpty) String() string {
 	if s == nil {
@@ -96,6 +104,35 @@ type SecureFile struct {
 
 // SecureFileTypeID is TL type id of SecureFile.
 const SecureFileTypeID = 0xe0277a62
+
+func (s *SecureFile) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ID == 0) {
+		return false
+	}
+	if !(s.AccessHash == 0) {
+		return false
+	}
+	if !(s.Size == 0) {
+		return false
+	}
+	if !(s.DCID == 0) {
+		return false
+	}
+	if !(s.Date == 0) {
+		return false
+	}
+	if !(s.FileHash == nil) {
+		return false
+	}
+	if !(s.Secret == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureFile) String() string {
@@ -235,7 +272,9 @@ type SecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecureFile implements binary de-serialization for SecureFileClass.

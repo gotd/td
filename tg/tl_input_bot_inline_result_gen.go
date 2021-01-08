@@ -60,6 +60,41 @@ type InputBotInlineResult struct {
 // InputBotInlineResultTypeID is TL type id of InputBotInlineResult.
 const InputBotInlineResultTypeID = 0x88bf9319
 
+func (i *InputBotInlineResult) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ID == "") {
+		return false
+	}
+	if !(i.Type == "") {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Description == "") {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.Thumb.Zero()) {
+		return false
+	}
+	if !(i.Content.Zero()) {
+		return false
+	}
+	if !(i.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputBotInlineResult) String() string {
 	if i == nil {
@@ -115,6 +150,21 @@ func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
 	}
 	b.PutID(InputBotInlineResultTypeID)
+	if !(i.Title == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.Description == "") {
+		i.Flags.Set(2)
+	}
+	if !(i.URL == "") {
+		i.Flags.Set(3)
+	}
+	if !(i.Thumb.Zero()) {
+		i.Flags.Set(4)
+	}
+	if !(i.Content.Zero()) {
+		i.Flags.Set(5)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineResult#88bf9319: field flags: %w", err)
 	}
@@ -323,6 +373,26 @@ type InputBotInlineResultPhoto struct {
 // InputBotInlineResultPhotoTypeID is TL type id of InputBotInlineResultPhoto.
 const InputBotInlineResultPhotoTypeID = 0xa8d864a7
 
+func (i *InputBotInlineResultPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == "") {
+		return false
+	}
+	if !(i.Type == "") {
+		return false
+	}
+	if !(i.Photo == nil) {
+		return false
+	}
+	if !(i.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputBotInlineResultPhoto) String() string {
 	if i == nil {
@@ -454,6 +524,35 @@ type InputBotInlineResultDocument struct {
 // InputBotInlineResultDocumentTypeID is TL type id of InputBotInlineResultDocument.
 const InputBotInlineResultDocumentTypeID = 0xfff8fdc4
 
+func (i *InputBotInlineResultDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ID == "") {
+		return false
+	}
+	if !(i.Type == "") {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Description == "") {
+		return false
+	}
+	if !(i.Document == nil) {
+		return false
+	}
+	if !(i.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputBotInlineResultDocument) String() string {
 	if i == nil {
@@ -497,6 +596,12 @@ func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResultDocument#fff8fdc4 as nil")
 	}
 	b.PutID(InputBotInlineResultDocumentTypeID)
+	if !(i.Title == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.Description == "") {
+		i.Flags.Set(2)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputBotInlineResultDocument#fff8fdc4: field flags: %w", err)
 	}
@@ -638,6 +743,23 @@ type InputBotInlineResultGame struct {
 // InputBotInlineResultGameTypeID is TL type id of InputBotInlineResultGame.
 const InputBotInlineResultGameTypeID = 0x4fa417f2
 
+func (i *InputBotInlineResultGame) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == "") {
+		return false
+	}
+	if !(i.ShortName == "") {
+		return false
+	}
+	if !(i.SendMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputBotInlineResultGame) String() string {
 	if i == nil {
@@ -739,7 +861,9 @@ type InputBotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputBotInlineResultClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputBotInlineResult implements binary de-serialization for InputBotInlineResultClass.

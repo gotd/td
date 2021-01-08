@@ -31,6 +31,26 @@ type Message struct {
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0x5bb8e511
 
+func (m *Message) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgID == 0) {
+		return false
+	}
+	if !(m.Seqno == 0) {
+		return false
+	}
+	if !(m.Bytes == 0) {
+		return false
+	}
+	if !(m.Body.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *Message) String() string {
 	if m == nil {

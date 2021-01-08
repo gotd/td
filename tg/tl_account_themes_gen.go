@@ -26,6 +26,14 @@ type AccountThemesNotModified struct {
 // AccountThemesNotModifiedTypeID is TL type id of AccountThemesNotModified.
 const AccountThemesNotModifiedTypeID = 0xf41eb622
 
+func (t *AccountThemesNotModified) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *AccountThemesNotModified) String() string {
 	if t == nil {
@@ -85,6 +93,20 @@ type AccountThemes struct {
 
 // AccountThemesTypeID is TL type id of AccountThemes.
 const AccountThemesTypeID = 0x7f676421
+
+func (t *AccountThemes) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Hash == 0) {
+		return false
+	}
+	if !(t.Themes == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *AccountThemes) String() string {
@@ -182,7 +204,9 @@ type AccountThemesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AccountThemesClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAccountThemes implements binary de-serialization for AccountThemesClass.

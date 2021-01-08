@@ -47,6 +47,26 @@ type AuthBindTempAuthKeyRequest struct {
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.
 const AuthBindTempAuthKeyRequestTypeID = 0xcdd42a05
 
+func (b *AuthBindTempAuthKeyRequest) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.PermAuthKeyID == 0) {
+		return false
+	}
+	if !(b.Nonce == 0) {
+		return false
+	}
+	if !(b.ExpiresAt == 0) {
+		return false
+	}
+	if !(b.EncryptedMessage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *AuthBindTempAuthKeyRequest) String() string {
 	if b == nil {

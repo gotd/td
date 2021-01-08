@@ -30,6 +30,20 @@ type ChannelsChannelParticipant struct {
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.
 const ChannelsChannelParticipantTypeID = 0xd0d9b163
 
+func (c *ChannelsChannelParticipant) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Participant == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelsChannelParticipant) String() string {
 	if c == nil {

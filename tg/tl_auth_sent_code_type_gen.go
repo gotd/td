@@ -28,6 +28,17 @@ type AuthSentCodeTypeApp struct {
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
 const AuthSentCodeTypeAppTypeID = 0x3dbb5986
 
+func (s *AuthSentCodeTypeApp) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AuthSentCodeTypeApp) String() string {
 	if s == nil {
@@ -94,6 +105,17 @@ type AuthSentCodeTypeSms struct {
 // AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
 const AuthSentCodeTypeSmsTypeID = 0xc000bba2
 
+func (s *AuthSentCodeTypeSms) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AuthSentCodeTypeSms) String() string {
 	if s == nil {
@@ -159,6 +181,17 @@ type AuthSentCodeTypeCall struct {
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
 const AuthSentCodeTypeCallTypeID = 0x5353e5a7
+
+func (s *AuthSentCodeTypeCall) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Length == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *AuthSentCodeTypeCall) String() string {
@@ -228,6 +261,17 @@ type AuthSentCodeTypeFlashCall struct {
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
 const AuthSentCodeTypeFlashCallTypeID = 0xab03c6d9
+
+func (s *AuthSentCodeTypeFlashCall) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Pattern == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *AuthSentCodeTypeFlashCall) String() string {
@@ -303,7 +347,9 @@ type AuthSentCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthSentCodeTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAuthSentCodeType implements binary de-serialization for AuthSentCodeTypeClass.

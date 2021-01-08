@@ -48,6 +48,23 @@ type AccountPasswordSettings struct {
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.
 const AccountPasswordSettingsTypeID = 0x9a5c33e5
 
+func (p *AccountPasswordSettings) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Email == "") {
+		return false
+	}
+	if !(p.SecureSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *AccountPasswordSettings) String() string {
 	if p == nil {
@@ -79,6 +96,12 @@ func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
 	}
 	b.PutID(AccountPasswordSettingsTypeID)
+	if !(p.Email == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.SecureSettings.Zero()) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.passwordSettings#9a5c33e5: field flags: %w", err)
 	}

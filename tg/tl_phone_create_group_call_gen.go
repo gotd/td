@@ -29,6 +29,20 @@ type PhoneCreateGroupCallRequest struct {
 // PhoneCreateGroupCallRequestTypeID is TL type id of PhoneCreateGroupCallRequest.
 const PhoneCreateGroupCallRequestTypeID = 0xbd3dabe0
 
+func (c *PhoneCreateGroupCallRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Peer == nil) {
+		return false
+	}
+	if !(c.RandomID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *PhoneCreateGroupCallRequest) String() string {
 	if c == nil {

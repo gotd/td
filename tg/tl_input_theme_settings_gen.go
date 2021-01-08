@@ -51,6 +51,35 @@ type InputThemeSettings struct {
 // InputThemeSettingsTypeID is TL type id of InputThemeSettings.
 const InputThemeSettingsTypeID = 0xbd507cd1
 
+func (i *InputThemeSettings) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.BaseTheme == nil) {
+		return false
+	}
+	if !(i.AccentColor == 0) {
+		return false
+	}
+	if !(i.MessageTopColor == 0) {
+		return false
+	}
+	if !(i.MessageBottomColor == 0) {
+		return false
+	}
+	if !(i.Wallpaper == nil) {
+		return false
+	}
+	if !(i.WallpaperSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputThemeSettings) String() string {
 	if i == nil {
@@ -98,6 +127,18 @@ func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputThemeSettings#bd507cd1 as nil")
 	}
 	b.PutID(InputThemeSettingsTypeID)
+	if !(i.MessageTopColor == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.MessageBottomColor == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.Wallpaper == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.WallpaperSettings.Zero()) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputThemeSettings#bd507cd1: field flags: %w", err)
 	}

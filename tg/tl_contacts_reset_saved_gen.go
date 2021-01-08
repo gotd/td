@@ -26,6 +26,14 @@ type ContactsResetSavedRequest struct {
 // ContactsResetSavedRequestTypeID is TL type id of ContactsResetSavedRequest.
 const ContactsResetSavedRequestTypeID = 0x879537f1
 
+func (r *ContactsResetSavedRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ContactsResetSavedRequest) String() string {
 	if r == nil {

@@ -26,6 +26,14 @@ type HelpGetTermsOfServiceUpdateRequest struct {
 // HelpGetTermsOfServiceUpdateRequestTypeID is TL type id of HelpGetTermsOfServiceUpdateRequest.
 const HelpGetTermsOfServiceUpdateRequestTypeID = 0x2ca51fd1
 
+func (g *HelpGetTermsOfServiceUpdateRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetTermsOfServiceUpdateRequest) String() string {
 	if g == nil {

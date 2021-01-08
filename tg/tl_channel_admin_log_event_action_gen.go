@@ -30,6 +30,20 @@ type ChannelAdminLogEventActionChangeTitle struct {
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
 const ChannelAdminLogEventActionChangeTitleTypeID = 0xe6dfb825
 
+func (c *ChannelAdminLogEventActionChangeTitle) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == "") {
+		return false
+	}
+	if !(c.NewValue == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeTitle) String() string {
 	if c == nil {
@@ -109,6 +123,20 @@ type ChannelAdminLogEventActionChangeAbout struct {
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
 const ChannelAdminLogEventActionChangeAboutTypeID = 0x55188a2e
 
+func (c *ChannelAdminLogEventActionChangeAbout) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == "") {
+		return false
+	}
+	if !(c.NewValue == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeAbout) String() string {
 	if c == nil {
@@ -187,6 +215,20 @@ type ChannelAdminLogEventActionChangeUsername struct {
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
 const ChannelAdminLogEventActionChangeUsernameTypeID = 0x6a4afc38
+
+func (c *ChannelAdminLogEventActionChangeUsername) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == "") {
+		return false
+	}
+	if !(c.NewValue == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeUsername) String() string {
@@ -268,6 +310,20 @@ type ChannelAdminLogEventActionChangePhoto struct {
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
 const ChannelAdminLogEventActionChangePhotoTypeID = 0x434bd2af
+
+func (c *ChannelAdminLogEventActionChangePhoto) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevPhoto == nil) {
+		return false
+	}
+	if !(c.NewPhoto == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangePhoto) String() string {
@@ -356,6 +412,17 @@ type ChannelAdminLogEventActionToggleInvites struct {
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
 const ChannelAdminLogEventActionToggleInvitesTypeID = 0x1b7907ae
 
+func (c *ChannelAdminLogEventActionToggleInvites) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionToggleInvites) String() string {
 	if c == nil {
@@ -424,6 +491,17 @@ type ChannelAdminLogEventActionToggleSignatures struct {
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
 const ChannelAdminLogEventActionToggleSignaturesTypeID = 0x26ae0971
 
+func (c *ChannelAdminLogEventActionToggleSignatures) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionToggleSignatures) String() string {
 	if c == nil {
@@ -491,6 +569,17 @@ type ChannelAdminLogEventActionUpdatePinned struct {
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
 const ChannelAdminLogEventActionUpdatePinnedTypeID = 0xe9e82c18
+
+func (c *ChannelAdminLogEventActionUpdatePinned) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Message == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionUpdatePinned) String() string {
@@ -566,6 +655,20 @@ type ChannelAdminLogEventActionEditMessage struct {
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
 const ChannelAdminLogEventActionEditMessageTypeID = 0x709b2405
+
+func (c *ChannelAdminLogEventActionEditMessage) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevMessage == nil) {
+		return false
+	}
+	if !(c.NewMessage == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionEditMessage) String() string {
@@ -654,6 +757,17 @@ type ChannelAdminLogEventActionDeleteMessage struct {
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
 const ChannelAdminLogEventActionDeleteMessageTypeID = 0x42e047bb
 
+func (c *ChannelAdminLogEventActionDeleteMessage) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionDeleteMessage) String() string {
 	if c == nil {
@@ -725,6 +839,14 @@ type ChannelAdminLogEventActionParticipantJoin struct {
 // ChannelAdminLogEventActionParticipantJoinTypeID is TL type id of ChannelAdminLogEventActionParticipantJoin.
 const ChannelAdminLogEventActionParticipantJoinTypeID = 0x183040d3
 
+func (c *ChannelAdminLogEventActionParticipantJoin) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
 	if c == nil {
@@ -779,6 +901,14 @@ type ChannelAdminLogEventActionParticipantLeave struct {
 
 // ChannelAdminLogEventActionParticipantLeaveTypeID is TL type id of ChannelAdminLogEventActionParticipantLeave.
 const ChannelAdminLogEventActionParticipantLeaveTypeID = 0xf89777f2
+
+func (c *ChannelAdminLogEventActionParticipantLeave) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
@@ -836,6 +966,17 @@ type ChannelAdminLogEventActionParticipantInvite struct {
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
 const ChannelAdminLogEventActionParticipantInviteTypeID = 0xe31c34d8
+
+func (c *ChannelAdminLogEventActionParticipantInvite) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Participant == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantInvite) String() string {
@@ -914,6 +1055,20 @@ type ChannelAdminLogEventActionParticipantToggleBan struct {
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
 const ChannelAdminLogEventActionParticipantToggleBanTypeID = 0xe6d83d7e
+
+func (c *ChannelAdminLogEventActionParticipantToggleBan) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevParticipant == nil) {
+		return false
+	}
+	if !(c.NewParticipant == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) String() string {
@@ -1009,6 +1164,20 @@ type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
 const ChannelAdminLogEventActionParticipantToggleAdminTypeID = 0xd5676710
 
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevParticipant == nil) {
+		return false
+	}
+	if !(c.NewParticipant == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) String() string {
 	if c == nil {
@@ -1099,6 +1268,20 @@ type ChannelAdminLogEventActionChangeStickerSet struct {
 
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
 const ChannelAdminLogEventActionChangeStickerSetTypeID = 0xb1c3caa7
+
+func (c *ChannelAdminLogEventActionChangeStickerSet) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevStickerset == nil) {
+		return false
+	}
+	if !(c.NewStickerset == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeStickerSet) String() string {
@@ -1192,6 +1375,17 @@ type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
 const ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID = 0x5f5c95f1
 
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.NewValue == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) String() string {
 	if c == nil {
@@ -1267,6 +1461,20 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
 const ChannelAdminLogEventActionDefaultBannedRightsTypeID = 0x2df5fc0a
+
+func (c *ChannelAdminLogEventActionDefaultBannedRights) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevBannedRights.Zero()) {
+		return false
+	}
+	if !(c.NewBannedRights.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) String() string {
@@ -1347,6 +1555,17 @@ type ChannelAdminLogEventActionStopPoll struct {
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
 const ChannelAdminLogEventActionStopPollTypeID = 0x8f079643
 
+func (c *ChannelAdminLogEventActionStopPoll) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionStopPoll) String() string {
 	if c == nil {
@@ -1419,6 +1638,20 @@ type ChannelAdminLogEventActionChangeLinkedChat struct {
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
 const ChannelAdminLogEventActionChangeLinkedChatTypeID = 0xa26f881b
+
+func (c *ChannelAdminLogEventActionChangeLinkedChat) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == 0) {
+		return false
+	}
+	if !(c.NewValue == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
@@ -1500,6 +1733,20 @@ type ChannelAdminLogEventActionChangeLocation struct {
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
 const ChannelAdminLogEventActionChangeLocationTypeID = 0xe6b76ae
+
+func (c *ChannelAdminLogEventActionChangeLocation) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == nil) {
+		return false
+	}
+	if !(c.NewValue == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionChangeLocation) String() string {
@@ -1595,6 +1842,20 @@ type ChannelAdminLogEventActionToggleSlowMode struct {
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
 const ChannelAdminLogEventActionToggleSlowModeTypeID = 0x53909779
 
+func (c *ChannelAdminLogEventActionToggleSlowMode) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == 0) {
+		return false
+	}
+	if !(c.NewValue == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionToggleSlowMode) String() string {
 	if c == nil {
@@ -1673,6 +1934,17 @@ type ChannelAdminLogEventActionStartGroupCall struct {
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
 const ChannelAdminLogEventActionStartGroupCallTypeID = 0x23209745
 
+func (c *ChannelAdminLogEventActionStartGroupCall) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
 	if c == nil {
@@ -1739,6 +2011,17 @@ type ChannelAdminLogEventActionDiscardGroupCall struct {
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
 const ChannelAdminLogEventActionDiscardGroupCallTypeID = 0xdb9f9140
+
+func (c *ChannelAdminLogEventActionDiscardGroupCall) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
@@ -1807,6 +2090,17 @@ type ChannelAdminLogEventActionParticipantMute struct {
 // ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
 const ChannelAdminLogEventActionParticipantMuteTypeID = 0xf92424d2
 
+func (c *ChannelAdminLogEventActionParticipantMute) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Participant.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantMute) String() string {
 	if c == nil {
@@ -1874,6 +2168,17 @@ type ChannelAdminLogEventActionParticipantUnmute struct {
 // ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
 const ChannelAdminLogEventActionParticipantUnmuteTypeID = 0xe64429c0
 
+func (c *ChannelAdminLogEventActionParticipantUnmute) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Participant.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionParticipantUnmute) String() string {
 	if c == nil {
@@ -1940,6 +2245,17 @@ type ChannelAdminLogEventActionToggleGroupCallSetting struct {
 
 // ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
 const ChannelAdminLogEventActionToggleGroupCallSettingTypeID = 0x56d6a247
+
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.JoinMuted == false) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) String() string {
@@ -2039,7 +2355,9 @@ type ChannelAdminLogEventActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelAdminLogEventActionClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelAdminLogEventAction implements binary de-serialization for ChannelAdminLogEventActionClass.

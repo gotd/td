@@ -28,6 +28,17 @@ type KeyboardButtonRow struct {
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.
 const KeyboardButtonRowTypeID = 0x77608b83
 
+func (k *KeyboardButtonRow) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Buttons == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonRow) String() string {
 	if k == nil {

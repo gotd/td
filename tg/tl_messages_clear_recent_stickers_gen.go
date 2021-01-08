@@ -33,6 +33,20 @@ type MessagesClearRecentStickersRequest struct {
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.
 const MessagesClearRecentStickersRequestTypeID = 0x8999602d
 
+func (c *MessagesClearRecentStickersRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Attached == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesClearRecentStickersRequest) String() string {
 	if c == nil {
@@ -54,6 +68,9 @@ func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.clearRecentStickers#8999602d as nil")
 	}
 	b.PutID(MessagesClearRecentStickersRequestTypeID)
+	if !(c.Attached == false) {
+		c.Flags.Set(0)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.clearRecentStickers#8999602d: field flags: %w", err)
 	}

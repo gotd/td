@@ -32,6 +32,17 @@ type StatsGraphAsync struct {
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
 const StatsGraphAsyncTypeID = 0x4a27eb2d
 
+func (s *StatsGraphAsync) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Token == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsGraphAsync) String() string {
 	if s == nil {
@@ -100,6 +111,17 @@ type StatsGraphError struct {
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
 const StatsGraphErrorTypeID = 0xbedc9822
+
+func (s *StatsGraphError) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Error == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *StatsGraphError) String() string {
@@ -179,6 +201,23 @@ type StatsGraph struct {
 // StatsGraphTypeID is TL type id of StatsGraph.
 const StatsGraphTypeID = 0x8ea464b6
 
+func (s *StatsGraph) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.JSON.Zero()) {
+		return false
+	}
+	if !(s.ZoomToken == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsGraph) String() string {
 	if s == nil {
@@ -208,6 +247,9 @@ func (s *StatsGraph) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
 	}
 	b.PutID(StatsGraphTypeID)
+	if !(s.ZoomToken == "") {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode statsGraph#8ea464b6: field flags: %w", err)
 	}
@@ -293,7 +335,9 @@ type StatsGraphClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() StatsGraphClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeStatsGraph implements binary de-serialization for StatsGraphClass.

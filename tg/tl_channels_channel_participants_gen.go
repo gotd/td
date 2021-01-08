@@ -32,6 +32,23 @@ type ChannelsChannelParticipants struct {
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
 const ChannelsChannelParticipantsTypeID = 0xf56ee2a8
 
+func (c *ChannelsChannelParticipants) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Count == 0) {
+		return false
+	}
+	if !(c.Participants == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelsChannelParticipants) String() string {
 	if c == nil {
@@ -150,6 +167,14 @@ type ChannelsChannelParticipantsNotModified struct {
 // ChannelsChannelParticipantsNotModifiedTypeID is TL type id of ChannelsChannelParticipantsNotModified.
 const ChannelsChannelParticipantsNotModifiedTypeID = 0xf0173fe9
 
+func (c *ChannelsChannelParticipantsNotModified) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelsChannelParticipantsNotModified) String() string {
 	if c == nil {
@@ -213,7 +238,9 @@ type ChannelsChannelParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelsChannelParticipantsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelsChannelParticipants implements binary de-serialization for ChannelsChannelParticipantsClass.

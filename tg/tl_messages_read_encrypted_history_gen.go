@@ -30,6 +30,20 @@ type MessagesReadEncryptedHistoryRequest struct {
 // MessagesReadEncryptedHistoryRequestTypeID is TL type id of MessagesReadEncryptedHistoryRequest.
 const MessagesReadEncryptedHistoryRequestTypeID = 0x7f4b690a
 
+func (r *MessagesReadEncryptedHistoryRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer.Zero()) {
+		return false
+	}
+	if !(r.MaxDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReadEncryptedHistoryRequest) String() string {
 	if r == nil {

@@ -40,6 +40,26 @@ type InputFile struct {
 // InputFileTypeID is TL type id of InputFile.
 const InputFileTypeID = 0xf52ff27f
 
+func (i *InputFile) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Parts == 0) {
+		return false
+	}
+	if !(i.Name == "") {
+		return false
+	}
+	if !(i.Md5Checksum == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputFile) String() string {
 	if i == nil {
@@ -146,6 +166,23 @@ type InputFileBig struct {
 // InputFileBigTypeID is TL type id of InputFileBig.
 const InputFileBigTypeID = 0xfa4f0bb5
 
+func (i *InputFileBig) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Parts == 0) {
+		return false
+	}
+	if !(i.Name == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputFileBig) String() string {
 	if i == nil {
@@ -240,7 +277,9 @@ type InputFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.

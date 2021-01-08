@@ -34,6 +34,26 @@ type InputAppEvent struct {
 // InputAppEventTypeID is TL type id of InputAppEvent.
 const InputAppEventTypeID = 0x1d1b1245
 
+func (i *InputAppEvent) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Time == 0) {
+		return false
+	}
+	if !(i.Type == "") {
+		return false
+	}
+	if !(i.Peer == 0) {
+		return false
+	}
+	if !(i.Data == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputAppEvent) String() string {
 	if i == nil {

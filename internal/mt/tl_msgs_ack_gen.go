@@ -25,6 +25,17 @@ type MsgsAck struct {
 // MsgsAckTypeID is TL type id of MsgsAck.
 const MsgsAckTypeID = 0x62d6b459
 
+func (m *MsgsAck) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgIds == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgsAck) String() string {
 	if m == nil {

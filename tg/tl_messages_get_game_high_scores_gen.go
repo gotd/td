@@ -32,6 +32,23 @@ type MessagesGetGameHighScoresRequest struct {
 // MessagesGetGameHighScoresRequestTypeID is TL type id of MessagesGetGameHighScoresRequest.
 const MessagesGetGameHighScoresRequestTypeID = 0xe822649d
 
+func (g *MessagesGetGameHighScoresRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+	if !(g.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetGameHighScoresRequest) String() string {
 	if g == nil {

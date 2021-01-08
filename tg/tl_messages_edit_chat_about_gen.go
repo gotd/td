@@ -36,6 +36,20 @@ type MessagesEditChatAboutRequest struct {
 // MessagesEditChatAboutRequestTypeID is TL type id of MessagesEditChatAboutRequest.
 const MessagesEditChatAboutRequestTypeID = 0xdef60797
 
+func (e *MessagesEditChatAboutRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Peer == nil) {
+		return false
+	}
+	if !(e.About == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditChatAboutRequest) String() string {
 	if e == nil {

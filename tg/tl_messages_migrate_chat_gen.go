@@ -31,6 +31,17 @@ type MessagesMigrateChatRequest struct {
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
 const MessagesMigrateChatRequestTypeID = 0x15a3b8e3
 
+func (m *MessagesMigrateChatRequest) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMigrateChatRequest) String() string {
 	if m == nil {

@@ -28,6 +28,17 @@ type MessagesGetAttachedStickersRequest struct {
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.
 const MessagesGetAttachedStickersRequestTypeID = 0xcc5b67cc
 
+func (g *MessagesGetAttachedStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Media == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetAttachedStickersRequest) String() string {
 	if g == nil {

@@ -48,6 +48,29 @@ type InputSingleMedia struct {
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
 const InputSingleMediaTypeID = 0x1cc6e91f
 
+func (i *InputSingleMedia) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Media == nil) {
+		return false
+	}
+	if !(i.RandomID == 0) {
+		return false
+	}
+	if !(i.Message == "") {
+		return false
+	}
+	if !(i.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputSingleMedia) String() string {
 	if i == nil {
@@ -85,6 +108,9 @@ func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
 	}
 	b.PutID(InputSingleMediaTypeID)
+	if !(i.Entities == nil) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputSingleMedia#1cc6e91f: field flags: %w", err)
 	}

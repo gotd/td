@@ -62,6 +62,38 @@ type MessagesGetDialogsRequest struct {
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
 const MessagesGetDialogsRequestTypeID = 0xa0ee3b73
 
+func (g *MessagesGetDialogsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ExcludePinned == false) {
+		return false
+	}
+	if !(g.FolderID == 0) {
+		return false
+	}
+	if !(g.OffsetDate == 0) {
+		return false
+	}
+	if !(g.OffsetID == 0) {
+		return false
+	}
+	if !(g.OffsetPeer == nil) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetDialogsRequest) String() string {
 	if g == nil {
@@ -103,6 +135,12 @@ func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
 	}
 	b.PutID(MessagesGetDialogsRequestTypeID)
+	if !(g.ExcludePinned == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.FolderID == 0) {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getDialogs#a0ee3b73: field flags: %w", err)
 	}

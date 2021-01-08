@@ -33,6 +33,20 @@ type AccountGetThemesRequest struct {
 // AccountGetThemesRequestTypeID is TL type id of AccountGetThemesRequest.
 const AccountGetThemesRequestTypeID = 0x285946f8
 
+func (g *AccountGetThemesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Format == "") {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetThemesRequest) String() string {
 	if g == nil {

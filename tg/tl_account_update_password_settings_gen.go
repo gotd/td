@@ -36,6 +36,20 @@ type AccountUpdatePasswordSettingsRequest struct {
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.
 const AccountUpdatePasswordSettingsRequestTypeID = 0xa59b102f
 
+func (u *AccountUpdatePasswordSettingsRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Password == nil) {
+		return false
+	}
+	if !(u.NewSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdatePasswordSettingsRequest) String() string {
 	if u == nil {

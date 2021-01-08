@@ -25,6 +25,14 @@ type Ok struct {
 // OkTypeID is TL type id of Ok.
 const OkTypeID = 0xd4edbe69
 
+func (o *Ok) Zero() bool {
+	if o == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (o *Ok) String() string {
 	if o == nil {

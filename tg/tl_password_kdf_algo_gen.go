@@ -26,6 +26,14 @@ type PasswordKdfAlgoUnknown struct {
 // PasswordKdfAlgoUnknownTypeID is TL type id of PasswordKdfAlgoUnknown.
 const PasswordKdfAlgoUnknownTypeID = 0xd45ab096
 
+func (p *PasswordKdfAlgoUnknown) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PasswordKdfAlgoUnknown) String() string {
 	if p == nil {
@@ -101,6 +109,26 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
 const PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID = 0x3a912d4a
+
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Salt1 == nil) {
+		return false
+	}
+	if !(p.Salt2 == nil) {
+		return false
+	}
+	if !(p.G == 0) {
+		return false
+	}
+	if !(p.P == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) String() string {
@@ -209,7 +237,9 @@ type PasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PasswordKdfAlgoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePasswordKdfAlgo implements binary de-serialization for PasswordKdfAlgoClass.

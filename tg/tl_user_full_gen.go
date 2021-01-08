@@ -80,6 +80,62 @@ type UserFull struct {
 // UserFullTypeID is TL type id of UserFull.
 const UserFullTypeID = 0xedf17c12
 
+func (u *UserFull) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Blocked == false) {
+		return false
+	}
+	if !(u.PhoneCallsAvailable == false) {
+		return false
+	}
+	if !(u.PhoneCallsPrivate == false) {
+		return false
+	}
+	if !(u.CanPinMessage == false) {
+		return false
+	}
+	if !(u.HasScheduled == false) {
+		return false
+	}
+	if !(u.VideoCallsAvailable == false) {
+		return false
+	}
+	if !(u.User == nil) {
+		return false
+	}
+	if !(u.About == "") {
+		return false
+	}
+	if !(u.Settings.Zero()) {
+		return false
+	}
+	if !(u.ProfilePhoto == nil) {
+		return false
+	}
+	if !(u.NotifySettings.Zero()) {
+		return false
+	}
+	if !(u.BotInfo.Zero()) {
+		return false
+	}
+	if !(u.PinnedMsgID == 0) {
+		return false
+	}
+	if !(u.CommonChatsCount == 0) {
+		return false
+	}
+	if !(u.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserFull) String() string {
 	if u == nil {
@@ -138,6 +194,39 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userFull#edf17c12 as nil")
 	}
 	b.PutID(UserFullTypeID)
+	if !(u.Blocked == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.PhoneCallsAvailable == false) {
+		u.Flags.Set(4)
+	}
+	if !(u.PhoneCallsPrivate == false) {
+		u.Flags.Set(5)
+	}
+	if !(u.CanPinMessage == false) {
+		u.Flags.Set(7)
+	}
+	if !(u.HasScheduled == false) {
+		u.Flags.Set(12)
+	}
+	if !(u.VideoCallsAvailable == false) {
+		u.Flags.Set(13)
+	}
+	if !(u.About == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.ProfilePhoto == nil) {
+		u.Flags.Set(2)
+	}
+	if !(u.BotInfo.Zero()) {
+		u.Flags.Set(3)
+	}
+	if !(u.PinnedMsgID == 0) {
+		u.Flags.Set(6)
+	}
+	if !(u.FolderID == 0) {
+		u.Flags.Set(11)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode userFull#edf17c12: field flags: %w", err)
 	}

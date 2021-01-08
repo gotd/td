@@ -38,6 +38,23 @@ type MessagesGetRecentLocationsRequest struct {
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.
 const MessagesGetRecentLocationsRequestTypeID = 0xbbc45b09
 
+func (g *MessagesGetRecentLocationsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetRecentLocationsRequest) String() string {
 	if g == nil {

@@ -28,6 +28,17 @@ type DataJSON struct {
 // DataJSONTypeID is TL type id of DataJSON.
 const DataJSONTypeID = 0x7d748d04
 
+func (d *DataJSON) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Data == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DataJSON) String() string {
 	if d == nil {

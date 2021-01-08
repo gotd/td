@@ -27,6 +27,17 @@ type SendRequest struct {
 // SendRequestTypeID is TL type id of SendRequest.
 const SendRequestTypeID = 0xf74488a
 
+func (s *SendRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Msg.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendRequest) String() string {
 	if s == nil {

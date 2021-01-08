@@ -29,6 +29,23 @@ type NewSessionCreated struct {
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
 const NewSessionCreatedTypeID = 0x9ec20908
 
+func (n *NewSessionCreated) Zero() bool {
+	if n == nil {
+		return true
+	}
+	if !(n.FirstMsgID == 0) {
+		return false
+	}
+	if !(n.UniqueID == 0) {
+		return false
+	}
+	if !(n.ServerSalt == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NewSessionCreated) String() string {
 	if n == nil {

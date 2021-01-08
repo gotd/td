@@ -27,6 +27,17 @@ type SendMultipleSMSRequest struct {
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
 const SendMultipleSMSRequestTypeID = 0xdf18e5ca
 
+func (s *SendMultipleSMSRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Messages == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMultipleSMSRequest) String() string {
 	if s == nil {

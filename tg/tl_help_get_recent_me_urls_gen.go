@@ -28,6 +28,17 @@ type HelpGetRecentMeUrlsRequest struct {
 // HelpGetRecentMeUrlsRequestTypeID is TL type id of HelpGetRecentMeUrlsRequest.
 const HelpGetRecentMeUrlsRequestTypeID = 0x3dc0f114
 
+func (g *HelpGetRecentMeUrlsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Referer == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetRecentMeUrlsRequest) String() string {
 	if g == nil {

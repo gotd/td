@@ -35,6 +35,23 @@ type MessagesReorderStickerSetsRequest struct {
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.
 const MessagesReorderStickerSetsRequestTypeID = 0x78337739
 
+func (r *MessagesReorderStickerSetsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.Masks == false) {
+		return false
+	}
+	if !(r.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReorderStickerSetsRequest) String() string {
 	if r == nil {
@@ -61,6 +78,9 @@ func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
 	}
 	b.PutID(MessagesReorderStickerSetsRequestTypeID)
+	if !(r.Masks == false) {
+		r.Flags.Set(0)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.reorderStickerSets#78337739: field flags: %w", err)
 	}

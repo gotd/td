@@ -26,6 +26,14 @@ type InputPrivacyKeyStatusTimestamp struct {
 // InputPrivacyKeyStatusTimestampTypeID is TL type id of InputPrivacyKeyStatusTimestamp.
 const InputPrivacyKeyStatusTimestampTypeID = 0x4f96cb18
 
+func (i *InputPrivacyKeyStatusTimestamp) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyStatusTimestamp) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputPrivacyKeyChatInvite struct {
 
 // InputPrivacyKeyChatInviteTypeID is TL type id of InputPrivacyKeyChatInvite.
 const InputPrivacyKeyChatInviteTypeID = 0xbdfb0426
+
+func (i *InputPrivacyKeyChatInvite) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyChatInvite) String() string {
@@ -132,6 +148,14 @@ type InputPrivacyKeyPhoneCall struct {
 // InputPrivacyKeyPhoneCallTypeID is TL type id of InputPrivacyKeyPhoneCall.
 const InputPrivacyKeyPhoneCallTypeID = 0xfabadc5f
 
+func (i *InputPrivacyKeyPhoneCall) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyPhoneCall) String() string {
 	if i == nil {
@@ -184,6 +208,14 @@ type InputPrivacyKeyPhoneP2P struct {
 
 // InputPrivacyKeyPhoneP2PTypeID is TL type id of InputPrivacyKeyPhoneP2P.
 const InputPrivacyKeyPhoneP2PTypeID = 0xdb9e70d2
+
+func (i *InputPrivacyKeyPhoneP2P) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyPhoneP2P) String() string {
@@ -241,6 +273,14 @@ type InputPrivacyKeyForwards struct {
 // InputPrivacyKeyForwardsTypeID is TL type id of InputPrivacyKeyForwards.
 const InputPrivacyKeyForwardsTypeID = 0xa4dd4c08
 
+func (i *InputPrivacyKeyForwards) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyForwards) String() string {
 	if i == nil {
@@ -293,6 +333,14 @@ type InputPrivacyKeyProfilePhoto struct {
 
 // InputPrivacyKeyProfilePhotoTypeID is TL type id of InputPrivacyKeyProfilePhoto.
 const InputPrivacyKeyProfilePhotoTypeID = 0x5719bacc
+
+func (i *InputPrivacyKeyProfilePhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyProfilePhoto) String() string {
@@ -347,6 +395,14 @@ type InputPrivacyKeyPhoneNumber struct {
 // InputPrivacyKeyPhoneNumberTypeID is TL type id of InputPrivacyKeyPhoneNumber.
 const InputPrivacyKeyPhoneNumberTypeID = 0x352dafa
 
+func (i *InputPrivacyKeyPhoneNumber) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyPhoneNumber) String() string {
 	if i == nil {
@@ -399,6 +455,14 @@ type InputPrivacyKeyAddedByPhone struct {
 
 // InputPrivacyKeyAddedByPhoneTypeID is TL type id of InputPrivacyKeyAddedByPhone.
 const InputPrivacyKeyAddedByPhoneTypeID = 0xd1219bdd
+
+func (i *InputPrivacyKeyAddedByPhone) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPrivacyKeyAddedByPhone) String() string {
@@ -467,7 +531,9 @@ type InputPrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPrivacyKeyClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputPrivacyKey implements binary de-serialization for InputPrivacyKeyClass.

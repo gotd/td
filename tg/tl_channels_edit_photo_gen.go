@@ -33,6 +33,20 @@ type ChannelsEditPhotoRequest struct {
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.
 const ChannelsEditPhotoRequestTypeID = 0xf12e57c9
 
+func (e *ChannelsEditPhotoRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.Photo == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditPhotoRequest) String() string {
 	if e == nil {

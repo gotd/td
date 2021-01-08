@@ -34,6 +34,26 @@ type MessagesDialogs struct {
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
 const MessagesDialogsTypeID = 0x15ba6c40
 
+func (d *MessagesDialogs) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Dialogs == nil) {
+		return false
+	}
+	if !(d.Messages == nil) {
+		return false
+	}
+	if !(d.Chats == nil) {
+		return false
+	}
+	if !(d.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDialogs) String() string {
 	if d == nil {
@@ -204,6 +224,29 @@ type MessagesDialogsSlice struct {
 
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
 const MessagesDialogsSliceTypeID = 0x71e094f3
+
+func (d *MessagesDialogsSlice) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Count == 0) {
+		return false
+	}
+	if !(d.Dialogs == nil) {
+		return false
+	}
+	if !(d.Messages == nil) {
+		return false
+	}
+	if !(d.Chats == nil) {
+		return false
+	}
+	if !(d.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *MessagesDialogsSlice) String() string {
@@ -379,6 +422,17 @@ type MessagesDialogsNotModified struct {
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.
 const MessagesDialogsNotModifiedTypeID = 0xf0e3e596
 
+func (d *MessagesDialogsNotModified) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Count == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDialogsNotModified) String() string {
 	if d == nil {
@@ -452,7 +506,9 @@ type MessagesDialogsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesDialogsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesDialogs implements binary de-serialization for MessagesDialogsClass.

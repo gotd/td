@@ -49,6 +49,26 @@ type PhotosUploadProfilePhotoRequest struct {
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
 const PhotosUploadProfilePhotoRequestTypeID = 0x89f30f69
 
+func (u *PhotosUploadProfilePhotoRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.File == nil) {
+		return false
+	}
+	if !(u.Video == nil) {
+		return false
+	}
+	if !(u.VideoStartTs == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *PhotosUploadProfilePhotoRequest) String() string {
 	if u == nil {
@@ -85,6 +105,15 @@ func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
 	}
 	b.PutID(PhotosUploadProfilePhotoRequestTypeID)
+	if !(u.File == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.Video == nil) {
+		u.Flags.Set(1)
+	}
+	if !(u.VideoStartTs == 0) {
+		u.Flags.Set(2)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
 	}

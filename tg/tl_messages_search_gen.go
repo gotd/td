@@ -82,6 +82,56 @@ type MessagesSearchRequest struct {
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
 const MessagesSearchRequestTypeID = 0xc352eec
 
+func (s *MessagesSearchRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.Q == "") {
+		return false
+	}
+	if !(s.FromID == nil) {
+		return false
+	}
+	if !(s.TopMsgID == 0) {
+		return false
+	}
+	if !(s.Filter == nil) {
+		return false
+	}
+	if !(s.MinDate == 0) {
+		return false
+	}
+	if !(s.MaxDate == 0) {
+		return false
+	}
+	if !(s.OffsetID == 0) {
+		return false
+	}
+	if !(s.AddOffset == 0) {
+		return false
+	}
+	if !(s.Limit == 0) {
+		return false
+	}
+	if !(s.MaxID == 0) {
+		return false
+	}
+	if !(s.MinID == 0) {
+		return false
+	}
+	if !(s.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSearchRequest) String() string {
 	if s == nil {
@@ -146,6 +196,12 @@ func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.search#c352eec as nil")
 	}
 	b.PutID(MessagesSearchRequestTypeID)
+	if !(s.FromID == nil) {
+		s.Flags.Set(0)
+	}
+	if !(s.TopMsgID == 0) {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.search#c352eec: field flags: %w", err)
 	}

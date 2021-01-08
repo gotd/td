@@ -35,6 +35,23 @@ type UpdateNewMessage struct {
 // UpdateNewMessageTypeID is TL type id of UpdateNewMessage.
 const UpdateNewMessageTypeID = 0x1f2b0afd
 
+func (u *UpdateNewMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateNewMessage) String() string {
 	if u == nil {
@@ -133,6 +150,20 @@ type UpdateMessageID struct {
 // UpdateMessageIDTypeID is TL type id of UpdateMessageID.
 const UpdateMessageIDTypeID = 0x4e90bfd6
 
+func (u *UpdateMessageID) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.RandomID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateMessageID) String() string {
 	if u == nil {
@@ -216,6 +247,23 @@ type UpdateDeleteMessages struct {
 
 // UpdateDeleteMessagesTypeID is TL type id of UpdateDeleteMessages.
 const UpdateDeleteMessagesTypeID = 0xa20db0e5
+
+func (u *UpdateDeleteMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateDeleteMessages) String() string {
@@ -321,6 +369,20 @@ type UpdateUserTyping struct {
 // UpdateUserTypingTypeID is TL type id of UpdateUserTyping.
 const UpdateUserTypingTypeID = 0x5c486927
 
+func (u *UpdateUserTyping) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateUserTyping) String() string {
 	if u == nil {
@@ -409,6 +471,23 @@ type UpdateChatUserTyping struct {
 
 // UpdateChatUserTypingTypeID is TL type id of UpdateChatUserTyping.
 const UpdateChatUserTypingTypeID = 0x9a65ea1f
+
+func (u *UpdateChatUserTyping) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Action == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChatUserTyping) String() string {
@@ -503,6 +582,17 @@ type UpdateChatParticipants struct {
 // UpdateChatParticipantsTypeID is TL type id of UpdateChatParticipants.
 const UpdateChatParticipantsTypeID = 0x7761198
 
+func (u *UpdateChatParticipants) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Participants == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChatParticipants) String() string {
 	if u == nil {
@@ -575,6 +665,20 @@ type UpdateUserStatus struct {
 
 // UpdateUserStatusTypeID is TL type id of UpdateUserStatus.
 const UpdateUserStatusTypeID = 0x1bfbd823
+
+func (u *UpdateUserStatus) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Status == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateUserStatus) String() string {
@@ -672,6 +776,26 @@ type UpdateUserName struct {
 
 // UpdateUserNameTypeID is TL type id of UpdateUserName.
 const UpdateUserNameTypeID = 0xa7332b73
+
+func (u *UpdateUserName) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.FirstName == "") {
+		return false
+	}
+	if !(u.LastName == "") {
+		return false
+	}
+	if !(u.Username == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateUserName) String() string {
@@ -781,6 +905,26 @@ type UpdateUserPhoto struct {
 // UpdateUserPhotoTypeID is TL type id of UpdateUserPhoto.
 const UpdateUserPhotoTypeID = 0x95313b0c
 
+func (u *UpdateUserPhoto) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Photo == nil) {
+		return false
+	}
+	if !(u.Previous == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateUserPhoto) String() string {
 	if u == nil {
@@ -887,6 +1031,20 @@ type UpdateNewEncryptedMessage struct {
 // UpdateNewEncryptedMessageTypeID is TL type id of UpdateNewEncryptedMessage.
 const UpdateNewEncryptedMessageTypeID = 0x12bcbd9a
 
+func (u *UpdateNewEncryptedMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateNewEncryptedMessage) String() string {
 	if u == nil {
@@ -969,6 +1127,17 @@ type UpdateEncryptedChatTyping struct {
 // UpdateEncryptedChatTypingTypeID is TL type id of UpdateEncryptedChatTyping.
 const UpdateEncryptedChatTypingTypeID = 0x1710f156
 
+func (u *UpdateEncryptedChatTyping) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateEncryptedChatTyping) String() string {
 	if u == nil {
@@ -1036,6 +1205,20 @@ type UpdateEncryption struct {
 
 // UpdateEncryptionTypeID is TL type id of UpdateEncryption.
 const UpdateEncryptionTypeID = 0xb4a2e88d
+
+func (u *UpdateEncryption) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Chat == nil) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateEncryption) String() string {
@@ -1122,6 +1305,23 @@ type UpdateEncryptedMessagesRead struct {
 
 // UpdateEncryptedMessagesReadTypeID is TL type id of UpdateEncryptedMessagesRead.
 const UpdateEncryptedMessagesReadTypeID = 0x38fe25b7
+
+func (u *UpdateEncryptedMessagesRead) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.MaxDate == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateEncryptedMessagesRead) String() string {
@@ -1218,6 +1418,29 @@ type UpdateChatParticipantAdd struct {
 
 // UpdateChatParticipantAddTypeID is TL type id of UpdateChatParticipantAdd.
 const UpdateChatParticipantAddTypeID = 0xea4b0e5c
+
+func (u *UpdateChatParticipantAdd) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.InviterID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChatParticipantAdd) String() string {
@@ -1333,6 +1556,23 @@ type UpdateChatParticipantDelete struct {
 // UpdateChatParticipantDeleteTypeID is TL type id of UpdateChatParticipantDelete.
 const UpdateChatParticipantDeleteTypeID = 0x6e5f8c22
 
+func (u *UpdateChatParticipantDelete) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChatParticipantDelete) String() string {
 	if u == nil {
@@ -1421,6 +1661,17 @@ type UpdateDcOptions struct {
 // UpdateDcOptionsTypeID is TL type id of UpdateDcOptions.
 const UpdateDcOptionsTypeID = 0x8e5e9873
 
+func (u *UpdateDcOptions) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.DCOptions == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDcOptions) String() string {
 	if u == nil {
@@ -1501,6 +1752,20 @@ type UpdateNotifySettings struct {
 
 // UpdateNotifySettingsTypeID is TL type id of UpdateNotifySettings.
 const UpdateNotifySettingsTypeID = 0xbec268ef
+
+func (u *UpdateNotifySettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.NotifySettings.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateNotifySettings) String() string {
@@ -1608,6 +1873,35 @@ type UpdateServiceNotification struct {
 // UpdateServiceNotificationTypeID is TL type id of UpdateServiceNotification.
 const UpdateServiceNotificationTypeID = 0xebe46819
 
+func (u *UpdateServiceNotification) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Popup == false) {
+		return false
+	}
+	if !(u.InboxDate == 0) {
+		return false
+	}
+	if !(u.Type == "") {
+		return false
+	}
+	if !(u.Message == "") {
+		return false
+	}
+	if !(u.Media == nil) {
+		return false
+	}
+	if !(u.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateServiceNotification) String() string {
 	if u == nil {
@@ -1648,6 +1942,12 @@ func (u *UpdateServiceNotification) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateServiceNotification#ebe46819 as nil")
 	}
 	b.PutID(UpdateServiceNotificationTypeID)
+	if !(u.Popup == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.InboxDate == 0) {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateServiceNotification#ebe46819: field flags: %w", err)
 	}
@@ -1783,6 +2083,20 @@ type UpdatePrivacy struct {
 // UpdatePrivacyTypeID is TL type id of UpdatePrivacy.
 const UpdatePrivacyTypeID = 0xee3b272a
 
+func (u *UpdatePrivacy) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Key == nil) {
+		return false
+	}
+	if !(u.Rules == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePrivacy) String() string {
 	if u == nil {
@@ -1882,6 +2196,20 @@ type UpdateUserPhone struct {
 
 // UpdateUserPhoneTypeID is TL type id of UpdateUserPhone.
 const UpdateUserPhoneTypeID = 0x12b9417b
+
+func (u *UpdateUserPhone) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Phone == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateUserPhone) String() string {
@@ -1986,6 +2314,35 @@ type UpdateReadHistoryInbox struct {
 // UpdateReadHistoryInboxTypeID is TL type id of UpdateReadHistoryInbox.
 const UpdateReadHistoryInboxTypeID = 0x9c974fdf
 
+func (u *UpdateReadHistoryInbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.FolderID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MaxID == 0) {
+		return false
+	}
+	if !(u.StillUnreadCount == 0) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadHistoryInbox) String() string {
 	if u == nil {
@@ -2027,6 +2384,9 @@ func (u *UpdateReadHistoryInbox) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateReadHistoryInbox#9c974fdf as nil")
 	}
 	b.PutID(UpdateReadHistoryInboxTypeID)
+	if !(u.FolderID == 0) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadHistoryInbox#9c974fdf: field flags: %w", err)
 	}
@@ -2154,6 +2514,26 @@ type UpdateReadHistoryOutbox struct {
 // UpdateReadHistoryOutboxTypeID is TL type id of UpdateReadHistoryOutbox.
 const UpdateReadHistoryOutboxTypeID = 0x2f2f21bf
 
+func (u *UpdateReadHistoryOutbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MaxID == 0) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadHistoryOutbox) String() string {
 	if u == nil {
@@ -2271,6 +2651,23 @@ type UpdateWebPage struct {
 // UpdateWebPageTypeID is TL type id of UpdateWebPage.
 const UpdateWebPageTypeID = 0x7f891213
 
+func (u *UpdateWebPage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Webpage == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateWebPage) String() string {
 	if u == nil {
@@ -2376,6 +2773,23 @@ type UpdateReadMessagesContents struct {
 
 // UpdateReadMessagesContentsTypeID is TL type id of UpdateReadMessagesContents.
 const UpdateReadMessagesContentsTypeID = 0x68c13933
+
+func (u *UpdateReadMessagesContents) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateReadMessagesContents) String() string {
@@ -2489,6 +2903,23 @@ type UpdateChannelTooLong struct {
 // UpdateChannelTooLongTypeID is TL type id of UpdateChannelTooLong.
 const UpdateChannelTooLongTypeID = 0xeb0467fb
 
+func (u *UpdateChannelTooLong) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChannelTooLong) String() string {
 	if u == nil {
@@ -2518,6 +2949,9 @@ func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateChannelTooLong#eb0467fb as nil")
 	}
 	b.PutID(UpdateChannelTooLongTypeID)
+	if !(u.Pts == 0) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelTooLong#eb0467fb: field flags: %w", err)
 	}
@@ -2595,6 +3029,17 @@ type UpdateChannel struct {
 
 // UpdateChannelTypeID is TL type id of UpdateChannel.
 const UpdateChannelTypeID = 0xb6d45656
+
+func (u *UpdateChannel) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChannel) String() string {
@@ -2674,6 +3119,23 @@ type UpdateNewChannelMessage struct {
 
 // UpdateNewChannelMessageTypeID is TL type id of UpdateNewChannelMessage.
 const UpdateNewChannelMessageTypeID = 0x62ba04d9
+
+func (u *UpdateNewChannelMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateNewChannelMessage) String() string {
@@ -2792,6 +3254,32 @@ type UpdateReadChannelInbox struct {
 // UpdateReadChannelInboxTypeID is TL type id of UpdateReadChannelInbox.
 const UpdateReadChannelInboxTypeID = 0x330b5424
 
+func (u *UpdateReadChannelInbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.FolderID == 0) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.MaxID == 0) {
+		return false
+	}
+	if !(u.StillUnreadCount == 0) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadChannelInbox) String() string {
 	if u == nil {
@@ -2830,6 +3318,9 @@ func (u *UpdateReadChannelInbox) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateReadChannelInbox#330b5424 as nil")
 	}
 	b.PutID(UpdateReadChannelInboxTypeID)
+	if !(u.FolderID == 0) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadChannelInbox#330b5424: field flags: %w", err)
 	}
@@ -2947,6 +3438,26 @@ type UpdateDeleteChannelMessages struct {
 // UpdateDeleteChannelMessagesTypeID is TL type id of UpdateDeleteChannelMessages.
 const UpdateDeleteChannelMessagesTypeID = 0xc37521c9
 
+func (u *UpdateDeleteChannelMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDeleteChannelMessages) String() string {
 	if u == nil {
@@ -3061,6 +3572,23 @@ type UpdateChannelMessageViews struct {
 // UpdateChannelMessageViewsTypeID is TL type id of UpdateChannelMessageViews.
 const UpdateChannelMessageViewsTypeID = 0x98a12b4b
 
+func (u *UpdateChannelMessageViews) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.Views == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChannelMessageViews) String() string {
 	if u == nil {
@@ -3157,6 +3685,26 @@ type UpdateChatParticipantAdmin struct {
 
 // UpdateChatParticipantAdminTypeID is TL type id of UpdateChatParticipantAdmin.
 const UpdateChatParticipantAdminTypeID = 0xb6901959
+
+func (u *UpdateChatParticipantAdmin) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.IsAdmin == false) {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChatParticipantAdmin) String() string {
@@ -3257,6 +3805,17 @@ type UpdateNewStickerSet struct {
 // UpdateNewStickerSetTypeID is TL type id of UpdateNewStickerSet.
 const UpdateNewStickerSetTypeID = 0x688a30aa
 
+func (u *UpdateNewStickerSet) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Stickerset.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateNewStickerSet) String() string {
 	if u == nil {
@@ -3330,6 +3889,23 @@ type UpdateStickerSetsOrder struct {
 // UpdateStickerSetsOrderTypeID is TL type id of UpdateStickerSetsOrder.
 const UpdateStickerSetsOrderTypeID = 0xbb2d201
 
+func (u *UpdateStickerSetsOrder) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Masks == false) {
+		return false
+	}
+	if !(u.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateStickerSetsOrder) String() string {
 	if u == nil {
@@ -3356,6 +3932,9 @@ func (u *UpdateStickerSetsOrder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateStickerSetsOrder#bb2d201 as nil")
 	}
 	b.PutID(UpdateStickerSetsOrderTypeID)
+	if !(u.Masks == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateStickerSetsOrder#bb2d201: field flags: %w", err)
 	}
@@ -3431,6 +4010,14 @@ type UpdateStickerSets struct {
 // UpdateStickerSetsTypeID is TL type id of UpdateStickerSets.
 const UpdateStickerSetsTypeID = 0x43ae3dec
 
+func (u *UpdateStickerSets) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateStickerSets) String() string {
 	if u == nil {
@@ -3486,6 +4073,14 @@ type UpdateSavedGifs struct {
 
 // UpdateSavedGifsTypeID is TL type id of UpdateSavedGifs.
 const UpdateSavedGifsTypeID = 0x9375341e
+
+func (u *UpdateSavedGifs) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateSavedGifs) String() string {
@@ -3561,6 +4156,35 @@ type UpdateBotInlineQuery struct {
 // UpdateBotInlineQueryTypeID is TL type id of UpdateBotInlineQuery.
 const UpdateBotInlineQueryTypeID = 0x3f2038db
 
+func (u *UpdateBotInlineQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Query == "") {
+		return false
+	}
+	if !(u.Geo == nil) {
+		return false
+	}
+	if !(u.PeerType == nil) {
+		return false
+	}
+	if !(u.Offset == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateBotInlineQuery) String() string {
 	if u == nil {
@@ -3604,6 +4228,12 @@ func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateBotInlineQuery#3f2038db as nil")
 	}
 	b.PutID(UpdateBotInlineQueryTypeID)
+	if !(u.Geo == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.PeerType == nil) {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotInlineQuery#3f2038db: field flags: %w", err)
 	}
@@ -3761,6 +4391,32 @@ type UpdateBotInlineSend struct {
 // UpdateBotInlineSendTypeID is TL type id of UpdateBotInlineSend.
 const UpdateBotInlineSendTypeID = 0xe48f964
 
+func (u *UpdateBotInlineSend) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Query == "") {
+		return false
+	}
+	if !(u.Geo == nil) {
+		return false
+	}
+	if !(u.ID == "") {
+		return false
+	}
+	if !(u.MsgID.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateBotInlineSend) String() string {
 	if u == nil {
@@ -3801,6 +4457,12 @@ func (u *UpdateBotInlineSend) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateBotInlineSend#e48f964 as nil")
 	}
 	b.PutID(UpdateBotInlineSendTypeID)
+	if !(u.Geo == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.MsgID.Zero()) {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotInlineSend#e48f964: field flags: %w", err)
 	}
@@ -3938,6 +4600,23 @@ type UpdateEditChannelMessage struct {
 // UpdateEditChannelMessageTypeID is TL type id of UpdateEditChannelMessage.
 const UpdateEditChannelMessageTypeID = 0x1b3f4df7
 
+func (u *UpdateEditChannelMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateEditChannelMessage) String() string {
 	if u == nil {
@@ -4052,6 +4731,38 @@ type UpdateBotCallbackQuery struct {
 // UpdateBotCallbackQueryTypeID is TL type id of UpdateBotCallbackQuery.
 const UpdateBotCallbackQueryTypeID = 0xe73547e1
 
+func (u *UpdateBotCallbackQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.GameShortName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateBotCallbackQuery) String() string {
 	if u == nil {
@@ -4098,6 +4809,12 @@ func (u *UpdateBotCallbackQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateBotCallbackQuery#e73547e1 as nil")
 	}
 	b.PutID(UpdateBotCallbackQueryTypeID)
+	if !(u.Data == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.GameShortName == "") {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotCallbackQuery#e73547e1: field flags: %w", err)
 	}
@@ -4248,6 +4965,23 @@ type UpdateEditMessage struct {
 // UpdateEditMessageTypeID is TL type id of UpdateEditMessage.
 const UpdateEditMessageTypeID = 0xe40370a3
 
+func (u *UpdateEditMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateEditMessage) String() string {
 	if u == nil {
@@ -4360,6 +5094,35 @@ type UpdateInlineBotCallbackQuery struct {
 // UpdateInlineBotCallbackQueryTypeID is TL type id of UpdateInlineBotCallbackQuery.
 const UpdateInlineBotCallbackQueryTypeID = 0xf9d27a5a
 
+func (u *UpdateInlineBotCallbackQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.MsgID.Zero()) {
+		return false
+	}
+	if !(u.ChatInstance == 0) {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+	if !(u.GameShortName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateInlineBotCallbackQuery) String() string {
 	if u == nil {
@@ -4403,6 +5166,12 @@ func (u *UpdateInlineBotCallbackQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateInlineBotCallbackQuery#f9d27a5a as nil")
 	}
 	b.PutID(UpdateInlineBotCallbackQueryTypeID)
+	if !(u.Data == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.GameShortName == "") {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateInlineBotCallbackQuery#f9d27a5a: field flags: %w", err)
 	}
@@ -4535,6 +5304,20 @@ type UpdateReadChannelOutbox struct {
 // UpdateReadChannelOutboxTypeID is TL type id of UpdateReadChannelOutbox.
 const UpdateReadChannelOutboxTypeID = 0x25d6c9c7
 
+func (u *UpdateReadChannelOutbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.MaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadChannelOutbox) String() string {
 	if u == nil {
@@ -4616,6 +5399,20 @@ type UpdateDraftMessage struct {
 
 // UpdateDraftMessageTypeID is TL type id of UpdateDraftMessage.
 const UpdateDraftMessageTypeID = 0xee2bb969
+
+func (u *UpdateDraftMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Draft == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateDraftMessage) String() string {
@@ -4702,6 +5499,14 @@ type UpdateReadFeaturedStickers struct {
 // UpdateReadFeaturedStickersTypeID is TL type id of UpdateReadFeaturedStickers.
 const UpdateReadFeaturedStickersTypeID = 0x571d2742
 
+func (u *UpdateReadFeaturedStickers) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadFeaturedStickers) String() string {
 	if u == nil {
@@ -4754,6 +5559,14 @@ type UpdateRecentStickers struct {
 
 // UpdateRecentStickersTypeID is TL type id of UpdateRecentStickers.
 const UpdateRecentStickersTypeID = 0x9a422c20
+
+func (u *UpdateRecentStickers) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateRecentStickers) String() string {
@@ -4811,6 +5624,14 @@ type UpdateConfig struct {
 // UpdateConfigTypeID is TL type id of UpdateConfig.
 const UpdateConfigTypeID = 0xa229dd06
 
+func (u *UpdateConfig) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateConfig) String() string {
 	if u == nil {
@@ -4867,6 +5688,14 @@ type UpdatePtsChanged struct {
 
 // UpdatePtsChangedTypeID is TL type id of UpdatePtsChanged.
 const UpdatePtsChangedTypeID = 0x3354678f
+
+func (u *UpdatePtsChanged) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdatePtsChanged) String() string {
@@ -4940,6 +5769,26 @@ type UpdateChannelWebPage struct {
 
 // UpdateChannelWebPageTypeID is TL type id of UpdateChannelWebPage.
 const UpdateChannelWebPageTypeID = 0x40771900
+
+func (u *UpdateChannelWebPage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Webpage == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChannelWebPage) String() string {
@@ -5059,6 +5908,26 @@ type UpdateDialogPinned struct {
 // UpdateDialogPinnedTypeID is TL type id of UpdateDialogPinned.
 const UpdateDialogPinnedTypeID = 0x6e6fe51c
 
+func (u *UpdateDialogPinned) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pinned == false) {
+		return false
+	}
+	if !(u.FolderID == 0) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDialogPinned) String() string {
 	if u == nil {
@@ -5088,6 +5957,12 @@ func (u *UpdateDialogPinned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateDialogPinned#6e6fe51c as nil")
 	}
 	b.PutID(UpdateDialogPinnedTypeID)
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.FolderID == 0) {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogPinned#6e6fe51c: field flags: %w", err)
 	}
@@ -5197,6 +6072,23 @@ type UpdatePinnedDialogs struct {
 // UpdatePinnedDialogsTypeID is TL type id of UpdatePinnedDialogs.
 const UpdatePinnedDialogsTypeID = 0xfa0f3ca2
 
+func (u *UpdatePinnedDialogs) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.FolderID == 0) {
+		return false
+	}
+	if !(u.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePinnedDialogs) String() string {
 	if u == nil {
@@ -5230,6 +6122,12 @@ func (u *UpdatePinnedDialogs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updatePinnedDialogs#fa0f3ca2 as nil")
 	}
 	b.PutID(UpdatePinnedDialogsTypeID)
+	if !(u.FolderID == 0) {
+		u.Flags.Set(1)
+	}
+	if !(u.Order == nil) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedDialogs#fa0f3ca2: field flags: %w", err)
 	}
@@ -5339,6 +6237,17 @@ type UpdateBotWebhookJSON struct {
 // UpdateBotWebhookJSONTypeID is TL type id of UpdateBotWebhookJSON.
 const UpdateBotWebhookJSONTypeID = 0x8317c0c3
 
+func (u *UpdateBotWebhookJSON) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Data.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateBotWebhookJSON) String() string {
 	if u == nil {
@@ -5408,6 +6317,23 @@ type UpdateBotWebhookJSONQuery struct {
 
 // UpdateBotWebhookJSONQueryTypeID is TL type id of UpdateBotWebhookJSONQuery.
 const UpdateBotWebhookJSONQueryTypeID = 0x9b9240a6
+
+func (u *UpdateBotWebhookJSONQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.Data.Zero()) {
+		return false
+	}
+	if !(u.Timeout == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateBotWebhookJSONQuery) String() string {
@@ -5502,6 +6428,26 @@ type UpdateBotShippingQuery struct {
 
 // UpdateBotShippingQueryTypeID is TL type id of UpdateBotShippingQuery.
 const UpdateBotShippingQueryTypeID = 0xe0cdc940
+
+func (u *UpdateBotShippingQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Payload == nil) {
+		return false
+	}
+	if !(u.ShippingAddress.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateBotShippingQuery) String() string {
@@ -5629,6 +6575,38 @@ type UpdateBotPrecheckoutQuery struct {
 // UpdateBotPrecheckoutQueryTypeID is TL type id of UpdateBotPrecheckoutQuery.
 const UpdateBotPrecheckoutQueryTypeID = 0x5d2f3aa9
 
+func (u *UpdateBotPrecheckoutQuery) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.QueryID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Payload == nil) {
+		return false
+	}
+	if !(u.Info.Zero()) {
+		return false
+	}
+	if !(u.ShippingOptionID == "") {
+		return false
+	}
+	if !(u.Currency == "") {
+		return false
+	}
+	if !(u.TotalAmount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateBotPrecheckoutQuery) String() string {
 	if u == nil {
@@ -5675,6 +6653,12 @@ func (u *UpdateBotPrecheckoutQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateBotPrecheckoutQuery#5d2f3aa9 as nil")
 	}
 	b.PutID(UpdateBotPrecheckoutQueryTypeID)
+	if !(u.Info.Zero()) {
+		u.Flags.Set(0)
+	}
+	if !(u.ShippingOptionID == "") {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateBotPrecheckoutQuery#5d2f3aa9: field flags: %w", err)
 	}
@@ -5810,6 +6794,17 @@ type UpdatePhoneCall struct {
 // UpdatePhoneCallTypeID is TL type id of UpdatePhoneCall.
 const UpdatePhoneCallTypeID = 0xab0f6b1e
 
+func (u *UpdatePhoneCall) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.PhoneCall == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePhoneCall) String() string {
 	if u == nil {
@@ -5884,6 +6879,17 @@ type UpdateLangPackTooLong struct {
 // UpdateLangPackTooLongTypeID is TL type id of UpdateLangPackTooLong.
 const UpdateLangPackTooLongTypeID = 0x46560264
 
+func (u *UpdateLangPackTooLong) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.LangCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateLangPackTooLong) String() string {
 	if u == nil {
@@ -5949,6 +6955,17 @@ type UpdateLangPack struct {
 
 // UpdateLangPackTypeID is TL type id of UpdateLangPack.
 const UpdateLangPackTypeID = 0x56022f4d
+
+func (u *UpdateLangPack) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Difference.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateLangPack) String() string {
@@ -6017,6 +7034,14 @@ type UpdateFavedStickers struct {
 // UpdateFavedStickersTypeID is TL type id of UpdateFavedStickers.
 const UpdateFavedStickersTypeID = 0xe511996d
 
+func (u *UpdateFavedStickers) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateFavedStickers) String() string {
 	if u == nil {
@@ -6079,6 +7104,20 @@ type UpdateChannelReadMessagesContents struct {
 
 // UpdateChannelReadMessagesContentsTypeID is TL type id of UpdateChannelReadMessagesContents.
 const UpdateChannelReadMessagesContentsTypeID = 0x89893b45
+
+func (u *UpdateChannelReadMessagesContents) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChannelReadMessagesContents) String() string {
@@ -6166,6 +7205,14 @@ type UpdateContactsReset struct {
 // UpdateContactsResetTypeID is TL type id of UpdateContactsReset.
 const UpdateContactsResetTypeID = 0x7084a7be
 
+func (u *UpdateContactsReset) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateContactsReset) String() string {
 	if u == nil {
@@ -6225,6 +7272,20 @@ type UpdateChannelAvailableMessages struct {
 
 // UpdateChannelAvailableMessagesTypeID is TL type id of UpdateChannelAvailableMessages.
 const UpdateChannelAvailableMessagesTypeID = 0x70db6837
+
+func (u *UpdateChannelAvailableMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.AvailableMinID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChannelAvailableMessages) String() string {
@@ -6310,6 +7371,23 @@ type UpdateDialogUnreadMark struct {
 // UpdateDialogUnreadMarkTypeID is TL type id of UpdateDialogUnreadMark.
 const UpdateDialogUnreadMarkTypeID = 0xe16459c3
 
+func (u *UpdateDialogUnreadMark) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Unread == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDialogUnreadMark) String() string {
 	if u == nil {
@@ -6334,6 +7412,9 @@ func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateDialogUnreadMark#e16459c3 as nil")
 	}
 	b.PutID(UpdateDialogUnreadMarkTypeID)
+	if !(u.Unread == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogUnreadMark#e16459c3: field flags: %w", err)
 	}
@@ -6415,6 +7496,26 @@ type UpdateMessagePoll struct {
 // UpdateMessagePollTypeID is TL type id of UpdateMessagePoll.
 const UpdateMessagePollTypeID = 0xaca1657b
 
+func (u *UpdateMessagePoll) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.PollID == 0) {
+		return false
+	}
+	if !(u.Poll.Zero()) {
+		return false
+	}
+	if !(u.Results.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateMessagePoll) String() string {
 	if u == nil {
@@ -6447,6 +7548,9 @@ func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateMessagePoll#aca1657b as nil")
 	}
 	b.PutID(UpdateMessagePollTypeID)
+	if !(u.Poll.Zero()) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateMessagePoll#aca1657b: field flags: %w", err)
 	}
@@ -6539,6 +7643,23 @@ type UpdateChatDefaultBannedRights struct {
 
 // UpdateChatDefaultBannedRightsTypeID is TL type id of UpdateChatDefaultBannedRights.
 const UpdateChatDefaultBannedRightsTypeID = 0x54c01850
+
+func (u *UpdateChatDefaultBannedRights) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.DefaultBannedRights.Zero()) {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateChatDefaultBannedRights) String() string {
@@ -6646,6 +7767,23 @@ type UpdateFolderPeers struct {
 // UpdateFolderPeersTypeID is TL type id of UpdateFolderPeers.
 const UpdateFolderPeersTypeID = 0x19360dc0
 
+func (u *UpdateFolderPeers) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.FolderPeers == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateFolderPeers) String() string {
 	if u == nil {
@@ -6749,6 +7887,20 @@ type UpdatePeerSettings struct {
 // UpdatePeerSettingsTypeID is TL type id of UpdatePeerSettings.
 const UpdatePeerSettingsTypeID = 0x6a7e7366
 
+func (u *UpdatePeerSettings) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePeerSettings) String() string {
 	if u == nil {
@@ -6830,6 +7982,17 @@ type UpdatePeerLocated struct {
 
 // UpdatePeerLocatedTypeID is TL type id of UpdatePeerLocated.
 const UpdatePeerLocatedTypeID = 0xb4afcfb0
+
+func (u *UpdatePeerLocated) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peers == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdatePeerLocated) String() string {
@@ -6916,6 +8079,17 @@ type UpdateNewScheduledMessage struct {
 // UpdateNewScheduledMessageTypeID is TL type id of UpdateNewScheduledMessage.
 const UpdateNewScheduledMessageTypeID = 0x39a51dfb
 
+func (u *UpdateNewScheduledMessage) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Message == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateNewScheduledMessage) String() string {
 	if u == nil {
@@ -6991,6 +8165,20 @@ type UpdateDeleteScheduledMessages struct {
 
 // UpdateDeleteScheduledMessagesTypeID is TL type id of UpdateDeleteScheduledMessages.
 const UpdateDeleteScheduledMessagesTypeID = 0x90866cee
+
+func (u *UpdateDeleteScheduledMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateDeleteScheduledMessages) String() string {
@@ -7085,6 +8273,17 @@ type UpdateTheme struct {
 // UpdateThemeTypeID is TL type id of UpdateTheme.
 const UpdateThemeTypeID = 0x8216fba3
 
+func (u *UpdateTheme) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Theme.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateTheme) String() string {
 	if u == nil {
@@ -7152,6 +8351,20 @@ type UpdateGeoLiveViewed struct {
 
 // UpdateGeoLiveViewedTypeID is TL type id of UpdateGeoLiveViewed.
 const UpdateGeoLiveViewedTypeID = 0x871fb939
+
+func (u *UpdateGeoLiveViewed) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateGeoLiveViewed) String() string {
@@ -7233,6 +8446,14 @@ type UpdateLoginToken struct {
 // UpdateLoginTokenTypeID is TL type id of UpdateLoginToken.
 const UpdateLoginTokenTypeID = 0x564fe691
 
+func (u *UpdateLoginToken) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateLoginToken) String() string {
 	if u == nil {
@@ -7291,6 +8512,23 @@ type UpdateMessagePollVote struct {
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
 const UpdateMessagePollVoteTypeID = 0x42f88f2c
+
+func (u *UpdateMessagePollVote) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.PollID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Options == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateMessagePollVote) String() string {
@@ -7409,6 +8647,23 @@ type UpdateDialogFilter struct {
 // UpdateDialogFilterTypeID is TL type id of UpdateDialogFilter.
 const UpdateDialogFilterTypeID = 0x26ffde7d
 
+func (u *UpdateDialogFilter) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.Filter.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDialogFilter) String() string {
 	if u == nil {
@@ -7438,6 +8693,9 @@ func (u *UpdateDialogFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateDialogFilter#26ffde7d as nil")
 	}
 	b.PutID(UpdateDialogFilterTypeID)
+	if !(u.Filter.Zero()) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateDialogFilter#26ffde7d: field flags: %w", err)
 	}
@@ -7522,6 +8780,17 @@ type UpdateDialogFilterOrder struct {
 // UpdateDialogFilterOrderTypeID is TL type id of UpdateDialogFilterOrder.
 const UpdateDialogFilterOrderTypeID = 0xa5d72105
 
+func (u *UpdateDialogFilterOrder) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDialogFilterOrder) String() string {
 	if u == nil {
@@ -7600,6 +8869,14 @@ type UpdateDialogFilters struct {
 // UpdateDialogFiltersTypeID is TL type id of UpdateDialogFilters.
 const UpdateDialogFiltersTypeID = 0x3504914f
 
+func (u *UpdateDialogFilters) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateDialogFilters) String() string {
 	if u == nil {
@@ -7656,6 +8933,20 @@ type UpdatePhoneCallSignalingData struct {
 
 // UpdatePhoneCallSignalingDataTypeID is TL type id of UpdatePhoneCallSignalingData.
 const UpdatePhoneCallSignalingDataTypeID = 0x2661bf09
+
+func (u *UpdatePhoneCallSignalingData) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.PhoneCallID == 0) {
+		return false
+	}
+	if !(u.Data == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdatePhoneCallSignalingData) String() string {
@@ -7759,6 +9050,35 @@ type UpdateChannelParticipant struct {
 // UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
 const UpdateChannelParticipantTypeID = 0x65d2b464
 
+func (u *UpdateChannelParticipant) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.PrevParticipant == nil) {
+		return false
+	}
+	if !(u.NewParticipant == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChannelParticipant) String() string {
 	if u == nil {
@@ -7802,6 +9122,12 @@ func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateChannelParticipant#65d2b464 as nil")
 	}
 	b.PutID(UpdateChannelParticipantTypeID)
+	if !(u.PrevParticipant == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.NewParticipant == nil) {
+		u.Flags.Set(1)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field flags: %w", err)
 	}
@@ -7943,6 +9269,23 @@ type UpdateChannelMessageForwards struct {
 // UpdateChannelMessageForwardsTypeID is TL type id of UpdateChannelMessageForwards.
 const UpdateChannelMessageForwardsTypeID = 0x6e8a84df
 
+func (u *UpdateChannelMessageForwards) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.Forwards == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChannelMessageForwards) String() string {
 	if u == nil {
@@ -8067,6 +9410,32 @@ type UpdateReadChannelDiscussionInbox struct {
 // UpdateReadChannelDiscussionInboxTypeID is TL type id of UpdateReadChannelDiscussionInbox.
 const UpdateReadChannelDiscussionInboxTypeID = 0x1cc7de54
 
+func (u *UpdateReadChannelDiscussionInbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.TopMsgID == 0) {
+		return false
+	}
+	if !(u.ReadMaxID == 0) {
+		return false
+	}
+	if !(u.BroadcastID == 0) {
+		return false
+	}
+	if !(u.BroadcastPost == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadChannelDiscussionInbox) String() string {
 	if u == nil {
@@ -8107,6 +9476,12 @@ func (u *UpdateReadChannelDiscussionInbox) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateReadChannelDiscussionInbox#1cc7de54 as nil")
 	}
 	b.PutID(UpdateReadChannelDiscussionInboxTypeID)
+	if !(u.BroadcastID == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.BroadcastPost == 0) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateReadChannelDiscussionInbox#1cc7de54: field flags: %w", err)
 	}
@@ -8242,6 +9617,23 @@ type UpdateReadChannelDiscussionOutbox struct {
 // UpdateReadChannelDiscussionOutboxTypeID is TL type id of UpdateReadChannelDiscussionOutbox.
 const UpdateReadChannelDiscussionOutboxTypeID = 0x4638a26c
 
+func (u *UpdateReadChannelDiscussionOutbox) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.TopMsgID == 0) {
+		return false
+	}
+	if !(u.ReadMaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateReadChannelDiscussionOutbox) String() string {
 	if u == nil {
@@ -8331,6 +9723,20 @@ type UpdatePeerBlocked struct {
 
 // UpdatePeerBlockedTypeID is TL type id of UpdatePeerBlocked.
 const UpdatePeerBlockedTypeID = 0x246a4b22
+
+func (u *UpdatePeerBlocked) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.PeerID == nil) {
+		return false
+	}
+	if !(u.Blocked == false) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdatePeerBlocked) String() string {
@@ -8434,6 +9840,29 @@ type UpdateChannelUserTyping struct {
 // UpdateChannelUserTypingTypeID is TL type id of UpdateChannelUserTyping.
 const UpdateChannelUserTypingTypeID = 0xff2abe9f
 
+func (u *UpdateChannelUserTyping) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.TopMsgID == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChannelUserTyping) String() string {
 	if u == nil {
@@ -8469,6 +9898,9 @@ func (u *UpdateChannelUserTyping) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateChannelUserTyping#ff2abe9f as nil")
 	}
 	b.PutID(UpdateChannelUserTypingTypeID)
+	if !(u.TopMsgID == 0) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updateChannelUserTyping#ff2abe9f: field flags: %w", err)
 	}
@@ -8587,6 +10019,32 @@ type UpdatePinnedMessages struct {
 // UpdatePinnedMessagesTypeID is TL type id of UpdatePinnedMessages.
 const UpdatePinnedMessagesTypeID = 0xed85eab5
 
+func (u *UpdatePinnedMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pinned == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePinnedMessages) String() string {
 	if u == nil {
@@ -8622,6 +10080,9 @@ func (u *UpdatePinnedMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updatePinnedMessages#ed85eab5 as nil")
 	}
 	b.PutID(UpdatePinnedMessagesTypeID)
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedMessages#ed85eab5: field flags: %w", err)
 	}
@@ -8747,6 +10208,32 @@ type UpdatePinnedChannelMessages struct {
 // UpdatePinnedChannelMessagesTypeID is TL type id of UpdatePinnedChannelMessages.
 const UpdatePinnedChannelMessagesTypeID = 0x8588878b
 
+func (u *UpdatePinnedChannelMessages) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Pinned == false) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Messages == nil) {
+		return false
+	}
+	if !(u.Pts == 0) {
+		return false
+	}
+	if !(u.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdatePinnedChannelMessages) String() string {
 	if u == nil {
@@ -8782,6 +10269,9 @@ func (u *UpdatePinnedChannelMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updatePinnedChannelMessages#8588878b as nil")
 	}
 	b.PutID(UpdatePinnedChannelMessagesTypeID)
+	if !(u.Pinned == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updatePinnedChannelMessages#8588878b: field flags: %w", err)
 	}
@@ -8879,6 +10369,17 @@ type UpdateChat struct {
 // UpdateChatTypeID is TL type id of UpdateChat.
 const UpdateChatTypeID = 0x1330a196
 
+func (u *UpdateChat) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UpdateChat) String() string {
 	if u == nil {
@@ -8947,6 +10448,23 @@ type UpdateGroupCallParticipants struct {
 
 // UpdateGroupCallParticipantsTypeID is TL type id of UpdateGroupCallParticipants.
 const UpdateGroupCallParticipantsTypeID = 0xf2ebdb4e
+
+func (u *UpdateGroupCallParticipants) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Call.Zero()) {
+		return false
+	}
+	if !(u.Participants == nil) {
+		return false
+	}
+	if !(u.Version == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateGroupCallParticipants) String() string {
@@ -9049,6 +10567,20 @@ type UpdateGroupCall struct {
 
 // UpdateGroupCallTypeID is TL type id of UpdateGroupCall.
 const UpdateGroupCallTypeID = 0xa45eb99b
+
+func (u *UpdateGroupCall) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Call == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (u *UpdateGroupCall) String() string {
@@ -9224,7 +10756,9 @@ type UpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdateClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUpdate implements binary de-serialization for UpdateClass.

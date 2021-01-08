@@ -30,6 +30,20 @@ type LangpackGetLangPackRequest struct {
 // LangpackGetLangPackRequestTypeID is TL type id of LangpackGetLangPackRequest.
 const LangpackGetLangPackRequestTypeID = 0xf2f2330a
 
+func (g *LangpackGetLangPackRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangPack == "") {
+		return false
+	}
+	if !(g.LangCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *LangpackGetLangPackRequest) String() string {
 	if g == nil {

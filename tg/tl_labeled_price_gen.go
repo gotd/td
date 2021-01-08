@@ -33,6 +33,20 @@ type LabeledPrice struct {
 // LabeledPriceTypeID is TL type id of LabeledPrice.
 const LabeledPriceTypeID = 0xcb296bf8
 
+func (l *LabeledPrice) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Label == "") {
+		return false
+	}
+	if !(l.Amount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LabeledPrice) String() string {
 	if l == nil {

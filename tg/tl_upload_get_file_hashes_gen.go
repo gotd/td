@@ -30,6 +30,20 @@ type UploadGetFileHashesRequest struct {
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.
 const UploadGetFileHashesRequestTypeID = 0xc7025931
 
+func (g *UploadGetFileHashesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Location == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UploadGetFileHashesRequest) String() string {
 	if g == nil {

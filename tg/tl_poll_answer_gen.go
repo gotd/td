@@ -33,6 +33,20 @@ type PollAnswer struct {
 // PollAnswerTypeID is TL type id of PollAnswer.
 const PollAnswerTypeID = 0x6ca9c2e9
 
+func (p *PollAnswer) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == "") {
+		return false
+	}
+	if !(p.Option == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PollAnswer) String() string {
 	if p == nil {

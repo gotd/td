@@ -59,6 +59,41 @@ type MessagesGetRepliesRequest struct {
 // MessagesGetRepliesRequestTypeID is TL type id of MessagesGetRepliesRequest.
 const MessagesGetRepliesRequestTypeID = 0x24b581ba
 
+func (g *MessagesGetRepliesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+	if !(g.OffsetID == 0) {
+		return false
+	}
+	if !(g.OffsetDate == 0) {
+		return false
+	}
+	if !(g.AddOffset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.MaxID == 0) {
+		return false
+	}
+	if !(g.MinID == 0) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetRepliesRequest) String() string {
 	if g == nil {

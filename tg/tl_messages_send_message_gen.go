@@ -67,6 +67,50 @@ type MessagesSendMessageRequest struct {
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
 const MessagesSendMessageRequestTypeID = 0x520c3870
 
+func (s *MessagesSendMessageRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.NoWebpage == false) {
+		return false
+	}
+	if !(s.Silent == false) {
+		return false
+	}
+	if !(s.Background == false) {
+		return false
+	}
+	if !(s.ClearDraft == false) {
+		return false
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(s.Message == "") {
+		return false
+	}
+	if !(s.RandomID == 0) {
+		return false
+	}
+	if !(s.ReplyMarkup == nil) {
+		return false
+	}
+	if !(s.Entities == nil) {
+		return false
+	}
+	if !(s.ScheduleDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSendMessageRequest) String() string {
 	if s == nil {
@@ -119,6 +163,30 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
 	}
 	b.PutID(MessagesSendMessageRequestTypeID)
+	if !(s.NoWebpage == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.Silent == false) {
+		s.Flags.Set(5)
+	}
+	if !(s.Background == false) {
+		s.Flags.Set(6)
+	}
+	if !(s.ClearDraft == false) {
+		s.Flags.Set(7)
+	}
+	if !(s.ReplyToMsgID == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.ReplyMarkup == nil) {
+		s.Flags.Set(2)
+	}
+	if !(s.Entities == nil) {
+		s.Flags.Set(3)
+	}
+	if !(s.ScheduleDate == 0) {
+		s.Flags.Set(10)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendMessage#520c3870: field flags: %w", err)
 	}

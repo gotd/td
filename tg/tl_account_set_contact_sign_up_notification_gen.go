@@ -28,6 +28,17 @@ type AccountSetContactSignUpNotificationRequest struct {
 // AccountSetContactSignUpNotificationRequestTypeID is TL type id of AccountSetContactSignUpNotificationRequest.
 const AccountSetContactSignUpNotificationRequestTypeID = 0xcff43f61
 
+func (s *AccountSetContactSignUpNotificationRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Silent == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSetContactSignUpNotificationRequest) String() string {
 	if s == nil {

@@ -28,6 +28,17 @@ type ChatInviteAlready struct {
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
 const ChatInviteAlreadyTypeID = 0x5a686d7c
 
+func (c *ChatInviteAlready) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Chat == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatInviteAlready) String() string {
 	if c == nil {
@@ -133,6 +144,41 @@ type ChatInvite struct {
 // ChatInviteTypeID is TL type id of ChatInvite.
 const ChatInviteTypeID = 0xdfc2f58e
 
+func (c *ChatInvite) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Channel == false) {
+		return false
+	}
+	if !(c.Broadcast == false) {
+		return false
+	}
+	if !(c.Public == false) {
+		return false
+	}
+	if !(c.Megagroup == false) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.Photo == nil) {
+		return false
+	}
+	if !(c.ParticipantsCount == 0) {
+		return false
+	}
+	if !(c.Participants == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatInvite) String() string {
 	if c == nil {
@@ -170,6 +216,21 @@ func (c *ChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInvite#dfc2f58e as nil")
 	}
 	b.PutID(ChatInviteTypeID)
+	if !(c.Channel == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Broadcast == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.Public == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.Megagroup == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.Participants == nil) {
+		c.Flags.Set(4)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatInvite#dfc2f58e: field flags: %w", err)
 	}
@@ -333,6 +394,20 @@ type ChatInvitePeek struct {
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
 const ChatInvitePeekTypeID = 0x61695cb0
 
+func (c *ChatInvitePeek) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Chat == nil) {
+		return false
+	}
+	if !(c.Expires == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatInvitePeek) String() string {
 	if c == nil {
@@ -422,7 +497,9 @@ type ChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatInviteClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChatInvite implements binary de-serialization for ChatInviteClass.

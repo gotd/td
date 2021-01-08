@@ -28,6 +28,17 @@ type PhoneReceivedCallRequest struct {
 // PhoneReceivedCallRequestTypeID is TL type id of PhoneReceivedCallRequest.
 const PhoneReceivedCallRequestTypeID = 0x17d54f61
 
+func (r *PhoneReceivedCallRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *PhoneReceivedCallRequest) String() string {
 	if r == nil {

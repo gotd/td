@@ -32,6 +32,23 @@ type MessagesAddChatUserRequest struct {
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
 const MessagesAddChatUserRequestTypeID = 0xf9a0aa09
 
+func (a *MessagesAddChatUserRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.ChatID == 0) {
+		return false
+	}
+	if !(a.UserID == nil) {
+		return false
+	}
+	if !(a.FwdLimit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *MessagesAddChatUserRequest) String() string {
 	if a == nil {

@@ -26,6 +26,14 @@ type AccountGetGlobalPrivacySettingsRequest struct {
 // AccountGetGlobalPrivacySettingsRequestTypeID is TL type id of AccountGetGlobalPrivacySettingsRequest.
 const AccountGetGlobalPrivacySettingsRequestTypeID = 0xeb2b4cf6
 
+func (g *AccountGetGlobalPrivacySettingsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetGlobalPrivacySettingsRequest) String() string {
 	if g == nil {

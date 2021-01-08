@@ -32,6 +32,23 @@ type UploadFile struct {
 // UploadFileTypeID is TL type id of UploadFile.
 const UploadFileTypeID = 0x96a18d5
 
+func (f *UploadFile) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Type == nil) {
+		return false
+	}
+	if !(f.Mtime == 0) {
+		return false
+	}
+	if !(f.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *UploadFile) String() string {
 	if f == nil {
@@ -150,6 +167,29 @@ type UploadFileCdnRedirect struct {
 
 // UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.
 const UploadFileCdnRedirectTypeID = 0xf18cda44
+
+func (f *UploadFileCdnRedirect) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.DCID == 0) {
+		return false
+	}
+	if !(f.FileToken == nil) {
+		return false
+	}
+	if !(f.EncryptionKey == nil) {
+		return false
+	}
+	if !(f.EncryptionIv == nil) {
+		return false
+	}
+	if !(f.FileHashes == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *UploadFileCdnRedirect) String() string {
@@ -280,7 +320,9 @@ type UploadFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UploadFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUploadFile implements binary de-serialization for UploadFileClass.

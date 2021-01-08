@@ -28,6 +28,17 @@ type HelpDismissSuggestionRequest struct {
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
 const HelpDismissSuggestionRequestTypeID = 0x77fa99f
 
+func (d *HelpDismissSuggestionRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Suggestion == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *HelpDismissSuggestionRequest) String() string {
 	if d == nil {

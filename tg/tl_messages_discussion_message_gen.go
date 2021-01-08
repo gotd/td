@@ -61,6 +61,35 @@ type MessagesDiscussionMessage struct {
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
 const MessagesDiscussionMessageTypeID = 0xf5dd8f9d
 
+func (d *MessagesDiscussionMessage) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Messages == nil) {
+		return false
+	}
+	if !(d.MaxID == 0) {
+		return false
+	}
+	if !(d.ReadInboxMaxID == 0) {
+		return false
+	}
+	if !(d.ReadOutboxMaxID == 0) {
+		return false
+	}
+	if !(d.Chats == nil) {
+		return false
+	}
+	if !(d.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDiscussionMessage) String() string {
 	if d == nil {
@@ -112,6 +141,15 @@ func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.discussionMessage#f5dd8f9d as nil")
 	}
 	b.PutID(MessagesDiscussionMessageTypeID)
+	if !(d.MaxID == 0) {
+		d.Flags.Set(0)
+	}
+	if !(d.ReadInboxMaxID == 0) {
+		d.Flags.Set(1)
+	}
+	if !(d.ReadOutboxMaxID == 0) {
+		d.Flags.Set(2)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.discussionMessage#f5dd8f9d: field flags: %w", err)
 	}

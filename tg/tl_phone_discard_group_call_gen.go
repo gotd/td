@@ -27,6 +27,17 @@ type PhoneDiscardGroupCallRequest struct {
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.
 const PhoneDiscardGroupCallRequestTypeID = 0x7a777135
 
+func (d *PhoneDiscardGroupCallRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *PhoneDiscardGroupCallRequest) String() string {
 	if d == nil {

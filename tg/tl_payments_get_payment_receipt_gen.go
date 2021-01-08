@@ -28,6 +28,17 @@ type PaymentsGetPaymentReceiptRequest struct {
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
 const PaymentsGetPaymentReceiptRequestTypeID = 0xa092a980
 
+func (g *PaymentsGetPaymentReceiptRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PaymentsGetPaymentReceiptRequest) String() string {
 	if g == nil {

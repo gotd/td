@@ -28,6 +28,17 @@ type InputDialogPeer struct {
 // InputDialogPeerTypeID is TL type id of InputDialogPeer.
 const InputDialogPeerTypeID = 0xfcaafeb7
 
+func (i *InputDialogPeer) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputDialogPeer) String() string {
 	if i == nil {
@@ -105,6 +116,17 @@ type InputDialogPeerFolder struct {
 // InputDialogPeerFolderTypeID is TL type id of InputDialogPeerFolder.
 const InputDialogPeerFolderTypeID = 0x64600527
 
+func (i *InputDialogPeerFolder) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputDialogPeerFolder) String() string {
 	if i == nil {
@@ -177,7 +199,9 @@ type InputDialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputDialogPeerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputDialogPeer implements binary de-serialization for InputDialogPeerClass.

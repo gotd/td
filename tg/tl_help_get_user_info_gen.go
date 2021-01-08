@@ -28,6 +28,17 @@ type HelpGetUserInfoRequest struct {
 // HelpGetUserInfoRequestTypeID is TL type id of HelpGetUserInfoRequest.
 const HelpGetUserInfoRequestTypeID = 0x38a08d3
 
+func (g *HelpGetUserInfoRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetUserInfoRequest) String() string {
 	if g == nil {

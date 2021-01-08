@@ -35,6 +35,23 @@ type MessagesRequestEncryptionRequest struct {
 // MessagesRequestEncryptionRequestTypeID is TL type id of MessagesRequestEncryptionRequest.
 const MessagesRequestEncryptionRequestTypeID = 0xf64daf43
 
+func (r *MessagesRequestEncryptionRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.UserID == nil) {
+		return false
+	}
+	if !(r.RandomID == 0) {
+		return false
+	}
+	if !(r.GA == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesRequestEncryptionRequest) String() string {
 	if r == nil {

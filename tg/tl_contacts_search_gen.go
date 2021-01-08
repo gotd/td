@@ -30,6 +30,20 @@ type ContactsSearchRequest struct {
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.
 const ContactsSearchRequestTypeID = 0x11f812d8
 
+func (s *ContactsSearchRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Q == "") {
+		return false
+	}
+	if !(s.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *ContactsSearchRequest) String() string {
 	if s == nil {

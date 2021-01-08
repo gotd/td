@@ -28,6 +28,17 @@ type EncryptedChatEmpty struct {
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
 const EncryptedChatEmptyTypeID = 0xab7ec0a0
 
+func (e *EncryptedChatEmpty) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedChatEmpty) String() string {
 	if e == nil {
@@ -101,6 +112,29 @@ type EncryptedChatWaiting struct {
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
 const EncryptedChatWaitingTypeID = 0x3bf703dc
+
+func (e *EncryptedChatWaiting) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.AccessHash == 0) {
+		return false
+	}
+	if !(e.Date == 0) {
+		return false
+	}
+	if !(e.AdminID == 0) {
+		return false
+	}
+	if !(e.ParticipantID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (e *EncryptedChatWaiting) String() string {
@@ -237,6 +271,38 @@ type EncryptedChatRequested struct {
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
 const EncryptedChatRequestedTypeID = 0x62718a82
 
+func (e *EncryptedChatRequested) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.FolderID == 0) {
+		return false
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.AccessHash == 0) {
+		return false
+	}
+	if !(e.Date == 0) {
+		return false
+	}
+	if !(e.AdminID == 0) {
+		return false
+	}
+	if !(e.ParticipantID == 0) {
+		return false
+	}
+	if !(e.GA == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedChatRequested) String() string {
 	if e == nil {
@@ -281,6 +347,9 @@ func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChatRequested#62718a82 as nil")
 	}
 	b.PutID(EncryptedChatRequestedTypeID)
+	if !(e.FolderID == 0) {
+		e.Flags.Set(0)
+	}
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode encryptedChatRequested#62718a82: field flags: %w", err)
 	}
@@ -414,6 +483,35 @@ type EncryptedChat struct {
 // EncryptedChatTypeID is TL type id of EncryptedChat.
 const EncryptedChatTypeID = 0xfa56ce36
 
+func (e *EncryptedChat) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.AccessHash == 0) {
+		return false
+	}
+	if !(e.Date == 0) {
+		return false
+	}
+	if !(e.AdminID == 0) {
+		return false
+	}
+	if !(e.ParticipantID == 0) {
+		return false
+	}
+	if !(e.GAOrB == nil) {
+		return false
+	}
+	if !(e.KeyFingerprint == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedChat) String() string {
 	if e == nil {
@@ -546,6 +644,17 @@ type EncryptedChatDiscarded struct {
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
 const EncryptedChatDiscardedTypeID = 0x13d6dd27
 
+func (e *EncryptedChatDiscarded) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedChatDiscarded) String() string {
 	if e == nil {
@@ -621,7 +730,9 @@ type EncryptedChatClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedChatClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeEncryptedChat implements binary de-serialization for EncryptedChatClass.

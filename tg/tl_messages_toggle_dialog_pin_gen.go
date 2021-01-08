@@ -35,6 +35,23 @@ type MessagesToggleDialogPinRequest struct {
 // MessagesToggleDialogPinRequestTypeID is TL type id of MessagesToggleDialogPinRequest.
 const MessagesToggleDialogPinRequestTypeID = 0xa731e257
 
+func (t *MessagesToggleDialogPinRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Pinned == false) {
+		return false
+	}
+	if !(t.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *MessagesToggleDialogPinRequest) String() string {
 	if t == nil {
@@ -59,6 +76,9 @@ func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
 	}
 	b.PutID(MessagesToggleDialogPinRequestTypeID)
+	if !(t.Pinned == false) {
+		t.Flags.Set(0)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.toggleDialogPin#a731e257: field flags: %w", err)
 	}

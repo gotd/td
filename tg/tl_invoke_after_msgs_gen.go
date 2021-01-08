@@ -30,6 +30,20 @@ type InvokeAfterMsgsRequest struct {
 // InvokeAfterMsgsRequestTypeID is TL type id of InvokeAfterMsgsRequest.
 const InvokeAfterMsgsRequestTypeID = 0x3dc4b4f0
 
+func (i *InvokeAfterMsgsRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.MsgIds == nil) {
+		return false
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InvokeAfterMsgsRequest) String() string {
 	if i == nil {

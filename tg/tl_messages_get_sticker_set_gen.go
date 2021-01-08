@@ -28,6 +28,17 @@ type MessagesGetStickerSetRequest struct {
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.
 const MessagesGetStickerSetRequestTypeID = 0x2619a90e
 
+func (g *MessagesGetStickerSetRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Stickerset == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetStickerSetRequest) String() string {
 	if g == nil {

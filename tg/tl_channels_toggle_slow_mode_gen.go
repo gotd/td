@@ -33,6 +33,20 @@ type ChannelsToggleSlowModeRequest struct {
 // ChannelsToggleSlowModeRequestTypeID is TL type id of ChannelsToggleSlowModeRequest.
 const ChannelsToggleSlowModeRequestTypeID = 0xedd49ef0
 
+func (t *ChannelsToggleSlowModeRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Channel == nil) {
+		return false
+	}
+	if !(t.Seconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ChannelsToggleSlowModeRequest) String() string {
 	if t == nil {

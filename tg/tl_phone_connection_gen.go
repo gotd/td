@@ -36,6 +36,29 @@ type PhoneConnection struct {
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
 const PhoneConnectionTypeID = 0x9d4c17c0
 
+func (p *PhoneConnection) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.IP == "") {
+		return false
+	}
+	if !(p.Ipv6 == "") {
+		return false
+	}
+	if !(p.Port == 0) {
+		return false
+	}
+	if !(p.PeerTag == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneConnection) String() string {
 	if p == nil {
@@ -165,6 +188,41 @@ type PhoneConnectionWebrtc struct {
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
 const PhoneConnectionWebrtcTypeID = 0x635fe375
 
+func (p *PhoneConnectionWebrtc) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Turn == false) {
+		return false
+	}
+	if !(p.Stun == false) {
+		return false
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.IP == "") {
+		return false
+	}
+	if !(p.Ipv6 == "") {
+		return false
+	}
+	if !(p.Port == 0) {
+		return false
+	}
+	if !(p.Username == "") {
+		return false
+	}
+	if !(p.Password == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneConnectionWebrtc) String() string {
 	if p == nil {
@@ -204,6 +262,12 @@ func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
 	}
 	b.PutID(PhoneConnectionWebrtcTypeID)
+	if !(p.Turn == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Stun == false) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneConnectionWebrtc#635fe375: field flags: %w", err)
 	}
@@ -327,7 +391,9 @@ type PhoneConnectionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneConnectionClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhoneConnection implements binary de-serialization for PhoneConnectionClass.

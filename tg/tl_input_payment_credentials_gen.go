@@ -30,6 +30,20 @@ type InputPaymentCredentialsSaved struct {
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
 const InputPaymentCredentialsSavedTypeID = 0xc10eb2cf
 
+func (i *InputPaymentCredentialsSaved) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == "") {
+		return false
+	}
+	if !(i.TmpPassword == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPaymentCredentialsSaved) String() string {
 	if i == nil {
@@ -114,6 +128,23 @@ type InputPaymentCredentials struct {
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
 const InputPaymentCredentialsTypeID = 0x3417d728
 
+func (i *InputPaymentCredentials) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Save == false) {
+		return false
+	}
+	if !(i.Data.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPaymentCredentials) String() string {
 	if i == nil {
@@ -138,6 +169,9 @@ func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
 	}
 	b.PutID(InputPaymentCredentialsTypeID)
+	if !(i.Save == false) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPaymentCredentials#3417d728: field flags: %w", err)
 	}
@@ -202,6 +236,17 @@ type InputPaymentCredentialsApplePay struct {
 
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
 const InputPaymentCredentialsApplePayTypeID = 0xaa1c39f
+
+func (i *InputPaymentCredentialsApplePay) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.PaymentData.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPaymentCredentialsApplePay) String() string {
@@ -270,6 +315,20 @@ type InputPaymentCredentialsAndroidPay struct {
 
 // InputPaymentCredentialsAndroidPayTypeID is TL type id of InputPaymentCredentialsAndroidPay.
 const InputPaymentCredentialsAndroidPayTypeID = 0xca05d50e
+
+func (i *InputPaymentCredentialsAndroidPay) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.PaymentToken.Zero()) {
+		return false
+	}
+	if !(i.GoogleTransactionID == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPaymentCredentialsAndroidPay) String() string {
@@ -356,7 +415,9 @@ type InputPaymentCredentialsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPaymentCredentialsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputPaymentCredentials implements binary de-serialization for InputPaymentCredentialsClass.

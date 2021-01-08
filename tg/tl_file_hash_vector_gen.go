@@ -22,6 +22,17 @@ type FileHashVector struct {
 	Elems []FileHash
 }
 
+func (vec *FileHashVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *FileHashVector) String() string {
 	if vec == nil {

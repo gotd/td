@@ -30,6 +30,20 @@ type DocumentAttributeImageSize struct {
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
 const DocumentAttributeImageSizeTypeID = 0x6c37c15c
 
+func (d *DocumentAttributeImageSize) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.W == 0) {
+		return false
+	}
+	if !(d.H == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeImageSize) String() string {
 	if d == nil {
@@ -105,6 +119,14 @@ type DocumentAttributeAnimated struct {
 // DocumentAttributeAnimatedTypeID is TL type id of DocumentAttributeAnimated.
 const DocumentAttributeAnimatedTypeID = 0x11b58939
 
+func (d *DocumentAttributeAnimated) Zero() bool {
+	if d == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeAnimated) String() string {
 	if d == nil {
@@ -173,6 +195,29 @@ type DocumentAttributeSticker struct {
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
 const DocumentAttributeStickerTypeID = 0x6319d612
 
+func (d *DocumentAttributeSticker) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Mask == false) {
+		return false
+	}
+	if !(d.Alt == "") {
+		return false
+	}
+	if !(d.Stickerset == nil) {
+		return false
+	}
+	if !(d.MaskCoords.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeSticker) String() string {
 	if d == nil {
@@ -205,6 +250,12 @@ func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeSticker#6319d612 as nil")
 	}
 	b.PutID(DocumentAttributeStickerTypeID)
+	if !(d.Mask == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.MaskCoords.Zero()) {
+		d.Flags.Set(0)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeSticker#6319d612: field flags: %w", err)
 	}
@@ -321,6 +372,32 @@ type DocumentAttributeVideo struct {
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
 const DocumentAttributeVideoTypeID = 0xef02ce6
 
+func (d *DocumentAttributeVideo) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.RoundMessage == false) {
+		return false
+	}
+	if !(d.SupportsStreaming == false) {
+		return false
+	}
+	if !(d.Duration == 0) {
+		return false
+	}
+	if !(d.W == 0) {
+		return false
+	}
+	if !(d.H == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeVideo) String() string {
 	if d == nil {
@@ -351,6 +428,12 @@ func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
 	}
 	b.PutID(DocumentAttributeVideoTypeID)
+	if !(d.RoundMessage == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.SupportsStreaming == false) {
+		d.Flags.Set(1)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeVideo#ef02ce6: field flags: %w", err)
 	}
@@ -463,6 +546,32 @@ type DocumentAttributeAudio struct {
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
 const DocumentAttributeAudioTypeID = 0x9852f9c6
 
+func (d *DocumentAttributeAudio) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Voice == false) {
+		return false
+	}
+	if !(d.Duration == 0) {
+		return false
+	}
+	if !(d.Title == "") {
+		return false
+	}
+	if !(d.Performer == "") {
+		return false
+	}
+	if !(d.Waveform == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeAudio) String() string {
 	if d == nil {
@@ -502,6 +611,18 @@ func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeAudio#9852f9c6 as nil")
 	}
 	b.PutID(DocumentAttributeAudioTypeID)
+	if !(d.Voice == false) {
+		d.Flags.Set(10)
+	}
+	if !(d.Title == "") {
+		d.Flags.Set(0)
+	}
+	if !(d.Performer == "") {
+		d.Flags.Set(1)
+	}
+	if !(d.Waveform == nil) {
+		d.Flags.Set(2)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode documentAttributeAudio#9852f9c6: field flags: %w", err)
 	}
@@ -642,6 +763,17 @@ type DocumentAttributeFilename struct {
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
 const DocumentAttributeFilenameTypeID = 0x15590068
 
+func (d *DocumentAttributeFilename) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.FileName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DocumentAttributeFilename) String() string {
 	if d == nil {
@@ -705,6 +837,14 @@ type DocumentAttributeHasStickers struct {
 
 // DocumentAttributeHasStickersTypeID is TL type id of DocumentAttributeHasStickers.
 const DocumentAttributeHasStickersTypeID = 0x9801d2f7
+
+func (d *DocumentAttributeHasStickers) Zero() bool {
+	if d == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *DocumentAttributeHasStickers) String() string {
@@ -772,7 +912,9 @@ type DocumentAttributeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DocumentAttributeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDocumentAttribute implements binary de-serialization for DocumentAttributeClass.

@@ -30,6 +30,20 @@ type StickersChangeStickerPositionRequest struct {
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.
 const StickersChangeStickerPositionRequestTypeID = 0xffb6d4ca
 
+func (c *StickersChangeStickerPositionRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Sticker == nil) {
+		return false
+	}
+	if !(c.Position == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *StickersChangeStickerPositionRequest) String() string {
 	if c == nil {

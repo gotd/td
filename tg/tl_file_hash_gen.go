@@ -31,6 +31,23 @@ type FileHash struct {
 // FileHashTypeID is TL type id of FileHash.
 const FileHashTypeID = 0x6242c773
 
+func (f *FileHash) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Offset == 0) {
+		return false
+	}
+	if !(f.Limit == 0) {
+		return false
+	}
+	if !(f.Hash == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *FileHash) String() string {
 	if f == nil {

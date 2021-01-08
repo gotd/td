@@ -65,6 +65,50 @@ type PaymentsPaymentForm struct {
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
 const PaymentsPaymentFormTypeID = 0x3f56aea3
 
+func (p *PaymentsPaymentForm) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.CanSaveCredentials == false) {
+		return false
+	}
+	if !(p.PasswordMissing == false) {
+		return false
+	}
+	if !(p.BotID == 0) {
+		return false
+	}
+	if !(p.Invoice.Zero()) {
+		return false
+	}
+	if !(p.ProviderID == 0) {
+		return false
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.NativeProvider == "") {
+		return false
+	}
+	if !(p.NativeParams.Zero()) {
+		return false
+	}
+	if !(p.SavedInfo.Zero()) {
+		return false
+	}
+	if !(p.SavedCredentials.Zero()) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentsPaymentForm) String() string {
 	if p == nil {
@@ -123,6 +167,24 @@ func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentForm#3f56aea3 as nil")
 	}
 	b.PutID(PaymentsPaymentFormTypeID)
+	if !(p.CanSaveCredentials == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.PasswordMissing == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.NativeProvider == "") {
+		p.Flags.Set(4)
+	}
+	if !(p.NativeParams.Zero()) {
+		p.Flags.Set(4)
+	}
+	if !(p.SavedInfo.Zero()) {
+		p.Flags.Set(0)
+	}
+	if !(p.SavedCredentials.Zero()) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.paymentForm#3f56aea3: field flags: %w", err)
 	}

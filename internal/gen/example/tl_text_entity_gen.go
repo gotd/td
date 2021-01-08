@@ -31,6 +31,23 @@ type TextEntity struct {
 // TextEntityTypeID is TL type id of TextEntity.
 const TextEntityTypeID = 0x8bab99a8
 
+func (t *TextEntity) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Offset == 0) {
+		return false
+	}
+	if !(t.Length == 0) {
+		return false
+	}
+	if !(t.Type == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntity) String() string {
 	if t == nil {

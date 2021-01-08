@@ -26,6 +26,14 @@ type InputGeoPointEmpty struct {
 // InputGeoPointEmptyTypeID is TL type id of InputGeoPointEmpty.
 const InputGeoPointEmptyTypeID = 0xe4c123d6
 
+func (i *InputGeoPointEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputGeoPointEmpty) String() string {
 	if i == nil {
@@ -92,6 +100,26 @@ type InputGeoPoint struct {
 // InputGeoPointTypeID is TL type id of InputGeoPoint.
 const InputGeoPointTypeID = 0x48222faf
 
+func (i *InputGeoPoint) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Lat == 0) {
+		return false
+	}
+	if !(i.Long == 0) {
+		return false
+	}
+	if !(i.AccuracyRadius == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputGeoPoint) String() string {
 	if i == nil {
@@ -124,6 +152,9 @@ func (i *InputGeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGeoPoint#48222faf as nil")
 	}
 	b.PutID(InputGeoPointTypeID)
+	if !(i.AccuracyRadius == 0) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputGeoPoint#48222faf: field flags: %w", err)
 	}
@@ -216,7 +247,9 @@ type InputGeoPointClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputGeoPointClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputGeoPoint implements binary de-serialization for InputGeoPointClass.

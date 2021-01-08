@@ -106,6 +106,59 @@ type DialogFilter struct {
 // DialogFilterTypeID is TL type id of DialogFilter.
 const DialogFilterTypeID = 0x7438f7e8
 
+func (d *DialogFilter) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Contacts == false) {
+		return false
+	}
+	if !(d.NonContacts == false) {
+		return false
+	}
+	if !(d.Groups == false) {
+		return false
+	}
+	if !(d.Broadcasts == false) {
+		return false
+	}
+	if !(d.Bots == false) {
+		return false
+	}
+	if !(d.ExcludeMuted == false) {
+		return false
+	}
+	if !(d.ExcludeRead == false) {
+		return false
+	}
+	if !(d.ExcludeArchived == false) {
+		return false
+	}
+	if !(d.ID == 0) {
+		return false
+	}
+	if !(d.Title == "") {
+		return false
+	}
+	if !(d.Emoticon == "") {
+		return false
+	}
+	if !(d.PinnedPeers == nil) {
+		return false
+	}
+	if !(d.IncludePeers == nil) {
+		return false
+	}
+	if !(d.ExcludePeers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DialogFilter) String() string {
 	if d == nil {
@@ -153,6 +206,33 @@ func (d *DialogFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
 	}
 	b.PutID(DialogFilterTypeID)
+	if !(d.Contacts == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.NonContacts == false) {
+		d.Flags.Set(1)
+	}
+	if !(d.Groups == false) {
+		d.Flags.Set(2)
+	}
+	if !(d.Broadcasts == false) {
+		d.Flags.Set(3)
+	}
+	if !(d.Bots == false) {
+		d.Flags.Set(4)
+	}
+	if !(d.ExcludeMuted == false) {
+		d.Flags.Set(11)
+	}
+	if !(d.ExcludeRead == false) {
+		d.Flags.Set(12)
+	}
+	if !(d.ExcludeArchived == false) {
+		d.Flags.Set(13)
+	}
+	if !(d.Emoticon == "") {
+		d.Flags.Set(25)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFilter#7438f7e8: field flags: %w", err)
 	}

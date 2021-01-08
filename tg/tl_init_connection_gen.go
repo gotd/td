@@ -58,6 +58,47 @@ type InitConnectionRequest struct {
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.
 const InitConnectionRequestTypeID = 0xc1cd5ea9
 
+func (i *InitConnectionRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.APIID == 0) {
+		return false
+	}
+	if !(i.DeviceModel == "") {
+		return false
+	}
+	if !(i.SystemVersion == "") {
+		return false
+	}
+	if !(i.AppVersion == "") {
+		return false
+	}
+	if !(i.SystemLangCode == "") {
+		return false
+	}
+	if !(i.LangPack == "") {
+		return false
+	}
+	if !(i.LangCode == "") {
+		return false
+	}
+	if !(i.Proxy.Zero()) {
+		return false
+	}
+	if !(i.Params == nil) {
+		return false
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InitConnectionRequest) String() string {
 	if i == nil {
@@ -113,6 +154,12 @@ func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
 	}
 	b.PutID(InitConnectionRequestTypeID)
+	if !(i.Proxy.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.Params == nil) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode initConnection#c1cd5ea9: field flags: %w", err)
 	}

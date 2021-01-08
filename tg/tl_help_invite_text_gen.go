@@ -28,6 +28,17 @@ type HelpInviteText struct {
 // HelpInviteTextTypeID is TL type id of HelpInviteText.
 const HelpInviteTextTypeID = 0x18cb9f78
 
+func (i *HelpInviteText) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Message == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *HelpInviteText) String() string {
 	if i == nil {

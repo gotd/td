@@ -28,6 +28,17 @@ type MessagesGetEmojiURLRequest struct {
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.
 const MessagesGetEmojiURLRequestTypeID = 0xd5b10c26
 
+func (g *MessagesGetEmojiURLRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.LangCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetEmojiURLRequest) String() string {
 	if g == nil {

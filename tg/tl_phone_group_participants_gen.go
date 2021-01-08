@@ -35,6 +35,29 @@ type PhoneGroupParticipants struct {
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.
 const PhoneGroupParticipantsTypeID = 0x9cfeb92d
 
+func (g *PhoneGroupParticipants) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Count == 0) {
+		return false
+	}
+	if !(g.Participants == nil) {
+		return false
+	}
+	if !(g.NextOffset == "") {
+		return false
+	}
+	if !(g.Users == nil) {
+		return false
+	}
+	if !(g.Version == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhoneGroupParticipants) String() string {
 	if g == nil {

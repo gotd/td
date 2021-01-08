@@ -32,6 +32,23 @@ type ContactsBlocked struct {
 // ContactsBlockedTypeID is TL type id of ContactsBlocked.
 const ContactsBlockedTypeID = 0xade1591
 
+func (b *ContactsBlocked) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Blocked == nil) {
+		return false
+	}
+	if !(b.Chats == nil) {
+		return false
+	}
+	if !(b.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *ContactsBlocked) String() string {
 	if b == nil {
@@ -170,6 +187,26 @@ type ContactsBlockedSlice struct {
 
 // ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.
 const ContactsBlockedSliceTypeID = 0xe1664194
+
+func (b *ContactsBlockedSlice) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Count == 0) {
+		return false
+	}
+	if !(b.Blocked == nil) {
+		return false
+	}
+	if !(b.Chats == nil) {
+		return false
+	}
+	if !(b.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (b *ContactsBlockedSlice) String() string {
@@ -321,7 +358,9 @@ type ContactsBlockedClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ContactsBlockedClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeContactsBlocked implements binary de-serialization for ContactsBlockedClass.

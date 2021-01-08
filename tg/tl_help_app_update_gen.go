@@ -52,6 +52,38 @@ type HelpAppUpdate struct {
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.
 const HelpAppUpdateTypeID = 0x1da7158f
 
+func (a *HelpAppUpdate) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.CanNotSkip == false) {
+		return false
+	}
+	if !(a.ID == 0) {
+		return false
+	}
+	if !(a.Version == "") {
+		return false
+	}
+	if !(a.Text == "") {
+		return false
+	}
+	if !(a.Entities == nil) {
+		return false
+	}
+	if !(a.Document == nil) {
+		return false
+	}
+	if !(a.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *HelpAppUpdate) String() string {
 	if a == nil {
@@ -97,6 +129,15 @@ func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.appUpdate#1da7158f as nil")
 	}
 	b.PutID(HelpAppUpdateTypeID)
+	if !(a.CanNotSkip == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.Document == nil) {
+		a.Flags.Set(1)
+	}
+	if !(a.URL == "") {
+		a.Flags.Set(2)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.appUpdate#1da7158f: field flags: %w", err)
 	}
@@ -253,6 +294,14 @@ type HelpNoAppUpdate struct {
 // HelpNoAppUpdateTypeID is TL type id of HelpNoAppUpdate.
 const HelpNoAppUpdateTypeID = 0xc45a6536
 
+func (n *HelpNoAppUpdate) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *HelpNoAppUpdate) String() string {
 	if n == nil {
@@ -314,7 +363,9 @@ type HelpAppUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpAppUpdateClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpAppUpdate implements binary de-serialization for HelpAppUpdateClass.

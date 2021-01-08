@@ -53,6 +53,44 @@ type Theme struct {
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
 
+func (t *Theme) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Creator == false) {
+		return false
+	}
+	if !(t.Default == false) {
+		return false
+	}
+	if !(t.ID == 0) {
+		return false
+	}
+	if !(t.AccessHash == 0) {
+		return false
+	}
+	if !(t.Slug == "") {
+		return false
+	}
+	if !(t.Title == "") {
+		return false
+	}
+	if !(t.Document == nil) {
+		return false
+	}
+	if !(t.Settings.Zero()) {
+		return false
+	}
+	if !(t.InstallsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *Theme) String() string {
 	if t == nil {
@@ -99,6 +137,18 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode theme#28f1114 as nil")
 	}
 	b.PutID(ThemeTypeID)
+	if !(t.Creator == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.Default == false) {
+		t.Flags.Set(1)
+	}
+	if !(t.Document == nil) {
+		t.Flags.Set(2)
+	}
+	if !(t.Settings.Zero()) {
+		t.Flags.Set(3)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode theme#28f1114: field flags: %w", err)
 	}

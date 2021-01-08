@@ -28,6 +28,17 @@ type PeerUser struct {
 // PeerUserTypeID is TL type id of PeerUser.
 const PeerUserTypeID = 0x9db1bc6d
 
+func (p *PeerUser) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerUser) String() string {
 	if p == nil {
@@ -94,6 +105,17 @@ type PeerChat struct {
 // PeerChatTypeID is TL type id of PeerChat.
 const PeerChatTypeID = 0xbad0e5bb
 
+func (p *PeerChat) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ChatID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerChat) String() string {
 	if p == nil {
@@ -159,6 +181,17 @@ type PeerChannel struct {
 
 // PeerChannelTypeID is TL type id of PeerChannel.
 const PeerChannelTypeID = 0xbddde532
+
+func (p *PeerChannel) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ChannelID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PeerChannel) String() string {
@@ -233,7 +266,9 @@ type PeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PeerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePeer implements binary de-serialization for PeerClass.

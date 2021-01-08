@@ -28,6 +28,17 @@ type MessagesGetOnlinesRequest struct {
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
 const MessagesGetOnlinesRequestTypeID = 0x6e2be050
 
+func (g *MessagesGetOnlinesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetOnlinesRequest) String() string {
 	if g == nil {

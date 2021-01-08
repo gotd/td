@@ -28,6 +28,17 @@ type MessagesImportChatInviteRequest struct {
 // MessagesImportChatInviteRequestTypeID is TL type id of MessagesImportChatInviteRequest.
 const MessagesImportChatInviteRequestTypeID = 0x6c50051c
 
+func (i *MessagesImportChatInviteRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Hash == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *MessagesImportChatInviteRequest) String() string {
 	if i == nil {

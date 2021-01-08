@@ -28,6 +28,17 @@ type PaymentsPaymentResult struct {
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
 const PaymentsPaymentResultTypeID = 0x4e5f810d
 
+func (p *PaymentsPaymentResult) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Updates == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentsPaymentResult) String() string {
 	if p == nil {
@@ -98,6 +109,17 @@ type PaymentsPaymentVerificationNeeded struct {
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
 const PaymentsPaymentVerificationNeededTypeID = 0xd8411139
+
+func (p *PaymentsPaymentVerificationNeeded) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.URL == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PaymentsPaymentVerificationNeeded) String() string {
@@ -171,7 +193,9 @@ type PaymentsPaymentResultClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PaymentsPaymentResultClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePaymentsPaymentResult implements binary de-serialization for PaymentsPaymentResultClass.

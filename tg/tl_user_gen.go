@@ -28,6 +28,17 @@ type UserEmpty struct {
 // UserEmptyTypeID is TL type id of UserEmpty.
 const UserEmptyTypeID = 0x200250ba
 
+func (u *UserEmpty) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserEmpty) String() string {
 	if u == nil {
@@ -177,6 +188,95 @@ type User struct {
 // UserTypeID is TL type id of User.
 const UserTypeID = 0x938458c1
 
+func (u *User) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Self == false) {
+		return false
+	}
+	if !(u.Contact == false) {
+		return false
+	}
+	if !(u.MutualContact == false) {
+		return false
+	}
+	if !(u.Deleted == false) {
+		return false
+	}
+	if !(u.Bot == false) {
+		return false
+	}
+	if !(u.BotChatHistory == false) {
+		return false
+	}
+	if !(u.BotNochats == false) {
+		return false
+	}
+	if !(u.Verified == false) {
+		return false
+	}
+	if !(u.Restricted == false) {
+		return false
+	}
+	if !(u.Min == false) {
+		return false
+	}
+	if !(u.BotInlineGeo == false) {
+		return false
+	}
+	if !(u.Support == false) {
+		return false
+	}
+	if !(u.Scam == false) {
+		return false
+	}
+	if !(u.ApplyMinPhoto == false) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+	if !(u.AccessHash == 0) {
+		return false
+	}
+	if !(u.FirstName == "") {
+		return false
+	}
+	if !(u.LastName == "") {
+		return false
+	}
+	if !(u.Username == "") {
+		return false
+	}
+	if !(u.Phone == "") {
+		return false
+	}
+	if !(u.Photo == nil) {
+		return false
+	}
+	if !(u.Status == nil) {
+		return false
+	}
+	if !(u.BotInfoVersion == 0) {
+		return false
+	}
+	if !(u.RestrictionReason == nil) {
+		return false
+	}
+	if !(u.BotInlinePlaceholder == "") {
+		return false
+	}
+	if !(u.LangCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *User) String() string {
 	if u == nil {
@@ -258,6 +358,81 @@ func (u *User) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode user#938458c1 as nil")
 	}
 	b.PutID(UserTypeID)
+	if !(u.Self == false) {
+		u.Flags.Set(10)
+	}
+	if !(u.Contact == false) {
+		u.Flags.Set(11)
+	}
+	if !(u.MutualContact == false) {
+		u.Flags.Set(12)
+	}
+	if !(u.Deleted == false) {
+		u.Flags.Set(13)
+	}
+	if !(u.Bot == false) {
+		u.Flags.Set(14)
+	}
+	if !(u.BotChatHistory == false) {
+		u.Flags.Set(15)
+	}
+	if !(u.BotNochats == false) {
+		u.Flags.Set(16)
+	}
+	if !(u.Verified == false) {
+		u.Flags.Set(17)
+	}
+	if !(u.Restricted == false) {
+		u.Flags.Set(18)
+	}
+	if !(u.Min == false) {
+		u.Flags.Set(20)
+	}
+	if !(u.BotInlineGeo == false) {
+		u.Flags.Set(21)
+	}
+	if !(u.Support == false) {
+		u.Flags.Set(23)
+	}
+	if !(u.Scam == false) {
+		u.Flags.Set(24)
+	}
+	if !(u.ApplyMinPhoto == false) {
+		u.Flags.Set(25)
+	}
+	if !(u.AccessHash == 0) {
+		u.Flags.Set(0)
+	}
+	if !(u.FirstName == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.LastName == "") {
+		u.Flags.Set(2)
+	}
+	if !(u.Username == "") {
+		u.Flags.Set(3)
+	}
+	if !(u.Phone == "") {
+		u.Flags.Set(4)
+	}
+	if !(u.Photo == nil) {
+		u.Flags.Set(5)
+	}
+	if !(u.Status == nil) {
+		u.Flags.Set(6)
+	}
+	if !(u.BotInfoVersion == 0) {
+		u.Flags.Set(14)
+	}
+	if !(u.RestrictionReason == nil) {
+		u.Flags.Set(18)
+	}
+	if !(u.BotInlinePlaceholder == "") {
+		u.Flags.Set(19)
+	}
+	if !(u.LangCode == "") {
+		u.Flags.Set(22)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode user#938458c1: field flags: %w", err)
 	}
@@ -781,7 +956,9 @@ type UserClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUser implements binary de-serialization for UserClass.

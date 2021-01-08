@@ -28,6 +28,17 @@ type MessageEmpty struct {
 // MessageEmptyTypeID is TL type id of MessageEmpty.
 const MessageEmptyTypeID = 0x83e5de54
 
+func (m *MessageEmpty) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageEmpty) String() string {
 	if m == nil {
@@ -198,6 +209,98 @@ type Message struct {
 // MessageTypeID is TL type id of Message.
 const MessageTypeID = 0x58ae39c9
 
+func (m *Message) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Out == false) {
+		return false
+	}
+	if !(m.Mentioned == false) {
+		return false
+	}
+	if !(m.MediaUnread == false) {
+		return false
+	}
+	if !(m.Silent == false) {
+		return false
+	}
+	if !(m.Post == false) {
+		return false
+	}
+	if !(m.FromScheduled == false) {
+		return false
+	}
+	if !(m.Legacy == false) {
+		return false
+	}
+	if !(m.EditHide == false) {
+		return false
+	}
+	if !(m.Pinned == false) {
+		return false
+	}
+	if !(m.ID == 0) {
+		return false
+	}
+	if !(m.FromID == nil) {
+		return false
+	}
+	if !(m.PeerID == nil) {
+		return false
+	}
+	if !(m.FwdFrom.Zero()) {
+		return false
+	}
+	if !(m.ViaBotID == 0) {
+		return false
+	}
+	if !(m.ReplyTo.Zero()) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+	if !(m.Message == "") {
+		return false
+	}
+	if !(m.Media == nil) {
+		return false
+	}
+	if !(m.ReplyMarkup == nil) {
+		return false
+	}
+	if !(m.Entities == nil) {
+		return false
+	}
+	if !(m.Views == 0) {
+		return false
+	}
+	if !(m.Forwards == 0) {
+		return false
+	}
+	if !(m.Replies.Zero()) {
+		return false
+	}
+	if !(m.EditDate == 0) {
+		return false
+	}
+	if !(m.PostAuthor == "") {
+		return false
+	}
+	if !(m.GroupedID == 0) {
+		return false
+	}
+	if !(m.RestrictionReason == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *Message) String() string {
 	if m == nil {
@@ -305,6 +408,75 @@ func (m *Message) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode message#58ae39c9 as nil")
 	}
 	b.PutID(MessageTypeID)
+	if !(m.Out == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Mentioned == false) {
+		m.Flags.Set(4)
+	}
+	if !(m.MediaUnread == false) {
+		m.Flags.Set(5)
+	}
+	if !(m.Silent == false) {
+		m.Flags.Set(13)
+	}
+	if !(m.Post == false) {
+		m.Flags.Set(14)
+	}
+	if !(m.FromScheduled == false) {
+		m.Flags.Set(18)
+	}
+	if !(m.Legacy == false) {
+		m.Flags.Set(19)
+	}
+	if !(m.EditHide == false) {
+		m.Flags.Set(21)
+	}
+	if !(m.Pinned == false) {
+		m.Flags.Set(24)
+	}
+	if !(m.FromID == nil) {
+		m.Flags.Set(8)
+	}
+	if !(m.FwdFrom.Zero()) {
+		m.Flags.Set(2)
+	}
+	if !(m.ViaBotID == 0) {
+		m.Flags.Set(11)
+	}
+	if !(m.ReplyTo.Zero()) {
+		m.Flags.Set(3)
+	}
+	if !(m.Media == nil) {
+		m.Flags.Set(9)
+	}
+	if !(m.ReplyMarkup == nil) {
+		m.Flags.Set(6)
+	}
+	if !(m.Entities == nil) {
+		m.Flags.Set(7)
+	}
+	if !(m.Views == 0) {
+		m.Flags.Set(10)
+	}
+	if !(m.Forwards == 0) {
+		m.Flags.Set(10)
+	}
+	if !(m.Replies.Zero()) {
+		m.Flags.Set(23)
+	}
+	if !(m.EditDate == 0) {
+		m.Flags.Set(15)
+	}
+	if !(m.PostAuthor == "") {
+		m.Flags.Set(16)
+	}
+	if !(m.GroupedID == 0) {
+		m.Flags.Set(17)
+	}
+	if !(m.RestrictionReason == nil) {
+		m.Flags.Set(22)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode message#58ae39c9: field flags: %w", err)
 	}
@@ -916,6 +1088,53 @@ type MessageService struct {
 // MessageServiceTypeID is TL type id of MessageService.
 const MessageServiceTypeID = 0x286fa604
 
+func (m *MessageService) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Out == false) {
+		return false
+	}
+	if !(m.Mentioned == false) {
+		return false
+	}
+	if !(m.MediaUnread == false) {
+		return false
+	}
+	if !(m.Silent == false) {
+		return false
+	}
+	if !(m.Post == false) {
+		return false
+	}
+	if !(m.Legacy == false) {
+		return false
+	}
+	if !(m.ID == 0) {
+		return false
+	}
+	if !(m.FromID == nil) {
+		return false
+	}
+	if !(m.PeerID == nil) {
+		return false
+	}
+	if !(m.ReplyTo.Zero()) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+	if !(m.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageService) String() string {
 	if m == nil {
@@ -959,6 +1178,30 @@ func (m *MessageService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageService#286fa604 as nil")
 	}
 	b.PutID(MessageServiceTypeID)
+	if !(m.Out == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Mentioned == false) {
+		m.Flags.Set(4)
+	}
+	if !(m.MediaUnread == false) {
+		m.Flags.Set(5)
+	}
+	if !(m.Silent == false) {
+		m.Flags.Set(13)
+	}
+	if !(m.Post == false) {
+		m.Flags.Set(14)
+	}
+	if !(m.Legacy == false) {
+		m.Flags.Set(19)
+	}
+	if !(m.FromID == nil) {
+		m.Flags.Set(8)
+	}
+	if !(m.ReplyTo.Zero()) {
+		m.Flags.Set(3)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageService#286fa604: field flags: %w", err)
 	}
@@ -1180,7 +1423,9 @@ type MessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessage implements binary de-serialization for MessageClass.

@@ -27,6 +27,20 @@ type PingDelayDisconnectRequest struct {
 // PingDelayDisconnectRequestTypeID is TL type id of PingDelayDisconnectRequest.
 const PingDelayDisconnectRequestTypeID = 0xf3427b8c
 
+func (p *PingDelayDisconnectRequest) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.PingID == 0) {
+		return false
+	}
+	if !(p.DisconnectDelay == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PingDelayDisconnectRequest) String() string {
 	if p == nil {

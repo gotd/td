@@ -25,6 +25,17 @@ type ReqPqMultiRequest struct {
 // ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.
 const ReqPqMultiRequestTypeID = 0xbe7e8ef1
 
+func (r *ReqPqMultiRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Nonce == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReqPqMultiRequest) String() string {
 	if r == nil {

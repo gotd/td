@@ -44,6 +44,26 @@ type MessagesSetBotPrecheckoutResultsRequest struct {
 // MessagesSetBotPrecheckoutResultsRequestTypeID is TL type id of MessagesSetBotPrecheckoutResultsRequest.
 const MessagesSetBotPrecheckoutResultsRequestTypeID = 0x9c2dd95
 
+func (s *MessagesSetBotPrecheckoutResultsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Success == false) {
+		return false
+	}
+	if !(s.QueryID == 0) {
+		return false
+	}
+	if !(s.Error == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetBotPrecheckoutResultsRequest) String() string {
 	if s == nil {
@@ -73,6 +93,12 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
 	}
 	b.PutID(MessagesSetBotPrecheckoutResultsRequestTypeID)
+	if !(s.Success == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.Error == "") {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)
 	}

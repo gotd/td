@@ -30,6 +30,20 @@ type AccountInstallWallPaperRequest struct {
 // AccountInstallWallPaperRequestTypeID is TL type id of AccountInstallWallPaperRequest.
 const AccountInstallWallPaperRequestTypeID = 0xfeed5769
 
+func (i *AccountInstallWallPaperRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Wallpaper == nil) {
+		return false
+	}
+	if !(i.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AccountInstallWallPaperRequest) String() string {
 	if i == nil {

@@ -28,6 +28,17 @@ type NotifyPeer struct {
 // NotifyPeerTypeID is TL type id of NotifyPeer.
 const NotifyPeerTypeID = 0x9fd40bd8
 
+func (n *NotifyPeer) Zero() bool {
+	if n == nil {
+		return true
+	}
+	if !(n.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NotifyPeer) String() string {
 	if n == nil {
@@ -97,6 +108,14 @@ type NotifyUsers struct {
 // NotifyUsersTypeID is TL type id of NotifyUsers.
 const NotifyUsersTypeID = 0xb4c83b4c
 
+func (n *NotifyUsers) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NotifyUsers) String() string {
 	if n == nil {
@@ -150,6 +169,14 @@ type NotifyChats struct {
 // NotifyChatsTypeID is TL type id of NotifyChats.
 const NotifyChatsTypeID = 0xc007cec3
 
+func (n *NotifyChats) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NotifyChats) String() string {
 	if n == nil {
@@ -202,6 +229,14 @@ type NotifyBroadcasts struct {
 
 // NotifyBroadcastsTypeID is TL type id of NotifyBroadcasts.
 const NotifyBroadcastsTypeID = 0xd612e8ef
+
+func (n *NotifyBroadcasts) Zero() bool {
+	if n == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (n *NotifyBroadcasts) String() string {
@@ -266,7 +301,9 @@ type NotifyPeerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() NotifyPeerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeNotifyPeer implements binary de-serialization for NotifyPeerClass.

@@ -63,6 +63,65 @@ type StatsMegagroupStats struct {
 // StatsMegagroupStatsTypeID is TL type id of StatsMegagroupStats.
 const StatsMegagroupStatsTypeID = 0xef7ff916
 
+func (m *StatsMegagroupStats) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Period.Zero()) {
+		return false
+	}
+	if !(m.Members.Zero()) {
+		return false
+	}
+	if !(m.Messages.Zero()) {
+		return false
+	}
+	if !(m.Viewers.Zero()) {
+		return false
+	}
+	if !(m.Posters.Zero()) {
+		return false
+	}
+	if !(m.GrowthGraph == nil) {
+		return false
+	}
+	if !(m.MembersGraph == nil) {
+		return false
+	}
+	if !(m.NewMembersBySourceGraph == nil) {
+		return false
+	}
+	if !(m.LanguagesGraph == nil) {
+		return false
+	}
+	if !(m.MessagesGraph == nil) {
+		return false
+	}
+	if !(m.ActionsGraph == nil) {
+		return false
+	}
+	if !(m.TopHoursGraph == nil) {
+		return false
+	}
+	if !(m.WeekdaysGraph == nil) {
+		return false
+	}
+	if !(m.TopPosters == nil) {
+		return false
+	}
+	if !(m.TopAdmins == nil) {
+		return false
+	}
+	if !(m.TopInviters == nil) {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *StatsMegagroupStats) String() string {
 	if m == nil {

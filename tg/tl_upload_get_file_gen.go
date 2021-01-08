@@ -44,6 +44,32 @@ type UploadGetFileRequest struct {
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
 const UploadGetFileRequestTypeID = 0xb15a9afc
 
+func (g *UploadGetFileRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Precise == false) {
+		return false
+	}
+	if !(g.CDNSupported == false) {
+		return false
+	}
+	if !(g.Location == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UploadGetFileRequest) String() string {
 	if g == nil {
@@ -74,6 +100,12 @@ func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
 	}
 	b.PutID(UploadGetFileRequestTypeID)
+	if !(g.Precise == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.CDNSupported == false) {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode upload.getFile#b15a9afc: field flags: %w", err)
 	}

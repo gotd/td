@@ -40,6 +40,23 @@ type MessagesGetWebPagePreviewRequest struct {
 // MessagesGetWebPagePreviewRequestTypeID is TL type id of MessagesGetWebPagePreviewRequest.
 const MessagesGetWebPagePreviewRequestTypeID = 0x8b68b0cc
 
+func (g *MessagesGetWebPagePreviewRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Message == "") {
+		return false
+	}
+	if !(g.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetWebPagePreviewRequest) String() string {
 	if g == nil {
@@ -71,6 +88,9 @@ func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
 	}
 	b.PutID(MessagesGetWebPagePreviewRequestTypeID)
+	if !(g.Entities == nil) {
+		g.Flags.Set(3)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)
 	}

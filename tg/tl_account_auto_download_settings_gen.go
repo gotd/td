@@ -32,6 +32,23 @@ type AccountAutoDownloadSettings struct {
 // AccountAutoDownloadSettingsTypeID is TL type id of AccountAutoDownloadSettings.
 const AccountAutoDownloadSettingsTypeID = 0x63cacf26
 
+func (a *AccountAutoDownloadSettings) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Low.Zero()) {
+		return false
+	}
+	if !(a.Medium.Zero()) {
+		return false
+	}
+	if !(a.High.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AccountAutoDownloadSettings) String() string {
 	if a == nil {

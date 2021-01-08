@@ -26,6 +26,14 @@ type ChannelParticipantsRecent struct {
 // ChannelParticipantsRecentTypeID is TL type id of ChannelParticipantsRecent.
 const ChannelParticipantsRecentTypeID = 0xde3f3c79
 
+func (c *ChannelParticipantsRecent) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsRecent) String() string {
 	if c == nil {
@@ -78,6 +86,14 @@ type ChannelParticipantsAdmins struct {
 
 // ChannelParticipantsAdminsTypeID is TL type id of ChannelParticipantsAdmins.
 const ChannelParticipantsAdminsTypeID = 0xb4608969
+
+func (c *ChannelParticipantsAdmins) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsAdmins) String() string {
@@ -133,6 +149,17 @@ type ChannelParticipantsKicked struct {
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
 const ChannelParticipantsKickedTypeID = 0xa3b54985
+
+func (c *ChannelParticipantsKicked) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Q == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsKicked) String() string {
@@ -198,6 +225,14 @@ type ChannelParticipantsBots struct {
 // ChannelParticipantsBotsTypeID is TL type id of ChannelParticipantsBots.
 const ChannelParticipantsBotsTypeID = 0xb0d1865b
 
+func (c *ChannelParticipantsBots) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsBots) String() string {
 	if c == nil {
@@ -252,6 +287,17 @@ type ChannelParticipantsBanned struct {
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
 const ChannelParticipantsBannedTypeID = 0x1427a5e1
+
+func (c *ChannelParticipantsBanned) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Q == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsBanned) String() string {
@@ -319,6 +365,17 @@ type ChannelParticipantsSearch struct {
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
 const ChannelParticipantsSearchTypeID = 0x656ac4b
 
+func (c *ChannelParticipantsSearch) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Q == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsSearch) String() string {
 	if c == nil {
@@ -384,6 +441,17 @@ type ChannelParticipantsContacts struct {
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
 const ChannelParticipantsContactsTypeID = 0xbb6ae88d
+
+func (c *ChannelParticipantsContacts) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Q == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsContacts) String() string {
@@ -470,6 +538,23 @@ type ChannelParticipantsMentions struct {
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.
 const ChannelParticipantsMentionsTypeID = 0xe04b5ceb
 
+func (c *ChannelParticipantsMentions) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Q == "") {
+		return false
+	}
+	if !(c.TopMsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantsMentions) String() string {
 	if c == nil {
@@ -501,6 +586,12 @@ func (c *ChannelParticipantsMentions) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsMentions#e04b5ceb as nil")
 	}
 	b.PutID(ChannelParticipantsMentionsTypeID)
+	if !(c.Q == "") {
+		c.Flags.Set(0)
+	}
+	if !(c.TopMsgID == 0) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantsMentions#e04b5ceb: field flags: %w", err)
 	}
@@ -608,7 +699,9 @@ type ChannelParticipantsFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelParticipantsFilterClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelParticipantsFilter implements binary de-serialization for ChannelParticipantsFilterClass.

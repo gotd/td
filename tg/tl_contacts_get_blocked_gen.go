@@ -30,6 +30,20 @@ type ContactsGetBlockedRequest struct {
 // ContactsGetBlockedRequestTypeID is TL type id of ContactsGetBlockedRequest.
 const ContactsGetBlockedRequestTypeID = 0xf57c350f
 
+func (g *ContactsGetBlockedRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ContactsGetBlockedRequest) String() string {
 	if g == nil {

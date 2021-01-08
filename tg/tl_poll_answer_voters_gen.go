@@ -42,6 +42,29 @@ type PollAnswerVoters struct {
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.
 const PollAnswerVotersTypeID = 0x3b6ddad2
 
+func (p *PollAnswerVoters) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Chosen == false) {
+		return false
+	}
+	if !(p.Correct == false) {
+		return false
+	}
+	if !(p.Option == nil) {
+		return false
+	}
+	if !(p.Voters == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PollAnswerVoters) String() string {
 	if p == nil {
@@ -69,6 +92,12 @@ func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
 	}
 	b.PutID(PollAnswerVotersTypeID)
+	if !(p.Chosen == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Correct == false) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pollAnswerVoters#3b6ddad2: field flags: %w", err)
 	}

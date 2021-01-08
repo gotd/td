@@ -33,6 +33,23 @@ type RestrictionReason struct {
 // RestrictionReasonTypeID is TL type id of RestrictionReason.
 const RestrictionReasonTypeID = 0xd072acb4
 
+func (r *RestrictionReason) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Platform == "") {
+		return false
+	}
+	if !(r.Reason == "") {
+		return false
+	}
+	if !(r.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RestrictionReason) String() string {
 	if r == nil {

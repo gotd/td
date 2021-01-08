@@ -33,6 +33,17 @@ type AuthImportLoginTokenRequest struct {
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.
 const AuthImportLoginTokenRequestTypeID = 0x95ac5ce4
 
+func (i *AuthImportLoginTokenRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Token == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AuthImportLoginTokenRequest) String() string {
 	if i == nil {

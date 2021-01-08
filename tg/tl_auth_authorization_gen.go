@@ -40,6 +40,23 @@ type AuthAuthorization struct {
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
 const AuthAuthorizationTypeID = 0xcd050916
 
+func (a *AuthAuthorization) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.TmpSessions == 0) {
+		return false
+	}
+	if !(a.User == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AuthAuthorization) String() string {
 	if a == nil {
@@ -69,6 +86,9 @@ func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
 	}
 	b.PutID(AuthAuthorizationTypeID)
+	if !(a.TmpSessions == 0) {
+		a.Flags.Set(0)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.authorization#cd050916: field flags: %w", err)
 	}
@@ -162,6 +182,20 @@ type AuthAuthorizationSignUpRequired struct {
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.
 const AuthAuthorizationSignUpRequiredTypeID = 0x44747e9a
 
+func (a *AuthAuthorizationSignUpRequired) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.TermsOfService.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AuthAuthorizationSignUpRequired) String() string {
 	if a == nil {
@@ -188,6 +222,9 @@ func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
 	}
 	b.PutID(AuthAuthorizationSignUpRequiredTypeID)
+	if !(a.TermsOfService.Zero()) {
+		a.Flags.Set(0)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)
 	}
@@ -264,7 +301,9 @@ type AuthAuthorizationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthAuthorizationClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAuthAuthorization implements binary de-serialization for AuthAuthorizationClass.

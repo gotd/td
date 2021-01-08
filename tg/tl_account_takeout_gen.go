@@ -28,6 +28,17 @@ type AccountTakeout struct {
 // AccountTakeoutTypeID is TL type id of AccountTakeout.
 const AccountTakeoutTypeID = 0x4dba4501
 
+func (t *AccountTakeout) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *AccountTakeout) String() string {
 	if t == nil {

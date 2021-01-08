@@ -29,6 +29,23 @@ type SetClientDHParamsRequest struct {
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
 const SetClientDHParamsRequestTypeID = 0xf5045f1f
 
+func (s *SetClientDHParamsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.EncryptedData == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SetClientDHParamsRequest) String() string {
 	if s == nil {

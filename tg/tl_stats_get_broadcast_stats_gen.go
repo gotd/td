@@ -38,6 +38,23 @@ type StatsGetBroadcastStatsRequest struct {
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.
 const StatsGetBroadcastStatsRequestTypeID = 0xab42441a
 
+func (g *StatsGetBroadcastStatsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Dark == false) {
+		return false
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *StatsGetBroadcastStatsRequest) String() string {
 	if g == nil {
@@ -62,6 +79,9 @@ func (g *StatsGetBroadcastStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getBroadcastStats#ab42441a as nil")
 	}
 	b.PutID(StatsGetBroadcastStatsRequestTypeID)
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.getBroadcastStats#ab42441a: field flags: %w", err)
 	}

@@ -40,6 +40,26 @@ type StatsGetMessageStatsRequest struct {
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.
 const StatsGetMessageStatsRequestTypeID = 0xb6e0a3f5
 
+func (g *StatsGetMessageStatsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Dark == false) {
+		return false
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *StatsGetMessageStatsRequest) String() string {
 	if g == nil {
@@ -67,6 +87,9 @@ func (g *StatsGetMessageStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getMessageStats#b6e0a3f5 as nil")
 	}
 	b.PutID(StatsGetMessageStatsRequestTypeID)
+	if !(g.Dark == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.getMessageStats#b6e0a3f5: field flags: %w", err)
 	}
