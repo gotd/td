@@ -135,6 +135,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 					tg.TextItalicTypeID,
 					tg.TextMarkedTypeID,
 					tg.MessageTypeID,
+					tg.PageBlockCoverTypeID,
 					tg.InputMediaUploadedDocumentTypeID:
 					allocThreshold = 256
 				}
