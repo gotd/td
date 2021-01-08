@@ -44,6 +44,23 @@ type SecureCredentialsEncrypted struct {
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.
 const SecureCredentialsEncryptedTypeID = 0x33f0ea47
 
+func (s *SecureCredentialsEncrypted) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Data == nil) {
+		return false
+	}
+	if !(s.Hash == nil) {
+		return false
+	}
+	if !(s.Secret == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureCredentialsEncrypted) String() string {
 	if s == nil {

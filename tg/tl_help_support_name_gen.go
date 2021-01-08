@@ -28,6 +28,17 @@ type HelpSupportName struct {
 // HelpSupportNameTypeID is TL type id of HelpSupportName.
 const HelpSupportNameTypeID = 0x8c05f1c9
 
+func (s *HelpSupportName) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Name == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *HelpSupportName) String() string {
 	if s == nil {

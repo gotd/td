@@ -39,6 +39,29 @@ type MessagesDeleteHistoryRequest struct {
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.
 const MessagesDeleteHistoryRequestTypeID = 0x1c015b09
 
+func (d *MessagesDeleteHistoryRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.JustClear == false) {
+		return false
+	}
+	if !(d.Revoke == false) {
+		return false
+	}
+	if !(d.Peer == nil) {
+		return false
+	}
+	if !(d.MaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDeleteHistoryRequest) String() string {
 	if d == nil {
@@ -66,6 +89,12 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
 	}
 	b.PutID(MessagesDeleteHistoryRequestTypeID)
+	if !(d.JustClear == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.Revoke == false) {
+		d.Flags.Set(1)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.deleteHistory#1c015b09: field flags: %w", err)
 	}

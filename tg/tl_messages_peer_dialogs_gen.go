@@ -39,6 +39,29 @@ type MessagesPeerDialogs struct {
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.
 const MessagesPeerDialogsTypeID = 0x3371c354
 
+func (p *MessagesPeerDialogs) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Dialogs == nil) {
+		return false
+	}
+	if !(p.Messages == nil) {
+		return false
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+	if !(p.State.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *MessagesPeerDialogs) String() string {
 	if p == nil {

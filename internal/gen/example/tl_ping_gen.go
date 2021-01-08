@@ -27,6 +27,17 @@ type PingRequest struct {
 // PingRequestTypeID is TL type id of PingRequest.
 const PingRequestTypeID = 0xce73048f
 
+func (p *PingRequest) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PingRequest) String() string {
 	if p == nil {

@@ -33,6 +33,20 @@ type InputFolderPeer struct {
 // InputFolderPeerTypeID is TL type id of InputFolderPeer.
 const InputFolderPeerTypeID = 0xfbd2c296
 
+func (i *InputFolderPeer) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputFolderPeer) String() string {
 	if i == nil {

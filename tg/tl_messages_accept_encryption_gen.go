@@ -35,6 +35,23 @@ type MessagesAcceptEncryptionRequest struct {
 // MessagesAcceptEncryptionRequestTypeID is TL type id of MessagesAcceptEncryptionRequest.
 const MessagesAcceptEncryptionRequestTypeID = 0x3dbc0415
 
+func (a *MessagesAcceptEncryptionRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Peer.Zero()) {
+		return false
+	}
+	if !(a.GB == nil) {
+		return false
+	}
+	if !(a.KeyFingerprint == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *MessagesAcceptEncryptionRequest) String() string {
 	if a == nil {

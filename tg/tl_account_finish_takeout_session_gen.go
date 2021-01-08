@@ -33,6 +33,20 @@ type AccountFinishTakeoutSessionRequest struct {
 // AccountFinishTakeoutSessionRequestTypeID is TL type id of AccountFinishTakeoutSessionRequest.
 const AccountFinishTakeoutSessionRequestTypeID = 0x1d2652ee
 
+func (f *AccountFinishTakeoutSessionRequest) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Flags.Zero()) {
+		return false
+	}
+	if !(f.Success == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *AccountFinishTakeoutSessionRequest) String() string {
 	if f == nil {
@@ -54,6 +68,9 @@ func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.finishTakeoutSession#1d2652ee as nil")
 	}
 	b.PutID(AccountFinishTakeoutSessionRequestTypeID)
+	if !(f.Success == false) {
+		f.Flags.Set(0)
+	}
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.finishTakeoutSession#1d2652ee: field flags: %w", err)
 	}

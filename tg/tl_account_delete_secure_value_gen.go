@@ -32,6 +32,17 @@ type AccountDeleteSecureValueRequest struct {
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.
 const AccountDeleteSecureValueRequestTypeID = 0xb880bc4b
 
+func (d *AccountDeleteSecureValueRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Types == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *AccountDeleteSecureValueRequest) String() string {
 	if d == nil {

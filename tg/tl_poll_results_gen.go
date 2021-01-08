@@ -60,6 +60,35 @@ type PollResults struct {
 // PollResultsTypeID is TL type id of PollResults.
 const PollResultsTypeID = 0xbadcc1a3
 
+func (p *PollResults) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Min == false) {
+		return false
+	}
+	if !(p.Results == nil) {
+		return false
+	}
+	if !(p.TotalVoters == 0) {
+		return false
+	}
+	if !(p.RecentVoters == nil) {
+		return false
+	}
+	if !(p.Solution == "") {
+		return false
+	}
+	if !(p.SolutionEntities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PollResults) String() string {
 	if p == nil {
@@ -112,6 +141,24 @@ func (p *PollResults) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pollResults#badcc1a3 as nil")
 	}
 	b.PutID(PollResultsTypeID)
+	if !(p.Min == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Results == nil) {
+		p.Flags.Set(1)
+	}
+	if !(p.TotalVoters == 0) {
+		p.Flags.Set(2)
+	}
+	if !(p.RecentVoters == nil) {
+		p.Flags.Set(3)
+	}
+	if !(p.Solution == "") {
+		p.Flags.Set(4)
+	}
+	if !(p.SolutionEntities == nil) {
+		p.Flags.Set(4)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pollResults#badcc1a3: field flags: %w", err)
 	}

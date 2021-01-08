@@ -29,6 +29,14 @@ type HelpGetAppConfigRequest struct {
 // HelpGetAppConfigRequestTypeID is TL type id of HelpGetAppConfigRequest.
 const HelpGetAppConfigRequestTypeID = 0x98914110
 
+func (g *HelpGetAppConfigRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetAppConfigRequest) String() string {
 	if g == nil {

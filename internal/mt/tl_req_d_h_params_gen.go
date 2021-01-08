@@ -35,6 +35,32 @@ type ReqDHParamsRequest struct {
 // ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.
 const ReqDHParamsRequestTypeID = 0xd712e4be
 
+func (r *ReqDHParamsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(r.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(r.P == nil) {
+		return false
+	}
+	if !(r.Q == nil) {
+		return false
+	}
+	if !(r.PublicKeyFingerprint == 0) {
+		return false
+	}
+	if !(r.EncryptedData == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ReqDHParamsRequest) String() string {
 	if r == nil {

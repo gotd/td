@@ -40,6 +40,26 @@ type ChannelsEditAdminRequest struct {
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.
 const ChannelsEditAdminRequestTypeID = 0xd33c8902
 
+func (e *ChannelsEditAdminRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.AdminRights.Zero()) {
+		return false
+	}
+	if !(e.Rank == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditAdminRequest) String() string {
 	if e == nil {

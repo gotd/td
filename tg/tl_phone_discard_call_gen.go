@@ -41,6 +41,32 @@ type PhoneDiscardCallRequest struct {
 // PhoneDiscardCallRequestTypeID is TL type id of PhoneDiscardCallRequest.
 const PhoneDiscardCallRequestTypeID = 0xb2cbc1c0
 
+func (d *PhoneDiscardCallRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Video == false) {
+		return false
+	}
+	if !(d.Peer.Zero()) {
+		return false
+	}
+	if !(d.Duration == 0) {
+		return false
+	}
+	if !(d.Reason == nil) {
+		return false
+	}
+	if !(d.ConnectionID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *PhoneDiscardCallRequest) String() string {
 	if d == nil {
@@ -74,6 +100,9 @@ func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
 	}
 	b.PutID(PhoneDiscardCallRequestTypeID)
+	if !(d.Video == false) {
+		d.Flags.Set(0)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.discardCall#b2cbc1c0: field flags: %w", err)
 	}

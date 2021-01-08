@@ -32,6 +32,17 @@ type InvokeWithoutUpdatesRequest struct {
 // InvokeWithoutUpdatesRequestTypeID is TL type id of InvokeWithoutUpdatesRequest.
 const InvokeWithoutUpdatesRequestTypeID = 0xbf9459b7
 
+func (i *InvokeWithoutUpdatesRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InvokeWithoutUpdatesRequest) String() string {
 	if i == nil {

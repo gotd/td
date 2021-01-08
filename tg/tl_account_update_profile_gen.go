@@ -43,6 +43,26 @@ type AccountUpdateProfileRequest struct {
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.
 const AccountUpdateProfileRequestTypeID = 0x78515775
 
+func (u *AccountUpdateProfileRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.FirstName == "") {
+		return false
+	}
+	if !(u.LastName == "") {
+		return false
+	}
+	if !(u.About == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdateProfileRequest) String() string {
 	if u == nil {
@@ -79,6 +99,15 @@ func (u *AccountUpdateProfileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateProfile#78515775 as nil")
 	}
 	b.PutID(AccountUpdateProfileRequestTypeID)
+	if !(u.FirstName == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.LastName == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.About == "") {
+		u.Flags.Set(2)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.updateProfile#78515775: field flags: %w", err)
 	}

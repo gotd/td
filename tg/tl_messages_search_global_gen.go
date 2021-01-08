@@ -66,6 +66,44 @@ type MessagesSearchGlobalRequest struct {
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
 const MessagesSearchGlobalRequestTypeID = 0x4bc6589a
 
+func (s *MessagesSearchGlobalRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.FolderID == 0) {
+		return false
+	}
+	if !(s.Q == "") {
+		return false
+	}
+	if !(s.Filter == nil) {
+		return false
+	}
+	if !(s.MinDate == 0) {
+		return false
+	}
+	if !(s.MaxDate == 0) {
+		return false
+	}
+	if !(s.OffsetRate == 0) {
+		return false
+	}
+	if !(s.OffsetPeer == nil) {
+		return false
+	}
+	if !(s.OffsetID == 0) {
+		return false
+	}
+	if !(s.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSearchGlobalRequest) String() string {
 	if s == nil {
@@ -116,6 +154,9 @@ func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
 	}
 	b.PutID(MessagesSearchGlobalRequestTypeID)
+	if !(s.FolderID == 0) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.searchGlobal#4bc6589a: field flags: %w", err)
 	}

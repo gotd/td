@@ -26,6 +26,14 @@ type SecureValueTypePersonalDetails struct {
 // SecureValueTypePersonalDetailsTypeID is TL type id of SecureValueTypePersonalDetails.
 const SecureValueTypePersonalDetailsTypeID = 0x9d2a81e3
 
+func (s *SecureValueTypePersonalDetails) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypePersonalDetails) String() string {
 	if s == nil {
@@ -78,6 +86,14 @@ type SecureValueTypePassport struct {
 
 // SecureValueTypePassportTypeID is TL type id of SecureValueTypePassport.
 const SecureValueTypePassportTypeID = 0x3dac6a00
+
+func (s *SecureValueTypePassport) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypePassport) String() string {
@@ -132,6 +148,14 @@ type SecureValueTypeDriverLicense struct {
 // SecureValueTypeDriverLicenseTypeID is TL type id of SecureValueTypeDriverLicense.
 const SecureValueTypeDriverLicenseTypeID = 0x6e425c4
 
+func (s *SecureValueTypeDriverLicense) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypeDriverLicense) String() string {
 	if s == nil {
@@ -184,6 +208,14 @@ type SecureValueTypeIdentityCard struct {
 
 // SecureValueTypeIdentityCardTypeID is TL type id of SecureValueTypeIdentityCard.
 const SecureValueTypeIdentityCardTypeID = 0xa0d0744b
+
+func (s *SecureValueTypeIdentityCard) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypeIdentityCard) String() string {
@@ -241,6 +273,14 @@ type SecureValueTypeInternalPassport struct {
 // SecureValueTypeInternalPassportTypeID is TL type id of SecureValueTypeInternalPassport.
 const SecureValueTypeInternalPassportTypeID = 0x99a48f23
 
+func (s *SecureValueTypeInternalPassport) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypeInternalPassport) String() string {
 	if s == nil {
@@ -293,6 +333,14 @@ type SecureValueTypeAddress struct {
 
 // SecureValueTypeAddressTypeID is TL type id of SecureValueTypeAddress.
 const SecureValueTypeAddressTypeID = 0xcbe31e26
+
+func (s *SecureValueTypeAddress) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypeAddress) String() string {
@@ -347,6 +395,14 @@ type SecureValueTypeUtilityBill struct {
 // SecureValueTypeUtilityBillTypeID is TL type id of SecureValueTypeUtilityBill.
 const SecureValueTypeUtilityBillTypeID = 0xfc36954e
 
+func (s *SecureValueTypeUtilityBill) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypeUtilityBill) String() string {
 	if s == nil {
@@ -400,6 +456,14 @@ type SecureValueTypeBankStatement struct {
 // SecureValueTypeBankStatementTypeID is TL type id of SecureValueTypeBankStatement.
 const SecureValueTypeBankStatementTypeID = 0x89137c0d
 
+func (s *SecureValueTypeBankStatement) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypeBankStatement) String() string {
 	if s == nil {
@@ -452,6 +516,14 @@ type SecureValueTypeRentalAgreement struct {
 
 // SecureValueTypeRentalAgreementTypeID is TL type id of SecureValueTypeRentalAgreement.
 const SecureValueTypeRentalAgreementTypeID = 0x8b883488
+
+func (s *SecureValueTypeRentalAgreement) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypeRentalAgreement) String() string {
@@ -509,6 +581,14 @@ type SecureValueTypePassportRegistration struct {
 // SecureValueTypePassportRegistrationTypeID is TL type id of SecureValueTypePassportRegistration.
 const SecureValueTypePassportRegistrationTypeID = 0x99e3806a
 
+func (s *SecureValueTypePassportRegistration) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypePassportRegistration) String() string {
 	if s == nil {
@@ -561,6 +641,14 @@ type SecureValueTypeTemporaryRegistration struct {
 
 // SecureValueTypeTemporaryRegistrationTypeID is TL type id of SecureValueTypeTemporaryRegistration.
 const SecureValueTypeTemporaryRegistrationTypeID = 0xea02ec33
+
+func (s *SecureValueTypeTemporaryRegistration) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypeTemporaryRegistration) String() string {
@@ -615,6 +703,14 @@ type SecureValueTypePhone struct {
 // SecureValueTypePhoneTypeID is TL type id of SecureValueTypePhone.
 const SecureValueTypePhoneTypeID = 0xb320aadb
 
+func (s *SecureValueTypePhone) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureValueTypePhone) String() string {
 	if s == nil {
@@ -667,6 +763,14 @@ type SecureValueTypeEmail struct {
 
 // SecureValueTypeEmailTypeID is TL type id of SecureValueTypeEmail.
 const SecureValueTypeEmailTypeID = 0x8e3ca7ee
+
+func (s *SecureValueTypeEmail) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecureValueTypeEmail) String() string {
@@ -740,7 +844,9 @@ type SecureValueTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureValueTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecureValueType implements binary de-serialization for SecureValueTypeClass.

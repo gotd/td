@@ -14,6 +14,7 @@ func Funcs() template.FuncMap {
 		"lower":      strings.ToLower,
 		"trimPrefix": strings.TrimPrefix,
 		"hasPrefix":  strings.HasPrefix,
+		"hasSuffix":  strings.HasSuffix,
 		"add": func(x, y int) int {
 			return x + y
 		},

@@ -38,6 +38,23 @@ type ChannelsEditBannedRequest struct {
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
 const ChannelsEditBannedRequestTypeID = 0x72796912
 
+func (e *ChannelsEditBannedRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.BannedRights.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditBannedRequest) String() string {
 	if e == nil {

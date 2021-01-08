@@ -38,6 +38,23 @@ type MessagesGetRecentStickersRequest struct {
 // MessagesGetRecentStickersRequestTypeID is TL type id of MessagesGetRecentStickersRequest.
 const MessagesGetRecentStickersRequestTypeID = 0x5ea192c9
 
+func (g *MessagesGetRecentStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Attached == false) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetRecentStickersRequest) String() string {
 	if g == nil {
@@ -62,6 +79,9 @@ func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
 	}
 	b.PutID(MessagesGetRecentStickersRequestTypeID)
+	if !(g.Attached == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getRecentStickers#5ea192c9: field flags: %w", err)
 	}

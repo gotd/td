@@ -64,6 +64,62 @@ type Authorization struct {
 // AuthorizationTypeID is TL type id of Authorization.
 const AuthorizationTypeID = 0xad01d61d
 
+func (a *Authorization) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.Current == false) {
+		return false
+	}
+	if !(a.OfficialApp == false) {
+		return false
+	}
+	if !(a.PasswordPending == false) {
+		return false
+	}
+	if !(a.Hash == 0) {
+		return false
+	}
+	if !(a.DeviceModel == "") {
+		return false
+	}
+	if !(a.Platform == "") {
+		return false
+	}
+	if !(a.SystemVersion == "") {
+		return false
+	}
+	if !(a.APIID == 0) {
+		return false
+	}
+	if !(a.AppName == "") {
+		return false
+	}
+	if !(a.AppVersion == "") {
+		return false
+	}
+	if !(a.DateCreated == 0) {
+		return false
+	}
+	if !(a.DateActive == 0) {
+		return false
+	}
+	if !(a.IP == "") {
+		return false
+	}
+	if !(a.Country == "") {
+		return false
+	}
+	if !(a.Region == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *Authorization) String() string {
 	if a == nil {
@@ -121,6 +177,15 @@ func (a *Authorization) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
 	}
 	b.PutID(AuthorizationTypeID)
+	if !(a.Current == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.OfficialApp == false) {
+		a.Flags.Set(1)
+	}
+	if !(a.PasswordPending == false) {
+		a.Flags.Set(2)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode authorization#ad01d61d: field flags: %w", err)
 	}

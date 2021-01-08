@@ -58,6 +58,50 @@ type LangPackLanguage struct {
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
 const LangPackLanguageTypeID = 0xeeca5ce3
 
+func (l *LangPackLanguage) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Flags.Zero()) {
+		return false
+	}
+	if !(l.Official == false) {
+		return false
+	}
+	if !(l.Rtl == false) {
+		return false
+	}
+	if !(l.Beta == false) {
+		return false
+	}
+	if !(l.Name == "") {
+		return false
+	}
+	if !(l.NativeName == "") {
+		return false
+	}
+	if !(l.LangCode == "") {
+		return false
+	}
+	if !(l.BaseLangCode == "") {
+		return false
+	}
+	if !(l.PluralCode == "") {
+		return false
+	}
+	if !(l.StringsCount == 0) {
+		return false
+	}
+	if !(l.TranslatedCount == 0) {
+		return false
+	}
+	if !(l.TranslationsURL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LangPackLanguage) String() string {
 	if l == nil {
@@ -105,6 +149,18 @@ func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
 	}
 	b.PutID(LangPackLanguageTypeID)
+	if !(l.Official == false) {
+		l.Flags.Set(0)
+	}
+	if !(l.Rtl == false) {
+		l.Flags.Set(2)
+	}
+	if !(l.Beta == false) {
+		l.Flags.Set(3)
+	}
+	if !(l.BaseLangCode == "") {
+		l.Flags.Set(1)
+	}
 	if err := l.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode langPackLanguage#eeca5ce3: field flags: %w", err)
 	}

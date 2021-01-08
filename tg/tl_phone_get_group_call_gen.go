@@ -27,6 +27,17 @@ type PhoneGetGroupCallRequest struct {
 // PhoneGetGroupCallRequestTypeID is TL type id of PhoneGetGroupCallRequest.
 const PhoneGetGroupCallRequestTypeID = 0xc7cb017
 
+func (g *PhoneGetGroupCallRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhoneGetGroupCallRequest) String() string {
 	if g == nil {

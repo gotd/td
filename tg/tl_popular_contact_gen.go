@@ -30,6 +30,20 @@ type PopularContact struct {
 // PopularContactTypeID is TL type id of PopularContact.
 const PopularContactTypeID = 0x5ce14175
 
+func (p *PopularContact) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ClientID == 0) {
+		return false
+	}
+	if !(p.Importers == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PopularContact) String() string {
 	if p == nil {

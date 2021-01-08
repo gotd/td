@@ -30,6 +30,20 @@ type InvokeWithMessagesRangeRequest struct {
 // InvokeWithMessagesRangeRequestTypeID is TL type id of InvokeWithMessagesRangeRequest.
 const InvokeWithMessagesRangeRequestTypeID = 0x365275f2
 
+func (i *InvokeWithMessagesRangeRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Range.Zero()) {
+		return false
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InvokeWithMessagesRangeRequest) String() string {
 	if i == nil {

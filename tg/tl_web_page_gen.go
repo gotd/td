@@ -28,6 +28,17 @@ type WebPageEmpty struct {
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
 const WebPageEmptyTypeID = 0xeb1477e8
 
+func (w *WebPageEmpty) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebPageEmpty) String() string {
 	if w == nil {
@@ -95,6 +106,20 @@ type WebPagePending struct {
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
 const WebPagePendingTypeID = 0xc586da1c
+
+func (w *WebPagePending) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.ID == 0) {
+		return false
+	}
+	if !(w.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (w *WebPagePending) String() string {
@@ -246,6 +271,71 @@ type WebPage struct {
 // WebPageTypeID is TL type id of WebPage.
 const WebPageTypeID = 0xe89c45b2
 
+func (w *WebPage) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.ID == 0) {
+		return false
+	}
+	if !(w.URL == "") {
+		return false
+	}
+	if !(w.DisplayURL == "") {
+		return false
+	}
+	if !(w.Hash == 0) {
+		return false
+	}
+	if !(w.Type == "") {
+		return false
+	}
+	if !(w.SiteName == "") {
+		return false
+	}
+	if !(w.Title == "") {
+		return false
+	}
+	if !(w.Description == "") {
+		return false
+	}
+	if !(w.Photo == nil) {
+		return false
+	}
+	if !(w.EmbedURL == "") {
+		return false
+	}
+	if !(w.EmbedType == "") {
+		return false
+	}
+	if !(w.EmbedWidth == 0) {
+		return false
+	}
+	if !(w.EmbedHeight == 0) {
+		return false
+	}
+	if !(w.Duration == 0) {
+		return false
+	}
+	if !(w.Author == "") {
+		return false
+	}
+	if !(w.Document == nil) {
+		return false
+	}
+	if !(w.CachedPage.Zero()) {
+		return false
+	}
+	if !(w.Attributes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebPage) String() string {
 	if w == nil {
@@ -351,6 +441,48 @@ func (w *WebPage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
 	}
 	b.PutID(WebPageTypeID)
+	if !(w.Type == "") {
+		w.Flags.Set(0)
+	}
+	if !(w.SiteName == "") {
+		w.Flags.Set(1)
+	}
+	if !(w.Title == "") {
+		w.Flags.Set(2)
+	}
+	if !(w.Description == "") {
+		w.Flags.Set(3)
+	}
+	if !(w.Photo == nil) {
+		w.Flags.Set(4)
+	}
+	if !(w.EmbedURL == "") {
+		w.Flags.Set(5)
+	}
+	if !(w.EmbedType == "") {
+		w.Flags.Set(5)
+	}
+	if !(w.EmbedWidth == 0) {
+		w.Flags.Set(6)
+	}
+	if !(w.EmbedHeight == 0) {
+		w.Flags.Set(6)
+	}
+	if !(w.Duration == 0) {
+		w.Flags.Set(7)
+	}
+	if !(w.Author == "") {
+		w.Flags.Set(8)
+	}
+	if !(w.Document == nil) {
+		w.Flags.Set(9)
+	}
+	if !(w.CachedPage.Zero()) {
+		w.Flags.Set(10)
+	}
+	if !(w.Attributes == nil) {
+		w.Flags.Set(12)
+	}
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPage#e89c45b2: field flags: %w", err)
 	}
@@ -806,6 +938,20 @@ type WebPageNotModified struct {
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.
 const WebPageNotModifiedTypeID = 0x7311ca11
 
+func (w *WebPageNotModified) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.CachedPageViews == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebPageNotModified) String() string {
 	if w == nil {
@@ -832,6 +978,9 @@ func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
 	}
 	b.PutID(WebPageNotModifiedTypeID)
+	if !(w.CachedPageViews == 0) {
+		w.Flags.Set(0)
+	}
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPageNotModified#7311ca11: field flags: %w", err)
 	}
@@ -910,7 +1059,9 @@ type WebPageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WebPageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeWebPage implements binary de-serialization for WebPageClass.

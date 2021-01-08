@@ -47,6 +47,38 @@ type Game struct {
 // GameTypeID is TL type id of Game.
 const GameTypeID = 0xbdf9653b
 
+func (g *Game) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+	if !(g.AccessHash == 0) {
+		return false
+	}
+	if !(g.ShortName == "") {
+		return false
+	}
+	if !(g.Title == "") {
+		return false
+	}
+	if !(g.Description == "") {
+		return false
+	}
+	if !(g.Photo == nil) {
+		return false
+	}
+	if !(g.Document == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *Game) String() string {
 	if g == nil {
@@ -91,6 +123,9 @@ func (g *Game) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode game#bdf9653b as nil")
 	}
 	b.PutID(GameTypeID)
+	if !(g.Document == nil) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode game#bdf9653b: field flags: %w", err)
 	}

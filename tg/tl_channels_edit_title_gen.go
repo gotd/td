@@ -33,6 +33,20 @@ type ChannelsEditTitleRequest struct {
 // ChannelsEditTitleRequestTypeID is TL type id of ChannelsEditTitleRequest.
 const ChannelsEditTitleRequestTypeID = 0x566decd0
 
+func (e *ChannelsEditTitleRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditTitleRequest) String() string {
 	if e == nil {

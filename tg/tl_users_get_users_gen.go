@@ -28,6 +28,17 @@ type UsersGetUsersRequest struct {
 // UsersGetUsersRequestTypeID is TL type id of UsersGetUsersRequest.
 const UsersGetUsersRequestTypeID = 0xd91a548
 
+func (g *UsersGetUsersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UsersGetUsersRequest) String() string {
 	if g == nil {

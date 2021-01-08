@@ -33,6 +33,20 @@ type TopPeer struct {
 // TopPeerTypeID is TL type id of TopPeer.
 const TopPeerTypeID = 0xedcdc05b
 
+func (t *TopPeer) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Peer == nil) {
+		return false
+	}
+	if !(t.Rating == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeer) String() string {
 	if t == nil {

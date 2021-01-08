@@ -40,6 +40,26 @@ type MessagesStartBotRequest struct {
 // MessagesStartBotRequestTypeID is TL type id of MessagesStartBotRequest.
 const MessagesStartBotRequestTypeID = 0xe6df7378
 
+func (s *MessagesStartBotRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Bot == nil) {
+		return false
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.RandomID == 0) {
+		return false
+	}
+	if !(s.StartParam == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesStartBotRequest) String() string {
 	if s == nil {

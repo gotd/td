@@ -54,6 +54,35 @@ type MessagesEditInlineBotMessageRequest struct {
 // MessagesEditInlineBotMessageRequestTypeID is TL type id of MessagesEditInlineBotMessageRequest.
 const MessagesEditInlineBotMessageRequestTypeID = 0x83557dba
 
+func (e *MessagesEditInlineBotMessageRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.NoWebpage == false) {
+		return false
+	}
+	if !(e.ID.Zero()) {
+		return false
+	}
+	if !(e.Message == "") {
+		return false
+	}
+	if !(e.Media == nil) {
+		return false
+	}
+	if !(e.ReplyMarkup == nil) {
+		return false
+	}
+	if !(e.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditInlineBotMessageRequest) String() string {
 	if e == nil {
@@ -100,6 +129,21 @@ func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
 	}
 	b.PutID(MessagesEditInlineBotMessageRequestTypeID)
+	if !(e.NoWebpage == false) {
+		e.Flags.Set(1)
+	}
+	if !(e.Message == "") {
+		e.Flags.Set(11)
+	}
+	if !(e.Media == nil) {
+		e.Flags.Set(14)
+	}
+	if !(e.ReplyMarkup == nil) {
+		e.Flags.Set(2)
+	}
+	if !(e.Entities == nil) {
+		e.Flags.Set(3)
+	}
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.editInlineBotMessage#83557dba: field flags: %w", err)
 	}

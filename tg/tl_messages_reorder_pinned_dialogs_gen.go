@@ -40,6 +40,26 @@ type MessagesReorderPinnedDialogsRequest struct {
 // MessagesReorderPinnedDialogsRequestTypeID is TL type id of MessagesReorderPinnedDialogsRequest.
 const MessagesReorderPinnedDialogsRequestTypeID = 0x3b1adf37
 
+func (r *MessagesReorderPinnedDialogsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.Force == false) {
+		return false
+	}
+	if !(r.FolderID == 0) {
+		return false
+	}
+	if !(r.Order == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReorderPinnedDialogsRequest) String() string {
 	if r == nil {
@@ -69,6 +89,9 @@ func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
 	}
 	b.PutID(MessagesReorderPinnedDialogsRequestTypeID)
+	if !(r.Force == false) {
+		r.Flags.Set(0)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)
 	}

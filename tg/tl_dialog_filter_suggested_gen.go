@@ -39,6 +39,20 @@ type DialogFilterSuggested struct {
 // DialogFilterSuggestedTypeID is TL type id of DialogFilterSuggested.
 const DialogFilterSuggestedTypeID = 0x77744d4a
 
+func (d *DialogFilterSuggested) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Filter.Zero()) {
+		return false
+	}
+	if !(d.Description == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DialogFilterSuggested) String() string {
 	if d == nil {

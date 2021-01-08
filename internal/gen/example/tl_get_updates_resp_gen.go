@@ -27,6 +27,17 @@ type GetUpdatesResp struct {
 // GetUpdatesRespTypeID is TL type id of GetUpdatesResp.
 const GetUpdatesRespTypeID = 0x2b4b45c
 
+func (g *GetUpdatesResp) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Updates == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GetUpdatesResp) String() string {
 	if g == nil {

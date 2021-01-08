@@ -33,6 +33,20 @@ type UploadGetCdnFileHashesRequest struct {
 // UploadGetCdnFileHashesRequestTypeID is TL type id of UploadGetCdnFileHashesRequest.
 const UploadGetCdnFileHashesRequestTypeID = 0x4da54231
 
+func (g *UploadGetCdnFileHashesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.FileToken == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UploadGetCdnFileHashesRequest) String() string {
 	if g == nil {

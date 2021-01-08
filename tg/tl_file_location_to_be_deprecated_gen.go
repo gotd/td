@@ -30,6 +30,20 @@ type FileLocationToBeDeprecated struct {
 // FileLocationToBeDeprecatedTypeID is TL type id of FileLocationToBeDeprecated.
 const FileLocationToBeDeprecatedTypeID = 0xbc7fc6cd
 
+func (f *FileLocationToBeDeprecated) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.VolumeID == 0) {
+		return false
+	}
+	if !(f.LocalID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *FileLocationToBeDeprecated) String() string {
 	if f == nil {

@@ -28,6 +28,17 @@ type InputMessageID struct {
 // InputMessageIDTypeID is TL type id of InputMessageID.
 const InputMessageIDTypeID = 0xa676a322
 
+func (i *InputMessageID) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessageID) String() string {
 	if i == nil {
@@ -94,6 +105,17 @@ type InputMessageReplyTo struct {
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
 const InputMessageReplyToTypeID = 0xbad88395
 
+func (i *InputMessageReplyTo) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessageReplyTo) String() string {
 	if i == nil {
@@ -158,6 +180,14 @@ type InputMessagePinned struct {
 // InputMessagePinnedTypeID is TL type id of InputMessagePinned.
 const InputMessagePinnedTypeID = 0x86872538
 
+func (i *InputMessagePinned) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagePinned) String() string {
 	if i == nil {
@@ -214,6 +244,20 @@ type InputMessageCallbackQuery struct {
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.
 const InputMessageCallbackQueryTypeID = 0xacfa1a7e
+
+func (i *InputMessageCallbackQuery) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.QueryID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessageCallbackQuery) String() string {
@@ -300,7 +344,9 @@ type InputMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputMessage implements binary de-serialization for InputMessageClass.

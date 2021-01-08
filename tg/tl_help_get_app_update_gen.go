@@ -28,6 +28,17 @@ type HelpGetAppUpdateRequest struct {
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.
 const HelpGetAppUpdateRequestTypeID = 0x522d5a7d
 
+func (g *HelpGetAppUpdateRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Source == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetAppUpdateRequest) String() string {
 	if g == nil {

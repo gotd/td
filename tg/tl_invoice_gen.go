@@ -54,6 +54,47 @@ type Invoice struct {
 // InvoiceTypeID is TL type id of Invoice.
 const InvoiceTypeID = 0xc30aa358
 
+func (i *Invoice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Test == false) {
+		return false
+	}
+	if !(i.NameRequested == false) {
+		return false
+	}
+	if !(i.PhoneRequested == false) {
+		return false
+	}
+	if !(i.EmailRequested == false) {
+		return false
+	}
+	if !(i.ShippingAddressRequested == false) {
+		return false
+	}
+	if !(i.Flexible == false) {
+		return false
+	}
+	if !(i.PhoneToProvider == false) {
+		return false
+	}
+	if !(i.EmailToProvider == false) {
+		return false
+	}
+	if !(i.Currency == "") {
+		return false
+	}
+	if !(i.Prices == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *Invoice) String() string {
 	if i == nil {
@@ -83,6 +124,30 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invoice#c30aa358 as nil")
 	}
 	b.PutID(InvoiceTypeID)
+	if !(i.Test == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.NameRequested == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.PhoneRequested == false) {
+		i.Flags.Set(2)
+	}
+	if !(i.EmailRequested == false) {
+		i.Flags.Set(3)
+	}
+	if !(i.ShippingAddressRequested == false) {
+		i.Flags.Set(4)
+	}
+	if !(i.Flexible == false) {
+		i.Flags.Set(5)
+	}
+	if !(i.PhoneToProvider == false) {
+		i.Flags.Set(6)
+	}
+	if !(i.EmailToProvider == false) {
+		i.Flags.Set(7)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invoice#c30aa358: field flags: %w", err)
 	}

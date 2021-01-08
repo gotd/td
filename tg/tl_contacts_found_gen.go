@@ -34,6 +34,26 @@ type ContactsFound struct {
 // ContactsFoundTypeID is TL type id of ContactsFound.
 const ContactsFoundTypeID = 0xb3134d9d
 
+func (f *ContactsFound) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.MyResults == nil) {
+		return false
+	}
+	if !(f.Results == nil) {
+		return false
+	}
+	if !(f.Chats == nil) {
+		return false
+	}
+	if !(f.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *ContactsFound) String() string {
 	if f == nil {

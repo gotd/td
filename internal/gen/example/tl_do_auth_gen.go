@@ -25,6 +25,14 @@ type DoAuthRequest struct {
 // DoAuthRequestTypeID is TL type id of DoAuthRequest.
 const DoAuthRequestTypeID = 0xfd2f6687
 
+func (d *DoAuthRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DoAuthRequest) String() string {
 	if d == nil {

@@ -27,6 +27,17 @@ type Theme struct {
 // ThemeTypeID is TL type id of Theme.
 const ThemeTypeID = 0x28f1114
 
+func (t *Theme) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Name == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *Theme) String() string {
 	if t == nil {

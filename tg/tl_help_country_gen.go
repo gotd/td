@@ -43,6 +43,32 @@ type HelpCountry struct {
 // HelpCountryTypeID is TL type id of HelpCountry.
 const HelpCountryTypeID = 0xc3878e23
 
+func (c *HelpCountry) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Hidden == false) {
+		return false
+	}
+	if !(c.Iso2 == "") {
+		return false
+	}
+	if !(c.DefaultName == "") {
+		return false
+	}
+	if !(c.Name == "") {
+		return false
+	}
+	if !(c.CountryCodes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *HelpCountry) String() string {
 	if c == nil {
@@ -80,6 +106,12 @@ func (c *HelpCountry) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
 	}
 	b.PutID(HelpCountryTypeID)
+	if !(c.Hidden == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Name == "") {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.country#c3878e23: field flags: %w", err)
 	}

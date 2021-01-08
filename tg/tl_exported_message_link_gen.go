@@ -30,6 +30,20 @@ type ExportedMessageLink struct {
 // ExportedMessageLinkTypeID is TL type id of ExportedMessageLink.
 const ExportedMessageLinkTypeID = 0x5dab1af4
 
+func (e *ExportedMessageLink) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Link == "") {
+		return false
+	}
+	if !(e.HTML == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ExportedMessageLink) String() string {
 	if e == nil {

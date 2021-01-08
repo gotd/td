@@ -27,6 +27,17 @@ type TestVectorIntObject struct {
 // TestVectorIntObjectTypeID is TL type id of TestVectorIntObject.
 const TestVectorIntObjectTypeID = 0xf152999b
 
+func (t *TestVectorIntObject) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Value == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TestVectorIntObject) String() string {
 	if t == nil {

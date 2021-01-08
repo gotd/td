@@ -32,6 +32,23 @@ type HighScore struct {
 // HighScoreTypeID is TL type id of HighScore.
 const HighScoreTypeID = 0x58fffcd0
 
+func (h *HighScore) Zero() bool {
+	if h == nil {
+		return true
+	}
+	if !(h.Pos == 0) {
+		return false
+	}
+	if !(h.UserID == 0) {
+		return false
+	}
+	if !(h.Score == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (h *HighScore) String() string {
 	if h == nil {

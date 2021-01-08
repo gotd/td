@@ -32,6 +32,23 @@ type SecureSecretSettings struct {
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.
 const SecureSecretSettingsTypeID = 0x1527bcac
 
+func (s *SecureSecretSettings) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.SecureAlgo == nil) {
+		return false
+	}
+	if !(s.SecureSecret == nil) {
+		return false
+	}
+	if !(s.SecureSecretID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureSecretSettings) String() string {
 	if s == nil {

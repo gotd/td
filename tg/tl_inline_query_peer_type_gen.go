@@ -25,6 +25,14 @@ type InlineQueryPeerTypeSameBotPM struct {
 // InlineQueryPeerTypeSameBotPMTypeID is TL type id of InlineQueryPeerTypeSameBotPM.
 const InlineQueryPeerTypeSameBotPMTypeID = 0x3081ed9d
 
+func (i *InlineQueryPeerTypeSameBotPM) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InlineQueryPeerTypeSameBotPM) String() string {
 	if i == nil {
@@ -76,6 +84,14 @@ type InlineQueryPeerTypePM struct {
 
 // InlineQueryPeerTypePMTypeID is TL type id of InlineQueryPeerTypePM.
 const InlineQueryPeerTypePMTypeID = 0x833c0fac
+
+func (i *InlineQueryPeerTypePM) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InlineQueryPeerTypePM) String() string {
@@ -129,6 +145,14 @@ type InlineQueryPeerTypeChat struct {
 // InlineQueryPeerTypeChatTypeID is TL type id of InlineQueryPeerTypeChat.
 const InlineQueryPeerTypeChatTypeID = 0xd766c50a
 
+func (i *InlineQueryPeerTypeChat) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InlineQueryPeerTypeChat) String() string {
 	if i == nil {
@@ -181,6 +205,14 @@ type InlineQueryPeerTypeMegagroup struct {
 // InlineQueryPeerTypeMegagroupTypeID is TL type id of InlineQueryPeerTypeMegagroup.
 const InlineQueryPeerTypeMegagroupTypeID = 0x5ec4be43
 
+func (i *InlineQueryPeerTypeMegagroup) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InlineQueryPeerTypeMegagroup) String() string {
 	if i == nil {
@@ -232,6 +264,14 @@ type InlineQueryPeerTypeBroadcast struct {
 
 // InlineQueryPeerTypeBroadcastTypeID is TL type id of InlineQueryPeerTypeBroadcast.
 const InlineQueryPeerTypeBroadcastTypeID = 0x6334ee9a
+
+func (i *InlineQueryPeerTypeBroadcast) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InlineQueryPeerTypeBroadcast) String() string {
@@ -297,7 +337,9 @@ type InlineQueryPeerTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InlineQueryPeerTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInlineQueryPeerType implements binary de-serialization for InlineQueryPeerTypeClass.

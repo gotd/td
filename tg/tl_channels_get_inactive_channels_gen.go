@@ -26,6 +26,14 @@ type ChannelsGetInactiveChannelsRequest struct {
 // ChannelsGetInactiveChannelsRequestTypeID is TL type id of ChannelsGetInactiveChannelsRequest.
 const ChannelsGetInactiveChannelsRequestTypeID = 0x11e831ee
 
+func (g *ChannelsGetInactiveChannelsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetInactiveChannelsRequest) String() string {
 	if g == nil {

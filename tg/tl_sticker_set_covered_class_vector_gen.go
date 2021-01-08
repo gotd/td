@@ -22,6 +22,17 @@ type StickerSetCoveredClassVector struct {
 	Elems []StickerSetCoveredClass
 }
 
+func (vec *StickerSetCoveredClassVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *StickerSetCoveredClassVector) String() string {
 	if vec == nil {

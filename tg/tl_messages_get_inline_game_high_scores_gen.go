@@ -30,6 +30,20 @@ type MessagesGetInlineGameHighScoresRequest struct {
 // MessagesGetInlineGameHighScoresRequestTypeID is TL type id of MessagesGetInlineGameHighScoresRequest.
 const MessagesGetInlineGameHighScoresRequestTypeID = 0xf635e1b
 
+func (g *MessagesGetInlineGameHighScoresRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.ID.Zero()) {
+		return false
+	}
+	if !(g.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetInlineGameHighScoresRequest) String() string {
 	if g == nil {

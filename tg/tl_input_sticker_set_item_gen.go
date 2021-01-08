@@ -39,6 +39,26 @@ type InputStickerSetItem struct {
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
 const InputStickerSetItemTypeID = 0xffa0a496
 
+func (i *InputStickerSetItem) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Document == nil) {
+		return false
+	}
+	if !(i.Emoji == "") {
+		return false
+	}
+	if !(i.MaskCoords.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputStickerSetItem) String() string {
 	if i == nil {
@@ -71,6 +91,9 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
 	}
 	b.PutID(InputStickerSetItemTypeID)
+	if !(i.MaskCoords.Zero()) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputStickerSetItem#ffa0a496: field flags: %w", err)
 	}

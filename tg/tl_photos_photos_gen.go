@@ -30,6 +30,20 @@ type PhotosPhotos struct {
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
 const PhotosPhotosTypeID = 0x8dca6aa5
 
+func (p *PhotosPhotos) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Photos == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotosPhotos) String() string {
 	if p == nil {
@@ -142,6 +156,23 @@ type PhotosPhotosSlice struct {
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
 const PhotosPhotosSliceTypeID = 0x15051f54
+
+func (p *PhotosPhotosSlice) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Count == 0) {
+		return false
+	}
+	if !(p.Photos == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PhotosPhotosSlice) String() string {
@@ -269,7 +300,9 @@ type PhotosPhotosClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotosPhotosClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhotosPhotos implements binary de-serialization for PhotosPhotosClass.

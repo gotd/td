@@ -26,6 +26,14 @@ type JsonNull struct {
 // JsonNullTypeID is TL type id of JsonNull.
 const JsonNullTypeID = 0x3f6d7b68
 
+func (j *JsonNull) Zero() bool {
+	if j == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *JsonNull) String() string {
 	if j == nil {
@@ -80,6 +88,17 @@ type JsonBool struct {
 
 // JsonBoolTypeID is TL type id of JsonBool.
 const JsonBoolTypeID = 0xc7345e6a
+
+func (j *JsonBool) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Value == false) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (j *JsonBool) String() string {
@@ -147,6 +166,17 @@ type JsonNumber struct {
 // JsonNumberTypeID is TL type id of JsonNumber.
 const JsonNumberTypeID = 0x2be0dfa4
 
+func (j *JsonNumber) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Value == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *JsonNumber) String() string {
 	if j == nil {
@@ -213,6 +243,17 @@ type JsonString struct {
 // JsonStringTypeID is TL type id of JsonString.
 const JsonStringTypeID = 0xb71e767a
 
+func (j *JsonString) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Value == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *JsonString) String() string {
 	if j == nil {
@@ -278,6 +319,17 @@ type JsonArray struct {
 
 // JsonArrayTypeID is TL type id of JsonArray.
 const JsonArrayTypeID = 0xf7444763
+
+func (j *JsonArray) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Value == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (j *JsonArray) String() string {
@@ -360,6 +412,17 @@ type JsonObject struct {
 
 // JsonObjectTypeID is TL type id of JsonObject.
 const JsonObjectTypeID = 0x99c1d49d
+
+func (j *JsonObject) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Value == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (j *JsonObject) String() string {
@@ -450,7 +513,9 @@ type JSONValueClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() JSONValueClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeJSONValue implements binary de-serialization for JSONValueClass.

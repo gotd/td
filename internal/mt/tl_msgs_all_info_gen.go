@@ -27,6 +27,20 @@ type MsgsAllInfo struct {
 // MsgsAllInfoTypeID is TL type id of MsgsAllInfo.
 const MsgsAllInfoTypeID = 0x8cc0d131
 
+func (m *MsgsAllInfo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgIds == nil) {
+		return false
+	}
+	if !(m.Info == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgsAllInfo) String() string {
 	if m == nil {

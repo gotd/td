@@ -33,6 +33,20 @@ type StatsDateRangeDays struct {
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.
 const StatsDateRangeDaysTypeID = 0xb637edaf
 
+func (s *StatsDateRangeDays) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.MinDate == 0) {
+		return false
+	}
+	if !(s.MaxDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsDateRangeDays) String() string {
 	if s == nil {

@@ -29,6 +29,23 @@ type ServerDHParamsFail struct {
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
 const ServerDHParamsFailTypeID = 0x79cb045d
 
+func (s *ServerDHParamsFail) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.NewNonceHash == bin.Int128{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *ServerDHParamsFail) String() string {
 	if s == nil {
@@ -117,6 +134,23 @@ type ServerDHParamsOk struct {
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.
 const ServerDHParamsOkTypeID = 0xd0e8075c
+
+func (s *ServerDHParamsOk) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.EncryptedAnswer == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *ServerDHParamsOk) String() string {
@@ -210,7 +244,9 @@ type ServerDHParamsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ServerDHParamsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeServerDHParams implements binary de-serialization for ServerDHParamsClass.

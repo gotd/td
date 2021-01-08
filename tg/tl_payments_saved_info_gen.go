@@ -37,6 +37,23 @@ type PaymentsSavedInfo struct {
 // PaymentsSavedInfoTypeID is TL type id of PaymentsSavedInfo.
 const PaymentsSavedInfoTypeID = 0xfb8fe43c
 
+func (s *PaymentsSavedInfo) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.HasSavedCredentials == false) {
+		return false
+	}
+	if !(s.SavedInfo.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *PaymentsSavedInfo) String() string {
 	if s == nil {
@@ -63,6 +80,12 @@ func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.savedInfo#fb8fe43c as nil")
 	}
 	b.PutID(PaymentsSavedInfoTypeID)
+	if !(s.HasSavedCredentials == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.SavedInfo.Zero()) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.savedInfo#fb8fe43c: field flags: %w", err)
 	}

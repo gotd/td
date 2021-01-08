@@ -32,6 +32,23 @@ type AccountGetAuthorizationFormRequest struct {
 // AccountGetAuthorizationFormRequestTypeID is TL type id of AccountGetAuthorizationFormRequest.
 const AccountGetAuthorizationFormRequestTypeID = 0xb86ba8e1
 
+func (g *AccountGetAuthorizationFormRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.BotID == 0) {
+		return false
+	}
+	if !(g.Scope == "") {
+		return false
+	}
+	if !(g.PublicKey == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetAuthorizationFormRequest) String() string {
 	if g == nil {

@@ -44,6 +44,32 @@ type UpdatesGetChannelDifferenceRequest struct {
 // UpdatesGetChannelDifferenceRequestTypeID is TL type id of UpdatesGetChannelDifferenceRequest.
 const UpdatesGetChannelDifferenceRequestTypeID = 0x3173d78
 
+func (g *UpdatesGetChannelDifferenceRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Force == false) {
+		return false
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.Filter == nil) {
+		return false
+	}
+	if !(g.Pts == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UpdatesGetChannelDifferenceRequest) String() string {
 	if g == nil {
@@ -77,6 +103,9 @@ func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
 	}
 	b.PutID(UpdatesGetChannelDifferenceRequestTypeID)
+	if !(g.Force == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.getChannelDifference#3173d78: field flags: %w", err)
 	}

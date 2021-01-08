@@ -48,6 +48,35 @@ type VideoSize struct {
 // VideoSizeTypeID is TL type id of VideoSize.
 const VideoSizeTypeID = 0xe831c556
 
+func (v *VideoSize) Zero() bool {
+	if v == nil {
+		return true
+	}
+	if !(v.Flags.Zero()) {
+		return false
+	}
+	if !(v.Type == "") {
+		return false
+	}
+	if !(v.Location.Zero()) {
+		return false
+	}
+	if !(v.W == 0) {
+		return false
+	}
+	if !(v.H == 0) {
+		return false
+	}
+	if !(v.Size == 0) {
+		return false
+	}
+	if !(v.VideoStartTs == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (v *VideoSize) String() string {
 	if v == nil {
@@ -89,6 +118,9 @@ func (v *VideoSize) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode videoSize#e831c556 as nil")
 	}
 	b.PutID(VideoSizeTypeID)
+	if !(v.VideoStartTs == 0) {
+		v.Flags.Set(0)
+	}
 	if err := v.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode videoSize#e831c556: field flags: %w", err)
 	}

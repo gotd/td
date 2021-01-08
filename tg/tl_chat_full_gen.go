@@ -74,6 +74,53 @@ type ChatFull struct {
 // ChatFullTypeID is TL type id of ChatFull.
 const ChatFullTypeID = 0xdc8c181
 
+func (c *ChatFull) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.CanSetUsername == false) {
+		return false
+	}
+	if !(c.HasScheduled == false) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.About == "") {
+		return false
+	}
+	if !(c.Participants == nil) {
+		return false
+	}
+	if !(c.ChatPhoto == nil) {
+		return false
+	}
+	if !(c.NotifySettings.Zero()) {
+		return false
+	}
+	if !(c.ExportedInvite == nil) {
+		return false
+	}
+	if !(c.BotInfo == nil) {
+		return false
+	}
+	if !(c.PinnedMsgID == 0) {
+		return false
+	}
+	if !(c.FolderID == 0) {
+		return false
+	}
+	if !(c.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatFull) String() string {
 	if c == nil {
@@ -137,6 +184,27 @@ func (c *ChatFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatFull#dc8c181 as nil")
 	}
 	b.PutID(ChatFullTypeID)
+	if !(c.CanSetUsername == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.HasScheduled == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.ChatPhoto == nil) {
+		c.Flags.Set(2)
+	}
+	if !(c.BotInfo == nil) {
+		c.Flags.Set(3)
+	}
+	if !(c.PinnedMsgID == 0) {
+		c.Flags.Set(6)
+	}
+	if !(c.FolderID == 0) {
+		c.Flags.Set(11)
+	}
+	if !(c.Call.Zero()) {
+		c.Flags.Set(12)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatFull#dc8c181: field flags: %w", err)
 	}
@@ -540,6 +608,122 @@ type ChannelFull struct {
 // ChannelFullTypeID is TL type id of ChannelFull.
 const ChannelFullTypeID = 0xef3a6acd
 
+func (c *ChannelFull) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.CanViewParticipants == false) {
+		return false
+	}
+	if !(c.CanSetUsername == false) {
+		return false
+	}
+	if !(c.CanSetStickers == false) {
+		return false
+	}
+	if !(c.HiddenPrehistory == false) {
+		return false
+	}
+	if !(c.CanSetLocation == false) {
+		return false
+	}
+	if !(c.HasScheduled == false) {
+		return false
+	}
+	if !(c.CanViewStats == false) {
+		return false
+	}
+	if !(c.Blocked == false) {
+		return false
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.About == "") {
+		return false
+	}
+	if !(c.ParticipantsCount == 0) {
+		return false
+	}
+	if !(c.AdminsCount == 0) {
+		return false
+	}
+	if !(c.KickedCount == 0) {
+		return false
+	}
+	if !(c.BannedCount == 0) {
+		return false
+	}
+	if !(c.OnlineCount == 0) {
+		return false
+	}
+	if !(c.ReadInboxMaxID == 0) {
+		return false
+	}
+	if !(c.ReadOutboxMaxID == 0) {
+		return false
+	}
+	if !(c.UnreadCount == 0) {
+		return false
+	}
+	if !(c.ChatPhoto == nil) {
+		return false
+	}
+	if !(c.NotifySettings.Zero()) {
+		return false
+	}
+	if !(c.ExportedInvite == nil) {
+		return false
+	}
+	if !(c.BotInfo == nil) {
+		return false
+	}
+	if !(c.MigratedFromChatID == 0) {
+		return false
+	}
+	if !(c.MigratedFromMaxID == 0) {
+		return false
+	}
+	if !(c.PinnedMsgID == 0) {
+		return false
+	}
+	if !(c.Stickerset.Zero()) {
+		return false
+	}
+	if !(c.AvailableMinID == 0) {
+		return false
+	}
+	if !(c.FolderID == 0) {
+		return false
+	}
+	if !(c.LinkedChatID == 0) {
+		return false
+	}
+	if !(c.Location == nil) {
+		return false
+	}
+	if !(c.SlowmodeSeconds == 0) {
+		return false
+	}
+	if !(c.SlowmodeNextSendDate == 0) {
+		return false
+	}
+	if !(c.StatsDC == 0) {
+		return false
+	}
+	if !(c.Pts == 0) {
+		return false
+	}
+	if !(c.Call.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelFull) String() string {
 	if c == nil {
@@ -678,6 +862,81 @@ func (c *ChannelFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelFull#ef3a6acd as nil")
 	}
 	b.PutID(ChannelFullTypeID)
+	if !(c.CanViewParticipants == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.CanSetUsername == false) {
+		c.Flags.Set(6)
+	}
+	if !(c.CanSetStickers == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.HiddenPrehistory == false) {
+		c.Flags.Set(10)
+	}
+	if !(c.CanSetLocation == false) {
+		c.Flags.Set(16)
+	}
+	if !(c.HasScheduled == false) {
+		c.Flags.Set(19)
+	}
+	if !(c.CanViewStats == false) {
+		c.Flags.Set(20)
+	}
+	if !(c.Blocked == false) {
+		c.Flags.Set(22)
+	}
+	if !(c.ParticipantsCount == 0) {
+		c.Flags.Set(0)
+	}
+	if !(c.AdminsCount == 0) {
+		c.Flags.Set(1)
+	}
+	if !(c.KickedCount == 0) {
+		c.Flags.Set(2)
+	}
+	if !(c.BannedCount == 0) {
+		c.Flags.Set(2)
+	}
+	if !(c.OnlineCount == 0) {
+		c.Flags.Set(13)
+	}
+	if !(c.MigratedFromChatID == 0) {
+		c.Flags.Set(4)
+	}
+	if !(c.MigratedFromMaxID == 0) {
+		c.Flags.Set(4)
+	}
+	if !(c.PinnedMsgID == 0) {
+		c.Flags.Set(5)
+	}
+	if !(c.Stickerset.Zero()) {
+		c.Flags.Set(8)
+	}
+	if !(c.AvailableMinID == 0) {
+		c.Flags.Set(9)
+	}
+	if !(c.FolderID == 0) {
+		c.Flags.Set(11)
+	}
+	if !(c.LinkedChatID == 0) {
+		c.Flags.Set(14)
+	}
+	if !(c.Location == nil) {
+		c.Flags.Set(15)
+	}
+	if !(c.SlowmodeSeconds == 0) {
+		c.Flags.Set(17)
+	}
+	if !(c.SlowmodeNextSendDate == 0) {
+		c.Flags.Set(18)
+	}
+	if !(c.StatsDC == 0) {
+		c.Flags.Set(12)
+	}
+	if !(c.Call.Zero()) {
+		c.Flags.Set(21)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelFull#ef3a6acd: field flags: %w", err)
 	}
@@ -1356,7 +1615,9 @@ type ChatFullClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatFullClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChatFull implements binary de-serialization for ChatFullClass.

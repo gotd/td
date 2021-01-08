@@ -34,6 +34,26 @@ type AuthSignUpRequest struct {
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.
 const AuthSignUpRequestTypeID = 0x80eee427
 
+func (s *AuthSignUpRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.PhoneNumber == "") {
+		return false
+	}
+	if !(s.PhoneCodeHash == "") {
+		return false
+	}
+	if !(s.FirstName == "") {
+		return false
+	}
+	if !(s.LastName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AuthSignUpRequest) String() string {
 	if s == nil {

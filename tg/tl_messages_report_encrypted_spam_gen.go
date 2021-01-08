@@ -28,6 +28,17 @@ type MessagesReportEncryptedSpamRequest struct {
 // MessagesReportEncryptedSpamRequestTypeID is TL type id of MessagesReportEncryptedSpamRequest.
 const MessagesReportEncryptedSpamRequestTypeID = 0x4b0c8c0f
 
+func (r *MessagesReportEncryptedSpamRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReportEncryptedSpamRequest) String() string {
 	if r == nil {

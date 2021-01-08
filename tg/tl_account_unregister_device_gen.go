@@ -35,6 +35,23 @@ type AccountUnregisterDeviceRequest struct {
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
 const AccountUnregisterDeviceRequestTypeID = 0x3076c4bf
 
+func (u *AccountUnregisterDeviceRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.TokenType == 0) {
+		return false
+	}
+	if !(u.Token == "") {
+		return false
+	}
+	if !(u.OtherUids == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUnregisterDeviceRequest) String() string {
 	if u == nil {

@@ -22,6 +22,17 @@ type DialogFilterVector struct {
 	Elems []DialogFilter
 }
 
+func (vec *DialogFilterVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *DialogFilterVector) String() string {
 	if vec == nil {

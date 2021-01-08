@@ -34,6 +34,17 @@ type HelpGetPassportConfigRequest struct {
 // HelpGetPassportConfigRequestTypeID is TL type id of HelpGetPassportConfigRequest.
 const HelpGetPassportConfigRequestTypeID = 0xc661ad08
 
+func (g *HelpGetPassportConfigRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetPassportConfigRequest) String() string {
 	if g == nil {

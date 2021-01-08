@@ -7,6 +7,11 @@ import "strconv"
 // that fields "1", "5" and "10" were set.
 type Fields uint32
 
+// Zero returns true, if all bits are equal to zero.
+func (f Fields) Zero() bool {
+	return f == 0
+}
+
 // String implement fmt.Stringer
 func (f Fields) String() string {
 	return strconv.FormatUint(uint64(f), 2)

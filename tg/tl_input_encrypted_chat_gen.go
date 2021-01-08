@@ -35,6 +35,20 @@ type InputEncryptedChat struct {
 // InputEncryptedChatTypeID is TL type id of InputEncryptedChat.
 const InputEncryptedChatTypeID = 0xf141b5e1
 
+func (i *InputEncryptedChat) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ChatID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputEncryptedChat) String() string {
 	if i == nil {

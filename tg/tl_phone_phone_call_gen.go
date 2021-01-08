@@ -30,6 +30,20 @@ type PhonePhoneCall struct {
 // PhonePhoneCallTypeID is TL type id of PhonePhoneCall.
 const PhonePhoneCallTypeID = 0xec82e140
 
+func (p *PhonePhoneCall) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.PhoneCall == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhonePhoneCall) String() string {
 	if p == nil {

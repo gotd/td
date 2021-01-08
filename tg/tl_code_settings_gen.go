@@ -48,6 +48,26 @@ type CodeSettings struct {
 // CodeSettingsTypeID is TL type id of CodeSettings.
 const CodeSettingsTypeID = 0xdebebe83
 
+func (c *CodeSettings) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.AllowFlashcall == false) {
+		return false
+	}
+	if !(c.CurrentNumber == false) {
+		return false
+	}
+	if !(c.AllowAppHash == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *CodeSettings) String() string {
 	if c == nil {
@@ -69,6 +89,15 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
 	}
 	b.PutID(CodeSettingsTypeID)
+	if !(c.AllowFlashcall == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.CurrentNumber == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.AllowAppHash == false) {
+		c.Flags.Set(4)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode codeSettings#debebe83: field flags: %w", err)
 	}

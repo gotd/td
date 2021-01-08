@@ -54,6 +54,32 @@ type StatsGetMessagePublicForwardsRequest struct {
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
 const StatsGetMessagePublicForwardsRequestTypeID = 0x5630281b
 
+func (g *StatsGetMessagePublicForwardsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+	if !(g.OffsetRate == 0) {
+		return false
+	}
+	if !(g.OffsetPeer == nil) {
+		return false
+	}
+	if !(g.OffsetID == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *StatsGetMessagePublicForwardsRequest) String() string {
 	if g == nil {

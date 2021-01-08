@@ -26,6 +26,14 @@ type MessagesStickersNotModified struct {
 // MessagesStickersNotModifiedTypeID is TL type id of MessagesStickersNotModified.
 const MessagesStickersNotModifiedTypeID = 0xf1749a22
 
+func (s *MessagesStickersNotModified) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesStickersNotModified) String() string {
 	if s == nil {
@@ -85,6 +93,20 @@ type MessagesStickers struct {
 
 // MessagesStickersTypeID is TL type id of MessagesStickers.
 const MessagesStickersTypeID = 0xe4599bbd
+
+func (s *MessagesStickers) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Hash == 0) {
+		return false
+	}
+	if !(s.Stickers == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *MessagesStickers) String() string {
@@ -185,7 +207,9 @@ type MessagesStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesStickersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesStickers implements binary de-serialization for MessagesStickersClass.

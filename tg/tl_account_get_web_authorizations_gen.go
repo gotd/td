@@ -29,6 +29,14 @@ type AccountGetWebAuthorizationsRequest struct {
 // AccountGetWebAuthorizationsRequestTypeID is TL type id of AccountGetWebAuthorizationsRequest.
 const AccountGetWebAuthorizationsRequestTypeID = 0x182e6d6f
 
+func (g *AccountGetWebAuthorizationsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetWebAuthorizationsRequest) String() string {
 	if g == nil {

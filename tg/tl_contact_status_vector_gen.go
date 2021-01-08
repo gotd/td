@@ -22,6 +22,17 @@ type ContactStatusVector struct {
 	Elems []ContactStatus
 }
 
+func (vec *ContactStatusVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *ContactStatusVector) String() string {
 	if vec == nil {

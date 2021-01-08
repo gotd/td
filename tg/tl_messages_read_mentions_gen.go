@@ -28,6 +28,17 @@ type MessagesReadMentionsRequest struct {
 // MessagesReadMentionsRequestTypeID is TL type id of MessagesReadMentionsRequest.
 const MessagesReadMentionsRequestTypeID = 0xf0189d3
 
+func (r *MessagesReadMentionsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReadMentionsRequest) String() string {
 	if r == nil {

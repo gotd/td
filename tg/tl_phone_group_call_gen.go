@@ -33,6 +33,26 @@ type PhoneGroupCall struct {
 // PhoneGroupCallTypeID is TL type id of PhoneGroupCall.
 const PhoneGroupCallTypeID = 0x66ab0bfc
 
+func (g *PhoneGroupCall) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Call == nil) {
+		return false
+	}
+	if !(g.Participants == nil) {
+		return false
+	}
+	if !(g.ParticipantsNextOffset == "") {
+		return false
+	}
+	if !(g.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhoneGroupCall) String() string {
 	if g == nil {

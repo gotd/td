@@ -26,6 +26,14 @@ type PhoneCallDiscardReasonMissed struct {
 // PhoneCallDiscardReasonMissedTypeID is TL type id of PhoneCallDiscardReasonMissed.
 const PhoneCallDiscardReasonMissedTypeID = 0x85e42301
 
+func (p *PhoneCallDiscardReasonMissed) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallDiscardReasonMissed) String() string {
 	if p == nil {
@@ -78,6 +86,14 @@ type PhoneCallDiscardReasonDisconnect struct {
 
 // PhoneCallDiscardReasonDisconnectTypeID is TL type id of PhoneCallDiscardReasonDisconnect.
 const PhoneCallDiscardReasonDisconnectTypeID = 0xe095c1a0
+
+func (p *PhoneCallDiscardReasonDisconnect) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PhoneCallDiscardReasonDisconnect) String() string {
@@ -132,6 +148,14 @@ type PhoneCallDiscardReasonHangup struct {
 // PhoneCallDiscardReasonHangupTypeID is TL type id of PhoneCallDiscardReasonHangup.
 const PhoneCallDiscardReasonHangupTypeID = 0x57adc690
 
+func (p *PhoneCallDiscardReasonHangup) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallDiscardReasonHangup) String() string {
 	if p == nil {
@@ -184,6 +208,14 @@ type PhoneCallDiscardReasonBusy struct {
 
 // PhoneCallDiscardReasonBusyTypeID is TL type id of PhoneCallDiscardReasonBusy.
 const PhoneCallDiscardReasonBusyTypeID = 0xfaf7e8c9
+
+func (p *PhoneCallDiscardReasonBusy) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PhoneCallDiscardReasonBusy) String() string {
@@ -248,7 +280,9 @@ type PhoneCallDiscardReasonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhoneCallDiscardReasonClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhoneCallDiscardReason implements binary de-serialization for PhoneCallDiscardReasonClass.

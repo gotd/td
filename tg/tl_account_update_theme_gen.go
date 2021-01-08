@@ -51,6 +51,35 @@ type AccountUpdateThemeRequest struct {
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.
 const AccountUpdateThemeRequestTypeID = 0x5cb367d5
 
+func (u *AccountUpdateThemeRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Format == "") {
+		return false
+	}
+	if !(u.Theme == nil) {
+		return false
+	}
+	if !(u.Slug == "") {
+		return false
+	}
+	if !(u.Title == "") {
+		return false
+	}
+	if !(u.Document == nil) {
+		return false
+	}
+	if !(u.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdateThemeRequest) String() string {
 	if u == nil {
@@ -98,6 +127,18 @@ func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
 	}
 	b.PutID(AccountUpdateThemeRequestTypeID)
+	if !(u.Slug == "") {
+		u.Flags.Set(0)
+	}
+	if !(u.Title == "") {
+		u.Flags.Set(1)
+	}
+	if !(u.Document == nil) {
+		u.Flags.Set(2)
+	}
+	if !(u.Settings.Zero()) {
+		u.Flags.Set(3)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.updateTheme#5cb367d5: field flags: %w", err)
 	}

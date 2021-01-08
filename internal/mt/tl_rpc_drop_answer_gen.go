@@ -23,6 +23,14 @@ type RPCAnswerUnknown struct {
 // RPCAnswerUnknownTypeID is TL type id of RPCAnswerUnknown.
 const RPCAnswerUnknownTypeID = 0x5e2ad36e
 
+func (r *RPCAnswerUnknown) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RPCAnswerUnknown) String() string {
 	if r == nil {
@@ -72,6 +80,14 @@ type RPCAnswerDroppedRunning struct {
 
 // RPCAnswerDroppedRunningTypeID is TL type id of RPCAnswerDroppedRunning.
 const RPCAnswerDroppedRunningTypeID = 0xcd78e586
+
+func (r *RPCAnswerDroppedRunning) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *RPCAnswerDroppedRunning) String() string {
@@ -128,6 +144,23 @@ type RPCAnswerDropped struct {
 
 // RPCAnswerDroppedTypeID is TL type id of RPCAnswerDropped.
 const RPCAnswerDroppedTypeID = 0xa43ad8b7
+
+func (r *RPCAnswerDropped) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.MsgID == 0) {
+		return false
+	}
+	if !(r.SeqNo == 0) {
+		return false
+	}
+	if !(r.Bytes == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *RPCAnswerDropped) String() string {
@@ -222,7 +255,9 @@ type RpcDropAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() RpcDropAnswerClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeRpcDropAnswer implements binary de-serialization for RpcDropAnswerClass.

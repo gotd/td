@@ -30,6 +30,20 @@ type StatsAbsValueAndPrev struct {
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.
 const StatsAbsValueAndPrevTypeID = 0xcb43acde
 
+func (s *StatsAbsValueAndPrev) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Current == 0) {
+		return false
+	}
+	if !(s.Previous == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsAbsValueAndPrev) String() string {
 	if s == nil {

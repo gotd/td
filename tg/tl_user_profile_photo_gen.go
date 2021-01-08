@@ -26,6 +26,14 @@ type UserProfilePhotoEmpty struct {
 // UserProfilePhotoEmptyTypeID is TL type id of UserProfilePhotoEmpty.
 const UserProfilePhotoEmptyTypeID = 0x4f11bae1
 
+func (u *UserProfilePhotoEmpty) Zero() bool {
+	if u == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserProfilePhotoEmpty) String() string {
 	if u == nil {
@@ -100,6 +108,32 @@ type UserProfilePhoto struct {
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
 const UserProfilePhotoTypeID = 0x69d3ab26
 
+func (u *UserProfilePhoto) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.HasVideo == false) {
+		return false
+	}
+	if !(u.PhotoID == 0) {
+		return false
+	}
+	if !(u.PhotoSmall.Zero()) {
+		return false
+	}
+	if !(u.PhotoBig.Zero()) {
+		return false
+	}
+	if !(u.DCID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *UserProfilePhoto) String() string {
 	if u == nil {
@@ -133,6 +167,9 @@ func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userProfilePhoto#69d3ab26 as nil")
 	}
 	b.PutID(UserProfilePhotoTypeID)
+	if !(u.HasVideo == false) {
+		u.Flags.Set(0)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode userProfilePhoto#69d3ab26: field flags: %w", err)
 	}
@@ -228,7 +265,9 @@ type UserProfilePhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UserProfilePhotoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUserProfilePhoto implements binary de-serialization for UserProfilePhotoClass.

@@ -25,6 +25,17 @@ type DestroySessionOk struct {
 // DestroySessionOkTypeID is TL type id of DestroySessionOk.
 const DestroySessionOkTypeID = 0xe22045fc
 
+func (d *DestroySessionOk) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.SessionID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *DestroySessionOk) String() string {
 	if d == nil {
@@ -87,6 +98,17 @@ type DestroySessionNone struct {
 
 // DestroySessionNoneTypeID is TL type id of DestroySessionNone.
 const DestroySessionNoneTypeID = 0x62d350c9
+
+func (d *DestroySessionNone) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.SessionID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *DestroySessionNone) String() string {
@@ -158,7 +180,9 @@ type DestroySessionResClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() DestroySessionResClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeDestroySessionRes implements binary de-serialization for DestroySessionResClass.

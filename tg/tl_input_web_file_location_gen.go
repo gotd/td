@@ -30,6 +30,20 @@ type InputWebFileLocation struct {
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
 const InputWebFileLocationTypeID = 0xc239d686
 
+func (i *InputWebFileLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputWebFileLocation) String() string {
 	if i == nil {
@@ -116,6 +130,32 @@ type InputWebFileGeoPointLocation struct {
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
 const InputWebFileGeoPointLocationTypeID = 0x9f2221c9
+
+func (i *InputWebFileGeoPointLocation) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.GeoPoint == nil) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.W == 0) {
+		return false
+	}
+	if !(i.H == 0) {
+		return false
+	}
+	if !(i.Zoom == 0) {
+		return false
+	}
+	if !(i.Scale == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputWebFileGeoPointLocation) String() string {
@@ -249,7 +289,9 @@ type InputWebFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputWebFileLocationClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputWebFileLocation implements binary de-serialization for InputWebFileLocationClass.

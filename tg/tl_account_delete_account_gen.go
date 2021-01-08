@@ -31,6 +31,17 @@ type AccountDeleteAccountRequest struct {
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
 const AccountDeleteAccountRequestTypeID = 0x418d4e0b
 
+func (d *AccountDeleteAccountRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Reason == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *AccountDeleteAccountRequest) String() string {
 	if d == nil {

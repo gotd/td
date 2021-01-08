@@ -34,6 +34,14 @@ type ChannelsGetGroupsForDiscussionRequest struct {
 // ChannelsGetGroupsForDiscussionRequestTypeID is TL type id of ChannelsGetGroupsForDiscussionRequest.
 const ChannelsGetGroupsForDiscussionRequestTypeID = 0xf5dad378
 
+func (g *ChannelsGetGroupsForDiscussionRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetGroupsForDiscussionRequest) String() string {
 	if g == nil {

@@ -30,6 +30,20 @@ type ChannelsInviteToChannelRequest struct {
 // ChannelsInviteToChannelRequestTypeID is TL type id of ChannelsInviteToChannelRequest.
 const ChannelsInviteToChannelRequestTypeID = 0x199f3a6c
 
+func (i *ChannelsInviteToChannelRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Channel == nil) {
+		return false
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *ChannelsInviteToChannelRequest) String() string {
 	if i == nil {

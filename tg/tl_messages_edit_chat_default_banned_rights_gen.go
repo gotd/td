@@ -33,6 +33,20 @@ type MessagesEditChatDefaultBannedRightsRequest struct {
 // MessagesEditChatDefaultBannedRightsRequestTypeID is TL type id of MessagesEditChatDefaultBannedRightsRequest.
 const MessagesEditChatDefaultBannedRightsRequestTypeID = 0xa5866b41
 
+func (e *MessagesEditChatDefaultBannedRightsRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Peer == nil) {
+		return false
+	}
+	if !(e.BannedRights.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditChatDefaultBannedRightsRequest) String() string {
 	if e == nil {

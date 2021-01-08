@@ -28,6 +28,17 @@ type BotsSetBotCommandsRequest struct {
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
 const BotsSetBotCommandsRequestTypeID = 0x805d46f6
 
+func (s *BotsSetBotCommandsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Commands == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *BotsSetBotCommandsRequest) String() string {
 	if s == nil {

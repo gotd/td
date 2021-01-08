@@ -28,6 +28,17 @@ type InputStickeredMediaPhoto struct {
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
 const InputStickeredMediaPhotoTypeID = 0x4a992157
 
+func (i *InputStickeredMediaPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputStickeredMediaPhoto) String() string {
 	if i == nil {
@@ -98,6 +109,17 @@ type InputStickeredMediaDocument struct {
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.
 const InputStickeredMediaDocumentTypeID = 0x438865b
+
+func (i *InputStickeredMediaDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputStickeredMediaDocument) String() string {
@@ -176,7 +198,9 @@ type InputStickeredMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputStickeredMediaClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputStickeredMedia implements binary de-serialization for InputStickeredMediaClass.

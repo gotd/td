@@ -26,6 +26,14 @@ type MessagesFoundStickerSetsNotModified struct {
 // MessagesFoundStickerSetsNotModifiedTypeID is TL type id of MessagesFoundStickerSetsNotModified.
 const MessagesFoundStickerSetsNotModifiedTypeID = 0xd54b65d
 
+func (f *MessagesFoundStickerSetsNotModified) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *MessagesFoundStickerSetsNotModified) String() string {
 	if f == nil {
@@ -85,6 +93,20 @@ type MessagesFoundStickerSets struct {
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.
 const MessagesFoundStickerSetsTypeID = 0x5108d648
+
+func (f *MessagesFoundStickerSets) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Hash == 0) {
+		return false
+	}
+	if !(f.Sets == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *MessagesFoundStickerSets) String() string {
@@ -185,7 +207,9 @@ type MessagesFoundStickerSetsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFoundStickerSetsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesFoundStickerSets implements binary de-serialization for MessagesFoundStickerSetsClass.

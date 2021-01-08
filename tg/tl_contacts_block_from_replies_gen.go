@@ -45,6 +45,29 @@ type ContactsBlockFromRepliesRequest struct {
 // ContactsBlockFromRepliesRequestTypeID is TL type id of ContactsBlockFromRepliesRequest.
 const ContactsBlockFromRepliesRequestTypeID = 0x29a8962c
 
+func (b *ContactsBlockFromRepliesRequest) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.DeleteMessage == false) {
+		return false
+	}
+	if !(b.DeleteHistory == false) {
+		return false
+	}
+	if !(b.ReportSpam == false) {
+		return false
+	}
+	if !(b.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *ContactsBlockFromRepliesRequest) String() string {
 	if b == nil {
@@ -69,6 +92,15 @@ func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
 	}
 	buf.PutID(ContactsBlockFromRepliesRequestTypeID)
+	if !(b.DeleteMessage == false) {
+		b.Flags.Set(0)
+	}
+	if !(b.DeleteHistory == false) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReportSpam == false) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode contacts.blockFromReplies#29a8962c: field flags: %w", err)
 	}

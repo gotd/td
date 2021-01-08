@@ -26,6 +26,14 @@ type HelpGetNearestDcRequest struct {
 // HelpGetNearestDcRequestTypeID is TL type id of HelpGetNearestDcRequest.
 const HelpGetNearestDcRequestTypeID = 0x1fb33026
 
+func (g *HelpGetNearestDcRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetNearestDcRequest) String() string {
 	if g == nil {

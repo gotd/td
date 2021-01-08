@@ -26,6 +26,14 @@ type ChatPhotoEmpty struct {
 // ChatPhotoEmptyTypeID is TL type id of ChatPhotoEmpty.
 const ChatPhotoEmptyTypeID = 0x37c1011c
 
+func (c *ChatPhotoEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatPhotoEmpty) String() string {
 	if c == nil {
@@ -92,6 +100,29 @@ type ChatPhoto struct {
 // ChatPhotoTypeID is TL type id of ChatPhoto.
 const ChatPhotoTypeID = 0xd20b9f3c
 
+func (c *ChatPhoto) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.HasVideo == false) {
+		return false
+	}
+	if !(c.PhotoSmall.Zero()) {
+		return false
+	}
+	if !(c.PhotoBig.Zero()) {
+		return false
+	}
+	if !(c.DCID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatPhoto) String() string {
 	if c == nil {
@@ -122,6 +153,9 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatPhoto#d20b9f3c as nil")
 	}
 	b.PutID(ChatPhotoTypeID)
+	if !(c.HasVideo == false) {
+		c.Flags.Set(0)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatPhoto#d20b9f3c: field flags: %w", err)
 	}
@@ -209,7 +243,9 @@ type ChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatPhotoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChatPhoto implements binary de-serialization for ChatPhotoClass.

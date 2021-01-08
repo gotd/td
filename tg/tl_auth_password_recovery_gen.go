@@ -35,6 +35,17 @@ type AuthPasswordRecovery struct {
 // AuthPasswordRecoveryTypeID is TL type id of AuthPasswordRecovery.
 const AuthPasswordRecoveryTypeID = 0x137948a5
 
+func (p *AuthPasswordRecovery) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.EmailPattern == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *AuthPasswordRecovery) String() string {
 	if p == nil {

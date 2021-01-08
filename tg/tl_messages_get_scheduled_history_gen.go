@@ -33,6 +33,20 @@ type MessagesGetScheduledHistoryRequest struct {
 // MessagesGetScheduledHistoryRequestTypeID is TL type id of MessagesGetScheduledHistoryRequest.
 const MessagesGetScheduledHistoryRequestTypeID = 0xe2c2685b
 
+func (g *MessagesGetScheduledHistoryRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetScheduledHistoryRequest) String() string {
 	if g == nil {

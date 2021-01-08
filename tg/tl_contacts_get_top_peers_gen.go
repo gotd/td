@@ -62,6 +62,50 @@ type ContactsGetTopPeersRequest struct {
 // ContactsGetTopPeersRequestTypeID is TL type id of ContactsGetTopPeersRequest.
 const ContactsGetTopPeersRequestTypeID = 0xd4982db5
 
+func (g *ContactsGetTopPeersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Correspondents == false) {
+		return false
+	}
+	if !(g.BotsPm == false) {
+		return false
+	}
+	if !(g.BotsInline == false) {
+		return false
+	}
+	if !(g.PhoneCalls == false) {
+		return false
+	}
+	if !(g.ForwardUsers == false) {
+		return false
+	}
+	if !(g.ForwardChats == false) {
+		return false
+	}
+	if !(g.Groups == false) {
+		return false
+	}
+	if !(g.Channels == false) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ContactsGetTopPeersRequest) String() string {
 	if g == nil {
@@ -92,6 +136,30 @@ func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getTopPeers#d4982db5 as nil")
 	}
 	b.PutID(ContactsGetTopPeersRequestTypeID)
+	if !(g.Correspondents == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.BotsPm == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.BotsInline == false) {
+		g.Flags.Set(2)
+	}
+	if !(g.PhoneCalls == false) {
+		g.Flags.Set(3)
+	}
+	if !(g.ForwardUsers == false) {
+		g.Flags.Set(4)
+	}
+	if !(g.ForwardChats == false) {
+		g.Flags.Set(5)
+	}
+	if !(g.Groups == false) {
+		g.Flags.Set(10)
+	}
+	if !(g.Channels == false) {
+		g.Flags.Set(15)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.getTopPeers#d4982db5: field flags: %w", err)
 	}

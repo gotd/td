@@ -30,6 +30,20 @@ type MessagesInstallStickerSetRequest struct {
 // MessagesInstallStickerSetRequestTypeID is TL type id of MessagesInstallStickerSetRequest.
 const MessagesInstallStickerSetRequestTypeID = 0xc78fe460
 
+func (i *MessagesInstallStickerSetRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Stickerset == nil) {
+		return false
+	}
+	if !(i.Archived == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *MessagesInstallStickerSetRequest) String() string {
 	if i == nil {

@@ -30,6 +30,20 @@ type BotsSendCustomRequestRequest struct {
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.
 const BotsSendCustomRequestRequestTypeID = 0xaa2769ed
 
+func (s *BotsSendCustomRequestRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.CustomMethod == "") {
+		return false
+	}
+	if !(s.Params.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *BotsSendCustomRequestRequest) String() string {
 	if s == nil {

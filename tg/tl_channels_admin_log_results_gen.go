@@ -32,6 +32,23 @@ type ChannelsAdminLogResults struct {
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
 const ChannelsAdminLogResultsTypeID = 0xed8af74d
 
+func (a *ChannelsAdminLogResults) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Events == nil) {
+		return false
+	}
+	if !(a.Chats == nil) {
+		return false
+	}
+	if !(a.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *ChannelsAdminLogResults) String() string {
 	if a == nil {

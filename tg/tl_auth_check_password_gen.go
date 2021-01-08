@@ -34,6 +34,17 @@ type AuthCheckPasswordRequest struct {
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.
 const AuthCheckPasswordRequestTypeID = 0xd18b4d16
 
+func (c *AuthCheckPasswordRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Password == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AuthCheckPasswordRequest) String() string {
 	if c == nil {

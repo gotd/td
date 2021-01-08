@@ -31,6 +31,17 @@ type MessagesGetAllStickersRequest struct {
 // MessagesGetAllStickersRequestTypeID is TL type id of MessagesGetAllStickersRequest.
 const MessagesGetAllStickersRequestTypeID = 0x1c9618b1
 
+func (g *MessagesGetAllStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetAllStickersRequest) String() string {
 	if g == nil {

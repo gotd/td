@@ -40,6 +40,26 @@ type PhoneConfirmCallRequest struct {
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.
 const PhoneConfirmCallRequestTypeID = 0x2efe1722
 
+func (c *PhoneConfirmCallRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Peer.Zero()) {
+		return false
+	}
+	if !(c.GA == nil) {
+		return false
+	}
+	if !(c.KeyFingerprint == 0) {
+		return false
+	}
+	if !(c.Protocol.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *PhoneConfirmCallRequest) String() string {
 	if c == nil {

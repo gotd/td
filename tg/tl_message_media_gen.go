@@ -26,6 +26,14 @@ type MessageMediaEmpty struct {
 // MessageMediaEmptyTypeID is TL type id of MessageMediaEmpty.
 const MessageMediaEmptyTypeID = 0x3ded6320
 
+func (m *MessageMediaEmpty) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaEmpty) String() string {
 	if m == nil {
@@ -92,6 +100,23 @@ type MessageMediaPhoto struct {
 // MessageMediaPhotoTypeID is TL type id of MessageMediaPhoto.
 const MessageMediaPhotoTypeID = 0x695150d7
 
+func (m *MessageMediaPhoto) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Photo == nil) {
+		return false
+	}
+	if !(m.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaPhoto) String() string {
 	if m == nil {
@@ -123,6 +148,12 @@ func (m *MessageMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaPhoto#695150d7 as nil")
 	}
 	b.PutID(MessageMediaPhotoTypeID)
+	if !(m.Photo == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.TTLSeconds == 0) {
+		m.Flags.Set(2)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaPhoto#695150d7: field flags: %w", err)
 	}
@@ -223,6 +254,17 @@ type MessageMediaGeo struct {
 // MessageMediaGeoTypeID is TL type id of MessageMediaGeo.
 const MessageMediaGeoTypeID = 0x56e0d474
 
+func (m *MessageMediaGeo) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Geo == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaGeo) String() string {
 	if m == nil {
@@ -301,6 +343,29 @@ type MessageMediaContact struct {
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
 const MessageMediaContactTypeID = 0xcbf24940
+
+func (m *MessageMediaContact) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.PhoneNumber == "") {
+		return false
+	}
+	if !(m.FirstName == "") {
+		return false
+	}
+	if !(m.LastName == "") {
+		return false
+	}
+	if !(m.Vcard == "") {
+		return false
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageMediaContact) String() string {
@@ -410,6 +475,14 @@ type MessageMediaUnsupported struct {
 // MessageMediaUnsupportedTypeID is TL type id of MessageMediaUnsupported.
 const MessageMediaUnsupportedTypeID = 0x9f84f49e
 
+func (m *MessageMediaUnsupported) Zero() bool {
+	if m == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaUnsupported) String() string {
 	if m == nil {
@@ -476,6 +549,23 @@ type MessageMediaDocument struct {
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
 const MessageMediaDocumentTypeID = 0x9cb070d7
 
+func (m *MessageMediaDocument) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Document == nil) {
+		return false
+	}
+	if !(m.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaDocument) String() string {
 	if m == nil {
@@ -507,6 +597,12 @@ func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
 	}
 	b.PutID(MessageMediaDocumentTypeID)
+	if !(m.Document == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.TTLSeconds == 0) {
+		m.Flags.Set(2)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaDocument#9cb070d7: field flags: %w", err)
 	}
@@ -607,6 +703,17 @@ type MessageMediaWebPage struct {
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
 const MessageMediaWebPageTypeID = 0xa32dd600
 
+func (m *MessageMediaWebPage) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Webpage == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaWebPage) String() string {
 	if m == nil {
@@ -687,6 +794,32 @@ type MessageMediaVenue struct {
 
 // MessageMediaVenueTypeID is TL type id of MessageMediaVenue.
 const MessageMediaVenueTypeID = 0x2ec0533f
+
+func (m *MessageMediaVenue) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Geo == nil) {
+		return false
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.Address == "") {
+		return false
+	}
+	if !(m.Provider == "") {
+		return false
+	}
+	if !(m.VenueID == "") {
+		return false
+	}
+	if !(m.VenueType == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageMediaVenue) String() string {
@@ -814,6 +947,17 @@ type MessageMediaGame struct {
 // MessageMediaGameTypeID is TL type id of MessageMediaGame.
 const MessageMediaGameTypeID = 0xfdb19008
 
+func (m *MessageMediaGame) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Game.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaGame) String() string {
 	if m == nil {
@@ -915,6 +1059,44 @@ type MessageMediaInvoice struct {
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
 const MessageMediaInvoiceTypeID = 0x84551347
 
+func (m *MessageMediaInvoice) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.ShippingAddressRequested == false) {
+		return false
+	}
+	if !(m.Test == false) {
+		return false
+	}
+	if !(m.Title == "") {
+		return false
+	}
+	if !(m.Description == "") {
+		return false
+	}
+	if !(m.Photo == nil) {
+		return false
+	}
+	if !(m.ReceiptMsgID == 0) {
+		return false
+	}
+	if !(m.Currency == "") {
+		return false
+	}
+	if !(m.TotalAmount == 0) {
+		return false
+	}
+	if !(m.StartParam == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaInvoice) String() string {
 	if m == nil {
@@ -961,6 +1143,18 @@ func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
 	}
 	b.PutID(MessageMediaInvoiceTypeID)
+	if !(m.ShippingAddressRequested == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.Test == false) {
+		m.Flags.Set(3)
+	}
+	if !(m.Photo == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.ReceiptMsgID == 0) {
+		m.Flags.Set(2)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaInvoice#84551347: field flags: %w", err)
 	}
@@ -1149,6 +1343,29 @@ type MessageMediaGeoLive struct {
 // MessageMediaGeoLiveTypeID is TL type id of MessageMediaGeoLive.
 const MessageMediaGeoLiveTypeID = 0xb940c666
 
+func (m *MessageMediaGeoLive) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Geo == nil) {
+		return false
+	}
+	if !(m.Heading == 0) {
+		return false
+	}
+	if !(m.Period == 0) {
+		return false
+	}
+	if !(m.ProximityNotificationRadius == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaGeoLive) String() string {
 	if m == nil {
@@ -1186,6 +1403,12 @@ func (m *MessageMediaGeoLive) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaGeoLive#b940c666 as nil")
 	}
 	b.PutID(MessageMediaGeoLiveTypeID)
+	if !(m.Heading == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.ProximityNotificationRadius == 0) {
+		m.Flags.Set(1)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaGeoLive#b940c666: field flags: %w", err)
 	}
@@ -1304,6 +1527,20 @@ type MessageMediaPoll struct {
 // MessageMediaPollTypeID is TL type id of MessageMediaPoll.
 const MessageMediaPollTypeID = 0x4bd6e798
 
+func (m *MessageMediaPoll) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Poll.Zero()) {
+		return false
+	}
+	if !(m.Results.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageMediaPoll) String() string {
 	if m == nil {
@@ -1388,6 +1625,20 @@ type MessageMediaDice struct {
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.
 const MessageMediaDiceTypeID = 0x3f7ee58b
+
+func (m *MessageMediaDice) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Value == 0) {
+		return false
+	}
+	if !(m.Emoticon == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageMediaDice) String() string {
@@ -1483,7 +1734,9 @@ type MessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageMediaClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessageMedia implements binary de-serialization for MessageMediaClass.

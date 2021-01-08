@@ -30,6 +30,20 @@ type InputTheme struct {
 // InputThemeTypeID is TL type id of InputTheme.
 const InputThemeTypeID = 0x3c5693e9
 
+func (i *InputTheme) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputTheme) String() string {
 	if i == nil {
@@ -107,6 +121,17 @@ type InputThemeSlug struct {
 // InputThemeSlugTypeID is TL type id of InputThemeSlug.
 const InputThemeSlugTypeID = 0xf5890df1
 
+func (i *InputThemeSlug) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Slug == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputThemeSlug) String() string {
 	if i == nil {
@@ -179,7 +204,9 @@ type InputThemeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputThemeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputTheme implements binary de-serialization for InputThemeClass.

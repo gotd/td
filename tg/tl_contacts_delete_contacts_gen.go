@@ -28,6 +28,17 @@ type ContactsDeleteContactsRequest struct {
 // ContactsDeleteContactsRequestTypeID is TL type id of ContactsDeleteContactsRequest.
 const ContactsDeleteContactsRequestTypeID = 0x96a0e00
 
+func (d *ContactsDeleteContactsRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *ContactsDeleteContactsRequest) String() string {
 	if d == nil {

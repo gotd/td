@@ -32,6 +32,23 @@ type AccountUploadWallPaperRequest struct {
 // AccountUploadWallPaperRequestTypeID is TL type id of AccountUploadWallPaperRequest.
 const AccountUploadWallPaperRequestTypeID = 0xdd853661
 
+func (u *AccountUploadWallPaperRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.File == nil) {
+		return false
+	}
+	if !(u.MimeType == "") {
+		return false
+	}
+	if !(u.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUploadWallPaperRequest) String() string {
 	if u == nil {

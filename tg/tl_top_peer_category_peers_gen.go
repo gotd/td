@@ -32,6 +32,23 @@ type TopPeerCategoryPeers struct {
 // TopPeerCategoryPeersTypeID is TL type id of TopPeerCategoryPeers.
 const TopPeerCategoryPeersTypeID = 0xfb834291
 
+func (t *TopPeerCategoryPeers) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Category == nil) {
+		return false
+	}
+	if !(t.Count == 0) {
+		return false
+	}
+	if !(t.Peers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TopPeerCategoryPeers) String() string {
 	if t == nil {

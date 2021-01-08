@@ -33,6 +33,20 @@ type MessagesGetSearchCountersRequest struct {
 // MessagesGetSearchCountersRequestTypeID is TL type id of MessagesGetSearchCountersRequest.
 const MessagesGetSearchCountersRequestTypeID = 0x732eef00
 
+func (g *MessagesGetSearchCountersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.Filters == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetSearchCountersRequest) String() string {
 	if g == nil {

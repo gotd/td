@@ -28,6 +28,17 @@ type MessagesUninstallStickerSetRequest struct {
 // MessagesUninstallStickerSetRequestTypeID is TL type id of MessagesUninstallStickerSetRequest.
 const MessagesUninstallStickerSetRequestTypeID = 0xf96e55de
 
+func (u *MessagesUninstallStickerSetRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Stickerset == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUninstallStickerSetRequest) String() string {
 	if u == nil {

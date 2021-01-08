@@ -30,6 +30,20 @@ type AuthImportAuthorizationRequest struct {
 // AuthImportAuthorizationRequestTypeID is TL type id of AuthImportAuthorizationRequest.
 const AuthImportAuthorizationRequestTypeID = 0xe3ef9613
 
+func (i *AuthImportAuthorizationRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AuthImportAuthorizationRequest) String() string {
 	if i == nil {

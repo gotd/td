@@ -28,6 +28,17 @@ type PhotosUpdateProfilePhotoRequest struct {
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
 const PhotosUpdateProfilePhotoRequestTypeID = 0x72d4742c
 
+func (u *PhotosUpdateProfilePhotoRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *PhotosUpdateProfilePhotoRequest) String() string {
 	if u == nil {

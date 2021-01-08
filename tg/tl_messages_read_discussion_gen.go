@@ -35,6 +35,23 @@ type MessagesReadDiscussionRequest struct {
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.
 const MessagesReadDiscussionRequestTypeID = 0xf731a9f4
 
+func (r *MessagesReadDiscussionRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+	if !(r.MsgID == 0) {
+		return false
+	}
+	if !(r.ReadMaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesReadDiscussionRequest) String() string {
 	if r == nil {

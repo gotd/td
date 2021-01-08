@@ -25,6 +25,14 @@ type Bytes struct {
 // BytesTypeID is TL type id of Bytes.
 const BytesTypeID = 0xe937bb82
 
+func (b *Bytes) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *Bytes) String() string {
 	if b == nil {

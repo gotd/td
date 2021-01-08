@@ -47,6 +47,32 @@ type PhoneCallProtocol struct {
 // PhoneCallProtocolTypeID is TL type id of PhoneCallProtocol.
 const PhoneCallProtocolTypeID = 0xfc878fc8
 
+func (p *PhoneCallProtocol) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.UDPP2P == false) {
+		return false
+	}
+	if !(p.UDPReflector == false) {
+		return false
+	}
+	if !(p.MinLayer == 0) {
+		return false
+	}
+	if !(p.MaxLayer == 0) {
+		return false
+	}
+	if !(p.LibraryVersions == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhoneCallProtocol) String() string {
 	if p == nil {
@@ -79,6 +105,12 @@ func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
 	}
 	b.PutID(PhoneCallProtocolTypeID)
+	if !(p.UDPP2P == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.UDPReflector == false) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phoneCallProtocol#fc878fc8: field flags: %w", err)
 	}

@@ -26,6 +26,14 @@ type InputMessagesFilterEmpty struct {
 // InputMessagesFilterEmptyTypeID is TL type id of InputMessagesFilterEmpty.
 const InputMessagesFilterEmptyTypeID = 0x57e2f66c
 
+func (i *InputMessagesFilterEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterEmpty) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputMessagesFilterPhotos struct {
 
 // InputMessagesFilterPhotosTypeID is TL type id of InputMessagesFilterPhotos.
 const InputMessagesFilterPhotosTypeID = 0x9609a51c
+
+func (i *InputMessagesFilterPhotos) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterPhotos) String() string {
@@ -132,6 +148,14 @@ type InputMessagesFilterVideo struct {
 // InputMessagesFilterVideoTypeID is TL type id of InputMessagesFilterVideo.
 const InputMessagesFilterVideoTypeID = 0x9fc00e65
 
+func (i *InputMessagesFilterVideo) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterVideo) String() string {
 	if i == nil {
@@ -184,6 +208,14 @@ type InputMessagesFilterPhotoVideo struct {
 
 // InputMessagesFilterPhotoVideoTypeID is TL type id of InputMessagesFilterPhotoVideo.
 const InputMessagesFilterPhotoVideoTypeID = 0x56e9f0e4
+
+func (i *InputMessagesFilterPhotoVideo) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterPhotoVideo) String() string {
@@ -238,6 +270,14 @@ type InputMessagesFilterDocument struct {
 // InputMessagesFilterDocumentTypeID is TL type id of InputMessagesFilterDocument.
 const InputMessagesFilterDocumentTypeID = 0x9eddf188
 
+func (i *InputMessagesFilterDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterDocument) String() string {
 	if i == nil {
@@ -290,6 +330,14 @@ type InputMessagesFilterUrl struct {
 
 // InputMessagesFilterUrlTypeID is TL type id of InputMessagesFilterUrl.
 const InputMessagesFilterUrlTypeID = 0x7ef0dd87
+
+func (i *InputMessagesFilterUrl) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterUrl) String() string {
@@ -344,6 +392,14 @@ type InputMessagesFilterGif struct {
 // InputMessagesFilterGifTypeID is TL type id of InputMessagesFilterGif.
 const InputMessagesFilterGifTypeID = 0xffc86587
 
+func (i *InputMessagesFilterGif) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterGif) String() string {
 	if i == nil {
@@ -396,6 +452,14 @@ type InputMessagesFilterVoice struct {
 
 // InputMessagesFilterVoiceTypeID is TL type id of InputMessagesFilterVoice.
 const InputMessagesFilterVoiceTypeID = 0x50f5c392
+
+func (i *InputMessagesFilterVoice) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterVoice) String() string {
@@ -450,6 +514,14 @@ type InputMessagesFilterMusic struct {
 // InputMessagesFilterMusicTypeID is TL type id of InputMessagesFilterMusic.
 const InputMessagesFilterMusicTypeID = 0x3751b49e
 
+func (i *InputMessagesFilterMusic) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterMusic) String() string {
 	if i == nil {
@@ -502,6 +574,14 @@ type InputMessagesFilterChatPhotos struct {
 
 // InputMessagesFilterChatPhotosTypeID is TL type id of InputMessagesFilterChatPhotos.
 const InputMessagesFilterChatPhotosTypeID = 0x3a20ecb8
+
+func (i *InputMessagesFilterChatPhotos) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterChatPhotos) String() string {
@@ -563,6 +643,20 @@ type InputMessagesFilterPhoneCalls struct {
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.
 const InputMessagesFilterPhoneCallsTypeID = 0x80c99768
 
+func (i *InputMessagesFilterPhoneCalls) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Missed == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterPhoneCalls) String() string {
 	if i == nil {
@@ -584,6 +678,9 @@ func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
 	}
 	b.PutID(InputMessagesFilterPhoneCallsTypeID)
+	if !(i.Missed == false) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
 	}
@@ -639,6 +736,14 @@ type InputMessagesFilterRoundVoice struct {
 // InputMessagesFilterRoundVoiceTypeID is TL type id of InputMessagesFilterRoundVoice.
 const InputMessagesFilterRoundVoiceTypeID = 0x7a7c17a4
 
+func (i *InputMessagesFilterRoundVoice) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterRoundVoice) String() string {
 	if i == nil {
@@ -691,6 +796,14 @@ type InputMessagesFilterRoundVideo struct {
 
 // InputMessagesFilterRoundVideoTypeID is TL type id of InputMessagesFilterRoundVideo.
 const InputMessagesFilterRoundVideoTypeID = 0xb549da53
+
+func (i *InputMessagesFilterRoundVideo) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterRoundVideo) String() string {
@@ -748,6 +861,14 @@ type InputMessagesFilterMyMentions struct {
 // InputMessagesFilterMyMentionsTypeID is TL type id of InputMessagesFilterMyMentions.
 const InputMessagesFilterMyMentionsTypeID = 0xc1f8e69a
 
+func (i *InputMessagesFilterMyMentions) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterMyMentions) String() string {
 	if i == nil {
@@ -800,6 +921,14 @@ type InputMessagesFilterGeo struct {
 
 // InputMessagesFilterGeoTypeID is TL type id of InputMessagesFilterGeo.
 const InputMessagesFilterGeoTypeID = 0xe7026d0d
+
+func (i *InputMessagesFilterGeo) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterGeo) String() string {
@@ -854,6 +983,14 @@ type InputMessagesFilterContacts struct {
 // InputMessagesFilterContactsTypeID is TL type id of InputMessagesFilterContacts.
 const InputMessagesFilterContactsTypeID = 0xe062db83
 
+func (i *InputMessagesFilterContacts) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterContacts) String() string {
 	if i == nil {
@@ -906,6 +1043,14 @@ type InputMessagesFilterPinned struct {
 
 // InputMessagesFilterPinnedTypeID is TL type id of InputMessagesFilterPinned.
 const InputMessagesFilterPinnedTypeID = 0x1bb00451
+
+func (i *InputMessagesFilterPinned) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMessagesFilterPinned) String() string {
@@ -983,7 +1128,9 @@ type MessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFilterClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesFilter implements binary de-serialization for MessagesFilterClass.

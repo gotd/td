@@ -36,6 +36,20 @@ type ChannelsDeleteUserHistoryRequest struct {
 // ChannelsDeleteUserHistoryRequestTypeID is TL type id of ChannelsDeleteUserHistoryRequest.
 const ChannelsDeleteUserHistoryRequestTypeID = 0xd10dd71b
 
+func (d *ChannelsDeleteUserHistoryRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Channel == nil) {
+		return false
+	}
+	if !(d.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *ChannelsDeleteUserHistoryRequest) String() string {
 	if d == nil {

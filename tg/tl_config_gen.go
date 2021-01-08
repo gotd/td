@@ -181,6 +181,170 @@ type Config struct {
 // ConfigTypeID is TL type id of Config.
 const ConfigTypeID = 0x330b4067
 
+func (c *Config) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.PhonecallsEnabled == false) {
+		return false
+	}
+	if !(c.DefaultP2PContacts == false) {
+		return false
+	}
+	if !(c.PreloadFeaturedStickers == false) {
+		return false
+	}
+	if !(c.IgnorePhoneEntities == false) {
+		return false
+	}
+	if !(c.RevokePmInbox == false) {
+		return false
+	}
+	if !(c.BlockedMode == false) {
+		return false
+	}
+	if !(c.PFSEnabled == false) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.Expires == 0) {
+		return false
+	}
+	if !(c.TestMode == false) {
+		return false
+	}
+	if !(c.ThisDC == 0) {
+		return false
+	}
+	if !(c.DCOptions == nil) {
+		return false
+	}
+	if !(c.DCTxtDomainName == "") {
+		return false
+	}
+	if !(c.ChatSizeMax == 0) {
+		return false
+	}
+	if !(c.MegagroupSizeMax == 0) {
+		return false
+	}
+	if !(c.ForwardedCountMax == 0) {
+		return false
+	}
+	if !(c.OnlineUpdatePeriodMs == 0) {
+		return false
+	}
+	if !(c.OfflineBlurTimeoutMs == 0) {
+		return false
+	}
+	if !(c.OfflineIdleTimeoutMs == 0) {
+		return false
+	}
+	if !(c.OnlineCloudTimeoutMs == 0) {
+		return false
+	}
+	if !(c.NotifyCloudDelayMs == 0) {
+		return false
+	}
+	if !(c.NotifyDefaultDelayMs == 0) {
+		return false
+	}
+	if !(c.PushChatPeriodMs == 0) {
+		return false
+	}
+	if !(c.PushChatLimit == 0) {
+		return false
+	}
+	if !(c.SavedGifsLimit == 0) {
+		return false
+	}
+	if !(c.EditTimeLimit == 0) {
+		return false
+	}
+	if !(c.RevokeTimeLimit == 0) {
+		return false
+	}
+	if !(c.RevokePmTimeLimit == 0) {
+		return false
+	}
+	if !(c.RatingEDecay == 0) {
+		return false
+	}
+	if !(c.StickersRecentLimit == 0) {
+		return false
+	}
+	if !(c.StickersFavedLimit == 0) {
+		return false
+	}
+	if !(c.ChannelsReadMediaPeriod == 0) {
+		return false
+	}
+	if !(c.TmpSessions == 0) {
+		return false
+	}
+	if !(c.PinnedDialogsCountMax == 0) {
+		return false
+	}
+	if !(c.PinnedInfolderCountMax == 0) {
+		return false
+	}
+	if !(c.CallReceiveTimeoutMs == 0) {
+		return false
+	}
+	if !(c.CallRingTimeoutMs == 0) {
+		return false
+	}
+	if !(c.CallConnectTimeoutMs == 0) {
+		return false
+	}
+	if !(c.CallPacketTimeoutMs == 0) {
+		return false
+	}
+	if !(c.MeURLPrefix == "") {
+		return false
+	}
+	if !(c.AutoupdateURLPrefix == "") {
+		return false
+	}
+	if !(c.GifSearchUsername == "") {
+		return false
+	}
+	if !(c.VenueSearchUsername == "") {
+		return false
+	}
+	if !(c.ImgSearchUsername == "") {
+		return false
+	}
+	if !(c.StaticMapsProvider == "") {
+		return false
+	}
+	if !(c.CaptionLengthMax == 0) {
+		return false
+	}
+	if !(c.MessageLengthMax == 0) {
+		return false
+	}
+	if !(c.WebfileDCID == 0) {
+		return false
+	}
+	if !(c.SuggestedLangCode == "") {
+		return false
+	}
+	if !(c.LangPackVersion == 0) {
+		return false
+	}
+	if !(c.BaseLangPackVersion == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *Config) String() string {
 	if c == nil {
@@ -354,6 +518,54 @@ func (c *Config) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode config#330b4067 as nil")
 	}
 	b.PutID(ConfigTypeID)
+	if !(c.PhonecallsEnabled == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.DefaultP2PContacts == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.PreloadFeaturedStickers == false) {
+		c.Flags.Set(4)
+	}
+	if !(c.IgnorePhoneEntities == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.RevokePmInbox == false) {
+		c.Flags.Set(6)
+	}
+	if !(c.BlockedMode == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.PFSEnabled == false) {
+		c.Flags.Set(13)
+	}
+	if !(c.TmpSessions == 0) {
+		c.Flags.Set(0)
+	}
+	if !(c.AutoupdateURLPrefix == "") {
+		c.Flags.Set(7)
+	}
+	if !(c.GifSearchUsername == "") {
+		c.Flags.Set(9)
+	}
+	if !(c.VenueSearchUsername == "") {
+		c.Flags.Set(10)
+	}
+	if !(c.ImgSearchUsername == "") {
+		c.Flags.Set(11)
+	}
+	if !(c.StaticMapsProvider == "") {
+		c.Flags.Set(12)
+	}
+	if !(c.SuggestedLangCode == "") {
+		c.Flags.Set(2)
+	}
+	if !(c.LangPackVersion == 0) {
+		c.Flags.Set(2)
+	}
+	if !(c.BaseLangPackVersion == 0) {
+		c.Flags.Set(2)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode config#330b4067: field flags: %w", err)
 	}

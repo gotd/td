@@ -35,6 +35,20 @@ type GlobalPrivacySettings struct {
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
 const GlobalPrivacySettingsTypeID = 0xbea2f424
 
+func (g *GlobalPrivacySettings) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GlobalPrivacySettings) String() string {
 	if g == nil {
@@ -61,6 +75,9 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
 	}
 	b.PutID(GlobalPrivacySettingsTypeID)
+	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode globalPrivacySettings#bea2f424: field flags: %w", err)
 	}

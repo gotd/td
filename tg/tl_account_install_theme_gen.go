@@ -41,6 +41,26 @@ type AccountInstallThemeRequest struct {
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.
 const AccountInstallThemeRequestTypeID = 0x7ae43737
 
+func (i *AccountInstallThemeRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Dark == false) {
+		return false
+	}
+	if !(i.Format == "") {
+		return false
+	}
+	if !(i.Theme == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AccountInstallThemeRequest) String() string {
 	if i == nil {
@@ -72,6 +92,15 @@ func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
 	}
 	b.PutID(AccountInstallThemeRequestTypeID)
+	if !(i.Dark == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Format == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.Theme == nil) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.installTheme#7ae43737: field flags: %w", err)
 	}

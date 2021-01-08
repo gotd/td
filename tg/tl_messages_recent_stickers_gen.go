@@ -26,6 +26,14 @@ type MessagesRecentStickersNotModified struct {
 // MessagesRecentStickersNotModifiedTypeID is TL type id of MessagesRecentStickersNotModified.
 const MessagesRecentStickersNotModifiedTypeID = 0xb17f890
 
+func (r *MessagesRecentStickersNotModified) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesRecentStickersNotModified) String() string {
 	if r == nil {
@@ -89,6 +97,26 @@ type MessagesRecentStickers struct {
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
 const MessagesRecentStickersTypeID = 0x22f3afb3
+
+func (r *MessagesRecentStickers) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Hash == 0) {
+		return false
+	}
+	if !(r.Packs == nil) {
+		return false
+	}
+	if !(r.Stickers == nil) {
+		return false
+	}
+	if !(r.Dates == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *MessagesRecentStickers) String() string {
@@ -235,7 +263,9 @@ type MessagesRecentStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesRecentStickersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesRecentStickers implements binary de-serialization for MessagesRecentStickersClass.

@@ -85,6 +85,50 @@ type AccountPassword struct {
 // AccountPasswordTypeID is TL type id of AccountPassword.
 const AccountPasswordTypeID = 0xad2641f8
 
+func (p *AccountPassword) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.HasRecovery == false) {
+		return false
+	}
+	if !(p.HasSecureValues == false) {
+		return false
+	}
+	if !(p.HasPassword == false) {
+		return false
+	}
+	if !(p.CurrentAlgo == nil) {
+		return false
+	}
+	if !(p.SrpB == nil) {
+		return false
+	}
+	if !(p.SrpID == 0) {
+		return false
+	}
+	if !(p.Hint == "") {
+		return false
+	}
+	if !(p.EmailUnconfirmedPattern == "") {
+		return false
+	}
+	if !(p.NewAlgo == nil) {
+		return false
+	}
+	if !(p.NewSecureAlgo == nil) {
+		return false
+	}
+	if !(p.SecureRandom == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *AccountPassword) String() string {
 	if p == nil {
@@ -140,6 +184,30 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.password#ad2641f8 as nil")
 	}
 	b.PutID(AccountPasswordTypeID)
+	if !(p.HasRecovery == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.HasSecureValues == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.HasPassword == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.CurrentAlgo == nil) {
+		p.Flags.Set(2)
+	}
+	if !(p.SrpB == nil) {
+		p.Flags.Set(2)
+	}
+	if !(p.SrpID == 0) {
+		p.Flags.Set(2)
+	}
+	if !(p.Hint == "") {
+		p.Flags.Set(3)
+	}
+	if !(p.EmailUnconfirmedPattern == "") {
+		p.Flags.Set(4)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.password#ad2641f8: field flags: %w", err)
 	}

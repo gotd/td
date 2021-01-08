@@ -37,6 +37,26 @@ type ContactsImportedContacts struct {
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.
 const ContactsImportedContactsTypeID = 0x77d01c3b
 
+func (i *ContactsImportedContacts) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Imported == nil) {
+		return false
+	}
+	if !(i.PopularInvites == nil) {
+		return false
+	}
+	if !(i.RetryContacts == nil) {
+		return false
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *ContactsImportedContacts) String() string {
 	if i == nil {

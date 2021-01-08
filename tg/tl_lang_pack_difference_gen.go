@@ -34,6 +34,26 @@ type LangPackDifference struct {
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.
 const LangPackDifferenceTypeID = 0xf385c1f6
 
+func (l *LangPackDifference) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.LangCode == "") {
+		return false
+	}
+	if !(l.FromVersion == 0) {
+		return false
+	}
+	if !(l.Version == 0) {
+		return false
+	}
+	if !(l.Strings == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *LangPackDifference) String() string {
 	if l == nil {

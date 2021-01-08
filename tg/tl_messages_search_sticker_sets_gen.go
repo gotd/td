@@ -40,6 +40,26 @@ type MessagesSearchStickerSetsRequest struct {
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
 const MessagesSearchStickerSetsRequestTypeID = 0xc2b7d08b
 
+func (s *MessagesSearchStickerSetsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.ExcludeFeatured == false) {
+		return false
+	}
+	if !(s.Q == "") {
+		return false
+	}
+	if !(s.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSearchStickerSetsRequest) String() string {
 	if s == nil {
@@ -67,6 +87,9 @@ func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
 	}
 	b.PutID(MessagesSearchStickerSetsRequestTypeID)
+	if !(s.ExcludeFeatured == false) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
 	}

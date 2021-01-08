@@ -35,6 +35,23 @@ type MessagesDeleteMessagesRequest struct {
 // MessagesDeleteMessagesRequestTypeID is TL type id of MessagesDeleteMessagesRequest.
 const MessagesDeleteMessagesRequestTypeID = 0xe58e95d2
 
+func (d *MessagesDeleteMessagesRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.Revoke == false) {
+		return false
+	}
+	if !(d.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDeleteMessagesRequest) String() string {
 	if d == nil {
@@ -61,6 +78,9 @@ func (d *MessagesDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteMessages#e58e95d2 as nil")
 	}
 	b.PutID(MessagesDeleteMessagesRequestTypeID)
+	if !(d.Revoke == false) {
+		d.Flags.Set(0)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.deleteMessages#e58e95d2: field flags: %w", err)
 	}

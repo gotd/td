@@ -31,6 +31,17 @@ type FoldersEditPeerFoldersRequest struct {
 // FoldersEditPeerFoldersRequestTypeID is TL type id of FoldersEditPeerFoldersRequest.
 const FoldersEditPeerFoldersRequestTypeID = 0x6847d0ab
 
+func (e *FoldersEditPeerFoldersRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.FolderPeers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *FoldersEditPeerFoldersRequest) String() string {
 	if e == nil {

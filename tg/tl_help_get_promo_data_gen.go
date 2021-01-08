@@ -26,6 +26,14 @@ type HelpGetPromoDataRequest struct {
 // HelpGetPromoDataRequestTypeID is TL type id of HelpGetPromoDataRequest.
 const HelpGetPromoDataRequestTypeID = 0xc0977421
 
+func (g *HelpGetPromoDataRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetPromoDataRequest) String() string {
 	if g == nil {

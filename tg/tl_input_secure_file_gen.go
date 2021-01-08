@@ -39,6 +39,29 @@ type InputSecureFileUploaded struct {
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
 const InputSecureFileUploadedTypeID = 0x3334b0f0
 
+func (i *InputSecureFileUploaded) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Parts == 0) {
+		return false
+	}
+	if !(i.Md5Checksum == "") {
+		return false
+	}
+	if !(i.FileHash == nil) {
+		return false
+	}
+	if !(i.Secret == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputSecureFileUploaded) String() string {
 	if i == nil {
@@ -155,6 +178,20 @@ type InputSecureFile struct {
 // InputSecureFileTypeID is TL type id of InputSecureFile.
 const InputSecureFileTypeID = 0x5367e5be
 
+func (i *InputSecureFile) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputSecureFile) String() string {
 	if i == nil {
@@ -238,7 +275,9 @@ type InputSecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputSecureFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputSecureFile implements binary de-serialization for InputSecureFileClass.

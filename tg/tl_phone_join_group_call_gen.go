@@ -33,6 +33,26 @@ type PhoneJoinGroupCallRequest struct {
 // PhoneJoinGroupCallRequestTypeID is TL type id of PhoneJoinGroupCallRequest.
 const PhoneJoinGroupCallRequestTypeID = 0x5f9c8e62
 
+func (j *PhoneJoinGroupCallRequest) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Flags.Zero()) {
+		return false
+	}
+	if !(j.Muted == false) {
+		return false
+	}
+	if !(j.Call.Zero()) {
+		return false
+	}
+	if !(j.Params.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *PhoneJoinGroupCallRequest) String() string {
 	if j == nil {
@@ -60,6 +80,9 @@ func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.joinGroupCall#5f9c8e62 as nil")
 	}
 	b.PutID(PhoneJoinGroupCallRequestTypeID)
+	if !(j.Muted == false) {
+		j.Flags.Set(0)
+	}
 	if err := j.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.joinGroupCall#5f9c8e62: field flags: %w", err)
 	}

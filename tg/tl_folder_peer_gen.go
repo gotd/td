@@ -33,6 +33,20 @@ type FolderPeer struct {
 // FolderPeerTypeID is TL type id of FolderPeer.
 const FolderPeerTypeID = 0xe9baa668
 
+func (f *FolderPeer) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Peer == nil) {
+		return false
+	}
+	if !(f.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *FolderPeer) String() string {
 	if f == nil {

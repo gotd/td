@@ -33,6 +33,20 @@ type ChannelsGetMessagesRequest struct {
 // ChannelsGetMessagesRequestTypeID is TL type id of ChannelsGetMessagesRequest.
 const ChannelsGetMessagesRequestTypeID = 0xad8c9a23
 
+func (g *ChannelsGetMessagesRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetMessagesRequest) String() string {
 	if g == nil {

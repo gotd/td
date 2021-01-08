@@ -42,6 +42,29 @@ type ChannelsExportMessageLinkRequest struct {
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.
 const ChannelsExportMessageLinkRequestTypeID = 0xe63fadeb
 
+func (e *ChannelsExportMessageLinkRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.Grouped == false) {
+		return false
+	}
+	if !(e.Thread == false) {
+		return false
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsExportMessageLinkRequest) String() string {
 	if e == nil {
@@ -69,6 +92,12 @@ func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
 	}
 	b.PutID(ChannelsExportMessageLinkRequestTypeID)
+	if !(e.Grouped == false) {
+		e.Flags.Set(0)
+	}
+	if !(e.Thread == false) {
+		e.Flags.Set(1)
+	}
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.exportMessageLink#e63fadeb: field flags: %w", err)
 	}

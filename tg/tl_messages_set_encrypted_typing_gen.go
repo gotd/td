@@ -34,6 +34,20 @@ type MessagesSetEncryptedTypingRequest struct {
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.
 const MessagesSetEncryptedTypingRequestTypeID = 0x791451ed
 
+func (s *MessagesSetEncryptedTypingRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer.Zero()) {
+		return false
+	}
+	if !(s.Typing == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetEncryptedTypingRequest) String() string {
 	if s == nil {

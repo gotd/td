@@ -32,6 +32,23 @@ type MessageUserVote struct {
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
 const MessageUserVoteTypeID = 0xa28e5559
 
+func (m *MessageUserVote) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+	if !(m.Option == nil) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageUserVote) String() string {
 	if m == nil {
@@ -125,6 +142,20 @@ type MessageUserVoteInputOption struct {
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
 const MessageUserVoteInputOptionTypeID = 0x36377430
 
+func (m *MessageUserVoteInputOption) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageUserVoteInputOption) String() string {
 	if m == nil {
@@ -205,6 +236,23 @@ type MessageUserVoteMultiple struct {
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.
 const MessageUserVoteMultipleTypeID = 0xe8fe0de
+
+func (m *MessageUserVoteMultiple) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.UserID == 0) {
+		return false
+	}
+	if !(m.Options == nil) {
+		return false
+	}
+	if !(m.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (m *MessageUserVoteMultiple) String() string {
@@ -312,7 +360,9 @@ type MessageUserVoteClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessageUserVoteClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessageUserVote implements binary de-serialization for MessageUserVoteClass.

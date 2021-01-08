@@ -45,6 +45,35 @@ type Folder struct {
 // FolderTypeID is TL type id of Folder.
 const FolderTypeID = 0xff544e65
 
+func (f *Folder) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Flags.Zero()) {
+		return false
+	}
+	if !(f.AutofillNewBroadcasts == false) {
+		return false
+	}
+	if !(f.AutofillPublicGroups == false) {
+		return false
+	}
+	if !(f.AutofillNewCorrespondents == false) {
+		return false
+	}
+	if !(f.ID == 0) {
+		return false
+	}
+	if !(f.Title == "") {
+		return false
+	}
+	if !(f.Photo == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *Folder) String() string {
 	if f == nil {
@@ -77,6 +106,18 @@ func (f *Folder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode folder#ff544e65 as nil")
 	}
 	b.PutID(FolderTypeID)
+	if !(f.AutofillNewBroadcasts == false) {
+		f.Flags.Set(0)
+	}
+	if !(f.AutofillPublicGroups == false) {
+		f.Flags.Set(1)
+	}
+	if !(f.AutofillNewCorrespondents == false) {
+		f.Flags.Set(2)
+	}
+	if !(f.Photo == nil) {
+		f.Flags.Set(3)
+	}
 	if err := f.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode folder#ff544e65: field flags: %w", err)
 	}

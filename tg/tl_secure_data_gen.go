@@ -36,6 +36,23 @@ type SecureData struct {
 // SecureDataTypeID is TL type id of SecureData.
 const SecureDataTypeID = 0x8aeabec3
 
+func (s *SecureData) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Data == nil) {
+		return false
+	}
+	if !(s.DataHash == nil) {
+		return false
+	}
+	if !(s.Secret == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureData) String() string {
 	if s == nil {

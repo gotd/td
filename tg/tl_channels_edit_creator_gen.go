@@ -35,6 +35,23 @@ type ChannelsEditCreatorRequest struct {
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.
 const ChannelsEditCreatorRequestTypeID = 0x8f38cd1f
 
+func (e *ChannelsEditCreatorRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.Password == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditCreatorRequest) String() string {
 	if e == nil {

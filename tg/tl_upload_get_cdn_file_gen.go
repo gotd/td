@@ -35,6 +35,23 @@ type UploadGetCdnFileRequest struct {
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
 const UploadGetCdnFileRequestTypeID = 0x2000bcc3
 
+func (g *UploadGetCdnFileRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.FileToken == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UploadGetCdnFileRequest) String() string {
 	if g == nil {

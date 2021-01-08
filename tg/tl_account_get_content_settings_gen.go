@@ -26,6 +26,14 @@ type AccountGetContentSettingsRequest struct {
 // AccountGetContentSettingsRequestTypeID is TL type id of AccountGetContentSettingsRequest.
 const AccountGetContentSettingsRequestTypeID = 0x8b9b4dae
 
+func (g *AccountGetContentSettingsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetContentSettingsRequest) String() string {
 	if g == nil {

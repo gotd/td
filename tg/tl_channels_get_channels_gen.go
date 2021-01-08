@@ -31,6 +31,17 @@ type ChannelsGetChannelsRequest struct {
 // ChannelsGetChannelsRequestTypeID is TL type id of ChannelsGetChannelsRequest.
 const ChannelsGetChannelsRequestTypeID = 0xa7f6bbb
 
+func (g *ChannelsGetChannelsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetChannelsRequest) String() string {
 	if g == nil {

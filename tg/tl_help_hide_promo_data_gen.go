@@ -28,6 +28,17 @@ type HelpHidePromoDataRequest struct {
 // HelpHidePromoDataRequestTypeID is TL type id of HelpHidePromoDataRequest.
 const HelpHidePromoDataRequestTypeID = 0x1e251c95
 
+func (h *HelpHidePromoDataRequest) Zero() bool {
+	if h == nil {
+		return true
+	}
+	if !(h.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (h *HelpHidePromoDataRequest) String() string {
 	if h == nil {

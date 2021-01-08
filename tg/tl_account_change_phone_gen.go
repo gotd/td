@@ -38,6 +38,23 @@ type AccountChangePhoneRequest struct {
 // AccountChangePhoneRequestTypeID is TL type id of AccountChangePhoneRequest.
 const AccountChangePhoneRequestTypeID = 0x70c32edb
 
+func (c *AccountChangePhoneRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PhoneNumber == "") {
+		return false
+	}
+	if !(c.PhoneCodeHash == "") {
+		return false
+	}
+	if !(c.PhoneCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountChangePhoneRequest) String() string {
 	if c == nil {

@@ -43,6 +43,26 @@ type StatsGroupTopAdmin struct {
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
 const StatsGroupTopAdminTypeID = 0x6014f412
 
+func (s *StatsGroupTopAdmin) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.UserID == 0) {
+		return false
+	}
+	if !(s.Deleted == 0) {
+		return false
+	}
+	if !(s.Kicked == 0) {
+		return false
+	}
+	if !(s.Banned == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsGroupTopAdmin) String() string {
 	if s == nil {

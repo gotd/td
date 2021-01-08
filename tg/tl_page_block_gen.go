@@ -26,6 +26,14 @@ type PageBlockUnsupported struct {
 // PageBlockUnsupportedTypeID is TL type id of PageBlockUnsupported.
 const PageBlockUnsupportedTypeID = 0x13567e8a
 
+func (p *PageBlockUnsupported) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockUnsupported) String() string {
 	if p == nil {
@@ -80,6 +88,17 @@ type PageBlockTitle struct {
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
 const PageBlockTitleTypeID = 0x70abc3fd
+
+func (p *PageBlockTitle) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockTitle) String() string {
@@ -151,6 +170,17 @@ type PageBlockSubtitle struct {
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
 const PageBlockSubtitleTypeID = 0x8ffa9a1f
+
+func (p *PageBlockSubtitle) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockSubtitle) String() string {
@@ -224,6 +254,20 @@ type PageBlockAuthorDate struct {
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
 const PageBlockAuthorDateTypeID = 0xbaafe5e0
+
+func (p *PageBlockAuthorDate) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Author == nil) {
+		return false
+	}
+	if !(p.PublishedDate == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockAuthorDate) String() string {
@@ -307,6 +351,17 @@ type PageBlockHeader struct {
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
 const PageBlockHeaderTypeID = 0xbfd064ec
 
+func (p *PageBlockHeader) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockHeader) String() string {
 	if p == nil {
@@ -378,6 +433,17 @@ type PageBlockSubheader struct {
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
 const PageBlockSubheaderTypeID = 0xf12bb6e1
 
+func (p *PageBlockSubheader) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockSubheader) String() string {
 	if p == nil {
@@ -448,6 +514,17 @@ type PageBlockParagraph struct {
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
 const PageBlockParagraphTypeID = 0x467a0766
+
+func (p *PageBlockParagraph) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockParagraph) String() string {
@@ -521,6 +598,20 @@ type PageBlockPreformatted struct {
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
 const PageBlockPreformattedTypeID = 0xc070d93e
+
+func (p *PageBlockPreformatted) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Language == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockPreformatted) String() string {
@@ -604,6 +695,17 @@ type PageBlockFooter struct {
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
 const PageBlockFooterTypeID = 0x48870999
 
+func (p *PageBlockFooter) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockFooter) String() string {
 	if p == nil {
@@ -673,6 +775,14 @@ type PageBlockDivider struct {
 // PageBlockDividerTypeID is TL type id of PageBlockDivider.
 const PageBlockDividerTypeID = 0xdb20b188
 
+func (p *PageBlockDivider) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockDivider) String() string {
 	if p == nil {
@@ -727,6 +837,17 @@ type PageBlockAnchor struct {
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
 const PageBlockAnchorTypeID = 0xce0d37b0
+
+func (p *PageBlockAnchor) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Name == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockAnchor) String() string {
@@ -793,6 +914,17 @@ type PageBlockList struct {
 
 // PageBlockListTypeID is TL type id of PageBlockList.
 const PageBlockListTypeID = 0xe4e88011
+
+func (p *PageBlockList) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Items == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockList) String() string {
@@ -877,6 +1009,20 @@ type PageBlockBlockquote struct {
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
 const PageBlockBlockquoteTypeID = 0x263d7c26
+
+func (p *PageBlockBlockquote) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Caption == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockBlockquote) String() string {
@@ -966,6 +1112,20 @@ type PageBlockPullquote struct {
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
 const PageBlockPullquoteTypeID = 0x4f4456d3
+
+func (p *PageBlockPullquote) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Caption == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockPullquote) String() string {
@@ -1069,6 +1229,29 @@ type PageBlockPhoto struct {
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
 const PageBlockPhotoTypeID = 0x1759c560
 
+func (p *PageBlockPhoto) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.PhotoID == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.WebpageID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockPhoto) String() string {
 	if p == nil {
@@ -1106,6 +1289,12 @@ func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
 	}
 	b.PutID(PageBlockPhotoTypeID)
+	if !(p.URL == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.WebpageID == 0) {
+		p.Flags.Set(0)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockPhoto#1759c560: field flags: %w", err)
 	}
@@ -1228,6 +1417,29 @@ type PageBlockVideo struct {
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
 const PageBlockVideoTypeID = 0x7c8fe7b6
 
+func (p *PageBlockVideo) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Autoplay == false) {
+		return false
+	}
+	if !(p.Loop == false) {
+		return false
+	}
+	if !(p.VideoID == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockVideo) String() string {
 	if p == nil {
@@ -1255,6 +1467,12 @@ func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
 	}
 	b.PutID(PageBlockVideoTypeID)
+	if !(p.Autoplay == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Loop == false) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockVideo#7c8fe7b6: field flags: %w", err)
 	}
@@ -1339,6 +1557,17 @@ type PageBlockCover struct {
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
 const PageBlockCoverTypeID = 0x39f23300
+
+func (p *PageBlockCover) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Cover == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockCover) String() string {
@@ -1440,6 +1669,41 @@ type PageBlockEmbed struct {
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
 const PageBlockEmbedTypeID = 0xa8718dc5
 
+func (p *PageBlockEmbed) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.FullWidth == false) {
+		return false
+	}
+	if !(p.AllowScrolling == false) {
+		return false
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.HTML == "") {
+		return false
+	}
+	if !(p.PosterPhotoID == 0) {
+		return false
+	}
+	if !(p.W == 0) {
+		return false
+	}
+	if !(p.H == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockEmbed) String() string {
 	if p == nil {
@@ -1489,6 +1753,27 @@ func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
 	}
 	b.PutID(PageBlockEmbedTypeID)
+	if !(p.FullWidth == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.AllowScrolling == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.URL == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.HTML == "") {
+		p.Flags.Set(2)
+	}
+	if !(p.PosterPhotoID == 0) {
+		p.Flags.Set(4)
+	}
+	if !(p.W == 0) {
+		p.Flags.Set(5)
+	}
+	if !(p.H == 0) {
+		p.Flags.Set(5)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockEmbed#a8718dc5: field flags: %w", err)
 	}
@@ -1703,6 +1988,35 @@ type PageBlockEmbedPost struct {
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
 const PageBlockEmbedPostTypeID = 0xf259a80b
 
+func (p *PageBlockEmbedPost) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.WebpageID == 0) {
+		return false
+	}
+	if !(p.AuthorPhotoID == 0) {
+		return false
+	}
+	if !(p.Author == "") {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockEmbedPost) String() string {
 	if p == nil {
@@ -1853,6 +2167,20 @@ type PageBlockCollage struct {
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
 const PageBlockCollageTypeID = 0x65a0fa4d
 
+func (p *PageBlockCollage) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Items == nil) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockCollage) String() string {
 	if p == nil {
@@ -1948,6 +2276,20 @@ type PageBlockSlideshow struct {
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
 const PageBlockSlideshowTypeID = 0x31f9590
 
+func (p *PageBlockSlideshow) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Items == nil) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockSlideshow) String() string {
 	if p == nil {
@@ -2041,6 +2383,17 @@ type PageBlockChannel struct {
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
 const PageBlockChannelTypeID = 0xef1751b5
 
+func (p *PageBlockChannel) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Channel == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockChannel) String() string {
 	if p == nil {
@@ -2116,6 +2469,20 @@ type PageBlockAudio struct {
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
 const PageBlockAudioTypeID = 0x804361ea
+
+func (p *PageBlockAudio) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.AudioID == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockAudio) String() string {
@@ -2193,6 +2560,17 @@ type PageBlockKicker struct {
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
 const PageBlockKickerTypeID = 0x1e148390
+
+func (p *PageBlockKicker) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockKicker) String() string {
@@ -2276,6 +2654,29 @@ type PageBlockTable struct {
 // PageBlockTableTypeID is TL type id of PageBlockTable.
 const PageBlockTableTypeID = 0xbf4dea82
 
+func (p *PageBlockTable) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Bordered == false) {
+		return false
+	}
+	if !(p.Striped == false) {
+		return false
+	}
+	if !(p.Title == nil) {
+		return false
+	}
+	if !(p.Rows == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockTable) String() string {
 	if p == nil {
@@ -2305,6 +2706,12 @@ func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
 	}
 	b.PutID(PageBlockTableTypeID)
+	if !(p.Bordered == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.Striped == false) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockTable#bf4dea82: field flags: %w", err)
 	}
@@ -2406,6 +2813,17 @@ type PageBlockOrderedList struct {
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
 const PageBlockOrderedListTypeID = 0x9a8ae1e1
 
+func (p *PageBlockOrderedList) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Items == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockOrderedList) String() string {
 	if p == nil {
@@ -2497,6 +2915,26 @@ type PageBlockDetails struct {
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
 const PageBlockDetailsTypeID = 0x76768bed
 
+func (p *PageBlockDetails) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Open == false) {
+		return false
+	}
+	if !(p.Blocks == nil) {
+		return false
+	}
+	if !(p.Title == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageBlockDetails) String() string {
 	if p == nil {
@@ -2526,6 +2964,9 @@ func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
 	}
 	b.PutID(PageBlockDetailsTypeID)
+	if !(p.Open == false) {
+		p.Flags.Set(0)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockDetails#76768bed: field flags: %w", err)
 	}
@@ -2619,6 +3060,20 @@ type PageBlockRelatedArticles struct {
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
 const PageBlockRelatedArticlesTypeID = 0x16115a96
+
+func (p *PageBlockRelatedArticles) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Title == nil) {
+		return false
+	}
+	if !(p.Articles == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockRelatedArticles) String() string {
@@ -2722,6 +3177,29 @@ type PageBlockMap struct {
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
 const PageBlockMapTypeID = 0xa44f3ef6
+
+func (p *PageBlockMap) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Geo == nil) {
+		return false
+	}
+	if !(p.Zoom == 0) {
+		return false
+	}
+	if !(p.W == 0) {
+		return false
+	}
+	if !(p.H == 0) {
+		return false
+	}
+	if !(p.Caption.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PageBlockMap) String() string {
@@ -2871,7 +3349,9 @@ type PageBlockClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PageBlockClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePageBlock implements binary de-serialization for PageBlockClass.

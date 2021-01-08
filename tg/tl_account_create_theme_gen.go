@@ -43,6 +43,29 @@ type AccountCreateThemeRequest struct {
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
 const AccountCreateThemeRequestTypeID = 0x8432c21f
 
+func (c *AccountCreateThemeRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Slug == "") {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.Document == nil) {
+		return false
+	}
+	if !(c.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountCreateThemeRequest) String() string {
 	if c == nil {
@@ -80,6 +103,12 @@ func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
 	}
 	b.PutID(AccountCreateThemeRequestTypeID)
+	if !(c.Document == nil) {
+		c.Flags.Set(2)
+	}
+	if !(c.Settings.Zero()) {
+		c.Flags.Set(3)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.createTheme#8432c21f: field flags: %w", err)
 	}

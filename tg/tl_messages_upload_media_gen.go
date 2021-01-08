@@ -36,6 +36,20 @@ type MessagesUploadMediaRequest struct {
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
 const MessagesUploadMediaRequestTypeID = 0x519bc2b1
 
+func (u *MessagesUploadMediaRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.Media == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUploadMediaRequest) String() string {
 	if u == nil {

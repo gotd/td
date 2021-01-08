@@ -60,6 +60,32 @@ type AccountPasswordInputSettings struct {
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
 const AccountPasswordInputSettingsTypeID = 0xc23727c9
 
+func (p *AccountPasswordInputSettings) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.NewAlgo == nil) {
+		return false
+	}
+	if !(p.NewPasswordHash == nil) {
+		return false
+	}
+	if !(p.Hint == "") {
+		return false
+	}
+	if !(p.Email == "") {
+		return false
+	}
+	if !(p.NewSecureSettings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *AccountPasswordInputSettings) String() string {
 	if p == nil {
@@ -106,6 +132,21 @@ func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
 	}
 	b.PutID(AccountPasswordInputSettingsTypeID)
+	if !(p.NewAlgo == nil) {
+		p.Flags.Set(0)
+	}
+	if !(p.NewPasswordHash == nil) {
+		p.Flags.Set(0)
+	}
+	if !(p.Hint == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.Email == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.NewSecureSettings.Zero()) {
+		p.Flags.Set(2)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.passwordInputSettings#c23727c9: field flags: %w", err)
 	}

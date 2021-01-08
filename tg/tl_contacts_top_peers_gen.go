@@ -26,6 +26,14 @@ type ContactsTopPeersNotModified struct {
 // ContactsTopPeersNotModifiedTypeID is TL type id of ContactsTopPeersNotModified.
 const ContactsTopPeersNotModifiedTypeID = 0xde266ef5
 
+func (t *ContactsTopPeersNotModified) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ContactsTopPeersNotModified) String() string {
 	if t == nil {
@@ -84,6 +92,23 @@ type ContactsTopPeers struct {
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.
 const ContactsTopPeersTypeID = 0x70b772a8
+
+func (t *ContactsTopPeers) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Categories == nil) {
+		return false
+	}
+	if !(t.Chats == nil) {
+		return false
+	}
+	if !(t.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *ContactsTopPeers) String() string {
@@ -216,6 +241,14 @@ type ContactsTopPeersDisabled struct {
 // ContactsTopPeersDisabledTypeID is TL type id of ContactsTopPeersDisabled.
 const ContactsTopPeersDisabledTypeID = 0xb52c939d
 
+func (t *ContactsTopPeersDisabled) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ContactsTopPeersDisabled) String() string {
 	if t == nil {
@@ -278,7 +311,9 @@ type ContactsTopPeersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ContactsTopPeersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeContactsTopPeers implements binary de-serialization for ContactsTopPeersClass.

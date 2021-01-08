@@ -34,6 +34,17 @@ type FoldersDeleteFolderRequest struct {
 // FoldersDeleteFolderRequestTypeID is TL type id of FoldersDeleteFolderRequest.
 const FoldersDeleteFolderRequestTypeID = 0x1c295881
 
+func (d *FoldersDeleteFolderRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.FolderID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *FoldersDeleteFolderRequest) String() string {
 	if d == nil {

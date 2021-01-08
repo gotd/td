@@ -33,6 +33,20 @@ type MessagesMessageEditData struct {
 // MessagesMessageEditDataTypeID is TL type id of MessagesMessageEditData.
 const MessagesMessageEditDataTypeID = 0x26b5dde6
 
+func (m *MessagesMessageEditData) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Caption == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMessageEditData) String() string {
 	if m == nil {
@@ -54,6 +68,9 @@ func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
 	}
 	b.PutID(MessagesMessageEditDataTypeID)
+	if !(m.Caption == false) {
+		m.Flags.Set(0)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.messageEditData#26b5dde6: field flags: %w", err)
 	}

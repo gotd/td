@@ -34,6 +34,26 @@ type SavedPhoneContact struct {
 // SavedPhoneContactTypeID is TL type id of SavedPhoneContact.
 const SavedPhoneContactTypeID = 0x1142bd56
 
+func (s *SavedPhoneContact) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Phone == "") {
+		return false
+	}
+	if !(s.FirstName == "") {
+		return false
+	}
+	if !(s.LastName == "") {
+		return false
+	}
+	if !(s.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SavedPhoneContact) String() string {
 	if s == nil {

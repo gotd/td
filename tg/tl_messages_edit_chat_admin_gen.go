@@ -35,6 +35,23 @@ type MessagesEditChatAdminRequest struct {
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.
 const MessagesEditChatAdminRequestTypeID = 0xa9e69f2e
 
+func (e *MessagesEditChatAdminRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ChatID == 0) {
+		return false
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.IsAdmin == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditChatAdminRequest) String() string {
 	if e == nil {

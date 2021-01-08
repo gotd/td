@@ -51,6 +51,35 @@ type WallPaperSettings struct {
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
 const WallPaperSettingsTypeID = 0x5086cf8
 
+func (w *WallPaperSettings) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.Blur == false) {
+		return false
+	}
+	if !(w.Motion == false) {
+		return false
+	}
+	if !(w.BackgroundColor == 0) {
+		return false
+	}
+	if !(w.SecondBackgroundColor == 0) {
+		return false
+	}
+	if !(w.Intensity == 0) {
+		return false
+	}
+	if !(w.Rotation == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WallPaperSettings) String() string {
 	if w == nil {
@@ -92,6 +121,24 @@ func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaperSettings#5086cf8 as nil")
 	}
 	b.PutID(WallPaperSettingsTypeID)
+	if !(w.Blur == false) {
+		w.Flags.Set(1)
+	}
+	if !(w.Motion == false) {
+		w.Flags.Set(2)
+	}
+	if !(w.BackgroundColor == 0) {
+		w.Flags.Set(0)
+	}
+	if !(w.SecondBackgroundColor == 0) {
+		w.Flags.Set(4)
+	}
+	if !(w.Intensity == 0) {
+		w.Flags.Set(3)
+	}
+	if !(w.Rotation == 0) {
+		w.Flags.Set(4)
+	}
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaperSettings#5086cf8: field flags: %w", err)
 	}

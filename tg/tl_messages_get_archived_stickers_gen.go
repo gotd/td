@@ -43,6 +43,26 @@ type MessagesGetArchivedStickersRequest struct {
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.
 const MessagesGetArchivedStickersRequestTypeID = 0x57f17692
 
+func (g *MessagesGetArchivedStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Masks == false) {
+		return false
+	}
+	if !(g.OffsetID == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetArchivedStickersRequest) String() string {
 	if g == nil {
@@ -70,6 +90,9 @@ func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
 	}
 	b.PutID(MessagesGetArchivedStickersRequestTypeID)
+	if !(g.Masks == false) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.getArchivedStickers#57f17692: field flags: %w", err)
 	}

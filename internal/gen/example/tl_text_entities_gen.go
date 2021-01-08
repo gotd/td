@@ -27,6 +27,17 @@ type TextEntities struct {
 // TextEntitiesTypeID is TL type id of TextEntities.
 const TextEntitiesTypeID = 0xcf89c258
 
+func (t *TextEntities) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntities) String() string {
 	if t == nil {

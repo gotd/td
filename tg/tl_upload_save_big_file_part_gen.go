@@ -34,6 +34,26 @@ type UploadSaveBigFilePartRequest struct {
 // UploadSaveBigFilePartRequestTypeID is TL type id of UploadSaveBigFilePartRequest.
 const UploadSaveBigFilePartRequestTypeID = 0xde7b673d
 
+func (s *UploadSaveBigFilePartRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.FileID == 0) {
+		return false
+	}
+	if !(s.FilePart == 0) {
+		return false
+	}
+	if !(s.FileTotalParts == 0) {
+		return false
+	}
+	if !(s.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *UploadSaveBigFilePartRequest) String() string {
 	if s == nil {

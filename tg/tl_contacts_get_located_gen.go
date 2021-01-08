@@ -39,6 +39,26 @@ type ContactsGetLocatedRequest struct {
 // ContactsGetLocatedRequestTypeID is TL type id of ContactsGetLocatedRequest.
 const ContactsGetLocatedRequestTypeID = 0xd348bc44
 
+func (g *ContactsGetLocatedRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Background == false) {
+		return false
+	}
+	if !(g.GeoPoint == nil) {
+		return false
+	}
+	if !(g.SelfExpires == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ContactsGetLocatedRequest) String() string {
 	if g == nil {
@@ -68,6 +88,12 @@ func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
 	}
 	b.PutID(ContactsGetLocatedRequestTypeID)
+	if !(g.Background == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.SelfExpires == 0) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.getLocated#d348bc44: field flags: %w", err)
 	}

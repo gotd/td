@@ -52,6 +52,41 @@ type PeerSettings struct {
 // PeerSettingsTypeID is TL type id of PeerSettings.
 const PeerSettingsTypeID = 0x733f2961
 
+func (p *PeerSettings) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.ReportSpam == false) {
+		return false
+	}
+	if !(p.AddContact == false) {
+		return false
+	}
+	if !(p.BlockContact == false) {
+		return false
+	}
+	if !(p.ShareContact == false) {
+		return false
+	}
+	if !(p.NeedContactsException == false) {
+		return false
+	}
+	if !(p.ReportGeo == false) {
+		return false
+	}
+	if !(p.Autoarchived == false) {
+		return false
+	}
+	if !(p.GeoDistance == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PeerSettings) String() string {
 	if p == nil {
@@ -78,6 +113,30 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
 	}
 	b.PutID(PeerSettingsTypeID)
+	if !(p.ReportSpam == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.AddContact == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.BlockContact == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.ShareContact == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.NeedContactsException == false) {
+		p.Flags.Set(4)
+	}
+	if !(p.ReportGeo == false) {
+		p.Flags.Set(5)
+	}
+	if !(p.Autoarchived == false) {
+		p.Flags.Set(7)
+	}
+	if !(p.GeoDistance == 0) {
+		p.Flags.Set(6)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode peerSettings#733f2961: field flags: %w", err)
 	}

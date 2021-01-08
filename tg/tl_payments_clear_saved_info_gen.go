@@ -35,6 +35,23 @@ type PaymentsClearSavedInfoRequest struct {
 // PaymentsClearSavedInfoRequestTypeID is TL type id of PaymentsClearSavedInfoRequest.
 const PaymentsClearSavedInfoRequestTypeID = 0xd83d70c1
 
+func (c *PaymentsClearSavedInfoRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Credentials == false) {
+		return false
+	}
+	if !(c.Info == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *PaymentsClearSavedInfoRequest) String() string {
 	if c == nil {
@@ -56,6 +73,12 @@ func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.clearSavedInfo#d83d70c1 as nil")
 	}
 	b.PutID(PaymentsClearSavedInfoRequestTypeID)
+	if !(c.Credentials == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Info == false) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.clearSavedInfo#d83d70c1: field flags: %w", err)
 	}

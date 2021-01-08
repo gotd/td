@@ -39,6 +39,29 @@ type PhoneSetCallRatingRequest struct {
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
 const PhoneSetCallRatingRequestTypeID = 0x59ead627
 
+func (s *PhoneSetCallRatingRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.UserInitiative == false) {
+		return false
+	}
+	if !(s.Peer.Zero()) {
+		return false
+	}
+	if !(s.Rating == 0) {
+		return false
+	}
+	if !(s.Comment == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *PhoneSetCallRatingRequest) String() string {
 	if s == nil {
@@ -69,6 +92,9 @@ func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
 	}
 	b.PutID(PhoneSetCallRatingRequestTypeID)
+	if !(s.UserInitiative == false) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.setCallRating#59ead627: field flags: %w", err)
 	}

@@ -35,6 +35,23 @@ type MessagesSendVoteRequest struct {
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.
 const MessagesSendVoteRequestTypeID = 0x10ea6184
 
+func (s *MessagesSendVoteRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.MsgID == 0) {
+		return false
+	}
+	if !(s.Options == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSendVoteRequest) String() string {
 	if s == nil {

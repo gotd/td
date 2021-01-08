@@ -27,6 +27,17 @@ type ResponseID struct {
 // ResponseIDTypeID is TL type id of ResponseID.
 const ResponseIDTypeID = 0x85d7fd8b
 
+func (r *ResponseID) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ResponseID) String() string {
 	if r == nil {
@@ -91,6 +102,17 @@ type ResponseText struct {
 
 // ResponseTextTypeID is TL type id of ResponseText.
 const ResponseTextTypeID = 0xcb0244f2
+
+func (r *ResponseText) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (r *ResponseText) String() string {
@@ -164,7 +186,9 @@ type ResponseClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ResponseClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeResponse implements binary de-serialization for ResponseClass.

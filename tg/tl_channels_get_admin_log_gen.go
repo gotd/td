@@ -61,6 +61,38 @@ type ChannelsGetAdminLogRequest struct {
 // ChannelsGetAdminLogRequestTypeID is TL type id of ChannelsGetAdminLogRequest.
 const ChannelsGetAdminLogRequestTypeID = 0x33ddf480
 
+func (g *ChannelsGetAdminLogRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Channel == nil) {
+		return false
+	}
+	if !(g.Q == "") {
+		return false
+	}
+	if !(g.EventsFilter.Zero()) {
+		return false
+	}
+	if !(g.Admins == nil) {
+		return false
+	}
+	if !(g.MaxID == 0) {
+		return false
+	}
+	if !(g.MinID == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetAdminLogRequest) String() string {
 	if g == nil {
@@ -109,6 +141,12 @@ func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
 	}
 	b.PutID(ChannelsGetAdminLogRequestTypeID)
+	if !(g.EventsFilter.Zero()) {
+		g.Flags.Set(0)
+	}
+	if !(g.Admins == nil) {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.getAdminLog#33ddf480: field flags: %w", err)
 	}

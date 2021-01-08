@@ -25,6 +25,14 @@ type Int32 struct {
 // Int32TypeID is TL type id of Int32.
 const Int32TypeID = 0x5cb934fa
 
+func (i *Int32) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *Int32) String() string {
 	if i == nil {

@@ -65,6 +65,38 @@ type MessageReplies struct {
 // MessageRepliesTypeID is TL type id of MessageReplies.
 const MessageRepliesTypeID = 0x4128faac
 
+func (m *MessageReplies) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Comments == false) {
+		return false
+	}
+	if !(m.Replies == 0) {
+		return false
+	}
+	if !(m.RepliesPts == 0) {
+		return false
+	}
+	if !(m.RecentRepliers == nil) {
+		return false
+	}
+	if !(m.ChannelID == 0) {
+		return false
+	}
+	if !(m.MaxID == 0) {
+		return false
+	}
+	if !(m.ReadMaxID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageReplies) String() string {
 	if m == nil {
@@ -114,6 +146,21 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
 	}
 	b.PutID(MessageRepliesTypeID)
+	if !(m.Comments == false) {
+		m.Flags.Set(0)
+	}
+	if !(m.RecentRepliers == nil) {
+		m.Flags.Set(1)
+	}
+	if !(m.ChannelID == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.MaxID == 0) {
+		m.Flags.Set(2)
+	}
+	if !(m.ReadMaxID == 0) {
+		m.Flags.Set(3)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageReplies#4128faac: field flags: %w", err)
 	}

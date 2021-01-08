@@ -30,6 +30,20 @@ type MessagesArchivedStickers struct {
 // MessagesArchivedStickersTypeID is TL type id of MessagesArchivedStickers.
 const MessagesArchivedStickersTypeID = 0x4fcba9c8
 
+func (a *MessagesArchivedStickers) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Count == 0) {
+		return false
+	}
+	if !(a.Sets == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *MessagesArchivedStickers) String() string {
 	if a == nil {

@@ -26,6 +26,14 @@ type GeoPointEmpty struct {
 // GeoPointEmptyTypeID is TL type id of GeoPointEmpty.
 const GeoPointEmptyTypeID = 0x1117dd5f
 
+func (g *GeoPointEmpty) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GeoPointEmpty) String() string {
 	if g == nil {
@@ -94,6 +102,29 @@ type GeoPoint struct {
 // GeoPointTypeID is TL type id of GeoPoint.
 const GeoPointTypeID = 0xb2a2f663
 
+func (g *GeoPoint) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Long == 0) {
+		return false
+	}
+	if !(g.Lat == 0) {
+		return false
+	}
+	if !(g.AccessHash == 0) {
+		return false
+	}
+	if !(g.AccuracyRadius == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GeoPoint) String() string {
 	if g == nil {
@@ -129,6 +160,9 @@ func (g *GeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
 	}
 	b.PutID(GeoPointTypeID)
+	if !(g.AccuracyRadius == 0) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode geoPoint#b2a2f663: field flags: %w", err)
 	}
@@ -229,7 +263,9 @@ type GeoPointClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() GeoPointClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeGeoPoint implements binary de-serialization for GeoPointClass.

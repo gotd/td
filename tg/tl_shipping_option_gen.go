@@ -32,6 +32,23 @@ type ShippingOption struct {
 // ShippingOptionTypeID is TL type id of ShippingOption.
 const ShippingOptionTypeID = 0xb6213cdf
 
+func (s *ShippingOption) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.ID == "") {
+		return false
+	}
+	if !(s.Title == "") {
+		return false
+	}
+	if !(s.Prices == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *ShippingOption) String() string {
 	if s == nil {

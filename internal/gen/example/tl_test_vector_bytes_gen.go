@@ -27,6 +27,17 @@ type TestVectorBytes struct {
 // TestVectorBytesTypeID is TL type id of TestVectorBytes.
 const TestVectorBytesTypeID = 0xa590fb25
 
+func (t *TestVectorBytes) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Value == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TestVectorBytes) String() string {
 	if t == nil {

@@ -36,6 +36,20 @@ type AuthResendCodeRequest struct {
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
 const AuthResendCodeRequestTypeID = 0x3ef1a9bf
 
+func (r *AuthResendCodeRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.PhoneNumber == "") {
+		return false
+	}
+	if !(r.PhoneCodeHash == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AuthResendCodeRequest) String() string {
 	if r == nil {

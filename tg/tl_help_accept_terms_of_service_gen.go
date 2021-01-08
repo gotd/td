@@ -28,6 +28,17 @@ type HelpAcceptTermsOfServiceRequest struct {
 // HelpAcceptTermsOfServiceRequestTypeID is TL type id of HelpAcceptTermsOfServiceRequest.
 const HelpAcceptTermsOfServiceRequestTypeID = 0xee72f79a
 
+func (a *HelpAcceptTermsOfServiceRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.ID.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *HelpAcceptTermsOfServiceRequest) String() string {
 	if a == nil {

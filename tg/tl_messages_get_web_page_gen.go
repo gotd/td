@@ -36,6 +36,20 @@ type MessagesGetWebPageRequest struct {
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
 const MessagesGetWebPageRequestTypeID = 0x32ca8f91
 
+func (g *MessagesGetWebPageRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.URL == "") {
+		return false
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetWebPageRequest) String() string {
 	if g == nil {

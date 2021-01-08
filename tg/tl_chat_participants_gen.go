@@ -37,6 +37,23 @@ type ChatParticipantsForbidden struct {
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
 const ChatParticipantsForbiddenTypeID = 0xfc900c2b
 
+func (c *ChatParticipantsForbidden) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ChatID == 0) {
+		return false
+	}
+	if !(c.SelfParticipant == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatParticipantsForbidden) String() string {
 	if c == nil {
@@ -66,6 +83,9 @@ func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipantsForbidden#fc900c2b as nil")
 	}
 	b.PutID(ChatParticipantsForbiddenTypeID)
+	if !(c.SelfParticipant == nil) {
+		c.Flags.Set(0)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatParticipantsForbidden#fc900c2b: field flags: %w", err)
 	}
@@ -152,6 +172,23 @@ type ChatParticipants struct {
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
 const ChatParticipantsTypeID = 0x3f460fed
+
+func (c *ChatParticipants) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.ChatID == 0) {
+		return false
+	}
+	if !(c.Participants == nil) {
+		return false
+	}
+	if !(c.Version == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChatParticipants) String() string {
@@ -263,7 +300,9 @@ type ChatParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatParticipantsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChatParticipants implements binary de-serialization for ChatParticipantsClass.

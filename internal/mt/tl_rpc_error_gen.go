@@ -27,6 +27,20 @@ type RPCError struct {
 // RPCErrorTypeID is TL type id of RPCError.
 const RPCErrorTypeID = 0x2144ca19
 
+func (r *RPCError) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ErrorCode == 0) {
+		return false
+	}
+	if !(r.ErrorMessage == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RPCError) String() string {
 	if r == nil {

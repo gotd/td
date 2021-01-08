@@ -38,6 +38,32 @@ type PostAddress struct {
 // PostAddressTypeID is TL type id of PostAddress.
 const PostAddressTypeID = 0x1e8caaeb
 
+func (p *PostAddress) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.StreetLine1 == "") {
+		return false
+	}
+	if !(p.StreetLine2 == "") {
+		return false
+	}
+	if !(p.City == "") {
+		return false
+	}
+	if !(p.State == "") {
+		return false
+	}
+	if !(p.CountryIso2 == "") {
+		return false
+	}
+	if !(p.PostCode == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PostAddress) String() string {
 	if p == nil {

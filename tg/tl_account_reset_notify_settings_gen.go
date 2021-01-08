@@ -26,6 +26,14 @@ type AccountResetNotifySettingsRequest struct {
 // AccountResetNotifySettingsRequestTypeID is TL type id of AccountResetNotifySettingsRequest.
 const AccountResetNotifySettingsRequestTypeID = 0xdb7e1747
 
+func (r *AccountResetNotifySettingsRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountResetNotifySettingsRequest) String() string {
 	if r == nil {

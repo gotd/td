@@ -96,6 +96,56 @@ type ChatBannedRights struct {
 // ChatBannedRightsTypeID is TL type id of ChatBannedRights.
 const ChatBannedRightsTypeID = 0x9f120418
 
+func (c *ChatBannedRights) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ViewMessages == false) {
+		return false
+	}
+	if !(c.SendMessages == false) {
+		return false
+	}
+	if !(c.SendMedia == false) {
+		return false
+	}
+	if !(c.SendStickers == false) {
+		return false
+	}
+	if !(c.SendGifs == false) {
+		return false
+	}
+	if !(c.SendGames == false) {
+		return false
+	}
+	if !(c.SendInline == false) {
+		return false
+	}
+	if !(c.EmbedLinks == false) {
+		return false
+	}
+	if !(c.SendPolls == false) {
+		return false
+	}
+	if !(c.ChangeInfo == false) {
+		return false
+	}
+	if !(c.InviteUsers == false) {
+		return false
+	}
+	if !(c.PinMessages == false) {
+		return false
+	}
+	if !(c.UntilDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatBannedRights) String() string {
 	if c == nil {
@@ -120,6 +170,42 @@ func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
 	}
 	b.PutID(ChatBannedRightsTypeID)
+	if !(c.ViewMessages == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.SendMessages == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.SendMedia == false) {
+		c.Flags.Set(2)
+	}
+	if !(c.SendStickers == false) {
+		c.Flags.Set(3)
+	}
+	if !(c.SendGifs == false) {
+		c.Flags.Set(4)
+	}
+	if !(c.SendGames == false) {
+		c.Flags.Set(5)
+	}
+	if !(c.SendInline == false) {
+		c.Flags.Set(6)
+	}
+	if !(c.EmbedLinks == false) {
+		c.Flags.Set(7)
+	}
+	if !(c.SendPolls == false) {
+		c.Flags.Set(8)
+	}
+	if !(c.ChangeInfo == false) {
+		c.Flags.Set(10)
+	}
+	if !(c.InviteUsers == false) {
+		c.Flags.Set(15)
+	}
+	if !(c.PinMessages == false) {
+		c.Flags.Set(17)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatBannedRights#9f120418: field flags: %w", err)
 	}

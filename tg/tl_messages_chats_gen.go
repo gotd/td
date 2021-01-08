@@ -28,6 +28,17 @@ type MessagesChats struct {
 // MessagesChatsTypeID is TL type id of MessagesChats.
 const MessagesChatsTypeID = 0x64ff9fd5
 
+func (c *MessagesChats) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesChats) String() string {
 	if c == nil {
@@ -114,6 +125,20 @@ type MessagesChatsSlice struct {
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
 const MessagesChatsSliceTypeID = 0x9cd81144
+
+func (c *MessagesChatsSlice) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Count == 0) {
+		return false
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *MessagesChatsSlice) String() string {
@@ -214,7 +239,9 @@ type MessagesChatsClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesChatsClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesChats implements binary de-serialization for MessagesChatsClass.

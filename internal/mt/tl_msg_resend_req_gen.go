@@ -25,6 +25,17 @@ type MsgResendReq struct {
 // MsgResendReqTypeID is TL type id of MsgResendReq.
 const MsgResendReqTypeID = 0x7d861a08
 
+func (m *MsgResendReq) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.MsgIds == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgResendReq) String() string {
 	if m == nil {

@@ -46,6 +46,23 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
 const ChannelsGetAdminedPublicChannelsRequestTypeID = 0xf8b036af
 
+func (g *ChannelsGetAdminedPublicChannelsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.ByLocation == false) {
+		return false
+	}
+	if !(g.CheckLimit == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 	if g == nil {
@@ -67,6 +84,12 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
 	}
 	b.PutID(ChannelsGetAdminedPublicChannelsRequestTypeID)
+	if !(g.ByLocation == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.CheckLimit == false) {
+		g.Flags.Set(1)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
 	}

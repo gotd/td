@@ -31,6 +31,17 @@ type ContactsToggleTopPeersRequest struct {
 // ContactsToggleTopPeersRequestTypeID is TL type id of ContactsToggleTopPeersRequest.
 const ContactsToggleTopPeersRequestTypeID = 0x8514bdda
 
+func (t *ContactsToggleTopPeersRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Enabled == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ContactsToggleTopPeersRequest) String() string {
 	if t == nil {

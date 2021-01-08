@@ -30,6 +30,20 @@ type InlineBotSwitchPM struct {
 // InlineBotSwitchPMTypeID is TL type id of InlineBotSwitchPM.
 const InlineBotSwitchPMTypeID = 0x3c20629f
 
+func (i *InlineBotSwitchPM) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Text == "") {
+		return false
+	}
+	if !(i.StartParam == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InlineBotSwitchPM) String() string {
 	if i == nil {

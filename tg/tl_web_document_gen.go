@@ -36,6 +36,29 @@ type WebDocument struct {
 // WebDocumentTypeID is TL type id of WebDocument.
 const WebDocumentTypeID = 0x1c570ed1
 
+func (w *WebDocument) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.URL == "") {
+		return false
+	}
+	if !(w.AccessHash == 0) {
+		return false
+	}
+	if !(w.Size == 0) {
+		return false
+	}
+	if !(w.MimeType == "") {
+		return false
+	}
+	if !(w.Attributes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebDocument) String() string {
 	if w == nil {
@@ -171,6 +194,26 @@ type WebDocumentNoProxy struct {
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
 const WebDocumentNoProxyTypeID = 0xf9c8bcc6
 
+func (w *WebDocumentNoProxy) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.URL == "") {
+		return false
+	}
+	if !(w.Size == 0) {
+		return false
+	}
+	if !(w.MimeType == "") {
+		return false
+	}
+	if !(w.Attributes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebDocumentNoProxy) String() string {
 	if w == nil {
@@ -292,7 +335,9 @@ type WebDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WebDocumentClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeWebDocument implements binary de-serialization for WebDocumentClass.

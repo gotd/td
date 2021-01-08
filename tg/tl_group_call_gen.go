@@ -31,6 +31,23 @@ type GroupCallDiscarded struct {
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
 const GroupCallDiscardedTypeID = 0x7780bcb4
 
+func (g *GroupCallDiscarded) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+	if !(g.AccessHash == 0) {
+		return false
+	}
+	if !(g.Duration == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GroupCallDiscarded) String() string {
 	if g == nil {
@@ -134,6 +151,38 @@ type GroupCall struct {
 // GroupCallTypeID is TL type id of GroupCall.
 const GroupCallTypeID = 0x55903081
 
+func (g *GroupCall) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.JoinMuted == false) {
+		return false
+	}
+	if !(g.CanChangeJoinMuted == false) {
+		return false
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+	if !(g.AccessHash == 0) {
+		return false
+	}
+	if !(g.ParticipantsCount == 0) {
+		return false
+	}
+	if !(g.Params.Zero()) {
+		return false
+	}
+	if !(g.Version == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GroupCall) String() string {
 	if g == nil {
@@ -172,6 +221,15 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode groupCall#55903081 as nil")
 	}
 	b.PutID(GroupCallTypeID)
+	if !(g.JoinMuted == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.CanChangeJoinMuted == false) {
+		g.Flags.Set(2)
+	}
+	if !(g.Params.Zero()) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode groupCall#55903081: field flags: %w", err)
 	}
@@ -304,7 +362,9 @@ type GroupCallClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() GroupCallClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeGroupCall implements binary de-serialization for GroupCallClass.

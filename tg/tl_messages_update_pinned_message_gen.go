@@ -41,6 +41,32 @@ type MessagesUpdatePinnedMessageRequest struct {
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.
 const MessagesUpdatePinnedMessageRequestTypeID = 0xd2aaf7ec
 
+func (u *MessagesUpdatePinnedMessageRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Silent == false) {
+		return false
+	}
+	if !(u.Unpin == false) {
+		return false
+	}
+	if !(u.PmOneside == false) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUpdatePinnedMessageRequest) String() string {
 	if u == nil {
@@ -68,6 +94,15 @@ func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
 	}
 	b.PutID(MessagesUpdatePinnedMessageRequestTypeID)
+	if !(u.Silent == false) {
+		u.Flags.Set(0)
+	}
+	if !(u.Unpin == false) {
+		u.Flags.Set(1)
+	}
+	if !(u.PmOneside == false) {
+		u.Flags.Set(2)
+	}
 	if err := u.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
 	}

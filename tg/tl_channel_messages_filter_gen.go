@@ -26,6 +26,14 @@ type ChannelMessagesFilterEmpty struct {
 // ChannelMessagesFilterEmptyTypeID is TL type id of ChannelMessagesFilterEmpty.
 const ChannelMessagesFilterEmptyTypeID = 0x94d42ee7
 
+func (c *ChannelMessagesFilterEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelMessagesFilterEmpty) String() string {
 	if c == nil {
@@ -88,6 +96,23 @@ type ChannelMessagesFilter struct {
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
 const ChannelMessagesFilterTypeID = 0xcd77d957
 
+func (c *ChannelMessagesFilter) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.ExcludeNewMessages == false) {
+		return false
+	}
+	if !(c.Ranges == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelMessagesFilter) String() string {
 	if c == nil {
@@ -114,6 +139,9 @@ func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
 	}
 	b.PutID(ChannelMessagesFilterTypeID)
+	if !(c.ExcludeNewMessages == false) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelMessagesFilter#cd77d957: field flags: %w", err)
 	}
@@ -196,7 +224,9 @@ type ChannelMessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelMessagesFilter implements binary de-serialization for ChannelMessagesFilterClass.

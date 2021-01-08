@@ -28,6 +28,17 @@ type StatsURL struct {
 // StatsURLTypeID is TL type id of StatsURL.
 const StatsURLTypeID = 0x47a971e0
 
+func (s *StatsURL) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsURL) String() string {
 	if s == nil {

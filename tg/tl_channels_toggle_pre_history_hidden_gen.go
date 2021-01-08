@@ -30,6 +30,20 @@ type ChannelsTogglePreHistoryHiddenRequest struct {
 // ChannelsTogglePreHistoryHiddenRequestTypeID is TL type id of ChannelsTogglePreHistoryHiddenRequest.
 const ChannelsTogglePreHistoryHiddenRequestTypeID = 0xeabbb94c
 
+func (t *ChannelsTogglePreHistoryHiddenRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Channel == nil) {
+		return false
+	}
+	if !(t.Enabled == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
 	if t == nil {

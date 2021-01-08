@@ -35,6 +35,23 @@ type StatsGroupTopPoster struct {
 // StatsGroupTopPosterTypeID is TL type id of StatsGroupTopPoster.
 const StatsGroupTopPosterTypeID = 0x18f3d0f7
 
+func (s *StatsGroupTopPoster) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.UserID == 0) {
+		return false
+	}
+	if !(s.Messages == 0) {
+		return false
+	}
+	if !(s.AvgChars == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsGroupTopPoster) String() string {
 	if s == nil {

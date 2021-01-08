@@ -39,6 +39,29 @@ type UploadWebFile struct {
 // UploadWebFileTypeID is TL type id of UploadWebFile.
 const UploadWebFileTypeID = 0x21e753bc
 
+func (w *UploadWebFile) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Size == 0) {
+		return false
+	}
+	if !(w.MimeType == "") {
+		return false
+	}
+	if !(w.FileType == nil) {
+		return false
+	}
+	if !(w.Mtime == 0) {
+		return false
+	}
+	if !(w.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *UploadWebFile) String() string {
 	if w == nil {

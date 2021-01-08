@@ -32,6 +32,23 @@ type AccountSaveWallPaperRequest struct {
 // AccountSaveWallPaperRequestTypeID is TL type id of AccountSaveWallPaperRequest.
 const AccountSaveWallPaperRequestTypeID = 0x6c5a5b37
 
+func (s *AccountSaveWallPaperRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Wallpaper == nil) {
+		return false
+	}
+	if !(s.Unsave == false) {
+		return false
+	}
+	if !(s.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSaveWallPaperRequest) String() string {
 	if s == nil {

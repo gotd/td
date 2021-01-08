@@ -47,6 +47,8 @@ type structDef struct {
 	Vector           bool
 	// Fields of structure.
 	Fields []fieldDef
+	// Tuples of Conditional fields.
+	ConditionalTuples [32][]fieldDef
 
 	// Namespace for file structure generation.
 	Namespace []string
@@ -161,8 +163,13 @@ func (g *Generator) makeStructures() error {
 			}
 
 			if f.Conditional {
+				if f.ConditionalIndex >= 32 || f.ConditionalIndex < 0 {
+					return xerrors.Errorf("invalid conditional index %d", f.ConditionalIndex)
+				}
+				s.ConditionalTuples[f.ConditionalIndex] = append(s.ConditionalTuples[f.ConditionalIndex], f)
 				allFieldRequired = false
 			}
+
 			if f.Comment == "" {
 				f.Comment = docMethod.Parameters[param.Name].Description
 			}

@@ -28,6 +28,17 @@ type StickersRemoveStickerFromSetRequest struct {
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
 const StickersRemoveStickerFromSetRequestTypeID = 0xf7760f51
 
+func (r *StickersRemoveStickerFromSetRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Sticker == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *StickersRemoveStickerFromSetRequest) String() string {
 	if r == nil {

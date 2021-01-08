@@ -25,6 +25,17 @@ type GetFutureSaltsRequest struct {
 // GetFutureSaltsRequestTypeID is TL type id of GetFutureSaltsRequest.
 const GetFutureSaltsRequestTypeID = 0xb921bd04
 
+func (g *GetFutureSaltsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Num == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GetFutureSaltsRequest) String() string {
 	if g == nil {

@@ -34,6 +34,26 @@ type EmojiKeywordsDifference struct {
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.
 const EmojiKeywordsDifferenceTypeID = 0x5cc761bd
 
+func (e *EmojiKeywordsDifference) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.LangCode == "") {
+		return false
+	}
+	if !(e.FromVersion == 0) {
+		return false
+	}
+	if !(e.Version == 0) {
+		return false
+	}
+	if !(e.Keywords == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EmojiKeywordsDifference) String() string {
 	if e == nil {

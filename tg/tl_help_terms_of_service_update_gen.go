@@ -31,6 +31,17 @@ type HelpTermsOfServiceUpdateEmpty struct {
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
 const HelpTermsOfServiceUpdateEmptyTypeID = 0xe3309f7f
 
+func (t *HelpTermsOfServiceUpdateEmpty) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Expires == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *HelpTermsOfServiceUpdateEmpty) String() string {
 	if t == nil {
@@ -104,6 +115,20 @@ type HelpTermsOfServiceUpdate struct {
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.
 const HelpTermsOfServiceUpdateTypeID = 0x28ecf961
+
+func (t *HelpTermsOfServiceUpdate) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Expires == 0) {
+		return false
+	}
+	if !(t.TermsOfService.Zero()) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *HelpTermsOfServiceUpdate) String() string {
@@ -188,7 +213,9 @@ type HelpTermsOfServiceUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpTermsOfServiceUpdateClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpTermsOfServiceUpdate implements binary de-serialization for HelpTermsOfServiceUpdateClass.

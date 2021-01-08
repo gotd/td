@@ -32,6 +32,23 @@ type MessagesMessages struct {
 // MessagesMessagesTypeID is TL type id of MessagesMessages.
 const MessagesMessagesTypeID = 0x8c718e87
 
+func (m *MessagesMessages) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Messages == nil) {
+		return false
+	}
+	if !(m.Chats == nil) {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMessages) String() string {
 	if m == nil {
@@ -192,6 +209,38 @@ type MessagesMessagesSlice struct {
 // MessagesMessagesSliceTypeID is TL type id of MessagesMessagesSlice.
 const MessagesMessagesSliceTypeID = 0x3a54685e
 
+func (m *MessagesMessagesSlice) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Inexact == false) {
+		return false
+	}
+	if !(m.Count == 0) {
+		return false
+	}
+	if !(m.NextRate == 0) {
+		return false
+	}
+	if !(m.OffsetIDOffset == 0) {
+		return false
+	}
+	if !(m.Messages == nil) {
+		return false
+	}
+	if !(m.Chats == nil) {
+		return false
+	}
+	if !(m.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMessagesSlice) String() string {
 	if m == nil {
@@ -241,6 +290,15 @@ func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messagesSlice#3a54685e as nil")
 	}
 	b.PutID(MessagesMessagesSliceTypeID)
+	if !(m.Inexact == false) {
+		m.Flags.Set(1)
+	}
+	if !(m.NextRate == 0) {
+		m.Flags.Set(0)
+	}
+	if !(m.OffsetIDOffset == 0) {
+		m.Flags.Set(2)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.messagesSlice#3a54685e: field flags: %w", err)
 	}
@@ -444,6 +502,38 @@ type MessagesChannelMessages struct {
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
 const MessagesChannelMessagesTypeID = 0x64479808
 
+func (c *MessagesChannelMessages) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Inexact == false) {
+		return false
+	}
+	if !(c.Pts == 0) {
+		return false
+	}
+	if !(c.Count == 0) {
+		return false
+	}
+	if !(c.OffsetIDOffset == 0) {
+		return false
+	}
+	if !(c.Messages == nil) {
+		return false
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *MessagesChannelMessages) String() string {
 	if c == nil {
@@ -491,6 +581,12 @@ func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
 	}
 	b.PutID(MessagesChannelMessagesTypeID)
+	if !(c.Inexact == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.OffsetIDOffset == 0) {
+		c.Flags.Set(2)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.channelMessages#64479808: field flags: %w", err)
 	}
@@ -655,6 +751,17 @@ type MessagesMessagesNotModified struct {
 // MessagesMessagesNotModifiedTypeID is TL type id of MessagesMessagesNotModified.
 const MessagesMessagesNotModifiedTypeID = 0x74535f21
 
+func (m *MessagesMessagesNotModified) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Count == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessagesMessagesNotModified) String() string {
 	if m == nil {
@@ -729,7 +836,9 @@ type MessagesMessagesClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesMessagesClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesMessages implements binary de-serialization for MessagesMessagesClass.

@@ -63,6 +63,41 @@ type MessagesEditMessageRequest struct {
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
 const MessagesEditMessageRequestTypeID = 0x48f71778
 
+func (e *MessagesEditMessageRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.NoWebpage == false) {
+		return false
+	}
+	if !(e.Peer == nil) {
+		return false
+	}
+	if !(e.ID == 0) {
+		return false
+	}
+	if !(e.Message == "") {
+		return false
+	}
+	if !(e.Media == nil) {
+		return false
+	}
+	if !(e.ReplyMarkup == nil) {
+		return false
+	}
+	if !(e.Entities == nil) {
+		return false
+	}
+	if !(e.ScheduleDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditMessageRequest) String() string {
 	if e == nil {
@@ -117,6 +152,24 @@ func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
 	}
 	b.PutID(MessagesEditMessageRequestTypeID)
+	if !(e.NoWebpage == false) {
+		e.Flags.Set(1)
+	}
+	if !(e.Message == "") {
+		e.Flags.Set(11)
+	}
+	if !(e.Media == nil) {
+		e.Flags.Set(14)
+	}
+	if !(e.ReplyMarkup == nil) {
+		e.Flags.Set(2)
+	}
+	if !(e.Entities == nil) {
+		e.Flags.Set(3)
+	}
+	if !(e.ScheduleDate == 0) {
+		e.Flags.Set(15)
+	}
 	if err := e.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.editMessage#48f71778: field flags: %w", err)
 	}

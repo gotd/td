@@ -37,6 +37,23 @@ type AccountGetNotifyExceptionsRequest struct {
 // AccountGetNotifyExceptionsRequestTypeID is TL type id of AccountGetNotifyExceptionsRequest.
 const AccountGetNotifyExceptionsRequestTypeID = 0x53577479
 
+func (g *AccountGetNotifyExceptionsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.CompareSound == false) {
+		return false
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetNotifyExceptionsRequest) String() string {
 	if g == nil {
@@ -63,6 +80,12 @@ func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
 	}
 	b.PutID(AccountGetNotifyExceptionsRequestTypeID)
+	if !(g.CompareSound == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.Peer == nil) {
+		g.Flags.Set(0)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.getNotifyExceptions#53577479: field flags: %w", err)
 	}

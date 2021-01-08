@@ -55,6 +55,32 @@ type AccountAuthorizationForm struct {
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.
 const AccountAuthorizationFormTypeID = 0xad2e1cd8
 
+func (a *AccountAuthorizationForm) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.RequiredTypes == nil) {
+		return false
+	}
+	if !(a.Values == nil) {
+		return false
+	}
+	if !(a.Errors == nil) {
+		return false
+	}
+	if !(a.Users == nil) {
+		return false
+	}
+	if !(a.PrivacyPolicyURL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AccountAuthorizationForm) String() string {
 	if a == nil {
@@ -101,6 +127,9 @@ func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.authorizationForm#ad2e1cd8 as nil")
 	}
 	b.PutID(AccountAuthorizationFormTypeID)
+	if !(a.PrivacyPolicyURL == "") {
+		a.Flags.Set(0)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.authorizationForm#ad2e1cd8: field flags: %w", err)
 	}

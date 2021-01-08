@@ -45,6 +45,32 @@ type ContactsAddContactRequest struct {
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.
 const ContactsAddContactRequestTypeID = 0xe8f463d0
 
+func (a *ContactsAddContactRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.AddPhonePrivacyException == false) {
+		return false
+	}
+	if !(a.ID == nil) {
+		return false
+	}
+	if !(a.FirstName == "") {
+		return false
+	}
+	if !(a.LastName == "") {
+		return false
+	}
+	if !(a.Phone == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *ContactsAddContactRequest) String() string {
 	if a == nil {
@@ -78,6 +104,9 @@ func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
 	}
 	b.PutID(ContactsAddContactRequestTypeID)
+	if !(a.AddPhonePrivacyException == false) {
+		a.Flags.Set(0)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode contacts.addContact#e8f463d0: field flags: %w", err)
 	}

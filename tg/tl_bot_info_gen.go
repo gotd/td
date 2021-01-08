@@ -32,6 +32,23 @@ type BotInfo struct {
 // BotInfoTypeID is TL type id of BotInfo.
 const BotInfoTypeID = 0x98e81d3a
 
+func (b *BotInfo) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.UserID == 0) {
+		return false
+	}
+	if !(b.Description == "") {
+		return false
+	}
+	if !(b.Commands == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInfo) String() string {
 	if b == nil {

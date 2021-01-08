@@ -63,6 +63,56 @@ type StickerSet struct {
 // StickerSetTypeID is TL type id of StickerSet.
 const StickerSetTypeID = 0x40e237a8
 
+func (s *StickerSet) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Archived == false) {
+		return false
+	}
+	if !(s.Official == false) {
+		return false
+	}
+	if !(s.Masks == false) {
+		return false
+	}
+	if !(s.Animated == false) {
+		return false
+	}
+	if !(s.InstalledDate == 0) {
+		return false
+	}
+	if !(s.ID == 0) {
+		return false
+	}
+	if !(s.AccessHash == 0) {
+		return false
+	}
+	if !(s.Title == "") {
+		return false
+	}
+	if !(s.ShortName == "") {
+		return false
+	}
+	if !(s.Thumbs == nil) {
+		return false
+	}
+	if !(s.ThumbDCID == 0) {
+		return false
+	}
+	if !(s.Count == 0) {
+		return false
+	}
+	if !(s.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StickerSet) String() string {
 	if s == nil {
@@ -119,6 +169,27 @@ func (s *StickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickerSet#40e237a8 as nil")
 	}
 	b.PutID(StickerSetTypeID)
+	if !(s.Archived == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.Official == false) {
+		s.Flags.Set(2)
+	}
+	if !(s.Masks == false) {
+		s.Flags.Set(3)
+	}
+	if !(s.Animated == false) {
+		s.Flags.Set(5)
+	}
+	if !(s.InstalledDate == 0) {
+		s.Flags.Set(0)
+	}
+	if !(s.Thumbs == nil) {
+		s.Flags.Set(4)
+	}
+	if !(s.ThumbDCID == 0) {
+		s.Flags.Set(4)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stickerSet#40e237a8: field flags: %w", err)
 	}

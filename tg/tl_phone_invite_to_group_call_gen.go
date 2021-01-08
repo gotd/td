@@ -29,6 +29,20 @@ type PhoneInviteToGroupCallRequest struct {
 // PhoneInviteToGroupCallRequestTypeID is TL type id of PhoneInviteToGroupCallRequest.
 const PhoneInviteToGroupCallRequestTypeID = 0x7b393160
 
+func (i *PhoneInviteToGroupCallRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Call.Zero()) {
+		return false
+	}
+	if !(i.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *PhoneInviteToGroupCallRequest) String() string {
 	if i == nil {

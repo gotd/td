@@ -30,6 +30,20 @@ type MessagesDeleteChatUserRequest struct {
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.
 const MessagesDeleteChatUserRequestTypeID = 0xe0611f16
 
+func (d *MessagesDeleteChatUserRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ChatID == 0) {
+		return false
+	}
+	if !(d.UserID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDeleteChatUserRequest) String() string {
 	if d == nil {

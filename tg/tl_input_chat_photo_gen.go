@@ -26,6 +26,14 @@ type InputChatPhotoEmpty struct {
 // InputChatPhotoEmptyTypeID is TL type id of InputChatPhotoEmpty.
 const InputChatPhotoEmptyTypeID = 0x1ca48f57
 
+func (i *InputChatPhotoEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputChatPhotoEmpty) String() string {
 	if i == nil {
@@ -99,6 +107,26 @@ type InputChatUploadedPhoto struct {
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
 const InputChatUploadedPhotoTypeID = 0xc642724e
 
+func (i *InputChatUploadedPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.File == nil) {
+		return false
+	}
+	if !(i.Video == nil) {
+		return false
+	}
+	if !(i.VideoStartTs == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputChatUploadedPhoto) String() string {
 	if i == nil {
@@ -135,6 +163,15 @@ func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
 	}
 	b.PutID(InputChatUploadedPhotoTypeID)
+	if !(i.File == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.Video == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.VideoStartTs == 0) {
+		i.Flags.Set(2)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputChatUploadedPhoto#c642724e: field flags: %w", err)
 	}
@@ -265,6 +302,17 @@ type InputChatPhoto struct {
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
 const InputChatPhotoTypeID = 0x8953ad37
 
+func (i *InputChatPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputChatPhoto) String() string {
 	if i == nil {
@@ -343,7 +391,9 @@ type InputChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputChatPhotoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputChatPhoto implements binary de-serialization for InputChatPhotoClass.

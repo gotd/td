@@ -32,6 +32,23 @@ type MessagesStickerSet struct {
 // MessagesStickerSetTypeID is TL type id of MessagesStickerSet.
 const MessagesStickerSetTypeID = 0xb60a24a6
 
+func (s *MessagesStickerSet) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Set.Zero()) {
+		return false
+	}
+	if !(s.Packs == nil) {
+		return false
+	}
+	if !(s.Documents == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesStickerSet) String() string {
 	if s == nil {

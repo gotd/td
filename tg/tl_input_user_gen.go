@@ -26,6 +26,14 @@ type InputUserEmpty struct {
 // InputUserEmptyTypeID is TL type id of InputUserEmpty.
 const InputUserEmptyTypeID = 0xb98886cf
 
+func (i *InputUserEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputUserEmpty) String() string {
 	if i == nil {
@@ -78,6 +86,14 @@ type InputUserSelf struct {
 
 // InputUserSelfTypeID is TL type id of InputUserSelf.
 const InputUserSelfTypeID = 0xf7c1b13f
+
+func (i *InputUserSelf) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputUserSelf) String() string {
@@ -138,6 +154,20 @@ type InputUser struct {
 
 // InputUserTypeID is TL type id of InputUser.
 const InputUserTypeID = 0xd8292816
+
+func (i *InputUser) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.UserID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputUser) String() string {
@@ -222,6 +252,23 @@ type InputUserFromMessage struct {
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
 const InputUserFromMessageTypeID = 0x2d117597
+
+func (i *InputUserFromMessage) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Peer == nil) {
+		return false
+	}
+	if !(i.MsgID == 0) {
+		return false
+	}
+	if !(i.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputUserFromMessage) String() string {
@@ -324,7 +371,9 @@ type InputUserClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputUserClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputUser implements binary de-serialization for InputUserClass.

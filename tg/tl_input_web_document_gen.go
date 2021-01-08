@@ -37,6 +37,26 @@ type InputWebDocument struct {
 // InputWebDocumentTypeID is TL type id of InputWebDocument.
 const InputWebDocumentTypeID = 0x9bed434d
 
+func (i *InputWebDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.Size == 0) {
+		return false
+	}
+	if !(i.MimeType == "") {
+		return false
+	}
+	if !(i.Attributes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputWebDocument) String() string {
 	if i == nil {

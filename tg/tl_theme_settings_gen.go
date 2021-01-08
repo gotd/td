@@ -47,6 +47,32 @@ type ThemeSettings struct {
 // ThemeSettingsTypeID is TL type id of ThemeSettings.
 const ThemeSettingsTypeID = 0x9c14984a
 
+func (t *ThemeSettings) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.BaseTheme == nil) {
+		return false
+	}
+	if !(t.AccentColor == 0) {
+		return false
+	}
+	if !(t.MessageTopColor == 0) {
+		return false
+	}
+	if !(t.MessageBottomColor == 0) {
+		return false
+	}
+	if !(t.Wallpaper == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ThemeSettings) String() string {
 	if t == nil {
@@ -89,6 +115,15 @@ func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode themeSettings#9c14984a as nil")
 	}
 	b.PutID(ThemeSettingsTypeID)
+	if !(t.MessageTopColor == 0) {
+		t.Flags.Set(0)
+	}
+	if !(t.MessageBottomColor == 0) {
+		t.Flags.Set(0)
+	}
+	if !(t.Wallpaper == nil) {
+		t.Flags.Set(1)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode themeSettings#9c14984a: field flags: %w", err)
 	}

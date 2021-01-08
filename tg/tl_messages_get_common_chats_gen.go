@@ -38,6 +38,23 @@ type MessagesGetCommonChatsRequest struct {
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
 const MessagesGetCommonChatsRequestTypeID = 0xd0a48c4
 
+func (g *MessagesGetCommonChatsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.UserID == nil) {
+		return false
+	}
+	if !(g.MaxID == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetCommonChatsRequest) String() string {
 	if g == nil {

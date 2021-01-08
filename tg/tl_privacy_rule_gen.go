@@ -26,6 +26,14 @@ type PrivacyValueAllowContacts struct {
 // PrivacyValueAllowContactsTypeID is TL type id of PrivacyValueAllowContacts.
 const PrivacyValueAllowContactsTypeID = 0xfffe1bac
 
+func (p *PrivacyValueAllowContacts) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyValueAllowContacts) String() string {
 	if p == nil {
@@ -78,6 +86,14 @@ type PrivacyValueAllowAll struct {
 
 // PrivacyValueAllowAllTypeID is TL type id of PrivacyValueAllowAll.
 const PrivacyValueAllowAllTypeID = 0x65427b82
+
+func (p *PrivacyValueAllowAll) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyValueAllowAll) String() string {
@@ -133,6 +149,17 @@ type PrivacyValueAllowUsers struct {
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
 const PrivacyValueAllowUsersTypeID = 0x4d5bbe0c
+
+func (p *PrivacyValueAllowUsers) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyValueAllowUsers) String() string {
@@ -209,6 +236,14 @@ type PrivacyValueDisallowContacts struct {
 // PrivacyValueDisallowContactsTypeID is TL type id of PrivacyValueDisallowContacts.
 const PrivacyValueDisallowContactsTypeID = 0xf888fa1a
 
+func (p *PrivacyValueDisallowContacts) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyValueDisallowContacts) String() string {
 	if p == nil {
@@ -261,6 +296,14 @@ type PrivacyValueDisallowAll struct {
 
 // PrivacyValueDisallowAllTypeID is TL type id of PrivacyValueDisallowAll.
 const PrivacyValueDisallowAllTypeID = 0x8b73e763
+
+func (p *PrivacyValueDisallowAll) Zero() bool {
+	if p == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyValueDisallowAll) String() string {
@@ -316,6 +359,17 @@ type PrivacyValueDisallowUsers struct {
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
 const PrivacyValueDisallowUsersTypeID = 0xc7f49b7
+
+func (p *PrivacyValueDisallowUsers) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyValueDisallowUsers) String() string {
@@ -394,6 +448,17 @@ type PrivacyValueAllowChatParticipants struct {
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
 const PrivacyValueAllowChatParticipantsTypeID = 0x18be796b
 
+func (p *PrivacyValueAllowChatParticipants) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PrivacyValueAllowChatParticipants) String() string {
 	if p == nil {
@@ -470,6 +535,17 @@ type PrivacyValueDisallowChatParticipants struct {
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
 const PrivacyValueDisallowChatParticipantsTypeID = 0xacae0690
+
+func (p *PrivacyValueDisallowChatParticipants) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PrivacyValueDisallowChatParticipants) String() string {
@@ -560,7 +636,9 @@ type PrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PrivacyRuleClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePrivacyRule implements binary de-serialization for PrivacyRuleClass.

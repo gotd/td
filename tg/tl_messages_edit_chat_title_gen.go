@@ -30,6 +30,20 @@ type MessagesEditChatTitleRequest struct {
 // MessagesEditChatTitleRequestTypeID is TL type id of MessagesEditChatTitleRequest.
 const MessagesEditChatTitleRequestTypeID = 0xdc452855
 
+func (e *MessagesEditChatTitleRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.ChatID == 0) {
+		return false
+	}
+	if !(e.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *MessagesEditChatTitleRequest) String() string {
 	if e == nil {

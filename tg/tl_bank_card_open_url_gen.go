@@ -30,6 +30,20 @@ type BankCardOpenUrl struct {
 // BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.
 const BankCardOpenUrlTypeID = 0xf568028a
 
+func (b *BankCardOpenUrl) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.URL == "") {
+		return false
+	}
+	if !(b.Name == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BankCardOpenUrl) String() string {
 	if b == nil {

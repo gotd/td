@@ -37,6 +37,26 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.
 const AccountSaveAutoDownloadSettingsRequestTypeID = 0x76f36233
 
+func (s *AccountSaveAutoDownloadSettingsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Low == false) {
+		return false
+	}
+	if !(s.High == false) {
+		return false
+	}
+	if !(s.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSaveAutoDownloadSettingsRequest) String() string {
 	if s == nil {
@@ -61,6 +81,12 @@ func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.saveAutoDownloadSettings#76f36233 as nil")
 	}
 	b.PutID(AccountSaveAutoDownloadSettingsRequestTypeID)
+	if !(s.Low == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.High == false) {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.saveAutoDownloadSettings#76f36233: field flags: %w", err)
 	}

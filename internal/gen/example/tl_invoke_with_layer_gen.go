@@ -29,6 +29,20 @@ type InvokeWithLayer struct {
 // InvokeWithLayerTypeID is TL type id of InvokeWithLayer.
 const InvokeWithLayerTypeID = 0xda9b0d0d
 
+func (i *InvokeWithLayer) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Layer == 0) {
+		return false
+	}
+	if !(i.Query == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InvokeWithLayer) String() string {
 	if i == nil {

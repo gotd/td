@@ -35,6 +35,23 @@ type AccountContentSettings struct {
 // AccountContentSettingsTypeID is TL type id of AccountContentSettings.
 const AccountContentSettingsTypeID = 0x57e28221
 
+func (c *AccountContentSettings) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.SensitiveEnabled == false) {
+		return false
+	}
+	if !(c.SensitiveCanChange == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountContentSettings) String() string {
 	if c == nil {
@@ -56,6 +73,12 @@ func (c *AccountContentSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.contentSettings#57e28221 as nil")
 	}
 	b.PutID(AccountContentSettingsTypeID)
+	if !(c.SensitiveEnabled == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.SensitiveCanChange == false) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.contentSettings#57e28221: field flags: %w", err)
 	}

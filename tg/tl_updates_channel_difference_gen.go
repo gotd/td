@@ -42,6 +42,26 @@ type UpdatesChannelDifferenceEmpty struct {
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
 const UpdatesChannelDifferenceEmptyTypeID = 0x3e11affb
 
+func (c *UpdatesChannelDifferenceEmpty) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Final == false) {
+		return false
+	}
+	if !(c.Pts == 0) {
+		return false
+	}
+	if !(c.Timeout == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *UpdatesChannelDifferenceEmpty) String() string {
 	if c == nil {
@@ -71,6 +91,12 @@ func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceEmptyTypeID)
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
 	}
@@ -181,6 +207,35 @@ type UpdatesChannelDifferenceTooLong struct {
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
 const UpdatesChannelDifferenceTooLongTypeID = 0xa4bcc6fe
 
+func (c *UpdatesChannelDifferenceTooLong) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Final == false) {
+		return false
+	}
+	if !(c.Timeout == 0) {
+		return false
+	}
+	if !(c.Dialog == nil) {
+		return false
+	}
+	if !(c.Messages == nil) {
+		return false
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *UpdatesChannelDifferenceTooLong) String() string {
 	if c == nil {
@@ -225,6 +280,12 @@ func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceTooLongTypeID)
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
 	}
@@ -408,6 +469,38 @@ type UpdatesChannelDifference struct {
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
 const UpdatesChannelDifferenceTypeID = 0x2064674e
 
+func (c *UpdatesChannelDifference) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Final == false) {
+		return false
+	}
+	if !(c.Pts == 0) {
+		return false
+	}
+	if !(c.Timeout == 0) {
+		return false
+	}
+	if !(c.NewMessages == nil) {
+		return false
+	}
+	if !(c.OtherUpdates == nil) {
+		return false
+	}
+	if !(c.Chats == nil) {
+		return false
+	}
+	if !(c.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *UpdatesChannelDifference) String() string {
 	if c == nil {
@@ -457,6 +550,12 @@ func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceTypeID)
+	if !(c.Final == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Timeout == 0) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode updates.channelDifference#2064674e: field flags: %w", err)
 	}
@@ -642,7 +741,9 @@ type UpdatesChannelDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUpdatesChannelDifference implements binary de-serialization for UpdatesChannelDifferenceClass.

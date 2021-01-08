@@ -53,6 +53,32 @@ type MessagesGetUnreadMentionsRequest struct {
 // MessagesGetUnreadMentionsRequestTypeID is TL type id of MessagesGetUnreadMentionsRequest.
 const MessagesGetUnreadMentionsRequestTypeID = 0x46578472
 
+func (g *MessagesGetUnreadMentionsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.OffsetID == 0) {
+		return false
+	}
+	if !(g.AddOffset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+	if !(g.MaxID == 0) {
+		return false
+	}
+	if !(g.MinID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetUnreadMentionsRequest) String() string {
 	if g == nil {

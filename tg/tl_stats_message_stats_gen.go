@@ -28,6 +28,17 @@ type StatsMessageStats struct {
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.
 const StatsMessageStatsTypeID = 0x8999f295
 
+func (m *StatsMessageStats) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.ViewsGraph == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *StatsMessageStats) String() string {
 	if m == nil {

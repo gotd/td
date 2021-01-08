@@ -61,6 +61,47 @@ type PaymentsPaymentReceipt struct {
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
 const PaymentsPaymentReceiptTypeID = 0x500911e1
 
+func (p *PaymentsPaymentReceipt) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Date == 0) {
+		return false
+	}
+	if !(p.BotID == 0) {
+		return false
+	}
+	if !(p.Invoice.Zero()) {
+		return false
+	}
+	if !(p.ProviderID == 0) {
+		return false
+	}
+	if !(p.Info.Zero()) {
+		return false
+	}
+	if !(p.Shipping.Zero()) {
+		return false
+	}
+	if !(p.Currency == "") {
+		return false
+	}
+	if !(p.TotalAmount == 0) {
+		return false
+	}
+	if !(p.CredentialsTitle == "") {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentsPaymentReceipt) String() string {
 	if p == nil {
@@ -118,6 +159,12 @@ func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentReceipt#500911e1 as nil")
 	}
 	b.PutID(PaymentsPaymentReceiptTypeID)
+	if !(p.Info.Zero()) {
+		p.Flags.Set(0)
+	}
+	if !(p.Shipping.Zero()) {
+		p.Flags.Set(1)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode payments.paymentReceipt#500911e1: field flags: %w", err)
 	}

@@ -28,6 +28,17 @@ type AccountDaysTTL struct {
 // AccountDaysTTLTypeID is TL type id of AccountDaysTTL.
 const AccountDaysTTLTypeID = 0xb8d0afdf
 
+func (a *AccountDaysTTL) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Days == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AccountDaysTTL) String() string {
 	if a == nil {

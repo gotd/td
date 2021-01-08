@@ -59,6 +59,59 @@ type StatsBroadcastStats struct {
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
 const StatsBroadcastStatsTypeID = 0xbdf78394
 
+func (b *StatsBroadcastStats) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Period.Zero()) {
+		return false
+	}
+	if !(b.Followers.Zero()) {
+		return false
+	}
+	if !(b.ViewsPerPost.Zero()) {
+		return false
+	}
+	if !(b.SharesPerPost.Zero()) {
+		return false
+	}
+	if !(b.EnabledNotifications.Zero()) {
+		return false
+	}
+	if !(b.GrowthGraph == nil) {
+		return false
+	}
+	if !(b.FollowersGraph == nil) {
+		return false
+	}
+	if !(b.MuteGraph == nil) {
+		return false
+	}
+	if !(b.TopHoursGraph == nil) {
+		return false
+	}
+	if !(b.InteractionsGraph == nil) {
+		return false
+	}
+	if !(b.IvInteractionsGraph == nil) {
+		return false
+	}
+	if !(b.ViewsBySourceGraph == nil) {
+		return false
+	}
+	if !(b.NewFollowersBySourceGraph == nil) {
+		return false
+	}
+	if !(b.LanguagesGraph == nil) {
+		return false
+	}
+	if !(b.RecentMessageInteractions == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *StatsBroadcastStats) String() string {
 	if b == nil {

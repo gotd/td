@@ -28,6 +28,17 @@ type MessagesDhConfigNotModified struct {
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
 const MessagesDhConfigNotModifiedTypeID = 0xc0e24635
 
+func (d *MessagesDhConfigNotModified) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Random == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *MessagesDhConfigNotModified) String() string {
 	if d == nil {
@@ -105,6 +116,26 @@ type MessagesDhConfig struct {
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
 const MessagesDhConfigTypeID = 0x2c221edd
+
+func (d *MessagesDhConfig) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.G == 0) {
+		return false
+	}
+	if !(d.P == nil) {
+		return false
+	}
+	if !(d.Version == 0) {
+		return false
+	}
+	if !(d.Random == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (d *MessagesDhConfig) String() string {
@@ -211,7 +242,9 @@ type MessagesDhConfigClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesDhConfigClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesDhConfig implements binary de-serialization for MessagesDhConfigClass.

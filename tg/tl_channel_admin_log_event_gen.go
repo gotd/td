@@ -34,6 +34,26 @@ type ChannelAdminLogEvent struct {
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.
 const ChannelAdminLogEventTypeID = 0x3b5a3e40
 
+func (c *ChannelAdminLogEvent) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.ID == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelAdminLogEvent) String() string {
 	if c == nil {

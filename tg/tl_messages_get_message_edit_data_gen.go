@@ -30,6 +30,20 @@ type MessagesGetMessageEditDataRequest struct {
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.
 const MessagesGetMessageEditDataRequestTypeID = 0xfda68d36
 
+func (g *MessagesGetMessageEditDataRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.ID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetMessageEditDataRequest) String() string {
 	if g == nil {

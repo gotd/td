@@ -30,6 +30,20 @@ type AccountTmpPassword struct {
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.
 const AccountTmpPasswordTypeID = 0xdb64fd34
 
+func (t *AccountTmpPassword) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.TmpPassword == nil) {
+		return false
+	}
+	if !(t.ValidUntil == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *AccountTmpPassword) String() string {
 	if t == nil {

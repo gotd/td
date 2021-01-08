@@ -22,6 +22,17 @@ type MessageRangeVector struct {
 	Elems []MessageRange
 }
 
+func (vec *MessageRangeVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *MessageRangeVector) String() string {
 	if vec == nil {

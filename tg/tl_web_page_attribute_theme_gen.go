@@ -39,6 +39,23 @@ type WebPageAttributeTheme struct {
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.
 const WebPageAttributeThemeTypeID = 0x54b56617
 
+func (w *WebPageAttributeTheme) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.Documents == nil) {
+		return false
+	}
+	if !(w.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WebPageAttributeTheme) String() string {
 	if w == nil {
@@ -72,6 +89,12 @@ func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
 	}
 	b.PutID(WebPageAttributeThemeTypeID)
+	if !(w.Documents == nil) {
+		w.Flags.Set(0)
+	}
+	if !(w.Settings.Zero()) {
+		w.Flags.Set(1)
+	}
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode webPageAttributeTheme#54b56617: field flags: %w", err)
 	}

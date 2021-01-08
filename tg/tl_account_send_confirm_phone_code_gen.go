@@ -36,6 +36,20 @@ type AccountSendConfirmPhoneCodeRequest struct {
 // AccountSendConfirmPhoneCodeRequestTypeID is TL type id of AccountSendConfirmPhoneCodeRequest.
 const AccountSendConfirmPhoneCodeRequestTypeID = 0x1b3faa88
 
+func (s *AccountSendConfirmPhoneCodeRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Hash == "") {
+		return false
+	}
+	if !(s.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *AccountSendConfirmPhoneCodeRequest) String() string {
 	if s == nil {

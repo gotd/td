@@ -28,6 +28,17 @@ type ContactsBlockRequest struct {
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.
 const ContactsBlockRequestTypeID = 0x68cc1411
 
+func (b *ContactsBlockRequest) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *ContactsBlockRequest) String() string {
 	if b == nil {

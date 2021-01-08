@@ -32,6 +32,17 @@ type ContactsGetContactsRequest struct {
 // ContactsGetContactsRequestTypeID is TL type id of ContactsGetContactsRequest.
 const ContactsGetContactsRequestTypeID = 0xc023849f
 
+func (g *ContactsGetContactsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *ContactsGetContactsRequest) String() string {
 	if g == nil {

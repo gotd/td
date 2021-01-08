@@ -31,6 +31,23 @@ type UploadGetWebFileRequest struct {
 // UploadGetWebFileRequestTypeID is TL type id of UploadGetWebFileRequest.
 const UploadGetWebFileRequestTypeID = 0x24e6818d
 
+func (g *UploadGetWebFileRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Location == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *UploadGetWebFileRequest) String() string {
 	if g == nil {

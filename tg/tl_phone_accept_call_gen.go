@@ -35,6 +35,23 @@ type PhoneAcceptCallRequest struct {
 // PhoneAcceptCallRequestTypeID is TL type id of PhoneAcceptCallRequest.
 const PhoneAcceptCallRequestTypeID = 0x3bd2b4a0
 
+func (a *PhoneAcceptCallRequest) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Peer.Zero()) {
+		return false
+	}
+	if !(a.GB == nil) {
+		return false
+	}
+	if !(a.Protocol.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *PhoneAcceptCallRequest) String() string {
 	if a == nil {

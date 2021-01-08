@@ -35,6 +35,29 @@ type PhoneGetGroupParticipantsRequest struct {
 // PhoneGetGroupParticipantsRequestTypeID is TL type id of PhoneGetGroupParticipantsRequest.
 const PhoneGetGroupParticipantsRequestTypeID = 0xc9f1d285
 
+func (g *PhoneGetGroupParticipantsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Call.Zero()) {
+		return false
+	}
+	if !(g.Ids == nil) {
+		return false
+	}
+	if !(g.Sources == nil) {
+		return false
+	}
+	if !(g.Offset == "") {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhoneGetGroupParticipantsRequest) String() string {
 	if g == nil {

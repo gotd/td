@@ -30,6 +30,20 @@ type InputPhoneCall struct {
 // InputPhoneCallTypeID is TL type id of InputPhoneCall.
 const InputPhoneCallTypeID = 0x1e36fded
 
+func (i *InputPhoneCall) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPhoneCall) String() string {
 	if i == nil {

@@ -28,6 +28,17 @@ type EmojiURL struct {
 // EmojiURLTypeID is TL type id of EmojiURL.
 const EmojiURLTypeID = 0xa575739d
 
+func (e *EmojiURL) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EmojiURL) String() string {
 	if e == nil {

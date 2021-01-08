@@ -28,6 +28,17 @@ type PaymentsGetPaymentFormRequest struct {
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
 const PaymentsGetPaymentFormRequestTypeID = 0x99f09745
 
+func (g *PaymentsGetPaymentFormRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.MsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PaymentsGetPaymentFormRequest) String() string {
 	if g == nil {

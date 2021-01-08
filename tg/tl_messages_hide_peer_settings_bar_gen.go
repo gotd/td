@@ -31,6 +31,17 @@ type MessagesHidePeerSettingsBarRequest struct {
 // MessagesHidePeerSettingsBarRequestTypeID is TL type id of MessagesHidePeerSettingsBarRequest.
 const MessagesHidePeerSettingsBarRequestTypeID = 0x4facb138
 
+func (h *MessagesHidePeerSettingsBarRequest) Zero() bool {
+	if h == nil {
+		return true
+	}
+	if !(h.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (h *MessagesHidePeerSettingsBarRequest) String() string {
 	if h == nil {

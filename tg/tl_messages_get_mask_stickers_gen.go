@@ -31,6 +31,17 @@ type MessagesGetMaskStickersRequest struct {
 // MessagesGetMaskStickersRequestTypeID is TL type id of MessagesGetMaskStickersRequest.
 const MessagesGetMaskStickersRequestTypeID = 0x65b8c79f
 
+func (g *MessagesGetMaskStickersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Hash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetMaskStickersRequest) String() string {
 	if g == nil {

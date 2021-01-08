@@ -22,6 +22,17 @@ type DialogPeerClassVector struct {
 	Elems []DialogPeerClass
 }
 
+func (vec *DialogPeerClassVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *DialogPeerClassVector) String() string {
 	if vec == nil {

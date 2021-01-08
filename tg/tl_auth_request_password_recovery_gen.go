@@ -30,6 +30,14 @@ type AuthRequestPasswordRecoveryRequest struct {
 // AuthRequestPasswordRecoveryRequestTypeID is TL type id of AuthRequestPasswordRecoveryRequest.
 const AuthRequestPasswordRecoveryRequestTypeID = 0xd897bc66
 
+func (r *AuthRequestPasswordRecoveryRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AuthRequestPasswordRecoveryRequest) String() string {
 	if r == nil {

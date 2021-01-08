@@ -28,6 +28,17 @@ type PhotosDeletePhotosRequest struct {
 // PhotosDeletePhotosRequestTypeID is TL type id of PhotosDeletePhotosRequest.
 const PhotosDeletePhotosRequestTypeID = 0x87cf7f2f
 
+func (d *PhotosDeletePhotosRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *PhotosDeletePhotosRequest) String() string {
 	if d == nil {

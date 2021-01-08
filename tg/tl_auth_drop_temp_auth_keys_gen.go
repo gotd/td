@@ -28,6 +28,17 @@ type AuthDropTempAuthKeysRequest struct {
 // AuthDropTempAuthKeysRequestTypeID is TL type id of AuthDropTempAuthKeysRequest.
 const AuthDropTempAuthKeysRequestTypeID = 0x8e48a188
 
+func (d *AuthDropTempAuthKeysRequest) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.ExceptAuthKeys == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *AuthDropTempAuthKeysRequest) String() string {
 	if d == nil {

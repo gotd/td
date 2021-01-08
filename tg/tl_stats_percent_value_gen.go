@@ -34,6 +34,20 @@ type StatsPercentValue struct {
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.
 const StatsPercentValueTypeID = 0xcbce2fe0
 
+func (s *StatsPercentValue) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Part == 0) {
+		return false
+	}
+	if !(s.Total == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StatsPercentValue) String() string {
 	if s == nil {

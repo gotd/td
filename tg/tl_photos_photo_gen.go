@@ -30,6 +30,20 @@ type PhotosPhoto struct {
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.
 const PhotosPhotoTypeID = 0x20212ca8
 
+func (p *PhotosPhoto) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Photo == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotosPhoto) String() string {
 	if p == nil {

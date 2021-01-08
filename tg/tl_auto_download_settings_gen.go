@@ -47,6 +47,41 @@ type AutoDownloadSettings struct {
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
 const AutoDownloadSettingsTypeID = 0xe04232f3
 
+func (a *AutoDownloadSettings) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Flags.Zero()) {
+		return false
+	}
+	if !(a.Disabled == false) {
+		return false
+	}
+	if !(a.VideoPreloadLarge == false) {
+		return false
+	}
+	if !(a.AudioPreloadNext == false) {
+		return false
+	}
+	if !(a.PhonecallsLessData == false) {
+		return false
+	}
+	if !(a.PhotoSizeMax == 0) {
+		return false
+	}
+	if !(a.VideoSizeMax == 0) {
+		return false
+	}
+	if !(a.FileSizeMax == 0) {
+		return false
+	}
+	if !(a.VideoUploadMaxbitrate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AutoDownloadSettings) String() string {
 	if a == nil {
@@ -80,6 +115,18 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
 	}
 	b.PutID(AutoDownloadSettingsTypeID)
+	if !(a.Disabled == false) {
+		a.Flags.Set(0)
+	}
+	if !(a.VideoPreloadLarge == false) {
+		a.Flags.Set(1)
+	}
+	if !(a.AudioPreloadNext == false) {
+		a.Flags.Set(2)
+	}
+	if !(a.PhonecallsLessData == false) {
+		a.Flags.Set(3)
+	}
 	if err := a.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode autoDownloadSettings#e04232f3: field flags: %w", err)
 	}

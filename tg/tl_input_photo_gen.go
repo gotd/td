@@ -26,6 +26,14 @@ type InputPhotoEmpty struct {
 // InputPhotoEmptyTypeID is TL type id of InputPhotoEmpty.
 const InputPhotoEmptyTypeID = 0x1cd7bf0d
 
+func (i *InputPhotoEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPhotoEmpty) String() string {
 	if i == nil {
@@ -90,6 +98,23 @@ type InputPhoto struct {
 
 // InputPhotoTypeID is TL type id of InputPhoto.
 const InputPhotoTypeID = 0x3bb3b94a
+
+func (i *InputPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+	if !(i.FileReference == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputPhoto) String() string {
@@ -185,7 +210,9 @@ type InputPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputPhotoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputPhoto implements binary de-serialization for InputPhotoClass.

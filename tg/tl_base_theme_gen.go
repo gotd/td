@@ -26,6 +26,14 @@ type BaseThemeClassic struct {
 // BaseThemeClassicTypeID is TL type id of BaseThemeClassic.
 const BaseThemeClassicTypeID = 0xc3a12462
 
+func (b *BaseThemeClassic) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BaseThemeClassic) String() string {
 	if b == nil {
@@ -78,6 +86,14 @@ type BaseThemeDay struct {
 
 // BaseThemeDayTypeID is TL type id of BaseThemeDay.
 const BaseThemeDayTypeID = 0xfbd81688
+
+func (b *BaseThemeDay) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (b *BaseThemeDay) String() string {
@@ -132,6 +148,14 @@ type BaseThemeNight struct {
 // BaseThemeNightTypeID is TL type id of BaseThemeNight.
 const BaseThemeNightTypeID = 0xb7b31ea8
 
+func (b *BaseThemeNight) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BaseThemeNight) String() string {
 	if b == nil {
@@ -185,6 +209,14 @@ type BaseThemeTinted struct {
 // BaseThemeTintedTypeID is TL type id of BaseThemeTinted.
 const BaseThemeTintedTypeID = 0x6d5f77ee
 
+func (b *BaseThemeTinted) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BaseThemeTinted) String() string {
 	if b == nil {
@@ -237,6 +269,14 @@ type BaseThemeArctic struct {
 
 // BaseThemeArcticTypeID is TL type id of BaseThemeArctic.
 const BaseThemeArcticTypeID = 0x5b11125a
+
+func (b *BaseThemeArctic) Zero() bool {
+	if b == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (b *BaseThemeArctic) String() string {
@@ -302,7 +342,9 @@ type BaseThemeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BaseThemeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeBaseTheme implements binary de-serialization for BaseThemeClass.

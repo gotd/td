@@ -44,6 +44,32 @@ type PhoneRequestCallRequest struct {
 // PhoneRequestCallRequestTypeID is TL type id of PhoneRequestCallRequest.
 const PhoneRequestCallRequestTypeID = 0x42ff96ed
 
+func (r *PhoneRequestCallRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.Video == false) {
+		return false
+	}
+	if !(r.UserID == nil) {
+		return false
+	}
+	if !(r.RandomID == 0) {
+		return false
+	}
+	if !(r.GAHash == nil) {
+		return false
+	}
+	if !(r.Protocol.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *PhoneRequestCallRequest) String() string {
 	if r == nil {
@@ -77,6 +103,9 @@ func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.requestCall#42ff96ed as nil")
 	}
 	b.PutID(PhoneRequestCallRequestTypeID)
+	if !(r.Video == false) {
+		r.Flags.Set(0)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.requestCall#42ff96ed: field flags: %w", err)
 	}

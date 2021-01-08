@@ -39,6 +39,29 @@ type SecureRequiredType struct {
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
 const SecureRequiredTypeTypeID = 0x829d99da
 
+func (s *SecureRequiredType) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.NativeNames == false) {
+		return false
+	}
+	if !(s.SelfieRequired == false) {
+		return false
+	}
+	if !(s.TranslationRequired == false) {
+		return false
+	}
+	if !(s.Type == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureRequiredType) String() string {
 	if s == nil {
@@ -63,6 +86,15 @@ func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
 	}
 	b.PutID(SecureRequiredTypeTypeID)
+	if !(s.NativeNames == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.SelfieRequired == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.TranslationRequired == false) {
+		s.Flags.Set(2)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode secureRequiredType#829d99da: field flags: %w", err)
 	}
@@ -157,6 +189,17 @@ type SecureRequiredTypeOneOf struct {
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.
 const SecureRequiredTypeOneOfTypeID = 0x27477b4
 
+func (s *SecureRequiredTypeOneOf) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Types == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecureRequiredTypeOneOf) String() string {
 	if s == nil {
@@ -245,7 +288,9 @@ type SecureRequiredTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecureRequiredTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecureRequiredType implements binary de-serialization for SecureRequiredTypeClass.

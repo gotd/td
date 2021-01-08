@@ -22,6 +22,17 @@ type UserClassVector struct {
 	Elems []UserClass
 }
 
+func (vec *UserClassVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *UserClassVector) String() string {
 	if vec == nil {

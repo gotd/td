@@ -34,6 +34,17 @@ type AccountUpdateDeviceLockedRequest struct {
 // AccountUpdateDeviceLockedRequestTypeID is TL type id of AccountUpdateDeviceLockedRequest.
 const AccountUpdateDeviceLockedRequestTypeID = 0x38df3532
 
+func (u *AccountUpdateDeviceLockedRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Period == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdateDeviceLockedRequest) String() string {
 	if u == nil {

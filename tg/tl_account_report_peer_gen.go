@@ -30,6 +30,20 @@ type AccountReportPeerRequest struct {
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.
 const AccountReportPeerRequestTypeID = 0xae189d5f
 
+func (r *AccountReportPeerRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+	if !(r.Reason == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountReportPeerRequest) String() string {
 	if r == nil {

@@ -30,6 +30,20 @@ type ChannelsToggleSignaturesRequest struct {
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.
 const ChannelsToggleSignaturesRequestTypeID = 0x1f69b606
 
+func (t *ChannelsToggleSignaturesRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Channel == nil) {
+		return false
+	}
+	if !(t.Enabled == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *ChannelsToggleSignaturesRequest) String() string {
 	if t == nil {

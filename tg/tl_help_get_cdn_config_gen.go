@@ -29,6 +29,14 @@ type HelpGetCdnConfigRequest struct {
 // HelpGetCdnConfigRequestTypeID is TL type id of HelpGetCdnConfigRequest.
 const HelpGetCdnConfigRequestTypeID = 0x52029342
 
+func (g *HelpGetCdnConfigRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *HelpGetCdnConfigRequest) String() string {
 	if g == nil {

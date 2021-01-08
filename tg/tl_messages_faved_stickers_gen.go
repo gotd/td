@@ -26,6 +26,14 @@ type MessagesFavedStickersNotModified struct {
 // MessagesFavedStickersNotModifiedTypeID is TL type id of MessagesFavedStickersNotModified.
 const MessagesFavedStickersNotModifiedTypeID = 0x9e8fa6d3
 
+func (f *MessagesFavedStickersNotModified) Zero() bool {
+	if f == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (f *MessagesFavedStickersNotModified) String() string {
 	if f == nil {
@@ -87,6 +95,23 @@ type MessagesFavedStickers struct {
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.
 const MessagesFavedStickersTypeID = 0xf37f2f16
+
+func (f *MessagesFavedStickers) Zero() bool {
+	if f == nil {
+		return true
+	}
+	if !(f.Hash == 0) {
+		return false
+	}
+	if !(f.Packs == nil) {
+		return false
+	}
+	if !(f.Stickers == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (f *MessagesFavedStickers) String() string {
@@ -211,7 +236,9 @@ type MessagesFavedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesFavedStickersClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesFavedStickers implements binary de-serialization for MessagesFavedStickersClass.

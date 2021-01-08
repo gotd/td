@@ -31,6 +31,17 @@ type MessagesUnpinAllMessagesRequest struct {
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
 const MessagesUnpinAllMessagesRequestTypeID = 0xf025bc8b
 
+func (u *MessagesUnpinAllMessagesRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *MessagesUnpinAllMessagesRequest) String() string {
 	if u == nil {

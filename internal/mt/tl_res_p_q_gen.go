@@ -31,6 +31,26 @@ type ResPQ struct {
 // ResPQTypeID is TL type id of ResPQ.
 const ResPQTypeID = 0x5162463
 
+func (r *ResPQ) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(r.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(r.Pq == nil) {
+		return false
+	}
+	if !(r.ServerPublicKeyFingerprints == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *ResPQ) String() string {
 	if r == nil {

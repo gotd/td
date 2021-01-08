@@ -47,6 +47,26 @@ type BotInlineMessageMediaAuto struct {
 // BotInlineMessageMediaAutoTypeID is TL type id of BotInlineMessageMediaAuto.
 const BotInlineMessageMediaAutoTypeID = 0x764cf810
 
+func (b *BotInlineMessageMediaAuto) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.Message == "") {
+		return false
+	}
+	if !(b.Entities == nil) {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMessageMediaAuto) String() string {
 	if b == nil {
@@ -83,6 +103,12 @@ func (b *BotInlineMessageMediaAuto) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaAuto#764cf810 as nil")
 	}
 	buf.PutID(BotInlineMessageMediaAutoTypeID)
+	if !(b.Entities == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaAuto#764cf810: field flags: %w", err)
 	}
@@ -223,6 +249,29 @@ type BotInlineMessageText struct {
 // BotInlineMessageTextTypeID is TL type id of BotInlineMessageText.
 const BotInlineMessageTextTypeID = 0x8c7f65e2
 
+func (b *BotInlineMessageText) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.NoWebpage == false) {
+		return false
+	}
+	if !(b.Message == "") {
+		return false
+	}
+	if !(b.Entities == nil) {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMessageText) String() string {
 	if b == nil {
@@ -259,6 +308,15 @@ func (b *BotInlineMessageText) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageText#8c7f65e2 as nil")
 	}
 	buf.PutID(BotInlineMessageTextTypeID)
+	if !(b.NoWebpage == false) {
+		b.Flags.Set(0)
+	}
+	if !(b.Entities == nil) {
+		b.Flags.Set(1)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageText#8c7f65e2: field flags: %w", err)
 	}
@@ -420,6 +478,32 @@ type BotInlineMessageMediaGeo struct {
 // BotInlineMessageMediaGeoTypeID is TL type id of BotInlineMessageMediaGeo.
 const BotInlineMessageMediaGeoTypeID = 0x51846fd
 
+func (b *BotInlineMessageMediaGeo) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.Geo == nil) {
+		return false
+	}
+	if !(b.Heading == 0) {
+		return false
+	}
+	if !(b.Period == 0) {
+		return false
+	}
+	if !(b.ProximityNotificationRadius == 0) {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMessageMediaGeo) String() string {
 	if b == nil {
@@ -464,6 +548,18 @@ func (b *BotInlineMessageMediaGeo) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaGeo#51846fd as nil")
 	}
 	buf.PutID(BotInlineMessageMediaGeoTypeID)
+	if !(b.Heading == 0) {
+		b.Flags.Set(0)
+	}
+	if !(b.Period == 0) {
+		b.Flags.Set(1)
+	}
+	if !(b.ProximityNotificationRadius == 0) {
+		b.Flags.Set(3)
+	}
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
 	}
@@ -646,6 +742,38 @@ type BotInlineMessageMediaVenue struct {
 // BotInlineMessageMediaVenueTypeID is TL type id of BotInlineMessageMediaVenue.
 const BotInlineMessageMediaVenueTypeID = 0x8a86659c
 
+func (b *BotInlineMessageMediaVenue) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.Geo == nil) {
+		return false
+	}
+	if !(b.Title == "") {
+		return false
+	}
+	if !(b.Address == "") {
+		return false
+	}
+	if !(b.Provider == "") {
+		return false
+	}
+	if !(b.VenueID == "") {
+		return false
+	}
+	if !(b.VenueType == "") {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMessageMediaVenue) String() string {
 	if b == nil {
@@ -690,6 +818,9 @@ func (b *BotInlineMessageMediaVenue) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaVenue#8a86659c as nil")
 	}
 	buf.PutID(BotInlineMessageMediaVenueTypeID)
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaVenue#8a86659c: field flags: %w", err)
 	}
@@ -833,6 +964,32 @@ type BotInlineMessageMediaContact struct {
 // BotInlineMessageMediaContactTypeID is TL type id of BotInlineMessageMediaContact.
 const BotInlineMessageMediaContactTypeID = 0x18d1cdc2
 
+func (b *BotInlineMessageMediaContact) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.Flags.Zero()) {
+		return false
+	}
+	if !(b.PhoneNumber == "") {
+		return false
+	}
+	if !(b.FirstName == "") {
+		return false
+	}
+	if !(b.LastName == "") {
+		return false
+	}
+	if !(b.Vcard == "") {
+		return false
+	}
+	if !(b.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BotInlineMessageMediaContact) String() string {
 	if b == nil {
@@ -871,6 +1028,9 @@ func (b *BotInlineMessageMediaContact) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaContact#18d1cdc2 as nil")
 	}
 	buf.PutID(BotInlineMessageMediaContactTypeID)
+	if !(b.ReplyMarkup == nil) {
+		b.Flags.Set(2)
+	}
 	if err := b.Flags.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode botInlineMessageMediaContact#18d1cdc2: field flags: %w", err)
 	}
@@ -987,7 +1147,9 @@ type BotInlineMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BotInlineMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeBotInlineMessage implements binary de-serialization for BotInlineMessageClass.

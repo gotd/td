@@ -35,6 +35,32 @@ type PQInnerData struct {
 // PQInnerDataTypeID is TL type id of PQInnerData.
 const PQInnerDataTypeID = 0x83c95aec
 
+func (p *PQInnerData) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Pq == nil) {
+		return false
+	}
+	if !(p.P == nil) {
+		return false
+	}
+	if !(p.Q == nil) {
+		return false
+	}
+	if !(p.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(p.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(p.NewNonce == bin.Int256{}) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PQInnerData) String() string {
 	if p == nil {

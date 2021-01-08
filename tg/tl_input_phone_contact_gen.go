@@ -37,6 +37,26 @@ type InputPhoneContact struct {
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
 const InputPhoneContactTypeID = 0xf392b7f4
 
+func (i *InputPhoneContact) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ClientID == 0) {
+		return false
+	}
+	if !(i.Phone == "") {
+		return false
+	}
+	if !(i.FirstName == "") {
+		return false
+	}
+	if !(i.LastName == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputPhoneContact) String() string {
 	if i == nil {

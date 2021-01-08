@@ -50,6 +50,26 @@ type MessageReplyHeader struct {
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
 const MessageReplyHeaderTypeID = 0xa6d57763
 
+func (m *MessageReplyHeader) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.ReplyToMsgID == 0) {
+		return false
+	}
+	if !(m.ReplyToPeerID == nil) {
+		return false
+	}
+	if !(m.ReplyToTopID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MessageReplyHeader) String() string {
 	if m == nil {
@@ -84,6 +104,12 @@ func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
 	}
 	b.PutID(MessageReplyHeaderTypeID)
+	if !(m.ReplyToPeerID == nil) {
+		m.Flags.Set(0)
+	}
+	if !(m.ReplyToTopID == 0) {
+		m.Flags.Set(1)
+	}
 	if err := m.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageReplyHeader#a6d57763: field flags: %w", err)
 	}

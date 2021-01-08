@@ -25,6 +25,17 @@ type MsgCopy struct {
 // MsgCopyTypeID is TL type id of MsgCopy.
 const MsgCopyTypeID = 0xe06046b2
 
+func (m *MsgCopy) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.OrigMessage.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (m *MsgCopy) String() string {
 	if m == nil {

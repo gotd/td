@@ -35,6 +35,23 @@ type MessagesRequestUrlAuthRequest struct {
 // MessagesRequestUrlAuthRequestTypeID is TL type id of MessagesRequestUrlAuthRequest.
 const MessagesRequestUrlAuthRequestTypeID = 0xe33f5613
 
+func (r *MessagesRequestUrlAuthRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Peer == nil) {
+		return false
+	}
+	if !(r.MsgID == 0) {
+		return false
+	}
+	if !(r.ButtonID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *MessagesRequestUrlAuthRequest) String() string {
 	if r == nil {

@@ -29,6 +29,14 @@ type AccountResendPasswordEmailRequest struct {
 // AccountResendPasswordEmailRequestTypeID is TL type id of AccountResendPasswordEmailRequest.
 const AccountResendPasswordEmailRequestTypeID = 0x7a7f2a15
 
+func (r *AccountResendPasswordEmailRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountResendPasswordEmailRequest) String() string {
 	if r == nil {

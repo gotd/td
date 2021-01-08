@@ -28,6 +28,17 @@ type PaymentsGetBankCardDataRequest struct {
 // PaymentsGetBankCardDataRequestTypeID is TL type id of PaymentsGetBankCardDataRequest.
 const PaymentsGetBankCardDataRequestTypeID = 0x2e79d779
 
+func (g *PaymentsGetBankCardDataRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Number == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PaymentsGetBankCardDataRequest) String() string {
 	if g == nil {

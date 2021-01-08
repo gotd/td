@@ -29,6 +29,23 @@ type BadMsgNotification struct {
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
 const BadMsgNotificationTypeID = 0xa7eff811
 
+func (b *BadMsgNotification) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.BadMsgID == 0) {
+		return false
+	}
+	if !(b.BadMsgSeqno == 0) {
+		return false
+	}
+	if !(b.ErrorCode == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (b *BadMsgNotification) String() string {
 	if b == nil {
@@ -119,6 +136,26 @@ type BadServerSalt struct {
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
 const BadServerSaltTypeID = 0xedab447b
+
+func (b *BadServerSalt) Zero() bool {
+	if b == nil {
+		return true
+	}
+	if !(b.BadMsgID == 0) {
+		return false
+	}
+	if !(b.BadMsgSeqno == 0) {
+		return false
+	}
+	if !(b.ErrorCode == 0) {
+		return false
+	}
+	if !(b.NewServerSalt == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (b *BadServerSalt) String() string {
@@ -223,7 +260,9 @@ type BadMsgNotificationClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() BadMsgNotificationClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeBadMsgNotification implements binary de-serialization for BadMsgNotificationClass.

@@ -49,6 +49,38 @@ type MessagesSetInlineBotResultsRequest struct {
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
 const MessagesSetInlineBotResultsRequestTypeID = 0xeb5ea206
 
+func (s *MessagesSetInlineBotResultsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Gallery == false) {
+		return false
+	}
+	if !(s.Private == false) {
+		return false
+	}
+	if !(s.QueryID == 0) {
+		return false
+	}
+	if !(s.Results == nil) {
+		return false
+	}
+	if !(s.CacheTime == 0) {
+		return false
+	}
+	if !(s.NextOffset == "") {
+		return false
+	}
+	if !(s.SwitchPm.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetInlineBotResultsRequest) String() string {
 	if s == nil {
@@ -91,6 +123,18 @@ func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
 	}
 	b.PutID(MessagesSetInlineBotResultsRequestTypeID)
+	if !(s.Gallery == false) {
+		s.Flags.Set(0)
+	}
+	if !(s.Private == false) {
+		s.Flags.Set(1)
+	}
+	if !(s.NextOffset == "") {
+		s.Flags.Set(2)
+	}
+	if !(s.SwitchPm.Zero()) {
+		s.Flags.Set(3)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
 	}

@@ -28,6 +28,17 @@ type AccountUpdateUsernameRequest struct {
 // AccountUpdateUsernameRequestTypeID is TL type id of AccountUpdateUsernameRequest.
 const AccountUpdateUsernameRequestTypeID = 0x3e0bdd7c
 
+func (u *AccountUpdateUsernameRequest) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Username == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (u *AccountUpdateUsernameRequest) String() string {
 	if u == nil {

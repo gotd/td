@@ -31,6 +31,17 @@ type PhotoSizeEmpty struct {
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
 const PhotoSizeEmptyTypeID = 0xe17e23c
 
+func (p *PhotoSizeEmpty) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotoSizeEmpty) String() string {
 	if p == nil {
@@ -104,6 +115,29 @@ type PhotoSize struct {
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
 const PhotoSizeTypeID = 0x77bfb61b
+
+func (p *PhotoSize) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+	if !(p.Location.Zero()) {
+		return false
+	}
+	if !(p.W == 0) {
+		return false
+	}
+	if !(p.H == 0) {
+		return false
+	}
+	if !(p.Size == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PhotoSize) String() string {
@@ -223,6 +257,29 @@ type PhotoCachedSize struct {
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
 const PhotoCachedSizeTypeID = 0xe9a734fa
 
+func (p *PhotoCachedSize) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+	if !(p.Location.Zero()) {
+		return false
+	}
+	if !(p.W == 0) {
+		return false
+	}
+	if !(p.H == 0) {
+		return false
+	}
+	if !(p.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotoCachedSize) String() string {
 	if p == nil {
@@ -338,6 +395,20 @@ type PhotoStrippedSize struct {
 // PhotoStrippedSizeTypeID is TL type id of PhotoStrippedSize.
 const PhotoStrippedSizeTypeID = 0xe0b0bc2e
 
+func (p *PhotoStrippedSize) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+	if !(p.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotoStrippedSize) String() string {
 	if p == nil {
@@ -422,6 +493,29 @@ type PhotoSizeProgressive struct {
 
 // PhotoSizeProgressiveTypeID is TL type id of PhotoSizeProgressive.
 const PhotoSizeProgressiveTypeID = 0x5aa86a51
+
+func (p *PhotoSizeProgressive) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+	if !(p.Location.Zero()) {
+		return false
+	}
+	if !(p.W == 0) {
+		return false
+	}
+	if !(p.H == 0) {
+		return false
+	}
+	if !(p.Sizes == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (p *PhotoSizeProgressive) String() string {
@@ -549,6 +643,20 @@ type PhotoPathSize struct {
 // PhotoPathSizeTypeID is TL type id of PhotoPathSize.
 const PhotoPathSizeTypeID = 0xd8214d41
 
+func (p *PhotoPathSize) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Type == "") {
+		return false
+	}
+	if !(p.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PhotoPathSize) String() string {
 	if p == nil {
@@ -636,7 +744,9 @@ type PhotoSizeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotoSizeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodePhotoSize implements binary de-serialization for PhotoSizeClass.

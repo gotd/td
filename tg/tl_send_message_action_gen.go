@@ -26,6 +26,14 @@ type SendMessageTypingAction struct {
 // SendMessageTypingActionTypeID is TL type id of SendMessageTypingAction.
 const SendMessageTypingActionTypeID = 0x16bf744e
 
+func (s *SendMessageTypingAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageTypingAction) String() string {
 	if s == nil {
@@ -79,6 +87,14 @@ type SendMessageCancelAction struct {
 // SendMessageCancelActionTypeID is TL type id of SendMessageCancelAction.
 const SendMessageCancelActionTypeID = 0xfd5ec8f5
 
+func (s *SendMessageCancelAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageCancelAction) String() string {
 	if s == nil {
@@ -131,6 +147,14 @@ type SendMessageRecordVideoAction struct {
 
 // SendMessageRecordVideoActionTypeID is TL type id of SendMessageRecordVideoAction.
 const SendMessageRecordVideoActionTypeID = 0xa187d66f
+
+func (s *SendMessageRecordVideoAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageRecordVideoAction) String() string {
@@ -186,6 +210,17 @@ type SendMessageUploadVideoAction struct {
 
 // SendMessageUploadVideoActionTypeID is TL type id of SendMessageUploadVideoAction.
 const SendMessageUploadVideoActionTypeID = 0xe9763aec
+
+func (s *SendMessageUploadVideoAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageUploadVideoAction) String() string {
@@ -251,6 +286,14 @@ type SendMessageRecordAudioAction struct {
 // SendMessageRecordAudioActionTypeID is TL type id of SendMessageRecordAudioAction.
 const SendMessageRecordAudioActionTypeID = 0xd52f73f7
 
+func (s *SendMessageRecordAudioAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageRecordAudioAction) String() string {
 	if s == nil {
@@ -305,6 +348,17 @@ type SendMessageUploadAudioAction struct {
 
 // SendMessageUploadAudioActionTypeID is TL type id of SendMessageUploadAudioAction.
 const SendMessageUploadAudioActionTypeID = 0xf351d7ab
+
+func (s *SendMessageUploadAudioAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageUploadAudioAction) String() string {
@@ -372,6 +426,17 @@ type SendMessageUploadPhotoAction struct {
 // SendMessageUploadPhotoActionTypeID is TL type id of SendMessageUploadPhotoAction.
 const SendMessageUploadPhotoActionTypeID = 0xd1d34a26
 
+func (s *SendMessageUploadPhotoAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageUploadPhotoAction) String() string {
 	if s == nil {
@@ -438,6 +503,17 @@ type SendMessageUploadDocumentAction struct {
 // SendMessageUploadDocumentActionTypeID is TL type id of SendMessageUploadDocumentAction.
 const SendMessageUploadDocumentActionTypeID = 0xaa0cd9e4
 
+func (s *SendMessageUploadDocumentAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageUploadDocumentAction) String() string {
 	if s == nil {
@@ -502,6 +578,14 @@ type SendMessageGeoLocationAction struct {
 // SendMessageGeoLocationActionTypeID is TL type id of SendMessageGeoLocationAction.
 const SendMessageGeoLocationActionTypeID = 0x176f8ba1
 
+func (s *SendMessageGeoLocationAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageGeoLocationAction) String() string {
 	if s == nil {
@@ -554,6 +638,14 @@ type SendMessageChooseContactAction struct {
 
 // SendMessageChooseContactActionTypeID is TL type id of SendMessageChooseContactAction.
 const SendMessageChooseContactActionTypeID = 0x628cbc6f
+
+func (s *SendMessageChooseContactAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageChooseContactAction) String() string {
@@ -608,6 +700,14 @@ type SendMessageGamePlayAction struct {
 // SendMessageGamePlayActionTypeID is TL type id of SendMessageGamePlayAction.
 const SendMessageGamePlayActionTypeID = 0xdd6a8f48
 
+func (s *SendMessageGamePlayAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SendMessageGamePlayAction) String() string {
 	if s == nil {
@@ -660,6 +760,14 @@ type SendMessageRecordRoundAction struct {
 
 // SendMessageRecordRoundActionTypeID is TL type id of SendMessageRecordRoundAction.
 const SendMessageRecordRoundActionTypeID = 0x88f27fbc
+
+func (s *SendMessageRecordRoundAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageRecordRoundAction) String() string {
@@ -715,6 +823,17 @@ type SendMessageUploadRoundAction struct {
 
 // SendMessageUploadRoundActionTypeID is TL type id of SendMessageUploadRoundAction.
 const SendMessageUploadRoundActionTypeID = 0x243e1c66
+
+func (s *SendMessageUploadRoundAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SendMessageUploadRoundAction) String() string {
@@ -778,6 +897,14 @@ type SpeakingInGroupCallAction struct {
 
 // SpeakingInGroupCallActionTypeID is TL type id of SpeakingInGroupCallAction.
 const SpeakingInGroupCallActionTypeID = 0xd92c2285
+
+func (s *SpeakingInGroupCallAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SpeakingInGroupCallAction) String() string {
@@ -852,7 +979,9 @@ type SendMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SendMessageActionClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSendMessageAction implements binary de-serialization for SendMessageActionClass.

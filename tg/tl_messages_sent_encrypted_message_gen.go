@@ -28,6 +28,17 @@ type MessagesSentEncryptedMessage struct {
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
 const MessagesSentEncryptedMessageTypeID = 0x560f8935
 
+func (s *MessagesSentEncryptedMessage) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSentEncryptedMessage) String() string {
 	if s == nil {
@@ -95,6 +106,20 @@ type MessagesSentEncryptedFile struct {
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
 const MessagesSentEncryptedFileTypeID = 0x9493ff32
+
+func (s *MessagesSentEncryptedFile) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Date == 0) {
+		return false
+	}
+	if !(s.File == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *MessagesSentEncryptedFile) String() string {
@@ -184,7 +209,9 @@ type MessagesSentEncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesSentEncryptedMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeMessagesSentEncryptedMessage implements binary de-serialization for MessagesSentEncryptedMessageClass.

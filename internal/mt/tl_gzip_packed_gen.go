@@ -25,6 +25,17 @@ type GzipPacked struct {
 // GzipPackedTypeID is TL type id of GzipPacked.
 const GzipPackedTypeID = 0x3072cfa1
 
+func (g *GzipPacked) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.PackedData == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GzipPacked) String() string {
 	if g == nil {

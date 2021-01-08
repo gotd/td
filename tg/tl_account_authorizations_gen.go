@@ -28,6 +28,17 @@ type AccountAuthorizations struct {
 // AccountAuthorizationsTypeID is TL type id of AccountAuthorizations.
 const AccountAuthorizationsTypeID = 0x1250abde
 
+func (a *AccountAuthorizations) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Authorizations == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *AccountAuthorizations) String() string {
 	if a == nil {

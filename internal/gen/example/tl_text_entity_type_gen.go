@@ -25,6 +25,14 @@ type TextEntityTypeMention struct {
 // TextEntityTypeMentionTypeID is TL type id of TextEntityTypeMention.
 const TextEntityTypeMentionTypeID = 0x37b3df65
 
+func (t *TextEntityTypeMention) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeMention) String() string {
 	if t == nil {
@@ -76,6 +84,14 @@ type TextEntityTypeHashtag struct {
 
 // TextEntityTypeHashtagTypeID is TL type id of TextEntityTypeHashtag.
 const TextEntityTypeHashtagTypeID = 0xc2f7a2dd
+
+func (t *TextEntityTypeHashtag) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeHashtag) String() string {
@@ -129,6 +145,14 @@ type TextEntityTypeCashtag struct {
 // TextEntityTypeCashtagTypeID is TL type id of TextEntityTypeCashtag.
 const TextEntityTypeCashtagTypeID = 0x48e4374b
 
+func (t *TextEntityTypeCashtag) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeCashtag) String() string {
 	if t == nil {
@@ -180,6 +204,14 @@ type TextEntityTypeBotCommand struct {
 
 // TextEntityTypeBotCommandTypeID is TL type id of TextEntityTypeBotCommand.
 const TextEntityTypeBotCommandTypeID = 0xbb652bb3
+
+func (t *TextEntityTypeBotCommand) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeBotCommand) String() string {
@@ -233,6 +265,14 @@ type TextEntityTypeUrl struct {
 // TextEntityTypeUrlTypeID is TL type id of TextEntityTypeUrl.
 const TextEntityTypeUrlTypeID = 0xb1c0d47c
 
+func (t *TextEntityTypeUrl) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeUrl) String() string {
 	if t == nil {
@@ -284,6 +324,14 @@ type TextEntityTypeEmailAddress struct {
 
 // TextEntityTypeEmailAddressTypeID is TL type id of TextEntityTypeEmailAddress.
 const TextEntityTypeEmailAddressTypeID = 0x54f81821
+
+func (t *TextEntityTypeEmailAddress) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeEmailAddress) String() string {
@@ -337,6 +385,14 @@ type TextEntityTypePhoneNumber struct {
 // TextEntityTypePhoneNumberTypeID is TL type id of TextEntityTypePhoneNumber.
 const TextEntityTypePhoneNumberTypeID = 0xbad9aa2a
 
+func (t *TextEntityTypePhoneNumber) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypePhoneNumber) String() string {
 	if t == nil {
@@ -388,6 +444,14 @@ type TextEntityTypeBankCardNumber struct {
 
 // TextEntityTypeBankCardNumberTypeID is TL type id of TextEntityTypeBankCardNumber.
 const TextEntityTypeBankCardNumberTypeID = 0x6513910
+
+func (t *TextEntityTypeBankCardNumber) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeBankCardNumber) String() string {
@@ -441,6 +505,14 @@ type TextEntityTypeBold struct {
 // TextEntityTypeBoldTypeID is TL type id of TextEntityTypeBold.
 const TextEntityTypeBoldTypeID = 0xbcc0e1b0
 
+func (t *TextEntityTypeBold) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeBold) String() string {
 	if t == nil {
@@ -492,6 +564,14 @@ type TextEntityTypeItalic struct {
 
 // TextEntityTypeItalicTypeID is TL type id of TextEntityTypeItalic.
 const TextEntityTypeItalicTypeID = 0xf8f3965d
+
+func (t *TextEntityTypeItalic) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeItalic) String() string {
@@ -545,6 +625,14 @@ type TextEntityTypeUnderline struct {
 // TextEntityTypeUnderlineTypeID is TL type id of TextEntityTypeUnderline.
 const TextEntityTypeUnderlineTypeID = 0x2f39cf92
 
+func (t *TextEntityTypeUnderline) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeUnderline) String() string {
 	if t == nil {
@@ -596,6 +684,14 @@ type TextEntityTypeStrikethrough struct {
 
 // TextEntityTypeStrikethroughTypeID is TL type id of TextEntityTypeStrikethrough.
 const TextEntityTypeStrikethroughTypeID = 0x394fc4fa
+
+func (t *TextEntityTypeStrikethrough) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeStrikethrough) String() string {
@@ -649,6 +745,14 @@ type TextEntityTypeCode struct {
 // TextEntityTypeCodeTypeID is TL type id of TextEntityTypeCode.
 const TextEntityTypeCodeTypeID = 0xc5e9c94a
 
+func (t *TextEntityTypeCode) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeCode) String() string {
 	if t == nil {
@@ -700,6 +804,14 @@ type TextEntityTypePre struct {
 
 // TextEntityTypePreTypeID is TL type id of TextEntityTypePre.
 const TextEntityTypePreTypeID = 0x62491c8e
+
+func (t *TextEntityTypePre) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypePre) String() string {
@@ -754,6 +866,17 @@ type TextEntityTypePreCode struct {
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
 const TextEntityTypePreCodeTypeID = 0xc7a77aab
+
+func (t *TextEntityTypePreCode) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Language == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypePreCode) String() string {
@@ -820,6 +943,17 @@ type TextEntityTypeTextUrl struct {
 // TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
 const TextEntityTypeTextUrlTypeID = 0x1a912463
 
+func (t *TextEntityTypeTextUrl) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.URL == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *TextEntityTypeTextUrl) String() string {
 	if t == nil {
@@ -884,6 +1018,17 @@ type TextEntityTypeMentionName struct {
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
 const TextEntityTypeMentionNameTypeID = 0xd0d2685d
+
+func (t *TextEntityTypeMentionName) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.UserID == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (t *TextEntityTypeMentionName) String() string {
@@ -972,7 +1117,9 @@ type TextEntityTypeClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() TextEntityTypeClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeTextEntityType implements binary de-serialization for TextEntityTypeClass.

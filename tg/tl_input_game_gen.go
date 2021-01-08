@@ -36,6 +36,20 @@ type InputGameID struct {
 // InputGameIDTypeID is TL type id of InputGameID.
 const InputGameIDTypeID = 0x32c3e77
 
+func (i *InputGameID) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputGameID) String() string {
 	if i == nil {
@@ -114,6 +128,20 @@ type InputGameShortName struct {
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.
 const InputGameShortNameTypeID = 0xc331e80a
+
+func (i *InputGameShortName) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.BotID == nil) {
+		return false
+	}
+	if !(i.ShortName == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputGameShortName) String() string {
@@ -203,7 +231,9 @@ type InputGameClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputGameClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputGame implements binary de-serialization for InputGameClass.

@@ -47,6 +47,44 @@ type GroupCallParticipant struct {
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
 const GroupCallParticipantTypeID = 0x56b087c9
 
+func (g *GroupCallParticipant) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Flags.Zero()) {
+		return false
+	}
+	if !(g.Muted == false) {
+		return false
+	}
+	if !(g.Left == false) {
+		return false
+	}
+	if !(g.CanSelfUnmute == false) {
+		return false
+	}
+	if !(g.JustJoined == false) {
+		return false
+	}
+	if !(g.Versioned == false) {
+		return false
+	}
+	if !(g.UserID == 0) {
+		return false
+	}
+	if !(g.Date == 0) {
+		return false
+	}
+	if !(g.ActiveDate == 0) {
+		return false
+	}
+	if !(g.Source == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *GroupCallParticipant) String() string {
 	if g == nil {
@@ -82,6 +120,24 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode groupCallParticipant#56b087c9 as nil")
 	}
 	b.PutID(GroupCallParticipantTypeID)
+	if !(g.Muted == false) {
+		g.Flags.Set(0)
+	}
+	if !(g.Left == false) {
+		g.Flags.Set(1)
+	}
+	if !(g.CanSelfUnmute == false) {
+		g.Flags.Set(2)
+	}
+	if !(g.JustJoined == false) {
+		g.Flags.Set(4)
+	}
+	if !(g.Versioned == false) {
+		g.Flags.Set(5)
+	}
+	if !(g.ActiveDate == 0) {
+		g.Flags.Set(3)
+	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode groupCallParticipant#56b087c9: field flags: %w", err)
 	}

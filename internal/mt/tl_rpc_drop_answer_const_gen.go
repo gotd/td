@@ -25,6 +25,17 @@ type RPCDropAnswerRequest struct {
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.
 const RPCDropAnswerRequestTypeID = 0x58e4a740
 
+func (r *RPCDropAnswerRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.ReqMsgID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *RPCDropAnswerRequest) String() string {
 	if r == nil {

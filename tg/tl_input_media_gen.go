@@ -26,6 +26,14 @@ type InputMediaEmpty struct {
 // InputMediaEmptyTypeID is TL type id of InputMediaEmpty.
 const InputMediaEmptyTypeID = 0x9664f57f
 
+func (i *InputMediaEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaEmpty) String() string {
 	if i == nil {
@@ -97,6 +105,26 @@ type InputMediaUploadedPhoto struct {
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
 const InputMediaUploadedPhotoTypeID = 0x1e287d04
 
+func (i *InputMediaUploadedPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.File == nil) {
+		return false
+	}
+	if !(i.Stickers == nil) {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaUploadedPhoto) String() string {
 	if i == nil {
@@ -133,6 +161,12 @@ func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
 	}
 	b.PutID(InputMediaUploadedPhotoTypeID)
+	if !(i.Stickers == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
 	}
@@ -264,6 +298,23 @@ type InputMediaPhoto struct {
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
 const InputMediaPhotoTypeID = 0xb3ba0635
 
+func (i *InputMediaPhoto) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaPhoto) String() string {
 	if i == nil {
@@ -293,6 +344,9 @@ func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
 	}
 	b.PutID(InputMediaPhotoTypeID)
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPhoto#b3ba0635: field flags: %w", err)
 	}
@@ -376,6 +430,17 @@ type InputMediaGeoPoint struct {
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
 const InputMediaGeoPointTypeID = 0xf9c44144
 
+func (i *InputMediaGeoPoint) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.GeoPoint == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaGeoPoint) String() string {
 	if i == nil {
@@ -452,6 +517,26 @@ type InputMediaContact struct {
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
 const InputMediaContactTypeID = 0xf8ab7dfb
+
+func (i *InputMediaContact) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.PhoneNumber == "") {
+		return false
+	}
+	if !(i.FirstName == "") {
+		return false
+	}
+	if !(i.LastName == "") {
+		return false
+	}
+	if !(i.Vcard == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMediaContact) String() string {
@@ -580,6 +665,41 @@ type InputMediaUploadedDocument struct {
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
 const InputMediaUploadedDocumentTypeID = 0x5b38c6c1
 
+func (i *InputMediaUploadedDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.NosoundVideo == false) {
+		return false
+	}
+	if !(i.ForceFile == false) {
+		return false
+	}
+	if !(i.File == nil) {
+		return false
+	}
+	if !(i.Thumb == nil) {
+		return false
+	}
+	if !(i.MimeType == "") {
+		return false
+	}
+	if !(i.Attributes == nil) {
+		return false
+	}
+	if !(i.Stickers == nil) {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaUploadedDocument) String() string {
 	if i == nil {
@@ -629,6 +749,21 @@ func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
 	}
 	b.PutID(InputMediaUploadedDocumentTypeID)
+	if !(i.NosoundVideo == false) {
+		i.Flags.Set(3)
+	}
+	if !(i.ForceFile == false) {
+		i.Flags.Set(4)
+	}
+	if !(i.Thumb == nil) {
+		i.Flags.Set(2)
+	}
+	if !(i.Stickers == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
 	}
@@ -848,6 +983,26 @@ type InputMediaDocument struct {
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
 const InputMediaDocumentTypeID = 0x33473058
 
+func (i *InputMediaDocument) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+	if !(i.Query == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaDocument) String() string {
 	if i == nil {
@@ -882,6 +1037,12 @@ func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
 	}
 	b.PutID(InputMediaDocumentTypeID)
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
+	if !(i.Query == "") {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaDocument#33473058: field flags: %w", err)
 	}
@@ -999,6 +1160,32 @@ type InputMediaVenue struct {
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
 const InputMediaVenueTypeID = 0xc13d1c11
+
+func (i *InputMediaVenue) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.GeoPoint == nil) {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Address == "") {
+		return false
+	}
+	if !(i.Provider == "") {
+		return false
+	}
+	if !(i.VenueID == "") {
+		return false
+	}
+	if !(i.VenueType == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMediaVenue) String() string {
@@ -1135,6 +1322,23 @@ type InputMediaPhotoExternal struct {
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
 const InputMediaPhotoExternalTypeID = 0xe5bbfe1a
 
+func (i *InputMediaPhotoExternal) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaPhotoExternal) String() string {
 	if i == nil {
@@ -1164,6 +1368,9 @@ func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
 	}
 	b.PutID(InputMediaPhotoExternalTypeID)
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
 	}
@@ -1251,6 +1458,23 @@ type InputMediaDocumentExternal struct {
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
 const InputMediaDocumentExternalTypeID = 0xfb52dc99
 
+func (i *InputMediaDocumentExternal) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.TTLSeconds == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaDocumentExternal) String() string {
 	if i == nil {
@@ -1280,6 +1504,9 @@ func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
 	}
 	b.PutID(InputMediaDocumentExternalTypeID)
+	if !(i.TTLSeconds == 0) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
 	}
@@ -1357,6 +1584,17 @@ type InputMediaGame struct {
 
 // InputMediaGameTypeID is TL type id of InputMediaGame.
 const InputMediaGameTypeID = 0xd33f43f3
+
+func (i *InputMediaGame) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputMediaGame) String() string {
@@ -1456,6 +1694,41 @@ type InputMediaInvoice struct {
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
 const InputMediaInvoiceTypeID = 0xf4e096c3
 
+func (i *InputMediaInvoice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Description == "") {
+		return false
+	}
+	if !(i.Photo.Zero()) {
+		return false
+	}
+	if !(i.Invoice.Zero()) {
+		return false
+	}
+	if !(i.Payload == nil) {
+		return false
+	}
+	if !(i.Provider == "") {
+		return false
+	}
+	if !(i.ProviderData.Zero()) {
+		return false
+	}
+	if !(i.StartParam == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaInvoice) String() string {
 	if i == nil {
@@ -1503,6 +1776,9 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
 	}
 	b.PutID(InputMediaInvoiceTypeID)
+	if !(i.Photo.Zero()) {
+		i.Flags.Set(0)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaInvoice#f4e096c3: field flags: %w", err)
 	}
@@ -1657,6 +1933,32 @@ type InputMediaGeoLive struct {
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
 const InputMediaGeoLiveTypeID = 0x971fa843
 
+func (i *InputMediaGeoLive) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Stopped == false) {
+		return false
+	}
+	if !(i.GeoPoint == nil) {
+		return false
+	}
+	if !(i.Heading == 0) {
+		return false
+	}
+	if !(i.Period == 0) {
+		return false
+	}
+	if !(i.ProximityNotificationRadius == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaGeoLive) String() string {
 	if i == nil {
@@ -1696,6 +1998,18 @@ func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
 	}
 	b.PutID(InputMediaGeoLiveTypeID)
+	if !(i.Stopped == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.Heading == 0) {
+		i.Flags.Set(2)
+	}
+	if !(i.Period == 0) {
+		i.Flags.Set(1)
+	}
+	if !(i.ProximityNotificationRadius == 0) {
+		i.Flags.Set(3)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaGeoLive#971fa843: field flags: %w", err)
 	}
@@ -1861,6 +2175,29 @@ type InputMediaPoll struct {
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
 const InputMediaPollTypeID = 0xf94e5f1
 
+func (i *InputMediaPoll) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Poll.Zero()) {
+		return false
+	}
+	if !(i.CorrectAnswers == nil) {
+		return false
+	}
+	if !(i.Solution == "") {
+		return false
+	}
+	if !(i.SolutionEntities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaPoll) String() string {
 	if i == nil {
@@ -1904,6 +2241,15 @@ func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
 	}
 	b.PutID(InputMediaPollTypeID)
+	if !(i.CorrectAnswers == nil) {
+		i.Flags.Set(0)
+	}
+	if !(i.Solution == "") {
+		i.Flags.Set(1)
+	}
+	if !(i.SolutionEntities == nil) {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputMediaPoll#f94e5f1: field flags: %w", err)
 	}
@@ -2058,6 +2404,17 @@ type InputMediaDice struct {
 // InputMediaDiceTypeID is TL type id of InputMediaDice.
 const InputMediaDiceTypeID = 0xe66fbf7b
 
+func (i *InputMediaDice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Emoticon == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputMediaDice) String() string {
 	if i == nil {
@@ -2143,7 +2500,9 @@ type InputMediaClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputMediaClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputMedia implements binary de-serialization for InputMediaClass.

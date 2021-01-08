@@ -35,6 +35,23 @@ type HelpEditUserInfoRequest struct {
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.
 const HelpEditUserInfoRequestTypeID = 0x66b91b70
 
+func (e *HelpEditUserInfoRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.Message == "") {
+		return false
+	}
+	if !(e.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *HelpEditUserInfoRequest) String() string {
 	if e == nil {

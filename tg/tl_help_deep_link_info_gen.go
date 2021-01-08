@@ -26,6 +26,14 @@ type HelpDeepLinkInfoEmpty struct {
 // HelpDeepLinkInfoEmptyTypeID is TL type id of HelpDeepLinkInfoEmpty.
 const HelpDeepLinkInfoEmptyTypeID = 0x66afa166
 
+func (d *HelpDeepLinkInfoEmpty) Zero() bool {
+	if d == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *HelpDeepLinkInfoEmpty) String() string {
 	if d == nil {
@@ -95,6 +103,26 @@ type HelpDeepLinkInfo struct {
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
 const HelpDeepLinkInfoTypeID = 0x6a4ee832
 
+func (d *HelpDeepLinkInfo) Zero() bool {
+	if d == nil {
+		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.UpdateApp == false) {
+		return false
+	}
+	if !(d.Message == "") {
+		return false
+	}
+	if !(d.Entities == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (d *HelpDeepLinkInfo) String() string {
 	if d == nil {
@@ -126,6 +154,12 @@ func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
 	}
 	b.PutID(HelpDeepLinkInfoTypeID)
+	if !(d.UpdateApp == false) {
+		d.Flags.Set(0)
+	}
+	if !(d.Entities == nil) {
+		d.Flags.Set(1)
+	}
 	if err := d.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.deepLinkInfo#6a4ee832: field flags: %w", err)
 	}
@@ -236,7 +270,9 @@ type HelpDeepLinkInfoClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeHelpDeepLinkInfo implements binary de-serialization for HelpDeepLinkInfoClass.

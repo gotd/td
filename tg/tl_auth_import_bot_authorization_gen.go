@@ -43,6 +43,26 @@ type AuthImportBotAuthorizationRequest struct {
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.
 const AuthImportBotAuthorizationRequestTypeID = 0x67a3ff2c
 
+func (i *AuthImportBotAuthorizationRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags == 0) {
+		return false
+	}
+	if !(i.APIID == 0) {
+		return false
+	}
+	if !(i.APIHash == "") {
+		return false
+	}
+	if !(i.BotAuthToken == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AuthImportBotAuthorizationRequest) String() string {
 	if i == nil {

@@ -26,6 +26,14 @@ type InputEncryptedFileEmpty struct {
 // InputEncryptedFileEmptyTypeID is TL type id of InputEncryptedFileEmpty.
 const InputEncryptedFileEmptyTypeID = 0x1837c364
 
+func (i *InputEncryptedFileEmpty) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputEncryptedFileEmpty) String() string {
 	if i == nil {
@@ -89,6 +97,26 @@ type InputEncryptedFileUploaded struct {
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
 const InputEncryptedFileUploadedTypeID = 0x64bd0306
+
+func (i *InputEncryptedFileUploaded) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Parts == 0) {
+		return false
+	}
+	if !(i.Md5Checksum == "") {
+		return false
+	}
+	if !(i.KeyFingerprint == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputEncryptedFileUploaded) String() string {
@@ -197,6 +225,20 @@ type InputEncryptedFile struct {
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
 const InputEncryptedFileTypeID = 0x5a17b5e5
 
+func (i *InputEncryptedFile) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputEncryptedFile) String() string {
 	if i == nil {
@@ -280,6 +322,23 @@ type InputEncryptedFileBigUploaded struct {
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.
 const InputEncryptedFileBigUploadedTypeID = 0x2dc173c8
+
+func (i *InputEncryptedFileBigUploaded) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.Parts == 0) {
+		return false
+	}
+	if !(i.KeyFingerprint == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (i *InputEncryptedFileBigUploaded) String() string {
@@ -377,7 +436,9 @@ type InputEncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() InputEncryptedFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeInputEncryptedFile implements binary de-serialization for InputEncryptedFileClass.

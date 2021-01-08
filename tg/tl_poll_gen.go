@@ -56,6 +56,44 @@ type Poll struct {
 // PollTypeID is TL type id of Poll.
 const PollTypeID = 0x86e18161
 
+func (p *Poll) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == 0) {
+		return false
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Closed == false) {
+		return false
+	}
+	if !(p.PublicVoters == false) {
+		return false
+	}
+	if !(p.MultipleChoice == false) {
+		return false
+	}
+	if !(p.Quiz == false) {
+		return false
+	}
+	if !(p.Question == "") {
+		return false
+	}
+	if !(p.Answers == nil) {
+		return false
+	}
+	if !(p.ClosePeriod == 0) {
+		return false
+	}
+	if !(p.CloseDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *Poll) String() string {
 	if p == nil {
@@ -98,6 +136,24 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode poll#86e18161 as nil")
 	}
 	b.PutID(PollTypeID)
+	if !(p.Closed == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.PublicVoters == false) {
+		p.Flags.Set(1)
+	}
+	if !(p.MultipleChoice == false) {
+		p.Flags.Set(2)
+	}
+	if !(p.Quiz == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.ClosePeriod == 0) {
+		p.Flags.Set(4)
+	}
+	if !(p.CloseDate == 0) {
+		p.Flags.Set(5)
+	}
 	b.PutLong(p.ID)
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode poll#86e18161: field flags: %w", err)

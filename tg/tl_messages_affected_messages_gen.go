@@ -36,6 +36,20 @@ type MessagesAffectedMessages struct {
 // MessagesAffectedMessagesTypeID is TL type id of MessagesAffectedMessages.
 const MessagesAffectedMessagesTypeID = 0x84d19185
 
+func (a *MessagesAffectedMessages) Zero() bool {
+	if a == nil {
+		return true
+	}
+	if !(a.Pts == 0) {
+		return false
+	}
+	if !(a.PtsCount == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (a *MessagesAffectedMessages) String() string {
 	if a == nil {

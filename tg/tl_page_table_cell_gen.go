@@ -53,6 +53,41 @@ type PageTableCell struct {
 // PageTableCellTypeID is TL type id of PageTableCell.
 const PageTableCellTypeID = 0x34566b6a
 
+func (p *PageTableCell) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.Header == false) {
+		return false
+	}
+	if !(p.AlignCenter == false) {
+		return false
+	}
+	if !(p.AlignRight == false) {
+		return false
+	}
+	if !(p.ValignMiddle == false) {
+		return false
+	}
+	if !(p.ValignBottom == false) {
+		return false
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Colspan == 0) {
+		return false
+	}
+	if !(p.Rowspan == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageTableCell) String() string {
 	if p == nil {
@@ -89,6 +124,30 @@ func (p *PageTableCell) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
 	}
 	b.PutID(PageTableCellTypeID)
+	if !(p.Header == false) {
+		p.Flags.Set(0)
+	}
+	if !(p.AlignCenter == false) {
+		p.Flags.Set(3)
+	}
+	if !(p.AlignRight == false) {
+		p.Flags.Set(4)
+	}
+	if !(p.ValignMiddle == false) {
+		p.Flags.Set(5)
+	}
+	if !(p.ValignBottom == false) {
+		p.Flags.Set(6)
+	}
+	if !(p.Text == nil) {
+		p.Flags.Set(7)
+	}
+	if !(p.Colspan == 0) {
+		p.Flags.Set(1)
+	}
+	if !(p.Rowspan == 0) {
+		p.Flags.Set(2)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageTableCell#34566b6a: field flags: %w", err)
 	}

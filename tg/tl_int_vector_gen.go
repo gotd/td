@@ -22,6 +22,17 @@ type IntVector struct {
 	Elems []int
 }
 
+func (vec *IntVector) Zero() bool {
+	if vec == nil {
+		return true
+	}
+	if !(vec.Elems == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (vec *IntVector) String() string {
 	if vec == nil {

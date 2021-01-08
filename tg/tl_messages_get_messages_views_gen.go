@@ -35,6 +35,23 @@ type MessagesGetMessagesViewsRequest struct {
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.
 const MessagesGetMessagesViewsRequestTypeID = 0x5784d3e1
 
+func (g *MessagesGetMessagesViewsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Peer == nil) {
+		return false
+	}
+	if !(g.ID == nil) {
+		return false
+	}
+	if !(g.Increment == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetMessagesViewsRequest) String() string {
 	if g == nil {

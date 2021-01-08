@@ -28,6 +28,17 @@ type ChannelsJoinChannelRequest struct {
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.
 const ChannelsJoinChannelRequestTypeID = 0x24b524c5
 
+func (j *ChannelsJoinChannelRequest) Zero() bool {
+	if j == nil {
+		return true
+	}
+	if !(j.Channel == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (j *ChannelsJoinChannelRequest) String() string {
 	if j == nil {

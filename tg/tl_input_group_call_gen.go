@@ -29,6 +29,20 @@ type InputGroupCall struct {
 // InputGroupCallTypeID is TL type id of InputGroupCall.
 const InputGroupCallTypeID = 0xd8aa840f
 
+func (i *InputGroupCall) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.ID == 0) {
+		return false
+	}
+	if !(i.AccessHash == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputGroupCall) String() string {
 	if i == nil {

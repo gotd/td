@@ -35,6 +35,32 @@ type ServerDHInnerData struct {
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.
 const ServerDHInnerDataTypeID = 0xb5890dba
 
+func (s *ServerDHInnerData) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Nonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.ServerNonce == bin.Int128{}) {
+		return false
+	}
+	if !(s.G == 0) {
+		return false
+	}
+	if !(s.DhPrime == nil) {
+		return false
+	}
+	if !(s.GA == nil) {
+		return false
+	}
+	if !(s.ServerTime == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *ServerDHInnerData) String() string {
 	if s == nil {

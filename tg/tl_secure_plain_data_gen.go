@@ -32,6 +32,17 @@ type SecurePlainPhone struct {
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
 const SecurePlainPhoneTypeID = 0x7d6099dd
 
+func (s *SecurePlainPhone) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Phone == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *SecurePlainPhone) String() string {
 	if s == nil {
@@ -101,6 +112,17 @@ type SecurePlainEmail struct {
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
 const SecurePlainEmailTypeID = 0x21ec5a5f
+
+func (s *SecurePlainEmail) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Email == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (s *SecurePlainEmail) String() string {
@@ -174,7 +196,9 @@ type SecurePlainDataClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() SecurePlainDataClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeSecurePlainData implements binary de-serialization for SecurePlainDataClass.

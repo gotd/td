@@ -32,6 +32,23 @@ type ChatParticipant struct {
 // ChatParticipantTypeID is TL type id of ChatParticipant.
 const ChatParticipantTypeID = 0xc8d7493e
 
+func (c *ChatParticipant) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.InviterID == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatParticipant) String() string {
 	if c == nil {
@@ -120,6 +137,17 @@ type ChatParticipantCreator struct {
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
 const ChatParticipantCreatorTypeID = 0xda13538a
 
+func (c *ChatParticipantCreator) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChatParticipantCreator) String() string {
 	if c == nil {
@@ -189,6 +217,23 @@ type ChatParticipantAdmin struct {
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
 const ChatParticipantAdminTypeID = 0xe2d6e436
+
+func (c *ChatParticipantAdmin) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.InviterID == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChatParticipantAdmin) String() string {
@@ -285,7 +330,9 @@ type ChatParticipantClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatParticipantClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChatParticipant implements binary de-serialization for ChatParticipantClass.

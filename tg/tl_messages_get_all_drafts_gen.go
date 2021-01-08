@@ -29,6 +29,14 @@ type MessagesGetAllDraftsRequest struct {
 // MessagesGetAllDraftsRequestTypeID is TL type id of MessagesGetAllDraftsRequest.
 const MessagesGetAllDraftsRequestTypeID = 0x6a3f8d65
 
+func (g *MessagesGetAllDraftsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetAllDraftsRequest) String() string {
 	if g == nil {

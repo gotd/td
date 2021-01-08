@@ -36,6 +36,20 @@ type CdnPublicKey struct {
 // CdnPublicKeyTypeID is TL type id of CdnPublicKey.
 const CdnPublicKeyTypeID = 0xc982eaba
 
+func (c *CdnPublicKey) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.DCID == 0) {
+		return false
+	}
+	if !(c.PublicKey == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *CdnPublicKey) String() string {
 	if c == nil {

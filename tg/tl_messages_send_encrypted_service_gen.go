@@ -35,6 +35,23 @@ type MessagesSendEncryptedServiceRequest struct {
 // MessagesSendEncryptedServiceRequestTypeID is TL type id of MessagesSendEncryptedServiceRequest.
 const MessagesSendEncryptedServiceRequestTypeID = 0x32d439a4
 
+func (s *MessagesSendEncryptedServiceRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer.Zero()) {
+		return false
+	}
+	if !(s.RandomID == 0) {
+		return false
+	}
+	if !(s.Data == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSendEncryptedServiceRequest) String() string {
 	if s == nil {

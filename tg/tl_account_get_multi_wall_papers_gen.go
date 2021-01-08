@@ -28,6 +28,17 @@ type AccountGetMultiWallPapersRequest struct {
 // AccountGetMultiWallPapersRequestTypeID is TL type id of AccountGetMultiWallPapersRequest.
 const AccountGetMultiWallPapersRequestTypeID = 0x65ad71dc
 
+func (g *AccountGetMultiWallPapersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.Wallpapers == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *AccountGetMultiWallPapersRequest) String() string {
 	if g == nil {

@@ -28,6 +28,17 @@ type MessagesGetChatsRequest struct {
 // MessagesGetChatsRequestTypeID is TL type id of MessagesGetChatsRequest.
 const MessagesGetChatsRequestTypeID = 0x3c6aa187
 
+func (g *MessagesGetChatsRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.ID == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetChatsRequest) String() string {
 	if g == nil {

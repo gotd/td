@@ -56,6 +56,38 @@ type AccountInitTakeoutSessionRequest struct {
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.
 const AccountInitTakeoutSessionRequestTypeID = 0xf05b4804
 
+func (i *AccountInitTakeoutSessionRequest) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Contacts == false) {
+		return false
+	}
+	if !(i.MessageUsers == false) {
+		return false
+	}
+	if !(i.MessageChats == false) {
+		return false
+	}
+	if !(i.MessageMegagroups == false) {
+		return false
+	}
+	if !(i.MessageChannels == false) {
+		return false
+	}
+	if !(i.Files == false) {
+		return false
+	}
+	if !(i.FileMaxSize == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *AccountInitTakeoutSessionRequest) String() string {
 	if i == nil {
@@ -82,6 +114,27 @@ func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
 	}
 	b.PutID(AccountInitTakeoutSessionRequestTypeID)
+	if !(i.Contacts == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.MessageUsers == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.MessageChats == false) {
+		i.Flags.Set(2)
+	}
+	if !(i.MessageMegagroups == false) {
+		i.Flags.Set(3)
+	}
+	if !(i.MessageChannels == false) {
+		i.Flags.Set(4)
+	}
+	if !(i.Files == false) {
+		i.Flags.Set(5)
+	}
+	if !(i.FileMaxSize == 0) {
+		i.Flags.Set(5)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.initTakeoutSession#f05b4804: field flags: %w", err)
 	}

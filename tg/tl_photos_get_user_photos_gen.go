@@ -34,6 +34,26 @@ type PhotosGetUserPhotosRequest struct {
 // PhotosGetUserPhotosRequestTypeID is TL type id of PhotosGetUserPhotosRequest.
 const PhotosGetUserPhotosRequestTypeID = 0x91cd32a8
 
+func (g *PhotosGetUserPhotosRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+	if !(g.UserID == nil) {
+		return false
+	}
+	if !(g.Offset == 0) {
+		return false
+	}
+	if !(g.MaxID == 0) {
+		return false
+	}
+	if !(g.Limit == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *PhotosGetUserPhotosRequest) String() string {
 	if g == nil {

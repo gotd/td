@@ -29,6 +29,14 @@ type MessagesGetSuggestedDialogFiltersRequest struct {
 // MessagesGetSuggestedDialogFiltersRequestTypeID is TL type id of MessagesGetSuggestedDialogFiltersRequest.
 const MessagesGetSuggestedDialogFiltersRequestTypeID = 0xa29cd42c
 
+func (g *MessagesGetSuggestedDialogFiltersRequest) Zero() bool {
+	if g == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (g *MessagesGetSuggestedDialogFiltersRequest) String() string {
 	if g == nil {

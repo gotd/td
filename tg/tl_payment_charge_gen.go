@@ -30,6 +30,20 @@ type PaymentCharge struct {
 // PaymentChargeTypeID is TL type id of PaymentCharge.
 const PaymentChargeTypeID = 0xea02c27e
 
+func (p *PaymentCharge) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == "") {
+		return false
+	}
+	if !(p.ProviderChargeID == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentCharge) String() string {
 	if p == nil {

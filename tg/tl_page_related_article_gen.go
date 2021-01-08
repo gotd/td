@@ -55,6 +55,38 @@ type PageRelatedArticle struct {
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
 const PageRelatedArticleTypeID = 0xb390dc08
 
+func (p *PageRelatedArticle) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Flags.Zero()) {
+		return false
+	}
+	if !(p.URL == "") {
+		return false
+	}
+	if !(p.WebpageID == 0) {
+		return false
+	}
+	if !(p.Title == "") {
+		return false
+	}
+	if !(p.Description == "") {
+		return false
+	}
+	if !(p.PhotoID == 0) {
+		return false
+	}
+	if !(p.Author == "") {
+		return false
+	}
+	if !(p.PublishedDate == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageRelatedArticle) String() string {
 	if p == nil {
@@ -107,6 +139,21 @@ func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
 	}
 	b.PutID(PageRelatedArticleTypeID)
+	if !(p.Title == "") {
+		p.Flags.Set(0)
+	}
+	if !(p.Description == "") {
+		p.Flags.Set(1)
+	}
+	if !(p.PhotoID == 0) {
+		p.Flags.Set(2)
+	}
+	if !(p.Author == "") {
+		p.Flags.Set(3)
+	}
+	if !(p.PublishedDate == 0) {
+		p.Flags.Set(4)
+	}
 	if err := p.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageRelatedArticle#b390dc08: field flags: %w", err)
 	}

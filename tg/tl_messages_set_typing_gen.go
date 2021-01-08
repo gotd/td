@@ -48,6 +48,26 @@ type MessagesSetTypingRequest struct {
 // MessagesSetTypingRequestTypeID is TL type id of MessagesSetTypingRequest.
 const MessagesSetTypingRequestTypeID = 0x58943ee2
 
+func (s *MessagesSetTypingRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.Peer == nil) {
+		return false
+	}
+	if !(s.TopMsgID == 0) {
+		return false
+	}
+	if !(s.Action == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetTypingRequest) String() string {
 	if s == nil {
@@ -80,6 +100,9 @@ func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setTyping#58943ee2 as nil")
 	}
 	b.PutID(MessagesSetTypingRequestTypeID)
+	if !(s.TopMsgID == 0) {
+		s.Flags.Set(0)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setTyping#58943ee2: field flags: %w", err)
 	}

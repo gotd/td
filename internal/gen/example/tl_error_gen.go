@@ -31,6 +31,23 @@ type Error struct {
 // ErrorTypeID is TL type id of Error.
 const ErrorTypeID = 0x14feebbc
 
+func (e *Error) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Code == 0) {
+		return false
+	}
+	if !(e.Message == "") {
+		return false
+	}
+	if !(e.Temporary == false) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *Error) String() string {
 	if e == nil {

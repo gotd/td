@@ -28,6 +28,17 @@ type KeyboardButton struct {
 // KeyboardButtonTypeID is TL type id of KeyboardButton.
 const KeyboardButtonTypeID = 0xa2fa4880
 
+func (k *KeyboardButton) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButton) String() string {
 	if k == nil {
@@ -95,6 +106,20 @@ type KeyboardButtonUrl struct {
 
 // KeyboardButtonUrlTypeID is TL type id of KeyboardButtonUrl.
 const KeyboardButtonUrlTypeID = 0x258aff05
+
+func (k *KeyboardButtonUrl) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.URL == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (k *KeyboardButtonUrl) String() string {
@@ -188,6 +213,26 @@ type KeyboardButtonCallback struct {
 // KeyboardButtonCallbackTypeID is TL type id of KeyboardButtonCallback.
 const KeyboardButtonCallbackTypeID = 0x35bbdb6b
 
+func (k *KeyboardButtonCallback) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Flags.Zero()) {
+		return false
+	}
+	if !(k.RequiresPassword == false) {
+		return false
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.Data == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonCallback) String() string {
 	if k == nil {
@@ -215,6 +260,9 @@ func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
 	}
 	b.PutID(KeyboardButtonCallbackTypeID)
+	if !(k.RequiresPassword == false) {
+		k.Flags.Set(0)
+	}
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
 	}
@@ -288,6 +336,17 @@ type KeyboardButtonRequestPhone struct {
 // KeyboardButtonRequestPhoneTypeID is TL type id of KeyboardButtonRequestPhone.
 const KeyboardButtonRequestPhoneTypeID = 0xb16a6c29
 
+func (k *KeyboardButtonRequestPhone) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonRequestPhone) String() string {
 	if k == nil {
@@ -353,6 +412,17 @@ type KeyboardButtonRequestGeoLocation struct {
 
 // KeyboardButtonRequestGeoLocationTypeID is TL type id of KeyboardButtonRequestGeoLocation.
 const KeyboardButtonRequestGeoLocationTypeID = 0xfc796b3f
+
+func (k *KeyboardButtonRequestGeoLocation) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (k *KeyboardButtonRequestGeoLocation) String() string {
@@ -429,6 +499,26 @@ type KeyboardButtonSwitchInline struct {
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
 const KeyboardButtonSwitchInlineTypeID = 0x568a748
 
+func (k *KeyboardButtonSwitchInline) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Flags.Zero()) {
+		return false
+	}
+	if !(k.SamePeer == false) {
+		return false
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.Query == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonSwitchInline) String() string {
 	if k == nil {
@@ -456,6 +546,9 @@ func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
 	}
 	b.PutID(KeyboardButtonSwitchInlineTypeID)
+	if !(k.SamePeer == false) {
+		k.Flags.Set(0)
+	}
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonSwitchInline#568a748: field flags: %w", err)
 	}
@@ -529,6 +622,17 @@ type KeyboardButtonGame struct {
 // KeyboardButtonGameTypeID is TL type id of KeyboardButtonGame.
 const KeyboardButtonGameTypeID = 0x50f41ccf
 
+func (k *KeyboardButtonGame) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonGame) String() string {
 	if k == nil {
@@ -594,6 +698,17 @@ type KeyboardButtonBuy struct {
 
 // KeyboardButtonBuyTypeID is TL type id of KeyboardButtonBuy.
 const KeyboardButtonBuyTypeID = 0xafd93fbb
+
+func (k *KeyboardButtonBuy) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (k *KeyboardButtonBuy) String() string {
@@ -689,6 +804,29 @@ type KeyboardButtonUrlAuth struct {
 // KeyboardButtonUrlAuthTypeID is TL type id of KeyboardButtonUrlAuth.
 const KeyboardButtonUrlAuthTypeID = 0x10b78d29
 
+func (k *KeyboardButtonUrlAuth) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Flags.Zero()) {
+		return false
+	}
+	if !(k.Text == "") {
+		return false
+	}
+	if !(k.FwdText == "") {
+		return false
+	}
+	if !(k.URL == "") {
+		return false
+	}
+	if !(k.ButtonID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonUrlAuth) String() string {
 	if k == nil {
@@ -724,6 +862,9 @@ func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
 	}
 	b.PutID(KeyboardButtonUrlAuthTypeID)
+	if !(k.FwdText == "") {
+		k.Flags.Set(0)
+	}
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
 	}
@@ -845,6 +986,32 @@ type InputKeyboardButtonUrlAuth struct {
 // InputKeyboardButtonUrlAuthTypeID is TL type id of InputKeyboardButtonUrlAuth.
 const InputKeyboardButtonUrlAuthTypeID = 0xd02e7fd4
 
+func (i *InputKeyboardButtonUrlAuth) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.RequestWriteAccess == false) {
+		return false
+	}
+	if !(i.Text == "") {
+		return false
+	}
+	if !(i.FwdText == "") {
+		return false
+	}
+	if !(i.URL == "") {
+		return false
+	}
+	if !(i.Bot == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputKeyboardButtonUrlAuth) String() string {
 	if i == nil {
@@ -880,6 +1047,12 @@ func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
 	}
 	b.PutID(InputKeyboardButtonUrlAuthTypeID)
+	if !(i.RequestWriteAccess == false) {
+		i.Flags.Set(0)
+	}
+	if !(i.FwdText == "") {
+		i.Flags.Set(1)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
 	}
@@ -1000,6 +1173,23 @@ type KeyboardButtonRequestPoll struct {
 // KeyboardButtonRequestPollTypeID is TL type id of KeyboardButtonRequestPoll.
 const KeyboardButtonRequestPollTypeID = 0xbbc7515d
 
+func (k *KeyboardButtonRequestPoll) Zero() bool {
+	if k == nil {
+		return true
+	}
+	if !(k.Flags.Zero()) {
+		return false
+	}
+	if !(k.Quiz == false) {
+		return false
+	}
+	if !(k.Text == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (k *KeyboardButtonRequestPoll) String() string {
 	if k == nil {
@@ -1029,6 +1219,9 @@ func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
 	}
 	b.PutID(KeyboardButtonRequestPollTypeID)
+	if !(k.Quiz == false) {
+		k.Flags.Set(0)
+	}
 	if err := k.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
 	}
@@ -1122,7 +1315,9 @@ type KeyboardButtonClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() KeyboardButtonClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeKeyboardButton implements binary de-serialization for KeyboardButtonClass.

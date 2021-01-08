@@ -32,6 +32,23 @@ type NearestDc struct {
 // NearestDcTypeID is TL type id of NearestDc.
 const NearestDcTypeID = 0x8e1a1775
 
+func (n *NearestDc) Zero() bool {
+	if n == nil {
+		return true
+	}
+	if !(n.Country == "") {
+		return false
+	}
+	if !(n.ThisDC == 0) {
+		return false
+	}
+	if !(n.NearestDC == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (n *NearestDc) String() string {
 	if n == nil {

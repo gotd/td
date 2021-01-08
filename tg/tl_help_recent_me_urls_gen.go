@@ -32,6 +32,23 @@ type HelpRecentMeUrls struct {
 // HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.
 const HelpRecentMeUrlsTypeID = 0xe0310d7
 
+func (r *HelpRecentMeUrls) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Urls == nil) {
+		return false
+	}
+	if !(r.Chats == nil) {
+		return false
+	}
+	if !(r.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *HelpRecentMeUrls) String() string {
 	if r == nil {

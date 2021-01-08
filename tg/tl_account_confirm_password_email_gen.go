@@ -34,6 +34,17 @@ type AccountConfirmPasswordEmailRequest struct {
 // AccountConfirmPasswordEmailRequestTypeID is TL type id of AccountConfirmPasswordEmailRequest.
 const AccountConfirmPasswordEmailRequestTypeID = 0x8fdf1920
 
+func (c *AccountConfirmPasswordEmailRequest) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Code == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *AccountConfirmPasswordEmailRequest) String() string {
 	if c == nil {

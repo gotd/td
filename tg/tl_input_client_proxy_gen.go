@@ -33,6 +33,20 @@ type InputClientProxy struct {
 // InputClientProxyTypeID is TL type id of InputClientProxy.
 const InputClientProxyTypeID = 0x75588b3f
 
+func (i *InputClientProxy) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Address == "") {
+		return false
+	}
+	if !(i.Port == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputClientProxy) String() string {
 	if i == nil {

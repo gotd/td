@@ -39,6 +39,29 @@ type MessagesToggleStickerSetsRequest struct {
 // MessagesToggleStickerSetsRequestTypeID is TL type id of MessagesToggleStickerSetsRequest.
 const MessagesToggleStickerSetsRequestTypeID = 0xb5052fea
 
+func (t *MessagesToggleStickerSetsRequest) Zero() bool {
+	if t == nil {
+		return true
+	}
+	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.Uninstall == false) {
+		return false
+	}
+	if !(t.Archive == false) {
+		return false
+	}
+	if !(t.Unarchive == false) {
+		return false
+	}
+	if !(t.Stickersets == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *MessagesToggleStickerSetsRequest) String() string {
 	if t == nil {
@@ -65,6 +88,15 @@ func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
 	}
 	b.PutID(MessagesToggleStickerSetsRequestTypeID)
+	if !(t.Uninstall == false) {
+		t.Flags.Set(0)
+	}
+	if !(t.Archive == false) {
+		t.Flags.Set(1)
+	}
+	if !(t.Unarchive == false) {
+		t.Flags.Set(2)
+	}
 	if err := t.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.toggleStickerSets#b5052fea: field flags: %w", err)
 	}

@@ -52,6 +52,35 @@ type AccountRegisterDeviceRequest struct {
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
 const AccountRegisterDeviceRequestTypeID = 0x68976c6f
 
+func (r *AccountRegisterDeviceRequest) Zero() bool {
+	if r == nil {
+		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
+	}
+	if !(r.NoMuted == false) {
+		return false
+	}
+	if !(r.TokenType == 0) {
+		return false
+	}
+	if !(r.Token == "") {
+		return false
+	}
+	if !(r.AppSandbox == false) {
+		return false
+	}
+	if !(r.Secret == nil) {
+		return false
+	}
+	if !(r.OtherUids == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (r *AccountRegisterDeviceRequest) String() string {
 	if r == nil {
@@ -90,6 +119,9 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
 	}
 	b.PutID(AccountRegisterDeviceRequestTypeID)
+	if !(r.NoMuted == false) {
+		r.Flags.Set(0)
+	}
 	if err := r.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.registerDevice#68976c6f: field flags: %w", err)
 	}

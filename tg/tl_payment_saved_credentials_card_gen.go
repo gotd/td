@@ -30,6 +30,20 @@ type PaymentSavedCredentialsCard struct {
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.
 const PaymentSavedCredentialsCardTypeID = 0xcdc27a1f
 
+func (p *PaymentSavedCredentialsCard) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.ID == "") {
+		return false
+	}
+	if !(p.Title == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PaymentSavedCredentialsCard) String() string {
 	if p == nil {

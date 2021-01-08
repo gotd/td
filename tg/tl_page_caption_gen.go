@@ -30,6 +30,20 @@ type PageCaption struct {
 // PageCaptionTypeID is TL type id of PageCaption.
 const PageCaptionTypeID = 0x6f747657
 
+func (p *PageCaption) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Text == nil) {
+		return false
+	}
+	if !(p.Credit == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *PageCaption) String() string {
 	if p == nil {

@@ -33,6 +33,20 @@ type AuthLoginToken struct {
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
 const AuthLoginTokenTypeID = 0x629f1980
 
+func (l *AuthLoginToken) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Expires == 0) {
+		return false
+	}
+	if !(l.Token == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *AuthLoginToken) String() string {
 	if l == nil {
@@ -112,6 +126,20 @@ type AuthLoginTokenMigrateTo struct {
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
 const AuthLoginTokenMigrateToTypeID = 0x68e9916
 
+func (l *AuthLoginTokenMigrateTo) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.DCID == 0) {
+		return false
+	}
+	if !(l.Token == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *AuthLoginTokenMigrateTo) String() string {
 	if l == nil {
@@ -188,6 +216,17 @@ type AuthLoginTokenSuccess struct {
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
 const AuthLoginTokenSuccessTypeID = 0x390d5c5e
+
+func (l *AuthLoginTokenSuccess) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Authorization == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (l *AuthLoginTokenSuccess) String() string {
@@ -267,7 +306,9 @@ type AuthLoginTokenClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() AuthLoginTokenClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeAuthLoginToken implements binary de-serialization for AuthLoginTokenClass.

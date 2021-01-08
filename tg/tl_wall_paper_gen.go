@@ -51,6 +51,44 @@ type WallPaper struct {
 // WallPaperTypeID is TL type id of WallPaper.
 const WallPaperTypeID = 0xa437c3ed
 
+func (w *WallPaper) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.ID == 0) {
+		return false
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.Creator == false) {
+		return false
+	}
+	if !(w.Default == false) {
+		return false
+	}
+	if !(w.Pattern == false) {
+		return false
+	}
+	if !(w.Dark == false) {
+		return false
+	}
+	if !(w.AccessHash == 0) {
+		return false
+	}
+	if !(w.Slug == "") {
+		return false
+	}
+	if !(w.Document == nil) {
+		return false
+	}
+	if !(w.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WallPaper) String() string {
 	if w == nil {
@@ -89,6 +127,21 @@ func (w *WallPaper) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
 	}
 	b.PutID(WallPaperTypeID)
+	if !(w.Creator == false) {
+		w.Flags.Set(0)
+	}
+	if !(w.Default == false) {
+		w.Flags.Set(1)
+	}
+	if !(w.Pattern == false) {
+		w.Flags.Set(3)
+	}
+	if !(w.Dark == false) {
+		w.Flags.Set(4)
+	}
+	if !(w.Settings.Zero()) {
+		w.Flags.Set(2)
+	}
 	b.PutLong(w.ID)
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaper#a437c3ed: field flags: %w", err)
@@ -255,6 +308,26 @@ type WallPaperNoFile struct {
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
 const WallPaperNoFileTypeID = 0x8af40b25
 
+func (w *WallPaperNoFile) Zero() bool {
+	if w == nil {
+		return true
+	}
+	if !(w.Flags.Zero()) {
+		return false
+	}
+	if !(w.Default == false) {
+		return false
+	}
+	if !(w.Dark == false) {
+		return false
+	}
+	if !(w.Settings.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (w *WallPaperNoFile) String() string {
 	if w == nil {
@@ -281,6 +354,15 @@ func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaperNoFile#8af40b25 as nil")
 	}
 	b.PutID(WallPaperNoFileTypeID)
+	if !(w.Default == false) {
+		w.Flags.Set(1)
+	}
+	if !(w.Dark == false) {
+		w.Flags.Set(4)
+	}
+	if !(w.Settings.Zero()) {
+		w.Flags.Set(2)
+	}
 	if err := w.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode wallPaperNoFile#8af40b25: field flags: %w", err)
 	}
@@ -381,7 +463,9 @@ type WallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() WallPaperClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeWallPaper implements binary de-serialization for WallPaperClass.

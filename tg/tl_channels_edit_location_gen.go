@@ -35,6 +35,23 @@ type ChannelsEditLocationRequest struct {
 // ChannelsEditLocationRequestTypeID is TL type id of ChannelsEditLocationRequest.
 const ChannelsEditLocationRequestTypeID = 0x58e63f6d
 
+func (e *ChannelsEditLocationRequest) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.Channel == nil) {
+		return false
+	}
+	if !(e.GeoPoint == nil) {
+		return false
+	}
+	if !(e.Address == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *ChannelsEditLocationRequest) String() string {
 	if e == nil {

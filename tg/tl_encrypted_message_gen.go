@@ -39,6 +39,29 @@ type EncryptedMessage struct {
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
 const EncryptedMessageTypeID = 0xed18c118
 
+func (e *EncryptedMessage) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.RandomID == 0) {
+		return false
+	}
+	if !(e.ChatID == 0) {
+		return false
+	}
+	if !(e.Date == 0) {
+		return false
+	}
+	if !(e.Bytes == nil) {
+		return false
+	}
+	if !(e.File == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedMessage) String() string {
 	if e == nil {
@@ -163,6 +186,26 @@ type EncryptedMessageService struct {
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.
 const EncryptedMessageServiceTypeID = 0x23734b06
 
+func (e *EncryptedMessageService) Zero() bool {
+	if e == nil {
+		return true
+	}
+	if !(e.RandomID == 0) {
+		return false
+	}
+	if !(e.ChatID == 0) {
+		return false
+	}
+	if !(e.Date == 0) {
+		return false
+	}
+	if !(e.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (e *EncryptedMessageService) String() string {
 	if e == nil {
@@ -268,7 +311,9 @@ type EncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() EncryptedMessageClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeEncryptedMessage implements binary de-serialization for EncryptedMessageClass.

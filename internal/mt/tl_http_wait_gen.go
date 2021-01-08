@@ -29,6 +29,23 @@ type HTTPWaitRequest struct {
 // HTTPWaitRequestTypeID is TL type id of HTTPWaitRequest.
 const HTTPWaitRequestTypeID = 0x9299359f
 
+func (h *HTTPWaitRequest) Zero() bool {
+	if h == nil {
+		return true
+	}
+	if !(h.MaxDelay == 0) {
+		return false
+	}
+	if !(h.WaitAfter == 0) {
+		return false
+	}
+	if !(h.MaxWait == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (h *HTTPWaitRequest) String() string {
 	if h == nil {

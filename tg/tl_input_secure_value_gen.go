@@ -88,6 +88,41 @@ type InputSecureValue struct {
 // InputSecureValueTypeID is TL type id of InputSecureValue.
 const InputSecureValueTypeID = 0xdb21d0a7
 
+func (i *InputSecureValue) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.Type == nil) {
+		return false
+	}
+	if !(i.Data.Zero()) {
+		return false
+	}
+	if !(i.FrontSide == nil) {
+		return false
+	}
+	if !(i.ReverseSide == nil) {
+		return false
+	}
+	if !(i.Selfie == nil) {
+		return false
+	}
+	if !(i.Translation == nil) {
+		return false
+	}
+	if !(i.Files == nil) {
+		return false
+	}
+	if !(i.PlainData == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (i *InputSecureValue) String() string {
 	if i == nil {
@@ -151,6 +186,27 @@ func (i *InputSecureValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSecureValue#db21d0a7 as nil")
 	}
 	b.PutID(InputSecureValueTypeID)
+	if !(i.Data.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.FrontSide == nil) {
+		i.Flags.Set(1)
+	}
+	if !(i.ReverseSide == nil) {
+		i.Flags.Set(2)
+	}
+	if !(i.Selfie == nil) {
+		i.Flags.Set(3)
+	}
+	if !(i.Translation == nil) {
+		i.Flags.Set(6)
+	}
+	if !(i.Files == nil) {
+		i.Flags.Set(4)
+	}
+	if !(i.PlainData == nil) {
+		i.Flags.Set(5)
+	}
 	if err := i.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputSecureValue#db21d0a7: field flags: %w", err)
 	}

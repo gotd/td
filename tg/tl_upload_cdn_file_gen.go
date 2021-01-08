@@ -34,6 +34,17 @@ type UploadCdnFileReuploadNeeded struct {
 // UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
 const UploadCdnFileReuploadNeededTypeID = 0xeea8e46e
 
+func (c *UploadCdnFileReuploadNeeded) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.RequestToken == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *UploadCdnFileReuploadNeeded) String() string {
 	if c == nil {
@@ -102,6 +113,17 @@ type UploadCdnFile struct {
 
 // UploadCdnFileTypeID is TL type id of UploadCdnFile.
 const UploadCdnFileTypeID = 0xa99fca4f
+
+func (c *UploadCdnFile) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Bytes == nil) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *UploadCdnFile) String() string {
@@ -175,7 +197,9 @@ type UploadCdnFileClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UploadCdnFileClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeUploadCdnFile implements binary de-serialization for UploadCdnFileClass.

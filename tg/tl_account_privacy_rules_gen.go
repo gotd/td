@@ -32,6 +32,23 @@ type AccountPrivacyRules struct {
 // AccountPrivacyRulesTypeID is TL type id of AccountPrivacyRules.
 const AccountPrivacyRulesTypeID = 0x50a04e45
 
+func (p *AccountPrivacyRules) Zero() bool {
+	if p == nil {
+		return true
+	}
+	if !(p.Rules == nil) {
+		return false
+	}
+	if !(p.Chats == nil) {
+		return false
+	}
+	if !(p.Users == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (p *AccountPrivacyRules) String() string {
 	if p == nil {

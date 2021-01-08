@@ -44,6 +44,26 @@ type MessagesSetBotShippingResultsRequest struct {
 // MessagesSetBotShippingResultsRequestTypeID is TL type id of MessagesSetBotShippingResultsRequest.
 const MessagesSetBotShippingResultsRequestTypeID = 0xe5f672fa
 
+func (s *MessagesSetBotShippingResultsRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Flags.Zero()) {
+		return false
+	}
+	if !(s.QueryID == 0) {
+		return false
+	}
+	if !(s.Error == "") {
+		return false
+	}
+	if !(s.ShippingOptions == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *MessagesSetBotShippingResultsRequest) String() string {
 	if s == nil {
@@ -80,6 +100,12 @@ func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setBotShippingResults#e5f672fa as nil")
 	}
 	b.PutID(MessagesSetBotShippingResultsRequestTypeID)
+	if !(s.Error == "") {
+		s.Flags.Set(0)
+	}
+	if !(s.ShippingOptions == nil) {
+		s.Flags.Set(1)
+	}
 	if err := s.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setBotShippingResults#e5f672fa: field flags: %w", err)
 	}

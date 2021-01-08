@@ -29,6 +29,20 @@ type PhoneLeaveGroupCallRequest struct {
 // PhoneLeaveGroupCallRequestTypeID is TL type id of PhoneLeaveGroupCallRequest.
 const PhoneLeaveGroupCallRequestTypeID = 0x500377f9
 
+func (l *PhoneLeaveGroupCallRequest) Zero() bool {
+	if l == nil {
+		return true
+	}
+	if !(l.Call.Zero()) {
+		return false
+	}
+	if !(l.Source == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (l *PhoneLeaveGroupCallRequest) String() string {
 	if l == nil {

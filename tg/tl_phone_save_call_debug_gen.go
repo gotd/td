@@ -30,6 +30,20 @@ type PhoneSaveCallDebugRequest struct {
 // PhoneSaveCallDebugRequestTypeID is TL type id of PhoneSaveCallDebugRequest.
 const PhoneSaveCallDebugRequestTypeID = 0x277add7e
 
+func (s *PhoneSaveCallDebugRequest) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Peer.Zero()) {
+		return false
+	}
+	if !(s.Debug.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *PhoneSaveCallDebugRequest) String() string {
 	if s == nil {

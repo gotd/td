@@ -34,6 +34,20 @@ type StickerPack struct {
 // StickerPackTypeID is TL type id of StickerPack.
 const StickerPackTypeID = 0x12b299d4
 
+func (s *StickerPack) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Emoticon == "") {
+		return false
+	}
+	if !(s.Documents == nil) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (s *StickerPack) String() string {
 	if s == nil {

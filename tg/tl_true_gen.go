@@ -29,6 +29,14 @@ type True struct {
 // TrueTypeID is TL type id of True.
 const TrueTypeID = 0x3fedd339
 
+func (t *True) Zero() bool {
+	if t == nil {
+		return true
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (t *True) String() string {
 	if t == nil {

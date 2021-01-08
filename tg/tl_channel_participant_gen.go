@@ -30,6 +30,20 @@ type ChannelParticipant struct {
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
 const ChannelParticipantTypeID = 0x15ebac1d
 
+func (c *ChannelParticipant) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipant) String() string {
 	if c == nil {
@@ -110,6 +124,23 @@ type ChannelParticipantSelf struct {
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
 const ChannelParticipantSelfTypeID = 0xa3289a6d
+
+func (c *ChannelParticipantSelf) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.InviterID == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+
+	return true
+}
 
 // String implements fmt.Stringer.
 func (c *ChannelParticipantSelf) String() string {
@@ -210,6 +241,26 @@ type ChannelParticipantCreator struct {
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
 const ChannelParticipantCreatorTypeID = 0x447dca4b
 
+func (c *ChannelParticipantCreator) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.AdminRights.Zero()) {
+		return false
+	}
+	if !(c.Rank == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantCreator) String() string {
 	if c == nil {
@@ -242,6 +293,9 @@ func (c *ChannelParticipantCreator) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantCreator#447dca4b as nil")
 	}
 	b.PutID(ChannelParticipantCreatorTypeID)
+	if !(c.Rank == "") {
+		c.Flags.Set(0)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantCreator#447dca4b: field flags: %w", err)
 	}
@@ -354,6 +408,41 @@ type ChannelParticipantAdmin struct {
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
 const ChannelParticipantAdminTypeID = 0xccbebbaf
 
+func (c *ChannelParticipantAdmin) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.CanEdit == false) {
+		return false
+	}
+	if !(c.Self == false) {
+		return false
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.InviterID == 0) {
+		return false
+	}
+	if !(c.PromotedBy == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.AdminRights.Zero()) {
+		return false
+	}
+	if !(c.Rank == "") {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantAdmin) String() string {
 	if c == nil {
@@ -397,6 +486,18 @@ func (c *ChannelParticipantAdmin) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantAdmin#ccbebbaf as nil")
 	}
 	b.PutID(ChannelParticipantAdminTypeID)
+	if !(c.CanEdit == false) {
+		c.Flags.Set(0)
+	}
+	if !(c.Self == false) {
+		c.Flags.Set(1)
+	}
+	if !(c.InviterID == 0) {
+		c.Flags.Set(1)
+	}
+	if !(c.Rank == "") {
+		c.Flags.Set(2)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantAdmin#ccbebbaf: field flags: %w", err)
 	}
@@ -564,6 +665,32 @@ type ChannelParticipantBanned struct {
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
 const ChannelParticipantBannedTypeID = 0x1c0facaf
 
+func (c *ChannelParticipantBanned) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
+	if !(c.Left == false) {
+		return false
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+	if !(c.KickedBy == 0) {
+		return false
+	}
+	if !(c.Date == 0) {
+		return false
+	}
+	if !(c.BannedRights.Zero()) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantBanned) String() string {
 	if c == nil {
@@ -597,6 +724,9 @@ func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantBanned#1c0facaf as nil")
 	}
 	b.PutID(ChannelParticipantBannedTypeID)
+	if !(c.Left == false) {
+		c.Flags.Set(0)
+	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelParticipantBanned#1c0facaf: field flags: %w", err)
 	}
@@ -686,6 +816,17 @@ type ChannelParticipantLeft struct {
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
 const ChannelParticipantLeftTypeID = 0xc3c6796b
 
+func (c *ChannelParticipantLeft) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.UserID == 0) {
+		return false
+	}
+
+	return true
+}
+
 // String implements fmt.Stringer.
 func (c *ChannelParticipantLeft) String() string {
 	if c == nil {
@@ -762,7 +903,9 @@ type ChannelParticipantClass interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChannelParticipantClass
+
 	fmt.Stringer
+	Zero() bool
 }
 
 // DecodeChannelParticipant implements binary de-serialization for ChannelParticipantClass.
