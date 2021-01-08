@@ -18,9 +18,9 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 	if err := c.invokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		var rpcErr *mtproto.Error
-		if errors.As(err, &rpcErr) && rpcErr.Type == "USER_MIGRATE" {
-			c.log.Info("Got USER_MIGRATE: Starting migration to another dc",
-				zap.Int("dc", rpcErr.Argument),
+		if errors.As(err, &rpcErr) && (rpcErr.Type == "USER_MIGRATE" || rpcErr.Type == "PHONE_MIGRATE") {
+			c.log.Info("Got {USER,PHONE}_MIGRATE: Starting migration to another dc",
+				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
 			)
 			if err := c.migrateToDc(c.ctx, rpcErr.Argument); err != nil {
 				return xerrors.Errorf("migrate to dc: %w", err)
