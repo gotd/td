@@ -1,14 +1,14 @@
 package tgtest
 
 import (
+	"context"
 	"fmt"
 	"net"
-
-	"golang.org/x/net/nettest"
 )
 
-func newLocalListener() net.Listener {
-	l, err := nettest.NewLocalListener("tcp")
+func newLocalListener(ctx context.Context) net.Listener {
+	conf := net.ListenConfig{}
+	l, err := conf.Listen(ctx, "tcp4", "127.0.0.1:0")
 	if err != nil {
 		panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
 	}

@@ -76,10 +76,8 @@ func (s *Server) Serve(ctx context.Context, handler Handler) error {
 	s.cancelMx.Unlock()
 
 	go func() {
-		select {
-		case <-s.ctx.Done():
-			_ = s.listener.Close()
-		}
+		<-s.ctx.Done()
+		_ = s.listener.Close()
 	}()
 	for {
 		conn, err := s.listener.Accept()

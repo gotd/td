@@ -4,7 +4,7 @@ import (
 	"context"
 	"crypto/rsa"
 	"errors"
-	"os"
+	"net"
 	"sync"
 	"testing"
 	"time"
@@ -23,6 +23,13 @@ import (
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
+
+func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)) {
+	t.Run("Abridged", test(transport.Abridged(nil)))
+	t.Run("Intermediate", test(transport.Intermediate(nil)))
+	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate(nil)))
+	t.Run("Full", test(transport.Full(nil)))
+}
 
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -93,10 +100,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 }
 
 func TestClientE2E(t *testing.T) {
-	t.Run("Abridged", testTransport(transport.Abridged(nil)))
-	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
-	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
-	t.Run("Full", testTransport(transport.Full(nil)))
+	testAllTransports(t, testTransport)
 }
 
 type syncHashSet struct {
@@ -124,15 +128,14 @@ func (s *syncHashSet) Has(k [8]byte) (ok bool) {
 func testReconnect(trp Transport) func(t *testing.T) {
 	testMessage := "какими деньгами?"
 	return func(t *testing.T) {
-		t.Helper()
 		log := zaptest.NewLogger(t)
 		defer func() { _ = log.Sync() }()
 
-		ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Minute))
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
+		g, gCtx := errgroup.WithContext(ctx)
 
-		srv := tgtest.NewUnstartedServer(tgtest.NewSuite(ctx, t, log), trp.Codec)
-
+		srv := tgtest.NewUnstartedServer("server", tgtest.NewSuite(gCtx, t, log), trp.Codec)
 		alreadyConnected := newSyncHashSet()
 		wait := make(chan struct{})
 		srv.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
@@ -154,13 +157,7 @@ func testReconnect(trp Transport) func(t *testing.T) {
 				}
 
 				return srv.SendConfig(s, msgID)
-			case mt.PingDelayDisconnectRequestTypeID:
-				pingReq := mt.PingDelayDisconnectRequest{}
-				if err := pingReq.Decode(in); err != nil {
-					return err
-				}
 
-				return srv.SendPong(s, msgID, pingReq.PingID)
 			case tg.MessagesSendMessageRequestTypeID:
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(in); err != nil {
@@ -180,22 +177,23 @@ func testReconnect(trp Transport) func(t *testing.T) {
 
 			return nil
 		})
-		srv.Start()
-		defer srv.Close()
 
-		client := NewClient(1, "hash", Options{
-			PublicKeys:    []*rsa.PublicKey{srv.Key()},
-			Addr:          srv.Addr().String(),
-			Transport:     trp,
-			Logger:        log.Named("client"),
-			AckBatchSize:  1,
-			AckInterval:   time.Millisecond * 100,
-			RetryInterval: time.Millisecond * 100,
-			MaxRetries:    5,
-		})
-
-		g, gCtx := errgroup.WithContext(ctx)
 		g.Go(func() error {
+			defer srv.Close()
+			return srv.Serve()
+		})
+		g.Go(func() error {
+			client := NewClient(1, "hash", Options{
+				PublicKeys:    []*rsa.PublicKey{srv.Key()},
+				Addr:          srv.Addr().String(),
+				Transport:     trp,
+				Logger:        log.Named("client"),
+				AckBatchSize:  1,
+				AckInterval:   time.Millisecond * 100,
+				RetryInterval: time.Millisecond * 100,
+				MaxRetries:    5,
+			})
+
 			return client.Run(gCtx, func(ctx context.Context) error {
 				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Peer:    &tg.InputPeerUser{},
@@ -217,17 +215,168 @@ func testReconnect(trp Transport) func(t *testing.T) {
 			}
 		})
 
-		if err := g.Wait(); err != nil {
-			t.Error(err)
+		log.Debug("Waiting")
+		if err := g.Wait(); !errors.Is(err, context.Canceled) {
+			require.NoError(t, err)
 		}
 	}
 }
 
 func TestReconnect(t *testing.T) {
-	if os.Getenv("GOTD_TEST_RECONNECT") != "1" {
-		t.Skip("TODO: Fix flaky test")
-	}
+	testAllTransports(t, testReconnect)
+}
 
-	t.Run("intermediate", testReconnect(transport.Intermediate(nil)))
-	t.Run("full", testReconnect(transport.Full(nil)))
+func testMigrate(trp Transport) func(t *testing.T) {
+	return func(t *testing.T) {
+		log := zaptest.NewLogger(t)
+		defer func() { _ = log.Sync() }()
+
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		defer cancel()
+		g, gCtx := errgroup.WithContext(ctx)
+		suite := tgtest.NewSuite(gCtx, t, log)
+
+		srv := tgtest.NewUnstartedServer("server", suite, trp.Codec)
+		migrate := tgtest.NewUnstartedServer("migrate", suite, trp.Codec)
+
+		srvAddr, ok := srv.Addr().(*net.TCPAddr)
+		require.Truef(t, ok, "unexpected type %T", srv.Addr())
+		migrateAddr, ok := migrate.Addr().(*net.TCPAddr)
+		require.Truef(t, ok, "unexpected type %T", migrate.Addr())
+		dcOps := &tg.Config{
+			DCOptions: []tg.DcOption{
+				{
+					ID:        1,
+					IPAddress: srvAddr.IP.String(),
+					Port:      srvAddr.Port,
+				},
+				{
+					ID:        2,
+					IPAddress: migrateAddr.IP.String(),
+					Port:      migrateAddr.Port,
+				},
+			},
+		}
+
+		wait := make(chan struct{})
+		srv.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
+			id, err := in.PeekID()
+			if err != nil {
+				return err
+			}
+
+			switch id {
+			case tg.InvokeWithLayerRequestTypeID:
+				layerInvoke := tg.InvokeWithLayerRequest{
+					Query: &tg.InitConnectionRequest{
+						Query: &tg.HelpGetConfigRequest{},
+					},
+				}
+
+				if err := layerInvoke.Decode(in); err != nil {
+					return err
+				}
+
+				return srv.SendResult(s, msgID, dcOps)
+
+			case tg.MessagesSendMessageRequestTypeID:
+				m := &tg.MessagesSendMessageRequest{}
+				if err := m.Decode(in); err != nil {
+					return err
+				}
+
+				wait <- struct{}{}
+				return srv.SendResult(s, msgID, &tg.Updates{})
+			}
+
+			return nil
+		})
+		g.Go(func() error {
+			defer srv.Close()
+			return srv.Serve()
+		})
+
+		migrate.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
+			id, err := in.PeekID()
+			if err != nil {
+				return err
+			}
+
+			switch id {
+			case tg.InvokeWithLayerRequestTypeID:
+				layerInvoke := tg.InvokeWithLayerRequest{
+					Query: &tg.InitConnectionRequest{
+						Query: &tg.HelpGetConfigRequest{},
+					},
+				}
+
+				if err := layerInvoke.Decode(in); err != nil {
+					return err
+				}
+
+				return migrate.SendResult(s, msgID, dcOps)
+
+			case tg.MessagesSendMessageRequestTypeID:
+				m := &tg.MessagesSendMessageRequest{}
+				if err := m.Decode(in); err != nil {
+					return err
+				}
+
+				return migrate.SendResult(s, msgID, &mt.RPCError{
+					ErrorCode:    303,
+					ErrorMessage: "NETWORK_MIGRATE_1",
+				})
+			default:
+				return nil
+			}
+		})
+		g.Go(func() error {
+			defer migrate.Close()
+			err := migrate.Serve()
+			if errors.Is(err, context.Canceled) {
+				return nil
+			}
+			return err
+		})
+
+		g.Go(func() error {
+			client := NewClient(1, "hash", Options{
+				PublicKeys:     []*rsa.PublicKey{migrate.Key(), srv.Key()},
+				Addr:           migrate.Addr().String(),
+				Transport:      trp,
+				Logger:         log.Named("client"),
+				SessionStorage: &session.StorageMemory{},
+			})
+
+			return client.Run(gCtx, func(ctx context.Context) error {
+				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+					Peer:    &tg.InputPeerUser{},
+					Message: "abc",
+				}); err != nil {
+					return xerrors.Errorf("send: %w", err)
+				}
+
+				return nil
+			})
+		})
+		g.Go(func() error {
+			select {
+			case <-wait:
+				cancel()
+				return nil
+			case <-gCtx.Done():
+				t.Error("failed to wait")
+				return gCtx.Err()
+			}
+		})
+
+		log.Debug("Waiting")
+		if err := g.Wait(); !errors.Is(err, context.Canceled) {
+			require.NoError(t, err)
+		}
+	}
+}
+
+func TestMigrate(t *testing.T) {
+	t.Run("Intermediate", testMigrate(transport.Intermediate(nil)))
 }

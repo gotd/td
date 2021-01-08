@@ -6,6 +6,8 @@ import (
 	"errors"
 	"io"
 
+	"github.com/gotd/td/internal/mt"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -64,14 +66,44 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		// Buffer now contains plaintext message payload.
 		b.ResetTo(msg.Data())
 
-		if err := s.handler.OnMessage(session, msg.MessageID, &b); err != nil {
-			return xerrors.Errorf("failed to call handler: %w", err)
+		if err := s.handle(session, msg.MessageID, &b); err != nil {
+			return xerrors.Errorf("handle: %w", err)
 		}
 	}
 }
 
+func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
+	id, err := in.PeekID()
+	if err != nil {
+		return xerrors.Errorf("peek id: %w", err)
+	}
+
+	switch id {
+	case mt.PingDelayDisconnectRequestTypeID:
+		pingReq := mt.PingDelayDisconnectRequest{}
+		if err := pingReq.Decode(in); err != nil {
+			return err
+		}
+
+		return s.SendPong(session, msgID, pingReq.PingID)
+	case mt.PingRequestTypeID:
+		pingReq := mt.PingRequest{}
+		if err := pingReq.Decode(in); err != nil {
+			return err
+		}
+
+		return s.SendPong(session, msgID, pingReq.PingID)
+	}
+
+	if err := s.handler.OnMessage(session, msgID, in); err != nil {
+		return xerrors.Errorf("failed to call handler: %w", err)
+	}
+
+	return nil
+}
+
 func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error) {
-	s.log.Debug("user connected")
+	s.log.Debug("User connected")
 
 	var k crypto.AuthKey
 	defer func() {
@@ -94,14 +126,14 @@ func (s *Server) serveConn(ctx context.Context, conn transport.Conn) (err error)
 		conn := NewBufferedConn(conn)
 		conn.Push(b)
 
-		s.log.Debug("starting key exchange")
+		s.log.Debug("Starting key exchange")
 		k, err = s.exchange(ctx, conn)
 		if err != nil {
 			return xerrors.Errorf("key exchange failed: %w", err)
 		}
 		s.users.addSession(k)
 	} else {
-		s.log.Debug("session already created, skip key exchange")
+		s.log.Debug("Session already created, skip key exchange")
 	}
 	wrappedConn := &connection{
 		Conn: conn,
