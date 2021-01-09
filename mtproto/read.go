@@ -154,7 +154,7 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 	}
 }
 
-func (c *Conn) readEncryptedMessages() error {
+func (c *Conn) readEncryptedMessages(context.Context) error {
 	b := new(bin.Buffer)
 	for msg := range c.messages {
 		b.ResetTo(msg.Data())
