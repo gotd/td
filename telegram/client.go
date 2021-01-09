@@ -9,9 +9,10 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/gotd/td/internal/tdsync"
+
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -61,6 +62,9 @@ type Client struct {
 	// tg provides RPC calls via Client.
 	tg *tg.Client
 
+	// Telegram device information.
+	device DeviceConfig
+
 	connMux  sync.Mutex
 	connAddr string
 	connOpt  mtproto.Options
@@ -81,9 +85,7 @@ type Client struct {
 	appHash string // immutable
 	storage clientStorage
 
-	ready     chan struct{}
-	readyOnce sync.Once
-
+	ready         *tdsync.ResetReady
 	updateHandler UpdateHandler // immutable
 }
 
@@ -129,6 +131,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		updateHandler: opt.UpdateHandler,
 		connAddr:      opt.Addr,
 		clock:         opt.Clock,
+		device:        opt.Device,
+		ready:         tdsync.NewResetReady(),
 	}
 
 	// Including version into client logger to help with debugging.
@@ -207,21 +211,18 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 }
 
 func (c *Client) runUntilRestart(ctx context.Context) error {
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	g, gCtx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		return c.conn.Run(ctx)
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(gCtx context.Context) error {
+		return c.conn.Run(gCtx)
 	})
-	g.Go(func() error {
+	g.Go(func(gCtx context.Context) error {
 		select {
 		case <-gCtx.Done():
 			return gCtx.Err()
 		case <-c.restart:
 			c.log.Debug("Restart triggered")
-			// Should call cancel() to cancel gCtx.
-			cancel()
+			// Should call cancel() to cancel group.
+			g.Cancel()
 
 			return nil
 		}
@@ -260,14 +261,11 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 
 func (c *Client) onReady() {
 	c.log.Debug("Ready")
-	c.readyOnce.Do(func() {
-		close(c.ready)
-	})
+	c.ready.Signal()
 }
 
 func (c *Client) resetReady() {
-	c.ready = make(chan struct{})
-	c.readyOnce = sync.Once{}
+	c.ready.Reset()
 }
 
 // Run starts client session and block until connection close.
@@ -284,25 +282,20 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 		return err
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	g, gCtx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		return c.reconnectUntilClosed(gCtx)
-	})
-	g.Go(func() error {
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(c.reconnectUntilClosed)
+	g.Go(func(gCtx context.Context) error {
 		select {
 		case <-gCtx.Done():
 			return gCtx.Err()
-		case <-c.ready:
+		case <-c.ready.Ready():
 			if err := f(gCtx); err != nil {
 				return xerrors.Errorf("callback: %w", err)
 			}
 			// Should call cancel() to cancel gCtx.
 			// This will terminate c.conn.Run().
 			c.log.Debug("Callback returned, stopping")
-			cancel()
+			g.Cancel()
 			return nil
 		}
 	})
@@ -367,5 +360,6 @@ func (c *Client) createConn(mode connMode) clientConn {
 		c.appID,
 		mode,
 		c.connOpt,
+		c.device,
 	)
 }

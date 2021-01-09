@@ -34,21 +34,32 @@ type connHandler interface {
 }
 
 type conn struct {
-	addr    string
+	// Connection parameters.
+	addr string   // immutable
+	mode connMode // immutable
+	// MTProto connection.
+	proto protoConn // immutable
+
+	// InitConnection parameters.
+	appID  int          // immutable
+	device DeviceConfig // immutable
+
+	// Wrappers for external world, like logs or PRNG.
+	// Should be immutable.
+	clock clock.Clock // immutable
+	log   *zap.Logger // immutable
+
+	// Handler passed by client.
+	handler connHandler // immutable
+
+	// State fields.
 	cfg     tg.Config
-	appID   int
-	mode    connMode
-	proto   protoConn
 	ongoing int
-	clock   clock.Clock
-	log     *zap.Logger
 	latest  time.Time
 	mux     sync.Mutex
 
-	handler connHandler
-
-	sessionInitOnce sync.Once
 	sessionInit     chan struct{}
+	sessionInitOnce sync.Once
 	gotConfig       chan struct{}
 }
 
@@ -123,17 +134,15 @@ func (c *conn) OnMessage(b *bin.Buffer) error {
 
 func (c *conn) init(ctx context.Context) error {
 	c.log.Debug("Initializing")
-	// TODO(ernado): Make versions configurable.
-	const notAvailable = "n/a"
 
 	q := &tg.InitConnectionRequest{
 		APIID:          c.appID,
-		SystemLangCode: "en",
-		LangCode:       "en",
-		SystemVersion:  notAvailable,
-		DeviceModel:    notAvailable,
-		AppVersion:     notAvailable,
-		LangPack:       "",
+		DeviceModel:    c.device.DeviceModel,
+		SystemVersion:  c.device.SystemVersion,
+		AppVersion:     c.device.AppVersion,
+		SystemLangCode: c.device.SystemLangCode,
+		LangPack:       c.device.LangPack,
+		LangCode:       c.device.LangCode,
 		Query:          &tg.HelpGetConfigRequest{},
 	}
 	var req bin.Object = &tg.InvokeWithLayerRequest{
@@ -167,9 +176,11 @@ func newConn(
 	appID int,
 	mode connMode,
 	opt mtproto.Options,
+	device DeviceConfig,
 ) *conn {
 	c := &conn{
 		appID:       appID,
+		device:      device,
 		mode:        mode,
 		addr:        addr,
 		clock:       opt.Clock,

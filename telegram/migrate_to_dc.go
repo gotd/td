@@ -21,7 +21,7 @@ func (c *Client) ensureRestart(ctx context.Context) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
-	case <-c.ready:
+	case <-c.ready.Ready():
 		c.log.Info("Restart ensured")
 		return nil
 	}

@@ -7,8 +7,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/mtsync"
 	"github.com/gotd/td/internal/proto/codec"
+	"github.com/gotd/td/internal/tdsync"
 )
 
 // NewCustomServer creates new MTProto server with custom transport codec.
@@ -44,7 +44,7 @@ type Server struct {
 	listener net.Listener
 
 	serveMx sync.Mutex
-	serve   *mtsync.CancellableGroup
+	serve   *tdsync.CancellableGroup
 }
 
 func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
@@ -72,7 +72,7 @@ func (s *Server) Addr() net.Addr {
 // Serve runs server using given listener.
 func (s *Server) Serve(ctx context.Context, handler Handler) error {
 	s.serveMx.Lock()
-	s.serve = mtsync.NewCancellableGroup(ctx)
+	s.serve = tdsync.NewCancellableGroup(ctx)
 	s.serveMx.Unlock()
 
 	s.serve.Go(func(groupCtx context.Context) error {
