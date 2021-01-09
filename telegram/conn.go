@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
@@ -58,17 +59,13 @@ type conn struct {
 	latest  time.Time
 	mux     sync.Mutex
 
-	sessionInit     chan struct{}
-	sessionInitOnce sync.Once
-	gotConfig       chan struct{}
+	sessionInit *tdsync.Ready
+	gotConfig   chan struct{}
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
 	c.log.Info("SessionInit")
-
-	c.sessionInitOnce.Do(func() {
-		close(c.sessionInit)
-	})
+	c.sessionInit.Signal()
 
 	// Waiting for config, because OnSession can occur before we set config.
 	// This can probably block forever.
@@ -111,7 +108,7 @@ func (c *conn) Run(ctx context.Context) error {
 
 func (c *conn) waitSession(ctx context.Context) error {
 	select {
-	case <-c.sessionInit:
+	case <-c.sessionInit.Ready():
 		return nil
 	case <-ctx.Done():
 		return ctx.Err()
@@ -186,7 +183,7 @@ func newConn(
 		clock:       opt.Clock,
 		log:         opt.Logger.Named("conn"),
 		handler:     handler,
-		sessionInit: make(chan struct{}),
+		sessionInit: tdsync.NewReady(),
 		gotConfig:   make(chan struct{}),
 	}
 	opt.Handler = c
