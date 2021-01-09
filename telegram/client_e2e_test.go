@@ -48,8 +48,6 @@ func testTransport(trp Transport) func(t *testing.T) {
 			return srv.Serve()
 		})
 		g.Go(func() error {
-			defer srv.Close()
-
 			dispatcher := tg.NewUpdateDispatcher()
 			logger := log.Named("client")
 			client := NewClient(1, "hash", Options{
@@ -87,6 +85,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 					return ctx.Err()
 				case <-waitForMessage:
 					logger.Info("Returning")
+					cancel()
 					return nil
 				}
 			})
@@ -332,11 +331,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 		})
 		g.Go(func() error {
 			defer migrate.Close()
-			err := migrate.Serve()
-			if errors.Is(err, context.Canceled) {
-				return nil
-			}
-			return err
+			return migrate.Serve()
 		})
 
 		g.Go(func() error {

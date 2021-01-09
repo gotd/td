@@ -23,10 +23,8 @@ type Server struct {
 	cipher  crypto.Cipher
 	handler Handler
 
-	clock  clock.Clock
-	ctx    context.Context
-	cancel context.CancelFunc
-
+	ctx   context.Context
+	clock clock.Clock
 	log   *zap.Logger
 	msgID *proto.MessageIDGen
 
@@ -56,10 +54,6 @@ func (s *Server) Start() {
 }
 
 func (s *Server) Close() {
-	if s.cancel != nil {
-		s.cancel()
-	}
-
 	_ = s.server.Close()
 }
 
@@ -77,14 +71,12 @@ func NewUnstartedServer(name string, suite Suite, codec func() transport.Codec) 
 	}
 	log := suite.Log.Named(name)
 
-	ctx, cancel := context.WithCancel(suite.Ctx)
 	s := &Server{
-		server: transport.NewCustomServer(codec, newLocalListener(ctx)),
+		server: transport.NewCustomServer(codec, newLocalListener(suite.Ctx)),
 		key:    k,
 		cipher: crypto.NewServerCipher(rand.Reader),
+		ctx:    suite.Ctx,
 		clock:  clock.System,
-		ctx:    ctx,
-		cancel: cancel,
 		log:    log,
 		users:  newUsers(),
 		msgID:  proto.NewMessageIDGen(clock.System.Now, 100),

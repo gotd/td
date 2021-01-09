@@ -7,6 +7,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/mtsync"
 	"github.com/gotd/td/internal/proto/codec"
 )
 
@@ -42,9 +43,8 @@ type Server struct {
 	codec    func() Codec
 	listener net.Listener
 
-	ctx      context.Context
-	cancel   context.CancelFunc
-	cancelMx sync.Mutex
+	serveMx sync.Mutex
+	serve   *mtsync.CancellableGroup
 }
 
 func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
@@ -71,42 +71,48 @@ func (s *Server) Addr() net.Addr {
 
 // Serve runs server using given listener.
 func (s *Server) Serve(ctx context.Context, handler Handler) error {
-	s.cancelMx.Lock()
-	s.ctx, s.cancel = context.WithCancel(ctx)
-	s.cancelMx.Unlock()
+	s.serveMx.Lock()
+	s.serve = mtsync.NewCancellableGroup(ctx)
+	s.serveMx.Unlock()
 
-	go func() {
-		<-s.ctx.Done()
+	s.serve.Go(func(groupCtx context.Context) error {
+		<-ctx.Done()
 		_ = s.listener.Close()
-	}()
-	for {
-		conn, err := s.listener.Accept()
-		if err != nil {
-			select {
-			case <-ctx.Done():
-				return ctx.Err()
+		return nil
+	})
+	s.serve.Go(func(gCtx context.Context) error {
+		for {
+			conn, err := s.listener.Accept()
+			if err != nil {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
 
-			case <-s.ctx.Done():
-				// If parent context is not done, so
-				// server context is canceled by Close.
-				return nil
-			default:
+				case <-gCtx.Done():
+					// If parent context is not done, so
+					// serve group context is canceled by Close.
+					return nil
+				default:
+				}
+				return err
 			}
-			return err
+
+			s.serve.Go(func(ctx context.Context) error {
+				return s.serveConn(ctx, handler, conn)
+			})
 		}
-		go func() {
-			_ = s.serveConn(s.ctx, handler, conn)
-		}()
-	}
+	})
+
+	return s.serve.Wait()
 }
 
 // Close stops server and closes given listener.
 func (s *Server) Close() error {
-	s.cancelMx.Lock()
-	if s.cancel != nil {
-		s.cancel()
+	s.serveMx.Lock()
+	if s.serve != nil {
+		s.serve.Cancel()
 	}
-	s.cancelMx.Unlock()
+	s.serveMx.Unlock()
 
 	return s.listener.Close()
 }
