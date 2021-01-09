@@ -1,5 +1,5 @@
-// Package mtsync contains some useful synchronization utilities.
-package mtsync
+// Package tdsync contains some useful synchronization utilities.
+package tdsync
 
 import (
 	"context"
