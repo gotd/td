@@ -1,7 +1,5 @@
 package telegram
 
-import "runtime"
-
 // DeviceConfig is config which send when Telegram connection session created.
 type DeviceConfig struct {
 	// Device model
@@ -19,20 +17,19 @@ type DeviceConfig struct {
 }
 
 func (c *DeviceConfig) setDefaults() {
+	const notAvailable = "n/a"
+
 	if c.DeviceModel == "" {
-		c.DeviceModel = "gotd"
+		c.DeviceModel = notAvailable
 	}
 	if c.SystemVersion == "" {
-		c.SystemVersion = runtime.GOOS
+		c.SystemVersion = notAvailable
 	}
 	if c.AppVersion == "" {
-		c.AppVersion = getVersion()
+		c.AppVersion = notAvailable
 	}
 	if c.SystemLangCode == "" {
 		c.SystemLangCode = "en"
-	}
-	if c.LangPack == "" {
-		c.LangPack = ""
 	}
 	if c.LangCode == "" {
 		c.LangCode = "en"

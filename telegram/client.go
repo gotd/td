@@ -9,8 +9,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/gotd/td/internal/tdsync"
-
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -20,6 +18,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
