@@ -26,8 +26,9 @@ type Server struct {
 	clock  clock.Clock
 	ctx    context.Context
 	cancel context.CancelFunc
-	log    *zap.Logger
-	msgID  *proto.MessageIDGen
+
+	log   *zap.Logger
+	msgID *proto.MessageIDGen
 
 	users *users
 }
@@ -44,6 +45,10 @@ func (s *Server) Serve() error {
 	return s.serve()
 }
 
+func (s *Server) AddSession(key crypto.AuthKey) {
+	s.users.addSession(key)
+}
+
 func (s *Server) Start() {
 	go func() {
 		_ = s.Serve()
@@ -58,28 +63,29 @@ func (s *Server) Close() {
 	_ = s.server.Close()
 }
 
-func NewServer(suite Suite, codec func() transport.Codec, h Handler) *Server {
-	s := NewUnstartedServer(suite, codec)
+func NewServer(name string, suite Suite, codec func() transport.Codec, h Handler) *Server {
+	s := NewUnstartedServer(name, suite, codec)
 	s.SetHandler(h)
 	s.Start()
 	return s
 }
 
-func NewUnstartedServer(suite Suite, codec func() transport.Codec) *Server {
+func NewUnstartedServer(name string, suite Suite, codec func() transport.Codec) *Server {
 	k, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
+	log := suite.Log.Named(name)
 
 	ctx, cancel := context.WithCancel(suite.Ctx)
 	s := &Server{
-		server: transport.NewCustomServer(codec, newLocalListener()),
+		server: transport.NewCustomServer(codec, newLocalListener(ctx)),
 		key:    k,
 		cipher: crypto.NewServerCipher(rand.Reader),
 		clock:  clock.System,
 		ctx:    ctx,
 		cancel: cancel,
-		log:    suite.Log.Named("server"),
+		log:    log,
 		users:  newUsers(),
 		msgID:  proto.NewMessageIDGen(clock.System.Now, 100),
 	}
@@ -95,10 +101,19 @@ func (s *Server) SetHandlerFunc(handler func(s Session, msgID int64, in *bin.Buf
 }
 
 func (s *Server) serve() error {
+	s.log.With(zap.String("addr", s.Addr().String())).Info("Serving")
+	defer func() {
+		l := s.log
+		if err := s.ctx.Err(); err != nil {
+			l = s.log.With(zap.Error(err))
+		}
+		l.Info("Stopping")
+	}()
+
 	return s.server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
 		err := s.serveConn(ctx, conn)
 		if err != nil {
-			s.log.With(zap.Error(err)).Info("connection error")
+			s.log.With(zap.Error(err)).Info("Serving handler error")
 		}
 		return err
 	})

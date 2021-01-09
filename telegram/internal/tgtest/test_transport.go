@@ -31,7 +31,7 @@ type testTransportHandler struct {
 }
 
 func TestTransport(s Suite, message string, codec func() transport.Codec) *Server {
-	srv := NewUnstartedServer(s, codec)
+	srv := NewUnstartedServer("server", s, codec)
 	h := testTransport(s, srv, message)
 	srv.SetHandler(h)
 
@@ -93,13 +93,6 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 		}
 
 		return h.hello(k, h.message)
-	case mt.PingDelayDisconnectRequestTypeID:
-		pingReq := mt.PingDelayDisconnectRequest{}
-		if err := pingReq.Decode(in); err != nil {
-			return err
-		}
-
-		return h.server.SendPong(k, msgID, pingReq.PingID)
 	case tg.MessagesSendMessageRequestTypeID:
 		m := &tg.MessagesSendMessageRequest{}
 		if err := m.Decode(in); err != nil {

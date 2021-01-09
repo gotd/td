@@ -75,6 +75,10 @@ func (s *Server) Serve(ctx context.Context, handler Handler) error {
 	s.ctx, s.cancel = context.WithCancel(ctx)
 	s.cancelMx.Unlock()
 
+	go func() {
+		<-s.ctx.Done()
+		_ = s.listener.Close()
+	}()
 	for {
 		conn, err := s.listener.Accept()
 		if err != nil {
