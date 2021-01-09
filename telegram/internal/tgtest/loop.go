@@ -5,10 +5,12 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
+	"net"
+
+	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
-
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
@@ -26,12 +28,16 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	for {
 		b.Reset()
 		if err := conn.Recv(ctx, &b); err != nil {
-			if errors.Is(err, io.EOF) {
+			var syscallErr *net.OpError
+			// TODO(tdakkota): Find a better way to detect forcibly closed connection.
+			if errors.Is(err, io.EOF) || (errors.As(err, &syscallErr) && syscallErr.Op == "read") {
 				// Client disconnected.
 				s.users.deleteConnection(key)
+				s.log.With(zap.Error(err)).Info("Read failed, closing loop.")
 				return nil
 			}
-			return xerrors.Errorf("read from client: %w", err)
+
+			return err
 		}
 
 		m := &crypto.EncryptedMessage{}
