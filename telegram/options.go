@@ -58,6 +58,10 @@ type Options struct {
 	RetryInterval time.Duration
 	MaxRetries    int
 
+	// Device is device config.
+	// Will be sent with session creation request.
+	Device DeviceConfig
+
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock
 }
@@ -96,6 +100,7 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
+	opt.Device.setDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}

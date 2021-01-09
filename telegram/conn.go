@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
@@ -34,30 +35,37 @@ type connHandler interface {
 }
 
 type conn struct {
-	addr    string
+	// Connection parameters.
+	addr string   // immutable
+	mode connMode // immutable
+	// MTProto connection.
+	proto protoConn // immutable
+
+	// InitConnection parameters.
+	appID  int          // immutable
+	device DeviceConfig // immutable
+
+	// Wrappers for external world, like logs or PRNG.
+	// Should be immutable.
+	clock clock.Clock // immutable
+	log   *zap.Logger // immutable
+
+	// Handler passed by client.
+	handler connHandler // immutable
+
+	// State fields.
 	cfg     tg.Config
-	appID   int
-	mode    connMode
-	proto   protoConn
 	ongoing int
-	clock   clock.Clock
-	log     *zap.Logger
 	latest  time.Time
 	mux     sync.Mutex
 
-	handler connHandler
-
-	sessionInitOnce sync.Once
-	sessionInit     chan struct{}
-	gotConfig       chan struct{}
+	sessionInit *tdsync.Ready
+	gotConfig   chan struct{}
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
 	c.log.Info("SessionInit")
-
-	c.sessionInitOnce.Do(func() {
-		close(c.sessionInit)
-	})
+	c.sessionInit.Signal()
 
 	// Waiting for config, because OnSession can occur before we set config.
 	// This can probably block forever.
@@ -100,7 +108,7 @@ func (c *conn) Run(ctx context.Context) error {
 
 func (c *conn) waitSession(ctx context.Context) error {
 	select {
-	case <-c.sessionInit:
+	case <-c.sessionInit.Ready():
 		return nil
 	case <-ctx.Done():
 		return ctx.Err()
@@ -123,17 +131,15 @@ func (c *conn) OnMessage(b *bin.Buffer) error {
 
 func (c *conn) init(ctx context.Context) error {
 	c.log.Debug("Initializing")
-	// TODO(ernado): Make versions configurable.
-	const notAvailable = "n/a"
 
 	q := &tg.InitConnectionRequest{
 		APIID:          c.appID,
-		SystemLangCode: "en",
-		LangCode:       "en",
-		SystemVersion:  notAvailable,
-		DeviceModel:    notAvailable,
-		AppVersion:     notAvailable,
-		LangPack:       "",
+		DeviceModel:    c.device.DeviceModel,
+		SystemVersion:  c.device.SystemVersion,
+		AppVersion:     c.device.AppVersion,
+		SystemLangCode: c.device.SystemLangCode,
+		LangPack:       c.device.LangPack,
+		LangCode:       c.device.LangCode,
 		Query:          &tg.HelpGetConfigRequest{},
 	}
 	var req bin.Object = &tg.InvokeWithLayerRequest{
@@ -167,15 +173,17 @@ func newConn(
 	appID int,
 	mode connMode,
 	opt mtproto.Options,
+	device DeviceConfig,
 ) *conn {
 	c := &conn{
 		appID:       appID,
+		device:      device,
 		mode:        mode,
 		addr:        addr,
 		clock:       opt.Clock,
 		log:         opt.Logger.Named("conn"),
 		handler:     handler,
-		sessionInit: make(chan struct{}),
+		sessionInit: tdsync.NewReady(),
 		gotConfig:   make(chan struct{}),
 	}
 	opt.Handler = c

@@ -1,4 +1,4 @@
-package mtsync
+package tdsync
 
 import (
 	"context"

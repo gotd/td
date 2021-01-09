@@ -100,11 +100,17 @@ func (c *Conn) handleAuthKeyNotFound(ctx context.Context) error {
 	return nil
 }
 
-func (c *Conn) readLoop(ctx context.Context) error {
+func (c *Conn) readLoop(ctx context.Context) (err error) {
 	b := new(bin.Buffer)
 	log := c.log.Named("read")
 	log.Debug("Read loop started")
-	defer log.Debug("Read loop done")
+	defer func() {
+		l := log
+		if err != nil {
+			l = log.With(zap.NamedError("reason", err))
+		}
+		l.Debug("Read loop done")
+	}()
 	defer close(c.messages)
 
 	for {
@@ -148,7 +154,7 @@ func (c *Conn) readLoop(ctx context.Context) error {
 	}
 }
 
-func (c *Conn) readEncryptedMessages() error {
+func (c *Conn) readEncryptedMessages(context.Context) error {
 	b := new(bin.Buffer)
 	for msg := range c.messages {
 		b.ResetTo(msg.Data())

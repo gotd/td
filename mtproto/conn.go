@@ -4,11 +4,11 @@ import (
 	"context"
 	"crypto/rsa"
 	"io"
+	"strconv"
 	"sync"
 	"time"
 
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -16,6 +16,7 @@ import (
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/transport"
 )
@@ -126,12 +127,6 @@ func New(addr string, opt Options) *Conn {
 	return conn
 }
 
-func goGroup(ctx context.Context, g *errgroup.Group, f func(ctx context.Context) error) {
-	g.Go(func() error {
-		return f(ctx)
-	})
-}
-
 // handleClose closes rpc engine and underlying connection on context done.
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
@@ -155,8 +150,10 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	if c.closed {
 		return xerrors.New("failed to Run closed connection")
 	}
+
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
+
 	c.log.Debug("Run: start")
 	defer c.log.Debug("Run: end")
 	if err := c.connect(ctx); err != nil {
@@ -164,14 +161,15 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 	}
 	{
 		// All goroutines are bound to current call.
-		g, gCtx := errgroup.WithContext(ctx)
-		goGroup(gCtx, g, c.handleClose)
-		goGroup(gCtx, g, c.pingLoop)
-		goGroup(gCtx, g, c.readLoop)
-		goGroup(gCtx, g, c.ackLoop)
-		goGroup(gCtx, g, f)
+		g := tdsync.NewLogGroup(ctx, c.log.Named("group"))
+		g.Go("handleClose", c.handleClose)
+		g.Go("pingLoop", c.pingLoop)
+		g.Go("readLoop", c.readLoop)
+		g.Go("ackLoop", c.ackLoop)
+		g.Go("userCallback", f)
+
 		for i := 0; i < c.readConcurrency; i++ {
-			g.Go(c.readEncryptedMessages)
+			g.Go("readEncryptedMessages-"+strconv.Itoa(i), c.readEncryptedMessages)
 		}
 		if err := g.Wait(); err != nil {
 			return xerrors.Errorf("group: %w", err)
