@@ -6,6 +6,7 @@ import (
 	"io"
 	"sync"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
@@ -72,4 +73,12 @@ func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error
 		auth,
 		telegram.SendCodeOptions{},
 	).Run(ctx, client)
+}
+
+// RetryAuthenticate authenticates client on test server.
+// If authentication fails it retries using given backoff.
+func (s *Suite) RetryAuthenticate(ctx context.Context, bk backoff.BackOff, client *telegram.Client) error {
+	return backoff.Retry(func() error {
+		return s.Authenticate(ctx, client)
+	}, bk)
 }

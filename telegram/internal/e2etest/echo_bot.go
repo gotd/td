@@ -2,7 +2,9 @@ package e2etest
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -26,11 +28,15 @@ func NewEchoBot(suite *Suite, auth chan<- *tg.User) EchoBot {
 
 // Run setups and starts echo bot.
 func (b EchoBot) Run(ctx context.Context) error {
-	logger := b.suite.Log.Named("echo user")
+	logger := b.suite.Log.Named("echobot")
 
 	dispatcher := tg.NewUpdateDispatcher()
-	client := b.suite.Client(logger, dispatcher.Handle)
+	client := b.suite.Client(logger, dispatcher)
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
+		if m, ok := u.Message.(interface{ GetMessage() string }); ok {
+			logger.Named("dispatcher").With(zap.String("message", m.GetMessage())).Info("Got new message update")
+		}
+
 		switch m := u.Message.(type) {
 		case *tg.Message:
 			switch peer := m.PeerID.(type) {
@@ -61,17 +67,30 @@ func (b EchoBot) Run(ctx context.Context) error {
 	})
 
 	return client.Run(ctx, func(ctx context.Context) error {
+		defer close(b.auth)
+
 		auth, err := client.AuthStatus(ctx)
 		if err != nil {
 			return xerrors.Errorf("get auth status: %w", err)
 		}
 		logger.Info("Auth status", zap.Bool("authorized", auth.Authorized))
 
-		if err := b.suite.Authenticate(ctx, client); err != nil {
+		if err := b.suite.RetryAuthenticate(ctx, backoff.NewExponentialBackOff(), client); err != nil {
 			return xerrors.Errorf("authenticate: %w", err)
 		}
 
 		me, err := client.Self(ctx)
+		if err != nil {
+			return xerrors.Errorf("get self: %w", err)
+		}
+
+		raw := tg.NewClient(client)
+		_, err = raw.AccountUpdateUsername(ctx, "echobot"+strconv.Itoa(me.ID))
+		if err != nil {
+			return xerrors.Errorf("update username: %w", err)
+		}
+
+		me, err = client.Self(ctx)
 		if err != nil {
 			return xerrors.Errorf("get self: %w", err)
 		}
@@ -80,9 +99,11 @@ func (b EchoBot) Run(ctx context.Context) error {
 
 		select {
 		case b.auth <- me:
-			return nil
 		case <-ctx.Done():
 			return ctx.Err()
 		}
+
+		<-ctx.Done()
+		return nil
 	})
 }

@@ -55,7 +55,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 				Addr:           srv.Addr().String(),
 				Transport:      trp,
 				Logger:         logger,
-				UpdateHandler:  dispatcher.Handle,
+				UpdateHandler:  dispatcher,
 				AckBatchSize:   1,
 				AckInterval:    time.Millisecond * 50,
 				RetryInterval:  time.Millisecond * 50,

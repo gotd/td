@@ -53,7 +53,7 @@ func run(ctx context.Context) error {
 		Logger:         logger,
 		SessionStorage: storage,
 		Transport:      transport.Intermediate(transport.DialFunc(proxy.Dial)),
-		UpdateHandler:  dispatcher.Handle,
+		UpdateHandler:  dispatcher,
 	})
 
 	return client.Run(ctx, func(ctx context.Context) error {
