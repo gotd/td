@@ -72,6 +72,12 @@ func (s *ShippingOption) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *ShippingOption) TypeID() uint32 {
+	return ShippingOptionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *ShippingOption) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -87,6 +93,21 @@ func (s *ShippingOption) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (s *ShippingOption) GetID() (value string) {
+	return s.ID
+}
+
+// GetTitle returns value of Title field.
+func (s *ShippingOption) GetTitle() (value string) {
+	return s.Title
+}
+
+// GetPrices returns value of Prices field.
+func (s *ShippingOption) GetPrices() (value []LabeledPrice) {
+	return s.Prices
 }
 
 // Decode implements bin.Decoder.

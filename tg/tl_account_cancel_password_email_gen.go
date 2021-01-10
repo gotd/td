@@ -49,6 +49,12 @@ func (c *AccountCancelPasswordEmailRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AccountCancelPasswordEmailRequest) TypeID() uint32 {
+	return AccountCancelPasswordEmailRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if c == nil {

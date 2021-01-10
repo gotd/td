@@ -59,6 +59,12 @@ func (m *MsgsStateInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MsgsStateInfo) TypeID() uint32 {
+	return MsgsStateInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MsgsStateInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -68,6 +74,16 @@ func (m *MsgsStateInfo) Encode(b *bin.Buffer) error {
 	b.PutLong(m.ReqMsgID)
 	b.PutBytes(m.Info)
 	return nil
+}
+
+// GetReqMsgID returns value of ReqMsgID field.
+func (m *MsgsStateInfo) GetReqMsgID() (value int64) {
+	return m.ReqMsgID
+}
+
+// GetInfo returns value of Info field.
+func (m *MsgsStateInfo) GetInfo() (value []byte) {
+	return m.Info
 }
 
 // Decode implements bin.Decoder.

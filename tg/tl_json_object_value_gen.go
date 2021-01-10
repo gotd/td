@@ -62,6 +62,12 @@ func (j *JsonObjectValue) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonObjectValue) TypeID() uint32 {
+	return JsonObjectValueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonObjectValue) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -76,6 +82,16 @@ func (j *JsonObjectValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode jsonObjectValue#c0de1bd9: field value: %w", err)
 	}
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (j *JsonObjectValue) GetKey() (value string) {
+	return j.Key
+}
+
+// GetValue returns value of Value field.
+func (j *JsonObjectValue) GetValue() (value JSONValueClass) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.

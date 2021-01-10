@@ -70,6 +70,12 @@ func (u *AccountUploadWallPaperRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUploadWallPaperRequest) TypeID() uint32 {
+	return AccountUploadWallPaperRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -87,6 +93,21 @@ func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field settings: %w", err)
 	}
 	return nil
+}
+
+// GetFile returns value of File field.
+func (u *AccountUploadWallPaperRequest) GetFile() (value InputFileClass) {
+	return u.File
+}
+
+// GetMimeType returns value of MimeType field.
+func (u *AccountUploadWallPaperRequest) GetMimeType() (value string) {
+	return u.MimeType
+}
+
+// GetSettings returns value of Settings field.
+func (u *AccountUploadWallPaperRequest) GetSettings() (value WallPaperSettings) {
+	return u.Settings
 }
 
 // Decode implements bin.Decoder.

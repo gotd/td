@@ -51,6 +51,12 @@ func (g *GzipPacked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GzipPacked) TypeID() uint32 {
+	return GzipPackedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GzipPacked) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -59,6 +65,11 @@ func (g *GzipPacked) Encode(b *bin.Buffer) error {
 	b.PutID(GzipPackedTypeID)
 	b.PutBytes(g.PackedData)
 	return nil
+}
+
+// GetPackedData returns value of PackedData field.
+func (g *GzipPacked) GetPackedData() (value []byte) {
+	return g.PackedData
 }
 
 // Decode implements bin.Decoder.

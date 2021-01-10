@@ -62,6 +62,12 @@ func (u *MessagesUploadEncryptedFileRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUploadEncryptedFileRequest) TypeID() uint32 {
+	return MessagesUploadEncryptedFileRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUploadEncryptedFileRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -78,6 +84,16 @@ func (u *MessagesUploadEncryptedFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.uploadEncryptedFile#5057c497: field file: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *MessagesUploadEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	return u.Peer
+}
+
+// GetFile returns value of File field.
+func (u *MessagesUploadEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	return u.File
 }
 
 // Decode implements bin.Decoder.

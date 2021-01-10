@@ -54,6 +54,12 @@ func (e *MessagesExportChatInviteRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesExportChatInviteRequest) TypeID() uint32 {
+	return MessagesExportChatInviteRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -67,6 +73,11 @@ func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.exportChatInvite#df7534c: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (e *MessagesExportChatInviteRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
 }
 
 // Decode implements bin.Decoder.

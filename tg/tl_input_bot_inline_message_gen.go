@@ -94,6 +94,12 @@ func (i *InputBotInlineMessageMediaAuto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageMediaAuto) TypeID() uint32 {
+	return InputBotInlineMessageMediaAutoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -130,6 +136,11 @@ func (i *InputBotInlineMessageMediaAuto) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (i *InputBotInlineMessageMediaAuto) GetMessage() (value string) {
+	return i.Message
 }
 
 // SetEntities sets value of Entities conditional field.
@@ -299,6 +310,12 @@ func (i *InputBotInlineMessageText) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageText) TypeID() uint32 {
+	return InputBotInlineMessageTextTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageText) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -349,6 +366,16 @@ func (i *InputBotInlineMessageText) SetNoWebpage(value bool) {
 		i.Flags.Unset(0)
 		i.NoWebpage = false
 	}
+}
+
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (i *InputBotInlineMessageText) GetNoWebpage() (value bool) {
+	return i.Flags.Has(0)
+}
+
+// GetMessage returns value of Message field.
+func (i *InputBotInlineMessageText) GetMessage() (value string) {
+	return i.Message
 }
 
 // SetEntities sets value of Entities conditional field.
@@ -539,6 +566,12 @@ func (i *InputBotInlineMessageMediaGeo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageMediaGeo) TypeID() uint32 {
+	return InputBotInlineMessageMediaGeoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -584,6 +617,11 @@ func (i *InputBotInlineMessageMediaGeo) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputBotInlineMessageMediaGeo) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
 }
 
 // SetHeading sets value of Heading conditional field.
@@ -809,6 +847,12 @@ func (i *InputBotInlineMessageMediaVenue) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageMediaVenue) TypeID() uint32 {
+	return InputBotInlineMessageMediaVenueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -841,6 +885,36 @@ func (i *InputBotInlineMessageMediaVenue) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputBotInlineMessageMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
+
+// GetTitle returns value of Title field.
+func (i *InputBotInlineMessageMediaVenue) GetTitle() (value string) {
+	return i.Title
+}
+
+// GetAddress returns value of Address field.
+func (i *InputBotInlineMessageMediaVenue) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputBotInlineMessageMediaVenue) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (i *InputBotInlineMessageMediaVenue) GetVenueID() (value string) {
+	return i.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (i *InputBotInlineMessageMediaVenue) GetVenueType() (value string) {
+	return i.VenueType
 }
 
 // SetReplyMarkup sets value of ReplyMarkup conditional field.
@@ -1019,6 +1093,12 @@ func (i *InputBotInlineMessageMediaContact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageMediaContact) TypeID() uint32 {
+	return InputBotInlineMessageMediaContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1044,6 +1124,26 @@ func (i *InputBotInlineMessageMediaContact) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (i *InputBotInlineMessageMediaContact) GetPhoneNumber() (value string) {
+	return i.PhoneNumber
+}
+
+// GetFirstName returns value of FirstName field.
+func (i *InputBotInlineMessageMediaContact) GetFirstName() (value string) {
+	return i.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (i *InputBotInlineMessageMediaContact) GetLastName() (value string) {
+	return i.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (i *InputBotInlineMessageMediaContact) GetVcard() (value string) {
+	return i.Vcard
 }
 
 // SetReplyMarkup sets value of ReplyMarkup conditional field.
@@ -1176,6 +1276,12 @@ func (i *InputBotInlineMessageGame) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageGame) TypeID() uint32 {
+	return InputBotInlineMessageGameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1271,7 +1377,15 @@ type InputBotInlineMessageClass interface {
 	bin.Decoder
 	construct() InputBotInlineMessageClass
 
-	fmt.Stringer
+	// Inline keyboard
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

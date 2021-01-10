@@ -161,6 +161,12 @@ func (p *PaymentsPaymentForm) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentsPaymentForm) TypeID() uint32 {
+	return PaymentsPaymentFormTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -235,6 +241,11 @@ func (p *PaymentsPaymentForm) SetCanSaveCredentials(value bool) {
 	}
 }
 
+// GetCanSaveCredentials returns value of CanSaveCredentials conditional field.
+func (p *PaymentsPaymentForm) GetCanSaveCredentials() (value bool) {
+	return p.Flags.Has(2)
+}
+
 // SetPasswordMissing sets value of PasswordMissing conditional field.
 func (p *PaymentsPaymentForm) SetPasswordMissing(value bool) {
 	if value {
@@ -244,6 +255,31 @@ func (p *PaymentsPaymentForm) SetPasswordMissing(value bool) {
 		p.Flags.Unset(3)
 		p.PasswordMissing = false
 	}
+}
+
+// GetPasswordMissing returns value of PasswordMissing conditional field.
+func (p *PaymentsPaymentForm) GetPasswordMissing() (value bool) {
+	return p.Flags.Has(3)
+}
+
+// GetBotID returns value of BotID field.
+func (p *PaymentsPaymentForm) GetBotID() (value int) {
+	return p.BotID
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentForm) GetInvoice() (value Invoice) {
+	return p.Invoice
+}
+
+// GetProviderID returns value of ProviderID field.
+func (p *PaymentsPaymentForm) GetProviderID() (value int) {
+	return p.ProviderID
+}
+
+// GetURL returns value of URL field.
+func (p *PaymentsPaymentForm) GetURL() (value string) {
+	return p.URL
 }
 
 // SetNativeProvider sets value of NativeProvider conditional field.
@@ -304,6 +340,11 @@ func (p *PaymentsPaymentForm) GetSavedCredentials() (value PaymentSavedCredentia
 		return value, false
 	}
 	return p.SavedCredentials, true
+}
+
+// GetUsers returns value of Users field.
+func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.

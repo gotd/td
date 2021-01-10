@@ -63,6 +63,12 @@ func (i *PhoneInviteToGroupCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *PhoneInviteToGroupCallRequest) TypeID() uint32 {
+	return PhoneInviteToGroupCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *PhoneInviteToGroupCallRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -82,6 +88,16 @@ func (i *PhoneInviteToGroupCallRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
+	return i.Call
+}
+
+// GetUsers returns value of Users field.
+func (i *PhoneInviteToGroupCallRequest) GetUsers() (value []InputUserClass) {
+	return i.Users
 }
 
 // Decode implements bin.Decoder.

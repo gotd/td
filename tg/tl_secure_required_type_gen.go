@@ -80,6 +80,12 @@ func (s *SecureRequiredType) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureRequiredType) TypeID() uint32 {
+	return SecureRequiredTypeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -118,6 +124,11 @@ func (s *SecureRequiredType) SetNativeNames(value bool) {
 	}
 }
 
+// GetNativeNames returns value of NativeNames conditional field.
+func (s *SecureRequiredType) GetNativeNames() (value bool) {
+	return s.Flags.Has(0)
+}
+
 // SetSelfieRequired sets value of SelfieRequired conditional field.
 func (s *SecureRequiredType) SetSelfieRequired(value bool) {
 	if value {
@@ -129,6 +140,11 @@ func (s *SecureRequiredType) SetSelfieRequired(value bool) {
 	}
 }
 
+// GetSelfieRequired returns value of SelfieRequired conditional field.
+func (s *SecureRequiredType) GetSelfieRequired() (value bool) {
+	return s.Flags.Has(1)
+}
+
 // SetTranslationRequired sets value of TranslationRequired conditional field.
 func (s *SecureRequiredType) SetTranslationRequired(value bool) {
 	if value {
@@ -138,6 +154,16 @@ func (s *SecureRequiredType) SetTranslationRequired(value bool) {
 		s.Flags.Unset(2)
 		s.TranslationRequired = false
 	}
+}
+
+// GetTranslationRequired returns value of TranslationRequired conditional field.
+func (s *SecureRequiredType) GetTranslationRequired() (value bool) {
+	return s.Flags.Has(2)
+}
+
+// GetType returns value of Type field.
+func (s *SecureRequiredType) GetType() (value SecureValueTypeClass) {
+	return s.Type
 }
 
 // Decode implements bin.Decoder.
@@ -217,6 +243,12 @@ func (s *SecureRequiredTypeOneOf) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
+	return SecureRequiredTypeOneOfTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -233,6 +265,11 @@ func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTypes returns value of Types field.
+func (s *SecureRequiredTypeOneOf) GetTypes() (value []SecureRequiredTypeClass) {
+	return s.Types
 }
 
 // Decode implements bin.Decoder.
@@ -289,7 +326,12 @@ type SecureRequiredTypeClass interface {
 	bin.Decoder
 	construct() SecureRequiredTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

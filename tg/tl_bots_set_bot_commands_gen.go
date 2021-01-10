@@ -56,6 +56,12 @@ func (s *BotsSetBotCommandsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *BotsSetBotCommandsRequest) TypeID() uint32 {
+	return BotsSetBotCommandsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -69,6 +75,11 @@ func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCommands returns value of Commands field.
+func (s *BotsSetBotCommandsRequest) GetCommands() (value []BotCommand) {
+	return s.Commands
 }
 
 // Decode implements bin.Decoder.

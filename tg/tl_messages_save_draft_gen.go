@@ -110,6 +110,12 @@ func (s *MessagesSaveDraftRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSaveDraftRequest) TypeID() uint32 {
+	return MessagesSaveDraftRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -163,6 +169,11 @@ func (s *MessagesSaveDraftRequest) SetNoWebpage(value bool) {
 	}
 }
 
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (s *MessagesSaveDraftRequest) GetNoWebpage() (value bool) {
+	return s.Flags.Has(1)
+}
+
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
 func (s *MessagesSaveDraftRequest) SetReplyToMsgID(value int) {
 	s.Flags.Set(0)
@@ -176,6 +187,16 @@ func (s *MessagesSaveDraftRequest) GetReplyToMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return s.ReplyToMsgID, true
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSaveDraftRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetMessage returns value of Message field.
+func (s *MessagesSaveDraftRequest) GetMessage() (value string) {
+	return s.Message
 }
 
 // SetEntities sets value of Entities conditional field.

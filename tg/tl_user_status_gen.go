@@ -46,6 +46,12 @@ func (u *UserStatusEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusEmpty) TypeID() uint32 {
+	return UserStatusEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -115,6 +121,12 @@ func (u *UserStatusOnline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusOnline) TypeID() uint32 {
+	return UserStatusOnlineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -123,6 +135,11 @@ func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
 	b.PutID(UserStatusOnlineTypeID)
 	b.PutInt(u.Expires)
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (u *UserStatusOnline) GetExpires() (value int) {
+	return u.Expires
 }
 
 // Decode implements bin.Decoder.
@@ -192,6 +209,12 @@ func (u *UserStatusOffline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusOffline) TypeID() uint32 {
+	return UserStatusOfflineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -200,6 +223,11 @@ func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 	b.PutID(UserStatusOfflineTypeID)
 	b.PutInt(u.WasOnline)
 	return nil
+}
+
+// GetWasOnline returns value of WasOnline field.
+func (u *UserStatusOffline) GetWasOnline() (value int) {
+	return u.WasOnline
 }
 
 // Decode implements bin.Decoder.
@@ -259,6 +287,12 @@ func (u *UserStatusRecently) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusRecently) TypeID() uint32 {
+	return UserStatusRecentlyTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -322,6 +356,12 @@ func (u *UserStatusLastWeek) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusLastWeek) TypeID() uint32 {
+	return UserStatusLastWeekTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -383,6 +423,12 @@ func (u *UserStatusLastMonth) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserStatusLastMonth) TypeID() uint32 {
+	return UserStatusLastMonthTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -437,7 +483,12 @@ type UserStatusClass interface {
 	bin.Decoder
 	construct() UserStatusClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -75,6 +75,12 @@ func (m *Message) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *Message) TypeID() uint32 {
+	return MessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -88,6 +94,26 @@ func (m *Message) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode message#5bb8e511: field body: %w", err)
 	}
 	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (m *Message) GetMsgID() (value int64) {
+	return m.MsgID
+}
+
+// GetSeqno returns value of Seqno field.
+func (m *Message) GetSeqno() (value int) {
+	return m.Seqno
+}
+
+// GetBytes returns value of Bytes field.
+func (m *Message) GetBytes() (value int) {
+	return m.Bytes
+}
+
+// GetBody returns value of Body field.
+func (m *Message) GetBody() (value GzipPacked) {
+	return m.Body
 }
 
 // Decode implements bin.Decoder.

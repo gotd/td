@@ -22,6 +22,9 @@ type MessagesSearchCounterVector struct {
 	Elems []MessagesSearchCounter
 }
 
+// MessagesSearchCounterVectorTypeID is TL type id of MessagesSearchCounterVector.
+const MessagesSearchCounterVectorTypeID = bin.TypeVector
+
 func (vec *MessagesSearchCounterVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *MessagesSearchCounterVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *MessagesSearchCounterVector) TypeID() uint32 {
+	return MessagesSearchCounterVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *MessagesSearchCounterVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *MessagesSearchCounterVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *MessagesSearchCounterVector) GetElems() (value []MessagesSearchCounter) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (f *MessagesFavedStickersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFavedStickersNotModified) TypeID() uint32 {
+	return MessagesFavedStickersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFavedStickersNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -138,6 +144,12 @@ func (f *MessagesFavedStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFavedStickers) TypeID() uint32 {
+	return MessagesFavedStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFavedStickers) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -161,6 +173,21 @@ func (f *MessagesFavedStickers) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (f *MessagesFavedStickers) GetHash() (value int) {
+	return f.Hash
+}
+
+// GetPacks returns value of Packs field.
+func (f *MessagesFavedStickers) GetPacks() (value []StickerPack) {
+	return f.Packs
+}
+
+// GetStickers returns value of Stickers field.
+func (f *MessagesFavedStickers) GetStickers() (value []DocumentClass) {
+	return f.Stickers
 }
 
 // Decode implements bin.Decoder.
@@ -237,7 +264,12 @@ type MessagesFavedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFavedStickersClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

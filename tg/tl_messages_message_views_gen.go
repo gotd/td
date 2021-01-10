@@ -76,6 +76,12 @@ func (m *MessagesMessageViews) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMessageViews) TypeID() uint32 {
+	return MessagesMessageViewsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessageViews) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -107,6 +113,21 @@ func (m *MessagesMessageViews) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetViews returns value of Views field.
+func (m *MessagesMessageViews) GetViews() (value []MessageViews) {
+	return m.Views
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
+	return m.Chats
+}
+
+// GetUsers returns value of Users field.
+func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.

@@ -68,6 +68,12 @@ func (g *MessagesGetWebPageRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetWebPageRequest) TypeID() uint32 {
+	return MessagesGetWebPageRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -77,6 +83,16 @@ func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 	b.PutString(g.URL)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (g *MessagesGetWebPageRequest) GetURL() (value string) {
+	return g.URL
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetWebPageRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

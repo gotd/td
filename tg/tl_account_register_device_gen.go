@@ -113,6 +113,12 @@ func (r *AccountRegisterDeviceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AccountRegisterDeviceRequest) TypeID() uint32 {
+	return AccountRegisterDeviceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -145,6 +151,36 @@ func (r *AccountRegisterDeviceRequest) SetNoMuted(value bool) {
 		r.Flags.Unset(0)
 		r.NoMuted = false
 	}
+}
+
+// GetNoMuted returns value of NoMuted conditional field.
+func (r *AccountRegisterDeviceRequest) GetNoMuted() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetTokenType returns value of TokenType field.
+func (r *AccountRegisterDeviceRequest) GetTokenType() (value int) {
+	return r.TokenType
+}
+
+// GetToken returns value of Token field.
+func (r *AccountRegisterDeviceRequest) GetToken() (value string) {
+	return r.Token
+}
+
+// GetAppSandbox returns value of AppSandbox field.
+func (r *AccountRegisterDeviceRequest) GetAppSandbox() (value bool) {
+	return r.AppSandbox
+}
+
+// GetSecret returns value of Secret field.
+func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
+	return r.Secret
+}
+
+// GetOtherUids returns value of OtherUids field.
+func (r *AccountRegisterDeviceRequest) GetOtherUids() (value []int) {
+	return r.OtherUids
 }
 
 // Decode implements bin.Decoder.

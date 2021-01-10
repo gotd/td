@@ -69,6 +69,12 @@ func (g *UploadGetWebFileRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UploadGetWebFileRequest) TypeID() uint32 {
+	return UploadGetWebFileRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UploadGetWebFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -84,6 +90,21 @@ func (g *UploadGetWebFileRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetLocation returns value of Location field.
+func (g *UploadGetWebFileRequest) GetLocation() (value InputWebFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetWebFileRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *UploadGetWebFileRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

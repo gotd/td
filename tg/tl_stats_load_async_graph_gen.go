@@ -83,6 +83,12 @@ func (l *StatsLoadAsyncGraphRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *StatsLoadAsyncGraphRequest) TypeID() uint32 {
+	return StatsLoadAsyncGraphRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -100,6 +106,11 @@ func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 		b.PutLong(l.X)
 	}
 	return nil
+}
+
+// GetToken returns value of Token field.
+func (l *StatsLoadAsyncGraphRequest) GetToken() (value string) {
+	return l.Token
 }
 
 // SetX sets value of X conditional field.

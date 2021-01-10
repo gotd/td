@@ -76,6 +76,12 @@ func (i *MessagesInactiveChats) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *MessagesInactiveChats) TypeID() uint32 {
+	return MessagesInactiveChatsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +111,21 @@ func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetDates returns value of Dates field.
+func (i *MessagesInactiveChats) GetDates() (value []int) {
+	return i.Dates
+}
+
+// GetChats returns value of Chats field.
+func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
+	return i.Chats
+}
+
+// GetUsers returns value of Users field.
+func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
+	return i.Users
 }
 
 // Decode implements bin.Decoder.

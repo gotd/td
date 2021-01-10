@@ -60,6 +60,12 @@ func (c *UploadCdnFileReuploadNeeded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *UploadCdnFileReuploadNeeded) TypeID() uint32 {
+	return UploadCdnFileReuploadNeededTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *UploadCdnFileReuploadNeeded) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -68,6 +74,11 @@ func (c *UploadCdnFileReuploadNeeded) Encode(b *bin.Buffer) error {
 	b.PutID(UploadCdnFileReuploadNeededTypeID)
 	b.PutBytes(c.RequestToken)
 	return nil
+}
+
+// GetRequestToken returns value of RequestToken field.
+func (c *UploadCdnFileReuploadNeeded) GetRequestToken() (value []byte) {
+	return c.RequestToken
 }
 
 // Decode implements bin.Decoder.
@@ -140,6 +151,12 @@ func (c *UploadCdnFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *UploadCdnFile) TypeID() uint32 {
+	return UploadCdnFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *UploadCdnFile) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -148,6 +165,11 @@ func (c *UploadCdnFile) Encode(b *bin.Buffer) error {
 	b.PutID(UploadCdnFileTypeID)
 	b.PutBytes(c.Bytes)
 	return nil
+}
+
+// GetBytes returns value of Bytes field.
+func (c *UploadCdnFile) GetBytes() (value []byte) {
+	return c.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -198,7 +220,12 @@ type UploadCdnFileClass interface {
 	bin.Decoder
 	construct() UploadCdnFileClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

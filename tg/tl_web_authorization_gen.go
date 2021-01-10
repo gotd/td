@@ -121,6 +121,12 @@ func (w *WebAuthorization) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebAuthorization) TypeID() uint32 {
+	return WebAuthorizationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -137,6 +143,51 @@ func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 	b.PutString(w.IP)
 	b.PutString(w.Region)
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (w *WebAuthorization) GetHash() (value int64) {
+	return w.Hash
+}
+
+// GetBotID returns value of BotID field.
+func (w *WebAuthorization) GetBotID() (value int) {
+	return w.BotID
+}
+
+// GetDomain returns value of Domain field.
+func (w *WebAuthorization) GetDomain() (value string) {
+	return w.Domain
+}
+
+// GetBrowser returns value of Browser field.
+func (w *WebAuthorization) GetBrowser() (value string) {
+	return w.Browser
+}
+
+// GetPlatform returns value of Platform field.
+func (w *WebAuthorization) GetPlatform() (value string) {
+	return w.Platform
+}
+
+// GetDateCreated returns value of DateCreated field.
+func (w *WebAuthorization) GetDateCreated() (value int) {
+	return w.DateCreated
+}
+
+// GetDateActive returns value of DateActive field.
+func (w *WebAuthorization) GetDateActive() (value int) {
+	return w.DateActive
+}
+
+// GetIP returns value of IP field.
+func (w *WebAuthorization) GetIP() (value string) {
+	return w.IP
+}
+
+// GetRegion returns value of Region field.
+func (w *WebAuthorization) GetRegion() (value string) {
+	return w.Region
 }
 
 // Decode implements bin.Decoder.

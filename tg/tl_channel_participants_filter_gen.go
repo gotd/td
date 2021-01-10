@@ -46,6 +46,12 @@ func (c *ChannelParticipantsRecent) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsRecent) TypeID() uint32 {
+	return ChannelParticipantsRecentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsRecent) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -105,6 +111,12 @@ func (c *ChannelParticipantsAdmins) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsAdmins) TypeID() uint32 {
+	return ChannelParticipantsAdminsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -176,6 +188,12 @@ func (c *ChannelParticipantsKicked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsKicked) TypeID() uint32 {
+	return ChannelParticipantsKickedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsKicked) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -184,6 +202,11 @@ func (c *ChannelParticipantsKicked) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelParticipantsKickedTypeID)
 	b.PutString(c.Q)
 	return nil
+}
+
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsKicked) GetQ() (value string) {
+	return c.Q
 }
 
 // Decode implements bin.Decoder.
@@ -243,6 +266,12 @@ func (c *ChannelParticipantsBots) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsBots) TypeID() uint32 {
+	return ChannelParticipantsBotsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -314,6 +343,12 @@ func (c *ChannelParticipantsBanned) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsBanned) TypeID() uint32 {
+	return ChannelParticipantsBannedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsBanned) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -322,6 +357,11 @@ func (c *ChannelParticipantsBanned) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelParticipantsBannedTypeID)
 	b.PutString(c.Q)
 	return nil
+}
+
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsBanned) GetQ() (value string) {
+	return c.Q
 }
 
 // Decode implements bin.Decoder.
@@ -391,6 +431,12 @@ func (c *ChannelParticipantsSearch) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsSearch) TypeID() uint32 {
+	return ChannelParticipantsSearchTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsSearch) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -399,6 +445,11 @@ func (c *ChannelParticipantsSearch) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelParticipantsSearchTypeID)
 	b.PutString(c.Q)
 	return nil
+}
+
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsSearch) GetQ() (value string) {
+	return c.Q
 }
 
 // Decode implements bin.Decoder.
@@ -468,6 +519,12 @@ func (c *ChannelParticipantsContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsContacts) TypeID() uint32 {
+	return ChannelParticipantsContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsContacts) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -476,6 +533,11 @@ func (c *ChannelParticipantsContacts) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelParticipantsContactsTypeID)
 	b.PutString(c.Q)
 	return nil
+}
+
+// GetQ returns value of Q field.
+func (c *ChannelParticipantsContacts) GetQ() (value string) {
+	return c.Q
 }
 
 // Decode implements bin.Decoder.
@@ -578,6 +640,12 @@ func (c *ChannelParticipantsMentions) String() string {
 	}
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantsMentions) TypeID() uint32 {
+	return ChannelParticipantsMentionsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -700,7 +768,12 @@ type ChannelParticipantsFilterClass interface {
 	bin.Decoder
 	construct() ChannelParticipantsFilterClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

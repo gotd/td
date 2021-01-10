@@ -83,6 +83,12 @@ func (r *MessagesReorderPinnedDialogsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReorderPinnedDialogsRequest) TypeID() uint32 {
+	return MessagesReorderPinnedDialogsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -117,6 +123,21 @@ func (r *MessagesReorderPinnedDialogsRequest) SetForce(value bool) {
 		r.Flags.Unset(0)
 		r.Force = false
 	}
+}
+
+// GetForce returns value of Force conditional field.
+func (r *MessagesReorderPinnedDialogsRequest) GetForce() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetFolderID returns value of FolderID field.
+func (r *MessagesReorderPinnedDialogsRequest) GetFolderID() (value int) {
+	return r.FolderID
+}
+
+// GetOrder returns value of Order field.
+func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPeerClass) {
+	return r.Order
 }
 
 // Decode implements bin.Decoder.

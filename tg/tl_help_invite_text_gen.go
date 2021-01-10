@@ -54,6 +54,12 @@ func (i *HelpInviteText) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *HelpInviteText) TypeID() uint32 {
+	return HelpInviteTextTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *HelpInviteText) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -62,6 +68,11 @@ func (i *HelpInviteText) Encode(b *bin.Buffer) error {
 	b.PutID(HelpInviteTextTypeID)
 	b.PutString(i.Message)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (i *HelpInviteText) GetMessage() (value string) {
+	return i.Message
 }
 
 // Decode implements bin.Decoder.

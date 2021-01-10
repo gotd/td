@@ -46,6 +46,12 @@ func (s *SecureFileEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureFileEmpty) TypeID() uint32 {
+	return SecureFileEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -167,6 +173,12 @@ func (s *SecureFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureFile) TypeID() uint32 {
+	return SecureFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -181,6 +193,41 @@ func (s *SecureFile) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutBytes(s.Secret)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (s *SecureFile) GetID() (value int64) {
+	return s.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (s *SecureFile) GetAccessHash() (value int64) {
+	return s.AccessHash
+}
+
+// GetSize returns value of Size field.
+func (s *SecureFile) GetSize() (value int) {
+	return s.Size
+}
+
+// GetDCID returns value of DCID field.
+func (s *SecureFile) GetDCID() (value int) {
+	return s.DCID
+}
+
+// GetDate returns value of Date field.
+func (s *SecureFile) GetDate() (value int) {
+	return s.Date
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureFile) GetSecret() (value []byte) {
+	return s.Secret
 }
 
 // Decode implements bin.Decoder.
@@ -273,7 +320,12 @@ type SecureFileClass interface {
 	bin.Decoder
 	construct() SecureFileClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

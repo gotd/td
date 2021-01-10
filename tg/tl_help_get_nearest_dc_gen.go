@@ -46,6 +46,12 @@ func (g *HelpGetNearestDcRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetNearestDcRequest) TypeID() uint32 {
+	return HelpGetNearestDcRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetNearestDcRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

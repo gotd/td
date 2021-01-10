@@ -46,6 +46,12 @@ func (f *StorageFileUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileUnknown) TypeID() uint32 {
+	return StorageFileUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileUnknown) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -105,6 +111,12 @@ func (f *StorageFilePartial) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFilePartial) TypeID() uint32 {
+	return StorageFilePartialTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (f *StorageFileJpeg) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileJpeg) TypeID() uint32 {
+	return StorageFileJpegTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileJpeg) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -227,6 +245,12 @@ func (f *StorageFileGif) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileGif) TypeID() uint32 {
+	return StorageFileGifTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -290,6 +314,12 @@ func (f *StorageFilePng) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFilePng) TypeID() uint32 {
+	return StorageFilePngTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFilePng) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -349,6 +379,12 @@ func (f *StorageFilePdf) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFilePdf) TypeID() uint32 {
+	return StorageFilePdfTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -412,6 +448,12 @@ func (f *StorageFileMp3) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileMp3) TypeID() uint32 {
+	return StorageFileMp3TypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMp3) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -471,6 +513,12 @@ func (f *StorageFileMov) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileMov) TypeID() uint32 {
+	return StorageFileMovTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -534,6 +582,12 @@ func (f *StorageFileMp4) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileMp4) TypeID() uint32 {
+	return StorageFileMp4TypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMp4) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -595,6 +649,12 @@ func (f *StorageFileWebp) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *StorageFileWebp) TypeID() uint32 {
+	return StorageFileWebpTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileWebp) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -653,7 +713,12 @@ type StorageFileTypeClass interface {
 	bin.Decoder
 	construct() StorageFileTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

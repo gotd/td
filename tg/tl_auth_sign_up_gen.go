@@ -78,6 +78,12 @@ func (s *AuthSignUpRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSignUpRequest) TypeID() uint32 {
+	return AuthSignUpRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -89,6 +95,26 @@ func (s *AuthSignUpRequest) Encode(b *bin.Buffer) error {
 	b.PutString(s.FirstName)
 	b.PutString(s.LastName)
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AuthSignUpRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (s *AuthSignUpRequest) GetPhoneCodeHash() (value string) {
+	return s.PhoneCodeHash
+}
+
+// GetFirstName returns value of FirstName field.
+func (s *AuthSignUpRequest) GetFirstName() (value string) {
+	return s.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (s *AuthSignUpRequest) GetLastName() (value string) {
+	return s.LastName
 }
 
 // Decode implements bin.Decoder.

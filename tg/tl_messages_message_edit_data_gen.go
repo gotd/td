@@ -62,6 +62,12 @@ func (m *MessagesMessageEditData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMessageEditData) TypeID() uint32 {
+	return MessagesMessageEditDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -86,6 +92,11 @@ func (m *MessagesMessageEditData) SetCaption(value bool) {
 		m.Flags.Unset(0)
 		m.Caption = false
 	}
+}
+
+// GetCaption returns value of Caption conditional field.
+func (m *MessagesMessageEditData) GetCaption() (value bool) {
+	return m.Flags.Has(0)
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (f *MessagesFoundStickerSetsNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFoundStickerSetsNotModified) TypeID() uint32 {
+	return MessagesFoundStickerSetsNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -128,6 +134,12 @@ func (f *MessagesFoundStickerSets) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFoundStickerSets) TypeID() uint32 {
+	return MessagesFoundStickerSetsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -145,6 +157,16 @@ func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (f *MessagesFoundStickerSets) GetHash() (value int) {
+	return f.Hash
+}
+
+// GetSets returns value of Sets field.
+func (f *MessagesFoundStickerSets) GetSets() (value []StickerSetCoveredClass) {
+	return f.Sets
 }
 
 // Decode implements bin.Decoder.
@@ -208,7 +230,12 @@ type MessagesFoundStickerSetsClass interface {
 	bin.Decoder
 	construct() MessagesFoundStickerSetsClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

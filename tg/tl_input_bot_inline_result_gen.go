@@ -144,6 +144,12 @@ func (i *InputBotInlineResult) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineResult) TypeID() uint32 {
+	return InputBotInlineResultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -196,6 +202,16 @@ func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputBotInlineResult#88bf9319: field send_message: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputBotInlineResult) GetID() (value string) {
+	return i.ID
+}
+
+// GetType returns value of Type field.
+func (i *InputBotInlineResult) GetType() (value string) {
+	return i.Type
 }
 
 // SetTitle sets value of Title conditional field.
@@ -271,6 +287,11 @@ func (i *InputBotInlineResult) GetContent() (value InputWebDocument, ok bool) {
 		return value, false
 	}
 	return i.Content, true
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResult) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -417,6 +438,12 @@ func (i *InputBotInlineResultPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineResultPhoto) TypeID() uint32 {
+	return InputBotInlineResultPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -438,6 +465,26 @@ func (i *InputBotInlineResultPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputBotInlineResultPhoto#a8d864a7: field send_message: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputBotInlineResultPhoto) GetID() (value string) {
+	return i.ID
+}
+
+// GetType returns value of Type field.
+func (i *InputBotInlineResultPhoto) GetType() (value string) {
+	return i.Type
+}
+
+// GetPhoto returns value of Photo field.
+func (i *InputBotInlineResultPhoto) GetPhoto() (value InputPhotoClass) {
+	return i.Photo
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultPhoto) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -590,6 +637,12 @@ func (i *InputBotInlineResultDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineResultDocument) TypeID() uint32 {
+	return InputBotInlineResultDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -628,6 +681,16 @@ func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetID returns value of ID field.
+func (i *InputBotInlineResultDocument) GetID() (value string) {
+	return i.ID
+}
+
+// GetType returns value of Type field.
+func (i *InputBotInlineResultDocument) GetType() (value string) {
+	return i.Type
+}
+
 // SetTitle sets value of Title conditional field.
 func (i *InputBotInlineResultDocument) SetTitle(value string) {
 	i.Flags.Set(1)
@@ -656,6 +719,16 @@ func (i *InputBotInlineResultDocument) GetDescription() (value string, ok bool) 
 		return value, false
 	}
 	return i.Description, true
+}
+
+// GetDocument returns value of Document field.
+func (i *InputBotInlineResultDocument) GetDocument() (value InputDocumentClass) {
+	return i.Document
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultDocument) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -781,6 +854,12 @@ func (i *InputBotInlineResultGame) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineResultGame) TypeID() uint32 {
+	return InputBotInlineResultGameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineResultGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -796,6 +875,21 @@ func (i *InputBotInlineResultGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputBotInlineResultGame#4fa417f2: field send_message: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputBotInlineResultGame) GetID() (value string) {
+	return i.ID
+}
+
+// GetShortName returns value of ShortName field.
+func (i *InputBotInlineResultGame) GetShortName() (value string) {
+	return i.ShortName
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (i *InputBotInlineResultGame) GetSendMessage() (value InputBotInlineMessageClass) {
+	return i.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -862,7 +956,17 @@ type InputBotInlineResultClass interface {
 	bin.Decoder
 	construct() InputBotInlineResultClass
 
-	fmt.Stringer
+	// ID of result
+	GetID() (value string)
+	// Message to send when the result is selected
+	GetSendMessage() (value InputBotInlineMessageClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

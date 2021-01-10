@@ -67,6 +67,12 @@ func (f *FutureSalt) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *FutureSalt) TypeID() uint32 {
+	return FutureSaltTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *FutureSalt) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -77,6 +83,21 @@ func (f *FutureSalt) Encode(b *bin.Buffer) error {
 	b.PutInt(f.ValidUntil)
 	b.PutLong(f.Salt)
 	return nil
+}
+
+// GetValidSince returns value of ValidSince field.
+func (f *FutureSalt) GetValidSince() (value int) {
+	return f.ValidSince
+}
+
+// GetValidUntil returns value of ValidUntil field.
+func (f *FutureSalt) GetValidUntil() (value int) {
+	return f.ValidUntil
+}
+
+// GetSalt returns value of Salt field.
+func (f *FutureSalt) GetSalt() (value int64) {
+	return f.Salt
 }
 
 // Decode implements bin.Decoder.

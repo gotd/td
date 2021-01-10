@@ -65,6 +65,12 @@ func (g *MessagesGetDhConfigRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetDhConfigRequest) TypeID() uint32 {
+	return MessagesGetDhConfigRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -74,6 +80,16 @@ func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Version)
 	b.PutInt(g.RandomLength)
 	return nil
+}
+
+// GetVersion returns value of Version field.
+func (g *MessagesGetDhConfigRequest) GetVersion() (value int) {
+	return g.Version
+}
+
+// GetRandomLength returns value of RandomLength field.
+func (g *MessagesGetDhConfigRequest) GetRandomLength() (value int) {
+	return g.RandomLength
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (u *HelpUserInfoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *HelpUserInfoEmpty) TypeID() uint32 {
+	return HelpUserInfoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *HelpUserInfoEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -144,6 +150,12 @@ func (u *HelpUserInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *HelpUserInfo) TypeID() uint32 {
+	return HelpUserInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *HelpUserInfo) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -163,6 +175,26 @@ func (u *HelpUserInfo) Encode(b *bin.Buffer) error {
 	b.PutString(u.Author)
 	b.PutInt(u.Date)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *HelpUserInfo) GetMessage() (value string) {
+	return u.Message
+}
+
+// GetEntities returns value of Entities field.
+func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
+	return u.Entities
+}
+
+// GetAuthor returns value of Author field.
+func (u *HelpUserInfo) GetAuthor() (value string) {
+	return u.Author
+}
+
+// GetDate returns value of Date field.
+func (u *HelpUserInfo) GetDate() (value int) {
+	return u.Date
 }
 
 // Decode implements bin.Decoder.
@@ -240,7 +272,12 @@ type HelpUserInfoClass interface {
 	bin.Decoder
 	construct() HelpUserInfoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

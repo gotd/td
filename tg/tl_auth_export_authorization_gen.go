@@ -54,6 +54,12 @@ func (e *AuthExportAuthorizationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *AuthExportAuthorizationRequest) TypeID() uint32 {
+	return AuthExportAuthorizationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *AuthExportAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -62,6 +68,11 @@ func (e *AuthExportAuthorizationRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AuthExportAuthorizationRequestTypeID)
 	b.PutInt(e.DCID)
 	return nil
+}
+
+// GetDCID returns value of DCID field.
+func (e *AuthExportAuthorizationRequest) GetDCID() (value int) {
+	return e.DCID
 }
 
 // Decode implements bin.Decoder.

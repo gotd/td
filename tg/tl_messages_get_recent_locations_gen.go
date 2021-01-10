@@ -76,6 +76,12 @@ func (g *MessagesGetRecentLocationsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetRecentLocationsRequest) TypeID() uint32 {
+	return MessagesGetRecentLocationsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -91,6 +97,21 @@ func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Limit)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetRecentLocationsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetRecentLocationsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetRecentLocationsRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

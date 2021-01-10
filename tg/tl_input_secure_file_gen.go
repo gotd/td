@@ -89,6 +89,12 @@ func (i *InputSecureFileUploaded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputSecureFileUploaded) TypeID() uint32 {
+	return InputSecureFileUploadedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureFileUploaded) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -101,6 +107,31 @@ func (i *InputSecureFileUploaded) Encode(b *bin.Buffer) error {
 	b.PutBytes(i.FileHash)
 	b.PutBytes(i.Secret)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputSecureFileUploaded) GetID() (value int64) {
+	return i.ID
+}
+
+// GetParts returns value of Parts field.
+func (i *InputSecureFileUploaded) GetParts() (value int) {
+	return i.Parts
+}
+
+// GetMd5Checksum returns value of Md5Checksum field.
+func (i *InputSecureFileUploaded) GetMd5Checksum() (value string) {
+	return i.Md5Checksum
+}
+
+// GetFileHash returns value of FileHash field.
+func (i *InputSecureFileUploaded) GetFileHash() (value []byte) {
+	return i.FileHash
+}
+
+// GetSecret returns value of Secret field.
+func (i *InputSecureFileUploaded) GetSecret() (value []byte) {
+	return i.Secret
 }
 
 // Decode implements bin.Decoder.
@@ -210,6 +241,12 @@ func (i *InputSecureFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputSecureFile) TypeID() uint32 {
+	return InputSecureFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -219,6 +256,16 @@ func (i *InputSecureFile) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputSecureFile) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputSecureFile) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -276,7 +323,15 @@ type InputSecureFileClass interface {
 	bin.Decoder
 	construct() InputSecureFileClass
 
-	fmt.Stringer
+	// Secure file ID
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -46,6 +46,12 @@ func (w *AccountWallPapersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *AccountWallPapersNotModified) TypeID() uint32 {
+	return AccountWallPapersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *AccountWallPapersNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -128,6 +134,12 @@ func (w *AccountWallPapers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *AccountWallPapers) TypeID() uint32 {
+	return AccountWallPapersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *AccountWallPapers) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -145,6 +157,16 @@ func (w *AccountWallPapers) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (w *AccountWallPapers) GetHash() (value int) {
+	return w.Hash
+}
+
+// GetWallpapers returns value of Wallpapers field.
+func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
+	return w.Wallpapers
 }
 
 // Decode implements bin.Decoder.
@@ -208,7 +230,12 @@ type AccountWallPapersClass interface {
 	bin.Decoder
 	construct() AccountWallPapersClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

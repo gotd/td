@@ -117,6 +117,12 @@ func (s *MessagesSetInlineBotResultsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetInlineBotResultsRequest) TypeID() uint32 {
+	return MessagesSetInlineBotResultsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -171,6 +177,11 @@ func (s *MessagesSetInlineBotResultsRequest) SetGallery(value bool) {
 	}
 }
 
+// GetGallery returns value of Gallery conditional field.
+func (s *MessagesSetInlineBotResultsRequest) GetGallery() (value bool) {
+	return s.Flags.Has(0)
+}
+
 // SetPrivate sets value of Private conditional field.
 func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
 	if value {
@@ -180,6 +191,26 @@ func (s *MessagesSetInlineBotResultsRequest) SetPrivate(value bool) {
 		s.Flags.Unset(1)
 		s.Private = false
 	}
+}
+
+// GetPrivate returns value of Private conditional field.
+func (s *MessagesSetInlineBotResultsRequest) GetPrivate() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetInlineBotResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
+// GetResults returns value of Results field.
+func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlineResultClass) {
+	return s.Results
+}
+
+// GetCacheTime returns value of CacheTime field.
+func (s *MessagesSetInlineBotResultsRequest) GetCacheTime() (value int) {
+	return s.CacheTime
 }
 
 // SetNextOffset sets value of NextOffset conditional field.

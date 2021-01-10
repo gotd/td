@@ -62,6 +62,12 @@ func (i *InlineBotSwitchPM) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineBotSwitchPM) TypeID() uint32 {
+	return InlineBotSwitchPMTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -71,6 +77,16 @@ func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {
 	b.PutString(i.Text)
 	b.PutString(i.StartParam)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (i *InlineBotSwitchPM) GetText() (value string) {
+	return i.Text
+}
+
+// GetStartParam returns value of StartParam field.
+func (i *InlineBotSwitchPM) GetStartParam() (value string) {
+	return i.StartParam
 }
 
 // Decode implements bin.Decoder.

@@ -73,6 +73,12 @@ func (e *MessagesEditChatAdminRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditChatAdminRequest) TypeID() uint32 {
+	return MessagesEditChatAdminRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -88,6 +94,21 @@ func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(e.IsAdmin)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatAdminRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (e *MessagesEditChatAdminRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetIsAdmin returns value of IsAdmin field.
+func (e *MessagesEditChatAdminRequest) GetIsAdmin() (value bool) {
+	return e.IsAdmin
 }
 
 // Decode implements bin.Decoder.

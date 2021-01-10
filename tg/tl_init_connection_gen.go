@@ -148,6 +148,12 @@ func (i *InitConnectionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InitConnectionRequest) TypeID() uint32 {
+	return InitConnectionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -189,6 +195,41 @@ func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetAPIID returns value of APIID field.
+func (i *InitConnectionRequest) GetAPIID() (value int) {
+	return i.APIID
+}
+
+// GetDeviceModel returns value of DeviceModel field.
+func (i *InitConnectionRequest) GetDeviceModel() (value string) {
+	return i.DeviceModel
+}
+
+// GetSystemVersion returns value of SystemVersion field.
+func (i *InitConnectionRequest) GetSystemVersion() (value string) {
+	return i.SystemVersion
+}
+
+// GetAppVersion returns value of AppVersion field.
+func (i *InitConnectionRequest) GetAppVersion() (value string) {
+	return i.AppVersion
+}
+
+// GetSystemLangCode returns value of SystemLangCode field.
+func (i *InitConnectionRequest) GetSystemLangCode() (value string) {
+	return i.SystemLangCode
+}
+
+// GetLangPack returns value of LangPack field.
+func (i *InitConnectionRequest) GetLangPack() (value string) {
+	return i.LangPack
+}
+
+// GetLangCode returns value of LangCode field.
+func (i *InitConnectionRequest) GetLangCode() (value string) {
+	return i.LangCode
+}
+
 // SetProxy sets value of Proxy conditional field.
 func (i *InitConnectionRequest) SetProxy(value InputClientProxy) {
 	i.Flags.Set(0)
@@ -217,6 +258,11 @@ func (i *InitConnectionRequest) GetParams() (value JSONValueClass, ok bool) {
 		return value, false
 	}
 	return i.Params, true
+}
+
+// GetQuery returns value of Query field.
+func (i *InitConnectionRequest) GetQuery() (value bin.Object) {
+	return i.Query
 }
 
 // Decode implements bin.Decoder.

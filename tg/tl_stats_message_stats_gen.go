@@ -54,6 +54,12 @@ func (m *StatsMessageStats) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *StatsMessageStats) TypeID() uint32 {
+	return StatsMessageStatsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -67,6 +73,11 @@ func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph: %w", err)
 	}
 	return nil
+}
+
+// GetViewsGraph returns value of ViewsGraph field.
+func (m *StatsMessageStats) GetViewsGraph() (value StatsGraphClass) {
+	return m.ViewsGraph
 }
 
 // Decode implements bin.Decoder.

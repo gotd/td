@@ -56,6 +56,12 @@ func (c *MessagesChats) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesChats) TypeID() uint32 {
+	return MessagesChatsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChats) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -72,6 +78,11 @@ func (c *MessagesChats) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChats) GetChats() (value []ChatClass) {
+	return c.Chats
 }
 
 // Decode implements bin.Decoder.
@@ -160,6 +171,12 @@ func (c *MessagesChatsSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesChatsSlice) TypeID() uint32 {
+	return MessagesChatsSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -177,6 +194,16 @@ func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (c *MessagesChatsSlice) GetCount() (value int) {
+	return c.Count
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
+	return c.Chats
 }
 
 // Decode implements bin.Decoder.
@@ -240,7 +267,15 @@ type MessagesChatsClass interface {
 	bin.Decoder
 	construct() MessagesChatsClass
 
-	fmt.Stringer
+	// List of chats
+	GetChats() (value []ChatClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

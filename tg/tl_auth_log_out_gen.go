@@ -46,6 +46,12 @@ func (l *AuthLogOutRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *AuthLogOutRequest) TypeID() uint32 {
+	return AuthLogOutRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 	if l == nil {

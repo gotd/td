@@ -71,6 +71,12 @@ func (d *DialogFilterSuggested) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DialogFilterSuggested) TypeID() uint32 {
+	return DialogFilterSuggestedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -82,6 +88,16 @@ func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(d.Description)
 	return nil
+}
+
+// GetFilter returns value of Filter field.
+func (d *DialogFilterSuggested) GetFilter() (value DialogFilter) {
+	return d.Filter
+}
+
+// GetDescription returns value of Description field.
+func (d *DialogFilterSuggested) GetDescription() (value string) {
+	return d.Description
 }
 
 // Decode implements bin.Decoder.

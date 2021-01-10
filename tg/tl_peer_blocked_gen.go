@@ -62,6 +62,12 @@ func (p *PeerBlocked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PeerBlocked) TypeID() uint32 {
+	return PeerBlockedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerBlocked) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -76,6 +82,16 @@ func (p *PeerBlocked) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(p.Date)
 	return nil
+}
+
+// GetPeerID returns value of PeerID field.
+func (p *PeerBlocked) GetPeerID() (value PeerClass) {
+	return p.PeerID
+}
+
+// GetDate returns value of Date field.
+func (p *PeerBlocked) GetDate() (value int) {
+	return p.Date
 }
 
 // Decode implements bin.Decoder.

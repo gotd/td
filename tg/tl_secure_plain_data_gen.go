@@ -58,6 +58,12 @@ func (s *SecurePlainPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecurePlainPhone) TypeID() uint32 {
+	return SecurePlainPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -66,6 +72,11 @@ func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
 	b.PutID(SecurePlainPhoneTypeID)
 	b.PutString(s.Phone)
 	return nil
+}
+
+// GetPhone returns value of Phone field.
+func (s *SecurePlainPhone) GetPhone() (value string) {
+	return s.Phone
 }
 
 // Decode implements bin.Decoder.
@@ -139,6 +150,12 @@ func (s *SecurePlainEmail) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecurePlainEmail) TypeID() uint32 {
+	return SecurePlainEmailTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -147,6 +164,11 @@ func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
 	b.PutID(SecurePlainEmailTypeID)
 	b.PutString(s.Email)
 	return nil
+}
+
+// GetEmail returns value of Email field.
+func (s *SecurePlainEmail) GetEmail() (value string) {
+	return s.Email
 }
 
 // Decode implements bin.Decoder.
@@ -197,7 +219,12 @@ type SecurePlainDataClass interface {
 	bin.Decoder
 	construct() SecurePlainDataClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

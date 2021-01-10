@@ -68,6 +68,12 @@ func (s *UsersSetSecureValueErrorsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *UsersSetSecureValueErrorsRequest) TypeID() uint32 {
+	return UsersSetSecureValueErrorsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -90,6 +96,16 @@ func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (s *UsersSetSecureValueErrorsRequest) GetID() (value InputUserClass) {
+	return s.ID
+}
+
+// GetErrors returns value of Errors field.
+func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueErrorClass) {
+	return s.Errors
 }
 
 // Decode implements bin.Decoder.

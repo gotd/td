@@ -62,6 +62,12 @@ func (c *StickersChangeStickerPositionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *StickersChangeStickerPositionRequest) TypeID() uint32 {
+	return StickersChangeStickerPositionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -76,6 +82,16 @@ func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(c.Position)
 	return nil
+}
+
+// GetSticker returns value of Sticker field.
+func (c *StickersChangeStickerPositionRequest) GetSticker() (value InputDocumentClass) {
+	return c.Sticker
+}
+
+// GetPosition returns value of Position field.
+func (c *StickersChangeStickerPositionRequest) GetPosition() (value int) {
+	return c.Position
 }
 
 // Decode implements bin.Decoder.

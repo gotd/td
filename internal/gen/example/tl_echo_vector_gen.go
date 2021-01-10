@@ -55,6 +55,12 @@ func (e *EchoVectorRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EchoVectorRequest) TypeID() uint32 {
+	return EchoVectorRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -66,6 +72,11 @@ func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetIds returns value of Ids field.
+func (e *EchoVectorRequest) GetIds() (value []int) {
+	return e.Ids
 }
 
 // Decode implements bin.Decoder.

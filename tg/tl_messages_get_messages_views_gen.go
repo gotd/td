@@ -75,6 +75,12 @@ func (g *MessagesGetMessagesViewsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetMessagesViewsRequest) TypeID() uint32 {
+	return MessagesGetMessagesViewsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -93,6 +99,21 @@ func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(g.Increment)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetMessagesViewsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetMessagesViewsRequest) GetID() (value []int) {
+	return g.ID
+}
+
+// GetIncrement returns value of Increment field.
+func (g *MessagesGetMessagesViewsRequest) GetIncrement() (value bool) {
+	return g.Increment
 }
 
 // Decode implements bin.Decoder.

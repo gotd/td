@@ -49,6 +49,12 @@ func (g *MessagesGetDialogFiltersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetDialogFiltersRequest) TypeID() uint32 {
+	return MessagesGetDialogFiltersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

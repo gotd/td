@@ -60,6 +60,12 @@ func (u *AccountUpdateDeviceLockedRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUpdateDeviceLockedRequest) TypeID() uint32 {
+	return AccountUpdateDeviceLockedRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -68,6 +74,11 @@ func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountUpdateDeviceLockedRequestTypeID)
 	b.PutInt(u.Period)
 	return nil
+}
+
+// GetPeriod returns value of Period field.
+func (u *AccountUpdateDeviceLockedRequest) GetPeriod() (value int) {
+	return u.Period
 }
 
 // Decode implements bin.Decoder.

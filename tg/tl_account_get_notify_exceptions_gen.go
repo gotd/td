@@ -74,6 +74,12 @@ func (g *AccountGetNotifyExceptionsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetNotifyExceptionsRequest) TypeID() uint32 {
+	return AccountGetNotifyExceptionsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -109,6 +115,11 @@ func (g *AccountGetNotifyExceptionsRequest) SetCompareSound(value bool) {
 		g.Flags.Unset(1)
 		g.CompareSound = false
 	}
+}
+
+// GetCompareSound returns value of CompareSound conditional field.
+func (g *AccountGetNotifyExceptionsRequest) GetCompareSound() (value bool) {
+	return g.Flags.Has(1)
 }
 
 // SetPeer sets value of Peer conditional field.

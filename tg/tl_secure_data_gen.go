@@ -74,6 +74,12 @@ func (s *SecureData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureData) TypeID() uint32 {
+	return SecureDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureData) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -84,6 +90,21 @@ func (s *SecureData) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.DataHash)
 	b.PutBytes(s.Secret)
 	return nil
+}
+
+// GetData returns value of Data field.
+func (s *SecureData) GetData() (value []byte) {
+	return s.Data
+}
+
+// GetDataHash returns value of DataHash field.
+func (s *SecureData) GetDataHash() (value []byte) {
+	return s.DataHash
+}
+
+// GetSecret returns value of Secret field.
+func (s *SecureData) GetSecret() (value []byte) {
+	return s.Secret
 }
 
 // Decode implements bin.Decoder.

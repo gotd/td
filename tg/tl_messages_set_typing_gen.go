@@ -94,6 +94,12 @@ func (s *MessagesSetTypingRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetTypingRequest) TypeID() uint32 {
+	return MessagesSetTypingRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -124,6 +130,11 @@ func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetPeer returns value of Peer field.
+func (s *MessagesSetTypingRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
 // SetTopMsgID sets value of TopMsgID conditional field.
 func (s *MessagesSetTypingRequest) SetTopMsgID(value int) {
 	s.Flags.Set(0)
@@ -137,6 +148,11 @@ func (s *MessagesSetTypingRequest) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return s.TopMsgID, true
+}
+
+// GetAction returns value of Action field.
+func (s *MessagesSetTypingRequest) GetAction() (value SendMessageActionClass) {
+	return s.Action
 }
 
 // Decode implements bin.Decoder.

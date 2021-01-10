@@ -121,6 +121,12 @@ func (i *InputThemeSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputThemeSettings) TypeID() uint32 {
+	return InputThemeSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -169,6 +175,16 @@ func (i *InputThemeSettings) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetBaseTheme returns value of BaseTheme field.
+func (i *InputThemeSettings) GetBaseTheme() (value BaseThemeClass) {
+	return i.BaseTheme
+}
+
+// GetAccentColor returns value of AccentColor field.
+func (i *InputThemeSettings) GetAccentColor() (value int) {
+	return i.AccentColor
 }
 
 // SetMessageTopColor sets value of MessageTopColor conditional field.

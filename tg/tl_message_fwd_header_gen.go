@@ -149,6 +149,12 @@ func (m *MessageFwdHeader) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageFwdHeader) TypeID() uint32 {
+	return MessageFwdHeaderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -242,6 +248,11 @@ func (m *MessageFwdHeader) GetFromName() (value string, ok bool) {
 		return value, false
 	}
 	return m.FromName, true
+}
+
+// GetDate returns value of Date field.
+func (m *MessageFwdHeader) GetDate() (value int) {
+	return m.Date
 }
 
 // SetChannelPost sets value of ChannelPost conditional field.

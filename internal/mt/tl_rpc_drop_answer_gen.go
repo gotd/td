@@ -43,6 +43,12 @@ func (r *RPCAnswerUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCAnswerUnknown) TypeID() uint32 {
+	return RPCAnswerUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCAnswerUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -99,6 +105,12 @@ func (r *RPCAnswerDroppedRunning) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCAnswerDroppedRunning) TypeID() uint32 {
+	return RPCAnswerDroppedRunningTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -183,6 +195,12 @@ func (r *RPCAnswerDropped) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCAnswerDropped) TypeID() uint32 {
+	return RPCAnswerDroppedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCAnswerDropped) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -193,6 +211,21 @@ func (r *RPCAnswerDropped) Encode(b *bin.Buffer) error {
 	b.PutInt(r.SeqNo)
 	b.PutInt(r.Bytes)
 	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (r *RPCAnswerDropped) GetMsgID() (value int64) {
+	return r.MsgID
+}
+
+// GetSeqNo returns value of SeqNo field.
+func (r *RPCAnswerDropped) GetSeqNo() (value int) {
+	return r.SeqNo
+}
+
+// GetBytes returns value of Bytes field.
+func (r *RPCAnswerDropped) GetBytes() (value int) {
+	return r.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -256,7 +289,12 @@ type RpcDropAnswerClass interface {
 	bin.Decoder
 	construct() RpcDropAnswerClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

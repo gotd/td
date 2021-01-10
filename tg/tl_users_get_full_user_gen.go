@@ -54,6 +54,12 @@ func (g *UsersGetFullUserRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UsersGetFullUserRequest) TypeID() uint32 {
+	return UsersGetFullUserRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (g *UsersGetFullUserRequest) GetID() (value InputUserClass) {
+	return g.ID
 }
 
 // Decode implements bin.Decoder.

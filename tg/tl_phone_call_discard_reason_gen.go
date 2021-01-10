@@ -46,6 +46,12 @@ func (p *PhoneCallDiscardReasonMissed) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallDiscardReasonMissed) TypeID() uint32 {
+	return PhoneCallDiscardReasonMissedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonMissed) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -105,6 +111,12 @@ func (p *PhoneCallDiscardReasonDisconnect) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
+	return PhoneCallDiscardReasonDisconnectTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (p *PhoneCallDiscardReasonHangup) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallDiscardReasonHangup) TypeID() uint32 {
+	return PhoneCallDiscardReasonHangupTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonHangup) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -229,6 +247,12 @@ func (p *PhoneCallDiscardReasonBusy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallDiscardReasonBusy) TypeID() uint32 {
+	return PhoneCallDiscardReasonBusyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonBusy) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -281,7 +305,12 @@ type PhoneCallDiscardReasonClass interface {
 	bin.Decoder
 	construct() PhoneCallDiscardReasonClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

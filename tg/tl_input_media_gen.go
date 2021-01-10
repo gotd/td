@@ -46,6 +46,12 @@ func (i *InputMediaEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaEmpty) TypeID() uint32 {
+	return InputMediaEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -155,6 +161,12 @@ func (i *InputMediaUploadedPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaUploadedPhoto) TypeID() uint32 {
+	return InputMediaUploadedPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -191,6 +203,11 @@ func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 		b.PutInt(i.TTLSeconds)
 	}
 	return nil
+}
+
+// GetFile returns value of File field.
+func (i *InputMediaUploadedPhoto) GetFile() (value InputFileClass) {
+	return i.File
 }
 
 // SetStickers sets value of Stickers conditional field.
@@ -338,6 +355,12 @@ func (i *InputMediaPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaPhoto) TypeID() uint32 {
+	return InputMediaPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -360,6 +383,11 @@ func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 		b.PutInt(i.TTLSeconds)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMediaPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -456,6 +484,12 @@ func (i *InputMediaGeoPoint) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaGeoPoint) TypeID() uint32 {
+	return InputMediaGeoPointTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -469,6 +503,11 @@ func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputMediaGeoPoint#f9c44144: field geo_point: %w", err)
 	}
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputMediaGeoPoint) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
 }
 
 // Decode implements bin.Decoder.
@@ -562,6 +601,12 @@ func (i *InputMediaContact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaContact) TypeID() uint32 {
+	return InputMediaContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaContact) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -573,6 +618,26 @@ func (i *InputMediaContact) Encode(b *bin.Buffer) error {
 	b.PutString(i.LastName)
 	b.PutString(i.Vcard)
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (i *InputMediaContact) GetPhoneNumber() (value string) {
+	return i.PhoneNumber
+}
+
+// GetFirstName returns value of FirstName field.
+func (i *InputMediaContact) GetFirstName() (value string) {
+	return i.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (i *InputMediaContact) GetLastName() (value string) {
+	return i.LastName
+}
+
+// GetVcard returns value of Vcard field.
+func (i *InputMediaContact) GetVcard() (value string) {
+	return i.Vcard
 }
 
 // Decode implements bin.Decoder.
@@ -743,6 +808,12 @@ func (i *InputMediaUploadedDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaUploadedDocument) TypeID() uint32 {
+	return InputMediaUploadedDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -819,6 +890,11 @@ func (i *InputMediaUploadedDocument) SetNosoundVideo(value bool) {
 	}
 }
 
+// GetNosoundVideo returns value of NosoundVideo conditional field.
+func (i *InputMediaUploadedDocument) GetNosoundVideo() (value bool) {
+	return i.Flags.Has(3)
+}
+
 // SetForceFile sets value of ForceFile conditional field.
 func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
 	if value {
@@ -828,6 +904,16 @@ func (i *InputMediaUploadedDocument) SetForceFile(value bool) {
 		i.Flags.Unset(4)
 		i.ForceFile = false
 	}
+}
+
+// GetForceFile returns value of ForceFile conditional field.
+func (i *InputMediaUploadedDocument) GetForceFile() (value bool) {
+	return i.Flags.Has(4)
+}
+
+// GetFile returns value of File field.
+func (i *InputMediaUploadedDocument) GetFile() (value InputFileClass) {
+	return i.File
 }
 
 // SetThumb sets value of Thumb conditional field.
@@ -843,6 +929,16 @@ func (i *InputMediaUploadedDocument) GetThumb() (value InputFileClass, ok bool) 
 		return value, false
 	}
 	return i.Thumb, true
+}
+
+// GetMimeType returns value of MimeType field.
+func (i *InputMediaUploadedDocument) GetMimeType() (value string) {
+	return i.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (i *InputMediaUploadedDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return i.Attributes
 }
 
 // SetStickers sets value of Stickers conditional field.
@@ -1031,6 +1127,12 @@ func (i *InputMediaDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaDocument) TypeID() uint32 {
+	return InputMediaDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1059,6 +1161,11 @@ func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 		b.PutString(i.Query)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMediaDocument) GetID() (value InputDocumentClass) {
+	return i.ID
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -1217,6 +1324,12 @@ func (i *InputMediaVenue) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaVenue) TypeID() uint32 {
+	return InputMediaVenueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1235,6 +1348,36 @@ func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
 	b.PutString(i.VenueID)
 	b.PutString(i.VenueType)
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputMediaVenue) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
+
+// GetTitle returns value of Title field.
+func (i *InputMediaVenue) GetTitle() (value string) {
+	return i.Title
+}
+
+// GetAddress returns value of Address field.
+func (i *InputMediaVenue) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputMediaVenue) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetVenueID returns value of VenueID field.
+func (i *InputMediaVenue) GetVenueID() (value string) {
+	return i.VenueID
+}
+
+// GetVenueType returns value of VenueType field.
+func (i *InputMediaVenue) GetVenueType() (value string) {
+	return i.VenueType
 }
 
 // Decode implements bin.Decoder.
@@ -1362,6 +1505,12 @@ func (i *InputMediaPhotoExternal) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaPhotoExternal) TypeID() uint32 {
+	return InputMediaPhotoExternalTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1379,6 +1528,11 @@ func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 		b.PutInt(i.TTLSeconds)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (i *InputMediaPhotoExternal) GetURL() (value string) {
+	return i.URL
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -1498,6 +1652,12 @@ func (i *InputMediaDocumentExternal) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaDocumentExternal) TypeID() uint32 {
+	return InputMediaDocumentExternalTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1515,6 +1675,11 @@ func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 		b.PutInt(i.TTLSeconds)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (i *InputMediaDocumentExternal) GetURL() (value string) {
+	return i.URL
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -1611,6 +1776,12 @@ func (i *InputMediaGame) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaGame) TypeID() uint32 {
+	return InputMediaGameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1624,6 +1795,11 @@ func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputMediaGame#d33f43f3: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMediaGame) GetID() (value InputGameClass) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -1770,6 +1946,12 @@ func (i *InputMediaInvoice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaInvoice) TypeID() uint32 {
+	return InputMediaInvoiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1801,6 +1983,16 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetTitle returns value of Title field.
+func (i *InputMediaInvoice) GetTitle() (value string) {
+	return i.Title
+}
+
+// GetDescription returns value of Description field.
+func (i *InputMediaInvoice) GetDescription() (value string) {
+	return i.Description
+}
+
 // SetPhoto sets value of Photo conditional field.
 func (i *InputMediaInvoice) SetPhoto(value InputWebDocument) {
 	i.Flags.Set(0)
@@ -1814,6 +2006,31 @@ func (i *InputMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
 		return value, false
 	}
 	return i.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (i *InputMediaInvoice) GetInvoice() (value Invoice) {
+	return i.Invoice
+}
+
+// GetPayload returns value of Payload field.
+func (i *InputMediaInvoice) GetPayload() (value []byte) {
+	return i.Payload
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputMediaInvoice) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetProviderData returns value of ProviderData field.
+func (i *InputMediaInvoice) GetProviderData() (value DataJSON) {
+	return i.ProviderData
+}
+
+// GetStartParam returns value of StartParam field.
+func (i *InputMediaInvoice) GetStartParam() (value string) {
+	return i.StartParam
 }
 
 // Decode implements bin.Decoder.
@@ -1992,6 +2209,12 @@ func (i *InputMediaGeoLive) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaGeoLive) TypeID() uint32 {
+	return InputMediaGeoLiveTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2040,6 +2263,16 @@ func (i *InputMediaGeoLive) SetStopped(value bool) {
 		i.Flags.Unset(0)
 		i.Stopped = false
 	}
+}
+
+// GetStopped returns value of Stopped conditional field.
+func (i *InputMediaGeoLive) GetStopped() (value bool) {
+	return i.Flags.Has(0)
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputMediaGeoLive) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
 }
 
 // SetHeading sets value of Heading conditional field.
@@ -2235,6 +2468,12 @@ func (i *InputMediaPoll) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaPoll) TypeID() uint32 {
+	return InputMediaPollTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2277,6 +2516,11 @@ func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPoll returns value of Poll field.
+func (i *InputMediaPoll) GetPoll() (value Poll) {
+	return i.Poll
 }
 
 // SetCorrectAnswers sets value of CorrectAnswers conditional field.
@@ -2430,6 +2674,12 @@ func (i *InputMediaDice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMediaDice) TypeID() uint32 {
+	return InputMediaDiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -2438,6 +2688,11 @@ func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 	b.PutID(InputMediaDiceTypeID)
 	b.PutString(i.Emoticon)
 	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (i *InputMediaDice) GetEmoticon() (value string) {
+	return i.Emoticon
 }
 
 // Decode implements bin.Decoder.
@@ -2501,7 +2756,12 @@ type InputMediaClass interface {
 	bin.Decoder
 	construct() InputMediaClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

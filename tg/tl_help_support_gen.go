@@ -62,6 +62,12 @@ func (s *HelpSupport) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *HelpSupport) TypeID() uint32 {
+	return HelpSupportTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *HelpSupport) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -76,6 +82,16 @@ func (s *HelpSupport) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode help.support#17c6b5f6: field user: %w", err)
 	}
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *HelpSupport) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetUser returns value of User field.
+func (s *HelpSupport) GetUser() (value UserClass) {
+	return s.User
 }
 
 // Decode implements bin.Decoder.

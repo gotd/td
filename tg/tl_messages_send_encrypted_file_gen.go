@@ -97,6 +97,12 @@ func (s *MessagesSendEncryptedFileRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSendEncryptedFileRequest) TypeID() uint32 {
+	return MessagesSendEncryptedFileRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -132,6 +138,31 @@ func (s *MessagesSendEncryptedFileRequest) SetSilent(value bool) {
 		s.Flags.Unset(0)
 		s.Silent = false
 	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendEncryptedFileRequest) GetSilent() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendEncryptedFileRequest) GetPeer() (value InputEncryptedChat) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendEncryptedFileRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetData returns value of Data field.
+func (s *MessagesSendEncryptedFileRequest) GetData() (value []byte) {
+	return s.Data
+}
+
+// GetFile returns value of File field.
+func (s *MessagesSendEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
+	return s.File
 }
 
 // Decode implements bin.Decoder.

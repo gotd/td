@@ -62,6 +62,12 @@ func (i *InvokeAfterMsgRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InvokeAfterMsgRequest) TypeID() uint32 {
+	return InvokeAfterMsgRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InvokeAfterMsgRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -73,6 +79,16 @@ func (i *InvokeAfterMsgRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode invokeAfterMsg#cb9f372d: field query: %w", err)
 	}
 	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (i *InvokeAfterMsgRequest) GetMsgID() (value int64) {
+	return i.MsgID
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeAfterMsgRequest) GetQuery() (value bin.Object) {
+	return i.Query
 }
 
 // Decode implements bin.Decoder.

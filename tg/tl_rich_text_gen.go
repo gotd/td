@@ -46,6 +46,12 @@ func (t *TextEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEmpty) TypeID() uint32 {
+	return TextEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEmpty) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -115,6 +121,12 @@ func (t *TextPlain) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextPlain) TypeID() uint32 {
+	return TextPlainTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextPlain) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -123,6 +135,11 @@ func (t *TextPlain) Encode(b *bin.Buffer) error {
 	b.PutID(TextPlainTypeID)
 	b.PutString(t.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextPlain) GetText() (value string) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -192,6 +209,12 @@ func (t *TextBold) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextBold) TypeID() uint32 {
+	return TextBoldTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextBold) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -205,6 +228,11 @@ func (t *TextBold) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textBold#6724abc4: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextBold) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -274,6 +302,12 @@ func (t *TextItalic) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextItalic) TypeID() uint32 {
+	return TextItalicTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextItalic) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -287,6 +321,11 @@ func (t *TextItalic) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textItalic#d912a59c: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextItalic) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -356,6 +395,12 @@ func (t *TextUnderline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextUnderline) TypeID() uint32 {
+	return TextUnderlineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextUnderline) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -369,6 +414,11 @@ func (t *TextUnderline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textUnderline#c12622c4: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextUnderline) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -438,6 +488,12 @@ func (t *TextStrike) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextStrike) TypeID() uint32 {
+	return TextStrikeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextStrike) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -451,6 +507,11 @@ func (t *TextStrike) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textStrike#9bf8bb95: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextStrike) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -520,6 +581,12 @@ func (t *TextFixed) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextFixed) TypeID() uint32 {
+	return TextFixedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextFixed) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -533,6 +600,11 @@ func (t *TextFixed) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textFixed#6c3f19b9: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextFixed) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -618,6 +690,12 @@ func (t *TextUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextUrl) TypeID() uint32 {
+	return TextUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextUrl) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -633,6 +711,21 @@ func (t *TextUrl) Encode(b *bin.Buffer) error {
 	b.PutString(t.URL)
 	b.PutLong(t.WebpageID)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextUrl) GetText() (value RichTextClass) {
+	return t.Text
+}
+
+// GetURL returns value of URL field.
+func (t *TextUrl) GetURL() (value string) {
+	return t.URL
+}
+
+// GetWebpageID returns value of WebpageID field.
+func (t *TextUrl) GetWebpageID() (value int64) {
+	return t.WebpageID
 }
 
 // Decode implements bin.Decoder.
@@ -724,6 +817,12 @@ func (t *TextEmail) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEmail) TypeID() uint32 {
+	return TextEmailTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEmail) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -738,6 +837,16 @@ func (t *TextEmail) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(t.Email)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextEmail) GetText() (value RichTextClass) {
+	return t.Text
+}
+
+// GetEmail returns value of Email field.
+func (t *TextEmail) GetEmail() (value string) {
+	return t.Email
 }
 
 // Decode implements bin.Decoder.
@@ -816,6 +925,12 @@ func (t *TextConcat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextConcat) TypeID() uint32 {
+	return TextConcatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextConcat) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -832,6 +947,11 @@ func (t *TextConcat) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTexts returns value of Texts field.
+func (t *TextConcat) GetTexts() (value []RichTextClass) {
+	return t.Texts
 }
 
 // Decode implements bin.Decoder.
@@ -907,6 +1027,12 @@ func (t *TextSubscript) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextSubscript) TypeID() uint32 {
+	return TextSubscriptTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextSubscript) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -920,6 +1046,11 @@ func (t *TextSubscript) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textSubscript#ed6a8504: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextSubscript) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -989,6 +1120,12 @@ func (t *TextSuperscript) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextSuperscript) TypeID() uint32 {
+	return TextSuperscriptTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1002,6 +1139,11 @@ func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textSuperscript#c7fb5e01: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextSuperscript) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -1071,6 +1213,12 @@ func (t *TextMarked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextMarked) TypeID() uint32 {
+	return TextMarkedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextMarked) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1084,6 +1232,11 @@ func (t *TextMarked) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textMarked#34b8621: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextMarked) GetText() (value RichTextClass) {
+	return t.Text
 }
 
 // Decode implements bin.Decoder.
@@ -1161,6 +1314,12 @@ func (t *TextPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextPhone) TypeID() uint32 {
+	return TextPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextPhone) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1175,6 +1334,16 @@ func (t *TextPhone) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(t.Phone)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextPhone) GetText() (value RichTextClass) {
+	return t.Text
+}
+
+// GetPhone returns value of Phone field.
+func (t *TextPhone) GetPhone() (value string) {
+	return t.Phone
 }
 
 // Decode implements bin.Decoder.
@@ -1267,6 +1436,12 @@ func (t *TextImage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextImage) TypeID() uint32 {
+	return TextImageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextImage) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1277,6 +1452,21 @@ func (t *TextImage) Encode(b *bin.Buffer) error {
 	b.PutInt(t.W)
 	b.PutInt(t.H)
 	return nil
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (t *TextImage) GetDocumentID() (value int64) {
+	return t.DocumentID
+}
+
+// GetW returns value of W field.
+func (t *TextImage) GetW() (value int) {
+	return t.W
+}
+
+// GetH returns value of H field.
+func (t *TextImage) GetH() (value int) {
+	return t.H
 }
 
 // Decode implements bin.Decoder.
@@ -1368,6 +1558,12 @@ func (t *TextAnchor) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextAnchor) TypeID() uint32 {
+	return TextAnchorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextAnchor) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1382,6 +1578,16 @@ func (t *TextAnchor) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(t.Name)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (t *TextAnchor) GetText() (value RichTextClass) {
+	return t.Text
+}
+
+// GetName returns value of Name field.
+func (t *TextAnchor) GetName() (value string) {
+	return t.Name
 }
 
 // Decode implements bin.Decoder.
@@ -1453,7 +1659,12 @@ type RichTextClass interface {
 	bin.Decoder
 	construct() RichTextClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

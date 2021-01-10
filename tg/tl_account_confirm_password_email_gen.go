@@ -60,6 +60,12 @@ func (c *AccountConfirmPasswordEmailRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AccountConfirmPasswordEmailRequest) TypeID() uint32 {
+	return AccountConfirmPasswordEmailRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountConfirmPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -68,6 +74,11 @@ func (c *AccountConfirmPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountConfirmPasswordEmailRequestTypeID)
 	b.PutString(c.Code)
 	return nil
+}
+
+// GetCode returns value of Code field.
+func (c *AccountConfirmPasswordEmailRequest) GetCode() (value string) {
+	return c.Code
 }
 
 // Decode implements bin.Decoder.

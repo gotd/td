@@ -62,6 +62,12 @@ func (g *MessagesGetPollResultsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetPollResultsRequest) TypeID() uint32 {
+	return MessagesGetPollResultsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -76,6 +82,16 @@ func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(g.MsgID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetPollResultsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *MessagesGetPollResultsRequest) GetMsgID() (value int) {
+	return g.MsgID
 }
 
 // Decode implements bin.Decoder.

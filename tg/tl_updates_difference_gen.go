@@ -62,6 +62,12 @@ func (d *UpdatesDifferenceEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
+	return UpdatesDifferenceEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -71,6 +77,16 @@ func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
 	b.PutInt(d.Date)
 	b.PutInt(d.Seq)
 	return nil
+}
+
+// GetDate returns value of Date field.
+func (d *UpdatesDifferenceEmpty) GetDate() (value int) {
+	return d.Date
+}
+
+// GetSeq returns value of Seq field.
+func (d *UpdatesDifferenceEmpty) GetSeq() (value int) {
+	return d.Seq
 }
 
 // Decode implements bin.Decoder.
@@ -197,6 +213,12 @@ func (d *UpdatesDifference) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *UpdatesDifference) TypeID() uint32 {
+	return UpdatesDifferenceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -252,6 +274,36 @@ func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updates.difference#f49ca0: field state: %w", err)
 	}
 	return nil
+}
+
+// GetNewMessages returns value of NewMessages field.
+func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
+	return d.NewMessages
+}
+
+// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
+func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	return d.NewEncryptedMessages
+}
+
+// GetOtherUpdates returns value of OtherUpdates field.
+func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
+	return d.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (d *UpdatesDifference) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *UpdatesDifference) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// GetState returns value of State field.
+func (d *UpdatesDifference) GetState() (value UpdatesState) {
+	return d.State
 }
 
 // Decode implements bin.Decoder.
@@ -437,6 +489,12 @@ func (d *UpdatesDifferenceSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *UpdatesDifferenceSlice) TypeID() uint32 {
+	return UpdatesDifferenceSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -492,6 +550,36 @@ func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updates.differenceSlice#a8fb1981: field intermediate_state: %w", err)
 	}
 	return nil
+}
+
+// GetNewMessages returns value of NewMessages field.
+func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
+	return d.NewMessages
+}
+
+// GetNewEncryptedMessages returns value of NewEncryptedMessages field.
+func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
+	return d.NewEncryptedMessages
+}
+
+// GetOtherUpdates returns value of OtherUpdates field.
+func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
+	return d.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
+	return d.Users
+}
+
+// GetIntermediateState returns value of IntermediateState field.
+func (d *UpdatesDifferenceSlice) GetIntermediateState() (value UpdatesState) {
+	return d.IntermediateState
 }
 
 // Decode implements bin.Decoder.
@@ -627,6 +715,12 @@ func (d *UpdatesDifferenceTooLong) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *UpdatesDifferenceTooLong) TypeID() uint32 {
+	return UpdatesDifferenceTooLongTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -635,6 +729,11 @@ func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 	b.PutID(UpdatesDifferenceTooLongTypeID)
 	b.PutInt(d.Pts)
 	return nil
+}
+
+// GetPts returns value of Pts field.
+func (d *UpdatesDifferenceTooLong) GetPts() (value int) {
+	return d.Pts
 }
 
 // Decode implements bin.Decoder.
@@ -687,7 +786,12 @@ type UpdatesDifferenceClass interface {
 	bin.Decoder
 	construct() UpdatesDifferenceClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

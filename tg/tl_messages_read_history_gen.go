@@ -62,6 +62,12 @@ func (r *MessagesReadHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReadHistoryRequest) TypeID() uint32 {
+	return MessagesReadHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReadHistoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -76,6 +82,16 @@ func (r *MessagesReadHistoryRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(r.MaxID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *MessagesReadHistoryRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (r *MessagesReadHistoryRequest) GetMaxID() (value int) {
+	return r.MaxID
 }
 
 // Decode implements bin.Decoder.

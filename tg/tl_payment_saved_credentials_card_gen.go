@@ -62,6 +62,12 @@ func (p *PaymentSavedCredentialsCard) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentSavedCredentialsCard) TypeID() uint32 {
+	return PaymentSavedCredentialsCardTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -71,6 +77,16 @@ func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {
 	b.PutString(p.ID)
 	b.PutString(p.Title)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PaymentSavedCredentialsCard) GetID() (value string) {
+	return p.ID
+}
+
+// GetTitle returns value of Title field.
+func (p *PaymentSavedCredentialsCard) GetTitle() (value string) {
+	return p.Title
 }
 
 // Decode implements bin.Decoder.

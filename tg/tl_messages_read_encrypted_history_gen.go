@@ -62,6 +62,12 @@ func (r *MessagesReadEncryptedHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReadEncryptedHistoryRequest) TypeID() uint32 {
+	return MessagesReadEncryptedHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReadEncryptedHistoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -73,6 +79,16 @@ func (r *MessagesReadEncryptedHistoryRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(r.MaxDate)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *MessagesReadEncryptedHistoryRequest) GetPeer() (value InputEncryptedChat) {
+	return r.Peer
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (r *MessagesReadEncryptedHistoryRequest) GetMaxDate() (value int) {
+	return r.MaxDate
 }
 
 // Decode implements bin.Decoder.

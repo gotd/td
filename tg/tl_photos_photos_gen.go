@@ -66,6 +66,12 @@ func (p *PhotosPhotos) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotosPhotos) TypeID() uint32 {
+	return PhotosPhotosTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotosPhotos) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -91,6 +97,16 @@ func (p *PhotosPhotos) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPhotos returns value of Photos field.
+func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
+
+// GetUsers returns value of Users field.
+func (p *PhotosPhotos) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.
@@ -199,6 +215,12 @@ func (p *PhotosPhotosSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotosPhotosSlice) TypeID() uint32 {
+	return PhotosPhotosSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotosPhotosSlice) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -225,6 +247,21 @@ func (p *PhotosPhotosSlice) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (p *PhotosPhotosSlice) GetCount() (value int) {
+	return p.Count
+}
+
+// GetPhotos returns value of Photos field.
+func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
+
+// GetUsers returns value of Users field.
+func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.
@@ -301,7 +338,17 @@ type PhotosPhotosClass interface {
 	bin.Decoder
 	construct() PhotosPhotosClass
 
-	fmt.Stringer
+	// List of photos
+	GetPhotos() (value []PhotoClass)
+	// List of mentioned users
+	GetUsers() (value []UserClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

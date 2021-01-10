@@ -89,6 +89,12 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *PhoneGetGroupParticipantsRequest) TypeID() uint32 {
+	return PhoneGetGroupParticipantsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -109,6 +115,31 @@ func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 	b.PutString(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
+	return g.Call
+}
+
+// GetIds returns value of Ids field.
+func (g *PhoneGetGroupParticipantsRequest) GetIds() (value []int) {
+	return g.Ids
+}
+
+// GetSources returns value of Sources field.
+func (g *PhoneGetGroupParticipantsRequest) GetSources() (value []int) {
+	return g.Sources
+}
+
+// GetOffset returns value of Offset field.
+func (g *PhoneGetGroupParticipantsRequest) GetOffset() (value string) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

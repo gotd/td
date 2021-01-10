@@ -70,6 +70,12 @@ func (s *MessagesSendScreenshotNotificationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSendScreenshotNotificationRequest) TypeID() uint32 {
+	return MessagesSendScreenshotNotificationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -85,6 +91,21 @@ func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error 
 	b.PutInt(s.ReplyToMsgID)
 	b.PutLong(s.RandomID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendScreenshotNotificationRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID field.
+func (s *MessagesSendScreenshotNotificationRequest) GetReplyToMsgID() (value int) {
+	return s.ReplyToMsgID
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendScreenshotNotificationRequest) GetRandomID() (value int64) {
+	return s.RandomID
 }
 
 // Decode implements bin.Decoder.

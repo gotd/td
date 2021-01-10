@@ -168,6 +168,12 @@ func (d *Dialog) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *Dialog) TypeID() uint32 {
+	return DialogTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *Dialog) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -234,6 +240,11 @@ func (d *Dialog) SetPinned(value bool) {
 	}
 }
 
+// GetPinned returns value of Pinned conditional field.
+func (d *Dialog) GetPinned() (value bool) {
+	return d.Flags.Has(2)
+}
+
 // SetUnreadMark sets value of UnreadMark conditional field.
 func (d *Dialog) SetUnreadMark(value bool) {
 	if value {
@@ -243,6 +254,46 @@ func (d *Dialog) SetUnreadMark(value bool) {
 		d.Flags.Unset(3)
 		d.UnreadMark = false
 	}
+}
+
+// GetUnreadMark returns value of UnreadMark conditional field.
+func (d *Dialog) GetUnreadMark() (value bool) {
+	return d.Flags.Has(3)
+}
+
+// GetPeer returns value of Peer field.
+func (d *Dialog) GetPeer() (value PeerClass) {
+	return d.Peer
+}
+
+// GetTopMessage returns value of TopMessage field.
+func (d *Dialog) GetTopMessage() (value int) {
+	return d.TopMessage
+}
+
+// GetReadInboxMaxID returns value of ReadInboxMaxID field.
+func (d *Dialog) GetReadInboxMaxID() (value int) {
+	return d.ReadInboxMaxID
+}
+
+// GetReadOutboxMaxID returns value of ReadOutboxMaxID field.
+func (d *Dialog) GetReadOutboxMaxID() (value int) {
+	return d.ReadOutboxMaxID
+}
+
+// GetUnreadCount returns value of UnreadCount field.
+func (d *Dialog) GetUnreadCount() (value int) {
+	return d.UnreadCount
+}
+
+// GetUnreadMentionsCount returns value of UnreadMentionsCount field.
+func (d *Dialog) GetUnreadMentionsCount() (value int) {
+	return d.UnreadMentionsCount
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (d *Dialog) GetNotifySettings() (value PeerNotifySettings) {
+	return d.NotifySettings
 }
 
 // SetPts sets value of Pts conditional field.
@@ -489,6 +540,12 @@ func (d *DialogFolder) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DialogFolder) TypeID() uint32 {
+	return DialogFolderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogFolder) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -527,6 +584,46 @@ func (d *DialogFolder) SetPinned(value bool) {
 		d.Flags.Unset(2)
 		d.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (d *DialogFolder) GetPinned() (value bool) {
+	return d.Flags.Has(2)
+}
+
+// GetFolder returns value of Folder field.
+func (d *DialogFolder) GetFolder() (value Folder) {
+	return d.Folder
+}
+
+// GetPeer returns value of Peer field.
+func (d *DialogFolder) GetPeer() (value PeerClass) {
+	return d.Peer
+}
+
+// GetTopMessage returns value of TopMessage field.
+func (d *DialogFolder) GetTopMessage() (value int) {
+	return d.TopMessage
+}
+
+// GetUnreadMutedPeersCount returns value of UnreadMutedPeersCount field.
+func (d *DialogFolder) GetUnreadMutedPeersCount() (value int) {
+	return d.UnreadMutedPeersCount
+}
+
+// GetUnreadUnmutedPeersCount returns value of UnreadUnmutedPeersCount field.
+func (d *DialogFolder) GetUnreadUnmutedPeersCount() (value int) {
+	return d.UnreadUnmutedPeersCount
+}
+
+// GetUnreadMutedMessagesCount returns value of UnreadMutedMessagesCount field.
+func (d *DialogFolder) GetUnreadMutedMessagesCount() (value int) {
+	return d.UnreadMutedMessagesCount
+}
+
+// GetUnreadUnmutedMessagesCount returns value of UnreadUnmutedMessagesCount field.
+func (d *DialogFolder) GetUnreadUnmutedMessagesCount() (value int) {
+	return d.UnreadUnmutedMessagesCount
 }
 
 // Decode implements bin.Decoder.
@@ -623,7 +720,19 @@ type DialogClass interface {
 	bin.Decoder
 	construct() DialogClass
 
-	fmt.Stringer
+	// Is the dialog pinned
+	GetPinned() (value bool)
+	// The chat
+	GetPeer() (value PeerClass)
+	// The latest message ID
+	GetTopMessage() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

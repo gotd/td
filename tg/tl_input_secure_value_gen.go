@@ -180,6 +180,12 @@ func (i *InputSecureValue) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputSecureValue) TypeID() uint32 {
+	return InputSecureValueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureValue) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -276,6 +282,11 @@ func (i *InputSecureValue) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetType returns value of Type field.
+func (i *InputSecureValue) GetType() (value SecureValueTypeClass) {
+	return i.Type
 }
 
 // SetData sets value of Data conditional field.

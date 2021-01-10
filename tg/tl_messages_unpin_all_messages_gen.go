@@ -57,6 +57,12 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUnpinAllMessagesRequest) TypeID() uint32 {
+	return MessagesUnpinAllMessagesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -70,6 +76,11 @@ func (u *MessagesUnpinAllMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.unpinAllMessages#f025bc8b: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *MessagesUnpinAllMessagesRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
 }
 
 // Decode implements bin.Decoder.

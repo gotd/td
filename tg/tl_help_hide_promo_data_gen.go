@@ -54,6 +54,12 @@ func (h *HelpHidePromoDataRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (h *HelpHidePromoDataRequest) TypeID() uint32 {
+	return HelpHidePromoDataRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (h *HelpHidePromoDataRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -67,6 +73,11 @@ func (h *HelpHidePromoDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode help.hidePromoData#1e251c95: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (h *HelpHidePromoDataRequest) GetPeer() (value InputPeerClass) {
+	return h.Peer
 }
 
 // Decode implements bin.Decoder.

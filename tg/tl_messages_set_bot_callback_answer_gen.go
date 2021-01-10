@@ -102,6 +102,12 @@ func (s *MessagesSetBotCallbackAnswerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetBotCallbackAnswerRequest) TypeID() uint32 {
+	return MessagesSetBotCallbackAnswerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -142,6 +148,16 @@ func (s *MessagesSetBotCallbackAnswerRequest) SetAlert(value bool) {
 	}
 }
 
+// GetAlert returns value of Alert conditional field.
+func (s *MessagesSetBotCallbackAnswerRequest) GetAlert() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetBotCallbackAnswerRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
 // SetMessage sets value of Message conditional field.
 func (s *MessagesSetBotCallbackAnswerRequest) SetMessage(value string) {
 	s.Flags.Set(0)
@@ -170,6 +186,11 @@ func (s *MessagesSetBotCallbackAnswerRequest) GetURL() (value string, ok bool) {
 		return value, false
 	}
 	return s.URL, true
+}
+
+// GetCacheTime returns value of CacheTime field.
+func (s *MessagesSetBotCallbackAnswerRequest) GetCacheTime() (value int) {
+	return s.CacheTime
 }
 
 // Decode implements bin.Decoder.

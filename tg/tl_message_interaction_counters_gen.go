@@ -70,6 +70,12 @@ func (m *MessageInteractionCounters) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageInteractionCounters) TypeID() uint32 {
+	return MessageInteractionCountersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -80,6 +86,21 @@ func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Views)
 	b.PutInt(m.Forwards)
 	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (m *MessageInteractionCounters) GetMsgID() (value int) {
+	return m.MsgID
+}
+
+// GetViews returns value of Views field.
+func (m *MessageInteractionCounters) GetViews() (value int) {
+	return m.Views
+}
+
+// GetForwards returns value of Forwards field.
+func (m *MessageInteractionCounters) GetForwards() (value int) {
+	return m.Forwards
 }
 
 // Decode implements bin.Decoder.

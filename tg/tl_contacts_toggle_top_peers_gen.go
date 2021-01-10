@@ -57,6 +57,12 @@ func (t *ContactsToggleTopPeersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ContactsToggleTopPeersRequest) TypeID() uint32 {
+	return ContactsToggleTopPeersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -65,6 +71,11 @@ func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {
 	b.PutID(ContactsToggleTopPeersRequestTypeID)
 	b.PutBool(t.Enabled)
 	return nil
+}
+
+// GetEnabled returns value of Enabled field.
+func (t *ContactsToggleTopPeersRequest) GetEnabled() (value bool) {
+	return t.Enabled
 }
 
 // Decode implements bin.Decoder.

@@ -123,6 +123,12 @@ func (e *MessagesEditInlineBotMessageRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditInlineBotMessageRequest) TypeID() uint32 {
+	return MessagesEditInlineBotMessageRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -192,6 +198,16 @@ func (e *MessagesEditInlineBotMessageRequest) SetNoWebpage(value bool) {
 		e.Flags.Unset(1)
 		e.NoWebpage = false
 	}
+}
+
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (e *MessagesEditInlineBotMessageRequest) GetNoWebpage() (value bool) {
+	return e.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (e *MessagesEditInlineBotMessageRequest) GetID() (value InputBotInlineMessageID) {
+	return e.ID
 }
 
 // SetMessage sets value of Message conditional field.

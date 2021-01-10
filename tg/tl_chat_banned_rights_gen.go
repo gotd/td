@@ -164,6 +164,12 @@ func (c *ChatBannedRights) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatBannedRights) TypeID() uint32 {
+	return ChatBannedRightsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -224,6 +230,11 @@ func (c *ChatBannedRights) SetViewMessages(value bool) {
 	}
 }
 
+// GetViewMessages returns value of ViewMessages conditional field.
+func (c *ChatBannedRights) GetViewMessages() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetSendMessages sets value of SendMessages conditional field.
 func (c *ChatBannedRights) SetSendMessages(value bool) {
 	if value {
@@ -233,6 +244,11 @@ func (c *ChatBannedRights) SetSendMessages(value bool) {
 		c.Flags.Unset(1)
 		c.SendMessages = false
 	}
+}
+
+// GetSendMessages returns value of SendMessages conditional field.
+func (c *ChatBannedRights) GetSendMessages() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // SetSendMedia sets value of SendMedia conditional field.
@@ -246,6 +262,11 @@ func (c *ChatBannedRights) SetSendMedia(value bool) {
 	}
 }
 
+// GetSendMedia returns value of SendMedia conditional field.
+func (c *ChatBannedRights) GetSendMedia() (value bool) {
+	return c.Flags.Has(2)
+}
+
 // SetSendStickers sets value of SendStickers conditional field.
 func (c *ChatBannedRights) SetSendStickers(value bool) {
 	if value {
@@ -255,6 +276,11 @@ func (c *ChatBannedRights) SetSendStickers(value bool) {
 		c.Flags.Unset(3)
 		c.SendStickers = false
 	}
+}
+
+// GetSendStickers returns value of SendStickers conditional field.
+func (c *ChatBannedRights) GetSendStickers() (value bool) {
+	return c.Flags.Has(3)
 }
 
 // SetSendGifs sets value of SendGifs conditional field.
@@ -268,6 +294,11 @@ func (c *ChatBannedRights) SetSendGifs(value bool) {
 	}
 }
 
+// GetSendGifs returns value of SendGifs conditional field.
+func (c *ChatBannedRights) GetSendGifs() (value bool) {
+	return c.Flags.Has(4)
+}
+
 // SetSendGames sets value of SendGames conditional field.
 func (c *ChatBannedRights) SetSendGames(value bool) {
 	if value {
@@ -277,6 +308,11 @@ func (c *ChatBannedRights) SetSendGames(value bool) {
 		c.Flags.Unset(5)
 		c.SendGames = false
 	}
+}
+
+// GetSendGames returns value of SendGames conditional field.
+func (c *ChatBannedRights) GetSendGames() (value bool) {
+	return c.Flags.Has(5)
 }
 
 // SetSendInline sets value of SendInline conditional field.
@@ -290,6 +326,11 @@ func (c *ChatBannedRights) SetSendInline(value bool) {
 	}
 }
 
+// GetSendInline returns value of SendInline conditional field.
+func (c *ChatBannedRights) GetSendInline() (value bool) {
+	return c.Flags.Has(6)
+}
+
 // SetEmbedLinks sets value of EmbedLinks conditional field.
 func (c *ChatBannedRights) SetEmbedLinks(value bool) {
 	if value {
@@ -299,6 +340,11 @@ func (c *ChatBannedRights) SetEmbedLinks(value bool) {
 		c.Flags.Unset(7)
 		c.EmbedLinks = false
 	}
+}
+
+// GetEmbedLinks returns value of EmbedLinks conditional field.
+func (c *ChatBannedRights) GetEmbedLinks() (value bool) {
+	return c.Flags.Has(7)
 }
 
 // SetSendPolls sets value of SendPolls conditional field.
@@ -312,6 +358,11 @@ func (c *ChatBannedRights) SetSendPolls(value bool) {
 	}
 }
 
+// GetSendPolls returns value of SendPolls conditional field.
+func (c *ChatBannedRights) GetSendPolls() (value bool) {
+	return c.Flags.Has(8)
+}
+
 // SetChangeInfo sets value of ChangeInfo conditional field.
 func (c *ChatBannedRights) SetChangeInfo(value bool) {
 	if value {
@@ -321,6 +372,11 @@ func (c *ChatBannedRights) SetChangeInfo(value bool) {
 		c.Flags.Unset(10)
 		c.ChangeInfo = false
 	}
+}
+
+// GetChangeInfo returns value of ChangeInfo conditional field.
+func (c *ChatBannedRights) GetChangeInfo() (value bool) {
+	return c.Flags.Has(10)
 }
 
 // SetInviteUsers sets value of InviteUsers conditional field.
@@ -334,6 +390,11 @@ func (c *ChatBannedRights) SetInviteUsers(value bool) {
 	}
 }
 
+// GetInviteUsers returns value of InviteUsers conditional field.
+func (c *ChatBannedRights) GetInviteUsers() (value bool) {
+	return c.Flags.Has(15)
+}
+
 // SetPinMessages sets value of PinMessages conditional field.
 func (c *ChatBannedRights) SetPinMessages(value bool) {
 	if value {
@@ -343,6 +404,16 @@ func (c *ChatBannedRights) SetPinMessages(value bool) {
 		c.Flags.Unset(17)
 		c.PinMessages = false
 	}
+}
+
+// GetPinMessages returns value of PinMessages conditional field.
+func (c *ChatBannedRights) GetPinMessages() (value bool) {
+	return c.Flags.Has(17)
+}
+
+// GetUntilDate returns value of UntilDate field.
+func (c *ChatBannedRights) GetUntilDate() (value int) {
+	return c.UntilDate
 }
 
 // Decode implements bin.Decoder.

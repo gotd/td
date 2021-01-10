@@ -91,6 +91,12 @@ func (s *ServerDHInnerData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *ServerDHInnerData) TypeID() uint32 {
+	return ServerDHInnerDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *ServerDHInnerData) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -104,6 +110,36 @@ func (s *ServerDHInnerData) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.GA)
 	b.PutInt(s.ServerTime)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (s *ServerDHInnerData) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (s *ServerDHInnerData) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
+
+// GetG returns value of G field.
+func (s *ServerDHInnerData) GetG() (value int) {
+	return s.G
+}
+
+// GetDhPrime returns value of DhPrime field.
+func (s *ServerDHInnerData) GetDhPrime() (value []byte) {
+	return s.DhPrime
+}
+
+// GetGA returns value of GA field.
+func (s *ServerDHInnerData) GetGA() (value []byte) {
+	return s.GA
+}
+
+// GetServerTime returns value of ServerTime field.
+func (s *ServerDHInnerData) GetServerTime() (value int) {
+	return s.ServerTime
 }
 
 // Decode implements bin.Decoder.

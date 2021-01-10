@@ -78,6 +78,12 @@ func (s *UploadSaveBigFilePartRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *UploadSaveBigFilePartRequest) TypeID() uint32 {
+	return UploadSaveBigFilePartRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *UploadSaveBigFilePartRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -89,6 +95,26 @@ func (s *UploadSaveBigFilePartRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(s.FileTotalParts)
 	b.PutBytes(s.Bytes)
 	return nil
+}
+
+// GetFileID returns value of FileID field.
+func (s *UploadSaveBigFilePartRequest) GetFileID() (value int64) {
+	return s.FileID
+}
+
+// GetFilePart returns value of FilePart field.
+func (s *UploadSaveBigFilePartRequest) GetFilePart() (value int) {
+	return s.FilePart
+}
+
+// GetFileTotalParts returns value of FileTotalParts field.
+func (s *UploadSaveBigFilePartRequest) GetFileTotalParts() (value int) {
+	return s.FileTotalParts
+}
+
+// GetBytes returns value of Bytes field.
+func (s *UploadSaveBigFilePartRequest) GetBytes() (value []byte) {
+	return s.Bytes
 }
 
 // Decode implements bin.Decoder.

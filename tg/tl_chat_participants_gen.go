@@ -77,6 +77,12 @@ func (c *ChatParticipantsForbidden) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatParticipantsForbidden) TypeID() uint32 {
+	return ChatParticipantsForbiddenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -99,6 +105,11 @@ func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (c *ChatParticipantsForbidden) GetChatID() (value int) {
+	return c.ChatID
 }
 
 // SetSelfParticipant sets value of SelfParticipant conditional field.
@@ -213,6 +224,12 @@ func (c *ChatParticipants) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatParticipants) TypeID() uint32 {
+	return ChatParticipantsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -231,6 +248,21 @@ func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(c.Version)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (c *ChatParticipants) GetChatID() (value int) {
+	return c.ChatID
+}
+
+// GetParticipants returns value of Participants field.
+func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
+	return c.Participants
+}
+
+// GetVersion returns value of Version field.
+func (c *ChatParticipants) GetVersion() (value int) {
+	return c.Version
 }
 
 // Decode implements bin.Decoder.
@@ -301,7 +333,15 @@ type ChatParticipantsClass interface {
 	bin.Decoder
 	construct() ChatParticipantsClass
 
-	fmt.Stringer
+	// Group ID
+	GetChatID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

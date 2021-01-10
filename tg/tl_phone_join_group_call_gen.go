@@ -74,6 +74,12 @@ func (j *PhoneJoinGroupCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *PhoneJoinGroupCallRequest) TypeID() uint32 {
+	return PhoneJoinGroupCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -104,6 +110,21 @@ func (j *PhoneJoinGroupCallRequest) SetMuted(value bool) {
 		j.Flags.Unset(0)
 		j.Muted = false
 	}
+}
+
+// GetMuted returns value of Muted conditional field.
+func (j *PhoneJoinGroupCallRequest) GetMuted() (value bool) {
+	return j.Flags.Has(0)
+}
+
+// GetCall returns value of Call field.
+func (j *PhoneJoinGroupCallRequest) GetCall() (value InputGroupCall) {
+	return j.Call
+}
+
+// GetParams returns value of Params field.
+func (j *PhoneJoinGroupCallRequest) GetParams() (value DataJSON) {
+	return j.Params
 }
 
 // Decode implements bin.Decoder.

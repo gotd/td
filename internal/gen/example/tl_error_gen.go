@@ -69,6 +69,12 @@ func (e *Error) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *Error) TypeID() uint32 {
+	return ErrorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *Error) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -79,6 +85,21 @@ func (e *Error) Encode(b *bin.Buffer) error {
 	b.PutString(e.Message)
 	b.PutBool(e.Temporary)
 	return nil
+}
+
+// GetCode returns value of Code field.
+func (e *Error) GetCode() (value int32) {
+	return e.Code
+}
+
+// GetMessage returns value of Message field.
+func (e *Error) GetMessage() (value string) {
+	return e.Message
+}
+
+// GetTemporary returns value of Temporary field.
+func (e *Error) GetTemporary() (value bool) {
+	return e.Temporary
 }
 
 // Decode implements bin.Decoder.

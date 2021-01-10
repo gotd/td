@@ -64,6 +64,12 @@ func (a *MessagesArchivedStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesArchivedStickers) TypeID() uint32 {
+	return MessagesArchivedStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -81,6 +87,16 @@ func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (a *MessagesArchivedStickers) GetCount() (value int) {
+	return a.Count
+}
+
+// GetSets returns value of Sets field.
+func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
+	return a.Sets
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (p *PageBlockUnsupported) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockUnsupported) TypeID() uint32 {
+	return PageBlockUnsupportedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -115,6 +121,12 @@ func (p *PageBlockTitle) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockTitle) TypeID() uint32 {
+	return PageBlockTitleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -128,6 +140,11 @@ func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockTitle#70abc3fd: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockTitle) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -197,6 +214,12 @@ func (p *PageBlockSubtitle) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockSubtitle) TypeID() uint32 {
+	return PageBlockSubtitleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -210,6 +233,11 @@ func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockSubtitle#8ffa9a1f: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockSubtitle) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -287,6 +315,12 @@ func (p *PageBlockAuthorDate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockAuthorDate) TypeID() uint32 {
+	return PageBlockAuthorDateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -301,6 +335,16 @@ func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(p.PublishedDate)
 	return nil
+}
+
+// GetAuthor returns value of Author field.
+func (p *PageBlockAuthorDate) GetAuthor() (value RichTextClass) {
+	return p.Author
+}
+
+// GetPublishedDate returns value of PublishedDate field.
+func (p *PageBlockAuthorDate) GetPublishedDate() (value int) {
+	return p.PublishedDate
 }
 
 // Decode implements bin.Decoder.
@@ -377,6 +421,12 @@ func (p *PageBlockHeader) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockHeader) TypeID() uint32 {
+	return PageBlockHeaderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -390,6 +440,11 @@ func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockHeader#bfd064ec: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockHeader) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -459,6 +514,12 @@ func (p *PageBlockSubheader) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockSubheader) TypeID() uint32 {
+	return PageBlockSubheaderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -472,6 +533,11 @@ func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockSubheader#f12bb6e1: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockSubheader) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -541,6 +607,12 @@ func (p *PageBlockParagraph) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockParagraph) TypeID() uint32 {
+	return PageBlockParagraphTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -554,6 +626,11 @@ func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockParagraph) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -631,6 +708,12 @@ func (p *PageBlockPreformatted) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockPreformatted) TypeID() uint32 {
+	return PageBlockPreformattedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -645,6 +728,16 @@ func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(p.Language)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockPreformatted) GetText() (value RichTextClass) {
+	return p.Text
+}
+
+// GetLanguage returns value of Language field.
+func (p *PageBlockPreformatted) GetLanguage() (value string) {
+	return p.Language
 }
 
 // Decode implements bin.Decoder.
@@ -721,6 +814,12 @@ func (p *PageBlockFooter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockFooter) TypeID() uint32 {
+	return PageBlockFooterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -734,6 +833,11 @@ func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockFooter#48870999: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockFooter) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -793,6 +897,12 @@ func (p *PageBlockDivider) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockDivider) TypeID() uint32 {
+	return PageBlockDividerTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -864,6 +974,12 @@ func (p *PageBlockAnchor) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockAnchor) TypeID() uint32 {
+	return PageBlockAnchorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -872,6 +988,11 @@ func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
 	b.PutID(PageBlockAnchorTypeID)
 	b.PutString(p.Name)
 	return nil
+}
+
+// GetName returns value of Name field.
+func (p *PageBlockAnchor) GetName() (value string) {
+	return p.Name
 }
 
 // Decode implements bin.Decoder.
@@ -943,6 +1064,12 @@ func (p *PageBlockList) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockList) TypeID() uint32 {
+	return PageBlockListTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockList) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -959,6 +1086,11 @@ func (p *PageBlockList) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetItems returns value of Items field.
+func (p *PageBlockList) GetItems() (value []PageListItemClass) {
+	return p.Items
 }
 
 // Decode implements bin.Decoder.
@@ -1042,6 +1174,12 @@ func (p *PageBlockBlockquote) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockBlockquote) TypeID() uint32 {
+	return PageBlockBlockquoteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1061,6 +1199,16 @@ func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockBlockquote) GetText() (value RichTextClass) {
+	return p.Text
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockBlockquote) GetCaption() (value RichTextClass) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -1145,6 +1293,12 @@ func (p *PageBlockPullquote) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockPullquote) TypeID() uint32 {
+	return PageBlockPullquoteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1164,6 +1318,16 @@ func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockPullquote) GetText() (value RichTextClass) {
+	return p.Text
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockPullquote) GetCaption() (value RichTextClass) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -1283,6 +1447,12 @@ func (p *PageBlockPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockPhoto) TypeID() uint32 {
+	return PageBlockPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1309,6 +1479,16 @@ func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 		b.PutLong(p.WebpageID)
 	}
 	return nil
+}
+
+// GetPhotoID returns value of PhotoID field.
+func (p *PageBlockPhoto) GetPhotoID() (value int64) {
+	return p.PhotoID
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockPhoto) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // SetURL sets value of URL conditional field.
@@ -1461,6 +1641,12 @@ func (p *PageBlockVideo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockVideo) TypeID() uint32 {
+	return PageBlockVideoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1494,6 +1680,11 @@ func (p *PageBlockVideo) SetAutoplay(value bool) {
 	}
 }
 
+// GetAutoplay returns value of Autoplay conditional field.
+func (p *PageBlockVideo) GetAutoplay() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetLoop sets value of Loop conditional field.
 func (p *PageBlockVideo) SetLoop(value bool) {
 	if value {
@@ -1503,6 +1694,21 @@ func (p *PageBlockVideo) SetLoop(value bool) {
 		p.Flags.Unset(1)
 		p.Loop = false
 	}
+}
+
+// GetLoop returns value of Loop conditional field.
+func (p *PageBlockVideo) GetLoop() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetVideoID returns value of VideoID field.
+func (p *PageBlockVideo) GetVideoID() (value int64) {
+	return p.VideoID
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockVideo) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -1584,6 +1790,12 @@ func (p *PageBlockCover) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockCover) TypeID() uint32 {
+	return PageBlockCoverTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1597,6 +1809,11 @@ func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover: %w", err)
 	}
 	return nil
+}
+
+// GetCover returns value of Cover field.
+func (p *PageBlockCover) GetCover() (value PageBlockClass) {
+	return p.Cover
 }
 
 // Decode implements bin.Decoder.
@@ -1747,6 +1964,12 @@ func (p *PageBlockEmbed) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockEmbed) TypeID() uint32 {
+	return PageBlockEmbedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1809,6 +2032,11 @@ func (p *PageBlockEmbed) SetFullWidth(value bool) {
 	}
 }
 
+// GetFullWidth returns value of FullWidth conditional field.
+func (p *PageBlockEmbed) GetFullWidth() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetAllowScrolling sets value of AllowScrolling conditional field.
 func (p *PageBlockEmbed) SetAllowScrolling(value bool) {
 	if value {
@@ -1818,6 +2046,11 @@ func (p *PageBlockEmbed) SetAllowScrolling(value bool) {
 		p.Flags.Unset(3)
 		p.AllowScrolling = false
 	}
+}
+
+// GetAllowScrolling returns value of AllowScrolling conditional field.
+func (p *PageBlockEmbed) GetAllowScrolling() (value bool) {
+	return p.Flags.Has(3)
 }
 
 // SetURL sets value of URL conditional field.
@@ -1893,6 +2126,11 @@ func (p *PageBlockEmbed) GetH() (value int, ok bool) {
 		return value, false
 	}
 	return p.H, true
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockEmbed) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -2052,6 +2290,12 @@ func (p *PageBlockEmbedPost) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockEmbedPost) TypeID() uint32 {
+	return PageBlockEmbedPostTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2076,6 +2320,41 @@ func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockEmbedPost#f259a80b: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (p *PageBlockEmbedPost) GetURL() (value string) {
+	return p.URL
+}
+
+// GetWebpageID returns value of WebpageID field.
+func (p *PageBlockEmbedPost) GetWebpageID() (value int64) {
+	return p.WebpageID
+}
+
+// GetAuthorPhotoID returns value of AuthorPhotoID field.
+func (p *PageBlockEmbedPost) GetAuthorPhotoID() (value int64) {
+	return p.AuthorPhotoID
+}
+
+// GetAuthor returns value of Author field.
+func (p *PageBlockEmbedPost) GetAuthor() (value string) {
+	return p.Author
+}
+
+// GetDate returns value of Date field.
+func (p *PageBlockEmbedPost) GetDate() (value int) {
+	return p.Date
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageBlockEmbedPost) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockEmbedPost) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -2201,6 +2480,12 @@ func (p *PageBlockCollage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockCollage) TypeID() uint32 {
+	return PageBlockCollageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2220,6 +2505,16 @@ func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockCollage#65a0fa4d: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetItems returns value of Items field.
+func (p *PageBlockCollage) GetItems() (value []PageBlockClass) {
+	return p.Items
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockCollage) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -2310,6 +2605,12 @@ func (p *PageBlockSlideshow) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockSlideshow) TypeID() uint32 {
+	return PageBlockSlideshowTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2329,6 +2630,16 @@ func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockSlideshow#31f9590: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetItems returns value of Items field.
+func (p *PageBlockSlideshow) GetItems() (value []PageBlockClass) {
+	return p.Items
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockSlideshow) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -2409,6 +2720,12 @@ func (p *PageBlockChannel) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockChannel) TypeID() uint32 {
+	return PageBlockChannelTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2422,6 +2739,11 @@ func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockChannel#ef1751b5: field channel: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (p *PageBlockChannel) GetChannel() (value ChatClass) {
+	return p.Channel
 }
 
 // Decode implements bin.Decoder.
@@ -2502,6 +2824,12 @@ func (p *PageBlockAudio) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockAudio) TypeID() uint32 {
+	return PageBlockAudioTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2513,6 +2841,16 @@ func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockAudio#804361ea: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetAudioID returns value of AudioID field.
+func (p *PageBlockAudio) GetAudioID() (value int64) {
+	return p.AudioID
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockAudio) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -2587,6 +2925,12 @@ func (p *PageBlockKicker) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockKicker) TypeID() uint32 {
+	return PageBlockKickerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2600,6 +2944,11 @@ func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockKicker#1e148390: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageBlockKicker) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -2700,6 +3049,12 @@ func (p *PageBlockTable) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockTable) TypeID() uint32 {
+	return PageBlockTableTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2741,6 +3096,11 @@ func (p *PageBlockTable) SetBordered(value bool) {
 	}
 }
 
+// GetBordered returns value of Bordered conditional field.
+func (p *PageBlockTable) GetBordered() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetStriped sets value of Striped conditional field.
 func (p *PageBlockTable) SetStriped(value bool) {
 	if value {
@@ -2750,6 +3110,21 @@ func (p *PageBlockTable) SetStriped(value bool) {
 		p.Flags.Unset(1)
 		p.Striped = false
 	}
+}
+
+// GetStriped returns value of Striped conditional field.
+func (p *PageBlockTable) GetStriped() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetTitle returns value of Title field.
+func (p *PageBlockTable) GetTitle() (value RichTextClass) {
+	return p.Title
+}
+
+// GetRows returns value of Rows field.
+func (p *PageBlockTable) GetRows() (value []PageTableRow) {
+	return p.Rows
 }
 
 // Decode implements bin.Decoder.
@@ -2841,6 +3216,12 @@ func (p *PageBlockOrderedList) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockOrderedList) TypeID() uint32 {
+	return PageBlockOrderedListTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2857,6 +3238,11 @@ func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetItems returns value of Items field.
+func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
+	return p.Items
 }
 
 // Decode implements bin.Decoder.
@@ -2958,6 +3344,12 @@ func (p *PageBlockDetails) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockDetails) TypeID() uint32 {
+	return PageBlockDetailsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -2997,6 +3389,21 @@ func (p *PageBlockDetails) SetOpen(value bool) {
 		p.Flags.Unset(0)
 		p.Open = false
 	}
+}
+
+// GetOpen returns value of Open conditional field.
+func (p *PageBlockDetails) GetOpen() (value bool) {
+	return p.Flags.Has(0)
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageBlockDetails) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetTitle returns value of Title field.
+func (p *PageBlockDetails) GetTitle() (value RichTextClass) {
+	return p.Title
 }
 
 // Decode implements bin.Decoder.
@@ -3095,6 +3502,12 @@ func (p *PageBlockRelatedArticles) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockRelatedArticles) TypeID() uint32 {
+	return PageBlockRelatedArticlesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -3114,6 +3527,16 @@ func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (p *PageBlockRelatedArticles) GetTitle() (value RichTextClass) {
+	return p.Title
+}
+
+// GetArticles returns value of Articles field.
+func (p *PageBlockRelatedArticles) GetArticles() (value []PageRelatedArticle) {
+	return p.Articles
 }
 
 // Decode implements bin.Decoder.
@@ -3228,6 +3651,12 @@ func (p *PageBlockMap) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageBlockMap) TypeID() uint32 {
+	return PageBlockMapTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockMap) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -3247,6 +3676,31 @@ func (p *PageBlockMap) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageBlockMap#a44f3ef6: field caption: %w", err)
 	}
 	return nil
+}
+
+// GetGeo returns value of Geo field.
+func (p *PageBlockMap) GetGeo() (value GeoPointClass) {
+	return p.Geo
+}
+
+// GetZoom returns value of Zoom field.
+func (p *PageBlockMap) GetZoom() (value int) {
+	return p.Zoom
+}
+
+// GetW returns value of W field.
+func (p *PageBlockMap) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PageBlockMap) GetH() (value int) {
+	return p.H
+}
+
+// GetCaption returns value of Caption field.
+func (p *PageBlockMap) GetCaption() (value PageCaption) {
+	return p.Caption
 }
 
 // Decode implements bin.Decoder.
@@ -3350,7 +3804,12 @@ type PageBlockClass interface {
 	bin.Decoder
 	construct() PageBlockClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

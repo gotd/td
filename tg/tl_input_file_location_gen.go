@@ -81,6 +81,12 @@ func (i *InputFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputFileLocation) TypeID() uint32 {
+	return InputFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -92,6 +98,26 @@ func (i *InputFileLocation) Encode(b *bin.Buffer) error {
 	b.PutLong(i.Secret)
 	b.PutBytes(i.FileReference)
 	return nil
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputFileLocation) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputFileLocation) GetLocalID() (value int) {
+	return i.LocalID
+}
+
+// GetSecret returns value of Secret field.
+func (i *InputFileLocation) GetSecret() (value int64) {
+	return i.Secret
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
 }
 
 // Decode implements bin.Decoder.
@@ -196,6 +222,12 @@ func (i *InputEncryptedFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedFileLocation) TypeID() uint32 {
+	return InputEncryptedFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -205,6 +237,16 @@ func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputEncryptedFileLocation) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -311,6 +353,12 @@ func (i *InputDocumentFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputDocumentFileLocation) TypeID() uint32 {
+	return InputDocumentFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -322,6 +370,26 @@ func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
 	b.PutBytes(i.FileReference)
 	b.PutString(i.ThumbSize)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputDocumentFileLocation) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputDocumentFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputDocumentFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetThumbSize returns value of ThumbSize field.
+func (i *InputDocumentFileLocation) GetThumbSize() (value string) {
+	return i.ThumbSize
 }
 
 // Decode implements bin.Decoder.
@@ -429,6 +497,12 @@ func (i *InputSecureFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputSecureFileLocation) TypeID() uint32 {
+	return InputSecureFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -438,6 +512,16 @@ func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputSecureFileLocation) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputSecureFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -504,6 +588,12 @@ func (i *InputTakeoutFileLocation) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputTakeoutFileLocation) TypeID() uint32 {
+	return InputTakeoutFileLocationTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -615,6 +705,12 @@ func (i *InputPhotoFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPhotoFileLocation) TypeID() uint32 {
+	return InputPhotoFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -626,6 +722,26 @@ func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
 	b.PutBytes(i.FileReference)
 	b.PutString(i.ThumbSize)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputPhotoFileLocation) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhotoFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputPhotoFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetThumbSize returns value of ThumbSize field.
+func (i *InputPhotoFileLocation) GetThumbSize() (value string) {
+	return i.ThumbSize
 }
 
 // Decode implements bin.Decoder.
@@ -756,6 +872,12 @@ func (i *InputPhotoLegacyFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPhotoLegacyFileLocation) TypeID() uint32 {
+	return InputPhotoLegacyFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -769,6 +891,36 @@ func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
 	b.PutInt(i.LocalID)
 	b.PutLong(i.Secret)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputPhotoLegacyFileLocation) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhotoLegacyFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputPhotoLegacyFileLocation) GetFileReference() (value []byte) {
+	return i.FileReference
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputPhotoLegacyFileLocation) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputPhotoLegacyFileLocation) GetLocalID() (value int) {
+	return i.LocalID
+}
+
+// GetSecret returns value of Secret field.
+func (i *InputPhotoLegacyFileLocation) GetSecret() (value int64) {
+	return i.Secret
 }
 
 // Decode implements bin.Decoder.
@@ -911,6 +1063,12 @@ func (i *InputPeerPhotoFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerPhotoFileLocation) TypeID() uint32 {
+	return InputPeerPhotoFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -943,6 +1101,26 @@ func (i *InputPeerPhotoFileLocation) SetBig(value bool) {
 		i.Flags.Unset(0)
 		i.Big = false
 	}
+}
+
+// GetBig returns value of Big conditional field.
+func (i *InputPeerPhotoFileLocation) GetBig() (value bool) {
+	return i.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputPeerPhotoFileLocation) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputPeerPhotoFileLocation) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputPeerPhotoFileLocation) GetLocalID() (value int) {
+	return i.LocalID
 }
 
 // Decode implements bin.Decoder.
@@ -1051,6 +1229,12 @@ func (i *InputStickerSetThumb) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputStickerSetThumb) TypeID() uint32 {
+	return InputStickerSetThumbTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1066,6 +1250,21 @@ func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 	b.PutLong(i.VolumeID)
 	b.PutInt(i.LocalID)
 	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (i *InputStickerSetThumb) GetStickerset() (value InputStickerSetClass) {
+	return i.Stickerset
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (i *InputStickerSetThumb) GetVolumeID() (value int64) {
+	return i.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (i *InputStickerSetThumb) GetLocalID() (value int) {
+	return i.LocalID
 }
 
 // Decode implements bin.Decoder.
@@ -1137,7 +1336,12 @@ type InputFileLocationClass interface {
 	bin.Decoder
 	construct() InputFileLocationClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

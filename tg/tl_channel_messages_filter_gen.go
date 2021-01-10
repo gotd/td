@@ -46,6 +46,12 @@ func (c *ChannelMessagesFilterEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelMessagesFilterEmpty) TypeID() uint32 {
+	return ChannelMessagesFilterEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -133,6 +139,12 @@ func (c *ChannelMessagesFilter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelMessagesFilter) TypeID() uint32 {
+	return ChannelMessagesFilterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -163,6 +175,16 @@ func (c *ChannelMessagesFilter) SetExcludeNewMessages(value bool) {
 		c.Flags.Unset(1)
 		c.ExcludeNewMessages = false
 	}
+}
+
+// GetExcludeNewMessages returns value of ExcludeNewMessages conditional field.
+func (c *ChannelMessagesFilter) GetExcludeNewMessages() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetRanges returns value of Ranges field.
+func (c *ChannelMessagesFilter) GetRanges() (value []MessageRange) {
+	return c.Ranges
 }
 
 // Decode implements bin.Decoder.
@@ -225,7 +247,12 @@ type ChannelMessagesFilterClass interface {
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -70,6 +70,12 @@ func (a *MessagesAffectedHistory) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesAffectedHistory) TypeID() uint32 {
+	return MessagesAffectedHistoryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -80,6 +86,21 @@ func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {
 	b.PutInt(a.PtsCount)
 	b.PutInt(a.Offset)
 	return nil
+}
+
+// GetPts returns value of Pts field.
+func (a *MessagesAffectedHistory) GetPts() (value int) {
+	return a.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (a *MessagesAffectedHistory) GetPtsCount() (value int) {
+	return a.PtsCount
+}
+
+// GetOffset returns value of Offset field.
+func (a *MessagesAffectedHistory) GetOffset() (value int) {
+	return a.Offset
 }
 
 // Decode implements bin.Decoder.

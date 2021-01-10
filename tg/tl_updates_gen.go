@@ -49,6 +49,12 @@ func (u *UpdatesTooLong) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatesTooLong) TypeID() uint32 {
+	return UpdatesTooLongTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -254,6 +260,12 @@ func (u *UpdateShortMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateShortMessage) TypeID() uint32 {
+	return UpdateShortMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -331,6 +343,11 @@ func (u *UpdateShortMessage) SetOut(value bool) {
 	}
 }
 
+// GetOut returns value of Out conditional field.
+func (u *UpdateShortMessage) GetOut() (value bool) {
+	return u.Flags.Has(1)
+}
+
 // SetMentioned sets value of Mentioned conditional field.
 func (u *UpdateShortMessage) SetMentioned(value bool) {
 	if value {
@@ -340,6 +357,11 @@ func (u *UpdateShortMessage) SetMentioned(value bool) {
 		u.Flags.Unset(4)
 		u.Mentioned = false
 	}
+}
+
+// GetMentioned returns value of Mentioned conditional field.
+func (u *UpdateShortMessage) GetMentioned() (value bool) {
+	return u.Flags.Has(4)
 }
 
 // SetMediaUnread sets value of MediaUnread conditional field.
@@ -353,6 +375,11 @@ func (u *UpdateShortMessage) SetMediaUnread(value bool) {
 	}
 }
 
+// GetMediaUnread returns value of MediaUnread conditional field.
+func (u *UpdateShortMessage) GetMediaUnread() (value bool) {
+	return u.Flags.Has(5)
+}
+
 // SetSilent sets value of Silent conditional field.
 func (u *UpdateShortMessage) SetSilent(value bool) {
 	if value {
@@ -362,6 +389,41 @@ func (u *UpdateShortMessage) SetSilent(value bool) {
 		u.Flags.Unset(13)
 		u.Silent = false
 	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (u *UpdateShortMessage) GetSilent() (value bool) {
+	return u.Flags.Has(13)
+}
+
+// GetID returns value of ID field.
+func (u *UpdateShortMessage) GetID() (value int) {
+	return u.ID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateShortMessage) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateShortMessage) GetMessage() (value string) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateShortMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateShortMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateShortMessage) GetDate() (value int) {
+	return u.Date
 }
 
 // SetFwdFrom sets value of FwdFrom conditional field.
@@ -706,6 +768,12 @@ func (u *UpdateShortChatMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateShortChatMessage) TypeID() uint32 {
+	return UpdateShortChatMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -784,6 +852,11 @@ func (u *UpdateShortChatMessage) SetOut(value bool) {
 	}
 }
 
+// GetOut returns value of Out conditional field.
+func (u *UpdateShortChatMessage) GetOut() (value bool) {
+	return u.Flags.Has(1)
+}
+
 // SetMentioned sets value of Mentioned conditional field.
 func (u *UpdateShortChatMessage) SetMentioned(value bool) {
 	if value {
@@ -793,6 +866,11 @@ func (u *UpdateShortChatMessage) SetMentioned(value bool) {
 		u.Flags.Unset(4)
 		u.Mentioned = false
 	}
+}
+
+// GetMentioned returns value of Mentioned conditional field.
+func (u *UpdateShortChatMessage) GetMentioned() (value bool) {
+	return u.Flags.Has(4)
 }
 
 // SetMediaUnread sets value of MediaUnread conditional field.
@@ -806,6 +884,11 @@ func (u *UpdateShortChatMessage) SetMediaUnread(value bool) {
 	}
 }
 
+// GetMediaUnread returns value of MediaUnread conditional field.
+func (u *UpdateShortChatMessage) GetMediaUnread() (value bool) {
+	return u.Flags.Has(5)
+}
+
 // SetSilent sets value of Silent conditional field.
 func (u *UpdateShortChatMessage) SetSilent(value bool) {
 	if value {
@@ -815,6 +898,46 @@ func (u *UpdateShortChatMessage) SetSilent(value bool) {
 		u.Flags.Unset(13)
 		u.Silent = false
 	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (u *UpdateShortChatMessage) GetSilent() (value bool) {
+	return u.Flags.Has(13)
+}
+
+// GetID returns value of ID field.
+func (u *UpdateShortChatMessage) GetID() (value int) {
+	return u.ID
+}
+
+// GetFromID returns value of FromID field.
+func (u *UpdateShortChatMessage) GetFromID() (value int) {
+	return u.FromID
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateShortChatMessage) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateShortChatMessage) GetMessage() (value string) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateShortChatMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateShortChatMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateShortChatMessage) GetDate() (value int) {
+	return u.Date
 }
 
 // SetFwdFrom sets value of FwdFrom conditional field.
@@ -1033,6 +1156,12 @@ func (u *UpdateShort) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateShort) TypeID() uint32 {
+	return UpdateShortTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShort) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1047,6 +1176,16 @@ func (u *UpdateShort) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Date)
 	return nil
+}
+
+// GetUpdate returns value of Update field.
+func (u *UpdateShort) GetUpdate() (value UpdateClass) {
+	return u.Update
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateShort) GetDate() (value int) {
+	return u.Date
 }
 
 // Decode implements bin.Decoder.
@@ -1169,6 +1308,12 @@ func (u *UpdatesCombined) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatesCombined) TypeID() uint32 {
+	return UpdatesCombinedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1206,6 +1351,36 @@ func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
 	b.PutInt(u.SeqStart)
 	b.PutInt(u.Seq)
 	return nil
+}
+
+// GetUpdates returns value of Updates field.
+func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
+	return u.Updates
+}
+
+// GetUsers returns value of Users field.
+func (u *UpdatesCombined) GetUsers() (value []UserClass) {
+	return u.Users
+}
+
+// GetChats returns value of Chats field.
+func (u *UpdatesCombined) GetChats() (value []ChatClass) {
+	return u.Chats
+}
+
+// GetDate returns value of Date field.
+func (u *UpdatesCombined) GetDate() (value int) {
+	return u.Date
+}
+
+// GetSeqStart returns value of SeqStart field.
+func (u *UpdatesCombined) GetSeqStart() (value int) {
+	return u.SeqStart
+}
+
+// GetSeq returns value of Seq field.
+func (u *UpdatesCombined) GetSeq() (value int) {
+	return u.Seq
 }
 
 // Decode implements bin.Decoder.
@@ -1365,6 +1540,12 @@ func (u *Updates) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *Updates) TypeID() uint32 {
+	return UpdatesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *Updates) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1401,6 +1582,31 @@ func (u *Updates) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	b.PutInt(u.Seq)
 	return nil
+}
+
+// GetUpdates returns value of Updates field.
+func (u *Updates) GetUpdates() (value []UpdateClass) {
+	return u.Updates
+}
+
+// GetUsers returns value of Users field.
+func (u *Updates) GetUsers() (value []UserClass) {
+	return u.Users
+}
+
+// GetChats returns value of Chats field.
+func (u *Updates) GetChats() (value []ChatClass) {
+	return u.Chats
+}
+
+// GetDate returns value of Date field.
+func (u *Updates) GetDate() (value int) {
+	return u.Date
+}
+
+// GetSeq returns value of Seq field.
+func (u *Updates) GetSeq() (value int) {
+	return u.Seq
 }
 
 // Decode implements bin.Decoder.
@@ -1594,6 +1800,12 @@ func (u *UpdateShortSentMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateShortSentMessage) TypeID() uint32 {
+	return UpdateShortSentMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1647,6 +1859,31 @@ func (u *UpdateShortSentMessage) SetOut(value bool) {
 		u.Flags.Unset(1)
 		u.Out = false
 	}
+}
+
+// GetOut returns value of Out conditional field.
+func (u *UpdateShortSentMessage) GetOut() (value bool) {
+	return u.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (u *UpdateShortSentMessage) GetID() (value int) {
+	return u.ID
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateShortSentMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateShortSentMessage) GetPtsCount() (value int) {
+	return u.PtsCount
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateShortSentMessage) GetDate() (value int) {
+	return u.Date
 }
 
 // SetMedia sets value of Media conditional field.
@@ -1779,7 +2016,12 @@ type UpdatesClass interface {
 	bin.Decoder
 	construct() UpdatesClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

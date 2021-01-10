@@ -68,6 +68,12 @@ func (u *MessagesUploadMediaRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUploadMediaRequest) TypeID() uint32 {
+	return MessagesUploadMediaRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -87,6 +93,16 @@ func (u *MessagesUploadMediaRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.uploadMedia#519bc2b1: field media: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *MessagesUploadMediaRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
+}
+
+// GetMedia returns value of Media field.
+func (u *MessagesUploadMediaRequest) GetMedia() (value InputMediaClass) {
+	return u.Media
 }
 
 // Decode implements bin.Decoder.

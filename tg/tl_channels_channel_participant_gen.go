@@ -64,6 +64,12 @@ func (c *ChannelsChannelParticipant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelsChannelParticipant) TypeID() uint32 {
+	return ChannelsChannelParticipantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipant) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -86,6 +92,16 @@ func (c *ChannelsChannelParticipant) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetParticipant returns value of Participant field.
+func (c *ChannelsChannelParticipant) GetParticipant() (value ChannelParticipantClass) {
+	return c.Participant
+}
+
+// GetUsers returns value of Users field.
+func (c *ChannelsChannelParticipant) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.

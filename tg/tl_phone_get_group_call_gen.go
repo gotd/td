@@ -53,6 +53,12 @@ func (g *PhoneGetGroupCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *PhoneGetGroupCallRequest) TypeID() uint32 {
+	return PhoneGetGroupCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -63,6 +69,11 @@ func (g *PhoneGetGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.getGroupCall#c7cb017: field call: %w", err)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (g *PhoneGetGroupCallRequest) GetCall() (value InputGroupCall) {
+	return g.Call
 }
 
 // Decode implements bin.Decoder.

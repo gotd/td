@@ -65,6 +65,12 @@ func (l *LabeledPrice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LabeledPrice) TypeID() uint32 {
+	return LabeledPriceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -74,6 +80,16 @@ func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 	b.PutString(l.Label)
 	b.PutLong(l.Amount)
 	return nil
+}
+
+// GetLabel returns value of Label field.
+func (l *LabeledPrice) GetLabel() (value string) {
+	return l.Label
+}
+
+// GetAmount returns value of Amount field.
+func (l *LabeledPrice) GetAmount() (value int64) {
+	return l.Amount
 }
 
 // Decode implements bin.Decoder.

@@ -110,6 +110,12 @@ func (g *StatsGetMessagePublicForwardsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *StatsGetMessagePublicForwardsRequest) TypeID() uint32 {
+	return StatsGetMessagePublicForwardsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -133,6 +139,36 @@ func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.OffsetID)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (g *StatsGetMessagePublicForwardsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *StatsGetMessagePublicForwardsRequest) GetMsgID() (value int) {
+	return g.MsgID
+}
+
+// GetOffsetRate returns value of OffsetRate field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetRate() (value int) {
+	return g.OffsetRate
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetPeer() (value InputPeerClass) {
+	return g.OffsetPeer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *StatsGetMessagePublicForwardsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (g *StatsGetMessagePublicForwardsRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

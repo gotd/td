@@ -54,6 +54,12 @@ func (w *WebPageEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebPageEmpty) TypeID() uint32 {
+	return WebPageEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -62,6 +68,11 @@ func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(WebPageEmptyTypeID)
 	b.PutLong(w.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (w *WebPageEmpty) GetID() (value int64) {
+	return w.ID
 }
 
 // Decode implements bin.Decoder.
@@ -139,6 +150,12 @@ func (w *WebPagePending) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebPagePending) TypeID() uint32 {
+	return WebPagePendingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPagePending) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -148,6 +165,16 @@ func (w *WebPagePending) Encode(b *bin.Buffer) error {
 	b.PutLong(w.ID)
 	b.PutInt(w.Date)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (w *WebPagePending) GetID() (value int64) {
+	return w.ID
+}
+
+// GetDate returns value of Date field.
+func (w *WebPagePending) GetDate() (value int) {
+	return w.Date
 }
 
 // Decode implements bin.Decoder.
@@ -435,6 +462,12 @@ func (w *WebPage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebPage) TypeID() uint32 {
+	return WebPageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPage) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -550,6 +583,26 @@ func (w *WebPage) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (w *WebPage) GetID() (value int64) {
+	return w.ID
+}
+
+// GetURL returns value of URL field.
+func (w *WebPage) GetURL() (value string) {
+	return w.URL
+}
+
+// GetDisplayURL returns value of DisplayURL field.
+func (w *WebPage) GetDisplayURL() (value string) {
+	return w.DisplayURL
+}
+
+// GetHash returns value of Hash field.
+func (w *WebPage) GetHash() (value int) {
+	return w.Hash
 }
 
 // SetType sets value of Type conditional field.
@@ -972,6 +1025,12 @@ func (w *WebPageNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebPageNotModified) TypeID() uint32 {
+	return WebPageNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -1060,7 +1119,12 @@ type WebPageClass interface {
 	bin.Decoder
 	construct() WebPageClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

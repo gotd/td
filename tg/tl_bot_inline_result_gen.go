@@ -144,6 +144,12 @@ func (b *BotInlineResult) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BotInlineResult) TypeID() uint32 {
+	return BotInlineResultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -202,6 +208,16 @@ func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode botInlineResult#11965f3a: field send_message: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (b *BotInlineResult) GetID() (value string) {
+	return b.ID
+}
+
+// GetType returns value of Type field.
+func (b *BotInlineResult) GetType() (value string) {
+	return b.Type
 }
 
 // SetTitle sets value of Title conditional field.
@@ -277,6 +293,11 @@ func (b *BotInlineResult) GetContent() (value WebDocumentClass, ok bool) {
 		return value, false
 	}
 	return b.Content, true
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (b *BotInlineResult) GetSendMessage() (value BotInlineMessageClass) {
+	return b.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -481,6 +502,12 @@ func (b *BotInlineMediaResult) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BotInlineMediaResult) TypeID() uint32 {
+	return BotInlineMediaResultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -533,6 +560,16 @@ func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode botInlineMediaResult#17db940b: field send_message: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (b *BotInlineMediaResult) GetID() (value string) {
+	return b.ID
+}
+
+// GetType returns value of Type field.
+func (b *BotInlineMediaResult) GetType() (value string) {
+	return b.Type
 }
 
 // SetPhoto sets value of Photo conditional field.
@@ -593,6 +630,11 @@ func (b *BotInlineMediaResult) GetDescription() (value string, ok bool) {
 		return value, false
 	}
 	return b.Description, true
+}
+
+// GetSendMessage returns value of SendMessage field.
+func (b *BotInlineMediaResult) GetSendMessage() (value BotInlineMessageClass) {
+	return b.SendMessage
 }
 
 // Decode implements bin.Decoder.
@@ -690,7 +732,26 @@ type BotInlineResultClass interface {
 	bin.Decoder
 	construct() BotInlineResultClass
 
-	fmt.Stringer
+	// Result ID
+	GetID() (value string)
+	// Result type (see bot API docs¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/bots/api#inlinequeryresult
+	GetType() (value string)
+	// Result title
+	GetTitle() (value string, ok bool)
+	// Result description
+	GetDescription() (value string, ok bool)
+	// Message to send
+	GetSendMessage() (value BotInlineMessageClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

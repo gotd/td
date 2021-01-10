@@ -65,6 +65,12 @@ func (g *MessagesGetStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetStickersRequest) TypeID() uint32 {
+	return MessagesGetStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -74,6 +80,16 @@ func (g *MessagesGetStickersRequest) Encode(b *bin.Buffer) error {
 	b.PutString(g.Emoticon)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (g *MessagesGetStickersRequest) GetEmoticon() (value string) {
+	return g.Emoticon
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetStickersRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

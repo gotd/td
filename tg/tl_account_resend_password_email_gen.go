@@ -49,6 +49,12 @@ func (r *AccountResendPasswordEmailRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AccountResendPasswordEmailRequest) TypeID() uint32 {
+	return AccountResendPasswordEmailRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

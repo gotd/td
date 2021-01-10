@@ -46,6 +46,12 @@ func (i *InputChatPhotoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputChatPhotoEmpty) TypeID() uint32 {
+	return InputChatPhotoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChatPhotoEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -155,6 +161,12 @@ func (i *InputChatUploadedPhoto) String() string {
 	}
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputChatUploadedPhoto) TypeID() uint32 {
+	return InputChatUploadedPhotoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -328,6 +340,12 @@ func (i *InputChatPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputChatPhoto) TypeID() uint32 {
+	return InputChatPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChatPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -341,6 +359,11 @@ func (i *InputChatPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputChatPhoto#8953ad37: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputChatPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -392,7 +415,12 @@ type InputChatPhotoClass interface {
 	bin.Decoder
 	construct() InputChatPhotoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

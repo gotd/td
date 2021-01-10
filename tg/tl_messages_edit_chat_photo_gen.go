@@ -62,6 +62,12 @@ func (e *MessagesEditChatPhotoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditChatPhotoRequest) TypeID() uint32 {
+	return MessagesEditChatPhotoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -76,6 +82,16 @@ func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo: %w", err)
 	}
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatPhotoRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetPhoto returns value of Photo field.
+func (e *MessagesEditChatPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	return e.Photo
 }
 
 // Decode implements bin.Decoder.

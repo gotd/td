@@ -78,6 +78,12 @@ func (g *MessagesGetStatsURLRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetStatsURLRequest) TypeID() uint32 {
+	return MessagesGetStatsURLRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -109,6 +115,21 @@ func (g *MessagesGetStatsURLRequest) SetDark(value bool) {
 		g.Flags.Unset(0)
 		g.Dark = false
 	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *MessagesGetStatsURLRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetStatsURLRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetParams returns value of Params field.
+func (g *MessagesGetStatsURLRequest) GetParams() (value string) {
+	return g.Params
 }
 
 // Decode implements bin.Decoder.

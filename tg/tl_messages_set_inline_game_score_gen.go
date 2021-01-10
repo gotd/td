@@ -91,6 +91,12 @@ func (s *MessagesSetInlineGameScoreRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetInlineGameScoreRequest) TypeID() uint32 {
+	return MessagesSetInlineGameScoreRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetInlineGameScoreRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -130,6 +136,11 @@ func (s *MessagesSetInlineGameScoreRequest) SetEditMessage(value bool) {
 	}
 }
 
+// GetEditMessage returns value of EditMessage conditional field.
+func (s *MessagesSetInlineGameScoreRequest) GetEditMessage() (value bool) {
+	return s.Flags.Has(0)
+}
+
 // SetForce sets value of Force conditional field.
 func (s *MessagesSetInlineGameScoreRequest) SetForce(value bool) {
 	if value {
@@ -139,6 +150,26 @@ func (s *MessagesSetInlineGameScoreRequest) SetForce(value bool) {
 		s.Flags.Unset(1)
 		s.Force = false
 	}
+}
+
+// GetForce returns value of Force conditional field.
+func (s *MessagesSetInlineGameScoreRequest) GetForce() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSetInlineGameScoreRequest) GetID() (value InputBotInlineMessageID) {
+	return s.ID
+}
+
+// GetUserID returns value of UserID field.
+func (s *MessagesSetInlineGameScoreRequest) GetUserID() (value InputUserClass) {
+	return s.UserID
+}
+
+// GetScore returns value of Score field.
+func (s *MessagesSetInlineGameScoreRequest) GetScore() (value int) {
+	return s.Score
 }
 
 // Decode implements bin.Decoder.

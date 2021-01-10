@@ -94,6 +94,12 @@ func (d *PhoneDiscardCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *PhoneDiscardCallRequest) TypeID() uint32 {
+	return PhoneDiscardCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -129,6 +135,31 @@ func (d *PhoneDiscardCallRequest) SetVideo(value bool) {
 		d.Flags.Unset(0)
 		d.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (d *PhoneDiscardCallRequest) GetVideo() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (d *PhoneDiscardCallRequest) GetPeer() (value InputPhoneCall) {
+	return d.Peer
+}
+
+// GetDuration returns value of Duration field.
+func (d *PhoneDiscardCallRequest) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetReason returns value of Reason field.
+func (d *PhoneDiscardCallRequest) GetReason() (value PhoneCallDiscardReasonClass) {
+	return d.Reason
+}
+
+// GetConnectionID returns value of ConnectionID field.
+func (d *PhoneDiscardCallRequest) GetConnectionID() (value int64) {
+	return d.ConnectionID
 }
 
 // Decode implements bin.Decoder.

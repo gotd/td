@@ -54,6 +54,12 @@ func (u *AccountUpdateUsernameRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUpdateUsernameRequest) TypeID() uint32 {
+	return AccountUpdateUsernameRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -62,6 +68,11 @@ func (u *AccountUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountUpdateUsernameRequestTypeID)
 	b.PutString(u.Username)
 	return nil
+}
+
+// GetUsername returns value of Username field.
+func (u *AccountUpdateUsernameRequest) GetUsername() (value string) {
+	return u.Username
 }
 
 // Decode implements bin.Decoder.

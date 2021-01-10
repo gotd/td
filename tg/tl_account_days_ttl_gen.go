@@ -54,6 +54,12 @@ func (a *AccountDaysTTL) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AccountDaysTTL) TypeID() uint32 {
+	return AccountDaysTTLTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -62,6 +68,11 @@ func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {
 	b.PutID(AccountDaysTTLTypeID)
 	b.PutInt(a.Days)
 	return nil
+}
+
+// GetDays returns value of Days field.
+func (a *AccountDaysTTL) GetDays() (value int) {
+	return a.Days
 }
 
 // Decode implements bin.Decoder.

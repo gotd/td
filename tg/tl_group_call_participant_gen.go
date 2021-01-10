@@ -114,6 +114,12 @@ func (g *GroupCallParticipant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GroupCallParticipant) TypeID() uint32 {
+	return GroupCallParticipantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -161,6 +167,11 @@ func (g *GroupCallParticipant) SetMuted(value bool) {
 	}
 }
 
+// GetMuted returns value of Muted conditional field.
+func (g *GroupCallParticipant) GetMuted() (value bool) {
+	return g.Flags.Has(0)
+}
+
 // SetLeft sets value of Left conditional field.
 func (g *GroupCallParticipant) SetLeft(value bool) {
 	if value {
@@ -170,6 +181,11 @@ func (g *GroupCallParticipant) SetLeft(value bool) {
 		g.Flags.Unset(1)
 		g.Left = false
 	}
+}
+
+// GetLeft returns value of Left conditional field.
+func (g *GroupCallParticipant) GetLeft() (value bool) {
+	return g.Flags.Has(1)
 }
 
 // SetCanSelfUnmute sets value of CanSelfUnmute conditional field.
@@ -183,6 +199,11 @@ func (g *GroupCallParticipant) SetCanSelfUnmute(value bool) {
 	}
 }
 
+// GetCanSelfUnmute returns value of CanSelfUnmute conditional field.
+func (g *GroupCallParticipant) GetCanSelfUnmute() (value bool) {
+	return g.Flags.Has(2)
+}
+
 // SetJustJoined sets value of JustJoined conditional field.
 func (g *GroupCallParticipant) SetJustJoined(value bool) {
 	if value {
@@ -194,6 +215,11 @@ func (g *GroupCallParticipant) SetJustJoined(value bool) {
 	}
 }
 
+// GetJustJoined returns value of JustJoined conditional field.
+func (g *GroupCallParticipant) GetJustJoined() (value bool) {
+	return g.Flags.Has(4)
+}
+
 // SetVersioned sets value of Versioned conditional field.
 func (g *GroupCallParticipant) SetVersioned(value bool) {
 	if value {
@@ -203,6 +229,21 @@ func (g *GroupCallParticipant) SetVersioned(value bool) {
 		g.Flags.Unset(5)
 		g.Versioned = false
 	}
+}
+
+// GetVersioned returns value of Versioned conditional field.
+func (g *GroupCallParticipant) GetVersioned() (value bool) {
+	return g.Flags.Has(5)
+}
+
+// GetUserID returns value of UserID field.
+func (g *GroupCallParticipant) GetUserID() (value int) {
+	return g.UserID
+}
+
+// GetDate returns value of Date field.
+func (g *GroupCallParticipant) GetDate() (value int) {
+	return g.Date
 }
 
 // SetActiveDate sets value of ActiveDate conditional field.
@@ -218,6 +259,11 @@ func (g *GroupCallParticipant) GetActiveDate() (value int, ok bool) {
 		return value, false
 	}
 	return g.ActiveDate, true
+}
+
+// GetSource returns value of Source field.
+func (g *GroupCallParticipant) GetSource() (value int) {
+	return g.Source
 }
 
 // Decode implements bin.Decoder.

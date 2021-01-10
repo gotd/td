@@ -73,6 +73,12 @@ func (a *PhoneAcceptCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *PhoneAcceptCallRequest) TypeID() uint32 {
+	return PhoneAcceptCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *PhoneAcceptCallRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -87,6 +93,21 @@ func (a *PhoneAcceptCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.acceptCall#3bd2b4a0: field protocol: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (a *PhoneAcceptCallRequest) GetPeer() (value InputPhoneCall) {
+	return a.Peer
+}
+
+// GetGB returns value of GB field.
+func (a *PhoneAcceptCallRequest) GetGB() (value []byte) {
+	return a.GB
+}
+
+// GetProtocol returns value of Protocol field.
+func (a *PhoneAcceptCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return a.Protocol
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (s *AuthSentCodeTypeApp) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSentCodeTypeApp) TypeID() uint32 {
+	return AuthSentCodeTypeAppTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeApp) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -62,6 +68,11 @@ func (s *AuthSentCodeTypeApp) Encode(b *bin.Buffer) error {
 	b.PutID(AuthSentCodeTypeAppTypeID)
 	b.PutInt(s.Length)
 	return nil
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeApp) GetLength() (value int) {
+	return s.Length
 }
 
 // Decode implements bin.Decoder.
@@ -131,6 +142,12 @@ func (s *AuthSentCodeTypeSms) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSentCodeTypeSms) TypeID() uint32 {
+	return AuthSentCodeTypeSmsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeSms) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -139,6 +156,11 @@ func (s *AuthSentCodeTypeSms) Encode(b *bin.Buffer) error {
 	b.PutID(AuthSentCodeTypeSmsTypeID)
 	b.PutInt(s.Length)
 	return nil
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeSms) GetLength() (value int) {
+	return s.Length
 }
 
 // Decode implements bin.Decoder.
@@ -208,6 +230,12 @@ func (s *AuthSentCodeTypeCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSentCodeTypeCall) TypeID() uint32 {
+	return AuthSentCodeTypeCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeCall) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -216,6 +244,11 @@ func (s *AuthSentCodeTypeCall) Encode(b *bin.Buffer) error {
 	b.PutID(AuthSentCodeTypeCallTypeID)
 	b.PutInt(s.Length)
 	return nil
+}
+
+// GetLength returns value of Length field.
+func (s *AuthSentCodeTypeCall) GetLength() (value int) {
+	return s.Length
 }
 
 // Decode implements bin.Decoder.
@@ -288,6 +321,12 @@ func (s *AuthSentCodeTypeFlashCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSentCodeTypeFlashCall) TypeID() uint32 {
+	return AuthSentCodeTypeFlashCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -296,6 +335,11 @@ func (s *AuthSentCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 	b.PutID(AuthSentCodeTypeFlashCallTypeID)
 	b.PutString(s.Pattern)
 	return nil
+}
+
+// GetPattern returns value of Pattern field.
+func (s *AuthSentCodeTypeFlashCall) GetPattern() (value string) {
+	return s.Pattern
 }
 
 // Decode implements bin.Decoder.
@@ -348,7 +392,12 @@ type AuthSentCodeTypeClass interface {
 	bin.Decoder
 	construct() AuthSentCodeTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

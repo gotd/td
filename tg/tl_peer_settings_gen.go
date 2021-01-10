@@ -107,6 +107,12 @@ func (p *PeerSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PeerSettings) TypeID() uint32 {
+	return PeerSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerSettings) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -157,6 +163,11 @@ func (p *PeerSettings) SetReportSpam(value bool) {
 	}
 }
 
+// GetReportSpam returns value of ReportSpam conditional field.
+func (p *PeerSettings) GetReportSpam() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetAddContact sets value of AddContact conditional field.
 func (p *PeerSettings) SetAddContact(value bool) {
 	if value {
@@ -166,6 +177,11 @@ func (p *PeerSettings) SetAddContact(value bool) {
 		p.Flags.Unset(1)
 		p.AddContact = false
 	}
+}
+
+// GetAddContact returns value of AddContact conditional field.
+func (p *PeerSettings) GetAddContact() (value bool) {
+	return p.Flags.Has(1)
 }
 
 // SetBlockContact sets value of BlockContact conditional field.
@@ -179,6 +195,11 @@ func (p *PeerSettings) SetBlockContact(value bool) {
 	}
 }
 
+// GetBlockContact returns value of BlockContact conditional field.
+func (p *PeerSettings) GetBlockContact() (value bool) {
+	return p.Flags.Has(2)
+}
+
 // SetShareContact sets value of ShareContact conditional field.
 func (p *PeerSettings) SetShareContact(value bool) {
 	if value {
@@ -188,6 +209,11 @@ func (p *PeerSettings) SetShareContact(value bool) {
 		p.Flags.Unset(3)
 		p.ShareContact = false
 	}
+}
+
+// GetShareContact returns value of ShareContact conditional field.
+func (p *PeerSettings) GetShareContact() (value bool) {
+	return p.Flags.Has(3)
 }
 
 // SetNeedContactsException sets value of NeedContactsException conditional field.
@@ -201,6 +227,11 @@ func (p *PeerSettings) SetNeedContactsException(value bool) {
 	}
 }
 
+// GetNeedContactsException returns value of NeedContactsException conditional field.
+func (p *PeerSettings) GetNeedContactsException() (value bool) {
+	return p.Flags.Has(4)
+}
+
 // SetReportGeo sets value of ReportGeo conditional field.
 func (p *PeerSettings) SetReportGeo(value bool) {
 	if value {
@@ -212,6 +243,11 @@ func (p *PeerSettings) SetReportGeo(value bool) {
 	}
 }
 
+// GetReportGeo returns value of ReportGeo conditional field.
+func (p *PeerSettings) GetReportGeo() (value bool) {
+	return p.Flags.Has(5)
+}
+
 // SetAutoarchived sets value of Autoarchived conditional field.
 func (p *PeerSettings) SetAutoarchived(value bool) {
 	if value {
@@ -221,6 +257,11 @@ func (p *PeerSettings) SetAutoarchived(value bool) {
 		p.Flags.Unset(7)
 		p.Autoarchived = false
 	}
+}
+
+// GetAutoarchived returns value of Autoarchived conditional field.
+func (p *PeerSettings) GetAutoarchived() (value bool) {
+	return p.Flags.Has(7)
 }
 
 // SetGeoDistance sets value of GeoDistance conditional field.

@@ -62,6 +62,12 @@ func (e *ExportedMessageLink) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ExportedMessageLink) TypeID() uint32 {
+	return ExportedMessageLinkTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -71,6 +77,16 @@ func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {
 	b.PutString(e.Link)
 	b.PutString(e.HTML)
 	return nil
+}
+
+// GetLink returns value of Link field.
+func (e *ExportedMessageLink) GetLink() (value string) {
+	return e.Link
+}
+
+// GetHTML returns value of HTML field.
+func (e *ExportedMessageLink) GetHTML() (value string) {
+	return e.HTML
 }
 
 // Decode implements bin.Decoder.

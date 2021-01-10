@@ -70,6 +70,12 @@ func (n *NearestDc) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NearestDc) TypeID() uint32 {
+	return NearestDcTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NearestDc) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -80,6 +86,21 @@ func (n *NearestDc) Encode(b *bin.Buffer) error {
 	b.PutInt(n.ThisDC)
 	b.PutInt(n.NearestDC)
 	return nil
+}
+
+// GetCountry returns value of Country field.
+func (n *NearestDc) GetCountry() (value string) {
+	return n.Country
+}
+
+// GetThisDC returns value of ThisDC field.
+func (n *NearestDc) GetThisDC() (value int) {
+	return n.ThisDC
+}
+
+// GetNearestDC returns value of NearestDC field.
+func (n *NearestDc) GetNearestDC() (value int) {
+	return n.NearestDC
 }
 
 // Decode implements bin.Decoder.

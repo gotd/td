@@ -67,6 +67,12 @@ func (g *MessagesGetSearchCountersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetSearchCountersRequest) TypeID() uint32 {
+	return MessagesGetSearchCountersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSearchCountersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -89,6 +95,16 @@ func (g *MessagesGetSearchCountersRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetSearchCountersRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetFilters returns value of Filters field.
+func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterClass) {
+	return g.Filters
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (c *ChatPhotoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatPhotoEmpty) TypeID() uint32 {
+	return ChatPhotoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -147,6 +153,12 @@ func (c *ChatPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatPhoto) TypeID() uint32 {
+	return ChatPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -178,6 +190,26 @@ func (c *ChatPhoto) SetHasVideo(value bool) {
 		c.Flags.Unset(0)
 		c.HasVideo = false
 	}
+}
+
+// GetHasVideo returns value of HasVideo conditional field.
+func (c *ChatPhoto) GetHasVideo() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetPhotoSmall returns value of PhotoSmall field.
+func (c *ChatPhoto) GetPhotoSmall() (value FileLocationToBeDeprecated) {
+	return c.PhotoSmall
+}
+
+// GetPhotoBig returns value of PhotoBig field.
+func (c *ChatPhoto) GetPhotoBig() (value FileLocationToBeDeprecated) {
+	return c.PhotoBig
+}
+
+// GetDCID returns value of DCID field.
+func (c *ChatPhoto) GetDCID() (value int) {
+	return c.DCID
 }
 
 // Decode implements bin.Decoder.
@@ -244,7 +276,12 @@ type ChatPhotoClass interface {
 	bin.Decoder
 	construct() ChatPhotoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

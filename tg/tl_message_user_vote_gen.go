@@ -70,6 +70,12 @@ func (m *MessageUserVote) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageUserVote) TypeID() uint32 {
+	return MessageUserVoteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageUserVote) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -80,6 +86,21 @@ func (m *MessageUserVote) Encode(b *bin.Buffer) error {
 	b.PutBytes(m.Option)
 	b.PutInt(m.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageUserVote) GetUserID() (value int) {
+	return m.UserID
+}
+
+// GetOption returns value of Option field.
+func (m *MessageUserVote) GetOption() (value []byte) {
+	return m.Option
+}
+
+// GetDate returns value of Date field.
+func (m *MessageUserVote) GetDate() (value int) {
+	return m.Date
 }
 
 // Decode implements bin.Decoder.
@@ -174,6 +195,12 @@ func (m *MessageUserVoteInputOption) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageUserVoteInputOption) TypeID() uint32 {
+	return MessageUserVoteInputOptionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -183,6 +210,16 @@ func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 	b.PutInt(m.UserID)
 	b.PutInt(m.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageUserVoteInputOption) GetUserID() (value int) {
+	return m.UserID
+}
+
+// GetDate returns value of Date field.
+func (m *MessageUserVoteInputOption) GetDate() (value int) {
+	return m.Date
 }
 
 // Decode implements bin.Decoder.
@@ -277,6 +314,12 @@ func (m *MessageUserVoteMultiple) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageUserVoteMultiple) TypeID() uint32 {
+	return MessageUserVoteMultipleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -290,6 +333,21 @@ func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(m.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageUserVoteMultiple) GetUserID() (value int) {
+	return m.UserID
+}
+
+// GetOptions returns value of Options field.
+func (m *MessageUserVoteMultiple) GetOptions() (value [][]byte) {
+	return m.Options
+}
+
+// GetDate returns value of Date field.
+func (m *MessageUserVoteMultiple) GetDate() (value int) {
+	return m.Date
 }
 
 // Decode implements bin.Decoder.
@@ -361,7 +419,17 @@ type MessageUserVoteClass interface {
 	bin.Decoder
 	construct() MessageUserVoteClass
 
-	fmt.Stringer
+	// User ID
+	GetUserID() (value int)
+	// When did the user cast the vote
+	GetDate() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -98,6 +98,12 @@ func (m *MessageReplyHeader) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageReplyHeader) TypeID() uint32 {
+	return MessageReplyHeaderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -126,6 +132,11 @@ func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 		b.PutInt(m.ReplyToTopID)
 	}
 	return nil
+}
+
+// GetReplyToMsgID returns value of ReplyToMsgID field.
+func (m *MessageReplyHeader) GetReplyToMsgID() (value int) {
+	return m.ReplyToMsgID
 }
 
 // SetReplyToPeerID sets value of ReplyToPeerID conditional field.

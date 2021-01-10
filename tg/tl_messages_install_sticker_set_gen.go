@@ -62,6 +62,12 @@ func (i *MessagesInstallStickerSetRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *MessagesInstallStickerSetRequest) TypeID() uint32 {
+	return MessagesInstallStickerSetRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *MessagesInstallStickerSetRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -76,6 +82,16 @@ func (i *MessagesInstallStickerSetRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(i.Archived)
 	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (i *MessagesInstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return i.Stickerset
+}
+
+// GetArchived returns value of Archived field.
+func (i *MessagesInstallStickerSetRequest) GetArchived() (value bool) {
+	return i.Archived
 }
 
 // Decode implements bin.Decoder.

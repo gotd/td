@@ -54,6 +54,12 @@ func (u *MessagesUninstallStickerSetRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUninstallStickerSetRequest) TypeID() uint32 {
+	return MessagesUninstallStickerSetRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUninstallStickerSetRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -67,6 +73,11 @@ func (u *MessagesUninstallStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.uninstallStickerSet#f96e55de: field stickerset: %w", err)
 	}
 	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (u *MessagesUninstallStickerSetRequest) GetStickerset() (value InputStickerSetClass) {
+	return u.Stickerset
 }
 
 // Decode implements bin.Decoder.

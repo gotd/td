@@ -51,6 +51,12 @@ func (r *ReqPqRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReqPqRequest) TypeID() uint32 {
+	return ReqPqRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReqPqRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -59,6 +65,11 @@ func (r *ReqPqRequest) Encode(b *bin.Buffer) error {
 	b.PutID(ReqPqRequestTypeID)
 	b.PutInt128(r.Nonce)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (r *ReqPqRequest) GetNonce() (value bin.Int128) {
+	return r.Nonce
 }
 
 // Decode implements bin.Decoder.

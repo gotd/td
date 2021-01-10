@@ -62,6 +62,12 @@ func (f *FileLocationToBeDeprecated) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *FileLocationToBeDeprecated) TypeID() uint32 {
+	return FileLocationToBeDeprecatedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *FileLocationToBeDeprecated) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -71,6 +77,16 @@ func (f *FileLocationToBeDeprecated) Encode(b *bin.Buffer) error {
 	b.PutLong(f.VolumeID)
 	b.PutInt(f.LocalID)
 	return nil
+}
+
+// GetVolumeID returns value of VolumeID field.
+func (f *FileLocationToBeDeprecated) GetVolumeID() (value int64) {
+	return f.VolumeID
+}
+
+// GetLocalID returns value of LocalID field.
+func (f *FileLocationToBeDeprecated) GetLocalID() (value int) {
+	return f.LocalID
 }
 
 // Decode implements bin.Decoder.

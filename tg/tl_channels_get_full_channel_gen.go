@@ -54,6 +54,12 @@ func (g *ChannelsGetFullChannelRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetFullChannelRequest) TypeID() uint32 {
+	return ChannelsGetFullChannelRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.getFullChannel#8736a09: field channel: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetFullChannelRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
 }
 
 // Decode implements bin.Decoder.

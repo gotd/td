@@ -123,6 +123,12 @@ func (a *HelpAppUpdate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *HelpAppUpdate) TypeID() uint32 {
+	return HelpAppUpdateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -176,6 +182,31 @@ func (a *HelpAppUpdate) SetCanNotSkip(value bool) {
 		a.Flags.Unset(0)
 		a.CanNotSkip = false
 	}
+}
+
+// GetCanNotSkip returns value of CanNotSkip conditional field.
+func (a *HelpAppUpdate) GetCanNotSkip() (value bool) {
+	return a.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (a *HelpAppUpdate) GetID() (value int) {
+	return a.ID
+}
+
+// GetVersion returns value of Version field.
+func (a *HelpAppUpdate) GetVersion() (value string) {
+	return a.Version
+}
+
+// GetText returns value of Text field.
+func (a *HelpAppUpdate) GetText() (value string) {
+	return a.Text
+}
+
+// GetEntities returns value of Entities field.
+func (a *HelpAppUpdate) GetEntities() (value []MessageEntityClass) {
+	return a.Entities
 }
 
 // SetDocument sets value of Document conditional field.
@@ -314,6 +345,12 @@ func (n *HelpNoAppUpdate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *HelpNoAppUpdate) TypeID() uint32 {
+	return HelpNoAppUpdateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -364,7 +401,12 @@ type HelpAppUpdateClass interface {
 	bin.Decoder
 	construct() HelpAppUpdateClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -46,6 +46,12 @@ func (g *HelpGetPromoDataRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetPromoDataRequest) TypeID() uint32 {
+	return HelpGetPromoDataRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

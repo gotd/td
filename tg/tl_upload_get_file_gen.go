@@ -94,6 +94,12 @@ func (g *UploadGetFileRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UploadGetFileRequest) TypeID() uint32 {
+	return UploadGetFileRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -131,6 +137,11 @@ func (g *UploadGetFileRequest) SetPrecise(value bool) {
 	}
 }
 
+// GetPrecise returns value of Precise conditional field.
+func (g *UploadGetFileRequest) GetPrecise() (value bool) {
+	return g.Flags.Has(0)
+}
+
 // SetCDNSupported sets value of CDNSupported conditional field.
 func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
 	if value {
@@ -140,6 +151,26 @@ func (g *UploadGetFileRequest) SetCDNSupported(value bool) {
 		g.Flags.Unset(1)
 		g.CDNSupported = false
 	}
+}
+
+// GetCDNSupported returns value of CDNSupported conditional field.
+func (g *UploadGetFileRequest) GetCDNSupported() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// GetLocation returns value of Location field.
+func (g *UploadGetFileRequest) GetLocation() (value InputFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetFileRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *UploadGetFileRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

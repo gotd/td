@@ -70,6 +70,12 @@ func (a *AccountAutoDownloadSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AccountAutoDownloadSettings) TypeID() uint32 {
+	return AccountAutoDownloadSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -86,6 +92,21 @@ func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.autoDownloadSettings#63cacf26: field high: %w", err)
 	}
 	return nil
+}
+
+// GetLow returns value of Low field.
+func (a *AccountAutoDownloadSettings) GetLow() (value AutoDownloadSettings) {
+	return a.Low
+}
+
+// GetMedium returns value of Medium field.
+func (a *AccountAutoDownloadSettings) GetMedium() (value AutoDownloadSettings) {
+	return a.Medium
+}
+
+// GetHigh returns value of High field.
+func (a *AccountAutoDownloadSettings) GetHigh() (value AutoDownloadSettings) {
+	return a.High
 }
 
 // Decode implements bin.Decoder.

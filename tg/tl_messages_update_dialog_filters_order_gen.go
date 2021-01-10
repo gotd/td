@@ -62,6 +62,12 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {
+	return MessagesUpdateDialogFiltersOrderRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -73,6 +79,11 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetOrder returns value of Order field.
+func (u *MessagesUpdateDialogFiltersOrderRequest) GetOrder() (value []int) {
+	return u.Order
 }
 
 // Decode implements bin.Decoder.

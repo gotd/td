@@ -64,6 +64,12 @@ func (p *PhotosPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotosPhoto) TypeID() uint32 {
+	return PhotosPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotosPhoto) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -86,6 +92,16 @@ func (p *PhotosPhoto) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPhoto returns value of Photo field.
+func (p *PhotosPhoto) GetPhoto() (value PhotoClass) {
+	return p.Photo
+}
+
+// GetUsers returns value of Users field.
+func (p *PhotosPhoto) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.

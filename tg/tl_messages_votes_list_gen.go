@@ -103,6 +103,12 @@ func (v *MessagesVotesList) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (v *MessagesVotesList) TypeID() uint32 {
+	return MessagesVotesListTypeID
+}
+
 // Encode implements bin.Encoder.
 func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -138,6 +144,21 @@ func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 		b.PutString(v.NextOffset)
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (v *MessagesVotesList) GetCount() (value int) {
+	return v.Count
+}
+
+// GetVotes returns value of Votes field.
+func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
+	return v.Votes
+}
+
+// GetUsers returns value of Users field.
+func (v *MessagesVotesList) GetUsers() (value []UserClass) {
+	return v.Users
 }
 
 // SetNextOffset sets value of NextOffset conditional field.

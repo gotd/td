@@ -130,6 +130,12 @@ func (d *DcOption) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DcOption) TypeID() uint32 {
+	return DcOptionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DcOption) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -177,6 +183,11 @@ func (d *DcOption) SetIpv6(value bool) {
 	}
 }
 
+// GetIpv6 returns value of Ipv6 conditional field.
+func (d *DcOption) GetIpv6() (value bool) {
+	return d.Flags.Has(0)
+}
+
 // SetMediaOnly sets value of MediaOnly conditional field.
 func (d *DcOption) SetMediaOnly(value bool) {
 	if value {
@@ -186,6 +197,11 @@ func (d *DcOption) SetMediaOnly(value bool) {
 		d.Flags.Unset(1)
 		d.MediaOnly = false
 	}
+}
+
+// GetMediaOnly returns value of MediaOnly conditional field.
+func (d *DcOption) GetMediaOnly() (value bool) {
+	return d.Flags.Has(1)
 }
 
 // SetTcpoOnly sets value of TcpoOnly conditional field.
@@ -199,6 +215,11 @@ func (d *DcOption) SetTcpoOnly(value bool) {
 	}
 }
 
+// GetTcpoOnly returns value of TcpoOnly conditional field.
+func (d *DcOption) GetTcpoOnly() (value bool) {
+	return d.Flags.Has(2)
+}
+
 // SetCDN sets value of CDN conditional field.
 func (d *DcOption) SetCDN(value bool) {
 	if value {
@@ -210,6 +231,11 @@ func (d *DcOption) SetCDN(value bool) {
 	}
 }
 
+// GetCDN returns value of CDN conditional field.
+func (d *DcOption) GetCDN() (value bool) {
+	return d.Flags.Has(3)
+}
+
 // SetStatic sets value of Static conditional field.
 func (d *DcOption) SetStatic(value bool) {
 	if value {
@@ -219,6 +245,26 @@ func (d *DcOption) SetStatic(value bool) {
 		d.Flags.Unset(4)
 		d.Static = false
 	}
+}
+
+// GetStatic returns value of Static conditional field.
+func (d *DcOption) GetStatic() (value bool) {
+	return d.Flags.Has(4)
+}
+
+// GetID returns value of ID field.
+func (d *DcOption) GetID() (value int) {
+	return d.ID
+}
+
+// GetIPAddress returns value of IPAddress field.
+func (d *DcOption) GetIPAddress() (value string) {
+	return d.IPAddress
+}
+
+// GetPort returns value of Port field.
+func (d *DcOption) GetPort() (value int) {
+	return d.Port
 }
 
 // SetSecret sets value of Secret conditional field.

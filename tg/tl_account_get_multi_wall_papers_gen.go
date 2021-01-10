@@ -56,6 +56,12 @@ func (g *AccountGetMultiWallPapersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetMultiWallPapersRequest) TypeID() uint32 {
+	return AccountGetMultiWallPapersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -72,6 +78,11 @@ func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetWallpapers returns value of Wallpapers field.
+func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPaperClass) {
+	return g.Wallpapers
 }
 
 // Decode implements bin.Decoder.

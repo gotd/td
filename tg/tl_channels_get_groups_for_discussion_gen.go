@@ -54,6 +54,12 @@ func (g *ChannelsGetGroupsForDiscussionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetGroupsForDiscussionRequest) TypeID() uint32 {
+	return ChannelsGetGroupsForDiscussionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

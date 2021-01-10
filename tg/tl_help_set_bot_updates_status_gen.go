@@ -62,6 +62,12 @@ func (s *HelpSetBotUpdatesStatusRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *HelpSetBotUpdatesStatusRequest) TypeID() uint32 {
+	return HelpSetBotUpdatesStatusRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -71,6 +77,16 @@ func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(s.PendingUpdatesCount)
 	b.PutString(s.Message)
 	return nil
+}
+
+// GetPendingUpdatesCount returns value of PendingUpdatesCount field.
+func (s *HelpSetBotUpdatesStatusRequest) GetPendingUpdatesCount() (value int) {
+	return s.PendingUpdatesCount
+}
+
+// GetMessage returns value of Message field.
+func (s *HelpSetBotUpdatesStatusRequest) GetMessage() (value string) {
+	return s.Message
 }
 
 // Decode implements bin.Decoder.

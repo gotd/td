@@ -62,6 +62,12 @@ func (s *PhoneSendSignalingDataRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *PhoneSendSignalingDataRequest) TypeID() uint32 {
+	return PhoneSendSignalingDataRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -73,6 +79,16 @@ func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBytes(s.Data)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (s *PhoneSendSignalingDataRequest) GetPeer() (value InputPhoneCall) {
+	return s.Peer
+}
+
+// GetData returns value of Data field.
+func (s *PhoneSendSignalingDataRequest) GetData() (value []byte) {
+	return s.Data
 }
 
 // Decode implements bin.Decoder.

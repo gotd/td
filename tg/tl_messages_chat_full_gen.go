@@ -74,6 +74,12 @@ func (c *MessagesChatFull) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesChatFull) TypeID() uint32 {
+	return MessagesChatFullTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChatFull) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -105,6 +111,21 @@ func (c *MessagesChatFull) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetFullChat returns value of FullChat field.
+func (c *MessagesChatFull) GetFullChat() (value ChatFullClass) {
+	return c.FullChat
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChatFull) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChatFull) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.

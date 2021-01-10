@@ -87,6 +87,12 @@ func (i *AuthImportBotAuthorizationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *AuthImportBotAuthorizationRequest) TypeID() uint32 {
+	return AuthImportBotAuthorizationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -98,6 +104,26 @@ func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {
 	b.PutString(i.APIHash)
 	b.PutString(i.BotAuthToken)
 	return nil
+}
+
+// GetFlags returns value of Flags field.
+func (i *AuthImportBotAuthorizationRequest) GetFlags() (value int) {
+	return i.Flags
+}
+
+// GetAPIID returns value of APIID field.
+func (i *AuthImportBotAuthorizationRequest) GetAPIID() (value int) {
+	return i.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (i *AuthImportBotAuthorizationRequest) GetAPIHash() (value string) {
+	return i.APIHash
+}
+
+// GetBotAuthToken returns value of BotAuthToken field.
+func (i *AuthImportBotAuthorizationRequest) GetBotAuthToken() (value string) {
+	return i.BotAuthToken
 }
 
 // Decode implements bin.Decoder.

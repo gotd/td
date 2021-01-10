@@ -55,6 +55,12 @@ func (t *TextEntities) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntities) TypeID() uint32 {
+	return TextEntitiesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntities) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -68,6 +74,11 @@ func (t *TextEntities) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetEntities returns value of Entities field.
+func (t *TextEntities) GetEntities() (value []TextEntity) {
+	return t.Entities
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (s *AccountSetContactSignUpNotificationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSetContactSignUpNotificationRequest) TypeID() uint32 {
+	return AccountSetContactSignUpNotificationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -62,6 +68,11 @@ func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error
 	b.PutID(AccountSetContactSignUpNotificationRequestTypeID)
 	b.PutBool(s.Silent)
 	return nil
+}
+
+// GetSilent returns value of Silent field.
+func (s *AccountSetContactSignUpNotificationRequest) GetSilent() (value bool) {
+	return s.Silent
 }
 
 // Decode implements bin.Decoder.

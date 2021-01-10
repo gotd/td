@@ -62,6 +62,12 @@ func (c *ChannelAdminLogEventActionChangeTitle) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeTitleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeTitle) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -71,6 +77,16 @@ func (c *ChannelAdminLogEventActionChangeTitle) Encode(b *bin.Buffer) error {
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeTitle) GetPrevValue() (value string) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeTitle) GetNewValue() (value string) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -155,6 +171,12 @@ func (c *ChannelAdminLogEventActionChangeAbout) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeAbout) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeAboutTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeAbout) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -164,6 +186,16 @@ func (c *ChannelAdminLogEventActionChangeAbout) Encode(b *bin.Buffer) error {
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeAbout) GetPrevValue() (value string) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeAbout) GetNewValue() (value string) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -248,6 +280,12 @@ func (c *ChannelAdminLogEventActionChangeUsername) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeUsernameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeUsername) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -257,6 +295,16 @@ func (c *ChannelAdminLogEventActionChangeUsername) Encode(b *bin.Buffer) error {
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeUsername) GetPrevValue() (value string) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeUsername) GetNewValue() (value string) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -343,6 +391,12 @@ func (c *ChannelAdminLogEventActionChangePhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangePhoto) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangePhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangePhoto) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -362,6 +416,16 @@ func (c *ChannelAdminLogEventActionChangePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePhoto#434bd2af: field new_photo: %w", err)
 	}
 	return nil
+}
+
+// GetPrevPhoto returns value of PrevPhoto field.
+func (c *ChannelAdminLogEventActionChangePhoto) GetPrevPhoto() (value PhotoClass) {
+	return c.PrevPhoto
+}
+
+// GetNewPhoto returns value of NewPhoto field.
+func (c *ChannelAdminLogEventActionChangePhoto) GetNewPhoto() (value PhotoClass) {
+	return c.NewPhoto
 }
 
 // Decode implements bin.Decoder.
@@ -438,6 +502,12 @@ func (c *ChannelAdminLogEventActionToggleInvites) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleInvitesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleInvites) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -446,6 +516,11 @@ func (c *ChannelAdminLogEventActionToggleInvites) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelAdminLogEventActionToggleInvitesTypeID)
 	b.PutBool(c.NewValue)
 	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleInvites) GetNewValue() (value bool) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -517,6 +592,12 @@ func (c *ChannelAdminLogEventActionToggleSignatures) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleSignaturesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleSignatures) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -525,6 +606,11 @@ func (c *ChannelAdminLogEventActionToggleSignatures) Encode(b *bin.Buffer) error
 	b.PutID(ChannelAdminLogEventActionToggleSignaturesTypeID)
 	b.PutBool(c.NewValue)
 	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleSignatures) GetNewValue() (value bool) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -596,6 +682,12 @@ func (c *ChannelAdminLogEventActionUpdatePinned) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionUpdatePinned) TypeID() uint32 {
+	return ChannelAdminLogEventActionUpdatePinnedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionUpdatePinned) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -609,6 +701,11 @@ func (c *ChannelAdminLogEventActionUpdatePinned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionUpdatePinned#e9e82c18: field message: %w", err)
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionUpdatePinned) GetMessage() (value MessageClass) {
+	return c.Message
 }
 
 // Decode implements bin.Decoder.
@@ -688,6 +785,12 @@ func (c *ChannelAdminLogEventActionEditMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionEditMessage) TypeID() uint32 {
+	return ChannelAdminLogEventActionEditMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionEditMessage) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -707,6 +810,16 @@ func (c *ChannelAdminLogEventActionEditMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionEditMessage#709b2405: field new_message: %w", err)
 	}
 	return nil
+}
+
+// GetPrevMessage returns value of PrevMessage field.
+func (c *ChannelAdminLogEventActionEditMessage) GetPrevMessage() (value MessageClass) {
+	return c.PrevMessage
+}
+
+// GetNewMessage returns value of NewMessage field.
+func (c *ChannelAdminLogEventActionEditMessage) GetNewMessage() (value MessageClass) {
+	return c.NewMessage
 }
 
 // Decode implements bin.Decoder.
@@ -783,6 +896,12 @@ func (c *ChannelAdminLogEventActionDeleteMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionDeleteMessage) TypeID() uint32 {
+	return ChannelAdminLogEventActionDeleteMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionDeleteMessage) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -796,6 +915,11 @@ func (c *ChannelAdminLogEventActionDeleteMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDeleteMessage#42e047bb: field message: %w", err)
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionDeleteMessage) GetMessage() (value MessageClass) {
+	return c.Message
 }
 
 // Decode implements bin.Decoder.
@@ -859,6 +983,12 @@ func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantJoin) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantJoinTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantJoin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -920,6 +1050,12 @@ func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantLeave) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantLeaveTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -993,6 +1129,12 @@ func (c *ChannelAdminLogEventActionParticipantInvite) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantInviteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantInvite) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1006,6 +1148,11 @@ func (c *ChannelAdminLogEventActionParticipantInvite) Encode(b *bin.Buffer) erro
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantInvite#e31c34d8: field participant: %w", err)
 	}
 	return nil
+}
+
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantInvite) GetParticipant() (value ChannelParticipantClass) {
+	return c.Participant
 }
 
 // Decode implements bin.Decoder.
@@ -1088,6 +1235,12 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantToggleBanTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1107,6 +1260,16 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) Encode(b *bin.Buffer) e
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantToggleBan#e6d83d7e: field new_participant: %w", err)
 	}
 	return nil
+}
+
+// GetPrevParticipant returns value of PrevParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) GetPrevParticipant() (value ChannelParticipantClass) {
+	return c.PrevParticipant
+}
+
+// GetNewParticipant returns value of NewParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) GetNewParticipant() (value ChannelParticipantClass) {
+	return c.NewParticipant
 }
 
 // Decode implements bin.Decoder.
@@ -1196,6 +1359,12 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantToggleAdminTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1215,6 +1384,16 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Encode(b *bin.Buffer)
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantToggleAdmin#d5676710: field new_participant: %w", err)
 	}
 	return nil
+}
+
+// GetPrevParticipant returns value of PrevParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetPrevParticipant() (value ChannelParticipantClass) {
+	return c.PrevParticipant
+}
+
+// GetNewParticipant returns value of NewParticipant field.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) GetNewParticipant() (value ChannelParticipantClass) {
+	return c.NewParticipant
 }
 
 // Decode implements bin.Decoder.
@@ -1301,6 +1480,12 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeStickerSetTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeStickerSet) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1320,6 +1505,16 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) Encode(b *bin.Buffer) error
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeStickerSet#b1c3caa7: field new_stickerset: %w", err)
 	}
 	return nil
+}
+
+// GetPrevStickerset returns value of PrevStickerset field.
+func (c *ChannelAdminLogEventActionChangeStickerSet) GetPrevStickerset() (value InputStickerSetClass) {
+	return c.PrevStickerset
+}
+
+// GetNewStickerset returns value of NewStickerset field.
+func (c *ChannelAdminLogEventActionChangeStickerSet) GetNewStickerset() (value InputStickerSetClass) {
+	return c.NewStickerset
 }
 
 // Decode implements bin.Decoder.
@@ -1401,6 +1596,12 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
+	return ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1409,6 +1610,11 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Encode(b *bin.Buffer)
 	b.PutID(ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID)
 	b.PutBool(c.NewValue)
 	return nil
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) GetNewValue() (value bool) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -1494,6 +1700,12 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeID() uint32 {
+	return ChannelAdminLogEventActionDefaultBannedRightsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1507,6 +1719,16 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) Encode(b *bin.Buffer) er
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: field new_banned_rights: %w", err)
 	}
 	return nil
+}
+
+// GetPrevBannedRights returns value of PrevBannedRights field.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) GetPrevBannedRights() (value ChatBannedRights) {
+	return c.PrevBannedRights
+}
+
+// GetNewBannedRights returns value of NewBannedRights field.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) GetNewBannedRights() (value ChatBannedRights) {
+	return c.NewBannedRights
 }
 
 // Decode implements bin.Decoder.
@@ -1581,6 +1803,12 @@ func (c *ChannelAdminLogEventActionStopPoll) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
+	return ChannelAdminLogEventActionStopPollTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionStopPoll) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1594,6 +1822,11 @@ func (c *ChannelAdminLogEventActionStopPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionStopPoll#8f079643: field message: %w", err)
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (c *ChannelAdminLogEventActionStopPoll) GetMessage() (value MessageClass) {
+	return c.Message
 }
 
 // Decode implements bin.Decoder.
@@ -1671,6 +1904,12 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeLinkedChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1680,6 +1919,16 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error
 	b.PutInt(c.PrevValue)
 	b.PutInt(c.NewValue)
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetPrevValue() (value int) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) GetNewValue() (value int) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -1766,6 +2015,12 @@ func (c *ChannelAdminLogEventActionChangeLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeLocation) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionChangeLocation) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1785,6 +2040,16 @@ func (c *ChannelAdminLogEventActionChangeLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeLocation#e6b76ae: field new_value: %w", err)
 	}
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeLocation) GetPrevValue() (value ChannelLocationClass) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeLocation) GetNewValue() (value ChannelLocationClass) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -1874,6 +2139,12 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleSlowModeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleSlowMode) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1883,6 +2154,16 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) Encode(b *bin.Buffer) error {
 	b.PutInt(c.PrevValue)
 	b.PutInt(c.NewValue)
 	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionToggleSlowMode) GetPrevValue() (value int) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionToggleSlowMode) GetNewValue() (value int) {
+	return c.NewValue
 }
 
 // Decode implements bin.Decoder.
@@ -1960,6 +2241,12 @@ func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
+	return ChannelAdminLogEventActionStartGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionStartGroupCall) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1970,6 +2257,11 @@ func (c *ChannelAdminLogEventActionStartGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (c *ChannelAdminLogEventActionStartGroupCall) GetCall() (value InputGroupCall) {
+	return c.Call
 }
 
 // Decode implements bin.Decoder.
@@ -2038,6 +2330,12 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeID() uint32 {
+	return ChannelAdminLogEventActionDiscardGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -2048,6 +2346,11 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) Encode(b *bin.Buffer) error
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) GetCall() (value InputGroupCall) {
+	return c.Call
 }
 
 // Decode implements bin.Decoder.
@@ -2116,6 +2419,12 @@ func (c *ChannelAdminLogEventActionParticipantMute) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantMuteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantMute) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -2126,6 +2435,11 @@ func (c *ChannelAdminLogEventActionParticipantMute) Encode(b *bin.Buffer) error 
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantMute#f92424d2: field participant: %w", err)
 	}
 	return nil
+}
+
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantMute) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
 }
 
 // Decode implements bin.Decoder.
@@ -2194,6 +2508,12 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantUnmuteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionParticipantUnmute) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -2204,6 +2524,11 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) Encode(b *bin.Buffer) erro
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantUnmute#e64429c0: field participant: %w", err)
 	}
 	return nil
+}
+
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantUnmute) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
 }
 
 // Decode implements bin.Decoder.
@@ -2272,6 +2597,12 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeID() uint32 {
+	return ChannelAdminLogEventActionToggleGroupCallSettingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -2280,6 +2611,11 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Encode(b *bin.Buffer)
 	b.PutID(ChannelAdminLogEventActionToggleGroupCallSettingTypeID)
 	b.PutBool(c.JoinMuted)
 	return nil
+}
+
+// GetJoinMuted returns value of JoinMuted field.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) GetJoinMuted() (value bool) {
+	return c.JoinMuted
 }
 
 // Decode implements bin.Decoder.
@@ -2356,7 +2692,12 @@ type ChannelAdminLogEventActionClass interface {
 	bin.Decoder
 	construct() ChannelAdminLogEventActionClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

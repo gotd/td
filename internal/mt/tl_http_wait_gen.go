@@ -67,6 +67,12 @@ func (h *HTTPWaitRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (h *HTTPWaitRequest) TypeID() uint32 {
+	return HTTPWaitRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (h *HTTPWaitRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -77,6 +83,21 @@ func (h *HTTPWaitRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(h.WaitAfter)
 	b.PutInt(h.MaxWait)
 	return nil
+}
+
+// GetMaxDelay returns value of MaxDelay field.
+func (h *HTTPWaitRequest) GetMaxDelay() (value int) {
+	return h.MaxDelay
+}
+
+// GetWaitAfter returns value of WaitAfter field.
+func (h *HTTPWaitRequest) GetWaitAfter() (value int) {
+	return h.WaitAfter
+}
+
+// GetMaxWait returns value of MaxWait field.
+func (h *HTTPWaitRequest) GetMaxWait() (value int) {
+	return h.MaxWait
 }
 
 // Decode implements bin.Decoder.

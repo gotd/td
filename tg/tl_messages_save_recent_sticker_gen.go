@@ -78,6 +78,12 @@ func (s *MessagesSaveRecentStickerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSaveRecentStickerRequest) TypeID() uint32 {
+	return MessagesSaveRecentStickerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -109,6 +115,21 @@ func (s *MessagesSaveRecentStickerRequest) SetAttached(value bool) {
 		s.Flags.Unset(0)
 		s.Attached = false
 	}
+}
+
+// GetAttached returns value of Attached conditional field.
+func (s *MessagesSaveRecentStickerRequest) GetAttached() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSaveRecentStickerRequest) GetID() (value InputDocumentClass) {
+	return s.ID
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *MessagesSaveRecentStickerRequest) GetUnsave() (value bool) {
+	return s.Unsave
 }
 
 // Decode implements bin.Decoder.

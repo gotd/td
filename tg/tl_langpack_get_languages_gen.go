@@ -54,6 +54,12 @@ func (g *LangpackGetLanguagesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *LangpackGetLanguagesRequest) TypeID() uint32 {
+	return LangpackGetLanguagesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *LangpackGetLanguagesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -62,6 +68,11 @@ func (g *LangpackGetLanguagesRequest) Encode(b *bin.Buffer) error {
 	b.PutID(LangpackGetLanguagesRequestTypeID)
 	b.PutString(g.LangPack)
 	return nil
+}
+
+// GetLangPack returns value of LangPack field.
+func (g *LangpackGetLanguagesRequest) GetLangPack() (value string) {
+	return g.LangPack
 }
 
 // Decode implements bin.Decoder.

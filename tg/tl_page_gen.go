@@ -131,6 +131,12 @@ func (p *Page) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *Page) TypeID() uint32 {
+	return PageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *Page) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -197,6 +203,11 @@ func (p *Page) SetPart(value bool) {
 	}
 }
 
+// GetPart returns value of Part conditional field.
+func (p *Page) GetPart() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetRtl sets value of Rtl conditional field.
 func (p *Page) SetRtl(value bool) {
 	if value {
@@ -208,6 +219,11 @@ func (p *Page) SetRtl(value bool) {
 	}
 }
 
+// GetRtl returns value of Rtl conditional field.
+func (p *Page) GetRtl() (value bool) {
+	return p.Flags.Has(1)
+}
+
 // SetV2 sets value of V2 conditional field.
 func (p *Page) SetV2(value bool) {
 	if value {
@@ -217,6 +233,31 @@ func (p *Page) SetV2(value bool) {
 		p.Flags.Unset(2)
 		p.V2 = false
 	}
+}
+
+// GetV2 returns value of V2 conditional field.
+func (p *Page) GetV2() (value bool) {
+	return p.Flags.Has(2)
+}
+
+// GetURL returns value of URL field.
+func (p *Page) GetURL() (value string) {
+	return p.URL
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *Page) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
+}
+
+// GetPhotos returns value of Photos field.
+func (p *Page) GetPhotos() (value []PhotoClass) {
+	return p.Photos
+}
+
+// GetDocuments returns value of Documents field.
+func (p *Page) GetDocuments() (value []DocumentClass) {
+	return p.Documents
 }
 
 // SetViews sets value of Views conditional field.

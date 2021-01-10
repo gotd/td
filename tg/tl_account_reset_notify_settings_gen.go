@@ -46,6 +46,12 @@ func (r *AccountResetNotifySettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AccountResetNotifySettingsRequest) TypeID() uint32 {
+	return AccountResetNotifySettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

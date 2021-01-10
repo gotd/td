@@ -72,6 +72,12 @@ func (d *MessagesDeleteMessagesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDeleteMessagesRequest) TypeID() uint32 {
+	return MessagesDeleteMessagesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -100,6 +106,16 @@ func (d *MessagesDeleteMessagesRequest) SetRevoke(value bool) {
 		d.Flags.Unset(0)
 		d.Revoke = false
 	}
+}
+
+// GetRevoke returns value of Revoke conditional field.
+func (d *MessagesDeleteMessagesRequest) GetRevoke() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (d *MessagesDeleteMessagesRequest) GetID() (value []int) {
+	return d.ID
 }
 
 // Decode implements bin.Decoder.

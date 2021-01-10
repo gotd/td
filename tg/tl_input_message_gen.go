@@ -54,6 +54,12 @@ func (i *InputMessageID) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessageID) TypeID() uint32 {
+	return InputMessageIDTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageID) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -62,6 +68,11 @@ func (i *InputMessageID) Encode(b *bin.Buffer) error {
 	b.PutID(InputMessageIDTypeID)
 	b.PutInt(i.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMessageID) GetID() (value int) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -131,6 +142,12 @@ func (i *InputMessageReplyTo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessageReplyTo) TypeID() uint32 {
+	return InputMessageReplyToTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageReplyTo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -139,6 +156,11 @@ func (i *InputMessageReplyTo) Encode(b *bin.Buffer) error {
 	b.PutID(InputMessageReplyToTypeID)
 	b.PutInt(i.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMessageReplyTo) GetID() (value int) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -198,6 +220,12 @@ func (i *InputMessagePinned) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagePinned) TypeID() uint32 {
+	return InputMessagePinnedTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -277,6 +305,12 @@ func (i *InputMessageCallbackQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessageCallbackQuery) TypeID() uint32 {
+	return InputMessageCallbackQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageCallbackQuery) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -286,6 +320,16 @@ func (i *InputMessageCallbackQuery) Encode(b *bin.Buffer) error {
 	b.PutInt(i.ID)
 	b.PutLong(i.QueryID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputMessageCallbackQuery) GetID() (value int) {
+	return i.ID
+}
+
+// GetQueryID returns value of QueryID field.
+func (i *InputMessageCallbackQuery) GetQueryID() (value int64) {
+	return i.QueryID
 }
 
 // Decode implements bin.Decoder.
@@ -345,7 +389,12 @@ type InputMessageClass interface {
 	bin.Decoder
 	construct() InputMessageClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

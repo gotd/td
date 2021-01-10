@@ -59,6 +59,12 @@ func (e *FoldersEditPeerFoldersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *FoldersEditPeerFoldersRequest) TypeID() uint32 {
+	return FoldersEditPeerFoldersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -72,6 +78,11 @@ func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetFolderPeers returns value of FolderPeers field.
+func (e *FoldersEditPeerFoldersRequest) GetFolderPeers() (value []InputFolderPeer) {
+	return e.FolderPeers
 }
 
 // Decode implements bin.Decoder.

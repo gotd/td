@@ -62,6 +62,12 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ChannelsTogglePreHistoryHiddenRequest) TypeID() uint32 {
+	return ChannelsTogglePreHistoryHiddenRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -76,6 +82,16 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(t.Enabled)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetEnabled returns value of Enabled field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetEnabled() (value bool) {
+	return t.Enabled
 }
 
 // Decode implements bin.Decoder.

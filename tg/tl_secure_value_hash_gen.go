@@ -62,6 +62,12 @@ func (s *SecureValueHash) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueHash) TypeID() uint32 {
+	return SecureValueHashTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -76,6 +82,16 @@ func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 	}
 	b.PutBytes(s.Hash)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueHash) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetHash returns value of Hash field.
+func (s *SecureValueHash) GetHash() (value []byte) {
+	return s.Hash
 }
 
 // Decode implements bin.Decoder.

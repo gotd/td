@@ -54,6 +54,12 @@ func (r *ContactsResolveUsernameRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ContactsResolveUsernameRequest) TypeID() uint32 {
+	return ContactsResolveUsernameRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -62,6 +68,11 @@ func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 	b.PutID(ContactsResolveUsernameRequestTypeID)
 	b.PutString(r.Username)
 	return nil
+}
+
+// GetUsername returns value of Username field.
+func (r *ContactsResolveUsernameRequest) GetUsername() (value string) {
+	return r.Username
 }
 
 // Decode implements bin.Decoder.

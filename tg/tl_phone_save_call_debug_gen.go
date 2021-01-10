@@ -62,6 +62,12 @@ func (s *PhoneSaveCallDebugRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *PhoneSaveCallDebugRequest) TypeID() uint32 {
+	return PhoneSaveCallDebugRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *PhoneSaveCallDebugRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -75,6 +81,16 @@ func (s *PhoneSaveCallDebugRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.saveCallDebug#277add7e: field debug: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (s *PhoneSaveCallDebugRequest) GetPeer() (value InputPhoneCall) {
+	return s.Peer
+}
+
+// GetDebug returns value of Debug field.
+func (s *PhoneSaveCallDebugRequest) GetDebug() (value DataJSON) {
+	return s.Debug
 }
 
 // Decode implements bin.Decoder.

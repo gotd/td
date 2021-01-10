@@ -54,6 +54,12 @@ func (u *UserEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserEmpty) TypeID() uint32 {
+	return UserEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -62,6 +68,11 @@ func (u *UserEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(UserEmptyTypeID)
 	b.PutInt(u.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *UserEmpty) GetID() (value int) {
+	return u.ID
 }
 
 // Decode implements bin.Decoder.
@@ -352,6 +363,12 @@ func (u *User) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *User) TypeID() uint32 {
+	return UserTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *User) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -499,6 +516,11 @@ func (u *User) SetSelf(value bool) {
 	}
 }
 
+// GetSelf returns value of Self conditional field.
+func (u *User) GetSelf() (value bool) {
+	return u.Flags.Has(10)
+}
+
 // SetContact sets value of Contact conditional field.
 func (u *User) SetContact(value bool) {
 	if value {
@@ -508,6 +530,11 @@ func (u *User) SetContact(value bool) {
 		u.Flags.Unset(11)
 		u.Contact = false
 	}
+}
+
+// GetContact returns value of Contact conditional field.
+func (u *User) GetContact() (value bool) {
+	return u.Flags.Has(11)
 }
 
 // SetMutualContact sets value of MutualContact conditional field.
@@ -521,6 +548,11 @@ func (u *User) SetMutualContact(value bool) {
 	}
 }
 
+// GetMutualContact returns value of MutualContact conditional field.
+func (u *User) GetMutualContact() (value bool) {
+	return u.Flags.Has(12)
+}
+
 // SetDeleted sets value of Deleted conditional field.
 func (u *User) SetDeleted(value bool) {
 	if value {
@@ -530,6 +562,11 @@ func (u *User) SetDeleted(value bool) {
 		u.Flags.Unset(13)
 		u.Deleted = false
 	}
+}
+
+// GetDeleted returns value of Deleted conditional field.
+func (u *User) GetDeleted() (value bool) {
+	return u.Flags.Has(13)
 }
 
 // SetBot sets value of Bot conditional field.
@@ -543,6 +580,11 @@ func (u *User) SetBot(value bool) {
 	}
 }
 
+// GetBot returns value of Bot conditional field.
+func (u *User) GetBot() (value bool) {
+	return u.Flags.Has(14)
+}
+
 // SetBotChatHistory sets value of BotChatHistory conditional field.
 func (u *User) SetBotChatHistory(value bool) {
 	if value {
@@ -552,6 +594,11 @@ func (u *User) SetBotChatHistory(value bool) {
 		u.Flags.Unset(15)
 		u.BotChatHistory = false
 	}
+}
+
+// GetBotChatHistory returns value of BotChatHistory conditional field.
+func (u *User) GetBotChatHistory() (value bool) {
+	return u.Flags.Has(15)
 }
 
 // SetBotNochats sets value of BotNochats conditional field.
@@ -565,6 +612,11 @@ func (u *User) SetBotNochats(value bool) {
 	}
 }
 
+// GetBotNochats returns value of BotNochats conditional field.
+func (u *User) GetBotNochats() (value bool) {
+	return u.Flags.Has(16)
+}
+
 // SetVerified sets value of Verified conditional field.
 func (u *User) SetVerified(value bool) {
 	if value {
@@ -574,6 +626,11 @@ func (u *User) SetVerified(value bool) {
 		u.Flags.Unset(17)
 		u.Verified = false
 	}
+}
+
+// GetVerified returns value of Verified conditional field.
+func (u *User) GetVerified() (value bool) {
+	return u.Flags.Has(17)
 }
 
 // SetRestricted sets value of Restricted conditional field.
@@ -587,6 +644,11 @@ func (u *User) SetRestricted(value bool) {
 	}
 }
 
+// GetRestricted returns value of Restricted conditional field.
+func (u *User) GetRestricted() (value bool) {
+	return u.Flags.Has(18)
+}
+
 // SetMin sets value of Min conditional field.
 func (u *User) SetMin(value bool) {
 	if value {
@@ -596,6 +658,11 @@ func (u *User) SetMin(value bool) {
 		u.Flags.Unset(20)
 		u.Min = false
 	}
+}
+
+// GetMin returns value of Min conditional field.
+func (u *User) GetMin() (value bool) {
+	return u.Flags.Has(20)
 }
 
 // SetBotInlineGeo sets value of BotInlineGeo conditional field.
@@ -609,6 +676,11 @@ func (u *User) SetBotInlineGeo(value bool) {
 	}
 }
 
+// GetBotInlineGeo returns value of BotInlineGeo conditional field.
+func (u *User) GetBotInlineGeo() (value bool) {
+	return u.Flags.Has(21)
+}
+
 // SetSupport sets value of Support conditional field.
 func (u *User) SetSupport(value bool) {
 	if value {
@@ -618,6 +690,11 @@ func (u *User) SetSupport(value bool) {
 		u.Flags.Unset(23)
 		u.Support = false
 	}
+}
+
+// GetSupport returns value of Support conditional field.
+func (u *User) GetSupport() (value bool) {
+	return u.Flags.Has(23)
 }
 
 // SetScam sets value of Scam conditional field.
@@ -631,6 +708,11 @@ func (u *User) SetScam(value bool) {
 	}
 }
 
+// GetScam returns value of Scam conditional field.
+func (u *User) GetScam() (value bool) {
+	return u.Flags.Has(24)
+}
+
 // SetApplyMinPhoto sets value of ApplyMinPhoto conditional field.
 func (u *User) SetApplyMinPhoto(value bool) {
 	if value {
@@ -640,6 +722,16 @@ func (u *User) SetApplyMinPhoto(value bool) {
 		u.Flags.Unset(25)
 		u.ApplyMinPhoto = false
 	}
+}
+
+// GetApplyMinPhoto returns value of ApplyMinPhoto conditional field.
+func (u *User) GetApplyMinPhoto() (value bool) {
+	return u.Flags.Has(25)
+}
+
+// GetID returns value of ID field.
+func (u *User) GetID() (value int) {
+	return u.ID
 }
 
 // SetAccessHash sets value of AccessHash conditional field.
@@ -957,7 +1049,15 @@ type UserClass interface {
 	bin.Decoder
 	construct() UserClass
 
-	fmt.Stringer
+	// User identifier or 0
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -61,6 +61,12 @@ func (p *AuthPasswordRecovery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *AuthPasswordRecovery) TypeID() uint32 {
+	return AuthPasswordRecoveryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *AuthPasswordRecovery) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -69,6 +75,11 @@ func (p *AuthPasswordRecovery) Encode(b *bin.Buffer) error {
 	b.PutID(AuthPasswordRecoveryTypeID)
 	b.PutString(p.EmailPattern)
 	return nil
+}
+
+// GetEmailPattern returns value of EmailPattern field.
+func (p *AuthPasswordRecovery) GetEmailPattern() (value string) {
+	return p.EmailPattern
 }
 
 // Decode implements bin.Decoder.

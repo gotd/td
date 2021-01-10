@@ -54,6 +54,12 @@ func (p *PhoneCallEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallEmpty) TypeID() uint32 {
+	return PhoneCallEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -62,6 +68,11 @@ func (p *PhoneCallEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(PhoneCallEmptyTypeID)
 	b.PutLong(p.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCallEmpty) GetID() (value int64) {
+	return p.ID
 }
 
 // Decode implements bin.Decoder.
@@ -199,6 +210,12 @@ func (p *PhoneCallWaiting) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallWaiting) TypeID() uint32 {
+	return PhoneCallWaitingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -237,6 +254,41 @@ func (p *PhoneCallWaiting) SetVideo(value bool) {
 		p.Flags.Unset(6)
 		p.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallWaiting) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCallWaiting) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallWaiting) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallWaiting) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallWaiting) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallWaiting) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallWaiting) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
 }
 
 // SetReceiveDate sets value of ReceiveDate conditional field.
@@ -434,6 +486,12 @@ func (p *PhoneCallRequested) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallRequested) TypeID() uint32 {
+	return PhoneCallRequestedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -467,6 +525,46 @@ func (p *PhoneCallRequested) SetVideo(value bool) {
 		p.Flags.Unset(6)
 		p.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallRequested) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCallRequested) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallRequested) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallRequested) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallRequested) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallRequested) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAHash returns value of GAHash field.
+func (p *PhoneCallRequested) GetGAHash() (value []byte) {
+	return p.GAHash
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallRequested) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
 }
 
 // Decode implements bin.Decoder.
@@ -649,6 +747,12 @@ func (p *PhoneCallAccepted) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallAccepted) TypeID() uint32 {
+	return PhoneCallAcceptedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -682,6 +786,46 @@ func (p *PhoneCallAccepted) SetVideo(value bool) {
 		p.Flags.Unset(6)
 		p.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallAccepted) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCallAccepted) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCallAccepted) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCallAccepted) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCallAccepted) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCallAccepted) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGB returns value of GB field.
+func (p *PhoneCallAccepted) GetGB() (value []byte) {
+	return p.GB
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCallAccepted) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
 }
 
 // Decode implements bin.Decoder.
@@ -898,6 +1042,12 @@ func (p *PhoneCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCall) TypeID() uint32 {
+	return PhoneCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -947,6 +1097,11 @@ func (p *PhoneCall) SetP2PAllowed(value bool) {
 	}
 }
 
+// GetP2PAllowed returns value of P2PAllowed conditional field.
+func (p *PhoneCall) GetP2PAllowed() (value bool) {
+	return p.Flags.Has(5)
+}
+
 // SetVideo sets value of Video conditional field.
 func (p *PhoneCall) SetVideo(value bool) {
 	if value {
@@ -956,6 +1111,61 @@ func (p *PhoneCall) SetVideo(value bool) {
 		p.Flags.Unset(6)
 		p.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCall) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCall) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *PhoneCall) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (p *PhoneCall) GetDate() (value int) {
+	return p.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (p *PhoneCall) GetAdminID() (value int) {
+	return p.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (p *PhoneCall) GetParticipantID() (value int) {
+	return p.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (p *PhoneCall) GetGAOrB() (value []byte) {
+	return p.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (p *PhoneCall) GetKeyFingerprint() (value int64) {
+	return p.KeyFingerprint
+}
+
+// GetProtocol returns value of Protocol field.
+func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
+	return p.Protocol
+}
+
+// GetConnections returns value of Connections field.
+func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
+	return p.Connections
+}
+
+// GetStartDate returns value of StartDate field.
+func (p *PhoneCall) GetStartDate() (value int) {
+	return p.StartDate
 }
 
 // Decode implements bin.Decoder.
@@ -1155,6 +1365,12 @@ func (p *PhoneCallDiscarded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallDiscarded) TypeID() uint32 {
+	return PhoneCallDiscardedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -1205,6 +1421,11 @@ func (p *PhoneCallDiscarded) SetNeedRating(value bool) {
 	}
 }
 
+// GetNeedRating returns value of NeedRating conditional field.
+func (p *PhoneCallDiscarded) GetNeedRating() (value bool) {
+	return p.Flags.Has(2)
+}
+
 // SetNeedDebug sets value of NeedDebug conditional field.
 func (p *PhoneCallDiscarded) SetNeedDebug(value bool) {
 	if value {
@@ -1216,6 +1437,11 @@ func (p *PhoneCallDiscarded) SetNeedDebug(value bool) {
 	}
 }
 
+// GetNeedDebug returns value of NeedDebug conditional field.
+func (p *PhoneCallDiscarded) GetNeedDebug() (value bool) {
+	return p.Flags.Has(3)
+}
+
 // SetVideo sets value of Video conditional field.
 func (p *PhoneCallDiscarded) SetVideo(value bool) {
 	if value {
@@ -1225,6 +1451,16 @@ func (p *PhoneCallDiscarded) SetVideo(value bool) {
 		p.Flags.Unset(6)
 		p.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (p *PhoneCallDiscarded) GetVideo() (value bool) {
+	return p.Flags.Has(6)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneCallDiscarded) GetID() (value int64) {
+	return p.ID
 }
 
 // SetReason sets value of Reason conditional field.
@@ -1331,7 +1567,15 @@ type PhoneCallClass interface {
 	bin.Decoder
 	construct() PhoneCallClass
 
-	fmt.Stringer
+	// Call ID
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

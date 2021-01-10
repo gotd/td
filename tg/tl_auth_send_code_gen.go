@@ -84,6 +84,12 @@ func (s *AuthSendCodeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSendCodeRequest) TypeID() uint32 {
+	return AuthSendCodeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSendCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -97,6 +103,26 @@ func (s *AuthSendCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode auth.sendCode#a677244f: field settings: %w", err)
 	}
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AuthSendCodeRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetAPIID returns value of APIID field.
+func (s *AuthSendCodeRequest) GetAPIID() (value int) {
+	return s.APIID
+}
+
+// GetAPIHash returns value of APIHash field.
+func (s *AuthSendCodeRequest) GetAPIHash() (value string) {
+	return s.APIHash
+}
+
+// GetSettings returns value of Settings field.
+func (s *AuthSendCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (c *ChatInviteAlready) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatInviteAlready) TypeID() uint32 {
+	return ChatInviteAlreadyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInviteAlready) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -67,6 +73,11 @@ func (c *ChatInviteAlready) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode chatInviteAlready#5a686d7c: field chat: %w", err)
 	}
 	return nil
+}
+
+// GetChat returns value of Chat field.
+func (c *ChatInviteAlready) GetChat() (value ChatClass) {
+	return c.Chat
 }
 
 // Decode implements bin.Decoder.
@@ -210,6 +221,12 @@ func (c *ChatInvite) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatInvite) TypeID() uint32 {
+	return ChatInviteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInvite) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -267,6 +284,11 @@ func (c *ChatInvite) SetChannel(value bool) {
 	}
 }
 
+// GetChannel returns value of Channel conditional field.
+func (c *ChatInvite) GetChannel() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetBroadcast sets value of Broadcast conditional field.
 func (c *ChatInvite) SetBroadcast(value bool) {
 	if value {
@@ -276,6 +298,11 @@ func (c *ChatInvite) SetBroadcast(value bool) {
 		c.Flags.Unset(1)
 		c.Broadcast = false
 	}
+}
+
+// GetBroadcast returns value of Broadcast conditional field.
+func (c *ChatInvite) GetBroadcast() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // SetPublic sets value of Public conditional field.
@@ -289,6 +316,11 @@ func (c *ChatInvite) SetPublic(value bool) {
 	}
 }
 
+// GetPublic returns value of Public conditional field.
+func (c *ChatInvite) GetPublic() (value bool) {
+	return c.Flags.Has(2)
+}
+
 // SetMegagroup sets value of Megagroup conditional field.
 func (c *ChatInvite) SetMegagroup(value bool) {
 	if value {
@@ -298,6 +330,26 @@ func (c *ChatInvite) SetMegagroup(value bool) {
 		c.Flags.Unset(3)
 		c.Megagroup = false
 	}
+}
+
+// GetMegagroup returns value of Megagroup conditional field.
+func (c *ChatInvite) GetMegagroup() (value bool) {
+	return c.Flags.Has(3)
+}
+
+// GetTitle returns value of Title field.
+func (c *ChatInvite) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetPhoto returns value of Photo field.
+func (c *ChatInvite) GetPhoto() (value PhotoClass) {
+	return c.Photo
+}
+
+// GetParticipantsCount returns value of ParticipantsCount field.
+func (c *ChatInvite) GetParticipantsCount() (value int) {
+	return c.ParticipantsCount
 }
 
 // SetParticipants sets value of Participants conditional field.
@@ -426,6 +478,12 @@ func (c *ChatInvitePeek) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatInvitePeek) TypeID() uint32 {
+	return ChatInvitePeekTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInvitePeek) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -440,6 +498,16 @@ func (c *ChatInvitePeek) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(c.Expires)
 	return nil
+}
+
+// GetChat returns value of Chat field.
+func (c *ChatInvitePeek) GetChat() (value ChatClass) {
+	return c.Chat
+}
+
+// GetExpires returns value of Expires field.
+func (c *ChatInvitePeek) GetExpires() (value int) {
+	return c.Expires
 }
 
 // Decode implements bin.Decoder.
@@ -498,7 +566,12 @@ type ChatInviteClass interface {
 	bin.Decoder
 	construct() ChatInviteClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -22,6 +22,9 @@ type FileHashVector struct {
 	Elems []FileHash
 }
 
+// FileHashVectorTypeID is TL type id of FileHashVector.
+const FileHashVectorTypeID = bin.TypeVector
+
 func (vec *FileHashVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *FileHashVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *FileHashVector) TypeID() uint32 {
+	return FileHashVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *FileHashVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *FileHashVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *FileHashVector) GetElems() (value []FileHash) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

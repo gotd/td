@@ -70,6 +70,12 @@ func (a *MessagesAddChatUserRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesAddChatUserRequest) TypeID() uint32 {
+	return MessagesAddChatUserRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -85,6 +91,21 @@ func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(a.FwdLimit)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (a *MessagesAddChatUserRequest) GetChatID() (value int) {
+	return a.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (a *MessagesAddChatUserRequest) GetUserID() (value InputUserClass) {
+	return a.UserID
+}
+
+// GetFwdLimit returns value of FwdLimit field.
+func (a *MessagesAddChatUserRequest) GetFwdLimit() (value int) {
+	return a.FwdLimit
 }
 
 // Decode implements bin.Decoder.

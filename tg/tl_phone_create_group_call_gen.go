@@ -61,6 +61,12 @@ func (c *PhoneCreateGroupCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *PhoneCreateGroupCallRequest) TypeID() uint32 {
+	return PhoneCreateGroupCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -75,6 +81,16 @@ func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(c.RandomID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (c *PhoneCreateGroupCallRequest) GetPeer() (value InputPeerClass) {
+	return c.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (c *PhoneCreateGroupCallRequest) GetRandomID() (value int) {
+	return c.RandomID
 }
 
 // Decode implements bin.Decoder.

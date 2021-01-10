@@ -65,6 +65,12 @@ func (g *MessagesGetScheduledHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetScheduledHistoryRequest) TypeID() uint32 {
+	return MessagesGetScheduledHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -79,6 +85,16 @@ func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetScheduledHistoryRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetScheduledHistoryRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

@@ -60,6 +60,12 @@ func (c *AuthCheckPasswordRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AuthCheckPasswordRequest) TypeID() uint32 {
+	return AuthCheckPasswordRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -73,6 +79,11 @@ func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode auth.checkPassword#d18b4d16: field password: %w", err)
 	}
 	return nil
+}
+
+// GetPassword returns value of Password field.
+func (c *AuthCheckPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return c.Password
 }
 
 // Decode implements bin.Decoder.

@@ -99,6 +99,12 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *PhotosUploadProfilePhotoRequest) TypeID() uint32 {
+	return PhotosUploadProfilePhotoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {

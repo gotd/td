@@ -64,6 +64,12 @@ func (s *AccountSetPrivacyRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSetPrivacyRequest) TypeID() uint32 {
+	return AccountSetPrivacyRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSetPrivacyRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -86,6 +92,16 @@ func (s *AccountSetPrivacyRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (s *AccountSetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
+	return s.Key
+}
+
+// GetRules returns value of Rules field.
+func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
+	return s.Rules
 }
 
 // Decode implements bin.Decoder.

@@ -62,6 +62,12 @@ func (i *InvokeWithMessagesRangeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InvokeWithMessagesRangeRequest) TypeID() uint32 {
+	return InvokeWithMessagesRangeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InvokeWithMessagesRangeRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -75,6 +81,16 @@ func (i *InvokeWithMessagesRangeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode invokeWithMessagesRange#365275f2: field query: %w", err)
 	}
 	return nil
+}
+
+// GetRange returns value of Range field.
+func (i *InvokeWithMessagesRangeRequest) GetRange() (value MessageRange) {
+	return i.Range
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithMessagesRangeRequest) GetQuery() (value bin.Object) {
+	return i.Query
 }
 
 // Decode implements bin.Decoder.

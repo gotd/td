@@ -60,6 +60,12 @@ func (d *FoldersDeleteFolderRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *FoldersDeleteFolderRequest) TypeID() uint32 {
+	return FoldersDeleteFolderRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *FoldersDeleteFolderRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -68,6 +74,11 @@ func (d *FoldersDeleteFolderRequest) Encode(b *bin.Buffer) error {
 	b.PutID(FoldersDeleteFolderRequestTypeID)
 	b.PutInt(d.FolderID)
 	return nil
+}
+
+// GetFolderID returns value of FolderID field.
+func (d *FoldersDeleteFolderRequest) GetFolderID() (value int) {
+	return d.FolderID
 }
 
 // Decode implements bin.Decoder.

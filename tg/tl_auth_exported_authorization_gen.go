@@ -62,6 +62,12 @@ func (e *AuthExportedAuthorization) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *AuthExportedAuthorization) TypeID() uint32 {
+	return AuthExportedAuthorizationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *AuthExportedAuthorization) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -71,6 +77,16 @@ func (e *AuthExportedAuthorization) Encode(b *bin.Buffer) error {
 	b.PutInt(e.ID)
 	b.PutBytes(e.Bytes)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *AuthExportedAuthorization) GetID() (value int) {
+	return e.ID
+}
+
+// GetBytes returns value of Bytes field.
+func (e *AuthExportedAuthorization) GetBytes() (value []byte) {
+	return e.Bytes
 }
 
 // Decode implements bin.Decoder.

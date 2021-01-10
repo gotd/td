@@ -86,6 +86,12 @@ func (e *ChannelsExportMessageLinkRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsExportMessageLinkRequest) TypeID() uint32 {
+	return ChannelsExportMessageLinkRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -122,6 +128,11 @@ func (e *ChannelsExportMessageLinkRequest) SetGrouped(value bool) {
 	}
 }
 
+// GetGrouped returns value of Grouped conditional field.
+func (e *ChannelsExportMessageLinkRequest) GetGrouped() (value bool) {
+	return e.Flags.Has(0)
+}
+
 // SetThread sets value of Thread conditional field.
 func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
 	if value {
@@ -131,6 +142,21 @@ func (e *ChannelsExportMessageLinkRequest) SetThread(value bool) {
 		e.Flags.Unset(1)
 		e.Thread = false
 	}
+}
+
+// GetThread returns value of Thread conditional field.
+func (e *ChannelsExportMessageLinkRequest) GetThread() (value bool) {
+	return e.Flags.Has(1)
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsExportMessageLinkRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetID returns value of ID field.
+func (e *ChannelsExportMessageLinkRequest) GetID() (value int) {
+	return e.ID
 }
 
 // Decode implements bin.Decoder.

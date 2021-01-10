@@ -53,6 +53,12 @@ func (r *ResponseID) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ResponseID) TypeID() uint32 {
+	return ResponseIDTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ResponseID) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -61,6 +67,11 @@ func (r *ResponseID) Encode(b *bin.Buffer) error {
 	b.PutID(ResponseIDTypeID)
 	b.PutInt32(r.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (r *ResponseID) GetID() (value int32) {
+	return r.ID
 }
 
 // Decode implements bin.Decoder.
@@ -129,6 +140,12 @@ func (r *ResponseText) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ResponseText) TypeID() uint32 {
+	return ResponseTextTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ResponseText) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -137,6 +154,11 @@ func (r *ResponseText) Encode(b *bin.Buffer) error {
 	b.PutID(ResponseTextTypeID)
 	b.PutString(r.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (r *ResponseText) GetText() (value string) {
+	return r.Text
 }
 
 // Decode implements bin.Decoder.
@@ -187,7 +209,12 @@ type ResponseClass interface {
 	bin.Decoder
 	construct() ResponseClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

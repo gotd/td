@@ -73,6 +73,12 @@ func (u *UpdateNewMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNewMessage) TypeID() uint32 {
+	return UpdateNewMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -88,6 +94,21 @@ func (u *UpdateNewMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateNewMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateNewMessage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -182,6 +203,12 @@ func (u *UpdateMessageID) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateMessageID) TypeID() uint32 {
+	return UpdateMessageIDTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateMessageID) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -191,6 +218,16 @@ func (u *UpdateMessageID) Encode(b *bin.Buffer) error {
 	b.PutInt(u.ID)
 	b.PutLong(u.RandomID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *UpdateMessageID) GetID() (value int) {
+	return u.ID
+}
+
+// GetRandomID returns value of RandomID field.
+func (u *UpdateMessageID) GetRandomID() (value int64) {
+	return u.RandomID
 }
 
 // Decode implements bin.Decoder.
@@ -288,6 +325,12 @@ func (u *UpdateDeleteMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDeleteMessages) TypeID() uint32 {
+	return UpdateDeleteMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -301,6 +344,21 @@ func (u *UpdateDeleteMessages) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateDeleteMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateDeleteMessages) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -401,6 +459,12 @@ func (u *UpdateUserTyping) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateUserTyping) TypeID() uint32 {
+	return UpdateUserTypingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -415,6 +479,16 @@ func (u *UpdateUserTyping) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateUserTyping#5c486927: field action: %w", err)
 	}
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserTyping) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetAction returns value of Action field.
+func (u *UpdateUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
 }
 
 // Decode implements bin.Decoder.
@@ -510,6 +584,12 @@ func (u *UpdateChatUserTyping) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatUserTyping) TypeID() uint32 {
+	return UpdateChatUserTypingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatUserTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -525,6 +605,21 @@ func (u *UpdateChatUserTyping) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateChatUserTyping#9a65ea1f: field action: %w", err)
 	}
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatUserTyping) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatUserTyping) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetAction returns value of Action field.
+func (u *UpdateChatUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
 }
 
 // Decode implements bin.Decoder.
@@ -608,6 +703,12 @@ func (u *UpdateChatParticipants) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatParticipants) TypeID() uint32 {
+	return UpdateChatParticipantsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipants) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -621,6 +722,11 @@ func (u *UpdateChatParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateChatParticipants#7761198: field participants: %w", err)
 	}
 	return nil
+}
+
+// GetParticipants returns value of Participants field.
+func (u *UpdateChatParticipants) GetParticipants() (value ChatParticipantsClass) {
+	return u.Participants
 }
 
 // Decode implements bin.Decoder.
@@ -698,6 +804,12 @@ func (u *UpdateUserStatus) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateUserStatus) TypeID() uint32 {
+	return UpdateUserStatusTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserStatus) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -712,6 +824,16 @@ func (u *UpdateUserStatus) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateUserStatus#1bfbd823: field status: %w", err)
 	}
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserStatus) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetStatus returns value of Status field.
+func (u *UpdateUserStatus) GetStatus() (value UserStatusClass) {
+	return u.Status
 }
 
 // Decode implements bin.Decoder.
@@ -821,6 +943,12 @@ func (u *UpdateUserName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateUserName) TypeID() uint32 {
+	return UpdateUserNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserName) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -832,6 +960,26 @@ func (u *UpdateUserName) Encode(b *bin.Buffer) error {
 	b.PutString(u.LastName)
 	b.PutString(u.Username)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserName) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetFirstName returns value of FirstName field.
+func (u *UpdateUserName) GetFirstName() (value string) {
+	return u.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (u *UpdateUserName) GetLastName() (value string) {
+	return u.LastName
+}
+
+// GetUsername returns value of Username field.
+func (u *UpdateUserName) GetUsername() (value string) {
+	return u.Username
 }
 
 // Decode implements bin.Decoder.
@@ -949,6 +1097,12 @@ func (u *UpdateUserPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateUserPhoto) TypeID() uint32 {
+	return UpdateUserPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserPhoto) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -965,6 +1119,26 @@ func (u *UpdateUserPhoto) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(u.Previous)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserPhoto) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateUserPhoto) GetDate() (value int) {
+	return u.Date
+}
+
+// GetPhoto returns value of Photo field.
+func (u *UpdateUserPhoto) GetPhoto() (value UserProfilePhotoClass) {
+	return u.Photo
+}
+
+// GetPrevious returns value of Previous field.
+func (u *UpdateUserPhoto) GetPrevious() (value bool) {
+	return u.Previous
 }
 
 // Decode implements bin.Decoder.
@@ -1063,6 +1237,12 @@ func (u *UpdateNewEncryptedMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNewEncryptedMessage) TypeID() uint32 {
+	return UpdateNewEncryptedMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewEncryptedMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1077,6 +1257,16 @@ func (u *UpdateNewEncryptedMessage) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Qts)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewEncryptedMessage) GetMessage() (value EncryptedMessageClass) {
+	return u.Message
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateNewEncryptedMessage) GetQts() (value int) {
+	return u.Qts
 }
 
 // Decode implements bin.Decoder.
@@ -1153,6 +1343,12 @@ func (u *UpdateEncryptedChatTyping) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateEncryptedChatTyping) TypeID() uint32 {
+	return UpdateEncryptedChatTypingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEncryptedChatTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1161,6 +1357,11 @@ func (u *UpdateEncryptedChatTyping) Encode(b *bin.Buffer) error {
 	b.PutID(UpdateEncryptedChatTypingTypeID)
 	b.PutInt(u.ChatID)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateEncryptedChatTyping) GetChatID() (value int) {
+	return u.ChatID
 }
 
 // Decode implements bin.Decoder.
@@ -1238,6 +1439,12 @@ func (u *UpdateEncryption) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateEncryption) TypeID() uint32 {
+	return UpdateEncryptionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEncryption) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1252,6 +1459,16 @@ func (u *UpdateEncryption) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Date)
 	return nil
+}
+
+// GetChat returns value of Chat field.
+func (u *UpdateEncryption) GetChat() (value EncryptedChatClass) {
+	return u.Chat
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateEncryption) GetDate() (value int) {
+	return u.Date
 }
 
 // Decode implements bin.Decoder.
@@ -1344,6 +1561,12 @@ func (u *UpdateEncryptedMessagesRead) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateEncryptedMessagesRead) TypeID() uint32 {
+	return UpdateEncryptedMessagesReadTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEncryptedMessagesRead) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1354,6 +1577,21 @@ func (u *UpdateEncryptedMessagesRead) Encode(b *bin.Buffer) error {
 	b.PutInt(u.MaxDate)
 	b.PutInt(u.Date)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateEncryptedMessagesRead) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (u *UpdateEncryptedMessagesRead) GetMaxDate() (value int) {
+	return u.MaxDate
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateEncryptedMessagesRead) GetDate() (value int) {
+	return u.Date
 }
 
 // Decode implements bin.Decoder.
@@ -1469,6 +1707,12 @@ func (u *UpdateChatParticipantAdd) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatParticipantAdd) TypeID() uint32 {
+	return UpdateChatParticipantAddTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantAdd) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1481,6 +1725,31 @@ func (u *UpdateChatParticipantAdd) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	b.PutInt(u.Version)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantAdd) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantAdd) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetInviterID returns value of InviterID field.
+func (u *UpdateChatParticipantAdd) GetInviterID() (value int) {
+	return u.InviterID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateChatParticipantAdd) GetDate() (value int) {
+	return u.Date
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantAdd) GetVersion() (value int) {
+	return u.Version
 }
 
 // Decode implements bin.Decoder.
@@ -1594,6 +1863,12 @@ func (u *UpdateChatParticipantDelete) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatParticipantDelete) TypeID() uint32 {
+	return UpdateChatParticipantDeleteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantDelete) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1604,6 +1879,21 @@ func (u *UpdateChatParticipantDelete) Encode(b *bin.Buffer) error {
 	b.PutInt(u.UserID)
 	b.PutInt(u.Version)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantDelete) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantDelete) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantDelete) GetVersion() (value int) {
+	return u.Version
 }
 
 // Decode implements bin.Decoder.
@@ -1689,6 +1979,12 @@ func (u *UpdateDcOptions) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDcOptions) TypeID() uint32 {
+	return UpdateDcOptionsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDcOptions) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1702,6 +1998,11 @@ func (u *UpdateDcOptions) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetDCOptions returns value of DCOptions field.
+func (u *UpdateDcOptions) GetDCOptions() (value []DcOption) {
+	return u.DCOptions
 }
 
 // Decode implements bin.Decoder.
@@ -1785,6 +2086,12 @@ func (u *UpdateNotifySettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNotifySettings) TypeID() uint32 {
+	return UpdateNotifySettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNotifySettings) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1801,6 +2108,16 @@ func (u *UpdateNotifySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateNotifySettings#bec268ef: field notify_settings: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateNotifySettings) GetPeer() (value NotifyPeerClass) {
+	return u.Peer
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (u *UpdateNotifySettings) GetNotifySettings() (value PeerNotifySettings) {
+	return u.NotifySettings
 }
 
 // Decode implements bin.Decoder.
@@ -1936,6 +2253,12 @@ func (u *UpdateServiceNotification) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateServiceNotification) TypeID() uint32 {
+	return UpdateServiceNotificationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateServiceNotification) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -1985,6 +2308,11 @@ func (u *UpdateServiceNotification) SetPopup(value bool) {
 	}
 }
 
+// GetPopup returns value of Popup conditional field.
+func (u *UpdateServiceNotification) GetPopup() (value bool) {
+	return u.Flags.Has(0)
+}
+
 // SetInboxDate sets value of InboxDate conditional field.
 func (u *UpdateServiceNotification) SetInboxDate(value int) {
 	u.Flags.Set(1)
@@ -1998,6 +2326,26 @@ func (u *UpdateServiceNotification) GetInboxDate() (value int, ok bool) {
 		return value, false
 	}
 	return u.InboxDate, true
+}
+
+// GetType returns value of Type field.
+func (u *UpdateServiceNotification) GetType() (value string) {
+	return u.Type
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateServiceNotification) GetMessage() (value string) {
+	return u.Message
+}
+
+// GetMedia returns value of Media field.
+func (u *UpdateServiceNotification) GetMedia() (value MessageMediaClass) {
+	return u.Media
+}
+
+// GetEntities returns value of Entities field.
+func (u *UpdateServiceNotification) GetEntities() (value []MessageEntityClass) {
+	return u.Entities
 }
 
 // Decode implements bin.Decoder.
@@ -2117,6 +2465,12 @@ func (u *UpdatePrivacy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePrivacy) TypeID() uint32 {
+	return UpdatePrivacyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePrivacy) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2139,6 +2493,16 @@ func (u *UpdatePrivacy) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (u *UpdatePrivacy) GetKey() (value PrivacyKeyClass) {
+	return u.Key
+}
+
+// GetRules returns value of Rules field.
+func (u *UpdatePrivacy) GetRules() (value []PrivacyRuleClass) {
+	return u.Rules
 }
 
 // Decode implements bin.Decoder.
@@ -2229,6 +2593,12 @@ func (u *UpdateUserPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateUserPhone) TypeID() uint32 {
+	return UpdateUserPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateUserPhone) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2238,6 +2608,16 @@ func (u *UpdateUserPhone) Encode(b *bin.Buffer) error {
 	b.PutInt(u.UserID)
 	b.PutString(u.Phone)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateUserPhone) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetPhone returns value of Phone field.
+func (u *UpdateUserPhone) GetPhone() (value string) {
+	return u.Phone
 }
 
 // Decode implements bin.Decoder.
@@ -2378,6 +2758,12 @@ func (u *UpdateReadHistoryInbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadHistoryInbox) TypeID() uint32 {
+	return UpdateReadHistoryInboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadHistoryInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2419,6 +2805,31 @@ func (u *UpdateReadHistoryInbox) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return u.FolderID, true
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateReadHistoryInbox) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadHistoryInbox) GetMaxID() (value int) {
+	return u.MaxID
+}
+
+// GetStillUnreadCount returns value of StillUnreadCount field.
+func (u *UpdateReadHistoryInbox) GetStillUnreadCount() (value int) {
+	return u.StillUnreadCount
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadHistoryInbox) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadHistoryInbox) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -2558,6 +2969,12 @@ func (u *UpdateReadHistoryOutbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadHistoryOutbox) TypeID() uint32 {
+	return UpdateReadHistoryOutboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadHistoryOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2574,6 +2991,26 @@ func (u *UpdateReadHistoryOutbox) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateReadHistoryOutbox) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadHistoryOutbox) GetMaxID() (value int) {
+	return u.MaxID
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadHistoryOutbox) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadHistoryOutbox) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -2689,6 +3126,12 @@ func (u *UpdateWebPage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateWebPage) TypeID() uint32 {
+	return UpdateWebPageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateWebPage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2704,6 +3147,21 @@ func (u *UpdateWebPage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetWebpage returns value of Webpage field.
+func (u *UpdateWebPage) GetWebpage() (value WebPageClass) {
+	return u.Webpage
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateWebPage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateWebPage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -2814,6 +3272,12 @@ func (u *UpdateReadMessagesContents) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadMessagesContents) TypeID() uint32 {
+	return UpdateReadMessagesContentsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadMessagesContents) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2827,6 +3291,21 @@ func (u *UpdateReadMessagesContents) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateReadMessagesContents) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadMessagesContents) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateReadMessagesContents) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -2943,6 +3422,12 @@ func (u *UpdateChannelTooLong) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelTooLong) TypeID() uint32 {
+	return UpdateChannelTooLongTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -2960,6 +3445,11 @@ func (u *UpdateChannelTooLong) Encode(b *bin.Buffer) error {
 		b.PutInt(u.Pts)
 	}
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelTooLong) GetChannelID() (value int) {
+	return u.ChannelID
 }
 
 // SetPts sets value of Pts conditional field.
@@ -3056,6 +3546,12 @@ func (u *UpdateChannel) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannel) TypeID() uint32 {
+	return UpdateChannelTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannel) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3064,6 +3560,11 @@ func (u *UpdateChannel) Encode(b *bin.Buffer) error {
 	b.PutID(UpdateChannelTypeID)
 	b.PutInt(u.ChannelID)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannel) GetChannelID() (value int) {
+	return u.ChannelID
 }
 
 // Decode implements bin.Decoder.
@@ -3158,6 +3659,12 @@ func (u *UpdateNewChannelMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNewChannelMessage) TypeID() uint32 {
+	return UpdateNewChannelMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewChannelMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3173,6 +3680,21 @@ func (u *UpdateNewChannelMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewChannelMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateNewChannelMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateNewChannelMessage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -3312,6 +3834,12 @@ func (u *UpdateReadChannelInbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadChannelInbox) TypeID() uint32 {
+	return UpdateReadChannelInboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3347,6 +3875,26 @@ func (u *UpdateReadChannelInbox) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return u.FolderID, true
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelInbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadChannelInbox) GetMaxID() (value int) {
+	return u.MaxID
+}
+
+// GetStillUnreadCount returns value of StillUnreadCount field.
+func (u *UpdateReadChannelInbox) GetStillUnreadCount() (value int) {
+	return u.StillUnreadCount
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateReadChannelInbox) GetPts() (value int) {
+	return u.Pts
 }
 
 // Decode implements bin.Decoder.
@@ -3484,6 +4032,12 @@ func (u *UpdateDeleteChannelMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDeleteChannelMessages) TypeID() uint32 {
+	return UpdateDeleteChannelMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteChannelMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3498,6 +4052,26 @@ func (u *UpdateDeleteChannelMessages) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateDeleteChannelMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteChannelMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateDeleteChannelMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateDeleteChannelMessages) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -3610,6 +4184,12 @@ func (u *UpdateChannelMessageViews) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelMessageViews) TypeID() uint32 {
+	return UpdateChannelMessageViewsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelMessageViews) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3620,6 +4200,21 @@ func (u *UpdateChannelMessageViews) Encode(b *bin.Buffer) error {
 	b.PutInt(u.ID)
 	b.PutInt(u.Views)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelMessageViews) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetID returns value of ID field.
+func (u *UpdateChannelMessageViews) GetID() (value int) {
+	return u.ID
+}
+
+// GetViews returns value of Views field.
+func (u *UpdateChannelMessageViews) GetViews() (value int) {
+	return u.Views
 }
 
 // Decode implements bin.Decoder.
@@ -3730,6 +4325,12 @@ func (u *UpdateChatParticipantAdmin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatParticipantAdmin) TypeID() uint32 {
+	return UpdateChatParticipantAdminTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3741,6 +4342,26 @@ func (u *UpdateChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	b.PutBool(u.IsAdmin)
 	b.PutInt(u.Version)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipantAdmin) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipantAdmin) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetIsAdmin returns value of IsAdmin field.
+func (u *UpdateChatParticipantAdmin) GetIsAdmin() (value bool) {
+	return u.IsAdmin
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatParticipantAdmin) GetVersion() (value int) {
+	return u.Version
 }
 
 // Decode implements bin.Decoder.
@@ -3831,6 +4452,12 @@ func (u *UpdateNewStickerSet) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNewStickerSet) TypeID() uint32 {
+	return UpdateNewStickerSetTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewStickerSet) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3841,6 +4468,11 @@ func (u *UpdateNewStickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateNewStickerSet#688a30aa: field stickerset: %w", err)
 	}
 	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (u *UpdateNewStickerSet) GetStickerset() (value MessagesStickerSet) {
+	return u.Stickerset
 }
 
 // Decode implements bin.Decoder.
@@ -3926,6 +4558,12 @@ func (u *UpdateStickerSetsOrder) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateStickerSetsOrder) TypeID() uint32 {
+	return UpdateStickerSetsOrderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSetsOrder) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -3954,6 +4592,16 @@ func (u *UpdateStickerSetsOrder) SetMasks(value bool) {
 		u.Flags.Unset(0)
 		u.Masks = false
 	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (u *UpdateStickerSetsOrder) GetMasks() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetOrder returns value of Order field.
+func (u *UpdateStickerSetsOrder) GetOrder() (value []int64) {
+	return u.Order
 }
 
 // Decode implements bin.Decoder.
@@ -4030,6 +4678,12 @@ func (u *UpdateStickerSets) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateStickerSets) TypeID() uint32 {
+	return UpdateStickerSetsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4092,6 +4746,12 @@ func (u *UpdateSavedGifs) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateSavedGifs) TypeID() uint32 {
+	return UpdateSavedGifsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -4222,6 +4882,12 @@ func (u *UpdateBotInlineQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotInlineQuery) TypeID() uint32 {
+	return UpdateBotInlineQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4260,6 +4926,21 @@ func (u *UpdateBotInlineQuery) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotInlineQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotInlineQuery) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetQuery returns value of Query field.
+func (u *UpdateBotInlineQuery) GetQuery() (value string) {
+	return u.Query
+}
+
 // SetGeo sets value of Geo conditional field.
 func (u *UpdateBotInlineQuery) SetGeo(value GeoPointClass) {
 	u.Flags.Set(0)
@@ -4288,6 +4969,11 @@ func (u *UpdateBotInlineQuery) GetPeerType() (value InlineQueryPeerTypeClass, ok
 		return value, false
 	}
 	return u.PeerType, true
+}
+
+// GetOffset returns value of Offset field.
+func (u *UpdateBotInlineQuery) GetOffset() (value string) {
+	return u.Offset
 }
 
 // Decode implements bin.Decoder.
@@ -4451,6 +5137,12 @@ func (u *UpdateBotInlineSend) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotInlineSend) TypeID() uint32 {
+	return UpdateBotInlineSendTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotInlineSend) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4485,6 +5177,16 @@ func (u *UpdateBotInlineSend) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetUserID returns value of UserID field.
+func (u *UpdateBotInlineSend) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetQuery returns value of Query field.
+func (u *UpdateBotInlineSend) GetQuery() (value string) {
+	return u.Query
+}
+
 // SetGeo sets value of Geo conditional field.
 func (u *UpdateBotInlineSend) SetGeo(value GeoPointClass) {
 	u.Flags.Set(0)
@@ -4498,6 +5200,11 @@ func (u *UpdateBotInlineSend) GetGeo() (value GeoPointClass, ok bool) {
 		return value, false
 	}
 	return u.Geo, true
+}
+
+// GetID returns value of ID field.
+func (u *UpdateBotInlineSend) GetID() (value string) {
+	return u.ID
 }
 
 // SetMsgID sets value of MsgID conditional field.
@@ -4638,6 +5345,12 @@ func (u *UpdateEditChannelMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateEditChannelMessage) TypeID() uint32 {
+	return UpdateEditChannelMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEditChannelMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4653,6 +5366,21 @@ func (u *UpdateEditChannelMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateEditChannelMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateEditChannelMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateEditChannelMessage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -4803,6 +5531,12 @@ func (u *UpdateBotCallbackQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotCallbackQuery) TypeID() uint32 {
+	return UpdateBotCallbackQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotCallbackQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4835,6 +5569,31 @@ func (u *UpdateBotCallbackQuery) Encode(b *bin.Buffer) error {
 		b.PutString(u.GameShortName)
 	}
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotCallbackQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotCallbackQuery) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateBotCallbackQuery) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateBotCallbackQuery) GetMsgID() (value int) {
+	return u.MsgID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateBotCallbackQuery) GetChatInstance() (value int64) {
+	return u.ChatInstance
 }
 
 // SetData sets value of Data conditional field.
@@ -5003,6 +5762,12 @@ func (u *UpdateEditMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateEditMessage) TypeID() uint32 {
+	return UpdateEditMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateEditMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5018,6 +5783,21 @@ func (u *UpdateEditMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateEditMessage) GetMessage() (value MessageClass) {
+	return u.Message
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateEditMessage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateEditMessage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -5160,6 +5940,12 @@ func (u *UpdateInlineBotCallbackQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateInlineBotCallbackQuery) TypeID() uint32 {
+	return UpdateInlineBotCallbackQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateInlineBotCallbackQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5188,6 +5974,26 @@ func (u *UpdateInlineBotCallbackQuery) Encode(b *bin.Buffer) error {
 		b.PutString(u.GameShortName)
 	}
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateInlineBotCallbackQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateInlineBotCallbackQuery) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateInlineBotCallbackQuery) GetMsgID() (value InputBotInlineMessageID) {
+	return u.MsgID
+}
+
+// GetChatInstance returns value of ChatInstance field.
+func (u *UpdateInlineBotCallbackQuery) GetChatInstance() (value int64) {
+	return u.ChatInstance
 }
 
 // SetData sets value of Data conditional field.
@@ -5336,6 +6142,12 @@ func (u *UpdateReadChannelOutbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadChannelOutbox) TypeID() uint32 {
+	return UpdateReadChannelOutboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5345,6 +6157,16 @@ func (u *UpdateReadChannelOutbox) Encode(b *bin.Buffer) error {
 	b.PutInt(u.ChannelID)
 	b.PutInt(u.MaxID)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelOutbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMaxID returns value of MaxID field.
+func (u *UpdateReadChannelOutbox) GetMaxID() (value int) {
+	return u.MaxID
 }
 
 // Decode implements bin.Decoder.
@@ -5432,6 +6254,12 @@ func (u *UpdateDraftMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDraftMessage) TypeID() uint32 {
+	return UpdateDraftMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDraftMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5451,6 +6279,16 @@ func (u *UpdateDraftMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateDraftMessage#ee2bb969: field draft: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateDraftMessage) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetDraft returns value of Draft field.
+func (u *UpdateDraftMessage) GetDraft() (value DraftMessageClass) {
+	return u.Draft
 }
 
 // Decode implements bin.Decoder.
@@ -5519,6 +6357,12 @@ func (u *UpdateReadFeaturedStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadFeaturedStickers) TypeID() uint32 {
+	return UpdateReadFeaturedStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadFeaturedStickers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5578,6 +6422,12 @@ func (u *UpdateRecentStickers) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateRecentStickers) TypeID() uint32 {
+	return UpdateRecentStickersTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -5644,6 +6494,12 @@ func (u *UpdateConfig) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateConfig) TypeID() uint32 {
+	return UpdateConfigTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateConfig) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5707,6 +6563,12 @@ func (u *UpdatePtsChanged) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePtsChanged) TypeID() uint32 {
+	return UpdatePtsChangedTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -5814,6 +6676,12 @@ func (u *UpdateChannelWebPage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelWebPage) TypeID() uint32 {
+	return UpdateChannelWebPageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelWebPage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5830,6 +6698,26 @@ func (u *UpdateChannelWebPage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelWebPage) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetWebpage returns value of Webpage field.
+func (u *UpdateChannelWebPage) GetWebpage() (value WebPageClass) {
+	return u.Webpage
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateChannelWebPage) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateChannelWebPage) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -5951,6 +6839,12 @@ func (u *UpdateDialogPinned) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDialogPinned) TypeID() uint32 {
+	return UpdateDialogPinnedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogPinned) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -5989,6 +6883,11 @@ func (u *UpdateDialogPinned) SetPinned(value bool) {
 	}
 }
 
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdateDialogPinned) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
+
 // SetFolderID sets value of FolderID conditional field.
 func (u *UpdateDialogPinned) SetFolderID(value int) {
 	u.Flags.Set(1)
@@ -6002,6 +6901,11 @@ func (u *UpdateDialogPinned) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return u.FolderID, true
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateDialogPinned) GetPeer() (value DialogPeerClass) {
+	return u.Peer
 }
 
 // Decode implements bin.Decoder.
@@ -6114,6 +7018,12 @@ func (u *UpdatePinnedDialogs) String() string {
 	}
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePinnedDialogs) TypeID() uint32 {
+	return UpdatePinnedDialogsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -6263,6 +7173,12 @@ func (u *UpdateBotWebhookJSON) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotWebhookJSON) TypeID() uint32 {
+	return UpdateBotWebhookJSONTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotWebhookJSON) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6273,6 +7189,11 @@ func (u *UpdateBotWebhookJSON) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateBotWebhookJSON#8317c0c3: field data: %w", err)
 	}
 	return nil
+}
+
+// GetData returns value of Data field.
+func (u *UpdateBotWebhookJSON) GetData() (value DataJSON) {
+	return u.Data
 }
 
 // Decode implements bin.Decoder.
@@ -6356,6 +7277,12 @@ func (u *UpdateBotWebhookJSONQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotWebhookJSONQuery) TypeID() uint32 {
+	return UpdateBotWebhookJSONQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotWebhookJSONQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6368,6 +7295,21 @@ func (u *UpdateBotWebhookJSONQuery) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Timeout)
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotWebhookJSONQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetData returns value of Data field.
+func (u *UpdateBotWebhookJSONQuery) GetData() (value DataJSON) {
+	return u.Data
+}
+
+// GetTimeout returns value of Timeout field.
+func (u *UpdateBotWebhookJSONQuery) GetTimeout() (value int) {
+	return u.Timeout
 }
 
 // Decode implements bin.Decoder.
@@ -6473,6 +7415,12 @@ func (u *UpdateBotShippingQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotShippingQuery) TypeID() uint32 {
+	return UpdateBotShippingQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotShippingQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6486,6 +7434,26 @@ func (u *UpdateBotShippingQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateBotShippingQuery#e0cdc940: field shipping_address: %w", err)
 	}
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotShippingQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotShippingQuery) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdateBotShippingQuery) GetPayload() (value []byte) {
+	return u.Payload
+}
+
+// GetShippingAddress returns value of ShippingAddress field.
+func (u *UpdateBotShippingQuery) GetShippingAddress() (value PostAddress) {
+	return u.ShippingAddress
 }
 
 // Decode implements bin.Decoder.
@@ -6647,6 +7615,12 @@ func (u *UpdateBotPrecheckoutQuery) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotPrecheckoutQuery) TypeID() uint32 {
+	return UpdateBotPrecheckoutQueryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateBotPrecheckoutQuery) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6678,6 +7652,21 @@ func (u *UpdateBotPrecheckoutQuery) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetQueryID returns value of QueryID field.
+func (u *UpdateBotPrecheckoutQuery) GetQueryID() (value int64) {
+	return u.QueryID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotPrecheckoutQuery) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetPayload returns value of Payload field.
+func (u *UpdateBotPrecheckoutQuery) GetPayload() (value []byte) {
+	return u.Payload
+}
+
 // SetInfo sets value of Info conditional field.
 func (u *UpdateBotPrecheckoutQuery) SetInfo(value PaymentRequestedInfo) {
 	u.Flags.Set(0)
@@ -6706,6 +7695,16 @@ func (u *UpdateBotPrecheckoutQuery) GetShippingOptionID() (value string, ok bool
 		return value, false
 	}
 	return u.ShippingOptionID, true
+}
+
+// GetCurrency returns value of Currency field.
+func (u *UpdateBotPrecheckoutQuery) GetCurrency() (value string) {
+	return u.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (u *UpdateBotPrecheckoutQuery) GetTotalAmount() (value int64) {
+	return u.TotalAmount
 }
 
 // Decode implements bin.Decoder.
@@ -6820,6 +7819,12 @@ func (u *UpdatePhoneCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePhoneCall) TypeID() uint32 {
+	return UpdatePhoneCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePhoneCall) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6833,6 +7838,11 @@ func (u *UpdatePhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updatePhoneCall#ab0f6b1e: field phone_call: %w", err)
 	}
 	return nil
+}
+
+// GetPhoneCall returns value of PhoneCall field.
+func (u *UpdatePhoneCall) GetPhoneCall() (value PhoneCallClass) {
+	return u.PhoneCall
 }
 
 // Decode implements bin.Decoder.
@@ -6905,6 +7915,12 @@ func (u *UpdateLangPackTooLong) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateLangPackTooLong) TypeID() uint32 {
+	return UpdateLangPackTooLongTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateLangPackTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6913,6 +7929,11 @@ func (u *UpdateLangPackTooLong) Encode(b *bin.Buffer) error {
 	b.PutID(UpdateLangPackTooLongTypeID)
 	b.PutString(u.LangCode)
 	return nil
+}
+
+// GetLangCode returns value of LangCode field.
+func (u *UpdateLangPackTooLong) GetLangCode() (value string) {
+	return u.LangCode
 }
 
 // Decode implements bin.Decoder.
@@ -6982,6 +8003,12 @@ func (u *UpdateLangPack) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateLangPack) TypeID() uint32 {
+	return UpdateLangPackTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateLangPack) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6992,6 +8019,11 @@ func (u *UpdateLangPack) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateLangPack#56022f4d: field difference: %w", err)
 	}
 	return nil
+}
+
+// GetDifference returns value of Difference field.
+func (u *UpdateLangPack) GetDifference() (value LangPackDifference) {
+	return u.Difference
 }
 
 // Decode implements bin.Decoder.
@@ -7052,6 +8084,12 @@ func (u *UpdateFavedStickers) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateFavedStickers) TypeID() uint32 {
+	return UpdateFavedStickersTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -7139,6 +8177,12 @@ func (u *UpdateChannelReadMessagesContents) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelReadMessagesContents) TypeID() uint32 {
+	return UpdateChannelReadMessagesContentsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelReadMessagesContents) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7151,6 +8195,16 @@ func (u *UpdateChannelReadMessagesContents) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelReadMessagesContents) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateChannelReadMessagesContents) GetMessages() (value []int) {
+	return u.Messages
 }
 
 // Decode implements bin.Decoder.
@@ -7223,6 +8277,12 @@ func (u *UpdateContactsReset) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateContactsReset) TypeID() uint32 {
+	return UpdateContactsResetTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -7305,6 +8365,12 @@ func (u *UpdateChannelAvailableMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelAvailableMessages) TypeID() uint32 {
+	return UpdateChannelAvailableMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelAvailableMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7314,6 +8380,16 @@ func (u *UpdateChannelAvailableMessages) Encode(b *bin.Buffer) error {
 	b.PutInt(u.ChannelID)
 	b.PutInt(u.AvailableMinID)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelAvailableMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetAvailableMinID returns value of AvailableMinID field.
+func (u *UpdateChannelAvailableMessages) GetAvailableMinID() (value int) {
+	return u.AvailableMinID
 }
 
 // Decode implements bin.Decoder.
@@ -7406,6 +8482,12 @@ func (u *UpdateDialogUnreadMark) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDialogUnreadMark) TypeID() uint32 {
+	return UpdateDialogUnreadMarkTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogUnreadMark) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7436,6 +8518,16 @@ func (u *UpdateDialogUnreadMark) SetUnread(value bool) {
 		u.Flags.Unset(0)
 		u.Unread = false
 	}
+}
+
+// GetUnread returns value of Unread conditional field.
+func (u *UpdateDialogUnreadMark) GetUnread() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateDialogUnreadMark) GetPeer() (value DialogPeerClass) {
+	return u.Peer
 }
 
 // Decode implements bin.Decoder.
@@ -7542,6 +8634,12 @@ func (u *UpdateMessagePoll) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateMessagePoll) TypeID() uint32 {
+	return UpdateMessagePollTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7566,6 +8664,11 @@ func (u *UpdateMessagePoll) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetPollID returns value of PollID field.
+func (u *UpdateMessagePoll) GetPollID() (value int64) {
+	return u.PollID
+}
+
 // SetPoll sets value of Poll conditional field.
 func (u *UpdateMessagePoll) SetPoll(value Poll) {
 	u.Flags.Set(0)
@@ -7579,6 +8682,11 @@ func (u *UpdateMessagePoll) GetPoll() (value Poll, ok bool) {
 		return value, false
 	}
 	return u.Poll, true
+}
+
+// GetResults returns value of Results field.
+func (u *UpdateMessagePoll) GetResults() (value PollResults) {
+	return u.Results
 }
 
 // Decode implements bin.Decoder.
@@ -7682,6 +8790,12 @@ func (u *UpdateChatDefaultBannedRights) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatDefaultBannedRights) TypeID() uint32 {
+	return UpdateChatDefaultBannedRightsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChatDefaultBannedRights) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7699,6 +8813,21 @@ func (u *UpdateChatDefaultBannedRights) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Version)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateChatDefaultBannedRights) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetDefaultBannedRights returns value of DefaultBannedRights field.
+func (u *UpdateChatDefaultBannedRights) GetDefaultBannedRights() (value ChatBannedRights) {
+	return u.DefaultBannedRights
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateChatDefaultBannedRights) GetVersion() (value int) {
+	return u.Version
 }
 
 // Decode implements bin.Decoder.
@@ -7807,6 +8936,12 @@ func (u *UpdateFolderPeers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateFolderPeers) TypeID() uint32 {
+	return UpdateFolderPeersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateFolderPeers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7822,6 +8957,21 @@ func (u *UpdateFolderPeers) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Pts)
 	b.PutInt(u.PtsCount)
 	return nil
+}
+
+// GetFolderPeers returns value of FolderPeers field.
+func (u *UpdateFolderPeers) GetFolderPeers() (value []FolderPeer) {
+	return u.FolderPeers
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdateFolderPeers) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdateFolderPeers) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -7919,6 +9069,12 @@ func (u *UpdatePeerSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePeerSettings) TypeID() uint32 {
+	return UpdatePeerSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePeerSettings) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -7935,6 +9091,16 @@ func (u *UpdatePeerSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updatePeerSettings#6a7e7366: field settings: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdatePeerSettings) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetSettings returns value of Settings field.
+func (u *UpdatePeerSettings) GetSettings() (value PeerSettings) {
+	return u.Settings
 }
 
 // Decode implements bin.Decoder.
@@ -8011,6 +9177,12 @@ func (u *UpdatePeerLocated) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePeerLocated) TypeID() uint32 {
+	return UpdatePeerLocatedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePeerLocated) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8027,6 +9199,11 @@ func (u *UpdatePeerLocated) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPeers returns value of Peers field.
+func (u *UpdatePeerLocated) GetPeers() (value []PeerLocatedClass) {
+	return u.Peers
 }
 
 // Decode implements bin.Decoder.
@@ -8105,6 +9282,12 @@ func (u *UpdateNewScheduledMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateNewScheduledMessage) TypeID() uint32 {
+	return UpdateNewScheduledMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateNewScheduledMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8118,6 +9301,11 @@ func (u *UpdateNewScheduledMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateNewScheduledMessage#39a51dfb: field message: %w", err)
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (u *UpdateNewScheduledMessage) GetMessage() (value MessageClass) {
+	return u.Message
 }
 
 // Decode implements bin.Decoder.
@@ -8200,6 +9388,12 @@ func (u *UpdateDeleteScheduledMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDeleteScheduledMessages) TypeID() uint32 {
+	return UpdateDeleteScheduledMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDeleteScheduledMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8217,6 +9411,16 @@ func (u *UpdateDeleteScheduledMessages) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateDeleteScheduledMessages) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdateDeleteScheduledMessages) GetMessages() (value []int) {
+	return u.Messages
 }
 
 // Decode implements bin.Decoder.
@@ -8299,6 +9503,12 @@ func (u *UpdateTheme) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateTheme) TypeID() uint32 {
+	return UpdateThemeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateTheme) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8309,6 +9519,11 @@ func (u *UpdateTheme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateTheme#8216fba3: field theme: %w", err)
 	}
 	return nil
+}
+
+// GetTheme returns value of Theme field.
+func (u *UpdateTheme) GetTheme() (value Theme) {
+	return u.Theme
 }
 
 // Decode implements bin.Decoder.
@@ -8384,6 +9599,12 @@ func (u *UpdateGeoLiveViewed) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateGeoLiveViewed) TypeID() uint32 {
+	return UpdateGeoLiveViewedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateGeoLiveViewed) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8398,6 +9619,16 @@ func (u *UpdateGeoLiveViewed) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.MsgID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdateGeoLiveViewed) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (u *UpdateGeoLiveViewed) GetMsgID() (value int) {
+	return u.MsgID
 }
 
 // Decode implements bin.Decoder.
@@ -8464,6 +9695,12 @@ func (u *UpdateLoginToken) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateLoginToken) TypeID() uint32 {
+	return UpdateLoginTokenTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -8553,6 +9790,12 @@ func (u *UpdateMessagePollVote) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateMessagePollVote) TypeID() uint32 {
+	return UpdateMessagePollVoteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8566,6 +9809,21 @@ func (u *UpdateMessagePollVote) Encode(b *bin.Buffer) error {
 		b.PutBytes(v)
 	}
 	return nil
+}
+
+// GetPollID returns value of PollID field.
+func (u *UpdateMessagePollVote) GetPollID() (value int64) {
+	return u.PollID
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateMessagePollVote) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetOptions returns value of Options field.
+func (u *UpdateMessagePollVote) GetOptions() (value [][]byte) {
+	return u.Options
 }
 
 // Decode implements bin.Decoder.
@@ -8687,6 +9945,12 @@ func (u *UpdateDialogFilter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDialogFilter) TypeID() uint32 {
+	return UpdateDialogFilterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilter) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8706,6 +9970,11 @@ func (u *UpdateDialogFilter) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *UpdateDialogFilter) GetID() (value int) {
+	return u.ID
 }
 
 // SetFilter sets value of Filter conditional field.
@@ -8808,6 +10077,12 @@ func (u *UpdateDialogFilterOrder) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDialogFilterOrder) TypeID() uint32 {
+	return UpdateDialogFilterOrderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilterOrder) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8819,6 +10094,11 @@ func (u *UpdateDialogFilterOrder) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetOrder returns value of Order field.
+func (u *UpdateDialogFilterOrder) GetOrder() (value []int) {
+	return u.Order
 }
 
 // Decode implements bin.Decoder.
@@ -8887,6 +10167,12 @@ func (u *UpdateDialogFilters) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateDialogFilters) TypeID() uint32 {
+	return UpdateDialogFiltersTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -8966,6 +10252,12 @@ func (u *UpdatePhoneCallSignalingData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePhoneCallSignalingData) TypeID() uint32 {
+	return UpdatePhoneCallSignalingDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePhoneCallSignalingData) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8975,6 +10267,16 @@ func (u *UpdatePhoneCallSignalingData) Encode(b *bin.Buffer) error {
 	b.PutLong(u.PhoneCallID)
 	b.PutBytes(u.Data)
 	return nil
+}
+
+// GetPhoneCallID returns value of PhoneCallID field.
+func (u *UpdatePhoneCallSignalingData) GetPhoneCallID() (value int64) {
+	return u.PhoneCallID
+}
+
+// GetData returns value of Data field.
+func (u *UpdatePhoneCallSignalingData) GetData() (value []byte) {
+	return u.Data
 }
 
 // Decode implements bin.Decoder.
@@ -9116,6 +10418,12 @@ func (u *UpdateChannelParticipant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelParticipant) TypeID() uint32 {
+	return UpdateChannelParticipantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9154,6 +10462,21 @@ func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelParticipant) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateChannelParticipant) GetDate() (value int) {
+	return u.Date
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChannelParticipant) GetUserID() (value int) {
+	return u.UserID
+}
+
 // SetPrevParticipant sets value of PrevParticipant conditional field.
 func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantClass) {
 	u.Flags.Set(0)
@@ -9182,6 +10505,11 @@ func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipant
 		return value, false
 	}
 	return u.NewParticipant, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateChannelParticipant) GetQts() (value int) {
+	return u.Qts
 }
 
 // Decode implements bin.Decoder.
@@ -9307,6 +10635,12 @@ func (u *UpdateChannelMessageForwards) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelMessageForwards) TypeID() uint32 {
+	return UpdateChannelMessageForwardsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelMessageForwards) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9317,6 +10651,21 @@ func (u *UpdateChannelMessageForwards) Encode(b *bin.Buffer) error {
 	b.PutInt(u.ID)
 	b.PutInt(u.Forwards)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelMessageForwards) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetID returns value of ID field.
+func (u *UpdateChannelMessageForwards) GetID() (value int) {
+	return u.ID
+}
+
+// GetForwards returns value of Forwards field.
+func (u *UpdateChannelMessageForwards) GetForwards() (value int) {
+	return u.Forwards
 }
 
 // Decode implements bin.Decoder.
@@ -9470,6 +10819,12 @@ func (u *UpdateReadChannelDiscussionInbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadChannelDiscussionInbox) TypeID() uint32 {
+	return UpdateReadChannelDiscussionInboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelDiscussionInbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9495,6 +10850,21 @@ func (u *UpdateReadChannelDiscussionInbox) Encode(b *bin.Buffer) error {
 		b.PutInt(u.BroadcastPost)
 	}
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelDiscussionInbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetTopMsgID returns value of TopMsgID field.
+func (u *UpdateReadChannelDiscussionInbox) GetTopMsgID() (value int) {
+	return u.TopMsgID
+}
+
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadChannelDiscussionInbox) GetReadMaxID() (value int) {
+	return u.ReadMaxID
 }
 
 // SetBroadcastID sets value of BroadcastID conditional field.
@@ -9655,6 +11025,12 @@ func (u *UpdateReadChannelDiscussionOutbox) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
+	return UpdateReadChannelDiscussionOutboxTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadChannelDiscussionOutbox) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9665,6 +11041,21 @@ func (u *UpdateReadChannelDiscussionOutbox) Encode(b *bin.Buffer) error {
 	b.PutInt(u.TopMsgID)
 	b.PutInt(u.ReadMaxID)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetTopMsgID returns value of TopMsgID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetTopMsgID() (value int) {
+	return u.TopMsgID
+}
+
+// GetReadMaxID returns value of ReadMaxID field.
+func (u *UpdateReadChannelDiscussionOutbox) GetReadMaxID() (value int) {
+	return u.ReadMaxID
 }
 
 // Decode implements bin.Decoder.
@@ -9756,6 +11147,12 @@ func (u *UpdatePeerBlocked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePeerBlocked) TypeID() uint32 {
+	return UpdatePeerBlockedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePeerBlocked) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9770,6 +11167,16 @@ func (u *UpdatePeerBlocked) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(u.Blocked)
 	return nil
+}
+
+// GetPeerID returns value of PeerID field.
+func (u *UpdatePeerBlocked) GetPeerID() (value PeerClass) {
+	return u.PeerID
+}
+
+// GetBlocked returns value of Blocked field.
+func (u *UpdatePeerBlocked) GetBlocked() (value bool) {
+	return u.Blocked
 }
 
 // Decode implements bin.Decoder.
@@ -9892,6 +11299,12 @@ func (u *UpdateChannelUserTyping) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelUserTyping) TypeID() uint32 {
+	return UpdateChannelUserTypingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChannelUserTyping) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9918,6 +11331,11 @@ func (u *UpdateChannelUserTyping) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelUserTyping) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
 // SetTopMsgID sets value of TopMsgID conditional field.
 func (u *UpdateChannelUserTyping) SetTopMsgID(value int) {
 	u.Flags.Set(0)
@@ -9931,6 +11349,16 @@ func (u *UpdateChannelUserTyping) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return u.TopMsgID, true
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChannelUserTyping) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetAction returns value of Action field.
+func (u *UpdateChannelUserTyping) GetAction() (value SendMessageActionClass) {
+	return u.Action
 }
 
 // Decode implements bin.Decoder.
@@ -10074,6 +11502,12 @@ func (u *UpdatePinnedMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePinnedMessages) TypeID() uint32 {
+	return UpdatePinnedMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10110,6 +11544,31 @@ func (u *UpdatePinnedMessages) SetPinned(value bool) {
 		u.Flags.Unset(0)
 		u.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdatePinnedMessages) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdatePinnedMessages) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdatePinnedMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdatePinnedMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdatePinnedMessages) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -10263,6 +11722,12 @@ func (u *UpdatePinnedChannelMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePinnedChannelMessages) TypeID() uint32 {
+	return UpdatePinnedChannelMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePinnedChannelMessages) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10294,6 +11759,31 @@ func (u *UpdatePinnedChannelMessages) SetPinned(value bool) {
 		u.Flags.Unset(0)
 		u.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (u *UpdatePinnedChannelMessages) GetPinned() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdatePinnedChannelMessages) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetMessages returns value of Messages field.
+func (u *UpdatePinnedChannelMessages) GetMessages() (value []int) {
+	return u.Messages
+}
+
+// GetPts returns value of Pts field.
+func (u *UpdatePinnedChannelMessages) GetPts() (value int) {
+	return u.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (u *UpdatePinnedChannelMessages) GetPtsCount() (value int) {
+	return u.PtsCount
 }
 
 // Decode implements bin.Decoder.
@@ -10395,6 +11885,12 @@ func (u *UpdateChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChat) TypeID() uint32 {
+	return UpdateChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateChat) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10403,6 +11899,11 @@ func (u *UpdateChat) Encode(b *bin.Buffer) error {
 	b.PutID(UpdateChatTypeID)
 	b.PutInt(u.ChatID)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChat) GetChatID() (value int) {
+	return u.ChatID
 }
 
 // Decode implements bin.Decoder.
@@ -10489,6 +11990,12 @@ func (u *UpdateGroupCallParticipants) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateGroupCallParticipants) TypeID() uint32 {
+	return UpdateGroupCallParticipantsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateGroupCallParticipants) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10506,6 +12013,21 @@ func (u *UpdateGroupCallParticipants) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(u.Version)
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (u *UpdateGroupCallParticipants) GetCall() (value InputGroupCall) {
+	return u.Call
+}
+
+// GetParticipants returns value of Participants field.
+func (u *UpdateGroupCallParticipants) GetParticipants() (value []GroupCallParticipant) {
+	return u.Participants
+}
+
+// GetVersion returns value of Version field.
+func (u *UpdateGroupCallParticipants) GetVersion() (value int) {
+	return u.Version
 }
 
 // Decode implements bin.Decoder.
@@ -10600,6 +12122,12 @@ func (u *UpdateGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateGroupCall) TypeID() uint32 {
+	return UpdateGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateGroupCall) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10614,6 +12142,16 @@ func (u *UpdateGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode updateGroupCall#a45eb99b: field call: %w", err)
 	}
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateGroupCall) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetCall returns value of Call field.
+func (u *UpdateGroupCall) GetCall() (value GroupCallClass) {
+	return u.Call
 }
 
 // Decode implements bin.Decoder.
@@ -10757,7 +12295,12 @@ type UpdateClass interface {
 	bin.Decoder
 	construct() UpdateClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

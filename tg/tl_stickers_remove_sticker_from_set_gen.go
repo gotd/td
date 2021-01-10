@@ -54,6 +54,12 @@ func (r *StickersRemoveStickerFromSetRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *StickersRemoveStickerFromSetRequest) TypeID() uint32 {
+	return StickersRemoveStickerFromSetRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -67,6 +73,11 @@ func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode stickers.removeStickerFromSet#f7760f51: field sticker: %w", err)
 	}
 	return nil
+}
+
+// GetSticker returns value of Sticker field.
+func (r *StickersRemoveStickerFromSetRequest) GetSticker() (value InputDocumentClass) {
+	return r.Sticker
 }
 
 // Decode implements bin.Decoder.

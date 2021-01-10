@@ -69,6 +69,12 @@ func (g *GroupCallDiscarded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GroupCallDiscarded) TypeID() uint32 {
+	return GroupCallDiscardedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GroupCallDiscarded) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -79,6 +85,21 @@ func (g *GroupCallDiscarded) Encode(b *bin.Buffer) error {
 	b.PutLong(g.AccessHash)
 	b.PutInt(g.Duration)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (g *GroupCallDiscarded) GetID() (value int64) {
+	return g.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (g *GroupCallDiscarded) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
+
+// GetDuration returns value of Duration field.
+func (g *GroupCallDiscarded) GetDuration() (value int) {
+	return g.Duration
 }
 
 // Decode implements bin.Decoder.
@@ -215,6 +236,12 @@ func (g *GroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GroupCall) TypeID() uint32 {
+	return GroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -256,6 +283,11 @@ func (g *GroupCall) SetJoinMuted(value bool) {
 	}
 }
 
+// GetJoinMuted returns value of JoinMuted conditional field.
+func (g *GroupCall) GetJoinMuted() (value bool) {
+	return g.Flags.Has(1)
+}
+
 // SetCanChangeJoinMuted sets value of CanChangeJoinMuted conditional field.
 func (g *GroupCall) SetCanChangeJoinMuted(value bool) {
 	if value {
@@ -265,6 +297,26 @@ func (g *GroupCall) SetCanChangeJoinMuted(value bool) {
 		g.Flags.Unset(2)
 		g.CanChangeJoinMuted = false
 	}
+}
+
+// GetCanChangeJoinMuted returns value of CanChangeJoinMuted conditional field.
+func (g *GroupCall) GetCanChangeJoinMuted() (value bool) {
+	return g.Flags.Has(2)
+}
+
+// GetID returns value of ID field.
+func (g *GroupCall) GetID() (value int64) {
+	return g.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (g *GroupCall) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
+
+// GetParticipantsCount returns value of ParticipantsCount field.
+func (g *GroupCall) GetParticipantsCount() (value int) {
+	return g.ParticipantsCount
 }
 
 // SetParams sets value of Params conditional field.
@@ -280,6 +332,11 @@ func (g *GroupCall) GetParams() (value DataJSON, ok bool) {
 		return value, false
 	}
 	return g.Params, true
+}
+
+// GetVersion returns value of Version field.
+func (g *GroupCall) GetVersion() (value int) {
+	return g.Version
 }
 
 // Decode implements bin.Decoder.
@@ -363,7 +420,17 @@ type GroupCallClass interface {
 	bin.Decoder
 	construct() GroupCallClass
 
-	fmt.Stringer
+	// ID field of GroupCallDiscarded.
+	GetID() (value int64)
+	// AccessHash field of GroupCallDiscarded.
+	GetAccessHash() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -163,6 +163,12 @@ func (s *StickerSet) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StickerSet) TypeID() uint32 {
+	return StickerSetTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StickerSet) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -230,6 +236,11 @@ func (s *StickerSet) SetArchived(value bool) {
 	}
 }
 
+// GetArchived returns value of Archived conditional field.
+func (s *StickerSet) GetArchived() (value bool) {
+	return s.Flags.Has(1)
+}
+
 // SetOfficial sets value of Official conditional field.
 func (s *StickerSet) SetOfficial(value bool) {
 	if value {
@@ -239,6 +250,11 @@ func (s *StickerSet) SetOfficial(value bool) {
 		s.Flags.Unset(2)
 		s.Official = false
 	}
+}
+
+// GetOfficial returns value of Official conditional field.
+func (s *StickerSet) GetOfficial() (value bool) {
+	return s.Flags.Has(2)
 }
 
 // SetMasks sets value of Masks conditional field.
@@ -252,6 +268,11 @@ func (s *StickerSet) SetMasks(value bool) {
 	}
 }
 
+// GetMasks returns value of Masks conditional field.
+func (s *StickerSet) GetMasks() (value bool) {
+	return s.Flags.Has(3)
+}
+
 // SetAnimated sets value of Animated conditional field.
 func (s *StickerSet) SetAnimated(value bool) {
 	if value {
@@ -261,6 +282,11 @@ func (s *StickerSet) SetAnimated(value bool) {
 		s.Flags.Unset(5)
 		s.Animated = false
 	}
+}
+
+// GetAnimated returns value of Animated conditional field.
+func (s *StickerSet) GetAnimated() (value bool) {
+	return s.Flags.Has(5)
 }
 
 // SetInstalledDate sets value of InstalledDate conditional field.
@@ -276,6 +302,26 @@ func (s *StickerSet) GetInstalledDate() (value int, ok bool) {
 		return value, false
 	}
 	return s.InstalledDate, true
+}
+
+// GetID returns value of ID field.
+func (s *StickerSet) GetID() (value int64) {
+	return s.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (s *StickerSet) GetAccessHash() (value int64) {
+	return s.AccessHash
+}
+
+// GetTitle returns value of Title field.
+func (s *StickerSet) GetTitle() (value string) {
+	return s.Title
+}
+
+// GetShortName returns value of ShortName field.
+func (s *StickerSet) GetShortName() (value string) {
+	return s.ShortName
 }
 
 // SetThumbs sets value of Thumbs conditional field.
@@ -306,6 +352,16 @@ func (s *StickerSet) GetThumbDCID() (value int, ok bool) {
 		return value, false
 	}
 	return s.ThumbDCID, true
+}
+
+// GetCount returns value of Count field.
+func (s *StickerSet) GetCount() (value int) {
+	return s.Count
+}
+
+// GetHash returns value of Hash field.
+func (s *StickerSet) GetHash() (value int) {
+	return s.Hash
 }
 
 // Decode implements bin.Decoder.

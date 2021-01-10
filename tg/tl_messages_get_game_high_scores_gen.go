@@ -70,6 +70,12 @@ func (g *MessagesGetGameHighScoresRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetGameHighScoresRequest) TypeID() uint32 {
+	return MessagesGetGameHighScoresRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetGameHighScoresRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -90,6 +96,21 @@ func (g *MessagesGetGameHighScoresRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.getGameHighScores#e822649d: field user_id: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetGameHighScoresRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetGameHighScoresRequest) GetID() (value int) {
+	return g.ID
+}
+
+// GetUserID returns value of UserID field.
+func (g *MessagesGetGameHighScoresRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (d *DataJSON) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DataJSON) TypeID() uint32 {
+	return DataJSONTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DataJSON) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -62,6 +68,11 @@ func (d *DataJSON) Encode(b *bin.Buffer) error {
 	b.PutID(DataJSONTypeID)
 	b.PutString(d.Data)
 	return nil
+}
+
+// GetData returns value of Data field.
+func (d *DataJSON) GetData() (value string) {
+	return d.Data
 }
 
 // Decode implements bin.Decoder.

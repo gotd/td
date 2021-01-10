@@ -62,6 +62,12 @@ func (l *LangPackString) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LangPackString) TypeID() uint32 {
+	return LangPackStringTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackString) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -71,6 +77,16 @@ func (l *LangPackString) Encode(b *bin.Buffer) error {
 	b.PutString(l.Key)
 	b.PutString(l.Value)
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (l *LangPackString) GetKey() (value string) {
+	return l.Key
+}
+
+// GetValue returns value of Value field.
+func (l *LangPackString) GetValue() (value string) {
+	return l.Value
 }
 
 // Decode implements bin.Decoder.
@@ -229,6 +245,12 @@ func (l *LangPackStringPluralized) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LangPackStringPluralized) TypeID() uint32 {
+	return LangPackStringPluralizedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -271,6 +293,11 @@ func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(l.OtherValue)
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (l *LangPackStringPluralized) GetKey() (value string) {
+	return l.Key
 }
 
 // SetZeroValue sets value of ZeroValue conditional field.
@@ -346,6 +373,11 @@ func (l *LangPackStringPluralized) GetManyValue() (value string, ok bool) {
 		return value, false
 	}
 	return l.ManyValue, true
+}
+
+// GetOtherValue returns value of OtherValue field.
+func (l *LangPackStringPluralized) GetOtherValue() (value string) {
+	return l.OtherValue
 }
 
 // Decode implements bin.Decoder.
@@ -462,6 +494,12 @@ func (l *LangPackStringDeleted) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LangPackStringDeleted) TypeID() uint32 {
+	return LangPackStringDeletedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -470,6 +508,11 @@ func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 	b.PutID(LangPackStringDeletedTypeID)
 	b.PutString(l.Key)
 	return nil
+}
+
+// GetKey returns value of Key field.
+func (l *LangPackStringDeleted) GetKey() (value string) {
+	return l.Key
 }
 
 // Decode implements bin.Decoder.
@@ -521,7 +564,15 @@ type LangPackStringClass interface {
 	bin.Decoder
 	construct() LangPackStringClass
 
-	fmt.Stringer
+	// Language key
+	GetKey() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

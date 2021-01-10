@@ -62,6 +62,12 @@ func (p *PopularContact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PopularContact) TypeID() uint32 {
+	return PopularContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PopularContact) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -71,6 +77,16 @@ func (p *PopularContact) Encode(b *bin.Buffer) error {
 	b.PutLong(p.ClientID)
 	b.PutInt(p.Importers)
 	return nil
+}
+
+// GetClientID returns value of ClientID field.
+func (p *PopularContact) GetClientID() (value int64) {
+	return p.ClientID
+}
+
+// GetImporters returns value of Importers field.
+func (p *PopularContact) GetImporters() (value int) {
+	return p.Importers
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (s *MessagesStickerSetInstallResultSuccess) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStickerSetInstallResultSuccess) TypeID() uint32 {
+	return MessagesStickerSetInstallResultSuccessTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -119,6 +125,12 @@ func (s *MessagesStickerSetInstallResultArchive) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStickerSetInstallResultArchive) TypeID() uint32 {
+	return MessagesStickerSetInstallResultArchiveTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -135,6 +147,11 @@ func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetSets returns value of Sets field.
+func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
+	return s.Sets
 }
 
 // Decode implements bin.Decoder.
@@ -193,7 +210,12 @@ type MessagesStickerSetInstallResultClass interface {
 	bin.Decoder
 	construct() MessagesStickerSetInstallResultClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

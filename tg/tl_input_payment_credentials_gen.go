@@ -62,6 +62,12 @@ func (i *InputPaymentCredentialsSaved) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPaymentCredentialsSaved) TypeID() uint32 {
+	return InputPaymentCredentialsSavedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -71,6 +77,16 @@ func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
 	b.PutString(i.ID)
 	b.PutBytes(i.TmpPassword)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputPaymentCredentialsSaved) GetID() (value string) {
+	return i.ID
+}
+
+// GetTmpPassword returns value of TmpPassword field.
+func (i *InputPaymentCredentialsSaved) GetTmpPassword() (value []byte) {
+	return i.TmpPassword
 }
 
 // Decode implements bin.Decoder.
@@ -163,6 +179,12 @@ func (i *InputPaymentCredentials) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPaymentCredentials) TypeID() uint32 {
+	return InputPaymentCredentialsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -190,6 +212,16 @@ func (i *InputPaymentCredentials) SetSave(value bool) {
 		i.Flags.Unset(0)
 		i.Save = false
 	}
+}
+
+// GetSave returns value of Save conditional field.
+func (i *InputPaymentCredentials) GetSave() (value bool) {
+	return i.Flags.Has(0)
+}
+
+// GetData returns value of Data field.
+func (i *InputPaymentCredentials) GetData() (value DataJSON) {
+	return i.Data
 }
 
 // Decode implements bin.Decoder.
@@ -263,6 +295,12 @@ func (i *InputPaymentCredentialsApplePay) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPaymentCredentialsApplePay) TypeID() uint32 {
+	return InputPaymentCredentialsApplePayTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -273,6 +311,11 @@ func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
 	}
 	return nil
+}
+
+// GetPaymentData returns value of PaymentData field.
+func (i *InputPaymentCredentialsApplePay) GetPaymentData() (value DataJSON) {
+	return i.PaymentData
 }
 
 // Decode implements bin.Decoder.
@@ -348,6 +391,12 @@ func (i *InputPaymentCredentialsAndroidPay) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPaymentCredentialsAndroidPay) TypeID() uint32 {
+	return InputPaymentCredentialsAndroidPayTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPaymentCredentialsAndroidPay) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -359,6 +408,16 @@ func (i *InputPaymentCredentialsAndroidPay) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(i.GoogleTransactionID)
 	return nil
+}
+
+// GetPaymentToken returns value of PaymentToken field.
+func (i *InputPaymentCredentialsAndroidPay) GetPaymentToken() (value DataJSON) {
+	return i.PaymentToken
+}
+
+// GetGoogleTransactionID returns value of GoogleTransactionID field.
+func (i *InputPaymentCredentialsAndroidPay) GetGoogleTransactionID() (value string) {
+	return i.GoogleTransactionID
 }
 
 // Decode implements bin.Decoder.
@@ -416,7 +475,12 @@ type InputPaymentCredentialsClass interface {
 	bin.Decoder
 	construct() InputPaymentCredentialsClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

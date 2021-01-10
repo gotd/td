@@ -54,6 +54,12 @@ func (r *RecentMeUrlUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RecentMeUrlUnknown) TypeID() uint32 {
+	return RecentMeUrlUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -62,6 +68,11 @@ func (r *RecentMeUrlUnknown) Encode(b *bin.Buffer) error {
 	b.PutID(RecentMeUrlUnknownTypeID)
 	b.PutString(r.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (r *RecentMeUrlUnknown) GetURL() (value string) {
+	return r.URL
 }
 
 // Decode implements bin.Decoder.
@@ -139,6 +150,12 @@ func (r *RecentMeUrlUser) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RecentMeUrlUser) TypeID() uint32 {
+	return RecentMeUrlUserTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlUser) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,6 +165,16 @@ func (r *RecentMeUrlUser) Encode(b *bin.Buffer) error {
 	b.PutString(r.URL)
 	b.PutInt(r.UserID)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (r *RecentMeUrlUser) GetURL() (value string) {
+	return r.URL
+}
+
+// GetUserID returns value of UserID field.
+func (r *RecentMeUrlUser) GetUserID() (value int) {
+	return r.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -232,6 +259,12 @@ func (r *RecentMeUrlChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RecentMeUrlChat) TypeID() uint32 {
+	return RecentMeUrlChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlChat) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -241,6 +274,16 @@ func (r *RecentMeUrlChat) Encode(b *bin.Buffer) error {
 	b.PutString(r.URL)
 	b.PutInt(r.ChatID)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (r *RecentMeUrlChat) GetURL() (value string) {
+	return r.URL
+}
+
+// GetChatID returns value of ChatID field.
+func (r *RecentMeUrlChat) GetChatID() (value int) {
+	return r.ChatID
 }
 
 // Decode implements bin.Decoder.
@@ -325,6 +368,12 @@ func (r *RecentMeUrlChatInvite) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RecentMeUrlChatInvite) TypeID() uint32 {
+	return RecentMeUrlChatInviteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlChatInvite) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -339,6 +388,16 @@ func (r *RecentMeUrlChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode recentMeUrlChatInvite#eb49081d: field chat_invite: %w", err)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (r *RecentMeUrlChatInvite) GetURL() (value string) {
+	return r.URL
+}
+
+// GetChatInvite returns value of ChatInvite field.
+func (r *RecentMeUrlChatInvite) GetChatInvite() (value ChatInviteClass) {
+	return r.ChatInvite
 }
 
 // Decode implements bin.Decoder.
@@ -423,6 +482,12 @@ func (r *RecentMeUrlStickerSet) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RecentMeUrlStickerSet) TypeID() uint32 {
+	return RecentMeUrlStickerSetTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RecentMeUrlStickerSet) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -437,6 +502,16 @@ func (r *RecentMeUrlStickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode recentMeUrlStickerSet#bc0a57dc: field set: %w", err)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (r *RecentMeUrlStickerSet) GetURL() (value string) {
+	return r.URL
+}
+
+// GetSet returns value of Set field.
+func (r *RecentMeUrlStickerSet) GetSet() (value StickerSetCoveredClass) {
+	return r.Set
 }
 
 // Decode implements bin.Decoder.
@@ -497,7 +572,15 @@ type RecentMeUrlClass interface {
 	bin.Decoder
 	construct() RecentMeUrlClass
 
-	fmt.Stringer
+	// URL
+	GetURL() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

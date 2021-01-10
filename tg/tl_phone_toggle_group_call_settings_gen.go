@@ -73,6 +73,12 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *PhoneToggleGroupCallSettingsRequest) TypeID() uint32 {
+	return PhoneToggleGroupCallSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -92,6 +98,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 		b.PutBool(t.JoinMuted)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (t *PhoneToggleGroupCallSettingsRequest) GetCall() (value InputGroupCall) {
+	return t.Call
 }
 
 // SetJoinMuted sets value of JoinMuted conditional field.

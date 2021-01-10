@@ -54,6 +54,12 @@ func (d *DocumentEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentEmpty) TypeID() uint32 {
+	return DocumentEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -62,6 +68,11 @@ func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(DocumentEmptyTypeID)
 	b.PutLong(d.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (d *DocumentEmpty) GetID() (value int64) {
+	return d.ID
 }
 
 // Decode implements bin.Decoder.
@@ -231,6 +242,12 @@ func (d *Document) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *Document) TypeID() uint32 {
+	return DocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *Document) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -284,6 +301,36 @@ func (d *Document) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetID returns value of ID field.
+func (d *Document) GetID() (value int64) {
+	return d.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (d *Document) GetAccessHash() (value int64) {
+	return d.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (d *Document) GetFileReference() (value []byte) {
+	return d.FileReference
+}
+
+// GetDate returns value of Date field.
+func (d *Document) GetDate() (value int) {
+	return d.Date
+}
+
+// GetMimeType returns value of MimeType field.
+func (d *Document) GetMimeType() (value string) {
+	return d.MimeType
+}
+
+// GetSize returns value of Size field.
+func (d *Document) GetSize() (value int) {
+	return d.Size
+}
+
 // SetThumbs sets value of Thumbs conditional field.
 func (d *Document) SetThumbs(value []PhotoSizeClass) {
 	d.Flags.Set(0)
@@ -312,6 +359,16 @@ func (d *Document) GetVideoThumbs() (value []VideoSize, ok bool) {
 		return value, false
 	}
 	return d.VideoThumbs, true
+}
+
+// GetDCID returns value of DCID field.
+func (d *Document) GetDCID() (value int) {
+	return d.DCID
+}
+
+// GetAttributes returns value of Attributes field.
+func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
+	return d.Attributes
 }
 
 // Decode implements bin.Decoder.
@@ -448,7 +505,15 @@ type DocumentClass interface {
 	bin.Decoder
 	construct() DocumentClass
 
-	fmt.Stringer
+	// Document ID or 0
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

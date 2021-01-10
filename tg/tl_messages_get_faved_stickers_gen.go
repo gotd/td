@@ -57,6 +57,12 @@ func (g *MessagesGetFavedStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetFavedStickersRequest) TypeID() uint32 {
+	return MessagesGetFavedStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -65,6 +71,11 @@ func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesGetFavedStickersRequestTypeID)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetFavedStickersRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

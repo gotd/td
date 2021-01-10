@@ -72,6 +72,12 @@ func (r *MessagesReorderStickerSetsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReorderStickerSetsRequest) TypeID() uint32 {
+	return MessagesReorderStickerSetsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -100,6 +106,16 @@ func (r *MessagesReorderStickerSetsRequest) SetMasks(value bool) {
 		r.Flags.Unset(0)
 		r.Masks = false
 	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (r *MessagesReorderStickerSetsRequest) GetMasks() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetOrder returns value of Order field.
+func (r *MessagesReorderStickerSetsRequest) GetOrder() (value []int64) {
+	return r.Order
 }
 
 // Decode implements bin.Decoder.

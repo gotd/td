@@ -100,6 +100,12 @@ func (f *Folder) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *Folder) TypeID() uint32 {
+	return FolderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *Folder) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -145,6 +151,11 @@ func (f *Folder) SetAutofillNewBroadcasts(value bool) {
 	}
 }
 
+// GetAutofillNewBroadcasts returns value of AutofillNewBroadcasts conditional field.
+func (f *Folder) GetAutofillNewBroadcasts() (value bool) {
+	return f.Flags.Has(0)
+}
+
 // SetAutofillPublicGroups sets value of AutofillPublicGroups conditional field.
 func (f *Folder) SetAutofillPublicGroups(value bool) {
 	if value {
@@ -156,6 +167,11 @@ func (f *Folder) SetAutofillPublicGroups(value bool) {
 	}
 }
 
+// GetAutofillPublicGroups returns value of AutofillPublicGroups conditional field.
+func (f *Folder) GetAutofillPublicGroups() (value bool) {
+	return f.Flags.Has(1)
+}
+
 // SetAutofillNewCorrespondents sets value of AutofillNewCorrespondents conditional field.
 func (f *Folder) SetAutofillNewCorrespondents(value bool) {
 	if value {
@@ -165,6 +181,21 @@ func (f *Folder) SetAutofillNewCorrespondents(value bool) {
 		f.Flags.Unset(2)
 		f.AutofillNewCorrespondents = false
 	}
+}
+
+// GetAutofillNewCorrespondents returns value of AutofillNewCorrespondents conditional field.
+func (f *Folder) GetAutofillNewCorrespondents() (value bool) {
+	return f.Flags.Has(2)
+}
+
+// GetID returns value of ID field.
+func (f *Folder) GetID() (value int) {
+	return f.ID
+}
+
+// GetTitle returns value of Title field.
+func (f *Folder) GetTitle() (value string) {
+	return f.Title
 }
 
 // SetPhoto sets value of Photo conditional field.

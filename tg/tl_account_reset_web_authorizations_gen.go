@@ -49,6 +49,12 @@ func (r *AccountResetWebAuthorizationsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AccountResetWebAuthorizationsRequest) TypeID() uint32 {
+	return AccountResetWebAuthorizationsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

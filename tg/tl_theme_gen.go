@@ -131,6 +131,12 @@ func (t *Theme) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *Theme) TypeID() uint32 {
+	return ThemeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -184,6 +190,11 @@ func (t *Theme) SetCreator(value bool) {
 	}
 }
 
+// GetCreator returns value of Creator conditional field.
+func (t *Theme) GetCreator() (value bool) {
+	return t.Flags.Has(0)
+}
+
 // SetDefault sets value of Default conditional field.
 func (t *Theme) SetDefault(value bool) {
 	if value {
@@ -193,6 +204,31 @@ func (t *Theme) SetDefault(value bool) {
 		t.Flags.Unset(1)
 		t.Default = false
 	}
+}
+
+// GetDefault returns value of Default conditional field.
+func (t *Theme) GetDefault() (value bool) {
+	return t.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (t *Theme) GetID() (value int64) {
+	return t.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (t *Theme) GetAccessHash() (value int64) {
+	return t.AccessHash
+}
+
+// GetSlug returns value of Slug field.
+func (t *Theme) GetSlug() (value string) {
+	return t.Slug
+}
+
+// GetTitle returns value of Title field.
+func (t *Theme) GetTitle() (value string) {
+	return t.Title
 }
 
 // SetDocument sets value of Document conditional field.
@@ -223,6 +259,11 @@ func (t *Theme) GetSettings() (value ThemeSettings, ok bool) {
 		return value, false
 	}
 	return t.Settings, true
+}
+
+// GetInstallsCount returns value of InstallsCount field.
+func (t *Theme) GetInstallsCount() (value int) {
+	return t.InstallsCount
 }
 
 // Decode implements bin.Decoder.

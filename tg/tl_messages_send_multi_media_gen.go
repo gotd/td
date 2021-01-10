@@ -120,6 +120,12 @@ func (s *MessagesSendMultiMediaRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSendMultiMediaRequest) TypeID() uint32 {
+	return MessagesSendMultiMediaRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -176,6 +182,11 @@ func (s *MessagesSendMultiMediaRequest) SetSilent(value bool) {
 	}
 }
 
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendMultiMediaRequest) GetSilent() (value bool) {
+	return s.Flags.Has(5)
+}
+
 // SetBackground sets value of Background conditional field.
 func (s *MessagesSendMultiMediaRequest) SetBackground(value bool) {
 	if value {
@@ -187,6 +198,11 @@ func (s *MessagesSendMultiMediaRequest) SetBackground(value bool) {
 	}
 }
 
+// GetBackground returns value of Background conditional field.
+func (s *MessagesSendMultiMediaRequest) GetBackground() (value bool) {
+	return s.Flags.Has(6)
+}
+
 // SetClearDraft sets value of ClearDraft conditional field.
 func (s *MessagesSendMultiMediaRequest) SetClearDraft(value bool) {
 	if value {
@@ -196,6 +212,16 @@ func (s *MessagesSendMultiMediaRequest) SetClearDraft(value bool) {
 		s.Flags.Unset(7)
 		s.ClearDraft = false
 	}
+}
+
+// GetClearDraft returns value of ClearDraft conditional field.
+func (s *MessagesSendMultiMediaRequest) GetClearDraft() (value bool) {
+	return s.Flags.Has(7)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendMultiMediaRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
 }
 
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
@@ -211,6 +237,11 @@ func (s *MessagesSendMultiMediaRequest) GetReplyToMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return s.ReplyToMsgID, true
+}
+
+// GetMultiMedia returns value of MultiMedia field.
+func (s *MessagesSendMultiMediaRequest) GetMultiMedia() (value []InputSingleMedia) {
+	return s.MultiMedia
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

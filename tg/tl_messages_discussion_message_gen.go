@@ -135,6 +135,12 @@ func (d *MessagesDiscussionMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDiscussionMessage) TypeID() uint32 {
+	return MessagesDiscussionMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -192,6 +198,11 @@ func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetMessages returns value of Messages field.
+func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
+
 // SetMaxID sets value of MaxID conditional field.
 func (d *MessagesDiscussionMessage) SetMaxID(value int) {
 	d.Flags.Set(0)
@@ -235,6 +246,16 @@ func (d *MessagesDiscussionMessage) GetReadOutboxMaxID() (value int, ok bool) {
 		return value, false
 	}
 	return d.ReadOutboxMaxID, true
+}
+
+// GetChats returns value of Chats field.
+func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
+	return d.Users
 }
 
 // Decode implements bin.Decoder.

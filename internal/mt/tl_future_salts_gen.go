@@ -69,6 +69,12 @@ func (f *FutureSalts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *FutureSalts) TypeID() uint32 {
+	return FutureSaltsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *FutureSalts) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -84,6 +90,21 @@ func (f *FutureSalts) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetReqMsgID returns value of ReqMsgID field.
+func (f *FutureSalts) GetReqMsgID() (value int64) {
+	return f.ReqMsgID
+}
+
+// GetNow returns value of Now field.
+func (f *FutureSalts) GetNow() (value int) {
+	return f.Now
+}
+
+// GetSalts returns value of Salts field.
+func (f *FutureSalts) GetSalts() (value []FutureSalt) {
+	return f.Salts
 }
 
 // Decode implements bin.Decoder.

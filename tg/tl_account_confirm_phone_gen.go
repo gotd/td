@@ -71,6 +71,12 @@ func (c *AccountConfirmPhoneRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AccountConfirmPhoneRequest) TypeID() uint32 {
+	return AccountConfirmPhoneRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountConfirmPhoneRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -80,6 +86,16 @@ func (c *AccountConfirmPhoneRequest) Encode(b *bin.Buffer) error {
 	b.PutString(c.PhoneCodeHash)
 	b.PutString(c.PhoneCode)
 	return nil
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (c *AccountConfirmPhoneRequest) GetPhoneCodeHash() (value string) {
+	return c.PhoneCodeHash
+}
+
+// GetPhoneCode returns value of PhoneCode field.
+func (c *AccountConfirmPhoneRequest) GetPhoneCode() (value string) {
+	return c.PhoneCode
 }
 
 // Decode implements bin.Decoder.

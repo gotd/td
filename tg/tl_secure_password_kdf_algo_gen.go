@@ -46,6 +46,12 @@ func (s *SecurePasswordKdfAlgoUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecurePasswordKdfAlgoUnknown) TypeID() uint32 {
+	return SecurePasswordKdfAlgoUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -115,6 +121,12 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
+	return SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -123,6 +135,11 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) Encode(b *bin.Buffer) 
 	b.PutID(SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID)
 	b.PutBytes(s.Salt)
 	return nil
+}
+
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) GetSalt() (value []byte) {
+	return s.Salt
 }
 
 // Decode implements bin.Decoder.
@@ -194,6 +211,12 @@ func (s *SecurePasswordKdfAlgoSHA512) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecurePasswordKdfAlgoSHA512) TypeID() uint32 {
+	return SecurePasswordKdfAlgoSHA512TypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecurePasswordKdfAlgoSHA512) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -202,6 +225,11 @@ func (s *SecurePasswordKdfAlgoSHA512) Encode(b *bin.Buffer) error {
 	b.PutID(SecurePasswordKdfAlgoSHA512TypeID)
 	b.PutBytes(s.Salt)
 	return nil
+}
+
+// GetSalt returns value of Salt field.
+func (s *SecurePasswordKdfAlgoSHA512) GetSalt() (value []byte) {
+	return s.Salt
 }
 
 // Decode implements bin.Decoder.
@@ -253,7 +281,12 @@ type SecurePasswordKdfAlgoClass interface {
 	bin.Decoder
 	construct() SecurePasswordKdfAlgoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

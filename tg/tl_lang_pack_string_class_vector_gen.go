@@ -22,6 +22,9 @@ type LangPackStringClassVector struct {
 	Elems []LangPackStringClass
 }
 
+// LangPackStringClassVectorTypeID is TL type id of LangPackStringClassVector.
+const LangPackStringClassVectorTypeID = bin.TypeVector
+
 func (vec *LangPackStringClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *LangPackStringClassVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *LangPackStringClassVector) TypeID() uint32 {
+	return LangPackStringClassVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *LangPackStringClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -63,6 +72,11 @@ func (vec *LangPackStringClassVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *LangPackStringClassVector) GetElems() (value []LangPackStringClass) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

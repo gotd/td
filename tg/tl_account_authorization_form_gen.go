@@ -121,6 +121,12 @@ func (a *AccountAuthorizationForm) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AccountAuthorizationForm) TypeID() uint32 {
+	return AccountAuthorizationFormTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -170,6 +176,26 @@ func (a *AccountAuthorizationForm) Encode(b *bin.Buffer) error {
 		b.PutString(a.PrivacyPolicyURL)
 	}
 	return nil
+}
+
+// GetRequiredTypes returns value of RequiredTypes field.
+func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTypeClass) {
+	return a.RequiredTypes
+}
+
+// GetValues returns value of Values field.
+func (a *AccountAuthorizationForm) GetValues() (value []SecureValue) {
+	return a.Values
+}
+
+// GetErrors returns value of Errors field.
+func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
+	return a.Errors
+}
+
+// GetUsers returns value of Users field.
+func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
+	return a.Users
 }
 
 // SetPrivacyPolicyURL sets value of PrivacyPolicyURL conditional field.

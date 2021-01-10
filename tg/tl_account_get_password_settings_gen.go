@@ -60,6 +60,12 @@ func (g *AccountGetPasswordSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetPasswordSettingsRequest) TypeID() uint32 {
+	return AccountGetPasswordSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -73,6 +79,11 @@ func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.getPasswordSettings#9cd4eaf9: field password: %w", err)
 	}
 	return nil
+}
+
+// GetPassword returns value of Password field.
+func (g *AccountGetPasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return g.Password
 }
 
 // Decode implements bin.Decoder.

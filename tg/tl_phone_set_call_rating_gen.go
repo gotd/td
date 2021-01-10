@@ -86,6 +86,12 @@ func (s *PhoneSetCallRatingRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *PhoneSetCallRatingRequest) TypeID() uint32 {
+	return PhoneSetCallRatingRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -115,6 +121,26 @@ func (s *PhoneSetCallRatingRequest) SetUserInitiative(value bool) {
 		s.Flags.Unset(0)
 		s.UserInitiative = false
 	}
+}
+
+// GetUserInitiative returns value of UserInitiative conditional field.
+func (s *PhoneSetCallRatingRequest) GetUserInitiative() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (s *PhoneSetCallRatingRequest) GetPeer() (value InputPhoneCall) {
+	return s.Peer
+}
+
+// GetRating returns value of Rating field.
+func (s *PhoneSetCallRatingRequest) GetRating() (value int) {
+	return s.Rating
+}
+
+// GetComment returns value of Comment field.
+func (s *PhoneSetCallRatingRequest) GetComment() (value string) {
+	return s.Comment
 }
 
 // Decode implements bin.Decoder.

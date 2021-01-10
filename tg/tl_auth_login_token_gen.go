@@ -65,6 +65,12 @@ func (l *AuthLoginToken) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *AuthLoginToken) TypeID() uint32 {
+	return AuthLoginTokenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -74,6 +80,16 @@ func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
 	b.PutInt(l.Expires)
 	b.PutBytes(l.Token)
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (l *AuthLoginToken) GetExpires() (value int) {
+	return l.Expires
+}
+
+// GetToken returns value of Token field.
+func (l *AuthLoginToken) GetToken() (value []byte) {
+	return l.Token
 }
 
 // Decode implements bin.Decoder.
@@ -158,6 +174,12 @@ func (l *AuthLoginTokenMigrateTo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *AuthLoginTokenMigrateTo) TypeID() uint32 {
+	return AuthLoginTokenMigrateToTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -167,6 +189,16 @@ func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 	b.PutInt(l.DCID)
 	b.PutBytes(l.Token)
 	return nil
+}
+
+// GetDCID returns value of DCID field.
+func (l *AuthLoginTokenMigrateTo) GetDCID() (value int) {
+	return l.DCID
+}
+
+// GetToken returns value of Token field.
+func (l *AuthLoginTokenMigrateTo) GetToken() (value []byte) {
+	return l.Token
 }
 
 // Decode implements bin.Decoder.
@@ -243,6 +275,12 @@ func (l *AuthLoginTokenSuccess) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *AuthLoginTokenSuccess) TypeID() uint32 {
+	return AuthLoginTokenSuccessTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -256,6 +294,11 @@ func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode auth.loginTokenSuccess#390d5c5e: field authorization: %w", err)
 	}
 	return nil
+}
+
+// GetAuthorization returns value of Authorization field.
+func (l *AuthLoginTokenSuccess) GetAuthorization() (value AuthAuthorizationClass) {
+	return l.Authorization
 }
 
 // Decode implements bin.Decoder.
@@ -307,7 +350,12 @@ type AuthLoginTokenClass interface {
 	bin.Decoder
 	construct() AuthLoginTokenClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

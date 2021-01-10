@@ -70,6 +70,12 @@ func (f *UploadFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *UploadFile) TypeID() uint32 {
+	return UploadFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *UploadFile) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -85,6 +91,21 @@ func (f *UploadFile) Encode(b *bin.Buffer) error {
 	b.PutInt(f.Mtime)
 	b.PutBytes(f.Bytes)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (f *UploadFile) GetType() (value StorageFileTypeClass) {
+	return f.Type
+}
+
+// GetMtime returns value of Mtime field.
+func (f *UploadFile) GetMtime() (value int) {
+	return f.Mtime
+}
+
+// GetBytes returns value of Bytes field.
+func (f *UploadFile) GetBytes() (value []byte) {
+	return f.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -220,6 +241,12 @@ func (f *UploadFileCdnRedirect) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *UploadFileCdnRedirect) TypeID() uint32 {
+	return UploadFileCdnRedirectTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *UploadFileCdnRedirect) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -237,6 +264,31 @@ func (f *UploadFileCdnRedirect) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetDCID returns value of DCID field.
+func (f *UploadFileCdnRedirect) GetDCID() (value int) {
+	return f.DCID
+}
+
+// GetFileToken returns value of FileToken field.
+func (f *UploadFileCdnRedirect) GetFileToken() (value []byte) {
+	return f.FileToken
+}
+
+// GetEncryptionKey returns value of EncryptionKey field.
+func (f *UploadFileCdnRedirect) GetEncryptionKey() (value []byte) {
+	return f.EncryptionKey
+}
+
+// GetEncryptionIv returns value of EncryptionIv field.
+func (f *UploadFileCdnRedirect) GetEncryptionIv() (value []byte) {
+	return f.EncryptionIv
+}
+
+// GetFileHashes returns value of FileHashes field.
+func (f *UploadFileCdnRedirect) GetFileHashes() (value []FileHash) {
+	return f.FileHashes
 }
 
 // Decode implements bin.Decoder.
@@ -321,7 +373,12 @@ type UploadFileClass interface {
 	bin.Decoder
 	construct() UploadFileClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

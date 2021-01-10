@@ -62,6 +62,12 @@ func (d *DocumentAttributeImageSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeImageSize) TypeID() uint32 {
+	return DocumentAttributeImageSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeImageSize) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -71,6 +77,16 @@ func (d *DocumentAttributeImageSize) Encode(b *bin.Buffer) error {
 	b.PutInt(d.W)
 	b.PutInt(d.H)
 	return nil
+}
+
+// GetW returns value of W field.
+func (d *DocumentAttributeImageSize) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DocumentAttributeImageSize) GetH() (value int) {
+	return d.H
 }
 
 // Decode implements bin.Decoder.
@@ -137,6 +153,12 @@ func (d *DocumentAttributeAnimated) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeAnimated) TypeID() uint32 {
+	return DocumentAttributeAnimatedTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -244,6 +266,12 @@ func (d *DocumentAttributeSticker) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeSticker) TypeID() uint32 {
+	return DocumentAttributeStickerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -283,6 +311,21 @@ func (d *DocumentAttributeSticker) SetMask(value bool) {
 		d.Flags.Unset(1)
 		d.Mask = false
 	}
+}
+
+// GetMask returns value of Mask conditional field.
+func (d *DocumentAttributeSticker) GetMask() (value bool) {
+	return d.Flags.Has(1)
+}
+
+// GetAlt returns value of Alt field.
+func (d *DocumentAttributeSticker) GetAlt() (value string) {
+	return d.Alt
+}
+
+// GetStickerset returns value of Stickerset field.
+func (d *DocumentAttributeSticker) GetStickerset() (value InputStickerSetClass) {
+	return d.Stickerset
 }
 
 // SetMaskCoords sets value of MaskCoords conditional field.
@@ -422,6 +465,12 @@ func (d *DocumentAttributeVideo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeVideo) TypeID() uint32 {
+	return DocumentAttributeVideoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -454,6 +503,11 @@ func (d *DocumentAttributeVideo) SetRoundMessage(value bool) {
 	}
 }
 
+// GetRoundMessage returns value of RoundMessage conditional field.
+func (d *DocumentAttributeVideo) GetRoundMessage() (value bool) {
+	return d.Flags.Has(0)
+}
+
 // SetSupportsStreaming sets value of SupportsStreaming conditional field.
 func (d *DocumentAttributeVideo) SetSupportsStreaming(value bool) {
 	if value {
@@ -463,6 +517,26 @@ func (d *DocumentAttributeVideo) SetSupportsStreaming(value bool) {
 		d.Flags.Unset(1)
 		d.SupportsStreaming = false
 	}
+}
+
+// GetSupportsStreaming returns value of SupportsStreaming conditional field.
+func (d *DocumentAttributeVideo) GetSupportsStreaming() (value bool) {
+	return d.Flags.Has(1)
+}
+
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeVideo) GetDuration() (value int) {
+	return d.Duration
+}
+
+// GetW returns value of W field.
+func (d *DocumentAttributeVideo) GetW() (value int) {
+	return d.W
+}
+
+// GetH returns value of H field.
+func (d *DocumentAttributeVideo) GetH() (value int) {
+	return d.H
 }
 
 // Decode implements bin.Decoder.
@@ -605,6 +679,12 @@ func (d *DocumentAttributeAudio) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeAudio) TypeID() uint32 {
+	return DocumentAttributeAudioTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -648,6 +728,16 @@ func (d *DocumentAttributeAudio) SetVoice(value bool) {
 		d.Flags.Unset(10)
 		d.Voice = false
 	}
+}
+
+// GetVoice returns value of Voice conditional field.
+func (d *DocumentAttributeAudio) GetVoice() (value bool) {
+	return d.Flags.Has(10)
+}
+
+// GetDuration returns value of Duration field.
+func (d *DocumentAttributeAudio) GetDuration() (value int) {
+	return d.Duration
 }
 
 // SetTitle sets value of Title conditional field.
@@ -789,6 +879,12 @@ func (d *DocumentAttributeFilename) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeFilename) TypeID() uint32 {
+	return DocumentAttributeFilenameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeFilename) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -797,6 +893,11 @@ func (d *DocumentAttributeFilename) Encode(b *bin.Buffer) error {
 	b.PutID(DocumentAttributeFilenameTypeID)
 	b.PutString(d.FileName)
 	return nil
+}
+
+// GetFileName returns value of FileName field.
+func (d *DocumentAttributeFilename) GetFileName() (value string) {
+	return d.FileName
 }
 
 // Decode implements bin.Decoder.
@@ -858,6 +959,12 @@ func (d *DocumentAttributeHasStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DocumentAttributeHasStickers) TypeID() uint32 {
+	return DocumentAttributeHasStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeHasStickers) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -913,7 +1020,12 @@ type DocumentAttributeClass interface {
 	bin.Decoder
 	construct() DocumentAttributeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

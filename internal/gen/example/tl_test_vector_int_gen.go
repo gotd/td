@@ -55,6 +55,12 @@ func (t *TestVectorInt) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TestVectorInt) TypeID() uint32 {
+	return TestVectorIntTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TestVectorInt) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -66,6 +72,11 @@ func (t *TestVectorInt) Encode(b *bin.Buffer) error {
 		b.PutInt32(v)
 	}
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (t *TestVectorInt) GetValue() (value []int32) {
+	return t.Value
 }
 
 // Decode implements bin.Decoder.

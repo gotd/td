@@ -62,6 +62,12 @@ func (f *MessagesFaveStickerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFaveStickerRequest) TypeID() uint32 {
+	return MessagesFaveStickerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -76,6 +82,16 @@ func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(f.Unfave)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (f *MessagesFaveStickerRequest) GetID() (value InputDocumentClass) {
+	return f.ID
+}
+
+// GetUnfave returns value of Unfave field.
+func (f *MessagesFaveStickerRequest) GetUnfave() (value bool) {
+	return f.Unfave
 }
 
 // Decode implements bin.Decoder.

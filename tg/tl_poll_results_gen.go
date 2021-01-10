@@ -135,6 +135,12 @@ func (p *PollResults) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PollResults) TypeID() uint32 {
+	return PollResultsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PollResults) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -205,6 +211,11 @@ func (p *PollResults) SetMin(value bool) {
 		p.Flags.Unset(0)
 		p.Min = false
 	}
+}
+
+// GetMin returns value of Min conditional field.
+func (p *PollResults) GetMin() (value bool) {
+	return p.Flags.Has(0)
 }
 
 // SetResults sets value of Results conditional field.

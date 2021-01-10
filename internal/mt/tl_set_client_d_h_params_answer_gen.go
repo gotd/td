@@ -67,6 +67,12 @@ func (d *DhGenOk) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DhGenOk) TypeID() uint32 {
+	return DhGenOkTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DhGenOk) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -77,6 +83,21 @@ func (d *DhGenOk) Encode(b *bin.Buffer) error {
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash1)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (d *DhGenOk) GetNonce() (value bin.Int128) {
+	return d.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (d *DhGenOk) GetServerNonce() (value bin.Int128) {
+	return d.ServerNonce
+}
+
+// GetNewNonceHash1 returns value of NewNonceHash1 field.
+func (d *DhGenOk) GetNewNonceHash1() (value bin.Int128) {
+	return d.NewNonceHash1
 }
 
 // Decode implements bin.Decoder.
@@ -173,6 +194,12 @@ func (d *DhGenRetry) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DhGenRetry) TypeID() uint32 {
+	return DhGenRetryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -183,6 +210,21 @@ func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash2)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (d *DhGenRetry) GetNonce() (value bin.Int128) {
+	return d.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (d *DhGenRetry) GetServerNonce() (value bin.Int128) {
+	return d.ServerNonce
+}
+
+// GetNewNonceHash2 returns value of NewNonceHash2 field.
+func (d *DhGenRetry) GetNewNonceHash2() (value bin.Int128) {
+	return d.NewNonceHash2
 }
 
 // Decode implements bin.Decoder.
@@ -279,6 +321,12 @@ func (d *DhGenFail) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DhGenFail) TypeID() uint32 {
+	return DhGenFailTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DhGenFail) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -289,6 +337,21 @@ func (d *DhGenFail) Encode(b *bin.Buffer) error {
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash3)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (d *DhGenFail) GetNonce() (value bin.Int128) {
+	return d.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (d *DhGenFail) GetServerNonce() (value bin.Int128) {
+	return d.ServerNonce
+}
+
+// GetNewNonceHash3 returns value of NewNonceHash3 field.
+func (d *DhGenFail) GetNewNonceHash3() (value bin.Int128) {
+	return d.NewNonceHash3
 }
 
 // Decode implements bin.Decoder.
@@ -352,7 +415,17 @@ type SetClientDHParamsAnswerClass interface {
 	bin.Decoder
 	construct() SetClientDHParamsAnswerClass
 
-	fmt.Stringer
+	// Nonce field of DhGenOk.
+	GetNonce() (value bin.Int128)
+	// ServerNonce field of DhGenOk.
+	GetServerNonce() (value bin.Int128)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

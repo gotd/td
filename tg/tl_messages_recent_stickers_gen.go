@@ -46,6 +46,12 @@ func (r *MessagesRecentStickersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesRecentStickersNotModified) TypeID() uint32 {
+	return MessagesRecentStickersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -148,6 +154,12 @@ func (r *MessagesRecentStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesRecentStickers) TypeID() uint32 {
+	return MessagesRecentStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -175,6 +187,26 @@ func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (r *MessagesRecentStickers) GetHash() (value int) {
+	return r.Hash
+}
+
+// GetPacks returns value of Packs field.
+func (r *MessagesRecentStickers) GetPacks() (value []StickerPack) {
+	return r.Packs
+}
+
+// GetStickers returns value of Stickers field.
+func (r *MessagesRecentStickers) GetStickers() (value []DocumentClass) {
+	return r.Stickers
+}
+
+// GetDates returns value of Dates field.
+func (r *MessagesRecentStickers) GetDates() (value []int) {
+	return r.Dates
 }
 
 // Decode implements bin.Decoder.
@@ -264,7 +296,12 @@ type MessagesRecentStickersClass interface {
 	bin.Decoder
 	construct() MessagesRecentStickersClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

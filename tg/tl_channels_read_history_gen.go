@@ -68,6 +68,12 @@ func (r *ChannelsReadHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ChannelsReadHistoryRequest) TypeID() uint32 {
+	return ChannelsReadHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -82,6 +88,16 @@ func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(r.MaxID)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (r *ChannelsReadHistoryRequest) GetChannel() (value InputChannelClass) {
+	return r.Channel
+}
+
+// GetMaxID returns value of MaxID field.
+func (r *ChannelsReadHistoryRequest) GetMaxID() (value int) {
+	return r.MaxID
 }
 
 // Decode implements bin.Decoder.

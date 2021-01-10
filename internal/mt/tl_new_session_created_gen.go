@@ -67,6 +67,12 @@ func (n *NewSessionCreated) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NewSessionCreated) TypeID() uint32 {
+	return NewSessionCreatedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NewSessionCreated) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -77,6 +83,21 @@ func (n *NewSessionCreated) Encode(b *bin.Buffer) error {
 	b.PutLong(n.UniqueID)
 	b.PutLong(n.ServerSalt)
 	return nil
+}
+
+// GetFirstMsgID returns value of FirstMsgID field.
+func (n *NewSessionCreated) GetFirstMsgID() (value int64) {
+	return n.FirstMsgID
+}
+
+// GetUniqueID returns value of UniqueID field.
+func (n *NewSessionCreated) GetUniqueID() (value int64) {
+	return n.UniqueID
+}
+
+// GetServerSalt returns value of ServerSalt field.
+func (n *NewSessionCreated) GetServerSalt() (value int64) {
+	return n.ServerSalt
 }
 
 // Decode implements bin.Decoder.

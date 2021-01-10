@@ -121,6 +121,12 @@ func (w *WallPaper) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WallPaper) TypeID() uint32 {
+	return WallPaperTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WallPaper) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -162,6 +168,11 @@ func (w *WallPaper) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetID returns value of ID field.
+func (w *WallPaper) GetID() (value int64) {
+	return w.ID
+}
+
 // SetCreator sets value of Creator conditional field.
 func (w *WallPaper) SetCreator(value bool) {
 	if value {
@@ -171,6 +182,11 @@ func (w *WallPaper) SetCreator(value bool) {
 		w.Flags.Unset(0)
 		w.Creator = false
 	}
+}
+
+// GetCreator returns value of Creator conditional field.
+func (w *WallPaper) GetCreator() (value bool) {
+	return w.Flags.Has(0)
 }
 
 // SetDefault sets value of Default conditional field.
@@ -184,6 +200,11 @@ func (w *WallPaper) SetDefault(value bool) {
 	}
 }
 
+// GetDefault returns value of Default conditional field.
+func (w *WallPaper) GetDefault() (value bool) {
+	return w.Flags.Has(1)
+}
+
 // SetPattern sets value of Pattern conditional field.
 func (w *WallPaper) SetPattern(value bool) {
 	if value {
@@ -195,6 +216,11 @@ func (w *WallPaper) SetPattern(value bool) {
 	}
 }
 
+// GetPattern returns value of Pattern conditional field.
+func (w *WallPaper) GetPattern() (value bool) {
+	return w.Flags.Has(3)
+}
+
 // SetDark sets value of Dark conditional field.
 func (w *WallPaper) SetDark(value bool) {
 	if value {
@@ -204,6 +230,26 @@ func (w *WallPaper) SetDark(value bool) {
 		w.Flags.Unset(4)
 		w.Dark = false
 	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (w *WallPaper) GetDark() (value bool) {
+	return w.Flags.Has(4)
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (w *WallPaper) GetAccessHash() (value int64) {
+	return w.AccessHash
+}
+
+// GetSlug returns value of Slug field.
+func (w *WallPaper) GetSlug() (value string) {
+	return w.Slug
+}
+
+// GetDocument returns value of Document field.
+func (w *WallPaper) GetDocument() (value DocumentClass) {
+	return w.Document
 }
 
 // SetSettings sets value of Settings conditional field.
@@ -348,6 +394,12 @@ func (w *WallPaperNoFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WallPaperNoFile) TypeID() uint32 {
+	return WallPaperNoFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -385,6 +437,11 @@ func (w *WallPaperNoFile) SetDefault(value bool) {
 	}
 }
 
+// GetDefault returns value of Default conditional field.
+func (w *WallPaperNoFile) GetDefault() (value bool) {
+	return w.Flags.Has(1)
+}
+
 // SetDark sets value of Dark conditional field.
 func (w *WallPaperNoFile) SetDark(value bool) {
 	if value {
@@ -394,6 +451,11 @@ func (w *WallPaperNoFile) SetDark(value bool) {
 		w.Flags.Unset(4)
 		w.Dark = false
 	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (w *WallPaperNoFile) GetDark() (value bool) {
+	return w.Flags.Has(4)
 }
 
 // SetSettings sets value of Settings conditional field.
@@ -464,7 +526,19 @@ type WallPaperClass interface {
 	bin.Decoder
 	construct() WallPaperClass
 
-	fmt.Stringer
+	// Whether this is the default wallpaper
+	GetDefault() (value bool)
+	// Dark mode
+	GetDark() (value bool)
+	// Wallpaper settings
+	GetSettings() (value WallPaperSettings, ok bool)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

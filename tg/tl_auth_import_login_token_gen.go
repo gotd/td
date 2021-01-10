@@ -59,6 +59,12 @@ func (i *AuthImportLoginTokenRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *AuthImportLoginTokenRequest) TypeID() uint32 {
+	return AuthImportLoginTokenRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -67,6 +73,11 @@ func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AuthImportLoginTokenRequestTypeID)
 	b.PutBytes(i.Token)
 	return nil
+}
+
+// GetToken returns value of Token field.
+func (i *AuthImportLoginTokenRequest) GetToken() (value []byte) {
+	return i.Token
 }
 
 // Decode implements bin.Decoder.

@@ -80,6 +80,12 @@ func (a *AuthAuthorization) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AuthAuthorization) TypeID() uint32 {
+	return AuthAuthorizationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -117,6 +123,11 @@ func (a *AuthAuthorization) GetTmpSessions() (value int, ok bool) {
 		return value, false
 	}
 	return a.TmpSessions, true
+}
+
+// GetUser returns value of User field.
+func (a *AuthAuthorization) GetUser() (value UserClass) {
+	return a.User
 }
 
 // Decode implements bin.Decoder.
@@ -216,6 +227,12 @@ func (a *AuthAuthorizationSignUpRequired) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AuthAuthorizationSignUpRequired) TypeID() uint32 {
+	return AuthAuthorizationSignUpRequiredTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -302,7 +319,12 @@ type AuthAuthorizationClass interface {
 	bin.Decoder
 	construct() AuthAuthorizationClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

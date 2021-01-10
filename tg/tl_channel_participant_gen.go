@@ -62,6 +62,12 @@ func (c *ChannelParticipant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipant) TypeID() uint32 {
+	return ChannelParticipantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipant) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -71,6 +77,16 @@ func (c *ChannelParticipant) Encode(b *bin.Buffer) error {
 	b.PutInt(c.UserID)
 	b.PutInt(c.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipant) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelParticipant) GetDate() (value int) {
+	return c.Date
 }
 
 // Decode implements bin.Decoder.
@@ -163,6 +179,12 @@ func (c *ChannelParticipantSelf) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantSelf) TypeID() uint32 {
+	return ChannelParticipantSelfTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -173,6 +195,21 @@ func (c *ChannelParticipantSelf) Encode(b *bin.Buffer) error {
 	b.PutInt(c.InviterID)
 	b.PutInt(c.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantSelf) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetInviterID returns value of InviterID field.
+func (c *ChannelParticipantSelf) GetInviterID() (value int) {
+	return c.InviterID
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelParticipantSelf) GetDate() (value int) {
+	return c.Date
 }
 
 // Decode implements bin.Decoder.
@@ -287,6 +324,12 @@ func (c *ChannelParticipantCreator) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantCreator) TypeID() uint32 {
+	return ChannelParticipantCreatorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantCreator) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -307,6 +350,16 @@ func (c *ChannelParticipantCreator) Encode(b *bin.Buffer) error {
 		b.PutString(c.Rank)
 	}
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantCreator) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetAdminRights returns value of AdminRights field.
+func (c *ChannelParticipantCreator) GetAdminRights() (value ChatAdminRights) {
+	return c.AdminRights
 }
 
 // SetRank sets value of Rank conditional field.
@@ -480,6 +533,12 @@ func (c *ChannelParticipantAdmin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantAdmin) TypeID() uint32 {
+	return ChannelParticipantAdminTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -527,6 +586,11 @@ func (c *ChannelParticipantAdmin) SetCanEdit(value bool) {
 	}
 }
 
+// GetCanEdit returns value of CanEdit conditional field.
+func (c *ChannelParticipantAdmin) GetCanEdit() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetSelf sets value of Self conditional field.
 func (c *ChannelParticipantAdmin) SetSelf(value bool) {
 	if value {
@@ -536,6 +600,16 @@ func (c *ChannelParticipantAdmin) SetSelf(value bool) {
 		c.Flags.Unset(1)
 		c.Self = false
 	}
+}
+
+// GetSelf returns value of Self conditional field.
+func (c *ChannelParticipantAdmin) GetSelf() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantAdmin) GetUserID() (value int) {
+	return c.UserID
 }
 
 // SetInviterID sets value of InviterID conditional field.
@@ -551,6 +625,21 @@ func (c *ChannelParticipantAdmin) GetInviterID() (value int, ok bool) {
 		return value, false
 	}
 	return c.InviterID, true
+}
+
+// GetPromotedBy returns value of PromotedBy field.
+func (c *ChannelParticipantAdmin) GetPromotedBy() (value int) {
+	return c.PromotedBy
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelParticipantAdmin) GetDate() (value int) {
+	return c.Date
+}
+
+// GetAdminRights returns value of AdminRights field.
+func (c *ChannelParticipantAdmin) GetAdminRights() (value ChatAdminRights) {
+	return c.AdminRights
 }
 
 // SetRank sets value of Rank conditional field.
@@ -718,6 +807,12 @@ func (c *ChannelParticipantBanned) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantBanned) TypeID() uint32 {
+	return ChannelParticipantBannedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -748,6 +843,31 @@ func (c *ChannelParticipantBanned) SetLeft(value bool) {
 		c.Flags.Unset(0)
 		c.Left = false
 	}
+}
+
+// GetLeft returns value of Left conditional field.
+func (c *ChannelParticipantBanned) GetLeft() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantBanned) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetKickedBy returns value of KickedBy field.
+func (c *ChannelParticipantBanned) GetKickedBy() (value int) {
+	return c.KickedBy
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelParticipantBanned) GetDate() (value int) {
+	return c.Date
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
+	return c.BannedRights
 }
 
 // Decode implements bin.Decoder.
@@ -842,6 +962,12 @@ func (c *ChannelParticipantLeft) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelParticipantLeft) TypeID() uint32 {
+	return ChannelParticipantLeftTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantLeft) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -850,6 +976,11 @@ func (c *ChannelParticipantLeft) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelParticipantLeftTypeID)
 	b.PutInt(c.UserID)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelParticipantLeft) GetUserID() (value int) {
+	return c.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -904,7 +1035,15 @@ type ChannelParticipantClass interface {
 	bin.Decoder
 	construct() ChannelParticipantClass
 
-	fmt.Stringer
+	// Pariticipant user ID
+	GetUserID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

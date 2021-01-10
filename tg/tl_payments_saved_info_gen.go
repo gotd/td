@@ -74,6 +74,12 @@ func (s *PaymentsSavedInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *PaymentsSavedInfo) TypeID() uint32 {
+	return PaymentsSavedInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -106,6 +112,11 @@ func (s *PaymentsSavedInfo) SetHasSavedCredentials(value bool) {
 		s.Flags.Unset(1)
 		s.HasSavedCredentials = false
 	}
+}
+
+// GetHasSavedCredentials returns value of HasSavedCredentials conditional field.
+func (s *PaymentsSavedInfo) GetHasSavedCredentials() (value bool) {
+	return s.Flags.Has(1)
 }
 
 // SetSavedInfo sets value of SavedInfo conditional field.

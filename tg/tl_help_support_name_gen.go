@@ -54,6 +54,12 @@ func (s *HelpSupportName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *HelpSupportName) TypeID() uint32 {
+	return HelpSupportNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *HelpSupportName) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -62,6 +68,11 @@ func (s *HelpSupportName) Encode(b *bin.Buffer) error {
 	b.PutID(HelpSupportNameTypeID)
 	b.PutString(s.Name)
 	return nil
+}
+
+// GetName returns value of Name field.
+func (s *HelpSupportName) GetName() (value string) {
+	return s.Name
 }
 
 // Decode implements bin.Decoder.

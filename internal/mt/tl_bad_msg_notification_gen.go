@@ -67,6 +67,12 @@ func (b *BadMsgNotification) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BadMsgNotification) TypeID() uint32 {
+	return BadMsgNotificationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -77,6 +83,21 @@ func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {
 	buf.PutInt(b.BadMsgSeqno)
 	buf.PutInt(b.ErrorCode)
 	return nil
+}
+
+// GetBadMsgID returns value of BadMsgID field.
+func (b *BadMsgNotification) GetBadMsgID() (value int64) {
+	return b.BadMsgID
+}
+
+// GetBadMsgSeqno returns value of BadMsgSeqno field.
+func (b *BadMsgNotification) GetBadMsgSeqno() (value int) {
+	return b.BadMsgSeqno
+}
+
+// GetErrorCode returns value of ErrorCode field.
+func (b *BadMsgNotification) GetErrorCode() (value int) {
+	return b.ErrorCode
 }
 
 // Decode implements bin.Decoder.
@@ -181,6 +202,12 @@ func (b *BadServerSalt) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BadServerSalt) TypeID() uint32 {
+	return BadServerSaltTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BadServerSalt) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -192,6 +219,26 @@ func (b *BadServerSalt) Encode(buf *bin.Buffer) error {
 	buf.PutInt(b.ErrorCode)
 	buf.PutLong(b.NewServerSalt)
 	return nil
+}
+
+// GetBadMsgID returns value of BadMsgID field.
+func (b *BadServerSalt) GetBadMsgID() (value int64) {
+	return b.BadMsgID
+}
+
+// GetBadMsgSeqno returns value of BadMsgSeqno field.
+func (b *BadServerSalt) GetBadMsgSeqno() (value int) {
+	return b.BadMsgSeqno
+}
+
+// GetErrorCode returns value of ErrorCode field.
+func (b *BadServerSalt) GetErrorCode() (value int) {
+	return b.ErrorCode
+}
+
+// GetNewServerSalt returns value of NewServerSalt field.
+func (b *BadServerSalt) GetNewServerSalt() (value int64) {
+	return b.NewServerSalt
 }
 
 // Decode implements bin.Decoder.
@@ -261,7 +308,19 @@ type BadMsgNotificationClass interface {
 	bin.Decoder
 	construct() BadMsgNotificationClass
 
-	fmt.Stringer
+	// BadMsgID field of BadMsgNotification.
+	GetBadMsgID() (value int64)
+	// BadMsgSeqno field of BadMsgNotification.
+	GetBadMsgSeqno() (value int)
+	// ErrorCode field of BadMsgNotification.
+	GetErrorCode() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

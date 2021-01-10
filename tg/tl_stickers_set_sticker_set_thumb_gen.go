@@ -62,6 +62,12 @@ func (s *StickersSetStickerSetThumbRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StickersSetStickerSetThumbRequest) TypeID() uint32 {
+	return StickersSetStickerSetThumbRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -81,6 +87,16 @@ func (s *StickersSetStickerSetThumbRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode stickers.setStickerSetThumb#9a364e30: field thumb: %w", err)
 	}
 	return nil
+}
+
+// GetStickerset returns value of Stickerset field.
+func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerSetClass) {
+	return s.Stickerset
+}
+
+// GetThumb returns value of Thumb field.
+func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
+	return s.Thumb
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (s *MessagesSentEncryptedMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSentEncryptedMessage) TypeID() uint32 {
+	return MessagesSentEncryptedMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSentEncryptedMessage) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -62,6 +68,11 @@ func (s *MessagesSentEncryptedMessage) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesSentEncryptedMessageTypeID)
 	b.PutInt(s.Date)
 	return nil
+}
+
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedMessage) GetDate() (value int) {
+	return s.Date
 }
 
 // Decode implements bin.Decoder.
@@ -139,6 +150,12 @@ func (s *MessagesSentEncryptedFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSentEncryptedFile) TypeID() uint32 {
+	return MessagesSentEncryptedFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSentEncryptedFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -153,6 +170,16 @@ func (s *MessagesSentEncryptedFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.sentEncryptedFile#9493ff32: field file: %w", err)
 	}
 	return nil
+}
+
+// GetDate returns value of Date field.
+func (s *MessagesSentEncryptedFile) GetDate() (value int) {
+	return s.Date
+}
+
+// GetFile returns value of File field.
+func (s *MessagesSentEncryptedFile) GetFile() (value EncryptedFileClass) {
+	return s.File
 }
 
 // Decode implements bin.Decoder.
@@ -210,7 +237,15 @@ type MessagesSentEncryptedMessageClass interface {
 	bin.Decoder
 	construct() MessagesSentEncryptedMessageClass
 
-	fmt.Stringer
+	// Date of sending
+	GetDate() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -54,6 +54,12 @@ func (j *ChannelsJoinChannelRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *ChannelsJoinChannelRequest) TypeID() uint32 {
+	return ChannelsJoinChannelRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -67,6 +73,11 @@ func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (j *ChannelsJoinChannelRequest) GetChannel() (value InputChannelClass) {
+	return j.Channel
 }
 
 // Decode implements bin.Decoder.

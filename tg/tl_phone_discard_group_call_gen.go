@@ -53,6 +53,12 @@ func (d *PhoneDiscardGroupCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *PhoneDiscardGroupCallRequest) TypeID() uint32 {
+	return PhoneDiscardGroupCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *PhoneDiscardGroupCallRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -63,6 +69,11 @@ func (d *PhoneDiscardGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.discardGroupCall#7a777135: field call: %w", err)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (d *PhoneDiscardGroupCallRequest) GetCall() (value InputGroupCall) {
+	return d.Call
 }
 
 // Decode implements bin.Decoder.

@@ -86,6 +86,12 @@ func (s *SecureValueErrorData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorData) TypeID() uint32 {
+	return SecureValueErrorDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorData) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -102,6 +108,26 @@ func (s *SecureValueErrorData) Encode(b *bin.Buffer) error {
 	b.PutString(s.Field)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorData) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetDataHash returns value of DataHash field.
+func (s *SecureValueErrorData) GetDataHash() (value []byte) {
+	return s.DataHash
+}
+
+// GetField returns value of Field field.
+func (s *SecureValueErrorData) GetField() (value string) {
+	return s.Field
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorData) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -214,6 +240,12 @@ func (s *SecureValueErrorFrontSide) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorFrontSide) TypeID() uint32 {
+	return SecureValueErrorFrontSideTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFrontSide) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -229,6 +261,21 @@ func (s *SecureValueErrorFrontSide) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorFrontSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFrontSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorFrontSide) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -332,6 +379,12 @@ func (s *SecureValueErrorReverseSide) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorReverseSide) TypeID() uint32 {
+	return SecureValueErrorReverseSideTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorReverseSide) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -347,6 +400,21 @@ func (s *SecureValueErrorReverseSide) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorReverseSide) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorReverseSide) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorReverseSide) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -452,6 +520,12 @@ func (s *SecureValueErrorSelfie) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorSelfie) TypeID() uint32 {
+	return SecureValueErrorSelfieTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorSelfie) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -467,6 +541,21 @@ func (s *SecureValueErrorSelfie) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorSelfie) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorSelfie) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorSelfie) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -573,6 +662,12 @@ func (s *SecureValueErrorFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorFile) TypeID() uint32 {
+	return SecureValueErrorFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -588,6 +683,21 @@ func (s *SecureValueErrorFile) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorFile) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -696,6 +806,12 @@ func (s *SecureValueErrorFiles) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorFiles) TypeID() uint32 {
+	return SecureValueErrorFilesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorFiles) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -714,6 +830,21 @@ func (s *SecureValueErrorFiles) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorFiles) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -819,6 +950,12 @@ func (s *SecureValueError) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueError) TypeID() uint32 {
+	return SecureValueErrorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueError) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -834,6 +971,21 @@ func (s *SecureValueError) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.Hash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueError) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetHash returns value of Hash field.
+func (s *SecureValueError) GetHash() (value []byte) {
+	return s.Hash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueError) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -945,6 +1097,12 @@ func (s *SecureValueErrorTranslationFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorTranslationFile) TypeID() uint32 {
+	return SecureValueErrorTranslationFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorTranslationFile) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -960,6 +1118,21 @@ func (s *SecureValueErrorTranslationFile) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.FileHash)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFile) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFile) GetFileHash() (value []byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFile) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -1073,6 +1246,12 @@ func (s *SecureValueErrorTranslationFiles) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueErrorTranslationFiles) TypeID() uint32 {
+	return SecureValueErrorTranslationFilesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueErrorTranslationFiles) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -1091,6 +1270,21 @@ func (s *SecureValueErrorTranslationFiles) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *SecureValueErrorTranslationFiles) GetType() (value SecureValueTypeClass) {
+	return s.Type
+}
+
+// GetFileHash returns value of FileHash field.
+func (s *SecureValueErrorTranslationFiles) GetFileHash() (value [][]byte) {
+	return s.FileHash
+}
+
+// GetText returns value of Text field.
+func (s *SecureValueErrorTranslationFiles) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.
@@ -1168,7 +1362,25 @@ type SecureValueErrorClass interface {
 	bin.Decoder
 	construct() SecureValueErrorClass
 
-	fmt.Stringer
+	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
+	//  2) https://core.telegram.org/constructor/secureValueTypePassport
+	//  3) https://core.telegram.org/constructor/secureValueTypeDriverLicense
+	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
+	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
+	//  6) https://core.telegram.org/constructor/secureValueTypeAddress
+	GetType() (value SecureValueTypeClass)
+	// Error message
+	GetText() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

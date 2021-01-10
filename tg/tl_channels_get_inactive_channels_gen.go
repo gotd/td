@@ -46,6 +46,12 @@ func (g *ChannelsGetInactiveChannelsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetInactiveChannelsRequest) TypeID() uint32 {
+	return ChannelsGetInactiveChannelsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetInactiveChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

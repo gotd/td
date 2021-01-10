@@ -54,6 +54,12 @@ func (p *PhotoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoEmpty) TypeID() uint32 {
+	return PhotoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -62,6 +68,11 @@ func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(PhotoEmptyTypeID)
 	b.PutLong(p.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PhotoEmpty) GetID() (value int64) {
+	return p.ID
 }
 
 // Decode implements bin.Decoder.
@@ -209,6 +220,12 @@ func (p *Photo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *Photo) TypeID() uint32 {
+	return PhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *Photo) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -260,6 +277,36 @@ func (p *Photo) SetHasStickers(value bool) {
 	}
 }
 
+// GetHasStickers returns value of HasStickers conditional field.
+func (p *Photo) GetHasStickers() (value bool) {
+	return p.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (p *Photo) GetID() (value int64) {
+	return p.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (p *Photo) GetAccessHash() (value int64) {
+	return p.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (p *Photo) GetFileReference() (value []byte) {
+	return p.FileReference
+}
+
+// GetDate returns value of Date field.
+func (p *Photo) GetDate() (value int) {
+	return p.Date
+}
+
+// GetSizes returns value of Sizes field.
+func (p *Photo) GetSizes() (value []PhotoSizeClass) {
+	return p.Sizes
+}
+
 // SetVideoSizes sets value of VideoSizes conditional field.
 func (p *Photo) SetVideoSizes(value []VideoSize) {
 	p.Flags.Set(1)
@@ -273,6 +320,11 @@ func (p *Photo) GetVideoSizes() (value []VideoSize, ok bool) {
 		return value, false
 	}
 	return p.VideoSizes, true
+}
+
+// GetDCID returns value of DCID field.
+func (p *Photo) GetDCID() (value int) {
+	return p.DCID
 }
 
 // Decode implements bin.Decoder.
@@ -383,7 +435,15 @@ type PhotoClass interface {
 	bin.Decoder
 	construct() PhotoClass
 
-	fmt.Stringer
+	// Photo identifier
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

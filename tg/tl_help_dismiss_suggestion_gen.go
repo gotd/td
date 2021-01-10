@@ -54,6 +54,12 @@ func (d *HelpDismissSuggestionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *HelpDismissSuggestionRequest) TypeID() uint32 {
+	return HelpDismissSuggestionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -62,6 +68,11 @@ func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 	b.PutID(HelpDismissSuggestionRequestTypeID)
 	b.PutString(d.Suggestion)
 	return nil
+}
+
+// GetSuggestion returns value of Suggestion field.
+func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
+	return d.Suggestion
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (c *ChatInviteEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatInviteEmpty) TypeID() uint32 {
+	return ChatInviteEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInviteEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -115,6 +121,12 @@ func (c *ChatInviteExported) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatInviteExported) TypeID() uint32 {
+	return ChatInviteExportedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -123,6 +135,11 @@ func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
 	b.PutID(ChatInviteExportedTypeID)
 	b.PutString(c.Link)
 	return nil
+}
+
+// GetLink returns value of Link field.
+func (c *ChatInviteExported) GetLink() (value string) {
+	return c.Link
 }
 
 // Decode implements bin.Decoder.
@@ -173,7 +190,12 @@ type ExportedChatInviteClass interface {
 	bin.Decoder
 	construct() ExportedChatInviteClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

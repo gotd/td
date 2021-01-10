@@ -46,6 +46,12 @@ func (t *AccountThemesNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *AccountThemesNotModified) TypeID() uint32 {
+	return AccountThemesNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -128,6 +134,12 @@ func (t *AccountThemes) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *AccountThemes) TypeID() uint32 {
+	return AccountThemesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountThemes) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -142,6 +154,16 @@ func (t *AccountThemes) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (t *AccountThemes) GetHash() (value int) {
+	return t.Hash
+}
+
+// GetThemes returns value of Themes field.
+func (t *AccountThemes) GetThemes() (value []Theme) {
+	return t.Themes
 }
 
 // Decode implements bin.Decoder.
@@ -205,7 +227,12 @@ type AccountThemesClass interface {
 	bin.Decoder
 	construct() AccountThemesClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

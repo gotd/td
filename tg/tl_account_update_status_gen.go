@@ -58,6 +58,12 @@ func (u *AccountUpdateStatusRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUpdateStatusRequest) TypeID() uint32 {
+	return AccountUpdateStatusRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -66,6 +72,11 @@ func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountUpdateStatusRequestTypeID)
 	b.PutBool(u.Offline)
 	return nil
+}
+
+// GetOffline returns value of Offline field.
+func (u *AccountUpdateStatusRequest) GetOffline() (value bool) {
+	return u.Offline
 }
 
 // Decode implements bin.Decoder.

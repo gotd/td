@@ -56,6 +56,12 @@ func (s *HelpSaveAppLogRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *HelpSaveAppLogRequest) TypeID() uint32 {
+	return HelpSaveAppLogRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -69,6 +75,11 @@ func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetEvents returns value of Events field.
+func (s *HelpSaveAppLogRequest) GetEvents() (value []InputAppEvent) {
+	return s.Events
 }
 
 // Decode implements bin.Decoder.

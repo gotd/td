@@ -100,6 +100,12 @@ func (c *HelpCountry) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *HelpCountry) TypeID() uint32 {
+	return HelpCountryTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountry) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -140,6 +146,21 @@ func (c *HelpCountry) SetHidden(value bool) {
 	}
 }
 
+// GetHidden returns value of Hidden conditional field.
+func (c *HelpCountry) GetHidden() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetIso2 returns value of Iso2 field.
+func (c *HelpCountry) GetIso2() (value string) {
+	return c.Iso2
+}
+
+// GetDefaultName returns value of DefaultName field.
+func (c *HelpCountry) GetDefaultName() (value string) {
+	return c.DefaultName
+}
+
 // SetName sets value of Name conditional field.
 func (c *HelpCountry) SetName(value string) {
 	c.Flags.Set(1)
@@ -153,6 +174,11 @@ func (c *HelpCountry) GetName() (value string, ok bool) {
 		return value, false
 	}
 	return c.Name, true
+}
+
+// GetCountryCodes returns value of CountryCodes field.
+func (c *HelpCountry) GetCountryCodes() (value []HelpCountryCode) {
+	return c.CountryCodes
 }
 
 // Decode implements bin.Decoder.

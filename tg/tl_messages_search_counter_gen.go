@@ -81,6 +81,12 @@ func (s *MessagesSearchCounter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSearchCounter) TypeID() uint32 {
+	return MessagesSearchCounterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchCounter) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -112,6 +118,21 @@ func (s *MessagesSearchCounter) SetInexact(value bool) {
 		s.Flags.Unset(1)
 		s.Inexact = false
 	}
+}
+
+// GetInexact returns value of Inexact conditional field.
+func (s *MessagesSearchCounter) GetInexact() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchCounter) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetCount returns value of Count field.
+func (s *MessagesSearchCounter) GetCount() (value int) {
+	return s.Count
 }
 
 // Decode implements bin.Decoder.

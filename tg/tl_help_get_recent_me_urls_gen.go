@@ -54,6 +54,12 @@ func (g *HelpGetRecentMeUrlsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetRecentMeUrlsRequest) TypeID() uint32 {
+	return HelpGetRecentMeUrlsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetRecentMeUrlsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -62,6 +68,11 @@ func (g *HelpGetRecentMeUrlsRequest) Encode(b *bin.Buffer) error {
 	b.PutID(HelpGetRecentMeUrlsRequestTypeID)
 	b.PutString(g.Referer)
 	return nil
+}
+
+// GetReferer returns value of Referer field.
+func (g *HelpGetRecentMeUrlsRequest) GetReferer() (value string) {
+	return g.Referer
 }
 
 // Decode implements bin.Decoder.

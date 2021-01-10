@@ -101,6 +101,12 @@ func (g *MessagesGetInlineBotResultsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetInlineBotResultsRequest) TypeID() uint32 {
+	return MessagesGetInlineBotResultsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -138,6 +144,16 @@ func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetBot returns value of Bot field.
+func (g *MessagesGetInlineBotResultsRequest) GetBot() (value InputUserClass) {
+	return g.Bot
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetInlineBotResultsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
 // SetGeoPoint sets value of GeoPoint conditional field.
 func (g *MessagesGetInlineBotResultsRequest) SetGeoPoint(value InputGeoPointClass) {
 	g.Flags.Set(0)
@@ -151,6 +167,16 @@ func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointC
 		return value, false
 	}
 	return g.GeoPoint, true
+}
+
+// GetQuery returns value of Query field.
+func (g *MessagesGetInlineBotResultsRequest) GetQuery() (value string) {
+	return g.Query
+}
+
+// GetOffset returns value of Offset field.
+func (g *MessagesGetInlineBotResultsRequest) GetOffset() (value string) {
+	return g.Offset
 }
 
 // Decode implements bin.Decoder.

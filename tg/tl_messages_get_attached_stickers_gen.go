@@ -54,6 +54,12 @@ func (g *MessagesGetAttachedStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetAttachedStickersRequest) TypeID() uint32 {
+	return MessagesGetAttachedStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.getAttachedStickers#cc5b67cc: field media: %w", err)
 	}
 	return nil
+}
+
+// GetMedia returns value of Media field.
+func (g *MessagesGetAttachedStickersRequest) GetMedia() (value InputStickeredMediaClass) {
+	return g.Media
 }
 
 // Decode implements bin.Decoder.

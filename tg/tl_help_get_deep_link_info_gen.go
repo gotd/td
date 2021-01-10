@@ -54,6 +54,12 @@ func (g *HelpGetDeepLinkInfoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetDeepLinkInfoRequest) TypeID() uint32 {
+	return HelpGetDeepLinkInfoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetDeepLinkInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -62,6 +68,11 @@ func (g *HelpGetDeepLinkInfoRequest) Encode(b *bin.Buffer) error {
 	b.PutID(HelpGetDeepLinkInfoRequestTypeID)
 	b.PutString(g.Path)
 	return nil
+}
+
+// GetPath returns value of Path field.
+func (g *HelpGetDeepLinkInfoRequest) GetPath() (value string) {
+	return g.Path
 }
 
 // Decode implements bin.Decoder.

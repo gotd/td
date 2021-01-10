@@ -68,6 +68,12 @@ func (i *InputGameID) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputGameID) TypeID() uint32 {
+	return InputGameIDTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputGameID) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -77,6 +83,16 @@ func (i *InputGameID) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputGameID) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputGameID) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -161,6 +177,12 @@ func (i *InputGameShortName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputGameShortName) TypeID() uint32 {
+	return InputGameShortNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputGameShortName) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -175,6 +197,16 @@ func (i *InputGameShortName) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(i.ShortName)
 	return nil
+}
+
+// GetBotID returns value of BotID field.
+func (i *InputGameShortName) GetBotID() (value InputUserClass) {
+	return i.BotID
+}
+
+// GetShortName returns value of ShortName field.
+func (i *InputGameShortName) GetShortName() (value string) {
+	return i.ShortName
 }
 
 // Decode implements bin.Decoder.
@@ -232,7 +264,12 @@ type InputGameClass interface {
 	bin.Decoder
 	construct() InputGameClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

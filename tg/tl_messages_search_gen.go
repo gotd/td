@@ -190,6 +190,12 @@ func (s *MessagesSearchRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSearchRequest) TypeID() uint32 {
+	return MessagesSearchRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -240,6 +246,16 @@ func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetPeer returns value of Peer field.
+func (s *MessagesSearchRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchRequest) GetQ() (value string) {
+	return s.Q
+}
+
 // SetFromID sets value of FromID conditional field.
 func (s *MessagesSearchRequest) SetFromID(value InputPeerClass) {
 	s.Flags.Set(0)
@@ -268,6 +284,51 @@ func (s *MessagesSearchRequest) GetTopMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return s.TopMsgID, true
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchRequest) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetMinDate returns value of MinDate field.
+func (s *MessagesSearchRequest) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *MessagesSearchRequest) GetMaxDate() (value int) {
+	return s.MaxDate
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (s *MessagesSearchRequest) GetOffsetID() (value int) {
+	return s.OffsetID
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (s *MessagesSearchRequest) GetAddOffset() (value int) {
+	return s.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (s *MessagesSearchRequest) GetLimit() (value int) {
+	return s.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (s *MessagesSearchRequest) GetMaxID() (value int) {
+	return s.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (s *MessagesSearchRequest) GetMinID() (value int) {
+	return s.MinID
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesSearchRequest) GetHash() (value int) {
+	return s.Hash
 }
 
 // Decode implements bin.Decoder.

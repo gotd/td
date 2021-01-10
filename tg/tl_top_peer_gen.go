@@ -65,6 +65,12 @@ func (t *TopPeer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TopPeer) TypeID() uint32 {
+	return TopPeerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeer) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -79,6 +85,16 @@ func (t *TopPeer) Encode(b *bin.Buffer) error {
 	}
 	b.PutDouble(t.Rating)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (t *TopPeer) GetPeer() (value PeerClass) {
+	return t.Peer
+}
+
+// GetRating returns value of Rating field.
+func (t *TopPeer) GetRating() (value float64) {
+	return t.Rating
 }
 
 // Decode implements bin.Decoder.

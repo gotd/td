@@ -46,6 +46,12 @@ func (i *InputPhotoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPhotoEmpty) TypeID() uint32 {
+	return InputPhotoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -137,6 +143,12 @@ func (i *InputPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPhoto) TypeID() uint32 {
+	return InputPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -147,6 +159,21 @@ func (i *InputPhoto) Encode(b *bin.Buffer) error {
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputPhoto) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPhoto) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputPhoto) GetFileReference() (value []byte) {
+	return i.FileReference
 }
 
 // Decode implements bin.Decoder.
@@ -211,7 +238,12 @@ type InputPhotoClass interface {
 	bin.Decoder
 	construct() InputPhotoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

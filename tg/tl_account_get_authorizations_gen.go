@@ -46,6 +46,12 @@ func (g *AccountGetAuthorizationsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetAuthorizationsRequest) TypeID() uint32 {
+	return AccountGetAuthorizationsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

@@ -46,6 +46,12 @@ func (g *HelpGetInviteTextRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetInviteTextRequest) TypeID() uint32 {
+	return HelpGetInviteTextRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetInviteTextRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

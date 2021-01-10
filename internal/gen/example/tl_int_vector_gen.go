@@ -22,6 +22,9 @@ type IntVector struct {
 	Elems []int
 }
 
+// IntVectorTypeID is TL type id of IntVector.
+const IntVectorTypeID = bin.TypeVector
+
 func (vec *IntVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *IntVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *IntVector) TypeID() uint32 {
+	return IntVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *IntVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -58,6 +67,11 @@ func (vec *IntVector) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *IntVector) GetElems() (value []int) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

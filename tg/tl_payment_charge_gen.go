@@ -62,6 +62,12 @@ func (p *PaymentCharge) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentCharge) TypeID() uint32 {
+	return PaymentChargeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentCharge) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -71,6 +77,16 @@ func (p *PaymentCharge) Encode(b *bin.Buffer) error {
 	b.PutString(p.ID)
 	b.PutString(p.ProviderChargeID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PaymentCharge) GetID() (value string) {
+	return p.ID
+}
+
+// GetProviderChargeID returns value of ProviderChargeID field.
+func (p *PaymentCharge) GetProviderChargeID() (value string) {
+	return p.ProviderChargeID
 }
 
 // Decode implements bin.Decoder.

@@ -68,6 +68,12 @@ func (s *ChannelsSetDiscussionGroupRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
+	return ChannelsSetDiscussionGroupRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *ChannelsSetDiscussionGroupRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -87,6 +93,16 @@ func (s *ChannelsSetDiscussionGroupRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.setDiscussionGroup#40582bb2: field group: %w", err)
 	}
 	return nil
+}
+
+// GetBroadcast returns value of Broadcast field.
+func (s *ChannelsSetDiscussionGroupRequest) GetBroadcast() (value InputChannelClass) {
+	return s.Broadcast
+}
+
+// GetGroup returns value of Group field.
+func (s *ChannelsSetDiscussionGroupRequest) GetGroup() (value InputChannelClass) {
+	return s.Group
 }
 
 // Decode implements bin.Decoder.

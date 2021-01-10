@@ -68,6 +68,12 @@ func (a *MessagesAffectedMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesAffectedMessages) TypeID() uint32 {
+	return MessagesAffectedMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -77,6 +83,16 @@ func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
 	return nil
+}
+
+// GetPts returns value of Pts field.
+func (a *MessagesAffectedMessages) GetPts() (value int) {
+	return a.Pts
+}
+
+// GetPtsCount returns value of PtsCount field.
+func (a *MessagesAffectedMessages) GetPtsCount() (value int) {
+	return a.PtsCount
 }
 
 // Decode implements bin.Decoder.

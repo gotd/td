@@ -6,6 +6,8 @@ import (
 	"github.com/gotd/tl"
 )
 
+const flagsType = "bin.Fields"
+
 // fieldDef represents structDef field.
 type fieldDef struct {
 	// Name of field. Should be in camel case.
@@ -47,6 +49,20 @@ type fieldDef struct {
 	Links []string
 }
 
+func (f fieldDef) EqualAsField(b fieldDef) bool {
+	return f.Name == b.Name &&
+		f.Type == b.Type &&
+		f.Func == b.Func &&
+		f.Vector == b.Vector &&
+		f.DoubleVector == b.DoubleVector &&
+		f.Slice == b.Slice &&
+		f.DoubleSlice == b.DoubleSlice &&
+		f.Interface == b.Interface &&
+		f.InterfaceFunc == b.InterfaceFunc &&
+		f.Conditional == b.Conditional &&
+		f.ConditionalBool == b.ConditionalBool
+}
+
 // nolint:gocognit,gocyclo
 //
 // TODO(ernado) Split into multiple sections: base type, encoder and conditional.
@@ -74,7 +90,7 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 		f.DoubleVector = true
 	}
 	if param.Flags {
-		f.Type = "bin.Fields"
+		f.Type = flagsType
 	}
 	f.Type = baseType.Name
 	switch baseType.Name {
@@ -109,7 +125,7 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 	default:
 		f.Encoder = true
 		if param.Flags {
-			f.Type = "bin.Fields"
+			f.Type = flagsType
 			break
 		}
 

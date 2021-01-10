@@ -84,6 +84,12 @@ func (c *PhoneConfirmCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *PhoneConfirmCallRequest) TypeID() uint32 {
+	return PhoneConfirmCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -99,6 +105,26 @@ func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.confirmCall#2efe1722: field protocol: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (c *PhoneConfirmCallRequest) GetPeer() (value InputPhoneCall) {
+	return c.Peer
+}
+
+// GetGA returns value of GA field.
+func (c *PhoneConfirmCallRequest) GetGA() (value []byte) {
+	return c.GA
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (c *PhoneConfirmCallRequest) GetKeyFingerprint() (value int64) {
+	return c.KeyFingerprint
+}
+
+// GetProtocol returns value of Protocol field.
+func (c *PhoneConfirmCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return c.Protocol
 }
 
 // Decode implements bin.Decoder.

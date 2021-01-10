@@ -62,6 +62,12 @@ func (i *InputWallPaper) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWallPaper) TypeID() uint32 {
+	return InputWallPaperTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWallPaper) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -71,6 +77,16 @@ func (i *InputWallPaper) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputWallPaper) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWallPaper) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -147,6 +163,12 @@ func (i *InputWallPaperSlug) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWallPaperSlug) TypeID() uint32 {
+	return InputWallPaperSlugTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -155,6 +177,11 @@ func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 	b.PutID(InputWallPaperSlugTypeID)
 	b.PutString(i.Slug)
 	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (i *InputWallPaperSlug) GetSlug() (value string) {
+	return i.Slug
 }
 
 // Decode implements bin.Decoder.
@@ -216,6 +243,12 @@ func (i *InputWallPaperNoFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWallPaperNoFile) TypeID() uint32 {
+	return InputWallPaperNoFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -267,7 +300,12 @@ type InputWallPaperClass interface {
 	bin.Decoder
 	construct() InputWallPaperClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

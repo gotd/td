@@ -70,6 +70,12 @@ func (c *ChatParticipant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatParticipant) TypeID() uint32 {
+	return ChatParticipantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipant) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -80,6 +86,21 @@ func (c *ChatParticipant) Encode(b *bin.Buffer) error {
 	b.PutInt(c.InviterID)
 	b.PutInt(c.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChatParticipant) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetInviterID returns value of InviterID field.
+func (c *ChatParticipant) GetInviterID() (value int) {
+	return c.InviterID
+}
+
+// GetDate returns value of Date field.
+func (c *ChatParticipant) GetDate() (value int) {
+	return c.Date
 }
 
 // Decode implements bin.Decoder.
@@ -163,6 +184,12 @@ func (c *ChatParticipantCreator) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatParticipantCreator) TypeID() uint32 {
+	return ChatParticipantCreatorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -171,6 +198,11 @@ func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 	b.PutID(ChatParticipantCreatorTypeID)
 	b.PutInt(c.UserID)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChatParticipantCreator) GetUserID() (value int) {
+	return c.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -256,6 +288,12 @@ func (c *ChatParticipantAdmin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatParticipantAdmin) TypeID() uint32 {
+	return ChatParticipantAdminTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -266,6 +304,21 @@ func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
 	b.PutInt(c.InviterID)
 	b.PutInt(c.Date)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChatParticipantAdmin) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetInviterID returns value of InviterID field.
+func (c *ChatParticipantAdmin) GetInviterID() (value int) {
+	return c.InviterID
+}
+
+// GetDate returns value of Date field.
+func (c *ChatParticipantAdmin) GetDate() (value int) {
+	return c.Date
 }
 
 // Decode implements bin.Decoder.
@@ -331,7 +384,15 @@ type ChatParticipantClass interface {
 	bin.Decoder
 	construct() ChatParticipantClass
 
-	fmt.Stringer
+	// Member user ID
+	GetUserID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -76,6 +76,12 @@ func (a *ChannelsAdminLogResults) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *ChannelsAdminLogResults) TypeID() uint32 {
+	return ChannelsAdminLogResultsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -107,6 +113,21 @@ func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetEvents returns value of Events field.
+func (a *ChannelsAdminLogResults) GetEvents() (value []ChannelAdminLogEvent) {
+	return a.Events
+}
+
+// GetChats returns value of Chats field.
+func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
+	return a.Chats
+}
+
+// GetUsers returns value of Users field.
+func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
+	return a.Users
 }
 
 // Decode implements bin.Decoder.

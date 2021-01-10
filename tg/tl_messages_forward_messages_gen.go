@@ -120,6 +120,12 @@ func (f *MessagesForwardMessagesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesForwardMessagesRequest) TypeID() uint32 {
+	return MessagesForwardMessagesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -178,6 +184,11 @@ func (f *MessagesForwardMessagesRequest) SetSilent(value bool) {
 	}
 }
 
+// GetSilent returns value of Silent conditional field.
+func (f *MessagesForwardMessagesRequest) GetSilent() (value bool) {
+	return f.Flags.Has(5)
+}
+
 // SetBackground sets value of Background conditional field.
 func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
 	if value {
@@ -189,6 +200,11 @@ func (f *MessagesForwardMessagesRequest) SetBackground(value bool) {
 	}
 }
 
+// GetBackground returns value of Background conditional field.
+func (f *MessagesForwardMessagesRequest) GetBackground() (value bool) {
+	return f.Flags.Has(6)
+}
+
 // SetWithMyScore sets value of WithMyScore conditional field.
 func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
 	if value {
@@ -198,6 +214,31 @@ func (f *MessagesForwardMessagesRequest) SetWithMyScore(value bool) {
 		f.Flags.Unset(8)
 		f.WithMyScore = false
 	}
+}
+
+// GetWithMyScore returns value of WithMyScore conditional field.
+func (f *MessagesForwardMessagesRequest) GetWithMyScore() (value bool) {
+	return f.Flags.Has(8)
+}
+
+// GetFromPeer returns value of FromPeer field.
+func (f *MessagesForwardMessagesRequest) GetFromPeer() (value InputPeerClass) {
+	return f.FromPeer
+}
+
+// GetID returns value of ID field.
+func (f *MessagesForwardMessagesRequest) GetID() (value []int) {
+	return f.ID
+}
+
+// GetRandomID returns value of RandomID field.
+func (f *MessagesForwardMessagesRequest) GetRandomID() (value []int64) {
+	return f.RandomID
+}
+
+// GetToPeer returns value of ToPeer field.
+func (f *MessagesForwardMessagesRequest) GetToPeer() (value InputPeerClass) {
+	return f.ToPeer
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

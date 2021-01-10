@@ -70,6 +70,12 @@ func (p *PeerLocated) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PeerLocated) TypeID() uint32 {
+	return PeerLocatedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerLocated) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -85,6 +91,21 @@ func (p *PeerLocated) Encode(b *bin.Buffer) error {
 	b.PutInt(p.Expires)
 	b.PutInt(p.Distance)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (p *PeerLocated) GetPeer() (value PeerClass) {
+	return p.Peer
+}
+
+// GetExpires returns value of Expires field.
+func (p *PeerLocated) GetExpires() (value int) {
+	return p.Expires
+}
+
+// GetDistance returns value of Distance field.
+func (p *PeerLocated) GetDistance() (value int) {
+	return p.Distance
 }
 
 // Decode implements bin.Decoder.
@@ -168,6 +189,12 @@ func (p *PeerSelfLocated) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PeerSelfLocated) TypeID() uint32 {
+	return PeerSelfLocatedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -176,6 +203,11 @@ func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 	b.PutID(PeerSelfLocatedTypeID)
 	b.PutInt(p.Expires)
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (p *PeerSelfLocated) GetExpires() (value int) {
+	return p.Expires
 }
 
 // Decode implements bin.Decoder.
@@ -226,7 +258,15 @@ type PeerLocatedClass interface {
 	bin.Decoder
 	construct() PeerLocatedClass
 
-	fmt.Stringer
+	// Validity period of current data
+	GetExpires() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

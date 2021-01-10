@@ -45,6 +45,12 @@ func (f *False) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *False) TypeID() uint32 {
+	return FalseTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *False) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -105,6 +111,12 @@ func (t *True) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *True) TypeID() uint32 {
+	return TrueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *True) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -155,7 +167,12 @@ type BoolClass interface {
 	bin.Decoder
 	construct() BoolClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

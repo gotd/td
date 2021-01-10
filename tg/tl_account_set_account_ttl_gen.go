@@ -54,6 +54,12 @@ func (s *AccountSetAccountTTLRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSetAccountTTLRequest) TypeID() uint32 {
+	return AccountSetAccountTTLRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSetAccountTTLRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -64,6 +70,11 @@ func (s *AccountSetAccountTTLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.setAccountTTL#2442485e: field ttl: %w", err)
 	}
 	return nil
+}
+
+// GetTTL returns value of TTL field.
+func (s *AccountSetAccountTTLRequest) GetTTL() (value AccountDaysTTL) {
+	return s.TTL
 }
 
 // Decode implements bin.Decoder.

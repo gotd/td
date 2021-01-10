@@ -70,6 +70,12 @@ func (g *AccountGetAuthorizationFormRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetAuthorizationFormRequest) TypeID() uint32 {
+	return AccountGetAuthorizationFormRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -80,6 +86,21 @@ func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 	b.PutString(g.Scope)
 	b.PutString(g.PublicKey)
 	return nil
+}
+
+// GetBotID returns value of BotID field.
+func (g *AccountGetAuthorizationFormRequest) GetBotID() (value int) {
+	return g.BotID
+}
+
+// GetScope returns value of Scope field.
+func (g *AccountGetAuthorizationFormRequest) GetScope() (value string) {
+	return g.Scope
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (g *AccountGetAuthorizationFormRequest) GetPublicKey() (value string) {
+	return g.PublicKey
 }
 
 // Decode implements bin.Decoder.

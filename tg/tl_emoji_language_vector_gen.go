@@ -22,6 +22,9 @@ type EmojiLanguageVector struct {
 	Elems []EmojiLanguage
 }
 
+// EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.
+const EmojiLanguageVectorTypeID = bin.TypeVector
+
 func (vec *EmojiLanguageVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *EmojiLanguageVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *EmojiLanguageVector) TypeID() uint32 {
+	return EmojiLanguageVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *EmojiLanguageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *EmojiLanguageVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *EmojiLanguageVector) GetElems() (value []EmojiLanguage) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

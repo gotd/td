@@ -46,6 +46,12 @@ func (p *PasswordKdfAlgoUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PasswordKdfAlgoUnknown) TypeID() uint32 {
+	return PasswordKdfAlgoUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -154,6 +160,12 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Stri
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
+	return PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -165,6 +177,26 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Enco
 	b.PutInt(p.G)
 	b.PutBytes(p.P)
 	return nil
+}
+
+// GetSalt1 returns value of Salt1 field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt1() (value []byte) {
+	return p.Salt1
+}
+
+// GetSalt2 returns value of Salt2 field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetSalt2() (value []byte) {
+	return p.Salt2
+}
+
+// GetG returns value of G field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetG() (value int) {
+	return p.G
+}
+
+// GetP returns value of P field.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) GetP() (value []byte) {
+	return p.P
 }
 
 // Decode implements bin.Decoder.
@@ -238,7 +270,12 @@ type PasswordKdfAlgoClass interface {
 	bin.Decoder
 	construct() PasswordKdfAlgoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

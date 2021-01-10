@@ -93,6 +93,12 @@ func (c *HelpCountryCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *HelpCountryCode) TypeID() uint32 {
+	return HelpCountryCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountryCode) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -122,6 +128,11 @@ func (c *HelpCountryCode) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCountryCode returns value of CountryCode field.
+func (c *HelpCountryCode) GetCountryCode() (value string) {
+	return c.CountryCode
 }
 
 // SetPrefixes sets value of Prefixes conditional field.

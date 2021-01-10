@@ -62,6 +62,12 @@ func (s *StatsAbsValueAndPrev) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsAbsValueAndPrev) TypeID() uint32 {
+	return StatsAbsValueAndPrevTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -71,6 +77,16 @@ func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {
 	b.PutDouble(s.Current)
 	b.PutDouble(s.Previous)
 	return nil
+}
+
+// GetCurrent returns value of Current field.
+func (s *StatsAbsValueAndPrev) GetCurrent() (value float64) {
+	return s.Current
+}
+
+// GetPrevious returns value of Previous field.
+func (s *StatsAbsValueAndPrev) GetPrevious() (value float64) {
+	return s.Previous
 }
 
 // Decode implements bin.Decoder.

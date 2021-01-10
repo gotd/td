@@ -68,6 +68,12 @@ func (s *StickerPack) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StickerPack) TypeID() uint32 {
+	return StickerPackTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StickerPack) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -80,6 +86,16 @@ func (s *StickerPack) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetEmoticon returns value of Emoticon field.
+func (s *StickerPack) GetEmoticon() (value string) {
+	return s.Emoticon
+}
+
+// GetDocuments returns value of Documents field.
+func (s *StickerPack) GetDocuments() (value []int64) {
+	return s.Documents
 }
 
 // Decode implements bin.Decoder.

@@ -102,6 +102,12 @@ func (i *InputSingleMedia) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputSingleMedia) TypeID() uint32 {
+	return InputSingleMediaTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -134,6 +140,21 @@ func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMedia returns value of Media field.
+func (i *InputSingleMedia) GetMedia() (value InputMediaClass) {
+	return i.Media
+}
+
+// GetRandomID returns value of RandomID field.
+func (i *InputSingleMedia) GetRandomID() (value int64) {
+	return i.RandomID
+}
+
+// GetMessage returns value of Message field.
+func (i *InputSingleMedia) GetMessage() (value string) {
+	return i.Message
 }
 
 // SetEntities sets value of Entities conditional field.

@@ -65,6 +65,12 @@ func (s *StatsDateRangeDays) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsDateRangeDays) TypeID() uint32 {
+	return StatsDateRangeDaysTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -74,6 +80,16 @@ func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
 	return nil
+}
+
+// GetMinDate returns value of MinDate field.
+func (s *StatsDateRangeDays) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *StatsDateRangeDays) GetMaxDate() (value int) {
+	return s.MaxDate
 }
 
 // Decode implements bin.Decoder.

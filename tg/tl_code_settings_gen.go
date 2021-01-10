@@ -83,6 +83,12 @@ func (c *CodeSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *CodeSettings) TypeID() uint32 {
+	return CodeSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *CodeSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -115,6 +121,11 @@ func (c *CodeSettings) SetAllowFlashcall(value bool) {
 	}
 }
 
+// GetAllowFlashcall returns value of AllowFlashcall conditional field.
+func (c *CodeSettings) GetAllowFlashcall() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetCurrentNumber sets value of CurrentNumber conditional field.
 func (c *CodeSettings) SetCurrentNumber(value bool) {
 	if value {
@@ -126,6 +137,11 @@ func (c *CodeSettings) SetCurrentNumber(value bool) {
 	}
 }
 
+// GetCurrentNumber returns value of CurrentNumber conditional field.
+func (c *CodeSettings) GetCurrentNumber() (value bool) {
+	return c.Flags.Has(1)
+}
+
 // SetAllowAppHash sets value of AllowAppHash conditional field.
 func (c *CodeSettings) SetAllowAppHash(value bool) {
 	if value {
@@ -135,6 +151,11 @@ func (c *CodeSettings) SetAllowAppHash(value bool) {
 		c.Flags.Unset(4)
 		c.AllowAppHash = false
 	}
+}
+
+// GetAllowAppHash returns value of AllowAppHash conditional field.
+func (c *CodeSettings) GetAllowAppHash() (value bool) {
+	return c.Flags.Has(4)
 }
 
 // Decode implements bin.Decoder.

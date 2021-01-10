@@ -46,6 +46,12 @@ func (g *AccountGetAutoDownloadSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetAutoDownloadSettingsRequest) TypeID() uint32 {
+	return AccountGetAutoDownloadSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

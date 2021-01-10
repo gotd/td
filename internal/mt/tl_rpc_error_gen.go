@@ -59,6 +59,12 @@ func (r *RPCError) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCError) TypeID() uint32 {
+	return RPCErrorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCError) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -68,6 +74,16 @@ func (r *RPCError) Encode(b *bin.Buffer) error {
 	b.PutInt(r.ErrorCode)
 	b.PutString(r.ErrorMessage)
 	return nil
+}
+
+// GetErrorCode returns value of ErrorCode field.
+func (r *RPCError) GetErrorCode() (value int) {
+	return r.ErrorCode
+}
+
+// GetErrorMessage returns value of ErrorMessage field.
+func (r *RPCError) GetErrorMessage() (value string) {
+	return r.ErrorMessage
 }
 
 // Decode implements bin.Decoder.

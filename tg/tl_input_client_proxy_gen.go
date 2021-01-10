@@ -65,6 +65,12 @@ func (i *InputClientProxy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputClientProxy) TypeID() uint32 {
+	return InputClientProxyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputClientProxy) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -74,6 +80,16 @@ func (i *InputClientProxy) Encode(b *bin.Buffer) error {
 	b.PutString(i.Address)
 	b.PutInt(i.Port)
 	return nil
+}
+
+// GetAddress returns value of Address field.
+func (i *InputClientProxy) GetAddress() (value string) {
+	return i.Address
+}
+
+// GetPort returns value of Port field.
+func (i *InputClientProxy) GetPort() (value int) {
+	return i.Port
 }
 
 // Decode implements bin.Decoder.

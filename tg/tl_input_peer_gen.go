@@ -46,6 +46,12 @@ func (i *InputPeerEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerEmpty) TypeID() uint32 {
+	return InputPeerEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +111,12 @@ func (i *InputPeerSelf) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerSelf) TypeID() uint32 {
+	return InputPeerSelfTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -176,6 +188,12 @@ func (i *InputPeerChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerChat) TypeID() uint32 {
+	return InputPeerChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerChat) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -184,6 +202,11 @@ func (i *InputPeerChat) Encode(b *bin.Buffer) error {
 	b.PutID(InputPeerChatTypeID)
 	b.PutInt(i.ChatID)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (i *InputPeerChat) GetChatID() (value int) {
+	return i.ChatID
 }
 
 // Decode implements bin.Decoder.
@@ -264,6 +287,12 @@ func (i *InputPeerUser) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerUser) TypeID() uint32 {
+	return InputPeerUserTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerUser) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -273,6 +302,16 @@ func (i *InputPeerUser) Encode(b *bin.Buffer) error {
 	b.PutInt(i.UserID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputPeerUser) GetUserID() (value int) {
+	return i.UserID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerUser) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -360,6 +399,12 @@ func (i *InputPeerChannel) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerChannel) TypeID() uint32 {
+	return InputPeerChannelTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerChannel) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -369,6 +414,16 @@ func (i *InputPeerChannel) Encode(b *bin.Buffer) error {
 	b.PutInt(i.ChannelID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannel) GetChannelID() (value int) {
+	return i.ChannelID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputPeerChannel) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -464,6 +519,12 @@ func (i *InputPeerUserFromMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerUserFromMessage) TypeID() uint32 {
+	return InputPeerUserFromMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerUserFromMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -479,6 +540,21 @@ func (i *InputPeerUserFromMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(i.MsgID)
 	b.PutInt(i.UserID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputPeerUserFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerUserFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputPeerUserFromMessage) GetUserID() (value int) {
+	return i.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -581,6 +657,12 @@ func (i *InputPeerChannelFromMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerChannelFromMessage) TypeID() uint32 {
+	return InputPeerChannelFromMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerChannelFromMessage) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -596,6 +678,21 @@ func (i *InputPeerChannelFromMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(i.MsgID)
 	b.PutInt(i.ChannelID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputPeerChannelFromMessage) GetPeer() (value InputPeerClass) {
+	return i.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (i *InputPeerChannelFromMessage) GetMsgID() (value int) {
+	return i.MsgID
+}
+
+// GetChannelID returns value of ChannelID field.
+func (i *InputPeerChannelFromMessage) GetChannelID() (value int) {
+	return i.ChannelID
 }
 
 // Decode implements bin.Decoder.
@@ -665,7 +762,12 @@ type InputPeerClass interface {
 	bin.Decoder
 	construct() InputPeerClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

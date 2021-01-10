@@ -46,6 +46,12 @@ func (s *SecureValueTypePersonalDetails) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypePersonalDetails) TypeID() uint32 {
+	return SecureValueTypePersonalDetailsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -105,6 +111,12 @@ func (s *SecureValueTypePassport) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypePassport) TypeID() uint32 {
+	return SecureValueTypePassportTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (s *SecureValueTypeDriverLicense) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeDriverLicense) TypeID() uint32 {
+	return SecureValueTypeDriverLicenseTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -227,6 +245,12 @@ func (s *SecureValueTypeIdentityCard) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeIdentityCard) TypeID() uint32 {
+	return SecureValueTypeIdentityCardTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -293,6 +317,12 @@ func (s *SecureValueTypeInternalPassport) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeInternalPassport) TypeID() uint32 {
+	return SecureValueTypeInternalPassportTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -352,6 +382,12 @@ func (s *SecureValueTypeAddress) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeAddress) TypeID() uint32 {
+	return SecureValueTypeAddressTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -415,6 +451,12 @@ func (s *SecureValueTypeUtilityBill) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeUtilityBill) TypeID() uint32 {
+	return SecureValueTypeUtilityBillTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -476,6 +518,12 @@ func (s *SecureValueTypeBankStatement) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeBankStatement) TypeID() uint32 {
+	return SecureValueTypeBankStatementTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -535,6 +583,12 @@ func (s *SecureValueTypeRentalAgreement) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeRentalAgreement) TypeID() uint32 {
+	return SecureValueTypeRentalAgreementTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -601,6 +655,12 @@ func (s *SecureValueTypePassportRegistration) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypePassportRegistration) TypeID() uint32 {
+	return SecureValueTypePassportRegistrationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -660,6 +720,12 @@ func (s *SecureValueTypeTemporaryRegistration) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeTemporaryRegistration) TypeID() uint32 {
+	return SecureValueTypeTemporaryRegistrationTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -723,6 +789,12 @@ func (s *SecureValueTypePhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypePhone) TypeID() uint32 {
+	return SecureValueTypePhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -782,6 +854,12 @@ func (s *SecureValueTypeEmail) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureValueTypeEmail) TypeID() uint32 {
+	return SecureValueTypeEmailTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -845,7 +923,12 @@ type SecureValueTypeClass interface {
 	bin.Decoder
 	construct() SecureValueTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

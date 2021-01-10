@@ -153,6 +153,12 @@ func (p *PaymentsPaymentReceipt) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentsPaymentReceipt) TypeID() uint32 {
+	return PaymentsPaymentReceiptTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -199,6 +205,26 @@ func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetDate returns value of Date field.
+func (p *PaymentsPaymentReceipt) GetDate() (value int) {
+	return p.Date
+}
+
+// GetBotID returns value of BotID field.
+func (p *PaymentsPaymentReceipt) GetBotID() (value int) {
+	return p.BotID
+}
+
+// GetInvoice returns value of Invoice field.
+func (p *PaymentsPaymentReceipt) GetInvoice() (value Invoice) {
+	return p.Invoice
+}
+
+// GetProviderID returns value of ProviderID field.
+func (p *PaymentsPaymentReceipt) GetProviderID() (value int) {
+	return p.ProviderID
+}
+
 // SetInfo sets value of Info conditional field.
 func (p *PaymentsPaymentReceipt) SetInfo(value PaymentRequestedInfo) {
 	p.Flags.Set(0)
@@ -227,6 +253,26 @@ func (p *PaymentsPaymentReceipt) GetShipping() (value ShippingOption, ok bool) {
 		return value, false
 	}
 	return p.Shipping, true
+}
+
+// GetCurrency returns value of Currency field.
+func (p *PaymentsPaymentReceipt) GetCurrency() (value string) {
+	return p.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (p *PaymentsPaymentReceipt) GetTotalAmount() (value int64) {
+	return p.TotalAmount
+}
+
+// GetCredentialsTitle returns value of CredentialsTitle field.
+func (p *PaymentsPaymentReceipt) GetCredentialsTitle() (value string) {
+	return p.CredentialsTitle
+}
+
+// GetUsers returns value of Users field.
+func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.

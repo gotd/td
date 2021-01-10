@@ -188,6 +188,12 @@ func (u *UserFull) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserFull) TypeID() uint32 {
+	return UserFullTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserFull) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -279,6 +285,11 @@ func (u *UserFull) SetBlocked(value bool) {
 	}
 }
 
+// GetBlocked returns value of Blocked conditional field.
+func (u *UserFull) GetBlocked() (value bool) {
+	return u.Flags.Has(0)
+}
+
 // SetPhoneCallsAvailable sets value of PhoneCallsAvailable conditional field.
 func (u *UserFull) SetPhoneCallsAvailable(value bool) {
 	if value {
@@ -288,6 +299,11 @@ func (u *UserFull) SetPhoneCallsAvailable(value bool) {
 		u.Flags.Unset(4)
 		u.PhoneCallsAvailable = false
 	}
+}
+
+// GetPhoneCallsAvailable returns value of PhoneCallsAvailable conditional field.
+func (u *UserFull) GetPhoneCallsAvailable() (value bool) {
+	return u.Flags.Has(4)
 }
 
 // SetPhoneCallsPrivate sets value of PhoneCallsPrivate conditional field.
@@ -301,6 +317,11 @@ func (u *UserFull) SetPhoneCallsPrivate(value bool) {
 	}
 }
 
+// GetPhoneCallsPrivate returns value of PhoneCallsPrivate conditional field.
+func (u *UserFull) GetPhoneCallsPrivate() (value bool) {
+	return u.Flags.Has(5)
+}
+
 // SetCanPinMessage sets value of CanPinMessage conditional field.
 func (u *UserFull) SetCanPinMessage(value bool) {
 	if value {
@@ -310,6 +331,11 @@ func (u *UserFull) SetCanPinMessage(value bool) {
 		u.Flags.Unset(7)
 		u.CanPinMessage = false
 	}
+}
+
+// GetCanPinMessage returns value of CanPinMessage conditional field.
+func (u *UserFull) GetCanPinMessage() (value bool) {
+	return u.Flags.Has(7)
 }
 
 // SetHasScheduled sets value of HasScheduled conditional field.
@@ -323,6 +349,11 @@ func (u *UserFull) SetHasScheduled(value bool) {
 	}
 }
 
+// GetHasScheduled returns value of HasScheduled conditional field.
+func (u *UserFull) GetHasScheduled() (value bool) {
+	return u.Flags.Has(12)
+}
+
 // SetVideoCallsAvailable sets value of VideoCallsAvailable conditional field.
 func (u *UserFull) SetVideoCallsAvailable(value bool) {
 	if value {
@@ -332,6 +363,16 @@ func (u *UserFull) SetVideoCallsAvailable(value bool) {
 		u.Flags.Unset(13)
 		u.VideoCallsAvailable = false
 	}
+}
+
+// GetVideoCallsAvailable returns value of VideoCallsAvailable conditional field.
+func (u *UserFull) GetVideoCallsAvailable() (value bool) {
+	return u.Flags.Has(13)
+}
+
+// GetUser returns value of User field.
+func (u *UserFull) GetUser() (value UserClass) {
+	return u.User
 }
 
 // SetAbout sets value of About conditional field.
@@ -349,6 +390,11 @@ func (u *UserFull) GetAbout() (value string, ok bool) {
 	return u.About, true
 }
 
+// GetSettings returns value of Settings field.
+func (u *UserFull) GetSettings() (value PeerSettings) {
+	return u.Settings
+}
+
 // SetProfilePhoto sets value of ProfilePhoto conditional field.
 func (u *UserFull) SetProfilePhoto(value PhotoClass) {
 	u.Flags.Set(2)
@@ -362,6 +408,11 @@ func (u *UserFull) GetProfilePhoto() (value PhotoClass, ok bool) {
 		return value, false
 	}
 	return u.ProfilePhoto, true
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (u *UserFull) GetNotifySettings() (value PeerNotifySettings) {
+	return u.NotifySettings
 }
 
 // SetBotInfo sets value of BotInfo conditional field.
@@ -392,6 +443,11 @@ func (u *UserFull) GetPinnedMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return u.PinnedMsgID, true
+}
+
+// GetCommonChatsCount returns value of CommonChatsCount field.
+func (u *UserFull) GetCommonChatsCount() (value int) {
+	return u.CommonChatsCount
 }
 
 // SetFolderID sets value of FolderID conditional field.

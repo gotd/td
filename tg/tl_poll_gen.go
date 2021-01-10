@@ -130,6 +130,12 @@ func (p *Poll) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *Poll) TypeID() uint32 {
+	return PollTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *Poll) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -174,6 +180,11 @@ func (p *Poll) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetID returns value of ID field.
+func (p *Poll) GetID() (value int64) {
+	return p.ID
+}
+
 // SetClosed sets value of Closed conditional field.
 func (p *Poll) SetClosed(value bool) {
 	if value {
@@ -183,6 +194,11 @@ func (p *Poll) SetClosed(value bool) {
 		p.Flags.Unset(0)
 		p.Closed = false
 	}
+}
+
+// GetClosed returns value of Closed conditional field.
+func (p *Poll) GetClosed() (value bool) {
+	return p.Flags.Has(0)
 }
 
 // SetPublicVoters sets value of PublicVoters conditional field.
@@ -196,6 +212,11 @@ func (p *Poll) SetPublicVoters(value bool) {
 	}
 }
 
+// GetPublicVoters returns value of PublicVoters conditional field.
+func (p *Poll) GetPublicVoters() (value bool) {
+	return p.Flags.Has(1)
+}
+
 // SetMultipleChoice sets value of MultipleChoice conditional field.
 func (p *Poll) SetMultipleChoice(value bool) {
 	if value {
@@ -207,6 +228,11 @@ func (p *Poll) SetMultipleChoice(value bool) {
 	}
 }
 
+// GetMultipleChoice returns value of MultipleChoice conditional field.
+func (p *Poll) GetMultipleChoice() (value bool) {
+	return p.Flags.Has(2)
+}
+
 // SetQuiz sets value of Quiz conditional field.
 func (p *Poll) SetQuiz(value bool) {
 	if value {
@@ -216,6 +242,21 @@ func (p *Poll) SetQuiz(value bool) {
 		p.Flags.Unset(3)
 		p.Quiz = false
 	}
+}
+
+// GetQuiz returns value of Quiz conditional field.
+func (p *Poll) GetQuiz() (value bool) {
+	return p.Flags.Has(3)
+}
+
+// GetQuestion returns value of Question field.
+func (p *Poll) GetQuestion() (value string) {
+	return p.Question
+}
+
+// GetAnswers returns value of Answers field.
+func (p *Poll) GetAnswers() (value []PollAnswer) {
+	return p.Answers
 }
 
 // SetClosePeriod sets value of ClosePeriod conditional field.

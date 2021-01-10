@@ -86,6 +86,12 @@ func (f *ContactsFound) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *ContactsFound) TypeID() uint32 {
+	return ContactsFoundTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *ContactsFound) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -129,6 +135,26 @@ func (f *ContactsFound) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMyResults returns value of MyResults field.
+func (f *ContactsFound) GetMyResults() (value []PeerClass) {
+	return f.MyResults
+}
+
+// GetResults returns value of Results field.
+func (f *ContactsFound) GetResults() (value []PeerClass) {
+	return f.Results
+}
+
+// GetChats returns value of Chats field.
+func (f *ContactsFound) GetChats() (value []ChatClass) {
+	return f.Chats
+}
+
+// GetUsers returns value of Users field.
+func (f *ContactsFound) GetUsers() (value []UserClass) {
+	return f.Users
 }
 
 // Decode implements bin.Decoder.

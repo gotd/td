@@ -178,6 +178,12 @@ func (p *AccountPassword) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *AccountPassword) TypeID() uint32 {
+	return AccountPasswordTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *AccountPassword) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -258,6 +264,11 @@ func (p *AccountPassword) SetHasRecovery(value bool) {
 	}
 }
 
+// GetHasRecovery returns value of HasRecovery conditional field.
+func (p *AccountPassword) GetHasRecovery() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetHasSecureValues sets value of HasSecureValues conditional field.
 func (p *AccountPassword) SetHasSecureValues(value bool) {
 	if value {
@@ -269,6 +280,11 @@ func (p *AccountPassword) SetHasSecureValues(value bool) {
 	}
 }
 
+// GetHasSecureValues returns value of HasSecureValues conditional field.
+func (p *AccountPassword) GetHasSecureValues() (value bool) {
+	return p.Flags.Has(1)
+}
+
 // SetHasPassword sets value of HasPassword conditional field.
 func (p *AccountPassword) SetHasPassword(value bool) {
 	if value {
@@ -278,6 +294,11 @@ func (p *AccountPassword) SetHasPassword(value bool) {
 		p.Flags.Unset(2)
 		p.HasPassword = false
 	}
+}
+
+// GetHasPassword returns value of HasPassword conditional field.
+func (p *AccountPassword) GetHasPassword() (value bool) {
+	return p.Flags.Has(2)
 }
 
 // SetCurrentAlgo sets value of CurrentAlgo conditional field.
@@ -353,6 +374,21 @@ func (p *AccountPassword) GetEmailUnconfirmedPattern() (value string, ok bool) {
 		return value, false
 	}
 	return p.EmailUnconfirmedPattern, true
+}
+
+// GetNewAlgo returns value of NewAlgo field.
+func (p *AccountPassword) GetNewAlgo() (value PasswordKdfAlgoClass) {
+	return p.NewAlgo
+}
+
+// GetNewSecureAlgo returns value of NewSecureAlgo field.
+func (p *AccountPassword) GetNewSecureAlgo() (value SecurePasswordKdfAlgoClass) {
+	return p.NewSecureAlgo
+}
+
+// GetSecureRandom returns value of SecureRandom field.
+func (p *AccountPassword) GetSecureRandom() (value []byte) {
+	return p.SecureRandom
 }
 
 // Decode implements bin.Decoder.

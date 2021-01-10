@@ -62,6 +62,12 @@ func (b *BankCardOpenUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BankCardOpenUrl) TypeID() uint32 {
+	return BankCardOpenUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BankCardOpenUrl) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -71,6 +77,16 @@ func (b *BankCardOpenUrl) Encode(buf *bin.Buffer) error {
 	buf.PutString(b.URL)
 	buf.PutString(b.Name)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (b *BankCardOpenUrl) GetURL() (value string) {
+	return b.URL
+}
+
+// GetName returns value of Name field.
+func (b *BankCardOpenUrl) GetName() (value string) {
+	return b.Name
 }
 
 // Decode implements bin.Decoder.

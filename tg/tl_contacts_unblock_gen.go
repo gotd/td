@@ -54,6 +54,12 @@ func (u *ContactsUnblockRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *ContactsUnblockRequest) TypeID() uint32 {
+	return ContactsUnblockRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *ContactsUnblockRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -67,6 +73,11 @@ func (u *ContactsUnblockRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode contacts.unblock#bea65d50: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *ContactsUnblockRequest) GetID() (value InputPeerClass) {
+	return u.ID
 }
 
 // Decode implements bin.Decoder.

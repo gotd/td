@@ -78,6 +78,12 @@ func (v *PaymentsValidateRequestedInfoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (v *PaymentsValidateRequestedInfoRequest) TypeID() uint32 {
+	return PaymentsValidateRequestedInfoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (v *PaymentsValidateRequestedInfoRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -106,6 +112,21 @@ func (v *PaymentsValidateRequestedInfoRequest) SetSave(value bool) {
 		v.Flags.Unset(0)
 		v.Save = false
 	}
+}
+
+// GetSave returns value of Save conditional field.
+func (v *PaymentsValidateRequestedInfoRequest) GetSave() (value bool) {
+	return v.Flags.Has(0)
+}
+
+// GetMsgID returns value of MsgID field.
+func (v *PaymentsValidateRequestedInfoRequest) GetMsgID() (value int) {
+	return v.MsgID
+}
+
+// GetInfo returns value of Info field.
+func (v *PaymentsValidateRequestedInfoRequest) GetInfo() (value PaymentRequestedInfo) {
+	return v.Info
 }
 
 // Decode implements bin.Decoder.

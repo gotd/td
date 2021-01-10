@@ -54,6 +54,12 @@ func (r *PhoneReceivedCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *PhoneReceivedCallRequest) TypeID() uint32 {
+	return PhoneReceivedCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -64,6 +70,11 @@ func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode phone.receivedCall#17d54f61: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *PhoneReceivedCallRequest) GetPeer() (value InputPhoneCall) {
+	return r.Peer
 }
 
 // Decode implements bin.Decoder.
