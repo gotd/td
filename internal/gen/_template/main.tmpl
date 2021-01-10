@@ -32,13 +32,17 @@ type {{ $s.Name }} struct {
 {{- end }}
 }
 
-{{- if not $s.Vector }}
 // {{ $s.Name }}TypeID is TL type id of {{ $s.Name }}.
-const {{ $s.Name }}TypeID = 0x{{ $s.HexID }};
-{{- end }}
+const {{ $s.Name }}TypeID = {{ if not $s.Vector }}0x{{ $s.HexID }}{{- else -}}bin.TypeVector{{- end }};
 
 {{template "zero_derive" $s }}
 {{template "string_derive" $s }}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func ({{ $s.Receiver }} *{{ $s.Name }}) TypeID() uint32 {
+    return {{ $s.Name }}TypeID
+}
 
 // Encode implements bin.Encoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) error {
@@ -105,7 +109,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     return nil
 }
 
-{{- range $f := $s.Fields }}
+{{- range $f := $s.Fields }}{{ if ne ($f.Type) ("bin.Fields") }}
 {{ if $f.Conditional }}
 // Set{{ $f.Name }} sets value of {{ $f.Name }} conditional field.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ template "print_type" $f }}) {
@@ -122,21 +126,30 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Set{{ $f.Name }}(value {{ template "prin
     {{ $s.Receiver }}.{{ $f.Name }} = value
 {{- end }}
 }
+{{- end }}
 
-{{- if not $f.ConditionalBool }}
-// Get{{ $f.Name }} returns value of {{ $f.Name }} conditional field and
+// Get{{ $f.Name }} returns value of {{ $f.Name }} {{ if $f.Conditional }}
+{{- if not ($f.ConditionalBool) }}conditional field and
 // boolean which is true if field was set.
-func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}() (value {{ template "print_type" $f }}, ok bool) {
+{{- else }}conditional field.
+{{- end }}
+{{- else }}field.
+{{- end }}
+func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "getter_func_type" $f }} {
+    {{- if $f.Conditional }}{{ if not ($f.ConditionalBool) }}
     if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
         return value, false
     }
     return {{ $s.Receiver }}.{{ $f.Name }}, true
+    {{- else }}
+    return {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }})
+    {{- end }}
+    {{- else }}
+    return {{ $s.Receiver }}.{{ $f.Name }}
+    {{- end }}
 }
 
-{{- end }}
-
-{{- end }}
-{{- end }}
+{{- end }}{{- end }}
 
 // Decode implements bin.Decoder.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) error {
@@ -320,7 +333,20 @@ type {{ $f.Name }} interface {
     bin.Decoder
     construct() {{ $f.Name }}
 
-    fmt.Stringer
+{{ range $field := $f.SharedFields -}}
+    // {{ $field.Comment }}
+    {{- if $field.Links}}
+        {{- template "print_links" $field.Links }}
+    {{- end }}
+    {{ template "getter_func_type" $field}}
+{{ end }}
+
+    // TypeID returns MTProto type id (CRC code).
+    // See https://core.telegram.org/mtproto/TL-tl#remarks.
+    TypeID() uint32
+    // String implements fmt.Stringer.
+    String() string
+    // Zero returns true if current object has a zero value.
     Zero() bool
 }
 

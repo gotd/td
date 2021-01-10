@@ -18,6 +18,11 @@
 {{- else }}{{ $.Type }}
 {{- end }}{{- end }}
 
+{{ define "getter_func_type" }}
+{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (not $.ConditionalBool) }}, ok bool{{ end }})
+{{- end }}
+
 {{ define "print_links" }}
 //
 // Links:
