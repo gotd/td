@@ -50,6 +50,12 @@ func (r *AuthResetAuthorizationsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AuthResetAuthorizationsRequest) TypeID() uint32 {
+	return AuthResetAuthorizationsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AuthResetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

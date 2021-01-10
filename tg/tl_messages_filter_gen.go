@@ -46,6 +46,12 @@ func (i *InputMessagesFilterEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterEmpty) TypeID() uint32 {
+	return InputMessagesFilterEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +111,12 @@ func (i *InputMessagesFilterPhotos) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterPhotos) TypeID() uint32 {
+	return InputMessagesFilterPhotosTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (i *InputMessagesFilterVideo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterVideo) TypeID() uint32 {
+	return InputMessagesFilterVideoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -227,6 +245,12 @@ func (i *InputMessagesFilterPhotoVideo) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterPhotoVideo) TypeID() uint32 {
+	return InputMessagesFilterPhotoVideoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -290,6 +314,12 @@ func (i *InputMessagesFilterDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterDocument) TypeID() uint32 {
+	return InputMessagesFilterDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -349,6 +379,12 @@ func (i *InputMessagesFilterUrl) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterUrl) TypeID() uint32 {
+	return InputMessagesFilterUrlTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -412,6 +448,12 @@ func (i *InputMessagesFilterGif) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterGif) TypeID() uint32 {
+	return InputMessagesFilterGifTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -471,6 +513,12 @@ func (i *InputMessagesFilterVoice) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterVoice) TypeID() uint32 {
+	return InputMessagesFilterVoiceTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -534,6 +582,12 @@ func (i *InputMessagesFilterMusic) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterMusic) TypeID() uint32 {
+	return InputMessagesFilterMusicTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -593,6 +647,12 @@ func (i *InputMessagesFilterChatPhotos) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterChatPhotos) TypeID() uint32 {
+	return InputMessagesFilterChatPhotosTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -672,6 +732,12 @@ func (i *InputMessagesFilterPhoneCalls) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterPhoneCalls) TypeID() uint32 {
+	return InputMessagesFilterPhoneCallsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -696,6 +762,11 @@ func (i *InputMessagesFilterPhoneCalls) SetMissed(value bool) {
 		i.Flags.Unset(0)
 		i.Missed = false
 	}
+}
+
+// GetMissed returns value of Missed conditional field.
+func (i *InputMessagesFilterPhoneCalls) GetMissed() (value bool) {
+	return i.Flags.Has(0)
 }
 
 // Decode implements bin.Decoder.
@@ -754,6 +825,12 @@ func (i *InputMessagesFilterRoundVoice) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterRoundVoice) TypeID() uint32 {
+	return InputMessagesFilterRoundVoiceTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -815,6 +892,12 @@ func (i *InputMessagesFilterRoundVideo) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterRoundVideo) TypeID() uint32 {
+	return InputMessagesFilterRoundVideoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -881,6 +964,12 @@ func (i *InputMessagesFilterMyMentions) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterMyMentions) TypeID() uint32 {
+	return InputMessagesFilterMyMentionsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -940,6 +1029,12 @@ func (i *InputMessagesFilterGeo) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterGeo) TypeID() uint32 {
+	return InputMessagesFilterGeoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -1003,6 +1098,12 @@ func (i *InputMessagesFilterContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterContacts) TypeID() uint32 {
+	return InputMessagesFilterContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1062,6 +1163,12 @@ func (i *InputMessagesFilterPinned) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessagesFilterPinned) TypeID() uint32 {
+	return InputMessagesFilterPinnedTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -1129,7 +1236,12 @@ type MessagesFilterClass interface {
 	bin.Decoder
 	construct() MessagesFilterClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

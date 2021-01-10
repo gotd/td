@@ -94,6 +94,12 @@ func (s *MessagesSetBotShippingResultsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetBotShippingResultsRequest) TypeID() uint32 {
+	return MessagesSetBotShippingResultsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -122,6 +128,11 @@ func (s *MessagesSetBotShippingResultsRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetBotShippingResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
 }
 
 // SetError sets value of Error conditional field.

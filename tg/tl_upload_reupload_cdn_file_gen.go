@@ -65,6 +65,12 @@ func (r *UploadReuploadCdnFileRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *UploadReuploadCdnFileRequest) TypeID() uint32 {
+	return UploadReuploadCdnFileRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *UploadReuploadCdnFileRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -74,6 +80,16 @@ func (r *UploadReuploadCdnFileRequest) Encode(b *bin.Buffer) error {
 	b.PutBytes(r.FileToken)
 	b.PutBytes(r.RequestToken)
 	return nil
+}
+
+// GetFileToken returns value of FileToken field.
+func (r *UploadReuploadCdnFileRequest) GetFileToken() (value []byte) {
+	return r.FileToken
+}
+
+// GetRequestToken returns value of RequestToken field.
+func (r *UploadReuploadCdnFileRequest) GetRequestToken() (value []byte) {
+	return r.RequestToken
 }
 
 // Decode implements bin.Decoder.

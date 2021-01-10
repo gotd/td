@@ -76,6 +76,12 @@ func (g *MessagesGetCommonChatsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetCommonChatsRequest) TypeID() uint32 {
+	return MessagesGetCommonChatsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -91,6 +97,21 @@ func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.MaxID)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (g *MessagesGetCommonChatsRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetCommonChatsRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetCommonChatsRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

@@ -51,6 +51,12 @@ func (d *DestroySessionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DestroySessionRequest) TypeID() uint32 {
+	return DestroySessionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DestroySessionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -59,6 +65,11 @@ func (d *DestroySessionRequest) Encode(b *bin.Buffer) error {
 	b.PutID(DestroySessionRequestTypeID)
 	b.PutLong(d.SessionID)
 	return nil
+}
+
+// GetSessionID returns value of SessionID field.
+func (d *DestroySessionRequest) GetSessionID() (value int64) {
+	return d.SessionID
 }
 
 // Decode implements bin.Decoder.

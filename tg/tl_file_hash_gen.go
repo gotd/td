@@ -69,6 +69,12 @@ func (f *FileHash) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *FileHash) TypeID() uint32 {
+	return FileHashTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *FileHash) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -79,6 +85,21 @@ func (f *FileHash) Encode(b *bin.Buffer) error {
 	b.PutInt(f.Limit)
 	b.PutBytes(f.Hash)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (f *FileHash) GetOffset() (value int) {
+	return f.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (f *FileHash) GetLimit() (value int) {
+	return f.Limit
+}
+
+// GetHash returns value of Hash field.
+func (f *FileHash) GetHash() (value []byte) {
+	return f.Hash
 }
 
 // Decode implements bin.Decoder.

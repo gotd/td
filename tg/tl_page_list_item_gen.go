@@ -54,6 +54,12 @@ func (p *PageListItemText) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageListItemText) TypeID() uint32 {
+	return PageListItemTextTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListItemText) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -67,6 +73,11 @@ func (p *PageListItemText) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageListItemText#b92fb6cd: field text: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageListItemText) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -138,6 +149,12 @@ func (p *PageListItemBlocks) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageListItemBlocks) TypeID() uint32 {
+	return PageListItemBlocksTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListItemBlocks) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -154,6 +171,11 @@ func (p *PageListItemBlocks) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageListItemBlocks) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
 }
 
 // Decode implements bin.Decoder.
@@ -210,7 +232,12 @@ type PageListItemClass interface {
 	bin.Decoder
 	construct() PageListItemClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

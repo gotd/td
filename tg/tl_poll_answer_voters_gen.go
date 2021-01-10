@@ -86,6 +86,12 @@ func (p *PollAnswerVoters) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PollAnswerVoters) TypeID() uint32 {
+	return PollAnswerVotersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -117,6 +123,11 @@ func (p *PollAnswerVoters) SetChosen(value bool) {
 	}
 }
 
+// GetChosen returns value of Chosen conditional field.
+func (p *PollAnswerVoters) GetChosen() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetCorrect sets value of Correct conditional field.
 func (p *PollAnswerVoters) SetCorrect(value bool) {
 	if value {
@@ -126,6 +137,21 @@ func (p *PollAnswerVoters) SetCorrect(value bool) {
 		p.Flags.Unset(1)
 		p.Correct = false
 	}
+}
+
+// GetCorrect returns value of Correct conditional field.
+func (p *PollAnswerVoters) GetCorrect() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetOption returns value of Option field.
+func (p *PollAnswerVoters) GetOption() (value []byte) {
+	return p.Option
+}
+
+// GetVoters returns value of Voters field.
+func (p *PollAnswerVoters) GetVoters() (value int) {
+	return p.Voters
 }
 
 // Decode implements bin.Decoder.

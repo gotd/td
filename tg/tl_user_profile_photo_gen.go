@@ -46,6 +46,12 @@ func (u *UserProfilePhotoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserProfilePhotoEmpty) TypeID() uint32 {
+	return UserProfilePhotoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -161,6 +167,12 @@ func (u *UserProfilePhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UserProfilePhoto) TypeID() uint32 {
+	return UserProfilePhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -193,6 +205,31 @@ func (u *UserProfilePhoto) SetHasVideo(value bool) {
 		u.Flags.Unset(0)
 		u.HasVideo = false
 	}
+}
+
+// GetHasVideo returns value of HasVideo conditional field.
+func (u *UserProfilePhoto) GetHasVideo() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetPhotoID returns value of PhotoID field.
+func (u *UserProfilePhoto) GetPhotoID() (value int64) {
+	return u.PhotoID
+}
+
+// GetPhotoSmall returns value of PhotoSmall field.
+func (u *UserProfilePhoto) GetPhotoSmall() (value FileLocationToBeDeprecated) {
+	return u.PhotoSmall
+}
+
+// GetPhotoBig returns value of PhotoBig field.
+func (u *UserProfilePhoto) GetPhotoBig() (value FileLocationToBeDeprecated) {
+	return u.PhotoBig
+}
+
+// GetDCID returns value of DCID field.
+func (u *UserProfilePhoto) GetDCID() (value int) {
+	return u.DCID
 }
 
 // Decode implements bin.Decoder.
@@ -266,7 +303,12 @@ type UserProfilePhotoClass interface {
 	bin.Decoder
 	construct() UserProfilePhotoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

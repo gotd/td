@@ -55,6 +55,12 @@ func (s *SendMultipleSMSRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMultipleSMSRequest) TypeID() uint32 {
+	return SendMultipleSMSRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -68,6 +74,11 @@ func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMessages returns value of Messages field.
+func (s *SendMultipleSMSRequest) GetMessages() (value []SMS) {
+	return s.Messages
 }
 
 // Decode implements bin.Decoder.

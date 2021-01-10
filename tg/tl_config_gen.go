@@ -512,6 +512,12 @@ func (c *Config) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *Config) TypeID() uint32 {
+	return ConfigTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *Config) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -650,6 +656,11 @@ func (c *Config) SetPhonecallsEnabled(value bool) {
 	}
 }
 
+// GetPhonecallsEnabled returns value of PhonecallsEnabled conditional field.
+func (c *Config) GetPhonecallsEnabled() (value bool) {
+	return c.Flags.Has(1)
+}
+
 // SetDefaultP2PContacts sets value of DefaultP2PContacts conditional field.
 func (c *Config) SetDefaultP2PContacts(value bool) {
 	if value {
@@ -659,6 +670,11 @@ func (c *Config) SetDefaultP2PContacts(value bool) {
 		c.Flags.Unset(3)
 		c.DefaultP2PContacts = false
 	}
+}
+
+// GetDefaultP2PContacts returns value of DefaultP2PContacts conditional field.
+func (c *Config) GetDefaultP2PContacts() (value bool) {
+	return c.Flags.Has(3)
 }
 
 // SetPreloadFeaturedStickers sets value of PreloadFeaturedStickers conditional field.
@@ -672,6 +688,11 @@ func (c *Config) SetPreloadFeaturedStickers(value bool) {
 	}
 }
 
+// GetPreloadFeaturedStickers returns value of PreloadFeaturedStickers conditional field.
+func (c *Config) GetPreloadFeaturedStickers() (value bool) {
+	return c.Flags.Has(4)
+}
+
 // SetIgnorePhoneEntities sets value of IgnorePhoneEntities conditional field.
 func (c *Config) SetIgnorePhoneEntities(value bool) {
 	if value {
@@ -681,6 +702,11 @@ func (c *Config) SetIgnorePhoneEntities(value bool) {
 		c.Flags.Unset(5)
 		c.IgnorePhoneEntities = false
 	}
+}
+
+// GetIgnorePhoneEntities returns value of IgnorePhoneEntities conditional field.
+func (c *Config) GetIgnorePhoneEntities() (value bool) {
+	return c.Flags.Has(5)
 }
 
 // SetRevokePmInbox sets value of RevokePmInbox conditional field.
@@ -694,6 +720,11 @@ func (c *Config) SetRevokePmInbox(value bool) {
 	}
 }
 
+// GetRevokePmInbox returns value of RevokePmInbox conditional field.
+func (c *Config) GetRevokePmInbox() (value bool) {
+	return c.Flags.Has(6)
+}
+
 // SetBlockedMode sets value of BlockedMode conditional field.
 func (c *Config) SetBlockedMode(value bool) {
 	if value {
@@ -705,6 +736,11 @@ func (c *Config) SetBlockedMode(value bool) {
 	}
 }
 
+// GetBlockedMode returns value of BlockedMode conditional field.
+func (c *Config) GetBlockedMode() (value bool) {
+	return c.Flags.Has(8)
+}
+
 // SetPFSEnabled sets value of PFSEnabled conditional field.
 func (c *Config) SetPFSEnabled(value bool) {
 	if value {
@@ -714,6 +750,136 @@ func (c *Config) SetPFSEnabled(value bool) {
 		c.Flags.Unset(13)
 		c.PFSEnabled = false
 	}
+}
+
+// GetPFSEnabled returns value of PFSEnabled conditional field.
+func (c *Config) GetPFSEnabled() (value bool) {
+	return c.Flags.Has(13)
+}
+
+// GetDate returns value of Date field.
+func (c *Config) GetDate() (value int) {
+	return c.Date
+}
+
+// GetExpires returns value of Expires field.
+func (c *Config) GetExpires() (value int) {
+	return c.Expires
+}
+
+// GetTestMode returns value of TestMode field.
+func (c *Config) GetTestMode() (value bool) {
+	return c.TestMode
+}
+
+// GetThisDC returns value of ThisDC field.
+func (c *Config) GetThisDC() (value int) {
+	return c.ThisDC
+}
+
+// GetDCOptions returns value of DCOptions field.
+func (c *Config) GetDCOptions() (value []DcOption) {
+	return c.DCOptions
+}
+
+// GetDCTxtDomainName returns value of DCTxtDomainName field.
+func (c *Config) GetDCTxtDomainName() (value string) {
+	return c.DCTxtDomainName
+}
+
+// GetChatSizeMax returns value of ChatSizeMax field.
+func (c *Config) GetChatSizeMax() (value int) {
+	return c.ChatSizeMax
+}
+
+// GetMegagroupSizeMax returns value of MegagroupSizeMax field.
+func (c *Config) GetMegagroupSizeMax() (value int) {
+	return c.MegagroupSizeMax
+}
+
+// GetForwardedCountMax returns value of ForwardedCountMax field.
+func (c *Config) GetForwardedCountMax() (value int) {
+	return c.ForwardedCountMax
+}
+
+// GetOnlineUpdatePeriodMs returns value of OnlineUpdatePeriodMs field.
+func (c *Config) GetOnlineUpdatePeriodMs() (value int) {
+	return c.OnlineUpdatePeriodMs
+}
+
+// GetOfflineBlurTimeoutMs returns value of OfflineBlurTimeoutMs field.
+func (c *Config) GetOfflineBlurTimeoutMs() (value int) {
+	return c.OfflineBlurTimeoutMs
+}
+
+// GetOfflineIdleTimeoutMs returns value of OfflineIdleTimeoutMs field.
+func (c *Config) GetOfflineIdleTimeoutMs() (value int) {
+	return c.OfflineIdleTimeoutMs
+}
+
+// GetOnlineCloudTimeoutMs returns value of OnlineCloudTimeoutMs field.
+func (c *Config) GetOnlineCloudTimeoutMs() (value int) {
+	return c.OnlineCloudTimeoutMs
+}
+
+// GetNotifyCloudDelayMs returns value of NotifyCloudDelayMs field.
+func (c *Config) GetNotifyCloudDelayMs() (value int) {
+	return c.NotifyCloudDelayMs
+}
+
+// GetNotifyDefaultDelayMs returns value of NotifyDefaultDelayMs field.
+func (c *Config) GetNotifyDefaultDelayMs() (value int) {
+	return c.NotifyDefaultDelayMs
+}
+
+// GetPushChatPeriodMs returns value of PushChatPeriodMs field.
+func (c *Config) GetPushChatPeriodMs() (value int) {
+	return c.PushChatPeriodMs
+}
+
+// GetPushChatLimit returns value of PushChatLimit field.
+func (c *Config) GetPushChatLimit() (value int) {
+	return c.PushChatLimit
+}
+
+// GetSavedGifsLimit returns value of SavedGifsLimit field.
+func (c *Config) GetSavedGifsLimit() (value int) {
+	return c.SavedGifsLimit
+}
+
+// GetEditTimeLimit returns value of EditTimeLimit field.
+func (c *Config) GetEditTimeLimit() (value int) {
+	return c.EditTimeLimit
+}
+
+// GetRevokeTimeLimit returns value of RevokeTimeLimit field.
+func (c *Config) GetRevokeTimeLimit() (value int) {
+	return c.RevokeTimeLimit
+}
+
+// GetRevokePmTimeLimit returns value of RevokePmTimeLimit field.
+func (c *Config) GetRevokePmTimeLimit() (value int) {
+	return c.RevokePmTimeLimit
+}
+
+// GetRatingEDecay returns value of RatingEDecay field.
+func (c *Config) GetRatingEDecay() (value int) {
+	return c.RatingEDecay
+}
+
+// GetStickersRecentLimit returns value of StickersRecentLimit field.
+func (c *Config) GetStickersRecentLimit() (value int) {
+	return c.StickersRecentLimit
+}
+
+// GetStickersFavedLimit returns value of StickersFavedLimit field.
+func (c *Config) GetStickersFavedLimit() (value int) {
+	return c.StickersFavedLimit
+}
+
+// GetChannelsReadMediaPeriod returns value of ChannelsReadMediaPeriod field.
+func (c *Config) GetChannelsReadMediaPeriod() (value int) {
+	return c.ChannelsReadMediaPeriod
 }
 
 // SetTmpSessions sets value of TmpSessions conditional field.
@@ -729,6 +895,41 @@ func (c *Config) GetTmpSessions() (value int, ok bool) {
 		return value, false
 	}
 	return c.TmpSessions, true
+}
+
+// GetPinnedDialogsCountMax returns value of PinnedDialogsCountMax field.
+func (c *Config) GetPinnedDialogsCountMax() (value int) {
+	return c.PinnedDialogsCountMax
+}
+
+// GetPinnedInfolderCountMax returns value of PinnedInfolderCountMax field.
+func (c *Config) GetPinnedInfolderCountMax() (value int) {
+	return c.PinnedInfolderCountMax
+}
+
+// GetCallReceiveTimeoutMs returns value of CallReceiveTimeoutMs field.
+func (c *Config) GetCallReceiveTimeoutMs() (value int) {
+	return c.CallReceiveTimeoutMs
+}
+
+// GetCallRingTimeoutMs returns value of CallRingTimeoutMs field.
+func (c *Config) GetCallRingTimeoutMs() (value int) {
+	return c.CallRingTimeoutMs
+}
+
+// GetCallConnectTimeoutMs returns value of CallConnectTimeoutMs field.
+func (c *Config) GetCallConnectTimeoutMs() (value int) {
+	return c.CallConnectTimeoutMs
+}
+
+// GetCallPacketTimeoutMs returns value of CallPacketTimeoutMs field.
+func (c *Config) GetCallPacketTimeoutMs() (value int) {
+	return c.CallPacketTimeoutMs
+}
+
+// GetMeURLPrefix returns value of MeURLPrefix field.
+func (c *Config) GetMeURLPrefix() (value string) {
+	return c.MeURLPrefix
 }
 
 // SetAutoupdateURLPrefix sets value of AutoupdateURLPrefix conditional field.
@@ -804,6 +1005,21 @@ func (c *Config) GetStaticMapsProvider() (value string, ok bool) {
 		return value, false
 	}
 	return c.StaticMapsProvider, true
+}
+
+// GetCaptionLengthMax returns value of CaptionLengthMax field.
+func (c *Config) GetCaptionLengthMax() (value int) {
+	return c.CaptionLengthMax
+}
+
+// GetMessageLengthMax returns value of MessageLengthMax field.
+func (c *Config) GetMessageLengthMax() (value int) {
+	return c.MessageLengthMax
+}
+
+// GetWebfileDCID returns value of WebfileDCID field.
+func (c *Config) GetWebfileDCID() (value int) {
+	return c.WebfileDCID
 }
 
 // SetSuggestedLangCode sets value of SuggestedLangCode conditional field.

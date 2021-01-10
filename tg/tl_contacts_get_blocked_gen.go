@@ -62,6 +62,12 @@ func (g *ContactsGetBlockedRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ContactsGetBlockedRequest) TypeID() uint32 {
+	return ContactsGetBlockedRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -71,6 +77,16 @@ func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (g *ContactsGetBlockedRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *ContactsGetBlockedRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

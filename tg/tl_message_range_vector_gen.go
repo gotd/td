@@ -22,6 +22,9 @@ type MessageRangeVector struct {
 	Elems []MessageRange
 }
 
+// MessageRangeVectorTypeID is TL type id of MessageRangeVector.
+const MessageRangeVectorTypeID = bin.TypeVector
+
 func (vec *MessageRangeVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *MessageRangeVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *MessageRangeVector) TypeID() uint32 {
+	return MessageRangeVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *MessageRangeVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *MessageRangeVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

@@ -75,6 +75,12 @@ func (c *ClientDHInnerData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ClientDHInnerData) TypeID() uint32 {
+	return ClientDHInnerDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -86,6 +92,26 @@ func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {
 	b.PutLong(c.RetryID)
 	b.PutBytes(c.GB)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (c *ClientDHInnerData) GetNonce() (value bin.Int128) {
+	return c.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (c *ClientDHInnerData) GetServerNonce() (value bin.Int128) {
+	return c.ServerNonce
+}
+
+// GetRetryID returns value of RetryID field.
+func (c *ClientDHInnerData) GetRetryID() (value int64) {
+	return c.RetryID
+}
+
+// GetGB returns value of GB field.
+func (c *ClientDHInnerData) GetGB() (value []byte) {
+	return c.GB
 }
 
 // Decode implements bin.Decoder.

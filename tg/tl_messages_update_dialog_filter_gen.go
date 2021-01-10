@@ -86,6 +86,12 @@ func (u *MessagesUpdateDialogFilterRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUpdateDialogFilterRequest) TypeID() uint32 {
+	return MessagesUpdateDialogFilterRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -105,6 +111,11 @@ func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *MessagesUpdateDialogFilterRequest) GetID() (value int) {
+	return u.ID
 }
 
 // SetFilter sets value of Filter conditional field.

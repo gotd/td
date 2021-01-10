@@ -54,6 +54,12 @@ func (n *NotifyPeer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NotifyPeer) TypeID() uint32 {
+	return NotifyPeerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NotifyPeer) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -67,6 +73,11 @@ func (n *NotifyPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode notifyPeer#9fd40bd8: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (n *NotifyPeer) GetPeer() (value PeerClass) {
+	return n.Peer
 }
 
 // Decode implements bin.Decoder.
@@ -126,6 +137,12 @@ func (n *NotifyUsers) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NotifyUsers) TypeID() uint32 {
+	return NotifyUsersTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -189,6 +206,12 @@ func (n *NotifyChats) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NotifyChats) TypeID() uint32 {
+	return NotifyChatsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NotifyChats) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -250,6 +273,12 @@ func (n *NotifyBroadcasts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NotifyBroadcasts) TypeID() uint32 {
+	return NotifyBroadcastsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NotifyBroadcasts) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -302,7 +331,12 @@ type NotifyPeerClass interface {
 	bin.Decoder
 	construct() NotifyPeerClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

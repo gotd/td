@@ -46,6 +46,12 @@ func (p *PrivacyKeyStatusTimestamp) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyStatusTimestamp) TypeID() uint32 {
+	return PrivacyKeyStatusTimestampTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -105,6 +111,12 @@ func (p *PrivacyKeyChatInvite) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyChatInvite) TypeID() uint32 {
+	return PrivacyKeyChatInviteTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (p *PrivacyKeyPhoneCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyPhoneCall) TypeID() uint32 {
+	return PrivacyKeyPhoneCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -227,6 +245,12 @@ func (p *PrivacyKeyPhoneP2P) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyPhoneP2P) TypeID() uint32 {
+	return PrivacyKeyPhoneP2PTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -293,6 +317,12 @@ func (p *PrivacyKeyForwards) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyForwards) TypeID() uint32 {
+	return PrivacyKeyForwardsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyForwards) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -352,6 +382,12 @@ func (p *PrivacyKeyProfilePhoto) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyProfilePhoto) TypeID() uint32 {
+	return PrivacyKeyProfilePhotoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -415,6 +451,12 @@ func (p *PrivacyKeyPhoneNumber) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyPhoneNumber) TypeID() uint32 {
+	return PrivacyKeyPhoneNumberTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -476,6 +518,12 @@ func (p *PrivacyKeyAddedByPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyKeyAddedByPhone) TypeID() uint32 {
+	return PrivacyKeyAddedByPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -532,7 +580,12 @@ type PrivacyKeyClass interface {
 	bin.Decoder
 	construct() PrivacyKeyClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

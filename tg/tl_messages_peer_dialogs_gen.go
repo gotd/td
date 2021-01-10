@@ -97,6 +97,12 @@ func (p *MessagesPeerDialogs) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *MessagesPeerDialogs) TypeID() uint32 {
+	return MessagesPeerDialogsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -143,6 +149,31 @@ func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.peerDialogs#3371c354: field state: %w", err)
 	}
 	return nil
+}
+
+// GetDialogs returns value of Dialogs field.
+func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
+	return p.Dialogs
+}
+
+// GetMessages returns value of Messages field.
+func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
+	return p.Messages
+}
+
+// GetChats returns value of Chats field.
+func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
+	return p.Users
+}
+
+// GetState returns value of State field.
+func (p *MessagesPeerDialogs) GetState() (value UpdatesState) {
+	return p.State
 }
 
 // Decode implements bin.Decoder.

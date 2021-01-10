@@ -76,6 +76,12 @@ func (e *ChannelsEditBannedRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsEditBannedRequest) TypeID() uint32 {
+	return ChannelsEditBannedRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -98,6 +104,21 @@ func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.editBanned#72796912: field banned_rights: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditBannedRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (e *ChannelsEditBannedRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
+	return e.BannedRights
 }
 
 // Decode implements bin.Decoder.

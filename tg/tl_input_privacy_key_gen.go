@@ -46,6 +46,12 @@ func (i *InputPrivacyKeyStatusTimestamp) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyStatusTimestamp) TypeID() uint32 {
+	return InputPrivacyKeyStatusTimestampTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +111,12 @@ func (i *InputPrivacyKeyChatInvite) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyChatInvite) TypeID() uint32 {
+	return InputPrivacyKeyChatInviteTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (i *InputPrivacyKeyPhoneCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyPhoneCall) TypeID() uint32 {
+	return InputPrivacyKeyPhoneCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -227,6 +245,12 @@ func (i *InputPrivacyKeyPhoneP2P) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyPhoneP2P) TypeID() uint32 {
+	return InputPrivacyKeyPhoneP2PTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -293,6 +317,12 @@ func (i *InputPrivacyKeyForwards) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyForwards) TypeID() uint32 {
+	return InputPrivacyKeyForwardsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyForwards) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -352,6 +382,12 @@ func (i *InputPrivacyKeyProfilePhoto) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyProfilePhoto) TypeID() uint32 {
+	return InputPrivacyKeyProfilePhotoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -415,6 +451,12 @@ func (i *InputPrivacyKeyPhoneNumber) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyPhoneNumber) TypeID() uint32 {
+	return InputPrivacyKeyPhoneNumberTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -476,6 +518,12 @@ func (i *InputPrivacyKeyAddedByPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPrivacyKeyAddedByPhone) TypeID() uint32 {
+	return InputPrivacyKeyAddedByPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -532,7 +580,12 @@ type InputPrivacyKeyClass interface {
 	bin.Decoder
 	construct() InputPrivacyKeyClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

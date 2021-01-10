@@ -56,6 +56,12 @@ func (g *MessagesGetChatsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetChatsRequest) TypeID() uint32 {
+	return MessagesGetChatsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetChatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *MessagesGetChatsRequest) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (g *MessagesGetChatsRequest) GetID() (value []int) {
+	return g.ID
 }
 
 // Decode implements bin.Decoder.

@@ -73,6 +73,12 @@ func (a *MessagesAcceptEncryptionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesAcceptEncryptionRequest) TypeID() uint32 {
+	return MessagesAcceptEncryptionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -85,6 +91,21 @@ func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {
 	b.PutBytes(a.GB)
 	b.PutLong(a.KeyFingerprint)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (a *MessagesAcceptEncryptionRequest) GetPeer() (value InputEncryptedChat) {
+	return a.Peer
+}
+
+// GetGB returns value of GB field.
+func (a *MessagesAcceptEncryptionRequest) GetGB() (value []byte) {
+	return a.GB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (a *MessagesAcceptEncryptionRequest) GetKeyFingerprint() (value int64) {
+	return a.KeyFingerprint
 }
 
 // Decode implements bin.Decoder.

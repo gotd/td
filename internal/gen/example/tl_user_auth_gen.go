@@ -53,6 +53,12 @@ func (a *UserAuth) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *UserAuth) TypeID() uint32 {
+	return UserAuthTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *UserAuth) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -61,6 +67,11 @@ func (a *UserAuth) Encode(b *bin.Buffer) error {
 	b.PutID(UserAuthTypeID)
 	b.PutString(a.Foo)
 	return nil
+}
+
+// GetFoo returns value of Foo field.
+func (a *UserAuth) GetFoo() (value string) {
+	return a.Foo
 }
 
 // Decode implements bin.Decoder.
@@ -129,6 +140,12 @@ func (a *UserAuthPassword) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *UserAuthPassword) TypeID() uint32 {
+	return UserAuthPasswordTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *UserAuthPassword) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -137,6 +154,11 @@ func (a *UserAuthPassword) Encode(b *bin.Buffer) error {
 	b.PutID(UserAuthPasswordTypeID)
 	b.PutString(a.Pwd)
 	return nil
+}
+
+// GetPwd returns value of Pwd field.
+func (a *UserAuthPassword) GetPwd() (value string) {
+	return a.Pwd
 }
 
 // Decode implements bin.Decoder.
@@ -187,7 +209,12 @@ type UserAuthClass interface {
 	bin.Decoder
 	construct() UserAuthClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

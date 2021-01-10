@@ -69,6 +69,12 @@ func (d *DraftMessageEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DraftMessageEmpty) TypeID() uint32 {
+	return DraftMessageEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -230,6 +236,12 @@ func (d *DraftMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DraftMessage) TypeID() uint32 {
+	return DraftMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DraftMessage) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -278,6 +290,11 @@ func (d *DraftMessage) SetNoWebpage(value bool) {
 	}
 }
 
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (d *DraftMessage) GetNoWebpage() (value bool) {
+	return d.Flags.Has(1)
+}
+
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
 func (d *DraftMessage) SetReplyToMsgID(value int) {
 	d.Flags.Set(0)
@@ -293,6 +310,11 @@ func (d *DraftMessage) GetReplyToMsgID() (value int, ok bool) {
 	return d.ReplyToMsgID, true
 }
 
+// GetMessage returns value of Message field.
+func (d *DraftMessage) GetMessage() (value string) {
+	return d.Message
+}
+
 // SetEntities sets value of Entities conditional field.
 func (d *DraftMessage) SetEntities(value []MessageEntityClass) {
 	d.Flags.Set(3)
@@ -306,6 +328,11 @@ func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 		return value, false
 	}
 	return d.Entities, true
+}
+
+// GetDate returns value of Date field.
+func (d *DraftMessage) GetDate() (value int) {
+	return d.Date
 }
 
 // Decode implements bin.Decoder.
@@ -389,7 +416,12 @@ type DraftMessageClass interface {
 	bin.Decoder
 	construct() DraftMessageClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

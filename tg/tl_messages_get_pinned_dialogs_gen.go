@@ -57,6 +57,12 @@ func (g *MessagesGetPinnedDialogsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetPinnedDialogsRequest) TypeID() uint32 {
+	return MessagesGetPinnedDialogsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -65,6 +71,11 @@ func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesGetPinnedDialogsRequestTypeID)
 	b.PutInt(g.FolderID)
 	return nil
+}
+
+// GetFolderID returns value of FolderID field.
+func (g *MessagesGetPinnedDialogsRequest) GetFolderID() (value int) {
+	return g.FolderID
 }
 
 // Decode implements bin.Decoder.

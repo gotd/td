@@ -160,6 +160,12 @@ func (s *MessagesSendMediaRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSendMediaRequest) TypeID() uint32 {
+	return MessagesSendMediaRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendMediaRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -243,6 +249,11 @@ func (s *MessagesSendMediaRequest) SetSilent(value bool) {
 	}
 }
 
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendMediaRequest) GetSilent() (value bool) {
+	return s.Flags.Has(5)
+}
+
 // SetBackground sets value of Background conditional field.
 func (s *MessagesSendMediaRequest) SetBackground(value bool) {
 	if value {
@@ -254,6 +265,11 @@ func (s *MessagesSendMediaRequest) SetBackground(value bool) {
 	}
 }
 
+// GetBackground returns value of Background conditional field.
+func (s *MessagesSendMediaRequest) GetBackground() (value bool) {
+	return s.Flags.Has(6)
+}
+
 // SetClearDraft sets value of ClearDraft conditional field.
 func (s *MessagesSendMediaRequest) SetClearDraft(value bool) {
 	if value {
@@ -263,6 +279,16 @@ func (s *MessagesSendMediaRequest) SetClearDraft(value bool) {
 		s.Flags.Unset(7)
 		s.ClearDraft = false
 	}
+}
+
+// GetClearDraft returns value of ClearDraft conditional field.
+func (s *MessagesSendMediaRequest) GetClearDraft() (value bool) {
+	return s.Flags.Has(7)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendMediaRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
 }
 
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
@@ -278,6 +304,21 @@ func (s *MessagesSendMediaRequest) GetReplyToMsgID() (value int, ok bool) {
 		return value, false
 	}
 	return s.ReplyToMsgID, true
+}
+
+// GetMedia returns value of Media field.
+func (s *MessagesSendMediaRequest) GetMedia() (value InputMediaClass) {
+	return s.Media
+}
+
+// GetMessage returns value of Message field.
+func (s *MessagesSendMediaRequest) GetMessage() (value string) {
+	return s.Message
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendMediaRequest) GetRandomID() (value int64) {
+	return s.RandomID
 }
 
 // SetReplyMarkup sets value of ReplyMarkup conditional field.

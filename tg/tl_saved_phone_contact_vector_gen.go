@@ -22,6 +22,9 @@ type SavedPhoneContactVector struct {
 	Elems []SavedPhoneContact
 }
 
+// SavedPhoneContactVectorTypeID is TL type id of SavedPhoneContactVector.
+const SavedPhoneContactVectorTypeID = bin.TypeVector
+
 func (vec *SavedPhoneContactVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *SavedPhoneContactVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *SavedPhoneContactVector) TypeID() uint32 {
+	return SavedPhoneContactVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *SavedPhoneContactVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *SavedPhoneContactVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *SavedPhoneContactVector) GetElems() (value []SavedPhoneContact) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

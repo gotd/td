@@ -62,6 +62,12 @@ func (s *ContactsSearchRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *ContactsSearchRequest) TypeID() uint32 {
+	return ContactsSearchRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -71,6 +77,16 @@ func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 	b.PutString(s.Q)
 	b.PutInt(s.Limit)
 	return nil
+}
+
+// GetQ returns value of Q field.
+func (s *ContactsSearchRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetLimit returns value of Limit field.
+func (s *ContactsSearchRequest) GetLimit() (value int) {
+	return s.Limit
 }
 
 // Decode implements bin.Decoder.

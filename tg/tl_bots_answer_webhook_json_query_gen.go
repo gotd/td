@@ -62,6 +62,12 @@ func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *BotsAnswerWebhookJSONQueryRequest) TypeID() uint32 {
+	return BotsAnswerWebhookJSONQueryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -73,6 +79,16 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode bots.answerWebhookJSONQuery#e6213f4d: field data: %w", err)
 	}
 	return nil
+}
+
+// GetQueryID returns value of QueryID field.
+func (a *BotsAnswerWebhookJSONQueryRequest) GetQueryID() (value int64) {
+	return a.QueryID
+}
+
+// GetData returns value of Data field.
+func (a *BotsAnswerWebhookJSONQueryRequest) GetData() (value DataJSON) {
+	return a.Data
 }
 
 // Decode implements bin.Decoder.

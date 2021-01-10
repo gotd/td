@@ -62,6 +62,12 @@ func (c *MessagesClearRecentStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesClearRecentStickersRequest) TypeID() uint32 {
+	return MessagesClearRecentStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -86,6 +92,11 @@ func (c *MessagesClearRecentStickersRequest) SetAttached(value bool) {
 		c.Flags.Unset(0)
 		c.Attached = false
 	}
+}
+
+// GetAttached returns value of Attached conditional field.
+func (c *MessagesClearRecentStickersRequest) GetAttached() (value bool) {
+	return c.Flags.Has(0)
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (r *MessagesReadMentionsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReadMentionsRequest) TypeID() uint32 {
+	return MessagesReadMentionsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -67,6 +73,11 @@ func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.readMentions#f0189d3: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *MessagesReadMentionsRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
 }
 
 // Decode implements bin.Decoder.

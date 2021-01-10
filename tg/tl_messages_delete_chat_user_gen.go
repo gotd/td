@@ -62,6 +62,12 @@ func (d *MessagesDeleteChatUserRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDeleteChatUserRequest) TypeID() uint32 {
+	return MessagesDeleteChatUserRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -76,6 +82,16 @@ func (d *MessagesDeleteChatUserRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.deleteChatUser#e0611f16: field user_id: %w", err)
 	}
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (d *MessagesDeleteChatUserRequest) GetChatID() (value int) {
+	return d.ChatID
+}
+
+// GetUserID returns value of UserID field.
+func (d *MessagesDeleteChatUserRequest) GetUserID() (value InputUserClass) {
+	return d.UserID
 }
 
 // Decode implements bin.Decoder.

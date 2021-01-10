@@ -46,6 +46,12 @@ func (i *InputCheckPasswordEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputCheckPasswordEmpty) TypeID() uint32 {
+	return InputCheckPasswordEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -143,6 +149,12 @@ func (i *InputCheckPasswordSRP) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputCheckPasswordSRP) TypeID() uint32 {
+	return InputCheckPasswordSRPTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,6 +165,21 @@ func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 	b.PutBytes(i.A)
 	b.PutBytes(i.M1)
 	return nil
+}
+
+// GetSrpID returns value of SrpID field.
+func (i *InputCheckPasswordSRP) GetSrpID() (value int64) {
+	return i.SrpID
+}
+
+// GetA returns value of A field.
+func (i *InputCheckPasswordSRP) GetA() (value []byte) {
+	return i.A
+}
+
+// GetM1 returns value of M1 field.
+func (i *InputCheckPasswordSRP) GetM1() (value []byte) {
+	return i.M1
 }
 
 // Decode implements bin.Decoder.
@@ -217,7 +244,12 @@ type InputCheckPasswordSRPClass interface {
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

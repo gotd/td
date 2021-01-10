@@ -62,6 +62,12 @@ func (c *Contact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *Contact) TypeID() uint32 {
+	return ContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *Contact) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -71,6 +77,16 @@ func (c *Contact) Encode(b *bin.Buffer) error {
 	b.PutInt(c.UserID)
 	b.PutBool(c.Mutual)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *Contact) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetMutual returns value of Mutual field.
+func (c *Contact) GetMutual() (value bool) {
+	return c.Mutual
 }
 
 // Decode implements bin.Decoder.

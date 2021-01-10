@@ -70,6 +70,12 @@ func (i *InputBotInlineMessageID) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputBotInlineMessageID) TypeID() uint32 {
+	return InputBotInlineMessageIDTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -80,6 +86,21 @@ func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetDCID returns value of DCID field.
+func (i *InputBotInlineMessageID) GetDCID() (value int) {
+	return i.DCID
+}
+
+// GetID returns value of ID field.
+func (i *InputBotInlineMessageID) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputBotInlineMessageID) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.

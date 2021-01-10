@@ -117,6 +117,12 @@ func (g *Game) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *Game) TypeID() uint32 {
+	return GameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *Game) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -149,6 +155,36 @@ func (g *Game) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (g *Game) GetID() (value int64) {
+	return g.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (g *Game) GetAccessHash() (value int64) {
+	return g.AccessHash
+}
+
+// GetShortName returns value of ShortName field.
+func (g *Game) GetShortName() (value string) {
+	return g.ShortName
+}
+
+// GetTitle returns value of Title field.
+func (g *Game) GetTitle() (value string) {
+	return g.Title
+}
+
+// GetDescription returns value of Description field.
+func (g *Game) GetDescription() (value string) {
+	return g.Description
+}
+
+// GetPhoto returns value of Photo field.
+func (g *Game) GetPhoto() (value PhotoClass) {
+	return g.Photo
 }
 
 // SetDocument sets value of Document conditional field.

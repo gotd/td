@@ -70,6 +70,12 @@ func (g *MessagesGetDocumentByHashRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetDocumentByHashRequest) TypeID() uint32 {
+	return MessagesGetDocumentByHashRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -80,6 +86,21 @@ func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Size)
 	b.PutString(g.MimeType)
 	return nil
+}
+
+// GetSha256 returns value of Sha256 field.
+func (g *MessagesGetDocumentByHashRequest) GetSha256() (value []byte) {
+	return g.Sha256
+}
+
+// GetSize returns value of Size field.
+func (g *MessagesGetDocumentByHashRequest) GetSize() (value int) {
+	return g.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (g *MessagesGetDocumentByHashRequest) GetMimeType() (value string) {
+	return g.MimeType
 }
 
 // Decode implements bin.Decoder.

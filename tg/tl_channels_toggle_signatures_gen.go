@@ -62,6 +62,12 @@ func (t *ChannelsToggleSignaturesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ChannelsToggleSignaturesRequest) TypeID() uint32 {
+	return ChannelsToggleSignaturesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -76,6 +82,16 @@ func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(t.Enabled)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetEnabled returns value of Enabled field.
+func (t *ChannelsToggleSignaturesRequest) GetEnabled() (value bool) {
+	return t.Enabled
 }
 
 // Decode implements bin.Decoder.

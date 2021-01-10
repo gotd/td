@@ -54,6 +54,12 @@ func (d *MessagesDiscardEncryptionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDiscardEncryptionRequest) TypeID() uint32 {
+	return MessagesDiscardEncryptionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -62,6 +68,11 @@ func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesDiscardEncryptionRequestTypeID)
 	b.PutInt(d.ChatID)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
+	return d.ChatID
 }
 
 // Decode implements bin.Decoder.

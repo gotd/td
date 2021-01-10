@@ -65,6 +65,12 @@ func (e *ChannelsEditPhotoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsEditPhotoRequest) TypeID() uint32 {
+	return ChannelsEditPhotoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -84,6 +90,16 @@ func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field photo: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditPhotoRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetPhoto returns value of Photo field.
+func (e *ChannelsEditPhotoRequest) GetPhoto() (value InputChatPhotoClass) {
+	return e.Photo
 }
 
 // Decode implements bin.Decoder.

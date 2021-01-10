@@ -88,6 +88,12 @@ func (w *WebDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebDocument) TypeID() uint32 {
+	return WebDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebDocument) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -108,6 +114,31 @@ func (w *WebDocument) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (w *WebDocument) GetURL() (value string) {
+	return w.URL
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (w *WebDocument) GetAccessHash() (value int64) {
+	return w.AccessHash
+}
+
+// GetSize returns value of Size field.
+func (w *WebDocument) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *WebDocument) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
 }
 
 // Decode implements bin.Decoder.
@@ -240,6 +271,12 @@ func (w *WebDocumentNoProxy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WebDocumentNoProxy) TypeID() uint32 {
+	return WebDocumentNoProxyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -259,6 +296,26 @@ func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (w *WebDocumentNoProxy) GetURL() (value string) {
+	return w.URL
+}
+
+// GetSize returns value of Size field.
+func (w *WebDocumentNoProxy) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *WebDocumentNoProxy) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
+	return w.Attributes
 }
 
 // Decode implements bin.Decoder.
@@ -336,7 +393,21 @@ type WebDocumentClass interface {
 	bin.Decoder
 	construct() WebDocumentClass
 
-	fmt.Stringer
+	// Document URL
+	GetURL() (value string)
+	// File size
+	GetSize() (value int)
+	// MIME type
+	GetMimeType() (value string)
+	// Attributes for media types
+	GetAttributes() (value []DocumentAttributeClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

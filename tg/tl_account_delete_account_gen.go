@@ -57,6 +57,12 @@ func (d *AccountDeleteAccountRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *AccountDeleteAccountRequest) TypeID() uint32 {
+	return AccountDeleteAccountRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -65,6 +71,11 @@ func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountDeleteAccountRequestTypeID)
 	b.PutString(d.Reason)
 	return nil
+}
+
+// GetReason returns value of Reason field.
+func (d *AccountDeleteAccountRequest) GetReason() (value string) {
+	return d.Reason
 }
 
 // Decode implements bin.Decoder.

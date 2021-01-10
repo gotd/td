@@ -81,6 +81,12 @@ func (s *MessagesSearchStickerSetsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSearchStickerSetsRequest) TypeID() uint32 {
+	return MessagesSearchStickerSetsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -107,6 +113,21 @@ func (s *MessagesSearchStickerSetsRequest) SetExcludeFeatured(value bool) {
 		s.Flags.Unset(0)
 		s.ExcludeFeatured = false
 	}
+}
+
+// GetExcludeFeatured returns value of ExcludeFeatured conditional field.
+func (s *MessagesSearchStickerSetsRequest) GetExcludeFeatured() (value bool) {
+	return s.Flags.Has(0)
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchStickerSetsRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesSearchStickerSetsRequest) GetHash() (value int) {
+	return s.Hash
 }
 
 // Decode implements bin.Decoder.

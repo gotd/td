@@ -70,6 +70,12 @@ func (s *SecureSecretSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SecureSecretSettings) TypeID() uint32 {
+	return SecureSecretSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -85,6 +91,21 @@ func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {
 	b.PutBytes(s.SecureSecret)
 	b.PutLong(s.SecureSecretID)
 	return nil
+}
+
+// GetSecureAlgo returns value of SecureAlgo field.
+func (s *SecureSecretSettings) GetSecureAlgo() (value SecurePasswordKdfAlgoClass) {
+	return s.SecureAlgo
+}
+
+// GetSecureSecret returns value of SecureSecret field.
+func (s *SecureSecretSettings) GetSecureSecret() (value []byte) {
+	return s.SecureSecret
+}
+
+// GetSecureSecretID returns value of SecureSecretID field.
+func (s *SecureSecretSettings) GetSecureSecretID() (value int64) {
+	return s.SecureSecretID
 }
 
 // Decode implements bin.Decoder.

@@ -78,6 +78,12 @@ func (i *InputAppEvent) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputAppEvent) TypeID() uint32 {
+	return InputAppEventTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputAppEvent) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -94,6 +100,26 @@ func (i *InputAppEvent) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputAppEvent#1d1b1245: field data: %w", err)
 	}
 	return nil
+}
+
+// GetTime returns value of Time field.
+func (i *InputAppEvent) GetTime() (value float64) {
+	return i.Time
+}
+
+// GetType returns value of Type field.
+func (i *InputAppEvent) GetType() (value string) {
+	return i.Type
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputAppEvent) GetPeer() (value int64) {
+	return i.Peer
+}
+
+// GetData returns value of Data field.
+func (i *InputAppEvent) GetData() (value JSONValueClass) {
+	return i.Data
 }
 
 // Decode implements bin.Decoder.

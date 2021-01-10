@@ -79,6 +79,12 @@ func (m *MaskCoords) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MaskCoords) TypeID() uint32 {
+	return MaskCoordsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MaskCoords) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -90,6 +96,26 @@ func (m *MaskCoords) Encode(b *bin.Buffer) error {
 	b.PutDouble(m.Y)
 	b.PutDouble(m.Zoom)
 	return nil
+}
+
+// GetN returns value of N field.
+func (m *MaskCoords) GetN() (value int) {
+	return m.N
+}
+
+// GetX returns value of X field.
+func (m *MaskCoords) GetX() (value float64) {
+	return m.X
+}
+
+// GetY returns value of Y field.
+func (m *MaskCoords) GetY() (value float64) {
+	return m.Y
+}
+
+// GetZoom returns value of Zoom field.
+func (m *MaskCoords) GetZoom() (value float64) {
+	return m.Zoom
 }
 
 // Decode implements bin.Decoder.

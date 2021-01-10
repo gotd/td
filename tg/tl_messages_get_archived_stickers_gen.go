@@ -84,6 +84,12 @@ func (g *MessagesGetArchivedStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetArchivedStickersRequest) TypeID() uint32 {
+	return MessagesGetArchivedStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -110,6 +116,21 @@ func (g *MessagesGetArchivedStickersRequest) SetMasks(value bool) {
 		g.Flags.Unset(0)
 		g.Masks = false
 	}
+}
+
+// GetMasks returns value of Masks conditional field.
+func (g *MessagesGetArchivedStickersRequest) GetMasks() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetArchivedStickersRequest) GetOffsetID() (value int64) {
+	return g.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetArchivedStickersRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

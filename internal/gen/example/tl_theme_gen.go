@@ -53,6 +53,12 @@ func (t *Theme) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *Theme) TypeID() uint32 {
+	return ThemeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *Theme) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -61,6 +67,11 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 	b.PutID(ThemeTypeID)
 	b.PutString(t.Name)
 	return nil
+}
+
+// GetName returns value of Name field.
+func (t *Theme) GetName() (value string) {
+	return t.Name
 }
 
 // Decode implements bin.Decoder.

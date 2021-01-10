@@ -54,6 +54,12 @@ func (r *MessagesReceivedQueueRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReceivedQueueRequest) TypeID() uint32 {
+	return MessagesReceivedQueueRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -62,6 +68,11 @@ func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesReceivedQueueRequestTypeID)
 	b.PutInt(r.MaxQts)
 	return nil
+}
+
+// GetMaxQts returns value of MaxQts field.
+func (r *MessagesReceivedQueueRequest) GetMaxQts() (value int) {
+	return r.MaxQts
 }
 
 // Decode implements bin.Decoder.

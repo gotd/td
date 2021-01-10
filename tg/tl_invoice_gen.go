@@ -118,6 +118,12 @@ func (i *Invoice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *Invoice) TypeID() uint32 {
+	return InvoiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -172,6 +178,11 @@ func (i *Invoice) SetTest(value bool) {
 	}
 }
 
+// GetTest returns value of Test conditional field.
+func (i *Invoice) GetTest() (value bool) {
+	return i.Flags.Has(0)
+}
+
 // SetNameRequested sets value of NameRequested conditional field.
 func (i *Invoice) SetNameRequested(value bool) {
 	if value {
@@ -181,6 +192,11 @@ func (i *Invoice) SetNameRequested(value bool) {
 		i.Flags.Unset(1)
 		i.NameRequested = false
 	}
+}
+
+// GetNameRequested returns value of NameRequested conditional field.
+func (i *Invoice) GetNameRequested() (value bool) {
+	return i.Flags.Has(1)
 }
 
 // SetPhoneRequested sets value of PhoneRequested conditional field.
@@ -194,6 +210,11 @@ func (i *Invoice) SetPhoneRequested(value bool) {
 	}
 }
 
+// GetPhoneRequested returns value of PhoneRequested conditional field.
+func (i *Invoice) GetPhoneRequested() (value bool) {
+	return i.Flags.Has(2)
+}
+
 // SetEmailRequested sets value of EmailRequested conditional field.
 func (i *Invoice) SetEmailRequested(value bool) {
 	if value {
@@ -203,6 +224,11 @@ func (i *Invoice) SetEmailRequested(value bool) {
 		i.Flags.Unset(3)
 		i.EmailRequested = false
 	}
+}
+
+// GetEmailRequested returns value of EmailRequested conditional field.
+func (i *Invoice) GetEmailRequested() (value bool) {
+	return i.Flags.Has(3)
 }
 
 // SetShippingAddressRequested sets value of ShippingAddressRequested conditional field.
@@ -216,6 +242,11 @@ func (i *Invoice) SetShippingAddressRequested(value bool) {
 	}
 }
 
+// GetShippingAddressRequested returns value of ShippingAddressRequested conditional field.
+func (i *Invoice) GetShippingAddressRequested() (value bool) {
+	return i.Flags.Has(4)
+}
+
 // SetFlexible sets value of Flexible conditional field.
 func (i *Invoice) SetFlexible(value bool) {
 	if value {
@@ -225,6 +256,11 @@ func (i *Invoice) SetFlexible(value bool) {
 		i.Flags.Unset(5)
 		i.Flexible = false
 	}
+}
+
+// GetFlexible returns value of Flexible conditional field.
+func (i *Invoice) GetFlexible() (value bool) {
+	return i.Flags.Has(5)
 }
 
 // SetPhoneToProvider sets value of PhoneToProvider conditional field.
@@ -238,6 +274,11 @@ func (i *Invoice) SetPhoneToProvider(value bool) {
 	}
 }
 
+// GetPhoneToProvider returns value of PhoneToProvider conditional field.
+func (i *Invoice) GetPhoneToProvider() (value bool) {
+	return i.Flags.Has(6)
+}
+
 // SetEmailToProvider sets value of EmailToProvider conditional field.
 func (i *Invoice) SetEmailToProvider(value bool) {
 	if value {
@@ -247,6 +288,21 @@ func (i *Invoice) SetEmailToProvider(value bool) {
 		i.Flags.Unset(7)
 		i.EmailToProvider = false
 	}
+}
+
+// GetEmailToProvider returns value of EmailToProvider conditional field.
+func (i *Invoice) GetEmailToProvider() (value bool) {
+	return i.Flags.Has(7)
+}
+
+// GetCurrency returns value of Currency field.
+func (i *Invoice) GetCurrency() (value string) {
+	return i.Currency
+}
+
+// GetPrices returns value of Prices field.
+func (i *Invoice) GetPrices() (value []LabeledPrice) {
+	return i.Prices
 }
 
 // Decode implements bin.Decoder.

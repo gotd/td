@@ -64,6 +64,12 @@ func (e *EmojiKeyword) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EmojiKeyword) TypeID() uint32 {
+	return EmojiKeywordTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -76,6 +82,16 @@ func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
 		b.PutString(v)
 	}
 	return nil
+}
+
+// GetKeyword returns value of Keyword field.
+func (e *EmojiKeyword) GetKeyword() (value string) {
+	return e.Keyword
+}
+
+// GetEmoticons returns value of Emoticons field.
+func (e *EmojiKeyword) GetEmoticons() (value []string) {
+	return e.Emoticons
 }
 
 // Decode implements bin.Decoder.
@@ -168,6 +184,12 @@ func (e *EmojiKeywordDeleted) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EmojiKeywordDeleted) TypeID() uint32 {
+	return EmojiKeywordDeletedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -180,6 +202,16 @@ func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
 		b.PutString(v)
 	}
 	return nil
+}
+
+// GetKeyword returns value of Keyword field.
+func (e *EmojiKeywordDeleted) GetKeyword() (value string) {
+	return e.Keyword
+}
+
+// GetEmoticons returns value of Emoticons field.
+func (e *EmojiKeywordDeleted) GetEmoticons() (value []string) {
+	return e.Emoticons
 }
 
 // Decode implements bin.Decoder.
@@ -243,7 +275,17 @@ type EmojiKeywordClass interface {
 	bin.Decoder
 	construct() EmojiKeywordClass
 
-	fmt.Stringer
+	// Keyword
+	GetKeyword() (value string)
+	// Emojis associated to keyword
+	GetEmoticons() (value []string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

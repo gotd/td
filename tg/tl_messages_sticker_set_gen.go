@@ -74,6 +74,12 @@ func (s *MessagesStickerSet) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStickerSet) TypeID() uint32 {
+	return MessagesStickerSetTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -99,6 +105,21 @@ func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetSet returns value of Set field.
+func (s *MessagesStickerSet) GetSet() (value StickerSet) {
+	return s.Set
+}
+
+// GetPacks returns value of Packs field.
+func (s *MessagesStickerSet) GetPacks() (value []StickerPack) {
+	return s.Packs
+}
+
+// GetDocuments returns value of Documents field.
+func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
+	return s.Documents
 }
 
 // Decode implements bin.Decoder.

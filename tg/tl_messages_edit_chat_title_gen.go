@@ -62,6 +62,12 @@ func (e *MessagesEditChatTitleRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditChatTitleRequest) TypeID() uint32 {
+	return MessagesEditChatTitleRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatTitleRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -71,6 +77,16 @@ func (e *MessagesEditChatTitleRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(e.ChatID)
 	b.PutString(e.Title)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (e *MessagesEditChatTitleRequest) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetTitle returns value of Title field.
+func (e *MessagesEditChatTitleRequest) GetTitle() (value string) {
+	return e.Title
 }
 
 // Decode implements bin.Decoder.

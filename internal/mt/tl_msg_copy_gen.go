@@ -51,6 +51,12 @@ func (m *MsgCopy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MsgCopy) TypeID() uint32 {
+	return MsgCopyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MsgCopy) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -61,6 +67,11 @@ func (m *MsgCopy) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode msg_copy#e06046b2: field orig_message: %w", err)
 	}
 	return nil
+}
+
+// GetOrigMessage returns value of OrigMessage field.
+func (m *MsgCopy) GetOrigMessage() (value Message) {
+	return m.OrigMessage
 }
 
 // Decode implements bin.Decoder.

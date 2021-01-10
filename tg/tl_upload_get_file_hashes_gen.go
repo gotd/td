@@ -62,6 +62,12 @@ func (g *UploadGetFileHashesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UploadGetFileHashesRequest) TypeID() uint32 {
+	return UploadGetFileHashesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -76,6 +82,16 @@ func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(g.Offset)
 	return nil
+}
+
+// GetLocation returns value of Location field.
+func (g *UploadGetFileHashesRequest) GetLocation() (value InputFileLocationClass) {
+	return g.Location
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetFileHashesRequest) GetOffset() (value int) {
+	return g.Offset
 }
 
 // Decode implements bin.Decoder.

@@ -62,6 +62,12 @@ func (i *InputTheme) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputTheme) TypeID() uint32 {
+	return InputThemeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputTheme) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -71,6 +77,16 @@ func (i *InputTheme) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputTheme) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputTheme) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -147,6 +163,12 @@ func (i *InputThemeSlug) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputThemeSlug) TypeID() uint32 {
+	return InputThemeSlugTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -155,6 +177,11 @@ func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 	b.PutID(InputThemeSlugTypeID)
 	b.PutString(i.Slug)
 	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (i *InputThemeSlug) GetSlug() (value string) {
+	return i.Slug
 }
 
 // Decode implements bin.Decoder.
@@ -205,7 +232,12 @@ type InputThemeClass interface {
 	bin.Decoder
 	construct() InputThemeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

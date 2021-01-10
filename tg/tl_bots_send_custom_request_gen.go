@@ -62,6 +62,12 @@ func (s *BotsSendCustomRequestRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *BotsSendCustomRequestRequest) TypeID() uint32 {
+	return BotsSendCustomRequestRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -73,6 +79,16 @@ func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode bots.sendCustomRequest#aa2769ed: field params: %w", err)
 	}
 	return nil
+}
+
+// GetCustomMethod returns value of CustomMethod field.
+func (s *BotsSendCustomRequestRequest) GetCustomMethod() (value string) {
+	return s.CustomMethod
+}
+
+// GetParams returns value of Params field.
+func (s *BotsSendCustomRequestRequest) GetParams() (value DataJSON) {
+	return s.Params
 }
 
 // Decode implements bin.Decoder.

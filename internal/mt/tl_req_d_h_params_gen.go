@@ -91,6 +91,12 @@ func (r *ReqDHParamsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReqDHParamsRequest) TypeID() uint32 {
+	return ReqDHParamsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -104,6 +110,36 @@ func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 	b.PutLong(r.PublicKeyFingerprint)
 	b.PutBytes(r.EncryptedData)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (r *ReqDHParamsRequest) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (r *ReqDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	return r.ServerNonce
+}
+
+// GetP returns value of P field.
+func (r *ReqDHParamsRequest) GetP() (value []byte) {
+	return r.P
+}
+
+// GetQ returns value of Q field.
+func (r *ReqDHParamsRequest) GetQ() (value []byte) {
+	return r.Q
+}
+
+// GetPublicKeyFingerprint returns value of PublicKeyFingerprint field.
+func (r *ReqDHParamsRequest) GetPublicKeyFingerprint() (value int64) {
+	return r.PublicKeyFingerprint
+}
+
+// GetEncryptedData returns value of EncryptedData field.
+func (r *ReqDHParamsRequest) GetEncryptedData() (value []byte) {
+	return r.EncryptedData
 }
 
 // Decode implements bin.Decoder.

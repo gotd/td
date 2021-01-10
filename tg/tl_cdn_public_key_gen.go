@@ -68,6 +68,12 @@ func (c *CdnPublicKey) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *CdnPublicKey) TypeID() uint32 {
+	return CdnPublicKeyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *CdnPublicKey) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -77,6 +83,16 @@ func (c *CdnPublicKey) Encode(b *bin.Buffer) error {
 	b.PutInt(c.DCID)
 	b.PutString(c.PublicKey)
 	return nil
+}
+
+// GetDCID returns value of DCID field.
+func (c *CdnPublicKey) GetDCID() (value int) {
+	return c.DCID
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (c *CdnPublicKey) GetPublicKey() (value string) {
+	return c.PublicKey
 }
 
 // Decode implements bin.Decoder.

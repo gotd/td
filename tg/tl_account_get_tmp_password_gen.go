@@ -62,6 +62,12 @@ func (g *AccountGetTmpPasswordRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetTmpPasswordRequest) TypeID() uint32 {
+	return AccountGetTmpPasswordRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetTmpPasswordRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -76,6 +82,16 @@ func (g *AccountGetTmpPasswordRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(g.Period)
 	return nil
+}
+
+// GetPassword returns value of Password field.
+func (g *AccountGetTmpPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return g.Password
+}
+
+// GetPeriod returns value of Period field.
+func (g *AccountGetTmpPasswordRequest) GetPeriod() (value int) {
+	return g.Period
 }
 
 // Decode implements bin.Decoder.

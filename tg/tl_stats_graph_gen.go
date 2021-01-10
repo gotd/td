@@ -58,6 +58,12 @@ func (s *StatsGraphAsync) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGraphAsync) TypeID() uint32 {
+	return StatsGraphAsyncTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -66,6 +72,11 @@ func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
 	b.PutID(StatsGraphAsyncTypeID)
 	b.PutString(s.Token)
 	return nil
+}
+
+// GetToken returns value of Token field.
+func (s *StatsGraphAsync) GetToken() (value string) {
+	return s.Token
 }
 
 // Decode implements bin.Decoder.
@@ -138,6 +149,12 @@ func (s *StatsGraphError) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGraphError) TypeID() uint32 {
+	return StatsGraphErrorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGraphError) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -146,6 +163,11 @@ func (s *StatsGraphError) Encode(b *bin.Buffer) error {
 	b.PutID(StatsGraphErrorTypeID)
 	b.PutString(s.Error)
 	return nil
+}
+
+// GetError returns value of Error field.
+func (s *StatsGraphError) GetError() (value string) {
+	return s.Error
 }
 
 // Decode implements bin.Decoder.
@@ -241,6 +263,12 @@ func (s *StatsGraph) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGraph) TypeID() uint32 {
+	return StatsGraphTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGraph) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -260,6 +288,11 @@ func (s *StatsGraph) Encode(b *bin.Buffer) error {
 		b.PutString(s.ZoomToken)
 	}
 	return nil
+}
+
+// GetJSON returns value of JSON field.
+func (s *StatsGraph) GetJSON() (value DataJSON) {
+	return s.JSON
 }
 
 // SetZoomToken sets value of ZoomToken conditional field.
@@ -336,7 +369,12 @@ type StatsGraphClass interface {
 	bin.Decoder
 	construct() StatsGraphClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

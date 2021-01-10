@@ -67,6 +67,12 @@ func (c *AccountContentSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AccountContentSettings) TypeID() uint32 {
+	return AccountContentSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountContentSettings) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -96,6 +102,11 @@ func (c *AccountContentSettings) SetSensitiveEnabled(value bool) {
 	}
 }
 
+// GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
+func (c *AccountContentSettings) GetSensitiveEnabled() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetSensitiveCanChange sets value of SensitiveCanChange conditional field.
 func (c *AccountContentSettings) SetSensitiveCanChange(value bool) {
 	if value {
@@ -105,6 +116,11 @@ func (c *AccountContentSettings) SetSensitiveCanChange(value bool) {
 		c.Flags.Unset(1)
 		c.SensitiveCanChange = false
 	}
+}
+
+// GetSensitiveCanChange returns value of SensitiveCanChange conditional field.
+func (c *AccountContentSettings) GetSensitiveCanChange() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // Decode implements bin.Decoder.

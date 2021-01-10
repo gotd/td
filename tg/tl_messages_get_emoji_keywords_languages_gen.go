@@ -56,6 +56,12 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {
+	return MessagesGetEmojiKeywordsLanguagesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Encode(b *bin.Buffer) error {
 		b.PutString(v)
 	}
 	return nil
+}
+
+// GetLangCodes returns value of LangCodes field.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) GetLangCodes() (value []string) {
+	return g.LangCodes
 }
 
 // Decode implements bin.Decoder.

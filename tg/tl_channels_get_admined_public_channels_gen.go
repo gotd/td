@@ -78,6 +78,12 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetAdminedPublicChannelsRequest) TypeID() uint32 {
+	return ChannelsGetAdminedPublicChannelsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -107,6 +113,11 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetByLocation(value bool) {
 	}
 }
 
+// GetByLocation returns value of ByLocation conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) GetByLocation() (value bool) {
+	return g.Flags.Has(0)
+}
+
 // SetCheckLimit sets value of CheckLimit conditional field.
 func (g *ChannelsGetAdminedPublicChannelsRequest) SetCheckLimit(value bool) {
 	if value {
@@ -116,6 +127,11 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) SetCheckLimit(value bool) {
 		g.Flags.Unset(1)
 		g.CheckLimit = false
 	}
+}
+
+// GetCheckLimit returns value of CheckLimit conditional field.
+func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
+	return g.Flags.Has(1)
 }
 
 // Decode implements bin.Decoder.

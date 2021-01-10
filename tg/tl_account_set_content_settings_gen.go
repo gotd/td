@@ -62,6 +62,12 @@ func (s *AccountSetContentSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSetContentSettingsRequest) TypeID() uint32 {
+	return AccountSetContentSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSetContentSettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -86,6 +92,11 @@ func (s *AccountSetContentSettingsRequest) SetSensitiveEnabled(value bool) {
 		s.Flags.Unset(0)
 		s.SensitiveEnabled = false
 	}
+}
+
+// GetSensitiveEnabled returns value of SensitiveEnabled conditional field.
+func (s *AccountSetContentSettingsRequest) GetSensitiveEnabled() (value bool) {
+	return s.Flags.Has(0)
 }
 
 // Decode implements bin.Decoder.

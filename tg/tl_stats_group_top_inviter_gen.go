@@ -65,6 +65,12 @@ func (s *StatsGroupTopInviter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGroupTopInviter) TypeID() uint32 {
+	return StatsGroupTopInviterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -74,6 +80,16 @@ func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 	b.PutInt(s.UserID)
 	b.PutInt(s.Invitations)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopInviter) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetInvitations returns value of Invitations field.
+func (s *StatsGroupTopInviter) GetInvitations() (value int) {
+	return s.Invitations
 }
 
 // Decode implements bin.Decoder.

@@ -62,6 +62,12 @@ func (t *AccountTmpPassword) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *AccountTmpPassword) TypeID() uint32 {
+	return AccountTmpPasswordTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -71,6 +77,16 @@ func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {
 	b.PutBytes(t.TmpPassword)
 	b.PutInt(t.ValidUntil)
 	return nil
+}
+
+// GetTmpPassword returns value of TmpPassword field.
+func (t *AccountTmpPassword) GetTmpPassword() (value []byte) {
+	return t.TmpPassword
+}
+
+// GetValidUntil returns value of ValidUntil field.
+func (t *AccountTmpPassword) GetValidUntil() (value int) {
+	return t.ValidUntil
 }
 
 // Decode implements bin.Decoder.

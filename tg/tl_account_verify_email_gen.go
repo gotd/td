@@ -65,6 +65,12 @@ func (v *AccountVerifyEmailRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (v *AccountVerifyEmailRequest) TypeID() uint32 {
+	return AccountVerifyEmailRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -74,6 +80,16 @@ func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 	b.PutString(v.Email)
 	b.PutString(v.Code)
 	return nil
+}
+
+// GetEmail returns value of Email field.
+func (v *AccountVerifyEmailRequest) GetEmail() (value string) {
+	return v.Email
+}
+
+// GetCode returns value of Code field.
+func (v *AccountVerifyEmailRequest) GetCode() (value string) {
+	return v.Code
 }
 
 // Decode implements bin.Decoder.

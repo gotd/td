@@ -60,6 +60,12 @@ func (i *ContactsImportContactsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *ContactsImportContactsRequest) TypeID() uint32 {
+	return ContactsImportContactsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *ContactsImportContactsRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -73,6 +79,11 @@ func (i *ContactsImportContactsRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetContacts returns value of Contacts field.
+func (i *ContactsImportContactsRequest) GetContacts() (value []InputPhoneContact) {
+	return i.Contacts
 }
 
 // Decode implements bin.Decoder.

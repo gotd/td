@@ -46,6 +46,12 @@ func (j *JsonNull) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonNull) TypeID() uint32 {
+	return JsonNullTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonNull) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -115,6 +121,12 @@ func (j *JsonBool) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonBool) TypeID() uint32 {
+	return JsonBoolTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonBool) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -123,6 +135,11 @@ func (j *JsonBool) Encode(b *bin.Buffer) error {
 	b.PutID(JsonBoolTypeID)
 	b.PutBool(j.Value)
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (j *JsonBool) GetValue() (value bool) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.
@@ -192,6 +209,12 @@ func (j *JsonNumber) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonNumber) TypeID() uint32 {
+	return JsonNumberTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonNumber) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -200,6 +223,11 @@ func (j *JsonNumber) Encode(b *bin.Buffer) error {
 	b.PutID(JsonNumberTypeID)
 	b.PutDouble(j.Value)
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (j *JsonNumber) GetValue() (value float64) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.
@@ -269,6 +297,12 @@ func (j *JsonString) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonString) TypeID() uint32 {
+	return JsonStringTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonString) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -277,6 +311,11 @@ func (j *JsonString) Encode(b *bin.Buffer) error {
 	b.PutID(JsonStringTypeID)
 	b.PutString(j.Value)
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (j *JsonString) GetValue() (value string) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.
@@ -348,6 +387,12 @@ func (j *JsonArray) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonArray) TypeID() uint32 {
+	return JsonArrayTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonArray) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -364,6 +409,11 @@ func (j *JsonArray) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (j *JsonArray) GetValue() (value []JSONValueClass) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.
@@ -441,6 +491,12 @@ func (j *JsonObject) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (j *JsonObject) TypeID() uint32 {
+	return JsonObjectTypeID
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonObject) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -454,6 +510,11 @@ func (j *JsonObject) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetValue returns value of Value field.
+func (j *JsonObject) GetValue() (value []JsonObjectValue) {
+	return j.Value
 }
 
 // Decode implements bin.Decoder.
@@ -514,7 +575,12 @@ type JSONValueClass interface {
 	bin.Decoder
 	construct() JSONValueClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

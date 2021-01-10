@@ -113,6 +113,12 @@ func (g *MessagesGetHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetHistoryRequest) TypeID() uint32 {
+	return MessagesGetHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -133,6 +139,46 @@ func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.MinID)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetHistoryRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetHistoryRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetOffsetDate returns value of OffsetDate field.
+func (g *MessagesGetHistoryRequest) GetOffsetDate() (value int) {
+	return g.OffsetDate
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (g *MessagesGetHistoryRequest) GetAddOffset() (value int) {
+	return g.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetHistoryRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetHistoryRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *MessagesGetHistoryRequest) GetMinID() (value int) {
+	return g.MinID
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetHistoryRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

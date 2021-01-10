@@ -84,6 +84,12 @@ func (u *UrlAuthResultRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UrlAuthResultRequest) TypeID() uint32 {
+	return UrlAuthResultRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -115,6 +121,21 @@ func (u *UrlAuthResultRequest) SetRequestWriteAccess(value bool) {
 		u.Flags.Unset(0)
 		u.RequestWriteAccess = false
 	}
+}
+
+// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
+func (u *UrlAuthResultRequest) GetRequestWriteAccess() (value bool) {
+	return u.Flags.Has(0)
+}
+
+// GetBot returns value of Bot field.
+func (u *UrlAuthResultRequest) GetBot() (value UserClass) {
+	return u.Bot
+}
+
+// GetDomain returns value of Domain field.
+func (u *UrlAuthResultRequest) GetDomain() (value string) {
+	return u.Domain
 }
 
 // Decode implements bin.Decoder.
@@ -200,6 +221,12 @@ func (u *UrlAuthResultAccepted) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UrlAuthResultAccepted) TypeID() uint32 {
+	return UrlAuthResultAcceptedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultAccepted) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -208,6 +235,11 @@ func (u *UrlAuthResultAccepted) Encode(b *bin.Buffer) error {
 	b.PutID(UrlAuthResultAcceptedTypeID)
 	b.PutString(u.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (u *UrlAuthResultAccepted) GetURL() (value string) {
+	return u.URL
 }
 
 // Decode implements bin.Decoder.
@@ -272,6 +304,12 @@ func (u *UrlAuthResultDefault) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UrlAuthResultDefault) TypeID() uint32 {
+	return UrlAuthResultDefaultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultDefault) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -323,7 +361,12 @@ type UrlAuthResultClass interface {
 	bin.Decoder
 	construct() UrlAuthResultClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

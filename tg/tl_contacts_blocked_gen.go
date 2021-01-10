@@ -76,6 +76,12 @@ func (b *ContactsBlocked) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *ContactsBlocked) TypeID() uint32 {
+	return ContactsBlockedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *ContactsBlocked) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -107,6 +113,21 @@ func (b *ContactsBlocked) Encode(buf *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlocked) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
+
+// GetChats returns value of Chats field.
+func (b *ContactsBlocked) GetChats() (value []ChatClass) {
+	return b.Chats
+}
+
+// GetUsers returns value of Users field.
+func (b *ContactsBlocked) GetUsers() (value []UserClass) {
+	return b.Users
 }
 
 // Decode implements bin.Decoder.
@@ -238,6 +259,12 @@ func (b *ContactsBlockedSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *ContactsBlockedSlice) TypeID() uint32 {
+	return ContactsBlockedSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *ContactsBlockedSlice) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -270,6 +297,26 @@ func (b *ContactsBlockedSlice) Encode(buf *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (b *ContactsBlockedSlice) GetCount() (value int) {
+	return b.Count
+}
+
+// GetBlocked returns value of Blocked field.
+func (b *ContactsBlockedSlice) GetBlocked() (value []PeerBlocked) {
+	return b.Blocked
+}
+
+// GetChats returns value of Chats field.
+func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
+	return b.Chats
+}
+
+// GetUsers returns value of Users field.
+func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
+	return b.Users
 }
 
 // Decode implements bin.Decoder.
@@ -359,7 +406,19 @@ type ContactsBlockedClass interface {
 	bin.Decoder
 	construct() ContactsBlockedClass
 
-	fmt.Stringer
+	// List of blocked users
+	GetBlocked() (value []PeerBlocked)
+	// Blocked chats
+	GetChats() (value []ChatClass)
+	// List of users
+	GetUsers() (value []UserClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

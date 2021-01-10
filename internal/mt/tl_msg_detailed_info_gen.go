@@ -75,6 +75,12 @@ func (m *MsgDetailedInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MsgDetailedInfo) TypeID() uint32 {
+	return MsgDetailedInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MsgDetailedInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -86,6 +92,26 @@ func (m *MsgDetailedInfo) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Bytes)
 	b.PutInt(m.Status)
 	return nil
+}
+
+// GetMsgID returns value of MsgID field.
+func (m *MsgDetailedInfo) GetMsgID() (value int64) {
+	return m.MsgID
+}
+
+// GetAnswerMsgID returns value of AnswerMsgID field.
+func (m *MsgDetailedInfo) GetAnswerMsgID() (value int64) {
+	return m.AnswerMsgID
+}
+
+// GetBytes returns value of Bytes field.
+func (m *MsgDetailedInfo) GetBytes() (value int) {
+	return m.Bytes
+}
+
+// GetStatus returns value of Status field.
+func (m *MsgDetailedInfo) GetStatus() (value int) {
+	return m.Status
 }
 
 // Decode implements bin.Decoder.
@@ -189,6 +215,12 @@ func (m *MsgNewDetailedInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MsgNewDetailedInfo) TypeID() uint32 {
+	return MsgNewDetailedInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MsgNewDetailedInfo) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -199,6 +231,21 @@ func (m *MsgNewDetailedInfo) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Bytes)
 	b.PutInt(m.Status)
 	return nil
+}
+
+// GetAnswerMsgID returns value of AnswerMsgID field.
+func (m *MsgNewDetailedInfo) GetAnswerMsgID() (value int64) {
+	return m.AnswerMsgID
+}
+
+// GetBytes returns value of Bytes field.
+func (m *MsgNewDetailedInfo) GetBytes() (value int) {
+	return m.Bytes
+}
+
+// GetStatus returns value of Status field.
+func (m *MsgNewDetailedInfo) GetStatus() (value int) {
+	return m.Status
 }
 
 // Decode implements bin.Decoder.
@@ -261,7 +308,19 @@ type MsgDetailedInfoClass interface {
 	bin.Decoder
 	construct() MsgDetailedInfoClass
 
-	fmt.Stringer
+	// AnswerMsgID field of MsgDetailedInfo.
+	GetAnswerMsgID() (value int64)
+	// Bytes field of MsgDetailedInfo.
+	GetBytes() (value int)
+	// Status field of MsgDetailedInfo.
+	GetStatus() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

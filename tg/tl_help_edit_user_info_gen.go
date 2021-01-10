@@ -75,6 +75,12 @@ func (e *HelpEditUserInfoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *HelpEditUserInfoRequest) TypeID() uint32 {
+	return HelpEditUserInfoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -98,6 +104,21 @@ func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (e *HelpEditUserInfoRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetMessage returns value of Message field.
+func (e *HelpEditUserInfoRequest) GetMessage() (value string) {
+	return e.Message
+}
+
+// GetEntities returns value of Entities field.
+func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
+	return e.Entities
 }
 
 // Decode implements bin.Decoder.

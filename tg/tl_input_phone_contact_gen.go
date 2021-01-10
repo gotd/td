@@ -81,6 +81,12 @@ func (i *InputPhoneContact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPhoneContact) TypeID() uint32 {
+	return InputPhoneContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -92,6 +98,26 @@ func (i *InputPhoneContact) Encode(b *bin.Buffer) error {
 	b.PutString(i.FirstName)
 	b.PutString(i.LastName)
 	return nil
+}
+
+// GetClientID returns value of ClientID field.
+func (i *InputPhoneContact) GetClientID() (value int64) {
+	return i.ClientID
+}
+
+// GetPhone returns value of Phone field.
+func (i *InputPhoneContact) GetPhone() (value string) {
+	return i.Phone
+}
+
+// GetFirstName returns value of FirstName field.
+func (i *InputPhoneContact) GetFirstName() (value string) {
+	return i.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (i *InputPhoneContact) GetLastName() (value string) {
+	return i.LastName
 }
 
 // Decode implements bin.Decoder.

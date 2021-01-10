@@ -87,6 +87,12 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSetBotPrecheckoutResultsRequest) TypeID() uint32 {
+	return MessagesSetBotPrecheckoutResultsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -118,6 +124,16 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) SetSuccess(value bool) {
 		s.Flags.Unset(1)
 		s.Success = false
 	}
+}
+
+// GetSuccess returns value of Success conditional field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) GetSuccess() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSetBotPrecheckoutResultsRequest) GetQueryID() (value int64) {
+	return s.QueryID
 }
 
 // SetError sets value of Error conditional field.

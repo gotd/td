@@ -65,6 +65,12 @@ func (g *UploadGetCdnFileHashesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UploadGetCdnFileHashesRequest) TypeID() uint32 {
+	return UploadGetCdnFileHashesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UploadGetCdnFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -74,6 +80,16 @@ func (g *UploadGetCdnFileHashesRequest) Encode(b *bin.Buffer) error {
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
 	return nil
+}
+
+// GetFileToken returns value of FileToken field.
+func (g *UploadGetCdnFileHashesRequest) GetFileToken() (value []byte) {
+	return g.FileToken
+}
+
+// GetOffset returns value of Offset field.
+func (g *UploadGetCdnFileHashesRequest) GetOffset() (value int) {
+	return g.Offset
 }
 
 // Decode implements bin.Decoder.

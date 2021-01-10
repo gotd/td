@@ -200,6 +200,12 @@ func (d *DialogFilter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DialogFilter) TypeID() uint32 {
+	return DialogFilterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DialogFilter) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -282,6 +288,11 @@ func (d *DialogFilter) SetContacts(value bool) {
 	}
 }
 
+// GetContacts returns value of Contacts conditional field.
+func (d *DialogFilter) GetContacts() (value bool) {
+	return d.Flags.Has(0)
+}
+
 // SetNonContacts sets value of NonContacts conditional field.
 func (d *DialogFilter) SetNonContacts(value bool) {
 	if value {
@@ -291,6 +302,11 @@ func (d *DialogFilter) SetNonContacts(value bool) {
 		d.Flags.Unset(1)
 		d.NonContacts = false
 	}
+}
+
+// GetNonContacts returns value of NonContacts conditional field.
+func (d *DialogFilter) GetNonContacts() (value bool) {
+	return d.Flags.Has(1)
 }
 
 // SetGroups sets value of Groups conditional field.
@@ -304,6 +320,11 @@ func (d *DialogFilter) SetGroups(value bool) {
 	}
 }
 
+// GetGroups returns value of Groups conditional field.
+func (d *DialogFilter) GetGroups() (value bool) {
+	return d.Flags.Has(2)
+}
+
 // SetBroadcasts sets value of Broadcasts conditional field.
 func (d *DialogFilter) SetBroadcasts(value bool) {
 	if value {
@@ -313,6 +334,11 @@ func (d *DialogFilter) SetBroadcasts(value bool) {
 		d.Flags.Unset(3)
 		d.Broadcasts = false
 	}
+}
+
+// GetBroadcasts returns value of Broadcasts conditional field.
+func (d *DialogFilter) GetBroadcasts() (value bool) {
+	return d.Flags.Has(3)
 }
 
 // SetBots sets value of Bots conditional field.
@@ -326,6 +352,11 @@ func (d *DialogFilter) SetBots(value bool) {
 	}
 }
 
+// GetBots returns value of Bots conditional field.
+func (d *DialogFilter) GetBots() (value bool) {
+	return d.Flags.Has(4)
+}
+
 // SetExcludeMuted sets value of ExcludeMuted conditional field.
 func (d *DialogFilter) SetExcludeMuted(value bool) {
 	if value {
@@ -335,6 +366,11 @@ func (d *DialogFilter) SetExcludeMuted(value bool) {
 		d.Flags.Unset(11)
 		d.ExcludeMuted = false
 	}
+}
+
+// GetExcludeMuted returns value of ExcludeMuted conditional field.
+func (d *DialogFilter) GetExcludeMuted() (value bool) {
+	return d.Flags.Has(11)
 }
 
 // SetExcludeRead sets value of ExcludeRead conditional field.
@@ -348,6 +384,11 @@ func (d *DialogFilter) SetExcludeRead(value bool) {
 	}
 }
 
+// GetExcludeRead returns value of ExcludeRead conditional field.
+func (d *DialogFilter) GetExcludeRead() (value bool) {
+	return d.Flags.Has(12)
+}
+
 // SetExcludeArchived sets value of ExcludeArchived conditional field.
 func (d *DialogFilter) SetExcludeArchived(value bool) {
 	if value {
@@ -357,6 +398,21 @@ func (d *DialogFilter) SetExcludeArchived(value bool) {
 		d.Flags.Unset(13)
 		d.ExcludeArchived = false
 	}
+}
+
+// GetExcludeArchived returns value of ExcludeArchived conditional field.
+func (d *DialogFilter) GetExcludeArchived() (value bool) {
+	return d.Flags.Has(13)
+}
+
+// GetID returns value of ID field.
+func (d *DialogFilter) GetID() (value int) {
+	return d.ID
+}
+
+// GetTitle returns value of Title field.
+func (d *DialogFilter) GetTitle() (value string) {
+	return d.Title
 }
 
 // SetEmoticon sets value of Emoticon conditional field.
@@ -372,6 +428,21 @@ func (d *DialogFilter) GetEmoticon() (value string, ok bool) {
 		return value, false
 	}
 	return d.Emoticon, true
+}
+
+// GetPinnedPeers returns value of PinnedPeers field.
+func (d *DialogFilter) GetPinnedPeers() (value []InputPeerClass) {
+	return d.PinnedPeers
+}
+
+// GetIncludePeers returns value of IncludePeers field.
+func (d *DialogFilter) GetIncludePeers() (value []InputPeerClass) {
+	return d.IncludePeers
+}
+
+// GetExcludePeers returns value of ExcludePeers field.
+func (d *DialogFilter) GetExcludePeers() (value []InputPeerClass) {
+	return d.ExcludePeers
 }
 
 // Decode implements bin.Decoder.

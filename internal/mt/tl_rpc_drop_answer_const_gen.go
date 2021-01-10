@@ -51,6 +51,12 @@ func (r *RPCDropAnswerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCDropAnswerRequest) TypeID() uint32 {
+	return RPCDropAnswerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCDropAnswerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -59,6 +65,11 @@ func (r *RPCDropAnswerRequest) Encode(b *bin.Buffer) error {
 	b.PutID(RPCDropAnswerRequestTypeID)
 	b.PutLong(r.ReqMsgID)
 	return nil
+}
+
+// GetReqMsgID returns value of ReqMsgID field.
+func (r *RPCDropAnswerRequest) GetReqMsgID() (value int64) {
+	return r.ReqMsgID
 }
 
 // Decode implements bin.Decoder.

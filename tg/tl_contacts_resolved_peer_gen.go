@@ -74,6 +74,12 @@ func (r *ContactsResolvedPeer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ContactsResolvedPeer) TypeID() uint32 {
+	return ContactsResolvedPeerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -105,6 +111,21 @@ func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *ContactsResolvedPeer) GetPeer() (value PeerClass) {
+	return r.Peer
+}
+
+// GetChats returns value of Chats field.
+func (r *ContactsResolvedPeer) GetChats() (value []ChatClass) {
+	return r.Chats
+}
+
+// GetUsers returns value of Users field.
+func (r *ContactsResolvedPeer) GetUsers() (value []UserClass) {
+	return r.Users
 }
 
 // Decode implements bin.Decoder.

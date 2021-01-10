@@ -100,6 +100,12 @@ func (s *PaymentsSendPaymentFormRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *PaymentsSendPaymentFormRequest) TypeID() uint32 {
+	return PaymentsSendPaymentFormRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -131,6 +137,11 @@ func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetMsgID returns value of MsgID field.
+func (s *PaymentsSendPaymentFormRequest) GetMsgID() (value int) {
+	return s.MsgID
+}
+
 // SetRequestedInfoID sets value of RequestedInfoID conditional field.
 func (s *PaymentsSendPaymentFormRequest) SetRequestedInfoID(value string) {
 	s.Flags.Set(0)
@@ -159,6 +170,11 @@ func (s *PaymentsSendPaymentFormRequest) GetShippingOptionID() (value string, ok
 		return value, false
 	}
 	return s.ShippingOptionID, true
+}
+
+// GetCredentials returns value of Credentials field.
+func (s *PaymentsSendPaymentFormRequest) GetCredentials() (value InputPaymentCredentialsClass) {
+	return s.Credentials
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (t *AccountTakeout) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *AccountTakeout) TypeID() uint32 {
+	return AccountTakeoutTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountTakeout) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -62,6 +68,11 @@ func (t *AccountTakeout) Encode(b *bin.Buffer) error {
 	b.PutID(AccountTakeoutTypeID)
 	b.PutLong(t.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (t *AccountTakeout) GetID() (value int64) {
+	return t.ID
 }
 
 // Decode implements bin.Decoder.

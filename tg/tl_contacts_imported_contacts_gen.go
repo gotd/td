@@ -89,6 +89,12 @@ func (i *ContactsImportedContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *ContactsImportedContacts) TypeID() uint32 {
+	return ContactsImportedContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -121,6 +127,26 @@ func (i *ContactsImportedContacts) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetImported returns value of Imported field.
+func (i *ContactsImportedContacts) GetImported() (value []ImportedContact) {
+	return i.Imported
+}
+
+// GetPopularInvites returns value of PopularInvites field.
+func (i *ContactsImportedContacts) GetPopularInvites() (value []PopularContact) {
+	return i.PopularInvites
+}
+
+// GetRetryContacts returns value of RetryContacts field.
+func (i *ContactsImportedContacts) GetRetryContacts() (value []int64) {
+	return i.RetryContacts
+}
+
+// GetUsers returns value of Users field.
+func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
+	return i.Users
 }
 
 // Decode implements bin.Decoder.

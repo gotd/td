@@ -78,6 +78,12 @@ func (g *PhotosGetUserPhotosRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *PhotosGetUserPhotosRequest) TypeID() uint32 {
+	return PhotosGetUserPhotosRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -94,6 +100,26 @@ func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {
 	b.PutLong(g.MaxID)
 	b.PutInt(g.Limit)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (g *PhotosGetUserPhotosRequest) GetUserID() (value InputUserClass) {
+	return g.UserID
+}
+
+// GetOffset returns value of Offset field.
+func (g *PhotosGetUserPhotosRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *PhotosGetUserPhotosRequest) GetMaxID() (value int64) {
+	return g.MaxID
+}
+
+// GetLimit returns value of Limit field.
+func (g *PhotosGetUserPhotosRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

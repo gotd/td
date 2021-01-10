@@ -96,6 +96,12 @@ func (u *AccountUploadThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUploadThemeRequest) TypeID() uint32 {
+	return AccountUploadThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -127,6 +133,11 @@ func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetFile returns value of File field.
+func (u *AccountUploadThemeRequest) GetFile() (value InputFileClass) {
+	return u.File
+}
+
 // SetThumb sets value of Thumb conditional field.
 func (u *AccountUploadThemeRequest) SetThumb(value InputFileClass) {
 	u.Flags.Set(0)
@@ -140,6 +151,16 @@ func (u *AccountUploadThemeRequest) GetThumb() (value InputFileClass, ok bool) {
 		return value, false
 	}
 	return u.Thumb, true
+}
+
+// GetFileName returns value of FileName field.
+func (u *AccountUploadThemeRequest) GetFileName() (value string) {
+	return u.FileName
+}
+
+// GetMimeType returns value of MimeType field.
+func (u *AccountUploadThemeRequest) GetMimeType() (value string) {
+	return u.MimeType
 }
 
 // Decode implements bin.Decoder.

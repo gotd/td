@@ -46,6 +46,12 @@ func (s *MessagesStickersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStickersNotModified) TypeID() uint32 {
+	return MessagesStickersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickersNotModified) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -128,6 +134,12 @@ func (s *MessagesStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStickers) TypeID() uint32 {
+	return MessagesStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickers) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -145,6 +157,16 @@ func (s *MessagesStickers) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesStickers) GetHash() (value int) {
+	return s.Hash
+}
+
+// GetStickers returns value of Stickers field.
+func (s *MessagesStickers) GetStickers() (value []DocumentClass) {
+	return s.Stickers
 }
 
 // Decode implements bin.Decoder.
@@ -208,7 +230,12 @@ type MessagesStickersClass interface {
 	bin.Decoder
 	construct() MessagesStickersClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

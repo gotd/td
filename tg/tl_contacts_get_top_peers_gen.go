@@ -130,6 +130,12 @@ func (g *ContactsGetTopPeersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ContactsGetTopPeersRequest) TypeID() uint32 {
+	return ContactsGetTopPeersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -180,6 +186,11 @@ func (g *ContactsGetTopPeersRequest) SetCorrespondents(value bool) {
 	}
 }
 
+// GetCorrespondents returns value of Correspondents conditional field.
+func (g *ContactsGetTopPeersRequest) GetCorrespondents() (value bool) {
+	return g.Flags.Has(0)
+}
+
 // SetBotsPm sets value of BotsPm conditional field.
 func (g *ContactsGetTopPeersRequest) SetBotsPm(value bool) {
 	if value {
@@ -189,6 +200,11 @@ func (g *ContactsGetTopPeersRequest) SetBotsPm(value bool) {
 		g.Flags.Unset(1)
 		g.BotsPm = false
 	}
+}
+
+// GetBotsPm returns value of BotsPm conditional field.
+func (g *ContactsGetTopPeersRequest) GetBotsPm() (value bool) {
+	return g.Flags.Has(1)
 }
 
 // SetBotsInline sets value of BotsInline conditional field.
@@ -202,6 +218,11 @@ func (g *ContactsGetTopPeersRequest) SetBotsInline(value bool) {
 	}
 }
 
+// GetBotsInline returns value of BotsInline conditional field.
+func (g *ContactsGetTopPeersRequest) GetBotsInline() (value bool) {
+	return g.Flags.Has(2)
+}
+
 // SetPhoneCalls sets value of PhoneCalls conditional field.
 func (g *ContactsGetTopPeersRequest) SetPhoneCalls(value bool) {
 	if value {
@@ -211,6 +232,11 @@ func (g *ContactsGetTopPeersRequest) SetPhoneCalls(value bool) {
 		g.Flags.Unset(3)
 		g.PhoneCalls = false
 	}
+}
+
+// GetPhoneCalls returns value of PhoneCalls conditional field.
+func (g *ContactsGetTopPeersRequest) GetPhoneCalls() (value bool) {
+	return g.Flags.Has(3)
 }
 
 // SetForwardUsers sets value of ForwardUsers conditional field.
@@ -224,6 +250,11 @@ func (g *ContactsGetTopPeersRequest) SetForwardUsers(value bool) {
 	}
 }
 
+// GetForwardUsers returns value of ForwardUsers conditional field.
+func (g *ContactsGetTopPeersRequest) GetForwardUsers() (value bool) {
+	return g.Flags.Has(4)
+}
+
 // SetForwardChats sets value of ForwardChats conditional field.
 func (g *ContactsGetTopPeersRequest) SetForwardChats(value bool) {
 	if value {
@@ -233,6 +264,11 @@ func (g *ContactsGetTopPeersRequest) SetForwardChats(value bool) {
 		g.Flags.Unset(5)
 		g.ForwardChats = false
 	}
+}
+
+// GetForwardChats returns value of ForwardChats conditional field.
+func (g *ContactsGetTopPeersRequest) GetForwardChats() (value bool) {
+	return g.Flags.Has(5)
 }
 
 // SetGroups sets value of Groups conditional field.
@@ -246,6 +282,11 @@ func (g *ContactsGetTopPeersRequest) SetGroups(value bool) {
 	}
 }
 
+// GetGroups returns value of Groups conditional field.
+func (g *ContactsGetTopPeersRequest) GetGroups() (value bool) {
+	return g.Flags.Has(10)
+}
+
 // SetChannels sets value of Channels conditional field.
 func (g *ContactsGetTopPeersRequest) SetChannels(value bool) {
 	if value {
@@ -255,6 +296,26 @@ func (g *ContactsGetTopPeersRequest) SetChannels(value bool) {
 		g.Flags.Unset(15)
 		g.Channels = false
 	}
+}
+
+// GetChannels returns value of Channels conditional field.
+func (g *ContactsGetTopPeersRequest) GetChannels() (value bool) {
+	return g.Flags.Has(15)
+}
+
+// GetOffset returns value of Offset field.
+func (g *ContactsGetTopPeersRequest) GetOffset() (value int) {
+	return g.Offset
+}
+
+// GetLimit returns value of Limit field.
+func (g *ContactsGetTopPeersRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *ContactsGetTopPeersRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

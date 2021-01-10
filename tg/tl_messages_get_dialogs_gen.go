@@ -129,6 +129,12 @@ func (g *MessagesGetDialogsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetDialogsRequest) TypeID() uint32 {
+	return MessagesGetDialogsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -171,6 +177,11 @@ func (g *MessagesGetDialogsRequest) SetExcludePinned(value bool) {
 	}
 }
 
+// GetExcludePinned returns value of ExcludePinned conditional field.
+func (g *MessagesGetDialogsRequest) GetExcludePinned() (value bool) {
+	return g.Flags.Has(0)
+}
+
 // SetFolderID sets value of FolderID conditional field.
 func (g *MessagesGetDialogsRequest) SetFolderID(value int) {
 	g.Flags.Set(1)
@@ -184,6 +195,31 @@ func (g *MessagesGetDialogsRequest) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return g.FolderID, true
+}
+
+// GetOffsetDate returns value of OffsetDate field.
+func (g *MessagesGetDialogsRequest) GetOffsetDate() (value int) {
+	return g.OffsetDate
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetDialogsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (g *MessagesGetDialogsRequest) GetOffsetPeer() (value InputPeerClass) {
+	return g.OffsetPeer
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetDialogsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetHash returns value of Hash field.
+func (g *MessagesGetDialogsRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

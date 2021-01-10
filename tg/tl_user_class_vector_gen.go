@@ -22,6 +22,9 @@ type UserClassVector struct {
 	Elems []UserClass
 }
 
+// UserClassVectorTypeID is TL type id of UserClassVector.
+const UserClassVectorTypeID = bin.TypeVector
+
 func (vec *UserClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *UserClassVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *UserClassVector) TypeID() uint32 {
+	return UserClassVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -63,6 +72,11 @@ func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *UserClassVector) GetElems() (value []UserClass) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

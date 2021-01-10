@@ -62,6 +62,12 @@ func (r *AccountReportPeerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *AccountReportPeerRequest) TypeID() uint32 {
+	return AccountReportPeerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -81,6 +87,16 @@ func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.reportPeer#ae189d5f: field reason: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *AccountReportPeerRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
+}
+
+// GetReason returns value of Reason field.
+func (r *AccountReportPeerRequest) GetReason() (value ReportReasonClass) {
+	return r.Reason
 }
 
 // Decode implements bin.Decoder.

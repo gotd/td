@@ -46,6 +46,12 @@ func (c *HelpCountriesListNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *HelpCountriesListNotModified) TypeID() uint32 {
+	return HelpCountriesListNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -128,6 +134,12 @@ func (c *HelpCountriesList) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *HelpCountriesList) TypeID() uint32 {
+	return HelpCountriesListTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -142,6 +154,16 @@ func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(c.Hash)
 	return nil
+}
+
+// GetCountries returns value of Countries field.
+func (c *HelpCountriesList) GetCountries() (value []HelpCountry) {
+	return c.Countries
+}
+
+// GetHash returns value of Hash field.
+func (c *HelpCountriesList) GetHash() (value int) {
+	return c.Hash
 }
 
 // Decode implements bin.Decoder.
@@ -205,7 +227,12 @@ type HelpCountriesListClass interface {
 	bin.Decoder
 	construct() HelpCountriesListClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

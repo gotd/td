@@ -64,6 +64,12 @@ func (b *PaymentsBankCardData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *PaymentsBankCardData) TypeID() uint32 {
+	return PaymentsBankCardDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -78,6 +84,16 @@ func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (b *PaymentsBankCardData) GetTitle() (value string) {
+	return b.Title
+}
+
+// GetOpenUrls returns value of OpenUrls field.
+func (b *PaymentsBankCardData) GetOpenUrls() (value []BankCardOpenUrl) {
+	return b.OpenUrls
 }
 
 // Decode implements bin.Decoder.

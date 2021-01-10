@@ -57,6 +57,12 @@ func (g *ContactsGetContactIDsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ContactsGetContactIDsRequest) TypeID() uint32 {
+	return ContactsGetContactIDsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -65,6 +71,11 @@ func (g *ContactsGetContactIDsRequest) Encode(b *bin.Buffer) error {
 	b.PutID(ContactsGetContactIDsRequestTypeID)
 	b.PutInt(g.Hash)
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (g *ContactsGetContactIDsRequest) GetHash() (value int) {
+	return g.Hash
 }
 
 // Decode implements bin.Decoder.

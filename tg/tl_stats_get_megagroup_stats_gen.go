@@ -76,6 +76,12 @@ func (g *StatsGetMegagroupStatsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *StatsGetMegagroupStatsRequest) TypeID() uint32 {
+	return StatsGetMegagroupStatsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -106,6 +112,16 @@ func (g *StatsGetMegagroupStatsRequest) SetDark(value bool) {
 		g.Flags.Unset(0)
 		g.Dark = false
 	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (g *StatsGetMegagroupStatsRequest) GetDark() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *StatsGetMegagroupStatsRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
 }
 
 // Decode implements bin.Decoder.

@@ -135,6 +135,12 @@ func (g *ChannelsGetAdminLogRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetAdminLogRequest) TypeID() uint32 {
+	return ChannelsGetAdminLogRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -179,6 +185,16 @@ func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetChannel returns value of Channel field.
+func (g *ChannelsGetAdminLogRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetQ returns value of Q field.
+func (g *ChannelsGetAdminLogRequest) GetQ() (value string) {
+	return g.Q
+}
+
 // SetEventsFilter sets value of EventsFilter conditional field.
 func (g *ChannelsGetAdminLogRequest) SetEventsFilter(value ChannelAdminLogEventsFilter) {
 	g.Flags.Set(0)
@@ -207,6 +223,21 @@ func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok boo
 		return value, false
 	}
 	return g.Admins, true
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *ChannelsGetAdminLogRequest) GetMaxID() (value int64) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *ChannelsGetAdminLogRequest) GetMinID() (value int64) {
+	return g.MinID
+}
+
+// GetLimit returns value of Limit field.
+func (g *ChannelsGetAdminLogRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

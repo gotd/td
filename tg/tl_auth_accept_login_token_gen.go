@@ -62,6 +62,12 @@ func (a *AuthAcceptLoginTokenRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AuthAcceptLoginTokenRequest) TypeID() uint32 {
+	return AuthAcceptLoginTokenRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthAcceptLoginTokenRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -70,6 +76,11 @@ func (a *AuthAcceptLoginTokenRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AuthAcceptLoginTokenRequestTypeID)
 	b.PutBytes(a.Token)
 	return nil
+}
+
+// GetToken returns value of Token field.
+func (a *AuthAcceptLoginTokenRequest) GetToken() (value []byte) {
+	return a.Token
 }
 
 // Decode implements bin.Decoder.

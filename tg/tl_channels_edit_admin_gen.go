@@ -84,6 +84,12 @@ func (e *ChannelsEditAdminRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsEditAdminRequest) TypeID() uint32 {
+	return ChannelsEditAdminRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -107,6 +113,26 @@ func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(e.Rank)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditAdminRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (e *ChannelsEditAdminRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetAdminRights returns value of AdminRights field.
+func (e *ChannelsEditAdminRequest) GetAdminRights() (value ChatAdminRights) {
+	return e.AdminRights
+}
+
+// GetRank returns value of Rank field.
+func (e *ChannelsEditAdminRequest) GetRank() (value string) {
+	return e.Rank
 }
 
 // Decode implements bin.Decoder.

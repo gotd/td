@@ -49,6 +49,12 @@ func (c *MessagesClearAllDraftsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesClearAllDraftsRequest) TypeID() uint32 {
+	return MessagesClearAllDraftsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {
 	if c == nil {

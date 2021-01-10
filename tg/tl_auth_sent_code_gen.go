@@ -103,6 +103,12 @@ func (s *AuthSentCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AuthSentCode) TypeID() uint32 {
+	return AuthSentCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -137,6 +143,16 @@ func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 		b.PutInt(s.Timeout)
 	}
 	return nil
+}
+
+// GetType returns value of Type field.
+func (s *AuthSentCode) GetType() (value AuthSentCodeTypeClass) {
+	return s.Type
+}
+
+// GetPhoneCodeHash returns value of PhoneCodeHash field.
+func (s *AuthSentCode) GetPhoneCodeHash() (value string) {
+	return s.PhoneCodeHash
 }
 
 // SetNextType sets value of NextType conditional field.

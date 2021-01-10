@@ -53,6 +53,12 @@ func (s *SMS) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SMS) TypeID() uint32 {
+	return SMSTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SMS) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -61,6 +67,11 @@ func (s *SMS) Encode(b *bin.Buffer) error {
 	b.PutID(SMSTypeID)
 	b.PutString(s.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (s *SMS) GetText() (value string) {
+	return s.Text
 }
 
 // Decode implements bin.Decoder.

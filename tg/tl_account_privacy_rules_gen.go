@@ -76,6 +76,12 @@ func (p *AccountPrivacyRules) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *AccountPrivacyRules) TypeID() uint32 {
+	return AccountPrivacyRulesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *AccountPrivacyRules) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -110,6 +116,21 @@ func (p *AccountPrivacyRules) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetRules returns value of Rules field.
+func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
+	return p.Rules
+}
+
+// GetChats returns value of Chats field.
+func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.

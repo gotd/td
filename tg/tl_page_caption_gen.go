@@ -62,6 +62,12 @@ func (p *PageCaption) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageCaption) TypeID() uint32 {
+	return PageCaptionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageCaption) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -81,6 +87,16 @@ func (p *PageCaption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageCaption#6f747657: field credit: %w", err)
 	}
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PageCaption) GetText() (value RichTextClass) {
+	return p.Text
+}
+
+// GetCredit returns value of Credit field.
+func (p *PageCaption) GetCredit() (value RichTextClass) {
+	return p.Credit
 }
 
 // Decode implements bin.Decoder.

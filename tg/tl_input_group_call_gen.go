@@ -61,6 +61,12 @@ func (i *InputGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputGroupCall) TypeID() uint32 {
+	return InputGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputGroupCall) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -70,6 +76,16 @@ func (i *InputGroupCall) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputGroupCall) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputGroupCall) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (p *HelpPassportConfigNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *HelpPassportConfigNotModified) TypeID() uint32 {
+	return HelpPassportConfigNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -129,6 +135,12 @@ func (p *HelpPassportConfig) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *HelpPassportConfig) TypeID() uint32 {
+	return HelpPassportConfigTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -140,6 +152,16 @@ func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode help.passportConfig#a098d6af: field countries_langs: %w", err)
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (p *HelpPassportConfig) GetHash() (value int) {
+	return p.Hash
+}
+
+// GetCountriesLangs returns value of CountriesLangs field.
+func (p *HelpPassportConfig) GetCountriesLangs() (value DataJSON) {
+	return p.CountriesLangs
 }
 
 // Decode implements bin.Decoder.
@@ -195,7 +217,12 @@ type HelpPassportConfigClass interface {
 	bin.Decoder
 	construct() HelpPassportConfigClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

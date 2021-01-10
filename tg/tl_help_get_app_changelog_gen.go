@@ -59,6 +59,12 @@ func (g *HelpGetAppChangelogRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetAppChangelogRequest) TypeID() uint32 {
+	return HelpGetAppChangelogRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {
 	b.PutID(HelpGetAppChangelogRequestTypeID)
 	b.PutString(g.PrevAppVersion)
 	return nil
+}
+
+// GetPrevAppVersion returns value of PrevAppVersion field.
+func (g *HelpGetAppChangelogRequest) GetPrevAppVersion() (value string) {
+	return g.PrevAppVersion
 }
 
 // Decode implements bin.Decoder.

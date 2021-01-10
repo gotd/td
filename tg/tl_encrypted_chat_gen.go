@@ -54,6 +54,12 @@ func (e *EncryptedChatEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedChatEmpty) TypeID() uint32 {
+	return EncryptedChatEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -62,6 +68,11 @@ func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(EncryptedChatEmptyTypeID)
 	b.PutInt(e.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedChatEmpty) GetID() (value int) {
+	return e.ID
 }
 
 // Decode implements bin.Decoder.
@@ -163,6 +174,12 @@ func (e *EncryptedChatWaiting) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedChatWaiting) TypeID() uint32 {
+	return EncryptedChatWaitingTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -175,6 +192,31 @@ func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
 	b.PutInt(e.AdminID)
 	b.PutInt(e.ParticipantID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedChatWaiting) GetID() (value int) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatWaiting) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedChatWaiting) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatWaiting) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatWaiting) GetParticipantID() (value int) {
+	return e.ParticipantID
 }
 
 // Decode implements bin.Decoder.
@@ -341,6 +383,12 @@ func (e *EncryptedChatRequested) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedChatRequested) TypeID() uint32 {
+	return EncryptedChatRequestedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -378,6 +426,36 @@ func (e *EncryptedChatRequested) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return e.FolderID, true
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedChatRequested) GetID() (value int) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChatRequested) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedChatRequested) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChatRequested) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChatRequested) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGA returns value of GA field.
+func (e *EncryptedChatRequested) GetGA() (value []byte) {
+	return e.GA
 }
 
 // Decode implements bin.Decoder.
@@ -545,6 +623,12 @@ func (e *EncryptedChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedChat) TypeID() uint32 {
+	return EncryptedChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -559,6 +643,41 @@ func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 	b.PutBytes(e.GAOrB)
 	b.PutLong(e.KeyFingerprint)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedChat) GetID() (value int) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedChat) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedChat) GetDate() (value int) {
+	return e.Date
+}
+
+// GetAdminID returns value of AdminID field.
+func (e *EncryptedChat) GetAdminID() (value int) {
+	return e.AdminID
+}
+
+// GetParticipantID returns value of ParticipantID field.
+func (e *EncryptedChat) GetParticipantID() (value int) {
+	return e.ParticipantID
+}
+
+// GetGAOrB returns value of GAOrB field.
+func (e *EncryptedChat) GetGAOrB() (value []byte) {
+	return e.GAOrB
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedChat) GetKeyFingerprint() (value int64) {
+	return e.KeyFingerprint
 }
 
 // Decode implements bin.Decoder.
@@ -670,6 +789,12 @@ func (e *EncryptedChatDiscarded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedChatDiscarded) TypeID() uint32 {
+	return EncryptedChatDiscardedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -678,6 +803,11 @@ func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	b.PutID(EncryptedChatDiscardedTypeID)
 	b.PutInt(e.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedChatDiscarded) GetID() (value int) {
+	return e.ID
 }
 
 // Decode implements bin.Decoder.
@@ -731,7 +861,15 @@ type EncryptedChatClass interface {
 	bin.Decoder
 	construct() EncryptedChatClass
 
-	fmt.Stringer
+	// Chat ID
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

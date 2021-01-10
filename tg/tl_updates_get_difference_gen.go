@@ -108,6 +108,12 @@ func (g *UpdatesGetDifferenceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UpdatesGetDifferenceRequest) TypeID() uint32 {
+	return UpdatesGetDifferenceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -129,6 +135,11 @@ func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetPts returns value of Pts field.
+func (g *UpdatesGetDifferenceRequest) GetPts() (value int) {
+	return g.Pts
+}
+
 // SetPtsTotalLimit sets value of PtsTotalLimit conditional field.
 func (g *UpdatesGetDifferenceRequest) SetPtsTotalLimit(value int) {
 	g.Flags.Set(0)
@@ -142,6 +153,16 @@ func (g *UpdatesGetDifferenceRequest) GetPtsTotalLimit() (value int, ok bool) {
 		return value, false
 	}
 	return g.PtsTotalLimit, true
+}
+
+// GetDate returns value of Date field.
+func (g *UpdatesGetDifferenceRequest) GetDate() (value int) {
+	return g.Date
+}
+
+// GetQts returns value of Qts field.
+func (g *UpdatesGetDifferenceRequest) GetQts() (value int) {
+	return g.Qts
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (g *GeoPointEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GeoPointEmpty) TypeID() uint32 {
+	return GeoPointEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GeoPointEmpty) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,6 +160,12 @@ func (g *GeoPoint) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *GeoPoint) TypeID() uint32 {
+	return GeoPointTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *GeoPoint) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -173,6 +185,21 @@ func (g *GeoPoint) Encode(b *bin.Buffer) error {
 		b.PutInt(g.AccuracyRadius)
 	}
 	return nil
+}
+
+// GetLong returns value of Long field.
+func (g *GeoPoint) GetLong() (value float64) {
+	return g.Long
+}
+
+// GetLat returns value of Lat field.
+func (g *GeoPoint) GetLat() (value float64) {
+	return g.Lat
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (g *GeoPoint) GetAccessHash() (value int64) {
+	return g.AccessHash
 }
 
 // SetAccuracyRadius sets value of AccuracyRadius conditional field.
@@ -264,7 +291,12 @@ type GeoPointClass interface {
 	bin.Decoder
 	construct() GeoPointClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

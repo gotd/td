@@ -89,6 +89,12 @@ func (w *UploadWebFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *UploadWebFile) TypeID() uint32 {
+	return UploadWebFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *UploadWebFile) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -106,6 +112,31 @@ func (w *UploadWebFile) Encode(b *bin.Buffer) error {
 	b.PutInt(w.Mtime)
 	b.PutBytes(w.Bytes)
 	return nil
+}
+
+// GetSize returns value of Size field.
+func (w *UploadWebFile) GetSize() (value int) {
+	return w.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (w *UploadWebFile) GetMimeType() (value string) {
+	return w.MimeType
+}
+
+// GetFileType returns value of FileType field.
+func (w *UploadWebFile) GetFileType() (value StorageFileTypeClass) {
+	return w.FileType
+}
+
+// GetMtime returns value of Mtime field.
+func (w *UploadWebFile) GetMtime() (value int) {
+	return w.Mtime
+}
+
+// GetBytes returns value of Bytes field.
+func (w *UploadWebFile) GetBytes() (value []byte) {
+	return w.Bytes
 }
 
 // Decode implements bin.Decoder.

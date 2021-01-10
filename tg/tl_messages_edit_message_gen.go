@@ -146,6 +146,12 @@ func (e *MessagesEditMessageRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditMessageRequest) TypeID() uint32 {
+	return MessagesEditMessageRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -225,6 +231,21 @@ func (e *MessagesEditMessageRequest) SetNoWebpage(value bool) {
 		e.Flags.Unset(1)
 		e.NoWebpage = false
 	}
+}
+
+// GetNoWebpage returns value of NoWebpage conditional field.
+func (e *MessagesEditMessageRequest) GetNoWebpage() (value bool) {
+	return e.Flags.Has(1)
+}
+
+// GetPeer returns value of Peer field.
+func (e *MessagesEditMessageRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
+}
+
+// GetID returns value of ID field.
+func (e *MessagesEditMessageRequest) GetID() (value int) {
+	return e.ID
 }
 
 // SetMessage sets value of Message conditional field.

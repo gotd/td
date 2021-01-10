@@ -54,6 +54,12 @@ func (g *AccountGetNotifySettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetNotifySettingsRequest) TypeID() uint32 {
+	return AccountGetNotifySettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *AccountGetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.getNotifySettings#12b3ad31: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *AccountGetNotifySettingsRequest) GetPeer() (value InputNotifyPeerClass) {
+	return g.Peer
 }
 
 // Decode implements bin.Decoder.

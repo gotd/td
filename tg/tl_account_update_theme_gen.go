@@ -121,6 +121,12 @@ func (u *AccountUpdateThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUpdateThemeRequest) TypeID() uint32 {
+	return AccountUpdateThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -169,6 +175,16 @@ func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetFormat returns value of Format field.
+func (u *AccountUpdateThemeRequest) GetFormat() (value string) {
+	return u.Format
+}
+
+// GetTheme returns value of Theme field.
+func (u *AccountUpdateThemeRequest) GetTheme() (value InputThemeClass) {
+	return u.Theme
 }
 
 // SetSlug sets value of Slug conditional field.

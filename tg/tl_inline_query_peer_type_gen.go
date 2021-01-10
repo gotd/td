@@ -45,6 +45,12 @@ func (i *InlineQueryPeerTypeSameBotPM) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
+	return InlineQueryPeerTypeSameBotPMTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeSameBotPM) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -103,6 +109,12 @@ func (i *InlineQueryPeerTypePM) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineQueryPeerTypePM) TypeID() uint32 {
+	return InlineQueryPeerTypePMTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -165,6 +177,12 @@ func (i *InlineQueryPeerTypeChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineQueryPeerTypeChat) TypeID() uint32 {
+	return InlineQueryPeerTypeChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeChat) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -223,6 +241,12 @@ func (i *InlineQueryPeerTypeMegagroup) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineQueryPeerTypeMegagroup) TypeID() uint32 {
+	return InlineQueryPeerTypeMegagroupTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -285,6 +309,12 @@ func (i *InlineQueryPeerTypeBroadcast) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InlineQueryPeerTypeBroadcast) TypeID() uint32 {
+	return InlineQueryPeerTypeBroadcastTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeBroadcast) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -338,7 +368,12 @@ type InlineQueryPeerTypeClass interface {
 	bin.Decoder
 	construct() InlineQueryPeerTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

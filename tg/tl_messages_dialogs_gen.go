@@ -86,6 +86,12 @@ func (d *MessagesDialogs) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDialogs) TypeID() uint32 {
+	return MessagesDialogsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -129,6 +135,26 @@ func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetDialogs returns value of Dialogs field.
+func (d *MessagesDialogs) GetDialogs() (value []DialogClass) {
+	return d.Dialogs
+}
+
+// GetMessages returns value of Messages field.
+func (d *MessagesDialogs) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
+
+// GetChats returns value of Chats field.
+func (d *MessagesDialogs) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDialogs) GetUsers() (value []UserClass) {
+	return d.Users
 }
 
 // Decode implements bin.Decoder.
@@ -283,6 +309,12 @@ func (d *MessagesDialogsSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDialogsSlice) TypeID() uint32 {
+	return MessagesDialogsSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -327,6 +359,31 @@ func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (d *MessagesDialogsSlice) GetCount() (value int) {
+	return d.Count
+}
+
+// GetDialogs returns value of Dialogs field.
+func (d *MessagesDialogsSlice) GetDialogs() (value []DialogClass) {
+	return d.Dialogs
+}
+
+// GetMessages returns value of Messages field.
+func (d *MessagesDialogsSlice) GetMessages() (value []MessageClass) {
+	return d.Messages
+}
+
+// GetChats returns value of Chats field.
+func (d *MessagesDialogsSlice) GetChats() (value []ChatClass) {
+	return d.Chats
+}
+
+// GetUsers returns value of Users field.
+func (d *MessagesDialogsSlice) GetUsers() (value []UserClass) {
+	return d.Users
 }
 
 // Decode implements bin.Decoder.
@@ -448,6 +505,12 @@ func (d *MessagesDialogsNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDialogsNotModified) TypeID() uint32 {
+	return MessagesDialogsNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -456,6 +519,11 @@ func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesDialogsNotModifiedTypeID)
 	b.PutInt(d.Count)
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (d *MessagesDialogsNotModified) GetCount() (value int) {
+	return d.Count
 }
 
 // Decode implements bin.Decoder.
@@ -507,7 +575,12 @@ type MessagesDialogsClass interface {
 	bin.Decoder
 	construct() MessagesDialogsClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

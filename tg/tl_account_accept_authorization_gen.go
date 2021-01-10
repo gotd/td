@@ -88,6 +88,12 @@ func (a *AccountAcceptAuthorizationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AccountAcceptAuthorizationRequest) TypeID() uint32 {
+	return AccountAcceptAuthorizationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -107,6 +113,31 @@ func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.acceptAuthorization#e7027c94: field credentials: %w", err)
 	}
 	return nil
+}
+
+// GetBotID returns value of BotID field.
+func (a *AccountAcceptAuthorizationRequest) GetBotID() (value int) {
+	return a.BotID
+}
+
+// GetScope returns value of Scope field.
+func (a *AccountAcceptAuthorizationRequest) GetScope() (value string) {
+	return a.Scope
+}
+
+// GetPublicKey returns value of PublicKey field.
+func (a *AccountAcceptAuthorizationRequest) GetPublicKey() (value string) {
+	return a.PublicKey
+}
+
+// GetValueHashes returns value of ValueHashes field.
+func (a *AccountAcceptAuthorizationRequest) GetValueHashes() (value []SecureValueHash) {
+	return a.ValueHashes
+}
+
+// GetCredentials returns value of Credentials field.
+func (a *AccountAcceptAuthorizationRequest) GetCredentials() (value SecureCredentialsEncrypted) {
+	return a.Credentials
 }
 
 // Decode implements bin.Decoder.

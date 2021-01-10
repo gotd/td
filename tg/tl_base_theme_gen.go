@@ -46,6 +46,12 @@ func (b *BaseThemeClassic) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BaseThemeClassic) TypeID() uint32 {
+	return BaseThemeClassicTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -105,6 +111,12 @@ func (b *BaseThemeDay) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BaseThemeDay) TypeID() uint32 {
+	return BaseThemeDayTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (b *BaseThemeNight) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BaseThemeNight) TypeID() uint32 {
+	return BaseThemeNightTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -227,6 +245,12 @@ func (b *BaseThemeTinted) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BaseThemeTinted) TypeID() uint32 {
+	return BaseThemeTintedTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -290,6 +314,12 @@ func (b *BaseThemeArctic) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BaseThemeArctic) TypeID() uint32 {
+	return BaseThemeArcticTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -343,7 +373,12 @@ type BaseThemeClass interface {
 	bin.Decoder
 	construct() BaseThemeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

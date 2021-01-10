@@ -70,6 +70,12 @@ func (h *HighScore) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (h *HighScore) TypeID() uint32 {
+	return HighScoreTypeID
+}
+
 // Encode implements bin.Encoder.
 func (h *HighScore) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -80,6 +86,21 @@ func (h *HighScore) Encode(b *bin.Buffer) error {
 	b.PutInt(h.UserID)
 	b.PutInt(h.Score)
 	return nil
+}
+
+// GetPos returns value of Pos field.
+func (h *HighScore) GetPos() (value int) {
+	return h.Pos
+}
+
+// GetUserID returns value of UserID field.
+func (h *HighScore) GetUserID() (value int) {
+	return h.UserID
+}
+
+// GetScore returns value of Score field.
+func (h *HighScore) GetScore() (value int) {
+	return h.Score
 }
 
 // Decode implements bin.Decoder.

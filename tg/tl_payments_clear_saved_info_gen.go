@@ -67,6 +67,12 @@ func (c *PaymentsClearSavedInfoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *PaymentsClearSavedInfoRequest) TypeID() uint32 {
+	return PaymentsClearSavedInfoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *PaymentsClearSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -96,6 +102,11 @@ func (c *PaymentsClearSavedInfoRequest) SetCredentials(value bool) {
 	}
 }
 
+// GetCredentials returns value of Credentials conditional field.
+func (c *PaymentsClearSavedInfoRequest) GetCredentials() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetInfo sets value of Info conditional field.
 func (c *PaymentsClearSavedInfoRequest) SetInfo(value bool) {
 	if value {
@@ -105,6 +116,11 @@ func (c *PaymentsClearSavedInfoRequest) SetInfo(value bool) {
 		c.Flags.Unset(1)
 		c.Info = false
 	}
+}
+
+// GetInfo returns value of Info conditional field.
+func (c *PaymentsClearSavedInfoRequest) GetInfo() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // Decode implements bin.Decoder.

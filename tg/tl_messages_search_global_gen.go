@@ -148,6 +148,12 @@ func (s *MessagesSearchGlobalRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSearchGlobalRequest) TypeID() uint32 {
+	return MessagesSearchGlobalRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -197,6 +203,46 @@ func (s *MessagesSearchGlobalRequest) GetFolderID() (value int, ok bool) {
 		return value, false
 	}
 	return s.FolderID, true
+}
+
+// GetQ returns value of Q field.
+func (s *MessagesSearchGlobalRequest) GetQ() (value string) {
+	return s.Q
+}
+
+// GetFilter returns value of Filter field.
+func (s *MessagesSearchGlobalRequest) GetFilter() (value MessagesFilterClass) {
+	return s.Filter
+}
+
+// GetMinDate returns value of MinDate field.
+func (s *MessagesSearchGlobalRequest) GetMinDate() (value int) {
+	return s.MinDate
+}
+
+// GetMaxDate returns value of MaxDate field.
+func (s *MessagesSearchGlobalRequest) GetMaxDate() (value int) {
+	return s.MaxDate
+}
+
+// GetOffsetRate returns value of OffsetRate field.
+func (s *MessagesSearchGlobalRequest) GetOffsetRate() (value int) {
+	return s.OffsetRate
+}
+
+// GetOffsetPeer returns value of OffsetPeer field.
+func (s *MessagesSearchGlobalRequest) GetOffsetPeer() (value InputPeerClass) {
+	return s.OffsetPeer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (s *MessagesSearchGlobalRequest) GetOffsetID() (value int) {
+	return s.OffsetID
+}
+
+// GetLimit returns value of Limit field.
+func (s *MessagesSearchGlobalRequest) GetLimit() (value int) {
+	return s.Limit
 }
 
 // Decode implements bin.Decoder.

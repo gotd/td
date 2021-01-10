@@ -70,6 +70,12 @@ func (g *AccountGetThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetThemeRequest) TypeID() uint32 {
+	return AccountGetThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -85,6 +91,21 @@ func (g *AccountGetThemeRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutLong(g.DocumentID)
 	return nil
+}
+
+// GetFormat returns value of Format field.
+func (g *AccountGetThemeRequest) GetFormat() (value string) {
+	return g.Format
+}
+
+// GetTheme returns value of Theme field.
+func (g *AccountGetThemeRequest) GetTheme() (value InputThemeClass) {
+	return g.Theme
+}
+
+// GetDocumentID returns value of DocumentID field.
+func (g *AccountGetThemeRequest) GetDocumentID() (value int64) {
+	return g.DocumentID
 }
 
 // Decode implements bin.Decoder.

@@ -178,6 +178,12 @@ func (c *ChatFull) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatFull) TypeID() uint32 {
+	return ChatFullTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatFull) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -266,6 +272,11 @@ func (c *ChatFull) SetCanSetUsername(value bool) {
 	}
 }
 
+// GetCanSetUsername returns value of CanSetUsername conditional field.
+func (c *ChatFull) GetCanSetUsername() (value bool) {
+	return c.Flags.Has(7)
+}
+
 // SetHasScheduled sets value of HasScheduled conditional field.
 func (c *ChatFull) SetHasScheduled(value bool) {
 	if value {
@@ -275,6 +286,26 @@ func (c *ChatFull) SetHasScheduled(value bool) {
 		c.Flags.Unset(8)
 		c.HasScheduled = false
 	}
+}
+
+// GetHasScheduled returns value of HasScheduled conditional field.
+func (c *ChatFull) GetHasScheduled() (value bool) {
+	return c.Flags.Has(8)
+}
+
+// GetID returns value of ID field.
+func (c *ChatFull) GetID() (value int) {
+	return c.ID
+}
+
+// GetAbout returns value of About field.
+func (c *ChatFull) GetAbout() (value string) {
+	return c.About
+}
+
+// GetParticipants returns value of Participants field.
+func (c *ChatFull) GetParticipants() (value ChatParticipantsClass) {
+	return c.Participants
 }
 
 // SetChatPhoto sets value of ChatPhoto conditional field.
@@ -290,6 +321,16 @@ func (c *ChatFull) GetChatPhoto() (value PhotoClass, ok bool) {
 		return value, false
 	}
 	return c.ChatPhoto, true
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (c *ChatFull) GetNotifySettings() (value PeerNotifySettings) {
+	return c.NotifySettings
+}
+
+// GetExportedInvite returns value of ExportedInvite field.
+func (c *ChatFull) GetExportedInvite() (value ExportedChatInviteClass) {
+	return c.ExportedInvite
 }
 
 // SetBotInfo sets value of BotInfo conditional field.
@@ -856,6 +897,12 @@ func (c *ChannelFull) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelFull) TypeID() uint32 {
+	return ChannelFullTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelFull) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1041,6 +1088,11 @@ func (c *ChannelFull) SetCanViewParticipants(value bool) {
 	}
 }
 
+// GetCanViewParticipants returns value of CanViewParticipants conditional field.
+func (c *ChannelFull) GetCanViewParticipants() (value bool) {
+	return c.Flags.Has(3)
+}
+
 // SetCanSetUsername sets value of CanSetUsername conditional field.
 func (c *ChannelFull) SetCanSetUsername(value bool) {
 	if value {
@@ -1050,6 +1102,11 @@ func (c *ChannelFull) SetCanSetUsername(value bool) {
 		c.Flags.Unset(6)
 		c.CanSetUsername = false
 	}
+}
+
+// GetCanSetUsername returns value of CanSetUsername conditional field.
+func (c *ChannelFull) GetCanSetUsername() (value bool) {
+	return c.Flags.Has(6)
 }
 
 // SetCanSetStickers sets value of CanSetStickers conditional field.
@@ -1063,6 +1120,11 @@ func (c *ChannelFull) SetCanSetStickers(value bool) {
 	}
 }
 
+// GetCanSetStickers returns value of CanSetStickers conditional field.
+func (c *ChannelFull) GetCanSetStickers() (value bool) {
+	return c.Flags.Has(7)
+}
+
 // SetHiddenPrehistory sets value of HiddenPrehistory conditional field.
 func (c *ChannelFull) SetHiddenPrehistory(value bool) {
 	if value {
@@ -1072,6 +1134,11 @@ func (c *ChannelFull) SetHiddenPrehistory(value bool) {
 		c.Flags.Unset(10)
 		c.HiddenPrehistory = false
 	}
+}
+
+// GetHiddenPrehistory returns value of HiddenPrehistory conditional field.
+func (c *ChannelFull) GetHiddenPrehistory() (value bool) {
+	return c.Flags.Has(10)
 }
 
 // SetCanSetLocation sets value of CanSetLocation conditional field.
@@ -1085,6 +1152,11 @@ func (c *ChannelFull) SetCanSetLocation(value bool) {
 	}
 }
 
+// GetCanSetLocation returns value of CanSetLocation conditional field.
+func (c *ChannelFull) GetCanSetLocation() (value bool) {
+	return c.Flags.Has(16)
+}
+
 // SetHasScheduled sets value of HasScheduled conditional field.
 func (c *ChannelFull) SetHasScheduled(value bool) {
 	if value {
@@ -1094,6 +1166,11 @@ func (c *ChannelFull) SetHasScheduled(value bool) {
 		c.Flags.Unset(19)
 		c.HasScheduled = false
 	}
+}
+
+// GetHasScheduled returns value of HasScheduled conditional field.
+func (c *ChannelFull) GetHasScheduled() (value bool) {
+	return c.Flags.Has(19)
 }
 
 // SetCanViewStats sets value of CanViewStats conditional field.
@@ -1107,6 +1184,11 @@ func (c *ChannelFull) SetCanViewStats(value bool) {
 	}
 }
 
+// GetCanViewStats returns value of CanViewStats conditional field.
+func (c *ChannelFull) GetCanViewStats() (value bool) {
+	return c.Flags.Has(20)
+}
+
 // SetBlocked sets value of Blocked conditional field.
 func (c *ChannelFull) SetBlocked(value bool) {
 	if value {
@@ -1116,6 +1198,21 @@ func (c *ChannelFull) SetBlocked(value bool) {
 		c.Flags.Unset(22)
 		c.Blocked = false
 	}
+}
+
+// GetBlocked returns value of Blocked conditional field.
+func (c *ChannelFull) GetBlocked() (value bool) {
+	return c.Flags.Has(22)
+}
+
+// GetID returns value of ID field.
+func (c *ChannelFull) GetID() (value int) {
+	return c.ID
+}
+
+// GetAbout returns value of About field.
+func (c *ChannelFull) GetAbout() (value string) {
+	return c.About
 }
 
 // SetParticipantsCount sets value of ParticipantsCount conditional field.
@@ -1191,6 +1288,41 @@ func (c *ChannelFull) GetOnlineCount() (value int, ok bool) {
 		return value, false
 	}
 	return c.OnlineCount, true
+}
+
+// GetReadInboxMaxID returns value of ReadInboxMaxID field.
+func (c *ChannelFull) GetReadInboxMaxID() (value int) {
+	return c.ReadInboxMaxID
+}
+
+// GetReadOutboxMaxID returns value of ReadOutboxMaxID field.
+func (c *ChannelFull) GetReadOutboxMaxID() (value int) {
+	return c.ReadOutboxMaxID
+}
+
+// GetUnreadCount returns value of UnreadCount field.
+func (c *ChannelFull) GetUnreadCount() (value int) {
+	return c.UnreadCount
+}
+
+// GetChatPhoto returns value of ChatPhoto field.
+func (c *ChannelFull) GetChatPhoto() (value PhotoClass) {
+	return c.ChatPhoto
+}
+
+// GetNotifySettings returns value of NotifySettings field.
+func (c *ChannelFull) GetNotifySettings() (value PeerNotifySettings) {
+	return c.NotifySettings
+}
+
+// GetExportedInvite returns value of ExportedInvite field.
+func (c *ChannelFull) GetExportedInvite() (value ExportedChatInviteClass) {
+	return c.ExportedInvite
+}
+
+// GetBotInfo returns value of BotInfo field.
+func (c *ChannelFull) GetBotInfo() (value []BotInfo) {
+	return c.BotInfo
 }
 
 // SetMigratedFromChatID sets value of MigratedFromChatID conditional field.
@@ -1356,6 +1488,11 @@ func (c *ChannelFull) GetStatsDC() (value int, ok bool) {
 		return value, false
 	}
 	return c.StatsDC, true
+}
+
+// GetPts returns value of Pts field.
+func (c *ChannelFull) GetPts() (value int) {
+	return c.Pts
 }
 
 // SetCall sets value of Call conditional field.
@@ -1616,7 +1753,40 @@ type ChatFullClass interface {
 	bin.Decoder
 	construct() ChatFullClass
 
-	fmt.Stringer
+	// Can we change the username of this chat
+	GetCanSetUsername() (value bool)
+	// Whether scheduled messages¹ are available
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/scheduled-messages
+	GetHasScheduled() (value bool)
+	// ID of the chat
+	GetID() (value int)
+	// About string for this chat
+	GetAbout() (value string)
+	// Notification settings
+	GetNotifySettings() (value PeerNotifySettings)
+	// Chat invite
+	GetExportedInvite() (value ExportedChatInviteClass)
+	// Message ID of the last pinned message¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/pin
+	GetPinnedMsgID() (value int, ok bool)
+	// Peer folder ID, for more info click here¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/folders#peer-folders
+	GetFolderID() (value int, ok bool)
+	// Call field of ChatFull.
+	GetCall() (value InputGroupCall, ok bool)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

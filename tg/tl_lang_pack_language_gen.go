@@ -143,6 +143,12 @@ func (l *LangPackLanguage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LangPackLanguage) TypeID() uint32 {
+	return LangPackLanguageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -188,6 +194,11 @@ func (l *LangPackLanguage) SetOfficial(value bool) {
 	}
 }
 
+// GetOfficial returns value of Official conditional field.
+func (l *LangPackLanguage) GetOfficial() (value bool) {
+	return l.Flags.Has(0)
+}
+
 // SetRtl sets value of Rtl conditional field.
 func (l *LangPackLanguage) SetRtl(value bool) {
 	if value {
@@ -199,6 +210,11 @@ func (l *LangPackLanguage) SetRtl(value bool) {
 	}
 }
 
+// GetRtl returns value of Rtl conditional field.
+func (l *LangPackLanguage) GetRtl() (value bool) {
+	return l.Flags.Has(2)
+}
+
 // SetBeta sets value of Beta conditional field.
 func (l *LangPackLanguage) SetBeta(value bool) {
 	if value {
@@ -208,6 +224,26 @@ func (l *LangPackLanguage) SetBeta(value bool) {
 		l.Flags.Unset(3)
 		l.Beta = false
 	}
+}
+
+// GetBeta returns value of Beta conditional field.
+func (l *LangPackLanguage) GetBeta() (value bool) {
+	return l.Flags.Has(3)
+}
+
+// GetName returns value of Name field.
+func (l *LangPackLanguage) GetName() (value string) {
+	return l.Name
+}
+
+// GetNativeName returns value of NativeName field.
+func (l *LangPackLanguage) GetNativeName() (value string) {
+	return l.NativeName
+}
+
+// GetLangCode returns value of LangCode field.
+func (l *LangPackLanguage) GetLangCode() (value string) {
+	return l.LangCode
 }
 
 // SetBaseLangCode sets value of BaseLangCode conditional field.
@@ -223,6 +259,26 @@ func (l *LangPackLanguage) GetBaseLangCode() (value string, ok bool) {
 		return value, false
 	}
 	return l.BaseLangCode, true
+}
+
+// GetPluralCode returns value of PluralCode field.
+func (l *LangPackLanguage) GetPluralCode() (value string) {
+	return l.PluralCode
+}
+
+// GetStringsCount returns value of StringsCount field.
+func (l *LangPackLanguage) GetStringsCount() (value int) {
+	return l.StringsCount
+}
+
+// GetTranslatedCount returns value of TranslatedCount field.
+func (l *LangPackLanguage) GetTranslatedCount() (value int) {
+	return l.TranslatedCount
+}
+
+// GetTranslationsURL returns value of TranslationsURL field.
+func (l *LangPackLanguage) GetTranslationsURL() (value string) {
+	return l.TranslationsURL
 }
 
 // Decode implements bin.Decoder.

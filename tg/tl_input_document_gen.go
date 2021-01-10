@@ -46,6 +46,12 @@ func (i *InputDocumentEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputDocumentEmpty) TypeID() uint32 {
+	return InputDocumentEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -137,6 +143,12 @@ func (i *InputDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputDocument) TypeID() uint32 {
+	return InputDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -147,6 +159,21 @@ func (i *InputDocument) Encode(b *bin.Buffer) error {
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputDocument) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputDocument) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetFileReference returns value of FileReference field.
+func (i *InputDocument) GetFileReference() (value []byte) {
+	return i.FileReference
 }
 
 // Decode implements bin.Decoder.
@@ -211,7 +238,12 @@ type InputDocumentClass interface {
 	bin.Decoder
 	construct() InputDocumentClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

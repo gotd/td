@@ -71,6 +71,12 @@ func (r *RestrictionReason) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RestrictionReason) TypeID() uint32 {
+	return RestrictionReasonTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RestrictionReason) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -81,6 +87,21 @@ func (r *RestrictionReason) Encode(b *bin.Buffer) error {
 	b.PutString(r.Reason)
 	b.PutString(r.Text)
 	return nil
+}
+
+// GetPlatform returns value of Platform field.
+func (r *RestrictionReason) GetPlatform() (value string) {
+	return r.Platform
+}
+
+// GetReason returns value of Reason field.
+func (r *RestrictionReason) GetReason() (value string) {
+	return r.Reason
+}
+
+// GetText returns value of Text field.
+func (r *RestrictionReason) GetText() (value string) {
+	return r.Text
 }
 
 // Decode implements bin.Decoder.

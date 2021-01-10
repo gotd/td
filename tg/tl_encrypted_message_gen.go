@@ -89,6 +89,12 @@ func (e *EncryptedMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedMessage) TypeID() uint32 {
+	return EncryptedMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -106,6 +112,31 @@ func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode encryptedMessage#ed18c118: field file: %w", err)
 	}
 	return nil
+}
+
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessage) GetRandomID() (value int64) {
+	return e.RandomID
+}
+
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessage) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedMessage) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessage) GetBytes() (value []byte) {
+	return e.Bytes
+}
+
+// GetFile returns value of File field.
+func (e *EncryptedMessage) GetFile() (value EncryptedFileClass) {
+	return e.File
 }
 
 // Decode implements bin.Decoder.
@@ -230,6 +261,12 @@ func (e *EncryptedMessageService) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedMessageService) TypeID() uint32 {
+	return EncryptedMessageServiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -241,6 +278,26 @@ func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 	b.PutInt(e.Date)
 	b.PutBytes(e.Bytes)
 	return nil
+}
+
+// GetRandomID returns value of RandomID field.
+func (e *EncryptedMessageService) GetRandomID() (value int64) {
+	return e.RandomID
+}
+
+// GetChatID returns value of ChatID field.
+func (e *EncryptedMessageService) GetChatID() (value int) {
+	return e.ChatID
+}
+
+// GetDate returns value of Date field.
+func (e *EncryptedMessageService) GetDate() (value int) {
+	return e.Date
+}
+
+// GetBytes returns value of Bytes field.
+func (e *EncryptedMessageService) GetBytes() (value []byte) {
+	return e.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -312,7 +369,24 @@ type EncryptedMessageClass interface {
 	bin.Decoder
 	construct() EncryptedMessageClass
 
-	fmt.Stringer
+	// Random message ID, assigned by the author of message
+	GetRandomID() (value int64)
+	// ID of encrypted chat
+	GetChatID() (value int)
+	// Date of sending
+	GetDate() (value int)
+	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
+	//
+	// Links:
+	//  1) https://core.telegram.org/type/DecryptedMessage
+	GetBytes() (value []byte)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

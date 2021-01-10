@@ -60,6 +60,12 @@ func (g *AccountGetSecureValueRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetSecureValueRequest) TypeID() uint32 {
+	return AccountGetSecureValueRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -76,6 +82,11 @@ func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTypes returns value of Types field.
+func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
+	return g.Types
 }
 
 // Decode implements bin.Decoder.

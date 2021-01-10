@@ -62,6 +62,12 @@ func (f *AccountFinishTakeoutSessionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *AccountFinishTakeoutSessionRequest) TypeID() uint32 {
+	return AccountFinishTakeoutSessionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *AccountFinishTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -86,6 +92,11 @@ func (f *AccountFinishTakeoutSessionRequest) SetSuccess(value bool) {
 		f.Flags.Unset(0)
 		f.Success = false
 	}
+}
+
+// GetSuccess returns value of Success conditional field.
+func (f *AccountFinishTakeoutSessionRequest) GetSuccess() (value bool) {
+	return f.Flags.Has(0)
 }
 
 // Decode implements bin.Decoder.

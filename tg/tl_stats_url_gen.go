@@ -54,6 +54,12 @@ func (s *StatsURL) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsURL) TypeID() uint32 {
+	return StatsURLTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsURL) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -62,6 +68,11 @@ func (s *StatsURL) Encode(b *bin.Buffer) error {
 	b.PutID(StatsURLTypeID)
 	b.PutString(s.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (s *StatsURL) GetURL() (value string) {
+	return s.URL
 }
 
 // Decode implements bin.Decoder.

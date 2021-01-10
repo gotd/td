@@ -113,6 +113,12 @@ func (c *StickersCreateStickerSetRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
+	return StickersCreateStickerSetRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -167,6 +173,11 @@ func (c *StickersCreateStickerSetRequest) SetMasks(value bool) {
 	}
 }
 
+// GetMasks returns value of Masks conditional field.
+func (c *StickersCreateStickerSetRequest) GetMasks() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetAnimated sets value of Animated conditional field.
 func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
 	if value {
@@ -176,6 +187,26 @@ func (c *StickersCreateStickerSetRequest) SetAnimated(value bool) {
 		c.Flags.Unset(1)
 		c.Animated = false
 	}
+}
+
+// GetAnimated returns value of Animated conditional field.
+func (c *StickersCreateStickerSetRequest) GetAnimated() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetUserID returns value of UserID field.
+func (c *StickersCreateStickerSetRequest) GetUserID() (value InputUserClass) {
+	return c.UserID
+}
+
+// GetTitle returns value of Title field.
+func (c *StickersCreateStickerSetRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetShortName returns value of ShortName field.
+func (c *StickersCreateStickerSetRequest) GetShortName() (value string) {
+	return c.ShortName
 }
 
 // SetThumb sets value of Thumb conditional field.
@@ -191,6 +222,11 @@ func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, 
 		return value, false
 	}
 	return c.Thumb, true
+}
+
+// GetStickers returns value of Stickers field.
+func (c *StickersCreateStickerSetRequest) GetStickers() (value []InputStickerSetItem) {
+	return c.Stickers
 }
 
 // Decode implements bin.Decoder.

@@ -22,6 +22,9 @@ type WallPaperClassVector struct {
 	Elems []WallPaperClass
 }
 
+// WallPaperClassVectorTypeID is TL type id of WallPaperClassVector.
+const WallPaperClassVectorTypeID = bin.TypeVector
+
 func (vec *WallPaperClassVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *WallPaperClassVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *WallPaperClassVector) TypeID() uint32 {
+	return WallPaperClassVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -63,6 +72,11 @@ func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

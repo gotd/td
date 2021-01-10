@@ -66,6 +66,12 @@ func (s *StatsPercentValue) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsPercentValue) TypeID() uint32 {
+	return StatsPercentValueTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsPercentValue) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -75,6 +81,16 @@ func (s *StatsPercentValue) Encode(b *bin.Buffer) error {
 	b.PutDouble(s.Part)
 	b.PutDouble(s.Total)
 	return nil
+}
+
+// GetPart returns value of Part field.
+func (s *StatsPercentValue) GetPart() (value float64) {
+	return s.Part
+}
+
+// GetTotal returns value of Total field.
+func (s *StatsPercentValue) GetTotal() (value float64) {
+	return s.Total
 }
 
 // Decode implements bin.Decoder.

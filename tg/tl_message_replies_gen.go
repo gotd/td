@@ -140,6 +140,12 @@ func (m *MessageReplies) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageReplies) TypeID() uint32 {
+	return MessageRepliesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageReplies) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -198,6 +204,21 @@ func (m *MessageReplies) SetComments(value bool) {
 		m.Flags.Unset(0)
 		m.Comments = false
 	}
+}
+
+// GetComments returns value of Comments conditional field.
+func (m *MessageReplies) GetComments() (value bool) {
+	return m.Flags.Has(0)
+}
+
+// GetReplies returns value of Replies field.
+func (m *MessageReplies) GetReplies() (value int) {
+	return m.Replies
+}
+
+// GetRepliesPts returns value of RepliesPts field.
+func (m *MessageReplies) GetRepliesPts() (value int) {
+	return m.RepliesPts
 }
 
 // SetRecentRepliers sets value of RecentRepliers conditional field.

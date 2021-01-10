@@ -56,6 +56,12 @@ func (p *PageTableRow) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageTableRow) TypeID() uint32 {
+	return PageTableRowTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageTableRow) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -69,6 +75,11 @@ func (p *PageTableRow) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCells returns value of Cells field.
+func (p *PageTableRow) GetCells() (value []PageTableCell) {
+	return p.Cells
 }
 
 // Decode implements bin.Decoder.

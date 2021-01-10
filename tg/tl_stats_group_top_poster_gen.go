@@ -73,6 +73,12 @@ func (s *StatsGroupTopPoster) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGroupTopPoster) TypeID() uint32 {
+	return StatsGroupTopPosterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -83,6 +89,21 @@ func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 	b.PutInt(s.Messages)
 	b.PutInt(s.AvgChars)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopPoster) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetMessages returns value of Messages field.
+func (s *StatsGroupTopPoster) GetMessages() (value int) {
+	return s.Messages
+}
+
+// GetAvgChars returns value of AvgChars field.
+func (s *StatsGroupTopPoster) GetAvgChars() (value int) {
+	return s.AvgChars
 }
 
 // Decode implements bin.Decoder.

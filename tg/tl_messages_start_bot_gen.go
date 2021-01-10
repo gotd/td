@@ -84,6 +84,12 @@ func (s *MessagesStartBotRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesStartBotRequest) TypeID() uint32 {
+	return MessagesStartBotRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStartBotRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -105,6 +111,26 @@ func (s *MessagesStartBotRequest) Encode(b *bin.Buffer) error {
 	b.PutLong(s.RandomID)
 	b.PutString(s.StartParam)
 	return nil
+}
+
+// GetBot returns value of Bot field.
+func (s *MessagesStartBotRequest) GetBot() (value InputUserClass) {
+	return s.Bot
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesStartBotRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesStartBotRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetStartParam returns value of StartParam field.
+func (s *MessagesStartBotRequest) GetStartParam() (value string) {
+	return s.StartParam
 }
 
 // Decode implements bin.Decoder.

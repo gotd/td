@@ -67,6 +67,12 @@ func (i *InputEncryptedChat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedChat) TypeID() uint32 {
+	return InputEncryptedChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -76,6 +82,16 @@ func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {
 	b.PutInt(i.ChatID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (i *InputEncryptedChat) GetChatID() (value int) {
+	return i.ChatID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedChat) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.

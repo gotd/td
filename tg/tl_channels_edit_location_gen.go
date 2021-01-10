@@ -73,6 +73,12 @@ func (e *ChannelsEditLocationRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsEditLocationRequest) TypeID() uint32 {
+	return ChannelsEditLocationRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -93,6 +99,21 @@ func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(e.Address)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditLocationRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (e *ChannelsEditLocationRequest) GetGeoPoint() (value InputGeoPointClass) {
+	return e.GeoPoint
+}
+
+// GetAddress returns value of Address field.
+func (e *ChannelsEditLocationRequest) GetAddress() (value string) {
+	return e.Address
 }
 
 // Decode implements bin.Decoder.

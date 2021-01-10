@@ -87,6 +87,12 @@ func (s *StatsGroupTopAdmin) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StatsGroupTopAdmin) TypeID() uint32 {
+	return StatsGroupTopAdminTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -98,6 +104,26 @@ func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 	b.PutInt(s.Kicked)
 	b.PutInt(s.Banned)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (s *StatsGroupTopAdmin) GetUserID() (value int) {
+	return s.UserID
+}
+
+// GetDeleted returns value of Deleted field.
+func (s *StatsGroupTopAdmin) GetDeleted() (value int) {
+	return s.Deleted
+}
+
+// GetKicked returns value of Kicked field.
+func (s *StatsGroupTopAdmin) GetKicked() (value int) {
+	return s.Kicked
+}
+
+// GetBanned returns value of Banned field.
+func (s *StatsGroupTopAdmin) GetBanned() (value int) {
+	return s.Banned
 }
 
 // Decode implements bin.Decoder.

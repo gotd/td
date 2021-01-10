@@ -98,6 +98,12 @@ func (a *ContactsAddContactRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *ContactsAddContactRequest) TypeID() uint32 {
+	return ContactsAddContactRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -131,6 +137,31 @@ func (a *ContactsAddContactRequest) SetAddPhonePrivacyException(value bool) {
 		a.Flags.Unset(0)
 		a.AddPhonePrivacyException = false
 	}
+}
+
+// GetAddPhonePrivacyException returns value of AddPhonePrivacyException conditional field.
+func (a *ContactsAddContactRequest) GetAddPhonePrivacyException() (value bool) {
+	return a.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (a *ContactsAddContactRequest) GetID() (value InputUserClass) {
+	return a.ID
+}
+
+// GetFirstName returns value of FirstName field.
+func (a *ContactsAddContactRequest) GetFirstName() (value string) {
+	return a.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (a *ContactsAddContactRequest) GetLastName() (value string) {
+	return a.LastName
+}
+
+// GetPhone returns value of Phone field.
+func (a *ContactsAddContactRequest) GetPhone() (value string) {
+	return a.Phone
 }
 
 // Decode implements bin.Decoder.

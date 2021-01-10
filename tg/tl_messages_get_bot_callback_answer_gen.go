@@ -106,6 +106,12 @@ func (g *MessagesGetBotCallbackAnswerRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
+	return MessagesGetBotCallbackAnswerRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -154,6 +160,21 @@ func (g *MessagesGetBotCallbackAnswerRequest) SetGame(value bool) {
 		g.Flags.Unset(1)
 		g.Game = false
 	}
+}
+
+// GetGame returns value of Game conditional field.
+func (g *MessagesGetBotCallbackAnswerRequest) GetGame() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetBotCallbackAnswerRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *MessagesGetBotCallbackAnswerRequest) GetMsgID() (value int) {
+	return g.MsgID
 }
 
 // SetData sets value of Data conditional field.

@@ -62,6 +62,12 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) TypeID() uint32 {
+	return MessagesGetEmojiKeywordsDifferenceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -71,6 +77,16 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error 
 	b.PutString(g.LangCode)
 	b.PutInt(g.FromVersion)
 	return nil
+}
+
+// GetLangCode returns value of LangCode field.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetLangCode() (value string) {
+	return g.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) GetFromVersion() (value int) {
+	return g.FromVersion
 }
 
 // Decode implements bin.Decoder.

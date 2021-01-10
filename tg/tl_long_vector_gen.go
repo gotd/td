@@ -22,6 +22,9 @@ type LongVector struct {
 	Elems []int64
 }
 
+// LongVectorTypeID is TL type id of LongVector.
+const LongVectorTypeID = bin.TypeVector
+
 func (vec *LongVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *LongVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *LongVector) TypeID() uint32 {
+	return LongVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *LongVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -58,6 +67,11 @@ func (vec *LongVector) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *LongVector) GetElems() (value []int64) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

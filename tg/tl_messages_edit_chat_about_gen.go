@@ -68,6 +68,12 @@ func (e *MessagesEditChatAboutRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditChatAboutRequest) TypeID() uint32 {
+	return MessagesEditChatAboutRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatAboutRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -82,6 +88,16 @@ func (e *MessagesEditChatAboutRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(e.About)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (e *MessagesEditChatAboutRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
+}
+
+// GetAbout returns value of About field.
+func (e *MessagesEditChatAboutRequest) GetAbout() (value string) {
+	return e.About
 }
 
 // Decode implements bin.Decoder.

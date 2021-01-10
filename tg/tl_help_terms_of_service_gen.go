@@ -103,6 +103,12 @@ func (t *HelpTermsOfService) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *HelpTermsOfService) TypeID() uint32 {
+	return HelpTermsOfServiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -146,6 +152,26 @@ func (t *HelpTermsOfService) SetPopup(value bool) {
 		t.Flags.Unset(0)
 		t.Popup = false
 	}
+}
+
+// GetPopup returns value of Popup conditional field.
+func (t *HelpTermsOfService) GetPopup() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// GetID returns value of ID field.
+func (t *HelpTermsOfService) GetID() (value DataJSON) {
+	return t.ID
+}
+
+// GetText returns value of Text field.
+func (t *HelpTermsOfService) GetText() (value string) {
+	return t.Text
+}
+
+// GetEntities returns value of Entities field.
+func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
+	return t.Entities
 }
 
 // SetMinAgeConfirm sets value of MinAgeConfirm conditional field.

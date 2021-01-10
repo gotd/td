@@ -85,6 +85,12 @@ func (i *InputStickerSetItem) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputStickerSetItem) TypeID() uint32 {
+	return InputStickerSetItemTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -110,6 +116,16 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetDocument returns value of Document field.
+func (i *InputStickerSetItem) GetDocument() (value InputDocumentClass) {
+	return i.Document
+}
+
+// GetEmoji returns value of Emoji field.
+func (i *InputStickerSetItem) GetEmoji() (value string) {
+	return i.Emoji
 }
 
 // SetMaskCoords sets value of MaskCoords conditional field.

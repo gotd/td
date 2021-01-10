@@ -99,6 +99,12 @@ func (p *PhoneCallProtocol) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneCallProtocol) TypeID() uint32 {
+	return PhoneCallProtocolTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -134,6 +140,11 @@ func (p *PhoneCallProtocol) SetUDPP2P(value bool) {
 	}
 }
 
+// GetUDPP2P returns value of UDPP2P conditional field.
+func (p *PhoneCallProtocol) GetUDPP2P() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetUDPReflector sets value of UDPReflector conditional field.
 func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
 	if value {
@@ -143,6 +154,26 @@ func (p *PhoneCallProtocol) SetUDPReflector(value bool) {
 		p.Flags.Unset(1)
 		p.UDPReflector = false
 	}
+}
+
+// GetUDPReflector returns value of UDPReflector conditional field.
+func (p *PhoneCallProtocol) GetUDPReflector() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetMinLayer returns value of MinLayer field.
+func (p *PhoneCallProtocol) GetMinLayer() (value int) {
+	return p.MinLayer
+}
+
+// GetMaxLayer returns value of MaxLayer field.
+func (p *PhoneCallProtocol) GetMaxLayer() (value int) {
+	return p.MaxLayer
+}
+
+// GetLibraryVersions returns value of LibraryVersions field.
+func (p *PhoneCallProtocol) GetLibraryVersions() (value []string) {
+	return p.LibraryVersions
 }
 
 // Decode implements bin.Decoder.

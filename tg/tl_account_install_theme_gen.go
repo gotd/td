@@ -86,6 +86,12 @@ func (i *AccountInstallThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *AccountInstallThemeRequest) TypeID() uint32 {
+	return AccountInstallThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -127,6 +133,11 @@ func (i *AccountInstallThemeRequest) SetDark(value bool) {
 		i.Flags.Unset(0)
 		i.Dark = false
 	}
+}
+
+// GetDark returns value of Dark conditional field.
+func (i *AccountInstallThemeRequest) GetDark() (value bool) {
+	return i.Flags.Has(0)
 }
 
 // SetFormat sets value of Format conditional field.

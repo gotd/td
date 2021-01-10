@@ -62,6 +62,12 @@ func (r *ReceivedNotifyMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReceivedNotifyMessage) TypeID() uint32 {
+	return ReceivedNotifyMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReceivedNotifyMessage) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -71,6 +77,16 @@ func (r *ReceivedNotifyMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(r.ID)
 	b.PutInt(r.Flags)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (r *ReceivedNotifyMessage) GetID() (value int) {
+	return r.ID
+}
+
+// GetFlags returns value of Flags field.
+func (r *ReceivedNotifyMessage) GetFlags() (value int) {
+	return r.Flags
 }
 
 // Decode implements bin.Decoder.

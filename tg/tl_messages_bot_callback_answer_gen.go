@@ -104,6 +104,12 @@ func (b *MessagesBotCallbackAnswer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *MessagesBotCallbackAnswer) TypeID() uint32 {
+	return MessagesBotCallbackAnswerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -149,6 +155,11 @@ func (b *MessagesBotCallbackAnswer) SetAlert(value bool) {
 	}
 }
 
+// GetAlert returns value of Alert conditional field.
+func (b *MessagesBotCallbackAnswer) GetAlert() (value bool) {
+	return b.Flags.Has(1)
+}
+
 // SetHasURL sets value of HasURL conditional field.
 func (b *MessagesBotCallbackAnswer) SetHasURL(value bool) {
 	if value {
@@ -160,6 +171,11 @@ func (b *MessagesBotCallbackAnswer) SetHasURL(value bool) {
 	}
 }
 
+// GetHasURL returns value of HasURL conditional field.
+func (b *MessagesBotCallbackAnswer) GetHasURL() (value bool) {
+	return b.Flags.Has(3)
+}
+
 // SetNativeUI sets value of NativeUI conditional field.
 func (b *MessagesBotCallbackAnswer) SetNativeUI(value bool) {
 	if value {
@@ -169,6 +185,11 @@ func (b *MessagesBotCallbackAnswer) SetNativeUI(value bool) {
 		b.Flags.Unset(4)
 		b.NativeUI = false
 	}
+}
+
+// GetNativeUI returns value of NativeUI conditional field.
+func (b *MessagesBotCallbackAnswer) GetNativeUI() (value bool) {
+	return b.Flags.Has(4)
 }
 
 // SetMessage sets value of Message conditional field.
@@ -199,6 +220,11 @@ func (b *MessagesBotCallbackAnswer) GetURL() (value string, ok bool) {
 		return value, false
 	}
 	return b.URL, true
+}
+
+// GetCacheTime returns value of CacheTime field.
+func (b *MessagesBotCallbackAnswer) GetCacheTime() (value int) {
+	return b.CacheTime
 }
 
 // Decode implements bin.Decoder.

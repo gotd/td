@@ -97,6 +97,12 @@ func (g *UpdatesGetChannelDifferenceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *UpdatesGetChannelDifferenceRequest) TypeID() uint32 {
+	return UpdatesGetChannelDifferenceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -135,6 +141,31 @@ func (g *UpdatesGetChannelDifferenceRequest) SetForce(value bool) {
 		g.Flags.Unset(0)
 		g.Force = false
 	}
+}
+
+// GetForce returns value of Force conditional field.
+func (g *UpdatesGetChannelDifferenceRequest) GetForce() (value bool) {
+	return g.Flags.Has(0)
+}
+
+// GetChannel returns value of Channel field.
+func (g *UpdatesGetChannelDifferenceRequest) GetChannel() (value InputChannelClass) {
+	return g.Channel
+}
+
+// GetFilter returns value of Filter field.
+func (g *UpdatesGetChannelDifferenceRequest) GetFilter() (value ChannelMessagesFilterClass) {
+	return g.Filter
+}
+
+// GetPts returns value of Pts field.
+func (g *UpdatesGetChannelDifferenceRequest) GetPts() (value int) {
+	return g.Pts
+}
+
+// GetLimit returns value of Limit field.
+func (g *UpdatesGetChannelDifferenceRequest) GetLimit() (value int) {
+	return g.Limit
 }
 
 // Decode implements bin.Decoder.

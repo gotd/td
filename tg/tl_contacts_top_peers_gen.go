@@ -46,6 +46,12 @@ func (t *ContactsTopPeersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ContactsTopPeersNotModified) TypeID() uint32 {
+	return ContactsTopPeersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -137,6 +143,12 @@ func (t *ContactsTopPeers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ContactsTopPeers) TypeID() uint32 {
+	return ContactsTopPeersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -168,6 +180,21 @@ func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetCategories returns value of Categories field.
+func (t *ContactsTopPeers) GetCategories() (value []TopPeerCategoryPeers) {
+	return t.Categories
+}
+
+// GetChats returns value of Chats field.
+func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
+	return t.Chats
+}
+
+// GetUsers returns value of Users field.
+func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
+	return t.Users
 }
 
 // Decode implements bin.Decoder.
@@ -261,6 +288,12 @@ func (t *ContactsTopPeersDisabled) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ContactsTopPeersDisabled) TypeID() uint32 {
+	return ContactsTopPeersDisabledTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -312,7 +345,12 @@ type ContactsTopPeersClass interface {
 	bin.Decoder
 	construct() ContactsTopPeersClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -75,6 +75,12 @@ func (u *AccountUnregisterDeviceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *AccountUnregisterDeviceRequest) TypeID() uint32 {
+	return AccountUnregisterDeviceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -88,6 +94,21 @@ func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetTokenType returns value of TokenType field.
+func (u *AccountUnregisterDeviceRequest) GetTokenType() (value int) {
+	return u.TokenType
+}
+
+// GetToken returns value of Token field.
+func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
+	return u.Token
+}
+
+// GetOtherUids returns value of OtherUids field.
+func (u *AccountUnregisterDeviceRequest) GetOtherUids() (value []int) {
+	return u.OtherUids
 }
 
 // Decode implements bin.Decoder.

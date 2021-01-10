@@ -45,6 +45,12 @@ func (t *TextEntityTypeMention) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeMention) TypeID() uint32 {
+	return TextEntityTypeMentionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -103,6 +109,12 @@ func (t *TextEntityTypeHashtag) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeHashtag) TypeID() uint32 {
+	return TextEntityTypeHashtagTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -165,6 +177,12 @@ func (t *TextEntityTypeCashtag) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeCashtag) TypeID() uint32 {
+	return TextEntityTypeCashtagTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -223,6 +241,12 @@ func (t *TextEntityTypeBotCommand) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeBotCommand) TypeID() uint32 {
+	return TextEntityTypeBotCommandTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -285,6 +309,12 @@ func (t *TextEntityTypeUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeUrl) TypeID() uint32 {
+	return TextEntityTypeUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUrl) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -343,6 +373,12 @@ func (t *TextEntityTypeEmailAddress) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeEmailAddress) TypeID() uint32 {
+	return TextEntityTypeEmailAddressTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -405,6 +441,12 @@ func (t *TextEntityTypePhoneNumber) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypePhoneNumber) TypeID() uint32 {
+	return TextEntityTypePhoneNumberTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -463,6 +505,12 @@ func (t *TextEntityTypeBankCardNumber) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeBankCardNumber) TypeID() uint32 {
+	return TextEntityTypeBankCardNumberTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -525,6 +573,12 @@ func (t *TextEntityTypeBold) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeBold) TypeID() uint32 {
+	return TextEntityTypeBoldTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -583,6 +637,12 @@ func (t *TextEntityTypeItalic) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeItalic) TypeID() uint32 {
+	return TextEntityTypeItalicTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -645,6 +705,12 @@ func (t *TextEntityTypeUnderline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeUnderline) TypeID() uint32 {
+	return TextEntityTypeUnderlineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -703,6 +769,12 @@ func (t *TextEntityTypeStrikethrough) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeStrikethrough) TypeID() uint32 {
+	return TextEntityTypeStrikethroughTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -765,6 +837,12 @@ func (t *TextEntityTypeCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeCode) TypeID() uint32 {
+	return TextEntityTypeCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -823,6 +901,12 @@ func (t *TextEntityTypePre) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypePre) TypeID() uint32 {
+	return TextEntityTypePreTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -893,6 +977,12 @@ func (t *TextEntityTypePreCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypePreCode) TypeID() uint32 {
+	return TextEntityTypePreCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -901,6 +991,11 @@ func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
 	b.PutID(TextEntityTypePreCodeTypeID)
 	b.PutString(t.Language)
 	return nil
+}
+
+// GetLanguage returns value of Language field.
+func (t *TextEntityTypePreCode) GetLanguage() (value string) {
+	return t.Language
 }
 
 // Decode implements bin.Decoder.
@@ -969,6 +1064,12 @@ func (t *TextEntityTypeTextUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeTextUrl) TypeID() uint32 {
+	return TextEntityTypeTextUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeTextUrl) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -977,6 +1078,11 @@ func (t *TextEntityTypeTextUrl) Encode(b *bin.Buffer) error {
 	b.PutID(TextEntityTypeTextUrlTypeID)
 	b.PutString(t.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (t *TextEntityTypeTextUrl) GetURL() (value string) {
+	return t.URL
 }
 
 // Decode implements bin.Decoder.
@@ -1045,6 +1151,12 @@ func (t *TextEntityTypeMentionName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntityTypeMentionName) TypeID() uint32 {
+	return TextEntityTypeMentionNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -1053,6 +1165,11 @@ func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 	b.PutID(TextEntityTypeMentionNameTypeID)
 	b.PutInt32(t.UserID)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (t *TextEntityTypeMentionName) GetUserID() (value int32) {
+	return t.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -1118,7 +1235,12 @@ type TextEntityTypeClass interface {
 	bin.Decoder
 	construct() TextEntityTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

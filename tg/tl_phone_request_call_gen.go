@@ -97,6 +97,12 @@ func (r *PhoneRequestCallRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *PhoneRequestCallRequest) TypeID() uint32 {
+	return PhoneRequestCallRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -132,6 +138,31 @@ func (r *PhoneRequestCallRequest) SetVideo(value bool) {
 		r.Flags.Unset(0)
 		r.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (r *PhoneRequestCallRequest) GetVideo() (value bool) {
+	return r.Flags.Has(0)
+}
+
+// GetUserID returns value of UserID field.
+func (r *PhoneRequestCallRequest) GetUserID() (value InputUserClass) {
+	return r.UserID
+}
+
+// GetRandomID returns value of RandomID field.
+func (r *PhoneRequestCallRequest) GetRandomID() (value int) {
+	return r.RandomID
+}
+
+// GetGAHash returns value of GAHash field.
+func (r *PhoneRequestCallRequest) GetGAHash() (value []byte) {
+	return r.GAHash
+}
+
+// GetProtocol returns value of Protocol field.
+func (r *PhoneRequestCallRequest) GetProtocol() (value PhoneCallProtocol) {
+	return r.Protocol
 }
 
 // Decode implements bin.Decoder.

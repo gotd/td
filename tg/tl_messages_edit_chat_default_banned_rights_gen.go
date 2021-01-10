@@ -65,6 +65,12 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *MessagesEditChatDefaultBannedRightsRequest) TypeID() uint32 {
+	return MessagesEditChatDefaultBannedRightsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -81,6 +87,16 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error
 		return fmt.Errorf("unable to encode messages.editChatDefaultBannedRights#a5866b41: field banned_rights: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (e *MessagesEditChatDefaultBannedRightsRequest) GetPeer() (value InputPeerClass) {
+	return e.Peer
+}
+
+// GetBannedRights returns value of BannedRights field.
+func (e *MessagesEditChatDefaultBannedRightsRequest) GetBannedRights() (value ChatBannedRights) {
+	return e.BannedRights
 }
 
 // Decode implements bin.Decoder.

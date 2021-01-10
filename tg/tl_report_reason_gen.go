@@ -46,6 +46,12 @@ func (i *InputReportReasonSpam) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonSpam) TypeID() uint32 {
+	return InputReportReasonSpamTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -105,6 +111,12 @@ func (i *InputReportReasonViolence) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonViolence) TypeID() uint32 {
+	return InputReportReasonViolenceTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (i *InputReportReasonPornography) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonPornography) TypeID() uint32 {
+	return InputReportReasonPornographyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -227,6 +245,12 @@ func (i *InputReportReasonChildAbuse) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonChildAbuse) TypeID() uint32 {
+	return InputReportReasonChildAbuseTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -298,6 +322,12 @@ func (i *InputReportReasonOther) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonOther) TypeID() uint32 {
+	return InputReportReasonOtherTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -306,6 +336,11 @@ func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 	b.PutID(InputReportReasonOtherTypeID)
 	b.PutString(i.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (i *InputReportReasonOther) GetText() (value string) {
+	return i.Text
 }
 
 // Decode implements bin.Decoder.
@@ -365,6 +400,12 @@ func (i *InputReportReasonCopyright) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonCopyright) TypeID() uint32 {
+	return InputReportReasonCopyrightTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -428,6 +469,12 @@ func (i *InputReportReasonGeoIrrelevant) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonGeoIrrelevant) TypeID() uint32 {
+	return InputReportReasonGeoIrrelevantTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonGeoIrrelevant) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -483,7 +530,12 @@ type ReportReasonClass interface {
 	bin.Decoder
 	construct() ReportReasonClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

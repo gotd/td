@@ -22,6 +22,9 @@ type DialogFilterVector struct {
 	Elems []DialogFilter
 }
 
+// DialogFilterVectorTypeID is TL type id of DialogFilterVector.
+const DialogFilterVectorTypeID = bin.TypeVector
+
 func (vec *DialogFilterVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *DialogFilterVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *DialogFilterVector) TypeID() uint32 {
+	return DialogFilterVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *DialogFilterVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *DialogFilterVector) GetElems() (value []DialogFilter) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

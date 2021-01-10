@@ -46,6 +46,12 @@ func (g *PaymentsGetSavedInfoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *PaymentsGetSavedInfoRequest) TypeID() uint32 {
+	return PaymentsGetSavedInfoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

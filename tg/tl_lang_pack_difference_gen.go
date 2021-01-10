@@ -80,6 +80,12 @@ func (l *LangPackDifference) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *LangPackDifference) TypeID() uint32 {
+	return LangPackDifferenceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *LangPackDifference) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -99,6 +105,26 @@ func (l *LangPackDifference) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetLangCode returns value of LangCode field.
+func (l *LangPackDifference) GetLangCode() (value string) {
+	return l.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (l *LangPackDifference) GetFromVersion() (value int) {
+	return l.FromVersion
+}
+
+// GetVersion returns value of Version field.
+func (l *LangPackDifference) GetVersion() (value int) {
+	return l.Version
+}
+
+// GetStrings returns value of Strings field.
+func (l *LangPackDifference) GetStrings() (value []LangPackStringClass) {
+	return l.Strings
 }
 
 // Decode implements bin.Decoder.

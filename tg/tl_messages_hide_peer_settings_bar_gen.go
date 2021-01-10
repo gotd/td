@@ -57,6 +57,12 @@ func (h *MessagesHidePeerSettingsBarRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (h *MessagesHidePeerSettingsBarRequest) TypeID() uint32 {
+	return MessagesHidePeerSettingsBarRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (h *MessagesHidePeerSettingsBarRequest) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -70,6 +76,11 @@ func (h *MessagesHidePeerSettingsBarRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.hidePeerSettingsBar#4facb138: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (h *MessagesHidePeerSettingsBarRequest) GetPeer() (value InputPeerClass) {
+	return h.Peer
 }
 
 // Decode implements bin.Decoder.

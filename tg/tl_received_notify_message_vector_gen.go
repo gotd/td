@@ -22,6 +22,9 @@ type ReceivedNotifyMessageVector struct {
 	Elems []ReceivedNotifyMessage
 }
 
+// ReceivedNotifyMessageVectorTypeID is TL type id of ReceivedNotifyMessageVector.
+const ReceivedNotifyMessageVectorTypeID = bin.TypeVector
+
 func (vec *ReceivedNotifyMessageVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *ReceivedNotifyMessageVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *ReceivedNotifyMessageVector) TypeID() uint32 {
+	return ReceivedNotifyMessageVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessage) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

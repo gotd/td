@@ -62,6 +62,12 @@ func (s *MessagesSaveGifRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSaveGifRequest) TypeID() uint32 {
+	return MessagesSaveGifRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -76,6 +82,16 @@ func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(s.Unsave)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSaveGifRequest) GetID() (value InputDocumentClass) {
+	return s.ID
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *MessagesSaveGifRequest) GetUnsave() (value bool) {
+	return s.Unsave
 }
 
 // Decode implements bin.Decoder.

@@ -59,6 +59,12 @@ func (p *PingDelayDisconnectRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PingDelayDisconnectRequest) TypeID() uint32 {
+	return PingDelayDisconnectRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PingDelayDisconnectRequest) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -68,6 +74,16 @@ func (p *PingDelayDisconnectRequest) Encode(b *bin.Buffer) error {
 	b.PutLong(p.PingID)
 	b.PutInt(p.DisconnectDelay)
 	return nil
+}
+
+// GetPingID returns value of PingID field.
+func (p *PingDelayDisconnectRequest) GetPingID() (value int64) {
+	return p.PingID
+}
+
+// GetDisconnectDelay returns value of DisconnectDelay field.
+func (p *PingDelayDisconnectRequest) GetDisconnectDelay() (value int) {
+	return p.DisconnectDelay
 }
 
 // Decode implements bin.Decoder.

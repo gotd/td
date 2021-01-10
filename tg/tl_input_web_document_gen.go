@@ -83,6 +83,12 @@ func (i *InputWebDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWebDocument) TypeID() uint32 {
+	return InputWebDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWebDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -102,6 +108,26 @@ func (i *InputWebDocument) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (i *InputWebDocument) GetURL() (value string) {
+	return i.URL
+}
+
+// GetSize returns value of Size field.
+func (i *InputWebDocument) GetSize() (value int) {
+	return i.Size
+}
+
+// GetMimeType returns value of MimeType field.
+func (i *InputWebDocument) GetMimeType() (value string) {
+	return i.MimeType
+}
+
+// GetAttributes returns value of Attributes field.
+func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
+	return i.Attributes
 }
 
 // Decode implements bin.Decoder.

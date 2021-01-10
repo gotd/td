@@ -105,6 +105,12 @@ func (i *InputPeerNotifySettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputPeerNotifySettings) TypeID() uint32 {
+	return InputPeerNotifySettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 	if i == nil {

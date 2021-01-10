@@ -70,6 +70,12 @@ func (m *MessagesMarkDialogUnreadRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMarkDialogUnreadRequest) TypeID() uint32 {
+	return MessagesMarkDialogUnreadRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -100,6 +106,16 @@ func (m *MessagesMarkDialogUnreadRequest) SetUnread(value bool) {
 		m.Flags.Unset(0)
 		m.Unread = false
 	}
+}
+
+// GetUnread returns value of Unread conditional field.
+func (m *MessagesMarkDialogUnreadRequest) GetUnread() (value bool) {
+	return m.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (m *MessagesMarkDialogUnreadRequest) GetPeer() (value InputDialogPeerClass) {
+	return m.Peer
 }
 
 // Decode implements bin.Decoder.

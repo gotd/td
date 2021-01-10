@@ -54,6 +54,12 @@ func (i *InputNotifyPeer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputNotifyPeer) TypeID() uint32 {
+	return InputNotifyPeerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputNotifyPeer) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -67,6 +73,11 @@ func (i *InputNotifyPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputNotifyPeer#b8bc5b0c: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputNotifyPeer) GetPeer() (value InputPeerClass) {
+	return i.Peer
 }
 
 // Decode implements bin.Decoder.
@@ -128,6 +139,12 @@ func (i *InputNotifyUsers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputNotifyUsers) TypeID() uint32 {
+	return InputNotifyUsersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputNotifyUsers) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -187,6 +204,12 @@ func (i *InputNotifyChats) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputNotifyChats) TypeID() uint32 {
+	return InputNotifyChatsTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -253,6 +276,12 @@ func (i *InputNotifyBroadcasts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputNotifyBroadcasts) TypeID() uint32 {
+	return InputNotifyBroadcastsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputNotifyBroadcasts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -305,7 +334,12 @@ type InputNotifyPeerClass interface {
 	bin.Decoder
 	construct() InputNotifyPeerClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -59,6 +59,12 @@ func (r *RPCResult) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *RPCResult) TypeID() uint32 {
+	return RPCResultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCResult) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -70,6 +76,16 @@ func (r *RPCResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode rpc_result#f35c6d01: field result: %w", err)
 	}
 	return nil
+}
+
+// GetReqMsgID returns value of ReqMsgID field.
+func (r *RPCResult) GetReqMsgID() (value int64) {
+	return r.ReqMsgID
+}
+
+// GetResult returns value of Result field.
+func (r *RPCResult) GetResult() (value GzipPacked) {
+	return r.Result
 }
 
 // Decode implements bin.Decoder.

@@ -89,6 +89,12 @@ func (a *MessagesAcceptUrlAuthRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *MessagesAcceptUrlAuthRequest) TypeID() uint32 {
+	return MessagesAcceptUrlAuthRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *MessagesAcceptUrlAuthRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -121,6 +127,26 @@ func (a *MessagesAcceptUrlAuthRequest) SetWriteAllowed(value bool) {
 		a.Flags.Unset(0)
 		a.WriteAllowed = false
 	}
+}
+
+// GetWriteAllowed returns value of WriteAllowed conditional field.
+func (a *MessagesAcceptUrlAuthRequest) GetWriteAllowed() (value bool) {
+	return a.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (a *MessagesAcceptUrlAuthRequest) GetPeer() (value InputPeerClass) {
+	return a.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (a *MessagesAcceptUrlAuthRequest) GetMsgID() (value int) {
+	return a.MsgID
+}
+
+// GetButtonID returns value of ButtonID field.
+func (a *MessagesAcceptUrlAuthRequest) GetButtonID() (value int) {
+	return a.ButtonID
 }
 
 // Decode implements bin.Decoder.

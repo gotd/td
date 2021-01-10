@@ -62,6 +62,12 @@ func (m *MessageEntityUnknown) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityUnknown) TypeID() uint32 {
+	return MessageEntityUnknownTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnknown) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -71,6 +77,16 @@ func (m *MessageEntityUnknown) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnknown) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityUnknown) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -158,6 +174,12 @@ func (m *MessageEntityMention) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityMention) TypeID() uint32 {
+	return MessageEntityMentionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityMention) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -167,6 +189,16 @@ func (m *MessageEntityMention) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMention) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityMention) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -251,6 +283,12 @@ func (m *MessageEntityHashtag) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityHashtag) TypeID() uint32 {
+	return MessageEntityHashtagTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityHashtag) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -260,6 +298,16 @@ func (m *MessageEntityHashtag) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityHashtag) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityHashtag) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -344,6 +392,12 @@ func (m *MessageEntityBotCommand) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityBotCommand) TypeID() uint32 {
+	return MessageEntityBotCommandTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBotCommand) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -353,6 +407,16 @@ func (m *MessageEntityBotCommand) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBotCommand) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityBotCommand) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -442,6 +506,12 @@ func (m *MessageEntityUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityUrl) TypeID() uint32 {
+	return MessageEntityUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityUrl) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -451,6 +521,16 @@ func (m *MessageEntityUrl) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUrl) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityUrl) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -538,6 +618,12 @@ func (m *MessageEntityEmail) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityEmail) TypeID() uint32 {
+	return MessageEntityEmailTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityEmail) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -547,6 +633,16 @@ func (m *MessageEntityEmail) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityEmail) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityEmail) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -631,6 +727,12 @@ func (m *MessageEntityBold) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityBold) TypeID() uint32 {
+	return MessageEntityBoldTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBold) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -640,6 +742,16 @@ func (m *MessageEntityBold) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBold) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityBold) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -724,6 +836,12 @@ func (m *MessageEntityItalic) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityItalic) TypeID() uint32 {
+	return MessageEntityItalicTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityItalic) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -733,6 +851,16 @@ func (m *MessageEntityItalic) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityItalic) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityItalic) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -817,6 +945,12 @@ func (m *MessageEntityCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityCode) TypeID() uint32 {
+	return MessageEntityCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityCode) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -826,6 +960,16 @@ func (m *MessageEntityCode) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCode) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityCode) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -918,6 +1062,12 @@ func (m *MessageEntityPre) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityPre) TypeID() uint32 {
+	return MessageEntityPreTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityPre) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -928,6 +1078,21 @@ func (m *MessageEntityPre) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Length)
 	b.PutString(m.Language)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPre) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityPre) GetLength() (value int) {
+	return m.Length
+}
+
+// GetLanguage returns value of Language field.
+func (m *MessageEntityPre) GetLanguage() (value string) {
+	return m.Language
 }
 
 // Decode implements bin.Decoder.
@@ -1032,6 +1197,12 @@ func (m *MessageEntityTextUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityTextUrl) TypeID() uint32 {
+	return MessageEntityTextUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityTextUrl) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1042,6 +1213,21 @@ func (m *MessageEntityTextUrl) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Length)
 	b.PutString(m.URL)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityTextUrl) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityTextUrl) GetLength() (value int) {
+	return m.Length
+}
+
+// GetURL returns value of URL field.
+func (m *MessageEntityTextUrl) GetURL() (value string) {
+	return m.URL
 }
 
 // Decode implements bin.Decoder.
@@ -1145,6 +1331,12 @@ func (m *MessageEntityMentionName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityMentionName) TypeID() uint32 {
+	return MessageEntityMentionNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1155,6 +1347,21 @@ func (m *MessageEntityMentionName) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Length)
 	b.PutInt(m.UserID)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityMentionName) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityMentionName) GetLength() (value int) {
+	return m.Length
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageEntityMentionName) GetUserID() (value int) {
+	return m.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -1258,6 +1465,12 @@ func (i *InputMessageEntityMentionName) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputMessageEntityMentionName) TypeID() uint32 {
+	return InputMessageEntityMentionNameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessageEntityMentionName) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1273,6 +1486,21 @@ func (i *InputMessageEntityMentionName) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputMessageEntityMentionName#208e68c9: field user_id: %w", err)
 	}
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (i *InputMessageEntityMentionName) GetOffset() (value int) {
+	return i.Offset
+}
+
+// GetLength returns value of Length field.
+func (i *InputMessageEntityMentionName) GetLength() (value int) {
+	return i.Length
+}
+
+// GetUserID returns value of UserID field.
+func (i *InputMessageEntityMentionName) GetUserID() (value InputUserClass) {
+	return i.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -1364,6 +1592,12 @@ func (m *MessageEntityPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityPhone) TypeID() uint32 {
+	return MessageEntityPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityPhone) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1373,6 +1607,16 @@ func (m *MessageEntityPhone) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityPhone) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityPhone) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1457,6 +1701,12 @@ func (m *MessageEntityCashtag) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityCashtag) TypeID() uint32 {
+	return MessageEntityCashtagTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityCashtag) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1466,6 +1716,16 @@ func (m *MessageEntityCashtag) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityCashtag) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityCashtag) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1550,6 +1810,12 @@ func (m *MessageEntityUnderline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityUnderline) TypeID() uint32 {
+	return MessageEntityUnderlineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityUnderline) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1559,6 +1825,16 @@ func (m *MessageEntityUnderline) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityUnderline) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityUnderline) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1643,6 +1919,12 @@ func (m *MessageEntityStrike) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityStrike) TypeID() uint32 {
+	return MessageEntityStrikeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityStrike) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1652,6 +1934,16 @@ func (m *MessageEntityStrike) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityStrike) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityStrike) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1736,6 +2028,12 @@ func (m *MessageEntityBlockquote) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityBlockquote) TypeID() uint32 {
+	return MessageEntityBlockquoteTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1745,6 +2043,16 @@ func (m *MessageEntityBlockquote) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBlockquote) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityBlockquote) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1829,6 +2137,12 @@ func (m *MessageEntityBankCard) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEntityBankCard) TypeID() uint32 {
+	return MessageEntityBankCardTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEntityBankCard) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1838,6 +2152,16 @@ func (m *MessageEntityBankCard) Encode(b *bin.Buffer) error {
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (m *MessageEntityBankCard) GetOffset() (value int) {
+	return m.Offset
+}
+
+// GetLength returns value of Length field.
+func (m *MessageEntityBankCard) GetLength() (value int) {
+	return m.Length
 }
 
 // Decode implements bin.Decoder.
@@ -1912,7 +2236,17 @@ type MessageEntityClass interface {
 	bin.Decoder
 	construct() MessageEntityClass
 
-	fmt.Stringer
+	// Offset of message entity within message (in UTF-8 codepoints)
+	GetOffset() (value int)
+	// Length of message entity within message (in UTF-8 codepoints)
+	GetLength() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

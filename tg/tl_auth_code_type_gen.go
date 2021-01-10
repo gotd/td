@@ -46,6 +46,12 @@ func (c *AuthCodeTypeSms) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AuthCodeTypeSms) TypeID() uint32 {
+	return AuthCodeTypeSmsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeSms) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -105,6 +111,12 @@ func (c *AuthCodeTypeCall) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AuthCodeTypeCall) TypeID() uint32 {
+	return AuthCodeTypeCallTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -168,6 +180,12 @@ func (c *AuthCodeTypeFlashCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AuthCodeTypeFlashCall) TypeID() uint32 {
+	return AuthCodeTypeFlashCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -219,7 +237,12 @@ type AuthCodeTypeClass interface {
 	bin.Decoder
 	construct() AuthCodeTypeClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

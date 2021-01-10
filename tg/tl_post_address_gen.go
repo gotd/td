@@ -94,6 +94,12 @@ func (p *PostAddress) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PostAddress) TypeID() uint32 {
+	return PostAddressTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PostAddress) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -107,6 +113,36 @@ func (p *PostAddress) Encode(b *bin.Buffer) error {
 	b.PutString(p.CountryIso2)
 	b.PutString(p.PostCode)
 	return nil
+}
+
+// GetStreetLine1 returns value of StreetLine1 field.
+func (p *PostAddress) GetStreetLine1() (value string) {
+	return p.StreetLine1
+}
+
+// GetStreetLine2 returns value of StreetLine2 field.
+func (p *PostAddress) GetStreetLine2() (value string) {
+	return p.StreetLine2
+}
+
+// GetCity returns value of City field.
+func (p *PostAddress) GetCity() (value string) {
+	return p.City
+}
+
+// GetState returns value of State field.
+func (p *PostAddress) GetState() (value string) {
+	return p.State
+}
+
+// GetCountryIso2 returns value of CountryIso2 field.
+func (p *PostAddress) GetCountryIso2() (value string) {
+	return p.CountryIso2
+}
+
+// GetPostCode returns value of PostCode field.
+func (p *PostAddress) GetPostCode() (value string) {
+	return p.PostCode
 }
 
 // Decode implements bin.Decoder.

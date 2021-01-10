@@ -54,6 +54,12 @@ func (e *EmojiURL) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EmojiURL) TypeID() uint32 {
+	return EmojiURLTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EmojiURL) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -62,6 +68,11 @@ func (e *EmojiURL) Encode(b *bin.Buffer) error {
 	b.PutID(EmojiURLTypeID)
 	b.PutString(e.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (e *EmojiURL) GetURL() (value string) {
+	return e.URL
 }
 
 // Decode implements bin.Decoder.

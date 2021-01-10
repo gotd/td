@@ -54,6 +54,12 @@ func (g *MessagesGetPeerSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetPeerSettingsRequest) TypeID() uint32 {
+	return MessagesGetPeerSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -67,6 +73,11 @@ func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetPeerSettingsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
 }
 
 // Decode implements bin.Decoder.

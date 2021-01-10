@@ -86,6 +86,12 @@ func (b *ContactsBlockFromRepliesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *ContactsBlockFromRepliesRequest) TypeID() uint32 {
+	return ContactsBlockFromRepliesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -119,6 +125,11 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteMessage(value bool) {
 	}
 }
 
+// GetDeleteMessage returns value of DeleteMessage conditional field.
+func (b *ContactsBlockFromRepliesRequest) GetDeleteMessage() (value bool) {
+	return b.Flags.Has(0)
+}
+
 // SetDeleteHistory sets value of DeleteHistory conditional field.
 func (b *ContactsBlockFromRepliesRequest) SetDeleteHistory(value bool) {
 	if value {
@@ -130,6 +141,11 @@ func (b *ContactsBlockFromRepliesRequest) SetDeleteHistory(value bool) {
 	}
 }
 
+// GetDeleteHistory returns value of DeleteHistory conditional field.
+func (b *ContactsBlockFromRepliesRequest) GetDeleteHistory() (value bool) {
+	return b.Flags.Has(1)
+}
+
 // SetReportSpam sets value of ReportSpam conditional field.
 func (b *ContactsBlockFromRepliesRequest) SetReportSpam(value bool) {
 	if value {
@@ -139,6 +155,16 @@ func (b *ContactsBlockFromRepliesRequest) SetReportSpam(value bool) {
 		b.Flags.Unset(2)
 		b.ReportSpam = false
 	}
+}
+
+// GetReportSpam returns value of ReportSpam conditional field.
+func (b *ContactsBlockFromRepliesRequest) GetReportSpam() (value bool) {
+	return b.Flags.Has(2)
+}
+
+// GetMsgID returns value of MsgID field.
+func (b *ContactsBlockFromRepliesRequest) GetMsgID() (value int) {
+	return b.MsgID
 }
 
 // Decode implements bin.Decoder.

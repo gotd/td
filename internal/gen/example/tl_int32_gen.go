@@ -45,6 +45,12 @@ func (i *Int32) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *Int32) TypeID() uint32 {
+	return Int32TypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *Int32) Encode(b *bin.Buffer) error {
 	if i == nil {

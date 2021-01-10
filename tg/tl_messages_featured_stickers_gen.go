@@ -54,6 +54,12 @@ func (f *MessagesFeaturedStickersNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
+	return MessagesFeaturedStickersNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -62,6 +68,11 @@ func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesFeaturedStickersNotModifiedTypeID)
 	b.PutInt(f.Count)
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickersNotModified) GetCount() (value int) {
+	return f.Count
 }
 
 // Decode implements bin.Decoder.
@@ -162,6 +173,12 @@ func (f *MessagesFeaturedStickers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *MessagesFeaturedStickers) TypeID() uint32 {
+	return MessagesFeaturedStickersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -184,6 +201,26 @@ func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (f *MessagesFeaturedStickers) GetHash() (value int) {
+	return f.Hash
+}
+
+// GetCount returns value of Count field.
+func (f *MessagesFeaturedStickers) GetCount() (value int) {
+	return f.Count
+}
+
+// GetSets returns value of Sets field.
+func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
+	return f.Sets
+}
+
+// GetUnread returns value of Unread field.
+func (f *MessagesFeaturedStickers) GetUnread() (value []int64) {
+	return f.Unread
 }
 
 // Decode implements bin.Decoder.
@@ -267,7 +304,15 @@ type MessagesFeaturedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFeaturedStickersClass
 
-	fmt.Stringer
+	// Total number of featured stickers
+	GetCount() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

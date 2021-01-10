@@ -22,6 +22,9 @@ type ContactStatusVector struct {
 	Elems []ContactStatus
 }
 
+// ContactStatusVectorTypeID is TL type id of ContactStatusVector.
+const ContactStatusVectorTypeID = bin.TypeVector
+
 func (vec *ContactStatusVector) Zero() bool {
 	if vec == nil {
 		return true
@@ -48,6 +51,12 @@ func (vec *ContactStatusVector) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (vec *ContactStatusVector) TypeID() uint32 {
+	return ContactStatusVectorTypeID
+}
+
 // Encode implements bin.Encoder.
 func (vec *ContactStatusVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
@@ -60,6 +69,11 @@ func (vec *ContactStatusVector) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetElems returns value of Elems field.
+func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
+	return vec.Elems
 }
 
 // Decode implements bin.Decoder.

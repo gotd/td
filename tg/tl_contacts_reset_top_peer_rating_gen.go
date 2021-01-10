@@ -65,6 +65,12 @@ func (r *ContactsResetTopPeerRatingRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ContactsResetTopPeerRatingRequest) TypeID() uint32 {
+	return ContactsResetTopPeerRatingRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -84,6 +90,16 @@ func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetCategory returns value of Category field.
+func (r *ContactsResetTopPeerRatingRequest) GetCategory() (value TopPeerCategoryClass) {
+	return r.Category
+}
+
+// GetPeer returns value of Peer field.
+func (r *ContactsResetTopPeerRatingRequest) GetPeer() (value InputPeerClass) {
+	return r.Peer
 }
 
 // Decode implements bin.Decoder.

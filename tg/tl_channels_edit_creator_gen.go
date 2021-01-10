@@ -73,6 +73,12 @@ func (e *ChannelsEditCreatorRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *ChannelsEditCreatorRequest) TypeID() uint32 {
+	return ChannelsEditCreatorRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *ChannelsEditCreatorRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -98,6 +104,21 @@ func (e *ChannelsEditCreatorRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.editCreator#8f38cd1f: field password: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (e *ChannelsEditCreatorRequest) GetChannel() (value InputChannelClass) {
+	return e.Channel
+}
+
+// GetUserID returns value of UserID field.
+func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
+}
+
+// GetPassword returns value of Password field.
+func (e *ChannelsEditCreatorRequest) GetPassword() (value InputCheckPasswordSRPClass) {
+	return e.Password
 }
 
 // Decode implements bin.Decoder.

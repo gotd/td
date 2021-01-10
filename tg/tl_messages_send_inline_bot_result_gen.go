@@ -148,6 +148,12 @@ func (s *MessagesSendInlineBotResultRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSendInlineBotResultRequest) TypeID() uint32 {
+	return MessagesSendInlineBotResultRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSendInlineBotResultRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -204,6 +210,11 @@ func (s *MessagesSendInlineBotResultRequest) SetSilent(value bool) {
 	}
 }
 
+// GetSilent returns value of Silent conditional field.
+func (s *MessagesSendInlineBotResultRequest) GetSilent() (value bool) {
+	return s.Flags.Has(5)
+}
+
 // SetBackground sets value of Background conditional field.
 func (s *MessagesSendInlineBotResultRequest) SetBackground(value bool) {
 	if value {
@@ -213,6 +224,11 @@ func (s *MessagesSendInlineBotResultRequest) SetBackground(value bool) {
 		s.Flags.Unset(6)
 		s.Background = false
 	}
+}
+
+// GetBackground returns value of Background conditional field.
+func (s *MessagesSendInlineBotResultRequest) GetBackground() (value bool) {
+	return s.Flags.Has(6)
 }
 
 // SetClearDraft sets value of ClearDraft conditional field.
@@ -226,6 +242,11 @@ func (s *MessagesSendInlineBotResultRequest) SetClearDraft(value bool) {
 	}
 }
 
+// GetClearDraft returns value of ClearDraft conditional field.
+func (s *MessagesSendInlineBotResultRequest) GetClearDraft() (value bool) {
+	return s.Flags.Has(7)
+}
+
 // SetHideVia sets value of HideVia conditional field.
 func (s *MessagesSendInlineBotResultRequest) SetHideVia(value bool) {
 	if value {
@@ -235,6 +256,16 @@ func (s *MessagesSendInlineBotResultRequest) SetHideVia(value bool) {
 		s.Flags.Unset(11)
 		s.HideVia = false
 	}
+}
+
+// GetHideVia returns value of HideVia conditional field.
+func (s *MessagesSendInlineBotResultRequest) GetHideVia() (value bool) {
+	return s.Flags.Has(11)
+}
+
+// GetPeer returns value of Peer field.
+func (s *MessagesSendInlineBotResultRequest) GetPeer() (value InputPeerClass) {
+	return s.Peer
 }
 
 // SetReplyToMsgID sets value of ReplyToMsgID conditional field.
@@ -250,6 +281,21 @@ func (s *MessagesSendInlineBotResultRequest) GetReplyToMsgID() (value int, ok bo
 		return value, false
 	}
 	return s.ReplyToMsgID, true
+}
+
+// GetRandomID returns value of RandomID field.
+func (s *MessagesSendInlineBotResultRequest) GetRandomID() (value int64) {
+	return s.RandomID
+}
+
+// GetQueryID returns value of QueryID field.
+func (s *MessagesSendInlineBotResultRequest) GetQueryID() (value int64) {
+	return s.QueryID
+}
+
+// GetID returns value of ID field.
+func (s *MessagesSendInlineBotResultRequest) GetID() (value string) {
+	return s.ID
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

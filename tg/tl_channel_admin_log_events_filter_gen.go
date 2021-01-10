@@ -183,6 +183,12 @@ func (c *ChannelAdminLogEventsFilter) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {
+	return ChannelAdminLogEventsFilterTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -251,6 +257,11 @@ func (c *ChannelAdminLogEventsFilter) SetJoin(value bool) {
 	}
 }
 
+// GetJoin returns value of Join conditional field.
+func (c *ChannelAdminLogEventsFilter) GetJoin() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetLeave sets value of Leave conditional field.
 func (c *ChannelAdminLogEventsFilter) SetLeave(value bool) {
 	if value {
@@ -260,6 +271,11 @@ func (c *ChannelAdminLogEventsFilter) SetLeave(value bool) {
 		c.Flags.Unset(1)
 		c.Leave = false
 	}
+}
+
+// GetLeave returns value of Leave conditional field.
+func (c *ChannelAdminLogEventsFilter) GetLeave() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // SetInvite sets value of Invite conditional field.
@@ -273,6 +289,11 @@ func (c *ChannelAdminLogEventsFilter) SetInvite(value bool) {
 	}
 }
 
+// GetInvite returns value of Invite conditional field.
+func (c *ChannelAdminLogEventsFilter) GetInvite() (value bool) {
+	return c.Flags.Has(2)
+}
+
 // SetBan sets value of Ban conditional field.
 func (c *ChannelAdminLogEventsFilter) SetBan(value bool) {
 	if value {
@@ -282,6 +303,11 @@ func (c *ChannelAdminLogEventsFilter) SetBan(value bool) {
 		c.Flags.Unset(3)
 		c.Ban = false
 	}
+}
+
+// GetBan returns value of Ban conditional field.
+func (c *ChannelAdminLogEventsFilter) GetBan() (value bool) {
+	return c.Flags.Has(3)
 }
 
 // SetUnban sets value of Unban conditional field.
@@ -295,6 +321,11 @@ func (c *ChannelAdminLogEventsFilter) SetUnban(value bool) {
 	}
 }
 
+// GetUnban returns value of Unban conditional field.
+func (c *ChannelAdminLogEventsFilter) GetUnban() (value bool) {
+	return c.Flags.Has(4)
+}
+
 // SetKick sets value of Kick conditional field.
 func (c *ChannelAdminLogEventsFilter) SetKick(value bool) {
 	if value {
@@ -304,6 +335,11 @@ func (c *ChannelAdminLogEventsFilter) SetKick(value bool) {
 		c.Flags.Unset(5)
 		c.Kick = false
 	}
+}
+
+// GetKick returns value of Kick conditional field.
+func (c *ChannelAdminLogEventsFilter) GetKick() (value bool) {
+	return c.Flags.Has(5)
 }
 
 // SetUnkick sets value of Unkick conditional field.
@@ -317,6 +353,11 @@ func (c *ChannelAdminLogEventsFilter) SetUnkick(value bool) {
 	}
 }
 
+// GetUnkick returns value of Unkick conditional field.
+func (c *ChannelAdminLogEventsFilter) GetUnkick() (value bool) {
+	return c.Flags.Has(6)
+}
+
 // SetPromote sets value of Promote conditional field.
 func (c *ChannelAdminLogEventsFilter) SetPromote(value bool) {
 	if value {
@@ -326,6 +367,11 @@ func (c *ChannelAdminLogEventsFilter) SetPromote(value bool) {
 		c.Flags.Unset(7)
 		c.Promote = false
 	}
+}
+
+// GetPromote returns value of Promote conditional field.
+func (c *ChannelAdminLogEventsFilter) GetPromote() (value bool) {
+	return c.Flags.Has(7)
 }
 
 // SetDemote sets value of Demote conditional field.
@@ -339,6 +385,11 @@ func (c *ChannelAdminLogEventsFilter) SetDemote(value bool) {
 	}
 }
 
+// GetDemote returns value of Demote conditional field.
+func (c *ChannelAdminLogEventsFilter) GetDemote() (value bool) {
+	return c.Flags.Has(8)
+}
+
 // SetInfo sets value of Info conditional field.
 func (c *ChannelAdminLogEventsFilter) SetInfo(value bool) {
 	if value {
@@ -348,6 +399,11 @@ func (c *ChannelAdminLogEventsFilter) SetInfo(value bool) {
 		c.Flags.Unset(9)
 		c.Info = false
 	}
+}
+
+// GetInfo returns value of Info conditional field.
+func (c *ChannelAdminLogEventsFilter) GetInfo() (value bool) {
+	return c.Flags.Has(9)
 }
 
 // SetSettings sets value of Settings conditional field.
@@ -361,6 +417,11 @@ func (c *ChannelAdminLogEventsFilter) SetSettings(value bool) {
 	}
 }
 
+// GetSettings returns value of Settings conditional field.
+func (c *ChannelAdminLogEventsFilter) GetSettings() (value bool) {
+	return c.Flags.Has(10)
+}
+
 // SetPinned sets value of Pinned conditional field.
 func (c *ChannelAdminLogEventsFilter) SetPinned(value bool) {
 	if value {
@@ -370,6 +431,11 @@ func (c *ChannelAdminLogEventsFilter) SetPinned(value bool) {
 		c.Flags.Unset(11)
 		c.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (c *ChannelAdminLogEventsFilter) GetPinned() (value bool) {
+	return c.Flags.Has(11)
 }
 
 // SetEdit sets value of Edit conditional field.
@@ -383,6 +449,11 @@ func (c *ChannelAdminLogEventsFilter) SetEdit(value bool) {
 	}
 }
 
+// GetEdit returns value of Edit conditional field.
+func (c *ChannelAdminLogEventsFilter) GetEdit() (value bool) {
+	return c.Flags.Has(12)
+}
+
 // SetDelete sets value of Delete conditional field.
 func (c *ChannelAdminLogEventsFilter) SetDelete(value bool) {
 	if value {
@@ -394,6 +465,11 @@ func (c *ChannelAdminLogEventsFilter) SetDelete(value bool) {
 	}
 }
 
+// GetDelete returns value of Delete conditional field.
+func (c *ChannelAdminLogEventsFilter) GetDelete() (value bool) {
+	return c.Flags.Has(13)
+}
+
 // SetGroupCall sets value of GroupCall conditional field.
 func (c *ChannelAdminLogEventsFilter) SetGroupCall(value bool) {
 	if value {
@@ -403,6 +479,11 @@ func (c *ChannelAdminLogEventsFilter) SetGroupCall(value bool) {
 		c.Flags.Unset(14)
 		c.GroupCall = false
 	}
+}
+
+// GetGroupCall returns value of GroupCall conditional field.
+func (c *ChannelAdminLogEventsFilter) GetGroupCall() (value bool) {
+	return c.Flags.Has(14)
 }
 
 // Decode implements bin.Decoder.

@@ -46,6 +46,12 @@ func (i *InputEncryptedFileEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedFileEmpty) TypeID() uint32 {
+	return InputEncryptedFileEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -142,6 +148,12 @@ func (i *InputEncryptedFileUploaded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedFileUploaded) TypeID() uint32 {
+	return InputEncryptedFileUploadedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -153,6 +165,26 @@ func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
 	b.PutString(i.Md5Checksum)
 	b.PutInt(i.KeyFingerprint)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputEncryptedFileUploaded) GetID() (value int64) {
+	return i.ID
+}
+
+// GetParts returns value of Parts field.
+func (i *InputEncryptedFileUploaded) GetParts() (value int) {
+	return i.Parts
+}
+
+// GetMd5Checksum returns value of Md5Checksum field.
+func (i *InputEncryptedFileUploaded) GetMd5Checksum() (value string) {
+	return i.Md5Checksum
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (i *InputEncryptedFileUploaded) GetKeyFingerprint() (value int) {
+	return i.KeyFingerprint
 }
 
 // Decode implements bin.Decoder.
@@ -257,6 +289,12 @@ func (i *InputEncryptedFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedFile) TypeID() uint32 {
+	return InputEncryptedFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -266,6 +304,16 @@ func (i *InputEncryptedFile) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputEncryptedFile) GetID() (value int64) {
+	return i.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputEncryptedFile) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -361,6 +409,12 @@ func (i *InputEncryptedFileBigUploaded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputEncryptedFileBigUploaded) TypeID() uint32 {
+	return InputEncryptedFileBigUploadedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileBigUploaded) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -371,6 +425,21 @@ func (i *InputEncryptedFileBigUploaded) Encode(b *bin.Buffer) error {
 	b.PutInt(i.Parts)
 	b.PutInt(i.KeyFingerprint)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputEncryptedFileBigUploaded) GetID() (value int64) {
+	return i.ID
+}
+
+// GetParts returns value of Parts field.
+func (i *InputEncryptedFileBigUploaded) GetParts() (value int) {
+	return i.Parts
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (i *InputEncryptedFileBigUploaded) GetKeyFingerprint() (value int) {
+	return i.KeyFingerprint
 }
 
 // Decode implements bin.Decoder.
@@ -437,7 +506,12 @@ type InputEncryptedFileClass interface {
 	bin.Decoder
 	construct() InputEncryptedFileClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

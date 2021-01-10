@@ -75,6 +75,12 @@ func (s *AccountSaveAutoDownloadSettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
+	return AccountSaveAutoDownloadSettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSaveAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -107,6 +113,11 @@ func (s *AccountSaveAutoDownloadSettingsRequest) SetLow(value bool) {
 	}
 }
 
+// GetLow returns value of Low conditional field.
+func (s *AccountSaveAutoDownloadSettingsRequest) GetLow() (value bool) {
+	return s.Flags.Has(0)
+}
+
 // SetHigh sets value of High conditional field.
 func (s *AccountSaveAutoDownloadSettingsRequest) SetHigh(value bool) {
 	if value {
@@ -116,6 +127,16 @@ func (s *AccountSaveAutoDownloadSettingsRequest) SetHigh(value bool) {
 		s.Flags.Unset(1)
 		s.High = false
 	}
+}
+
+// GetHigh returns value of High conditional field.
+func (s *AccountSaveAutoDownloadSettingsRequest) GetHigh() (value bool) {
+	return s.Flags.Has(1)
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSaveAutoDownloadSettingsRequest) GetSettings() (value AutoDownloadSettings) {
+	return s.Settings
 }
 
 // Decode implements bin.Decoder.

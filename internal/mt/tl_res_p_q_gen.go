@@ -77,6 +77,12 @@ func (r *ResPQ) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ResPQ) TypeID() uint32 {
+	return ResPQTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ResPQ) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -91,6 +97,26 @@ func (r *ResPQ) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (r *ResPQ) GetNonce() (value bin.Int128) {
+	return r.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (r *ResPQ) GetServerNonce() (value bin.Int128) {
+	return r.ServerNonce
+}
+
+// GetPq returns value of Pq field.
+func (r *ResPQ) GetPq() (value []byte) {
+	return r.Pq
+}
+
+// GetServerPublicKeyFingerprints returns value of ServerPublicKeyFingerprints field.
+func (r *ResPQ) GetServerPublicKeyFingerprints() (value []int64) {
+	return r.ServerPublicKeyFingerprints
 }
 
 // Decode implements bin.Decoder.

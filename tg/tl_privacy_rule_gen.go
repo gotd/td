@@ -46,6 +46,12 @@ func (p *PrivacyValueAllowContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueAllowContacts) TypeID() uint32 {
+	return PrivacyValueAllowContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -105,6 +111,12 @@ func (p *PrivacyValueAllowAll) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueAllowAll) TypeID() uint32 {
+	return PrivacyValueAllowAllTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -178,6 +190,12 @@ func (p *PrivacyValueAllowUsers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueAllowUsers) TypeID() uint32 {
+	return PrivacyValueAllowUsersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -189,6 +207,11 @@ func (p *PrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetUsers returns value of Users field.
+func (p *PrivacyValueAllowUsers) GetUsers() (value []int) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.
@@ -256,6 +279,12 @@ func (p *PrivacyValueDisallowContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueDisallowContacts) TypeID() uint32 {
+	return PrivacyValueDisallowContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -315,6 +344,12 @@ func (p *PrivacyValueDisallowAll) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueDisallowAll) TypeID() uint32 {
+	return PrivacyValueDisallowAllTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -388,6 +423,12 @@ func (p *PrivacyValueDisallowUsers) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueDisallowUsers) TypeID() uint32 {
+	return PrivacyValueDisallowUsersTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -399,6 +440,11 @@ func (p *PrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetUsers returns value of Users field.
+func (p *PrivacyValueDisallowUsers) GetUsers() (value []int) {
+	return p.Users
 }
 
 // Decode implements bin.Decoder.
@@ -476,6 +522,12 @@ func (p *PrivacyValueAllowChatParticipants) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueAllowChatParticipants) TypeID() uint32 {
+	return PrivacyValueAllowChatParticipantsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -487,6 +539,11 @@ func (p *PrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetChats returns value of Chats field.
+func (p *PrivacyValueAllowChatParticipants) GetChats() (value []int) {
+	return p.Chats
 }
 
 // Decode implements bin.Decoder.
@@ -564,6 +621,12 @@ func (p *PrivacyValueDisallowChatParticipants) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PrivacyValueDisallowChatParticipants) TypeID() uint32 {
+	return PrivacyValueDisallowChatParticipantsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -575,6 +638,11 @@ func (p *PrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetChats returns value of Chats field.
+func (p *PrivacyValueDisallowChatParticipants) GetChats() (value []int) {
+	return p.Chats
 }
 
 // Decode implements bin.Decoder.
@@ -637,7 +705,12 @@ type PrivacyRuleClass interface {
 	bin.Decoder
 	construct() PrivacyRuleClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

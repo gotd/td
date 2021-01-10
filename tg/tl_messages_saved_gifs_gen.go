@@ -46,6 +46,12 @@ func (s *MessagesSavedGifsNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSavedGifsNotModified) TypeID() uint32 {
+	return MessagesSavedGifsNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSavedGifsNotModified) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -128,6 +134,12 @@ func (s *MessagesSavedGifs) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *MessagesSavedGifs) TypeID() uint32 {
+	return MessagesSavedGifsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSavedGifs) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -145,6 +157,16 @@ func (s *MessagesSavedGifs) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (s *MessagesSavedGifs) GetHash() (value int) {
+	return s.Hash
+}
+
+// GetGifs returns value of Gifs field.
+func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
+	return s.Gifs
 }
 
 // Decode implements bin.Decoder.
@@ -208,7 +230,12 @@ type MessagesSavedGifsClass interface {
 	bin.Decoder
 	construct() MessagesSavedGifsClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

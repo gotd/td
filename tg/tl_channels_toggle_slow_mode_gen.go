@@ -65,6 +65,12 @@ func (t *ChannelsToggleSlowModeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *ChannelsToggleSlowModeRequest) TypeID() uint32 {
+	return ChannelsToggleSlowModeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *ChannelsToggleSlowModeRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -79,6 +85,16 @@ func (t *ChannelsToggleSlowModeRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(t.Seconds)
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (t *ChannelsToggleSlowModeRequest) GetChannel() (value InputChannelClass) {
+	return t.Channel
+}
+
+// GetSeconds returns value of Seconds field.
+func (t *ChannelsToggleSlowModeRequest) GetSeconds() (value int) {
+	return t.Seconds
 }
 
 // Decode implements bin.Decoder.

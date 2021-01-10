@@ -78,6 +78,12 @@ func (c *ChannelAdminLogEvent) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEvent) TypeID() uint32 {
+	return ChannelAdminLogEventTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelAdminLogEvent) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -94,6 +100,26 @@ func (c *ChannelAdminLogEvent) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channelAdminLogEvent#3b5a3e40: field action: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (c *ChannelAdminLogEvent) GetID() (value int64) {
+	return c.ID
+}
+
+// GetDate returns value of Date field.
+func (c *ChannelAdminLogEvent) GetDate() (value int) {
+	return c.Date
+}
+
+// GetUserID returns value of UserID field.
+func (c *ChannelAdminLogEvent) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetAction returns value of Action field.
+func (c *ChannelAdminLogEvent) GetAction() (value ChannelAdminLogEventActionClass) {
+	return c.Action
 }
 
 // Decode implements bin.Decoder.

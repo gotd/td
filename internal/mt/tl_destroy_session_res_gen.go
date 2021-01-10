@@ -51,6 +51,12 @@ func (d *DestroySessionOk) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DestroySessionOk) TypeID() uint32 {
+	return DestroySessionOkTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DestroySessionOk) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -59,6 +65,11 @@ func (d *DestroySessionOk) Encode(b *bin.Buffer) error {
 	b.PutID(DestroySessionOkTypeID)
 	b.PutLong(d.SessionID)
 	return nil
+}
+
+// GetSessionID returns value of SessionID field.
+func (d *DestroySessionOk) GetSessionID() (value int64) {
+	return d.SessionID
 }
 
 // Decode implements bin.Decoder.
@@ -125,6 +136,12 @@ func (d *DestroySessionNone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *DestroySessionNone) TypeID() uint32 {
+	return DestroySessionNoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *DestroySessionNone) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -133,6 +150,11 @@ func (d *DestroySessionNone) Encode(b *bin.Buffer) error {
 	b.PutID(DestroySessionNoneTypeID)
 	b.PutLong(d.SessionID)
 	return nil
+}
+
+// GetSessionID returns value of SessionID field.
+func (d *DestroySessionNone) GetSessionID() (value int64) {
+	return d.SessionID
 }
 
 // Decode implements bin.Decoder.
@@ -181,7 +203,15 @@ type DestroySessionResClass interface {
 	bin.Decoder
 	construct() DestroySessionResClass
 
-	fmt.Stringer
+	// SessionID field of DestroySessionOk.
+	GetSessionID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

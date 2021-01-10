@@ -56,6 +56,12 @@ func (r *MessagesReadFeaturedStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReadFeaturedStickersRequest) TypeID() uint32 {
+	return MessagesReadFeaturedStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReadFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -67,6 +73,11 @@ func (r *MessagesReadFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (r *MessagesReadFeaturedStickersRequest) GetID() (value []int64) {
+	return r.ID
 }
 
 // Decode implements bin.Decoder.

@@ -80,6 +80,12 @@ func (e *EmojiKeywordsDifference) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EmojiKeywordsDifference) TypeID() uint32 {
+	return EmojiKeywordsDifferenceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -99,6 +105,26 @@ func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetLangCode returns value of LangCode field.
+func (e *EmojiKeywordsDifference) GetLangCode() (value string) {
+	return e.LangCode
+}
+
+// GetFromVersion returns value of FromVersion field.
+func (e *EmojiKeywordsDifference) GetFromVersion() (value int) {
+	return e.FromVersion
+}
+
+// GetVersion returns value of Version field.
+func (e *EmojiKeywordsDifference) GetVersion() (value int) {
+	return e.Version
+}
+
+// GetKeywords returns value of Keywords field.
+func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
+	return e.Keywords
 }
 
 // Decode implements bin.Decoder.

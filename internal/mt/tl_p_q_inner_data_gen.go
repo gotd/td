@@ -91,6 +91,12 @@ func (p *PQInnerData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PQInnerData) TypeID() uint32 {
+	return PQInnerDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PQInnerData) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -104,6 +110,36 @@ func (p *PQInnerData) Encode(b *bin.Buffer) error {
 	b.PutInt128(p.ServerNonce)
 	b.PutInt256(p.NewNonce)
 	return nil
+}
+
+// GetPq returns value of Pq field.
+func (p *PQInnerData) GetPq() (value []byte) {
+	return p.Pq
+}
+
+// GetP returns value of P field.
+func (p *PQInnerData) GetP() (value []byte) {
+	return p.P
+}
+
+// GetQ returns value of Q field.
+func (p *PQInnerData) GetQ() (value []byte) {
+	return p.Q
+}
+
+// GetNonce returns value of Nonce field.
+func (p *PQInnerData) GetNonce() (value bin.Int128) {
+	return p.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (p *PQInnerData) GetServerNonce() (value bin.Int128) {
+	return p.ServerNonce
+}
+
+// GetNewNonce returns value of NewNonce field.
+func (p *PQInnerData) GetNewNonce() (value bin.Int256) {
+	return p.NewNonce
 }
 
 // Decode implements bin.Decoder.

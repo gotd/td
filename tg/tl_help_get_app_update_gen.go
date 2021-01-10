@@ -54,6 +54,12 @@ func (g *HelpGetAppUpdateRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *HelpGetAppUpdateRequest) TypeID() uint32 {
+	return HelpGetAppUpdateRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -62,6 +68,11 @@ func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {
 	b.PutID(HelpGetAppUpdateRequestTypeID)
 	b.PutString(g.Source)
 	return nil
+}
+
+// GetSource returns value of Source field.
+func (g *HelpGetAppUpdateRequest) GetSource() (value string) {
+	return g.Source
 }
 
 // Decode implements bin.Decoder.

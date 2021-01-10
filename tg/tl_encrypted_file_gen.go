@@ -46,6 +46,12 @@ func (e *EncryptedFileEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedFileEmpty) TypeID() uint32 {
+	return EncryptedFileEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedFileEmpty) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -147,6 +153,12 @@ func (e *EncryptedFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *EncryptedFile) TypeID() uint32 {
+	return EncryptedFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedFile) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -159,6 +171,31 @@ func (e *EncryptedFile) Encode(b *bin.Buffer) error {
 	b.PutInt(e.DCID)
 	b.PutInt(e.KeyFingerprint)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (e *EncryptedFile) GetID() (value int64) {
+	return e.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (e *EncryptedFile) GetAccessHash() (value int64) {
+	return e.AccessHash
+}
+
+// GetSize returns value of Size field.
+func (e *EncryptedFile) GetSize() (value int) {
+	return e.Size
+}
+
+// GetDCID returns value of DCID field.
+func (e *EncryptedFile) GetDCID() (value int) {
+	return e.DCID
+}
+
+// GetKeyFingerprint returns value of KeyFingerprint field.
+func (e *EncryptedFile) GetKeyFingerprint() (value int) {
+	return e.KeyFingerprint
 }
 
 // Decode implements bin.Decoder.
@@ -237,7 +274,12 @@ type EncryptedFileClass interface {
 	bin.Decoder
 	construct() EncryptedFileClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

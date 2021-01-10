@@ -112,6 +112,12 @@ func (v *VideoSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (v *VideoSize) TypeID() uint32 {
+	return VideoSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (v *VideoSize) Encode(b *bin.Buffer) error {
 	if v == nil {
@@ -135,6 +141,31 @@ func (v *VideoSize) Encode(b *bin.Buffer) error {
 		b.PutDouble(v.VideoStartTs)
 	}
 	return nil
+}
+
+// GetType returns value of Type field.
+func (v *VideoSize) GetType() (value string) {
+	return v.Type
+}
+
+// GetLocation returns value of Location field.
+func (v *VideoSize) GetLocation() (value FileLocationToBeDeprecated) {
+	return v.Location
+}
+
+// GetW returns value of W field.
+func (v *VideoSize) GetW() (value int) {
+	return v.W
+}
+
+// GetH returns value of H field.
+func (v *VideoSize) GetH() (value int) {
+	return v.H
+}
+
+// GetSize returns value of Size field.
+func (v *VideoSize) GetSize() (value int) {
+	return v.Size
 }
 
 // SetVideoStartTs sets value of VideoStartTs conditional field.

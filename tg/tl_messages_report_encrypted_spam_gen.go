@@ -54,6 +54,12 @@ func (r *MessagesReportEncryptedSpamRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *MessagesReportEncryptedSpamRequest) TypeID() uint32 {
+	return MessagesReportEncryptedSpamRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesReportEncryptedSpamRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -64,6 +70,11 @@ func (r *MessagesReportEncryptedSpamRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messages.reportEncryptedSpam#4b0c8c0f: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (r *MessagesReportEncryptedSpamRequest) GetPeer() (value InputEncryptedChat) {
+	return r.Peer
 }
 
 // Decode implements bin.Decoder.

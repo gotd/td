@@ -76,6 +76,12 @@ func (m *MessagesMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMessages) TypeID() uint32 {
+	return MessagesMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessages) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -110,6 +116,21 @@ func (m *MessagesMessages) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMessages returns value of Messages field.
+func (m *MessagesMessages) GetMessages() (value []MessageClass) {
+	return m.Messages
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessages) GetChats() (value []ChatClass) {
+	return m.Chats
+}
+
+// GetUsers returns value of Users field.
+func (m *MessagesMessages) GetUsers() (value []UserClass) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.
@@ -284,6 +305,12 @@ func (m *MessagesMessagesSlice) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMessagesSlice) TypeID() uint32 {
+	return MessagesMessagesSliceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -350,6 +377,16 @@ func (m *MessagesMessagesSlice) SetInexact(value bool) {
 	}
 }
 
+// GetInexact returns value of Inexact conditional field.
+func (m *MessagesMessagesSlice) GetInexact() (value bool) {
+	return m.Flags.Has(1)
+}
+
+// GetCount returns value of Count field.
+func (m *MessagesMessagesSlice) GetCount() (value int) {
+	return m.Count
+}
+
 // SetNextRate sets value of NextRate conditional field.
 func (m *MessagesMessagesSlice) SetNextRate(value int) {
 	m.Flags.Set(0)
@@ -378,6 +415,21 @@ func (m *MessagesMessagesSlice) GetOffsetIDOffset() (value int, ok bool) {
 		return value, false
 	}
 	return m.OffsetIDOffset, true
+}
+
+// GetMessages returns value of Messages field.
+func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
+	return m.Messages
+}
+
+// GetChats returns value of Chats field.
+func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
+	return m.Chats
+}
+
+// GetUsers returns value of Users field.
+func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.
@@ -575,6 +627,12 @@ func (c *MessagesChannelMessages) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *MessagesChannelMessages) TypeID() uint32 {
+	return MessagesChannelMessagesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -636,6 +694,21 @@ func (c *MessagesChannelMessages) SetInexact(value bool) {
 	}
 }
 
+// GetInexact returns value of Inexact conditional field.
+func (c *MessagesChannelMessages) GetInexact() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetPts returns value of Pts field.
+func (c *MessagesChannelMessages) GetPts() (value int) {
+	return c.Pts
+}
+
+// GetCount returns value of Count field.
+func (c *MessagesChannelMessages) GetCount() (value int) {
+	return c.Count
+}
+
 // SetOffsetIDOffset sets value of OffsetIDOffset conditional field.
 func (c *MessagesChannelMessages) SetOffsetIDOffset(value int) {
 	c.Flags.Set(2)
@@ -649,6 +722,21 @@ func (c *MessagesChannelMessages) GetOffsetIDOffset() (value int, ok bool) {
 		return value, false
 	}
 	return c.OffsetIDOffset, true
+}
+
+// GetMessages returns value of Messages field.
+func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
+	return c.Messages
+}
+
+// GetChats returns value of Chats field.
+func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.
@@ -777,6 +865,12 @@ func (m *MessagesMessagesNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessagesMessagesNotModified) TypeID() uint32 {
+	return MessagesMessagesNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessagesMessagesNotModified) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -785,6 +879,11 @@ func (m *MessagesMessagesNotModified) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesMessagesNotModifiedTypeID)
 	b.PutInt(m.Count)
 	return nil
+}
+
+// GetCount returns value of Count field.
+func (m *MessagesMessagesNotModified) GetCount() (value int) {
+	return m.Count
 }
 
 // Decode implements bin.Decoder.
@@ -837,7 +936,12 @@ type MessagesMessagesClass interface {
 	bin.Decoder
 	construct() MessagesMessagesClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

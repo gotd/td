@@ -74,6 +74,12 @@ func (e *PhoneEditGroupCallMemberRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {
+	return PhoneEditGroupCallMemberRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (e *PhoneEditGroupCallMemberRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -107,6 +113,21 @@ func (e *PhoneEditGroupCallMemberRequest) SetMuted(value bool) {
 		e.Flags.Unset(0)
 		e.Muted = false
 	}
+}
+
+// GetMuted returns value of Muted conditional field.
+func (e *PhoneEditGroupCallMemberRequest) GetMuted() (value bool) {
+	return e.Flags.Has(0)
+}
+
+// GetCall returns value of Call field.
+func (e *PhoneEditGroupCallMemberRequest) GetCall() (value InputGroupCall) {
+	return e.Call
+}
+
+// GetUserID returns value of UserID field.
+func (e *PhoneEditGroupCallMemberRequest) GetUserID() (value InputUserClass) {
+	return e.UserID
 }
 
 // Decode implements bin.Decoder.

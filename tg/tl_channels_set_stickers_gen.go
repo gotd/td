@@ -62,6 +62,12 @@ func (s *ChannelsSetStickersRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *ChannelsSetStickersRequest) TypeID() uint32 {
+	return ChannelsSetStickersRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -81,6 +87,16 @@ func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field stickerset: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (s *ChannelsSetStickersRequest) GetChannel() (value InputChannelClass) {
+	return s.Channel
+}
+
+// GetStickerset returns value of Stickerset field.
+func (s *ChannelsSetStickersRequest) GetStickerset() (value InputStickerSetClass) {
+	return s.Stickerset
 }
 
 // Decode implements bin.Decoder.

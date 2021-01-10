@@ -88,6 +88,12 @@ func (u *MessagesUpdatePinnedMessageRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *MessagesUpdatePinnedMessageRequest) TypeID() uint32 {
+	return MessagesUpdatePinnedMessageRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -127,6 +133,11 @@ func (u *MessagesUpdatePinnedMessageRequest) SetSilent(value bool) {
 	}
 }
 
+// GetSilent returns value of Silent conditional field.
+func (u *MessagesUpdatePinnedMessageRequest) GetSilent() (value bool) {
+	return u.Flags.Has(0)
+}
+
 // SetUnpin sets value of Unpin conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) SetUnpin(value bool) {
 	if value {
@@ -138,6 +149,11 @@ func (u *MessagesUpdatePinnedMessageRequest) SetUnpin(value bool) {
 	}
 }
 
+// GetUnpin returns value of Unpin conditional field.
+func (u *MessagesUpdatePinnedMessageRequest) GetUnpin() (value bool) {
+	return u.Flags.Has(1)
+}
+
 // SetPmOneside sets value of PmOneside conditional field.
 func (u *MessagesUpdatePinnedMessageRequest) SetPmOneside(value bool) {
 	if value {
@@ -147,6 +163,21 @@ func (u *MessagesUpdatePinnedMessageRequest) SetPmOneside(value bool) {
 		u.Flags.Unset(2)
 		u.PmOneside = false
 	}
+}
+
+// GetPmOneside returns value of PmOneside conditional field.
+func (u *MessagesUpdatePinnedMessageRequest) GetPmOneside() (value bool) {
+	return u.Flags.Has(2)
+}
+
+// GetPeer returns value of Peer field.
+func (u *MessagesUpdatePinnedMessageRequest) GetPeer() (value InputPeerClass) {
+	return u.Peer
+}
+
+// GetID returns value of ID field.
+func (u *MessagesUpdatePinnedMessageRequest) GetID() (value int) {
+	return u.ID
 }
 
 // Decode implements bin.Decoder.

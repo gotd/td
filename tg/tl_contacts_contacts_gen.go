@@ -46,6 +46,12 @@ func (c *ContactsContactsNotModified) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ContactsContactsNotModified) TypeID() uint32 {
+	return ContactsContactsNotModifiedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ContactsContactsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -135,6 +141,12 @@ func (c *ContactsContacts) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ContactsContacts) TypeID() uint32 {
+	return ContactsContactsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ContactsContacts) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -158,6 +170,21 @@ func (c *ContactsContacts) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetContacts returns value of Contacts field.
+func (c *ContactsContacts) GetContacts() (value []Contact) {
+	return c.Contacts
+}
+
+// GetSavedCount returns value of SavedCount field.
+func (c *ContactsContacts) GetSavedCount() (value int) {
+	return c.SavedCount
+}
+
+// GetUsers returns value of Users field.
+func (c *ContactsContacts) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.
@@ -234,7 +261,12 @@ type ContactsContactsClass interface {
 	bin.Decoder
 	construct() ContactsContactsClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

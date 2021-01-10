@@ -54,6 +54,12 @@ func (p *HelpPromoDataEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *HelpPromoDataEmpty) TypeID() uint32 {
+	return HelpPromoDataEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -62,6 +68,11 @@ func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(HelpPromoDataEmptyTypeID)
 	b.PutInt(p.Expires)
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (p *HelpPromoDataEmpty) GetExpires() (value int) {
+	return p.Expires
 }
 
 // Decode implements bin.Decoder.
@@ -199,6 +210,12 @@ func (p *HelpPromoData) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *HelpPromoData) TypeID() uint32 {
+	return HelpPromoDataTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -260,6 +277,31 @@ func (p *HelpPromoData) SetProxy(value bool) {
 		p.Flags.Unset(0)
 		p.Proxy = false
 	}
+}
+
+// GetProxy returns value of Proxy conditional field.
+func (p *HelpPromoData) GetProxy() (value bool) {
+	return p.Flags.Has(0)
+}
+
+// GetExpires returns value of Expires field.
+func (p *HelpPromoData) GetExpires() (value int) {
+	return p.Expires
+}
+
+// GetPeer returns value of Peer field.
+func (p *HelpPromoData) GetPeer() (value PeerClass) {
+	return p.Peer
+}
+
+// GetChats returns value of Chats field.
+func (p *HelpPromoData) GetChats() (value []ChatClass) {
+	return p.Chats
+}
+
+// GetUsers returns value of Users field.
+func (p *HelpPromoData) GetUsers() (value []UserClass) {
+	return p.Users
 }
 
 // SetPsaType sets value of PsaType conditional field.
@@ -393,7 +435,15 @@ type HelpPromoDataClass interface {
 	bin.Decoder
 	construct() HelpPromoDataClass
 
-	fmt.Stringer
+	// Re-fetch PSA/MTProxy info after the specified number of seconds
+	GetExpires() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

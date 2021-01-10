@@ -54,6 +54,12 @@ func (c *ChatOnlines) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatOnlines) TypeID() uint32 {
+	return ChatOnlinesTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatOnlines) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -62,6 +68,11 @@ func (c *ChatOnlines) Encode(b *bin.Buffer) error {
 	b.PutID(ChatOnlinesTypeID)
 	b.PutInt(c.Onlines)
 	return nil
+}
+
+// GetOnlines returns value of Onlines field.
+func (c *ChatOnlines) GetOnlines() (value int) {
+	return c.Onlines
 }
 
 // Decode implements bin.Decoder.

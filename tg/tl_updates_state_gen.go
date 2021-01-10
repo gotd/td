@@ -90,6 +90,12 @@ func (s *UpdatesState) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *UpdatesState) TypeID() uint32 {
+	return UpdatesStateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *UpdatesState) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -102,6 +108,31 @@ func (s *UpdatesState) Encode(b *bin.Buffer) error {
 	b.PutInt(s.Seq)
 	b.PutInt(s.UnreadCount)
 	return nil
+}
+
+// GetPts returns value of Pts field.
+func (s *UpdatesState) GetPts() (value int) {
+	return s.Pts
+}
+
+// GetQts returns value of Qts field.
+func (s *UpdatesState) GetQts() (value int) {
+	return s.Qts
+}
+
+// GetDate returns value of Date field.
+func (s *UpdatesState) GetDate() (value int) {
+	return s.Date
+}
+
+// GetSeq returns value of Seq field.
+func (s *UpdatesState) GetSeq() (value int) {
+	return s.Seq
+}
+
+// GetUnreadCount returns value of UnreadCount field.
+func (s *UpdatesState) GetUnreadCount() (value int) {
+	return s.UnreadCount
 }
 
 // Decode implements bin.Decoder.

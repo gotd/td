@@ -116,6 +116,12 @@ func (c *ChannelsCreateChannelRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelsCreateChannelRequest) TypeID() uint32 {
+	return ChannelsCreateChannelRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -164,6 +170,11 @@ func (c *ChannelsCreateChannelRequest) SetBroadcast(value bool) {
 	}
 }
 
+// GetBroadcast returns value of Broadcast conditional field.
+func (c *ChannelsCreateChannelRequest) GetBroadcast() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetMegagroup sets value of Megagroup conditional field.
 func (c *ChannelsCreateChannelRequest) SetMegagroup(value bool) {
 	if value {
@@ -173,6 +184,21 @@ func (c *ChannelsCreateChannelRequest) SetMegagroup(value bool) {
 		c.Flags.Unset(1)
 		c.Megagroup = false
 	}
+}
+
+// GetMegagroup returns value of Megagroup conditional field.
+func (c *ChannelsCreateChannelRequest) GetMegagroup() (value bool) {
+	return c.Flags.Has(1)
+}
+
+// GetTitle returns value of Title field.
+func (c *ChannelsCreateChannelRequest) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetAbout returns value of About field.
+func (c *ChannelsCreateChannelRequest) GetAbout() (value string) {
+	return c.About
 }
 
 // SetGeoPoint sets value of GeoPoint conditional field.

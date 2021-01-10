@@ -134,6 +134,12 @@ func (c *ChatAdminRights) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatAdminRights) TypeID() uint32 {
+	return ChatAdminRightsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -187,6 +193,11 @@ func (c *ChatAdminRights) SetChangeInfo(value bool) {
 	}
 }
 
+// GetChangeInfo returns value of ChangeInfo conditional field.
+func (c *ChatAdminRights) GetChangeInfo() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetPostMessages sets value of PostMessages conditional field.
 func (c *ChatAdminRights) SetPostMessages(value bool) {
 	if value {
@@ -196,6 +207,11 @@ func (c *ChatAdminRights) SetPostMessages(value bool) {
 		c.Flags.Unset(1)
 		c.PostMessages = false
 	}
+}
+
+// GetPostMessages returns value of PostMessages conditional field.
+func (c *ChatAdminRights) GetPostMessages() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // SetEditMessages sets value of EditMessages conditional field.
@@ -209,6 +225,11 @@ func (c *ChatAdminRights) SetEditMessages(value bool) {
 	}
 }
 
+// GetEditMessages returns value of EditMessages conditional field.
+func (c *ChatAdminRights) GetEditMessages() (value bool) {
+	return c.Flags.Has(2)
+}
+
 // SetDeleteMessages sets value of DeleteMessages conditional field.
 func (c *ChatAdminRights) SetDeleteMessages(value bool) {
 	if value {
@@ -218,6 +239,11 @@ func (c *ChatAdminRights) SetDeleteMessages(value bool) {
 		c.Flags.Unset(3)
 		c.DeleteMessages = false
 	}
+}
+
+// GetDeleteMessages returns value of DeleteMessages conditional field.
+func (c *ChatAdminRights) GetDeleteMessages() (value bool) {
+	return c.Flags.Has(3)
 }
 
 // SetBanUsers sets value of BanUsers conditional field.
@@ -231,6 +257,11 @@ func (c *ChatAdminRights) SetBanUsers(value bool) {
 	}
 }
 
+// GetBanUsers returns value of BanUsers conditional field.
+func (c *ChatAdminRights) GetBanUsers() (value bool) {
+	return c.Flags.Has(4)
+}
+
 // SetInviteUsers sets value of InviteUsers conditional field.
 func (c *ChatAdminRights) SetInviteUsers(value bool) {
 	if value {
@@ -240,6 +271,11 @@ func (c *ChatAdminRights) SetInviteUsers(value bool) {
 		c.Flags.Unset(5)
 		c.InviteUsers = false
 	}
+}
+
+// GetInviteUsers returns value of InviteUsers conditional field.
+func (c *ChatAdminRights) GetInviteUsers() (value bool) {
+	return c.Flags.Has(5)
 }
 
 // SetPinMessages sets value of PinMessages conditional field.
@@ -253,6 +289,11 @@ func (c *ChatAdminRights) SetPinMessages(value bool) {
 	}
 }
 
+// GetPinMessages returns value of PinMessages conditional field.
+func (c *ChatAdminRights) GetPinMessages() (value bool) {
+	return c.Flags.Has(7)
+}
+
 // SetAddAdmins sets value of AddAdmins conditional field.
 func (c *ChatAdminRights) SetAddAdmins(value bool) {
 	if value {
@@ -262,6 +303,11 @@ func (c *ChatAdminRights) SetAddAdmins(value bool) {
 		c.Flags.Unset(9)
 		c.AddAdmins = false
 	}
+}
+
+// GetAddAdmins returns value of AddAdmins conditional field.
+func (c *ChatAdminRights) GetAddAdmins() (value bool) {
+	return c.Flags.Has(9)
 }
 
 // SetAnonymous sets value of Anonymous conditional field.
@@ -275,6 +321,11 @@ func (c *ChatAdminRights) SetAnonymous(value bool) {
 	}
 }
 
+// GetAnonymous returns value of Anonymous conditional field.
+func (c *ChatAdminRights) GetAnonymous() (value bool) {
+	return c.Flags.Has(10)
+}
+
 // SetManageCall sets value of ManageCall conditional field.
 func (c *ChatAdminRights) SetManageCall(value bool) {
 	if value {
@@ -284,6 +335,11 @@ func (c *ChatAdminRights) SetManageCall(value bool) {
 		c.Flags.Unset(11)
 		c.ManageCall = false
 	}
+}
+
+// GetManageCall returns value of ManageCall conditional field.
+func (c *ChatAdminRights) GetManageCall() (value bool) {
+	return c.Flags.Has(11)
 }
 
 // Decode implements bin.Decoder.

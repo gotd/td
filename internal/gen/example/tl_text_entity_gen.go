@@ -69,6 +69,12 @@ func (t *TextEntity) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TextEntity) TypeID() uint32 {
+	return TextEntityTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntity) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -84,6 +90,21 @@ func (t *TextEntity) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode textEntity#8bab99a8: field type: %w", err)
 	}
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (t *TextEntity) GetOffset() (value int32) {
+	return t.Offset
+}
+
+// GetLength returns value of Length field.
+func (t *TextEntity) GetLength() (value int32) {
+	return t.Length
+}
+
+// GetType returns value of Type field.
+func (t *TextEntity) GetType() (value TextEntityTypeClass) {
+	return t.Type
 }
 
 // Decode implements bin.Decoder.

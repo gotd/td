@@ -54,6 +54,12 @@ func (i *InputDialogPeer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputDialogPeer) TypeID() uint32 {
+	return InputDialogPeerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDialogPeer) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -67,6 +73,11 @@ func (i *InputDialogPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputDialogPeer#fcaafeb7: field peer: %w", err)
 	}
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (i *InputDialogPeer) GetPeer() (value InputPeerClass) {
+	return i.Peer
 }
 
 // Decode implements bin.Decoder.
@@ -142,6 +153,12 @@ func (i *InputDialogPeerFolder) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputDialogPeerFolder) TypeID() uint32 {
+	return InputDialogPeerFolderTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDialogPeerFolder) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -150,6 +167,11 @@ func (i *InputDialogPeerFolder) Encode(b *bin.Buffer) error {
 	b.PutID(InputDialogPeerFolderTypeID)
 	b.PutInt(i.FolderID)
 	return nil
+}
+
+// GetFolderID returns value of FolderID field.
+func (i *InputDialogPeerFolder) GetFolderID() (value int) {
+	return i.FolderID
 }
 
 // Decode implements bin.Decoder.
@@ -200,7 +222,12 @@ type InputDialogPeerClass interface {
 	bin.Decoder
 	construct() InputDialogPeerClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

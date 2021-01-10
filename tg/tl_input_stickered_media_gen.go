@@ -54,6 +54,12 @@ func (i *InputStickeredMediaPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputStickeredMediaPhoto) TypeID() uint32 {
+	return InputStickeredMediaPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaPhoto) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -67,6 +73,11 @@ func (i *InputStickeredMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputStickeredMediaPhoto#4a992157: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputStickeredMediaPhoto) GetID() (value InputPhotoClass) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -136,6 +147,12 @@ func (i *InputStickeredMediaDocument) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputStickeredMediaDocument) TypeID() uint32 {
+	return InputStickeredMediaDocumentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickeredMediaDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -149,6 +166,11 @@ func (i *InputStickeredMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode inputStickeredMediaDocument#438865b: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputStickeredMediaDocument) GetID() (value InputDocumentClass) {
+	return i.ID
 }
 
 // Decode implements bin.Decoder.
@@ -199,7 +221,12 @@ type InputStickeredMediaClass interface {
 	bin.Decoder
 	construct() InputStickeredMediaClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

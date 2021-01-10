@@ -46,6 +46,12 @@ func (c *ChannelLocationEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelLocationEmpty) TypeID() uint32 {
+	return ChannelLocationEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -123,6 +129,12 @@ func (c *ChannelLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelLocation) TypeID() uint32 {
+	return ChannelLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelLocation) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -137,6 +149,16 @@ func (c *ChannelLocation) Encode(b *bin.Buffer) error {
 	}
 	b.PutString(c.Address)
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (c *ChannelLocation) GetGeoPoint() (value GeoPointClass) {
+	return c.GeoPoint
+}
+
+// GetAddress returns value of Address field.
+func (c *ChannelLocation) GetAddress() (value string) {
+	return c.Address
 }
 
 // Decode implements bin.Decoder.
@@ -194,7 +216,12 @@ type ChannelLocationClass interface {
 	bin.Decoder
 	construct() ChannelLocationClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

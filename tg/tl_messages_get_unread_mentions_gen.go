@@ -109,6 +109,12 @@ func (g *MessagesGetUnreadMentionsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetUnreadMentionsRequest) TypeID() uint32 {
+	return MessagesGetUnreadMentionsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -127,6 +133,36 @@ func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 	b.PutInt(g.MaxID)
 	b.PutInt(g.MinID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetUnreadMentionsRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetOffsetID returns value of OffsetID field.
+func (g *MessagesGetUnreadMentionsRequest) GetOffsetID() (value int) {
+	return g.OffsetID
+}
+
+// GetAddOffset returns value of AddOffset field.
+func (g *MessagesGetUnreadMentionsRequest) GetAddOffset() (value int) {
+	return g.AddOffset
+}
+
+// GetLimit returns value of Limit field.
+func (g *MessagesGetUnreadMentionsRequest) GetLimit() (value int) {
+	return g.Limit
+}
+
+// GetMaxID returns value of MaxID field.
+func (g *MessagesGetUnreadMentionsRequest) GetMaxID() (value int) {
+	return g.MaxID
+}
+
+// GetMinID returns value of MinID field.
+func (g *MessagesGetUnreadMentionsRequest) GetMinID() (value int) {
+	return g.MinID
 }
 
 // Decode implements bin.Decoder.

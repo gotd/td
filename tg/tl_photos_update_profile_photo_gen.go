@@ -54,6 +54,12 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *PhotosUpdateProfilePhotoRequest) TypeID() uint32 {
+	return PhotosUpdateProfilePhotoRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -67,6 +73,11 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
+	return u.ID
 }
 
 // Decode implements bin.Decoder.

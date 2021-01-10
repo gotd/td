@@ -67,6 +67,12 @@ func (s *SetClientDHParamsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SetClientDHParamsRequest) TypeID() uint32 {
+	return SetClientDHParamsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -77,6 +83,21 @@ func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 	b.PutInt128(s.ServerNonce)
 	b.PutBytes(s.EncryptedData)
 	return nil
+}
+
+// GetNonce returns value of Nonce field.
+func (s *SetClientDHParamsRequest) GetNonce() (value bin.Int128) {
+	return s.Nonce
+}
+
+// GetServerNonce returns value of ServerNonce field.
+func (s *SetClientDHParamsRequest) GetServerNonce() (value bin.Int128) {
+	return s.ServerNonce
+}
+
+// GetEncryptedData returns value of EncryptedData field.
+func (s *SetClientDHParamsRequest) GetEncryptedData() (value []byte) {
+	return s.EncryptedData
 }
 
 // Decode implements bin.Decoder.

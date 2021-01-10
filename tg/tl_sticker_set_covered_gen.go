@@ -62,6 +62,12 @@ func (s *StickerSetCovered) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StickerSetCovered) TypeID() uint32 {
+	return StickerSetCoveredTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -78,6 +84,16 @@ func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode stickerSetCovered#6410a5d2: field cover: %w", err)
 	}
 	return nil
+}
+
+// GetSet returns value of Set field.
+func (s *StickerSetCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
+
+// GetCover returns value of Cover field.
+func (s *StickerSetCovered) GetCover() (value DocumentClass) {
+	return s.Cover
 }
 
 // Decode implements bin.Decoder.
@@ -162,6 +178,12 @@ func (s *StickerSetMultiCovered) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *StickerSetMultiCovered) TypeID() uint32 {
+	return StickerSetMultiCoveredTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -181,6 +203,16 @@ func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetSet returns value of Set field.
+func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
+	return s.Set
+}
+
+// GetCovers returns value of Covers field.
+func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
+	return s.Covers
 }
 
 // Decode implements bin.Decoder.
@@ -242,7 +274,15 @@ type StickerSetCoveredClass interface {
 	bin.Decoder
 	construct() StickerSetCoveredClass
 
-	fmt.Stringer
+	// Stickerset
+	GetSet() (value StickerSet)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -82,6 +82,12 @@ func (g *MessagesGetWebPagePreviewRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetWebPagePreviewRequest) TypeID() uint32 {
+	return MessagesGetWebPagePreviewRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -107,6 +113,11 @@ func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (g *MessagesGetWebPagePreviewRequest) GetMessage() (value string) {
+	return g.Message
 }
 
 // SetEntities sets value of Entities conditional field.

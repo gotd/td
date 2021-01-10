@@ -46,6 +46,12 @@ func (d *HelpDeepLinkInfoEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
+	return HelpDeepLinkInfoEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -148,6 +154,12 @@ func (d *HelpDeepLinkInfo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *HelpDeepLinkInfo) TypeID() uint32 {
+	return HelpDeepLinkInfoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -187,6 +199,16 @@ func (d *HelpDeepLinkInfo) SetUpdateApp(value bool) {
 		d.Flags.Unset(0)
 		d.UpdateApp = false
 	}
+}
+
+// GetUpdateApp returns value of UpdateApp conditional field.
+func (d *HelpDeepLinkInfo) GetUpdateApp() (value bool) {
+	return d.Flags.Has(0)
+}
+
+// GetMessage returns value of Message field.
+func (d *HelpDeepLinkInfo) GetMessage() (value string) {
+	return d.Message
 }
 
 // SetEntities sets value of Entities conditional field.
@@ -271,7 +293,12 @@ type HelpDeepLinkInfoClass interface {
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

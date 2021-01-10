@@ -78,6 +78,12 @@ func (s *SavedPhoneContact) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SavedPhoneContact) TypeID() uint32 {
+	return SavedPhoneContactTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -89,6 +95,26 @@ func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {
 	b.PutString(s.LastName)
 	b.PutInt(s.Date)
 	return nil
+}
+
+// GetPhone returns value of Phone field.
+func (s *SavedPhoneContact) GetPhone() (value string) {
+	return s.Phone
+}
+
+// GetFirstName returns value of FirstName field.
+func (s *SavedPhoneContact) GetFirstName() (value string) {
+	return s.FirstName
+}
+
+// GetLastName returns value of LastName field.
+func (s *SavedPhoneContact) GetLastName() (value string) {
+	return s.LastName
+}
+
+// GetDate returns value of Date field.
+func (s *SavedPhoneContact) GetDate() (value int) {
+	return s.Date
 }
 
 // Decode implements bin.Decoder.

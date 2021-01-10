@@ -133,6 +133,12 @@ func (p *PageRelatedArticle) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageRelatedArticle) TypeID() uint32 {
+	return PageRelatedArticleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -175,6 +181,16 @@ func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 		b.PutInt(p.PublishedDate)
 	}
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (p *PageRelatedArticle) GetURL() (value string) {
+	return p.URL
+}
+
+// GetWebpageID returns value of WebpageID field.
+func (p *PageRelatedArticle) GetWebpageID() (value int64) {
+	return p.WebpageID
 }
 
 // SetTitle sets value of Title conditional field.

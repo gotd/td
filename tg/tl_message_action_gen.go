@@ -46,6 +46,12 @@ func (m *MessageActionEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionEmpty) TypeID() uint32 {
+	return MessageActionEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionEmpty) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -125,6 +131,12 @@ func (m *MessageActionChatCreate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatCreate) TypeID() uint32 {
+	return MessageActionChatCreateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatCreate) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -137,6 +149,16 @@ func (m *MessageActionChatCreate) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (m *MessageActionChatCreate) GetTitle() (value string) {
+	return m.Title
+}
+
+// GetUsers returns value of Users field.
+func (m *MessageActionChatCreate) GetUsers() (value []int) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.
@@ -219,6 +241,12 @@ func (m *MessageActionChatEditTitle) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatEditTitle) TypeID() uint32 {
+	return MessageActionChatEditTitleTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatEditTitle) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -227,6 +255,11 @@ func (m *MessageActionChatEditTitle) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionChatEditTitleTypeID)
 	b.PutString(m.Title)
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (m *MessageActionChatEditTitle) GetTitle() (value string) {
+	return m.Title
 }
 
 // Decode implements bin.Decoder.
@@ -296,6 +329,12 @@ func (m *MessageActionChatEditPhoto) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatEditPhoto) TypeID() uint32 {
+	return MessageActionChatEditPhotoTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatEditPhoto) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -309,6 +348,11 @@ func (m *MessageActionChatEditPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messageActionChatEditPhoto#7fcb13a8: field photo: %w", err)
 	}
 	return nil
+}
+
+// GetPhoto returns value of Photo field.
+func (m *MessageActionChatEditPhoto) GetPhoto() (value PhotoClass) {
+	return m.Photo
 }
 
 // Decode implements bin.Decoder.
@@ -368,6 +412,12 @@ func (m *MessageActionChatDeletePhoto) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatDeletePhoto) TypeID() uint32 {
+	return MessageActionChatDeletePhotoTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -441,6 +491,12 @@ func (m *MessageActionChatAddUser) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatAddUser) TypeID() uint32 {
+	return MessageActionChatAddUserTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatAddUser) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -452,6 +508,11 @@ func (m *MessageActionChatAddUser) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetUsers returns value of Users field.
+func (m *MessageActionChatAddUser) GetUsers() (value []int) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.
@@ -527,6 +588,12 @@ func (m *MessageActionChatDeleteUser) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatDeleteUser) TypeID() uint32 {
+	return MessageActionChatDeleteUserTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatDeleteUser) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -535,6 +602,11 @@ func (m *MessageActionChatDeleteUser) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionChatDeleteUserTypeID)
 	b.PutInt(m.UserID)
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (m *MessageActionChatDeleteUser) GetUserID() (value int) {
+	return m.UserID
 }
 
 // Decode implements bin.Decoder.
@@ -604,6 +676,12 @@ func (m *MessageActionChatJoinedByLink) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatJoinedByLink) TypeID() uint32 {
+	return MessageActionChatJoinedByLinkTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatJoinedByLink) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -612,6 +690,11 @@ func (m *MessageActionChatJoinedByLink) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionChatJoinedByLinkTypeID)
 	b.PutInt(m.InviterID)
 	return nil
+}
+
+// GetInviterID returns value of InviterID field.
+func (m *MessageActionChatJoinedByLink) GetInviterID() (value int) {
+	return m.InviterID
 }
 
 // Decode implements bin.Decoder.
@@ -681,6 +764,12 @@ func (m *MessageActionChannelCreate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChannelCreate) TypeID() uint32 {
+	return MessageActionChannelCreateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChannelCreate) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -689,6 +778,11 @@ func (m *MessageActionChannelCreate) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionChannelCreateTypeID)
 	b.PutString(m.Title)
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (m *MessageActionChannelCreate) GetTitle() (value string) {
+	return m.Title
 }
 
 // Decode implements bin.Decoder.
@@ -761,6 +855,12 @@ func (m *MessageActionChatMigrateTo) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChatMigrateTo) TypeID() uint32 {
+	return MessageActionChatMigrateToTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChatMigrateTo) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -769,6 +869,11 @@ func (m *MessageActionChatMigrateTo) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionChatMigrateToTypeID)
 	b.PutInt(m.ChannelID)
 	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (m *MessageActionChatMigrateTo) GetChannelID() (value int) {
+	return m.ChannelID
 }
 
 // Decode implements bin.Decoder.
@@ -849,6 +954,12 @@ func (m *MessageActionChannelMigrateFrom) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionChannelMigrateFrom) TypeID() uint32 {
+	return MessageActionChannelMigrateFromTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionChannelMigrateFrom) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -858,6 +969,16 @@ func (m *MessageActionChannelMigrateFrom) Encode(b *bin.Buffer) error {
 	b.PutString(m.Title)
 	b.PutInt(m.ChatID)
 	return nil
+}
+
+// GetTitle returns value of Title field.
+func (m *MessageActionChannelMigrateFrom) GetTitle() (value string) {
+	return m.Title
+}
+
+// GetChatID returns value of ChatID field.
+func (m *MessageActionChannelMigrateFrom) GetChatID() (value int) {
+	return m.ChatID
 }
 
 // Decode implements bin.Decoder.
@@ -926,6 +1047,12 @@ func (m *MessageActionPinMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionPinMessage) TypeID() uint32 {
+	return MessageActionPinMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPinMessage) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -985,6 +1112,12 @@ func (m *MessageActionHistoryClear) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionHistoryClear) TypeID() uint32 {
+	return MessageActionHistoryClearTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -1064,6 +1197,12 @@ func (m *MessageActionGameScore) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionGameScore) TypeID() uint32 {
+	return MessageActionGameScoreTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionGameScore) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1073,6 +1212,16 @@ func (m *MessageActionGameScore) Encode(b *bin.Buffer) error {
 	b.PutLong(m.GameID)
 	b.PutInt(m.Score)
 	return nil
+}
+
+// GetGameID returns value of GameID field.
+func (m *MessageActionGameScore) GetGameID() (value int64) {
+	return m.GameID
+}
+
+// GetScore returns value of Score field.
+func (m *MessageActionGameScore) GetScore() (value int) {
+	return m.Score
 }
 
 // Decode implements bin.Decoder.
@@ -1214,6 +1363,12 @@ func (m *MessageActionPaymentSentMe) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionPaymentSentMe) TypeID() uint32 {
+	return MessageActionPaymentSentMeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1246,6 +1401,21 @@ func (m *MessageActionPaymentSentMe) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetCurrency returns value of Currency field.
+func (m *MessageActionPaymentSentMe) GetCurrency() (value string) {
+	return m.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (m *MessageActionPaymentSentMe) GetTotalAmount() (value int64) {
+	return m.TotalAmount
+}
+
+// GetPayload returns value of Payload field.
+func (m *MessageActionPaymentSentMe) GetPayload() (value []byte) {
+	return m.Payload
+}
+
 // SetInfo sets value of Info conditional field.
 func (m *MessageActionPaymentSentMe) SetInfo(value PaymentRequestedInfo) {
 	m.Flags.Set(0)
@@ -1274,6 +1444,11 @@ func (m *MessageActionPaymentSentMe) GetShippingOptionID() (value string, ok boo
 		return value, false
 	}
 	return m.ShippingOptionID, true
+}
+
+// GetCharge returns value of Charge field.
+func (m *MessageActionPaymentSentMe) GetCharge() (value PaymentCharge) {
+	return m.Charge
 }
 
 // Decode implements bin.Decoder.
@@ -1393,6 +1568,12 @@ func (m *MessageActionPaymentSent) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionPaymentSent) TypeID() uint32 {
+	return MessageActionPaymentSentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1402,6 +1583,16 @@ func (m *MessageActionPaymentSent) Encode(b *bin.Buffer) error {
 	b.PutString(m.Currency)
 	b.PutLong(m.TotalAmount)
 	return nil
+}
+
+// GetCurrency returns value of Currency field.
+func (m *MessageActionPaymentSent) GetCurrency() (value string) {
+	return m.Currency
+}
+
+// GetTotalAmount returns value of TotalAmount field.
+func (m *MessageActionPaymentSent) GetTotalAmount() (value int64) {
+	return m.TotalAmount
 }
 
 // Decode implements bin.Decoder.
@@ -1518,6 +1709,12 @@ func (m *MessageActionPhoneCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionPhoneCall) TypeID() uint32 {
+	return MessageActionPhoneCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionPhoneCall) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1560,6 +1757,16 @@ func (m *MessageActionPhoneCall) SetVideo(value bool) {
 		m.Flags.Unset(2)
 		m.Video = false
 	}
+}
+
+// GetVideo returns value of Video conditional field.
+func (m *MessageActionPhoneCall) GetVideo() (value bool) {
+	return m.Flags.Has(2)
+}
+
+// GetCallID returns value of CallID field.
+func (m *MessageActionPhoneCall) GetCallID() (value int64) {
+	return m.CallID
 }
 
 // SetReason sets value of Reason conditional field.
@@ -1671,6 +1878,12 @@ func (m *MessageActionScreenshotTaken) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionScreenshotTaken) TypeID() uint32 {
+	return MessageActionScreenshotTakenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionScreenshotTaken) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1740,6 +1953,12 @@ func (m *MessageActionCustomAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionCustomAction) TypeID() uint32 {
+	return MessageActionCustomActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionCustomAction) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1748,6 +1967,11 @@ func (m *MessageActionCustomAction) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionCustomActionTypeID)
 	b.PutString(m.Message)
 	return nil
+}
+
+// GetMessage returns value of Message field.
+func (m *MessageActionCustomAction) GetMessage() (value string) {
+	return m.Message
 }
 
 // Decode implements bin.Decoder.
@@ -1820,6 +2044,12 @@ func (m *MessageActionBotAllowed) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionBotAllowed) TypeID() uint32 {
+	return MessageActionBotAllowedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionBotAllowed) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1828,6 +2058,11 @@ func (m *MessageActionBotAllowed) Encode(b *bin.Buffer) error {
 	b.PutID(MessageActionBotAllowedTypeID)
 	b.PutString(m.Domain)
 	return nil
+}
+
+// GetDomain returns value of Domain field.
+func (m *MessageActionBotAllowed) GetDomain() (value string) {
+	return m.Domain
 }
 
 // Decode implements bin.Decoder.
@@ -1910,6 +2145,12 @@ func (m *MessageActionSecureValuesSentMe) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionSecureValuesSentMe) TypeID() uint32 {
+	return MessageActionSecureValuesSentMeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionSecureValuesSentMe) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1926,6 +2167,16 @@ func (m *MessageActionSecureValuesSentMe) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode messageActionSecureValuesSentMe#1b287353: field credentials: %w", err)
 	}
 	return nil
+}
+
+// GetValues returns value of Values field.
+func (m *MessageActionSecureValuesSentMe) GetValues() (value []SecureValue) {
+	return m.Values
+}
+
+// GetCredentials returns value of Credentials field.
+func (m *MessageActionSecureValuesSentMe) GetCredentials() (value SecureCredentialsEncrypted) {
+	return m.Credentials
 }
 
 // Decode implements bin.Decoder.
@@ -2011,6 +2262,12 @@ func (m *MessageActionSecureValuesSent) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionSecureValuesSent) TypeID() uint32 {
+	return MessageActionSecureValuesSentTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionSecureValuesSent) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2027,6 +2284,11 @@ func (m *MessageActionSecureValuesSent) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetTypes returns value of Types field.
+func (m *MessageActionSecureValuesSent) GetTypes() (value []SecureValueTypeClass) {
+	return m.Types
 }
 
 // Decode implements bin.Decoder.
@@ -2092,6 +2354,12 @@ func (m *MessageActionContactSignUp) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionContactSignUp) TypeID() uint32 {
+	return MessageActionContactSignUpTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -2182,6 +2450,12 @@ func (m *MessageActionGeoProximityReached) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionGeoProximityReached) TypeID() uint32 {
+	return MessageActionGeoProximityReachedTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionGeoProximityReached) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2202,6 +2476,21 @@ func (m *MessageActionGeoProximityReached) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(m.Distance)
 	return nil
+}
+
+// GetFromID returns value of FromID field.
+func (m *MessageActionGeoProximityReached) GetFromID() (value PeerClass) {
+	return m.FromID
+}
+
+// GetToID returns value of ToID field.
+func (m *MessageActionGeoProximityReached) GetToID() (value PeerClass) {
+	return m.ToID
+}
+
+// GetDistance returns value of Distance field.
+func (m *MessageActionGeoProximityReached) GetDistance() (value int) {
+	return m.Distance
 }
 
 // Decode implements bin.Decoder.
@@ -2304,6 +2593,12 @@ func (m *MessageActionGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionGroupCall) TypeID() uint32 {
+	return MessageActionGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionGroupCall) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2323,6 +2618,11 @@ func (m *MessageActionGroupCall) Encode(b *bin.Buffer) error {
 		b.PutInt(m.Duration)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (m *MessageActionGroupCall) GetCall() (value InputGroupCall) {
+	return m.Call
 }
 
 // SetDuration sets value of Duration conditional field.
@@ -2426,6 +2726,12 @@ func (m *MessageActionInviteToGroupCall) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionInviteToGroupCall) TypeID() uint32 {
+	return MessageActionInviteToGroupCallTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageActionInviteToGroupCall) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -2440,6 +2746,16 @@ func (m *MessageActionInviteToGroupCall) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetCall returns value of Call field.
+func (m *MessageActionInviteToGroupCall) GetCall() (value InputGroupCall) {
+	return m.Call
+}
+
+// GetUsers returns value of Users field.
+func (m *MessageActionInviteToGroupCall) GetUsers() (value []int) {
+	return m.Users
 }
 
 // Decode implements bin.Decoder.
@@ -2525,7 +2841,12 @@ type MessageActionClass interface {
 	bin.Decoder
 	construct() MessageActionClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

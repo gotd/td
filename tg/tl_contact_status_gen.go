@@ -62,6 +62,12 @@ func (c *ContactStatus) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ContactStatus) TypeID() uint32 {
+	return ContactStatusTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ContactStatus) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -76,6 +82,16 @@ func (c *ContactStatus) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status: %w", err)
 	}
 	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (c *ContactStatus) GetUserID() (value int) {
+	return c.UserID
+}
+
+// GetStatus returns value of Status field.
+func (c *ContactStatus) GetStatus() (value UserStatusClass) {
+	return c.Status
 }
 
 // Decode implements bin.Decoder.

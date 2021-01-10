@@ -118,6 +118,12 @@ func (p *PageTableCell) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageTableCell) TypeID() uint32 {
+	return PageTableCellTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageTableCell) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -179,6 +185,11 @@ func (p *PageTableCell) SetHeader(value bool) {
 	}
 }
 
+// GetHeader returns value of Header conditional field.
+func (p *PageTableCell) GetHeader() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetAlignCenter sets value of AlignCenter conditional field.
 func (p *PageTableCell) SetAlignCenter(value bool) {
 	if value {
@@ -188,6 +199,11 @@ func (p *PageTableCell) SetAlignCenter(value bool) {
 		p.Flags.Unset(3)
 		p.AlignCenter = false
 	}
+}
+
+// GetAlignCenter returns value of AlignCenter conditional field.
+func (p *PageTableCell) GetAlignCenter() (value bool) {
+	return p.Flags.Has(3)
 }
 
 // SetAlignRight sets value of AlignRight conditional field.
@@ -201,6 +217,11 @@ func (p *PageTableCell) SetAlignRight(value bool) {
 	}
 }
 
+// GetAlignRight returns value of AlignRight conditional field.
+func (p *PageTableCell) GetAlignRight() (value bool) {
+	return p.Flags.Has(4)
+}
+
 // SetValignMiddle sets value of ValignMiddle conditional field.
 func (p *PageTableCell) SetValignMiddle(value bool) {
 	if value {
@@ -212,6 +233,11 @@ func (p *PageTableCell) SetValignMiddle(value bool) {
 	}
 }
 
+// GetValignMiddle returns value of ValignMiddle conditional field.
+func (p *PageTableCell) GetValignMiddle() (value bool) {
+	return p.Flags.Has(5)
+}
+
 // SetValignBottom sets value of ValignBottom conditional field.
 func (p *PageTableCell) SetValignBottom(value bool) {
 	if value {
@@ -221,6 +247,11 @@ func (p *PageTableCell) SetValignBottom(value bool) {
 		p.Flags.Unset(6)
 		p.ValignBottom = false
 	}
+}
+
+// GetValignBottom returns value of ValignBottom conditional field.
+func (p *PageTableCell) GetValignBottom() (value bool) {
+	return p.Flags.Has(6)
 }
 
 // SetText sets value of Text conditional field.

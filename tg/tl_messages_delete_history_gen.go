@@ -83,6 +83,12 @@ func (d *MessagesDeleteHistoryRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *MessagesDeleteHistoryRequest) TypeID() uint32 {
+	return MessagesDeleteHistoryRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -119,6 +125,11 @@ func (d *MessagesDeleteHistoryRequest) SetJustClear(value bool) {
 	}
 }
 
+// GetJustClear returns value of JustClear conditional field.
+func (d *MessagesDeleteHistoryRequest) GetJustClear() (value bool) {
+	return d.Flags.Has(0)
+}
+
 // SetRevoke sets value of Revoke conditional field.
 func (d *MessagesDeleteHistoryRequest) SetRevoke(value bool) {
 	if value {
@@ -128,6 +139,21 @@ func (d *MessagesDeleteHistoryRequest) SetRevoke(value bool) {
 		d.Flags.Unset(1)
 		d.Revoke = false
 	}
+}
+
+// GetRevoke returns value of Revoke conditional field.
+func (d *MessagesDeleteHistoryRequest) GetRevoke() (value bool) {
+	return d.Flags.Has(1)
+}
+
+// GetPeer returns value of Peer field.
+func (d *MessagesDeleteHistoryRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
+}
+
+// GetMaxID returns value of MaxID field.
+func (d *MessagesDeleteHistoryRequest) GetMaxID() (value int) {
+	return d.MaxID
 }
 
 // Decode implements bin.Decoder.

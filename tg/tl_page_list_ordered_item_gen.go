@@ -62,6 +62,12 @@ func (p *PageListOrderedItemText) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageListOrderedItemText) TypeID() uint32 {
+	return PageListOrderedItemTextTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -76,6 +82,16 @@ func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode pageListOrderedItemText#5e068047: field text: %w", err)
 	}
 	return nil
+}
+
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemText) GetNum() (value string) {
+	return p.Num
+}
+
+// GetText returns value of Text field.
+func (p *PageListOrderedItemText) GetText() (value RichTextClass) {
+	return p.Text
 }
 
 // Decode implements bin.Decoder.
@@ -165,6 +181,12 @@ func (p *PageListOrderedItemBlocks) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PageListOrderedItemBlocks) TypeID() uint32 {
+	return PageListOrderedItemBlocksTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -182,6 +204,16 @@ func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetNum returns value of Num field.
+func (p *PageListOrderedItemBlocks) GetNum() (value string) {
+	return p.Num
+}
+
+// GetBlocks returns value of Blocks field.
+func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
+	return p.Blocks
 }
 
 // Decode implements bin.Decoder.
@@ -245,7 +277,15 @@ type PageListOrderedItemClass interface {
 	bin.Decoder
 	construct() PageListOrderedItemClass
 
-	fmt.Stringer
+	// Number of element within ordered list
+	GetNum() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

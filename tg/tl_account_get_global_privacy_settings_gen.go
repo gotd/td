@@ -46,6 +46,12 @@ func (g *AccountGetGlobalPrivacySettingsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *AccountGetGlobalPrivacySettingsRequest) TypeID() uint32 {
+	return AccountGetGlobalPrivacySettingsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

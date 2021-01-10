@@ -85,6 +85,12 @@ func (b *BigMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BigMessage) TypeID() uint32 {
+	return BigMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BigMessage) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -97,6 +103,31 @@ func (b *BigMessage) Encode(buf *bin.Buffer) error {
 	buf.PutBool(b.Escape)
 	buf.PutBool(b.Summary)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (b *BigMessage) GetID() (value int32) {
+	return b.ID
+}
+
+// GetCount returns value of Count field.
+func (b *BigMessage) GetCount() (value int32) {
+	return b.Count
+}
+
+// GetTargetId returns value of TargetId field.
+func (b *BigMessage) GetTargetId() (value int32) {
+	return b.TargetId
+}
+
+// GetEscape returns value of Escape field.
+func (b *BigMessage) GetEscape() (value bool) {
+	return b.Escape
+}
+
+// GetSummary returns value of Summary field.
+func (b *BigMessage) GetSummary() (value bool) {
+	return b.Summary
 }
 
 // Decode implements bin.Decoder.
@@ -185,6 +216,12 @@ func (n *NoMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (n *NoMessage) TypeID() uint32 {
+	return NoMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (n *NoMessage) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -255,6 +292,12 @@ func (t *TargetsMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *TargetsMessage) TypeID() uint32 {
+	return TargetsMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -266,6 +309,11 @@ func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 		b.PutInt32(v)
 	}
 	return nil
+}
+
+// GetTargets returns value of Targets field.
+func (t *TargetsMessage) GetTargets() (value []int32) {
+	return t.Targets
 }
 
 // Decode implements bin.Decoder.
@@ -362,6 +410,12 @@ func (f *FieldsMessage) String() string {
 	}
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (f *FieldsMessage) TypeID() uint32 {
+	return FieldsMessageTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -496,6 +550,12 @@ func (b *BytesMessage) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (b *BytesMessage) TypeID() uint32 {
+	return BytesMessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -504,6 +564,11 @@ func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 	buf.PutID(BytesMessageTypeID)
 	buf.PutBytes(b.Data)
 	return nil
+}
+
+// GetData returns value of Data field.
+func (b *BytesMessage) GetData() (value []byte) {
+	return b.Data
 }
 
 // Decode implements bin.Decoder.
@@ -557,7 +622,12 @@ type AbstractMessageClass interface {
 	bin.Decoder
 	construct() AbstractMessageClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

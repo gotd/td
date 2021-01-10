@@ -60,6 +60,12 @@ func (g *ChannelsGetLeftChannelsRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ChannelsGetLeftChannelsRequest) TypeID() uint32 {
+	return ChannelsGetLeftChannelsRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetLeftChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -68,6 +74,11 @@ func (g *ChannelsGetLeftChannelsRequest) Encode(b *bin.Buffer) error {
 	b.PutID(ChannelsGetLeftChannelsRequestTypeID)
 	b.PutInt(g.Offset)
 	return nil
+}
+
+// GetOffset returns value of Offset field.
+func (g *ChannelsGetLeftChannelsRequest) GetOffset() (value int) {
+	return g.Offset
 }
 
 // Decode implements bin.Decoder.

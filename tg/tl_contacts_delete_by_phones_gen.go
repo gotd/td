@@ -56,6 +56,12 @@ func (d *ContactsDeleteByPhonesRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *ContactsDeleteByPhonesRequest) TypeID() uint32 {
+	return ContactsDeleteByPhonesRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *ContactsDeleteByPhonesRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -67,6 +73,11 @@ func (d *ContactsDeleteByPhonesRequest) Encode(b *bin.Buffer) error {
 		b.PutString(v)
 	}
 	return nil
+}
+
+// GetPhones returns value of Phones field.
+func (d *ContactsDeleteByPhonesRequest) GetPhones() (value []string) {
+	return d.Phones
 }
 
 // Decode implements bin.Decoder.

@@ -56,6 +56,12 @@ func (d *AuthDropTempAuthKeysRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *AuthDropTempAuthKeysRequest) TypeID() uint32 {
+	return AuthDropTempAuthKeysRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -67,6 +73,11 @@ func (d *AuthDropTempAuthKeysRequest) Encode(b *bin.Buffer) error {
 		b.PutLong(v)
 	}
 	return nil
+}
+
+// GetExceptAuthKeys returns value of ExceptAuthKeys field.
+func (d *AuthDropTempAuthKeysRequest) GetExceptAuthKeys() (value []int64) {
+	return d.ExceptAuthKeys
 }
 
 // Decode implements bin.Decoder.

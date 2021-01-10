@@ -60,6 +60,12 @@ func (d *ChannelsDeleteChannelRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *ChannelsDeleteChannelRequest) TypeID() uint32 {
+	return ChannelsDeleteChannelRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *ChannelsDeleteChannelRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -73,6 +79,11 @@ func (d *ChannelsDeleteChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.deleteChannel#c0111fe3: field channel: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (d *ChannelsDeleteChannelRequest) GetChannel() (value InputChannelClass) {
+	return d.Channel
 }
 
 // Decode implements bin.Decoder.

@@ -54,6 +54,12 @@ func (a *HelpAcceptTermsOfServiceRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *HelpAcceptTermsOfServiceRequest) TypeID() uint32 {
+	return HelpAcceptTermsOfServiceRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -64,6 +70,11 @@ func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode help.acceptTermsOfService#ee72f79a: field id: %w", err)
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (a *HelpAcceptTermsOfServiceRequest) GetID() (value DataJSON) {
+	return a.ID
 }
 
 // Decode implements bin.Decoder.

@@ -69,6 +69,12 @@ func (g *MessagesGetDiscussionMessageRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *MessagesGetDiscussionMessageRequest) TypeID() uint32 {
+	return MessagesGetDiscussionMessageRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -83,6 +89,16 @@ func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt(g.MsgID)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (g *MessagesGetDiscussionMessageRequest) GetPeer() (value InputPeerClass) {
+	return g.Peer
+}
+
+// GetMsgID returns value of MsgID field.
+func (g *MessagesGetDiscussionMessageRequest) GetMsgID() (value int) {
+	return g.MsgID
 }
 
 // Decode implements bin.Decoder.

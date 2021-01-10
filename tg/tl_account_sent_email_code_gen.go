@@ -65,6 +65,12 @@ func (s *AccountSentEmailCode) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSentEmailCode) TypeID() uint32 {
+	return AccountSentEmailCodeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -74,6 +80,16 @@ func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {
 	b.PutString(s.EmailPattern)
 	b.PutInt(s.Length)
 	return nil
+}
+
+// GetEmailPattern returns value of EmailPattern field.
+func (s *AccountSentEmailCode) GetEmailPattern() (value string) {
+	return s.EmailPattern
+}
+
+// GetLength returns value of Length field.
+func (s *AccountSentEmailCode) GetLength() (value int) {
+	return s.Length
 }
 
 // Decode implements bin.Decoder.

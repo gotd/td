@@ -96,6 +96,12 @@ func (m *MessageViews) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageViews) TypeID() uint32 {
+	return MessageViewsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageViews) Encode(b *bin.Buffer) error {
 	if m == nil {

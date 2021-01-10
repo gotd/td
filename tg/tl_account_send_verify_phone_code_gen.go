@@ -65,6 +65,12 @@ func (s *AccountSendVerifyPhoneCodeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSendVerifyPhoneCodeRequest) TypeID() uint32 {
+	return AccountSendVerifyPhoneCodeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSendVerifyPhoneCodeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -76,6 +82,16 @@ func (s *AccountSendVerifyPhoneCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode account.sendVerifyPhoneCode#a5a356f9: field settings: %w", err)
 	}
 	return nil
+}
+
+// GetPhoneNumber returns value of PhoneNumber field.
+func (s *AccountSendVerifyPhoneCodeRequest) GetPhoneNumber() (value string) {
+	return s.PhoneNumber
+}
+
+// GetSettings returns value of Settings field.
+func (s *AccountSendVerifyPhoneCodeRequest) GetSettings() (value CodeSettings) {
+	return s.Settings
 }
 
 // Decode implements bin.Decoder.

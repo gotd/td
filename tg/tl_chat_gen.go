@@ -54,6 +54,12 @@ func (c *ChatEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatEmpty) TypeID() uint32 {
+	return ChatEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -62,6 +68,11 @@ func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(ChatEmptyTypeID)
 	b.PutInt(c.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (c *ChatEmpty) GetID() (value int) {
+	return c.ID
 }
 
 // Decode implements bin.Decoder.
@@ -260,6 +271,12 @@ func (c *Chat) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *Chat) TypeID() uint32 {
+	return ChatTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *Chat) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -339,6 +356,11 @@ func (c *Chat) SetCreator(value bool) {
 	}
 }
 
+// GetCreator returns value of Creator conditional field.
+func (c *Chat) GetCreator() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetKicked sets value of Kicked conditional field.
 func (c *Chat) SetKicked(value bool) {
 	if value {
@@ -348,6 +370,11 @@ func (c *Chat) SetKicked(value bool) {
 		c.Flags.Unset(1)
 		c.Kicked = false
 	}
+}
+
+// GetKicked returns value of Kicked conditional field.
+func (c *Chat) GetKicked() (value bool) {
+	return c.Flags.Has(1)
 }
 
 // SetLeft sets value of Left conditional field.
@@ -361,6 +388,11 @@ func (c *Chat) SetLeft(value bool) {
 	}
 }
 
+// GetLeft returns value of Left conditional field.
+func (c *Chat) GetLeft() (value bool) {
+	return c.Flags.Has(2)
+}
+
 // SetDeactivated sets value of Deactivated conditional field.
 func (c *Chat) SetDeactivated(value bool) {
 	if value {
@@ -370,6 +402,11 @@ func (c *Chat) SetDeactivated(value bool) {
 		c.Flags.Unset(5)
 		c.Deactivated = false
 	}
+}
+
+// GetDeactivated returns value of Deactivated conditional field.
+func (c *Chat) GetDeactivated() (value bool) {
+	return c.Flags.Has(5)
 }
 
 // SetCallActive sets value of CallActive conditional field.
@@ -383,6 +420,11 @@ func (c *Chat) SetCallActive(value bool) {
 	}
 }
 
+// GetCallActive returns value of CallActive conditional field.
+func (c *Chat) GetCallActive() (value bool) {
+	return c.Flags.Has(23)
+}
+
 // SetCallNotEmpty sets value of CallNotEmpty conditional field.
 func (c *Chat) SetCallNotEmpty(value bool) {
 	if value {
@@ -392,6 +434,41 @@ func (c *Chat) SetCallNotEmpty(value bool) {
 		c.Flags.Unset(24)
 		c.CallNotEmpty = false
 	}
+}
+
+// GetCallNotEmpty returns value of CallNotEmpty conditional field.
+func (c *Chat) GetCallNotEmpty() (value bool) {
+	return c.Flags.Has(24)
+}
+
+// GetID returns value of ID field.
+func (c *Chat) GetID() (value int) {
+	return c.ID
+}
+
+// GetTitle returns value of Title field.
+func (c *Chat) GetTitle() (value string) {
+	return c.Title
+}
+
+// GetPhoto returns value of Photo field.
+func (c *Chat) GetPhoto() (value ChatPhotoClass) {
+	return c.Photo
+}
+
+// GetParticipantsCount returns value of ParticipantsCount field.
+func (c *Chat) GetParticipantsCount() (value int) {
+	return c.ParticipantsCount
+}
+
+// GetDate returns value of Date field.
+func (c *Chat) GetDate() (value int) {
+	return c.Date
+}
+
+// GetVersion returns value of Version field.
+func (c *Chat) GetVersion() (value int) {
+	return c.Version
 }
 
 // SetMigratedTo sets value of MigratedTo conditional field.
@@ -577,6 +654,12 @@ func (c *ChatForbidden) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChatForbidden) TypeID() uint32 {
+	return ChatForbiddenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -586,6 +669,16 @@ func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 	b.PutInt(c.ID)
 	b.PutString(c.Title)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (c *ChatForbidden) GetID() (value int) {
+	return c.ID
+}
+
+// GetTitle returns value of Title field.
+func (c *ChatForbidden) GetTitle() (value string) {
+	return c.Title
 }
 
 // Decode implements bin.Decoder.
@@ -873,6 +966,12 @@ func (c *Channel) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *Channel) TypeID() uint32 {
+	return ChannelTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *Channel) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1001,6 +1100,11 @@ func (c *Channel) SetCreator(value bool) {
 	}
 }
 
+// GetCreator returns value of Creator conditional field.
+func (c *Channel) GetCreator() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetLeft sets value of Left conditional field.
 func (c *Channel) SetLeft(value bool) {
 	if value {
@@ -1010,6 +1114,11 @@ func (c *Channel) SetLeft(value bool) {
 		c.Flags.Unset(2)
 		c.Left = false
 	}
+}
+
+// GetLeft returns value of Left conditional field.
+func (c *Channel) GetLeft() (value bool) {
+	return c.Flags.Has(2)
 }
 
 // SetBroadcast sets value of Broadcast conditional field.
@@ -1023,6 +1132,11 @@ func (c *Channel) SetBroadcast(value bool) {
 	}
 }
 
+// GetBroadcast returns value of Broadcast conditional field.
+func (c *Channel) GetBroadcast() (value bool) {
+	return c.Flags.Has(5)
+}
+
 // SetVerified sets value of Verified conditional field.
 func (c *Channel) SetVerified(value bool) {
 	if value {
@@ -1032,6 +1146,11 @@ func (c *Channel) SetVerified(value bool) {
 		c.Flags.Unset(7)
 		c.Verified = false
 	}
+}
+
+// GetVerified returns value of Verified conditional field.
+func (c *Channel) GetVerified() (value bool) {
+	return c.Flags.Has(7)
 }
 
 // SetMegagroup sets value of Megagroup conditional field.
@@ -1045,6 +1164,11 @@ func (c *Channel) SetMegagroup(value bool) {
 	}
 }
 
+// GetMegagroup returns value of Megagroup conditional field.
+func (c *Channel) GetMegagroup() (value bool) {
+	return c.Flags.Has(8)
+}
+
 // SetRestricted sets value of Restricted conditional field.
 func (c *Channel) SetRestricted(value bool) {
 	if value {
@@ -1054,6 +1178,11 @@ func (c *Channel) SetRestricted(value bool) {
 		c.Flags.Unset(9)
 		c.Restricted = false
 	}
+}
+
+// GetRestricted returns value of Restricted conditional field.
+func (c *Channel) GetRestricted() (value bool) {
+	return c.Flags.Has(9)
 }
 
 // SetSignatures sets value of Signatures conditional field.
@@ -1067,6 +1196,11 @@ func (c *Channel) SetSignatures(value bool) {
 	}
 }
 
+// GetSignatures returns value of Signatures conditional field.
+func (c *Channel) GetSignatures() (value bool) {
+	return c.Flags.Has(11)
+}
+
 // SetMin sets value of Min conditional field.
 func (c *Channel) SetMin(value bool) {
 	if value {
@@ -1076,6 +1210,11 @@ func (c *Channel) SetMin(value bool) {
 		c.Flags.Unset(12)
 		c.Min = false
 	}
+}
+
+// GetMin returns value of Min conditional field.
+func (c *Channel) GetMin() (value bool) {
+	return c.Flags.Has(12)
 }
 
 // SetScam sets value of Scam conditional field.
@@ -1089,6 +1228,11 @@ func (c *Channel) SetScam(value bool) {
 	}
 }
 
+// GetScam returns value of Scam conditional field.
+func (c *Channel) GetScam() (value bool) {
+	return c.Flags.Has(19)
+}
+
 // SetHasLink sets value of HasLink conditional field.
 func (c *Channel) SetHasLink(value bool) {
 	if value {
@@ -1098,6 +1242,11 @@ func (c *Channel) SetHasLink(value bool) {
 		c.Flags.Unset(20)
 		c.HasLink = false
 	}
+}
+
+// GetHasLink returns value of HasLink conditional field.
+func (c *Channel) GetHasLink() (value bool) {
+	return c.Flags.Has(20)
 }
 
 // SetHasGeo sets value of HasGeo conditional field.
@@ -1111,6 +1260,11 @@ func (c *Channel) SetHasGeo(value bool) {
 	}
 }
 
+// GetHasGeo returns value of HasGeo conditional field.
+func (c *Channel) GetHasGeo() (value bool) {
+	return c.Flags.Has(21)
+}
+
 // SetSlowmodeEnabled sets value of SlowmodeEnabled conditional field.
 func (c *Channel) SetSlowmodeEnabled(value bool) {
 	if value {
@@ -1120,6 +1274,11 @@ func (c *Channel) SetSlowmodeEnabled(value bool) {
 		c.Flags.Unset(22)
 		c.SlowmodeEnabled = false
 	}
+}
+
+// GetSlowmodeEnabled returns value of SlowmodeEnabled conditional field.
+func (c *Channel) GetSlowmodeEnabled() (value bool) {
+	return c.Flags.Has(22)
 }
 
 // SetCallActive sets value of CallActive conditional field.
@@ -1133,6 +1292,11 @@ func (c *Channel) SetCallActive(value bool) {
 	}
 }
 
+// GetCallActive returns value of CallActive conditional field.
+func (c *Channel) GetCallActive() (value bool) {
+	return c.Flags.Has(23)
+}
+
 // SetCallNotEmpty sets value of CallNotEmpty conditional field.
 func (c *Channel) SetCallNotEmpty(value bool) {
 	if value {
@@ -1142,6 +1306,16 @@ func (c *Channel) SetCallNotEmpty(value bool) {
 		c.Flags.Unset(24)
 		c.CallNotEmpty = false
 	}
+}
+
+// GetCallNotEmpty returns value of CallNotEmpty conditional field.
+func (c *Channel) GetCallNotEmpty() (value bool) {
+	return c.Flags.Has(24)
+}
+
+// GetID returns value of ID field.
+func (c *Channel) GetID() (value int) {
+	return c.ID
 }
 
 // SetAccessHash sets value of AccessHash conditional field.
@@ -1159,6 +1333,11 @@ func (c *Channel) GetAccessHash() (value int64, ok bool) {
 	return c.AccessHash, true
 }
 
+// GetTitle returns value of Title field.
+func (c *Channel) GetTitle() (value string) {
+	return c.Title
+}
+
 // SetUsername sets value of Username conditional field.
 func (c *Channel) SetUsername(value string) {
 	c.Flags.Set(6)
@@ -1172,6 +1351,21 @@ func (c *Channel) GetUsername() (value string, ok bool) {
 		return value, false
 	}
 	return c.Username, true
+}
+
+// GetPhoto returns value of Photo field.
+func (c *Channel) GetPhoto() (value ChatPhotoClass) {
+	return c.Photo
+}
+
+// GetDate returns value of Date field.
+func (c *Channel) GetDate() (value int) {
+	return c.Date
+}
+
+// GetVersion returns value of Version field.
+func (c *Channel) GetVersion() (value int) {
+	return c.Version
 }
 
 // SetRestrictionReason sets value of RestrictionReason conditional field.
@@ -1461,6 +1655,12 @@ func (c *ChannelForbidden) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelForbidden) TypeID() uint32 {
+	return ChannelForbiddenTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -1499,6 +1699,11 @@ func (c *ChannelForbidden) SetBroadcast(value bool) {
 	}
 }
 
+// GetBroadcast returns value of Broadcast conditional field.
+func (c *ChannelForbidden) GetBroadcast() (value bool) {
+	return c.Flags.Has(5)
+}
+
 // SetMegagroup sets value of Megagroup conditional field.
 func (c *ChannelForbidden) SetMegagroup(value bool) {
 	if value {
@@ -1508,6 +1713,26 @@ func (c *ChannelForbidden) SetMegagroup(value bool) {
 		c.Flags.Unset(8)
 		c.Megagroup = false
 	}
+}
+
+// GetMegagroup returns value of Megagroup conditional field.
+func (c *ChannelForbidden) GetMegagroup() (value bool) {
+	return c.Flags.Has(8)
+}
+
+// GetID returns value of ID field.
+func (c *ChannelForbidden) GetID() (value int) {
+	return c.ID
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (c *ChannelForbidden) GetAccessHash() (value int64) {
+	return c.AccessHash
+}
+
+// GetTitle returns value of Title field.
+func (c *ChannelForbidden) GetTitle() (value string) {
+	return c.Title
 }
 
 // SetUntilDate sets value of UntilDate conditional field.
@@ -1604,7 +1829,15 @@ type ChatClass interface {
 	bin.Decoder
 	construct() ChatClass
 
-	fmt.Stringer
+	// Group identifier
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

@@ -65,6 +65,12 @@ func (p *PollAnswer) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PollAnswer) TypeID() uint32 {
+	return PollAnswerTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PollAnswer) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -74,6 +80,16 @@ func (p *PollAnswer) Encode(b *bin.Buffer) error {
 	b.PutString(p.Text)
 	b.PutBytes(p.Option)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (p *PollAnswer) GetText() (value string) {
+	return p.Text
+}
+
+// GetOption returns value of Option field.
+func (p *PollAnswer) GetOption() (value []byte) {
+	return p.Option
 }
 
 // Decode implements bin.Decoder.

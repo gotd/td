@@ -62,6 +62,12 @@ func (c *CdnConfig) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *CdnConfig) TypeID() uint32 {
+	return CdnConfigTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *CdnConfig) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -75,6 +81,11 @@ func (c *CdnConfig) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetPublicKeys returns value of PublicKeys field.
+func (c *CdnConfig) GetPublicKeys() (value []CdnPublicKey) {
+	return c.PublicKeys
 }
 
 // Decode implements bin.Decoder.

@@ -57,6 +57,12 @@ func (p *PhotoSizeEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoSizeEmpty) TypeID() uint32 {
+	return PhotoSizeEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoSizeEmpty) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -65,6 +71,11 @@ func (p *PhotoSizeEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(PhotoSizeEmptyTypeID)
 	b.PutString(p.Type)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoSizeEmpty) GetType() (value string) {
+	return p.Type
 }
 
 // Decode implements bin.Decoder.
@@ -166,6 +177,12 @@ func (p *PhotoSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoSize) TypeID() uint32 {
+	return PhotoSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -180,6 +197,31 @@ func (p *PhotoSize) Encode(b *bin.Buffer) error {
 	b.PutInt(p.H)
 	b.PutInt(p.Size)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoSize) GetType() (value string) {
+	return p.Type
+}
+
+// GetLocation returns value of Location field.
+func (p *PhotoSize) GetLocation() (value FileLocationToBeDeprecated) {
+	return p.Location
+}
+
+// GetW returns value of W field.
+func (p *PhotoSize) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PhotoSize) GetH() (value int) {
+	return p.H
+}
+
+// GetSize returns value of Size field.
+func (p *PhotoSize) GetSize() (value int) {
+	return p.Size
 }
 
 // Decode implements bin.Decoder.
@@ -307,6 +349,12 @@ func (p *PhotoCachedSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoCachedSize) TypeID() uint32 {
+	return PhotoCachedSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -321,6 +369,31 @@ func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 	b.PutInt(p.H)
 	b.PutBytes(p.Bytes)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoCachedSize) GetType() (value string) {
+	return p.Type
+}
+
+// GetLocation returns value of Location field.
+func (p *PhotoCachedSize) GetLocation() (value FileLocationToBeDeprecated) {
+	return p.Location
+}
+
+// GetW returns value of W field.
+func (p *PhotoCachedSize) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PhotoCachedSize) GetH() (value int) {
+	return p.H
+}
+
+// GetBytes returns value of Bytes field.
+func (p *PhotoCachedSize) GetBytes() (value []byte) {
+	return p.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -427,6 +500,12 @@ func (p *PhotoStrippedSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoStrippedSize) TypeID() uint32 {
+	return PhotoStrippedSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoStrippedSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -436,6 +515,16 @@ func (p *PhotoStrippedSize) Encode(b *bin.Buffer) error {
 	b.PutString(p.Type)
 	b.PutBytes(p.Bytes)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoStrippedSize) GetType() (value string) {
+	return p.Type
+}
+
+// GetBytes returns value of Bytes field.
+func (p *PhotoStrippedSize) GetBytes() (value []byte) {
+	return p.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -546,6 +635,12 @@ func (p *PhotoSizeProgressive) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoSizeProgressive) TypeID() uint32 {
+	return PhotoSizeProgressiveTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoSizeProgressive) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -563,6 +658,31 @@ func (p *PhotoSizeProgressive) Encode(b *bin.Buffer) error {
 		b.PutInt(v)
 	}
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoSizeProgressive) GetType() (value string) {
+	return p.Type
+}
+
+// GetLocation returns value of Location field.
+func (p *PhotoSizeProgressive) GetLocation() (value FileLocationToBeDeprecated) {
+	return p.Location
+}
+
+// GetW returns value of W field.
+func (p *PhotoSizeProgressive) GetW() (value int) {
+	return p.W
+}
+
+// GetH returns value of H field.
+func (p *PhotoSizeProgressive) GetH() (value int) {
+	return p.H
+}
+
+// GetSizes returns value of Sizes field.
+func (p *PhotoSizeProgressive) GetSizes() (value []int) {
+	return p.Sizes
 }
 
 // Decode implements bin.Decoder.
@@ -675,6 +795,12 @@ func (p *PhotoPathSize) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhotoPathSize) TypeID() uint32 {
+	return PhotoPathSizeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhotoPathSize) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -684,6 +810,16 @@ func (p *PhotoPathSize) Encode(b *bin.Buffer) error {
 	b.PutString(p.Type)
 	b.PutBytes(p.Bytes)
 	return nil
+}
+
+// GetType returns value of Type field.
+func (p *PhotoPathSize) GetType() (value string) {
+	return p.Type
+}
+
+// GetBytes returns value of Bytes field.
+func (p *PhotoPathSize) GetBytes() (value []byte) {
+	return p.Bytes
 }
 
 // Decode implements bin.Decoder.
@@ -745,7 +881,18 @@ type PhotoSizeClass interface {
 	bin.Decoder
 	construct() PhotoSizeClass
 
-	fmt.Stringer
+	// Thumbnail type (see. photoSize¹)
+	//
+	// Links:
+	//  1) https://core.telegram.org/constructor/photoSize
+	GetType() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

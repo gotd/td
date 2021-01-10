@@ -46,6 +46,12 @@ func (s *SendMessageTypingAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageTypingAction) TypeID() uint32 {
+	return SendMessageTypingActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -107,6 +113,12 @@ func (s *SendMessageCancelAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageCancelAction) TypeID() uint32 {
+	return SendMessageCancelActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageCancelAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -166,6 +178,12 @@ func (s *SendMessageRecordVideoAction) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageRecordVideoAction) TypeID() uint32 {
+	return SendMessageRecordVideoActionTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -237,6 +255,12 @@ func (s *SendMessageUploadVideoAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageUploadVideoAction) TypeID() uint32 {
+	return SendMessageUploadVideoActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -245,6 +269,11 @@ func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
 	b.PutID(SendMessageUploadVideoActionTypeID)
 	b.PutInt(s.Progress)
 	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadVideoAction) GetProgress() (value int) {
+	return s.Progress
 }
 
 // Decode implements bin.Decoder.
@@ -304,6 +333,12 @@ func (s *SendMessageRecordAudioAction) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageRecordAudioAction) TypeID() uint32 {
+	return SendMessageRecordAudioActionTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -375,6 +410,12 @@ func (s *SendMessageUploadAudioAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageUploadAudioAction) TypeID() uint32 {
+	return SendMessageUploadAudioActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -383,6 +424,11 @@ func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
 	b.PutID(SendMessageUploadAudioActionTypeID)
 	b.PutInt(s.Progress)
 	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadAudioAction) GetProgress() (value int) {
+	return s.Progress
 }
 
 // Decode implements bin.Decoder.
@@ -452,6 +498,12 @@ func (s *SendMessageUploadPhotoAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
+	return SendMessageUploadPhotoActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -460,6 +512,11 @@ func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 	b.PutID(SendMessageUploadPhotoActionTypeID)
 	b.PutInt(s.Progress)
 	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadPhotoAction) GetProgress() (value int) {
+	return s.Progress
 }
 
 // Decode implements bin.Decoder.
@@ -529,6 +586,12 @@ func (s *SendMessageUploadDocumentAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageUploadDocumentAction) TypeID() uint32 {
+	return SendMessageUploadDocumentActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -537,6 +600,11 @@ func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 	b.PutID(SendMessageUploadDocumentActionTypeID)
 	b.PutInt(s.Progress)
 	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadDocumentAction) GetProgress() (value int) {
+	return s.Progress
 }
 
 // Decode implements bin.Decoder.
@@ -596,6 +664,12 @@ func (s *SendMessageGeoLocationAction) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageGeoLocationAction) TypeID() uint32 {
+	return SendMessageGeoLocationActionTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -659,6 +733,12 @@ func (s *SendMessageChooseContactAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageChooseContactAction) TypeID() uint32 {
+	return SendMessageChooseContactActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageChooseContactAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -720,6 +800,12 @@ func (s *SendMessageGamePlayAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageGamePlayAction) TypeID() uint32 {
+	return SendMessageGamePlayActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageGamePlayAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -779,6 +865,12 @@ func (s *SendMessageRecordRoundAction) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageRecordRoundAction) TypeID() uint32 {
+	return SendMessageRecordRoundActionTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -850,6 +942,12 @@ func (s *SendMessageUploadRoundAction) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageUploadRoundAction) TypeID() uint32 {
+	return SendMessageUploadRoundActionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -858,6 +956,11 @@ func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
 	b.PutID(SendMessageUploadRoundActionTypeID)
 	b.PutInt(s.Progress)
 	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageUploadRoundAction) GetProgress() (value int) {
+	return s.Progress
 }
 
 // Decode implements bin.Decoder.
@@ -916,6 +1019,12 @@ func (s *SpeakingInGroupCallAction) String() string {
 	sb.WriteString("{\n")
 	sb.WriteString("}")
 	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SpeakingInGroupCallAction) TypeID() uint32 {
+	return SpeakingInGroupCallActionTypeID
 }
 
 // Encode implements bin.Encoder.
@@ -980,7 +1089,12 @@ type SendMessageActionClass interface {
 	bin.Decoder
 	construct() SendMessageActionClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

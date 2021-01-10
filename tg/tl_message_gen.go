@@ -54,6 +54,12 @@ func (m *MessageEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageEmpty) TypeID() uint32 {
+	return MessageEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -62,6 +68,11 @@ func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(MessageEmptyTypeID)
 	b.PutInt(m.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (m *MessageEmpty) GetID() (value int) {
+	return m.ID
 }
 
 // Decode implements bin.Decoder.
@@ -402,6 +413,12 @@ func (m *Message) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *Message) TypeID() uint32 {
+	return MessageTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -579,6 +596,11 @@ func (m *Message) SetOut(value bool) {
 	}
 }
 
+// GetOut returns value of Out conditional field.
+func (m *Message) GetOut() (value bool) {
+	return m.Flags.Has(1)
+}
+
 // SetMentioned sets value of Mentioned conditional field.
 func (m *Message) SetMentioned(value bool) {
 	if value {
@@ -588,6 +610,11 @@ func (m *Message) SetMentioned(value bool) {
 		m.Flags.Unset(4)
 		m.Mentioned = false
 	}
+}
+
+// GetMentioned returns value of Mentioned conditional field.
+func (m *Message) GetMentioned() (value bool) {
+	return m.Flags.Has(4)
 }
 
 // SetMediaUnread sets value of MediaUnread conditional field.
@@ -601,6 +628,11 @@ func (m *Message) SetMediaUnread(value bool) {
 	}
 }
 
+// GetMediaUnread returns value of MediaUnread conditional field.
+func (m *Message) GetMediaUnread() (value bool) {
+	return m.Flags.Has(5)
+}
+
 // SetSilent sets value of Silent conditional field.
 func (m *Message) SetSilent(value bool) {
 	if value {
@@ -610,6 +642,11 @@ func (m *Message) SetSilent(value bool) {
 		m.Flags.Unset(13)
 		m.Silent = false
 	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (m *Message) GetSilent() (value bool) {
+	return m.Flags.Has(13)
 }
 
 // SetPost sets value of Post conditional field.
@@ -623,6 +660,11 @@ func (m *Message) SetPost(value bool) {
 	}
 }
 
+// GetPost returns value of Post conditional field.
+func (m *Message) GetPost() (value bool) {
+	return m.Flags.Has(14)
+}
+
 // SetFromScheduled sets value of FromScheduled conditional field.
 func (m *Message) SetFromScheduled(value bool) {
 	if value {
@@ -632,6 +674,11 @@ func (m *Message) SetFromScheduled(value bool) {
 		m.Flags.Unset(18)
 		m.FromScheduled = false
 	}
+}
+
+// GetFromScheduled returns value of FromScheduled conditional field.
+func (m *Message) GetFromScheduled() (value bool) {
+	return m.Flags.Has(18)
 }
 
 // SetLegacy sets value of Legacy conditional field.
@@ -645,6 +692,11 @@ func (m *Message) SetLegacy(value bool) {
 	}
 }
 
+// GetLegacy returns value of Legacy conditional field.
+func (m *Message) GetLegacy() (value bool) {
+	return m.Flags.Has(19)
+}
+
 // SetEditHide sets value of EditHide conditional field.
 func (m *Message) SetEditHide(value bool) {
 	if value {
@@ -656,6 +708,11 @@ func (m *Message) SetEditHide(value bool) {
 	}
 }
 
+// GetEditHide returns value of EditHide conditional field.
+func (m *Message) GetEditHide() (value bool) {
+	return m.Flags.Has(21)
+}
+
 // SetPinned sets value of Pinned conditional field.
 func (m *Message) SetPinned(value bool) {
 	if value {
@@ -665,6 +722,16 @@ func (m *Message) SetPinned(value bool) {
 		m.Flags.Unset(24)
 		m.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (m *Message) GetPinned() (value bool) {
+	return m.Flags.Has(24)
+}
+
+// GetID returns value of ID field.
+func (m *Message) GetID() (value int) {
+	return m.ID
 }
 
 // SetFromID sets value of FromID conditional field.
@@ -680,6 +747,11 @@ func (m *Message) GetFromID() (value PeerClass, ok bool) {
 		return value, false
 	}
 	return m.FromID, true
+}
+
+// GetPeerID returns value of PeerID field.
+func (m *Message) GetPeerID() (value PeerClass) {
+	return m.PeerID
 }
 
 // SetFwdFrom sets value of FwdFrom conditional field.
@@ -725,6 +797,16 @@ func (m *Message) GetReplyTo() (value MessageReplyHeader, ok bool) {
 		return value, false
 	}
 	return m.ReplyTo, true
+}
+
+// GetDate returns value of Date field.
+func (m *Message) GetDate() (value int) {
+	return m.Date
+}
+
+// GetMessage returns value of Message field.
+func (m *Message) GetMessage() (value string) {
+	return m.Message
 }
 
 // SetMedia sets value of Media conditional field.
@@ -1172,6 +1254,12 @@ func (m *MessageService) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageService) TypeID() uint32 {
+	return MessageServiceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageService) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -1246,6 +1334,11 @@ func (m *MessageService) SetOut(value bool) {
 	}
 }
 
+// GetOut returns value of Out conditional field.
+func (m *MessageService) GetOut() (value bool) {
+	return m.Flags.Has(1)
+}
+
 // SetMentioned sets value of Mentioned conditional field.
 func (m *MessageService) SetMentioned(value bool) {
 	if value {
@@ -1255,6 +1348,11 @@ func (m *MessageService) SetMentioned(value bool) {
 		m.Flags.Unset(4)
 		m.Mentioned = false
 	}
+}
+
+// GetMentioned returns value of Mentioned conditional field.
+func (m *MessageService) GetMentioned() (value bool) {
+	return m.Flags.Has(4)
 }
 
 // SetMediaUnread sets value of MediaUnread conditional field.
@@ -1268,6 +1366,11 @@ func (m *MessageService) SetMediaUnread(value bool) {
 	}
 }
 
+// GetMediaUnread returns value of MediaUnread conditional field.
+func (m *MessageService) GetMediaUnread() (value bool) {
+	return m.Flags.Has(5)
+}
+
 // SetSilent sets value of Silent conditional field.
 func (m *MessageService) SetSilent(value bool) {
 	if value {
@@ -1277,6 +1380,11 @@ func (m *MessageService) SetSilent(value bool) {
 		m.Flags.Unset(13)
 		m.Silent = false
 	}
+}
+
+// GetSilent returns value of Silent conditional field.
+func (m *MessageService) GetSilent() (value bool) {
+	return m.Flags.Has(13)
 }
 
 // SetPost sets value of Post conditional field.
@@ -1290,6 +1398,11 @@ func (m *MessageService) SetPost(value bool) {
 	}
 }
 
+// GetPost returns value of Post conditional field.
+func (m *MessageService) GetPost() (value bool) {
+	return m.Flags.Has(14)
+}
+
 // SetLegacy sets value of Legacy conditional field.
 func (m *MessageService) SetLegacy(value bool) {
 	if value {
@@ -1299,6 +1412,16 @@ func (m *MessageService) SetLegacy(value bool) {
 		m.Flags.Unset(19)
 		m.Legacy = false
 	}
+}
+
+// GetLegacy returns value of Legacy conditional field.
+func (m *MessageService) GetLegacy() (value bool) {
+	return m.Flags.Has(19)
+}
+
+// GetID returns value of ID field.
+func (m *MessageService) GetID() (value int) {
+	return m.ID
 }
 
 // SetFromID sets value of FromID conditional field.
@@ -1316,6 +1439,11 @@ func (m *MessageService) GetFromID() (value PeerClass, ok bool) {
 	return m.FromID, true
 }
 
+// GetPeerID returns value of PeerID field.
+func (m *MessageService) GetPeerID() (value PeerClass) {
+	return m.PeerID
+}
+
 // SetReplyTo sets value of ReplyTo conditional field.
 func (m *MessageService) SetReplyTo(value MessageReplyHeader) {
 	m.Flags.Set(3)
@@ -1329,6 +1457,16 @@ func (m *MessageService) GetReplyTo() (value MessageReplyHeader, ok bool) {
 		return value, false
 	}
 	return m.ReplyTo, true
+}
+
+// GetDate returns value of Date field.
+func (m *MessageService) GetDate() (value int) {
+	return m.Date
+}
+
+// GetAction returns value of Action field.
+func (m *MessageService) GetAction() (value MessageActionClass) {
+	return m.Action
 }
 
 // Decode implements bin.Decoder.
@@ -1424,7 +1562,15 @@ type MessageClass interface {
 	bin.Decoder
 	construct() MessageClass
 
-	fmt.Stringer
+	// Message identifier
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

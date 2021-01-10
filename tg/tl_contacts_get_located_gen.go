@@ -82,6 +82,12 @@ func (g *ContactsGetLocatedRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *ContactsGetLocatedRequest) TypeID() uint32 {
+	return ContactsGetLocatedRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -118,6 +124,16 @@ func (g *ContactsGetLocatedRequest) SetBackground(value bool) {
 		g.Flags.Unset(1)
 		g.Background = false
 	}
+}
+
+// GetBackground returns value of Background conditional field.
+func (g *ContactsGetLocatedRequest) GetBackground() (value bool) {
+	return g.Flags.Has(1)
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (g *ContactsGetLocatedRequest) GetGeoPoint() (value InputGeoPointClass) {
+	return g.GeoPoint
 }
 
 // SetSelfExpires sets value of SelfExpires conditional field.

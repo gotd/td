@@ -62,6 +62,12 @@ func (i *InvokeWithTakeoutRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InvokeWithTakeoutRequest) TypeID() uint32 {
+	return InvokeWithTakeoutRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InvokeWithTakeoutRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -73,6 +79,16 @@ func (i *InvokeWithTakeoutRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode invokeWithTakeout#aca9fd2e: field query: %w", err)
 	}
 	return nil
+}
+
+// GetTakeoutID returns value of TakeoutID field.
+func (i *InvokeWithTakeoutRequest) GetTakeoutID() (value int64) {
+	return i.TakeoutID
+}
+
+// GetQuery returns value of Query field.
+func (i *InvokeWithTakeoutRequest) GetQuery() (value bin.Object) {
+	return i.Query
 }
 
 // Decode implements bin.Decoder.

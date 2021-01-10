@@ -54,6 +54,12 @@ func (i *MessagesImportChatInviteRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *MessagesImportChatInviteRequest) TypeID() uint32 {
+	return MessagesImportChatInviteRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -62,6 +68,11 @@ func (i *MessagesImportChatInviteRequest) Encode(b *bin.Buffer) error {
 	b.PutID(MessagesImportChatInviteRequestTypeID)
 	b.PutString(i.Hash)
 	return nil
+}
+
+// GetHash returns value of Hash field.
+func (i *MessagesImportChatInviteRequest) GetHash() (value string) {
+	return i.Hash
 }
 
 // Decode implements bin.Decoder.

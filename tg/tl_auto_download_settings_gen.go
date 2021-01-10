@@ -109,6 +109,12 @@ func (a *AutoDownloadSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AutoDownloadSettings) TypeID() uint32 {
+	return AutoDownloadSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -148,6 +154,11 @@ func (a *AutoDownloadSettings) SetDisabled(value bool) {
 	}
 }
 
+// GetDisabled returns value of Disabled conditional field.
+func (a *AutoDownloadSettings) GetDisabled() (value bool) {
+	return a.Flags.Has(0)
+}
+
 // SetVideoPreloadLarge sets value of VideoPreloadLarge conditional field.
 func (a *AutoDownloadSettings) SetVideoPreloadLarge(value bool) {
 	if value {
@@ -157,6 +168,11 @@ func (a *AutoDownloadSettings) SetVideoPreloadLarge(value bool) {
 		a.Flags.Unset(1)
 		a.VideoPreloadLarge = false
 	}
+}
+
+// GetVideoPreloadLarge returns value of VideoPreloadLarge conditional field.
+func (a *AutoDownloadSettings) GetVideoPreloadLarge() (value bool) {
+	return a.Flags.Has(1)
 }
 
 // SetAudioPreloadNext sets value of AudioPreloadNext conditional field.
@@ -170,6 +186,11 @@ func (a *AutoDownloadSettings) SetAudioPreloadNext(value bool) {
 	}
 }
 
+// GetAudioPreloadNext returns value of AudioPreloadNext conditional field.
+func (a *AutoDownloadSettings) GetAudioPreloadNext() (value bool) {
+	return a.Flags.Has(2)
+}
+
 // SetPhonecallsLessData sets value of PhonecallsLessData conditional field.
 func (a *AutoDownloadSettings) SetPhonecallsLessData(value bool) {
 	if value {
@@ -179,6 +200,31 @@ func (a *AutoDownloadSettings) SetPhonecallsLessData(value bool) {
 		a.Flags.Unset(3)
 		a.PhonecallsLessData = false
 	}
+}
+
+// GetPhonecallsLessData returns value of PhonecallsLessData conditional field.
+func (a *AutoDownloadSettings) GetPhonecallsLessData() (value bool) {
+	return a.Flags.Has(3)
+}
+
+// GetPhotoSizeMax returns value of PhotoSizeMax field.
+func (a *AutoDownloadSettings) GetPhotoSizeMax() (value int) {
+	return a.PhotoSizeMax
+}
+
+// GetVideoSizeMax returns value of VideoSizeMax field.
+func (a *AutoDownloadSettings) GetVideoSizeMax() (value int) {
+	return a.VideoSizeMax
+}
+
+// GetFileSizeMax returns value of FileSizeMax field.
+func (a *AutoDownloadSettings) GetFileSizeMax() (value int) {
+	return a.FileSizeMax
+}
+
+// GetVideoUploadMaxbitrate returns value of VideoUploadMaxbitrate field.
+func (a *AutoDownloadSettings) GetVideoUploadMaxbitrate() (value int) {
+	return a.VideoUploadMaxbitrate
 }
 
 // Decode implements bin.Decoder.

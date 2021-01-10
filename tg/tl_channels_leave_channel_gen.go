@@ -60,6 +60,12 @@ func (l *ChannelsLeaveChannelRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (l *ChannelsLeaveChannelRequest) TypeID() uint32 {
+	return ChannelsLeaveChannelRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 	if l == nil {
@@ -73,6 +79,11 @@ func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel: %w", err)
 	}
 	return nil
+}
+
+// GetChannel returns value of Channel field.
+func (l *ChannelsLeaveChannelRequest) GetChannel() (value InputChannelClass) {
+	return l.Channel
 }
 
 // Decode implements bin.Decoder.

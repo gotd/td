@@ -66,6 +66,12 @@ func (h *MessagesHighScores) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (h *MessagesHighScores) TypeID() uint32 {
+	return MessagesHighScoresTypeID
+}
+
 // Encode implements bin.Encoder.
 func (h *MessagesHighScores) Encode(b *bin.Buffer) error {
 	if h == nil {
@@ -88,6 +94,16 @@ func (h *MessagesHighScores) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetScores returns value of Scores field.
+func (h *MessagesHighScores) GetScores() (value []HighScore) {
+	return h.Scores
+}
+
+// GetUsers returns value of Users field.
+func (h *MessagesHighScores) GetUsers() (value []UserClass) {
+	return h.Users
 }
 
 // Decode implements bin.Decoder.

@@ -115,6 +115,12 @@ func (w *WallPaperSettings) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (w *WallPaperSettings) TypeID() uint32 {
+	return WallPaperSettingsTypeID
+}
+
 // Encode implements bin.Encoder.
 func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -168,6 +174,11 @@ func (w *WallPaperSettings) SetBlur(value bool) {
 	}
 }
 
+// GetBlur returns value of Blur conditional field.
+func (w *WallPaperSettings) GetBlur() (value bool) {
+	return w.Flags.Has(1)
+}
+
 // SetMotion sets value of Motion conditional field.
 func (w *WallPaperSettings) SetMotion(value bool) {
 	if value {
@@ -177,6 +188,11 @@ func (w *WallPaperSettings) SetMotion(value bool) {
 		w.Flags.Unset(2)
 		w.Motion = false
 	}
+}
+
+// GetMotion returns value of Motion conditional field.
+func (w *WallPaperSettings) GetMotion() (value bool) {
+	return w.Flags.Has(2)
 }
 
 // SetBackgroundColor sets value of BackgroundColor conditional field.

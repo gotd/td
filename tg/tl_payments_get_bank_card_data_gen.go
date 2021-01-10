@@ -54,6 +54,12 @@ func (g *PaymentsGetBankCardDataRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (g *PaymentsGetBankCardDataRequest) TypeID() uint32 {
+	return PaymentsGetBankCardDataRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetBankCardDataRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -62,6 +68,11 @@ func (g *PaymentsGetBankCardDataRequest) Encode(b *bin.Buffer) error {
 	b.PutID(PaymentsGetBankCardDataRequestTypeID)
 	b.PutString(g.Number)
 	return nil
+}
+
+// GetNumber returns value of Number field.
+func (g *PaymentsGetBankCardDataRequest) GetNumber() (value string) {
+	return g.Number
 }
 
 // Decode implements bin.Decoder.

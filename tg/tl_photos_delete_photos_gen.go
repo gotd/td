@@ -56,6 +56,12 @@ func (d *PhotosDeletePhotosRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (d *PhotosDeletePhotosRequest) TypeID() uint32 {
+	return PhotosDeletePhotosRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -72,6 +78,11 @@ func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetID returns value of ID field.
+func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
+	return d.ID
 }
 
 // Decode implements bin.Decoder.

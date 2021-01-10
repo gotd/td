@@ -53,6 +53,12 @@ func (p *PingRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PingRequest) TypeID() uint32 {
+	return PingRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PingRequest) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -61,6 +67,11 @@ func (p *PingRequest) Encode(b *bin.Buffer) error {
 	b.PutID(PingRequestTypeID)
 	b.PutInt32(p.ID)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PingRequest) GetID() (value int32) {
+	return p.ID
 }
 
 // Decode implements bin.Decoder.

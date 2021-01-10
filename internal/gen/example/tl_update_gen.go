@@ -61,6 +61,12 @@ func (u *Update) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *Update) TypeID() uint32 {
+	return UpdateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (u *Update) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -75,6 +81,16 @@ func (u *Update) Encode(b *bin.Buffer) error {
 	}
 	b.PutInt32(u.Delay)
 	return nil
+}
+
+// GetMsg returns value of Msg field.
+func (u *Update) GetMsg() (value AbstractMessageClass) {
+	return u.Msg
+}
+
+// GetDelay returns value of Delay field.
+func (u *Update) GetDelay() (value int32) {
+	return u.Delay
 }
 
 // Decode implements bin.Decoder.

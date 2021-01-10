@@ -53,6 +53,12 @@ func (a *Auth) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *Auth) TypeID() uint32 {
+	return AuthTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *Auth) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -61,6 +67,11 @@ func (a *Auth) Encode(b *bin.Buffer) error {
 	b.PutID(AuthTypeID)
 	b.PutString(a.Name)
 	return nil
+}
+
+// GetName returns value of Name field.
+func (a *Auth) GetName() (value string) {
+	return a.Name
 }
 
 // Decode implements bin.Decoder.
@@ -137,6 +148,12 @@ func (a *AuthPassword) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (a *AuthPassword) TypeID() uint32 {
+	return AuthPasswordTypeID
+}
+
 // Encode implements bin.Encoder.
 func (a *AuthPassword) Encode(b *bin.Buffer) error {
 	if a == nil {
@@ -146,6 +163,16 @@ func (a *AuthPassword) Encode(b *bin.Buffer) error {
 	b.PutString(a.Name)
 	b.PutString(a.Password)
 	return nil
+}
+
+// GetName returns value of Name field.
+func (a *AuthPassword) GetName() (value string) {
+	return a.Name
+}
+
+// GetPassword returns value of Password field.
+func (a *AuthPassword) GetPassword() (value string) {
+	return a.Password
 }
 
 // Decode implements bin.Decoder.
@@ -203,7 +230,15 @@ type AuthClass interface {
 	bin.Decoder
 	construct() AuthClass
 
-	fmt.Stringer
+	// Name field of Auth.
+	GetName() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

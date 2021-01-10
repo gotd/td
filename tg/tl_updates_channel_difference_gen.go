@@ -85,6 +85,12 @@ func (c *UpdatesChannelDifferenceEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
+	return UpdatesChannelDifferenceEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -116,6 +122,16 @@ func (c *UpdatesChannelDifferenceEmpty) SetFinal(value bool) {
 		c.Flags.Unset(0)
 		c.Final = false
 	}
+}
+
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceEmpty) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifferenceEmpty) GetPts() (value int) {
+	return c.Pts
 }
 
 // SetTimeout sets value of Timeout conditional field.
@@ -274,6 +290,12 @@ func (c *UpdatesChannelDifferenceTooLong) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
+	return UpdatesChannelDifferenceTooLongTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -339,6 +361,11 @@ func (c *UpdatesChannelDifferenceTooLong) SetFinal(value bool) {
 	}
 }
 
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifferenceTooLong) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
+
 // SetTimeout sets value of Timeout conditional field.
 func (c *UpdatesChannelDifferenceTooLong) SetTimeout(value int) {
 	c.Flags.Set(1)
@@ -352,6 +379,26 @@ func (c *UpdatesChannelDifferenceTooLong) GetTimeout() (value int, ok bool) {
 		return value, false
 	}
 	return c.Timeout, true
+}
+
+// GetDialog returns value of Dialog field.
+func (c *UpdatesChannelDifferenceTooLong) GetDialog() (value DialogClass) {
+	return c.Dialog
+}
+
+// GetMessages returns value of Messages field.
+func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
+	return c.Messages
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.
@@ -544,6 +591,12 @@ func (c *UpdatesChannelDifference) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *UpdatesChannelDifference) TypeID() uint32 {
+	return UpdatesChannelDifferenceTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -613,6 +666,16 @@ func (c *UpdatesChannelDifference) SetFinal(value bool) {
 	}
 }
 
+// GetFinal returns value of Final conditional field.
+func (c *UpdatesChannelDifference) GetFinal() (value bool) {
+	return c.Flags.Has(0)
+}
+
+// GetPts returns value of Pts field.
+func (c *UpdatesChannelDifference) GetPts() (value int) {
+	return c.Pts
+}
+
 // SetTimeout sets value of Timeout conditional field.
 func (c *UpdatesChannelDifference) SetTimeout(value int) {
 	c.Flags.Set(1)
@@ -626,6 +689,26 @@ func (c *UpdatesChannelDifference) GetTimeout() (value int, ok bool) {
 		return value, false
 	}
 	return c.Timeout, true
+}
+
+// GetNewMessages returns value of NewMessages field.
+func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
+	return c.NewMessages
+}
+
+// GetOtherUpdates returns value of OtherUpdates field.
+func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
+	return c.OtherUpdates
+}
+
+// GetChats returns value of Chats field.
+func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// GetUsers returns value of Users field.
+func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
+	return c.Users
 }
 
 // Decode implements bin.Decoder.
@@ -742,7 +825,17 @@ type UpdatesChannelDifferenceClass interface {
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
 
-	fmt.Stringer
+	// Whether there are more updates that must be fetched (always false)
+	GetFinal() (value bool)
+	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	GetTimeout() (value int, ok bool)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

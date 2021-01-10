@@ -57,6 +57,12 @@ func (t *HelpTermsOfServiceUpdateEmpty) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
+	return HelpTermsOfServiceUpdateEmptyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -65,6 +71,11 @@ func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
 	b.PutID(HelpTermsOfServiceUpdateEmptyTypeID)
 	b.PutInt(t.Expires)
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (t *HelpTermsOfServiceUpdateEmpty) GetExpires() (value int) {
+	return t.Expires
 }
 
 // Decode implements bin.Decoder.
@@ -148,6 +159,12 @@ func (t *HelpTermsOfServiceUpdate) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
+	return HelpTermsOfServiceUpdateTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -159,6 +176,16 @@ func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode help.termsOfServiceUpdate#28ecf961: field terms_of_service: %w", err)
 	}
 	return nil
+}
+
+// GetExpires returns value of Expires field.
+func (t *HelpTermsOfServiceUpdate) GetExpires() (value int) {
+	return t.Expires
+}
+
+// GetTermsOfService returns value of TermsOfService field.
+func (t *HelpTermsOfServiceUpdate) GetTermsOfService() (value HelpTermsOfService) {
+	return t.TermsOfService
 }
 
 // Decode implements bin.Decoder.
@@ -214,7 +241,18 @@ type HelpTermsOfServiceUpdateClass interface {
 	bin.Decoder
 	construct() HelpTermsOfServiceUpdateClass
 
-	fmt.Stringer
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	//
+	// Links:
+	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
+	GetExpires() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

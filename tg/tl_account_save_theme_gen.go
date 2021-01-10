@@ -62,6 +62,12 @@ func (s *AccountSaveThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *AccountSaveThemeRequest) TypeID() uint32 {
+	return AccountSaveThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -76,6 +82,16 @@ func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 	}
 	b.PutBool(s.Unsave)
 	return nil
+}
+
+// GetTheme returns value of Theme field.
+func (s *AccountSaveThemeRequest) GetTheme() (value InputThemeClass) {
+	return s.Theme
+}
+
+// GetUnsave returns value of Unsave field.
+func (s *AccountSaveThemeRequest) GetUnsave() (value bool) {
+	return s.Unsave
 }
 
 // Decode implements bin.Decoder.

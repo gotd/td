@@ -54,6 +54,12 @@ func (p *PaymentsPaymentResult) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentsPaymentResult) TypeID() uint32 {
+	return PaymentsPaymentResultTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -67,6 +73,11 @@ func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("unable to encode payments.paymentResult#4e5f810d: field updates: %w", err)
 	}
 	return nil
+}
+
+// GetUpdates returns value of Updates field.
+func (p *PaymentsPaymentResult) GetUpdates() (value UpdatesClass) {
+	return p.Updates
 }
 
 // Decode implements bin.Decoder.
@@ -136,6 +147,12 @@ func (p *PaymentsPaymentVerificationNeeded) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PaymentsPaymentVerificationNeeded) TypeID() uint32 {
+	return PaymentsPaymentVerificationNeededTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -144,6 +161,11 @@ func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
 	b.PutID(PaymentsPaymentVerificationNeededTypeID)
 	b.PutString(p.URL)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (p *PaymentsPaymentVerificationNeeded) GetURL() (value string) {
+	return p.URL
 }
 
 // Decode implements bin.Decoder.
@@ -194,7 +216,12 @@ type PaymentsPaymentResultClass interface {
 	bin.Decoder
 	construct() PaymentsPaymentResultClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

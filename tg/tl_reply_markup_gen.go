@@ -62,6 +62,12 @@ func (r *ReplyKeyboardHide) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReplyKeyboardHide) TypeID() uint32 {
+	return ReplyKeyboardHideTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -86,6 +92,11 @@ func (r *ReplyKeyboardHide) SetSelective(value bool) {
 		r.Flags.Unset(2)
 		r.Selective = false
 	}
+}
+
+// GetSelective returns value of Selective conditional field.
+func (r *ReplyKeyboardHide) GetSelective() (value bool) {
+	return r.Flags.Has(2)
 }
 
 // Decode implements bin.Decoder.
@@ -167,6 +178,12 @@ func (r *ReplyKeyboardForceReply) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReplyKeyboardForceReply) TypeID() uint32 {
+	return ReplyKeyboardForceReplyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -196,6 +213,11 @@ func (r *ReplyKeyboardForceReply) SetSingleUse(value bool) {
 	}
 }
 
+// GetSingleUse returns value of SingleUse conditional field.
+func (r *ReplyKeyboardForceReply) GetSingleUse() (value bool) {
+	return r.Flags.Has(1)
+}
+
 // SetSelective sets value of Selective conditional field.
 func (r *ReplyKeyboardForceReply) SetSelective(value bool) {
 	if value {
@@ -205,6 +227,11 @@ func (r *ReplyKeyboardForceReply) SetSelective(value bool) {
 		r.Flags.Unset(2)
 		r.Selective = false
 	}
+}
+
+// GetSelective returns value of Selective conditional field.
+func (r *ReplyKeyboardForceReply) GetSelective() (value bool) {
+	return r.Flags.Has(2)
 }
 
 // Decode implements bin.Decoder.
@@ -302,6 +329,12 @@ func (r *ReplyKeyboardMarkup) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReplyKeyboardMarkup) TypeID() uint32 {
+	return ReplyKeyboardMarkupTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -340,6 +373,11 @@ func (r *ReplyKeyboardMarkup) SetResize(value bool) {
 	}
 }
 
+// GetResize returns value of Resize conditional field.
+func (r *ReplyKeyboardMarkup) GetResize() (value bool) {
+	return r.Flags.Has(0)
+}
+
 // SetSingleUse sets value of SingleUse conditional field.
 func (r *ReplyKeyboardMarkup) SetSingleUse(value bool) {
 	if value {
@@ -351,6 +389,11 @@ func (r *ReplyKeyboardMarkup) SetSingleUse(value bool) {
 	}
 }
 
+// GetSingleUse returns value of SingleUse conditional field.
+func (r *ReplyKeyboardMarkup) GetSingleUse() (value bool) {
+	return r.Flags.Has(1)
+}
+
 // SetSelective sets value of Selective conditional field.
 func (r *ReplyKeyboardMarkup) SetSelective(value bool) {
 	if value {
@@ -360,6 +403,16 @@ func (r *ReplyKeyboardMarkup) SetSelective(value bool) {
 		r.Flags.Unset(2)
 		r.Selective = false
 	}
+}
+
+// GetSelective returns value of Selective conditional field.
+func (r *ReplyKeyboardMarkup) GetSelective() (value bool) {
+	return r.Flags.Has(2)
+}
+
+// GetRows returns value of Rows field.
+func (r *ReplyKeyboardMarkup) GetRows() (value []KeyboardButtonRow) {
+	return r.Rows
 }
 
 // Decode implements bin.Decoder.
@@ -445,6 +498,12 @@ func (r *ReplyInlineMarkup) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (r *ReplyInlineMarkup) TypeID() uint32 {
+	return ReplyInlineMarkupTypeID
+}
+
 // Encode implements bin.Encoder.
 func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -458,6 +517,11 @@ func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetRows returns value of Rows field.
+func (r *ReplyInlineMarkup) GetRows() (value []KeyboardButtonRow) {
+	return r.Rows
 }
 
 // Decode implements bin.Decoder.
@@ -516,7 +580,12 @@ type ReplyMarkupClass interface {
 	bin.Decoder
 	construct() ReplyMarkupClass
 
-	fmt.Stringer
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

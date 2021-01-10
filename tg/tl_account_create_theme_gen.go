@@ -97,6 +97,12 @@ func (c *AccountCreateThemeRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *AccountCreateThemeRequest) TypeID() uint32 {
+	return AccountCreateThemeRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -128,6 +134,16 @@ func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetSlug returns value of Slug field.
+func (c *AccountCreateThemeRequest) GetSlug() (value string) {
+	return c.Slug
+}
+
+// GetTitle returns value of Title field.
+func (c *AccountCreateThemeRequest) GetTitle() (value string) {
+	return c.Title
 }
 
 // SetDocument sets value of Document conditional field.

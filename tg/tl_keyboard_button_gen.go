@@ -54,6 +54,12 @@ func (k *KeyboardButton) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButton) TypeID() uint32 {
+	return KeyboardButtonTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButton) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -62,6 +68,11 @@ func (k *KeyboardButton) Encode(b *bin.Buffer) error {
 	b.PutID(KeyboardButtonTypeID)
 	b.PutString(k.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButton) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -139,6 +150,12 @@ func (k *KeyboardButtonUrl) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonUrl) TypeID() uint32 {
+	return KeyboardButtonUrlTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonUrl) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -148,6 +165,16 @@ func (k *KeyboardButtonUrl) Encode(b *bin.Buffer) error {
 	b.PutString(k.Text)
 	b.PutString(k.URL)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonUrl) GetText() (value string) {
+	return k.Text
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonUrl) GetURL() (value string) {
+	return k.URL
 }
 
 // Decode implements bin.Decoder.
@@ -254,6 +281,12 @@ func (k *KeyboardButtonCallback) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonCallback) TypeID() uint32 {
+	return KeyboardButtonCallbackTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -280,6 +313,21 @@ func (k *KeyboardButtonCallback) SetRequiresPassword(value bool) {
 		k.Flags.Unset(0)
 		k.RequiresPassword = false
 	}
+}
+
+// GetRequiresPassword returns value of RequiresPassword conditional field.
+func (k *KeyboardButtonCallback) GetRequiresPassword() (value bool) {
+	return k.Flags.Has(0)
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonCallback) GetText() (value string) {
+	return k.Text
+}
+
+// GetData returns value of Data field.
+func (k *KeyboardButtonCallback) GetData() (value []byte) {
+	return k.Data
 }
 
 // Decode implements bin.Decoder.
@@ -362,6 +410,12 @@ func (k *KeyboardButtonRequestPhone) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonRequestPhone) TypeID() uint32 {
+	return KeyboardButtonRequestPhoneTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -370,6 +424,11 @@ func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 	b.PutID(KeyboardButtonRequestPhoneTypeID)
 	b.PutString(k.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestPhone) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -439,6 +498,12 @@ func (k *KeyboardButtonRequestGeoLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonRequestGeoLocation) TypeID() uint32 {
+	return KeyboardButtonRequestGeoLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -447,6 +512,11 @@ func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
 	b.PutID(KeyboardButtonRequestGeoLocationTypeID)
 	b.PutString(k.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestGeoLocation) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -540,6 +610,12 @@ func (k *KeyboardButtonSwitchInline) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonSwitchInline) TypeID() uint32 {
+	return KeyboardButtonSwitchInlineTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -566,6 +642,21 @@ func (k *KeyboardButtonSwitchInline) SetSamePeer(value bool) {
 		k.Flags.Unset(0)
 		k.SamePeer = false
 	}
+}
+
+// GetSamePeer returns value of SamePeer conditional field.
+func (k *KeyboardButtonSwitchInline) GetSamePeer() (value bool) {
+	return k.Flags.Has(0)
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonSwitchInline) GetText() (value string) {
+	return k.Text
+}
+
+// GetQuery returns value of Query field.
+func (k *KeyboardButtonSwitchInline) GetQuery() (value string) {
+	return k.Query
 }
 
 // Decode implements bin.Decoder.
@@ -648,6 +739,12 @@ func (k *KeyboardButtonGame) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonGame) TypeID() uint32 {
+	return KeyboardButtonGameTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -656,6 +753,11 @@ func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 	b.PutID(KeyboardButtonGameTypeID)
 	b.PutString(k.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonGame) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -725,6 +827,12 @@ func (k *KeyboardButtonBuy) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonBuy) TypeID() uint32 {
+	return KeyboardButtonBuyTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -733,6 +841,11 @@ func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
 	b.PutID(KeyboardButtonBuyTypeID)
 	b.PutString(k.Text)
 	return nil
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonBuy) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -856,6 +969,12 @@ func (k *KeyboardButtonUrlAuth) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonUrlAuth) TypeID() uint32 {
+	return KeyboardButtonUrlAuthTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -877,6 +996,11 @@ func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 	return nil
 }
 
+// GetText returns value of Text field.
+func (k *KeyboardButtonUrlAuth) GetText() (value string) {
+	return k.Text
+}
+
 // SetFwdText sets value of FwdText conditional field.
 func (k *KeyboardButtonUrlAuth) SetFwdText(value string) {
 	k.Flags.Set(0)
@@ -890,6 +1014,16 @@ func (k *KeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
 		return value, false
 	}
 	return k.FwdText, true
+}
+
+// GetURL returns value of URL field.
+func (k *KeyboardButtonUrlAuth) GetURL() (value string) {
+	return k.URL
+}
+
+// GetButtonID returns value of ButtonID field.
+func (k *KeyboardButtonUrlAuth) GetButtonID() (value int) {
+	return k.ButtonID
 }
 
 // Decode implements bin.Decoder.
@@ -1041,6 +1175,12 @@ func (i *InputKeyboardButtonUrlAuth) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputKeyboardButtonUrlAuth) TypeID() uint32 {
+	return InputKeyboardButtonUrlAuthTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1081,6 +1221,16 @@ func (i *InputKeyboardButtonUrlAuth) SetRequestWriteAccess(value bool) {
 	}
 }
 
+// GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
+func (i *InputKeyboardButtonUrlAuth) GetRequestWriteAccess() (value bool) {
+	return i.Flags.Has(0)
+}
+
+// GetText returns value of Text field.
+func (i *InputKeyboardButtonUrlAuth) GetText() (value string) {
+	return i.Text
+}
+
 // SetFwdText sets value of FwdText conditional field.
 func (i *InputKeyboardButtonUrlAuth) SetFwdText(value string) {
 	i.Flags.Set(1)
@@ -1094,6 +1244,16 @@ func (i *InputKeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
 		return value, false
 	}
 	return i.FwdText, true
+}
+
+// GetURL returns value of URL field.
+func (i *InputKeyboardButtonUrlAuth) GetURL() (value string) {
+	return i.URL
+}
+
+// GetBot returns value of Bot field.
+func (i *InputKeyboardButtonUrlAuth) GetBot() (value InputUserClass) {
+	return i.Bot
 }
 
 // Decode implements bin.Decoder.
@@ -1213,6 +1373,12 @@ func (k *KeyboardButtonRequestPoll) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonRequestPoll) TypeID() uint32 {
+	return KeyboardButtonRequestPollTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -1245,6 +1411,11 @@ func (k *KeyboardButtonRequestPoll) GetQuiz() (value bool, ok bool) {
 		return value, false
 	}
 	return k.Quiz, true
+}
+
+// GetText returns value of Text field.
+func (k *KeyboardButtonRequestPoll) GetText() (value string) {
+	return k.Text
 }
 
 // Decode implements bin.Decoder.
@@ -1316,7 +1487,15 @@ type KeyboardButtonClass interface {
 	bin.Decoder
 	construct() KeyboardButtonClass
 
-	fmt.Stringer
+	// Button text
+	GetText() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

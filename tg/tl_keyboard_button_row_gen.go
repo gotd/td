@@ -56,6 +56,12 @@ func (k *KeyboardButtonRow) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (k *KeyboardButtonRow) TypeID() uint32 {
+	return KeyboardButtonRowTypeID
+}
+
 // Encode implements bin.Encoder.
 func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 	if k == nil {
@@ -72,6 +78,11 @@ func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 		}
 	}
 	return nil
+}
+
+// GetButtons returns value of Buttons field.
+func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
+	return k.Buttons
 }
 
 // Decode implements bin.Decoder.

@@ -70,6 +70,12 @@ func (t *MessagesToggleDialogPinRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (t *MessagesToggleDialogPinRequest) TypeID() uint32 {
+	return MessagesToggleDialogPinRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -100,6 +106,16 @@ func (t *MessagesToggleDialogPinRequest) SetPinned(value bool) {
 		t.Flags.Unset(0)
 		t.Pinned = false
 	}
+}
+
+// GetPinned returns value of Pinned conditional field.
+func (t *MessagesToggleDialogPinRequest) GetPinned() (value bool) {
+	return t.Flags.Has(0)
+}
+
+// GetPeer returns value of Peer field.
+func (t *MessagesToggleDialogPinRequest) GetPeer() (value InputDialogPeerClass) {
+	return t.Peer
 }
 
 // Decode implements bin.Decoder.

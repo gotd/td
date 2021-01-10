@@ -62,6 +62,12 @@ func (i *InputWebFileLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWebFileLocation) TypeID() uint32 {
+	return InputWebFileLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -71,6 +77,16 @@ func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
 	b.PutString(i.URL)
 	b.PutLong(i.AccessHash)
 	return nil
+}
+
+// GetURL returns value of URL field.
+func (i *InputWebFileLocation) GetURL() (value string) {
+	return i.URL
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
 }
 
 // Decode implements bin.Decoder.
@@ -187,6 +203,12 @@ func (i *InputWebFileGeoPointLocation) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
+	return InputWebFileGeoPointLocationTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -205,6 +227,36 @@ func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
 	b.PutInt(i.Zoom)
 	b.PutInt(i.Scale)
 	return nil
+}
+
+// GetGeoPoint returns value of GeoPoint field.
+func (i *InputWebFileGeoPointLocation) GetGeoPoint() (value InputGeoPointClass) {
+	return i.GeoPoint
+}
+
+// GetAccessHash returns value of AccessHash field.
+func (i *InputWebFileGeoPointLocation) GetAccessHash() (value int64) {
+	return i.AccessHash
+}
+
+// GetW returns value of W field.
+func (i *InputWebFileGeoPointLocation) GetW() (value int) {
+	return i.W
+}
+
+// GetH returns value of H field.
+func (i *InputWebFileGeoPointLocation) GetH() (value int) {
+	return i.H
+}
+
+// GetZoom returns value of Zoom field.
+func (i *InputWebFileGeoPointLocation) GetZoom() (value int) {
+	return i.Zoom
+}
+
+// GetScale returns value of Scale field.
+func (i *InputWebFileGeoPointLocation) GetScale() (value int) {
+	return i.Scale
 }
 
 // Decode implements bin.Decoder.
@@ -290,7 +342,15 @@ type InputWebFileLocationClass interface {
 	bin.Decoder
 	construct() InputWebFileLocationClass
 
-	fmt.Stringer
+	// Access hash
+	GetAccessHash() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

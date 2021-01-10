@@ -62,6 +62,12 @@ func (m *MessageRange) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageRange) TypeID() uint32 {
+	return MessageRangeTypeID
+}
+
 // Encode implements bin.Encoder.
 func (m *MessageRange) Encode(b *bin.Buffer) error {
 	if m == nil {
@@ -71,6 +77,16 @@ func (m *MessageRange) Encode(b *bin.Buffer) error {
 	b.PutInt(m.MinID)
 	b.PutInt(m.MaxID)
 	return nil
+}
+
+// GetMinID returns value of MinID field.
+func (m *MessageRange) GetMinID() (value int) {
+	return m.MinID
+}
+
+// GetMaxID returns value of MaxID field.
+func (m *MessageRange) GetMaxID() (value int) {
+	return m.MaxID
 }
 
 // Decode implements bin.Decoder.

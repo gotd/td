@@ -86,6 +86,12 @@ func (p *PhoneConnection) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneConnection) TypeID() uint32 {
+	return PhoneConnectionTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -98,6 +104,31 @@ func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 	b.PutInt(p.Port)
 	b.PutBytes(p.PeerTag)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (p *PhoneConnection) GetID() (value int64) {
+	return p.ID
+}
+
+// GetIP returns value of IP field.
+func (p *PhoneConnection) GetIP() (value string) {
+	return p.IP
+}
+
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnection) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnection) GetPort() (value int) {
+	return p.Port
+}
+
+// GetPeerTag returns value of PeerTag field.
+func (p *PhoneConnection) GetPeerTag() (value []byte) {
+	return p.PeerTag
 }
 
 // Decode implements bin.Decoder.
@@ -256,6 +287,12 @@ func (p *PhoneConnectionWebrtc) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (p *PhoneConnectionWebrtc) TypeID() uint32 {
+	return PhoneConnectionWebrtcTypeID
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -291,6 +328,11 @@ func (p *PhoneConnectionWebrtc) SetTurn(value bool) {
 	}
 }
 
+// GetTurn returns value of Turn conditional field.
+func (p *PhoneConnectionWebrtc) GetTurn() (value bool) {
+	return p.Flags.Has(0)
+}
+
 // SetStun sets value of Stun conditional field.
 func (p *PhoneConnectionWebrtc) SetStun(value bool) {
 	if value {
@@ -300,6 +342,41 @@ func (p *PhoneConnectionWebrtc) SetStun(value bool) {
 		p.Flags.Unset(1)
 		p.Stun = false
 	}
+}
+
+// GetStun returns value of Stun conditional field.
+func (p *PhoneConnectionWebrtc) GetStun() (value bool) {
+	return p.Flags.Has(1)
+}
+
+// GetID returns value of ID field.
+func (p *PhoneConnectionWebrtc) GetID() (value int64) {
+	return p.ID
+}
+
+// GetIP returns value of IP field.
+func (p *PhoneConnectionWebrtc) GetIP() (value string) {
+	return p.IP
+}
+
+// GetIpv6 returns value of Ipv6 field.
+func (p *PhoneConnectionWebrtc) GetIpv6() (value string) {
+	return p.Ipv6
+}
+
+// GetPort returns value of Port field.
+func (p *PhoneConnectionWebrtc) GetPort() (value int) {
+	return p.Port
+}
+
+// GetUsername returns value of Username field.
+func (p *PhoneConnectionWebrtc) GetUsername() (value string) {
+	return p.Username
+}
+
+// GetPassword returns value of Password field.
+func (p *PhoneConnectionWebrtc) GetPassword() (value string) {
+	return p.Password
 }
 
 // Decode implements bin.Decoder.
@@ -392,7 +469,21 @@ type PhoneConnectionClass interface {
 	bin.Decoder
 	construct() PhoneConnectionClass
 
-	fmt.Stringer
+	// Endpoint ID
+	GetID() (value int64)
+	// IP address of endpoint
+	GetIP() (value string)
+	// IPv6 address of endpoint
+	GetIpv6() (value string)
+	// Port ID
+	GetPort() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 

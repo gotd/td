@@ -108,6 +108,12 @@ func (i *AccountInitTakeoutSessionRequest) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *AccountInitTakeoutSessionRequest) TypeID() uint32 {
+	return AccountInitTakeoutSessionRequestTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -155,6 +161,11 @@ func (i *AccountInitTakeoutSessionRequest) SetContacts(value bool) {
 	}
 }
 
+// GetContacts returns value of Contacts conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetContacts() (value bool) {
+	return i.Flags.Has(0)
+}
+
 // SetMessageUsers sets value of MessageUsers conditional field.
 func (i *AccountInitTakeoutSessionRequest) SetMessageUsers(value bool) {
 	if value {
@@ -164,6 +175,11 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageUsers(value bool) {
 		i.Flags.Unset(1)
 		i.MessageUsers = false
 	}
+}
+
+// GetMessageUsers returns value of MessageUsers conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetMessageUsers() (value bool) {
+	return i.Flags.Has(1)
 }
 
 // SetMessageChats sets value of MessageChats conditional field.
@@ -177,6 +193,11 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChats(value bool) {
 	}
 }
 
+// GetMessageChats returns value of MessageChats conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetMessageChats() (value bool) {
+	return i.Flags.Has(2)
+}
+
 // SetMessageMegagroups sets value of MessageMegagroups conditional field.
 func (i *AccountInitTakeoutSessionRequest) SetMessageMegagroups(value bool) {
 	if value {
@@ -186,6 +207,11 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageMegagroups(value bool) {
 		i.Flags.Unset(3)
 		i.MessageMegagroups = false
 	}
+}
+
+// GetMessageMegagroups returns value of MessageMegagroups conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetMessageMegagroups() (value bool) {
+	return i.Flags.Has(3)
 }
 
 // SetMessageChannels sets value of MessageChannels conditional field.
@@ -199,6 +225,11 @@ func (i *AccountInitTakeoutSessionRequest) SetMessageChannels(value bool) {
 	}
 }
 
+// GetMessageChannels returns value of MessageChannels conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetMessageChannels() (value bool) {
+	return i.Flags.Has(4)
+}
+
 // SetFiles sets value of Files conditional field.
 func (i *AccountInitTakeoutSessionRequest) SetFiles(value bool) {
 	if value {
@@ -208,6 +239,11 @@ func (i *AccountInitTakeoutSessionRequest) SetFiles(value bool) {
 		i.Flags.Unset(5)
 		i.Files = false
 	}
+}
+
+// GetFiles returns value of Files conditional field.
+func (i *AccountInitTakeoutSessionRequest) GetFiles() (value bool) {
+	return i.Flags.Has(5)
 }
 
 // SetFileMaxSize sets value of FileMaxSize conditional field.

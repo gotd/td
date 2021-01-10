@@ -84,6 +84,12 @@ func (i *InputFile) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputFile) TypeID() uint32 {
+	return InputFileTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -95,6 +101,26 @@ func (i *InputFile) Encode(b *bin.Buffer) error {
 	b.PutString(i.Name)
 	b.PutString(i.Md5Checksum)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputFile) GetID() (value int64) {
+	return i.ID
+}
+
+// GetParts returns value of Parts field.
+func (i *InputFile) GetParts() (value int) {
+	return i.Parts
+}
+
+// GetName returns value of Name field.
+func (i *InputFile) GetName() (value string) {
+	return i.Name
+}
+
+// GetMd5Checksum returns value of Md5Checksum field.
+func (i *InputFile) GetMd5Checksum() (value string) {
+	return i.Md5Checksum
 }
 
 // Decode implements bin.Decoder.
@@ -204,6 +230,12 @@ func (i *InputFileBig) String() string {
 	return sb.String()
 }
 
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputFileBig) TypeID() uint32 {
+	return InputFileBigTypeID
+}
+
 // Encode implements bin.Encoder.
 func (i *InputFileBig) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -214,6 +246,21 @@ func (i *InputFileBig) Encode(b *bin.Buffer) error {
 	b.PutInt(i.Parts)
 	b.PutString(i.Name)
 	return nil
+}
+
+// GetID returns value of ID field.
+func (i *InputFileBig) GetID() (value int64) {
+	return i.ID
+}
+
+// GetParts returns value of Parts field.
+func (i *InputFileBig) GetParts() (value int) {
+	return i.Parts
+}
+
+// GetName returns value of Name field.
+func (i *InputFileBig) GetName() (value string) {
+	return i.Name
 }
 
 // Decode implements bin.Decoder.
@@ -278,7 +325,19 @@ type InputFileClass interface {
 	bin.Decoder
 	construct() InputFileClass
 
-	fmt.Stringer
+	// Random file identifier created by the client
+	GetID() (value int64)
+	// Number of parts saved
+	GetParts() (value int)
+	// Full name of the file
+	GetName() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
 	Zero() bool
 }
 
