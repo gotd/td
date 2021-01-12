@@ -10,6 +10,42 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+func convertOptional(msg *tg.Message, i tg.UpdatesClass) {
+	if u, ok := i.(interface {
+		GetFwdFrom() (tg.MessageFwdHeader, bool)
+	}); ok {
+		if v, ok := u.GetFwdFrom(); ok {
+			msg.SetFwdFrom(v)
+		}
+	}
+	if u, ok := i.(interface{ GetViaBotID() (int, bool) }); ok {
+		if v, ok := u.GetViaBotID(); ok {
+			msg.SetViaBotID(v)
+		}
+	}
+	if u, ok := i.(interface {
+		GetReplyTo() (tg.MessageReplyHeader, bool)
+	}); ok {
+		if v, ok := u.GetReplyTo(); ok {
+			msg.SetReplyTo(v)
+		}
+	}
+	if u, ok := i.(interface {
+		GetEntities() ([]tg.MessageEntityClass, bool)
+	}); ok {
+		if v, ok := u.GetEntities(); ok {
+			msg.SetEntities(v)
+		}
+	}
+	if u, ok := i.(interface {
+		GetMedia() (tg.MessageMediaClass, bool)
+	}); ok {
+		if v, ok := u.GetMedia(); ok {
+			msg.SetMedia(v)
+		}
+	}
+}
+
 func convertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 	msg := &tg.Message{
 		Out:         u.Out,
@@ -21,18 +57,7 @@ func convertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 		PeerID:      &tg.PeerUser{UserID: u.UserID},
 		Message:     u.Message,
 	}
-	if v, ok := u.GetFwdFrom(); ok {
-		msg.SetFwdFrom(v)
-	}
-	if v, ok := u.GetViaBotID(); ok {
-		msg.SetViaBotID(v)
-	}
-	if v, ok := u.GetReplyTo(); ok {
-		msg.SetReplyTo(v)
-	}
-	if v, ok := u.GetEntities(); ok {
-		msg.SetEntities(v)
-	}
+	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
 		Update: &tg.UpdateNewMessage{
@@ -55,18 +80,7 @@ func convertUpdateShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort
 		PeerID:      &tg.PeerChat{ChatID: u.ChatID},
 		Message:     u.Message,
 	}
-	if v, ok := u.GetFwdFrom(); ok {
-		msg.SetFwdFrom(v)
-	}
-	if v, ok := u.GetViaBotID(); ok {
-		msg.SetViaBotID(v)
-	}
-	if v, ok := u.GetReplyTo(); ok {
-		msg.SetReplyTo(v)
-	}
-	if v, ok := u.GetEntities(); ok {
-		msg.SetEntities(v)
-	}
+	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
 		Update: &tg.UpdateNewMessage{
@@ -83,12 +97,7 @@ func convertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort
 		Out: u.Out,
 		ID:  u.ID,
 	}
-	if v, ok := u.GetMedia(); ok {
-		msg.SetMedia(v)
-	}
-	if v, ok := u.GetEntities(); ok {
-		msg.SetEntities(v)
-	}
+	convertOptional(msg, u)
 
 	return &tg.UpdateShort{
 		Update: &tg.UpdateNewMessage{

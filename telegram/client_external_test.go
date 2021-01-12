@@ -74,12 +74,12 @@ const dialog = `— Да?
 — Кому?
 — Ну тебе.`
 
-func TestE2EUsersDialog(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_USERS_DIALOG")); !ok {
-		t.Skip("Skipped. Set GOTD_USERS_DIALOG=1 to enable users dialog e2e test.")
+func TestExternalE2EUsersDialog(t *testing.T) {
+	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
+		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
@@ -101,6 +101,7 @@ func TestE2EUsersDialog(t *testing.T) {
 	user, ok := <-auth
 	if ok {
 		g.Go("terentyev", func(ctx context.Context) error {
+			defer g.Cancel()
 			return e2etest.NewUser(suite, strings.Split(dialog, "\n"), user.Username).Run(ctx)
 		})
 	}

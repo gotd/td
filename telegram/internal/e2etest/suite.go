@@ -76,9 +76,8 @@ func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error
 }
 
 // RetryAuthenticate authenticates client on test server.
-// If authentication fails it retries using given backoff.
-func (s *Suite) RetryAuthenticate(ctx context.Context, bk backoff.BackOff, client *telegram.Client) error {
+func (s *Suite) RetryAuthenticate(ctx context.Context, client *telegram.Client) error {
 	return backoff.Retry(func() error {
 		return s.Authenticate(ctx, client)
-	}, bk)
+	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
 }
