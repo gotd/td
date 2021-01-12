@@ -14,6 +14,8 @@ import (
 // errgroup.Group to log task state.
 // Unlike WaitGroup and errgroup.Group this is not allowed to use zero value.
 type LogGroup struct {
+	cancel context.CancelFunc
+
 	grp  *errgroup.Group
 	gCtx context.Context
 
@@ -22,13 +24,16 @@ type LogGroup struct {
 }
 
 // NewLogGroup creates new LogGroup.
-func NewLogGroup(ctx context.Context, log *zap.Logger) *LogGroup {
+func NewLogGroup(parent context.Context, log *zap.Logger) *LogGroup {
+	ctx, cancel := context.WithCancel(parent)
 	grp, gCtx := errgroup.WithContext(ctx)
+
 	return &LogGroup{
-		grp:   grp,
-		gCtx:  gCtx,
-		log:   log,
-		clock: clock.System,
+		cancel: cancel,
+		grp:    grp,
+		gCtx:   gCtx,
+		log:    log,
+		clock:  clock.System,
 	}
 }
 
@@ -57,6 +62,13 @@ func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
 		l.Debug("Task complete", zap.Duration("elapsed", elapsed))
 		return nil
 	})
+}
+
+// Cancel cancels all goroutines in group.
+//
+// Note: context cancellation error will be returned by Wait().
+func (g *LogGroup) Cancel() {
+	g.cancel()
 }
 
 // Wait blocks until all function calls from the Go method have returned, then
