@@ -4,20 +4,15 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 )
 
-// LogGroup is simple wrapper around
-// errgroup.Group to log task state.
+// LogGroup is simple wrapper around CancellableGroup to log task state.
 // Unlike WaitGroup and errgroup.Group this is not allowed to use zero value.
 type LogGroup struct {
-	cancel context.CancelFunc
-
-	grp  *errgroup.Group
-	gCtx context.Context
+	grp CancellableGroup
 
 	log   *zap.Logger
 	clock clock.Clock
@@ -25,15 +20,10 @@ type LogGroup struct {
 
 // NewLogGroup creates new LogGroup.
 func NewLogGroup(parent context.Context, log *zap.Logger) *LogGroup {
-	ctx, cancel := context.WithCancel(parent)
-	grp, gCtx := errgroup.WithContext(ctx)
-
 	return &LogGroup{
-		cancel: cancel,
-		grp:    grp,
-		gCtx:   gCtx,
-		log:    log,
-		clock:  clock.System,
+		grp:   *NewCancellableGroup(parent),
+		log:   log,
+		clock: clock.System,
 	}
 }
 
@@ -46,13 +36,13 @@ func (g *LogGroup) SetClock(c clock.Clock) {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
-	g.grp.Go(func() error {
+func (g *LogGroup) Go(taskName string, f func(groupCtx context.Context) error) {
+	g.grp.Go(func(groupCtx context.Context) error {
 		start := g.clock.Now()
 		l := g.log.With(zap.String("task", taskName)).WithOptions(zap.AddCallerSkip(1))
 		l.Debug("Task started")
 
-		if err := f(g.gCtx); err != nil {
+		if err := f(groupCtx); err != nil {
 			elapsed := g.clock.Now().Sub(start)
 			l.Debug("Task stopped", zap.Error(err), zap.Duration("elapsed", elapsed))
 			return xerrors.Errorf("task %s: %w", taskName, err)
@@ -68,7 +58,7 @@ func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
 //
 // Note: context cancellation error will be returned by Wait().
 func (g *LogGroup) Cancel() {
-	g.cancel()
+	g.grp.Cancel()
 }
 
 // Wait blocks until all function calls from the Go method have returned, then

@@ -2,7 +2,7 @@ package codec
 
 import (
 	"bytes"
-	"io"
+	"encoding/binary"
 	"io/ioutil"
 	"strings"
 	"testing"
@@ -12,44 +12,43 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-type codec interface {
-	Write(w io.Writer, b *bin.Buffer) error
-	Read(r io.Reader, b *bin.Buffer) error
-}
-
 type codecTest struct {
 	name   string
-	create func() codec
+	create func() Codec
 }
 
 func codecs() []codecTest {
 	return []codecTest{
-		{"Abridged", func() codec {
+		{"Abridged", func() Codec {
 			return Abridged{}
 		}},
-		{"Intermediate", func() codec {
+		{"Intermediate", func() Codec {
 			return Intermediate{}
 		}},
-		{"PaddedIntermediate", func() codec {
+		{"PaddedIntermediate", func() Codec {
 			return PaddedIntermediate{}
 		}},
-		{"Full", func() codec {
+		{"Full", func() Codec {
 			return &Full{}
 		}},
 	}
 }
 
 type payload struct {
-	name     string
-	testData string
-	mustFail bool
+	name         string
+	testData     string
+	mustFail     bool
+	readTestOnly bool
 }
 
 func payloads() []payload {
+	var code [4]byte
+	binary.LittleEndian.PutUint32(code[:], CodeTransportFlood)
 	return []payload{
-		{"Empty", "", true},
-		{"Small 8b", "abcdabcd", false},
-		{"Medium 1kb", strings.Repeat("a", 1024), false},
+		{"Empty", "", true, false},
+		{"Protocol error", string(code[:]), true, true},
+		{"Small 8b", "abcdabcd", false, false},
+		{"Medium 1kb", strings.Repeat("a", 1024), false, false},
 	}
 }
 
@@ -92,17 +91,42 @@ func testGood(c codecTest, p payload) func(t *testing.T) {
 
 func testBad(c codecTest, p payload) func(t *testing.T) {
 	return func(t *testing.T) {
-		t.Run("write", func(t *testing.T) {
-			a := require.New(t)
-			payload := &bin.Buffer{Buf: []byte(p.testData)}
-			a.Error(c.create().Write(ioutil.Discard, payload))
-		})
+		if !p.readTestOnly {
+			t.Run("Write", func(t *testing.T) {
+				a := require.New(t)
+				payload := &bin.Buffer{Buf: []byte(p.testData)}
+				a.Error(c.create().Write(ioutil.Discard, payload))
+			})
+		}
 
-		t.Run("read", func(t *testing.T) {
+		t.Run("Read", func(t *testing.T) {
 			a := require.New(t)
 			reader := bytes.NewBufferString(p.testData)
 			a.Error(c.create().Read(reader, &bin.Buffer{}))
 		})
+	}
+}
+
+func testHeaderTag(c codecTest) func(t *testing.T) {
+	return func(t *testing.T) {
+		skipBad := false
+		t.Run("Good tag", func(t *testing.T) {
+			a := require.New(t)
+			buf := bytes.NewBuffer(nil)
+			a.NoError(c.create().WriteHeader(buf))
+			if buf.Len() == 0 {
+				skipBad = true
+			}
+			a.NoError(c.create().ReadHeader(buf))
+		})
+
+		if !skipBad {
+			t.Run("Bad tag", func(t *testing.T) {
+				a := require.New(t)
+				buf := bytes.NewBuffer(nil)
+				a.Error(c.create().ReadHeader(buf))
+			})
+		}
 	}
 }
 
@@ -116,6 +140,8 @@ func TestCodecs(t *testing.T) {
 					t.Run(p.name, testGood(c, p))
 				}
 			}
+
+			t.Run("Header", testHeaderTag(c))
 		})
 	}
 }
