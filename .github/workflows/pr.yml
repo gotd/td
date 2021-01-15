@@ -92,9 +92,25 @@ jobs:
           key: ${{ runner.os }}-go-${{ matrix.golang }}-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-${{ matrix.golang }}-
+
+      - name: Get mtg proxy
+        env:
+          GO111MODULES: on
+        run: go get github.com/gotd/mtg@master
+
+      - name: Generate MTProxy secret
+        run: echo "GOTD_MTPROXY_SECRET=$(mtg generate-secret simple)" >> $GITHUB_ENV
+
+      - name: Run MTProxy in background
+        env:
+          MTG_DEBUG: true
+          MTG_TEST_DC: true
+        run: mtg run --bind localhost:3128 $GOTD_MTPROXY_SECRET &
+
       - name: Run tests
         env:
           GOTD_TEST_EXTERNAL: 1
+          GOTD_MTPROXY_ADDR: "localhost:3128"
         # Run all tests that starts with "TestExternalE2E".
         run: go test -race -v -run ^TestExternalE2E ./...
   coverage:
