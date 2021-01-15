@@ -3,8 +3,6 @@ package telegram_test
 import (
 	"context"
 	"crypto/rand"
-	"errors"
-	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -18,7 +16,6 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
@@ -49,36 +46,7 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 
-		var err error
-
-		// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.
-		// It is expected and client implementation is unlikely to cause
-		// such errors, so just doing retries with sleep.
-		for i := 0; i < 10; i++ {
-			if err = testTransportAttempt(ctx, t, trp); err == nil {
-				return // ok
-			}
-
-			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
-				// Possibly server closed connection.
-				time.Sleep(time.Second)
-				continue
-			}
-
-			var rpcErr *mtproto.Error
-			if errors.As(err, &rpcErr) {
-				switch rpcErr.Type {
-				case "NEED_MEMBER_INVALID", "AUTH_KEY_UNREGISTERED", "API_ID_PUBLISHED_FLOOD":
-					// Possibly server started garbage collection.
-					time.Sleep(time.Second)
-					continue
-				}
-			}
-
-			break // unrecoverable error
-		}
-
-		t.Fatal(err)
+		require.NoError(t, testTransportAttempt(ctx, t, trp))
 	}
 }
 
