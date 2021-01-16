@@ -3,13 +3,18 @@ package telegram
 import (
 	"context"
 	"crypto/rand"
+	"errors"
+	"io"
 	"os"
 	"path/filepath"
 	"strconv"
+	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/transport"
 )
@@ -116,6 +121,36 @@ func BotFromEnvironment(ctx context.Context, opts Options, cb func(ctx context.C
 	})
 }
 
+func retry(ctx context.Context, cb func(ctx context.Context) error) error {
+	b := backoff.WithContext(backoff.NewExponentialBackOff(), ctx)
+
+	return backoff.Retry(func() error {
+		if err := cb(ctx); err != nil {
+			var rpcErr *mtproto.Error
+			if errors.As(err, &rpcErr) {
+				switch rpcErr.Type {
+				case "NEED_MEMBER_INVALID",
+					"AUTH_KEY_UNREGISTERED",
+					"API_ID_PUBLISHED_FLOOD":
+					return err
+				case "FLOOD_WAIT":
+					time.Sleep(time.Duration(rpcErr.Argument) * time.Second)
+					return err
+				}
+			}
+
+			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
+				// Possibly server closed connection.
+				return err
+			}
+
+			return backoff.Permanent(err)
+		}
+
+		return nil
+	}, b)
+}
+
 // TestClient creates and authenticates user telegram.Client
 // using Telegram staging server.
 func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, client *Client) error) error {
@@ -123,15 +158,20 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 		opts.Addr = AddrTest
 	}
 
-	client := NewClient(TestAppID, TestAppHash, opts)
-	return client.Run(ctx, func(ctx context.Context) error {
-		if err := NewAuth(
-			TestAuth(rand.Reader, 2),
-			SendCodeOptions{},
-		).Run(ctx, client); err != nil {
-			return xerrors.Errorf("auth flow: %w", err)
-		}
+	// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.
+	// It is expected and client implementation is unlikely to cause
+	// such errors, so just doing retries using backoff.
+	return retry(ctx, func(retryCtx context.Context) error {
+		client := NewClient(TestAppID, TestAppHash, opts)
+		return client.Run(retryCtx, func(runCtx context.Context) error {
+			if err := NewAuth(
+				TestAuth(rand.Reader, 2),
+				SendCodeOptions{},
+			).Run(runCtx, client); err != nil {
+				return xerrors.Errorf("auth flow: %w", err)
+			}
 
-		return cb(ctx, client)
+			return cb(runCtx, client)
+		})
 	})
 }
