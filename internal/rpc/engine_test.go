@@ -430,25 +430,28 @@ func BenchmarkEngine_Do(b *testing.B) {
 		return nil
 	}, Options{})
 
-	// Fake handler.
-	obj := mockObject{data: make([]byte, 100)}
-	go func() {
-		buf := &bin.Buffer{}
-		for id := range ids {
-			e.NotifyAcks([]int64{id})
-
-			buf.ResetTo(obj.data)
-			if err := e.NotifyResult(id, buf); err != nil {
-				b.Error(err)
-			}
-		}
-	}()
-
 	var id int64
 
 	ctx := context.Background()
 	b.ReportAllocs()
 	b.RunParallel(func(pb *testing.PB) {
+		go func() {
+			buf := &bin.Buffer{}
+			// Fake handler.
+			obj := mockObject{data: make([]byte, 100)}
+
+			for id := range ids {
+				e.NotifyAcks([]int64{id})
+
+				buf.ResetTo(obj.data)
+				if err := e.NotifyResult(id, buf); err != nil {
+					b.Error(err)
+				}
+			}
+		}()
+
+		obj := mockObject{data: make([]byte, 100)}
+
 		for pb.Next() {
 			nextID := atomic.AddInt64(&id, 1)
 			if err := e.Do(ctx, Request{
