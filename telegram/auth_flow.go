@@ -65,9 +65,6 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
 			return xerrors.Errorf("confirm TOS: %w", err)
 		}
-		if err := client.AuthAcceptTOS(ctx, signUpRequired.TermsOfService.ID); err != nil {
-			return xerrors.Errorf("accept TOS: %w", err)
-		}
 		info, err := f.Auth.SignUp(ctx)
 		if err != nil {
 			return xerrors.Errorf("sign up info not provided: %w", err)
