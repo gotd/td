@@ -93,7 +93,6 @@ type AuthFlowClient interface {
 	AuthSignIn(ctx context.Context, phone, code, codeHash string) error
 	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
 	AuthPassword(ctx context.Context, password string) error
-	AuthAcceptTOS(ctx context.Context, id tg.DataJSON) error
 	AuthSignUp(ctx context.Context, s SignUp) error
 }
 
