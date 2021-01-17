@@ -5,8 +5,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	"github.com/gotd/td/internal/testutil"
 )
 
 func TestClientSessionStorage(t *testing.T) {
@@ -17,7 +15,7 @@ func TestClientSessionStorage(t *testing.T) {
 	t.Run("Ok", func(t *testing.T) {
 		{
 			_, err := loader.Load(ctx)
-			testutil.RequireErr(t, ErrNotFound, err)
+			require.ErrorIs(t, err, ErrNotFound)
 		}
 		data := &Data{DC: 2}
 		require.NoError(t, loader.Save(ctx, data))

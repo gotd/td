@@ -34,7 +34,7 @@ func TestCheckMessageID(t *testing.T) {
 			proto.NewMessageID(time.Time{}, proto.MessageFromClient),
 		} {
 			t.Run(bad.String(), func(t *testing.T) {
-				testutil.RequireErr(t, errRejected, checkMessageID(now, int64(bad)))
+				require.ErrorIs(t, checkMessageID(now, int64(bad)), errRejected)
 			})
 		}
 	})
