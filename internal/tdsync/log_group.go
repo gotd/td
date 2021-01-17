@@ -2,11 +2,10 @@ package tdsync
 
 import (
 	"context"
-	"fmt"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 )
@@ -42,17 +41,20 @@ func (g *LogGroup) SetClock(c clock.Clock) {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *LogGroup) Go(taskName string, f func(groupCtx context.Context) error) {
+func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
 	g.grp.Go(func() error {
 		start := g.clock.Now()
-		l := g.log.With(zap.String("task", taskName))
+		l := g.log.With(zap.String("task", taskName)).WithOptions(zap.AddCallerSkip(2))
 		l.Debug("Task started")
 
 		if err := f(g.gCtx); err != nil {
-			l.With(zap.Error(err), zap.Duration("elapsed", time.Since(start))).Debug("Task stopped")
-			return fmt.Errorf("task %s: %w", taskName, err)
+			elapsed := g.clock.Now().Sub(start)
+			l.Debug("Task stopped", zap.Error(err), zap.Duration("elapsed", elapsed))
+			return xerrors.Errorf("task %s: %w", taskName, err)
 		}
-		l.With(zap.Duration("elapsed", time.Since(start))).Debug("Task complete")
+
+		elapsed := g.clock.Now().Sub(start)
+		l.Debug("Task complete", zap.Duration("elapsed", elapsed))
 		return nil
 	})
 }
