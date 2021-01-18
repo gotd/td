@@ -17,3 +17,12 @@ type DialFunc func(ctx context.Context, network, address string) (net.Conn, erro
 func (d DialFunc) DialContext(ctx context.Context, network, address string) (net.Conn, error) {
 	return d(ctx, network, address)
 }
+
+// orDefaultDialer check that d is not nil.
+// Otherwise returns default dialer.
+func orDefaultDialer(d Dialer) Dialer {
+	if d != nil {
+		return d
+	}
+	return &net.Dialer{}
+}

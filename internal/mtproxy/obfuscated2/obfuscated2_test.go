@@ -1,4 +1,4 @@
-package codec
+package obfuscated2
 
 import (
 	"bytes"
@@ -25,7 +25,7 @@ func Test_generateKeys(t *testing.T) {
 	secret, err := hex.DecodeString(strings.Repeat("a", 32))
 	a.NoError(err)
 
-	k, err := generateKeys(OneChar{char: 'a'}, secret, PaddedIntermediateClientStart, 2)
+	k, err := generateKeys(OneChar{char: 'a'}, [4]byte{0xdd, 0xdd, 0xdd, 0xdd}, secret, 2)
 	a.NoError(err)
 
 	var expectedHeader = []byte{
@@ -34,7 +34,7 @@ func Test_generateKeys(t *testing.T) {
 		97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97, 97,
 		97, 97, 97, 97, 97, 171, 65, 98, 66, 79, 102, 253, 220,
 	}
-	a.Equal(expectedHeader, k.Header)
+	a.Equal(expectedHeader, k.header)
 }
 
 func TestEncrypt(t *testing.T) {
@@ -49,7 +49,7 @@ func TestEncrypt(t *testing.T) {
 		12, 28, 36, 250, 111, 41, 204, 215, 36, 190, 111, 65, 111, 247, 176,
 		38, 246, 204, 230,
 	}
-	k, err := generateKeys(bytes.NewReader(rand), secret, PaddedIntermediateClientStart, 2)
+	k, err := generateKeys(bytes.NewReader(rand), [4]byte{0xdd, 0xdd, 0xdd, 0xdd}, secret, 2)
 	a.NoError(err)
 
 	var expectedHeader = []byte{
@@ -58,14 +58,14 @@ func TestEncrypt(t *testing.T) {
 		2, 56, 134, 51, 227, 131, 122, 12, 28, 36, 250, 111, 41, 204, 215, 36, 190, 111,
 		190, 162, 221, 225, 109, 197, 157, 210,
 	}
-	a.Equal(expectedHeader, k.Header)
+	a.Equal(expectedHeader, k.header)
 
 	var encrypted [4]byte
 	payload := []byte{'a', 'b', 'c', 'd'}
-	k.Encrypt.XORKeyStream(encrypted[:], payload)
+	k.encrypt.XORKeyStream(encrypted[:], payload)
 	a.Equal([]byte{202, 122, 130, 38}, encrypted[:])
 
-	k.Decrypt.XORKeyStream(encrypted[:], payload)
+	k.decrypt.XORKeyStream(encrypted[:], payload)
 	a.Equal([]byte{143, 113, 25, 130}, encrypted[:])
 }
 

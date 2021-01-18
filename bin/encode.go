@@ -50,6 +50,13 @@ func (b *Buffer) PutBool(v bool) {
 	}
 }
 
+// PutUint16 serializes unsigned 16-bit integer.
+func (b *Buffer) PutUint16(v uint16) {
+	t := make([]byte, 2)
+	binary.LittleEndian.PutUint16(t, v)
+	b.Buf = append(b.Buf, t...)
+}
+
 // PutInt32 serializes signed 32-bit integer.
 func (b *Buffer) PutInt32(v int32) {
 	b.PutUint32(uint32(v))
