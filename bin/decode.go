@@ -199,7 +199,7 @@ func (b *Buffer) Int128() (Int128, error) {
 	return v, nil
 }
 
-// Int256 decodes 256-bit unsigned integer from Buffer.
+// Int256 decodes 256-bit signed integer from Buffer.
 func (b *Buffer) Int256() (Int256, error) {
 	v := Int256{}
 	size := len(v)
