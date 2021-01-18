@@ -98,15 +98,6 @@ jobs:
           GO111MODULES: on
         run: go get github.com/gotd/mtg@master
 
-      - name: Generate MTProxy secret
-        run: echo "GOTD_MTPROXY_SECRET=$(mtg generate-secret simple)" >> $GITHUB_ENV
-
-      - name: Run MTProxy in background
-        env:
-          MTG_DEBUG: true
-          MTG_TEST_DC: true
-        run: mtg run --bind localhost:3128 $GOTD_MTPROXY_SECRET &
-
       - name: Run tests
         env:
           GOTD_TEST_EXTERNAL: 1

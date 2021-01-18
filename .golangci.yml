@@ -29,6 +29,7 @@ linters-settings:
       - exitAfterDefer
       - whyNoLint
       - singleCaseSwitch
+      - commentedOutCode
 
 linters:
   disable-all: true
@@ -80,6 +81,10 @@ issues:
     - linters: [gocyclo, gocognit]
       path: exchange
       text: "Run"
+
+    # this package is copy of tlstypes from mtg, keeping unchanged, so suppress some linters.
+    - path: tlstypes
+      linters: [gochecknoglobals, gosec, golint]
 
     - linters: [gocritic]
       text: "commentedOutCode"
