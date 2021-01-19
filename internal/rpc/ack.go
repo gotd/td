@@ -1,56 +1,45 @@
 package rpc
 
 import (
-	"context"
-	"sync"
-
 	"go.uber.org/zap"
 )
 
 // NotifyAcks notifies engine about received acknowledgements.
 func (e *Engine) NotifyAcks(ids []int64) {
-	for _, id := range ids {
-		e.mux.Lock()
-		cb, ok := e.ack[id]
-		e.mux.Unlock()
+	e.mux.Lock()
+	defer e.mux.Unlock()
 
+	for _, id := range ids {
+		ch, ok := e.ack[id]
 		if !ok {
 			e.log.Debug("Acknowledge callback not set", zap.Int64("msg_id", id))
 			continue
 		}
 
-		cb()
+		close(ch)
+		delete(e.ack, id)
 	}
 }
 
-// waitAck blocks until acknowledgement on message id is received.
-func (e *Engine) waitAck(ctx context.Context, id int64) error {
-	log := e.log.With(zap.Int64("msg_id", id))
-	log.Debug("Waiting for acknowledge")
-
-	done := make(chan struct{})
-	var ackOnce sync.Once
-
+func (e *Engine) waitAck(id int64) chan struct{} {
 	e.mux.Lock()
-	e.ack[id] = func() {
-		ackOnce.Do(func() {
-			close(done)
-		})
-	}
-	e.mux.Unlock()
+	defer e.mux.Unlock()
 
-	defer func() {
-		e.mux.Lock()
-		delete(e.ack, id)
-		e.mux.Unlock()
-	}()
-
-	select {
-	case <-ctx.Done():
-		log.Debug("Acknowledge canceled")
-		return ctx.Err()
-	case <-done:
-		log.Debug("Acknowledged")
-		return nil
+	log := e.log.With(zap.Int64("ack_id", id))
+	if c, found := e.ack[id]; found {
+		log.Warn("Ack already registered")
+		return c
 	}
+
+	log.Debug("Waiting for acknowledge")
+	c := make(chan struct{})
+	e.ack[id] = c
+	return c
+}
+
+func (e *Engine) removeAck(id int64) {
+	e.mux.Lock()
+	defer e.mux.Unlock()
+
+	delete(e.ack, id)
 }

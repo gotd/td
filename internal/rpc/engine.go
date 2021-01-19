@@ -20,7 +20,7 @@ type Engine struct {
 
 	mux sync.Mutex
 	rpc map[int64]func(*bin.Buffer, error) error
-	ack map[int64]func()
+	ack map[int64]chan struct{}
 
 	clock         clock.Clock
 	log           *zap.Logger
@@ -48,7 +48,7 @@ func New(send Send, cfg Options) *Engine {
 
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
-		ack: map[int64]func(){},
+		ack: map[int64]chan struct{}{},
 
 		send: send,
 
@@ -125,11 +125,6 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		e.mux.Unlock()
 	}()
 
-	// Encoding request. Note that callback is already set.
-	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("send: %w", err)
-	}
-
 	// Start retrying.
 	if err := e.retryUntilAck(retryCtx, req); err != nil && !errors.Is(err, context.Canceled) {
 		// If the retryCtx was canceled, then one of two things happened:
@@ -158,27 +153,25 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	done := make(chan struct{})
-	var err error
+	var (
+		ackChan = e.waitAck(req.ID)
+		retries = 0
+		log     = e.log.Named("retry").With(zap.Int64("msg_id", req.ID))
+	)
 
-	e.wg.Add(1)
-	go func() {
-		defer e.wg.Done()
-		err = e.waitAck(ctx, req.ID)
-		close(done)
-	}()
+	defer e.removeAck(req.ID)
 
-	log := e.log.Named("retry").With(zap.Int64("msg_id", req.ID))
+	// Encoding request.
+	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+		return xerrors.Errorf("send: %w", err)
+	}
 
-	retries := 0
 	for {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
-		case <-done:
-			if err != nil {
-				return xerrors.Errorf("wait ack: %w", err)
-			}
+		case <-ackChan:
+			log.Debug("Acknowledged")
 			return nil
 		case <-e.clock.After(e.retryInterval):
 			log.Debug("Acknowledge timed out, performing retry")
