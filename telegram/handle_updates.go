@@ -31,7 +31,7 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	// TODO(ernado): handle UpdatesCombined
 	// TODO(ernado): handle UpdateShortSentMessage
 	default:
-		c.log.With(zap.String("update_type", fmt.Sprintf("%T", u))).Warn("Ignoring update")
+		c.log.Warn("Ignoring update", zap.String("update_type", fmt.Sprintf("%T", u)))
 	}
 	return nil
 }

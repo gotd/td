@@ -36,12 +36,10 @@ func (b EchoBot) Run(ctx context.Context) error {
 			switch peer := m.PeerID.(type) {
 			case *tg.PeerUser:
 				user := ctx.Users[peer.UserID]
-				logger.With(
-					zap.String("text", m.Message),
+				logger.Info("Got message", zap.String("text", m.Message),
 					zap.Int("user_id", user.ID),
 					zap.String("user_first_name", user.FirstName),
-					zap.String("username", user.Username),
-				).Info("Got message")
+					zap.String("username", user.Username))
 
 				randomID, err := client.RandInt64()
 				if err != nil {
@@ -67,7 +65,7 @@ func (b EchoBot) Run(ctx context.Context) error {
 		if err != nil {
 			return xerrors.Errorf("get auth status: %w", err)
 		}
-		logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+		logger.Info("Auth status", zap.Bool("authorized", auth.Authorized))
 
 		if err := b.suite.Authenticate(ctx, client); err != nil {
 			return xerrors.Errorf("authenticate: %w", err)
@@ -77,10 +75,8 @@ func (b EchoBot) Run(ctx context.Context) error {
 		if err != nil {
 			return xerrors.Errorf("get self: %w", err)
 		}
-		logger.With(
-			zap.String("user", me.Username),
-			zap.Int("id", me.ID),
-		).Info("Logged in")
+		logger.Info("Logged in", zap.String("user", me.Username),
+			zap.Int("id", me.ID))
 
 		select {
 		case b.auth <- me:
