@@ -39,7 +39,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		return ServerExchangeResult{}, xerrors.Errorf("generate pq: %w", err)
 	}
 
-	s.log.With(zap.String("pq", pq.String())).Debug("Sending ResPQ")
+	s.log.Debug("Sending ResPQ", zap.String("pq", pq.String()))
 	if err := s.writeUnencrypted(ctx, b, &mt.ResPQ{
 		Pq:          pq.Bytes(),
 		Nonce:       pqReq.Nonce,
@@ -105,9 +105,7 @@ func (s ServerExchange) Run(ctx context.Context) (ServerExchangeResult, error) {
 		return ServerExchangeResult{}, err
 	}
 
-	s.log.With(
-		zap.Int("g", g),
-	).Debug("Sending ServerDHParamsOk")
+	s.log.Debug("Sending ServerDHParamsOk", zap.Int("g", g))
 	// 5. Server responds with Server_DH_Params.
 	if err := s.writeUnencrypted(ctx, b, &mt.ServerDHParamsOk{
 		Nonce:           pqReq.Nonce,

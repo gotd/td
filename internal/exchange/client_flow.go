@@ -73,7 +73,7 @@ Loop:
 	if err != nil {
 		return ClientExchangeResult{}, xerrors.Errorf("decompose pq: %w", err)
 	}
-	c.log.With(zap.Duration("took", c.clock.Now().Sub(start))).Debug("PQ decomposing complete")
+	c.log.Debug("PQ decomposing complete", zap.Duration("took", c.clock.Now().Sub(start)))
 
 	// 4. Client sends query to server.
 	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string q:string

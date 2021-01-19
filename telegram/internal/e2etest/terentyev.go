@@ -55,7 +55,7 @@ func (u User) Run(ctx context.Context) error {
 		if err != nil {
 			return xerrors.Errorf("get auth status: %w", err)
 		}
-		logger.With(zap.Bool("authorized", auth.Authorized)).Info("Auth status")
+		logger.Info("Auth status", zap.Bool("authorized", auth.Authorized))
 		if err := u.suite.Authenticate(ctx, client); err != nil {
 			return xerrors.Errorf("authenticate: %w", err)
 		}

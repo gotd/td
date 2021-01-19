@@ -61,12 +61,10 @@ func run(ctx context.Context) error {
 			switch peer := m.PeerID.(type) {
 			case *tg.PeerUser:
 				user := ctx.Users[peer.UserID]
-				logger.With(
-					zap.String("text", m.Message),
+				logger.Info("Got message", zap.String("text", m.Message),
 					zap.Int("user_id", user.ID),
 					zap.String("user_first_name", user.FirstName),
-					zap.String("username", user.Username),
-				).Info("Got message")
+					zap.String("username", user.Username))
 
 				return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Message: m.Message,

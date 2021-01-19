@@ -72,7 +72,7 @@ func run(ctx context.Context) error {
 			var rpcErr *mtproto.Error
 			if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
 				// Server told us to wait N seconds before sending next message.
-				logger.With(zap.Int("seconds", rpcErr.Argument)).Info("Sleeping")
+				logger.Info("Sleeping", zap.Int("seconds", rpcErr.Argument))
 				time.Sleep(time.Second * time.Duration(rpcErr.Argument))
 				continue
 			}

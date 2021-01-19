@@ -93,7 +93,7 @@ func (s *Server) SetHandlerFunc(handler func(s Session, msgID int64, in *bin.Buf
 }
 
 func (s *Server) serve() error {
-	s.log.With(zap.String("addr", s.Addr().String())).Info("Serving")
+	s.log.Info("Serving", zap.String("addr", s.Addr().String()))
 	defer func() {
 		l := s.log
 		if err := s.ctx.Err(); err != nil {
@@ -105,7 +105,7 @@ func (s *Server) serve() error {
 	return s.server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
 		err := s.serveConn(ctx, conn)
 		if err != nil {
-			s.log.With(zap.Error(err)).Info("Serving handler error")
+			s.log.Info("Serving handler error", zap.Error(err))
 		}
 		return err
 	})

@@ -33,7 +33,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 			if errors.Is(err, io.EOF) || (errors.As(err, &syscallErr) && syscallErr.Op == "read") {
 				// Client disconnected.
 				s.users.deleteConnection(key)
-				s.log.With(zap.Error(err)).Info("Read failed, closing loop.")
+				s.log.Info("Read failed, closing loop.", zap.Error(err))
 				return nil
 			}
 

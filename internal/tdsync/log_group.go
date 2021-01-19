@@ -44,7 +44,7 @@ func (g *LogGroup) SetClock(c clock.Clock) {
 func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
 	g.grp.Go(func() error {
 		start := g.clock.Now()
-		l := g.log.With(zap.String("task", taskName)).WithOptions(zap.AddCallerSkip(2))
+		l := g.log.With(zap.String("task", taskName)).WithOptions(zap.AddCallerSkip(1))
 		l.Debug("Task started")
 
 		if err := f(g.gCtx); err != nil {
