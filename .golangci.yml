@@ -30,6 +30,9 @@ linters-settings:
       - whyNoLint
       - singleCaseSwitch
       - commentedOutCode
+    settings:
+      ruleguard:
+        rules: './gorules/rules.go'
 
 linters:
   disable-all: true
