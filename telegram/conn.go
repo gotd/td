@@ -60,7 +60,7 @@ type conn struct {
 	mux     sync.Mutex
 
 	sessionInit *tdsync.Ready
-	gotConfig   chan struct{}
+	gotConfig   *tdsync.Ready
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
@@ -68,8 +68,7 @@ func (c *conn) OnSession(session mtproto.Session) error {
 	c.sessionInit.Signal()
 
 	// Waiting for config, because OnSession can occur before we set config.
-	// This can probably block forever.
-	<-c.gotConfig
+	<-c.gotConfig.Ready()
 
 	c.mux.Lock()
 	cfg := c.cfg
@@ -130,6 +129,7 @@ func (c *conn) OnMessage(b *bin.Buffer) error {
 }
 
 func (c *conn) init(ctx context.Context) error {
+	defer c.gotConfig.Signal()
 	c.log.Debug("Initializing")
 
 	q := &tg.InitConnectionRequest{
@@ -162,7 +162,6 @@ func (c *conn) init(ctx context.Context) error {
 	c.latest = c.clock.Now()
 	c.cfg = cfg
 	c.mux.Unlock()
-	close(c.gotConfig)
 
 	return nil
 }
@@ -184,7 +183,7 @@ func newConn(
 		log:         opt.Logger.Named("conn"),
 		handler:     handler,
 		sessionInit: tdsync.NewReady(),
-		gotConfig:   make(chan struct{}),
+		gotConfig:   tdsync.NewReady(),
 	}
 	opt.Handler = c
 	c.proto = mtproto.New(addr, opt)
