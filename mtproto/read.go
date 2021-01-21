@@ -154,24 +154,35 @@ func (c *Conn) readLoop(ctx context.Context) (err error) {
 	}
 }
 
-func (c *Conn) readEncryptedMessages(context.Context) error {
+func (c *Conn) readEncryptedMessages(ctx context.Context) error {
 	b := new(bin.Buffer)
-	for msg := range c.messages {
-		b.ResetTo(msg.Data())
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case msg, ok := <-c.messages:
+			if !ok {
+				return nil
+			}
+			b.ResetTo(msg.Data())
 
-		if err := c.handleMessage(b); err != nil {
-			// Probably we can return here, but this will shutdown whole
-			// connection which can be unexpected.
-			c.log.Warn("Error while handling message", zap.Error(err))
-			// Sending acknowledge even on error. Client should restore
-			// from missing updates via explicit pts check and getDiff call.
-		}
+			if err := c.handleMessage(b); err != nil {
+				// Probably we can return here, but this will shutdown whole
+				// connection which can be unexpected.
+				c.log.Warn("Error while handling message", zap.Error(err))
+				// Sending acknowledge even on error. Client should restore
+				// from missing updates via explicit pts check and getDiff call.
+			}
 
-		needAck := (msg.SeqNo & 0x01) != 0
-		if needAck {
-			c.ackSendChan <- msg.MessageID
+			needAck := (msg.SeqNo & 0x01) != 0
+			if needAck {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case c.ackSendChan <- msg.MessageID:
+					continue
+				}
+			}
 		}
 	}
-
-	return nil
 }
