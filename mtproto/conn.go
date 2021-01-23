@@ -131,7 +131,10 @@ func New(addr string, opt Options) *Conn {
 func (c *Conn) handleClose(ctx context.Context) error {
 	<-ctx.Done()
 	c.log.Debug("Closing")
-	c.rpc.Close()
+
+	// Close RPC Engine.
+	c.rpc.ForceClose()
+	// Close connection.
 	if err := c.conn.Close(); err != nil {
 		c.log.Debug("Failed to cleanup connection", zap.Error(err))
 	}
