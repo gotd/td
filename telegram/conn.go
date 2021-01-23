@@ -59,8 +59,8 @@ type conn struct {
 	latest  time.Time
 	mux     sync.Mutex
 
-	sessionInit *tdsync.Ready
-	gotConfig   *tdsync.Ready
+	sessionInit *tdsync.Ready // immutable
+	gotConfig   *tdsync.Ready // immutable
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {

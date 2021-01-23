@@ -59,32 +59,41 @@ type clientConn interface {
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	// tg provides RPC calls via Client.
-	tg *tg.Client
+	tg *tg.Client // immutable
 
 	// Telegram device information.
-	device DeviceConfig
+	device DeviceConfig // immutable
 
-	connMux  sync.Mutex
+	// Connection state. Guarded by connMux.
 	connAddr string
 	connOpt  mtproto.Options
 	conn     clientConn
 	cfg      tg.Config
-	restart  chan struct{}
+	connMux  sync.Mutex
+
+	// Restart signal channel.
+	restart chan struct{} // immutable
 
 	// Wrappers for external world, like logs or PRNG.
-	// Should be immutable.
-	rand  io.Reader
-	log   *zap.Logger
-	clock clock.Clock
+	rand  io.Reader   // immutable
+	log   *zap.Logger // immutable
+	clock clock.Clock // immutable
 
-	ctx    context.Context
-	cancel context.CancelFunc
+	// Client context. Will be canceled by Run on exit.
+	ctx    context.Context    // immutable
+	cancel context.CancelFunc // immutable
 
+	// Client config.
 	appID   int    // immutable
 	appHash string // immutable
-	storage clientStorage
+	// Session storage.
+	storage clientStorage // immutable,nilable
 
-	ready         *tdsync.ResetReady
+	// Ready signal channel, sends signal when client connection is ready.
+	// Resets on reconnect.
+	ready *tdsync.ResetReady // immutable
+
+	// Telegram updates handler.
 	updateHandler UpdateHandler // immutable
 }
 
@@ -132,6 +141,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		clock:         opt.Clock,
 		device:        opt.Device,
 		ready:         tdsync.NewResetReady(),
+		restart:       make(chan struct{}),
 	}
 
 	// Including version into client logger to help with debugging.
@@ -231,8 +241,6 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 }
 
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
-	c.restart = make(chan struct{})
-
 	// TODO: Make this configurable.
 	// Note that we currently have no timeout on connection, so this is
 	// potentially eternal.
@@ -273,8 +281,16 @@ func (c *Client) resetReady() {
 //
 // Context of callback will be canceled if fatal error is detected.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
+	select {
+	case <-c.ctx.Done():
+		return xerrors.Errorf("client already closed: %w", ctx.Err())
+	default:
+	}
+
 	c.log.Info("Starting")
 	defer c.log.Info("Closed")
+	// Cancel client on exit.
+	defer c.cancel()
 
 	c.resetReady()
 	if err := c.restoreConnection(ctx); err != nil {
