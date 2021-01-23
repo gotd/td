@@ -17,6 +17,7 @@ func NewUpdateDispatcher() UpdateDispatcher {
 type UpdateContext struct {
     context.Context
 
+    Short bool
     Users map[int]*User
     Chats map[int]*Chat
     Channels map[int]*Channel
@@ -50,25 +51,54 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
 	}
 }
 
+func (u *UpdateContext) short(ctx context.Context) {
+    if u.init {
+        return
+    }
+    u.init = true
+
+    u.Context = ctx
+    u.Short = true
+    u.Users = make(map[int]*User, 0)
+    u.Chats = make(map[int]*Chat, 0)
+    u.Channels = make(map[int]*Channel, 0)
+}
+
+// Handle implements UpdateDispatcher.
 func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
     uctx := UpdateContext{
         Context:      ctx,
     }
 
 	for _, update := range updates.Updates {
-        switch update.(type) {
-{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
-        case *{{ $s.Name }}:
-            if handler, ok := u.handlers[{{ $s.Name }}TypeID]; ok {
-                uctx.lazyInitFromUpdates(updates)
-                if err := handler(uctx, update); err != nil {
-                    return err
-                }
-            }
-{{- end }}{{ end }}
+        uctx.lazyInitFromUpdates(updates)
+        if err := u.dispatch(uctx, update); err != nil {
+            return err
         }
 	}
 	return nil
+}
+
+// HandleShort implements UpdateDispatcher.
+func (u UpdateDispatcher) HandleShort(ctx context.Context, short *UpdateShort) error {
+    uctx := UpdateContext{}
+    uctx.short(ctx)
+    return u.dispatch(uctx, short.Update)
+}
+
+func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error {
+    switch update.(type) {
+{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
+    case *{{ $s.Name }}:
+        if handler, ok := u.handlers[{{ $s.Name }}TypeID]; ok {
+            if err := handler(uctx, update); err != nil {
+                return err
+            }
+        }
+{{- end }}{{ end }}
+    }
+
+    return nil
 }
 
 {{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}

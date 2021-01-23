@@ -52,7 +52,7 @@ func run(ctx context.Context) error {
 		},
 
 		Transport:     transport.Intermediate(transport.DialFunc(proxy.Dial)),
-		UpdateHandler: dispatcher.Handle,
+		UpdateHandler: dispatcher,
 	})
 
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {

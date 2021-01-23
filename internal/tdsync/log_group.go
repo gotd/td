@@ -4,29 +4,24 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/clock"
 )
 
-// LogGroup is simple wrapper around
-// errgroup.Group to log task state.
+// LogGroup is simple wrapper around CancellableGroup to log task state.
 // Unlike WaitGroup and errgroup.Group this is not allowed to use zero value.
 type LogGroup struct {
-	grp  *errgroup.Group
-	gCtx context.Context
+	grp CancellableGroup
 
 	log   *zap.Logger
 	clock clock.Clock
 }
 
 // NewLogGroup creates new LogGroup.
-func NewLogGroup(ctx context.Context, log *zap.Logger) *LogGroup {
-	grp, gCtx := errgroup.WithContext(ctx)
+func NewLogGroup(parent context.Context, log *zap.Logger) *LogGroup {
 	return &LogGroup{
-		grp:   grp,
-		gCtx:  gCtx,
+		grp:   *NewCancellableGroup(parent),
 		log:   log,
 		clock: clock.System,
 	}
@@ -41,13 +36,13 @@ func (g *LogGroup) SetClock(c clock.Clock) {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
-	g.grp.Go(func() error {
+func (g *LogGroup) Go(taskName string, f func(groupCtx context.Context) error) {
+	g.grp.Go(func(groupCtx context.Context) error {
 		start := g.clock.Now()
 		l := g.log.With(zap.String("task", taskName)).WithOptions(zap.AddCallerSkip(1))
 		l.Debug("Task started")
 
-		if err := f(g.gCtx); err != nil {
+		if err := f(groupCtx); err != nil {
 			elapsed := g.clock.Now().Sub(start)
 			l.Debug("Task stopped", zap.Error(err), zap.Duration("elapsed", elapsed))
 			return xerrors.Errorf("task %s: %w", taskName, err)
@@ -57,6 +52,13 @@ func (g *LogGroup) Go(taskName string, f func(ctx context.Context) error) {
 		l.Debug("Task complete", zap.Duration("elapsed", elapsed))
 		return nil
 	})
+}
+
+// Cancel cancels all goroutines in group.
+//
+// Note: context cancellation error will be returned by Wait().
+func (g *LogGroup) Cancel() {
+	g.grp.Cancel()
 }
 
 // Wait blocks until all function calls from the Go method have returned, then

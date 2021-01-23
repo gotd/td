@@ -26,7 +26,10 @@ import (
 )
 
 // UpdateHandler will be called on received updates from Telegram.
-type UpdateHandler func(ctx context.Context, u *tg.Updates) error
+type UpdateHandler interface {
+	Handle(ctx context.Context, u *tg.Updates) error
+	HandleShort(ctx context.Context, u *tg.UpdateShort) error
+}
 
 // Available MTProto default server addresses.
 //

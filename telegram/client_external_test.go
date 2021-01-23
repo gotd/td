@@ -13,9 +13,9 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
@@ -74,12 +74,12 @@ const dialog = `— Да?
 — Кому?
 — Ну тебе.`
 
-func TestE2EUsersDialog(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_USERS_DIALOG")); !ok {
-		t.Skip("Skipped. Set GOTD_USERS_DIALOG=1 to enable users dialog e2e test.")
+func TestExternalE2EUsersDialog(t *testing.T) {
+	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
+		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 
@@ -91,18 +91,20 @@ func TestE2EUsersDialog(t *testing.T) {
 	}
 	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
 
-	g, gctx := errgroup.WithContext(ctx)
 	auth := make(chan *tg.User, 1)
-	botCtx, botCancel := context.WithCancel(gctx)
-	g.Go(func() error {
-		return e2etest.NewEchoBot(suite, auth).Run(botCtx)
+	g := tdsync.NewLogGroup(ctx, log.Named("group"))
+
+	g.Go("echobot", func(ctx context.Context) error {
+		return e2etest.NewEchoBot(suite, auth).Run(ctx)
 	})
 
-	user := <-auth
-	g.Go(func() error {
-		defer botCancel()
-		return e2etest.NewUser(suite, strings.Split(dialog, "\n"), user).Run(gctx)
-	})
+	user, ok := <-auth
+	if ok {
+		g.Go("terentyev", func(ctx context.Context) error {
+			defer g.Cancel()
+			return e2etest.NewUser(suite, strings.Split(dialog, "\n"), user.Username).Run(ctx)
+		})
+	}
 
 	require.NoError(t, g.Wait())
 }
