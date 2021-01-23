@@ -27,6 +27,10 @@ type Engine struct {
 	retryInterval time.Duration
 	maxRetries    int
 
+	// Canceling pending requests in ForceClose.
+	reqCtx    context.Context
+	reqCancel context.CancelFunc
+
 	wg     sync.WaitGroup
 	closed uint32
 }
@@ -46,6 +50,7 @@ func New(send Send, cfg Options) *Engine {
 		zap.Int("max_retries", cfg.MaxRetries),
 	)
 
+	reqCtx, reqCancel := context.WithCancel(context.Background())
 	return &Engine{
 		rpc: map[int64]func(*bin.Buffer, error) error{},
 		ack: map[int64]chan struct{}{},
@@ -56,6 +61,9 @@ func New(send Send, cfg Options) *Engine {
 		maxRetries:    cfg.MaxRetries,
 		retryInterval: cfg.RetryInterval,
 		clock:         cfg.Clock,
+
+		reqCtx:    reqCtx,
+		reqCancel: reqCancel,
 	}
 }
 
@@ -140,6 +148,8 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
+	case <-e.reqCtx.Done():
+		return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
 	case <-done:
 		return resultErr
 	}
@@ -170,6 +180,8 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 		select {
 		case <-ctx.Done():
 			return ctx.Err()
+		case <-e.reqCtx.Done():
+			return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
 		case <-ackChan:
 			log.Debug("Acknowledged")
 			return nil
@@ -226,10 +238,19 @@ func (e *Engine) isClosed() bool {
 	return atomic.LoadUint32(&e.closed) == 1
 }
 
-// Close closes the engine.
+// Close gracefully closes the engine.
+// All pending requests will be awaited.
 // All Do method calls of closed engine will return ErrEngineClosed error.
 func (e *Engine) Close() {
 	atomic.StoreUint32(&e.closed, 1)
 	e.log.Info("Close called")
 	e.wg.Wait()
+}
+
+// ForceClose forcibly closes the engine.
+// All pending requests will be canceled.
+// All Do method calls of closed engine will return ErrEngineClosed error.
+func (e *Engine) ForceClose() {
+	e.reqCancel()
+	e.Close()
 }
