@@ -2,21 +2,17 @@ package telegram
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"io"
 	"runtime/debug"
 	"strings"
-	"sync"
 
-	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
@@ -67,15 +63,8 @@ type Client struct {
 	// Telegram device information.
 	device DeviceConfig // immutable
 
-	// Connection state. Guarded by connMux.
-	connAddr string
-	connOpt  mtproto.Options
-	conn     clientConn
-	cfg      tg.Config
-	connMux  sync.Mutex
-
-	// Restart signal channel.
-	restart chan struct{} // immutable
+	// Connection pool.
+	conn clientConn
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
@@ -100,7 +89,13 @@ type Client struct {
 	updateHandler UpdateHandler // immutable
 }
 
-func (c *Client) onMessage(b *bin.Buffer) error {
+// OnSession implements ConnHandler.
+func (c *Client) OnSession(addr string, cfg tg.Config, s mtproto.Session) error {
+	return nil
+}
+
+// OnMessage implements ConnHandler.
+func (c *Client) OnMessage(b *bin.Buffer) error {
 	return c.handleUpdates(b)
 }
 
@@ -140,11 +135,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
-		connAddr:      opt.Addr,
 		clock:         opt.Clock,
 		device:        opt.Device,
 		ready:         tdsync.NewResetReady(),
-		restart:       make(chan struct{}),
 	}
 
 	// Including version into client logger to help with debugging.
@@ -158,7 +151,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		}
 	}
 
-	client.connOpt = mtproto.Options{
+	options := mtproto.Options{
 		PublicKeys:    opt.PublicKeys,
 		Transport:     opt.Transport,
 		Network:       opt.Network,
@@ -177,105 +170,18 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(connModeUpdates)
+	client.conn = pool.NewPool(appID, client, pool.Options{
+		Addr:           opt.Addr,
+		Device:         pool.DeviceConfig(opt.Device),
+		SessionStorage: client.storage,
+		Logger:         opt.Logger.Named("pool"),
+		MTProto:        options,
+	})
 
 	// Initializing internal RPC caller.
 	client.tg = tg.NewClient(client)
 
 	return client
-}
-
-func (c *Client) restoreConnection(ctx context.Context) error {
-	if c.storage == nil {
-		return nil
-	}
-	data, err := c.storage.Load(ctx)
-	if errors.Is(err, session.ErrNotFound) {
-		return nil
-	}
-	if err != nil {
-		return xerrors.Errorf("load: %w", err)
-	}
-
-	// Restoring persisted auth key.
-	var key crypto.AuthKey
-	copy(key.Value[:], data.AuthKey)
-	copy(key.ID[:], data.AuthKeyID)
-
-	if key.Value.ID() != key.ID {
-		return xerrors.New("corrupted key")
-	}
-
-	// Re-initializing connection from persisted state.
-	c.log.Info("Connection restored from state",
-		zap.String("addr", data.Addr),
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
-	)
-
-	c.connMux.Lock()
-	c.connOpt.Key = key
-	c.connOpt.Salt = data.Salt
-	c.connAddr = data.Addr
-	c.conn = c.createConn(connModeUpdates)
-	c.connMux.Unlock()
-
-	return nil
-}
-
-func (c *Client) runUntilRestart(ctx context.Context) error {
-	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(func(gCtx context.Context) error {
-		return c.conn.Run(gCtx)
-	})
-	g.Go(func(gCtx context.Context) error {
-		select {
-		case <-gCtx.Done():
-			return gCtx.Err()
-		case <-c.restart:
-			c.log.Debug("Restart triggered")
-			// Should call cancel() to cancel group.
-			g.Cancel()
-
-			return nil
-		}
-	})
-
-	return g.Wait()
-}
-
-func (c *Client) reconnectUntilClosed(ctx context.Context) error {
-	// TODO: Make this configurable.
-	// Note that we currently have no timeout on connection, so this is
-	// potentially eternal.
-	b := backoff.NewExponentialBackOff()
-	b.Clock = c.clock
-	b.MaxElapsedTime = 0
-
-	for {
-		err := c.runUntilRestart(ctx)
-		if err == nil {
-			return nil
-		}
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-c.clock.After(b.NextBackOff()):
-			c.log.Info("Restarting connection", zap.Error(err))
-
-			c.connMux.Lock()
-			c.conn = c.createConn(connModeUpdates)
-			c.connMux.Unlock()
-		}
-	}
-}
-
-func (c *Client) onReady() {
-	c.log.Debug("Ready")
-	c.ready.Signal()
-}
-
-func (c *Client) resetReady() {
-	c.ready.Reset()
 }
 
 // Run starts client session and block until connection close.
@@ -295,89 +201,21 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	// Cancel client on exit.
 	defer c.cancel()
 
-	c.resetReady()
-	if err := c.restoreConnection(ctx); err != nil {
-		return err
-	}
-
 	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(c.reconnectUntilClosed)
+	g.Go(c.conn.Run)
 	g.Go(func(gCtx context.Context) error {
-		select {
-		case <-gCtx.Done():
-			return gCtx.Err()
-		case <-c.ready.Ready():
-			if err := f(gCtx); err != nil {
-				return xerrors.Errorf("callback: %w", err)
-			}
-			// Should call cancel() to cancel gCtx.
-			// This will terminate c.conn.Run().
-			c.log.Debug("Callback returned, stopping")
-			g.Cancel()
-			return nil
+		if err := f(gCtx); err != nil {
+			return xerrors.Errorf("callback: %w", err)
 		}
+		// Should call cancel() to cancel gCtx.
+		// This will terminate c.conn.Run().
+		c.log.Debug("Callback returned, stopping")
+		g.Cancel()
+		return nil
 	})
 	if err := g.Wait(); !xerrors.Is(err, context.Canceled) {
 		return err
 	}
 
 	return nil
-}
-
-func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) error {
-	if c.storage == nil {
-		return nil
-	}
-
-	data, err := c.storage.Load(c.ctx)
-	if errors.Is(err, session.ErrNotFound) {
-		// Initializing new state.
-		err = nil
-		data = &session.Data{}
-	}
-	if err != nil {
-		return xerrors.Errorf("load: %w", err)
-	}
-
-	// Updating previous data.
-	data.Config = cfg
-	data.AuthKey = s.Key.Value[:]
-	data.AuthKeyID = s.Key.ID[:]
-	data.DC = cfg.ThisDC
-	data.Addr = addr
-	data.Salt = s.Salt
-
-	if err := c.storage.Save(c.ctx, data); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
-	c.log.Debug("Data saved",
-		zap.String("key_id", fmt.Sprintf("%x", data.AuthKeyID)),
-	)
-	return nil
-}
-
-func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
-	if err := c.saveSession(addr, cfg, s); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
-	c.connMux.Lock()
-	c.connAddr = addr
-	c.cfg = cfg
-	c.onReady()
-	c.connMux.Unlock()
-
-	return nil
-}
-
-func (c *Client) createConn(mode connMode) clientConn {
-	return newConn(
-		c,
-		c.connAddr,
-		c.appID,
-		mode,
-		c.connOpt,
-		c.device,
-	)
 }

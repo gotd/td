@@ -56,7 +56,7 @@ func (g *LogGroup) Go(taskName string, f func(groupCtx context.Context) error) {
 
 // Cancel cancels all goroutines in group.
 //
-// Note: context cancellation error will be returned by Wait().
+// Note: context cancellation error can be returned by Wait().
 func (g *LogGroup) Cancel() {
 	g.grp.Cancel()
 }

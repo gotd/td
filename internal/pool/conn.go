@@ -1,4 +1,4 @@
-package telegram
+package pool
 
 import (
 	"context"
@@ -29,9 +29,10 @@ const (
 	connModeCDN
 )
 
-type connHandler interface {
-	onSession(addr string, cfg tg.Config, s mtproto.Session) error
-	onMessage(b *bin.Buffer) error
+// ConnHandler handles
+type ConnHandler interface {
+	OnSession(addr string, cfg tg.Config, s mtproto.Session) error
+	OnMessage(b *bin.Buffer) error
 }
 
 type conn struct {
@@ -41,17 +42,13 @@ type conn struct {
 	// MTProto connection.
 	proto protoConn // immutable
 
-	// InitConnection parameters.
-	appID  int          // immutable
-	device DeviceConfig // immutable
-
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
 	clock clock.Clock // immutable
 	log   *zap.Logger // immutable
 
 	// Handler passed by client.
-	handler connHandler // immutable
+	handler ConnHandler // immutable
 
 	// State fields.
 	cfg     tg.Config
@@ -64,7 +61,6 @@ type conn struct {
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
-	c.log.Info("SessionInit")
 	c.sessionInit.Signal()
 
 	// Waiting for config, because OnSession can occur before we set config.
@@ -74,7 +70,21 @@ func (c *conn) OnSession(session mtproto.Session) error {
 	cfg := c.cfg
 	c.mux.Unlock()
 
-	return c.handler.onSession(c.addr, cfg, session)
+	return c.handler.OnSession(c.addr, cfg, session)
+}
+
+func (c *conn) OnMessage(b *bin.Buffer) error {
+	return c.handler.OnMessage(b)
+}
+
+func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	// Tracking ongoing invokes.
+	defer c.trackInvoke()()
+	if err := c.waitSession(ctx); err != nil {
+		return xerrors.Errorf("waitSession: %w", err)
+	}
+
+	return c.proto.InvokeRaw(ctx, input, output)
 }
 
 func (c *conn) trackInvoke() func() {
@@ -101,10 +111,6 @@ func (c *conn) trackInvoke() func() {
 	}
 }
 
-func (c *conn) Run(ctx context.Context) error {
-	return c.proto.Run(ctx, c.init)
-}
-
 func (c *conn) waitSession(ctx context.Context) error {
 	select {
 	case <-c.sessionInit.Ready():
@@ -114,32 +120,28 @@ func (c *conn) waitSession(ctx context.Context) error {
 	}
 }
 
-func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	// Tracking ongoing invokes.
-	defer c.trackInvoke()()
-	if err := c.waitSession(ctx); err != nil {
-		return xerrors.Errorf("waitSession: %w", err)
-	}
-
-	return c.proto.InvokeRaw(ctx, input, output)
+func (c *conn) Ready() <-chan struct{} {
+	return c.gotConfig.Ready()
 }
 
-func (c *conn) OnMessage(b *bin.Buffer) error {
-	return c.handler.onMessage(b)
+func (c *conn) Init(ctx context.Context, appID int, device DeviceConfig) error {
+	return c.proto.Run(ctx, func(ctx context.Context) error {
+		return c.init(ctx, appID, device)
+	})
 }
 
-func (c *conn) init(ctx context.Context) error {
+func (c *conn) init(ctx context.Context, appID int, device DeviceConfig) error {
 	defer c.gotConfig.Signal()
 	c.log.Debug("Initializing")
 
 	q := &tg.InitConnectionRequest{
-		APIID:          c.appID,
-		DeviceModel:    c.device.DeviceModel,
-		SystemVersion:  c.device.SystemVersion,
-		AppVersion:     c.device.AppVersion,
-		SystemLangCode: c.device.SystemLangCode,
-		LangPack:       c.device.LangPack,
-		LangCode:       c.device.LangCode,
+		APIID:          appID,
+		DeviceModel:    device.DeviceModel,
+		SystemVersion:  device.SystemVersion,
+		AppVersion:     device.AppVersion,
+		SystemLangCode: device.SystemLangCode,
+		LangPack:       device.LangPack,
+		LangCode:       device.LangCode,
 		Query:          &tg.HelpGetConfigRequest{},
 	}
 	var req bin.Object = &tg.InvokeWithLayerRequest{
@@ -167,20 +169,16 @@ func (c *conn) init(ctx context.Context) error {
 }
 
 func newConn(
-	handler connHandler,
+	handler ConnHandler,
 	addr string,
-	appID int,
 	mode connMode,
 	opt mtproto.Options,
-	device DeviceConfig,
 ) *conn {
 	c := &conn{
-		appID:       appID,
-		device:      device,
 		mode:        mode,
 		addr:        addr,
 		clock:       opt.Clock,
-		log:         opt.Logger.Named("conn"),
+		log:         opt.Logger.Named("mtproto"),
 		handler:     handler,
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),
