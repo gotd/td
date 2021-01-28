@@ -192,7 +192,7 @@ func (c *Pool) deleteDC(ctx context.Context, id dcID) error {
 	return dc.Close(ctx)
 }
 
-func (c *Pool) acquireDC(ctx context.Context, id dcID) (dc *DC, err error) {
+func (c *Pool) acquireDC(ctx context.Context, id dcID) (*DC, error) {
 	c.dcsMux.Lock()
 	defer c.dcsMux.Unlock()
 
@@ -202,7 +202,7 @@ func (c *Pool) acquireDC(ctx context.Context, id dcID) (dc *DC, err error) {
 	}
 
 	// If DC pool does not exist, so we create new DC pool.
-	dc, err = c.createDC(ctx, id)
+	dc, err := c.createDC(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -211,11 +211,11 @@ func (c *Pool) acquireDC(ctx context.Context, id dcID) (dc *DC, err error) {
 	c.dcs[id] = dc
 
 	// Setup close handler.
-	c.grp.Go(func(ctx context.Context) error {
+	c.grp.Go(func(grpCtx context.Context) error {
 		defer func() {
 			_ = c.deleteDC(c.ctx, id)
 		}()
-		return dc.Run(ctx)
+		return dc.Run(grpCtx)
 	})
 
 	select {
@@ -226,7 +226,7 @@ func (c *Pool) acquireDC(ctx context.Context, id dcID) (dc *DC, err error) {
 	case <-dc.Ready():
 	}
 
-	return dc, err
+	return dc, nil
 }
 
 func (c *Pool) createDC(ctx context.Context, id dcID) (*DC, error) {
