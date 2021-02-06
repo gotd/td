@@ -37,12 +37,12 @@ func (e typedErrChecker) Error() string {
 	return e.t
 }
 
-// Err2faConfirmWait is error type for "2FA_CONFIRM_WAIT".
-const Err2faConfirmWait = "2FA_CONFIRM_WAIT"
+// Err2FAConfirmWait is error type for "2FA_CONFIRM_WAIT".
+const Err2FAConfirmWait = "2FA_CONFIRM_WAIT"
 
-// Is2faConfirmWait reports whether err is 2FA_CONFIRM_WAIT.
-func Is2faConfirmWait(err error) bool {
-	return errors.Is(err, typedErrChecker{t: Err2faConfirmWait})
+// Is2FAConfirmWait reports whether err is 2FA_CONFIRM_WAIT.
+func Is2FAConfirmWait(err error) bool {
+	return errors.Is(err, typedErrChecker{t: Err2FAConfirmWait})
 }
 
 // ErrAboutTooLong is error type for "ABOUT_TOO_LONG".
