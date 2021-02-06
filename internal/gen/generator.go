@@ -31,6 +31,8 @@ type Generator struct {
 	structs []structDef
 	// interfaces definitions.
 	interfaces []interfaceDef
+	// errorChecks definitions.
+	errorChecks []errCheckDef
 
 	// registry of type ids.
 	registry []bindingDef
@@ -75,6 +77,7 @@ func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 		return nil, xerrors.Errorf("failed to generate go structures: %w", err)
 	}
 	g.makeInterfaces()
+	g.makeErrors()
 
 	return g, nil
 }

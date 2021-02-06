@@ -17,6 +17,7 @@ type config struct {
 	Structs    []structDef
 	Interfaces []interfaceDef
 	Registry   []bindingDef
+	Errors     []errCheckDef
 }
 
 // FileSystem represents a directory of generated package.
@@ -117,14 +118,20 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 		Package:  pkgName,
 		Registry: g.registry,
 		Layer:    g.schema.Layer,
+		Errors:   g.errorChecks,
 	}
 
 	if err := generate("registry", "tl_registry_gen.go", cfg); err != nil {
 		return err
 	}
-
 	if err := generate("client", "tl_client_gen.go", cfg); err != nil {
 		return err
 	}
+	if len(cfg.Errors) > 0 {
+		if err := generate("errors", "tl_errors_gen.go", cfg); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }

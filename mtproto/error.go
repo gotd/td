@@ -15,6 +15,11 @@ type Error struct {
 	Argument int    // 3
 }
 
+// IsType reports whether error has type t.
+func (e Error) IsType(t string) bool {
+	return e.Type == t
+}
+
 // ExtractArgument extracts Type and Argument from Message.
 func (e *Error) ExtractArgument() {
 	if e.Message == "" {

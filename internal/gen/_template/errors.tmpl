@@ -1,0 +1,33 @@
+{{- /*gotype: github.com/gotd/td/internal/gen.config*/ -}}
+
+{{ define "errors" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+type typedErrChecker struct {
+  t string
+}
+
+type typedErr interface {
+  IsType(string) bool
+}
+
+func (e typedErrChecker) Is(err error) bool {
+  if x, ok := err.(typedErr); ok {
+    return x.IsType(e.t)
+  }
+  return false
+}
+
+func (e typedErrChecker) Error() string {
+  return e.t
+}
+
+{{- range $s:= $.Errors }}
+// Is{{ $s.Name }} reports whether err is {{ $s.Type }}.
+func Is{{ $s.Name }}(err error) bool {
+  return errors.Is(err, typedErrChecker{t: "{{ $s.Type }}"})
+}
+{{ end }}
+
+{{ end }}
