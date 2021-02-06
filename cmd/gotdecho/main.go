@@ -58,6 +58,11 @@ func run(ctx context.Context) error {
 	dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
 		switch m := u.Message.(type) {
 		case *tg.Message:
+			if m.Out {
+				// Skipping updates from self.
+				return nil
+			}
+
 			switch peer := m.PeerID.(type) {
 			case *tg.PeerUser:
 				user := ctx.Users[peer.UserID]
