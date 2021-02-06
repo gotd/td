@@ -45,6 +45,8 @@ type PeerSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
 	Autoarchived bool
+	// InviteMembers field of PeerSettings.
+	InviteMembers bool
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
@@ -80,6 +82,9 @@ func (p *PeerSettings) Zero() bool {
 		return false
 	}
 	if !(p.Autoarchived == false) {
+		return false
+	}
+	if !(p.InviteMembers == false) {
 		return false
 	}
 	if !(p.GeoDistance == 0) {
@@ -141,6 +146,9 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 	}
 	if !(p.Autoarchived == false) {
 		p.Flags.Set(7)
+	}
+	if !(p.InviteMembers == false) {
+		p.Flags.Set(8)
 	}
 	if !(p.GeoDistance == 0) {
 		p.Flags.Set(6)
@@ -266,6 +274,22 @@ func (p *PeerSettings) GetAutoarchived() (value bool) {
 	return p.Flags.Has(7)
 }
 
+// SetInviteMembers sets value of InviteMembers conditional field.
+func (p *PeerSettings) SetInviteMembers(value bool) {
+	if value {
+		p.Flags.Set(8)
+		p.InviteMembers = true
+	} else {
+		p.Flags.Unset(8)
+		p.InviteMembers = false
+	}
+}
+
+// GetInviteMembers returns value of InviteMembers conditional field.
+func (p *PeerSettings) GetInviteMembers() (value bool) {
+	return p.Flags.Has(8)
+}
+
 // SetGeoDistance sets value of GeoDistance conditional field.
 func (p *PeerSettings) SetGeoDistance(value int) {
 	p.Flags.Set(6)
@@ -301,6 +325,7 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 	p.NeedContactsException = p.Flags.Has(4)
 	p.ReportGeo = p.Flags.Has(5)
 	p.Autoarchived = p.Flags.Has(7)
+	p.InviteMembers = p.Flags.Has(8)
 	if p.Flags.Has(6) {
 		value, err := b.Int()
 		if err != nil {

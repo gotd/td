@@ -1060,6 +1060,93 @@ var (
 	_ SendMessageActionClass = &SpeakingInGroupCallAction{}
 )
 
+// SendMessageHistoryImportAction represents TL type `sendMessageHistoryImportAction#dbda9246`.
+//
+// See https://core.telegram.org/constructor/sendMessageHistoryImportAction for reference.
+type SendMessageHistoryImportAction struct {
+	// Progress field of SendMessageHistoryImportAction.
+	Progress int
+}
+
+// SendMessageHistoryImportActionTypeID is TL type id of SendMessageHistoryImportAction.
+const SendMessageHistoryImportActionTypeID = 0xdbda9246
+
+func (s *SendMessageHistoryImportAction) Zero() bool {
+	if s == nil {
+		return true
+	}
+	if !(s.Progress == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (s *SendMessageHistoryImportAction) String() string {
+	if s == nil {
+		return "SendMessageHistoryImportAction(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("SendMessageHistoryImportAction")
+	sb.WriteString("{\n")
+	sb.WriteString("\tProgress: ")
+	sb.WriteString(fmt.Sprint(s.Progress))
+	sb.WriteString(",\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (s *SendMessageHistoryImportAction) TypeID() uint32 {
+	return SendMessageHistoryImportActionTypeID
+}
+
+// Encode implements bin.Encoder.
+func (s *SendMessageHistoryImportAction) Encode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageHistoryImportAction#dbda9246 as nil")
+	}
+	b.PutID(SendMessageHistoryImportActionTypeID)
+	b.PutInt(s.Progress)
+	return nil
+}
+
+// GetProgress returns value of Progress field.
+func (s *SendMessageHistoryImportAction) GetProgress() (value int) {
+	return s.Progress
+}
+
+// Decode implements bin.Decoder.
+func (s *SendMessageHistoryImportAction) Decode(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageHistoryImportAction#dbda9246 to nil")
+	}
+	if err := b.ConsumeID(SendMessageHistoryImportActionTypeID); err != nil {
+		return fmt.Errorf("unable to decode sendMessageHistoryImportAction#dbda9246: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode sendMessageHistoryImportAction#dbda9246: field progress: %w", err)
+		}
+		s.Progress = value
+	}
+	return nil
+}
+
+// construct implements constructor of SendMessageActionClass.
+func (s SendMessageHistoryImportAction) construct() SendMessageActionClass { return &s }
+
+// Ensuring interfaces in compile-time for SendMessageHistoryImportAction.
+var (
+	_ bin.Encoder = &SendMessageHistoryImportAction{}
+	_ bin.Decoder = &SendMessageHistoryImportAction{}
+
+	_ SendMessageActionClass = &SendMessageHistoryImportAction{}
+)
+
 // SendMessageActionClass represents SendMessageAction generic type.
 //
 // See https://core.telegram.org/type/SendMessageAction for reference.
@@ -1084,6 +1171,7 @@ var (
 //  case *SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
 //  case *SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
 //  case *SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
+//  case *SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
 //  default: panic(v)
 //  }
 type SendMessageActionClass interface {
@@ -1201,6 +1289,13 @@ func DecodeSendMessageAction(buf *bin.Buffer) (SendMessageActionClass, error) {
 	case SpeakingInGroupCallActionTypeID:
 		// Decoding speakingInGroupCallAction#d92c2285.
 		v := SpeakingInGroupCallAction{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
+		}
+		return &v, nil
+	case SendMessageHistoryImportActionTypeID:
+		// Decoding sendMessageHistoryImportAction#dbda9246.
+		v := SendMessageHistoryImportAction{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode SendMessageActionClass: %w", err)
 		}

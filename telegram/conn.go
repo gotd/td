@@ -175,7 +175,7 @@ func (c *conn) init(ctx context.Context) error {
 		LangCode:       c.device.LangCode,
 		Query:          c.wrapRequest(&tg.HelpGetConfigRequest{}),
 	})
-	var req bin.Object = c.wrapRequest(&tg.InvokeWithLayerRequest{
+	req := c.wrapRequest(&tg.InvokeWithLayerRequest{
 		Layer: tg.Layer,
 		Query: q,
 	})

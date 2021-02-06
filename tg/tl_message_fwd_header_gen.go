@@ -28,6 +28,8 @@ type MessageFwdHeader struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// Imported field of MessageFwdHeader.
+	Imported bool
 	// The ID of the user that originally sent the message
 	//
 	// Use SetFromID and GetFromID helpers.
@@ -68,6 +70,9 @@ func (m *MessageFwdHeader) Zero() bool {
 		return true
 	}
 	if !(m.Flags.Zero()) {
+		return false
+	}
+	if !(m.Imported == false) {
 		return false
 	}
 	if !(m.FromID == nil) {
@@ -163,6 +168,9 @@ func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
 	}
 	b.PutID(MessageFwdHeaderTypeID)
+	if !(m.Imported == false) {
+		m.Flags.Set(7)
+	}
 	if !(m.FromID == nil) {
 		m.Flags.Set(0)
 	}
@@ -220,6 +228,22 @@ func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 		b.PutString(m.PsaType)
 	}
 	return nil
+}
+
+// SetImported sets value of Imported conditional field.
+func (m *MessageFwdHeader) SetImported(value bool) {
+	if value {
+		m.Flags.Set(7)
+		m.Imported = true
+	} else {
+		m.Flags.Unset(7)
+		m.Imported = false
+	}
+}
+
+// GetImported returns value of Imported conditional field.
+func (m *MessageFwdHeader) GetImported() (value bool) {
+	return m.Flags.Has(7)
 }
 
 // SetFromID sets value of FromID conditional field.
@@ -345,6 +369,7 @@ func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field flags: %w", err)
 		}
 	}
+	m.Imported = m.Flags.Has(7)
 	if m.Flags.Has(0) {
 		value, err := DecodePeer(b)
 		if err != nil {

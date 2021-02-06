@@ -41,6 +41,8 @@ type ChannelsCreateChannelRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Megagroup bool
+	// ForImport field of ChannelsCreateChannelRequest.
+	ForImport bool
 	// Channel title
 	Title string
 	// Channel description
@@ -69,6 +71,9 @@ func (c *ChannelsCreateChannelRequest) Zero() bool {
 		return false
 	}
 	if !(c.Megagroup == false) {
+		return false
+	}
+	if !(c.ForImport == false) {
 		return false
 	}
 	if !(c.Title == "") {
@@ -136,6 +141,9 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 	if !(c.Megagroup == false) {
 		c.Flags.Set(1)
 	}
+	if !(c.ForImport == false) {
+		c.Flags.Set(3)
+	}
 	if !(c.GeoPoint == nil) {
 		c.Flags.Set(2)
 	}
@@ -193,6 +201,22 @@ func (c *ChannelsCreateChannelRequest) GetMegagroup() (value bool) {
 	return c.Flags.Has(1)
 }
 
+// SetForImport sets value of ForImport conditional field.
+func (c *ChannelsCreateChannelRequest) SetForImport(value bool) {
+	if value {
+		c.Flags.Set(3)
+		c.ForImport = true
+	} else {
+		c.Flags.Unset(3)
+		c.ForImport = false
+	}
+}
+
+// GetForImport returns value of ForImport conditional field.
+func (c *ChannelsCreateChannelRequest) GetForImport() (value bool) {
+	return c.Flags.Has(3)
+}
+
 // GetTitle returns value of Title field.
 func (c *ChannelsCreateChannelRequest) GetTitle() (value string) {
 	return c.Title
@@ -248,6 +272,7 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 	}
 	c.Broadcast = c.Flags.Has(0)
 	c.Megagroup = c.Flags.Has(1)
+	c.ForImport = c.Flags.Has(3)
 	{
 		value, err := b.String()
 		if err != nil {

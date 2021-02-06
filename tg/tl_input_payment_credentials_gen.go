@@ -347,28 +347,22 @@ var (
 	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
 )
 
-// InputPaymentCredentialsAndroidPay represents TL type `inputPaymentCredentialsAndroidPay#ca05d50e`.
-// Android pay payment credentials
+// InputPaymentCredentialsGooglePay represents TL type `inputPaymentCredentialsGooglePay#8ac32801`.
 //
-// See https://core.telegram.org/constructor/inputPaymentCredentialsAndroidPay for reference.
-type InputPaymentCredentialsAndroidPay struct {
-	// Android pay payment token
+// See https://core.telegram.org/constructor/inputPaymentCredentialsGooglePay for reference.
+type InputPaymentCredentialsGooglePay struct {
+	// PaymentToken field of InputPaymentCredentialsGooglePay.
 	PaymentToken DataJSON
-	// Google transaction ID
-	GoogleTransactionID string
 }
 
-// InputPaymentCredentialsAndroidPayTypeID is TL type id of InputPaymentCredentialsAndroidPay.
-const InputPaymentCredentialsAndroidPayTypeID = 0xca05d50e
+// InputPaymentCredentialsGooglePayTypeID is TL type id of InputPaymentCredentialsGooglePay.
+const InputPaymentCredentialsGooglePayTypeID = 0x8ac32801
 
-func (i *InputPaymentCredentialsAndroidPay) Zero() bool {
+func (i *InputPaymentCredentialsGooglePay) Zero() bool {
 	if i == nil {
 		return true
 	}
 	if !(i.PaymentToken.Zero()) {
-		return false
-	}
-	if !(i.GoogleTransactionID == "") {
 		return false
 	}
 
@@ -376,18 +370,15 @@ func (i *InputPaymentCredentialsAndroidPay) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (i *InputPaymentCredentialsAndroidPay) String() string {
+func (i *InputPaymentCredentialsGooglePay) String() string {
 	if i == nil {
-		return "InputPaymentCredentialsAndroidPay(nil)"
+		return "InputPaymentCredentialsGooglePay(nil)"
 	}
 	var sb strings.Builder
-	sb.WriteString("InputPaymentCredentialsAndroidPay")
+	sb.WriteString("InputPaymentCredentialsGooglePay")
 	sb.WriteString("{\n")
 	sb.WriteString("\tPaymentToken: ")
 	sb.WriteString(fmt.Sprint(i.PaymentToken))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGoogleTransactionID: ")
-	sb.WriteString(fmt.Sprint(i.GoogleTransactionID))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -395,65 +386,52 @@ func (i *InputPaymentCredentialsAndroidPay) String() string {
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPaymentCredentialsAndroidPay) TypeID() uint32 {
-	return InputPaymentCredentialsAndroidPayTypeID
+func (i *InputPaymentCredentialsGooglePay) TypeID() uint32 {
+	return InputPaymentCredentialsGooglePayTypeID
 }
 
 // Encode implements bin.Encoder.
-func (i *InputPaymentCredentialsAndroidPay) Encode(b *bin.Buffer) error {
+func (i *InputPaymentCredentialsGooglePay) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputPaymentCredentialsAndroidPay#ca05d50e as nil")
+		return fmt.Errorf("can't encode inputPaymentCredentialsGooglePay#8ac32801 as nil")
 	}
-	b.PutID(InputPaymentCredentialsAndroidPayTypeID)
+	b.PutID(InputPaymentCredentialsGooglePayTypeID)
 	if err := i.PaymentToken.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode inputPaymentCredentialsAndroidPay#ca05d50e: field payment_token: %w", err)
+		return fmt.Errorf("unable to encode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
 	}
-	b.PutString(i.GoogleTransactionID)
 	return nil
 }
 
 // GetPaymentToken returns value of PaymentToken field.
-func (i *InputPaymentCredentialsAndroidPay) GetPaymentToken() (value DataJSON) {
+func (i *InputPaymentCredentialsGooglePay) GetPaymentToken() (value DataJSON) {
 	return i.PaymentToken
 }
 
-// GetGoogleTransactionID returns value of GoogleTransactionID field.
-func (i *InputPaymentCredentialsAndroidPay) GetGoogleTransactionID() (value string) {
-	return i.GoogleTransactionID
-}
-
 // Decode implements bin.Decoder.
-func (i *InputPaymentCredentialsAndroidPay) Decode(b *bin.Buffer) error {
+func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputPaymentCredentialsAndroidPay#ca05d50e to nil")
+		return fmt.Errorf("can't decode inputPaymentCredentialsGooglePay#8ac32801 to nil")
 	}
-	if err := b.ConsumeID(InputPaymentCredentialsAndroidPayTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputPaymentCredentialsAndroidPay#ca05d50e: %w", err)
+	if err := b.ConsumeID(InputPaymentCredentialsGooglePayTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: %w", err)
 	}
 	{
 		if err := i.PaymentToken.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsAndroidPay#ca05d50e: field payment_token: %w", err)
+			return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
 		}
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputPaymentCredentialsAndroidPay#ca05d50e: field google_transaction_id: %w", err)
-		}
-		i.GoogleTransactionID = value
 	}
 	return nil
 }
 
 // construct implements constructor of InputPaymentCredentialsClass.
-func (i InputPaymentCredentialsAndroidPay) construct() InputPaymentCredentialsClass { return &i }
+func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsClass { return &i }
 
-// Ensuring interfaces in compile-time for InputPaymentCredentialsAndroidPay.
+// Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
 var (
-	_ bin.Encoder = &InputPaymentCredentialsAndroidPay{}
-	_ bin.Decoder = &InputPaymentCredentialsAndroidPay{}
+	_ bin.Encoder = &InputPaymentCredentialsGooglePay{}
+	_ bin.Decoder = &InputPaymentCredentialsGooglePay{}
 
-	_ InputPaymentCredentialsClass = &InputPaymentCredentialsAndroidPay{}
+	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
 )
 
 // InputPaymentCredentialsClass represents InputPaymentCredentials generic type.
@@ -469,7 +447,7 @@ var (
 //  case *InputPaymentCredentialsSaved: // inputPaymentCredentialsSaved#c10eb2cf
 //  case *InputPaymentCredentials: // inputPaymentCredentials#3417d728
 //  case *InputPaymentCredentialsApplePay: // inputPaymentCredentialsApplePay#aa1c39f
-//  case *InputPaymentCredentialsAndroidPay: // inputPaymentCredentialsAndroidPay#ca05d50e
+//  case *InputPaymentCredentialsGooglePay: // inputPaymentCredentialsGooglePay#8ac32801
 //  default: panic(v)
 //  }
 type InputPaymentCredentialsClass interface {
@@ -514,9 +492,9 @@ func DecodeInputPaymentCredentials(buf *bin.Buffer) (InputPaymentCredentialsClas
 			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
 		}
 		return &v, nil
-	case InputPaymentCredentialsAndroidPayTypeID:
-		// Decoding inputPaymentCredentialsAndroidPay#ca05d50e.
-		v := InputPaymentCredentialsAndroidPay{}
+	case InputPaymentCredentialsGooglePayTypeID:
+		// Decoding inputPaymentCredentialsGooglePay#8ac32801.
+		v := InputPaymentCredentialsGooglePay{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputPaymentCredentialsClass: %w", err)
 		}

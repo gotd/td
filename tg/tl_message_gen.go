@@ -18,23 +18,35 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// MessageEmpty represents TL type `messageEmpty#83e5de54`.
+// MessageEmpty represents TL type `messageEmpty#90a6ca84`.
 // Empty constructor, non-existent message.
 //
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
+	// Flags field of MessageEmpty.
+	Flags bin.Fields
 	// Message identifier
 	ID int
+	// PeerID field of MessageEmpty.
+	//
+	// Use SetPeerID and GetPeerID helpers.
+	PeerID PeerClass
 }
 
 // MessageEmptyTypeID is TL type id of MessageEmpty.
-const MessageEmptyTypeID = 0x83e5de54
+const MessageEmptyTypeID = 0x90a6ca84
 
 func (m *MessageEmpty) Zero() bool {
 	if m == nil {
 		return true
 	}
+	if !(m.Flags.Zero()) {
+		return false
+	}
 	if !(m.ID == 0) {
+		return false
+	}
+	if !(m.PeerID == nil) {
 		return false
 	}
 
@@ -49,9 +61,17 @@ func (m *MessageEmpty) String() string {
 	var sb strings.Builder
 	sb.WriteString("MessageEmpty")
 	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(fmt.Sprint(m.Flags))
+	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(m.ID))
 	sb.WriteString(",\n")
+	if m.Flags.Has(0) {
+		sb.WriteString("\tPeerID: ")
+		sb.WriteString(fmt.Sprint(m.PeerID))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("}")
 	return sb.String()
 }
@@ -65,10 +85,24 @@ func (m *MessageEmpty) TypeID() uint32 {
 // Encode implements bin.Encoder.
 func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageEmpty#83e5de54 as nil")
+		return fmt.Errorf("can't encode messageEmpty#90a6ca84 as nil")
 	}
 	b.PutID(MessageEmptyTypeID)
+	if !(m.PeerID == nil) {
+		m.Flags.Set(0)
+	}
+	if err := m.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field flags: %w", err)
+	}
 	b.PutInt(m.ID)
+	if m.Flags.Has(0) {
+		if m.PeerID == nil {
+			return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field peer_id is nil")
+		}
+		if err := m.PeerID.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messageEmpty#90a6ca84: field peer_id: %w", err)
+		}
+	}
 	return nil
 }
 
@@ -77,20 +111,47 @@ func (m *MessageEmpty) GetID() (value int) {
 	return m.ID
 }
 
+// SetPeerID sets value of PeerID conditional field.
+func (m *MessageEmpty) SetPeerID(value PeerClass) {
+	m.Flags.Set(0)
+	m.PeerID = value
+}
+
+// GetPeerID returns value of PeerID conditional field and
+// boolean which is true if field was set.
+func (m *MessageEmpty) GetPeerID() (value PeerClass, ok bool) {
+	if !m.Flags.Has(0) {
+		return value, false
+	}
+	return m.PeerID, true
+}
+
 // Decode implements bin.Decoder.
 func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageEmpty#83e5de54 to nil")
+		return fmt.Errorf("can't decode messageEmpty#90a6ca84 to nil")
 	}
 	if err := b.ConsumeID(MessageEmptyTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageEmpty#83e5de54: %w", err)
+		return fmt.Errorf("unable to decode messageEmpty#90a6ca84: %w", err)
+	}
+	{
+		if err := m.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field flags: %w", err)
+		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageEmpty#83e5de54: field id: %w", err)
+			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field id: %w", err)
 		}
 		m.ID = value
+	}
+	if m.Flags.Has(0) {
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field peer_id: %w", err)
+		}
+		m.PeerID = value
 	}
 	return nil
 }
@@ -1554,7 +1615,7 @@ var (
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessageEmpty: // messageEmpty#83e5de54
+//  case *MessageEmpty: // messageEmpty#90a6ca84
 //  case *Message: // message#58ae39c9
 //  case *MessageService: // messageService#286fa604
 //  default: panic(v)
@@ -1584,7 +1645,7 @@ func DecodeMessage(buf *bin.Buffer) (MessageClass, error) {
 	}
 	switch id {
 	case MessageEmptyTypeID:
-		// Decoding messageEmpty#83e5de54.
+		// Decoding messageEmpty#90a6ca84.
 		v := MessageEmpty{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)

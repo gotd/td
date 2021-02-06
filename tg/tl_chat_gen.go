@@ -760,6 +760,8 @@ type Channel struct {
 	CallActive bool
 	// CallNotEmpty field of Channel.
 	CallNotEmpty bool
+	// Fake field of Channel.
+	Fake bool
 	// ID of the channel
 	ID int
 	// Access hash
@@ -859,6 +861,9 @@ func (c *Channel) Zero() bool {
 		return false
 	}
 	if !(c.CallNotEmpty == false) {
+		return false
+	}
+	if !(c.Fake == false) {
 		return false
 	}
 	if !(c.ID == 0) {
@@ -1021,6 +1026,9 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 	}
 	if !(c.CallNotEmpty == false) {
 		c.Flags.Set(24)
+	}
+	if !(c.Fake == false) {
+		c.Flags.Set(25)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -1315,6 +1323,22 @@ func (c *Channel) GetCallNotEmpty() (value bool) {
 	return c.Flags.Has(24)
 }
 
+// SetFake sets value of Fake conditional field.
+func (c *Channel) SetFake(value bool) {
+	if value {
+		c.Flags.Set(25)
+		c.Fake = true
+	} else {
+		c.Flags.Unset(25)
+		c.Fake = false
+	}
+}
+
+// GetFake returns value of Fake conditional field.
+func (c *Channel) GetFake() (value bool) {
+	return c.Flags.Has(25)
+}
+
 // GetID returns value of ID field.
 func (c *Channel) GetID() (value int) {
 	return c.ID
@@ -1472,6 +1496,7 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 	c.SlowmodeEnabled = c.Flags.Has(22)
 	c.CallActive = c.Flags.Has(23)
 	c.CallNotEmpty = c.Flags.Has(24)
+	c.Fake = c.Flags.Has(25)
 	{
 		value, err := b.Int()
 		if err != nil {
