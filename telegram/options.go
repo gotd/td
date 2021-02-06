@@ -36,6 +36,11 @@ type Options struct {
 	// If not provided, AddrProduction will be used by default.
 	Addr string
 
+	// DC ID to connect.
+	//
+	// If not provided, 2 will be used by default.
+	DC int
+
 	// Transport to use. Default dialer will be used if not provided.
 	Transport Transport
 	// Network to use. Defaults to tcp.
@@ -87,6 +92,9 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.Addr == "" {
 		opt.Addr = AddrProduction
+	}
+	if opt.DC == 0 {
+		opt.DC = 2
 	}
 	if opt.AckBatchSize == 0 {
 		opt.AckBatchSize = 20
