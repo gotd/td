@@ -97,7 +97,7 @@ type InputCheckPasswordSRP struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	SrpID int64
+	SRPID int64
 	// A parameter (see SRP¹)
 	//
 	// Links:
@@ -117,7 +117,7 @@ func (i *InputCheckPasswordSRP) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.SrpID == 0) {
+	if !(i.SRPID == 0) {
 		return false
 	}
 	if !(i.A == nil) {
@@ -138,8 +138,8 @@ func (i *InputCheckPasswordSRP) String() string {
 	var sb strings.Builder
 	sb.WriteString("InputCheckPasswordSRP")
 	sb.WriteString("{\n")
-	sb.WriteString("\tSrpID: ")
-	sb.WriteString(fmt.Sprint(i.SrpID))
+	sb.WriteString("\tSRPID: ")
+	sb.WriteString(fmt.Sprint(i.SRPID))
 	sb.WriteString(",\n")
 	sb.WriteString("\tA: ")
 	sb.WriteString(fmt.Sprint(i.A))
@@ -163,15 +163,15 @@ func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputCheckPasswordSRP#d27ff082 as nil")
 	}
 	b.PutID(InputCheckPasswordSRPTypeID)
-	b.PutLong(i.SrpID)
+	b.PutLong(i.SRPID)
 	b.PutBytes(i.A)
 	b.PutBytes(i.M1)
 	return nil
 }
 
-// GetSrpID returns value of SrpID field.
-func (i *InputCheckPasswordSRP) GetSrpID() (value int64) {
-	return i.SrpID
+// GetSRPID returns value of SRPID field.
+func (i *InputCheckPasswordSRP) GetSRPID() (value int64) {
+	return i.SRPID
 }
 
 // GetA returns value of A field.
@@ -197,7 +197,7 @@ func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: field srp_id: %w", err)
 		}
-		i.SrpID = value
+		i.SRPID = value
 	}
 	{
 		value, err := b.Bytes()

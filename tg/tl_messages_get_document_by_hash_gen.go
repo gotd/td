@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 type MessagesGetDocumentByHashRequest struct {
 	// SHA256 of file
-	Sha256 []byte
+	SHA256 []byte
 	// Size of the file in bytes
 	Size int
 	// Mime type
@@ -38,7 +38,7 @@ func (g *MessagesGetDocumentByHashRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.Sha256 == nil) {
+	if !(g.SHA256 == nil) {
 		return false
 	}
 	if !(g.Size == 0) {
@@ -59,8 +59,8 @@ func (g *MessagesGetDocumentByHashRequest) String() string {
 	var sb strings.Builder
 	sb.WriteString("MessagesGetDocumentByHashRequest")
 	sb.WriteString("{\n")
-	sb.WriteString("\tSha256: ")
-	sb.WriteString(fmt.Sprint(g.Sha256))
+	sb.WriteString("\tSHA256: ")
+	sb.WriteString(fmt.Sprint(g.SHA256))
 	sb.WriteString(",\n")
 	sb.WriteString("\tSize: ")
 	sb.WriteString(fmt.Sprint(g.Size))
@@ -84,15 +84,15 @@ func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
 	}
 	b.PutID(MessagesGetDocumentByHashRequestTypeID)
-	b.PutBytes(g.Sha256)
+	b.PutBytes(g.SHA256)
 	b.PutInt(g.Size)
 	b.PutString(g.MimeType)
 	return nil
 }
 
-// GetSha256 returns value of Sha256 field.
-func (g *MessagesGetDocumentByHashRequest) GetSha256() (value []byte) {
-	return g.Sha256
+// GetSHA256 returns value of SHA256 field.
+func (g *MessagesGetDocumentByHashRequest) GetSHA256() (value []byte) {
+	return g.SHA256
 }
 
 // GetSize returns value of Size field.
@@ -118,7 +118,7 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: field sha256: %w", err)
 		}
-		g.Sha256 = value
+		g.SHA256 = value
 	}
 	{
 		value, err := b.Int()
