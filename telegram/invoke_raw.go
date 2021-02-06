@@ -2,7 +2,6 @@ package telegram
 
 import (
 	"context"
-	"errors"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -17,8 +16,7 @@ import (
 func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := c.invokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
-		var rpcErr *mtproto.Error
-		if errors.As(err, &rpcErr) && (rpcErr.Code == 303) {
+		if rpcErr, ok := mtproto.AsErr(err); ok && rpcErr.IsCode(303) {
 			c.log.Info("Got migrate error: Starting migration to another dc",
 				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
 			)

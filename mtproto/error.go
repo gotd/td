@@ -1,6 +1,7 @@
 package mtproto
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -16,8 +17,45 @@ type Error struct {
 }
 
 // IsType reports whether error has type t.
-func (e Error) IsType(t string) bool {
+func (e *Error) IsType(t string) bool {
+	if e == nil {
+		return false
+	}
 	return e.Type == t
+}
+
+// IsCode reports whether error Code is equal to code.
+func (e *Error) IsCode(code int) bool {
+	if e == nil {
+		return false
+	}
+	return e.Code == code
+}
+
+// IsOneOf returns true if error type is in tt.
+func (e *Error) IsOneOf(tt ...string) bool {
+	if e == nil {
+		return false
+	}
+	for _, t := range tt {
+		if e.IsType(t) {
+			return true
+		}
+	}
+	return false
+}
+
+// IsCodeOneOf returns true if error code is one of codes.
+func (e *Error) IsCodeOneOf(codes ...int) bool {
+	if e == nil {
+		return false
+	}
+	for _, code := range codes {
+		if e.IsCode(code) {
+			return true
+		}
+	}
+	return false
 }
 
 // ExtractArgument extracts Type and Argument from Message.
@@ -60,9 +98,41 @@ Parts:
 	e.Type = strings.Join(nonDigit, "_")
 }
 
-func (e Error) Error() string {
+func (e *Error) Error() string {
 	if e.Argument != 0 {
 		return fmt.Sprintf("rpc error code %d: %s (%d)", e.Code, e.Type, e.Argument)
 	}
 	return fmt.Sprintf("rpc error code %d: %s", e.Code, e.Message)
+}
+
+// AsTypeErr returns *Error from err if rpc error type is t.
+func AsTypeErr(err error, t string) (rpcErr *Error, ok bool) {
+	if errors.As(err, &rpcErr) && rpcErr.Type == t {
+		return rpcErr, true
+	}
+	return nil, false
+}
+
+// AsErr extracts *Error from err if possible.
+func AsErr(err error) (rpcErr *Error, ok bool) {
+	if errors.As(err, &rpcErr) {
+		return rpcErr, true
+	}
+	return nil, false
+}
+
+// IsErr returns true if err type is t.
+func IsErr(err error, tt ...string) bool {
+	if rpcErr, ok := AsErr(err); ok {
+		return rpcErr.IsOneOf(tt...)
+	}
+	return false
+}
+
+// IsErrCode returns true of error code is as provided.
+func IsErrCode(err error, code ...int) bool {
+	if rpcErr, ok := AsErr(err); ok {
+		return rpcErr.IsCodeOneOf(code...)
+	}
+	return false
 }
