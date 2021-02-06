@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AuthDropTempAuthKeysRequest represents TL type `auth.dropTempAuthKeys#8e48a188`.
 // Delete all temporary authorization keys except for the ones specified

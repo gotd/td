@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessageViews represents TL type `messageViews#455b853d`.
 // View, forward counter + info about replies of a specific message

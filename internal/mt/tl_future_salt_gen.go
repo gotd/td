@@ -4,6 +4,7 @@ package mt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // FutureSalt represents TL type `future_salt#949d9dc`.
 type FutureSalt struct {

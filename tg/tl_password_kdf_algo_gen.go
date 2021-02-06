@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
 // Unknown KDF (most likely, the client is outdated and does not support the specified KDF algorithm)

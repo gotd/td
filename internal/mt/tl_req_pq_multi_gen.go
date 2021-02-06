@@ -4,6 +4,7 @@ package mt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ReqPqMultiRequest represents TL type `req_pq_multi#be7e8ef1`.
 type ReqPqMultiRequest struct {

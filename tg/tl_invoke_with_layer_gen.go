@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // InvokeWithLayerRequest represents TL type `invokeWithLayer#da9b0d0d`.
 // Invoke the specified query using the specified API layer¹

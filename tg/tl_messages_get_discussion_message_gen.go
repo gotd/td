@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
 // Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group

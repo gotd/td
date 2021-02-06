@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
 // The file was cleared from the temporary RAM cache of the CDN¹ and has to be reuploaded.

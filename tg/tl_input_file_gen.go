@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // InputFile represents TL type `inputFile#f52ff27f`.
 // Defines a file saved in parts using the method upload.saveFilePart¹.
@@ -34,7 +36,7 @@ type InputFile struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
-	Md5Checksum string
+	MD5Checksum string
 }
 
 // InputFileTypeID is TL type id of InputFile.
@@ -53,7 +55,7 @@ func (i *InputFile) Zero() bool {
 	if !(i.Name == "") {
 		return false
 	}
-	if !(i.Md5Checksum == "") {
+	if !(i.MD5Checksum == "") {
 		return false
 	}
 
@@ -77,8 +79,8 @@ func (i *InputFile) String() string {
 	sb.WriteString("\tName: ")
 	sb.WriteString(fmt.Sprint(i.Name))
 	sb.WriteString(",\n")
-	sb.WriteString("\tMd5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString("\tMD5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.MD5Checksum))
 	sb.WriteString(",\n")
 	sb.WriteString("}")
 	return sb.String()
@@ -99,7 +101,7 @@ func (i *InputFile) Encode(b *bin.Buffer) error {
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
 	b.PutString(i.Name)
-	b.PutString(i.Md5Checksum)
+	b.PutString(i.MD5Checksum)
 	return nil
 }
 
@@ -118,9 +120,9 @@ func (i *InputFile) GetName() (value string) {
 	return i.Name
 }
 
-// GetMd5Checksum returns value of Md5Checksum field.
-func (i *InputFile) GetMd5Checksum() (value string) {
-	return i.Md5Checksum
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputFile) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
 }
 
 // Decode implements bin.Decoder.
@@ -157,7 +159,7 @@ func (i *InputFile) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputFile#f52ff27f: field md5_checksum: %w", err)
 		}
-		i.Md5Checksum = value
+		i.MD5Checksum = value
 	}
 	return nil
 }

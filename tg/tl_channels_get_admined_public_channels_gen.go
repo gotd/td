@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
 // Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user exceeds the limit² for owned public channels/supergroups/geogroups³, and the user is given the choice to remove one of his channels/supergroups/geogroups.

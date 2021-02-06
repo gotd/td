@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
 // Configuration for two-factor authorization
@@ -47,15 +49,15 @@ type AccountPassword struct {
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
-	// Use SetSrpB and GetSrpB helpers.
-	SrpB []byte
+	// Use SetSRPB and GetSRPB helpers.
+	SRPB []byte
 	// Srp ID param for SRP authorization¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
-	// Use SetSrpID and GetSrpID helpers.
-	SrpID int64
+	// Use SetSRPID and GetSRPID helpers.
+	SRPID int64
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
@@ -104,10 +106,10 @@ func (p *AccountPassword) Zero() bool {
 	if !(p.CurrentAlgo == nil) {
 		return false
 	}
-	if !(p.SrpB == nil) {
+	if !(p.SRPB == nil) {
 		return false
 	}
-	if !(p.SrpID == 0) {
+	if !(p.SRPID == 0) {
 		return false
 	}
 	if !(p.Hint == "") {
@@ -146,13 +148,13 @@ func (p *AccountPassword) String() string {
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(2) {
-		sb.WriteString("\tSrpB: ")
-		sb.WriteString(fmt.Sprint(p.SrpB))
+		sb.WriteString("\tSRPB: ")
+		sb.WriteString(fmt.Sprint(p.SRPB))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(2) {
-		sb.WriteString("\tSrpID: ")
-		sb.WriteString(fmt.Sprint(p.SrpID))
+		sb.WriteString("\tSRPID: ")
+		sb.WriteString(fmt.Sprint(p.SRPID))
 		sb.WriteString(",\n")
 	}
 	if p.Flags.Has(3) {
@@ -202,10 +204,10 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 	if !(p.CurrentAlgo == nil) {
 		p.Flags.Set(2)
 	}
-	if !(p.SrpB == nil) {
+	if !(p.SRPB == nil) {
 		p.Flags.Set(2)
 	}
-	if !(p.SrpID == 0) {
+	if !(p.SRPID == 0) {
 		p.Flags.Set(2)
 	}
 	if !(p.Hint == "") {
@@ -226,10 +228,10 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 		}
 	}
 	if p.Flags.Has(2) {
-		b.PutBytes(p.SrpB)
+		b.PutBytes(p.SRPB)
 	}
 	if p.Flags.Has(2) {
-		b.PutLong(p.SrpID)
+		b.PutLong(p.SRPID)
 	}
 	if p.Flags.Has(3) {
 		b.PutString(p.Hint)
@@ -316,34 +318,34 @@ func (p *AccountPassword) GetCurrentAlgo() (value PasswordKdfAlgoClass, ok bool)
 	return p.CurrentAlgo, true
 }
 
-// SetSrpB sets value of SrpB conditional field.
-func (p *AccountPassword) SetSrpB(value []byte) {
+// SetSRPB sets value of SRPB conditional field.
+func (p *AccountPassword) SetSRPB(value []byte) {
 	p.Flags.Set(2)
-	p.SrpB = value
+	p.SRPB = value
 }
 
-// GetSrpB returns value of SrpB conditional field and
+// GetSRPB returns value of SRPB conditional field and
 // boolean which is true if field was set.
-func (p *AccountPassword) GetSrpB() (value []byte, ok bool) {
+func (p *AccountPassword) GetSRPB() (value []byte, ok bool) {
 	if !p.Flags.Has(2) {
 		return value, false
 	}
-	return p.SrpB, true
+	return p.SRPB, true
 }
 
-// SetSrpID sets value of SrpID conditional field.
-func (p *AccountPassword) SetSrpID(value int64) {
+// SetSRPID sets value of SRPID conditional field.
+func (p *AccountPassword) SetSRPID(value int64) {
 	p.Flags.Set(2)
-	p.SrpID = value
+	p.SRPID = value
 }
 
-// GetSrpID returns value of SrpID conditional field and
+// GetSRPID returns value of SRPID conditional field and
 // boolean which is true if field was set.
-func (p *AccountPassword) GetSrpID() (value int64, ok bool) {
+func (p *AccountPassword) GetSRPID() (value int64, ok bool) {
 	if !p.Flags.Has(2) {
 		return value, false
 	}
-	return p.SrpID, true
+	return p.SRPID, true
 }
 
 // SetHint sets value of Hint conditional field.
@@ -419,14 +421,14 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode account.password#ad2641f8: field srp_B: %w", err)
 		}
-		p.SrpB = value
+		p.SRPB = value
 	}
 	if p.Flags.Has(2) {
 		value, err := b.Long()
 		if err != nil {
 			return fmt.Errorf("unable to decode account.password#ad2641f8: field srp_id: %w", err)
 		}
-		p.SrpID = value
+		p.SRPID = value
 	}
 	if p.Flags.Has(3) {
 		value, err := b.String()

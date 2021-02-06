@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesGetInlineGameHighScoresRequest represents TL type `messages.getInlineGameHighScores#f635e1b`.
 // Get highscores of a game sent using an inline bot

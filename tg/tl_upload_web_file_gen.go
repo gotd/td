@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
 // Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto servers

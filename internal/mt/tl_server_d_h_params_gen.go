@@ -4,6 +4,7 @@ package mt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {

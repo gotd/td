@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
 // Uploaded secure file, for more info see the passport docs »¹
@@ -29,7 +31,7 @@ type InputSecureFileUploaded struct {
 	// Secure file part count
 	Parts int
 	// MD5 hash of encrypted uploaded file, to be checked server-side
-	Md5Checksum string
+	MD5Checksum string
 	// File hash
 	FileHash []byte
 	// Secret
@@ -49,7 +51,7 @@ func (i *InputSecureFileUploaded) Zero() bool {
 	if !(i.Parts == 0) {
 		return false
 	}
-	if !(i.Md5Checksum == "") {
+	if !(i.MD5Checksum == "") {
 		return false
 	}
 	if !(i.FileHash == nil) {
@@ -76,8 +78,8 @@ func (i *InputSecureFileUploaded) String() string {
 	sb.WriteString("\tParts: ")
 	sb.WriteString(fmt.Sprint(i.Parts))
 	sb.WriteString(",\n")
-	sb.WriteString("\tMd5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString("\tMD5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.MD5Checksum))
 	sb.WriteString(",\n")
 	sb.WriteString("\tFileHash: ")
 	sb.WriteString(fmt.Sprint(i.FileHash))
@@ -103,7 +105,7 @@ func (i *InputSecureFileUploaded) Encode(b *bin.Buffer) error {
 	b.PutID(InputSecureFileUploadedTypeID)
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
-	b.PutString(i.Md5Checksum)
+	b.PutString(i.MD5Checksum)
 	b.PutBytes(i.FileHash)
 	b.PutBytes(i.Secret)
 	return nil
@@ -119,9 +121,9 @@ func (i *InputSecureFileUploaded) GetParts() (value int) {
 	return i.Parts
 }
 
-// GetMd5Checksum returns value of Md5Checksum field.
-func (i *InputSecureFileUploaded) GetMd5Checksum() (value string) {
-	return i.Md5Checksum
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputSecureFileUploaded) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
 }
 
 // GetFileHash returns value of FileHash field.
@@ -161,7 +163,7 @@ func (i *InputSecureFileUploaded) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputSecureFileUploaded#3334b0f0: field md5_checksum: %w", err)
 		}
-		i.Md5Checksum = value
+		i.MD5Checksum = value
 	}
 	{
 		value, err := b.Bytes()

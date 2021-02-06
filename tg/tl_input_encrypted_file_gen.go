@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // InputEncryptedFileEmpty represents TL type `inputEncryptedFileEmpty#1837c364`.
 // Empty constructor.
@@ -96,7 +98,7 @@ type InputEncryptedFileUploaded struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5
-	Md5Checksum string
+	MD5Checksum string
 	// 32-bit fingerprint of the key used to encrypt a file
 	KeyFingerprint int
 }
@@ -114,7 +116,7 @@ func (i *InputEncryptedFileUploaded) Zero() bool {
 	if !(i.Parts == 0) {
 		return false
 	}
-	if !(i.Md5Checksum == "") {
+	if !(i.MD5Checksum == "") {
 		return false
 	}
 	if !(i.KeyFingerprint == 0) {
@@ -138,8 +140,8 @@ func (i *InputEncryptedFileUploaded) String() string {
 	sb.WriteString("\tParts: ")
 	sb.WriteString(fmt.Sprint(i.Parts))
 	sb.WriteString(",\n")
-	sb.WriteString("\tMd5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.Md5Checksum))
+	sb.WriteString("\tMD5Checksum: ")
+	sb.WriteString(fmt.Sprint(i.MD5Checksum))
 	sb.WriteString(",\n")
 	sb.WriteString("\tKeyFingerprint: ")
 	sb.WriteString(fmt.Sprint(i.KeyFingerprint))
@@ -162,7 +164,7 @@ func (i *InputEncryptedFileUploaded) Encode(b *bin.Buffer) error {
 	b.PutID(InputEncryptedFileUploadedTypeID)
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
-	b.PutString(i.Md5Checksum)
+	b.PutString(i.MD5Checksum)
 	b.PutInt(i.KeyFingerprint)
 	return nil
 }
@@ -177,9 +179,9 @@ func (i *InputEncryptedFileUploaded) GetParts() (value int) {
 	return i.Parts
 }
 
-// GetMd5Checksum returns value of Md5Checksum field.
-func (i *InputEncryptedFileUploaded) GetMd5Checksum() (value string) {
-	return i.Md5Checksum
+// GetMD5Checksum returns value of MD5Checksum field.
+func (i *InputEncryptedFileUploaded) GetMD5Checksum() (value string) {
+	return i.MD5Checksum
 }
 
 // GetKeyFingerprint returns value of KeyFingerprint field.
@@ -214,7 +216,7 @@ func (i *InputEncryptedFileUploaded) Decode(b *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode inputEncryptedFileUploaded#64bd0306: field md5_checksum: %w", err)
 		}
-		i.Md5Checksum = value
+		i.MD5Checksum = value
 	}
 	{
 		value, err := b.Int()

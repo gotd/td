@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // PhoneGetCallConfigRequest represents TL type `phone.getCallConfig#55451fa9`.
 // Get phone call configuration to be passed to libtgvoip's shared config

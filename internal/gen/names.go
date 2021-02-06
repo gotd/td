@@ -58,13 +58,16 @@ func camel(s string) string {
 func ruleset() *inflect.Ruleset {
 	r := inflect.NewDefaultRuleset()
 	// Add common initialisms from golint and more.
+	//
+	// You can commit this with following message:
+	//   chore(gen): update acronym list
 	for _, w := range []string{
 		"ACL", "API", "ASCII", "AWS", "CPU", "CSS", "DNS", "EOF", "GB", "GUID",
 		"HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "KB", "LHS", "MAC", "MB",
 		"QPS", "RAM", "RHS", "RPC", "SLA", "SMTP", "SQL", "SSH", "SSO", "TCP",
 		"TLS", "TTL", "UDP", "UI", "UID", "URI", "URL", "UTF8", "UUID", "VM",
 		"XML", "XMPP", "XSRF", "XSS", "SMS", "CDN", "TCP", "UDP", "DC", "PFS",
-		"P2P",
+		"P2P", "SHA256", "SHA1", "MD5", "SRP", "2FA",
 	} {
 		acronyms[w] = struct{}{}
 		r.AddAcronym(w)

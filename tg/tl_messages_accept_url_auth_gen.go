@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
 // Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹

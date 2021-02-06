@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // BotsAnswerWebhookJSONQueryRequest represents TL type `bots.answerWebhookJSONQuery#e6213f4d`.
 // Answers a custom query; for bots only

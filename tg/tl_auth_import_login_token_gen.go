@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
 // Login using a redirected login token, generated in case of DC mismatch during QR code login¹.

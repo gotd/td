@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesReportSpamRequest represents TL type `messages.reportSpam#cf1592db`.
 // Report a new incoming chat for spam, if the peer settings¹ of the chat allow us to do that

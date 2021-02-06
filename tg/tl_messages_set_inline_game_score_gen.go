@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesSetInlineGameScoreRequest represents TL type `messages.setInlineGameScore#15ad9f64`.
 // Use this method to set the score of the specified user in a game sent as an inline message (bots only).

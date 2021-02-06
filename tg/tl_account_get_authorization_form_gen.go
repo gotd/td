@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountGetAuthorizationFormRequest represents TL type `account.getAuthorizationForm#b86ba8e1`.
 // Returns a Telegram Passport authorization form for sharing data with a service

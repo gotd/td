@@ -83,7 +83,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 			case *tg.InputCheckPasswordSRP:
 				assert.NotEmpty(t, pwd.A)
 				assert.NotEmpty(t, pwd.M1)
-				assert.NotEqual(t, pwd.SrpID, 0)
+				assert.NotEqual(t, pwd.SRPID, 0)
 			default:
 				t.Errorf("unexpectd pwd type %T", pwd)
 			}

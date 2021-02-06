@@ -4,6 +4,7 @@ package mt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
 type ReqDHParamsRequest struct {

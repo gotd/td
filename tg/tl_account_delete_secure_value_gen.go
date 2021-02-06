@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
 // Delete stored Telegram Passport¹ documents, for more info see the passport docs »²

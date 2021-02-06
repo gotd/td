@@ -26,12 +26,7 @@ import (
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
 func testError(err tg.Error) (bin.Encoder, error) {
-	e := &mtproto.Error{
-		Message: err.Text,
-		Code:    err.Code,
-	}
-	e.ExtractArgument()
-	return nil, e
+	return nil, mtproto.NewError(err.Code, err.Text)
 }
 
 type testConn struct {

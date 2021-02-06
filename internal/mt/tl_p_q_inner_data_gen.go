@@ -4,6 +4,7 @@ package mt
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // PQInnerData represents TL type `p_q_inner_data#83c95aec`.
 type PQInnerData struct {

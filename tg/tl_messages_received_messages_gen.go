@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.

@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
 // Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup

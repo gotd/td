@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#72d4742c`.
 // Installs a previously uploaded photo as a profile photo.

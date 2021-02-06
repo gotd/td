@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ContactsBlockFromRepliesRequest represents TL type `contacts.blockFromReplies#29a8962c`.
 // Stop getting notifications about thread replies¹ of a certain user in @replies
