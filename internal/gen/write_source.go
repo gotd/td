@@ -48,87 +48,119 @@ func (g *Generator) hasUpdateClass() bool {
 	return false
 }
 
-// WriteSource writes generated definitions to fs.
-func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Template) error {
-	buf := new(bytes.Buffer)
-	wrote := make(map[string]bool)
-	generate := func(templateName, name string, cfg config) error {
-		if wrote[name] {
-			return xerrors.Errorf("name collision (already wrote %s)", name)
-		}
+type writer struct {
+	pkg   string
+	fs    FileSystem
+	t     *template.Template
+	buf   *bytes.Buffer
+	wrote map[string]bool
 
-		buf.Reset()
-		if err := t.ExecuteTemplate(buf, templateName, cfg); err != nil {
-			return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, name, err)
-		}
-		if err := fs.WriteFile(name, buf.Bytes()); err != nil {
-			_, _ = io.Copy(os.Stderr, buf)
-			return xerrors.Errorf("failed to write file %s: %w", name, err)
-		}
-		wrote[name] = true
+	wroteConstructors map[string]struct{}
+}
 
-		return nil
+func (w *writer) Generate(templateName, name string, cfg config) error {
+	if cfg.Package == "" {
+		cfg.Package = w.pkg
+	}
+	if w.wrote[name] {
+		return xerrors.Errorf("name collision (already wrote %s)", name)
 	}
 
-	wroteConstructors := make(map[string]struct{})
-	for _, class := range g.interfaces {
+	w.buf.Reset()
+	if err := w.t.ExecuteTemplate(w.buf, templateName, cfg); err != nil {
+		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, name, err)
+	}
+	if err := w.fs.WriteFile(name, w.buf.Bytes()); err != nil {
+		_, _ = io.Copy(os.Stderr, w.buf)
+		return xerrors.Errorf("failed to write file %s: %w", name, err)
+	}
+	w.wrote[name] = true
+
+	return nil
+}
+
+func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
+	for _, class := range interfaces {
 		cfg := config{
-			Package:    pkgName,
+			Package:    w.pkg,
 			Interfaces: []interfaceDef{class},
 			Structs:    class.Constructors,
 		}
 		for _, s := range cfg.Structs {
-			wroteConstructors[s.Name] = struct{}{}
+			w.wroteConstructors[s.Name] = struct{}{}
 		}
 
 		name := outFileName(class.BaseName, class.Namespace)
-		if err := generate("main", name, cfg); err != nil {
+		if err := w.Generate("main", name, cfg); err != nil {
 			return err
 		}
 	}
-	for _, s := range g.structs {
-		if _, ok := wroteConstructors[s.Name]; ok {
+	return nil
+}
+
+func (w *writer) WriteStructs(structs []structDef) error {
+	for _, s := range structs {
+		if _, ok := w.wroteConstructors[s.Name]; ok {
 			continue
 		}
 		cfg := config{
-			Package: pkgName,
+			Package: w.pkg,
 			Structs: []structDef{s},
 		}
 		name := outFileName(s.BaseName, s.Namespace)
-		if wrote[name] {
+		if w.wrote[name] {
 			// Name collision.
 			name = outFileName(s.BaseName+"_const", s.Namespace)
 		}
-		if err := generate("main", name, cfg); err != nil {
+		if err := w.Generate("main", name, cfg); err != nil {
 			return err
 		}
 	}
 
+	return nil
+}
+
+// WriteSource writes generated definitions to fs.
+func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Template) error {
+	w := &writer{
+		pkg:   pkgName,
+		fs:    fs,
+		t:     t,
+		buf:   new(bytes.Buffer),
+		wrote: map[string]bool{},
+
+		wroteConstructors: map[string]struct{}{},
+	}
+
+	if err := w.WriteInterfaces(g.interfaces); err != nil {
+		return xerrors.Errorf("interfaces: %w", err)
+	}
+	if err := w.WriteStructs(g.structs); err != nil {
+		return xerrors.Errorf("structs: %w", err)
+	}
+
 	if g.hasUpdateClass() {
-		cfg := config{
-			Package: pkgName,
+		if err := w.Generate("handlers", "tl_handlers_gen.go", config{
 			Structs: g.structs,
-		}
-		if err := generate("handlers", "tl_handlers_gen.go", cfg); err != nil {
+		}); err != nil {
 			return err
 		}
 	}
 
 	cfg := config{
-		Package:  pkgName,
 		Registry: g.registry,
 		Layer:    g.schema.Layer,
 		Errors:   g.errorChecks,
 	}
 
-	if err := generate("registry", "tl_registry_gen.go", cfg); err != nil {
+	if err := w.Generate("registry", "tl_registry_gen.go", cfg); err != nil {
 		return err
 	}
-	if err := generate("client", "tl_client_gen.go", cfg); err != nil {
+	if err := w.Generate("client", "tl_client_gen.go", cfg); err != nil {
 		return err
 	}
 	if len(cfg.Errors) > 0 {
-		if err := generate("errors", "tl_errors_gen.go", cfg); err != nil {
+		if err := w.Generate("errors", "tl_errors_gen.go", cfg); err != nil {
 			return err
 		}
 	}
