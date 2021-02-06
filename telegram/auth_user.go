@@ -26,13 +26,13 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	}
 
 	s := srp.NewSRP(c.rand)
-	a, err := s.Hash([]byte(password), p.SrpB, p.SecureRandom, srp.Input(*algo))
+	a, err := s.Hash([]byte(password), p.SRPB, p.SecureRandom, srp.Input(*algo))
 	if err != nil {
 		return xerrors.Errorf("create SRP answer: %w", err)
 	}
 
 	auth, err := c.tg.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
-		SrpID: p.SrpID,
+		SRPID: p.SRPID,
 		A:     a.A,
 		M1:    a.M1,
 	})
