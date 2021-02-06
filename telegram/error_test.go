@@ -2,9 +2,7 @@ package telegram
 
 import (
 	"testing"
-	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/xerrors"
 
@@ -22,16 +20,4 @@ func TestError(t *testing.T) {
 		return xerrors.Errorf("failed to perform operation: %w", rpcErr)
 	}()
 	require.True(t, mtproto.IsErr(err, tg.ErrAccessTokenExpired))
-}
-
-func TestAsFloodWait(t *testing.T) {
-	err := func() error {
-		return xerrors.Errorf("failed to perform operation: %w",
-			mtproto.NewError(400, "FLOOD_WAIT_10"),
-		)
-	}()
-
-	d, ok := AsFloodWait(err)
-	assert.True(t, ok)
-	assert.Equal(t, time.Second*10, d)
 }
