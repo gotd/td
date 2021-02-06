@@ -4,7 +4,6 @@ package main
 import (
 	"context"
 	"crypto/rand"
-	"errors"
 	"flag"
 	"os"
 	"path/filepath"
@@ -15,7 +14,6 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -69,11 +67,10 @@ func run(ctx context.Context) error {
 		for range time.NewTicker(time.Second * 5).C {
 			chats, err := c.MessagesGetAllChats(ctx, nil)
 
-			var rpcErr *mtproto.Error
-			if errors.As(err, &rpcErr) && rpcErr.Type == "FLOOD_WAIT" {
+			if d, ok := telegram.AsFloodWait(err); ok {
 				// Server told us to wait N seconds before sending next message.
-				logger.Info("Sleeping", zap.Int("seconds", rpcErr.Argument))
-				time.Sleep(time.Second * time.Duration(rpcErr.Argument))
+				logger.Info("Sleeping", zap.Duration("duration", d))
+				time.Sleep(d)
 				continue
 			}
 
