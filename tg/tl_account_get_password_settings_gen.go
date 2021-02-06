@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountGetPasswordSettingsRequest represents TL type `account.getPasswordSettings#9cd4eaf9`.
 // Get private info associated to the password info (recovery email, telegram passport¹ info & so on)

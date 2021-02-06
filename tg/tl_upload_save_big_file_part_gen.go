@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
 // Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.

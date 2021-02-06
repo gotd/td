@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountUpdateDeviceLockedRequest represents TL type `account.updateDeviceLocked#38df3532`.
 // When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications¹.

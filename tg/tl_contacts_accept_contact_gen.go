@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
 // If the peer settings¹ of a new user allow us to add him as contact, add that user as contact

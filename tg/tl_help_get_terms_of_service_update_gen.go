@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // HelpGetTermsOfServiceUpdateRequest represents TL type `help.getTermsOfServiceUpdate#2ca51fd1`.
 // Look for updates of telegram's terms of service

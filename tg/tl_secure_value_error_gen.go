@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
 // Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.

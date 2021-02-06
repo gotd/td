@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
 // Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.

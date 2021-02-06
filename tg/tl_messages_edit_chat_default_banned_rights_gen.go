@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesEditChatDefaultBannedRightsRequest represents TL type `messages.editChatDefaultBannedRights#a5866b41`.
 // Edit the default banned rights of a channel/supergroup/group¹.

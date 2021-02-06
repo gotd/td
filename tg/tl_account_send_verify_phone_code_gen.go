@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountSendVerifyPhoneCodeRequest represents TL type `account.sendVerifyPhoneCode#a5a356f9`.
 // Send the verification phone code for telegram passport¹.

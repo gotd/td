@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#3076c4bf`.
 // Deletes a device by its token, stops sending PUSH-notifications to it.

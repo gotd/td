@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesSetBotPrecheckoutResultsRequest represents TL type `messages.setBotPrecheckoutResults#9c2dd95`.
 // Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery¹ update.

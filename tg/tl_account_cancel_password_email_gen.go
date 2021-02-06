@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.

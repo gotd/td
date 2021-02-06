@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // AuthRequestPasswordRecoveryRequest represents TL type `auth.requestPasswordRecovery#d897bc66`.
 // Request recovery code of a 2FA password¹, only for accounts with a recovery email configured².

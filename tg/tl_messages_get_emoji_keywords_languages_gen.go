@@ -4,6 +4,7 @@ package tg
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -15,6 +16,7 @@ var _ = bin.Buffer{}
 var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
+var _ = errors.Is
 
 // MessagesGetEmojiKeywordsLanguagesRequest represents TL type `messages.getEmojiKeywordsLanguages#4e9963b2`.
 // Get info about an emoji keyword localization
