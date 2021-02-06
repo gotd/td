@@ -270,7 +270,7 @@ var (
 //  400 DATA_INVALID: Encrypted data invalid
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid
 //  400 PEER_ID_INVALID: The provided peer id is invalid
-//  -503 Timeout: Timeout while fetching data
+//  503 TIMEOUT: Timeout while fetching data
 //
 // See https://core.telegram.org/method/messages.getBotCallbackAnswer for reference.
 func (c *Client) MessagesGetBotCallbackAnswer(ctx context.Context, request *MessagesGetBotCallbackAnswerRequest) (*MessagesBotCallbackAnswer, error) {
