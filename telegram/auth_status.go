@@ -3,8 +3,6 @@ package telegram
 import (
 	"context"
 
-	"golang.org/x/xerrors"
-
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
@@ -18,8 +16,7 @@ type AuthStatus struct {
 }
 
 func unauthorized(err error) bool {
-	var rpcErr *mtproto.Error
-	return xerrors.As(err, &rpcErr) && rpcErr.Message == "AUTH_KEY_UNREGISTERED"
+	return mtproto.IsErr(err, "AUTH_KEY_UNREGISTERED")
 }
 
 // AuthStatus gets authorization status of client.
