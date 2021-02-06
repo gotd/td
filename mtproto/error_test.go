@@ -9,43 +9,26 @@ import (
 
 func TestErrorParse(t *testing.T) {
 	t.Run("FLOOD_WAIT", func(t *testing.T) {
-		e := Error{
-			Code:    420,
-			Message: "FLOOD_WAIT_359",
-		}
-		e.ExtractArgument()
-
-		require.Equal(t, Error{
+		require.Equal(t, &Error{
 			Code:     420,
 			Message:  "FLOOD_WAIT_359",
 			Type:     "FLOOD_WAIT",
 			Argument: 359,
-		}, e)
+		}, NewError(420, "FLOOD_WAIT_359"))
 	})
 	t.Run("Middle", func(t *testing.T) {
-		e := Error{
-			Code:    169,
-			Message: "GO_1337_METERS_AWAY",
-		}
-		e.ExtractArgument()
-
-		require.Equal(t, Error{
+		require.Equal(t, &Error{
 			Code:     169,
 			Message:  "GO_1337_METERS_AWAY",
 			Type:     "GO_METERS_AWAY",
 			Argument: 1337,
-		}, e)
+		}, NewError(169, "GO_1337_METERS_AWAY"))
 	})
 }
 
 func TestHelpers(t *testing.T) {
 	err := func() error {
-		return &Error{
-			Code:     169,
-			Message:  "GO_1337_METERS_AWAY",
-			Type:     "GO_METERS_AWAY",
-			Argument: 1337,
-		}
+		return NewError(169, "GO_1337_METERS_AWAY")
 	}()
 	t.Run("Type", func(t *testing.T) {
 		assert.True(t, IsErr(err, "GO_METERS_AWAY"))

@@ -16,6 +16,17 @@ type Error struct {
 	Argument int    // 3
 }
 
+// NewError creates new *Error from code and message, extracting argument
+// and type.
+func NewError(code int, msg string) *Error {
+	e := &Error{
+		Code:    code,
+		Message: msg,
+	}
+	e.extractArgument()
+	return e
+}
+
 // IsType reports whether error has type t.
 func (e *Error) IsType(t string) bool {
 	if e == nil {
@@ -58,8 +69,8 @@ func (e *Error) IsCodeOneOf(codes ...int) bool {
 	return false
 }
 
-// ExtractArgument extracts Type and Argument from Message.
-func (e *Error) ExtractArgument() {
+// extractArgument extracts Type and Argument from Message.
+func (e *Error) extractArgument() {
 	if e.Message == "" {
 		return
 	}

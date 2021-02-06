@@ -47,14 +47,11 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		if err := rpcErr.Decode(b); err != nil {
 			return xerrors.Errorf("error decode: %w", err)
 		}
+		c.rpc.NotifyError(
+			res.RequestMessageID,
+			NewError(rpcErr.ErrorCode, rpcErr.ErrorMessage),
+		)
 
-		e := &Error{
-			Code:    rpcErr.ErrorCode,
-			Message: rpcErr.ErrorMessage,
-		}
-		e.ExtractArgument()
-
-		c.rpc.NotifyError(res.RequestMessageID, e)
 		return nil
 	}
 	if id == mt.PongTypeID {
