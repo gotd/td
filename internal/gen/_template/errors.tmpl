@@ -24,9 +24,13 @@ func (e typedErrChecker) Error() string {
 }
 
 {{- range $s:= $.Errors }}
+
+// Err{{ $s.Name }} is error type for "{{ $s.Type }}".
+const Err{{ $s.Name }} = "{{ $s.Type }}"
+
 // Is{{ $s.Name }} reports whether err is {{ $s.Type }}.
 func Is{{ $s.Name }}(err error) bool {
-  return errors.Is(err, typedErrChecker{t: "{{ $s.Type }}"})
+  return errors.Is(err, typedErrChecker{t: Err{{ $s.Name }}})
 }
 {{ end }}
 

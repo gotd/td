@@ -58,27 +58,29 @@ type writer struct {
 	wroteConstructors map[string]struct{}
 }
 
-func (w *writer) Generate(templateName, name string, cfg config) error {
+// Generate executes template to file using config.
+func (w *writer) Generate(templateName, fileName string, cfg config) error {
 	if cfg.Package == "" {
 		cfg.Package = w.pkg
 	}
-	if w.wrote[name] {
-		return xerrors.Errorf("name collision (already wrote %s)", name)
+	if w.wrote[fileName] {
+		return xerrors.Errorf("name collision (already wrote %s)", fileName)
 	}
 
 	w.buf.Reset()
 	if err := w.t.ExecuteTemplate(w.buf, templateName, cfg); err != nil {
-		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, name, err)
+		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, fileName, err)
 	}
-	if err := w.fs.WriteFile(name, w.buf.Bytes()); err != nil {
+	if err := w.fs.WriteFile(fileName, w.buf.Bytes()); err != nil {
 		_, _ = io.Copy(os.Stderr, w.buf)
-		return xerrors.Errorf("failed to write file %s: %w", name, err)
+		return xerrors.Errorf("failed to write file %s: %w", fileName, err)
 	}
-	w.wrote[name] = true
+	w.wrote[fileName] = true
 
 	return nil
 }
 
+// WriteInterfaces writes interface definitions to corresponding files.
 func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	for _, class := range interfaces {
 		cfg := config{
@@ -98,6 +100,7 @@ func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	return nil
 }
 
+// WriteStructs writes structure definitions to corresponding files.
 func (w *writer) WriteStructs(structs []structDef) error {
 	for _, s := range structs {
 		if _, ok := w.wroteConstructors[s.Name]; ok {
