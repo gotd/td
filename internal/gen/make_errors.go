@@ -1,6 +1,7 @@
 package gen
 
 import (
+	"sort"
 	"strings"
 
 	"github.com/gotd/getdoc"
@@ -55,4 +56,10 @@ func (g *Generator) makeErrors() {
 			g.errorChecks = append(g.errorChecks, d)
 		}
 	}
+
+	// Ensure error order.
+	sort.SliceStable(g.errorChecks, func(i, j int) bool {
+		a, b := g.errorChecks[i], g.errorChecks[j]
+		return strings.Compare(a.Type, b.Type) < 0
+	})
 }
