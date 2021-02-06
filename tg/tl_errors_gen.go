@@ -37,84 +37,300 @@ func (e typedErrChecker) Error() string {
 	return e.t
 }
 
-// ErrLangPackInvalid is error type for "LANG_PACK_INVALID".
-const ErrLangPackInvalid = "LANG_PACK_INVALID"
+// Err2faConfirmWait is error type for "2FA_CONFIRM_WAIT".
+const Err2faConfirmWait = "2FA_CONFIRM_WAIT"
 
-// IsLangPackInvalid reports whether err is LANG_PACK_INVALID.
-func IsLangPackInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrLangPackInvalid})
+// Is2faConfirmWait reports whether err is 2FA_CONFIRM_WAIT.
+func Is2faConfirmWait(err error) bool {
+	return errors.Is(err, typedErrChecker{t: Err2faConfirmWait})
 }
 
-// ErrChatAdminRequired is error type for "CHAT_ADMIN_REQUIRED".
-const ErrChatAdminRequired = "CHAT_ADMIN_REQUIRED"
+// ErrAboutTooLong is error type for "ABOUT_TOO_LONG".
+const ErrAboutTooLong = "ABOUT_TOO_LONG"
 
-// IsChatAdminRequired reports whether err is CHAT_ADMIN_REQUIRED.
-func IsChatAdminRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatAdminRequired})
+// IsAboutTooLong reports whether err is ABOUT_TOO_LONG.
+func IsAboutTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAboutTooLong})
 }
 
-// ErrChatIDInvalid is error type for "CHAT_ID_INVALID".
-const ErrChatIDInvalid = "CHAT_ID_INVALID"
+// ErrAccessTokenExpired is error type for "ACCESS_TOKEN_EXPIRED".
+const ErrAccessTokenExpired = "ACCESS_TOKEN_EXPIRED"
 
-// IsChatIDInvalid reports whether err is CHAT_ID_INVALID.
-func IsChatIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatIDInvalid})
+// IsAccessTokenExpired reports whether err is ACCESS_TOKEN_EXPIRED.
+func IsAccessTokenExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAccessTokenExpired})
 }
 
-// ErrPeerIDInvalid is error type for "PEER_ID_INVALID".
-const ErrPeerIDInvalid = "PEER_ID_INVALID"
+// ErrAccessTokenInvalid is error type for "ACCESS_TOKEN_INVALID".
+const ErrAccessTokenInvalid = "ACCESS_TOKEN_INVALID"
 
-// IsPeerIDInvalid reports whether err is PEER_ID_INVALID.
-func IsPeerIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPeerIDInvalid})
+// IsAccessTokenInvalid reports whether err is ACCESS_TOKEN_INVALID.
+func IsAccessTokenInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAccessTokenInvalid})
 }
 
-// ErrUserIDInvalid is error type for "USER_ID_INVALID".
-const ErrUserIDInvalid = "USER_ID_INVALID"
+// ErrAdminsTooMuch is error type for "ADMINS_TOO_MUCH".
+const ErrAdminsTooMuch = "ADMINS_TOO_MUCH"
 
-// IsUserIDInvalid reports whether err is USER_ID_INVALID.
-func IsUserIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserIDInvalid})
+// IsAdminsTooMuch reports whether err is ADMINS_TOO_MUCH.
+func IsAdminsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAdminsTooMuch})
 }
 
-// ErrUserNotParticipant is error type for "USER_NOT_PARTICIPANT".
-const ErrUserNotParticipant = "USER_NOT_PARTICIPANT"
+// ErrAPIIDInvalid is error type for "API_ID_INVALID".
+const ErrAPIIDInvalid = "API_ID_INVALID"
 
-// IsUserNotParticipant reports whether err is USER_NOT_PARTICIPANT.
-func IsUserNotParticipant(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserNotParticipant})
+// IsAPIIDInvalid reports whether err is API_ID_INVALID.
+func IsAPIIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAPIIDInvalid})
 }
 
-// ErrChatNotModified is error type for "CHAT_NOT_MODIFIED".
-const ErrChatNotModified = "CHAT_NOT_MODIFIED"
+// ErrAPIIDPublishedFlood is error type for "API_ID_PUBLISHED_FLOOD".
+const ErrAPIIDPublishedFlood = "API_ID_PUBLISHED_FLOOD"
 
-// IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
-func IsChatNotModified(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatNotModified})
+// IsAPIIDPublishedFlood reports whether err is API_ID_PUBLISHED_FLOOD.
+func IsAPIIDPublishedFlood(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAPIIDPublishedFlood})
 }
 
-// ErrInputMethodInvalid1192227 is error type for "INPUT_METHOD_INVALID_1192227".
-const ErrInputMethodInvalid1192227 = "INPUT_METHOD_INVALID_1192227"
+// ErrArticleTitleEmpty is error type for "ARTICLE_TITLE_EMPTY".
+const ErrArticleTitleEmpty = "ARTICLE_TITLE_EMPTY"
 
-// IsInputMethodInvalid1192227 reports whether err is INPUT_METHOD_INVALID_1192227.
-func IsInputMethodInvalid1192227(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1192227})
+// IsArticleTitleEmpty reports whether err is ARTICLE_TITLE_EMPTY.
+func IsArticleTitleEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrArticleTitleEmpty})
 }
 
-// ErrInputMethodInvalid1604042050 is error type for "INPUT_METHOD_INVALID_1604042050".
-const ErrInputMethodInvalid1604042050 = "INPUT_METHOD_INVALID_1604042050"
+// ErrAuthBytesInvalid is error type for "AUTH_BYTES_INVALID".
+const ErrAuthBytesInvalid = "AUTH_BYTES_INVALID"
 
-// IsInputMethodInvalid1604042050 reports whether err is INPUT_METHOD_INVALID_1604042050.
-func IsInputMethodInvalid1604042050(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1604042050})
+// IsAuthBytesInvalid reports whether err is AUTH_BYTES_INVALID.
+func IsAuthBytesInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAuthBytesInvalid})
 }
 
-// ErrSecondsInvalid is error type for "SECONDS_INVALID".
-const ErrSecondsInvalid = "SECONDS_INVALID"
+// ErrAuthKeyInvalid is error type for "AUTH_KEY_INVALID".
+const ErrAuthKeyInvalid = "AUTH_KEY_INVALID"
 
-// IsSecondsInvalid reports whether err is SECONDS_INVALID.
-func IsSecondsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSecondsInvalid})
+// IsAuthKeyInvalid reports whether err is AUTH_KEY_INVALID.
+func IsAuthKeyInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAuthKeyInvalid})
+}
+
+// ErrAuthKeyPermEmpty is error type for "AUTH_KEY_PERM_EMPTY".
+const ErrAuthKeyPermEmpty = "AUTH_KEY_PERM_EMPTY"
+
+// IsAuthKeyPermEmpty reports whether err is AUTH_KEY_PERM_EMPTY.
+func IsAuthKeyPermEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAuthKeyPermEmpty})
+}
+
+// ErrAuthTokenExpired is error type for "AUTH_TOKEN_EXPIRED".
+const ErrAuthTokenExpired = "AUTH_TOKEN_EXPIRED"
+
+// IsAuthTokenExpired reports whether err is AUTH_TOKEN_EXPIRED.
+func IsAuthTokenExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAuthTokenExpired})
+}
+
+// ErrAuthTokenInvalidx is error type for "AUTH_TOKEN_INVALIDX".
+const ErrAuthTokenInvalidx = "AUTH_TOKEN_INVALIDX"
+
+// IsAuthTokenInvalidx reports whether err is AUTH_TOKEN_INVALIDX.
+func IsAuthTokenInvalidx(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrAuthTokenInvalidx})
+}
+
+// ErrBannedRightsInvalid is error type for "BANNED_RIGHTS_INVALID".
+const ErrBannedRightsInvalid = "BANNED_RIGHTS_INVALID"
+
+// IsBannedRightsInvalid reports whether err is BANNED_RIGHTS_INVALID.
+func IsBannedRightsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBannedRightsInvalid})
+}
+
+// ErrBotsTooMuch is error type for "BOTS_TOO_MUCH".
+const ErrBotsTooMuch = "BOTS_TOO_MUCH"
+
+// IsBotsTooMuch reports whether err is BOTS_TOO_MUCH.
+func IsBotsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotsTooMuch})
+}
+
+// ErrBotChannelsNa is error type for "BOT_CHANNELS_NA".
+const ErrBotChannelsNa = "BOT_CHANNELS_NA"
+
+// IsBotChannelsNa reports whether err is BOT_CHANNELS_NA.
+func IsBotChannelsNa(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotChannelsNa})
+}
+
+// ErrBotDomainInvalid is error type for "BOT_DOMAIN_INVALID".
+const ErrBotDomainInvalid = "BOT_DOMAIN_INVALID"
+
+// IsBotDomainInvalid reports whether err is BOT_DOMAIN_INVALID.
+func IsBotDomainInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotDomainInvalid})
+}
+
+// ErrBotGroupsBlocked is error type for "BOT_GROUPS_BLOCKED".
+const ErrBotGroupsBlocked = "BOT_GROUPS_BLOCKED"
+
+// IsBotGroupsBlocked reports whether err is BOT_GROUPS_BLOCKED.
+func IsBotGroupsBlocked(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotGroupsBlocked})
+}
+
+// ErrBotInlineDisabled is error type for "BOT_INLINE_DISABLED".
+const ErrBotInlineDisabled = "BOT_INLINE_DISABLED"
+
+// IsBotInlineDisabled reports whether err is BOT_INLINE_DISABLED.
+func IsBotInlineDisabled(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotInlineDisabled})
+}
+
+// ErrBotInvalid is error type for "BOT_INVALID".
+const ErrBotInvalid = "BOT_INVALID"
+
+// IsBotInvalid reports whether err is BOT_INVALID.
+func IsBotInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotInvalid})
+}
+
+// ErrBotMissing is error type for "BOT_MISSING".
+const ErrBotMissing = "BOT_MISSING"
+
+// IsBotMissing reports whether err is BOT_MISSING.
+func IsBotMissing(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotMissing})
+}
+
+// ErrBotResponseTimeout is error type for "BOT_RESPONSE_TIMEOUT".
+const ErrBotResponseTimeout = "BOT_RESPONSE_TIMEOUT"
+
+// IsBotResponseTimeout reports whether err is BOT_RESPONSE_TIMEOUT.
+func IsBotResponseTimeout(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBotResponseTimeout})
+}
+
+// ErrBroadcastForbidden is error type for "BROADCAST_FORBIDDEN".
+const ErrBroadcastForbidden = "BROADCAST_FORBIDDEN"
+
+// IsBroadcastForbidden reports whether err is BROADCAST_FORBIDDEN.
+func IsBroadcastForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBroadcastForbidden})
+}
+
+// ErrBroadcastIDInvalid is error type for "BROADCAST_ID_INVALID".
+const ErrBroadcastIDInvalid = "BROADCAST_ID_INVALID"
+
+// IsBroadcastIDInvalid reports whether err is BROADCAST_ID_INVALID.
+func IsBroadcastIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBroadcastIDInvalid})
+}
+
+// ErrBroadcastPublicVotersForbidden is error type for "BROADCAST_PUBLIC_VOTERS_FORBIDDEN".
+const ErrBroadcastPublicVotersForbidden = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
+
+// IsBroadcastPublicVotersForbidden reports whether err is BROADCAST_PUBLIC_VOTERS_FORBIDDEN.
+func IsBroadcastPublicVotersForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBroadcastPublicVotersForbidden})
+}
+
+// ErrBroadcastRequired is error type for "BROADCAST_REQUIRED".
+const ErrBroadcastRequired = "BROADCAST_REQUIRED"
+
+// IsBroadcastRequired reports whether err is BROADCAST_REQUIRED.
+func IsBroadcastRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrBroadcastRequired})
+}
+
+// ErrButtonDataInvalid is error type for "BUTTON_DATA_INVALID".
+const ErrButtonDataInvalid = "BUTTON_DATA_INVALID"
+
+// IsButtonDataInvalid reports whether err is BUTTON_DATA_INVALID.
+func IsButtonDataInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrButtonDataInvalid})
+}
+
+// ErrButtonTypeInvalid is error type for "BUTTON_TYPE_INVALID".
+const ErrButtonTypeInvalid = "BUTTON_TYPE_INVALID"
+
+// IsButtonTypeInvalid reports whether err is BUTTON_TYPE_INVALID.
+func IsButtonTypeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrButtonTypeInvalid})
+}
+
+// ErrButtonURLInvalid is error type for "BUTTON_URL_INVALID".
+const ErrButtonURLInvalid = "BUTTON_URL_INVALID"
+
+// IsButtonURLInvalid reports whether err is BUTTON_URL_INVALID.
+func IsButtonURLInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrButtonURLInvalid})
+}
+
+// ErrCallAlreadyAccepted is error type for "CALL_ALREADY_ACCEPTED".
+const ErrCallAlreadyAccepted = "CALL_ALREADY_ACCEPTED"
+
+// IsCallAlreadyAccepted reports whether err is CALL_ALREADY_ACCEPTED.
+func IsCallAlreadyAccepted(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCallAlreadyAccepted})
+}
+
+// ErrCallAlreadyDeclined is error type for "CALL_ALREADY_DECLINED".
+const ErrCallAlreadyDeclined = "CALL_ALREADY_DECLINED"
+
+// IsCallAlreadyDeclined reports whether err is CALL_ALREADY_DECLINED.
+func IsCallAlreadyDeclined(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCallAlreadyDeclined})
+}
+
+// ErrCallPeerInvalid is error type for "CALL_PEER_INVALID".
+const ErrCallPeerInvalid = "CALL_PEER_INVALID"
+
+// IsCallPeerInvalid reports whether err is CALL_PEER_INVALID.
+func IsCallPeerInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCallPeerInvalid})
+}
+
+// ErrCallProtocolFlagsInvalid is error type for "CALL_PROTOCOL_FLAGS_INVALID".
+const ErrCallProtocolFlagsInvalid = "CALL_PROTOCOL_FLAGS_INVALID"
+
+// IsCallProtocolFlagsInvalid reports whether err is CALL_PROTOCOL_FLAGS_INVALID.
+func IsCallProtocolFlagsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCallProtocolFlagsInvalid})
+}
+
+// ErrCDNMethodInvalid is error type for "CDN_METHOD_INVALID".
+const ErrCDNMethodInvalid = "CDN_METHOD_INVALID"
+
+// IsCDNMethodInvalid reports whether err is CDN_METHOD_INVALID.
+func IsCDNMethodInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCDNMethodInvalid})
+}
+
+// ErrChannelsAdminLocatedTooMuch is error type for "CHANNELS_ADMIN_LOCATED_TOO_MUCH".
+const ErrChannelsAdminLocatedTooMuch = "CHANNELS_ADMIN_LOCATED_TOO_MUCH"
+
+// IsChannelsAdminLocatedTooMuch reports whether err is CHANNELS_ADMIN_LOCATED_TOO_MUCH.
+func IsChannelsAdminLocatedTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChannelsAdminLocatedTooMuch})
+}
+
+// ErrChannelsAdminPublicTooMuch is error type for "CHANNELS_ADMIN_PUBLIC_TOO_MUCH".
+const ErrChannelsAdminPublicTooMuch = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
+
+// IsChannelsAdminPublicTooMuch reports whether err is CHANNELS_ADMIN_PUBLIC_TOO_MUCH.
+func IsChannelsAdminPublicTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChannelsAdminPublicTooMuch})
+}
+
+// ErrChannelsTooMuch is error type for "CHANNELS_TOO_MUCH".
+const ErrChannelsTooMuch = "CHANNELS_TOO_MUCH"
+
+// IsChannelsTooMuch reports whether err is CHANNELS_TOO_MUCH.
+func IsChannelsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChannelsTooMuch})
 }
 
 // ErrChannelInvalid is error type for "CHANNEL_INVALID".
@@ -133,52 +349,68 @@ func IsChannelPrivate(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrChannelPrivate})
 }
 
-// ErrChatLinkExists is error type for "CHAT_LINK_EXISTS".
-const ErrChatLinkExists = "CHAT_LINK_EXISTS"
+// ErrChannelPublicGroupNa is error type for "CHANNEL_PUBLIC_GROUP_NA".
+const ErrChannelPublicGroupNa = "CHANNEL_PUBLIC_GROUP_NA"
 
-// IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
-func IsChatLinkExists(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatLinkExists})
+// IsChannelPublicGroupNa reports whether err is CHANNEL_PUBLIC_GROUP_NA.
+func IsChannelPublicGroupNa(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChannelPublicGroupNa})
 }
 
-// ErrStickerIDInvalid is error type for "STICKER_ID_INVALID".
-const ErrStickerIDInvalid = "STICKER_ID_INVALID"
+// ErrChannelTooLarge is error type for "CHANNEL_TOO_LARGE".
+const ErrChannelTooLarge = "CHANNEL_TOO_LARGE"
 
-// IsStickerIDInvalid reports whether err is STICKER_ID_INVALID.
-func IsStickerIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerIDInvalid})
+// IsChannelTooLarge reports whether err is CHANNEL_TOO_LARGE.
+func IsChannelTooLarge(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChannelTooLarge})
 }
 
-// ErrPhoneCodeEmpty is error type for "PHONE_CODE_EMPTY".
-const ErrPhoneCodeEmpty = "PHONE_CODE_EMPTY"
+// ErrChatAboutNotModified is error type for "CHAT_ABOUT_NOT_MODIFIED".
+const ErrChatAboutNotModified = "CHAT_ABOUT_NOT_MODIFIED"
 
-// IsPhoneCodeEmpty reports whether err is PHONE_CODE_EMPTY.
-func IsPhoneCodeEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeEmpty})
+// IsChatAboutNotModified reports whether err is CHAT_ABOUT_NOT_MODIFIED.
+func IsChatAboutNotModified(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatAboutNotModified})
 }
 
-// ErrPhoneNumberInvalid is error type for "PHONE_NUMBER_INVALID".
-const ErrPhoneNumberInvalid = "PHONE_NUMBER_INVALID"
+// ErrChatAboutTooLong is error type for "CHAT_ABOUT_TOO_LONG".
+const ErrChatAboutTooLong = "CHAT_ABOUT_TOO_LONG"
 
-// IsPhoneNumberInvalid reports whether err is PHONE_NUMBER_INVALID.
-func IsPhoneNumberInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberInvalid})
+// IsChatAboutTooLong reports whether err is CHAT_ABOUT_TOO_LONG.
+func IsChatAboutTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatAboutTooLong})
 }
 
-// ErrBotsTooMuch is error type for "BOTS_TOO_MUCH".
-const ErrBotsTooMuch = "BOTS_TOO_MUCH"
+// ErrChatAdminInviteRequired is error type for "CHAT_ADMIN_INVITE_REQUIRED".
+const ErrChatAdminInviteRequired = "CHAT_ADMIN_INVITE_REQUIRED"
 
-// IsBotsTooMuch reports whether err is BOTS_TOO_MUCH.
-func IsBotsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotsTooMuch})
+// IsChatAdminInviteRequired reports whether err is CHAT_ADMIN_INVITE_REQUIRED.
+func IsChatAdminInviteRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatAdminInviteRequired})
 }
 
-// ErrBotGroupsBlocked is error type for "BOT_GROUPS_BLOCKED".
-const ErrBotGroupsBlocked = "BOT_GROUPS_BLOCKED"
+// ErrChatAdminRequired is error type for "CHAT_ADMIN_REQUIRED".
+const ErrChatAdminRequired = "CHAT_ADMIN_REQUIRED"
 
-// IsBotGroupsBlocked reports whether err is BOT_GROUPS_BLOCKED.
-func IsBotGroupsBlocked(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotGroupsBlocked})
+// IsChatAdminRequired reports whether err is CHAT_ADMIN_REQUIRED.
+func IsChatAdminRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatAdminRequired})
+}
+
+// ErrChatIDEmpty is error type for "CHAT_ID_EMPTY".
+const ErrChatIDEmpty = "CHAT_ID_EMPTY"
+
+// IsChatIDEmpty reports whether err is CHAT_ID_EMPTY.
+func IsChatIDEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatIDEmpty})
+}
+
+// ErrChatIDInvalid is error type for "CHAT_ID_INVALID".
+const ErrChatIDInvalid = "CHAT_ID_INVALID"
+
+// IsChatIDInvalid reports whether err is CHAT_ID_INVALID.
+func IsChatIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatIDInvalid})
 }
 
 // ErrChatInvalid is error type for "CHAT_INVALID".
@@ -189,148 +421,20 @@ func IsChatInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrChatInvalid})
 }
 
-// ErrChatWriteForbidden is error type for "CHAT_WRITE_FORBIDDEN".
-const ErrChatWriteForbidden = "CHAT_WRITE_FORBIDDEN"
+// ErrChatLinkExists is error type for "CHAT_LINK_EXISTS".
+const ErrChatLinkExists = "CHAT_LINK_EXISTS"
 
-// IsChatWriteForbidden reports whether err is CHAT_WRITE_FORBIDDEN.
-func IsChatWriteForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatWriteForbidden})
+// IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
+func IsChatLinkExists(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatLinkExists})
 }
 
-// ErrInputUserDeactivated is error type for "INPUT_USER_DEACTIVATED".
-const ErrInputUserDeactivated = "INPUT_USER_DEACTIVATED"
+// ErrChatNotModified is error type for "CHAT_NOT_MODIFIED".
+const ErrChatNotModified = "CHAT_NOT_MODIFIED"
 
-// IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
-func IsInputUserDeactivated(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputUserDeactivated})
-}
-
-// ErrMsgIDInvalid is error type for "MSG_ID_INVALID".
-const ErrMsgIDInvalid = "MSG_ID_INVALID"
-
-// IsMsgIDInvalid reports whether err is MSG_ID_INVALID.
-func IsMsgIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMsgIDInvalid})
-}
-
-// ErrUsersTooMuch is error type for "USERS_TOO_MUCH".
-const ErrUsersTooMuch = "USERS_TOO_MUCH"
-
-// IsUsersTooMuch reports whether err is USERS_TOO_MUCH.
-func IsUsersTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsersTooMuch})
-}
-
-// ErrUserBannedInChannel is error type for "USER_BANNED_IN_CHANNEL".
-const ErrUserBannedInChannel = "USER_BANNED_IN_CHANNEL"
-
-// IsUserBannedInChannel reports whether err is USER_BANNED_IN_CHANNEL.
-func IsUserBannedInChannel(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserBannedInChannel})
-}
-
-// ErrUserBlocked is error type for "USER_BLOCKED".
-const ErrUserBlocked = "USER_BLOCKED"
-
-// IsUserBlocked reports whether err is USER_BLOCKED.
-func IsUserBlocked(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserBlocked})
-}
-
-// ErrUserBot is error type for "USER_BOT".
-const ErrUserBot = "USER_BOT"
-
-// IsUserBot reports whether err is USER_BOT.
-func IsUserBot(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserBot})
-}
-
-// ErrUserChannelsTooMuch is error type for "USER_CHANNELS_TOO_MUCH".
-const ErrUserChannelsTooMuch = "USER_CHANNELS_TOO_MUCH"
-
-// IsUserChannelsTooMuch reports whether err is USER_CHANNELS_TOO_MUCH.
-func IsUserChannelsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserChannelsTooMuch})
-}
-
-// ErrUserKicked is error type for "USER_KICKED".
-const ErrUserKicked = "USER_KICKED"
-
-// IsUserKicked reports whether err is USER_KICKED.
-func IsUserKicked(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserKicked})
-}
-
-// ErrUserNotMutualContact is error type for "USER_NOT_MUTUAL_CONTACT".
-const ErrUserNotMutualContact = "USER_NOT_MUTUAL_CONTACT"
-
-// IsUserNotMutualContact reports whether err is USER_NOT_MUTUAL_CONTACT.
-func IsUserNotMutualContact(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserNotMutualContact})
-}
-
-// ErrUserPrivacyRestricted is error type for "USER_PRIVACY_RESTRICTED".
-const ErrUserPrivacyRestricted = "USER_PRIVACY_RESTRICTED"
-
-// IsUserPrivacyRestricted reports whether err is USER_PRIVACY_RESTRICTED.
-func IsUserPrivacyRestricted(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserPrivacyRestricted})
-}
-
-// ErrMessageIDInvalid is error type for "MESSAGE_ID_INVALID".
-const ErrMessageIDInvalid = "MESSAGE_ID_INVALID"
-
-// IsMessageIDInvalid reports whether err is MESSAGE_ID_INVALID.
-func IsMessageIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageIDInvalid})
-}
-
-// ErrUserBotRequired is error type for "USER_BOT_REQUIRED".
-const ErrUserBotRequired = "USER_BOT_REQUIRED"
-
-// IsUserBotRequired reports whether err is USER_BOT_REQUIRED.
-func IsUserBotRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserBotRequired})
-}
-
-// ErrPasswordHashInvalid is error type for "PASSWORD_HASH_INVALID".
-const ErrPasswordHashInvalid = "PASSWORD_HASH_INVALID"
-
-// IsPasswordHashInvalid reports whether err is PASSWORD_HASH_INVALID.
-func IsPasswordHashInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPasswordHashInvalid})
-}
-
-// ErrPhoneCodeExpired is error type for "PHONE_CODE_EXPIRED".
-const ErrPhoneCodeExpired = "PHONE_CODE_EXPIRED"
-
-// IsPhoneCodeExpired reports whether err is PHONE_CODE_EXPIRED.
-func IsPhoneCodeExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeExpired})
-}
-
-// ErrPhoneCodeInvalid is error type for "PHONE_CODE_INVALID".
-const ErrPhoneCodeInvalid = "PHONE_CODE_INVALID"
-
-// IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
-func IsPhoneCodeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeInvalid})
-}
-
-// ErrPhoneNumberUnoccupied is error type for "PHONE_NUMBER_UNOCCUPIED".
-const ErrPhoneNumberUnoccupied = "PHONE_NUMBER_UNOCCUPIED"
-
-// IsPhoneNumberUnoccupied reports whether err is PHONE_NUMBER_UNOCCUPIED.
-func IsPhoneNumberUnoccupied(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberUnoccupied})
-}
-
-// ErrBroadcastPublicVotersForbidden is error type for "BROADCAST_PUBLIC_VOTERS_FORBIDDEN".
-const ErrBroadcastPublicVotersForbidden = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
-
-// IsBroadcastPublicVotersForbidden reports whether err is BROADCAST_PUBLIC_VOTERS_FORBIDDEN.
-func IsBroadcastPublicVotersForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBroadcastPublicVotersForbidden})
+// IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
+func IsChatNotModified(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatNotModified})
 }
 
 // ErrChatRestricted is error type for "CHAT_RESTRICTED".
@@ -347,6 +451,14 @@ const ErrChatSendGifsForbidden = "CHAT_SEND_GIFS_FORBIDDEN"
 // IsChatSendGifsForbidden reports whether err is CHAT_SEND_GIFS_FORBIDDEN.
 func IsChatSendGifsForbidden(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrChatSendGifsForbidden})
+}
+
+// ErrChatSendInlineForbidden is error type for "CHAT_SEND_INLINE_FORBIDDEN".
+const ErrChatSendInlineForbidden = "CHAT_SEND_INLINE_FORBIDDEN"
+
+// IsChatSendInlineForbidden reports whether err is CHAT_SEND_INLINE_FORBIDDEN.
+func IsChatSendInlineForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatSendInlineForbidden})
 }
 
 // ErrChatSendMediaForbidden is error type for "CHAT_SEND_MEDIA_FORBIDDEN".
@@ -373,124 +485,44 @@ func IsChatSendStickersForbidden(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrChatSendStickersForbidden})
 }
 
-// ErrGroupedMediaInvalid is error type for "GROUPED_MEDIA_INVALID".
-const ErrGroupedMediaInvalid = "GROUPED_MEDIA_INVALID"
+// ErrChatTitleEmpty is error type for "CHAT_TITLE_EMPTY".
+const ErrChatTitleEmpty = "CHAT_TITLE_EMPTY"
 
-// IsGroupedMediaInvalid reports whether err is GROUPED_MEDIA_INVALID.
-func IsGroupedMediaInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGroupedMediaInvalid})
+// IsChatTitleEmpty reports whether err is CHAT_TITLE_EMPTY.
+func IsChatTitleEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatTitleEmpty})
 }
 
-// ErrMediaEmpty is error type for "MEDIA_EMPTY".
-const ErrMediaEmpty = "MEDIA_EMPTY"
+// ErrChatWriteForbidden is error type for "CHAT_WRITE_FORBIDDEN".
+const ErrChatWriteForbidden = "CHAT_WRITE_FORBIDDEN"
 
-// IsMediaEmpty reports whether err is MEDIA_EMPTY.
-func IsMediaEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMediaEmpty})
+// IsChatWriteForbidden reports whether err is CHAT_WRITE_FORBIDDEN.
+func IsChatWriteForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrChatWriteForbidden})
 }
 
-// ErrMessageIdsEmpty is error type for "MESSAGE_IDS_EMPTY".
-const ErrMessageIdsEmpty = "MESSAGE_IDS_EMPTY"
+// ErrCodeEmpty is error type for "CODE_EMPTY".
+const ErrCodeEmpty = "CODE_EMPTY"
 
-// IsMessageIdsEmpty reports whether err is MESSAGE_IDS_EMPTY.
-func IsMessageIdsEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageIdsEmpty})
+// IsCodeEmpty reports whether err is CODE_EMPTY.
+func IsCodeEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCodeEmpty})
 }
 
-// ErrP0nyFloodwait is error type for "P0NY_FLOODWAIT".
-const ErrP0nyFloodwait = "P0NY_FLOODWAIT"
+// ErrCodeHashInvalid is error type for "CODE_HASH_INVALID".
+const ErrCodeHashInvalid = "CODE_HASH_INVALID"
 
-// IsP0nyFloodwait reports whether err is P0NY_FLOODWAIT.
-func IsP0nyFloodwait(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrP0nyFloodwait})
+// IsCodeHashInvalid reports whether err is CODE_HASH_INVALID.
+func IsCodeHashInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCodeHashInvalid})
 }
 
-// ErrRandomIDInvalid is error type for "RANDOM_ID_INVALID".
-const ErrRandomIDInvalid = "RANDOM_ID_INVALID"
+// ErrCodeInvalid is error type for "CODE_INVALID".
+const ErrCodeInvalid = "CODE_INVALID"
 
-// IsRandomIDInvalid reports whether err is RANDOM_ID_INVALID.
-func IsRandomIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRandomIDInvalid})
-}
-
-// ErrScheduleTooMuch is error type for "SCHEDULE_TOO_MUCH".
-const ErrScheduleTooMuch = "SCHEDULE_TOO_MUCH"
-
-// IsScheduleTooMuch reports whether err is SCHEDULE_TOO_MUCH.
-func IsScheduleTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrScheduleTooMuch})
-}
-
-// ErrSlowmodeMultiMsgsDisabled is error type for "SLOWMODE_MULTI_MSGS_DISABLED".
-const ErrSlowmodeMultiMsgsDisabled = "SLOWMODE_MULTI_MSGS_DISABLED"
-
-// IsSlowmodeMultiMsgsDisabled reports whether err is SLOWMODE_MULTI_MSGS_DISABLED.
-func IsSlowmodeMultiMsgsDisabled(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSlowmodeMultiMsgsDisabled})
-}
-
-// ErrSlowmodeWait is error type for "SLOWMODE_WAIT".
-const ErrSlowmodeWait = "SLOWMODE_WAIT"
-
-// IsSlowmodeWait reports whether err is SLOWMODE_WAIT.
-func IsSlowmodeWait(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSlowmodeWait})
-}
-
-// ErrUserIsBlocked is error type for "USER_IS_BLOCKED".
-const ErrUserIsBlocked = "USER_IS_BLOCKED"
-
-// IsUserIsBlocked reports whether err is USER_IS_BLOCKED.
-func IsUserIsBlocked(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserIsBlocked})
-}
-
-// ErrUserIsBot is error type for "USER_IS_BOT".
-const ErrUserIsBot = "USER_IS_BOT"
-
-// IsUserIsBot reports whether err is USER_IS_BOT.
-func IsUserIsBot(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserIsBot})
-}
-
-// ErrYouBlockedUser is error type for "YOU_BLOCKED_USER".
-const ErrYouBlockedUser = "YOU_BLOCKED_USER"
-
-// IsYouBlockedUser reports whether err is YOU_BLOCKED_USER.
-func IsYouBlockedUser(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrYouBlockedUser})
-}
-
-// ErrAuthKeyPermEmpty is error type for "AUTH_KEY_PERM_EMPTY".
-const ErrAuthKeyPermEmpty = "AUTH_KEY_PERM_EMPTY"
-
-// IsAuthKeyPermEmpty reports whether err is AUTH_KEY_PERM_EMPTY.
-func IsAuthKeyPermEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAuthKeyPermEmpty})
-}
-
-// ErrConnectionDeviceModelEmpty is error type for "CONNECTION_DEVICE_MODEL_EMPTY".
-const ErrConnectionDeviceModelEmpty = "CONNECTION_DEVICE_MODEL_EMPTY"
-
-// IsConnectionDeviceModelEmpty reports whether err is CONNECTION_DEVICE_MODEL_EMPTY.
-func IsConnectionDeviceModelEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrConnectionDeviceModelEmpty})
-}
-
-// ErrChannelsAdminPublicTooMuch is error type for "CHANNELS_ADMIN_PUBLIC_TOO_MUCH".
-const ErrChannelsAdminPublicTooMuch = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
-
-// IsChannelsAdminPublicTooMuch reports whether err is CHANNELS_ADMIN_PUBLIC_TOO_MUCH.
-func IsChannelsAdminPublicTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChannelsAdminPublicTooMuch})
-}
-
-// ErrUsernameInvalid is error type for "USERNAME_INVALID".
-const ErrUsernameInvalid = "USERNAME_INVALID"
-
-// IsUsernameInvalid reports whether err is USERNAME_INVALID.
-func IsUsernameInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsernameInvalid})
+// IsCodeInvalid reports whether err is CODE_INVALID.
+func IsCodeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrCodeInvalid})
 }
 
 // ErrConnectionAPIIDInvalid is error type for "CONNECTION_API_ID_INVALID".
@@ -507,6 +539,14 @@ const ErrConnectionAppVersionEmpty = "CONNECTION_APP_VERSION_EMPTY"
 // IsConnectionAppVersionEmpty reports whether err is CONNECTION_APP_VERSION_EMPTY.
 func IsConnectionAppVersionEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrConnectionAppVersionEmpty})
+}
+
+// ErrConnectionDeviceModelEmpty is error type for "CONNECTION_DEVICE_MODEL_EMPTY".
+const ErrConnectionDeviceModelEmpty = "CONNECTION_DEVICE_MODEL_EMPTY"
+
+// IsConnectionDeviceModelEmpty reports whether err is CONNECTION_DEVICE_MODEL_EMPTY.
+func IsConnectionDeviceModelEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrConnectionDeviceModelEmpty})
 }
 
 // ErrConnectionLangPackInvalid is error type for "CONNECTION_LANG_PACK_INVALID".
@@ -549,6 +589,38 @@ func IsConnectionSystemLangCodeEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrConnectionSystemLangCodeEmpty})
 }
 
+// ErrContactAddMissing is error type for "CONTACT_ADD_MISSING".
+const ErrContactAddMissing = "CONTACT_ADD_MISSING"
+
+// IsContactAddMissing reports whether err is CONTACT_ADD_MISSING.
+func IsContactAddMissing(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrContactAddMissing})
+}
+
+// ErrContactIDInvalid is error type for "CONTACT_ID_INVALID".
+const ErrContactIDInvalid = "CONTACT_ID_INVALID"
+
+// IsContactIDInvalid reports whether err is CONTACT_ID_INVALID.
+func IsContactIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrContactIDInvalid})
+}
+
+// ErrContactNameEmpty is error type for "CONTACT_NAME_EMPTY".
+const ErrContactNameEmpty = "CONTACT_NAME_EMPTY"
+
+// IsContactNameEmpty reports whether err is CONTACT_NAME_EMPTY.
+func IsContactNameEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrContactNameEmpty})
+}
+
+// ErrContactReqMissing is error type for "CONTACT_REQ_MISSING".
+const ErrContactReqMissing = "CONTACT_REQ_MISSING"
+
+// IsContactReqMissing reports whether err is CONTACT_REQ_MISSING.
+func IsContactReqMissing(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrContactReqMissing})
+}
+
 // ErrDataInvalid is error type for "DATA_INVALID".
 const ErrDataInvalid = "DATA_INVALID"
 
@@ -557,20 +629,92 @@ func IsDataInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrDataInvalid})
 }
 
-// ErrInputLayerInvalid is error type for "INPUT_LAYER_INVALID".
-const ErrInputLayerInvalid = "INPUT_LAYER_INVALID"
+// ErrDataJSONInvalid is error type for "DATA_JSON_INVALID".
+const ErrDataJSONInvalid = "DATA_JSON_INVALID"
 
-// IsInputLayerInvalid reports whether err is INPUT_LAYER_INVALID.
-func IsInputLayerInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputLayerInvalid})
+// IsDataJSONInvalid reports whether err is DATA_JSON_INVALID.
+func IsDataJSONInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrDataJSONInvalid})
 }
 
-// ErrThemeFileInvalid is error type for "THEME_FILE_INVALID".
-const ErrThemeFileInvalid = "THEME_FILE_INVALID"
+// ErrDataTooLong is error type for "DATA_TOO_LONG".
+const ErrDataTooLong = "DATA_TOO_LONG"
 
-// IsThemeFileInvalid reports whether err is THEME_FILE_INVALID.
-func IsThemeFileInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrThemeFileInvalid})
+// IsDataTooLong reports whether err is DATA_TOO_LONG.
+func IsDataTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrDataTooLong})
+}
+
+// ErrDateEmpty is error type for "DATE_EMPTY".
+const ErrDateEmpty = "DATE_EMPTY"
+
+// IsDateEmpty reports whether err is DATE_EMPTY.
+func IsDateEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrDateEmpty})
+}
+
+// ErrDCIDInvalid is error type for "DC_ID_INVALID".
+const ErrDCIDInvalid = "DC_ID_INVALID"
+
+// IsDCIDInvalid reports whether err is DC_ID_INVALID.
+func IsDCIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrDCIDInvalid})
+}
+
+// ErrDhGAInvalid is error type for "DH_G_A_INVALID".
+const ErrDhGAInvalid = "DH_G_A_INVALID"
+
+// IsDhGAInvalid reports whether err is DH_G_A_INVALID.
+func IsDhGAInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrDhGAInvalid})
+}
+
+// ErrEmailHashExpired is error type for "EMAIL_HASH_EXPIRED".
+const ErrEmailHashExpired = "EMAIL_HASH_EXPIRED"
+
+// IsEmailHashExpired reports whether err is EMAIL_HASH_EXPIRED.
+func IsEmailHashExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEmailHashExpired})
+}
+
+// ErrEmailUnconfirmed is error type for "EMAIL_UNCONFIRMED".
+const ErrEmailUnconfirmed = "EMAIL_UNCONFIRMED"
+
+// IsEmailUnconfirmed reports whether err is EMAIL_UNCONFIRMED.
+func IsEmailUnconfirmed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEmailUnconfirmed})
+}
+
+// ErrEmailVerifyExpired is error type for "EMAIL_VERIFY_EXPIRED".
+const ErrEmailVerifyExpired = "EMAIL_VERIFY_EXPIRED"
+
+// IsEmailVerifyExpired reports whether err is EMAIL_VERIFY_EXPIRED.
+func IsEmailVerifyExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEmailVerifyExpired})
+}
+
+// ErrEncryptedMessageInvalid is error type for "ENCRYPTED_MESSAGE_INVALID".
+const ErrEncryptedMessageInvalid = "ENCRYPTED_MESSAGE_INVALID"
+
+// IsEncryptedMessageInvalid reports whether err is ENCRYPTED_MESSAGE_INVALID.
+func IsEncryptedMessageInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEncryptedMessageInvalid})
+}
+
+// ErrEncryptionAlreadyAccepted is error type for "ENCRYPTION_ALREADY_ACCEPTED".
+const ErrEncryptionAlreadyAccepted = "ENCRYPTION_ALREADY_ACCEPTED"
+
+// IsEncryptionAlreadyAccepted reports whether err is ENCRYPTION_ALREADY_ACCEPTED.
+func IsEncryptionAlreadyAccepted(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEncryptionAlreadyAccepted})
+}
+
+// ErrEncryptionAlreadyDeclined is error type for "ENCRYPTION_ALREADY_DECLINED".
+const ErrEncryptionAlreadyDeclined = "ENCRYPTION_ALREADY_DECLINED"
+
+// IsEncryptionAlreadyDeclined reports whether err is ENCRYPTION_ALREADY_DECLINED.
+func IsEncryptionAlreadyDeclined(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEncryptionAlreadyDeclined})
 }
 
 // ErrEncryptionDeclined is error type for "ENCRYPTION_DECLINED".
@@ -589,212 +733,156 @@ func IsEncryptionIDInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrEncryptionIDInvalid})
 }
 
-// ErrMsgWaitFailed is error type for "MSG_WAIT_FAILED".
-const ErrMsgWaitFailed = "MSG_WAIT_FAILED"
+// ErrEntityMentionUserInvalid is error type for "ENTITY_MENTION_USER_INVALID".
+const ErrEntityMentionUserInvalid = "ENTITY_MENTION_USER_INVALID"
 
-// IsMsgWaitFailed reports whether err is MSG_WAIT_FAILED.
-func IsMsgWaitFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMsgWaitFailed})
+// IsEntityMentionUserInvalid reports whether err is ENTITY_MENTION_USER_INVALID.
+func IsEntityMentionUserInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrEntityMentionUserInvalid})
 }
 
-// ErrPhoneCodeHashEmpty is error type for "PHONE_CODE_HASH_EMPTY".
-const ErrPhoneCodeHashEmpty = "PHONE_CODE_HASH_EMPTY"
+// ErrErrorTextEmpty is error type for "ERROR_TEXT_EMPTY".
+const ErrErrorTextEmpty = "ERROR_TEXT_EMPTY"
 
-// IsPhoneCodeHashEmpty reports whether err is PHONE_CODE_HASH_EMPTY.
-func IsPhoneCodeHashEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeHashEmpty})
+// IsErrorTextEmpty reports whether err is ERROR_TEXT_EMPTY.
+func IsErrorTextEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrErrorTextEmpty})
 }
 
-// ErrChannelsAdminLocatedTooMuch is error type for "CHANNELS_ADMIN_LOCATED_TOO_MUCH".
-const ErrChannelsAdminLocatedTooMuch = "CHANNELS_ADMIN_LOCATED_TOO_MUCH"
+// ErrExternalURLInvalid is error type for "EXTERNAL_URL_INVALID".
+const ErrExternalURLInvalid = "EXTERNAL_URL_INVALID"
 
-// IsChannelsAdminLocatedTooMuch reports whether err is CHANNELS_ADMIN_LOCATED_TOO_MUCH.
-func IsChannelsAdminLocatedTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChannelsAdminLocatedTooMuch})
+// IsExternalURLInvalid reports whether err is EXTERNAL_URL_INVALID.
+func IsExternalURLInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrExternalURLInvalid})
 }
 
-// ErrBotMissing is error type for "BOT_MISSING".
-const ErrBotMissing = "BOT_MISSING"
+// ErrFilerefUpgradeNeeded is error type for "FILEREF_UPGRADE_NEEDED".
+const ErrFilerefUpgradeNeeded = "FILEREF_UPGRADE_NEEDED"
 
-// IsBotMissing reports whether err is BOT_MISSING.
-func IsBotMissing(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotMissing})
+// IsFilerefUpgradeNeeded reports whether err is FILEREF_UPGRADE_NEEDED.
+func IsFilerefUpgradeNeeded(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilerefUpgradeNeeded})
 }
 
-// ErrStickerInvalid is error type for "STICKER_INVALID".
-const ErrStickerInvalid = "STICKER_INVALID"
+// ErrFileIDInvalid is error type for "FILE_ID_INVALID".
+const ErrFileIDInvalid = "FILE_ID_INVALID"
 
-// IsStickerInvalid reports whether err is STICKER_INVALID.
-func IsStickerInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerInvalid})
+// IsFileIDInvalid reports whether err is FILE_ID_INVALID.
+func IsFileIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFileIDInvalid})
 }
 
-// ErrBotResponseTimeout is error type for "BOT_RESPONSE_TIMEOUT".
-const ErrBotResponseTimeout = "BOT_RESPONSE_TIMEOUT"
+// ErrFilePartsInvalid is error type for "FILE_PARTS_INVALID".
+const ErrFilePartsInvalid = "FILE_PARTS_INVALID"
 
-// IsBotResponseTimeout reports whether err is BOT_RESPONSE_TIMEOUT.
-func IsBotResponseTimeout(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotResponseTimeout})
+// IsFilePartsInvalid reports whether err is FILE_PARTS_INVALID.
+func IsFilePartsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartsInvalid})
 }
 
-// ErrTimeout is error type for "Timeout".
-const ErrTimeout = "Timeout"
+// ErrFilePartEmpty is error type for "FILE_PART_EMPTY".
+const ErrFilePartEmpty = "FILE_PART_EMPTY"
 
-// IsTimeout reports whether err is Timeout.
-func IsTimeout(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTimeout})
+// IsFilePartEmpty reports whether err is FILE_PART_EMPTY.
+func IsFilePartEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartEmpty})
 }
 
-// ErrPackShortNameInvalid is error type for "PACK_SHORT_NAME_INVALID".
-const ErrPackShortNameInvalid = "PACK_SHORT_NAME_INVALID"
+// ErrFilePartInvalid is error type for "FILE_PART_INVALID".
+const ErrFilePartInvalid = "FILE_PART_INVALID"
 
-// IsPackShortNameInvalid reports whether err is PACK_SHORT_NAME_INVALID.
-func IsPackShortNameInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPackShortNameInvalid})
+// IsFilePartInvalid reports whether err is FILE_PART_INVALID.
+func IsFilePartInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartInvalid})
 }
 
-// ErrPackShortNameOccupied is error type for "PACK_SHORT_NAME_OCCUPIED".
-const ErrPackShortNameOccupied = "PACK_SHORT_NAME_OCCUPIED"
+// ErrFilePartLengthInvalid is error type for "FILE_PART_LENGTH_INVALID".
+const ErrFilePartLengthInvalid = "FILE_PART_LENGTH_INVALID"
 
-// IsPackShortNameOccupied reports whether err is PACK_SHORT_NAME_OCCUPIED.
-func IsPackShortNameOccupied(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPackShortNameOccupied})
+// IsFilePartLengthInvalid reports whether err is FILE_PART_LENGTH_INVALID.
+func IsFilePartLengthInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartLengthInvalid})
 }
 
-// ErrPackTitleInvalid is error type for "PACK_TITLE_INVALID".
-const ErrPackTitleInvalid = "PACK_TITLE_INVALID"
+// ErrFilePartSizeChanged is error type for "FILE_PART_SIZE_CHANGED".
+const ErrFilePartSizeChanged = "FILE_PART_SIZE_CHANGED"
 
-// IsPackTitleInvalid reports whether err is PACK_TITLE_INVALID.
-func IsPackTitleInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPackTitleInvalid})
+// IsFilePartSizeChanged reports whether err is FILE_PART_SIZE_CHANGED.
+func IsFilePartSizeChanged(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartSizeChanged})
 }
 
-// ErrShortnameOccupyFailed is error type for "SHORTNAME_OCCUPY_FAILED".
-const ErrShortnameOccupyFailed = "SHORTNAME_OCCUPY_FAILED"
+// ErrFilePartSizeInvalid is error type for "FILE_PART_SIZE_INVALID".
+const ErrFilePartSizeInvalid = "FILE_PART_SIZE_INVALID"
 
-// IsShortnameOccupyFailed reports whether err is SHORTNAME_OCCUPY_FAILED.
-func IsShortnameOccupyFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrShortnameOccupyFailed})
+// IsFilePartSizeInvalid reports whether err is FILE_PART_SIZE_INVALID.
+func IsFilePartSizeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartSizeInvalid})
 }
 
-// ErrStickersEmpty is error type for "STICKERS_EMPTY".
-const ErrStickersEmpty = "STICKERS_EMPTY"
+// ErrFilePartTooBig is error type for "FILE_PART_TOO_BIG".
+const ErrFilePartTooBig = "FILE_PART_TOO_BIG"
 
-// IsStickersEmpty reports whether err is STICKERS_EMPTY.
-func IsStickersEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickersEmpty})
+// IsFilePartTooBig reports whether err is FILE_PART_TOO_BIG.
+func IsFilePartTooBig(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilePartTooBig})
 }
 
-// ErrStickerEmojiInvalid is error type for "STICKER_EMOJI_INVALID".
-const ErrStickerEmojiInvalid = "STICKER_EMOJI_INVALID"
+// ErrFileReference is error type for "FILE_REFERENCE".
+const ErrFileReference = "FILE_REFERENCE"
 
-// IsStickerEmojiInvalid reports whether err is STICKER_EMOJI_INVALID.
-func IsStickerEmojiInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerEmojiInvalid})
+// IsFileReference reports whether err is FILE_REFERENCE.
+func IsFileReference(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFileReference})
 }
 
-// ErrStickerFileInvalid is error type for "STICKER_FILE_INVALID".
-const ErrStickerFileInvalid = "STICKER_FILE_INVALID"
+// ErrFileReferenceExpired is error type for "FILE_REFERENCE_EXPIRED".
+const ErrFileReferenceExpired = "FILE_REFERENCE_EXPIRED"
 
-// IsStickerFileInvalid reports whether err is STICKER_FILE_INVALID.
-func IsStickerFileInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerFileInvalid})
+// IsFileReferenceExpired reports whether err is FILE_REFERENCE_EXPIRED.
+func IsFileReferenceExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFileReferenceExpired})
 }
 
-// ErrStickerPngDimensions is error type for "STICKER_PNG_DIMENSIONS".
-const ErrStickerPngDimensions = "STICKER_PNG_DIMENSIONS"
+// ErrFilterIDInvalid is error type for "FILTER_ID_INVALID".
+const ErrFilterIDInvalid = "FILTER_ID_INVALID"
 
-// IsStickerPngDimensions reports whether err is STICKER_PNG_DIMENSIONS.
-func IsStickerPngDimensions(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerPngDimensions})
+// IsFilterIDInvalid reports whether err is FILTER_ID_INVALID.
+func IsFilterIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFilterIDInvalid})
 }
 
-// ErrStickerPngNopng is error type for "STICKER_PNG_NOPNG".
-const ErrStickerPngNopng = "STICKER_PNG_NOPNG"
+// ErrFirstnameInvalid is error type for "FIRSTNAME_INVALID".
+const ErrFirstnameInvalid = "FIRSTNAME_INVALID"
 
-// IsStickerPngNopng reports whether err is STICKER_PNG_NOPNG.
-func IsStickerPngNopng(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickerPngNopng})
+// IsFirstnameInvalid reports whether err is FIRSTNAME_INVALID.
+func IsFirstnameInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFirstnameInvalid})
 }
 
-// ErrStickersetInvalid is error type for "STICKERSET_INVALID".
-const ErrStickersetInvalid = "STICKERSET_INVALID"
+// ErrFolderIDInvalid is error type for "FOLDER_ID_INVALID".
+const ErrFolderIDInvalid = "FOLDER_ID_INVALID"
 
-// IsStickersetInvalid reports whether err is STICKERSET_INVALID.
-func IsStickersetInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStickersetInvalid})
+// IsFolderIDInvalid reports whether err is FOLDER_ID_INVALID.
+func IsFolderIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFolderIDInvalid})
 }
 
-// ErrHashInvalid is error type for "HASH_INVALID".
-const ErrHashInvalid = "HASH_INVALID"
+// ErrFreshChangeAdminsForbidden is error type for "FRESH_CHANGE_ADMINS_FORBIDDEN".
+const ErrFreshChangeAdminsForbidden = "FRESH_CHANGE_ADMINS_FORBIDDEN"
 
-// IsHashInvalid reports whether err is HASH_INVALID.
-func IsHashInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrHashInvalid})
+// IsFreshChangeAdminsForbidden reports whether err is FRESH_CHANGE_ADMINS_FORBIDDEN.
+func IsFreshChangeAdminsForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFreshChangeAdminsForbidden})
 }
 
-// ErrParticipantsTooFew is error type for "PARTICIPANTS_TOO_FEW".
-const ErrParticipantsTooFew = "PARTICIPANTS_TOO_FEW"
+// ErrFreshResetAuthorisationForbidden is error type for "FRESH_RESET_AUTHORISATION_FORBIDDEN".
+const ErrFreshResetAuthorisationForbidden = "FRESH_RESET_AUTHORISATION_FORBIDDEN"
 
-// IsParticipantsTooFew reports whether err is PARTICIPANTS_TOO_FEW.
-func IsParticipantsTooFew(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrParticipantsTooFew})
-}
-
-// ErrInputMethodInvalid1400137063 is error type for "INPUT_METHOD_INVALID_1400137063".
-const ErrInputMethodInvalid1400137063 = "INPUT_METHOD_INVALID_1400137063"
-
-// IsInputMethodInvalid1400137063 reports whether err is INPUT_METHOD_INVALID_1400137063.
-func IsInputMethodInvalid1400137063(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1400137063})
-}
-
-// ErrMessageDeleteForbidden is error type for "MESSAGE_DELETE_FORBIDDEN".
-const ErrMessageDeleteForbidden = "MESSAGE_DELETE_FORBIDDEN"
-
-// IsMessageDeleteForbidden reports whether err is MESSAGE_DELETE_FORBIDDEN.
-func IsMessageDeleteForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageDeleteForbidden})
-}
-
-// ErrTakeoutRequired is error type for "TAKEOUT_REQUIRED".
-const ErrTakeoutRequired = "TAKEOUT_REQUIRED"
-
-// IsTakeoutRequired reports whether err is TAKEOUT_REQUIRED.
-func IsTakeoutRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTakeoutRequired})
-}
-
-// ErrTmpPasswordDisabled is error type for "TMP_PASSWORD_DISABLED".
-const ErrTmpPasswordDisabled = "TMP_PASSWORD_DISABLED"
-
-// IsTmpPasswordDisabled reports whether err is TMP_PASSWORD_DISABLED.
-func IsTmpPasswordDisabled(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTmpPasswordDisabled})
-}
-
-// ErrCallProtocolFlagsInvalid is error type for "CALL_PROTOCOL_FLAGS_INVALID".
-const ErrCallProtocolFlagsInvalid = "CALL_PROTOCOL_FLAGS_INVALID"
-
-// IsCallProtocolFlagsInvalid reports whether err is CALL_PROTOCOL_FLAGS_INVALID.
-func IsCallProtocolFlagsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCallProtocolFlagsInvalid})
-}
-
-// ErrParticipantVersionOutdated is error type for "PARTICIPANT_VERSION_OUTDATED".
-const ErrParticipantVersionOutdated = "PARTICIPANT_VERSION_OUTDATED"
-
-// IsParticipantVersionOutdated reports whether err is PARTICIPANT_VERSION_OUTDATED.
-func IsParticipantVersionOutdated(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrParticipantVersionOutdated})
-}
-
-// ErrChannelPublicGroupNa is error type for "CHANNEL_PUBLIC_GROUP_NA".
-const ErrChannelPublicGroupNa = "CHANNEL_PUBLIC_GROUP_NA"
-
-// IsChannelPublicGroupNa reports whether err is CHANNEL_PUBLIC_GROUP_NA.
-func IsChannelPublicGroupNa(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChannelPublicGroupNa})
+// IsFreshResetAuthorisationForbidden reports whether err is FRESH_RESET_AUTHORISATION_FORBIDDEN.
+func IsFreshResetAuthorisationForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrFreshResetAuthorisationForbidden})
 }
 
 // ErrFromMessageBotDisabled is error type for "FROM_MESSAGE_BOT_DISABLED".
@@ -805,52 +893,140 @@ func IsFromMessageBotDisabled(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrFromMessageBotDisabled})
 }
 
-// ErrPersistentTimestampEmpty is error type for "PERSISTENT_TIMESTAMP_EMPTY".
-const ErrPersistentTimestampEmpty = "PERSISTENT_TIMESTAMP_EMPTY"
+// ErrGeoPointInvalid is error type for "GEO_POINT_INVALID".
+const ErrGeoPointInvalid = "GEO_POINT_INVALID"
 
-// IsPersistentTimestampEmpty reports whether err is PERSISTENT_TIMESTAMP_EMPTY.
-func IsPersistentTimestampEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPersistentTimestampEmpty})
+// IsGeoPointInvalid reports whether err is GEO_POINT_INVALID.
+func IsGeoPointInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGeoPointInvalid})
 }
 
-// ErrPersistentTimestampInvalid is error type for "PERSISTENT_TIMESTAMP_INVALID".
-const ErrPersistentTimestampInvalid = "PERSISTENT_TIMESTAMP_INVALID"
+// ErrGifContentTypeInvalid is error type for "GIF_CONTENT_TYPE_INVALID".
+const ErrGifContentTypeInvalid = "GIF_CONTENT_TYPE_INVALID"
 
-// IsPersistentTimestampInvalid reports whether err is PERSISTENT_TIMESTAMP_INVALID.
-func IsPersistentTimestampInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPersistentTimestampInvalid})
+// IsGifContentTypeInvalid reports whether err is GIF_CONTENT_TYPE_INVALID.
+func IsGifContentTypeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGifContentTypeInvalid})
 }
 
-// ErrPinnedDialogsTooMuch is error type for "PINNED_DIALOGS_TOO_MUCH".
-const ErrPinnedDialogsTooMuch = "PINNED_DIALOGS_TOO_MUCH"
+// ErrGifIDInvalid is error type for "GIF_ID_INVALID".
+const ErrGifIDInvalid = "GIF_ID_INVALID"
 
-// IsPinnedDialogsTooMuch reports whether err is PINNED_DIALOGS_TOO_MUCH.
-func IsPinnedDialogsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPinnedDialogsTooMuch})
+// IsGifIDInvalid reports whether err is GIF_ID_INVALID.
+func IsGifIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGifIDInvalid})
 }
 
-// ErrRangesInvalid is error type for "RANGES_INVALID".
-const ErrRangesInvalid = "RANGES_INVALID"
+// ErrGraphInvalidReload is error type for "GRAPH_INVALID_RELOAD".
+const ErrGraphInvalidReload = "GRAPH_INVALID_RELOAD"
 
-// IsRangesInvalid reports whether err is RANGES_INVALID.
-func IsRangesInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRangesInvalid})
+// IsGraphInvalidReload reports whether err is GRAPH_INVALID_RELOAD.
+func IsGraphInvalidReload(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGraphInvalidReload})
 }
 
-// ErrAuthBytesInvalid is error type for "AUTH_BYTES_INVALID".
-const ErrAuthBytesInvalid = "AUTH_BYTES_INVALID"
+// ErrGraphOutdatedReload is error type for "GRAPH_OUTDATED_RELOAD".
+const ErrGraphOutdatedReload = "GRAPH_OUTDATED_RELOAD"
 
-// IsAuthBytesInvalid reports whether err is AUTH_BYTES_INVALID.
-func IsAuthBytesInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAuthBytesInvalid})
+// IsGraphOutdatedReload reports whether err is GRAPH_OUTDATED_RELOAD.
+func IsGraphOutdatedReload(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGraphOutdatedReload})
 }
 
-// ErrChannelsTooMuch is error type for "CHANNELS_TOO_MUCH".
-const ErrChannelsTooMuch = "CHANNELS_TOO_MUCH"
+// ErrGroupedMediaInvalid is error type for "GROUPED_MEDIA_INVALID".
+const ErrGroupedMediaInvalid = "GROUPED_MEDIA_INVALID"
 
-// IsChannelsTooMuch reports whether err is CHANNELS_TOO_MUCH.
-func IsChannelsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChannelsTooMuch})
+// IsGroupedMediaInvalid reports whether err is GROUPED_MEDIA_INVALID.
+func IsGroupedMediaInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrGroupedMediaInvalid})
+}
+
+// ErrHashInvalid is error type for "HASH_INVALID".
+const ErrHashInvalid = "HASH_INVALID"
+
+// IsHashInvalid reports whether err is HASH_INVALID.
+func IsHashInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrHashInvalid})
+}
+
+// ErrImageProcessFailed is error type for "IMAGE_PROCESS_FAILED".
+const ErrImageProcessFailed = "IMAGE_PROCESS_FAILED"
+
+// IsImageProcessFailed reports whether err is IMAGE_PROCESS_FAILED.
+func IsImageProcessFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrImageProcessFailed})
+}
+
+// ErrInlineBotRequired is error type for "INLINE_BOT_REQUIRED".
+const ErrInlineBotRequired = "INLINE_BOT_REQUIRED"
+
+// IsInlineBotRequired reports whether err is INLINE_BOT_REQUIRED.
+func IsInlineBotRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInlineBotRequired})
+}
+
+// ErrInlineResultExpired is error type for "INLINE_RESULT_EXPIRED".
+const ErrInlineResultExpired = "INLINE_RESULT_EXPIRED"
+
+// IsInlineResultExpired reports whether err is INLINE_RESULT_EXPIRED.
+func IsInlineResultExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInlineResultExpired})
+}
+
+// ErrInputConstructorInvalid is error type for "INPUT_CONSTRUCTOR_INVALID".
+const ErrInputConstructorInvalid = "INPUT_CONSTRUCTOR_INVALID"
+
+// IsInputConstructorInvalid reports whether err is INPUT_CONSTRUCTOR_INVALID.
+func IsInputConstructorInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputConstructorInvalid})
+}
+
+// ErrInputLayerInvalid is error type for "INPUT_LAYER_INVALID".
+const ErrInputLayerInvalid = "INPUT_LAYER_INVALID"
+
+// IsInputLayerInvalid reports whether err is INPUT_LAYER_INVALID.
+func IsInputLayerInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputLayerInvalid})
+}
+
+// ErrInputMethodInvalid1192227 is error type for "INPUT_METHOD_INVALID_1192227".
+const ErrInputMethodInvalid1192227 = "INPUT_METHOD_INVALID_1192227"
+
+// IsInputMethodInvalid1192227 reports whether err is INPUT_METHOD_INVALID_1192227.
+func IsInputMethodInvalid1192227(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1192227})
+}
+
+// ErrInputMethodInvalid1400137063 is error type for "INPUT_METHOD_INVALID_1400137063".
+const ErrInputMethodInvalid1400137063 = "INPUT_METHOD_INVALID_1400137063"
+
+// IsInputMethodInvalid1400137063 reports whether err is INPUT_METHOD_INVALID_1400137063.
+func IsInputMethodInvalid1400137063(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1400137063})
+}
+
+// ErrInputMethodInvalid1604042050 is error type for "INPUT_METHOD_INVALID_1604042050".
+const ErrInputMethodInvalid1604042050 = "INPUT_METHOD_INVALID_1604042050"
+
+// IsInputMethodInvalid1604042050 reports whether err is INPUT_METHOD_INVALID_1604042050.
+func IsInputMethodInvalid1604042050(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputMethodInvalid1604042050})
+}
+
+// ErrInputRequestTooLong is error type for "INPUT_REQUEST_TOO_LONG".
+const ErrInputRequestTooLong = "INPUT_REQUEST_TOO_LONG"
+
+// IsInputRequestTooLong reports whether err is INPUT_REQUEST_TOO_LONG.
+func IsInputRequestTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputRequestTooLong})
+}
+
+// ErrInputUserDeactivated is error type for "INPUT_USER_DEACTIVATED".
+const ErrInputUserDeactivated = "INPUT_USER_DEACTIVATED"
+
+// IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
+func IsInputUserDeactivated(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrInputUserDeactivated})
 }
 
 // ErrInviteHashEmpty is error type for "INVITE_HASH_EMPTY".
@@ -877,124 +1053,12 @@ func IsInviteHashInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrInviteHashInvalid})
 }
 
-// ErrUserAlreadyParticipant is error type for "USER_ALREADY_PARTICIPANT".
-const ErrUserAlreadyParticipant = "USER_ALREADY_PARTICIPANT"
+// ErrLangPackInvalid is error type for "LANG_PACK_INVALID".
+const ErrLangPackInvalid = "LANG_PACK_INVALID"
 
-// IsUserAlreadyParticipant reports whether err is USER_ALREADY_PARTICIPANT.
-func IsUserAlreadyParticipant(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserAlreadyParticipant})
-}
-
-// ErrRandomLengthInvalid is error type for "RANDOM_LENGTH_INVALID".
-const ErrRandomLengthInvalid = "RANDOM_LENGTH_INVALID"
-
-// IsRandomLengthInvalid reports whether err is RANDOM_LENGTH_INVALID.
-func IsRandomLengthInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRandomLengthInvalid})
-}
-
-// ErrAuthTokenInvalidx is error type for "AUTH_TOKEN_INVALIDX".
-const ErrAuthTokenInvalidx = "AUTH_TOKEN_INVALIDX"
-
-// IsAuthTokenInvalidx reports whether err is AUTH_TOKEN_INVALIDX.
-func IsAuthTokenInvalidx(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAuthTokenInvalidx})
-}
-
-// ErrErrorTextEmpty is error type for "ERROR_TEXT_EMPTY".
-const ErrErrorTextEmpty = "ERROR_TEXT_EMPTY"
-
-// IsErrorTextEmpty reports whether err is ERROR_TEXT_EMPTY.
-func IsErrorTextEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrErrorTextEmpty})
-}
-
-// ErrThemeFormatInvalid is error type for "THEME_FORMAT_INVALID".
-const ErrThemeFormatInvalid = "THEME_FORMAT_INVALID"
-
-// IsThemeFormatInvalid reports whether err is THEME_FORMAT_INVALID.
-func IsThemeFormatInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrThemeFormatInvalid})
-}
-
-// ErrThemeInvalid is error type for "THEME_INVALID".
-const ErrThemeInvalid = "THEME_INVALID"
-
-// IsThemeInvalid reports whether err is THEME_INVALID.
-func IsThemeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrThemeInvalid})
-}
-
-// ErrCallPeerInvalid is error type for "CALL_PEER_INVALID".
-const ErrCallPeerInvalid = "CALL_PEER_INVALID"
-
-// IsCallPeerInvalid reports whether err is CALL_PEER_INVALID.
-func IsCallPeerInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCallPeerInvalid})
-}
-
-// ErrBroadcastRequired is error type for "BROADCAST_REQUIRED".
-const ErrBroadcastRequired = "BROADCAST_REQUIRED"
-
-// IsBroadcastRequired reports whether err is BROADCAST_REQUIRED.
-func IsBroadcastRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBroadcastRequired})
-}
-
-// ErrFolderIDInvalid is error type for "FOLDER_ID_INVALID".
-const ErrFolderIDInvalid = "FOLDER_ID_INVALID"
-
-// IsFolderIDInvalid reports whether err is FOLDER_ID_INVALID.
-func IsFolderIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFolderIDInvalid})
-}
-
-// ErrPinRestricted is error type for "PIN_RESTRICTED".
-const ErrPinRestricted = "PIN_RESTRICTED"
-
-// IsPinRestricted reports whether err is PIN_RESTRICTED.
-func IsPinRestricted(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPinRestricted})
-}
-
-// ErrPrivacyKeyInvalid is error type for "PRIVACY_KEY_INVALID".
-const ErrPrivacyKeyInvalid = "PRIVACY_KEY_INVALID"
-
-// IsPrivacyKeyInvalid reports whether err is PRIVACY_KEY_INVALID.
-func IsPrivacyKeyInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPrivacyKeyInvalid})
-}
-
-// ErrContactIDInvalid is error type for "CONTACT_ID_INVALID".
-const ErrContactIDInvalid = "CONTACT_ID_INVALID"
-
-// IsContactIDInvalid reports whether err is CONTACT_ID_INVALID.
-func IsContactIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrContactIDInvalid})
-}
-
-// ErrCallAlreadyAccepted is error type for "CALL_ALREADY_ACCEPTED".
-const ErrCallAlreadyAccepted = "CALL_ALREADY_ACCEPTED"
-
-// IsCallAlreadyAccepted reports whether err is CALL_ALREADY_ACCEPTED.
-func IsCallAlreadyAccepted(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCallAlreadyAccepted})
-}
-
-// ErrFirstnameInvalid is error type for "FIRSTNAME_INVALID".
-const ErrFirstnameInvalid = "FIRSTNAME_INVALID"
-
-// IsFirstnameInvalid reports whether err is FIRSTNAME_INVALID.
-func IsFirstnameInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFirstnameInvalid})
-}
-
-// ErrInputRequestTooLong is error type for "INPUT_REQUEST_TOO_LONG".
-const ErrInputRequestTooLong = "INPUT_REQUEST_TOO_LONG"
-
-// IsInputRequestTooLong reports whether err is INPUT_REQUEST_TOO_LONG.
-func IsInputRequestTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputRequestTooLong})
+// IsLangPackInvalid reports whether err is LANG_PACK_INVALID.
+func IsLangPackInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrLangPackInvalid})
 }
 
 // ErrLastnameInvalid is error type for "LASTNAME_INVALID".
@@ -1005,108 +1069,148 @@ func IsLastnameInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrLastnameInvalid})
 }
 
-// ErrPhoneNumberFlood is error type for "PHONE_NUMBER_FLOOD".
-const ErrPhoneNumberFlood = "PHONE_NUMBER_FLOOD"
+// ErrLimitInvalid is error type for "LIMIT_INVALID".
+const ErrLimitInvalid = "LIMIT_INVALID"
 
-// IsPhoneNumberFlood reports whether err is PHONE_NUMBER_FLOOD.
-func IsPhoneNumberFlood(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberFlood})
+// IsLimitInvalid reports whether err is LIMIT_INVALID.
+func IsLimitInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrLimitInvalid})
 }
 
-// ErrPhoneNumberOccupied is error type for "PHONE_NUMBER_OCCUPIED".
-const ErrPhoneNumberOccupied = "PHONE_NUMBER_OCCUPIED"
+// ErrLinkNotModified is error type for "LINK_NOT_MODIFIED".
+const ErrLinkNotModified = "LINK_NOT_MODIFIED"
 
-// IsPhoneNumberOccupied reports whether err is PHONE_NUMBER_OCCUPIED.
-func IsPhoneNumberOccupied(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberOccupied})
+// IsLinkNotModified reports whether err is LINK_NOT_MODIFIED.
+func IsLinkNotModified(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrLinkNotModified})
 }
 
-// ErrCDNMethodInvalid is error type for "CDN_METHOD_INVALID".
-const ErrCDNMethodInvalid = "CDN_METHOD_INVALID"
+// ErrLocationInvalid is error type for "LOCATION_INVALID".
+const ErrLocationInvalid = "LOCATION_INVALID"
 
-// IsCDNMethodInvalid reports whether err is CDN_METHOD_INVALID.
-func IsCDNMethodInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCDNMethodInvalid})
+// IsLocationInvalid reports whether err is LOCATION_INVALID.
+func IsLocationInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrLocationInvalid})
 }
 
-// ErrFilePartEmpty is error type for "FILE_PART_EMPTY".
-const ErrFilePartEmpty = "FILE_PART_EMPTY"
+// ErrMaxIDInvalid is error type for "MAX_ID_INVALID".
+const ErrMaxIDInvalid = "MAX_ID_INVALID"
 
-// IsFilePartEmpty reports whether err is FILE_PART_EMPTY.
-func IsFilePartEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartEmpty})
+// IsMaxIDInvalid reports whether err is MAX_ID_INVALID.
+func IsMaxIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMaxIDInvalid})
 }
 
-// ErrFilePartInvalid is error type for "FILE_PART_INVALID".
-const ErrFilePartInvalid = "FILE_PART_INVALID"
+// ErrMD5ChecksumInvalid is error type for "MD5_CHECKSUM_INVALID".
+const ErrMD5ChecksumInvalid = "MD5_CHECKSUM_INVALID"
 
-// IsFilePartInvalid reports whether err is FILE_PART_INVALID.
-func IsFilePartInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartInvalid})
+// IsMD5ChecksumInvalid reports whether err is MD5_CHECKSUM_INVALID.
+func IsMD5ChecksumInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMD5ChecksumInvalid})
 }
 
-// ErrCodeHashInvalid is error type for "CODE_HASH_INVALID".
-const ErrCodeHashInvalid = "CODE_HASH_INVALID"
+// ErrMediaCaptionTooLong is error type for "MEDIA_CAPTION_TOO_LONG".
+const ErrMediaCaptionTooLong = "MEDIA_CAPTION_TOO_LONG"
 
-// IsCodeHashInvalid reports whether err is CODE_HASH_INVALID.
-func IsCodeHashInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCodeHashInvalid})
+// IsMediaCaptionTooLong reports whether err is MEDIA_CAPTION_TOO_LONG.
+func IsMediaCaptionTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMediaCaptionTooLong})
 }
 
-// ErrEncryptionAlreadyAccepted is error type for "ENCRYPTION_ALREADY_ACCEPTED".
-const ErrEncryptionAlreadyAccepted = "ENCRYPTION_ALREADY_ACCEPTED"
+// ErrMediaEmpty is error type for "MEDIA_EMPTY".
+const ErrMediaEmpty = "MEDIA_EMPTY"
 
-// IsEncryptionAlreadyAccepted reports whether err is ENCRYPTION_ALREADY_ACCEPTED.
-func IsEncryptionAlreadyAccepted(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEncryptionAlreadyAccepted})
+// IsMediaEmpty reports whether err is MEDIA_EMPTY.
+func IsMediaEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMediaEmpty})
 }
 
-// ErrEncryptionAlreadyDeclined is error type for "ENCRYPTION_ALREADY_DECLINED".
-const ErrEncryptionAlreadyDeclined = "ENCRYPTION_ALREADY_DECLINED"
+// ErrMediaInvalid is error type for "MEDIA_INVALID".
+const ErrMediaInvalid = "MEDIA_INVALID"
 
-// IsEncryptionAlreadyDeclined reports whether err is ENCRYPTION_ALREADY_DECLINED.
-func IsEncryptionAlreadyDeclined(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEncryptionAlreadyDeclined})
+// IsMediaInvalid reports whether err is MEDIA_INVALID.
+func IsMediaInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMediaInvalid})
 }
 
-// ErrChatAboutNotModified is error type for "CHAT_ABOUT_NOT_MODIFIED".
-const ErrChatAboutNotModified = "CHAT_ABOUT_NOT_MODIFIED"
+// ErrMediaPrevInvalid is error type for "MEDIA_PREV_INVALID".
+const ErrMediaPrevInvalid = "MEDIA_PREV_INVALID"
 
-// IsChatAboutNotModified reports whether err is CHAT_ABOUT_NOT_MODIFIED.
-func IsChatAboutNotModified(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatAboutNotModified})
+// IsMediaPrevInvalid reports whether err is MEDIA_PREV_INVALID.
+func IsMediaPrevInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMediaPrevInvalid})
 }
 
-// ErrChatAboutTooLong is error type for "CHAT_ABOUT_TOO_LONG".
-const ErrChatAboutTooLong = "CHAT_ABOUT_TOO_LONG"
+// ErrMegagroupIDInvalid is error type for "MEGAGROUP_ID_INVALID".
+const ErrMegagroupIDInvalid = "MEGAGROUP_ID_INVALID"
 
-// IsChatAboutTooLong reports whether err is CHAT_ABOUT_TOO_LONG.
-func IsChatAboutTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatAboutTooLong})
+// IsMegagroupIDInvalid reports whether err is MEGAGROUP_ID_INVALID.
+func IsMegagroupIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMegagroupIDInvalid})
 }
 
-// ErrGifIDInvalid is error type for "GIF_ID_INVALID".
-const ErrGifIDInvalid = "GIF_ID_INVALID"
+// ErrMegagroupRequired is error type for "MEGAGROUP_REQUIRED".
+const ErrMegagroupRequired = "MEGAGROUP_REQUIRED"
 
-// IsGifIDInvalid reports whether err is GIF_ID_INVALID.
-func IsGifIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGifIDInvalid})
+// IsMegagroupRequired reports whether err is MEGAGROUP_REQUIRED.
+func IsMegagroupRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMegagroupRequired})
 }
 
-// ErrSRPIDInvalid is error type for "SRP_ID_INVALID".
-const ErrSRPIDInvalid = "SRP_ID_INVALID"
+// ErrMessageAuthorRequired is error type for "MESSAGE_AUTHOR_REQUIRED".
+const ErrMessageAuthorRequired = "MESSAGE_AUTHOR_REQUIRED"
 
-// IsSRPIDInvalid reports whether err is SRP_ID_INVALID.
-func IsSRPIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSRPIDInvalid})
+// IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
+func IsMessageAuthorRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageAuthorRequired})
 }
 
-// ErrSRPPasswordChanged is error type for "SRP_PASSWORD_CHANGED".
-const ErrSRPPasswordChanged = "SRP_PASSWORD_CHANGED"
+// ErrMessageDeleteForbidden is error type for "MESSAGE_DELETE_FORBIDDEN".
+const ErrMessageDeleteForbidden = "MESSAGE_DELETE_FORBIDDEN"
 
-// IsSRPPasswordChanged reports whether err is SRP_PASSWORD_CHANGED.
-func IsSRPPasswordChanged(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSRPPasswordChanged})
+// IsMessageDeleteForbidden reports whether err is MESSAGE_DELETE_FORBIDDEN.
+func IsMessageDeleteForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageDeleteForbidden})
+}
+
+// ErrMessageEditTimeExpired is error type for "MESSAGE_EDIT_TIME_EXPIRED".
+const ErrMessageEditTimeExpired = "MESSAGE_EDIT_TIME_EXPIRED"
+
+// IsMessageEditTimeExpired reports whether err is MESSAGE_EDIT_TIME_EXPIRED.
+func IsMessageEditTimeExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageEditTimeExpired})
+}
+
+// ErrMessageEmpty is error type for "MESSAGE_EMPTY".
+const ErrMessageEmpty = "MESSAGE_EMPTY"
+
+// IsMessageEmpty reports whether err is MESSAGE_EMPTY.
+func IsMessageEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageEmpty})
+}
+
+// ErrMessageIdsEmpty is error type for "MESSAGE_IDS_EMPTY".
+const ErrMessageIdsEmpty = "MESSAGE_IDS_EMPTY"
+
+// IsMessageIdsEmpty reports whether err is MESSAGE_IDS_EMPTY.
+func IsMessageIdsEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageIdsEmpty})
+}
+
+// ErrMessageIDInvalid is error type for "MESSAGE_ID_INVALID".
+const ErrMessageIDInvalid = "MESSAGE_ID_INVALID"
+
+// IsMessageIDInvalid reports whether err is MESSAGE_ID_INVALID.
+func IsMessageIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageIDInvalid})
+}
+
+// ErrMessageNotModified is error type for "MESSAGE_NOT_MODIFIED".
+const ErrMessageNotModified = "MESSAGE_NOT_MODIFIED"
+
+// IsMessageNotModified reports whether err is MESSAGE_NOT_MODIFIED.
+func IsMessageNotModified(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageNotModified})
 }
 
 // ErrMessagePollClosed is error type for "MESSAGE_POLL_CLOSED".
@@ -1115,6 +1219,86 @@ const ErrMessagePollClosed = "MESSAGE_POLL_CLOSED"
 // IsMessagePollClosed reports whether err is MESSAGE_POLL_CLOSED.
 func IsMessagePollClosed(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrMessagePollClosed})
+}
+
+// ErrMessageTooLong is error type for "MESSAGE_TOO_LONG".
+const ErrMessageTooLong = "MESSAGE_TOO_LONG"
+
+// IsMessageTooLong reports whether err is MESSAGE_TOO_LONG.
+func IsMessageTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageTooLong})
+}
+
+// ErrMethodInvalid is error type for "METHOD_INVALID".
+const ErrMethodInvalid = "METHOD_INVALID"
+
+// IsMethodInvalid reports whether err is METHOD_INVALID.
+func IsMethodInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMethodInvalid})
+}
+
+// ErrMsgIDInvalid is error type for "MSG_ID_INVALID".
+const ErrMsgIDInvalid = "MSG_ID_INVALID"
+
+// IsMsgIDInvalid reports whether err is MSG_ID_INVALID.
+func IsMsgIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMsgIDInvalid})
+}
+
+// ErrMsgWaitFailed is error type for "MSG_WAIT_FAILED".
+const ErrMsgWaitFailed = "MSG_WAIT_FAILED"
+
+// IsMsgWaitFailed reports whether err is MSG_WAIT_FAILED.
+func IsMsgWaitFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMsgWaitFailed})
+}
+
+// ErrMultiMediaTooLong is error type for "MULTI_MEDIA_TOO_LONG".
+const ErrMultiMediaTooLong = "MULTI_MEDIA_TOO_LONG"
+
+// IsMultiMediaTooLong reports whether err is MULTI_MEDIA_TOO_LONG.
+func IsMultiMediaTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMultiMediaTooLong})
+}
+
+// ErrNetworkMigrate is error type for "NETWORK_MIGRATE".
+const ErrNetworkMigrate = "NETWORK_MIGRATE"
+
+// IsNetworkMigrate reports whether err is NETWORK_MIGRATE.
+func IsNetworkMigrate(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrNetworkMigrate})
+}
+
+// ErrNewSaltInvalid is error type for "NEW_SALT_INVALID".
+const ErrNewSaltInvalid = "NEW_SALT_INVALID"
+
+// IsNewSaltInvalid reports whether err is NEW_SALT_INVALID.
+func IsNewSaltInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrNewSaltInvalid})
+}
+
+// ErrNewSettingsInvalid is error type for "NEW_SETTINGS_INVALID".
+const ErrNewSettingsInvalid = "NEW_SETTINGS_INVALID"
+
+// IsNewSettingsInvalid reports whether err is NEW_SETTINGS_INVALID.
+func IsNewSettingsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrNewSettingsInvalid})
+}
+
+// ErrOffsetInvalid is error type for "OFFSET_INVALID".
+const ErrOffsetInvalid = "OFFSET_INVALID"
+
+// IsOffsetInvalid reports whether err is OFFSET_INVALID.
+func IsOffsetInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrOffsetInvalid})
+}
+
+// ErrOffsetPeerIDInvalid is error type for "OFFSET_PEER_ID_INVALID".
+const ErrOffsetPeerIDInvalid = "OFFSET_PEER_ID_INVALID"
+
+// IsOffsetPeerIDInvalid reports whether err is OFFSET_PEER_ID_INVALID.
+func IsOffsetPeerIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrOffsetPeerIDInvalid})
 }
 
 // ErrOptionsTooMuch is error type for "OPTIONS_TOO_MUCH".
@@ -1133,308 +1317,68 @@ func IsOptionInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrOptionInvalid})
 }
 
-// ErrRevoteNotAllowed is error type for "REVOTE_NOT_ALLOWED".
-const ErrRevoteNotAllowed = "REVOTE_NOT_ALLOWED"
+// ErrP0nyFloodwait is error type for "P0NY_FLOODWAIT".
+const ErrP0nyFloodwait = "P0NY_FLOODWAIT"
 
-// IsRevoteNotAllowed reports whether err is REVOTE_NOT_ALLOWED.
-func IsRevoteNotAllowed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRevoteNotAllowed})
+// IsP0nyFloodwait reports whether err is P0NY_FLOODWAIT.
+func IsP0nyFloodwait(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrP0nyFloodwait})
 }
 
-// ErrArticleTitleEmpty is error type for "ARTICLE_TITLE_EMPTY".
-const ErrArticleTitleEmpty = "ARTICLE_TITLE_EMPTY"
+// ErrPackShortNameInvalid is error type for "PACK_SHORT_NAME_INVALID".
+const ErrPackShortNameInvalid = "PACK_SHORT_NAME_INVALID"
 
-// IsArticleTitleEmpty reports whether err is ARTICLE_TITLE_EMPTY.
-func IsArticleTitleEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrArticleTitleEmpty})
+// IsPackShortNameInvalid reports whether err is PACK_SHORT_NAME_INVALID.
+func IsPackShortNameInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPackShortNameInvalid})
 }
 
-// ErrButtonDataInvalid is error type for "BUTTON_DATA_INVALID".
-const ErrButtonDataInvalid = "BUTTON_DATA_INVALID"
+// ErrPackShortNameOccupied is error type for "PACK_SHORT_NAME_OCCUPIED".
+const ErrPackShortNameOccupied = "PACK_SHORT_NAME_OCCUPIED"
 
-// IsButtonDataInvalid reports whether err is BUTTON_DATA_INVALID.
-func IsButtonDataInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrButtonDataInvalid})
+// IsPackShortNameOccupied reports whether err is PACK_SHORT_NAME_OCCUPIED.
+func IsPackShortNameOccupied(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPackShortNameOccupied})
 }
 
-// ErrButtonTypeInvalid is error type for "BUTTON_TYPE_INVALID".
-const ErrButtonTypeInvalid = "BUTTON_TYPE_INVALID"
+// ErrPackTitleInvalid is error type for "PACK_TITLE_INVALID".
+const ErrPackTitleInvalid = "PACK_TITLE_INVALID"
 
-// IsButtonTypeInvalid reports whether err is BUTTON_TYPE_INVALID.
-func IsButtonTypeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrButtonTypeInvalid})
+// IsPackTitleInvalid reports whether err is PACK_TITLE_INVALID.
+func IsPackTitleInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPackTitleInvalid})
 }
 
-// ErrButtonURLInvalid is error type for "BUTTON_URL_INVALID".
-const ErrButtonURLInvalid = "BUTTON_URL_INVALID"
+// ErrParticipantsTooFew is error type for "PARTICIPANTS_TOO_FEW".
+const ErrParticipantsTooFew = "PARTICIPANTS_TOO_FEW"
 
-// IsButtonURLInvalid reports whether err is BUTTON_URL_INVALID.
-func IsButtonURLInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrButtonURLInvalid})
+// IsParticipantsTooFew reports whether err is PARTICIPANTS_TOO_FEW.
+func IsParticipantsTooFew(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrParticipantsTooFew})
 }
 
-// ErrGifContentTypeInvalid is error type for "GIF_CONTENT_TYPE_INVALID".
-const ErrGifContentTypeInvalid = "GIF_CONTENT_TYPE_INVALID"
+// ErrParticipantVersionOutdated is error type for "PARTICIPANT_VERSION_OUTDATED".
+const ErrParticipantVersionOutdated = "PARTICIPANT_VERSION_OUTDATED"
 
-// IsGifContentTypeInvalid reports whether err is GIF_CONTENT_TYPE_INVALID.
-func IsGifContentTypeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGifContentTypeInvalid})
+// IsParticipantVersionOutdated reports whether err is PARTICIPANT_VERSION_OUTDATED.
+func IsParticipantVersionOutdated(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrParticipantVersionOutdated})
 }
 
-// ErrMessageEmpty is error type for "MESSAGE_EMPTY".
-const ErrMessageEmpty = "MESSAGE_EMPTY"
+// ErrPasswordEmpty is error type for "PASSWORD_EMPTY".
+const ErrPasswordEmpty = "PASSWORD_EMPTY"
 
-// IsMessageEmpty reports whether err is MESSAGE_EMPTY.
-func IsMessageEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageEmpty})
+// IsPasswordEmpty reports whether err is PASSWORD_EMPTY.
+func IsPasswordEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPasswordEmpty})
 }
 
-// ErrMessageTooLong is error type for "MESSAGE_TOO_LONG".
-const ErrMessageTooLong = "MESSAGE_TOO_LONG"
+// ErrPasswordHashInvalid is error type for "PASSWORD_HASH_INVALID".
+const ErrPasswordHashInvalid = "PASSWORD_HASH_INVALID"
 
-// IsMessageTooLong reports whether err is MESSAGE_TOO_LONG.
-func IsMessageTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageTooLong})
-}
-
-// ErrPhotoContentTypeInvalid is error type for "PHOTO_CONTENT_TYPE_INVALID".
-const ErrPhotoContentTypeInvalid = "PHOTO_CONTENT_TYPE_INVALID"
-
-// IsPhotoContentTypeInvalid reports whether err is PHOTO_CONTENT_TYPE_INVALID.
-func IsPhotoContentTypeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoContentTypeInvalid})
-}
-
-// ErrPhotoContentURLEmpty is error type for "PHOTO_CONTENT_URL_EMPTY".
-const ErrPhotoContentURLEmpty = "PHOTO_CONTENT_URL_EMPTY"
-
-// IsPhotoContentURLEmpty reports whether err is PHOTO_CONTENT_URL_EMPTY.
-func IsPhotoContentURLEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoContentURLEmpty})
-}
-
-// ErrPhotoInvalid is error type for "PHOTO_INVALID".
-const ErrPhotoInvalid = "PHOTO_INVALID"
-
-// IsPhotoInvalid reports whether err is PHOTO_INVALID.
-func IsPhotoInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoInvalid})
-}
-
-// ErrPhotoThumbURLEmpty is error type for "PHOTO_THUMB_URL_EMPTY".
-const ErrPhotoThumbURLEmpty = "PHOTO_THUMB_URL_EMPTY"
-
-// IsPhotoThumbURLEmpty reports whether err is PHOTO_THUMB_URL_EMPTY.
-func IsPhotoThumbURLEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoThumbURLEmpty})
-}
-
-// ErrQueryIDInvalid is error type for "QUERY_ID_INVALID".
-const ErrQueryIDInvalid = "QUERY_ID_INVALID"
-
-// IsQueryIDInvalid reports whether err is QUERY_ID_INVALID.
-func IsQueryIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrQueryIDInvalid})
-}
-
-// ErrReplyMarkupInvalid is error type for "REPLY_MARKUP_INVALID".
-const ErrReplyMarkupInvalid = "REPLY_MARKUP_INVALID"
-
-// IsReplyMarkupInvalid reports whether err is REPLY_MARKUP_INVALID.
-func IsReplyMarkupInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrReplyMarkupInvalid})
-}
-
-// ErrResultsTooMuch is error type for "RESULTS_TOO_MUCH".
-const ErrResultsTooMuch = "RESULTS_TOO_MUCH"
-
-// IsResultsTooMuch reports whether err is RESULTS_TOO_MUCH.
-func IsResultsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrResultsTooMuch})
-}
-
-// ErrResultIDDuplicate is error type for "RESULT_ID_DUPLICATE".
-const ErrResultIDDuplicate = "RESULT_ID_DUPLICATE"
-
-// IsResultIDDuplicate reports whether err is RESULT_ID_DUPLICATE.
-func IsResultIDDuplicate(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrResultIDDuplicate})
-}
-
-// ErrResultTypeInvalid is error type for "RESULT_TYPE_INVALID".
-const ErrResultTypeInvalid = "RESULT_TYPE_INVALID"
-
-// IsResultTypeInvalid reports whether err is RESULT_TYPE_INVALID.
-func IsResultTypeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrResultTypeInvalid})
-}
-
-// ErrSendMessageMediaInvalid is error type for "SEND_MESSAGE_MEDIA_INVALID".
-const ErrSendMessageMediaInvalid = "SEND_MESSAGE_MEDIA_INVALID"
-
-// IsSendMessageMediaInvalid reports whether err is SEND_MESSAGE_MEDIA_INVALID.
-func IsSendMessageMediaInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSendMessageMediaInvalid})
-}
-
-// ErrSendMessageTypeInvalid is error type for "SEND_MESSAGE_TYPE_INVALID".
-const ErrSendMessageTypeInvalid = "SEND_MESSAGE_TYPE_INVALID"
-
-// IsSendMessageTypeInvalid reports whether err is SEND_MESSAGE_TYPE_INVALID.
-func IsSendMessageTypeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSendMessageTypeInvalid})
-}
-
-// ErrStartParamInvalid is error type for "START_PARAM_INVALID".
-const ErrStartParamInvalid = "START_PARAM_INVALID"
-
-// IsStartParamInvalid reports whether err is START_PARAM_INVALID.
-func IsStartParamInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStartParamInvalid})
-}
-
-// ErrUserBotInvalid is error type for "USER_BOT_INVALID".
-const ErrUserBotInvalid = "USER_BOT_INVALID"
-
-// IsUserBotInvalid reports whether err is USER_BOT_INVALID.
-func IsUserBotInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserBotInvalid})
-}
-
-// ErrWebdocumentInvalid is error type for "WEBDOCUMENT_INVALID".
-const ErrWebdocumentInvalid = "WEBDOCUMENT_INVALID"
-
-// IsWebdocumentInvalid reports whether err is WEBDOCUMENT_INVALID.
-func IsWebdocumentInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWebdocumentInvalid})
-}
-
-// ErrWebdocumentMimeInvalid is error type for "WEBDOCUMENT_MIME_INVALID".
-const ErrWebdocumentMimeInvalid = "WEBDOCUMENT_MIME_INVALID"
-
-// IsWebdocumentMimeInvalid reports whether err is WEBDOCUMENT_MIME_INVALID.
-func IsWebdocumentMimeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWebdocumentMimeInvalid})
-}
-
-// ErrWebdocumentSizeTooBig is error type for "WEBDOCUMENT_SIZE_TOO_BIG".
-const ErrWebdocumentSizeTooBig = "WEBDOCUMENT_SIZE_TOO_BIG"
-
-// IsWebdocumentSizeTooBig reports whether err is WEBDOCUMENT_SIZE_TOO_BIG.
-func IsWebdocumentSizeTooBig(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWebdocumentSizeTooBig})
-}
-
-// ErrDateEmpty is error type for "DATE_EMPTY".
-const ErrDateEmpty = "DATE_EMPTY"
-
-// IsDateEmpty reports whether err is DATE_EMPTY.
-func IsDateEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrDateEmpty})
-}
-
-// ErrMessageNotModified is error type for "MESSAGE_NOT_MODIFIED".
-const ErrMessageNotModified = "MESSAGE_NOT_MODIFIED"
-
-// IsMessageNotModified reports whether err is MESSAGE_NOT_MODIFIED.
-func IsMessageNotModified(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageNotModified})
-}
-
-// ErrChatTitleEmpty is error type for "CHAT_TITLE_EMPTY".
-const ErrChatTitleEmpty = "CHAT_TITLE_EMPTY"
-
-// IsChatTitleEmpty reports whether err is CHAT_TITLE_EMPTY.
-func IsChatTitleEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatTitleEmpty})
-}
-
-// ErrUsersTooFew is error type for "USERS_TOO_FEW".
-const ErrUsersTooFew = "USERS_TOO_FEW"
-
-// IsUsersTooFew reports whether err is USERS_TOO_FEW.
-func IsUsersTooFew(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsersTooFew})
-}
-
-// ErrUserRestricted is error type for "USER_RESTRICTED".
-const ErrUserRestricted = "USER_RESTRICTED"
-
-// IsUserRestricted reports whether err is USER_RESTRICTED.
-func IsUserRestricted(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserRestricted})
-}
-
-// ErrSearchQueryEmpty is error type for "SEARCH_QUERY_EMPTY".
-const ErrSearchQueryEmpty = "SEARCH_QUERY_EMPTY"
-
-// IsSearchQueryEmpty reports whether err is SEARCH_QUERY_EMPTY.
-func IsSearchQueryEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSearchQueryEmpty})
-}
-
-// ErrBotDomainInvalid is error type for "BOT_DOMAIN_INVALID".
-const ErrBotDomainInvalid = "BOT_DOMAIN_INVALID"
-
-// IsBotDomainInvalid reports whether err is BOT_DOMAIN_INVALID.
-func IsBotDomainInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotDomainInvalid})
-}
-
-// ErrBotInvalid is error type for "BOT_INVALID".
-const ErrBotInvalid = "BOT_INVALID"
-
-// IsBotInvalid reports whether err is BOT_INVALID.
-func IsBotInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotInvalid})
-}
-
-// ErrEntityMentionUserInvalid is error type for "ENTITY_MENTION_USER_INVALID".
-const ErrEntityMentionUserInvalid = "ENTITY_MENTION_USER_INVALID"
-
-// IsEntityMentionUserInvalid reports whether err is ENTITY_MENTION_USER_INVALID.
-func IsEntityMentionUserInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEntityMentionUserInvalid})
-}
-
-// ErrScheduleBotNotAllowed is error type for "SCHEDULE_BOT_NOT_ALLOWED".
-const ErrScheduleBotNotAllowed = "SCHEDULE_BOT_NOT_ALLOWED"
-
-// IsScheduleBotNotAllowed reports whether err is SCHEDULE_BOT_NOT_ALLOWED.
-func IsScheduleBotNotAllowed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrScheduleBotNotAllowed})
-}
-
-// ErrScheduleDateTooLate is error type for "SCHEDULE_DATE_TOO_LATE".
-const ErrScheduleDateTooLate = "SCHEDULE_DATE_TOO_LATE"
-
-// IsScheduleDateTooLate reports whether err is SCHEDULE_DATE_TOO_LATE.
-func IsScheduleDateTooLate(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrScheduleDateTooLate})
-}
-
-// ErrUserCreator is error type for "USER_CREATOR".
-const ErrUserCreator = "USER_CREATOR"
-
-// IsUserCreator reports whether err is USER_CREATOR.
-func IsUserCreator(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserCreator})
-}
-
-// ErrInputConstructorInvalid is error type for "INPUT_CONSTRUCTOR_INVALID".
-const ErrInputConstructorInvalid = "INPUT_CONSTRUCTOR_INVALID"
-
-// IsInputConstructorInvalid reports whether err is INPUT_CONSTRUCTOR_INVALID.
-func IsInputConstructorInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInputConstructorInvalid})
-}
-
-// ErrOffsetPeerIDInvalid is error type for "OFFSET_PEER_ID_INVALID".
-const ErrOffsetPeerIDInvalid = "OFFSET_PEER_ID_INVALID"
-
-// IsOffsetPeerIDInvalid reports whether err is OFFSET_PEER_ID_INVALID.
-func IsOffsetPeerIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrOffsetPeerIDInvalid})
+// IsPasswordHashInvalid reports whether err is PASSWORD_HASH_INVALID.
+func IsPasswordHashInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPasswordHashInvalid})
 }
 
 // ErrPasswordMissing is error type for "PASSWORD_MISSING".
@@ -1453,92 +1397,156 @@ func IsPasswordTooFresh(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrPasswordTooFresh})
 }
 
-// ErrSessionTooFresh is error type for "SESSION_TOO_FRESH".
-const ErrSessionTooFresh = "SESSION_TOO_FRESH"
+// ErrPeerIDInvalid is error type for "PEER_ID_INVALID".
+const ErrPeerIDInvalid = "PEER_ID_INVALID"
 
-// IsSessionTooFresh reports whether err is SESSION_TOO_FRESH.
-func IsSessionTooFresh(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSessionTooFresh})
+// IsPeerIDInvalid reports whether err is PEER_ID_INVALID.
+func IsPeerIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPeerIDInvalid})
 }
 
-// ErrChatSendInlineForbidden is error type for "CHAT_SEND_INLINE_FORBIDDEN".
-const ErrChatSendInlineForbidden = "CHAT_SEND_INLINE_FORBIDDEN"
+// ErrPeerIDNotSupported is error type for "PEER_ID_NOT_SUPPORTED".
+const ErrPeerIDNotSupported = "PEER_ID_NOT_SUPPORTED"
 
-// IsChatSendInlineForbidden reports whether err is CHAT_SEND_INLINE_FORBIDDEN.
-func IsChatSendInlineForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatSendInlineForbidden})
+// IsPeerIDNotSupported reports whether err is PEER_ID_NOT_SUPPORTED.
+func IsPeerIDNotSupported(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPeerIDNotSupported})
 }
 
-// ErrInlineResultExpired is error type for "INLINE_RESULT_EXPIRED".
-const ErrInlineResultExpired = "INLINE_RESULT_EXPIRED"
+// ErrPersistentTimestampEmpty is error type for "PERSISTENT_TIMESTAMP_EMPTY".
+const ErrPersistentTimestampEmpty = "PERSISTENT_TIMESTAMP_EMPTY"
 
-// IsInlineResultExpired reports whether err is INLINE_RESULT_EXPIRED.
-func IsInlineResultExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInlineResultExpired})
+// IsPersistentTimestampEmpty reports whether err is PERSISTENT_TIMESTAMP_EMPTY.
+func IsPersistentTimestampEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPersistentTimestampEmpty})
 }
 
-// ErrQueryIDEmpty is error type for "QUERY_ID_EMPTY".
-const ErrQueryIDEmpty = "QUERY_ID_EMPTY"
+// ErrPersistentTimestampInvalid is error type for "PERSISTENT_TIMESTAMP_INVALID".
+const ErrPersistentTimestampInvalid = "PERSISTENT_TIMESTAMP_INVALID"
 
-// IsQueryIDEmpty reports whether err is QUERY_ID_EMPTY.
-func IsQueryIDEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrQueryIDEmpty})
+// IsPersistentTimestampInvalid reports whether err is PERSISTENT_TIMESTAMP_INVALID.
+func IsPersistentTimestampInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPersistentTimestampInvalid})
 }
 
-// ErrResultIDEmpty is error type for "RESULT_ID_EMPTY".
-const ErrResultIDEmpty = "RESULT_ID_EMPTY"
+// ErrPhoneCodeEmpty is error type for "PHONE_CODE_EMPTY".
+const ErrPhoneCodeEmpty = "PHONE_CODE_EMPTY"
 
-// IsResultIDEmpty reports whether err is RESULT_ID_EMPTY.
-func IsResultIDEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrResultIDEmpty})
+// IsPhoneCodeEmpty reports whether err is PHONE_CODE_EMPTY.
+func IsPhoneCodeEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeEmpty})
 }
 
-// ErrWebpageCurlFailed is error type for "WEBPAGE_CURL_FAILED".
-const ErrWebpageCurlFailed = "WEBPAGE_CURL_FAILED"
+// ErrPhoneCodeExpired is error type for "PHONE_CODE_EXPIRED".
+const ErrPhoneCodeExpired = "PHONE_CODE_EXPIRED"
 
-// IsWebpageCurlFailed reports whether err is WEBPAGE_CURL_FAILED.
-func IsWebpageCurlFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWebpageCurlFailed})
+// IsPhoneCodeExpired reports whether err is PHONE_CODE_EXPIRED.
+func IsPhoneCodeExpired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeExpired})
 }
 
-// ErrWebpageMediaEmpty is error type for "WEBPAGE_MEDIA_EMPTY".
-const ErrWebpageMediaEmpty = "WEBPAGE_MEDIA_EMPTY"
+// ErrPhoneCodeHashEmpty is error type for "PHONE_CODE_HASH_EMPTY".
+const ErrPhoneCodeHashEmpty = "PHONE_CODE_HASH_EMPTY"
 
-// IsWebpageMediaEmpty reports whether err is WEBPAGE_MEDIA_EMPTY.
-func IsWebpageMediaEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWebpageMediaEmpty})
+// IsPhoneCodeHashEmpty reports whether err is PHONE_CODE_HASH_EMPTY.
+func IsPhoneCodeHashEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeHashEmpty})
 }
 
-// ErrFreshResetAuthorisationForbidden is error type for "FRESH_RESET_AUTHORISATION_FORBIDDEN".
-const ErrFreshResetAuthorisationForbidden = "FRESH_RESET_AUTHORISATION_FORBIDDEN"
+// ErrPhoneCodeInvalid is error type for "PHONE_CODE_INVALID".
+const ErrPhoneCodeInvalid = "PHONE_CODE_INVALID"
 
-// IsFreshResetAuthorisationForbidden reports whether err is FRESH_RESET_AUTHORISATION_FORBIDDEN.
-func IsFreshResetAuthorisationForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFreshResetAuthorisationForbidden})
+// IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
+func IsPhoneCodeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneCodeInvalid})
 }
 
-// ErrURLInvalid is error type for "URL_INVALID".
-const ErrURLInvalid = "URL_INVALID"
+// ErrPhoneMigrate is error type for "PHONE_MIGRATE".
+const ErrPhoneMigrate = "PHONE_MIGRATE"
 
-// IsURLInvalid reports whether err is URL_INVALID.
-func IsURLInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrURLInvalid})
+// IsPhoneMigrate reports whether err is PHONE_MIGRATE.
+func IsPhoneMigrate(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneMigrate})
 }
 
-// ErrFilePartsInvalid is error type for "FILE_PARTS_INVALID".
-const ErrFilePartsInvalid = "FILE_PARTS_INVALID"
+// ErrPhoneNumberAppSignupForbidden is error type for "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN".
+const ErrPhoneNumberAppSignupForbidden = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
 
-// IsFilePartsInvalid reports whether err is FILE_PARTS_INVALID.
-func IsFilePartsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartsInvalid})
+// IsPhoneNumberAppSignupForbidden reports whether err is PHONE_NUMBER_APP_SIGNUP_FORBIDDEN.
+func IsPhoneNumberAppSignupForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberAppSignupForbidden})
 }
 
-// ErrImageProcessFailed is error type for "IMAGE_PROCESS_FAILED".
-const ErrImageProcessFailed = "IMAGE_PROCESS_FAILED"
+// ErrPhoneNumberBanned is error type for "PHONE_NUMBER_BANNED".
+const ErrPhoneNumberBanned = "PHONE_NUMBER_BANNED"
 
-// IsImageProcessFailed reports whether err is IMAGE_PROCESS_FAILED.
-func IsImageProcessFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrImageProcessFailed})
+// IsPhoneNumberBanned reports whether err is PHONE_NUMBER_BANNED.
+func IsPhoneNumberBanned(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberBanned})
+}
+
+// ErrPhoneNumberFlood is error type for "PHONE_NUMBER_FLOOD".
+const ErrPhoneNumberFlood = "PHONE_NUMBER_FLOOD"
+
+// IsPhoneNumberFlood reports whether err is PHONE_NUMBER_FLOOD.
+func IsPhoneNumberFlood(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberFlood})
+}
+
+// ErrPhoneNumberInvalid is error type for "PHONE_NUMBER_INVALID".
+const ErrPhoneNumberInvalid = "PHONE_NUMBER_INVALID"
+
+// IsPhoneNumberInvalid reports whether err is PHONE_NUMBER_INVALID.
+func IsPhoneNumberInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberInvalid})
+}
+
+// ErrPhoneNumberOccupied is error type for "PHONE_NUMBER_OCCUPIED".
+const ErrPhoneNumberOccupied = "PHONE_NUMBER_OCCUPIED"
+
+// IsPhoneNumberOccupied reports whether err is PHONE_NUMBER_OCCUPIED.
+func IsPhoneNumberOccupied(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberOccupied})
+}
+
+// ErrPhoneNumberUnoccupied is error type for "PHONE_NUMBER_UNOCCUPIED".
+const ErrPhoneNumberUnoccupied = "PHONE_NUMBER_UNOCCUPIED"
+
+// IsPhoneNumberUnoccupied reports whether err is PHONE_NUMBER_UNOCCUPIED.
+func IsPhoneNumberUnoccupied(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberUnoccupied})
+}
+
+// ErrPhonePasswordFlood is error type for "PHONE_PASSWORD_FLOOD".
+const ErrPhonePasswordFlood = "PHONE_PASSWORD_FLOOD"
+
+// IsPhonePasswordFlood reports whether err is PHONE_PASSWORD_FLOOD.
+func IsPhonePasswordFlood(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhonePasswordFlood})
+}
+
+// ErrPhonePasswordProtected is error type for "PHONE_PASSWORD_PROTECTED".
+const ErrPhonePasswordProtected = "PHONE_PASSWORD_PROTECTED"
+
+// IsPhonePasswordProtected reports whether err is PHONE_PASSWORD_PROTECTED.
+func IsPhonePasswordProtected(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhonePasswordProtected})
+}
+
+// ErrPhotoContentTypeInvalid is error type for "PHOTO_CONTENT_TYPE_INVALID".
+const ErrPhotoContentTypeInvalid = "PHOTO_CONTENT_TYPE_INVALID"
+
+// IsPhotoContentTypeInvalid reports whether err is PHOTO_CONTENT_TYPE_INVALID.
+func IsPhotoContentTypeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoContentTypeInvalid})
+}
+
+// ErrPhotoContentURLEmpty is error type for "PHOTO_CONTENT_URL_EMPTY".
+const ErrPhotoContentURLEmpty = "PHOTO_CONTENT_URL_EMPTY"
+
+// IsPhotoContentURLEmpty reports whether err is PHOTO_CONTENT_URL_EMPTY.
+func IsPhotoContentURLEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoContentURLEmpty})
 }
 
 // ErrPhotoCropFileMissing is error type for "PHOTO_CROP_FILE_MISSING".
@@ -1573,356 +1581,28 @@ func IsPhotoFileMissing(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrPhotoFileMissing})
 }
 
-// ErrVideoFileInvalid is error type for "VIDEO_FILE_INVALID".
-const ErrVideoFileInvalid = "VIDEO_FILE_INVALID"
+// ErrPhotoIDInvalid is error type for "PHOTO_ID_INVALID".
+const ErrPhotoIDInvalid = "PHOTO_ID_INVALID"
 
-// IsVideoFileInvalid reports whether err is VIDEO_FILE_INVALID.
-func IsVideoFileInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrVideoFileInvalid})
+// IsPhotoIDInvalid reports whether err is PHOTO_ID_INVALID.
+func IsPhotoIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoIDInvalid})
 }
 
-// ErrAPIIDInvalid is error type for "API_ID_INVALID".
-const ErrAPIIDInvalid = "API_ID_INVALID"
+// ErrPhotoInvalid is error type for "PHOTO_INVALID".
+const ErrPhotoInvalid = "PHOTO_INVALID"
 
-// IsAPIIDInvalid reports whether err is API_ID_INVALID.
-func IsAPIIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAPIIDInvalid})
+// IsPhotoInvalid reports whether err is PHOTO_INVALID.
+func IsPhotoInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoInvalid})
 }
 
-// ErrAPIIDPublishedFlood is error type for "API_ID_PUBLISHED_FLOOD".
-const ErrAPIIDPublishedFlood = "API_ID_PUBLISHED_FLOOD"
-
-// IsAPIIDPublishedFlood reports whether err is API_ID_PUBLISHED_FLOOD.
-func IsAPIIDPublishedFlood(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAPIIDPublishedFlood})
-}
-
-// ErrNetworkMigrate is error type for "NETWORK_MIGRATE".
-const ErrNetworkMigrate = "NETWORK_MIGRATE"
-
-// IsNetworkMigrate reports whether err is NETWORK_MIGRATE.
-func IsNetworkMigrate(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrNetworkMigrate})
-}
-
-// ErrPhoneMigrate is error type for "PHONE_MIGRATE".
-const ErrPhoneMigrate = "PHONE_MIGRATE"
-
-// IsPhoneMigrate reports whether err is PHONE_MIGRATE.
-func IsPhoneMigrate(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneMigrate})
-}
-
-// ErrPhoneNumberAppSignupForbidden is error type for "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN".
-const ErrPhoneNumberAppSignupForbidden = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
-
-// IsPhoneNumberAppSignupForbidden reports whether err is PHONE_NUMBER_APP_SIGNUP_FORBIDDEN.
-func IsPhoneNumberAppSignupForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberAppSignupForbidden})
-}
-
-// ErrPhoneNumberBanned is error type for "PHONE_NUMBER_BANNED".
-const ErrPhoneNumberBanned = "PHONE_NUMBER_BANNED"
-
-// IsPhoneNumberBanned reports whether err is PHONE_NUMBER_BANNED.
-func IsPhoneNumberBanned(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhoneNumberBanned})
-}
-
-// ErrPhonePasswordFlood is error type for "PHONE_PASSWORD_FLOOD".
-const ErrPhonePasswordFlood = "PHONE_PASSWORD_FLOOD"
-
-// IsPhonePasswordFlood reports whether err is PHONE_PASSWORD_FLOOD.
-func IsPhonePasswordFlood(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhonePasswordFlood})
-}
-
-// ErrPhonePasswordProtected is error type for "PHONE_PASSWORD_PROTECTED".
-const ErrPhonePasswordProtected = "PHONE_PASSWORD_PROTECTED"
-
-// IsPhonePasswordProtected reports whether err is PHONE_PASSWORD_PROTECTED.
-func IsPhonePasswordProtected(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhonePasswordProtected})
-}
-
-// ErrSMSCodeCreateFailed is error type for "SMS_CODE_CREATE_FAILED".
-const ErrSMSCodeCreateFailed = "SMS_CODE_CREATE_FAILED"
-
-// IsSMSCodeCreateFailed reports whether err is SMS_CODE_CREATE_FAILED.
-func IsSMSCodeCreateFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSMSCodeCreateFailed})
-}
-
-// ErrCodeEmpty is error type for "CODE_EMPTY".
-const ErrCodeEmpty = "CODE_EMPTY"
-
-// IsCodeEmpty reports whether err is CODE_EMPTY.
-func IsCodeEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCodeEmpty})
-}
-
-// ErrSHA256HashInvalid is error type for "SHA256_HASH_INVALID".
-const ErrSHA256HashInvalid = "SHA256_HASH_INVALID"
-
-// IsSHA256HashInvalid reports whether err is SHA256_HASH_INVALID.
-func IsSHA256HashInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSHA256HashInvalid})
-}
-
-// ErrQueryTooShort is error type for "QUERY_TOO_SHORT".
-const ErrQueryTooShort = "QUERY_TOO_SHORT"
-
-// IsQueryTooShort reports whether err is QUERY_TOO_SHORT.
-func IsQueryTooShort(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrQueryTooShort})
-}
-
-// ErrPrivacyValueInvalid is error type for "PRIVACY_VALUE_INVALID".
-const ErrPrivacyValueInvalid = "PRIVACY_VALUE_INVALID"
-
-// IsPrivacyValueInvalid reports whether err is PRIVACY_VALUE_INVALID.
-func IsPrivacyValueInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPrivacyValueInvalid})
-}
-
-// ErrTTLDaysInvalid is error type for "TTL_DAYS_INVALID".
-const ErrTTLDaysInvalid = "TTL_DAYS_INVALID"
-
-// IsTTLDaysInvalid reports whether err is TTL_DAYS_INVALID.
-func IsTTLDaysInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTTLDaysInvalid})
-}
-
-// ErrUserAdminInvalid is error type for "USER_ADMIN_INVALID".
-const ErrUserAdminInvalid = "USER_ADMIN_INVALID"
-
-// IsUserAdminInvalid reports whether err is USER_ADMIN_INVALID.
-func IsUserAdminInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserAdminInvalid})
-}
-
-// ErrCallAlreadyDeclined is error type for "CALL_ALREADY_DECLINED".
-const ErrCallAlreadyDeclined = "CALL_ALREADY_DECLINED"
-
-// IsCallAlreadyDeclined reports whether err is CALL_ALREADY_DECLINED.
-func IsCallAlreadyDeclined(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCallAlreadyDeclined})
-}
-
-// ErrEmailVerifyExpired is error type for "EMAIL_VERIFY_EXPIRED".
-const ErrEmailVerifyExpired = "EMAIL_VERIFY_EXPIRED"
-
-// IsEmailVerifyExpired reports whether err is EMAIL_VERIFY_EXPIRED.
-func IsEmailVerifyExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEmailVerifyExpired})
-}
-
-// ErrAccessTokenExpired is error type for "ACCESS_TOKEN_EXPIRED".
-const ErrAccessTokenExpired = "ACCESS_TOKEN_EXPIRED"
-
-// IsAccessTokenExpired reports whether err is ACCESS_TOKEN_EXPIRED.
-func IsAccessTokenExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAccessTokenExpired})
-}
-
-// ErrAccessTokenInvalid is error type for "ACCESS_TOKEN_INVALID".
-const ErrAccessTokenInvalid = "ACCESS_TOKEN_INVALID"
-
-// IsAccessTokenInvalid reports whether err is ACCESS_TOKEN_INVALID.
-func IsAccessTokenInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAccessTokenInvalid})
-}
-
-// ErrAuthKeyInvalid is error type for "AUTH_KEY_INVALID".
-const ErrAuthKeyInvalid = "AUTH_KEY_INVALID"
-
-// IsAuthKeyInvalid reports whether err is AUTH_KEY_INVALID.
-func IsAuthKeyInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAuthKeyInvalid})
-}
-
-// ErrPasswordEmpty is error type for "PASSWORD_EMPTY".
-const ErrPasswordEmpty = "PASSWORD_EMPTY"
-
-// IsPasswordEmpty reports whether err is PASSWORD_EMPTY.
-func IsPasswordEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPasswordEmpty})
-}
-
-// ErrContactNameEmpty is error type for "CONTACT_NAME_EMPTY".
-const ErrContactNameEmpty = "CONTACT_NAME_EMPTY"
-
-// IsContactNameEmpty reports whether err is CONTACT_NAME_EMPTY.
-func IsContactNameEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrContactNameEmpty})
-}
-
-// ErrUserInvalid is error type for "USER_INVALID".
-const ErrUserInvalid = "USER_INVALID"
-
-// IsUserInvalid reports whether err is USER_INVALID.
-func IsUserInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserInvalid})
-}
-
-// ErrDataJSONInvalid is error type for "DATA_JSON_INVALID".
-const ErrDataJSONInvalid = "DATA_JSON_INVALID"
-
-// IsDataJSONInvalid reports whether err is DATA_JSON_INVALID.
-func IsDataJSONInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrDataJSONInvalid})
-}
-
-// ErrCodeInvalid is error type for "CODE_INVALID".
-const ErrCodeInvalid = "CODE_INVALID"
-
-// IsCodeInvalid reports whether err is CODE_INVALID.
-func IsCodeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrCodeInvalid})
-}
-
-// ErrEmailHashExpired is error type for "EMAIL_HASH_EXPIRED".
-const ErrEmailHashExpired = "EMAIL_HASH_EXPIRED"
-
-// IsEmailHashExpired reports whether err is EMAIL_HASH_EXPIRED.
-func IsEmailHashExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEmailHashExpired})
-}
-
-// ErrTokenInvalid is error type for "TOKEN_INVALID".
-const ErrTokenInvalid = "TOKEN_INVALID"
-
-// IsTokenInvalid reports whether err is TOKEN_INVALID.
-func IsTokenInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTokenInvalid})
-}
-
-// ErrPeerIDNotSupported is error type for "PEER_ID_NOT_SUPPORTED".
-const ErrPeerIDNotSupported = "PEER_ID_NOT_SUPPORTED"
-
-// IsPeerIDNotSupported reports whether err is PEER_ID_NOT_SUPPORTED.
-func IsPeerIDNotSupported(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPeerIDNotSupported})
-}
-
-// ErrBotInlineDisabled is error type for "BOT_INLINE_DISABLED".
-const ErrBotInlineDisabled = "BOT_INLINE_DISABLED"
-
-// IsBotInlineDisabled reports whether err is BOT_INLINE_DISABLED.
-func IsBotInlineDisabled(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotInlineDisabled})
-}
-
-// ErrFilterIDInvalid is error type for "FILTER_ID_INVALID".
-const ErrFilterIDInvalid = "FILTER_ID_INVALID"
-
-// IsFilterIDInvalid reports whether err is FILTER_ID_INVALID.
-func IsFilterIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilterIDInvalid})
-}
-
-// ErrMethodInvalid is error type for "METHOD_INVALID".
-const ErrMethodInvalid = "METHOD_INVALID"
-
-// IsMethodInvalid reports whether err is METHOD_INVALID.
-func IsMethodInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMethodInvalid})
-}
-
-// ErrChatIDEmpty is error type for "CHAT_ID_EMPTY".
-const ErrChatIDEmpty = "CHAT_ID_EMPTY"
-
-// IsChatIDEmpty reports whether err is CHAT_ID_EMPTY.
-func IsChatIDEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatIDEmpty})
-}
-
-// ErrStartParamEmpty is error type for "START_PARAM_EMPTY".
-const ErrStartParamEmpty = "START_PARAM_EMPTY"
-
-// IsStartParamEmpty reports whether err is START_PARAM_EMPTY.
-func IsStartParamEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStartParamEmpty})
-}
-
-// ErrStartParamTooLong is error type for "START_PARAM_TOO_LONG".
-const ErrStartParamTooLong = "START_PARAM_TOO_LONG"
-
-// IsStartParamTooLong reports whether err is START_PARAM_TOO_LONG.
-func IsStartParamTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrStartParamTooLong})
-}
-
-// ErrBroadcastIDInvalid is error type for "BROADCAST_ID_INVALID".
-const ErrBroadcastIDInvalid = "BROADCAST_ID_INVALID"
-
-// IsBroadcastIDInvalid reports whether err is BROADCAST_ID_INVALID.
-func IsBroadcastIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBroadcastIDInvalid})
-}
-
-// ErrLinkNotModified is error type for "LINK_NOT_MODIFIED".
-const ErrLinkNotModified = "LINK_NOT_MODIFIED"
-
-// IsLinkNotModified reports whether err is LINK_NOT_MODIFIED.
-func IsLinkNotModified(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrLinkNotModified})
-}
-
-// ErrMegagroupIDInvalid is error type for "MEGAGROUP_ID_INVALID".
-const ErrMegagroupIDInvalid = "MEGAGROUP_ID_INVALID"
-
-// IsMegagroupIDInvalid reports whether err is MEGAGROUP_ID_INVALID.
-func IsMegagroupIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMegagroupIDInvalid})
-}
-
-// ErrChannelTooLarge is error type for "CHANNEL_TOO_LARGE".
-const ErrChannelTooLarge = "CHANNEL_TOO_LARGE"
-
-// IsChannelTooLarge reports whether err is CHANNEL_TOO_LARGE.
-func IsChannelTooLarge(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChannelTooLarge})
-}
-
-// ErrGeoPointInvalid is error type for "GEO_POINT_INVALID".
-const ErrGeoPointInvalid = "GEO_POINT_INVALID"
-
-// IsGeoPointInvalid reports whether err is GEO_POINT_INVALID.
-func IsGeoPointInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGeoPointInvalid})
-}
-
-// ErrUserpicUploadRequired is error type for "USERPIC_UPLOAD_REQUIRED".
-const ErrUserpicUploadRequired = "USERPIC_UPLOAD_REQUIRED"
-
-// IsUserpicUploadRequired reports whether err is USERPIC_UPLOAD_REQUIRED.
-func IsUserpicUploadRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUserpicUploadRequired})
-}
-
-// ErrAboutTooLong is error type for "ABOUT_TOO_LONG".
-const ErrAboutTooLong = "ABOUT_TOO_LONG"
-
-// IsAboutTooLong reports whether err is ABOUT_TOO_LONG.
-func IsAboutTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAboutTooLong})
-}
-
-// ErrMessageAuthorRequired is error type for "MESSAGE_AUTHOR_REQUIRED".
-const ErrMessageAuthorRequired = "MESSAGE_AUTHOR_REQUIRED"
-
-// IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
-func IsMessageAuthorRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageAuthorRequired})
-}
-
-// ErrMediaInvalid is error type for "MEDIA_INVALID".
-const ErrMediaInvalid = "MEDIA_INVALID"
-
-// IsMediaInvalid reports whether err is MEDIA_INVALID.
-func IsMediaInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMediaInvalid})
+// ErrPhotoInvalidDimensions is error type for "PHOTO_INVALID_DIMENSIONS".
+const ErrPhotoInvalidDimensions = "PHOTO_INVALID_DIMENSIONS"
+
+// IsPhotoInvalidDimensions reports whether err is PHOTO_INVALID_DIMENSIONS.
+func IsPhotoInvalidDimensions(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoInvalidDimensions})
 }
 
 // ErrPhotoSaveFileInvalid is error type for "PHOTO_SAVE_FILE_INVALID".
@@ -1933,220 +1613,28 @@ func IsPhotoSaveFileInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrPhotoSaveFileInvalid})
 }
 
-// ErrMaxIDInvalid is error type for "MAX_ID_INVALID".
-const ErrMaxIDInvalid = "MAX_ID_INVALID"
+// ErrPhotoThumbURLEmpty is error type for "PHOTO_THUMB_URL_EMPTY".
+const ErrPhotoThumbURLEmpty = "PHOTO_THUMB_URL_EMPTY"
 
-// IsMaxIDInvalid reports whether err is MAX_ID_INVALID.
-func IsMaxIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMaxIDInvalid})
+// IsPhotoThumbURLEmpty reports whether err is PHOTO_THUMB_URL_EMPTY.
+func IsPhotoThumbURLEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPhotoThumbURLEmpty})
 }
 
-// ErrRsaDecryptFailed is error type for "RSA_DECRYPT_FAILED".
-const ErrRsaDecryptFailed = "RSA_DECRYPT_FAILED"
+// ErrPinnedDialogsTooMuch is error type for "PINNED_DIALOGS_TOO_MUCH".
+const ErrPinnedDialogsTooMuch = "PINNED_DIALOGS_TOO_MUCH"
 
-// IsRsaDecryptFailed reports whether err is RSA_DECRYPT_FAILED.
-func IsRsaDecryptFailed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRsaDecryptFailed})
+// IsPinnedDialogsTooMuch reports whether err is PINNED_DIALOGS_TOO_MUCH.
+func IsPinnedDialogsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPinnedDialogsTooMuch})
 }
 
-// ErrLocationInvalid is error type for "LOCATION_INVALID".
-const ErrLocationInvalid = "LOCATION_INVALID"
+// ErrPinRestricted is error type for "PIN_RESTRICTED".
+const ErrPinRestricted = "PIN_RESTRICTED"
 
-// IsLocationInvalid reports whether err is LOCATION_INVALID.
-func IsLocationInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrLocationInvalid})
-}
-
-// ErrUsernameNotOccupied is error type for "USERNAME_NOT_OCCUPIED".
-const ErrUsernameNotOccupied = "USERNAME_NOT_OCCUPIED"
-
-// IsUsernameNotOccupied reports whether err is USERNAME_NOT_OCCUPIED.
-func IsUsernameNotOccupied(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsernameNotOccupied})
-}
-
-// ErrBannedRightsInvalid is error type for "BANNED_RIGHTS_INVALID".
-const ErrBannedRightsInvalid = "BANNED_RIGHTS_INVALID"
-
-// IsBannedRightsInvalid reports whether err is BANNED_RIGHTS_INVALID.
-func IsBannedRightsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBannedRightsInvalid})
-}
-
-// ErrUntilDateInvalid is error type for "UNTIL_DATE_INVALID".
-const ErrUntilDateInvalid = "UNTIL_DATE_INVALID"
-
-// IsUntilDateInvalid reports whether err is UNTIL_DATE_INVALID.
-func IsUntilDateInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUntilDateInvalid})
-}
-
-// ErrSettingsInvalid is error type for "SETTINGS_INVALID".
-const ErrSettingsInvalid = "SETTINGS_INVALID"
-
-// IsSettingsInvalid reports whether err is SETTINGS_INVALID.
-func IsSettingsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrSettingsInvalid})
-}
-
-// ErrEmailUnconfirmed is error type for "EMAIL_UNCONFIRMED".
-const ErrEmailUnconfirmed = "EMAIL_UNCONFIRMED"
-
-// IsEmailUnconfirmed reports whether err is EMAIL_UNCONFIRMED.
-func IsEmailUnconfirmed(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEmailUnconfirmed})
-}
-
-// ErrNewSaltInvalid is error type for "NEW_SALT_INVALID".
-const ErrNewSaltInvalid = "NEW_SALT_INVALID"
-
-// IsNewSaltInvalid reports whether err is NEW_SALT_INVALID.
-func IsNewSaltInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrNewSaltInvalid})
-}
-
-// ErrNewSettingsInvalid is error type for "NEW_SETTINGS_INVALID".
-const ErrNewSettingsInvalid = "NEW_SETTINGS_INVALID"
-
-// IsNewSettingsInvalid reports whether err is NEW_SETTINGS_INVALID.
-func IsNewSettingsInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrNewSettingsInvalid})
-}
-
-// ErrBroadcastForbidden is error type for "BROADCAST_FORBIDDEN".
-const ErrBroadcastForbidden = "BROADCAST_FORBIDDEN"
-
-// IsBroadcastForbidden reports whether err is BROADCAST_FORBIDDEN.
-func IsBroadcastForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBroadcastForbidden})
-}
-
-// ErrPollVoteRequired is error type for "POLL_VOTE_REQUIRED".
-const ErrPollVoteRequired = "POLL_VOTE_REQUIRED"
-
-// IsPollVoteRequired reports whether err is POLL_VOTE_REQUIRED.
-func IsPollVoteRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPollVoteRequired})
-}
-
-// ErrInlineBotRequired is error type for "INLINE_BOT_REQUIRED".
-const ErrInlineBotRequired = "INLINE_BOT_REQUIRED"
-
-// IsInlineBotRequired reports whether err is INLINE_BOT_REQUIRED.
-func IsInlineBotRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrInlineBotRequired})
-}
-
-// ErrMediaCaptionTooLong is error type for "MEDIA_CAPTION_TOO_LONG".
-const ErrMediaCaptionTooLong = "MEDIA_CAPTION_TOO_LONG"
-
-// IsMediaCaptionTooLong reports whether err is MEDIA_CAPTION_TOO_LONG.
-func IsMediaCaptionTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMediaCaptionTooLong})
-}
-
-// ErrMediaPrevInvalid is error type for "MEDIA_PREV_INVALID".
-const ErrMediaPrevInvalid = "MEDIA_PREV_INVALID"
-
-// IsMediaPrevInvalid reports whether err is MEDIA_PREV_INVALID.
-func IsMediaPrevInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMediaPrevInvalid})
-}
-
-// ErrMessageEditTimeExpired is error type for "MESSAGE_EDIT_TIME_EXPIRED".
-const ErrMessageEditTimeExpired = "MESSAGE_EDIT_TIME_EXPIRED"
-
-// IsMessageEditTimeExpired reports whether err is MESSAGE_EDIT_TIME_EXPIRED.
-func IsMessageEditTimeExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageEditTimeExpired})
-}
-
-// ErrScheduleDateInvalid is error type for "SCHEDULE_DATE_INVALID".
-const ErrScheduleDateInvalid = "SCHEDULE_DATE_INVALID"
-
-// IsScheduleDateInvalid reports whether err is SCHEDULE_DATE_INVALID.
-func IsScheduleDateInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrScheduleDateInvalid})
-}
-
-// ErrWcConvertURLInvalid is error type for "WC_CONVERT_URL_INVALID".
-const ErrWcConvertURLInvalid = "WC_CONVERT_URL_INVALID"
-
-// IsWcConvertURLInvalid reports whether err is WC_CONVERT_URL_INVALID.
-func IsWcConvertURLInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrWcConvertURLInvalid})
-}
-
-// ErrUsernameNotModified is error type for "USERNAME_NOT_MODIFIED".
-const ErrUsernameNotModified = "USERNAME_NOT_MODIFIED"
-
-// IsUsernameNotModified reports whether err is USERNAME_NOT_MODIFIED.
-func IsUsernameNotModified(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsernameNotModified})
-}
-
-// ErrUsernameOccupied is error type for "USERNAME_OCCUPIED".
-const ErrUsernameOccupied = "USERNAME_OCCUPIED"
-
-// IsUsernameOccupied reports whether err is USERNAME_OCCUPIED.
-func IsUsernameOccupied(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrUsernameOccupied})
-}
-
-// ErrTypesEmpty is error type for "TYPES_EMPTY".
-const ErrTypesEmpty = "TYPES_EMPTY"
-
-// IsTypesEmpty reports whether err is TYPES_EMPTY.
-func IsTypesEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTypesEmpty})
-}
-
-// ErrPhotoIDInvalid is error type for "PHOTO_ID_INVALID".
-const ErrPhotoIDInvalid = "PHOTO_ID_INVALID"
-
-// IsPhotoIDInvalid reports whether err is PHOTO_ID_INVALID.
-func IsPhotoIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoIDInvalid})
-}
-
-// ErrDataTooLong is error type for "DATA_TOO_LONG".
-const ErrDataTooLong = "DATA_TOO_LONG"
-
-// IsDataTooLong reports whether err is DATA_TOO_LONG.
-func IsDataTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrDataTooLong})
-}
-
-// ErrMD5ChecksumInvalid is error type for "MD5_CHECKSUM_INVALID".
-const ErrMD5ChecksumInvalid = "MD5_CHECKSUM_INVALID"
-
-// IsMD5ChecksumInvalid reports whether err is MD5_CHECKSUM_INVALID.
-func IsMD5ChecksumInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMD5ChecksumInvalid})
-}
-
-// ErrExternalURLInvalid is error type for "EXTERNAL_URL_INVALID".
-const ErrExternalURLInvalid = "EXTERNAL_URL_INVALID"
-
-// IsExternalURLInvalid reports whether err is EXTERNAL_URL_INVALID.
-func IsExternalURLInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrExternalURLInvalid})
-}
-
-// ErrFilePartLengthInvalid is error type for "FILE_PART_LENGTH_INVALID".
-const ErrFilePartLengthInvalid = "FILE_PART_LENGTH_INVALID"
-
-// IsFilePartLengthInvalid reports whether err is FILE_PART_LENGTH_INVALID.
-func IsFilePartLengthInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartLengthInvalid})
-}
-
-// ErrPhotoInvalidDimensions is error type for "PHOTO_INVALID_DIMENSIONS".
-const ErrPhotoInvalidDimensions = "PHOTO_INVALID_DIMENSIONS"
-
-// IsPhotoInvalidDimensions reports whether err is PHOTO_INVALID_DIMENSIONS.
-func IsPhotoInvalidDimensions(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrPhotoInvalidDimensions})
+// IsPinRestricted reports whether err is PIN_RESTRICTED.
+func IsPinRestricted(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPinRestricted})
 }
 
 // ErrPollAnswersInvalid is error type for "POLL_ANSWERS_INVALID".
@@ -2173,6 +1661,54 @@ func IsPollOptionInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrPollOptionInvalid})
 }
 
+// ErrPollVoteRequired is error type for "POLL_VOTE_REQUIRED".
+const ErrPollVoteRequired = "POLL_VOTE_REQUIRED"
+
+// IsPollVoteRequired reports whether err is POLL_VOTE_REQUIRED.
+func IsPollVoteRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPollVoteRequired})
+}
+
+// ErrPrivacyKeyInvalid is error type for "PRIVACY_KEY_INVALID".
+const ErrPrivacyKeyInvalid = "PRIVACY_KEY_INVALID"
+
+// IsPrivacyKeyInvalid reports whether err is PRIVACY_KEY_INVALID.
+func IsPrivacyKeyInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPrivacyKeyInvalid})
+}
+
+// ErrPrivacyValueInvalid is error type for "PRIVACY_VALUE_INVALID".
+const ErrPrivacyValueInvalid = "PRIVACY_VALUE_INVALID"
+
+// IsPrivacyValueInvalid reports whether err is PRIVACY_VALUE_INVALID.
+func IsPrivacyValueInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrPrivacyValueInvalid})
+}
+
+// ErrQueryIDEmpty is error type for "QUERY_ID_EMPTY".
+const ErrQueryIDEmpty = "QUERY_ID_EMPTY"
+
+// IsQueryIDEmpty reports whether err is QUERY_ID_EMPTY.
+func IsQueryIDEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrQueryIDEmpty})
+}
+
+// ErrQueryIDInvalid is error type for "QUERY_ID_INVALID".
+const ErrQueryIDInvalid = "QUERY_ID_INVALID"
+
+// IsQueryIDInvalid reports whether err is QUERY_ID_INVALID.
+func IsQueryIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrQueryIDInvalid})
+}
+
+// ErrQueryTooShort is error type for "QUERY_TOO_SHORT".
+const ErrQueryTooShort = "QUERY_TOO_SHORT"
+
+// IsQueryTooShort reports whether err is QUERY_TOO_SHORT.
+func IsQueryTooShort(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrQueryTooShort})
+}
+
 // ErrQuizCorrectAnswersEmpty is error type for "QUIZ_CORRECT_ANSWERS_EMPTY".
 const ErrQuizCorrectAnswersEmpty = "QUIZ_CORRECT_ANSWERS_EMPTY"
 
@@ -2189,6 +1725,38 @@ func IsQuizCorrectAnswerInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrQuizCorrectAnswerInvalid})
 }
 
+// ErrRandomIDEmpty is error type for "RANDOM_ID_EMPTY".
+const ErrRandomIDEmpty = "RANDOM_ID_EMPTY"
+
+// IsRandomIDEmpty reports whether err is RANDOM_ID_EMPTY.
+func IsRandomIDEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRandomIDEmpty})
+}
+
+// ErrRandomIDInvalid is error type for "RANDOM_ID_INVALID".
+const ErrRandomIDInvalid = "RANDOM_ID_INVALID"
+
+// IsRandomIDInvalid reports whether err is RANDOM_ID_INVALID.
+func IsRandomIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRandomIDInvalid})
+}
+
+// ErrRandomLengthInvalid is error type for "RANDOM_LENGTH_INVALID".
+const ErrRandomLengthInvalid = "RANDOM_LENGTH_INVALID"
+
+// IsRandomLengthInvalid reports whether err is RANDOM_LENGTH_INVALID.
+func IsRandomLengthInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRandomLengthInvalid})
+}
+
+// ErrRangesInvalid is error type for "RANGES_INVALID".
+const ErrRangesInvalid = "RANGES_INVALID"
+
+// IsRangesInvalid reports whether err is RANGES_INVALID.
+func IsRangesInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRangesInvalid})
+}
+
 // ErrReplyMarkupBuyEmpty is error type for "REPLY_MARKUP_BUY_EMPTY".
 const ErrReplyMarkupBuyEmpty = "REPLY_MARKUP_BUY_EMPTY"
 
@@ -2197,68 +1765,292 @@ func IsReplyMarkupBuyEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrReplyMarkupBuyEmpty})
 }
 
-// ErrTTLMediaInvalid is error type for "TTL_MEDIA_INVALID".
-const ErrTTLMediaInvalid = "TTL_MEDIA_INVALID"
+// ErrReplyMarkupInvalid is error type for "REPLY_MARKUP_INVALID".
+const ErrReplyMarkupInvalid = "REPLY_MARKUP_INVALID"
 
-// IsTTLMediaInvalid reports whether err is TTL_MEDIA_INVALID.
-func IsTTLMediaInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTTLMediaInvalid})
+// IsReplyMarkupInvalid reports whether err is REPLY_MARKUP_INVALID.
+func IsReplyMarkupInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrReplyMarkupInvalid})
 }
 
-// ErrDhGAInvalid is error type for "DH_G_A_INVALID".
-const ErrDhGAInvalid = "DH_G_A_INVALID"
+// ErrResultsTooMuch is error type for "RESULTS_TOO_MUCH".
+const ErrResultsTooMuch = "RESULTS_TOO_MUCH"
 
-// IsDhGAInvalid reports whether err is DH_G_A_INVALID.
-func IsDhGAInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrDhGAInvalid})
+// IsResultsTooMuch reports whether err is RESULTS_TOO_MUCH.
+func IsResultsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrResultsTooMuch})
 }
 
-// ErrFilerefUpgradeNeeded is error type for "FILEREF_UPGRADE_NEEDED".
-const ErrFilerefUpgradeNeeded = "FILEREF_UPGRADE_NEEDED"
+// ErrResultIDDuplicate is error type for "RESULT_ID_DUPLICATE".
+const ErrResultIDDuplicate = "RESULT_ID_DUPLICATE"
 
-// IsFilerefUpgradeNeeded reports whether err is FILEREF_UPGRADE_NEEDED.
-func IsFilerefUpgradeNeeded(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilerefUpgradeNeeded})
+// IsResultIDDuplicate reports whether err is RESULT_ID_DUPLICATE.
+func IsResultIDDuplicate(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrResultIDDuplicate})
 }
 
-// ErrFileIDInvalid is error type for "FILE_ID_INVALID".
-const ErrFileIDInvalid = "FILE_ID_INVALID"
+// ErrResultIDEmpty is error type for "RESULT_ID_EMPTY".
+const ErrResultIDEmpty = "RESULT_ID_EMPTY"
 
-// IsFileIDInvalid reports whether err is FILE_ID_INVALID.
-func IsFileIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFileIDInvalid})
+// IsResultIDEmpty reports whether err is RESULT_ID_EMPTY.
+func IsResultIDEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrResultIDEmpty})
 }
 
-// ErrFileReference is error type for "FILE_REFERENCE".
-const ErrFileReference = "FILE_REFERENCE"
+// ErrResultTypeInvalid is error type for "RESULT_TYPE_INVALID".
+const ErrResultTypeInvalid = "RESULT_TYPE_INVALID"
 
-// IsFileReference reports whether err is FILE_REFERENCE.
-func IsFileReference(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFileReference})
+// IsResultTypeInvalid reports whether err is RESULT_TYPE_INVALID.
+func IsResultTypeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrResultTypeInvalid})
 }
 
-// ErrFileReferenceExpired is error type for "FILE_REFERENCE_EXPIRED".
-const ErrFileReferenceExpired = "FILE_REFERENCE_EXPIRED"
+// ErrRevoteNotAllowed is error type for "REVOTE_NOT_ALLOWED".
+const ErrRevoteNotAllowed = "REVOTE_NOT_ALLOWED"
 
-// IsFileReferenceExpired reports whether err is FILE_REFERENCE_EXPIRED.
-func IsFileReferenceExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFileReferenceExpired})
+// IsRevoteNotAllowed reports whether err is REVOTE_NOT_ALLOWED.
+func IsRevoteNotAllowed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRevoteNotAllowed})
 }
 
-// ErrLimitInvalid is error type for "LIMIT_INVALID".
-const ErrLimitInvalid = "LIMIT_INVALID"
+// ErrRightForbidden is error type for "RIGHT_FORBIDDEN".
+const ErrRightForbidden = "RIGHT_FORBIDDEN"
 
-// IsLimitInvalid reports whether err is LIMIT_INVALID.
-func IsLimitInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrLimitInvalid})
+// IsRightForbidden reports whether err is RIGHT_FORBIDDEN.
+func IsRightForbidden(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRightForbidden})
 }
 
-// ErrOffsetInvalid is error type for "OFFSET_INVALID".
-const ErrOffsetInvalid = "OFFSET_INVALID"
+// ErrRsaDecryptFailed is error type for "RSA_DECRYPT_FAILED".
+const ErrRsaDecryptFailed = "RSA_DECRYPT_FAILED"
 
-// IsOffsetInvalid reports whether err is OFFSET_INVALID.
-func IsOffsetInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrOffsetInvalid})
+// IsRsaDecryptFailed reports whether err is RSA_DECRYPT_FAILED.
+func IsRsaDecryptFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrRsaDecryptFailed})
+}
+
+// ErrScheduleBotNotAllowed is error type for "SCHEDULE_BOT_NOT_ALLOWED".
+const ErrScheduleBotNotAllowed = "SCHEDULE_BOT_NOT_ALLOWED"
+
+// IsScheduleBotNotAllowed reports whether err is SCHEDULE_BOT_NOT_ALLOWED.
+func IsScheduleBotNotAllowed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrScheduleBotNotAllowed})
+}
+
+// ErrScheduleDateInvalid is error type for "SCHEDULE_DATE_INVALID".
+const ErrScheduleDateInvalid = "SCHEDULE_DATE_INVALID"
+
+// IsScheduleDateInvalid reports whether err is SCHEDULE_DATE_INVALID.
+func IsScheduleDateInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrScheduleDateInvalid})
+}
+
+// ErrScheduleDateTooLate is error type for "SCHEDULE_DATE_TOO_LATE".
+const ErrScheduleDateTooLate = "SCHEDULE_DATE_TOO_LATE"
+
+// IsScheduleDateTooLate reports whether err is SCHEDULE_DATE_TOO_LATE.
+func IsScheduleDateTooLate(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrScheduleDateTooLate})
+}
+
+// ErrScheduleTooMuch is error type for "SCHEDULE_TOO_MUCH".
+const ErrScheduleTooMuch = "SCHEDULE_TOO_MUCH"
+
+// IsScheduleTooMuch reports whether err is SCHEDULE_TOO_MUCH.
+func IsScheduleTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrScheduleTooMuch})
+}
+
+// ErrSearchQueryEmpty is error type for "SEARCH_QUERY_EMPTY".
+const ErrSearchQueryEmpty = "SEARCH_QUERY_EMPTY"
+
+// IsSearchQueryEmpty reports whether err is SEARCH_QUERY_EMPTY.
+func IsSearchQueryEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSearchQueryEmpty})
+}
+
+// ErrSecondsInvalid is error type for "SECONDS_INVALID".
+const ErrSecondsInvalid = "SECONDS_INVALID"
+
+// IsSecondsInvalid reports whether err is SECONDS_INVALID.
+func IsSecondsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSecondsInvalid})
+}
+
+// ErrSendMessageMediaInvalid is error type for "SEND_MESSAGE_MEDIA_INVALID".
+const ErrSendMessageMediaInvalid = "SEND_MESSAGE_MEDIA_INVALID"
+
+// IsSendMessageMediaInvalid reports whether err is SEND_MESSAGE_MEDIA_INVALID.
+func IsSendMessageMediaInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSendMessageMediaInvalid})
+}
+
+// ErrSendMessageTypeInvalid is error type for "SEND_MESSAGE_TYPE_INVALID".
+const ErrSendMessageTypeInvalid = "SEND_MESSAGE_TYPE_INVALID"
+
+// IsSendMessageTypeInvalid reports whether err is SEND_MESSAGE_TYPE_INVALID.
+func IsSendMessageTypeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSendMessageTypeInvalid})
+}
+
+// ErrSessionTooFresh is error type for "SESSION_TOO_FRESH".
+const ErrSessionTooFresh = "SESSION_TOO_FRESH"
+
+// IsSessionTooFresh reports whether err is SESSION_TOO_FRESH.
+func IsSessionTooFresh(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSessionTooFresh})
+}
+
+// ErrSettingsInvalid is error type for "SETTINGS_INVALID".
+const ErrSettingsInvalid = "SETTINGS_INVALID"
+
+// IsSettingsInvalid reports whether err is SETTINGS_INVALID.
+func IsSettingsInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSettingsInvalid})
+}
+
+// ErrSHA256HashInvalid is error type for "SHA256_HASH_INVALID".
+const ErrSHA256HashInvalid = "SHA256_HASH_INVALID"
+
+// IsSHA256HashInvalid reports whether err is SHA256_HASH_INVALID.
+func IsSHA256HashInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSHA256HashInvalid})
+}
+
+// ErrShortnameOccupyFailed is error type for "SHORTNAME_OCCUPY_FAILED".
+const ErrShortnameOccupyFailed = "SHORTNAME_OCCUPY_FAILED"
+
+// IsShortnameOccupyFailed reports whether err is SHORTNAME_OCCUPY_FAILED.
+func IsShortnameOccupyFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrShortnameOccupyFailed})
+}
+
+// ErrSlowmodeMultiMsgsDisabled is error type for "SLOWMODE_MULTI_MSGS_DISABLED".
+const ErrSlowmodeMultiMsgsDisabled = "SLOWMODE_MULTI_MSGS_DISABLED"
+
+// IsSlowmodeMultiMsgsDisabled reports whether err is SLOWMODE_MULTI_MSGS_DISABLED.
+func IsSlowmodeMultiMsgsDisabled(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSlowmodeMultiMsgsDisabled})
+}
+
+// ErrSlowmodeWait is error type for "SLOWMODE_WAIT".
+const ErrSlowmodeWait = "SLOWMODE_WAIT"
+
+// IsSlowmodeWait reports whether err is SLOWMODE_WAIT.
+func IsSlowmodeWait(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSlowmodeWait})
+}
+
+// ErrSMSCodeCreateFailed is error type for "SMS_CODE_CREATE_FAILED".
+const ErrSMSCodeCreateFailed = "SMS_CODE_CREATE_FAILED"
+
+// IsSMSCodeCreateFailed reports whether err is SMS_CODE_CREATE_FAILED.
+func IsSMSCodeCreateFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSMSCodeCreateFailed})
+}
+
+// ErrSRPIDInvalid is error type for "SRP_ID_INVALID".
+const ErrSRPIDInvalid = "SRP_ID_INVALID"
+
+// IsSRPIDInvalid reports whether err is SRP_ID_INVALID.
+func IsSRPIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSRPIDInvalid})
+}
+
+// ErrSRPPasswordChanged is error type for "SRP_PASSWORD_CHANGED".
+const ErrSRPPasswordChanged = "SRP_PASSWORD_CHANGED"
+
+// IsSRPPasswordChanged reports whether err is SRP_PASSWORD_CHANGED.
+func IsSRPPasswordChanged(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrSRPPasswordChanged})
+}
+
+// ErrStartParamEmpty is error type for "START_PARAM_EMPTY".
+const ErrStartParamEmpty = "START_PARAM_EMPTY"
+
+// IsStartParamEmpty reports whether err is START_PARAM_EMPTY.
+func IsStartParamEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStartParamEmpty})
+}
+
+// ErrStartParamInvalid is error type for "START_PARAM_INVALID".
+const ErrStartParamInvalid = "START_PARAM_INVALID"
+
+// IsStartParamInvalid reports whether err is START_PARAM_INVALID.
+func IsStartParamInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStartParamInvalid})
+}
+
+// ErrStartParamTooLong is error type for "START_PARAM_TOO_LONG".
+const ErrStartParamTooLong = "START_PARAM_TOO_LONG"
+
+// IsStartParamTooLong reports whether err is START_PARAM_TOO_LONG.
+func IsStartParamTooLong(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStartParamTooLong})
+}
+
+// ErrStickersetInvalid is error type for "STICKERSET_INVALID".
+const ErrStickersetInvalid = "STICKERSET_INVALID"
+
+// IsStickersetInvalid reports whether err is STICKERSET_INVALID.
+func IsStickersetInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickersetInvalid})
+}
+
+// ErrStickersEmpty is error type for "STICKERS_EMPTY".
+const ErrStickersEmpty = "STICKERS_EMPTY"
+
+// IsStickersEmpty reports whether err is STICKERS_EMPTY.
+func IsStickersEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickersEmpty})
+}
+
+// ErrStickerEmojiInvalid is error type for "STICKER_EMOJI_INVALID".
+const ErrStickerEmojiInvalid = "STICKER_EMOJI_INVALID"
+
+// IsStickerEmojiInvalid reports whether err is STICKER_EMOJI_INVALID.
+func IsStickerEmojiInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerEmojiInvalid})
+}
+
+// ErrStickerFileInvalid is error type for "STICKER_FILE_INVALID".
+const ErrStickerFileInvalid = "STICKER_FILE_INVALID"
+
+// IsStickerFileInvalid reports whether err is STICKER_FILE_INVALID.
+func IsStickerFileInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerFileInvalid})
+}
+
+// ErrStickerIDInvalid is error type for "STICKER_ID_INVALID".
+const ErrStickerIDInvalid = "STICKER_ID_INVALID"
+
+// IsStickerIDInvalid reports whether err is STICKER_ID_INVALID.
+func IsStickerIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerIDInvalid})
+}
+
+// ErrStickerInvalid is error type for "STICKER_INVALID".
+const ErrStickerInvalid = "STICKER_INVALID"
+
+// IsStickerInvalid reports whether err is STICKER_INVALID.
+func IsStickerInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerInvalid})
+}
+
+// ErrStickerPngDimensions is error type for "STICKER_PNG_DIMENSIONS".
+const ErrStickerPngDimensions = "STICKER_PNG_DIMENSIONS"
+
+// IsStickerPngDimensions reports whether err is STICKER_PNG_DIMENSIONS.
+func IsStickerPngDimensions(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerPngDimensions})
+}
+
+// ErrStickerPngNopng is error type for "STICKER_PNG_NOPNG".
+const ErrStickerPngNopng = "STICKER_PNG_NOPNG"
+
+// IsStickerPngNopng reports whether err is STICKER_PNG_NOPNG.
+func IsStickerPngNopng(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrStickerPngNopng})
 }
 
 // ErrTakeoutInitDelay is error type for "TAKEOUT_INIT_DELAY".
@@ -2269,76 +2061,12 @@ func IsTakeoutInitDelay(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrTakeoutInitDelay})
 }
 
-// ErrMultiMediaTooLong is error type for "MULTI_MEDIA_TOO_LONG".
-const ErrMultiMediaTooLong = "MULTI_MEDIA_TOO_LONG"
+// ErrTakeoutRequired is error type for "TAKEOUT_REQUIRED".
+const ErrTakeoutRequired = "TAKEOUT_REQUIRED"
 
-// IsMultiMediaTooLong reports whether err is MULTI_MEDIA_TOO_LONG.
-func IsMultiMediaTooLong(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMultiMediaTooLong})
-}
-
-// ErrRandomIDEmpty is error type for "RANDOM_ID_EMPTY".
-const ErrRandomIDEmpty = "RANDOM_ID_EMPTY"
-
-// IsRandomIDEmpty reports whether err is RANDOM_ID_EMPTY.
-func IsRandomIDEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRandomIDEmpty})
-}
-
-// ErrDCIDInvalid is error type for "DC_ID_INVALID".
-const ErrDCIDInvalid = "DC_ID_INVALID"
-
-// IsDCIDInvalid reports whether err is DC_ID_INVALID.
-func IsDCIDInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrDCIDInvalid})
-}
-
-// ErrMegagroupRequired is error type for "MEGAGROUP_REQUIRED".
-const ErrMegagroupRequired = "MEGAGROUP_REQUIRED"
-
-// IsMegagroupRequired reports whether err is MEGAGROUP_REQUIRED.
-func IsMegagroupRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMegagroupRequired})
-}
-
-// ErrContactAddMissing is error type for "CONTACT_ADD_MISSING".
-const ErrContactAddMissing = "CONTACT_ADD_MISSING"
-
-// IsContactAddMissing reports whether err is CONTACT_ADD_MISSING.
-func IsContactAddMissing(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrContactAddMissing})
-}
-
-// ErrContactReqMissing is error type for "CONTACT_REQ_MISSING".
-const ErrContactReqMissing = "CONTACT_REQ_MISSING"
-
-// IsContactReqMissing reports whether err is CONTACT_REQ_MISSING.
-func IsContactReqMissing(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrContactReqMissing})
-}
-
-// ErrGraphInvalidReload is error type for "GRAPH_INVALID_RELOAD".
-const ErrGraphInvalidReload = "GRAPH_INVALID_RELOAD"
-
-// IsGraphInvalidReload reports whether err is GRAPH_INVALID_RELOAD.
-func IsGraphInvalidReload(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGraphInvalidReload})
-}
-
-// ErrGraphOutdatedReload is error type for "GRAPH_OUTDATED_RELOAD".
-const ErrGraphOutdatedReload = "GRAPH_OUTDATED_RELOAD"
-
-// IsGraphOutdatedReload reports whether err is GRAPH_OUTDATED_RELOAD.
-func IsGraphOutdatedReload(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrGraphOutdatedReload})
-}
-
-// ErrEncryptedMessageInvalid is error type for "ENCRYPTED_MESSAGE_INVALID".
-const ErrEncryptedMessageInvalid = "ENCRYPTED_MESSAGE_INVALID"
-
-// IsEncryptedMessageInvalid reports whether err is ENCRYPTED_MESSAGE_INVALID.
-func IsEncryptedMessageInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrEncryptedMessageInvalid})
+// IsTakeoutRequired reports whether err is TAKEOUT_REQUIRED.
+func IsTakeoutRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTakeoutRequired})
 }
 
 // ErrTempAuthKeyAlreadyBound is error type for "TEMP_AUTH_KEY_ALREADY_BOUND".
@@ -2357,82 +2085,354 @@ func IsTempAuthKeyEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrTempAuthKeyEmpty})
 }
 
-// ErrFilePartSizeChanged is error type for "FILE_PART_SIZE_CHANGED".
-const ErrFilePartSizeChanged = "FILE_PART_SIZE_CHANGED"
+// ErrThemeFileInvalid is error type for "THEME_FILE_INVALID".
+const ErrThemeFileInvalid = "THEME_FILE_INVALID"
 
-// IsFilePartSizeChanged reports whether err is FILE_PART_SIZE_CHANGED.
-func IsFilePartSizeChanged(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartSizeChanged})
+// IsThemeFileInvalid reports whether err is THEME_FILE_INVALID.
+func IsThemeFileInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrThemeFileInvalid})
 }
 
-// ErrFilePartSizeInvalid is error type for "FILE_PART_SIZE_INVALID".
-const ErrFilePartSizeInvalid = "FILE_PART_SIZE_INVALID"
+// ErrThemeFormatInvalid is error type for "THEME_FORMAT_INVALID".
+const ErrThemeFormatInvalid = "THEME_FORMAT_INVALID"
 
-// IsFilePartSizeInvalid reports whether err is FILE_PART_SIZE_INVALID.
-func IsFilePartSizeInvalid(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartSizeInvalid})
+// IsThemeFormatInvalid reports whether err is THEME_FORMAT_INVALID.
+func IsThemeFormatInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrThemeFormatInvalid})
 }
 
-// ErrFilePartTooBig is error type for "FILE_PART_TOO_BIG".
-const ErrFilePartTooBig = "FILE_PART_TOO_BIG"
+// ErrThemeInvalid is error type for "THEME_INVALID".
+const ErrThemeInvalid = "THEME_INVALID"
 
-// IsFilePartTooBig reports whether err is FILE_PART_TOO_BIG.
-func IsFilePartTooBig(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFilePartTooBig})
+// IsThemeInvalid reports whether err is THEME_INVALID.
+func IsThemeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrThemeInvalid})
 }
 
-// Err2faConfirmWait is error type for "2FA_CONFIRM_WAIT".
-const Err2faConfirmWait = "2FA_CONFIRM_WAIT"
+// ErrTmpPasswordDisabled is error type for "TMP_PASSWORD_DISABLED".
+const ErrTmpPasswordDisabled = "TMP_PASSWORD_DISABLED"
 
-// Is2faConfirmWait reports whether err is 2FA_CONFIRM_WAIT.
-func Is2faConfirmWait(err error) bool {
-	return errors.Is(err, typedErrChecker{t: Err2faConfirmWait})
+// IsTmpPasswordDisabled reports whether err is TMP_PASSWORD_DISABLED.
+func IsTmpPasswordDisabled(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTmpPasswordDisabled})
 }
 
-// ErrAdminsTooMuch is error type for "ADMINS_TOO_MUCH".
-const ErrAdminsTooMuch = "ADMINS_TOO_MUCH"
+// ErrTokenInvalid is error type for "TOKEN_INVALID".
+const ErrTokenInvalid = "TOKEN_INVALID"
 
-// IsAdminsTooMuch reports whether err is ADMINS_TOO_MUCH.
-func IsAdminsTooMuch(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAdminsTooMuch})
+// IsTokenInvalid reports whether err is TOKEN_INVALID.
+func IsTokenInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTokenInvalid})
 }
 
-// ErrBotChannelsNa is error type for "BOT_CHANNELS_NA".
-const ErrBotChannelsNa = "BOT_CHANNELS_NA"
+// ErrTTLDaysInvalid is error type for "TTL_DAYS_INVALID".
+const ErrTTLDaysInvalid = "TTL_DAYS_INVALID"
 
-// IsBotChannelsNa reports whether err is BOT_CHANNELS_NA.
-func IsBotChannelsNa(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrBotChannelsNa})
+// IsTTLDaysInvalid reports whether err is TTL_DAYS_INVALID.
+func IsTTLDaysInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTTLDaysInvalid})
 }
 
-// ErrChatAdminInviteRequired is error type for "CHAT_ADMIN_INVITE_REQUIRED".
-const ErrChatAdminInviteRequired = "CHAT_ADMIN_INVITE_REQUIRED"
+// ErrTTLMediaInvalid is error type for "TTL_MEDIA_INVALID".
+const ErrTTLMediaInvalid = "TTL_MEDIA_INVALID"
 
-// IsChatAdminInviteRequired reports whether err is CHAT_ADMIN_INVITE_REQUIRED.
-func IsChatAdminInviteRequired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrChatAdminInviteRequired})
+// IsTTLMediaInvalid reports whether err is TTL_MEDIA_INVALID.
+func IsTTLMediaInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTTLMediaInvalid})
 }
 
-// ErrFreshChangeAdminsForbidden is error type for "FRESH_CHANGE_ADMINS_FORBIDDEN".
-const ErrFreshChangeAdminsForbidden = "FRESH_CHANGE_ADMINS_FORBIDDEN"
+// ErrTypesEmpty is error type for "TYPES_EMPTY".
+const ErrTypesEmpty = "TYPES_EMPTY"
 
-// IsFreshChangeAdminsForbidden reports whether err is FRESH_CHANGE_ADMINS_FORBIDDEN.
-func IsFreshChangeAdminsForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrFreshChangeAdminsForbidden})
+// IsTypesEmpty reports whether err is TYPES_EMPTY.
+func IsTypesEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTypesEmpty})
 }
 
-// ErrRightForbidden is error type for "RIGHT_FORBIDDEN".
-const ErrRightForbidden = "RIGHT_FORBIDDEN"
+// ErrTimeout is error type for "Timeout".
+const ErrTimeout = "Timeout"
 
-// IsRightForbidden reports whether err is RIGHT_FORBIDDEN.
-func IsRightForbidden(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrRightForbidden})
+// IsTimeout reports whether err is Timeout.
+func IsTimeout(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTimeout})
 }
 
-// ErrAuthTokenExpired is error type for "AUTH_TOKEN_EXPIRED".
-const ErrAuthTokenExpired = "AUTH_TOKEN_EXPIRED"
+// ErrUntilDateInvalid is error type for "UNTIL_DATE_INVALID".
+const ErrUntilDateInvalid = "UNTIL_DATE_INVALID"
 
-// IsAuthTokenExpired reports whether err is AUTH_TOKEN_EXPIRED.
-func IsAuthTokenExpired(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrAuthTokenExpired})
+// IsUntilDateInvalid reports whether err is UNTIL_DATE_INVALID.
+func IsUntilDateInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUntilDateInvalid})
+}
+
+// ErrURLInvalid is error type for "URL_INVALID".
+const ErrURLInvalid = "URL_INVALID"
+
+// IsURLInvalid reports whether err is URL_INVALID.
+func IsURLInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrURLInvalid})
+}
+
+// ErrUsernameInvalid is error type for "USERNAME_INVALID".
+const ErrUsernameInvalid = "USERNAME_INVALID"
+
+// IsUsernameInvalid reports whether err is USERNAME_INVALID.
+func IsUsernameInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsernameInvalid})
+}
+
+// ErrUsernameNotModified is error type for "USERNAME_NOT_MODIFIED".
+const ErrUsernameNotModified = "USERNAME_NOT_MODIFIED"
+
+// IsUsernameNotModified reports whether err is USERNAME_NOT_MODIFIED.
+func IsUsernameNotModified(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsernameNotModified})
+}
+
+// ErrUsernameNotOccupied is error type for "USERNAME_NOT_OCCUPIED".
+const ErrUsernameNotOccupied = "USERNAME_NOT_OCCUPIED"
+
+// IsUsernameNotOccupied reports whether err is USERNAME_NOT_OCCUPIED.
+func IsUsernameNotOccupied(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsernameNotOccupied})
+}
+
+// ErrUsernameOccupied is error type for "USERNAME_OCCUPIED".
+const ErrUsernameOccupied = "USERNAME_OCCUPIED"
+
+// IsUsernameOccupied reports whether err is USERNAME_OCCUPIED.
+func IsUsernameOccupied(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsernameOccupied})
+}
+
+// ErrUserpicUploadRequired is error type for "USERPIC_UPLOAD_REQUIRED".
+const ErrUserpicUploadRequired = "USERPIC_UPLOAD_REQUIRED"
+
+// IsUserpicUploadRequired reports whether err is USERPIC_UPLOAD_REQUIRED.
+func IsUserpicUploadRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserpicUploadRequired})
+}
+
+// ErrUsersTooFew is error type for "USERS_TOO_FEW".
+const ErrUsersTooFew = "USERS_TOO_FEW"
+
+// IsUsersTooFew reports whether err is USERS_TOO_FEW.
+func IsUsersTooFew(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsersTooFew})
+}
+
+// ErrUsersTooMuch is error type for "USERS_TOO_MUCH".
+const ErrUsersTooMuch = "USERS_TOO_MUCH"
+
+// IsUsersTooMuch reports whether err is USERS_TOO_MUCH.
+func IsUsersTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUsersTooMuch})
+}
+
+// ErrUserAdminInvalid is error type for "USER_ADMIN_INVALID".
+const ErrUserAdminInvalid = "USER_ADMIN_INVALID"
+
+// IsUserAdminInvalid reports whether err is USER_ADMIN_INVALID.
+func IsUserAdminInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserAdminInvalid})
+}
+
+// ErrUserAlreadyParticipant is error type for "USER_ALREADY_PARTICIPANT".
+const ErrUserAlreadyParticipant = "USER_ALREADY_PARTICIPANT"
+
+// IsUserAlreadyParticipant reports whether err is USER_ALREADY_PARTICIPANT.
+func IsUserAlreadyParticipant(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserAlreadyParticipant})
+}
+
+// ErrUserBannedInChannel is error type for "USER_BANNED_IN_CHANNEL".
+const ErrUserBannedInChannel = "USER_BANNED_IN_CHANNEL"
+
+// IsUserBannedInChannel reports whether err is USER_BANNED_IN_CHANNEL.
+func IsUserBannedInChannel(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserBannedInChannel})
+}
+
+// ErrUserBlocked is error type for "USER_BLOCKED".
+const ErrUserBlocked = "USER_BLOCKED"
+
+// IsUserBlocked reports whether err is USER_BLOCKED.
+func IsUserBlocked(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserBlocked})
+}
+
+// ErrUserBot is error type for "USER_BOT".
+const ErrUserBot = "USER_BOT"
+
+// IsUserBot reports whether err is USER_BOT.
+func IsUserBot(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserBot})
+}
+
+// ErrUserBotInvalid is error type for "USER_BOT_INVALID".
+const ErrUserBotInvalid = "USER_BOT_INVALID"
+
+// IsUserBotInvalid reports whether err is USER_BOT_INVALID.
+func IsUserBotInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserBotInvalid})
+}
+
+// ErrUserBotRequired is error type for "USER_BOT_REQUIRED".
+const ErrUserBotRequired = "USER_BOT_REQUIRED"
+
+// IsUserBotRequired reports whether err is USER_BOT_REQUIRED.
+func IsUserBotRequired(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserBotRequired})
+}
+
+// ErrUserChannelsTooMuch is error type for "USER_CHANNELS_TOO_MUCH".
+const ErrUserChannelsTooMuch = "USER_CHANNELS_TOO_MUCH"
+
+// IsUserChannelsTooMuch reports whether err is USER_CHANNELS_TOO_MUCH.
+func IsUserChannelsTooMuch(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserChannelsTooMuch})
+}
+
+// ErrUserCreator is error type for "USER_CREATOR".
+const ErrUserCreator = "USER_CREATOR"
+
+// IsUserCreator reports whether err is USER_CREATOR.
+func IsUserCreator(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserCreator})
+}
+
+// ErrUserIDInvalid is error type for "USER_ID_INVALID".
+const ErrUserIDInvalid = "USER_ID_INVALID"
+
+// IsUserIDInvalid reports whether err is USER_ID_INVALID.
+func IsUserIDInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserIDInvalid})
+}
+
+// ErrUserInvalid is error type for "USER_INVALID".
+const ErrUserInvalid = "USER_INVALID"
+
+// IsUserInvalid reports whether err is USER_INVALID.
+func IsUserInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserInvalid})
+}
+
+// ErrUserIsBlocked is error type for "USER_IS_BLOCKED".
+const ErrUserIsBlocked = "USER_IS_BLOCKED"
+
+// IsUserIsBlocked reports whether err is USER_IS_BLOCKED.
+func IsUserIsBlocked(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserIsBlocked})
+}
+
+// ErrUserIsBot is error type for "USER_IS_BOT".
+const ErrUserIsBot = "USER_IS_BOT"
+
+// IsUserIsBot reports whether err is USER_IS_BOT.
+func IsUserIsBot(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserIsBot})
+}
+
+// ErrUserKicked is error type for "USER_KICKED".
+const ErrUserKicked = "USER_KICKED"
+
+// IsUserKicked reports whether err is USER_KICKED.
+func IsUserKicked(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserKicked})
+}
+
+// ErrUserNotMutualContact is error type for "USER_NOT_MUTUAL_CONTACT".
+const ErrUserNotMutualContact = "USER_NOT_MUTUAL_CONTACT"
+
+// IsUserNotMutualContact reports whether err is USER_NOT_MUTUAL_CONTACT.
+func IsUserNotMutualContact(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserNotMutualContact})
+}
+
+// ErrUserNotParticipant is error type for "USER_NOT_PARTICIPANT".
+const ErrUserNotParticipant = "USER_NOT_PARTICIPANT"
+
+// IsUserNotParticipant reports whether err is USER_NOT_PARTICIPANT.
+func IsUserNotParticipant(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserNotParticipant})
+}
+
+// ErrUserPrivacyRestricted is error type for "USER_PRIVACY_RESTRICTED".
+const ErrUserPrivacyRestricted = "USER_PRIVACY_RESTRICTED"
+
+// IsUserPrivacyRestricted reports whether err is USER_PRIVACY_RESTRICTED.
+func IsUserPrivacyRestricted(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserPrivacyRestricted})
+}
+
+// ErrUserRestricted is error type for "USER_RESTRICTED".
+const ErrUserRestricted = "USER_RESTRICTED"
+
+// IsUserRestricted reports whether err is USER_RESTRICTED.
+func IsUserRestricted(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrUserRestricted})
+}
+
+// ErrVideoFileInvalid is error type for "VIDEO_FILE_INVALID".
+const ErrVideoFileInvalid = "VIDEO_FILE_INVALID"
+
+// IsVideoFileInvalid reports whether err is VIDEO_FILE_INVALID.
+func IsVideoFileInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrVideoFileInvalid})
+}
+
+// ErrWcConvertURLInvalid is error type for "WC_CONVERT_URL_INVALID".
+const ErrWcConvertURLInvalid = "WC_CONVERT_URL_INVALID"
+
+// IsWcConvertURLInvalid reports whether err is WC_CONVERT_URL_INVALID.
+func IsWcConvertURLInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWcConvertURLInvalid})
+}
+
+// ErrWebdocumentInvalid is error type for "WEBDOCUMENT_INVALID".
+const ErrWebdocumentInvalid = "WEBDOCUMENT_INVALID"
+
+// IsWebdocumentInvalid reports whether err is WEBDOCUMENT_INVALID.
+func IsWebdocumentInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWebdocumentInvalid})
+}
+
+// ErrWebdocumentMimeInvalid is error type for "WEBDOCUMENT_MIME_INVALID".
+const ErrWebdocumentMimeInvalid = "WEBDOCUMENT_MIME_INVALID"
+
+// IsWebdocumentMimeInvalid reports whether err is WEBDOCUMENT_MIME_INVALID.
+func IsWebdocumentMimeInvalid(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWebdocumentMimeInvalid})
+}
+
+// ErrWebdocumentSizeTooBig is error type for "WEBDOCUMENT_SIZE_TOO_BIG".
+const ErrWebdocumentSizeTooBig = "WEBDOCUMENT_SIZE_TOO_BIG"
+
+// IsWebdocumentSizeTooBig reports whether err is WEBDOCUMENT_SIZE_TOO_BIG.
+func IsWebdocumentSizeTooBig(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWebdocumentSizeTooBig})
+}
+
+// ErrWebpageCurlFailed is error type for "WEBPAGE_CURL_FAILED".
+const ErrWebpageCurlFailed = "WEBPAGE_CURL_FAILED"
+
+// IsWebpageCurlFailed reports whether err is WEBPAGE_CURL_FAILED.
+func IsWebpageCurlFailed(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWebpageCurlFailed})
+}
+
+// ErrWebpageMediaEmpty is error type for "WEBPAGE_MEDIA_EMPTY".
+const ErrWebpageMediaEmpty = "WEBPAGE_MEDIA_EMPTY"
+
+// IsWebpageMediaEmpty reports whether err is WEBPAGE_MEDIA_EMPTY.
+func IsWebpageMediaEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrWebpageMediaEmpty})
+}
+
+// ErrYouBlockedUser is error type for "YOU_BLOCKED_USER".
+const ErrYouBlockedUser = "YOU_BLOCKED_USER"
+
+// IsYouBlockedUser reports whether err is YOU_BLOCKED_USER.
+func IsYouBlockedUser(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrYouBlockedUser})
 }
