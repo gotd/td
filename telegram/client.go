@@ -10,6 +10,7 @@ import (
 	"sync"
 
 	"github.com/cenkalti/backoff/v4"
+	"go.uber.org/atomic"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -67,12 +68,14 @@ type Client struct {
 	// Telegram device information.
 	device DeviceConfig // immutable
 
+	// MTProto options.
+	opts mtproto.Options // immutable
+
 	// Connection state. Guarded by connMux.
-	connAddr string
-	connOpt  mtproto.Options
-	conn     clientConn
-	cfg      tg.Config
-	connMux  sync.Mutex
+	session *syncSessionData
+	conn    clientConn
+	cfg     *atomicConfig
+	connMux sync.Mutex
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -95,6 +98,8 @@ type Client struct {
 	// Ready signal channel, sends signal when client connection is ready.
 	// Resets on reconnect.
 	ready *tdsync.ResetReady // immutable
+
+	connsCounter atomic.Int64
 
 	// Telegram updates handler.
 	updateHandler UpdateHandler // immutable
@@ -140,11 +145,15 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
-		connAddr:      opt.Addr,
-		clock:         opt.Clock,
-		device:        opt.Device,
-		ready:         tdsync.NewResetReady(),
-		restart:       make(chan struct{}),
+		session: newSyncSessionData(sessionData{
+			Addr: opt.Addr,
+			DC:   opt.DC,
+		}),
+		cfg:     &atomicConfig{},
+		clock:   opt.Clock,
+		device:  opt.Device,
+		ready:   tdsync.NewResetReady(),
+		restart: make(chan struct{}),
 	}
 
 	// Including version into client logger to help with debugging.
@@ -158,7 +167,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		}
 	}
 
-	client.connOpt = mtproto.Options{
+	client.opts = mtproto.Options{
 		PublicKeys:    opt.PublicKeys,
 		Transport:     opt.Transport,
 		Network:       opt.Network,
@@ -213,9 +222,12 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	)
 
 	c.connMux.Lock()
-	c.connOpt.Key = key
-	c.connOpt.Salt = data.Salt
-	c.connAddr = data.Addr
+	c.session.Store(sessionData{
+		DC:      data.DC,
+		Addr:    data.Addr,
+		AuthKey: key,
+		Salt:    data.Salt,
+	})
 	c.conn = c.createConn(connModeUpdates)
 	c.connMux.Unlock()
 
@@ -224,8 +236,14 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 
 func (c *Client) runUntilRestart(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
-	g.Go(func(gCtx context.Context) error {
-		return c.conn.Run(gCtx)
+	g.Go(c.conn.Run)
+	g.Go(func(groupCtx context.Context) error {
+		_, err := c.tg.HelpGetConfig(ctx)
+		if err != nil {
+			c.log.Warn("Get config failed", zap.Error(err))
+		}
+
+		return nil
 	})
 	g.Go(func(gCtx context.Context) error {
 		select {
@@ -286,7 +304,7 @@ func (c *Client) resetReady() {
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
 	select {
 	case <-c.ctx.Done():
-		return xerrors.Errorf("client already closed: %w", ctx.Err())
+		return xerrors.Errorf("client already closed: %w", c.ctx.Err())
 	default:
 	}
 
@@ -363,21 +381,19 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	}
 
 	c.connMux.Lock()
-	c.connAddr = addr
-	c.cfg = cfg
+	c.session.Store(sessionData{
+		DC:      cfg.ThisDC,
+		Addr:    addr,
+		Salt:    s.Salt,
+		AuthKey: s.Key,
+	})
+	c.cfg.Store(cfg)
 	c.onReady()
 	c.connMux.Unlock()
 
 	return nil
 }
 
-func (c *Client) createConn(mode connMode) clientConn {
-	return newConn(
-		c,
-		c.connAddr,
-		c.appID,
-		mode,
-		c.connOpt,
-		c.device,
-	)
+func (c *Client) createConn(mode connMode) *conn {
+	return c.buildConn(mode).Build()
 }

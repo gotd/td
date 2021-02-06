@@ -1,0 +1,33 @@
+package pool
+
+import (
+	"context"
+
+	"go.uber.org/atomic"
+	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/tdsync"
+)
+
+// ErrConnDead means that connection is closed and can't be used anymore.
+var ErrConnDead = xerrors.New("connection dead")
+
+// Conn represents Telegram MTProto connection.
+type Conn interface {
+	Run(ctx context.Context) error
+	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+	Ready() <-chan struct{}
+}
+
+type poolConn struct {
+	Conn
+	id      int64 // immutable
+	dc      *DC   // immutable
+	deleted *atomic.Bool
+	dead    *tdsync.Ready
+}
+
+func (p *poolConn) Dead() <-chan struct{} {
+	return p.dead.Ready()
+}

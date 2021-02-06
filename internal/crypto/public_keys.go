@@ -17,7 +17,7 @@ func ParseRSAPublicKeys(data []byte) ([]*rsa.PublicKey, error) {
 			break
 		}
 
-		key, err := parseRSA(block.Bytes)
+		key, err := ParseRSA(block.Bytes)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse RSA from PEM: %w", err)
 		}
@@ -29,8 +29,8 @@ func ParseRSAPublicKeys(data []byte) ([]*rsa.PublicKey, error) {
 	return keys, nil
 }
 
-// parseRSA parses data RSA key in PKCS1 or PKIX forms.
-func parseRSA(data []byte) (*rsa.PublicKey, error) {
+// ParseRSA parses data RSA key in PKCS1 or PKIX forms.
+func ParseRSA(data []byte) (*rsa.PublicKey, error) {
 	key, err := x509.ParsePKCS1PublicKey(data)
 	if err == nil {
 		return key, nil

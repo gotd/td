@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
@@ -61,6 +62,7 @@ type conn struct {
 
 	sessionInit *tdsync.Ready // immutable
 	gotConfig   *tdsync.Ready // immutable
+	dead        *tdsync.Ready // immutable
 }
 
 func (c *conn) OnSession(session mtproto.Session) error {
@@ -68,7 +70,10 @@ func (c *conn) OnSession(session mtproto.Session) error {
 	c.sessionInit.Signal()
 
 	// Waiting for config, because OnSession can occur before we set config.
-	<-c.gotConfig.Ready()
+	select {
+	case <-c.gotConfig.Ready():
+	case <-c.dead.Ready():
+	}
 
 	c.mux.Lock()
 	cfg := c.cfg
@@ -101,7 +106,11 @@ func (c *conn) trackInvoke() func() {
 	}
 }
 
-func (c *conn) Run(ctx context.Context) error {
+func (c *conn) Run(ctx context.Context) (err error) {
+	defer c.dead.Signal()
+	defer func() {
+		c.log.Info("Connection dead", zap.Error(err))
+	}()
 	return c.proto.Run(ctx, c.init)
 }
 
@@ -109,9 +118,15 @@ func (c *conn) waitSession(ctx context.Context) error {
 	select {
 	case <-c.sessionInit.Ready():
 		return nil
+	case <-c.dead.Ready():
+		return pool.ErrConnDead
 	case <-ctx.Done():
 		return ctx.Err()
 	}
+}
+
+func (c *conn) Ready() <-chan struct{} {
+	return c.sessionInit.Ready()
 }
 
 func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -121,18 +136,36 @@ func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 		return xerrors.Errorf("waitSession: %w", err)
 	}
 
-	return c.proto.InvokeRaw(ctx, input, output)
+	return c.proto.InvokeRaw(ctx, c.wrapRequest(noopDecoder{input}), output)
 }
 
 func (c *conn) OnMessage(b *bin.Buffer) error {
 	return c.handler.onMessage(b)
 }
 
+type noopDecoder struct {
+	bin.Encoder
+}
+
+func (n noopDecoder) Decode(b *bin.Buffer) error {
+	panic("implement me")
+}
+
+func (c *conn) wrapRequest(req bin.Object) bin.Object {
+	if c.mode != connModeUpdates {
+		return &tg.InvokeWithoutUpdatesRequest{
+			Query: req,
+		}
+	}
+
+	return req
+}
+
 func (c *conn) init(ctx context.Context) error {
 	defer c.gotConfig.Signal()
 	c.log.Debug("Initializing")
 
-	q := &tg.InitConnectionRequest{
+	q := c.wrapRequest(&tg.InitConnectionRequest{
 		APIID:          c.appID,
 		DeviceModel:    c.device.DeviceModel,
 		SystemVersion:  c.device.SystemVersion,
@@ -140,18 +173,12 @@ func (c *conn) init(ctx context.Context) error {
 		SystemLangCode: c.device.SystemLangCode,
 		LangPack:       c.device.LangPack,
 		LangCode:       c.device.LangCode,
-		Query:          &tg.HelpGetConfigRequest{},
-	}
-	var req bin.Object = &tg.InvokeWithLayerRequest{
+		Query:          c.wrapRequest(&tg.HelpGetConfigRequest{}),
+	})
+	var req bin.Object = c.wrapRequest(&tg.InvokeWithLayerRequest{
 		Layer: tg.Layer,
 		Query: q,
-	}
-	if c.mode == connModeData || c.mode == connModeCDN {
-		// This connection will not receive updates.
-		req = &tg.InvokeWithoutUpdatesRequest{
-			Query: req,
-		}
-	}
+	})
 
 	var cfg tg.Config
 	if err := c.proto.InvokeRaw(ctx, req, &cfg); err != nil {
@@ -164,28 +191,4 @@ func (c *conn) init(ctx context.Context) error {
 	c.mux.Unlock()
 
 	return nil
-}
-
-func newConn(
-	handler connHandler,
-	addr string,
-	appID int,
-	mode connMode,
-	opt mtproto.Options,
-	device DeviceConfig,
-) *conn {
-	c := &conn{
-		appID:       appID,
-		device:      device,
-		mode:        mode,
-		addr:        addr,
-		clock:       opt.Clock,
-		log:         opt.Logger.Named("conn"),
-		handler:     handler,
-		sessionInit: tdsync.NewReady(),
-		gotConfig:   tdsync.NewReady(),
-	}
-	opt.Handler = c
-	c.proto = mtproto.New(addr, opt)
-	return c
 }

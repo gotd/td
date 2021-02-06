@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
+	"go.uber.org/zap"
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
@@ -121,11 +122,13 @@ func BotFromEnvironment(ctx context.Context, opts Options, cb func(ctx context.C
 	})
 }
 
-func retry(ctx context.Context, cb func(ctx context.Context) error) error {
+func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context) error) error {
 	b := backoff.WithContext(backoff.NewExponentialBackOff(), ctx)
 
 	return backoff.Retry(func() error {
 		if err := cb(ctx); err != nil {
+			logger.Warn("TestClient run failed", zap.Error(err))
+
 			var rpcErr *mtproto.Error
 			if errors.As(err, &rpcErr) {
 				switch rpcErr.Type {
@@ -134,8 +137,12 @@ func retry(ctx context.Context, cb func(ctx context.Context) error) error {
 					"API_ID_PUBLISHED_FLOOD":
 					return err
 				case "FLOOD_WAIT":
-					time.Sleep(time.Duration(rpcErr.Argument) * time.Second)
-					return err
+					select {
+					case <-time.After(time.Duration(rpcErr.Argument+1) * time.Second):
+						return err
+					case <-ctx.Done():
+						return ctx.Err()
+					}
 				}
 			}
 
@@ -158,10 +165,15 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 		opts.Addr = AddrTest
 	}
 
+	logger := zap.NewNop()
+	if opts.Logger != nil {
+		logger = opts.Logger.Named("test")
+	}
+
 	// Sometimes testing server can return "AUTH_KEY_UNREGISTERED" error.
 	// It is expected and client implementation is unlikely to cause
 	// such errors, so just doing retries using backoff.
-	return retry(ctx, func(retryCtx context.Context) error {
+	return retry(ctx, logger, func(retryCtx context.Context) error {
 		client := NewClient(TestAppID, TestAppHash, opts)
 		return client.Run(retryCtx, func(runCtx context.Context) error {
 			if err := NewAuth(
