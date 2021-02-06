@@ -44,7 +44,7 @@ func (g *Generator) makeErrors() {
 	// For each unique error Type, create error check definition.
 	// Like IsNeedMigration(err) function.
 	seen := make(map[string]struct{})
-	for _, m := range g.doc.Methods {
+	for _, m := range g.structs {
 		for _, e := range m.Errors {
 			d := g.errDef(e)
 
