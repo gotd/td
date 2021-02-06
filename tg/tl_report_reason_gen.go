@@ -508,6 +508,72 @@ var (
 	_ ReportReasonClass = &InputReportReasonGeoIrrelevant{}
 )
 
+// InputReportReasonFake represents TL type `inputReportReasonFake#f5ddd6e7`.
+//
+// See https://core.telegram.org/constructor/inputReportReasonFake for reference.
+type InputReportReasonFake struct {
+}
+
+// InputReportReasonFakeTypeID is TL type id of InputReportReasonFake.
+const InputReportReasonFakeTypeID = 0xf5ddd6e7
+
+func (i *InputReportReasonFake) Zero() bool {
+	if i == nil {
+		return true
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputReportReasonFake) String() string {
+	if i == nil {
+		return "InputReportReasonFake(nil)"
+	}
+	var sb strings.Builder
+	sb.WriteString("InputReportReasonFake")
+	sb.WriteString("{\n")
+	sb.WriteString("}")
+	return sb.String()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (i *InputReportReasonFake) TypeID() uint32 {
+	return InputReportReasonFakeTypeID
+}
+
+// Encode implements bin.Encoder.
+func (i *InputReportReasonFake) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonFake#f5ddd6e7 as nil")
+	}
+	b.PutID(InputReportReasonFakeTypeID)
+	return nil
+}
+
+// Decode implements bin.Decoder.
+func (i *InputReportReasonFake) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonFake#f5ddd6e7 to nil")
+	}
+	if err := b.ConsumeID(InputReportReasonFakeTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputReportReasonFake#f5ddd6e7: %w", err)
+	}
+	return nil
+}
+
+// construct implements constructor of ReportReasonClass.
+func (i InputReportReasonFake) construct() ReportReasonClass { return &i }
+
+// Ensuring interfaces in compile-time for InputReportReasonFake.
+var (
+	_ bin.Encoder = &InputReportReasonFake{}
+	_ bin.Decoder = &InputReportReasonFake{}
+
+	_ ReportReasonClass = &InputReportReasonFake{}
+)
+
 // ReportReasonClass represents ReportReason generic type.
 //
 // See https://core.telegram.org/type/ReportReason for reference.
@@ -525,6 +591,7 @@ var (
 //  case *InputReportReasonOther: // inputReportReasonOther#e1746d0a
 //  case *InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
 //  case *InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
+//  case *InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
 //  default: panic(v)
 //  }
 type ReportReasonClass interface {
@@ -593,6 +660,13 @@ func DecodeReportReason(buf *bin.Buffer) (ReportReasonClass, error) {
 	case InputReportReasonGeoIrrelevantTypeID:
 		// Decoding inputReportReasonGeoIrrelevant#dbd4feed.
 		v := InputReportReasonGeoIrrelevant{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
+		}
+		return &v, nil
+	case InputReportReasonFakeTypeID:
+		// Decoding inputReportReasonFake#f5ddd6e7.
+		v := InputReportReasonFake{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)
 		}

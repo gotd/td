@@ -118,8 +118,8 @@ var (
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 // Can be used by bots.
-func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerClass) (ExportedChatInviteClass, error) {
-	var result ExportedChatInviteBox
+func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerClass) (*ChatInviteExported, error) {
+	var result ChatInviteExported
 
 	request := &MessagesExportChatInviteRequest{
 		Peer: peer,
@@ -127,5 +127,5 @@ func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerCla
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.ExportedChatInvite, nil
+	return &result, nil
 }

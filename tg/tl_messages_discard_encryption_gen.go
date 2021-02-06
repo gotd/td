@@ -18,21 +18,31 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#edd923c5`.
+// MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#f393aea0`.
 // Cancels a request for creation and/or delete info on secret chat.
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
+	// Flags field of MessagesDiscardEncryptionRequest.
+	Flags bin.Fields
+	// DeleteHistory field of MessagesDiscardEncryptionRequest.
+	DeleteHistory bool
 	// Secret chat ID
 	ChatID int
 }
 
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
-const MessagesDiscardEncryptionRequestTypeID = 0xedd923c5
+const MessagesDiscardEncryptionRequestTypeID = 0xf393aea0
 
 func (d *MessagesDiscardEncryptionRequest) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Flags.Zero()) {
+		return false
+	}
+	if !(d.DeleteHistory == false) {
+		return false
 	}
 	if !(d.ChatID == 0) {
 		return false
@@ -49,6 +59,9 @@ func (d *MessagesDiscardEncryptionRequest) String() string {
 	var sb strings.Builder
 	sb.WriteString("MessagesDiscardEncryptionRequest")
 	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(fmt.Sprint(d.Flags))
+	sb.WriteString(",\n")
 	sb.WriteString("\tChatID: ")
 	sb.WriteString(fmt.Sprint(d.ChatID))
 	sb.WriteString(",\n")
@@ -65,11 +78,33 @@ func (d *MessagesDiscardEncryptionRequest) TypeID() uint32 {
 // Encode implements bin.Encoder.
 func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode messages.discardEncryption#edd923c5 as nil")
+		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
 	}
 	b.PutID(MessagesDiscardEncryptionRequestTypeID)
+	if !(d.DeleteHistory == false) {
+		d.Flags.Set(0)
+	}
+	if err := d.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.discardEncryption#f393aea0: field flags: %w", err)
+	}
 	b.PutInt(d.ChatID)
 	return nil
+}
+
+// SetDeleteHistory sets value of DeleteHistory conditional field.
+func (d *MessagesDiscardEncryptionRequest) SetDeleteHistory(value bool) {
+	if value {
+		d.Flags.Set(0)
+		d.DeleteHistory = true
+	} else {
+		d.Flags.Unset(0)
+		d.DeleteHistory = false
+	}
+}
+
+// GetDeleteHistory returns value of DeleteHistory conditional field.
+func (d *MessagesDiscardEncryptionRequest) GetDeleteHistory() (value bool) {
+	return d.Flags.Has(0)
 }
 
 // GetChatID returns value of ChatID field.
@@ -80,15 +115,21 @@ func (d *MessagesDiscardEncryptionRequest) GetChatID() (value int) {
 // Decode implements bin.Decoder.
 func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode messages.discardEncryption#edd923c5 to nil")
+		return fmt.Errorf("can't decode messages.discardEncryption#f393aea0 to nil")
 	}
 	if err := b.ConsumeID(MessagesDiscardEncryptionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.discardEncryption#edd923c5: %w", err)
+		return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: %w", err)
 	}
+	{
+		if err := d.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: field flags: %w", err)
+		}
+	}
+	d.DeleteHistory = d.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.discardEncryption#edd923c5: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: field chat_id: %w", err)
 		}
 		d.ChatID = value
 	}
@@ -101,7 +142,7 @@ var (
 	_ bin.Decoder = &MessagesDiscardEncryptionRequest{}
 )
 
-// MessagesDiscardEncryption invokes method messages.discardEncryption#edd923c5 returning error if any.
+// MessagesDiscardEncryption invokes method messages.discardEncryption#f393aea0 returning error if any.
 // Cancels a request for creation and/or delete info on secret chat.
 //
 // Possible errors:
@@ -110,12 +151,9 @@ var (
 //  400 ENCRYPTION_ID_INVALID: The provided secret chat ID is invalid
 //
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
-func (c *Client) MessagesDiscardEncryption(ctx context.Context, chatid int) (bool, error) {
+func (c *Client) MessagesDiscardEncryption(ctx context.Context, request *MessagesDiscardEncryptionRequest) (bool, error) {
 	var result BoolBox
 
-	request := &MessagesDiscardEncryptionRequest{
-		ChatID: chatid,
-	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

@@ -147,6 +147,8 @@ type User struct {
 	Scam bool
 	// If set, the profile picture for this user should be refetched
 	ApplyMinPhoto bool
+	// Fake field of User.
+	Fake bool
 	// ID of the user
 	ID int
 	// Access hash of the user
@@ -248,6 +250,9 @@ func (u *User) Zero() bool {
 		return false
 	}
 	if !(u.ApplyMinPhoto == false) {
+		return false
+	}
+	if !(u.Fake == false) {
 		return false
 	}
 	if !(u.ID == 0) {
@@ -418,6 +423,9 @@ func (u *User) Encode(b *bin.Buffer) error {
 	}
 	if !(u.ApplyMinPhoto == false) {
 		u.Flags.Set(25)
+	}
+	if !(u.Fake == false) {
+		u.Flags.Set(26)
 	}
 	if !(u.AccessHash == 0) {
 		u.Flags.Set(0)
@@ -731,6 +739,22 @@ func (u *User) GetApplyMinPhoto() (value bool) {
 	return u.Flags.Has(25)
 }
 
+// SetFake sets value of Fake conditional field.
+func (u *User) SetFake(value bool) {
+	if value {
+		u.Flags.Set(26)
+		u.Fake = true
+	} else {
+		u.Flags.Unset(26)
+		u.Fake = false
+	}
+}
+
+// GetFake returns value of Fake conditional field.
+func (u *User) GetFake() (value bool) {
+	return u.Flags.Has(26)
+}
+
 // GetID returns value of ID field.
 func (u *User) GetID() (value int) {
 	return u.ID
@@ -928,6 +952,7 @@ func (u *User) Decode(b *bin.Buffer) error {
 	u.Support = u.Flags.Has(23)
 	u.Scam = u.Flags.Has(24)
 	u.ApplyMinPhoto = u.Flags.Has(25)
+	u.Fake = u.Flags.Has(26)
 	{
 		value, err := b.Int()
 		if err != nil {

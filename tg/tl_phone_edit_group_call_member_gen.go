@@ -18,7 +18,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// PhoneEditGroupCallMemberRequest represents TL type `phone.editGroupCallMember#63146ae4`.
+// PhoneEditGroupCallMemberRequest represents TL type `phone.editGroupCallMember#a5e76cd8`.
 //
 // See https://core.telegram.org/method/phone.editGroupCallMember for reference.
 type PhoneEditGroupCallMemberRequest struct {
@@ -30,10 +30,14 @@ type PhoneEditGroupCallMemberRequest struct {
 	Call InputGroupCall
 	// UserID field of PhoneEditGroupCallMemberRequest.
 	UserID InputUserClass
+	// Volume field of PhoneEditGroupCallMemberRequest.
+	//
+	// Use SetVolume and GetVolume helpers.
+	Volume int
 }
 
 // PhoneEditGroupCallMemberRequestTypeID is TL type id of PhoneEditGroupCallMemberRequest.
-const PhoneEditGroupCallMemberRequestTypeID = 0x63146ae4
+const PhoneEditGroupCallMemberRequestTypeID = 0xa5e76cd8
 
 func (e *PhoneEditGroupCallMemberRequest) Zero() bool {
 	if e == nil {
@@ -49,6 +53,9 @@ func (e *PhoneEditGroupCallMemberRequest) Zero() bool {
 		return false
 	}
 	if !(e.UserID == nil) {
+		return false
+	}
+	if !(e.Volume == 0) {
 		return false
 	}
 
@@ -72,6 +79,11 @@ func (e *PhoneEditGroupCallMemberRequest) String() string {
 	sb.WriteString("\tUserID: ")
 	sb.WriteString(fmt.Sprint(e.UserID))
 	sb.WriteString(",\n")
+	if e.Flags.Has(1) {
+		sb.WriteString("\tVolume: ")
+		sb.WriteString(fmt.Sprint(e.Volume))
+		sb.WriteString(",\n")
+	}
 	sb.WriteString("}")
 	return sb.String()
 }
@@ -85,23 +97,29 @@ func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {
 // Encode implements bin.Encoder.
 func (e *PhoneEditGroupCallMemberRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode phone.editGroupCallMember#63146ae4 as nil")
+		return fmt.Errorf("can't encode phone.editGroupCallMember#a5e76cd8 as nil")
 	}
 	b.PutID(PhoneEditGroupCallMemberRequestTypeID)
 	if !(e.Muted == false) {
 		e.Flags.Set(0)
 	}
+	if !(e.Volume == 0) {
+		e.Flags.Set(1)
+	}
 	if err := e.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallMember#63146ae4: field flags: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallMember#a5e76cd8: field flags: %w", err)
 	}
 	if err := e.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallMember#63146ae4: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallMember#a5e76cd8: field call: %w", err)
 	}
 	if e.UserID == nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallMember#63146ae4: field user_id is nil")
+		return fmt.Errorf("unable to encode phone.editGroupCallMember#a5e76cd8: field user_id is nil")
 	}
 	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.editGroupCallMember#63146ae4: field user_id: %w", err)
+		return fmt.Errorf("unable to encode phone.editGroupCallMember#a5e76cd8: field user_id: %w", err)
+	}
+	if e.Flags.Has(1) {
+		b.PutInt(e.Volume)
 	}
 	return nil
 }
@@ -132,31 +150,53 @@ func (e *PhoneEditGroupCallMemberRequest) GetUserID() (value InputUserClass) {
 	return e.UserID
 }
 
+// SetVolume sets value of Volume conditional field.
+func (e *PhoneEditGroupCallMemberRequest) SetVolume(value int) {
+	e.Flags.Set(1)
+	e.Volume = value
+}
+
+// GetVolume returns value of Volume conditional field and
+// boolean which is true if field was set.
+func (e *PhoneEditGroupCallMemberRequest) GetVolume() (value int, ok bool) {
+	if !e.Flags.Has(1) {
+		return value, false
+	}
+	return e.Volume, true
+}
+
 // Decode implements bin.Decoder.
 func (e *PhoneEditGroupCallMemberRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode phone.editGroupCallMember#63146ae4 to nil")
+		return fmt.Errorf("can't decode phone.editGroupCallMember#a5e76cd8 to nil")
 	}
 	if err := b.ConsumeID(PhoneEditGroupCallMemberRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.editGroupCallMember#63146ae4: %w", err)
+		return fmt.Errorf("unable to decode phone.editGroupCallMember#a5e76cd8: %w", err)
 	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallMember#63146ae4: field flags: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallMember#a5e76cd8: field flags: %w", err)
 		}
 	}
 	e.Muted = e.Flags.Has(0)
 	{
 		if err := e.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallMember#63146ae4: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallMember#a5e76cd8: field call: %w", err)
 		}
 	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.editGroupCallMember#63146ae4: field user_id: %w", err)
+			return fmt.Errorf("unable to decode phone.editGroupCallMember#a5e76cd8: field user_id: %w", err)
 		}
 		e.UserID = value
+	}
+	if e.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.editGroupCallMember#a5e76cd8: field volume: %w", err)
+		}
+		e.Volume = value
 	}
 	return nil
 }
@@ -167,7 +207,7 @@ var (
 	_ bin.Decoder = &PhoneEditGroupCallMemberRequest{}
 )
 
-// PhoneEditGroupCallMember invokes method phone.editGroupCallMember#63146ae4 returning error if any.
+// PhoneEditGroupCallMember invokes method phone.editGroupCallMember#a5e76cd8 returning error if any.
 //
 // See https://core.telegram.org/method/phone.editGroupCallMember for reference.
 func (c *Client) PhoneEditGroupCallMember(ctx context.Context, request *PhoneEditGroupCallMemberRequest) (UpdatesClass, error) {

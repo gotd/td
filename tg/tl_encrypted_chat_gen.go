@@ -753,21 +753,31 @@ var (
 	_ EncryptedChatClass = &EncryptedChat{}
 )
 
-// EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#13d6dd27`.
+// EncryptedChatDiscarded represents TL type `encryptedChatDiscarded#1e1c7c45`.
 // Discarded or deleted chat.
 //
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
+	// Flags field of EncryptedChatDiscarded.
+	Flags bin.Fields
+	// HistoryDeleted field of EncryptedChatDiscarded.
+	HistoryDeleted bool
 	// Chat ID
 	ID int
 }
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
-const EncryptedChatDiscardedTypeID = 0x13d6dd27
+const EncryptedChatDiscardedTypeID = 0x1e1c7c45
 
 func (e *EncryptedChatDiscarded) Zero() bool {
 	if e == nil {
 		return true
+	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.HistoryDeleted == false) {
+		return false
 	}
 	if !(e.ID == 0) {
 		return false
@@ -784,6 +794,9 @@ func (e *EncryptedChatDiscarded) String() string {
 	var sb strings.Builder
 	sb.WriteString("EncryptedChatDiscarded")
 	sb.WriteString("{\n")
+	sb.WriteString("\tFlags: ")
+	sb.WriteString(fmt.Sprint(e.Flags))
+	sb.WriteString(",\n")
 	sb.WriteString("\tID: ")
 	sb.WriteString(fmt.Sprint(e.ID))
 	sb.WriteString(",\n")
@@ -800,11 +813,33 @@ func (e *EncryptedChatDiscarded) TypeID() uint32 {
 // Encode implements bin.Encoder.
 func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode encryptedChatDiscarded#13d6dd27 as nil")
+		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
 	}
 	b.PutID(EncryptedChatDiscardedTypeID)
+	if !(e.HistoryDeleted == false) {
+		e.Flags.Set(0)
+	}
+	if err := e.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
+	}
 	b.PutInt(e.ID)
 	return nil
+}
+
+// SetHistoryDeleted sets value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) SetHistoryDeleted(value bool) {
+	if value {
+		e.Flags.Set(0)
+		e.HistoryDeleted = true
+	} else {
+		e.Flags.Unset(0)
+		e.HistoryDeleted = false
+	}
+}
+
+// GetHistoryDeleted returns value of HistoryDeleted conditional field.
+func (e *EncryptedChatDiscarded) GetHistoryDeleted() (value bool) {
+	return e.Flags.Has(0)
 }
 
 // GetID returns value of ID field.
@@ -815,15 +850,21 @@ func (e *EncryptedChatDiscarded) GetID() (value int) {
 // Decode implements bin.Decoder.
 func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode encryptedChatDiscarded#13d6dd27 to nil")
+		return fmt.Errorf("can't decode encryptedChatDiscarded#1e1c7c45 to nil")
 	}
 	if err := b.ConsumeID(EncryptedChatDiscardedTypeID); err != nil {
-		return fmt.Errorf("unable to decode encryptedChatDiscarded#13d6dd27: %w", err)
+		return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: %w", err)
 	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
+		}
+	}
+	e.HistoryDeleted = e.Flags.Has(0)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode encryptedChatDiscarded#13d6dd27: field id: %w", err)
+			return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: field id: %w", err)
 		}
 		e.ID = value
 	}
@@ -855,7 +896,7 @@ var (
 //  case *EncryptedChatWaiting: // encryptedChatWaiting#3bf703dc
 //  case *EncryptedChatRequested: // encryptedChatRequested#62718a82
 //  case *EncryptedChat: // encryptedChat#fa56ce36
-//  case *EncryptedChatDiscarded: // encryptedChatDiscarded#13d6dd27
+//  case *EncryptedChatDiscarded: // encryptedChatDiscarded#1e1c7c45
 //  default: panic(v)
 //  }
 type EncryptedChatClass interface {
@@ -911,7 +952,7 @@ func DecodeEncryptedChat(buf *bin.Buffer) (EncryptedChatClass, error) {
 		}
 		return &v, nil
 	case EncryptedChatDiscardedTypeID:
-		// Decoding encryptedChatDiscarded#13d6dd27.
+		// Decoding encryptedChatDiscarded#1e1c7c45.
 		v := EncryptedChatDiscarded{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode EncryptedChatClass: %w", err)
