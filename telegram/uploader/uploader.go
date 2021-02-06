@@ -91,7 +91,7 @@ func (u *Uploader) uploadSmall(ctx context.Context, upload *Upload) (tg.InputFil
 		ID:          upload.id,
 		Parts:       int(upload.sentParts.Load()),
 		Name:        upload.name,
-		Md5Checksum: hex.EncodeToString(h.Sum(nil)),
+		MD5Checksum: hex.EncodeToString(h.Sum(nil)),
 	}, nil
 }
 
