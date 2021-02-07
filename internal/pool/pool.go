@@ -127,8 +127,7 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 		c.free = c.free[:len(c.free)-1]
 	}
 
-	c.log.Debug(
-		"Connection died",
+	c.log.Debug("Connection died",
 		zap.Int64("remaining", remaining),
 		zap.Int64("conn_id", r.id),
 		zap.Error(deadErr),
