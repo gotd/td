@@ -248,7 +248,7 @@ var (
 //  400 CHANNEL_PRIVATE: You haven't joined this channel/supergroup
 //  400 INPUT_USER_DEACTIVATED: The specified user was deleted
 //  400 MSG_ID_INVALID: Invalid message ID provided
-//  503 TIMEOUT: Timeout while fetching data
+//  -503 Timeout: Timeout while fetching data
 //
 // See https://core.telegram.org/method/messages.getInlineBotResults for reference.
 func (c *Client) MessagesGetInlineBotResults(ctx context.Context, request *MessagesGetInlineBotResultsRequest) (*MessagesBotResults, error) {

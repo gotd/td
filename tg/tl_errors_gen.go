@@ -2109,14 +2109,6 @@ func IsThemeInvalid(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrThemeInvalid})
 }
 
-// ErrTimeout is error type for "TIMEOUT".
-const ErrTimeout = "TIMEOUT"
-
-// IsTimeout reports whether err is TIMEOUT.
-func IsTimeout(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrTimeout})
-}
-
 // ErrTmpPasswordDisabled is error type for "TMP_PASSWORD_DISABLED".
 const ErrTmpPasswordDisabled = "TMP_PASSWORD_DISABLED"
 
@@ -2155,6 +2147,14 @@ const ErrTypesEmpty = "TYPES_EMPTY"
 // IsTypesEmpty reports whether err is TYPES_EMPTY.
 func IsTypesEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrTypesEmpty})
+}
+
+// ErrTimeout is error type for "Timeout".
+const ErrTimeout = "Timeout"
+
+// IsTimeout reports whether err is Timeout.
+func IsTimeout(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrTimeout})
 }
 
 // ErrUntilDateInvalid is error type for "UNTIL_DATE_INVALID".
