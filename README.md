@@ -33,6 +33,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * Secure PRNG used for crypto
 * 2FA support
 * MTProxy support
+* Connection pooling
 
 ## Example
 
