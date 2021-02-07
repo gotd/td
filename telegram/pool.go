@@ -19,7 +19,7 @@ func (c *Client) createPool(id int, max int64, creator func() pool.Conn) (tg.Inv
 	default:
 	}
 
-	p := pool.NewDC(id, creator, pool.DCOptions{
+	p := pool.NewDC(c.ctx, id, creator, pool.DCOptions{
 		Logger:             c.log.Named("pool").With(zap.Int("dc_id", id)),
 		MaxOpenConnections: max,
 	})
