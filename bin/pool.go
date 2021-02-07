@@ -32,3 +32,12 @@ func (b *Pool) Put(buf *Buffer) {
 func (b *Pool) Get() *Buffer {
 	return b.pool.Get().(*Buffer)
 }
+
+// GetSize takes buffer with given size from pool.
+func (b *Pool) GetSize(length int) *Buffer {
+	buf := b.Get()
+	buf.ResetN(length)
+
+	return buf
+}
+

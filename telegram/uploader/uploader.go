@@ -9,6 +9,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
 )
@@ -18,7 +19,7 @@ type Uploader struct {
 	rpc      *tg.Client
 	id       func() (int64, error)
 	partSize int
-	pool     *bufferPool
+	pool     *bin.Pool
 	threads  int
 	progress Progress
 }
@@ -60,7 +61,7 @@ func (u *Uploader) WithIDGenerator(cb func() (int64, error)) *Uploader {
 // See https://core.telegram.org/api/files#uploading-files.
 func (u *Uploader) WithPartSize(partSize int) *Uploader {
 	u.partSize = partSize
-	u.pool = newBufferPool(partSize)
+	u.pool = bin.NewPool(partSize)
 	return u
 }
 
