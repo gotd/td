@@ -186,8 +186,7 @@ retry:
 		c.mu.Unlock()
 
 		id := c.nextConn.Inc()
-		c.log.Debug(
-			"Creating new connection",
+		c.log.Debug("Creating new connection",
 			zap.Int64("conn_id", id),
 		)
 		conn := c.createConnection(id)
