@@ -103,7 +103,7 @@ jobs:
           GOTD_TEST_EXTERNAL: 1
           GOTD_MTPROXY_ADDR: "localhost:3128"
         # Run all tests that starts with "TestExternalE2E".
-        run: go test -race -v -run ^TestExternalE2E ./...
+        run: go test -v -run ^TestExternalE2E ./...
   coverage:
     runs-on: ubuntu-latest
     strategy:
