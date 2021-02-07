@@ -53,13 +53,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 		}
 
 		upload.sentParts.Inc()
-		uploaded, parts := upload.confirm(n)
-		if err := u.callback(ctx, ProgressState{
-			Part:     parts,
-			PartSize: u.partSize,
-			Uploaded: uploaded,
-			Total:    int(upload.totalBytes),
-		}); err != nil {
+		if err := u.callback(ctx, upload.confirmSmall(n)); err != nil {
 			return xerrors.Errorf("progress callback: %w", err)
 		}
 

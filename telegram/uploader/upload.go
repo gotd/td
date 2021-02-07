@@ -3,35 +3,23 @@ package uploader
 
 import (
 	"io"
-	"os"
-	"path/filepath"
 
 	"go.uber.org/atomic"
-
-	"golang.org/x/xerrors"
 )
-
-// Reader is a file upload reader.
-type Reader interface {
-	io.Reader
-	io.ReaderAt
-}
 
 // NewUpload creates new Upload struct using given
 // name and reader.
-func NewUpload(name string, from Reader, total int64) *Upload {
+func NewUpload(name string, from io.Reader, total int64) *Upload {
 	return &Upload{
 		name:       name,
 		totalBytes: total,
 		from:       from,
-		fromAt:     from,
 		partSize:   -1,
 	}
 }
 
 // FromReader creates new Upload struct using
 // given io.Reader.
-// Note: Upload created with this builder will not be seekable, so upload can't be repeatable.
 func FromReader(name string, from io.Reader, total int64) *Upload {
 	return &Upload{
 		name:       name,
@@ -39,39 +27,6 @@ func FromReader(name string, from io.Reader, total int64) *Upload {
 		from:       from,
 		partSize:   -1,
 	}
-}
-
-// File is file abstraction.
-type File interface {
-	Name() string
-	Stat() (os.FileInfo, error)
-
-	io.Reader
-	io.ReaderAt
-}
-
-var _ File = (*os.File)(nil)
-
-// FromFile creates new Upload struct using
-// given File.
-func FromFile(f File) (*Upload, error) {
-	info, err := f.Stat()
-	if err != nil {
-		return nil, xerrors.Errorf("stat: %w", err)
-	}
-
-	return NewUpload(f.Name(), f, info.Size()), nil
-}
-
-// FromPath creates new Upload struct using
-// given path.
-func FromPath(path string) (*Upload, error) {
-	f, err := os.Open(filepath.Clean(path))
-	if err != nil {
-		return nil, xerrors.Errorf("open: %w", err)
-	}
-
-	return FromFile(f)
 }
 
 // Upload represents Telegram file upload.
@@ -98,12 +53,22 @@ type Upload struct {
 	name string // immutable
 	// Reader of data.
 	from io.Reader // immutable
-	// Seekable reader of data.
-	fromAt io.ReaderAt // immutable
 }
 
-func (u *Upload) confirm(bytes int) (uploaded, parts int) {
-	uploaded = int(u.confirmedBytes.Add(int64(bytes)))
-	parts = int(u.confirmedParts.Inc())
-	return
+func (u *Upload) confirmSmall(bytes int) ProgressState {
+	part := int(u.confirmedParts.Inc())
+	return u.confirm(part, bytes)
+}
+
+func (u *Upload) confirm(part, bytes int) ProgressState {
+	uploaded := int(u.confirmedBytes.Add(int64(bytes)))
+
+	return ProgressState{
+		ID:       u.id,
+		Name:     u.name,
+		Part:     part,
+		PartSize: u.partSize,
+		Uploaded: uploaded,
+		Total:    int(u.totalBytes),
+	}
 }

@@ -40,4 +40,3 @@ func (b *Pool) GetSize(length int) *Buffer {
 
 	return buf
 }
-

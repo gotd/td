@@ -107,13 +107,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 						return xerrors.Errorf("upload part: %w", err)
 					}
 
-					uploaded, _ := upload.confirm(n)
-					if err := u.callback(ctx, ProgressState{
-						Part:     part.id,
-						PartSize: u.partSize,
-						Uploaded: uploaded,
-						Total:    int(upload.totalBytes),
-					}); err != nil {
+					if err := u.callback(ctx, upload.confirm(part.id, n)); err != nil {
 						return xerrors.Errorf("progress callback: %w", err)
 					}
 				}
