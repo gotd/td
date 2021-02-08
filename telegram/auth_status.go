@@ -3,6 +3,8 @@ package telegram
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
