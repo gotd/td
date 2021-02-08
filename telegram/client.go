@@ -72,13 +72,15 @@ type Client struct {
 	opts mtproto.Options // immutable
 
 	// Connection state. Guarded by connMux.
-	session *syncSessionData
-	conn    clientConn
-	cfg     *atomicConfig
-	connMux sync.Mutex
+	session   *syncSessionData
+	cfg       *atomicConfig
+	conn      clientConn
+	connMux   sync.Mutex
+	primaryDC atomic.Int64
 
 	// Restart signal channel.
-	restart chan struct{} // immutable
+	restart  chan struct{}                      // immutable
+	exported chan *tg.AuthExportedAuthorization // immutable
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
@@ -149,11 +151,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			Addr: opt.Addr,
 			DC:   opt.DC,
 		}),
-		cfg:     &atomicConfig{},
-		clock:   opt.Clock,
-		device:  opt.Device,
-		ready:   tdsync.NewResetReady(),
-		restart: make(chan struct{}),
+		cfg:       &atomicConfig{},
+		primaryDC: *atomic.NewInt64(int64(opt.DC)),
+		clock:     opt.Clock,
+		device:    opt.Device,
+		ready:     tdsync.NewResetReady(),
+		restart:   make(chan struct{}),
+		exported:  make(chan *tg.AuthExportedAuthorization, 1),
 	}
 
 	// Including version into client logger to help with debugging.
@@ -228,6 +232,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		AuthKey: key,
 		Salt:    data.Salt,
 	})
+	c.primaryDC.Store(int64(data.DC))
 	c.conn = c.createConn(connModeUpdates)
 	c.connMux.Unlock()
 
@@ -281,7 +286,18 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 			c.log.Info("Restarting connection", zap.Error(err))
 
 			c.connMux.Lock()
-			c.conn = c.createConn(connModeUpdates)
+			c.conn = c.buildConn(connModeUpdates).WithSetup(func(ctx context.Context, invoker tg.Invoker) error {
+				select {
+				case export := <-c.exported:
+					_, err := tg.NewClient(invoker).AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
+						ID:    export.ID,
+						Bytes: export.Bytes,
+					})
+					return err
+				default:
+				}
+				return nil
+			}).Build()
 			c.connMux.Unlock()
 		}
 	}
@@ -344,6 +360,11 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 
 func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) error {
 	if c.storage == nil {
+		return nil
+	}
+
+	// Do not save session for non-primary DC.
+	if cfg.ThisDC != 0 && c.primaryDC.Load() != int64(cfg.ThisDC) {
 		return nil
 	}
 

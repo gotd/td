@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (c *Client) ensureRestart(ctx context.Context) error {
+func (c *Client) ensureRestart(ctx context.Context, export *tg.AuthExportedAuthorization) error {
 	c.log.Debug("Triggering restart")
 	c.resetReady()
 
@@ -20,6 +20,16 @@ func (c *Client) ensureRestart(ctx context.Context) error {
 	case c.restart <- struct{}{}:
 		c.log.Debug("Restart initialized")
 	}
+
+	if export != nil {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case c.exported <- export:
+			c.log.Debug("Sent export authorization")
+		}
+	}
+
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
@@ -40,7 +50,7 @@ func findDC(cfg tg.Config, dcID int) (dc tg.DcOption, ok bool) {
 	return
 }
 
-func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
+func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
 	dc, ok := findDC(c.cfg.Load(), dcID)
 	if !ok {
 		return xerrors.Errorf("failed to find DC %d", dcID)
@@ -57,6 +67,17 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int) error {
 	addr := fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port)
 	c.log.Info("Selected new addr from config", zap.String("addr", addr))
 
+	var export *tg.AuthExportedAuthorization
+	if transfer {
+		var err error
+		export, err = c.exportAuth(ctx, dcID)
+		if err != nil {
+			if !unauthorized(err) {
+				c.log.Info("Export authorization failed", zap.Error(err))
+			}
+		}
+	}
+
 	c.session.Migrate(dcID, addr)
-	return c.ensureRestart(ctx)
+	return c.ensureRestart(ctx, export)
 }

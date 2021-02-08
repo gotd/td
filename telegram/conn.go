@@ -46,6 +46,10 @@ type conn struct {
 	appID  int          // immutable
 	device DeviceConfig // immutable
 
+	// setup is callback which called after initConnection, but before ready signaling.
+	// This is necessary to transfer auth from previous connection to another DC.
+	setup func(ctx context.Context, invoker tg.Invoker) error // nilable
+
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
 	clock clock.Clock // immutable
@@ -148,7 +152,7 @@ type noopDecoder struct {
 }
 
 func (n noopDecoder) Decode(b *bin.Buffer) error {
-	panic("implement me")
+	return xerrors.New("not implemented")
 }
 
 func (c *conn) wrapRequest(req bin.Object) bin.Object {
@@ -183,6 +187,12 @@ func (c *conn) init(ctx context.Context) error {
 	var cfg tg.Config
 	if err := c.proto.InvokeRaw(ctx, req, &cfg); err != nil {
 		return xerrors.Errorf("invoke: %w", err)
+	}
+
+	if c.setup != nil {
+		if err := c.setup(ctx, c); err != nil {
+			return xerrors.Errorf("setup: %w")
+		}
 	}
 
 	c.mux.Lock()
