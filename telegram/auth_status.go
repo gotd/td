@@ -3,6 +3,8 @@ package telegram
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
@@ -34,4 +36,20 @@ func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 		Authorized: true,
 		User:       u,
 	}, nil
+}
+
+// AuthIfNecessary runs given auth flow if current session is not authorized.
+func (c *Client) AuthIfNecessary(ctx context.Context, flow AuthFlow) error {
+	auth, err := c.AuthStatus(ctx)
+	if err != nil {
+		return xerrors.Errorf("get auth status: %w", err)
+	}
+
+	if !auth.Authorized {
+		if err := flow.Run(ctx, c); err != nil {
+			return xerrors.Errorf("auth flow: %w", err)
+		}
+	}
+
+	return nil
 }

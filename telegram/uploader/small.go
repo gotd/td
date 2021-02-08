@@ -18,7 +18,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 	r := io.LimitReader(upload.from, bigFileLimit)
 	r = io.TeeReader(r, h)
 	for {
-		n, err := io.ReadFull(r, buf)
+		n, err := io.ReadFull(r, buf.Buf)
 		switch {
 		case xerrors.Is(err, io.ErrUnexpectedEOF):
 			last = true
@@ -27,7 +27,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 		case err != nil:
 			return xerrors.Errorf("read source: %w", err)
 		}
-		read := buf[:n]
+		read := buf.Buf[:n]
 
 		// Upload loop.
 		for {
@@ -53,13 +53,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 		}
 
 		upload.sentParts.Inc()
-		uploaded, parts := upload.confirm(n)
-		if err := u.callback(ctx, ProgressState{
-			Part:     parts,
-			PartSize: u.partSize,
-			Uploaded: uploaded,
-			Total:    int(upload.totalBytes),
-		}); err != nil {
+		if err := u.callback(ctx, upload.confirmSmall(n)); err != nil {
 			return xerrors.Errorf("progress callback: %w", err)
 		}
 

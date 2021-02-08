@@ -4,6 +4,8 @@ import "context"
 
 // ProgressState represents upload state change.
 type ProgressState struct {
+	ID       int64
+	Name     string
 	Part     int
 	PartSize int
 	Uploaded int

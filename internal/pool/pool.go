@@ -62,8 +62,8 @@ type DC struct {
 }
 
 // NewDC creates new uninitialized DC.
-func NewDC(id int, newConn func() Conn, opts DCOptions) *DC {
-	ctx, cancel := context.WithCancel(context.Background())
+func NewDC(ctx context.Context, id int, newConn func() Conn, opts DCOptions) *DC {
+	ctx, cancel := context.WithCancel(ctx)
 
 	return &DC{
 		id:      id,

@@ -1,6 +1,8 @@
 package telegram
 
 import (
+	"context"
+
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
@@ -11,6 +13,11 @@ import (
 
 type connBuilder struct {
 	conn *conn
+}
+
+func (b connBuilder) WithSetup(f func(ctx context.Context, invoker tg.Invoker) error) connBuilder {
+	b.conn.setup = f
+	return b
 }
 
 func (b connBuilder) WithAddr(addr string) connBuilder {

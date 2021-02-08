@@ -20,7 +20,20 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 			c.log.Info("Got migrate error: Starting migration to another dc",
 				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
 			)
-			if err := c.migrateToDc(c.ctx, rpcErr.Argument); err != nil {
+
+			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
+			// called by authorized client, so we should try to transfer auth to new DC
+			// and shouldn't rewrite old session.
+			transfer := rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE")
+			// Otherwise we should change primary DC ID.
+			if !transfer {
+				c.primaryDC.Store(int64(rpcErr.Argument))
+			}
+
+			if err := c.migrateToDc(
+				c.ctx, rpcErr.Argument,
+				transfer,
+			); err != nil {
 				return xerrors.Errorf("migrate to dc: %w", err)
 			}
 			// Re-trying request on another connection.

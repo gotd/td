@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"strconv"
 	"strings"
 
@@ -124,17 +125,20 @@ type UserAuthenticator interface {
 	CodeAuthenticator
 }
 
-type constantAuth struct {
-	phone, password string
-	CodeAuthenticator
-}
+type noSignUp struct{}
 
-func (c constantAuth) SignUp(ctx context.Context) (UserInfo, error) {
+func (c noSignUp) SignUp(ctx context.Context) (UserInfo, error) {
 	return UserInfo{}, xerrors.New("not implemented")
 }
 
-func (c constantAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
+func (c noSignUp) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
 	return &SignUpRequired{TermsOfService: tos}
+}
+
+type constantAuth struct {
+	phone, password string
+	CodeAuthenticator
+	noSignUp
 }
 
 func (c constantAuth) Phone(ctx context.Context) (string, error) {
@@ -151,6 +155,38 @@ func ConstantAuth(phone, password string, code CodeAuthenticator) UserAuthentica
 		phone:             phone,
 		password:          password,
 		CodeAuthenticator: code,
+	}
+}
+
+type envAuth struct {
+	prefix string
+	CodeAuthenticator
+	noSignUp
+}
+
+func (e envAuth) lookup(k string) (string, error) {
+	env := e.prefix + k
+	v, ok := os.LookupEnv(env)
+	if !ok {
+		return "", xerrors.Errorf("environment variable %q not set", env)
+	}
+	return v, nil
+}
+
+func (e envAuth) Phone(ctx context.Context) (string, error) {
+	return e.lookup("PHONE")
+}
+
+func (e envAuth) Password(ctx context.Context) (string, error) {
+	return e.lookup("PASSWORD")
+}
+
+// EnvAuth creates UserAuthenticator which gets phone and password from environment variables.
+func EnvAuth(prefix string, code CodeAuthenticator) UserAuthenticator {
+	return envAuth{
+		prefix:            prefix,
+		CodeAuthenticator: code,
+		noSignUp:          noSignUp{},
 	}
 }
 

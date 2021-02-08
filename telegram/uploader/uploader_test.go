@@ -197,11 +197,6 @@ func TestExternalE2EVideoUpload(t *testing.T) {
 			return xerrors.Errorf("self: %w", err)
 		}
 
-		upload, err := FromPath("./testdata/video.mp4")
-		if err != nil {
-			return err
-		}
-
 		invoker, err := client.Pool(2)
 		if err != nil {
 			return xerrors.Errorf("pool: %w", err)
@@ -211,7 +206,7 @@ func TestExternalE2EVideoUpload(t *testing.T) {
 		f, err := NewUploader(raw).
 			WithPartSize(MaximumPartSize).
 			WithProgress(progressLogger{logger.Named("progress")}).
-			Upload(ctx, upload)
+			FromPath(ctx, "./testdata/video.mp4")
 		if err != nil {
 			return xerrors.Errorf("upload: %w", err)
 		}

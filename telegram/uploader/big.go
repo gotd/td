@@ -6,14 +6,14 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/tdsync"
-
 	"github.com/gotd/td/tg"
 )
 
 type part struct {
 	id     int
-	buf    []byte
+	buf    *bin.Buffer
 	upload *Upload
 }
 
@@ -26,7 +26,7 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 			FileID:         p.upload.id,
 			FilePart:       p.id,
 			FileTotalParts: p.upload.totalParts,
-			Bytes:          p.buf,
+			Bytes:          p.buf.Buf,
 		})
 
 		if flood, err := floodWait(ctx, err); err != nil {
@@ -38,7 +38,7 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 
 		// If Telegram returned false, it seems save is not successful, so we retry to send.
 		if r {
-			return len(p.buf), nil
+			return p.buf.Len(), nil
 		}
 	}
 }
@@ -55,7 +55,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 		for {
 			buf := u.pool.GetSize(u.partSize)
 
-			n, err := io.ReadFull(r, buf)
+			n, err := io.ReadFull(r, buf.Buf)
 			switch {
 			case xerrors.Is(err, io.ErrUnexpectedEOF):
 				last = true
@@ -70,9 +70,10 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 				return xerrors.Errorf("read source: %w", err)
 			}
 
+			buf.Buf = buf.Buf[:n]
 			nextPart := part{
 				id:     int(upload.sentParts.Load()) % partsLimit,
-				buf:    buf[:n],
+				buf:    buf,
 				upload: upload,
 			}
 			select {
@@ -106,13 +107,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 						return xerrors.Errorf("upload part: %w", err)
 					}
 
-					uploaded, _ := upload.confirm(n)
-					if err := u.callback(ctx, ProgressState{
-						Part:     part.id,
-						PartSize: u.partSize,
-						Uploaded: uploaded,
-						Total:    int(upload.totalBytes),
-					}); err != nil {
+					if err := u.callback(ctx, upload.confirm(part.id, n)); err != nil {
 						return xerrors.Errorf("progress callback: %w", err)
 					}
 				}
