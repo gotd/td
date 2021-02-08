@@ -35,3 +35,19 @@ func (c *Client) AuthStatus(ctx context.Context) (*AuthStatus, error) {
 		User:       u,
 	}, nil
 }
+
+// AuthIfNecessary runs given auth flow if current session is not authorized.
+func (c *Client) AuthIfNecessary(ctx context.Context, flow AuthFlow) error {
+	auth, err := c.AuthStatus(ctx)
+	if err != nil {
+		return xerrors.Errorf("get auth status: %w", err)
+	}
+
+	if !auth.Authorized {
+		if err := flow.Run(ctx, c); err != nil {
+			return xerrors.Errorf("auth flow: %w", err)
+		}
+	}
+
+	return nil
+}
