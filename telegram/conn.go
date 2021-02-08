@@ -191,7 +191,7 @@ func (c *conn) init(ctx context.Context) error {
 
 	if c.setup != nil {
 		if err := c.setup(ctx, c); err != nil {
-			return xerrors.Errorf("setup: %w")
+			return xerrors.Errorf("setup: %w", err)
 		}
 	}
 
