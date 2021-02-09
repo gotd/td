@@ -6,6 +6,7 @@ Telegram client implementation in go.
 * [User support and dev chat](.github/SUPPORT.md)
 * [Roadmap](ROADMAP.md)
 * [Contributing](CONTRIBUTING.md)
+* [Architecture](ARCHITECTURE.md)
 
 Before using this library, read [How Not To Get Banned](https://github.com/gotd/td/blob/main/.github/SUPPORT.md#how-not-to-get-banned) guide.
 

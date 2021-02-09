@@ -1,5 +1,7 @@
 # Contributing
 
+See [architecture](ARCHITECTURE.md) for general architecture description.
+
 This project uses [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 Before creating pull request, please read [coding guidelines](https://github.com/uber-go/guide/blob/master/style.md) and
