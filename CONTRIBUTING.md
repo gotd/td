@@ -11,7 +11,7 @@ General tradeoffs:
 * Less is more
 * Maintainability > feature bloat
 * Simplicity > speed
-* Consistency > elegancy
+* Consistency > elegance
 
 ## Testing
 
