@@ -43,7 +43,7 @@ Please, use staging instead.
 Please provide [benchcmp](https://godoc.org/golang.org/x/tools/cmd/benchcmp) output if your PR
 tries to optimize something.
 
-Note that in most cases readability is more important that speed.
+Note that in most cases readability is more important than speed.
 
 
 ## Features
