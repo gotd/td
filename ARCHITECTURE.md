@@ -6,7 +6,7 @@ Subprojects:
 
 |name|description|
 |----|-----------|
-|[getdoc](https://github.com/gotd/getdoc)| Documentation extraction (method description, error messages |
+|[getdoc](https://github.com/gotd/getdoc)| Documentation extraction (method description, error messages, etc) |
 |[tl](https://github.com/gotd/tl)        | Schema parser and writer |
 |[ige](https://github.com/gotd/ige)      | AES-IGE block cipher for crypto |
 
