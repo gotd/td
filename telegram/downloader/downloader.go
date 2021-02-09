@@ -19,7 +19,7 @@ type Downloader struct {
 }
 
 const (
-	defaultPartSize = 1024 * 1024
+	defaultPartSize = 512 * 1024
 )
 
 // NewDownloader creates new Downloader.
