@@ -3,8 +3,6 @@ package telegram_test
 import (
 	"context"
 	"crypto/rand"
-	"os"
-	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -16,6 +14,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
@@ -51,9 +50,7 @@ func testTransport(trp telegram.Transport) func(t *testing.T) {
 }
 
 func TestExternalE2EConnect(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
-		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
-	}
+	testutil.SkipExternal(t)
 
 	t.Run("Abridged", testTransport(transport.Abridged(nil)))
 	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
@@ -75,9 +72,7 @@ const dialog = `— Да?
 — Ну тебе.`
 
 func TestExternalE2EUsersDialog(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
-		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
-	}
+	testutil.SkipExternal(t)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()

@@ -8,8 +8,6 @@ import (
 	"image/color"
 	"image/png"
 	"io"
-	"os"
-	"strconv"
 	"testing"
 	"testing/iotest"
 	"time"
@@ -21,6 +19,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 )
@@ -123,9 +122,7 @@ func (g *generator) Read(p []byte) (n int, err error) {
 }
 
 func TestExternalE2EDocUpload(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
-		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
-	}
+	testutil.SkipExternal(t)
 
 	a := require.New(t)
 	logger := zaptest.NewLogger(t, zaptest.Level(zapcore.InfoLevel))
@@ -180,9 +177,7 @@ func TestExternalE2EDocUpload(t *testing.T) {
 }
 
 func TestExternalE2EVideoUpload(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
-		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
-	}
+	testutil.SkipExternal(t)
 
 	a := require.New(t)
 	logger := zaptest.NewLogger(t, zaptest.Level(zapcore.InfoLevel))
@@ -237,9 +232,7 @@ func TestExternalE2EVideoUpload(t *testing.T) {
 }
 
 func TestExternalE2EProfilePhotoUpload(t *testing.T) {
-	if ok, _ := strconv.ParseBool(os.Getenv("GOTD_TEST_EXTERNAL")); !ok {
-		t.Skip("Skipped. Set GOTD_TEST_EXTERNAL=1 to enable external e2e test.")
-	}
+	testutil.SkipExternal(t)
 
 	t.Run("LessThanPart", testProfilePhotoUploader(func() *image.RGBA {
 		return generateImage(255, 255)
