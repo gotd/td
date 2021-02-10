@@ -7,6 +7,7 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
 
@@ -54,6 +55,28 @@ func findDC(cfg tg.Config, dcID int, noIPv6 bool) (dc tg.DcOption, ok bool) {
 	return
 }
 
+func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder, output bin.Decoder) error {
+	c.migration.Lock()
+	defer c.migration.Unlock()
+
+	// Check if someone already migrated.
+	s := c.session.Load()
+	if s.DC == dcID {
+		return c.invokeRaw(ctx, input, output)
+	}
+
+	if err := c.migrateToDc(
+		c.ctx, dcID,
+		// TODO(tdakkota): Is it may be necessary to migrate if error is not FILE_MIGRATE or STATS_MIGRATE?
+		false,
+	); err != nil {
+		return xerrors.Errorf("migrate to dc: %w", err)
+	}
+
+	// Re-trying request on another connection.
+	return c.invokeRaw(ctx, input, output)
+}
+
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
 	dc, ok := findDC(c.cfg.Load(), dcID, true)
 	if !ok {
@@ -83,5 +106,6 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 	}
 
 	c.session.Migrate(dcID, addr)
+	c.primaryDC.Store(int64(dcID))
 	return c.ensureRestart(ctx, export)
 }

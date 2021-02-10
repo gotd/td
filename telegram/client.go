@@ -80,8 +80,10 @@ type Client struct {
 	primaryDC atomic.Int64
 
 	// Restart signal channel.
-	restart  chan struct{}                      // immutable
-	exported chan *tg.AuthExportedAuthorization // immutable
+	restart chan struct{} // immutable
+	// Migration state.
+	exported  chan *tg.AuthExportedAuthorization // immutable
+	migration sync.Mutex
 
 	// Connections to non-primary DC.
 	subConns    map[int]tg.Invoker
