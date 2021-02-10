@@ -6,6 +6,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
@@ -20,14 +21,15 @@ func (b connBuilder) WithSetup(f func(ctx context.Context, invoker tg.Invoker) e
 	return b
 }
 
-func (b connBuilder) WithAddr(addr string) connBuilder {
-	b.conn.addr = addr
-	return b
-}
+func (b connBuilder) WithOptions(dc int, addr string, opts mtproto.Options) connBuilder {
+	b.conn.log = opts.Logger.Named("conn").With(
+		zap.Int64("conn_id", b.conn.id),
+		zap.Int("dc_id", dc),
+	)
 
-func (b connBuilder) WithOptions(opts mtproto.Options) connBuilder {
+	b.conn.addr = addr
 	opts.Handler = b.conn
-	opts.Logger = b.conn.log.Named("mtproto")
+	opts.Logger = b.conn.log.Named("mtproto").With(zap.String("addr", b.conn.addr))
 	b.conn.proto = mtproto.New(b.conn.addr, opts)
 	return b
 }
@@ -56,30 +58,26 @@ func (b connBuilder) Build() *conn {
 	return b.conn
 }
 
-func (c *Client) buildConn(mode connMode) connBuilder {
-	opts, s := c.session.Options(c.opts)
+func (c *Client) buildConn(mode connMode, session *pool.SyncSession) connBuilder {
+	opts, s := session.Options(c.opts)
 
 	var id int64
 	if mode != connModeUpdates {
 		id = c.connsCounter.Inc()
 	}
 
-	logger := opts.Logger.Named("conn").With(
-		zap.Int64("conn_id", id),
-		zap.Int("dc_id", s.DC),
-	)
 	connection := &conn{
+		id:          id,
 		addr:        s.Addr,
 		mode:        mode,
 		appID:       c.appID,
 		device:      c.device,
 		clock:       opts.Clock,
-		log:         logger,
 		handler:     c,
 		sessionInit: tdsync.NewReady(),
 		gotConfig:   tdsync.NewReady(),
 		dead:        tdsync.NewReady(),
 	}
 
-	return connBuilder{conn: connection}.WithOptions(opts)
+	return connBuilder{conn: connection}.WithOptions(s.DC, s.Addr, opts)
 }

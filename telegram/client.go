@@ -18,6 +18,7 @@ import (
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
@@ -72,7 +73,7 @@ type Client struct {
 	opts mtproto.Options // immutable
 
 	// Connection state. Guarded by connMux.
-	session   *syncSessionData
+	session   *pool.SyncSession
 	cfg       *atomicConfig
 	conn      clientConn
 	connMux   sync.Mutex
@@ -81,6 +82,12 @@ type Client struct {
 	// Restart signal channel.
 	restart  chan struct{}                      // immutable
 	exported chan *tg.AuthExportedAuthorization // immutable
+
+	// Connections to non-primary DC.
+	subConns    map[int]tg.Invoker
+	subConnsMux sync.Mutex
+	sessions    map[int]*pool.SyncSession
+	sessionsMux sync.Mutex
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
@@ -147,7 +154,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appID:         appID,
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
-		session: newSyncSessionData(sessionData{
+		session: pool.NewSyncSession(pool.Session{
 			Addr: opt.Addr,
 			DC:   opt.DC,
 		}),
@@ -158,6 +165,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		ready:     tdsync.NewResetReady(),
 		restart:   make(chan struct{}),
 		exported:  make(chan *tg.AuthExportedAuthorization, 1),
+		sessions:  map[int]*pool.SyncSession{},
+		subConns:  map[int]tg.Invoker{},
 	}
 
 	// Including version into client logger to help with debugging.
@@ -226,7 +235,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	)
 
 	c.connMux.Lock()
-	c.session.Store(sessionData{
+	c.session.Store(pool.Session{
 		DC:      data.DC,
 		Addr:    data.Addr,
 		AuthKey: key,
@@ -286,7 +295,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 			c.log.Info("Restarting connection", zap.Error(err))
 
 			c.connMux.Lock()
-			c.conn = c.buildConn(connModeUpdates).WithSetup(func(ctx context.Context, invoker tg.Invoker) error {
+			c.conn = c.buildConn(connModeUpdates, c.session).WithSetup(func(ctx context.Context, invoker tg.Invoker) error {
 				select {
 				case export := <-c.exported:
 					_, err := tg.NewClient(invoker).AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
@@ -363,11 +372,6 @@ func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) erro
 		return nil
 	}
 
-	// Do not save session for non-primary DC.
-	if cfg.ThisDC != 0 && c.primaryDC.Load() != int64(cfg.ThisDC) {
-		return nil
-	}
-
 	data, err := c.storage.Load(c.ctx)
 	if errors.Is(err, session.ErrNotFound) {
 		// Initializing new state.
@@ -397,12 +401,26 @@ func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) erro
 }
 
 func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
+	c.sessionsMux.Lock()
+	c.sessions[cfg.ThisDC] = pool.NewSyncSession(pool.Session{
+		DC:      cfg.ThisDC,
+		Addr:    addr,
+		Salt:    s.Salt,
+		AuthKey: s.Key,
+	})
+	c.sessionsMux.Unlock()
+
+	// Do not save session for non-primary DC.
+	if cfg.ThisDC != 0 && c.primaryDC.Load() != int64(cfg.ThisDC) {
+		return nil
+	}
+
 	if err := c.saveSession(addr, cfg, s); err != nil {
 		return xerrors.Errorf("save: %w", err)
 	}
 
 	c.connMux.Lock()
-	c.session.Store(sessionData{
+	c.session.Store(pool.Session{
 		DC:      cfg.ThisDC,
 		Addr:    addr,
 		Salt:    s.Salt,
@@ -416,5 +434,5 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 }
 
 func (c *Client) createConn(mode connMode) *conn {
-	return c.buildConn(mode).Build()
+	return c.buildConn(mode, c.session).Build()
 }

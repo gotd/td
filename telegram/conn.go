@@ -36,6 +36,7 @@ type connHandler interface {
 }
 
 type conn struct {
+	id int64
 	// Connection parameters.
 	addr string   // immutable
 	mode connMode // immutable

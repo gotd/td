@@ -39,8 +39,12 @@ func (c *Client) ensureRestart(ctx context.Context, export *tg.AuthExportedAutho
 	}
 }
 
-func findDC(cfg tg.Config, dcID int) (dc tg.DcOption, ok bool) {
+func findDC(cfg tg.Config, dcID int, noIPv6 bool) (dc tg.DcOption, ok bool) {
 	for _, dc := range cfg.DCOptions {
+		if noIPv6 && dc.Ipv6 {
+			continue
+		}
+
 		if dc.ID == dcID {
 			return dc, true
 		}
@@ -51,7 +55,7 @@ func findDC(cfg tg.Config, dcID int) (dc tg.DcOption, ok bool) {
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
-	dc, ok := findDC(c.cfg.Load(), dcID)
+	dc, ok := findDC(c.cfg.Load(), dcID, true)
 	if !ok {
 		return xerrors.Errorf("failed to find DC %d", dcID)
 	}
