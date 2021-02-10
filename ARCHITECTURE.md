@@ -23,6 +23,15 @@ Generated packages:
 |`tg/e2e`      | Secret chats schema |
 |`internal/mt` | MTProto schema |
 
+### Pipeline
+
+1) Schema is parsed from `_schema/telegram.tl`
+2) Embedded docs are loaded from `getdoc` if available
+3) Bindings (interim representation) are generated
+4) Type definitions are generated
+5) Templates are executed with (4) in context
+6) Source code is formatted and written to `tl_*_gen.go` files.
+
 ## Binary protocol
 
 See `bin` package for implementation of MTProto basic types (de-)serialization.
