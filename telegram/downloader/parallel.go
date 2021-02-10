@@ -17,13 +17,46 @@ type block struct {
 	offset int64
 }
 
-func (d *Downloader) parallel(ctx context.Context, rpc schema, threads int, w io.WriterAt) (tg.StorageFileTypeClass, error) {
+func writeAtLoop(w io.WriterAt, toWrite <-chan block) func(context.Context) error {
+	return func(ctx context.Context) error {
+		for {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case part, ok := <-toWrite:
+				if !ok {
+					return nil
+				}
+
+				_, err := w.WriteAt(part.data, part.offset)
+				if err != nil {
+					return xerrors.Errorf("write output: %w", err)
+				}
+			}
+		}
+	}
+}
+
+// nolint:gocognit
+func (d *Downloader) parallel(
+	ctx context.Context,
+	rpc schema,
+	threads int,
+	w io.WriterAt,
+) (tg.StorageFileTypeClass, error) {
 	var typ tg.StorageFileTypeClass
 	typOnce := &sync.Once{}
 
+	ready := tdsync.NewReady()
 	grp := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, threads)
-	ready := tdsync.NewReady()
+
+	stop := func(t tg.StorageFileTypeClass) {
+		typOnce.Do(func() {
+			typ = t
+		})
+		ready.Signal()
+	}
 
 	// Download loop
 	grp.Go(func(groupCtx context.Context) error {
@@ -48,12 +81,10 @@ func (d *Downloader) parallel(ctx context.Context, rpc schema, threads int, w io
 						return xerrors.Errorf("get file: %w", err)
 					}
 
+					// If returned part is zero, that means we read all file.
 					n := len(p.data)
 					if n < 1 {
-						typOnce.Do(func() {
-							typ = p.tag
-						})
-						ready.Signal()
+						stop(p.tag)
 						return nil
 					}
 
@@ -63,11 +94,9 @@ func (d *Downloader) parallel(ctx context.Context, rpc schema, threads int, w io
 					case toWrite <- block{data: p.data, offset: partOffset}:
 					}
 
+					// If returned part is less than requested, that means it is the last part.
 					if n < d.partSize {
-						typOnce.Do(func() {
-							typ = p.tag
-						})
-						ready.Signal()
+						stop(p.tag)
 						return nil
 					}
 				}
@@ -77,25 +106,8 @@ func (d *Downloader) parallel(ctx context.Context, rpc schema, threads int, w io
 		return downloads.Wait()
 	})
 
-	w = &syncWriterAt{w: w}
 	// Write loop
-	grp.Go(func(groupCtx context.Context) error {
-		for {
-			select {
-			case <-groupCtx.Done():
-				return groupCtx.Err()
-			case part, ok := <-toWrite:
-				if !ok {
-					return nil
-				}
-
-				_, err := w.WriteAt(part.data, part.offset)
-				if err != nil {
-					return xerrors.Errorf("write output: %w", err)
-				}
-			}
-		}
-	})
+	grp.Go(writeAtLoop(&syncWriterAt{w: w}, toWrite))
 
 	return typ, grp.Wait()
 }
