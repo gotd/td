@@ -40,4 +40,4 @@ We use non-streaming approach, assuming that message is fully available in memor
 so `bin.Buffer` is just a wrapper for byte slice that can read and write values.
 
 We do not use reflection-based approach, each serialization and de-serialization
-is generated from schema and constant.
+is generated from schema and is constant.
