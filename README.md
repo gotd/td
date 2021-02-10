@@ -35,6 +35,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * 2FA support
 * MTProxy support
 * Connection pooling
+* Helpers for uploads and downloads
 
 ## Example
 
