@@ -1,6 +1,6 @@
 # td [![Go Reference](https://pkg.go.dev/badge/github.com/gotd/td.svg)](https://pkg.go.dev/github.com/gotd/td/telegram) [![codecov](https://codecov.io/gh/gotd/td/branch/main/graph/badge.svg?token=shR5PXG7Ds)](https://codecov.io/gh/gotd/td)
 
-Telegram client implementation in go.
+Telegram client and MTProto implementation in go.
 
 * [Security policy](.github/SECURITY.md)
 * [User support and dev chat](.github/SUPPORT.md)
