@@ -63,11 +63,10 @@ func testProfilePhotoUploader(gen Image) func(t *testing.T) {
 			t.Log("size of image", img.Len(), "bytes")
 
 			raw := tg.NewClient(invoker)
-			upld := FromReader("abc.jpg", iotest.HalfReader(img), int64(img.Len()))
 			f, err := NewUploader(raw).
 				WithPartSize(2048).
 				WithProgress(progressLogger{logger.Named("progress")}).
-				Upload(ctx, upld)
+				FromReader(ctx, "abc.jpg", iotest.HalfReader(img))
 			if err != nil {
 				return xerrors.Errorf("upload: %w", err)
 			}
@@ -149,7 +148,7 @@ func TestExternalE2EDocUpload(t *testing.T) {
 		g := &generator{state: total}
 
 		raw := tg.NewClient(invoker)
-		upld := FromReader("devrandom.dat", iotest.HalfReader(g), total)
+		upld := NewUpload("devrandom.dat", iotest.HalfReader(g), total)
 		f, err := NewUploader(raw).
 			WithPartSize(MaximumPartSize).
 			WithProgress(progressLogger{logger.Named("progress")}).

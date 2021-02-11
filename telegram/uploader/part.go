@@ -35,6 +35,10 @@ func (u *Uploader) checkPartSize() error {
 }
 
 func (u *Uploader) computeParts(upload *Upload) int {
+	if upload.totalBytes <= 0 {
+		return 0
+	}
+
 	totalBytes := int(upload.totalBytes)
 	parts := totalBytes / u.partSize
 	if totalBytes%u.partSize != 0 {

@@ -15,8 +15,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 
 	last := false
 
-	r := io.LimitReader(upload.from, bigFileLimit)
-	r = io.TeeReader(r, h)
+	r := io.TeeReader(upload.from, h)
 	for {
 		n, err := io.ReadFull(r, buf.Buf)
 		switch {
