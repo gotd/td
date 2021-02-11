@@ -26,6 +26,7 @@ func (r *ExpiredTokenError) Error() string {
 // cdn is a CDN DC download schema.
 // See https://core.telegram.org/cdn#getting-files-from-a-cdn.
 type cdn struct {
+	cdn      CDN
 	client   Client
 	pool     *bin.Pool
 	redirect *tg.UploadFileCdnRedirect
@@ -33,7 +34,7 @@ type cdn struct {
 
 var _ schema = cdn{}
 
-// decrypt decrypts file part from Telegram CDN.
+// decrypt decrypts file chunk from Telegram CDN.
 // See https://core.telegram.org/cdn#decrypting-files.
 func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 	block, err := aes.NewCipher(c.redirect.EncryptionKey)
@@ -62,30 +63,30 @@ func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 	return dst, nil
 }
 
-func (c cdn) Part(ctx context.Context, offset, limit int) (part, error) {
-	r, err := c.client.UploadGetCdnFile(ctx, &tg.UploadGetCdnFileRequest{
+func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
+	r, err := c.cdn.UploadGetCdnFile(ctx, &tg.UploadGetCdnFileRequest{
 		Offset:    offset,
 		Limit:     limit,
 		FileToken: c.redirect.FileToken,
 	})
 	if err != nil {
-		return part{}, err
+		return chunk{}, err
 	}
 
 	switch result := r.(type) {
 	case *tg.UploadCdnFile:
 		data, err := c.decrypt(result.Bytes, offset)
 		if err != nil {
-			return part{}, err
+			return chunk{}, err
 		}
 
-		return part{
+		return chunk{
 			data: data,
 		}, nil
 	case *tg.UploadCdnFileReuploadNeeded:
-		return part{}, &ExpiredTokenError{UploadCdnFileReuploadNeeded: result}
+		return chunk{}, &ExpiredTokenError{UploadCdnFileReuploadNeeded: result}
 	default:
-		return part{}, xerrors.Errorf("unexpected type %T", r)
+		return chunk{}, xerrors.Errorf("unexpected type %T", r)
 	}
 }
 

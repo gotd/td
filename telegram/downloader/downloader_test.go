@@ -10,18 +10,23 @@ import (
 	"io"
 	"strconv"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/crypto"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
 )
 
 type mock struct {
-	data         []byte
-	migrate, err bool
-	redirect     *tg.UploadFileCdnRedirect
+	data      []byte
+	hashes    mockHashes
+	migrate   bool
+	err       bool
+	hashesErr bool
+	redirect  *tg.UploadFileCdnRedirect
 }
 
 var testErr = xerrors.New("test err")
@@ -57,7 +62,11 @@ func (m mock) UploadGetFile(ctx context.Context, request *tg.UploadGetFileReques
 }
 
 func (m mock) UploadGetFileHashes(ctx context.Context, request *tg.UploadGetFileHashesRequest) ([]tg.FileHash, error) {
-	panic("implement me")
+	if m.hashesErr {
+		return nil, testErr
+	}
+
+	return m.hashes.Hashes(ctx, request.Offset)
 }
 
 func (m mock) UploadReuploadCdnFile(ctx context.Context, request *tg.UploadReuploadCdnFileRequest) ([]tg.FileHash, error) {
@@ -93,7 +102,11 @@ func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCdnFile
 }
 
 func (m mock) UploadGetCdnFileHashes(ctx context.Context, request *tg.UploadGetCdnFileHashesRequest) ([]tg.FileHash, error) {
-	panic("implement me")
+	if m.hashesErr {
+		return nil, testErr
+	}
+
+	return m.hashes.Hashes(ctx, request.Offset)
 }
 
 func (m mock) UploadGetWebFile(ctx context.Context, request *tg.UploadGetWebFileRequest) (*tg.UploadWebFile, error) {
@@ -122,9 +135,58 @@ func (b *bufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
 	return len(b.buf), nil
 }
 
+func countHashes(data []byte, partSize int) (r [][]tg.FileHash) {
+	actions := data
+	batchSize := partSize
+	batches := make([][]byte, 0, (len(actions)+batchSize-1)/batchSize)
+
+	for batchSize < len(actions) {
+		actions, batches = actions[batchSize:], append(batches, actions[0:batchSize:batchSize])
+	}
+	batches = append(batches, actions)
+
+	currentRange := make([]tg.FileHash, 0, 10)
+	offset := 0
+	for _, batch := range batches {
+		if len(currentRange) >= 10 {
+			r = append(r, currentRange)
+			currentRange = make([]tg.FileHash, 0, 10)
+		}
+		currentRange = append(currentRange, tg.FileHash{
+			Offset: offset,
+			Limit:  partSize,
+			Hash:   crypto.SHA256(batch),
+		})
+		offset += len(batch)
+
+		if len(batch) < partSize {
+			break
+		}
+	}
+	r = append(r, currentRange)
+	return
+}
+
+func Test_countHashes(t *testing.T) {
+	a := require.New(t)
+	data := bytes.Repeat([]byte{1, 2, 3, 4, 5}, 10)
+	hashes := countHashes(data, 4)
+
+	a.NotEmpty(hashes)
+	for _, hashRange := range hashes {
+		for _, hash := range hashRange {
+			from := hash.Offset
+			to := hash.Offset + hash.Limit
+			if to > len(data) {
+				to = len(data)
+			}
+			a.Equal(crypto.SHA256(data[from:to]), hash.Hash)
+		}
+	}
+}
+
 func TestDownloader(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	ctx := context.Background()
 
 	key := make([]byte, 32)
 	iv := make([]byte, aes.BlockSize)
@@ -141,33 +203,35 @@ func TestDownloader(t *testing.T) {
 		EncryptionIv:  iv,
 	}
 
-	testData := make([]byte, defaultPartSize)
+	testData := make([]byte, defaultPartSize*2)
 	if _, err := io.ReadFull(rand.Reader, testData); err != nil {
 		t.Fatal(err)
 	}
 
 	tests := []struct {
-		name    string
-		data    []byte
-		migrate bool
-		err     bool
+		name      string
+		data      []byte
+		migrate   bool
+		err       bool
+		hashesErr bool
 	}{
-		{"5b", []byte{1, 2, 3, 4, 5}, false, false},
-		{strconv.Itoa(len(testData)) + "b", testData, false, false},
-		{"Error", []byte{}, false, true},
-		{"Migrate", []byte{}, true, false},
+		{"5b", []byte{1, 2, 3, 4, 5}, false, false, false},
+		{strconv.Itoa(len(testData)) + "b", testData, false, false, false},
+		{"Error", []byte{}, false, true, false},
+		{"HashesError", []byte{}, false, true, true},
+		{"Migrate", []byte{}, true, false, false},
 	}
 	schemas := []struct {
 		name    string
-		creator func(c Client) *Builder
+		creator func(c Client, cdn CDN) *Builder
 	}{
-		{"Master", func(c Client) *Builder {
+		{"Master", func(c Client, cdn CDN) *Builder {
 			return NewDownloader().Download(c, true, nil)
 		}},
-		{"CDN", func(c Client) *Builder {
-			return NewDownloader().CDN(c, redirect)
+		{"CDN", func(c Client, cdn CDN) *Builder {
+			return NewDownloader().CDN(c, cdn, redirect)
 		}},
-		{"Web", func(c Client) *Builder {
+		{"Web", func(c Client, cdn CDN) *Builder {
 			return NewDownloader().Web(c, nil)
 		}},
 	}
@@ -185,6 +249,22 @@ func TestDownloader(t *testing.T) {
 			_, err := b.Parallel(ctx, output)
 			return output.buf, err
 		}},
+		{"Parallel-OneThread", func(b *Builder) ([]byte, error) {
+			output := &bufWriterAt{}
+			_, err := b.WithThreads(1).Parallel(ctx, output)
+			return output.buf, err
+		}},
+	}
+	options := []struct {
+		name   string
+		action func(b *Builder) *Builder
+	}{
+		{"NoVerify", func(b *Builder) *Builder {
+			return b.WithVerify(false)
+		}},
+		{"Verify", func(b *Builder) *Builder {
+			return b.WithVerify(true)
+		}},
 	}
 
 	for _, schema := range schemas {
@@ -194,27 +274,40 @@ func TestDownloader(t *testing.T) {
 				if schema.name == "Web" && test.migrate {
 					continue
 				}
-
 				t.Run(test.name, func(t *testing.T) {
-					for _, way := range ways {
-						t.Run(way.name, func(t *testing.T) {
-							a := require.New(t)
-							m := &mock{
-								data:     test.data,
-								migrate:  test.migrate,
-								err:      test.err,
-								redirect: redirect,
-							}
+					for _, option := range options {
+						// Telegram can't return hashes for web files.
+						if schema.name == "Web" && option.name == "Verify" {
+							continue
+						}
 
-							data, err := way.action(schema.creator(m))
-							switch {
-							case test.migrate:
-								a.Error(err)
-							case test.err:
-								a.Error(err)
-							default:
-								a.NoError(err)
-								a.Equal(test.data, data)
+						t.Run(option.name, func(t *testing.T) {
+							for _, way := range ways {
+								t.Run(way.name, func(t *testing.T) {
+									a := require.New(t)
+									client := &mock{
+										data: test.data,
+										hashes: mockHashes{
+											ranges: countHashes(test.data, 128*1024),
+										},
+										migrate:  test.migrate,
+										err:      test.err,
+										redirect: redirect,
+									}
+
+									b := schema.creator(client, client)
+									b = option.action(b)
+									data, err := way.action(b)
+									switch {
+									case test.migrate:
+										a.Error(err)
+									case test.err:
+										a.Error(err)
+									default:
+										a.NoError(err)
+										a.True(bytes.Equal(test.data, data))
+									}
+								})
 							}
 						})
 					}

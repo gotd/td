@@ -11,26 +11,24 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (d *Downloader) stream(ctx context.Context, rpc schema, w io.Writer) (tg.StorageFileTypeClass, error) {
+func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.StorageFileTypeClass, error) {
 	var typ tg.StorageFileTypeClass
 	typOnce := &sync.Once{}
 
 	grp := tdsync.NewCancellableGroup(ctx)
-	toWrite := make(chan []byte, 1)
+	toWrite := make(chan block, 1)
 	// Download loop
 	grp.Go(func(groupCtx context.Context) error {
-		offset := 0
-
 		for {
-			p, err := rpc.Part(ctx, offset, d.partSize)
+			b, err := r.Next(ctx)
 			if err != nil {
 				return xerrors.Errorf("get file: %w", err)
 			}
 
-			n := len(p.data)
+			n := len(b.data)
 			if n < 1 {
 				typOnce.Do(func() {
-					typ = p.tag
+					typ = b.tag
 					close(toWrite)
 				})
 				return nil
@@ -39,39 +37,13 @@ func (d *Downloader) stream(ctx context.Context, rpc schema, w io.Writer) (tg.St
 			select {
 			case <-groupCtx.Done():
 				return groupCtx.Err()
-			case toWrite <- p.data:
+			case toWrite <- b:
 			}
-
-			if n < d.partSize {
-				typOnce.Do(func() {
-					typ = p.tag
-					close(toWrite)
-				})
-				return nil
-			}
-
-			offset += n
 		}
 	})
 
 	// Write loop
-	grp.Go(func(groupCtx context.Context) error {
-		for {
-			select {
-			case <-groupCtx.Done():
-				return groupCtx.Err()
-			case part, ok := <-toWrite:
-				if !ok {
-					return nil
-				}
-
-				_, err := w.Write(part)
-				if err != nil {
-					return xerrors.Errorf("write output: %w", err)
-				}
-			}
-		}
-	})
+	grp.Go(writeLoop(w, toWrite))
 
 	return typ, grp.Wait()
 }

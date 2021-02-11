@@ -21,7 +21,7 @@ func NewDownloader() *Downloader {
 	return new(Downloader).WithPartSize(defaultPartSize)
 }
 
-// WithPartSize sets part size.
+// WithPartSize sets chunk size.
 // Must be divisible by 4KB.
 //
 // See https://core.telegram.org/api/files#downloading-files.
@@ -46,12 +46,15 @@ func (d *Downloader) Download(rpc Client, allowCDN bool, location tg.InputFileLo
 }
 
 // CDN creates Builder for CDN downloads.
-func (d *Downloader) CDN(rpc Client, redirect *tg.UploadFileCdnRedirect) *Builder {
-	return newBuilder(d, cdn{
+func (d *Downloader) CDN(rpc Client, cdnRPC CDN, redirect *tg.UploadFileCdnRedirect) *Builder {
+	b := newBuilder(d, cdn{
+		cdn:      cdnRPC,
 		client:   rpc,
 		pool:     d.pool,
 		redirect: redirect,
 	})
+	b.hashes = append(b.hashes, redirect.FileHashes...)
+	return b
 }
 
 // Web creates Builder for web files downloads.

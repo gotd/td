@@ -32,7 +32,7 @@ type master struct {
 
 var _ schema = master{}
 
-func (c master) Part(ctx context.Context, offset, limit int) (part, error) {
+func (c master) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	req := &tg.UploadGetFileRequest{
 		Offset:   offset,
 		Limit:    limit,
@@ -43,16 +43,16 @@ func (c master) Part(ctx context.Context, offset, limit int) (part, error) {
 
 	r, err := c.client.UploadGetFile(ctx, req)
 	if err != nil {
-		return part{}, err
+		return chunk{}, err
 	}
 
 	switch result := r.(type) {
 	case *tg.UploadFile:
-		return part{data: result.Bytes, tag: result.Type}, nil
+		return chunk{data: result.Bytes, tag: result.Type}, nil
 	case *tg.UploadFileCdnRedirect:
-		return part{}, &RedirectError{Redirect: result}
+		return chunk{}, &RedirectError{Redirect: result}
 	default:
-		return part{}, xerrors.Errorf("unexpected type %T", r)
+		return chunk{}, xerrors.Errorf("unexpected type %T", r)
 	}
 }
 
