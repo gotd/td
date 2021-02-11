@@ -48,7 +48,6 @@ fuzz_rsa_clear:
 	rm -f _fuzz/rsa/suppressions/*
 .PHONY: fuzz_rsa_clear
 
-
 fuzz_flow:
 	go run github.com/dvyukov/go-fuzz/go-fuzz -bin internal/exchange/flow-fuzz.zip -workdir _fuzz/flow
 .PHONY: fuzz_flow
