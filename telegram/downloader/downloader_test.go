@@ -209,7 +209,10 @@ func TestDownloader(t *testing.T) {
 		creator func(c Client, cdn CDN) *Builder
 	}{
 		{"Master", func(c Client, cdn CDN) *Builder {
-			return NewDownloader().Download(c, true, nil)
+			return NewDownloader().Download(c, nil)
+		}},
+		{"Direct", func(c Client, cdn CDN) *Builder {
+			return NewDownloader().DownloadDirect(c, nil)
 		}},
 		{"CDN", func(c Client, cdn CDN) *Builder {
 			return NewDownloader().CDN(c, cdn, redirect)

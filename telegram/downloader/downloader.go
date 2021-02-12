@@ -12,9 +12,7 @@ type Downloader struct {
 	pool     *bin.Pool
 }
 
-const (
-	defaultPartSize = 512 * 1024
-)
+const defaultPartSize = 512 * 1024 // 512 kb
 
 // NewDownloader creates new Downloader.
 func NewDownloader() *Downloader {
@@ -33,14 +31,26 @@ func (d *Downloader) WithPartSize(partSize int) *Downloader {
 
 // Download creates Builder for plain downloads.
 //
-// allowCDN parameter sets CDNSupported field for upload.getFile.
-// Set to false, if you don't want to handle CDN redirect.
+// Method sets CDNSupported field for upload.getFile. Use DownloadDirect for
+// direct downloads without CDN support.
+//
 // See https://core.telegram.org/cdn.
-func (d *Downloader) Download(rpc Client, allowCDN bool, location tg.InputFileLocationClass) *Builder {
+func (d *Downloader) Download(rpc Client, location tg.InputFileLocationClass) *Builder {
 	return newBuilder(d, master{
 		client:   rpc,
 		precise:  true,
-		allowCDN: allowCDN,
+		allowCDN: true,
+		location: location,
+	})
+}
+
+// DownloadDirect creates Builder for plain downloads with disabled CDN redirect
+// handling.
+func (d *Downloader) DownloadDirect(rpc Client, location tg.InputFileLocationClass) *Builder {
+	return newBuilder(d, master{
+		client:   rpc,
+		precise:  true,
+		allowCDN: false,
 		location: location,
 	})
 }
