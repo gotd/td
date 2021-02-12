@@ -108,7 +108,7 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 	c.total--
 	remaining := c.total
 	if remaining < 0 {
-		panic("unreachable: remaining can'be less than zero")
+		panic("unreachable: remaining can't be less than zero")
 	}
 
 	idx := -1
