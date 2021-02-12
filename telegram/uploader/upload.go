@@ -18,17 +18,6 @@ func NewUpload(name string, from io.Reader, total int64) *Upload {
 	}
 }
 
-// FromReader creates new Upload struct using
-// given io.Reader.
-func FromReader(name string, from io.Reader, total int64) *Upload {
-	return &Upload{
-		name:       name,
-		totalBytes: total,
-		from:       from,
-		partSize:   -1,
-	}
-}
-
 // Upload represents Telegram file upload.
 type Upload struct {
 	// Fields which will be set by Uploader.

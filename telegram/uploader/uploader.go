@@ -16,7 +16,7 @@ import (
 
 // Uploader is Telegram file uploader.
 type Uploader struct {
-	rpc      *tg.Client
+	rpc      Client
 	id       func() (int64, error)
 	partSize int
 	pool     *bin.Pool
@@ -25,7 +25,7 @@ type Uploader struct {
 }
 
 // NewUploader creates new Uploader.
-func NewUploader(rpc *tg.Client) *Uploader {
+func NewUploader(rpc Client) *Uploader {
 	procs := runtime.GOMAXPROCS(0) * 2
 	return (&Uploader{
 		rpc: rpc,

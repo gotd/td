@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
 )
 
@@ -15,8 +16,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 
 	last := false
 
-	r := io.LimitReader(upload.from, bigFileLimit)
-	r = io.TeeReader(r, h)
+	r := io.TeeReader(upload.from, h)
 	for {
 		n, err := io.ReadFull(r, buf.Buf)
 		switch {
@@ -37,7 +37,7 @@ func (u *Uploader) smallLoop(ctx context.Context, h io.Writer, upload *Upload) e
 				Bytes:    read,
 			})
 
-			if flood, err := floodWait(ctx, err); err != nil {
+			if flood, err := helpers.FloodWait(ctx, err); err != nil {
 				if flood {
 					continue
 				}

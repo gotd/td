@@ -12,15 +12,15 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (c *Client) createPool(id int, max int64, creator func() pool.Conn) (tg.Invoker, error) {
+func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.DC, error) {
 	select {
 	case <-c.ctx.Done():
 		return nil, xerrors.Errorf("client already closed: %w", c.ctx.Err())
 	default:
 	}
 
-	p := pool.NewDC(c.ctx, id, creator, pool.DCOptions{
-		Logger:             c.log.Named("pool").With(zap.Int("dc_id", id)),
+	p := pool.NewDC(c.ctx, dc, creator, pool.DCOptions{
+		Logger:             c.log.Named("pool").With(zap.Int("dc_id", dc)),
 		MaxOpenConnections: max,
 	})
 
@@ -35,12 +35,11 @@ func (c *Client) Pool(max int64) (tg.Invoker, error) {
 
 	s := c.session.Load()
 	return c.createPool(s.DC, max, func() pool.Conn {
-		return c.buildConn(connModeData).Build()
+		return c.buildConn(connModeData, c.session).Build()
 	})
 }
 
-// DC creates new multi-connection invoker to given DC.
-func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) {
+func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
 	if max < 0 {
 		return nil, xerrors.Errorf("invalid max value %d", max)
 	}
@@ -48,7 +47,7 @@ func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) 
 	cfg := c.cfg.Load()
 	opts := c.opts
 
-	dc, ok := findDC(cfg, id)
+	dc, ok := findDC(cfg, id, true)
 	if !ok {
 		return nil, xerrors.Errorf("failed to find DC %d", id)
 	}
@@ -71,11 +70,19 @@ func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) 
 	}
 
 	addr := fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port)
+
+	c.sessionsMux.Lock()
+	session, ok := c.sessions[id]
+	if !ok {
+		session = pool.NewSyncSession(pool.Session{})
+		c.sessions[id] = session
+	}
+	c.sessionsMux.Unlock()
+
 	p, err := c.createPool(id, max, func() pool.Conn {
-		return c.buildConn(connModeData).
+		return c.buildConn(connModeData, session).
 			WithNoopHandler().
-			WithOptions(opts).
-			WithAddr(addr).
+			WithOptions(id, addr, opts).
 			Build()
 	})
 	if err != nil {
@@ -95,4 +102,9 @@ func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) 
 	}
 
 	return p, nil
+}
+
+// DC creates new multi-connection invoker to given DC.
+func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) {
+	return c.dc(ctx, id, max)
 }

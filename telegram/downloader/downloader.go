@@ -1,11 +1,7 @@
+// Package downloader contains downloading files helpers.
 package downloader
 
 import (
-	"context"
-	"strconv"
-
-	"golang.org/x/xerrors"
-
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
@@ -14,22 +10,18 @@ import (
 type Downloader struct {
 	partSize int
 	pool     *bin.Pool
-
-	allowCDN bool
 }
 
 const (
-	defaultPartSize = 1024 * 1024
+	defaultPartSize = 512 * 1024
 )
 
 // NewDownloader creates new Downloader.
 func NewDownloader() *Downloader {
-	return (&Downloader{
-		allowCDN: false,
-	}).WithPartSize(defaultPartSize)
+	return new(Downloader).WithPartSize(defaultPartSize)
 }
 
-// WithPartSize sets part size.
+// WithPartSize sets chunk size.
 // Must be divisible by 4KB.
 //
 // See https://core.telegram.org/api/files#downloading-files.
@@ -39,62 +31,36 @@ func (d *Downloader) WithPartSize(partSize int) *Downloader {
 	return d
 }
 
-// RedirectError error is returned when Downloader get CDN redirect.
-// See https://core.telegram.org/constructor/upload.fileCdnRedirect.
-type RedirectError struct {
-	*tg.UploadFileCdnRedirect
+// Download creates Builder for plain downloads.
+//
+// allowCDN parameter sets CDNSupported field for upload.getFile.
+// Set to false, if you don't want to handle CDN redirect.
+// See https://core.telegram.org/cdn.
+func (d *Downloader) Download(rpc Client, allowCDN bool, location tg.InputFileLocationClass) *Builder {
+	return newBuilder(d, master{
+		client:   rpc,
+		precise:  true,
+		allowCDN: allowCDN,
+		location: location,
+	})
 }
 
-// Error implements error interface.
-func (r *RedirectError) Error() string {
-	return "redirect to CDN DC " + strconv.Itoa(r.DCID)
+// CDN creates Builder for CDN downloads.
+func (d *Downloader) CDN(rpc Client, cdnRPC CDN, redirect *tg.UploadFileCdnRedirect) *Builder {
+	b := newBuilder(d, cdn{
+		cdn:      cdnRPC,
+		client:   rpc,
+		pool:     d.pool,
+		redirect: redirect,
+	})
+	b.hashes = append(b.hashes, redirect.FileHashes...)
+	return b
 }
 
-// Download download data from Telegram server to given output.
-func (d *Downloader) Download(ctx context.Context, rpc *tg.Client, download Download) (tg.StorageFileTypeClass, error) {
-	if !download.cdn {
-		return d.download(ctx, rpc, download)
-	}
-
-	return nil, xerrors.New("CDN downloads not implemented yet")
-}
-
-func (d *Downloader) download(ctx context.Context, rpc *tg.Client, download Download) (tg.StorageFileTypeClass, error) {
-	offset := 0
-
-	for {
-		req := &tg.UploadGetFileRequest{
-			Offset:   offset,
-			Limit:    d.partSize,
-			Location: download.file,
-		}
-		req.SetCDNSupported(d.allowCDN)
-
-		f, err := rpc.UploadGetFile(ctx, req)
-		if err != nil {
-			return nil, xerrors.Errorf("get file: %w", err)
-		}
-
-		switch file := f.(type) {
-		case *tg.UploadFile:
-			if len(file.Bytes) < 1 {
-				return file.Type, nil
-			}
-
-			n, err := download.output.Write(file.Bytes)
-			if err != nil {
-				return nil, xerrors.Errorf("write output: %w", err)
-			}
-
-			if n < d.partSize {
-				return file.Type, nil
-			}
-
-			offset += n
-		case *tg.UploadFileCdnRedirect:
-			return nil, &RedirectError{
-				UploadFileCdnRedirect: file,
-			}
-		}
-	}
+// Web creates Builder for web files downloads.
+func (d *Downloader) Web(rpc Client, location tg.InputWebFileLocationClass) *Builder {
+	return newBuilder(d, web{
+		client:   rpc,
+		location: location,
+	})
 }

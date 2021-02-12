@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
@@ -23,22 +22,15 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
-			// and shouldn't rewrite old session.
-			transfer := rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE")
-			// Otherwise we should change primary DC ID.
-			if !transfer {
-				c.primaryDC.Store(int64(rpcErr.Argument))
+			// and create new connection.
+			if rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE") {
+				return c.invokeSub(ctx, rpcErr.Argument, input, output)
 			}
 
-			if err := c.migrateToDc(
-				c.ctx, rpcErr.Argument,
-				transfer,
-			); err != nil {
-				return xerrors.Errorf("migrate to dc: %w", err)
-			}
-			// Re-trying request on another connection.
-			return c.invokeRaw(ctx, input, output)
+			// Otherwise we should change primary DC.
+			return c.invokeMigrate(ctx, rpcErr.Argument, input, output)
 		}
+
 		return err
 	}
 	return nil
