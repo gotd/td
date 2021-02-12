@@ -12,11 +12,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	"github.com/gotd/td/internal/crypto"
-
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/tg"
 )
 
@@ -117,22 +116,6 @@ func (m mock) UploadGetWebFile(ctx context.Context, request *tg.UploadGetWebFile
 	return &tg.UploadWebFile{
 		Bytes: m.getPart(request.Offset, request.Limit),
 	}, nil
-}
-
-type bufWriterAt struct {
-	buf []byte
-}
-
-func (b *bufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
-	ends := len(p) + int(off)
-	if len(b.buf) < ends {
-		newBuf := make([]byte, ends)
-		copy(newBuf, b.buf)
-		b.buf = newBuf
-	}
-
-	copy(b.buf[off:], p)
-	return len(b.buf), nil
 }
 
 func countHashes(data []byte, partSize int) (r [][]tg.FileHash) {
@@ -245,14 +228,14 @@ func TestDownloader(t *testing.T) {
 			return output.Bytes(), err
 		}},
 		{"Parallel", func(b *Builder) ([]byte, error) {
-			output := &bufWriterAt{}
+			output := new(syncio.BufWriterAt)
 			_, err := b.Parallel(ctx, output)
-			return output.buf, err
+			return output.Bytes(), err
 		}},
 		{"Parallel-OneThread", func(b *Builder) ([]byte, error) {
-			output := &bufWriterAt{}
+			output := new(syncio.BufWriterAt)
 			_, err := b.WithThreads(1).Parallel(ctx, output)
-			return output.buf, err
+			return output.Bytes(), err
 		}},
 	}
 	options := []struct {

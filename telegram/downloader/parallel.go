@@ -7,6 +7,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/tg"
 )
@@ -71,7 +72,7 @@ func (d *Downloader) parallel(
 	})
 
 	// Write loop
-	grp.Go(writeAtLoop(&syncWriterAt{w: w}, toWrite))
+	grp.Go(writeAtLoop(syncio.NewWriterAt(w), toWrite))
 
 	return typ, grp.Wait()
 }

@@ -7,7 +7,9 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
 )
 
@@ -29,7 +31,7 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 			Bytes:          p.buf.Buf,
 		})
 
-		if flood, err := floodWait(ctx, err); err != nil {
+		if flood, err := helpers.FloodWait(ctx, err); err != nil {
 			if flood {
 				continue
 			}
@@ -48,7 +50,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 	toSend := make(chan part, threads)
 
 	// Run read loop
-	r := &syncReader{r: upload.from}
+	r := syncio.NewReader(upload.from)
 	grp.Go(func(groupCtx context.Context) error {
 		last := false
 
