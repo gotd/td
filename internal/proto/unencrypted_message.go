@@ -15,6 +15,7 @@ type UnencryptedMessage struct {
 // Decode implements bin.Decoder.
 func (u *UnencryptedMessage) Decode(b *bin.Buffer) error {
 	{
+		// Reading auth_key_id that should be always equal to zero.
 		id, err := b.Long()
 		if err != nil {
 			return err
