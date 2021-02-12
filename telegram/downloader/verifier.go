@@ -9,6 +9,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
 )
 
@@ -84,13 +85,18 @@ func (v *verifier) next(ctx context.Context) (tg.FileHash, bool, error) {
 		return hash, ok, nil
 	}
 
-	hashes, err := v.client.Hashes(ctx, v.offset)
-	if err != nil {
-		return tg.FileHash{}, false, err
-	}
+	for {
+		hashes, err := v.client.Hashes(ctx, v.offset)
+		if flood, err := helpers.FloodWait(ctx, err); err != nil {
+			if flood {
+				continue
+			}
+			return tg.FileHash{}, false, xerrors.Errorf("get hashes: %w", err)
+		}
 
-	hash, ok = v.update(hashes...)
-	return hash, ok, nil
+		hash, ok = v.update(hashes...)
+		return hash, ok, nil
+	}
 }
 
 func (v *verifier) verify(hash tg.FileHash, data []byte) bool {

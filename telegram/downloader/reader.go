@@ -3,6 +3,10 @@ package downloader
 import (
 	"context"
 	"sync"
+
+	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/telegram/internal/helpers"
 )
 
 type block struct {
@@ -72,13 +76,19 @@ func (r *reader) nextPlain(ctx context.Context) (block, error) {
 }
 
 func (r *reader) next(ctx context.Context, offset, limit int) (block, error) {
-	ch, err := r.sch.Chunk(ctx, offset, limit)
-	if err != nil {
-		return block{}, err
-	}
+	for {
+		ch, err := r.sch.Chunk(ctx, offset, limit)
 
-	return block{
-		chunk:  ch,
-		offset: int64(offset),
-	}, nil
+		if flood, err := helpers.FloodWait(ctx, err); err != nil {
+			if flood {
+				continue
+			}
+			return block{}, xerrors.Errorf("get next chunk: %w", err)
+		}
+
+		return block{
+			chunk:  ch,
+			offset: int64(offset),
+		}, nil
+	}
 }
