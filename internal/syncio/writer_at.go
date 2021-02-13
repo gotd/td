@@ -51,6 +51,8 @@ func (b *BufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
 		b.buf = newBuf
 	}
 
-	copy(b.buf[off:], p)
+	from := off
+	to := off + int64(len(p))
+	copy(b.buf[from:to], p)
 	return len(b.buf), nil
 }
