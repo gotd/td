@@ -21,27 +21,26 @@ const (
 	MaximumPartSize = 524288
 )
 
-func (u *Uploader) checkPartSize() error {
+func checkPartSize(partSize int) error {
 	switch {
-	case u.partSize == 0:
+	case partSize == 0:
 		return xerrors.New("is equal to zero")
-	case u.partSize%paddingPartSize != 0:
-		return xerrors.Errorf("%d is not divisible by 1024", u.partSize)
-	case MaximumPartSize%u.partSize != 0:
-		return xerrors.Errorf("524288 is not divisible by %d", u.partSize)
+	case partSize%paddingPartSize != 0:
+		return xerrors.Errorf("%d is not divisible by 1024", partSize)
+	case MaximumPartSize%partSize != 0:
+		return xerrors.Errorf("524288 is not divisible by %d", partSize)
 	}
 
 	return nil
 }
 
-func (u *Uploader) computeParts(upload *Upload) int {
-	if upload.totalBytes <= 0 {
+func computeParts(partSize, total int) int {
+	if total <= 0 {
 		return 0
 	}
 
-	totalBytes := int(upload.totalBytes)
-	parts := totalBytes / u.partSize
-	if totalBytes%u.partSize != 0 {
+	parts := total / partSize
+	if total%partSize != 0 {
 		parts++
 	}
 	return parts
@@ -49,7 +48,7 @@ func (u *Uploader) computeParts(upload *Upload) int {
 
 func (u *Uploader) initUpload(upload *Upload) error {
 	big := upload.totalBytes > bigFileLimit
-	totalParts := u.computeParts(upload)
+	totalParts := computeParts(u.partSize, int(upload.totalBytes))
 	if !big && totalParts > partsLimit {
 		return xerrors.Errorf(
 			"part size is too small: total size = %d, part size = %d, %d / %d > %d",
