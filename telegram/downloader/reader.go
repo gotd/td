@@ -46,6 +46,7 @@ func (r *reader) Next(ctx context.Context) (block, error) {
 }
 
 func (r *reader) nextHashed(ctx context.Context) (block, error) {
+	// Fetch next hashes.
 	hash, ok, err := r.verifier.next(ctx)
 	if err != nil {
 		return block{}, err
@@ -54,11 +55,13 @@ func (r *reader) nextHashed(ctx context.Context) (block, error) {
 		return block{}, nil
 	}
 
+	// Get next chunk.
 	b, err := r.next(ctx, hash.Offset, hash.Limit)
 	if err != nil {
 		return block{}, err
 	}
 
+	// Verify chunk.
 	if !r.verifier.verify(hash, b.data) {
 		return block{}, ErrHashMismatch
 	}

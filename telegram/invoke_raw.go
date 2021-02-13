@@ -16,17 +16,19 @@ func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.De
 	if err := c.invokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := mtproto.AsErr(err); ok && rpcErr.IsCode(303) {
-			c.log.Info("Got migrate error: Starting migration to another dc",
-				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
-			)
-
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
 			// and create new connection.
 			if rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE") {
+				c.log.Info("Got migrate error: Creating sub-connection",
+					zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
+				)
 				return c.invokeSub(ctx, rpcErr.Argument, input, output)
 			}
 
+			c.log.Info("Got migrate error: Starting migration to another DC",
+				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
+			)
 			// Otherwise we should change primary DC.
 			return c.invokeMigrate(ctx, rpcErr.Argument, input, output)
 		}
