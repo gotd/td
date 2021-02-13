@@ -4,240 +4,219 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
-	"image"
-	"image/color"
-	"image/png"
 	"io"
+	"os"
+	"runtime"
+	"strconv"
+	"sync"
 	"testing"
-	"testing/iotest"
 	"time"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"go.uber.org/zap/zaptest"
+	"go.uber.org/atomic"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/internal/testutil"
-	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/internal/syncio"
 	"github.com/gotd/td/tg"
 )
 
-type progressLogger struct {
-	logger *zap.Logger
+type mockClient struct {
+	err bool
+
+	// Upload state.
+	buf   *syncio.BufWriterAt
+	parts []atomic.Int64
+
+	partSize    int
+	partSizeMux sync.Mutex
 }
 
-func (p progressLogger) Chunk(ctx context.Context, state ProgressState) error {
-	p.logger.Sugar().Infof("Part uploaded %+v", state)
-	return nil
-}
-
-type Image func() *image.RGBA
-
-func testProfilePhotoUploader(gen Image) func(t *testing.T) {
-	return func(t *testing.T) {
-		a := require.New(t)
-		logger := zaptest.NewLogger(t, zaptest.Level(zapcore.WarnLevel))
-
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-		defer cancel()
-
-		err := telegram.TestClient(ctx, telegram.Options{
-			Logger: logger,
-		}, func(ctx context.Context, client *telegram.Client) error {
-			if _, err := client.Self(ctx); err != nil {
-				return xerrors.Errorf("self: %w", err)
-			}
-
-			invoker, err := client.Pool(0 /* unlimited */)
-			if err != nil {
-				return xerrors.Errorf("pool: %w", err)
-			}
-
-			img := bytes.NewBuffer(nil)
-			if err := png.Encode(img, gen()); err != nil {
-				return xerrors.Errorf("png encode: %w", err)
-			}
-			t.Log("size of image", img.Len(), "bytes")
-
-			raw := tg.NewClient(invoker)
-			f, err := NewUploader(raw).
-				WithPartSize(2048).
-				WithProgress(progressLogger{logger.Named("progress")}).
-				FromReader(ctx, "abc.jpg", iotest.HalfReader(img))
-			if err != nil {
-				return xerrors.Errorf("upload: %w", err)
-			}
-
-			req := &tg.PhotosUploadProfilePhotoRequest{}
-			req.SetFile(f)
-			res, err := raw.PhotosUploadProfilePhoto(ctx, req)
-			if err != nil {
-				return xerrors.Errorf("change profile photo: %w", err)
-			}
-
-			_, ok := res.Photo.(*tg.Photo)
-			a.Truef(ok, "unexpected type %T", res.Photo)
-			return nil
-		})
-
-		a.NoError(err)
+func newMockClient(err bool) *mockClient {
+	return &mockClient{
+		err:   err,
+		buf:   &syncio.BufWriterAt{},
+		parts: make([]atomic.Int64, 3000),
 	}
 }
 
-func generateImage(x, y int) *image.RGBA {
-	img := image.NewRGBA(image.Rect(0, 0, x, y))
-	for x := 0; x < img.Bounds().Dx(); x++ {
-		for y := 0; y < img.Bounds().Dy(); y++ {
-			if (x+y)%2 == 0 || (x%2 != 0 && y%2 != 0) {
-				img.SetRGBA(x, y, color.RGBA{
-					R: 255,
-					G: 255,
-					B: 255,
-					A: 255,
+var testErr = xerrors.New("test err")
+
+func (m *mockClient) write(part int, data []byte) error {
+	m.partSizeMux.Lock()
+	if m.partSize == 0 {
+		m.partSize = len(data)
+	} else if m.partSize != len(data) {
+		m.partSizeMux.Unlock()
+
+		return xerrors.Errorf(
+			"invalid part size, expected %d, got %d",
+			m.partSize, len(data),
+		)
+	}
+	partSize := m.partSize
+	m.partSizeMux.Unlock()
+
+	// Every part have ID which is offset in partSize from start of file.
+	// But maximal ID is 2999, so part ID for big files can overflow.
+	// We use parts array to count received parts by ID to compute the offset.
+	rangeOffset := int(m.parts[part].Inc() - 1)
+
+	// If rangeOffset is zero, so offset will be zero, part ID received first time.
+	// Otherwise, we count next range offset.
+	offset := rangeOffset * partsLimit * partSize
+	_, err := m.buf.WriteAt(data, int64(part*partSize+offset))
+	return err
+}
+
+func (m *mockClient) UploadSaveFilePart(ctx context.Context, request *tg.UploadSaveFilePartRequest) (bool, error) {
+	if m.err {
+		return false, testErr
+	}
+
+	if err := m.write(request.FilePart, request.Bytes); err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+func (m *mockClient) UploadSaveBigFilePart(ctx context.Context, request *tg.UploadSaveBigFilePartRequest) (bool, error) {
+	if m.err {
+		return false, testErr
+	}
+
+	if err := m.write(request.FilePart, request.Bytes); err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+
+type file struct {
+	name string
+	data *bytes.Buffer
+}
+
+type fileInfo struct {
+	name string
+	size int64
+}
+
+func (f fileInfo) Name() string {
+	return f.name
+}
+
+func (f fileInfo) Size() int64 {
+	return f.size
+}
+
+func (f fileInfo) Mode() os.FileMode {
+	panic("implement me")
+}
+
+func (f fileInfo) ModTime() time.Time {
+	panic("implement me")
+}
+
+func (f fileInfo) IsDir() bool {
+	panic("implement me")
+}
+
+func (f fileInfo) Sys() interface{} {
+	panic("implement me")
+}
+
+func (f file) Name() string {
+	return f.name
+}
+
+func (f file) Stat() (os.FileInfo, error) {
+	return fileInfo{size: int64(f.data.Len()), name: f.name}, nil
+}
+
+func (f file) Read(p []byte) (int, error) {
+	return f.data.Read(p)
+}
+
+func TestUploader(t *testing.T) {
+	ctx := context.Background()
+
+	testData := make([]byte, 15*1024*1024)
+	if _, err := io.ReadFull(rand.Reader, testData); err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		name string
+		data []byte
+		err  bool
+	}{
+		{"5b", []byte{1, 2, 3, 4, 5}, false},
+		{strconv.Itoa(defaultPartSize) + "b", bytes.Repeat([]byte{1}, defaultPartSize), false},
+		{strconv.Itoa(len(testData)) + "b", testData, false},
+		{"Error", []byte{1, 2, 3, 4, 5}, true},
+	}
+
+	ways := []struct {
+		name   string
+		action func(b *Uploader, data []byte) error
+	}{
+		{"FromReader", func(b *Uploader, data []byte) error {
+			if len(data) == len(testData) {
+				b = b.WithPartSize(16384)
+			}
+			_, err := b.FromReader(ctx, "10.jpg", bytes.NewReader(data))
+			return err
+		}},
+		{"FromFile", func(b *Uploader, data []byte) error {
+			if len(data) == len(testData) {
+				b = b.WithPartSize(MaximumPartSize)
+			}
+
+			_, err := b.FromFile(ctx, file{
+				name: "10.jpg",
+				data: bytes.NewBuffer(data),
+			})
+			return err
+		}},
+	}
+
+	options := []struct {
+		name   string
+		action func(b *Uploader) *Uploader
+	}{
+		{"OneThread", func(b *Uploader) *Uploader {
+			return b.WithThreads(1)
+		}},
+		{"ManyThread", func(b *Uploader) *Uploader {
+			return b.WithThreads(runtime.GOMAXPROCS(0))
+		}},
+	}
+
+	for _, way := range ways {
+		t.Run(way.name, func(t *testing.T) {
+			for _, option := range options {
+				t.Run(option.name, func(t *testing.T) {
+					for _, test := range tests {
+						t.Run(test.name, func(t *testing.T) {
+							client := newMockClient(test.err)
+							u := NewUploader(client)
+
+							err := way.action(option.action(u), test.data)
+							if test.err {
+								require.Error(t, err)
+								return
+							}
+
+							require.NoError(t, err)
+							require.Truef(
+								t, bytes.Equal(test.data, client.buf.Bytes()),
+								"expected uploaded and given equal",
+							)
+						})
+					}
 				})
 			}
-		}
-	}
-	return img
-}
-
-type generator struct {
-	state int64
-}
-
-func (g *generator) Read(p []byte) (n int, err error) {
-	if g.state <= 0 {
-		return 0, io.EOF
-	}
-
-	for i := range p {
-		p[i] = byte(g.state)
-		g.state--
-	}
-
-	return len(p), nil
-}
-
-func TestExternalE2EDocUpload(t *testing.T) {
-	testutil.SkipExternal(t)
-
-	a := require.New(t)
-	logger := zaptest.NewLogger(t, zaptest.Level(zapcore.InfoLevel))
-
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
-
-	err := telegram.TestClient(ctx, telegram.Options{
-		Logger: logger,
-	}, func(ctx context.Context, client *telegram.Client) error {
-		if _, err := client.Self(ctx); err != nil {
-			return xerrors.Errorf("self: %w", err)
-		}
-
-		invoker, err := client.Pool(2)
-		if err != nil {
-			return xerrors.Errorf("pool: %w", err)
-		}
-
-		total := int64(20 * 1024 * 1024)
-		g := &generator{state: total}
-
-		raw := tg.NewClient(invoker)
-		upld := NewUpload("devrandom.dat", iotest.HalfReader(g), total)
-		f, err := NewUploader(raw).
-			WithPartSize(MaximumPartSize).
-			WithProgress(progressLogger{logger.Named("progress")}).
-			Upload(ctx, upld)
-		if err != nil {
-			return xerrors.Errorf("upload: %w", err)
-		}
-
-		id, err := crypto.RandInt64(rand.Reader)
-		if err != nil {
-			return xerrors.Errorf("message id: %w", err)
-		}
-
-		_, err = raw.MessagesSendMedia(ctx, &tg.MessagesSendMediaRequest{
-			Peer: &tg.InputPeerSelf{},
-			Media: &tg.InputMediaUploadedDocument{
-				File: f,
-			},
-			RandomID: id,
 		})
-		if err != nil {
-			return xerrors.Errorf("send media: %w", err)
-		}
-
-		return nil
-	})
-	a.NoError(err)
-}
-
-func TestExternalE2EVideoUpload(t *testing.T) {
-	testutil.SkipExternal(t)
-
-	a := require.New(t)
-	logger := zaptest.NewLogger(t, zaptest.Level(zapcore.InfoLevel))
-
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
-
-	err := telegram.TestClient(ctx, telegram.Options{
-		Logger: logger,
-	}, func(ctx context.Context, client *telegram.Client) error {
-		if _, err := client.Self(ctx); err != nil {
-			return xerrors.Errorf("self: %w", err)
-		}
-
-		invoker, err := client.Pool(2)
-		if err != nil {
-			return xerrors.Errorf("pool: %w", err)
-		}
-
-		raw := tg.NewClient(invoker)
-		f, err := NewUploader(raw).
-			WithPartSize(MaximumPartSize).
-			WithProgress(progressLogger{logger.Named("progress")}).
-			FromPath(ctx, "./testdata/video.mp4")
-		if err != nil {
-			return xerrors.Errorf("upload: %w", err)
-		}
-
-		id, err := crypto.RandInt64(rand.Reader)
-		if err != nil {
-			return xerrors.Errorf("message id: %w", err)
-		}
-
-		_, err = raw.MessagesSendMedia(ctx, &tg.MessagesSendMediaRequest{
-			Peer: &tg.InputPeerSelf{},
-			Media: &tg.InputMediaUploadedDocument{
-				File:     f,
-				MimeType: "video/mp4",
-				Attributes: []tg.DocumentAttributeClass{
-					&tg.DocumentAttributeVideo{},
-				},
-			},
-			RandomID: id,
-		})
-		if err != nil {
-			return xerrors.Errorf("send media: %w", err)
-		}
-
-		return nil
-	})
-	a.NoError(err)
-}
-
-func TestExternalE2EProfilePhotoUpload(t *testing.T) {
-	testutil.SkipExternal(t)
-
-	t.Run("LessThanPart", testProfilePhotoUploader(func() *image.RGBA {
-		return generateImage(255, 255)
-	}))
-
-	t.Run("BiggerThanPart", testProfilePhotoUploader(func() *image.RGBA {
-		return generateImage(1024, 1024)
-	}))
+	}
 }

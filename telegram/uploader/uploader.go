@@ -67,7 +67,7 @@ func (u *Uploader) WithPartSize(partSize int) *Uploader {
 
 // Upload uploads data from Upload object.
 func (u *Uploader) Upload(ctx context.Context, upload *Upload) (tg.InputFileClass, error) {
-	if err := u.checkPartSize(); err != nil {
+	if err := checkPartSize(u.partSize); err != nil {
 		return nil, xerrors.Errorf("invalid part size: %w", err)
 	}
 

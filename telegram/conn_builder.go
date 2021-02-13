@@ -45,8 +45,7 @@ func (n noopHandler) onMessage(b *bin.Buffer) error {
 }
 
 func (b connBuilder) WithNoopHandler() connBuilder {
-	b.conn.handler = noopHandler{}
-	return b
+	return b.WithHandler(noopHandler{})
 }
 
 func (b connBuilder) WithHandler(handler connHandler) connBuilder {

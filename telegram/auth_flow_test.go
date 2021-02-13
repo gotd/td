@@ -13,16 +13,19 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
 )
 
-func TestConstantAuth(t *testing.T) {
-	askCode := telegram.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
-		return "123", nil
-	})
+func askCode(code string, err error) telegram.CodeAuthenticatorFunc {
+	return func(ctx context.Context) (string, error) {
+		return code, err
+	}
+}
 
+func TestConstantAuth(t *testing.T) {
 	a := require.New(t)
-	auth := telegram.ConstantAuth("phone", "password", askCode)
+	auth := telegram.ConstantAuth("phone", "password", askCode("123", nil))
 	ctx := context.Background()
 
 	result, err := auth.Code(ctx)
@@ -39,12 +42,8 @@ func TestConstantAuth(t *testing.T) {
 }
 
 func TestCodeOnlyAuth(t *testing.T) {
-	askCode := telegram.CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
-		return "123", nil
-	})
-
 	a := require.New(t)
-	auth := telegram.CodeOnlyAuth("phone", askCode)
+	auth := telegram.CodeOnlyAuth("phone", askCode("123", nil))
 	ctx := context.Background()
 
 	result, err := auth.Code(ctx)
@@ -56,7 +55,37 @@ func TestCodeOnlyAuth(t *testing.T) {
 	a.Equal("phone", result)
 
 	_, err = auth.Password(ctx)
+	a.ErrorIs(err, telegram.ErrPasswordNotProvided)
+}
+
+func TestEnvAuth(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+
+	prefix := "TEST_ENV_AUTH_"
+	auth := telegram.EnvAuth(prefix, askCode("123", nil))
+
+	result, err := auth.Code(ctx)
+	a.NoError(err)
+	a.Equal("123", result)
+
+	_, err = auth.Phone(ctx)
 	a.Error(err)
+
+	_, err = auth.Password(ctx)
+	a.ErrorIs(err, telegram.ErrPasswordNotProvided)
+
+	// Set envs.
+	testutil.SetEnv(t, prefix+"PHONE", "phone")
+	testutil.SetEnv(t, prefix+"PASSWORD", "password")
+
+	result, err = auth.Phone(ctx)
+	a.NoError(err)
+	a.Equal("phone", result)
+
+	result, err = auth.Password(ctx)
+	a.NoError(err)
+	a.Equal("password", result)
 }
 
 func ExampleTestAuth() {

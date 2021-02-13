@@ -178,7 +178,11 @@ func (e envAuth) Phone(ctx context.Context) (string, error) {
 }
 
 func (e envAuth) Password(ctx context.Context) (string, error) {
-	return e.lookup("PASSWORD")
+	p, err := e.lookup("PASSWORD")
+	if err != nil {
+		return "", ErrPasswordNotProvided
+	}
+	return p, nil
 }
 
 // EnvAuth creates UserAuthenticator which gets phone and password from environment variables.
@@ -197,14 +201,7 @@ var ErrPasswordNotProvided = errors.New("password requested but not provided")
 type codeOnlyAuth struct {
 	phone string
 	CodeAuthenticator
-}
-
-func (c codeOnlyAuth) SignUp(ctx context.Context) (UserInfo, error) {
-	return UserInfo{}, xerrors.New("not implemented")
-}
-
-func (c codeOnlyAuth) AcceptTermsOfService(ctx context.Context, tos tg.HelpTermsOfService) error {
-	return &SignUpRequired{TermsOfService: tos}
+	noSignUp
 }
 
 func (c codeOnlyAuth) Phone(ctx context.Context) (string, error) {

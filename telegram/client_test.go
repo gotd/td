@@ -10,7 +10,10 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/telegram/internal/rpcmock"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
@@ -72,6 +75,17 @@ func newTestClient(h testHandler) *Client {
 	client.tg = tg.NewClient(client)
 
 	return client
+}
+
+func mockClient(cb func(mock *rpcmock.Mock, client *Client)) func(t *testing.T) {
+	return func(t *testing.T) {
+		t.Helper()
+
+		a := require.New(t)
+		mock := rpcmock.NewMock(t, a)
+		client := newTestClient(testHandler(mock.Handler()))
+		cb(mock, client)
+	}
 }
 
 // newCorpusTracer will save incoming messages to corpus folder.

@@ -15,6 +15,7 @@ import (
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
@@ -22,40 +23,39 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testTransportAttempt(ctx context.Context, t *testing.T, trp telegram.Transport) error {
-	t.Helper()
-
-	log := zaptest.NewLogger(t)
-	defer func() { _ = log.Sync() }()
-
-	return telegram.TestClient(ctx, telegram.Options{
-		Logger:    log.Named("client"),
-		Transport: trp,
-	}, func(ctx context.Context, client *telegram.Client) error {
-		if _, err := client.Self(ctx); err != nil {
-			return xerrors.Errorf("self: %w", err)
-		}
-
-		return nil
-	})
-}
-
-func testTransport(trp telegram.Transport) func(t *testing.T) {
+func testTransport(trp telegram.Transport, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
 
-		require.NoError(t, testTransportAttempt(ctx, t, trp))
+		log := zaptest.NewLogger(t)
+		defer func() { _ = log.Sync() }()
+
+		err := telegram.TestClient(ctx, telegram.Options{
+			Transport:      trp,
+			Logger:         log.Named("client"),
+			SessionStorage: storage,
+		}, func(ctx context.Context, client *telegram.Client) error {
+			if _, err := client.Self(ctx); err != nil {
+				return xerrors.Errorf("self: %w", err)
+			}
+
+			return nil
+		})
+
+		require.NoError(t, err)
 	}
 }
 
 func TestExternalE2EConnect(t *testing.T) {
 	testutil.SkipExternal(t)
 
-	t.Run("Abridged", testTransport(transport.Abridged(nil)))
-	t.Run("Intermediate", testTransport(transport.Intermediate(nil)))
-	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil)))
-	t.Run("Full", testTransport(transport.Full(nil)))
+	// To re-use session.
+	storage := &session.StorageMemory{}
+	t.Run("Abridged", testTransport(transport.Abridged(nil), storage))
+	t.Run("Intermediate", testTransport(transport.Intermediate(nil), storage))
+	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil), storage))
+	t.Run("Full", testTransport(transport.Full(nil), storage))
 }
 
 const dialog = `— Да?
