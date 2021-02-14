@@ -3,7 +3,6 @@ package tgtest
 import (
 	"context"
 	"encoding/binary"
-	"errors"
 	"io"
 	"net"
 
@@ -30,7 +29,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		if err := conn.Recv(ctx, &b); err != nil {
 			var syscallErr *net.OpError
 			// TODO(tdakkota): Find a better way to detect forcibly closed connection.
-			if errors.Is(err, io.EOF) || (errors.As(err, &syscallErr) && syscallErr.Op == "read") {
+			if xerrors.Is(err, io.EOF) || (xerrors.As(err, &syscallErr) && syscallErr.Op == "read") {
 				// Client disconnected.
 				s.users.deleteConnection(key)
 				s.log.Info("Read failed, closing loop.", zap.Error(err))
@@ -102,6 +101,11 @@ func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
 	}
 
 	if err := s.handler.OnMessage(session, msgID, in); err != nil {
+		// Client disconnected during write.
+		var syscallErr *net.OpError
+		if xerrors.As(err, &syscallErr) && syscallErr.Op == "write" {
+			return nil
+		}
 		return xerrors.Errorf("failed to call handler: %w", err)
 	}
 
