@@ -14,14 +14,32 @@ import (
 )
 
 type mtProxyDialer struct {
+	addr     string
 	original Dialer
 	rand     io.Reader
 
 	secret mtproxy.Secret
+	codec  Codec
 	tag    [4]byte
 }
 
 func (m mtProxyDialer) DialContext(ctx context.Context, network, address string) (net.Conn, error) {
+	return m.dial(ctx, network, address, 2)
+}
+
+func (m mtProxyDialer) DialTelegram(ctx context.Context, network string, dc int) (Conn, error) {
+	conn, err := m.dial(ctx, network, m.addr, dc)
+	if err != nil {
+		return nil, err
+	}
+
+	return &connection{
+		conn:  conn,
+		codec: m.codec,
+	}, nil
+}
+
+func (m mtProxyDialer) dial(ctx context.Context, network, address string, dc int) (net.Conn, error) {
 	c, err := m.original.DialContext(ctx, network, address)
 	if err != nil {
 		return nil, err
@@ -37,7 +55,9 @@ func (m mtProxyDialer) DialContext(ctx context.Context, network, address string)
 		return nil, xerrors.Errorf("unknown MTProxy secret type: %d", m.secret.Type)
 	}
 
-	if err := conn.Handshake(m.tag, m.secret); err != nil {
+	secret := m.secret
+	secret.DC = dc
+	if err := conn.Handshake(m.tag, secret); err != nil {
 		return nil, xerrors.Errorf("MTProxy handshake: %w", err)
 	}
 
@@ -46,19 +66,22 @@ func (m mtProxyDialer) DialContext(ctx context.Context, network, address string)
 
 // MTProxy creates MTProxy obfuscated transport.
 //
-// See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
-func MTProxy(d Dialer, dc int, secret []byte) (*Transport, error) {
-	s, err := mtproxy.ParseSecret(dc, secret)
+// See https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation.
+func MTProxy(d Dialer, addr string, secret []byte) (*Transport, error) {
+	s, err := mtproxy.ParseSecret(2, secret)
 	if err != nil {
 		return nil, err
 	}
 
 	cdc := codec.PaddedIntermediate{}
 	dialer := mtProxyDialer{
+		addr:     addr,
 		original: orDefaultDialer(d),
 		rand:     rand.Reader,
 		secret:   s,
-		tag:      cdc.ObfuscatedTag(),
+
+		codec: cdc,
+		tag:   cdc.ObfuscatedTag(),
 	}
 
 	return NewTransport(dialer, func() Codec {

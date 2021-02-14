@@ -3,6 +3,8 @@ package transport
 import (
 	"context"
 	"net"
+	"strconv"
+	"strings"
 
 	"golang.org/x/xerrors"
 
@@ -72,9 +74,39 @@ type Conn interface {
 	Close() error
 }
 
+type telegramDialer interface {
+	DialTelegram(ctx context.Context, network string, dc int) (Conn, error)
+}
+
+func splitAddr(input string, del byte) (dc int, addr string, err error) {
+	index := strings.IndexByte(input, del)
+	if index < 0 {
+		err = xerrors.Errorf("expected delimiter %c in %q", del, input)
+		return
+	}
+
+	// If del is last character.
+	if len(input)-1 == index {
+		err = xerrors.Errorf("expected address in %q", input)
+		return
+	}
+	dc, err = strconv.Atoi(input[:index])
+	addr = input[index+1:]
+	return
+}
+
 // DialContext creates new MTProto connection.
 func (t *Transport) DialContext(ctx context.Context, network, address string) (Conn, error) {
-	conn, err := t.dialer.DialContext(ctx, network, address)
+	dc, addr, err := splitAddr(address, '|')
+	if err != nil {
+		return nil, xerrors.Errorf("invalid address: %w", err)
+	}
+
+	if td, ok := t.dialer.(telegramDialer); ok {
+		return td.DialTelegram(ctx, network, dc)
+	}
+
+	conn, err := t.dialer.DialContext(ctx, network, addr)
 	if err != nil {
 		return nil, xerrors.Errorf("dial: %w", err)
 	}

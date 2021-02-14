@@ -34,7 +34,6 @@ func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		log := zaptest.NewLogger(t)
-		defer func() { _ = log.Sync() }()
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()

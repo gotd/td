@@ -7,6 +7,6 @@ import (
 )
 
 func TestMTProxy(t *testing.T) {
-	_, err := MTProxy(nil, 0, nil)
+	_, err := MTProxy(nil, "", nil)
 	require.Error(t, err)
 }

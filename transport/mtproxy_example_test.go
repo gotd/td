@@ -23,7 +23,7 @@ func ExampleMTProxy() {
 		panic(err)
 	}
 
-	trp, err := transport.MTProxy(nil, 2, secret)
+	trp, err := transport.MTProxy(nil, addr, secret)
 	if err != nil {
 		panic(err)
 	}
@@ -32,7 +32,6 @@ func ExampleMTProxy() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Addr:      addr,
 		Transport: trp,
 	})
 
