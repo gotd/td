@@ -1,6 +1,7 @@
 package telegram_test
 
 import (
+	"bytes"
 	"context"
 	"encoding/hex"
 	"io"
@@ -11,15 +12,18 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/require"
+	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/tdsync"
+	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/transport"
 )
 
 type mtg struct {
 	path string
+	addr string
 }
 
 type signalWriter struct {
@@ -32,10 +36,10 @@ func (s signalWriter) Write(p []byte) (n int, err error) {
 	return s.Writer.Write(p)
 }
 
-func (m mtg) run(ctx context.Context, secret, addr string, wait *tdsync.Ready) error {
-	cmd := exec.CommandContext(ctx, m.path, "run", "--bind", addr, secret)
-	cmd.Stdout = signalWriter{Writer: os.Stdout, wait: wait}
-	cmd.Stderr = signalWriter{Writer: os.Stderr, wait: wait}
+func (m mtg) run(ctx context.Context, secret string, out, err io.Writer, wait *tdsync.Ready) error {
+	cmd := exec.CommandContext(ctx, m.path, "run", "--bind", m.addr, secret)
+	cmd.Stdout = signalWriter{Writer: out, wait: wait}
+	cmd.Stderr = signalWriter{Writer: err, wait: wait}
 	cmd.Env = append([]string{"MTG_DEBUG=true", "MTG_TEST_DC=true"}, os.Environ()...)
 	return cmd.Run()
 }
@@ -61,34 +65,45 @@ func (m mtg) generateSecret(ctx context.Context, t string) ([]byte, error) {
 	return r, nil
 }
 
-func testMTProxy(secretType, addr string, m mtg) func(t *testing.T) {
+func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		a := require.New(t)
+		logger := zaptest.NewLogger(t)
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 		defer cancel()
 
 		secret, err := m.generateSecret(ctx, secretType)
 		a.NoError(err)
 
+		// Store mtg logs to buffer and print it only if test failed.
+		w := &bytes.Buffer{}
+		t.Cleanup(func() {
+			if t.Failed() {
+				_, _ = io.Copy(os.Stdout, w)
+			}
+		})
+
 		grp := tdsync.NewCancellableGroup(ctx)
 		ready := tdsync.NewReady()
 		grp.Go(func(groupCtx context.Context) error {
-			_ = m.run(groupCtx, hex.EncodeToString(secret), addr, ready)
+			_ = m.run(groupCtx, hex.EncodeToString(secret), w, w, ready)
 			return nil
 		})
 		grp.Go(func(groupCtx context.Context) error {
 			defer grp.Cancel()
 			<-ready.Ready()
 
-			trp, err := transport.MTProxy(nil, 2, secret)
+			trp, err := transport.MTProxy(nil, m.addr, secret)
 			if err != nil {
 				return err
 			}
 
 			return telegram.TestClient(ctx, telegram.Options{
-				Addr:      addr,
-				Transport: trp,
+				Addr:           m.addr,
+				Transport:      trp,
+				Logger:         logger,
+				SessionStorage: storage,
 			}, func(ctx context.Context, client *telegram.Client) error {
 				if _, err := client.Self(ctx); err != nil {
 					return xerrors.Errorf("self: %w", err)
@@ -113,8 +128,10 @@ func TestExternalE2EMTProxy(t *testing.T) {
 		t.Fatal("mtg binary not found", err)
 	}
 
-	m := mtg{path: mtgPath}
+	// To re-use session.
+	storage := &session.StorageMemory{}
+	m := mtg{path: mtgPath, addr: addr}
 	for _, secretType := range []string{"simple", "secured", "tls"} {
-		t.Run(strings.Title(secretType), testMTProxy(secretType, addr, m))
+		t.Run(strings.Title(secretType), testMTProxy(secretType, m, storage))
 	}
 }

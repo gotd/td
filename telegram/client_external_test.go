@@ -74,7 +74,7 @@ const dialog = `— Да?
 func TestExternalE2EUsersDialog(t *testing.T) {
 	testutil.SkipExternal(t)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 	log := zaptest.NewLogger(t).WithOptions(zap.IncreaseLevel(zapcore.InfoLevel))
 

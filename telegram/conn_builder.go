@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"strconv"
 
 	"go.uber.org/zap"
 
@@ -30,7 +31,7 @@ func (b connBuilder) WithOptions(dc int, addr string, opts mtproto.Options) conn
 	b.conn.addr = addr
 	opts.Handler = b.conn
 	opts.Logger = b.conn.log.Named("mtproto").With(zap.String("addr", b.conn.addr))
-	b.conn.proto = mtproto.New(b.conn.addr, opts)
+	b.conn.proto = mtproto.New(strconv.Itoa(dc)+"|"+b.conn.addr, opts)
 	return b
 }
 
