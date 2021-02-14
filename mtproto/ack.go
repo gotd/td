@@ -22,7 +22,7 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 			return
 		}
 
-		log.Debug("ACK", zap.Int64s("msg_ids", buf))
+		log.Debug("Ack", zap.Int64s("msg_ids", buf))
 	}
 
 	ticker := time.NewTicker(c.ackInterval) // TODO: remove side-effect
