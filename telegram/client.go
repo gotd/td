@@ -254,11 +254,16 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.conn.Run)
 	g.Go(func(groupCtx context.Context) error {
-		_, err := c.tg.HelpGetConfig(ctx)
+		self, err := c.Self(ctx)
 		if err != nil {
-			c.log.Warn("Get config failed", zap.Error(err))
+			// Ignore unauthorized errors.
+			if !unauthorized(err) {
+				c.log.Warn("Got error on self", zap.Error(err))
+			}
+			return nil
 		}
 
+		c.log.Info("Got self", zap.String("username", self.Username))
 		return nil
 	})
 	g.Go(func(gCtx context.Context) error {
