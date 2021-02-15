@@ -38,6 +38,8 @@ type GroupCallParticipant struct {
 	Min bool
 	// MutedByYou field of GroupCallParticipant.
 	MutedByYou bool
+	// VolumeByAdmin field of GroupCallParticipant.
+	VolumeByAdmin bool
 	// UserID field of GroupCallParticipant.
 	UserID int
 	// Date field of GroupCallParticipant.
@@ -83,6 +85,9 @@ func (g *GroupCallParticipant) Zero() bool {
 		return false
 	}
 	if !(g.MutedByYou == false) {
+		return false
+	}
+	if !(g.VolumeByAdmin == false) {
 		return false
 	}
 	if !(g.UserID == 0) {
@@ -170,6 +175,9 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	}
 	if !(g.MutedByYou == false) {
 		g.Flags.Set(9)
+	}
+	if !(g.VolumeByAdmin == false) {
+		g.Flags.Set(10)
 	}
 	if !(g.ActiveDate == 0) {
 		g.Flags.Set(3)
@@ -304,6 +312,22 @@ func (g *GroupCallParticipant) GetMutedByYou() (value bool) {
 	return g.Flags.Has(9)
 }
 
+// SetVolumeByAdmin sets value of VolumeByAdmin conditional field.
+func (g *GroupCallParticipant) SetVolumeByAdmin(value bool) {
+	if value {
+		g.Flags.Set(10)
+		g.VolumeByAdmin = true
+	} else {
+		g.Flags.Unset(10)
+		g.VolumeByAdmin = false
+	}
+}
+
+// GetVolumeByAdmin returns value of VolumeByAdmin conditional field.
+func (g *GroupCallParticipant) GetVolumeByAdmin() (value bool) {
+	return g.Flags.Has(10)
+}
+
 // GetUserID returns value of UserID field.
 func (g *GroupCallParticipant) GetUserID() (value int) {
 	return g.UserID
@@ -369,6 +393,7 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	g.Versioned = g.Flags.Has(5)
 	g.Min = g.Flags.Has(8)
 	g.MutedByYou = g.Flags.Has(9)
+	g.VolumeByAdmin = g.Flags.Has(10)
 	{
 		value, err := b.Int()
 		if err != nil {
