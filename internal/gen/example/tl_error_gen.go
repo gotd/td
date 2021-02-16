@@ -55,20 +55,8 @@ func (e *Error) String() string {
 	if e == nil {
 		return "Error(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Error")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCode: ")
-	sb.WriteString(fmt.Sprint(e.Code))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(e.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTemporary: ")
-	sb.WriteString(fmt.Sprint(e.Temporary))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Error
+	return fmt.Sprintf("Error%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

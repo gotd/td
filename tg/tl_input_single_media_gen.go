@@ -78,30 +78,8 @@ func (i *InputSingleMedia) String() string {
 	if i == nil {
 		return "InputSingleMedia(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputSingleMedia")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(i.Media))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(i.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(i.Message))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range i.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputSingleMedia
+	return fmt.Sprintf("InputSingleMedia%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

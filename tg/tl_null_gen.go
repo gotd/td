@@ -41,11 +41,8 @@ func (n *Null) String() string {
 	if n == nil {
 		return "Null(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Null")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Null
+	return fmt.Sprintf("Null%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -96,31 +96,8 @@ func (w *WallPaper) String() string {
 	if w == nil {
 		return "WallPaper(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WallPaper")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(w.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(w.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSlug: ")
-	sb.WriteString(fmt.Sprint(w.Slug))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDocument: ")
-	sb.WriteString(fmt.Sprint(w.Document))
-	sb.WriteString(",\n")
-	if w.Flags.Has(2) {
-		sb.WriteString("\tSettings: ")
-		sb.WriteString(fmt.Sprint(w.Settings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WallPaper
+	return fmt.Sprintf("WallPaper%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -381,19 +358,8 @@ func (w *WallPaperNoFile) String() string {
 	if w == nil {
 		return "WallPaperNoFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WallPaperNoFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	if w.Flags.Has(2) {
-		sb.WriteString("\tSettings: ")
-		sb.WriteString(fmt.Sprint(w.Settings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WallPaperNoFile
+	return fmt.Sprintf("WallPaperNoFile%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -514,13 +480,13 @@ var (
 // See https://core.telegram.org/type/WallPaper for reference.
 //
 // Example:
-//  g, err := DecodeWallPaper(buf)
+//  g, err := tg.DecodeWallPaper(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *WallPaper: // wallPaper#a437c3ed
-//  case *WallPaperNoFile: // wallPaperNoFile#8af40b25
+//  case *tg.WallPaper: // wallPaper#a437c3ed
+//  case *tg.WallPaperNoFile: // wallPaperNoFile#8af40b25
 //  default: panic(v)
 //  }
 type WallPaperClass interface {

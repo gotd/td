@@ -45,14 +45,8 @@ func (r *ResponseID) String() string {
 	if r == nil {
 		return "ResponseID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ResponseID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(r.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ResponseID
+	return fmt.Sprintf("ResponseID%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -132,14 +126,8 @@ func (r *ResponseText) String() string {
 	if r == nil {
 		return "ResponseText(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ResponseText")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(r.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ResponseText
+	return fmt.Sprintf("ResponseText%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -197,13 +185,13 @@ var (
 // See https://localhost:80/doc/type/Response for reference.
 //
 // Example:
-//  g, err := DecodeResponse(buf)
+//  g, err := td.DecodeResponse(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ResponseID: // responseID#85d7fd8b
-//  case *ResponseText: // responseText#cb0244f2
+//  case *td.ResponseID: // responseID#85d7fd8b
+//  case *td.ResponseText: // responseText#cb0244f2
 //  default: panic(v)
 //  }
 type ResponseClass interface {

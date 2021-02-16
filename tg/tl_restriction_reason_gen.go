@@ -57,20 +57,8 @@ func (r *RestrictionReason) String() string {
 	if r == nil {
 		return "RestrictionReason(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RestrictionReason")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPlatform: ")
-	sb.WriteString(fmt.Sprint(r.Platform))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReason: ")
-	sb.WriteString(fmt.Sprint(r.Reason))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(r.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RestrictionReason
+	return fmt.Sprintf("RestrictionReason%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

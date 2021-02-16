@@ -56,22 +56,8 @@ func (s *ShippingOption) String() string {
 	if s == nil {
 		return "ShippingOption(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ShippingOption")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(s.Title))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Prices {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ShippingOption
+	return fmt.Sprintf("ShippingOption%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

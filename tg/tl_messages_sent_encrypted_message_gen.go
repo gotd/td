@@ -46,14 +46,8 @@ func (s *MessagesSentEncryptedMessage) String() string {
 	if s == nil {
 		return "MessagesSentEncryptedMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSentEncryptedMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(s.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSentEncryptedMessage
+	return fmt.Sprintf("MessagesSentEncryptedMessage%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,17 +133,8 @@ func (s *MessagesSentEncryptedFile) String() string {
 	if s == nil {
 		return "MessagesSentEncryptedFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSentEncryptedFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(s.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(s.File))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSentEncryptedFile
+	return fmt.Sprintf("MessagesSentEncryptedFile%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -225,13 +210,13 @@ var (
 // See https://core.telegram.org/type/messages.SentEncryptedMessage for reference.
 //
 // Example:
-//  g, err := DecodeMessagesSentEncryptedMessage(buf)
+//  g, err := tg.DecodeMessagesSentEncryptedMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesSentEncryptedMessage: // messages.sentEncryptedMessage#560f8935
-//  case *MessagesSentEncryptedFile: // messages.sentEncryptedFile#9493ff32
+//  case *tg.MessagesSentEncryptedMessage: // messages.sentEncryptedMessage#560f8935
+//  case *tg.MessagesSentEncryptedFile: // messages.sentEncryptedFile#9493ff32
 //  default: panic(v)
 //  }
 type MessagesSentEncryptedMessageClass interface {

@@ -41,11 +41,8 @@ func (c *AuthCodeTypeSms) String() string {
 	if c == nil {
 		return "AuthCodeTypeSms(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthCodeTypeSms")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthCodeTypeSms
+	return fmt.Sprintf("AuthCodeTypeSms%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (c *AuthCodeTypeCall) String() string {
 	if c == nil {
 		return "AuthCodeTypeCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthCodeTypeCall")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthCodeTypeCall
+	return fmt.Sprintf("AuthCodeTypeCall%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (c *AuthCodeTypeFlashCall) String() string {
 	if c == nil {
 		return "AuthCodeTypeFlashCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthCodeTypeFlashCall")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthCodeTypeFlashCall
+	return fmt.Sprintf("AuthCodeTypeFlashCall%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -224,14 +215,14 @@ var (
 // See https://core.telegram.org/type/auth.CodeType for reference.
 //
 // Example:
-//  g, err := DecodeAuthCodeType(buf)
+//  g, err := tg.DecodeAuthCodeType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AuthCodeTypeSms: // auth.codeTypeSms#72a3158c
-//  case *AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
-//  case *AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
+//  case *tg.AuthCodeTypeSms: // auth.codeTypeSms#72a3158c
+//  case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
+//  case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
 //  default: panic(v)
 //  }
 type AuthCodeTypeClass interface {

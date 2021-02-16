@@ -60,25 +60,8 @@ func (a *MessagesAffectedFoundMessages) String() string {
 	if a == nil {
 		return "MessagesAffectedFoundMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAffectedFoundMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(a.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(a.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(a.Offset))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range a.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAffectedFoundMessages
+	return fmt.Sprintf("MessagesAffectedFoundMessages%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

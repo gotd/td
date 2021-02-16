@@ -51,17 +51,8 @@ func (u *MessagesUploadEncryptedFileRequest) String() string {
 	if u == nil {
 		return "MessagesUploadEncryptedFileRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUploadEncryptedFileRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(u.File))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUploadEncryptedFileRequest
+	return fmt.Sprintf("MessagesUploadEncryptedFileRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,17 +51,8 @@ func (i *InvokeWithTakeoutRequest) String() string {
 	if i == nil {
 		return "InvokeWithTakeoutRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InvokeWithTakeoutRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTakeoutID: ")
-	sb.WriteString(fmt.Sprint(i.TakeoutID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InvokeWithTakeoutRequest
+	return fmt.Sprintf("InvokeWithTakeoutRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

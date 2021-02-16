@@ -46,16 +46,8 @@ func (a *AccountAuthorizations) String() string {
 	if a == nil {
 		return "AccountAuthorizations(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountAuthorizations")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range a.Authorizations {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountAuthorizations
+	return fmt.Sprintf("AccountAuthorizations%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

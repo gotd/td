@@ -41,11 +41,8 @@ func (i *InputPrivacyKeyStatusTimestamp) String() string {
 	if i == nil {
 		return "InputPrivacyKeyStatusTimestamp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyStatusTimestamp")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyStatusTimestamp
+	return fmt.Sprintf("InputPrivacyKeyStatusTimestamp%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputPrivacyKeyChatInvite) String() string {
 	if i == nil {
 		return "InputPrivacyKeyChatInvite(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyChatInvite")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyChatInvite
+	return fmt.Sprintf("InputPrivacyKeyChatInvite%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (i *InputPrivacyKeyPhoneCall) String() string {
 	if i == nil {
 		return "InputPrivacyKeyPhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyPhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyPhoneCall
+	return fmt.Sprintf("InputPrivacyKeyPhoneCall%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (i *InputPrivacyKeyPhoneP2P) String() string {
 	if i == nil {
 		return "InputPrivacyKeyPhoneP2P(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyPhoneP2P")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyPhoneP2P
+	return fmt.Sprintf("InputPrivacyKeyPhoneP2P%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -312,11 +300,8 @@ func (i *InputPrivacyKeyForwards) String() string {
 	if i == nil {
 		return "InputPrivacyKeyForwards(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyForwards")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyForwards
+	return fmt.Sprintf("InputPrivacyKeyForwards%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -379,11 +364,8 @@ func (i *InputPrivacyKeyProfilePhoto) String() string {
 	if i == nil {
 		return "InputPrivacyKeyProfilePhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyProfilePhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyProfilePhoto
+	return fmt.Sprintf("InputPrivacyKeyProfilePhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -446,11 +428,8 @@ func (i *InputPrivacyKeyPhoneNumber) String() string {
 	if i == nil {
 		return "InputPrivacyKeyPhoneNumber(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyPhoneNumber")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyPhoneNumber
+	return fmt.Sprintf("InputPrivacyKeyPhoneNumber%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -513,11 +492,8 @@ func (i *InputPrivacyKeyAddedByPhone) String() string {
 	if i == nil {
 		return "InputPrivacyKeyAddedByPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyKeyAddedByPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyKeyAddedByPhone
+	return fmt.Sprintf("InputPrivacyKeyAddedByPhone%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -562,19 +538,19 @@ var (
 // See https://core.telegram.org/type/InputPrivacyKey for reference.
 //
 // Example:
-//  g, err := DecodeInputPrivacyKey(buf)
+//  g, err := tg.DecodeInputPrivacyKey(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputPrivacyKeyStatusTimestamp: // inputPrivacyKeyStatusTimestamp#4f96cb18
-//  case *InputPrivacyKeyChatInvite: // inputPrivacyKeyChatInvite#bdfb0426
-//  case *InputPrivacyKeyPhoneCall: // inputPrivacyKeyPhoneCall#fabadc5f
-//  case *InputPrivacyKeyPhoneP2P: // inputPrivacyKeyPhoneP2P#db9e70d2
-//  case *InputPrivacyKeyForwards: // inputPrivacyKeyForwards#a4dd4c08
-//  case *InputPrivacyKeyProfilePhoto: // inputPrivacyKeyProfilePhoto#5719bacc
-//  case *InputPrivacyKeyPhoneNumber: // inputPrivacyKeyPhoneNumber#352dafa
-//  case *InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
+//  case *tg.InputPrivacyKeyStatusTimestamp: // inputPrivacyKeyStatusTimestamp#4f96cb18
+//  case *tg.InputPrivacyKeyChatInvite: // inputPrivacyKeyChatInvite#bdfb0426
+//  case *tg.InputPrivacyKeyPhoneCall: // inputPrivacyKeyPhoneCall#fabadc5f
+//  case *tg.InputPrivacyKeyPhoneP2P: // inputPrivacyKeyPhoneP2P#db9e70d2
+//  case *tg.InputPrivacyKeyForwards: // inputPrivacyKeyForwards#a4dd4c08
+//  case *tg.InputPrivacyKeyProfilePhoto: // inputPrivacyKeyProfilePhoto#5719bacc
+//  case *tg.InputPrivacyKeyPhoneNumber: // inputPrivacyKeyPhoneNumber#352dafa
+//  case *tg.InputPrivacyKeyAddedByPhone: // inputPrivacyKeyAddedByPhone#d1219bdd
 //  default: panic(v)
 //  }
 type InputPrivacyKeyClass interface {

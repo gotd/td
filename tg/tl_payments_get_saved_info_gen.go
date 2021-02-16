@@ -41,11 +41,8 @@ func (g *PaymentsGetSavedInfoRequest) String() string {
 	if g == nil {
 		return "PaymentsGetSavedInfoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsGetSavedInfoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsGetSavedInfoRequest
+	return fmt.Sprintf("PaymentsGetSavedInfoRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

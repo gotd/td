@@ -54,17 +54,8 @@ func (f *FolderPeer) String() string {
 	if f == nil {
 		return "FolderPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FolderPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(f.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(f.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FolderPeer
+	return fmt.Sprintf("FolderPeer%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

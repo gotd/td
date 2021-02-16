@@ -45,16 +45,8 @@ func (g *GetUpdatesResp) String() string {
 	if g == nil {
 		return "GetUpdatesResp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GetUpdatesResp")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.Updates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GetUpdatesResp
+	return fmt.Sprintf("GetUpdatesResp%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,16 +46,8 @@ func (d *ContactsDeleteByPhonesRequest) String() string {
 	if d == nil {
 		return "ContactsDeleteByPhonesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsDeleteByPhonesRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.Phones {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsDeleteByPhonesRequest
+	return fmt.Sprintf("ContactsDeleteByPhonesRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

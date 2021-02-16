@@ -55,20 +55,8 @@ func (g *GroupCallDiscarded) String() string {
 	if g == nil {
 		return "GroupCallDiscarded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GroupCallDiscarded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(g.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(g.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(g.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GroupCallDiscarded
+	return fmt.Sprintf("GroupCallDiscarded%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -211,31 +199,8 @@ func (g *GroupCall) String() string {
 	if g == nil {
 		return "GroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(g.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(g.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantsCount: ")
-	sb.WriteString(fmt.Sprint(g.ParticipantsCount))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tParams: ")
-		sb.WriteString(fmt.Sprint(g.Params))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(g.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GroupCall
+	return fmt.Sprintf("GroupCall%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -408,13 +373,13 @@ var (
 // See https://core.telegram.org/type/GroupCall for reference.
 //
 // Example:
-//  g, err := DecodeGroupCall(buf)
+//  g, err := tg.DecodeGroupCall(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *GroupCallDiscarded: // groupCallDiscarded#7780bcb4
-//  case *GroupCall: // groupCall#55903081
+//  case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
+//  case *tg.GroupCall: // groupCall#55903081
 //  default: panic(v)
 //  }
 type GroupCallClass interface {

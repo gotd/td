@@ -74,28 +74,8 @@ func (u *AccountUploadThemeRequest) String() string {
 	if u == nil {
 		return "AccountUploadThemeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUploadThemeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(u.File))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(fmt.Sprint(u.Thumb))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tFileName: ")
-	sb.WriteString(fmt.Sprint(u.FileName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(u.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUploadThemeRequest
+	return fmt.Sprintf("AccountUploadThemeRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

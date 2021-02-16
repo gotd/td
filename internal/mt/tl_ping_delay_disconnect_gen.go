@@ -48,17 +48,8 @@ func (p *PingDelayDisconnectRequest) String() string {
 	if p == nil {
 		return "PingDelayDisconnectRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PingDelayDisconnectRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPingID: ")
-	sb.WriteString(fmt.Sprint(p.PingID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDisconnectDelay: ")
-	sb.WriteString(fmt.Sprint(p.DisconnectDelay))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PingDelayDisconnectRequest
+	return fmt.Sprintf("PingDelayDisconnectRequest%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

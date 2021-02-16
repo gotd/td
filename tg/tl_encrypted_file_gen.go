@@ -41,11 +41,8 @@ func (e *EncryptedFileEmpty) String() string {
 	if e == nil {
 		return "EncryptedFileEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedFileEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedFileEmpty
+	return fmt.Sprintf("EncryptedFileEmpty%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -133,26 +130,8 @@ func (e *EncryptedFile) String() string {
 	if e == nil {
 		return "EncryptedFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(e.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(e.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(e.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(e.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedFile
+	return fmt.Sprintf("EncryptedFile%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -262,13 +241,13 @@ var (
 // See https://core.telegram.org/type/EncryptedFile for reference.
 //
 // Example:
-//  g, err := DecodeEncryptedFile(buf)
+//  g, err := tg.DecodeEncryptedFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *EncryptedFileEmpty: // encryptedFileEmpty#c21f497e
-//  case *EncryptedFile: // encryptedFile#4a70994c
+//  case *tg.EncryptedFileEmpty: // encryptedFileEmpty#c21f497e
+//  case *tg.EncryptedFile: // encryptedFile#4a70994c
 //  default: panic(v)
 //  }
 type EncryptedFileClass interface {

@@ -46,16 +46,8 @@ func (g *MessagesGetAllChatsRequest) String() string {
 	if g == nil {
 		return "MessagesGetAllChatsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetAllChatsRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.ExceptIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetAllChatsRequest
+	return fmt.Sprintf("MessagesGetAllChatsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

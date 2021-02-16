@@ -77,32 +77,8 @@ func (v *MessagesVotesList) String() string {
 	if v == nil {
 		return "MessagesVotesList(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesVotesList")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(v.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(v.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range v.Votes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range v.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if v.Flags.Has(0) {
-		sb.WriteString("\tNextOffset: ")
-		sb.WriteString(fmt.Sprint(v.NextOffset))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesVotesList
+	return fmt.Sprintf("MessagesVotesList%+v", Alias(*v))
 }
 
 // TypeID returns MTProto type id (CRC code).

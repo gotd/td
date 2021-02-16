@@ -132,59 +132,8 @@ func (s *SecureValue) String() string {
 	if s == nil {
 		return "SecureValue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tData: ")
-		sb.WriteString(fmt.Sprint(s.Data))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(1) {
-		sb.WriteString("\tFrontSide: ")
-		sb.WriteString(fmt.Sprint(s.FrontSide))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(2) {
-		sb.WriteString("\tReverseSide: ")
-		sb.WriteString(fmt.Sprint(s.ReverseSide))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(3) {
-		sb.WriteString("\tSelfie: ")
-		sb.WriteString(fmt.Sprint(s.Selfie))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(6) {
-		sb.WriteByte('[')
-		for _, v := range s.Translation {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if s.Flags.Has(4) {
-		sb.WriteByte('[')
-		for _, v := range s.Files {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if s.Flags.Has(5) {
-		sb.WriteString("\tPlainData: ")
-		sb.WriteString(fmt.Sprint(s.PlainData))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValue
+	return fmt.Sprintf("SecureValue%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

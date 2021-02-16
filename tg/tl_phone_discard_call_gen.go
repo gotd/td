@@ -74,26 +74,8 @@ func (d *PhoneDiscardCallRequest) String() string {
 	if d == nil {
 		return "PhoneDiscardCallRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneDiscardCallRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(d.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReason: ")
-	sb.WriteString(fmt.Sprint(d.Reason))
-	sb.WriteString(",\n")
-	sb.WriteString("\tConnectionID: ")
-	sb.WriteString(fmt.Sprint(d.ConnectionID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneDiscardCallRequest
+	return fmt.Sprintf("PhoneDiscardCallRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,17 +51,8 @@ func (a *StickersAddStickerToSetRequest) String() string {
 	if a == nil {
 		return "StickersAddStickerToSetRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickersAddStickerToSetRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(a.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSticker: ")
-	sb.WriteString(fmt.Sprint(a.Sticker))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickersAddStickerToSetRequest
+	return fmt.Sprintf("StickersAddStickerToSetRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -129,70 +129,8 @@ func (m *StatsMegagroupStats) String() string {
 	if m == nil {
 		return "StatsMegagroupStats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsMegagroupStats")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeriod: ")
-	sb.WriteString(fmt.Sprint(m.Period))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMembers: ")
-	sb.WriteString(fmt.Sprint(m.Members))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessages: ")
-	sb.WriteString(fmt.Sprint(m.Messages))
-	sb.WriteString(",\n")
-	sb.WriteString("\tViewers: ")
-	sb.WriteString(fmt.Sprint(m.Viewers))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPosters: ")
-	sb.WriteString(fmt.Sprint(m.Posters))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGrowthGraph: ")
-	sb.WriteString(fmt.Sprint(m.GrowthGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMembersGraph: ")
-	sb.WriteString(fmt.Sprint(m.MembersGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewMembersBySourceGraph: ")
-	sb.WriteString(fmt.Sprint(m.NewMembersBySourceGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLanguagesGraph: ")
-	sb.WriteString(fmt.Sprint(m.LanguagesGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessagesGraph: ")
-	sb.WriteString(fmt.Sprint(m.MessagesGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tActionsGraph: ")
-	sb.WriteString(fmt.Sprint(m.ActionsGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTopHoursGraph: ")
-	sb.WriteString(fmt.Sprint(m.TopHoursGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWeekdaysGraph: ")
-	sb.WriteString(fmt.Sprint(m.WeekdaysGraph))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range m.TopPosters {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.TopAdmins {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.TopInviters {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsMegagroupStats
+	return fmt.Sprintf("StatsMegagroupStats%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

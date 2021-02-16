@@ -59,14 +59,8 @@ func (c *AccountContentSettings) String() string {
 	if c == nil {
 		return "AccountContentSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountContentSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountContentSettings
+	return fmt.Sprintf("AccountContentSettings%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

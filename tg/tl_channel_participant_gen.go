@@ -51,17 +51,8 @@ func (c *ChannelParticipant) String() string {
 	if c == nil {
 		return "ChannelParticipant(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipant")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipant
+	return fmt.Sprintf("ChannelParticipant%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -165,20 +156,8 @@ func (c *ChannelParticipantSelf) String() string {
 	if c == nil {
 		return "ChannelParticipantSelf(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipantSelf")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInviterID: ")
-	sb.WriteString(fmt.Sprint(c.InviterID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipantSelf
+	return fmt.Sprintf("ChannelParticipantSelf%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -305,25 +284,8 @@ func (c *ChannelParticipantCreator) String() string {
 	if c == nil {
 		return "ChannelParticipantCreator(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipantCreator")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminRights: ")
-	sb.WriteString(fmt.Sprint(c.AdminRights))
-	sb.WriteString(",\n")
-	if c.Flags.Has(0) {
-		sb.WriteString("\tRank: ")
-		sb.WriteString(fmt.Sprint(c.Rank))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipantCreator
+	return fmt.Sprintf("ChannelParticipantCreator%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -503,36 +465,8 @@ func (c *ChannelParticipantAdmin) String() string {
 	if c == nil {
 		return "ChannelParticipantAdmin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipantAdmin")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	if c.Flags.Has(1) {
-		sb.WriteString("\tInviterID: ")
-		sb.WriteString(fmt.Sprint(c.InviterID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPromotedBy: ")
-	sb.WriteString(fmt.Sprint(c.PromotedBy))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminRights: ")
-	sb.WriteString(fmt.Sprint(c.AdminRights))
-	sb.WriteString(",\n")
-	if c.Flags.Has(2) {
-		sb.WriteString("\tRank: ")
-		sb.WriteString(fmt.Sprint(c.Rank))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipantAdmin
+	return fmt.Sprintf("ChannelParticipantAdmin%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -787,26 +721,8 @@ func (c *ChannelParticipantBanned) String() string {
 	if c == nil {
 		return "ChannelParticipantBanned(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipantBanned")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKickedBy: ")
-	sb.WriteString(fmt.Sprint(c.KickedBy))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBannedRights: ")
-	sb.WriteString(fmt.Sprint(c.BannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipantBanned
+	return fmt.Sprintf("ChannelParticipantBanned%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -954,14 +870,8 @@ func (c *ChannelParticipantLeft) String() string {
 	if c == nil {
 		return "ChannelParticipantLeft(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelParticipantLeft")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelParticipantLeft
+	return fmt.Sprintf("ChannelParticipantLeft%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1019,17 +929,17 @@ var (
 // See https://core.telegram.org/type/ChannelParticipant for reference.
 //
 // Example:
-//  g, err := DecodeChannelParticipant(buf)
+//  g, err := tg.DecodeChannelParticipant(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChannelParticipant: // channelParticipant#15ebac1d
-//  case *ChannelParticipantSelf: // channelParticipantSelf#a3289a6d
-//  case *ChannelParticipantCreator: // channelParticipantCreator#447dca4b
-//  case *ChannelParticipantAdmin: // channelParticipantAdmin#ccbebbaf
-//  case *ChannelParticipantBanned: // channelParticipantBanned#1c0facaf
-//  case *ChannelParticipantLeft: // channelParticipantLeft#c3c6796b
+//  case *tg.ChannelParticipant: // channelParticipant#15ebac1d
+//  case *tg.ChannelParticipantSelf: // channelParticipantSelf#a3289a6d
+//  case *tg.ChannelParticipantCreator: // channelParticipantCreator#447dca4b
+//  case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#ccbebbaf
+//  case *tg.ChannelParticipantBanned: // channelParticipantBanned#1c0facaf
+//  case *tg.ChannelParticipantLeft: // channelParticipantLeft#c3c6796b
 //  default: panic(v)
 //  }
 type ChannelParticipantClass interface {

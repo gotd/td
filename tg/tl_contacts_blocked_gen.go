@@ -56,26 +56,8 @@ func (b *ContactsBlocked) String() string {
 	if b == nil {
 		return "ContactsBlocked(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsBlocked")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range b.Blocked {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range b.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range b.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsBlocked
+	return fmt.Sprintf("ContactsBlocked%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -236,29 +218,8 @@ func (b *ContactsBlockedSlice) String() string {
 	if b == nil {
 		return "ContactsBlockedSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsBlockedSlice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(b.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range b.Blocked {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range b.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range b.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsBlockedSlice
+	return fmt.Sprintf("ContactsBlockedSlice%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -394,13 +355,13 @@ var (
 // See https://core.telegram.org/type/contacts.Blocked for reference.
 //
 // Example:
-//  g, err := DecodeContactsBlocked(buf)
+//  g, err := tg.DecodeContactsBlocked(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ContactsBlocked: // contacts.blocked#ade1591
-//  case *ContactsBlockedSlice: // contacts.blockedSlice#e1664194
+//  case *tg.ContactsBlocked: // contacts.blocked#ade1591
+//  case *tg.ContactsBlockedSlice: // contacts.blockedSlice#e1664194
 //  default: panic(v)
 //  }
 type ContactsBlockedClass interface {

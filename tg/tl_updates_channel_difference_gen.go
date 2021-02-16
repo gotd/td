@@ -69,22 +69,8 @@ func (c *UpdatesChannelDifferenceEmpty) String() string {
 	if c == nil {
 		return "UpdatesChannelDifferenceEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesChannelDifferenceEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(c.Pts))
-	sb.WriteString(",\n")
-	if c.Flags.Has(1) {
-		sb.WriteString("\tTimeout: ")
-		sb.WriteString(fmt.Sprint(c.Timeout))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesChannelDifferenceEmpty
+	return fmt.Sprintf("UpdatesChannelDifferenceEmpty%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -259,37 +245,8 @@ func (c *UpdatesChannelDifferenceTooLong) String() string {
 	if c == nil {
 		return "UpdatesChannelDifferenceTooLong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesChannelDifferenceTooLong")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	if c.Flags.Has(1) {
-		sb.WriteString("\tTimeout: ")
-		sb.WriteString(fmt.Sprint(c.Timeout))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tDialog: ")
-	sb.WriteString(fmt.Sprint(c.Dialog))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesChannelDifferenceTooLong
+	return fmt.Sprintf("UpdatesChannelDifferenceTooLong%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -555,42 +512,8 @@ func (c *UpdatesChannelDifference) String() string {
 	if c == nil {
 		return "UpdatesChannelDifference(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesChannelDifference")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(c.Pts))
-	sb.WriteString(",\n")
-	if c.Flags.Has(1) {
-		sb.WriteString("\tTimeout: ")
-		sb.WriteString(fmt.Sprint(c.Timeout))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range c.NewMessages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.OtherUpdates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesChannelDifference
+	return fmt.Sprintf("UpdatesChannelDifference%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -812,14 +735,14 @@ var (
 // See https://core.telegram.org/type/updates.ChannelDifference for reference.
 //
 // Example:
-//  g, err := DecodeUpdatesChannelDifference(buf)
+//  g, err := tg.DecodeUpdatesChannelDifference(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UpdatesChannelDifferenceEmpty: // updates.channelDifferenceEmpty#3e11affb
-//  case *UpdatesChannelDifferenceTooLong: // updates.channelDifferenceTooLong#a4bcc6fe
-//  case *UpdatesChannelDifference: // updates.channelDifference#2064674e
+//  case *tg.UpdatesChannelDifferenceEmpty: // updates.channelDifferenceEmpty#3e11affb
+//  case *tg.UpdatesChannelDifferenceTooLong: // updates.channelDifferenceTooLong#a4bcc6fe
+//  case *tg.UpdatesChannelDifference: // updates.channelDifference#2064674e
 //  default: panic(v)
 //  }
 type UpdatesChannelDifferenceClass interface {

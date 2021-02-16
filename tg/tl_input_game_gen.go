@@ -57,17 +57,8 @@ func (i *InputGameID) String() string {
 	if i == nil {
 		return "InputGameID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputGameID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputGameID
+	return fmt.Sprintf("InputGameID%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -166,17 +157,8 @@ func (i *InputGameShortName) String() string {
 	if i == nil {
 		return "InputGameShortName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputGameShortName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBotID: ")
-	sb.WriteString(fmt.Sprint(i.BotID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(i.ShortName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputGameShortName
+	return fmt.Sprintf("InputGameShortName%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -252,13 +234,13 @@ var (
 // See https://core.telegram.org/type/InputGame for reference.
 //
 // Example:
-//  g, err := DecodeInputGame(buf)
+//  g, err := tg.DecodeInputGame(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputGameID: // inputGameID#32c3e77
-//  case *InputGameShortName: // inputGameShortName#c331e80a
+//  case *tg.InputGameID: // inputGameID#32c3e77
+//  case *tg.InputGameShortName: // inputGameShortName#c331e80a
 //  default: panic(v)
 //  }
 type InputGameClass interface {

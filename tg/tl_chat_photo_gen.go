@@ -41,11 +41,8 @@ func (c *ChatPhotoEmpty) String() string {
 	if c == nil {
 		return "ChatPhotoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatPhotoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatPhotoEmpty
+	return fmt.Sprintf("ChatPhotoEmpty%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -136,23 +133,8 @@ func (c *ChatPhoto) String() string {
 	if c == nil {
 		return "ChatPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoSmall: ")
-	sb.WriteString(fmt.Sprint(c.PhotoSmall))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoBig: ")
-	sb.WriteString(fmt.Sprint(c.PhotoBig))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(c.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatPhoto
+	return fmt.Sprintf("ChatPhoto%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -264,13 +246,13 @@ var (
 // See https://core.telegram.org/type/ChatPhoto for reference.
 //
 // Example:
-//  g, err := DecodeChatPhoto(buf)
+//  g, err := tg.DecodeChatPhoto(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChatPhotoEmpty: // chatPhotoEmpty#37c1011c
-//  case *ChatPhoto: // chatPhoto#d20b9f3c
+//  case *tg.ChatPhotoEmpty: // chatPhotoEmpty#37c1011c
+//  case *tg.ChatPhoto: // chatPhoto#d20b9f3c
 //  default: panic(v)
 //  }
 type ChatPhotoClass interface {

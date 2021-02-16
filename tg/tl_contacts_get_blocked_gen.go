@@ -51,17 +51,8 @@ func (g *ContactsGetBlockedRequest) String() string {
 	if g == nil {
 		return "ContactsGetBlockedRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsGetBlockedRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsGetBlockedRequest
+	return fmt.Sprintf("ContactsGetBlockedRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

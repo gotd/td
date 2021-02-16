@@ -56,20 +56,8 @@ func (s *MessagesSendScreenshotNotificationRequest) String() string {
 	if s == nil {
 		return "MessagesSendScreenshotNotificationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSendScreenshotNotificationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReplyToMsgID: ")
-	sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(s.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSendScreenshotNotificationRequest
+	return fmt.Sprintf("MessagesSendScreenshotNotificationRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

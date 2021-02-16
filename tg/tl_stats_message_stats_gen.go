@@ -46,14 +46,8 @@ func (m *StatsMessageStats) String() string {
 	if m == nil {
 		return "StatsMessageStats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsMessageStats")
-	sb.WriteString("{\n")
-	sb.WriteString("\tViewsGraph: ")
-	sb.WriteString(fmt.Sprint(m.ViewsGraph))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsMessageStats
+	return fmt.Sprintf("StatsMessageStats%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

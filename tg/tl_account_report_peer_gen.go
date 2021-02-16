@@ -51,17 +51,8 @@ func (r *AccountReportPeerRequest) String() string {
 	if r == nil {
 		return "AccountReportPeerRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountReportPeerRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReason: ")
-	sb.WriteString(fmt.Sprint(r.Reason))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountReportPeerRequest
+	return fmt.Sprintf("AccountReportPeerRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

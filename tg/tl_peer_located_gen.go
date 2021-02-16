@@ -56,20 +56,8 @@ func (p *PeerLocated) String() string {
 	if p == nil {
 		return "PeerLocated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerLocated")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(p.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(p.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDistance: ")
-	sb.WriteString(fmt.Sprint(p.Distance))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerLocated
+	return fmt.Sprintf("PeerLocated%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -181,14 +169,8 @@ func (p *PeerSelfLocated) String() string {
 	if p == nil {
 		return "PeerSelfLocated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerSelfLocated")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(p.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerSelfLocated
+	return fmt.Sprintf("PeerSelfLocated%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -246,13 +228,13 @@ var (
 // See https://core.telegram.org/type/PeerLocated for reference.
 //
 // Example:
-//  g, err := DecodePeerLocated(buf)
+//  g, err := tg.DecodePeerLocated(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PeerLocated: // peerLocated#ca461b5d
-//  case *PeerSelfLocated: // peerSelfLocated#f8ec284b
+//  case *tg.PeerLocated: // peerLocated#ca461b5d
+//  case *tg.PeerSelfLocated: // peerSelfLocated#f8ec284b
 //  default: panic(v)
 //  }
 type PeerLocatedClass interface {

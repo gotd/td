@@ -41,11 +41,8 @@ func (g *HelpGetPromoDataRequest) String() string {
 	if g == nil {
 		return "HelpGetPromoDataRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetPromoDataRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetPromoDataRequest
+	return fmt.Sprintf("HelpGetPromoDataRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

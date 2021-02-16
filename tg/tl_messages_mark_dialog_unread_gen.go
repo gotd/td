@@ -59,17 +59,8 @@ func (m *MessagesMarkDialogUnreadRequest) String() string {
 	if m == nil {
 		return "MessagesMarkDialogUnreadRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesMarkDialogUnreadRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(m.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesMarkDialogUnreadRequest
+	return fmt.Sprintf("MessagesMarkDialogUnreadRequest%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

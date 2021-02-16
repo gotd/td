@@ -51,17 +51,8 @@ func (i *AccountInstallWallPaperRequest) String() string {
 	if i == nil {
 		return "AccountInstallWallPaperRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountInstallWallPaperRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tWallpaper: ")
-	sb.WriteString(fmt.Sprint(i.Wallpaper))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(i.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountInstallWallPaperRequest
+	return fmt.Sprintf("AccountInstallWallPaperRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

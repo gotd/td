@@ -41,11 +41,8 @@ func (i *InputPrivacyValueAllowContacts) String() string {
 	if i == nil {
 		return "InputPrivacyValueAllowContacts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueAllowContacts")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueAllowContacts
+	return fmt.Sprintf("InputPrivacyValueAllowContacts%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputPrivacyValueAllowAll) String() string {
 	if i == nil {
 		return "InputPrivacyValueAllowAll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueAllowAll")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueAllowAll
+	return fmt.Sprintf("InputPrivacyValueAllowAll%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,16 +174,8 @@ func (i *InputPrivacyValueAllowUsers) String() string {
 	if i == nil {
 		return "InputPrivacyValueAllowUsers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueAllowUsers")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueAllowUsers
+	return fmt.Sprintf("InputPrivacyValueAllowUsers%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -279,11 +265,8 @@ func (i *InputPrivacyValueDisallowContacts) String() string {
 	if i == nil {
 		return "InputPrivacyValueDisallowContacts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueDisallowContacts")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueDisallowContacts
+	return fmt.Sprintf("InputPrivacyValueDisallowContacts%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -346,11 +329,8 @@ func (i *InputPrivacyValueDisallowAll) String() string {
 	if i == nil {
 		return "InputPrivacyValueDisallowAll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueDisallowAll")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueDisallowAll
+	return fmt.Sprintf("InputPrivacyValueDisallowAll%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -418,16 +398,8 @@ func (i *InputPrivacyValueDisallowUsers) String() string {
 	if i == nil {
 		return "InputPrivacyValueDisallowUsers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueDisallowUsers")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueDisallowUsers
+	return fmt.Sprintf("InputPrivacyValueDisallowUsers%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -522,16 +494,8 @@ func (i *InputPrivacyValueAllowChatParticipants) String() string {
 	if i == nil {
 		return "InputPrivacyValueAllowChatParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueAllowChatParticipants")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueAllowChatParticipants
+	return fmt.Sprintf("InputPrivacyValueAllowChatParticipants%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -621,16 +585,8 @@ func (i *InputPrivacyValueDisallowChatParticipants) String() string {
 	if i == nil {
 		return "InputPrivacyValueDisallowChatParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPrivacyValueDisallowChatParticipants")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPrivacyValueDisallowChatParticipants
+	return fmt.Sprintf("InputPrivacyValueDisallowChatParticipants%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -697,19 +653,19 @@ var (
 // See https://core.telegram.org/type/InputPrivacyRule for reference.
 //
 // Example:
-//  g, err := DecodeInputPrivacyRule(buf)
+//  g, err := tg.DecodeInputPrivacyRule(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
-//  case *InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
-//  case *InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
-//  case *InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
-//  case *InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
-//  case *InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
-//  case *InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#4c81c1ba
-//  case *InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#d82363af
+//  case *tg.InputPrivacyValueAllowContacts: // inputPrivacyValueAllowContacts#d09e07b
+//  case *tg.InputPrivacyValueAllowAll: // inputPrivacyValueAllowAll#184b35ce
+//  case *tg.InputPrivacyValueAllowUsers: // inputPrivacyValueAllowUsers#131cc67f
+//  case *tg.InputPrivacyValueDisallowContacts: // inputPrivacyValueDisallowContacts#ba52007
+//  case *tg.InputPrivacyValueDisallowAll: // inputPrivacyValueDisallowAll#d66b66c9
+//  case *tg.InputPrivacyValueDisallowUsers: // inputPrivacyValueDisallowUsers#90110467
+//  case *tg.InputPrivacyValueAllowChatParticipants: // inputPrivacyValueAllowChatParticipants#4c81c1ba
+//  case *tg.InputPrivacyValueDisallowChatParticipants: // inputPrivacyValueDisallowChatParticipants#d82363af
 //  default: panic(v)
 //  }
 type InputPrivacyRuleClass interface {

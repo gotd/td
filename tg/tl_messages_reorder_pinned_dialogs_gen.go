@@ -67,22 +67,8 @@ func (r *MessagesReorderPinnedDialogsRequest) String() string {
 	if r == nil {
 		return "MessagesReorderPinnedDialogsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReorderPinnedDialogsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(r.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.Order {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReorderPinnedDialogsRequest
+	return fmt.Sprintf("MessagesReorderPinnedDialogsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

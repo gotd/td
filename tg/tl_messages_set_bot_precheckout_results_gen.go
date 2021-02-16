@@ -71,22 +71,8 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) String() string {
 	if s == nil {
 		return "MessagesSetBotPrecheckoutResultsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetBotPrecheckoutResultsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(s.QueryID))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tError: ")
-		sb.WriteString(fmt.Sprint(s.Error))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetBotPrecheckoutResultsRequest
+	return fmt.Sprintf("MessagesSetBotPrecheckoutResultsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

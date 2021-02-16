@@ -51,17 +51,8 @@ func (t *ChannelsToggleSignaturesRequest) String() string {
 	if t == nil {
 		return "ChannelsToggleSignaturesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsToggleSignaturesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(t.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEnabled: ")
-	sb.WriteString(fmt.Sprint(t.Enabled))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsToggleSignaturesRequest
+	return fmt.Sprintf("ChannelsToggleSignaturesRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -77,34 +77,8 @@ func (i *InputPeerNotifySettings) String() string {
 	if i == nil {
 		return "InputPeerNotifySettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerNotifySettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tShowPreviews: ")
-		sb.WriteString(fmt.Sprint(i.ShowPreviews))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tSilent: ")
-		sb.WriteString(fmt.Sprint(i.Silent))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tMuteUntil: ")
-		sb.WriteString(fmt.Sprint(i.MuteUntil))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(3) {
-		sb.WriteString("\tSound: ")
-		sb.WriteString(fmt.Sprint(i.Sound))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerNotifySettings
+	return fmt.Sprintf("InputPeerNotifySettings%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

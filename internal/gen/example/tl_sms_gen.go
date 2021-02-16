@@ -45,14 +45,8 @@ func (s *SMS) String() string {
 	if s == nil {
 		return "SMS(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SMS")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SMS
+	return fmt.Sprintf("SMS%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

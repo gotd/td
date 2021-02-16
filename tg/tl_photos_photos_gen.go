@@ -51,21 +51,8 @@ func (p *PhotosPhotos) String() string {
 	if p == nil {
 		return "PhotosPhotos(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosPhotos")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Photos {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosPhotos
+	return fmt.Sprintf("PhotosPhotos%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -197,24 +184,8 @@ func (p *PhotosPhotosSlice) String() string {
 	if p == nil {
 		return "PhotosPhotosSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosPhotosSlice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(p.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Photos {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosPhotosSlice
+	return fmt.Sprintf("PhotosPhotosSlice%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -326,13 +297,13 @@ var (
 // See https://core.telegram.org/type/photos.Photos for reference.
 //
 // Example:
-//  g, err := DecodePhotosPhotos(buf)
+//  g, err := tg.DecodePhotosPhotos(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhotosPhotos: // photos.photos#8dca6aa5
-//  case *PhotosPhotosSlice: // photos.photosSlice#15051f54
+//  case *tg.PhotosPhotos: // photos.photos#8dca6aa5
+//  case *tg.PhotosPhotosSlice: // photos.photosSlice#15051f54
 //  default: panic(v)
 //  }
 type PhotosPhotosClass interface {

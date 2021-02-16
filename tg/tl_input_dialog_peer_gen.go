@@ -46,14 +46,8 @@ func (i *InputDialogPeer) String() string {
 	if i == nil {
 		return "InputDialogPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputDialogPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputDialogPeer
+	return fmt.Sprintf("InputDialogPeer%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -145,14 +139,8 @@ func (i *InputDialogPeerFolder) String() string {
 	if i == nil {
 		return "InputDialogPeerFolder(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputDialogPeerFolder")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(i.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputDialogPeerFolder
+	return fmt.Sprintf("InputDialogPeerFolder%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -210,13 +198,13 @@ var (
 // See https://core.telegram.org/type/InputDialogPeer for reference.
 //
 // Example:
-//  g, err := DecodeInputDialogPeer(buf)
+//  g, err := tg.DecodeInputDialogPeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputDialogPeer: // inputDialogPeer#fcaafeb7
-//  case *InputDialogPeerFolder: // inputDialogPeerFolder#64600527
+//  case *tg.InputDialogPeer: // inputDialogPeer#fcaafeb7
+//  case *tg.InputDialogPeerFolder: // inputDialogPeerFolder#64600527
 //  default: panic(v)
 //  }
 type InputDialogPeerClass interface {

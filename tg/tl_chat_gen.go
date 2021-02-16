@@ -46,14 +46,8 @@ func (c *ChatEmpty) String() string {
 	if c == nil {
 		return "ChatEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(c.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatEmpty
+	return fmt.Sprintf("ChatEmpty%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -230,47 +224,8 @@ func (c *Chat) String() string {
 	if c == nil {
 		return "Chat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Chat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(c.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(c.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantsCount: ")
-	sb.WriteString(fmt.Sprint(c.ParticipantsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(c.Version))
-	sb.WriteString(",\n")
-	if c.Flags.Has(6) {
-		sb.WriteString("\tMigratedTo: ")
-		sb.WriteString(fmt.Sprint(c.MigratedTo))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(14) {
-		sb.WriteString("\tAdminRights: ")
-		sb.WriteString(fmt.Sprint(c.AdminRights))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(18) {
-		sb.WriteString("\tDefaultBannedRights: ")
-		sb.WriteString(fmt.Sprint(c.DefaultBannedRights))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Chat
+	return fmt.Sprintf("Chat%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -643,17 +598,8 @@ func (c *ChatForbidden) String() string {
 	if c == nil {
 		return "ChatForbidden(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatForbidden")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(c.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatForbidden
+	return fmt.Sprintf("ChatForbidden%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -911,66 +857,8 @@ func (c *Channel) String() string {
 	if c == nil {
 		return "Channel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Channel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(c.ID))
-	sb.WriteString(",\n")
-	if c.Flags.Has(13) {
-		sb.WriteString("\tAccessHash: ")
-		sb.WriteString(fmt.Sprint(c.AccessHash))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	if c.Flags.Has(6) {
-		sb.WriteString("\tUsername: ")
-		sb.WriteString(fmt.Sprint(c.Username))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(c.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(c.Version))
-	sb.WriteString(",\n")
-	if c.Flags.Has(9) {
-		sb.WriteByte('[')
-		for _, v := range c.RestrictionReason {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if c.Flags.Has(14) {
-		sb.WriteString("\tAdminRights: ")
-		sb.WriteString(fmt.Sprint(c.AdminRights))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(15) {
-		sb.WriteString("\tBannedRights: ")
-		sb.WriteString(fmt.Sprint(c.BannedRights))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(18) {
-		sb.WriteString("\tDefaultBannedRights: ")
-		sb.WriteString(fmt.Sprint(c.DefaultBannedRights))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(17) {
-		sb.WriteString("\tParticipantsCount: ")
-		sb.WriteString(fmt.Sprint(c.ParticipantsCount))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Channel
+	return fmt.Sprintf("Channel%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1658,28 +1546,8 @@ func (c *ChannelForbidden) String() string {
 	if c == nil {
 		return "ChannelForbidden(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelForbidden")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(c.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(c.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	if c.Flags.Has(16) {
-		sb.WriteString("\tUntilDate: ")
-		sb.WriteString(fmt.Sprint(c.UntilDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelForbidden
+	return fmt.Sprintf("ChannelForbidden%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1839,16 +1707,16 @@ var (
 // See https://core.telegram.org/type/Chat for reference.
 //
 // Example:
-//  g, err := DecodeChat(buf)
+//  g, err := tg.DecodeChat(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChatEmpty: // chatEmpty#9ba2d800
-//  case *Chat: // chat#3bda1bde
-//  case *ChatForbidden: // chatForbidden#7328bdb
-//  case *Channel: // channel#d31a961e
-//  case *ChannelForbidden: // channelForbidden#289da732
+//  case *tg.ChatEmpty: // chatEmpty#9ba2d800
+//  case *tg.Chat: // chat#3bda1bde
+//  case *tg.ChatForbidden: // chatForbidden#7328bdb
+//  case *tg.Channel: // channel#d31a961e
+//  case *tg.ChannelForbidden: // channelForbidden#289da732
 //  default: panic(v)
 //  }
 type ChatClass interface {

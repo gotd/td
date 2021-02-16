@@ -56,26 +56,8 @@ func (a *ChannelsAdminLogResults) String() string {
 	if a == nil {
 		return "ChannelsAdminLogResults(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsAdminLogResults")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range a.Events {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range a.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range a.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsAdminLogResults
+	return fmt.Sprintf("ChannelsAdminLogResults%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

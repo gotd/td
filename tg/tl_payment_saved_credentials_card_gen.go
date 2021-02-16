@@ -51,17 +51,8 @@ func (p *PaymentSavedCredentialsCard) String() string {
 	if p == nil {
 		return "PaymentSavedCredentialsCard(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentSavedCredentialsCard")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(p.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentSavedCredentialsCard
+	return fmt.Sprintf("PaymentSavedCredentialsCard%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

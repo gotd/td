@@ -51,17 +51,8 @@ func (t *AccountTmpPassword) String() string {
 	if t == nil {
 		return "AccountTmpPassword(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountTmpPassword")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTmpPassword: ")
-	sb.WriteString(fmt.Sprint(t.TmpPassword))
-	sb.WriteString(",\n")
-	sb.WriteString("\tValidUntil: ")
-	sb.WriteString(fmt.Sprint(t.ValidUntil))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountTmpPassword
+	return fmt.Sprintf("AccountTmpPassword%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

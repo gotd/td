@@ -50,17 +50,8 @@ func (s *MessagesStartHistoryImportRequest) String() string {
 	if s == nil {
 		return "MessagesStartHistoryImportRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesStartHistoryImportRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tImportID: ")
-	sb.WriteString(fmt.Sprint(s.ImportID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesStartHistoryImportRequest
+	return fmt.Sprintf("MessagesStartHistoryImportRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

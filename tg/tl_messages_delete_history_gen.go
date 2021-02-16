@@ -69,20 +69,8 @@ func (d *MessagesDeleteHistoryRequest) String() string {
 	if d == nil {
 		return "MessagesDeleteHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDeleteHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(d.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(d.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDeleteHistoryRequest
+	return fmt.Sprintf("MessagesDeleteHistoryRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

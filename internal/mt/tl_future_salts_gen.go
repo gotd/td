@@ -53,22 +53,8 @@ func (f *FutureSalts) String() string {
 	if f == nil {
 		return "FutureSalts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FutureSalts")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReqMsgID: ")
-	sb.WriteString(fmt.Sprint(f.ReqMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNow: ")
-	sb.WriteString(fmt.Sprint(f.Now))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.Salts {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FutureSalts
+	return fmt.Sprintf("FutureSalts%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

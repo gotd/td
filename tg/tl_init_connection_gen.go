@@ -106,48 +106,8 @@ func (i *InitConnectionRequest) String() string {
 	if i == nil {
 		return "InitConnectionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InitConnectionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAPIID: ")
-	sb.WriteString(fmt.Sprint(i.APIID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDeviceModel: ")
-	sb.WriteString(fmt.Sprint(i.DeviceModel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSystemVersion: ")
-	sb.WriteString(fmt.Sprint(i.SystemVersion))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAppVersion: ")
-	sb.WriteString(fmt.Sprint(i.AppVersion))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSystemLangCode: ")
-	sb.WriteString(fmt.Sprint(i.SystemLangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLangPack: ")
-	sb.WriteString(fmt.Sprint(i.LangPack))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(i.LangCode))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tProxy: ")
-		sb.WriteString(fmt.Sprint(i.Proxy))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tParams: ")
-		sb.WriteString(fmt.Sprint(i.Params))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InitConnectionRequest
+	return fmt.Sprintf("InitConnectionRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

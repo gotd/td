@@ -56,20 +56,8 @@ func (s *SecureSecretSettings) String() string {
 	if s == nil {
 		return "SecureSecretSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureSecretSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSecureAlgo: ")
-	sb.WriteString(fmt.Sprint(s.SecureAlgo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecureSecret: ")
-	sb.WriteString(fmt.Sprint(s.SecureSecret))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecureSecretID: ")
-	sb.WriteString(fmt.Sprint(s.SecureSecretID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureSecretSettings
+	return fmt.Sprintf("SecureSecretSettings%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

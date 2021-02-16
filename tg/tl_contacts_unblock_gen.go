@@ -46,14 +46,8 @@ func (u *ContactsUnblockRequest) String() string {
 	if u == nil {
 		return "ContactsUnblockRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsUnblockRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsUnblockRequest
+	return fmt.Sprintf("ContactsUnblockRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -43,14 +43,8 @@ func (vec *StickerSetCoveredClassVector) String() string {
 	if vec == nil {
 		return "StickerSetCoveredClassVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickerSetCoveredClassVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias StickerSetCoveredClassVector
+	return fmt.Sprintf("StickerSetCoveredClassVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

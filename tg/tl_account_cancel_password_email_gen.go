@@ -44,11 +44,8 @@ func (c *AccountCancelPasswordEmailRequest) String() string {
 	if c == nil {
 		return "AccountCancelPasswordEmailRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountCancelPasswordEmailRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountCancelPasswordEmailRequest
+	return fmt.Sprintf("AccountCancelPasswordEmailRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

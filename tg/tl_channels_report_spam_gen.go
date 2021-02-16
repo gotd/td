@@ -56,22 +56,8 @@ func (r *ChannelsReportSpamRequest) String() string {
 	if r == nil {
 		return "ChannelsReportSpamRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsReportSpamRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(r.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(r.UserID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsReportSpamRequest
+	return fmt.Sprintf("ChannelsReportSpamRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

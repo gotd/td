@@ -54,17 +54,8 @@ func (l *AuthLoginToken) String() string {
 	if l == nil {
 		return "AuthLoginToken(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthLoginToken")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(l.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(l.Token))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthLoginToken
+	return fmt.Sprintf("AuthLoginToken%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -163,17 +154,8 @@ func (l *AuthLoginTokenMigrateTo) String() string {
 	if l == nil {
 		return "AuthLoginTokenMigrateTo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthLoginTokenMigrateTo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(l.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(l.Token))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthLoginTokenMigrateTo
+	return fmt.Sprintf("AuthLoginTokenMigrateTo%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -267,14 +249,8 @@ func (l *AuthLoginTokenSuccess) String() string {
 	if l == nil {
 		return "AuthLoginTokenSuccess(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthLoginTokenSuccess")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAuthorization: ")
-	sb.WriteString(fmt.Sprint(l.Authorization))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthLoginTokenSuccess
+	return fmt.Sprintf("AuthLoginTokenSuccess%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -337,14 +313,14 @@ var (
 // See https://core.telegram.org/type/auth.LoginToken for reference.
 //
 // Example:
-//  g, err := DecodeAuthLoginToken(buf)
+//  g, err := tg.DecodeAuthLoginToken(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AuthLoginToken: // auth.loginToken#629f1980
-//  case *AuthLoginTokenMigrateTo: // auth.loginTokenMigrateTo#68e9916
-//  case *AuthLoginTokenSuccess: // auth.loginTokenSuccess#390d5c5e
+//  case *tg.AuthLoginToken: // auth.loginToken#629f1980
+//  case *tg.AuthLoginTokenMigrateTo: // auth.loginTokenMigrateTo#68e9916
+//  case *tg.AuthLoginTokenSuccess: // auth.loginTokenSuccess#390d5c5e
 //  default: panic(v)
 //  }
 type AuthLoginTokenClass interface {

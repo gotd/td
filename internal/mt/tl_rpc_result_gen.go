@@ -48,17 +48,8 @@ func (r *RPCResult) String() string {
 	if r == nil {
 		return "RPCResult(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCResult")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReqMsgID: ")
-	sb.WriteString(fmt.Sprint(r.ReqMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tResult: ")
-	sb.WriteString(fmt.Sprint(r.Result))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCResult
+	return fmt.Sprintf("RPCResult%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

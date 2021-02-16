@@ -46,14 +46,8 @@ func (d *DocumentEmpty) String() string {
 	if d == nil {
 		return "DocumentEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(d.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentEmpty
+	return fmt.Sprintf("DocumentEmpty%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -194,54 +188,8 @@ func (d *Document) String() string {
 	if d == nil {
 		return "Document(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Document")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(d.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(d.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(d.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(d.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	if d.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range d.Thumbs {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if d.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range d.VideoThumbs {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(d.DCID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Document
+	return fmt.Sprintf("Document%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -493,13 +441,13 @@ var (
 // See https://core.telegram.org/type/Document for reference.
 //
 // Example:
-//  g, err := DecodeDocument(buf)
+//  g, err := tg.DecodeDocument(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DocumentEmpty: // documentEmpty#36f8c871
-//  case *Document: // document#1e87342b
+//  case *tg.DocumentEmpty: // documentEmpty#36f8c871
+//  case *tg.Document: // document#1e87342b
 //  default: panic(v)
 //  }
 type DocumentClass interface {

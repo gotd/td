@@ -95,29 +95,8 @@ func (p *PageTableCell) String() string {
 	if p == nil {
 		return "PageTableCell(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageTableCell")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(7) {
-		sb.WriteString("\tText: ")
-		sb.WriteString(fmt.Sprint(p.Text))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tColspan: ")
-		sb.WriteString(fmt.Sprint(p.Colspan))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tRowspan: ")
-		sb.WriteString(fmt.Sprint(p.Rowspan))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageTableCell
+	return fmt.Sprintf("PageTableCell%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -54,14 +54,8 @@ func (f *AccountFinishTakeoutSessionRequest) String() string {
 	if f == nil {
 		return "AccountFinishTakeoutSessionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountFinishTakeoutSessionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(f.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountFinishTakeoutSessionRequest
+	return fmt.Sprintf("AccountFinishTakeoutSessionRequest%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

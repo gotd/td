@@ -64,25 +64,8 @@ func (i *InputWebDocument) String() string {
 	if i == nil {
 		return "InputWebDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWebDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(i.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(i.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(i.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range i.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWebDocument
+	return fmt.Sprintf("InputWebDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

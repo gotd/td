@@ -51,19 +51,8 @@ func (s *AccountSetPrivacyRequest) String() string {
 	if s == nil {
 		return "AccountSetPrivacyRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSetPrivacyRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(s.Key))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Rules {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSetPrivacyRequest
+	return fmt.Sprintf("AccountSetPrivacyRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

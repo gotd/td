@@ -41,11 +41,8 @@ func (p *HelpPassportConfigNotModified) String() string {
 	if p == nil {
 		return "HelpPassportConfigNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpPassportConfigNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpPassportConfigNotModified
+	return fmt.Sprintf("HelpPassportConfigNotModified%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -124,17 +121,8 @@ func (p *HelpPassportConfig) String() string {
 	if p == nil {
 		return "HelpPassportConfig(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpPassportConfig")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(p.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCountriesLangs: ")
-	sb.WriteString(fmt.Sprint(p.CountriesLangs))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpPassportConfig
+	return fmt.Sprintf("HelpPassportConfig%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -205,13 +193,13 @@ var (
 // See https://core.telegram.org/type/help.PassportConfig for reference.
 //
 // Example:
-//  g, err := DecodeHelpPassportConfig(buf)
+//  g, err := tg.DecodeHelpPassportConfig(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpPassportConfigNotModified: // help.passportConfigNotModified#bfb9f457
-//  case *HelpPassportConfig: // help.passportConfig#a098d6af
+//  case *tg.HelpPassportConfigNotModified: // help.passportConfigNotModified#bfb9f457
+//  case *tg.HelpPassportConfig: // help.passportConfig#a098d6af
 //  default: panic(v)
 //  }
 type HelpPassportConfigClass interface {

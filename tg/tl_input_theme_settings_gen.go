@@ -87,40 +87,8 @@ func (i *InputThemeSettings) String() string {
 	if i == nil {
 		return "InputThemeSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputThemeSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBaseTheme: ")
-	sb.WriteString(fmt.Sprint(i.BaseTheme))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccentColor: ")
-	sb.WriteString(fmt.Sprint(i.AccentColor))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tMessageTopColor: ")
-		sb.WriteString(fmt.Sprint(i.MessageTopColor))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(0) {
-		sb.WriteString("\tMessageBottomColor: ")
-		sb.WriteString(fmt.Sprint(i.MessageBottomColor))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tWallpaper: ")
-		sb.WriteString(fmt.Sprint(i.Wallpaper))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tWallpaperSettings: ")
-		sb.WriteString(fmt.Sprint(i.WallpaperSettings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputThemeSettings
+	return fmt.Sprintf("InputThemeSettings%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

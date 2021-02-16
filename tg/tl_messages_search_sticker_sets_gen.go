@@ -67,20 +67,8 @@ func (s *MessagesSearchStickerSetsRequest) String() string {
 	if s == nil {
 		return "MessagesSearchStickerSetsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSearchStickerSetsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(s.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSearchStickerSetsRequest
+	return fmt.Sprintf("MessagesSearchStickerSetsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

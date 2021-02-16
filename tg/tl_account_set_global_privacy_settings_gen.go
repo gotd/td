@@ -46,14 +46,8 @@ func (s *AccountSetGlobalPrivacySettingsRequest) String() string {
 	if s == nil {
 		return "AccountSetGlobalPrivacySettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSetGlobalPrivacySettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(s.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSetGlobalPrivacySettingsRequest
+	return fmt.Sprintf("AccountSetGlobalPrivacySettingsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

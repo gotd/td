@@ -41,11 +41,8 @@ func (g *ContactsGetStatusesRequest) String() string {
 	if g == nil {
 		return "ContactsGetStatusesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsGetStatusesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsGetStatusesRequest
+	return fmt.Sprintf("ContactsGetStatusesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

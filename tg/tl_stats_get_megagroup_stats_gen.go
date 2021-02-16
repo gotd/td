@@ -65,17 +65,8 @@ func (g *StatsGetMegagroupStatsRequest) String() string {
 	if g == nil {
 		return "StatsGetMegagroupStatsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGetMegagroupStatsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGetMegagroupStatsRequest
+	return fmt.Sprintf("StatsGetMegagroupStatsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

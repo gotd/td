@@ -55,17 +55,8 @@ func (s *MessagesSetEncryptedTypingRequest) String() string {
 	if s == nil {
 		return "MessagesSetEncryptedTypingRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetEncryptedTypingRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTyping: ")
-	sb.WriteString(fmt.Sprint(s.Typing))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetEncryptedTypingRequest
+	return fmt.Sprintf("MessagesSetEncryptedTypingRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

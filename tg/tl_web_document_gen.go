@@ -66,28 +66,8 @@ func (w *WebDocument) String() string {
 	if w == nil {
 		return "WebDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(w.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(w.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(w.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(w.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range w.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebDocument
+	return fmt.Sprintf("WebDocument%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -252,25 +232,8 @@ func (w *WebDocumentNoProxy) String() string {
 	if w == nil {
 		return "WebDocumentNoProxy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebDocumentNoProxy")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(w.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(w.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(w.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range w.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebDocumentNoProxy
+	return fmt.Sprintf("WebDocumentNoProxy%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -381,13 +344,13 @@ var (
 // See https://core.telegram.org/type/WebDocument for reference.
 //
 // Example:
-//  g, err := DecodeWebDocument(buf)
+//  g, err := tg.DecodeWebDocument(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *WebDocument: // webDocument#1c570ed1
-//  case *WebDocumentNoProxy: // webDocumentNoProxy#f9c8bcc6
+//  case *tg.WebDocument: // webDocument#1c570ed1
+//  case *tg.WebDocumentNoProxy: // webDocumentNoProxy#f9c8bcc6
 //  default: panic(v)
 //  }
 type WebDocumentClass interface {

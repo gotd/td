@@ -43,14 +43,8 @@ func (vec *WallPaperClassVector) String() string {
 	if vec == nil {
 		return "WallPaperClassVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WallPaperClassVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias WallPaperClassVector
+	return fmt.Sprintf("WallPaperClassVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

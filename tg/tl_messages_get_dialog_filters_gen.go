@@ -44,11 +44,8 @@ func (g *MessagesGetDialogFiltersRequest) String() string {
 	if g == nil {
 		return "MessagesGetDialogFiltersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetDialogFiltersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetDialogFiltersRequest
+	return fmt.Sprintf("MessagesGetDialogFiltersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

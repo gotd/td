@@ -43,14 +43,8 @@ func (vec *DialogPeerClassVector) String() string {
 	if vec == nil {
 		return "DialogPeerClassVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogPeerClassVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias DialogPeerClassVector
+	return fmt.Sprintf("DialogPeerClassVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

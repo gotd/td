@@ -51,17 +51,8 @@ func (i *AuthImportAuthorizationRequest) String() string {
 	if i == nil {
 		return "AuthImportAuthorizationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthImportAuthorizationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(i.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthImportAuthorizationRequest
+	return fmt.Sprintf("AuthImportAuthorizationRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

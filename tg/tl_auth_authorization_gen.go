@@ -64,22 +64,8 @@ func (a *AuthAuthorization) String() string {
 	if a == nil {
 		return "AuthAuthorization(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthAuthorization")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	if a.Flags.Has(0) {
-		sb.WriteString("\tTmpSessions: ")
-		sb.WriteString(fmt.Sprint(a.TmpSessions))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tUser: ")
-	sb.WriteString(fmt.Sprint(a.User))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthAuthorization
+	return fmt.Sprintf("AuthAuthorization%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -214,19 +200,8 @@ func (a *AuthAuthorizationSignUpRequired) String() string {
 	if a == nil {
 		return "AuthAuthorizationSignUpRequired(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthAuthorizationSignUpRequired")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	if a.Flags.Has(0) {
-		sb.WriteString("\tTermsOfService: ")
-		sb.WriteString(fmt.Sprint(a.TermsOfService))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthAuthorizationSignUpRequired
+	return fmt.Sprintf("AuthAuthorizationSignUpRequired%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -307,13 +282,13 @@ var (
 // See https://core.telegram.org/type/auth.Authorization for reference.
 //
 // Example:
-//  g, err := DecodeAuthAuthorization(buf)
+//  g, err := tg.DecodeAuthAuthorization(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AuthAuthorization: // auth.authorization#cd050916
-//  case *AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
+//  case *tg.AuthAuthorization: // auth.authorization#cd050916
+//  case *tg.AuthAuthorizationSignUpRequired: // auth.authorizationSignUpRequired#44747e9a
 //  default: panic(v)
 //  }
 type AuthAuthorizationClass interface {

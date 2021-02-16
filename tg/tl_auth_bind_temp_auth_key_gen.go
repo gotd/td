@@ -74,23 +74,8 @@ func (b *AuthBindTempAuthKeyRequest) String() string {
 	if b == nil {
 		return "AuthBindTempAuthKeyRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthBindTempAuthKeyRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPermAuthKeyID: ")
-	sb.WriteString(fmt.Sprint(b.PermAuthKeyID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(b.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tExpiresAt: ")
-	sb.WriteString(fmt.Sprint(b.ExpiresAt))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptedMessage: ")
-	sb.WriteString(fmt.Sprint(b.EncryptedMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthBindTempAuthKeyRequest
+	return fmt.Sprintf("AuthBindTempAuthKeyRequest%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

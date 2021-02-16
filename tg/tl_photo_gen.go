@@ -46,14 +46,8 @@ func (p *PhotoEmpty) String() string {
 	if p == nil {
 		return "PhotoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoEmpty
+	return fmt.Sprintf("PhotoEmpty%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -185,41 +179,8 @@ func (p *Photo) String() string {
 	if p == nil {
 		return "Photo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Photo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(p.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(p.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Sizes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if p.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range p.VideoSizes {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(p.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Photo
+	return fmt.Sprintf("Photo%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -423,13 +384,13 @@ var (
 // See https://core.telegram.org/type/Photo for reference.
 //
 // Example:
-//  g, err := DecodePhoto(buf)
+//  g, err := tg.DecodePhoto(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhotoEmpty: // photoEmpty#2331b22d
-//  case *Photo: // photo#fb197a65
+//  case *tg.PhotoEmpty: // photoEmpty#2331b22d
+//  case *tg.Photo: // photo#fb197a65
 //  default: panic(v)
 //  }
 type PhotoClass interface {

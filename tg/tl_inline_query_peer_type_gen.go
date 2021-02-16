@@ -40,11 +40,8 @@ func (i *InlineQueryPeerTypeSameBotPM) String() string {
 	if i == nil {
 		return "InlineQueryPeerTypeSameBotPM(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineQueryPeerTypeSameBotPM")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineQueryPeerTypeSameBotPM
+	return fmt.Sprintf("InlineQueryPeerTypeSameBotPM%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -106,11 +103,8 @@ func (i *InlineQueryPeerTypePM) String() string {
 	if i == nil {
 		return "InlineQueryPeerTypePM(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineQueryPeerTypePM")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineQueryPeerTypePM
+	return fmt.Sprintf("InlineQueryPeerTypePM%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -172,11 +166,8 @@ func (i *InlineQueryPeerTypeChat) String() string {
 	if i == nil {
 		return "InlineQueryPeerTypeChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineQueryPeerTypeChat")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineQueryPeerTypeChat
+	return fmt.Sprintf("InlineQueryPeerTypeChat%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -238,11 +229,8 @@ func (i *InlineQueryPeerTypeMegagroup) String() string {
 	if i == nil {
 		return "InlineQueryPeerTypeMegagroup(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineQueryPeerTypeMegagroup")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineQueryPeerTypeMegagroup
+	return fmt.Sprintf("InlineQueryPeerTypeMegagroup%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -304,11 +292,8 @@ func (i *InlineQueryPeerTypeBroadcast) String() string {
 	if i == nil {
 		return "InlineQueryPeerTypeBroadcast(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineQueryPeerTypeBroadcast")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineQueryPeerTypeBroadcast
+	return fmt.Sprintf("InlineQueryPeerTypeBroadcast%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -353,16 +338,16 @@ var (
 // See https://core.telegram.org/type/InlineQueryPeerType for reference.
 //
 // Example:
-//  g, err := DecodeInlineQueryPeerType(buf)
+//  g, err := tg.DecodeInlineQueryPeerType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InlineQueryPeerTypeSameBotPM: // inlineQueryPeerTypeSameBotPM#3081ed9d
-//  case *InlineQueryPeerTypePM: // inlineQueryPeerTypePM#833c0fac
-//  case *InlineQueryPeerTypeChat: // inlineQueryPeerTypeChat#d766c50a
-//  case *InlineQueryPeerTypeMegagroup: // inlineQueryPeerTypeMegagroup#5ec4be43
-//  case *InlineQueryPeerTypeBroadcast: // inlineQueryPeerTypeBroadcast#6334ee9a
+//  case *tg.InlineQueryPeerTypeSameBotPM: // inlineQueryPeerTypeSameBotPM#3081ed9d
+//  case *tg.InlineQueryPeerTypePM: // inlineQueryPeerTypePM#833c0fac
+//  case *tg.InlineQueryPeerTypeChat: // inlineQueryPeerTypeChat#d766c50a
+//  case *tg.InlineQueryPeerTypeMegagroup: // inlineQueryPeerTypeMegagroup#5ec4be43
+//  case *tg.InlineQueryPeerTypeBroadcast: // inlineQueryPeerTypeBroadcast#6334ee9a
 //  default: panic(v)
 //  }
 type InlineQueryPeerTypeClass interface {

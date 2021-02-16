@@ -51,17 +51,8 @@ func (b *BankCardOpenUrl) String() string {
 	if b == nil {
 		return "BankCardOpenUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BankCardOpenUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(b.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(b.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BankCardOpenUrl
+	return fmt.Sprintf("BankCardOpenUrl%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

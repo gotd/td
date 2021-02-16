@@ -54,17 +54,8 @@ func (r *ContactsResetTopPeerRatingRequest) String() string {
 	if r == nil {
 		return "ContactsResetTopPeerRatingRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsResetTopPeerRatingRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCategory: ")
-	sb.WriteString(fmt.Sprint(r.Category))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsResetTopPeerRatingRequest
+	return fmt.Sprintf("ContactsResetTopPeerRatingRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

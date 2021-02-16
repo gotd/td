@@ -54,17 +54,8 @@ func (g *AccountGetThemesRequest) String() string {
 	if g == nil {
 		return "AccountGetThemesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetThemesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFormat: ")
-	sb.WriteString(fmt.Sprint(g.Format))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetThemesRequest
+	return fmt.Sprintf("AccountGetThemesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

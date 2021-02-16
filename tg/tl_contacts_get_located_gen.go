@@ -66,22 +66,8 @@ func (g *ContactsGetLocatedRequest) String() string {
 	if g == nil {
 		return "ContactsGetLocatedRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsGetLocatedRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(g.GeoPoint))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tSelfExpires: ")
-		sb.WriteString(fmt.Sprint(g.SelfExpires))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsGetLocatedRequest
+	return fmt.Sprintf("ContactsGetLocatedRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

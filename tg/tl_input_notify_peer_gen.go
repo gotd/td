@@ -46,14 +46,8 @@ func (i *InputNotifyPeer) String() string {
 	if i == nil {
 		return "InputNotifyPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputNotifyPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputNotifyPeer
+	return fmt.Sprintf("InputNotifyPeer%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -134,11 +128,8 @@ func (i *InputNotifyUsers) String() string {
 	if i == nil {
 		return "InputNotifyUsers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputNotifyUsers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputNotifyUsers
+	return fmt.Sprintf("InputNotifyUsers%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,11 +192,8 @@ func (i *InputNotifyChats) String() string {
 	if i == nil {
 		return "InputNotifyChats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputNotifyChats")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputNotifyChats
+	return fmt.Sprintf("InputNotifyChats%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -271,11 +259,8 @@ func (i *InputNotifyBroadcasts) String() string {
 	if i == nil {
 		return "InputNotifyBroadcasts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputNotifyBroadcasts")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputNotifyBroadcasts
+	return fmt.Sprintf("InputNotifyBroadcasts%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -320,15 +305,15 @@ var (
 // See https://core.telegram.org/type/InputNotifyPeer for reference.
 //
 // Example:
-//  g, err := DecodeInputNotifyPeer(buf)
+//  g, err := tg.DecodeInputNotifyPeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputNotifyPeer: // inputNotifyPeer#b8bc5b0c
-//  case *InputNotifyUsers: // inputNotifyUsers#193b4417
-//  case *InputNotifyChats: // inputNotifyChats#4a95e84e
-//  case *InputNotifyBroadcasts: // inputNotifyBroadcasts#b1db7c7e
+//  case *tg.InputNotifyPeer: // inputNotifyPeer#b8bc5b0c
+//  case *tg.InputNotifyUsers: // inputNotifyUsers#193b4417
+//  case *tg.InputNotifyChats: // inputNotifyChats#4a95e84e
+//  case *tg.InputNotifyBroadcasts: // inputNotifyBroadcasts#b1db7c7e
 //  default: panic(v)
 //  }
 type InputNotifyPeerClass interface {

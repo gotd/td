@@ -43,14 +43,8 @@ func (vec *ReceivedNotifyMessageVector) String() string {
 	if vec == nil {
 		return "ReceivedNotifyMessageVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReceivedNotifyMessageVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias ReceivedNotifyMessageVector
+	return fmt.Sprintf("ReceivedNotifyMessageVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (t *AccountTakeout) String() string {
 	if t == nil {
 		return "AccountTakeout(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountTakeout")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(t.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountTakeout
+	return fmt.Sprintf("AccountTakeout%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

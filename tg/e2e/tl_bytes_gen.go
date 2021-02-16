@@ -40,11 +40,8 @@ func (b *Bytes) String() string {
 	if b == nil {
 		return "Bytes(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Bytes")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Bytes
+	return fmt.Sprintf("Bytes%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

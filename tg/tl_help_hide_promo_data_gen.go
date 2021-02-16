@@ -46,14 +46,8 @@ func (h *HelpHidePromoDataRequest) String() string {
 	if h == nil {
 		return "HelpHidePromoDataRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpHidePromoDataRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(h.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpHidePromoDataRequest
+	return fmt.Sprintf("HelpHidePromoDataRequest%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -43,16 +43,8 @@ func (m *MsgsStateReq) String() string {
 	if m == nil {
 		return "MsgsStateReq(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgsStateReq")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.MsgIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgsStateReq
+	return fmt.Sprintf("MsgsStateReq%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

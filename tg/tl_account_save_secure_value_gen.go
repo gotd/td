@@ -61,17 +61,8 @@ func (s *AccountSaveSecureValueRequest) String() string {
 	if s == nil {
 		return "AccountSaveSecureValueRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSaveSecureValueRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(s.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecureSecretID: ")
-	sb.WriteString(fmt.Sprint(s.SecureSecretID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSaveSecureValueRequest
+	return fmt.Sprintf("AccountSaveSecureValueRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (g *HelpGetAppUpdateRequest) String() string {
 	if g == nil {
 		return "HelpGetAppUpdateRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetAppUpdateRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSource: ")
-	sb.WriteString(fmt.Sprint(g.Source))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetAppUpdateRequest
+	return fmt.Sprintf("HelpGetAppUpdateRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

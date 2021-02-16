@@ -40,11 +40,8 @@ func (o *Ok) String() string {
 	if o == nil {
 		return "Ok(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Ok")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Ok
+	return fmt.Sprintf("Ok%+v", Alias(*o))
 }
 
 // TypeID returns MTProto type id (CRC code).

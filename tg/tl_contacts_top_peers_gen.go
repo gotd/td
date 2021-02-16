@@ -41,11 +41,8 @@ func (t *ContactsTopPeersNotModified) String() string {
 	if t == nil {
 		return "ContactsTopPeersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsTopPeersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsTopPeersNotModified
+	return fmt.Sprintf("ContactsTopPeersNotModified%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -123,26 +120,8 @@ func (t *ContactsTopPeers) String() string {
 	if t == nil {
 		return "ContactsTopPeers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsTopPeers")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range t.Categories {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range t.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range t.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsTopPeers
+	return fmt.Sprintf("ContactsTopPeers%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -283,11 +262,8 @@ func (t *ContactsTopPeersDisabled) String() string {
 	if t == nil {
 		return "ContactsTopPeersDisabled(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsTopPeersDisabled")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsTopPeersDisabled
+	return fmt.Sprintf("ContactsTopPeersDisabled%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -332,14 +308,14 @@ var (
 // See https://core.telegram.org/type/contacts.TopPeers for reference.
 //
 // Example:
-//  g, err := DecodeContactsTopPeers(buf)
+//  g, err := tg.DecodeContactsTopPeers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ContactsTopPeersNotModified: // contacts.topPeersNotModified#de266ef5
-//  case *ContactsTopPeers: // contacts.topPeers#70b772a8
-//  case *ContactsTopPeersDisabled: // contacts.topPeersDisabled#b52c939d
+//  case *tg.ContactsTopPeersNotModified: // contacts.topPeersNotModified#de266ef5
+//  case *tg.ContactsTopPeers: // contacts.topPeers#70b772a8
+//  case *tg.ContactsTopPeersDisabled: // contacts.topPeersDisabled#b52c939d
 //  default: panic(v)
 //  }
 type ContactsTopPeersClass interface {

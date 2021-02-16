@@ -87,29 +87,8 @@ func (g *StatsGetMessagePublicForwardsRequest) String() string {
 	if g == nil {
 		return "StatsGetMessagePublicForwardsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGetMessagePublicForwardsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(g.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetRate: ")
-	sb.WriteString(fmt.Sprint(g.OffsetRate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetPeer: ")
-	sb.WriteString(fmt.Sprint(g.OffsetPeer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(g.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGetMessagePublicForwardsRequest
+	return fmt.Sprintf("StatsGetMessagePublicForwardsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -57,19 +57,8 @@ func (d *ChannelsDeleteMessagesRequest) String() string {
 	if d == nil {
 		return "ChannelsDeleteMessagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsDeleteMessagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(d.Channel))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsDeleteMessagesRequest
+	return fmt.Sprintf("ChannelsDeleteMessagesRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

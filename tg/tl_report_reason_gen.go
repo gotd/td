@@ -41,11 +41,8 @@ func (i *InputReportReasonSpam) String() string {
 	if i == nil {
 		return "InputReportReasonSpam(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonSpam")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonSpam
+	return fmt.Sprintf("InputReportReasonSpam%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputReportReasonViolence) String() string {
 	if i == nil {
 		return "InputReportReasonViolence(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonViolence")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonViolence
+	return fmt.Sprintf("InputReportReasonViolence%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (i *InputReportReasonPornography) String() string {
 	if i == nil {
 		return "InputReportReasonPornography(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonPornography")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonPornography
+	return fmt.Sprintf("InputReportReasonPornography%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (i *InputReportReasonChildAbuse) String() string {
 	if i == nil {
 		return "InputReportReasonChildAbuse(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonChildAbuse")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonChildAbuse
+	return fmt.Sprintf("InputReportReasonChildAbuse%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -314,14 +302,8 @@ func (i *InputReportReasonOther) String() string {
 	if i == nil {
 		return "InputReportReasonOther(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonOther")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(i.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonOther
+	return fmt.Sprintf("InputReportReasonOther%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -397,11 +379,8 @@ func (i *InputReportReasonCopyright) String() string {
 	if i == nil {
 		return "InputReportReasonCopyright(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonCopyright")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonCopyright
+	return fmt.Sprintf("InputReportReasonCopyright%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -464,11 +443,8 @@ func (i *InputReportReasonGeoIrrelevant) String() string {
 	if i == nil {
 		return "InputReportReasonGeoIrrelevant(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonGeoIrrelevant")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonGeoIrrelevant
+	return fmt.Sprintf("InputReportReasonGeoIrrelevant%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -530,11 +506,8 @@ func (i *InputReportReasonFake) String() string {
 	if i == nil {
 		return "InputReportReasonFake(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputReportReasonFake")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputReportReasonFake
+	return fmt.Sprintf("InputReportReasonFake%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -579,19 +552,19 @@ var (
 // See https://core.telegram.org/type/ReportReason for reference.
 //
 // Example:
-//  g, err := DecodeReportReason(buf)
+//  g, err := tg.DecodeReportReason(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputReportReasonSpam: // inputReportReasonSpam#58dbcab8
-//  case *InputReportReasonViolence: // inputReportReasonViolence#1e22c78d
-//  case *InputReportReasonPornography: // inputReportReasonPornography#2e59d922
-//  case *InputReportReasonChildAbuse: // inputReportReasonChildAbuse#adf44ee3
-//  case *InputReportReasonOther: // inputReportReasonOther#e1746d0a
-//  case *InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
-//  case *InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
-//  case *InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
+//  case *tg.InputReportReasonSpam: // inputReportReasonSpam#58dbcab8
+//  case *tg.InputReportReasonViolence: // inputReportReasonViolence#1e22c78d
+//  case *tg.InputReportReasonPornography: // inputReportReasonPornography#2e59d922
+//  case *tg.InputReportReasonChildAbuse: // inputReportReasonChildAbuse#adf44ee3
+//  case *tg.InputReportReasonOther: // inputReportReasonOther#e1746d0a
+//  case *tg.InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
+//  case *tg.InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
+//  case *tg.InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
 //  default: panic(v)
 //  }
 type ReportReasonClass interface {

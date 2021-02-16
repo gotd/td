@@ -50,14 +50,8 @@ func (s *SecurePlainPhone) String() string {
 	if s == nil {
 		return "SecurePlainPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecurePlainPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhone: ")
-	sb.WriteString(fmt.Sprint(s.Phone))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecurePlainPhone
+	return fmt.Sprintf("SecurePlainPhone%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -142,14 +136,8 @@ func (s *SecurePlainEmail) String() string {
 	if s == nil {
 		return "SecurePlainEmail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecurePlainEmail")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmail: ")
-	sb.WriteString(fmt.Sprint(s.Email))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecurePlainEmail
+	return fmt.Sprintf("SecurePlainEmail%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -207,13 +195,13 @@ var (
 // See https://core.telegram.org/type/SecurePlainData for reference.
 //
 // Example:
-//  g, err := DecodeSecurePlainData(buf)
+//  g, err := tg.DecodeSecurePlainData(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecurePlainPhone: // securePlainPhone#7d6099dd
-//  case *SecurePlainEmail: // securePlainEmail#21ec5a5f
+//  case *tg.SecurePlainPhone: // securePlainPhone#7d6099dd
+//  case *tg.SecurePlainEmail: // securePlainEmail#21ec5a5f
 //  default: panic(v)
 //  }
 type SecurePlainDataClass interface {

@@ -51,17 +51,8 @@ func (s *HelpSetBotUpdatesStatusRequest) String() string {
 	if s == nil {
 		return "HelpSetBotUpdatesStatusRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpSetBotUpdatesStatusRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPendingUpdatesCount: ")
-	sb.WriteString(fmt.Sprint(s.PendingUpdatesCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(s.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpSetBotUpdatesStatusRequest
+	return fmt.Sprintf("HelpSetBotUpdatesStatusRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -62,20 +62,8 @@ func (e *ChannelsEditBannedRequest) String() string {
 	if e == nil {
 		return "ChannelsEditBannedRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsEditBannedRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(e.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(e.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBannedRights: ")
-	sb.WriteString(fmt.Sprint(e.BannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsEditBannedRequest
+	return fmt.Sprintf("ChannelsEditBannedRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

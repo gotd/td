@@ -43,14 +43,8 @@ func (g *GzipPacked) String() string {
 	if g == nil {
 		return "GzipPacked(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GzipPacked")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPackedData: ")
-	sb.WriteString(fmt.Sprint(g.PackedData))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GzipPacked
+	return fmt.Sprintf("GzipPacked%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

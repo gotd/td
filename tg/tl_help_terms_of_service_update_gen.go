@@ -49,14 +49,8 @@ func (t *HelpTermsOfServiceUpdateEmpty) String() string {
 	if t == nil {
 		return "HelpTermsOfServiceUpdateEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpTermsOfServiceUpdateEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(t.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpTermsOfServiceUpdateEmpty
+	return fmt.Sprintf("HelpTermsOfServiceUpdateEmpty%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -148,17 +142,8 @@ func (t *HelpTermsOfServiceUpdate) String() string {
 	if t == nil {
 		return "HelpTermsOfServiceUpdate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpTermsOfServiceUpdate")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(t.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTermsOfService: ")
-	sb.WriteString(fmt.Sprint(t.TermsOfService))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpTermsOfServiceUpdate
+	return fmt.Sprintf("HelpTermsOfServiceUpdate%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -229,13 +214,13 @@ var (
 // See https://core.telegram.org/type/help.TermsOfServiceUpdate for reference.
 //
 // Example:
-//  g, err := DecodeHelpTermsOfServiceUpdate(buf)
+//  g, err := tg.DecodeHelpTermsOfServiceUpdate(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpTermsOfServiceUpdateEmpty: // help.termsOfServiceUpdateEmpty#e3309f7f
-//  case *HelpTermsOfServiceUpdate: // help.termsOfServiceUpdate#28ecf961
+//  case *tg.HelpTermsOfServiceUpdateEmpty: // help.termsOfServiceUpdateEmpty#e3309f7f
+//  case *tg.HelpTermsOfServiceUpdate: // help.termsOfServiceUpdate#28ecf961
 //  default: panic(v)
 //  }
 type HelpTermsOfServiceUpdateClass interface {

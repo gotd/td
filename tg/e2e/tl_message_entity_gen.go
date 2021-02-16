@@ -51,17 +51,8 @@ func (m *MessageEntityUnknown) String() string {
 	if m == nil {
 		return "MessageEntityUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityUnknown
+	return fmt.Sprintf("MessageEntityUnknown%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -163,17 +154,8 @@ func (m *MessageEntityMention) String() string {
 	if m == nil {
 		return "MessageEntityMention(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityMention")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityMention
+	return fmt.Sprintf("MessageEntityMention%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -272,17 +254,8 @@ func (m *MessageEntityHashtag) String() string {
 	if m == nil {
 		return "MessageEntityHashtag(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityHashtag")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityHashtag
+	return fmt.Sprintf("MessageEntityHashtag%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -381,17 +354,8 @@ func (m *MessageEntityBotCommand) String() string {
 	if m == nil {
 		return "MessageEntityBotCommand(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityBotCommand")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityBotCommand
+	return fmt.Sprintf("MessageEntityBotCommand%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -495,17 +459,8 @@ func (m *MessageEntityUrl) String() string {
 	if m == nil {
 		return "MessageEntityUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityUrl
+	return fmt.Sprintf("MessageEntityUrl%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -607,17 +562,8 @@ func (m *MessageEntityEmail) String() string {
 	if m == nil {
 		return "MessageEntityEmail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityEmail")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityEmail
+	return fmt.Sprintf("MessageEntityEmail%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -716,17 +662,8 @@ func (m *MessageEntityBold) String() string {
 	if m == nil {
 		return "MessageEntityBold(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityBold")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityBold
+	return fmt.Sprintf("MessageEntityBold%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -825,17 +762,8 @@ func (m *MessageEntityItalic) String() string {
 	if m == nil {
 		return "MessageEntityItalic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityItalic")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityItalic
+	return fmt.Sprintf("MessageEntityItalic%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -934,17 +862,8 @@ func (m *MessageEntityCode) String() string {
 	if m == nil {
 		return "MessageEntityCode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityCode")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityCode
+	return fmt.Sprintf("MessageEntityCode%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1048,20 +967,8 @@ func (m *MessageEntityPre) String() string {
 	if m == nil {
 		return "MessageEntityPre(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityPre")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLanguage: ")
-	sb.WriteString(fmt.Sprint(m.Language))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityPre
+	return fmt.Sprintf("MessageEntityPre%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1183,20 +1090,8 @@ func (m *MessageEntityTextUrl) String() string {
 	if m == nil {
 		return "MessageEntityTextUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityTextUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(m.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityTextUrl
+	return fmt.Sprintf("MessageEntityTextUrl%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1317,20 +1212,8 @@ func (m *MessageEntityMentionName) String() string {
 	if m == nil {
 		return "MessageEntityMentionName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityMentionName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(m.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityMentionName
+	return fmt.Sprintf("MessageEntityMentionName%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1442,17 +1325,8 @@ func (m *MessageEntityPhone) String() string {
 	if m == nil {
 		return "MessageEntityPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityPhone
+	return fmt.Sprintf("MessageEntityPhone%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1551,17 +1425,8 @@ func (m *MessageEntityCashtag) String() string {
 	if m == nil {
 		return "MessageEntityCashtag(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityCashtag")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityCashtag
+	return fmt.Sprintf("MessageEntityCashtag%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1660,17 +1525,8 @@ func (m *MessageEntityBankCard) String() string {
 	if m == nil {
 		return "MessageEntityBankCard(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityBankCard")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityBankCard
+	return fmt.Sprintf("MessageEntityBankCard%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1769,17 +1625,8 @@ func (m *MessageEntityUnderline) String() string {
 	if m == nil {
 		return "MessageEntityUnderline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityUnderline")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityUnderline
+	return fmt.Sprintf("MessageEntityUnderline%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1878,17 +1725,8 @@ func (m *MessageEntityStrike) String() string {
 	if m == nil {
 		return "MessageEntityStrike(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityStrike")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityStrike
+	return fmt.Sprintf("MessageEntityStrike%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1987,17 +1825,8 @@ func (m *MessageEntityBlockquote) String() string {
 	if m == nil {
 		return "MessageEntityBlockquote(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEntityBlockquote")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(m.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(m.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEntityBlockquote
+	return fmt.Sprintf("MessageEntityBlockquote%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2068,29 +1897,29 @@ var (
 // See https://core.telegram.org/type/MessageEntity for reference.
 //
 // Example:
-//  g, err := DecodeMessageEntity(buf)
+//  g, err := e2e.DecodeMessageEntity(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessageEntityUnknown: // messageEntityUnknown#bb92ba95
-//  case *MessageEntityMention: // messageEntityMention#fa04579d
-//  case *MessageEntityHashtag: // messageEntityHashtag#6f635b0d
-//  case *MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
-//  case *MessageEntityUrl: // messageEntityUrl#6ed02538
-//  case *MessageEntityEmail: // messageEntityEmail#64e475c2
-//  case *MessageEntityBold: // messageEntityBold#bd610bc9
-//  case *MessageEntityItalic: // messageEntityItalic#826f8b60
-//  case *MessageEntityCode: // messageEntityCode#28a20571
-//  case *MessageEntityPre: // messageEntityPre#73924be0
-//  case *MessageEntityTextUrl: // messageEntityTextUrl#76a6d327
-//  case *MessageEntityMentionName: // messageEntityMentionName#352dca58
-//  case *MessageEntityPhone: // messageEntityPhone#9b69e34b
-//  case *MessageEntityCashtag: // messageEntityCashtag#4c4e743f
-//  case *MessageEntityBankCard: // messageEntityBankCard#761e6af4
-//  case *MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
-//  case *MessageEntityStrike: // messageEntityStrike#bf0693d4
-//  case *MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
+//  case *e2e.MessageEntityUnknown: // messageEntityUnknown#bb92ba95
+//  case *e2e.MessageEntityMention: // messageEntityMention#fa04579d
+//  case *e2e.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
+//  case *e2e.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
+//  case *e2e.MessageEntityUrl: // messageEntityUrl#6ed02538
+//  case *e2e.MessageEntityEmail: // messageEntityEmail#64e475c2
+//  case *e2e.MessageEntityBold: // messageEntityBold#bd610bc9
+//  case *e2e.MessageEntityItalic: // messageEntityItalic#826f8b60
+//  case *e2e.MessageEntityCode: // messageEntityCode#28a20571
+//  case *e2e.MessageEntityPre: // messageEntityPre#73924be0
+//  case *e2e.MessageEntityTextUrl: // messageEntityTextUrl#76a6d327
+//  case *e2e.MessageEntityMentionName: // messageEntityMentionName#352dca58
+//  case *e2e.MessageEntityPhone: // messageEntityPhone#9b69e34b
+//  case *e2e.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
+//  case *e2e.MessageEntityBankCard: // messageEntityBankCard#761e6af4
+//  case *e2e.MessageEntityUnderline: // messageEntityUnderline#9c4e7e8b
+//  case *e2e.MessageEntityStrike: // messageEntityStrike#bf0693d4
+//  case *e2e.MessageEntityBlockquote: // messageEntityBlockquote#20df5d0
 //  default: panic(v)
 //  }
 type MessageEntityClass interface {

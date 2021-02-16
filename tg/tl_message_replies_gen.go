@@ -104,42 +104,8 @@ func (m *MessageReplies) String() string {
 	if m == nil {
 		return "MessageReplies(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageReplies")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReplies: ")
-	sb.WriteString(fmt.Sprint(m.Replies))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRepliesPts: ")
-	sb.WriteString(fmt.Sprint(m.RepliesPts))
-	sb.WriteString(",\n")
-	if m.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range m.RecentRepliers {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if m.Flags.Has(0) {
-		sb.WriteString("\tChannelID: ")
-		sb.WriteString(fmt.Sprint(m.ChannelID))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(2) {
-		sb.WriteString("\tMaxID: ")
-		sb.WriteString(fmt.Sprint(m.MaxID))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(3) {
-		sb.WriteString("\tReadMaxID: ")
-		sb.WriteString(fmt.Sprint(m.ReadMaxID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageReplies
+	return fmt.Sprintf("MessageReplies%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

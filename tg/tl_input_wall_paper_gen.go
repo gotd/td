@@ -51,17 +51,8 @@ func (i *InputWallPaper) String() string {
 	if i == nil {
 		return "InputWallPaper(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWallPaper")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWallPaper
+	return fmt.Sprintf("InputWallPaper%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -155,14 +146,8 @@ func (i *InputWallPaperSlug) String() string {
 	if i == nil {
 		return "InputWallPaperSlug(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWallPaperSlug")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSlug: ")
-	sb.WriteString(fmt.Sprint(i.Slug))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWallPaperSlug
+	return fmt.Sprintf("InputWallPaperSlug%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -238,11 +223,8 @@ func (i *InputWallPaperNoFile) String() string {
 	if i == nil {
 		return "InputWallPaperNoFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWallPaperNoFile")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWallPaperNoFile
+	return fmt.Sprintf("InputWallPaperNoFile%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -287,14 +269,14 @@ var (
 // See https://core.telegram.org/type/InputWallPaper for reference.
 //
 // Example:
-//  g, err := DecodeInputWallPaper(buf)
+//  g, err := tg.DecodeInputWallPaper(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputWallPaper: // inputWallPaper#e630b979
-//  case *InputWallPaperSlug: // inputWallPaperSlug#72091c80
-//  case *InputWallPaperNoFile: // inputWallPaperNoFile#8427bbac
+//  case *tg.InputWallPaper: // inputWallPaper#e630b979
+//  case *tg.InputWallPaperSlug: // inputWallPaperSlug#72091c80
+//  case *tg.InputWallPaperNoFile: // inputWallPaperNoFile#8427bbac
 //  default: panic(v)
 //  }
 type InputWallPaperClass interface {

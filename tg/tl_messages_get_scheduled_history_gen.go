@@ -54,17 +54,8 @@ func (g *MessagesGetScheduledHistoryRequest) String() string {
 	if g == nil {
 		return "MessagesGetScheduledHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetScheduledHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetScheduledHistoryRequest
+	return fmt.Sprintf("MessagesGetScheduledHistoryRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

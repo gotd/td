@@ -64,20 +64,8 @@ func (v *PaymentsValidateRequestedInfoRequest) String() string {
 	if v == nil {
 		return "PaymentsValidateRequestedInfoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsValidateRequestedInfoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(v.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(v.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInfo: ")
-	sb.WriteString(fmt.Sprint(v.Info))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsValidateRequestedInfoRequest
+	return fmt.Sprintf("PaymentsValidateRequestedInfoRequest%+v", Alias(*v))
 }
 
 // TypeID returns MTProto type id (CRC code).

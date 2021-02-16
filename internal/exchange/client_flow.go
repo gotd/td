@@ -74,6 +74,9 @@ Loop:
 		return ClientExchangeResult{}, xerrors.Errorf("decompose pq: %w", err)
 	}
 	c.log.Debug("PQ decomposing complete", zap.Duration("took", c.clock.Now().Sub(start)))
+	// Make a copy of p and q values to reduce allocations.
+	pBytes := p.Bytes()
+	qBytes := q.Bytes()
 
 	// 4. Client sends query to server.
 	// req_DH_params#d712e4be nonce:int128 server_nonce:int128 p:string q:string
@@ -83,12 +86,12 @@ Loop:
 		return ClientExchangeResult{}, xerrors.Errorf("generate new nonce: %w", err)
 	}
 	pqInnerData := &mt.PQInnerData{
-		Pq:          pq.Bytes(),
+		Pq:          res.Pq,
 		Nonce:       nonce,
 		NewNonce:    newNonce,
 		ServerNonce: res.ServerNonce,
-		P:           p.Bytes(),
-		Q:           q.Bytes(),
+		P:           pBytes,
+		Q:           qBytes,
 	}
 	b.Reset()
 	if err := pqInnerData.Encode(b); err != nil {
@@ -103,8 +106,8 @@ Loop:
 	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
 		ServerNonce:          res.ServerNonce,
-		P:                    p.Bytes(),
-		Q:                    q.Bytes(),
+		P:                    pBytes,
+		Q:                    qBytes,
 		PublicKeyFingerprint: crypto.RSAFingerprint(selectedPubKey),
 		EncryptedData:        encryptedData,
 	}

@@ -51,19 +51,8 @@ func (p *PhotosPhoto) String() string {
 	if p == nil {
 		return "PhotosPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(p.Photo))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosPhoto
+	return fmt.Sprintf("PhotosPhoto%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

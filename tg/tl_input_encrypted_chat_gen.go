@@ -56,17 +56,8 @@ func (i *InputEncryptedChat) String() string {
 	if i == nil {
 		return "InputEncryptedChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(i.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedChat
+	return fmt.Sprintf("InputEncryptedChat%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

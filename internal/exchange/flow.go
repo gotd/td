@@ -6,21 +6,26 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
-
-	"github.com/gotd/td/clock"
+	"time"
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
 )
 
+// DefaultTimeout is default WithTimeout parameter value.
+const DefaultTimeout = 1 * time.Minute
+
 // Exchanger is builder for key exchangers.
 type Exchanger struct {
-	clock clock.Clock
-	rand  io.Reader
-	conn  transport.Conn
-	log   *zap.Logger
+	conn transport.Conn
+
+	clock   clock.Clock
+	rand    io.Reader
+	log     *zap.Logger
+	timeout time.Duration
 }
 
 // WithClock sets exchange flow clock.
@@ -41,22 +46,31 @@ func (e Exchanger) WithLogger(log *zap.Logger) Exchanger {
 	return e
 }
 
+// WithTimeout sets write/read deadline of every exchange request.
+func (e Exchanger) WithTimeout(timeout time.Duration) Exchanger {
+	e.timeout = timeout
+	return e
+}
+
 // NewExchanger creates new Exchanger.
 func NewExchanger(conn transport.Conn) Exchanger {
 	return Exchanger{
-		clock: clock.System,
-		rand:  rand.Reader,
-		conn:  conn,
-		log:   zap.NewNop(),
+		conn: conn,
+
+		clock:   clock.System,
+		rand:    rand.Reader,
+		log:     zap.NewNop(),
+		timeout: DefaultTimeout,
 	}
 }
 
 func (e Exchanger) unencryptedWriter(input, output proto.MessageType) unencryptedWriter {
 	return unencryptedWriter{
-		clock:  e.clock,
-		conn:   e.conn,
-		input:  input,
-		output: output,
+		clock:   e.clock,
+		conn:    e.conn,
+		timeout: e.timeout,
+		input:   input,
+		output:  output,
 	}
 }
 

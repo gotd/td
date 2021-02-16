@@ -41,11 +41,8 @@ func (d *HelpDeepLinkInfoEmpty) String() string {
 	if d == nil {
 		return "HelpDeepLinkInfoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpDeepLinkInfoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpDeepLinkInfoEmpty
+	return fmt.Sprintf("HelpDeepLinkInfoEmpty%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -136,24 +133,8 @@ func (d *HelpDeepLinkInfo) String() string {
 	if d == nil {
 		return "HelpDeepLinkInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpDeepLinkInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	if d.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range d.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpDeepLinkInfo
+	return fmt.Sprintf("HelpDeepLinkInfo%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -281,13 +262,13 @@ var (
 // See https://core.telegram.org/type/help.DeepLinkInfo for reference.
 //
 // Example:
-//  g, err := DecodeHelpDeepLinkInfo(buf)
+//  g, err := tg.DecodeHelpDeepLinkInfo(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpDeepLinkInfoEmpty: // help.deepLinkInfoEmpty#66afa166
-//  case *HelpDeepLinkInfo: // help.deepLinkInfo#6a4ee832
+//  case *tg.HelpDeepLinkInfoEmpty: // help.deepLinkInfoEmpty#66afa166
+//  case *tg.HelpDeepLinkInfo: // help.deepLinkInfo#6a4ee832
 //  default: panic(v)
 //  }
 type HelpDeepLinkInfoClass interface {

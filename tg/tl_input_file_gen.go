@@ -67,23 +67,8 @@ func (i *InputFile) String() string {
 	if i == nil {
 		return "InputFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParts: ")
-	sb.WriteString(fmt.Sprint(i.Parts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(i.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMD5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.MD5Checksum))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputFile
+	return fmt.Sprintf("InputFile%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -216,20 +201,8 @@ func (i *InputFileBig) String() string {
 	if i == nil {
 		return "InputFileBig(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputFileBig")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParts: ")
-	sb.WriteString(fmt.Sprint(i.Parts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(i.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputFileBig
+	return fmt.Sprintf("InputFileBig%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -313,13 +286,13 @@ var (
 // See https://core.telegram.org/type/InputFile for reference.
 //
 // Example:
-//  g, err := DecodeInputFile(buf)
+//  g, err := tg.DecodeInputFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputFile: // inputFile#f52ff27f
-//  case *InputFileBig: // inputFileBig#fa4f0bb5
+//  case *tg.InputFile: // inputFile#f52ff27f
+//  case *tg.InputFileBig: // inputFileBig#fa4f0bb5
 //  default: panic(v)
 //  }
 type InputFileClass interface {

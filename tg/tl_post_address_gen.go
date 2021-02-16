@@ -71,29 +71,8 @@ func (p *PostAddress) String() string {
 	if p == nil {
 		return "PostAddress(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PostAddress")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStreetLine1: ")
-	sb.WriteString(fmt.Sprint(p.StreetLine1))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStreetLine2: ")
-	sb.WriteString(fmt.Sprint(p.StreetLine2))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCity: ")
-	sb.WriteString(fmt.Sprint(p.City))
-	sb.WriteString(",\n")
-	sb.WriteString("\tState: ")
-	sb.WriteString(fmt.Sprint(p.State))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCountryIso2: ")
-	sb.WriteString(fmt.Sprint(p.CountryIso2))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPostCode: ")
-	sb.WriteString(fmt.Sprint(p.PostCode))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PostAddress
+	return fmt.Sprintf("PostAddress%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

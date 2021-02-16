@@ -54,17 +54,8 @@ func (l *LabeledPrice) String() string {
 	if l == nil {
 		return "LabeledPrice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("LabeledPrice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLabel: ")
-	sb.WriteString(fmt.Sprint(l.Label))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAmount: ")
-	sb.WriteString(fmt.Sprint(l.Amount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias LabeledPrice
+	return fmt.Sprintf("LabeledPrice%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

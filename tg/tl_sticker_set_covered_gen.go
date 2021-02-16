@@ -51,17 +51,8 @@ func (s *StickerSetCovered) String() string {
 	if s == nil {
 		return "StickerSetCovered(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickerSetCovered")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSet: ")
-	sb.WriteString(fmt.Sprint(s.Set))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCover: ")
-	sb.WriteString(fmt.Sprint(s.Cover))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickerSetCovered
+	return fmt.Sprintf("StickerSetCovered%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -165,19 +156,8 @@ func (s *StickerSetMultiCovered) String() string {
 	if s == nil {
 		return "StickerSetMultiCovered(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickerSetMultiCovered")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSet: ")
-	sb.WriteString(fmt.Sprint(s.Set))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Covers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickerSetMultiCovered
+	return fmt.Sprintf("StickerSetMultiCovered%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -262,13 +242,13 @@ var (
 // See https://core.telegram.org/type/StickerSetCovered for reference.
 //
 // Example:
-//  g, err := DecodeStickerSetCovered(buf)
+//  g, err := tg.DecodeStickerSetCovered(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *StickerSetCovered: // stickerSetCovered#6410a5d2
-//  case *StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
+//  case *tg.StickerSetCovered: // stickerSetCovered#6410a5d2
+//  case *tg.StickerSetMultiCovered: // stickerSetMultiCovered#3407e51b
 //  default: panic(v)
 //  }
 type StickerSetCoveredClass interface {

@@ -41,11 +41,8 @@ func (s *MessagesStickerSetInstallResultSuccess) String() string {
 	if s == nil {
 		return "MessagesStickerSetInstallResultSuccess(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesStickerSetInstallResultSuccess")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesStickerSetInstallResultSuccess
+	return fmt.Sprintf("MessagesStickerSetInstallResultSuccess%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -115,16 +112,8 @@ func (s *MessagesStickerSetInstallResultArchive) String() string {
 	if s == nil {
 		return "MessagesStickerSetInstallResultArchive(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesStickerSetInstallResultArchive")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range s.Sets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesStickerSetInstallResultArchive
+	return fmt.Sprintf("MessagesStickerSetInstallResultArchive%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -198,13 +187,13 @@ var (
 // See https://core.telegram.org/type/messages.StickerSetInstallResult for reference.
 //
 // Example:
-//  g, err := DecodeMessagesStickerSetInstallResult(buf)
+//  g, err := tg.DecodeMessagesStickerSetInstallResult(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesStickerSetInstallResultSuccess: // messages.stickerSetInstallResultSuccess#38641628
-//  case *MessagesStickerSetInstallResultArchive: // messages.stickerSetInstallResultArchive#35e410a8
+//  case *tg.MessagesStickerSetInstallResultSuccess: // messages.stickerSetInstallResultSuccess#38641628
+//  case *tg.MessagesStickerSetInstallResultArchive: // messages.stickerSetInstallResultArchive#35e410a8
 //  default: panic(v)
 //  }
 type MessagesStickerSetInstallResultClass interface {

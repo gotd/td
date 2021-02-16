@@ -46,14 +46,8 @@ func (j *ChannelsJoinChannelRequest) String() string {
 	if j == nil {
 		return "ChannelsJoinChannelRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsJoinChannelRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(j.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsJoinChannelRequest
+	return fmt.Sprintf("ChannelsJoinChannelRequest%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).

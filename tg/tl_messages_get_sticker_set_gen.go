@@ -46,14 +46,8 @@ func (g *MessagesGetStickerSetRequest) String() string {
 	if g == nil {
 		return "MessagesGetStickerSetRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetStickerSetRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(g.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetStickerSetRequest
+	return fmt.Sprintf("MessagesGetStickerSetRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

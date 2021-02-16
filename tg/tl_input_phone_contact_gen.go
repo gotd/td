@@ -64,23 +64,8 @@ func (i *InputPhoneContact) String() string {
 	if i == nil {
 		return "InputPhoneContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPhoneContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tClientID: ")
-	sb.WriteString(fmt.Sprint(i.ClientID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhone: ")
-	sb.WriteString(fmt.Sprint(i.Phone))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(i.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(i.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPhoneContact
+	return fmt.Sprintf("InputPhoneContact%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (i *InputDocumentEmpty) String() string {
 	if i == nil {
 		return "InputDocumentEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputDocumentEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputDocumentEmpty
+	return fmt.Sprintf("InputDocumentEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -129,20 +126,8 @@ func (i *InputDocument) String() string {
 	if i == nil {
 		return "InputDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputDocument
+	return fmt.Sprintf("InputDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -226,13 +211,13 @@ var (
 // See https://core.telegram.org/type/InputDocument for reference.
 //
 // Example:
-//  g, err := DecodeInputDocument(buf)
+//  g, err := tg.DecodeInputDocument(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputDocumentEmpty: // inputDocumentEmpty#72f0eaae
-//  case *InputDocument: // inputDocument#1abfb575
+//  case *tg.InputDocumentEmpty: // inputDocumentEmpty#72f0eaae
+//  case *tg.InputDocument: // inputDocument#1abfb575
 //  default: panic(v)
 //  }
 type InputDocumentClass interface {

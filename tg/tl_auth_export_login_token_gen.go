@@ -68,22 +68,8 @@ func (e *AuthExportLoginTokenRequest) String() string {
 	if e == nil {
 		return "AuthExportLoginTokenRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthExportLoginTokenRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAPIID: ")
-	sb.WriteString(fmt.Sprint(e.APIID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAPIHash: ")
-	sb.WriteString(fmt.Sprint(e.APIHash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range e.ExceptIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthExportLoginTokenRequest
+	return fmt.Sprintf("AuthExportLoginTokenRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

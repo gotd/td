@@ -45,14 +45,8 @@ func (d *MessagesDeleteChatRequest) String() string {
 	if d == nil {
 		return "MessagesDeleteChatRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDeleteChatRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(d.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDeleteChatRequest
+	return fmt.Sprintf("MessagesDeleteChatRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

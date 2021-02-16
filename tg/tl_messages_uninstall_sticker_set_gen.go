@@ -46,14 +46,8 @@ func (u *MessagesUninstallStickerSetRequest) String() string {
 	if u == nil {
 		return "MessagesUninstallStickerSetRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUninstallStickerSetRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(u.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUninstallStickerSetRequest
+	return fmt.Sprintf("MessagesUninstallStickerSetRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

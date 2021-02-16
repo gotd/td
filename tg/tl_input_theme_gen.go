@@ -51,17 +51,8 @@ func (i *InputTheme) String() string {
 	if i == nil {
 		return "InputTheme(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputTheme")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputTheme
+	return fmt.Sprintf("InputTheme%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -155,14 +146,8 @@ func (i *InputThemeSlug) String() string {
 	if i == nil {
 		return "InputThemeSlug(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputThemeSlug")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSlug: ")
-	sb.WriteString(fmt.Sprint(i.Slug))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputThemeSlug
+	return fmt.Sprintf("InputThemeSlug%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -220,13 +205,13 @@ var (
 // See https://core.telegram.org/type/InputTheme for reference.
 //
 // Example:
-//  g, err := DecodeInputTheme(buf)
+//  g, err := tg.DecodeInputTheme(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputTheme: // inputTheme#3c5693e9
-//  case *InputThemeSlug: // inputThemeSlug#f5890df1
+//  case *tg.InputTheme: // inputTheme#3c5693e9
+//  case *tg.InputThemeSlug: // inputThemeSlug#f5890df1
 //  default: panic(v)
 //  }
 type InputThemeClass interface {

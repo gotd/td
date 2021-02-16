@@ -51,17 +51,8 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
 	if t == nil {
 		return "ChannelsTogglePreHistoryHiddenRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsTogglePreHistoryHiddenRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(t.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEnabled: ")
-	sb.WriteString(fmt.Sprint(t.Enabled))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsTogglePreHistoryHiddenRequest
+	return fmt.Sprintf("ChannelsTogglePreHistoryHiddenRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

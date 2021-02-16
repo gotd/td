@@ -43,14 +43,8 @@ func (vec *DialogFilterVector) String() string {
 	if vec == nil {
 		return "DialogFilterVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogFilterVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias DialogFilterVector
+	return fmt.Sprintf("DialogFilterVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

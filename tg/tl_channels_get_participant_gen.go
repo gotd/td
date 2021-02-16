@@ -54,17 +54,8 @@ func (g *ChannelsGetParticipantRequest) String() string {
 	if g == nil {
 		return "ChannelsGetParticipantRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsGetParticipantRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsGetParticipantRequest
+	return fmt.Sprintf("ChannelsGetParticipantRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

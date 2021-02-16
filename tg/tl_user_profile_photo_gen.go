@@ -41,11 +41,8 @@ func (u *UserProfilePhotoEmpty) String() string {
 	if u == nil {
 		return "UserProfilePhotoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserProfilePhotoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserProfilePhotoEmpty
+	return fmt.Sprintf("UserProfilePhotoEmpty%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -147,26 +144,8 @@ func (u *UserProfilePhoto) String() string {
 	if u == nil {
 		return "UserProfilePhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserProfilePhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoID: ")
-	sb.WriteString(fmt.Sprint(u.PhotoID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoSmall: ")
-	sb.WriteString(fmt.Sprint(u.PhotoSmall))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoBig: ")
-	sb.WriteString(fmt.Sprint(u.PhotoBig))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(u.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserProfilePhoto
+	return fmt.Sprintf("UserProfilePhoto%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -291,13 +270,13 @@ var (
 // See https://core.telegram.org/type/UserProfilePhoto for reference.
 //
 // Example:
-//  g, err := DecodeUserProfilePhoto(buf)
+//  g, err := tg.DecodeUserProfilePhoto(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UserProfilePhotoEmpty: // userProfilePhotoEmpty#4f11bae1
-//  case *UserProfilePhoto: // userProfilePhoto#69d3ab26
+//  case *tg.UserProfilePhotoEmpty: // userProfilePhotoEmpty#4f11bae1
+//  case *tg.UserProfilePhoto: // userProfilePhoto#69d3ab26
 //  default: panic(v)
 //  }
 type UserProfilePhotoClass interface {

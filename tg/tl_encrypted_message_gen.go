@@ -69,26 +69,8 @@ func (e *EncryptedMessage) String() string {
 	if e == nil {
 		return "EncryptedMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(e.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(e.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(e.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(e.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(e.File))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedMessage
+	return fmt.Sprintf("EncryptedMessage%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -244,23 +226,8 @@ func (e *EncryptedMessageService) String() string {
 	if e == nil {
 		return "EncryptedMessageService(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedMessageService")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(e.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(e.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(e.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(e.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedMessageService
+	return fmt.Sprintf("EncryptedMessageService%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -357,13 +324,13 @@ var (
 // See https://core.telegram.org/type/EncryptedMessage for reference.
 //
 // Example:
-//  g, err := DecodeEncryptedMessage(buf)
+//  g, err := tg.DecodeEncryptedMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *EncryptedMessage: // encryptedMessage#ed18c118
-//  case *EncryptedMessageService: // encryptedMessageService#23734b06
+//  case *tg.EncryptedMessage: // encryptedMessage#ed18c118
+//  case *tg.EncryptedMessageService: // encryptedMessageService#23734b06
 //  default: panic(v)
 //  }
 type EncryptedMessageClass interface {

@@ -56,26 +56,8 @@ func (p *AccountPrivacyRules) String() string {
 	if p == nil {
 		return "AccountPrivacyRules(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountPrivacyRules")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Rules {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountPrivacyRules
+	return fmt.Sprintf("AccountPrivacyRules%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

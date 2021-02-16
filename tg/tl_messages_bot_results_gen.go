@@ -88,40 +88,8 @@ func (b *MessagesBotResults) String() string {
 	if b == nil {
 		return "MessagesBotResults(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesBotResults")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(b.QueryID))
-	sb.WriteString(",\n")
-	if b.Flags.Has(1) {
-		sb.WriteString("\tNextOffset: ")
-		sb.WriteString(fmt.Sprint(b.NextOffset))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tSwitchPm: ")
-		sb.WriteString(fmt.Sprint(b.SwitchPm))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range b.Results {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCacheTime: ")
-	sb.WriteString(fmt.Sprint(b.CacheTime))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range b.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesBotResults
+	return fmt.Sprintf("MessagesBotResults%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

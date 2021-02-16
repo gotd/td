@@ -57,17 +57,8 @@ func (c *CdnPublicKey) String() string {
 	if c == nil {
 		return "CdnPublicKey(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("CdnPublicKey")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(c.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPublicKey: ")
-	sb.WriteString(fmt.Sprint(c.PublicKey))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias CdnPublicKey
+	return fmt.Sprintf("CdnPublicKey%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

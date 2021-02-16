@@ -56,24 +56,8 @@ func (c *MessagesChatFull) String() string {
 	if c == nil {
 		return "MessagesChatFull(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesChatFull")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFullChat: ")
-	sb.WriteString(fmt.Sprint(c.FullChat))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesChatFull
+	return fmt.Sprintf("MessagesChatFull%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

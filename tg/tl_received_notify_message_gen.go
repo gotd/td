@@ -51,17 +51,8 @@ func (r *ReceivedNotifyMessage) String() string {
 	if r == nil {
 		return "ReceivedNotifyMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReceivedNotifyMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(r.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReceivedNotifyMessage
+	return fmt.Sprintf("ReceivedNotifyMessage%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

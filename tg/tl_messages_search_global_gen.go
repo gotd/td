@@ -111,43 +111,8 @@ func (s *MessagesSearchGlobalRequest) String() string {
 	if s == nil {
 		return "MessagesSearchGlobalRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSearchGlobalRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(s.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(s.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFilter: ")
-	sb.WriteString(fmt.Sprint(s.Filter))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinDate: ")
-	sb.WriteString(fmt.Sprint(s.MinDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxDate: ")
-	sb.WriteString(fmt.Sprint(s.MaxDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetRate: ")
-	sb.WriteString(fmt.Sprint(s.OffsetRate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetPeer: ")
-	sb.WriteString(fmt.Sprint(s.OffsetPeer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(s.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(s.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSearchGlobalRequest
+	return fmt.Sprintf("MessagesSearchGlobalRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

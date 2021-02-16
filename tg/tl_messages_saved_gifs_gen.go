@@ -41,11 +41,8 @@ func (s *MessagesSavedGifsNotModified) String() string {
 	if s == nil {
 		return "MessagesSavedGifsNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSavedGifsNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSavedGifsNotModified
+	return fmt.Sprintf("MessagesSavedGifsNotModified%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,19 +118,8 @@ func (s *MessagesSavedGifs) String() string {
 	if s == nil {
 		return "MessagesSavedGifs(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSavedGifs")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Gifs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSavedGifs
+	return fmt.Sprintf("MessagesSavedGifs%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -218,13 +204,13 @@ var (
 // See https://core.telegram.org/type/messages.SavedGifs for reference.
 //
 // Example:
-//  g, err := DecodeMessagesSavedGifs(buf)
+//  g, err := tg.DecodeMessagesSavedGifs(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesSavedGifsNotModified: // messages.savedGifsNotModified#e8025ca2
-//  case *MessagesSavedGifs: // messages.savedGifs#2e0709a5
+//  case *tg.MessagesSavedGifsNotModified: // messages.savedGifsNotModified#e8025ca2
+//  case *tg.MessagesSavedGifs: // messages.savedGifs#2e0709a5
 //  default: panic(v)
 //  }
 type MessagesSavedGifsClass interface {

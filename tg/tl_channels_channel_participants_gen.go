@@ -56,24 +56,8 @@ func (c *ChannelsChannelParticipants) String() string {
 	if c == nil {
 		return "ChannelsChannelParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsChannelParticipants")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(c.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Participants {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsChannelParticipants
+	return fmt.Sprintf("ChannelsChannelParticipants%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -203,11 +187,8 @@ func (c *ChannelsChannelParticipantsNotModified) String() string {
 	if c == nil {
 		return "ChannelsChannelParticipantsNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsChannelParticipantsNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsChannelParticipantsNotModified
+	return fmt.Sprintf("ChannelsChannelParticipantsNotModified%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -254,13 +235,13 @@ var (
 // See https://core.telegram.org/type/channels.ChannelParticipants for reference.
 //
 // Example:
-//  g, err := DecodeChannelsChannelParticipants(buf)
+//  g, err := tg.DecodeChannelsChannelParticipants(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChannelsChannelParticipants: // channels.channelParticipants#f56ee2a8
-//  case *ChannelsChannelParticipantsNotModified: // channels.channelParticipantsNotModified#f0173fe9
+//  case *tg.ChannelsChannelParticipants: // channels.channelParticipants#f56ee2a8
+//  case *tg.ChannelsChannelParticipantsNotModified: // channels.channelParticipantsNotModified#f0173fe9
 //  default: panic(v)
 //  }
 type ChannelsChannelParticipantsClass interface {

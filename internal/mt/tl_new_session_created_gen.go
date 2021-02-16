@@ -53,20 +53,8 @@ func (n *NewSessionCreated) String() string {
 	if n == nil {
 		return "NewSessionCreated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NewSessionCreated")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFirstMsgID: ")
-	sb.WriteString(fmt.Sprint(n.FirstMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUniqueID: ")
-	sb.WriteString(fmt.Sprint(n.UniqueID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerSalt: ")
-	sb.WriteString(fmt.Sprint(n.ServerSalt))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NewSessionCreated
+	return fmt.Sprintf("NewSessionCreated%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,17 +51,8 @@ func (e *MessagesEditChatPhotoRequest) String() string {
 	if e == nil {
 		return "MessagesEditChatPhotoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesEditChatPhotoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(e.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(e.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesEditChatPhotoRequest
+	return fmt.Sprintf("MessagesEditChatPhotoRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

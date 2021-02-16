@@ -54,17 +54,8 @@ func (i *InvokeWithLayerRequest) String() string {
 	if i == nil {
 		return "InvokeWithLayerRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InvokeWithLayerRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLayer: ")
-	sb.WriteString(fmt.Sprint(i.Layer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InvokeWithLayerRequest
+	return fmt.Sprintf("InvokeWithLayerRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

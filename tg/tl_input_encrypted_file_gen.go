@@ -41,11 +41,8 @@ func (i *InputEncryptedFileEmpty) String() string {
 	if i == nil {
 		return "InputEncryptedFileEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedFileEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedFileEmpty
+	return fmt.Sprintf("InputEncryptedFileEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -131,23 +128,8 @@ func (i *InputEncryptedFileUploaded) String() string {
 	if i == nil {
 		return "InputEncryptedFileUploaded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedFileUploaded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParts: ")
-	sb.WriteString(fmt.Sprint(i.Parts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMD5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.MD5Checksum))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(i.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedFileUploaded
+	return fmt.Sprintf("InputEncryptedFileUploaded%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -278,17 +260,8 @@ func (i *InputEncryptedFile) String() string {
 	if i == nil {
 		return "InputEncryptedFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedFile
+	return fmt.Sprintf("InputEncryptedFile%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -395,20 +368,8 @@ func (i *InputEncryptedFileBigUploaded) String() string {
 	if i == nil {
 		return "InputEncryptedFileBigUploaded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedFileBigUploaded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParts: ")
-	sb.WriteString(fmt.Sprint(i.Parts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(i.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedFileBigUploaded
+	return fmt.Sprintf("InputEncryptedFileBigUploaded%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -492,15 +453,15 @@ var (
 // See https://core.telegram.org/type/InputEncryptedFile for reference.
 //
 // Example:
-//  g, err := DecodeInputEncryptedFile(buf)
+//  g, err := tg.DecodeInputEncryptedFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputEncryptedFileEmpty: // inputEncryptedFileEmpty#1837c364
-//  case *InputEncryptedFileUploaded: // inputEncryptedFileUploaded#64bd0306
-//  case *InputEncryptedFile: // inputEncryptedFile#5a17b5e5
-//  case *InputEncryptedFileBigUploaded: // inputEncryptedFileBigUploaded#2dc173c8
+//  case *tg.InputEncryptedFileEmpty: // inputEncryptedFileEmpty#1837c364
+//  case *tg.InputEncryptedFileUploaded: // inputEncryptedFileUploaded#64bd0306
+//  case *tg.InputEncryptedFile: // inputEncryptedFile#5a17b5e5
+//  case *tg.InputEncryptedFileBigUploaded: // inputEncryptedFileBigUploaded#2dc173c8
 //  default: panic(v)
 //  }
 type InputEncryptedFileClass interface {

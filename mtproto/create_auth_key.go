@@ -11,6 +11,7 @@ func (c *Conn) createAuthKey(ctx context.Context) error {
 	r, err := exchange.NewExchanger(c.conn).
 		WithClock(c.clock).
 		WithLogger(c.log.Named("exchange")).
+		WithTimeout(c.exchangeTimeout).
 		WithRand(c.rand).
 		Client(c.rsaPublicKeys).Run(ctx)
 	if err != nil {

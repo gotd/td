@@ -136,48 +136,8 @@ func (p *AccountPassword) String() string {
 	if p == nil {
 		return "AccountPassword(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountPassword")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(2) {
-		sb.WriteString("\tCurrentAlgo: ")
-		sb.WriteString(fmt.Sprint(p.CurrentAlgo))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tSRPB: ")
-		sb.WriteString(fmt.Sprint(p.SRPB))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tSRPID: ")
-		sb.WriteString(fmt.Sprint(p.SRPID))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(3) {
-		sb.WriteString("\tHint: ")
-		sb.WriteString(fmt.Sprint(p.Hint))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(4) {
-		sb.WriteString("\tEmailUnconfirmedPattern: ")
-		sb.WriteString(fmt.Sprint(p.EmailUnconfirmedPattern))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tNewAlgo: ")
-	sb.WriteString(fmt.Sprint(p.NewAlgo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewSecureAlgo: ")
-	sb.WriteString(fmt.Sprint(p.NewSecureAlgo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecureRandom: ")
-	sb.WriteString(fmt.Sprint(p.SecureRandom))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountPassword
+	return fmt.Sprintf("AccountPassword%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

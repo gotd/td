@@ -72,20 +72,8 @@ func (e *ChannelsExportMessageLinkRequest) String() string {
 	if e == nil {
 		return "ChannelsExportMessageLinkRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsExportMessageLinkRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(e.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(e.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsExportMessageLinkRequest
+	return fmt.Sprintf("ChannelsExportMessageLinkRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

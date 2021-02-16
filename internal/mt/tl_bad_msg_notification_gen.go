@@ -53,20 +53,8 @@ func (b *BadMsgNotification) String() string {
 	if b == nil {
 		return "BadMsgNotification(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BadMsgNotification")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBadMsgID: ")
-	sb.WriteString(fmt.Sprint(b.BadMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBadMsgSeqno: ")
-	sb.WriteString(fmt.Sprint(b.BadMsgSeqno))
-	sb.WriteString(",\n")
-	sb.WriteString("\tErrorCode: ")
-	sb.WriteString(fmt.Sprint(b.ErrorCode))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BadMsgNotification
+	return fmt.Sprintf("BadMsgNotification%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -185,23 +173,8 @@ func (b *BadServerSalt) String() string {
 	if b == nil {
 		return "BadServerSalt(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BadServerSalt")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBadMsgID: ")
-	sb.WriteString(fmt.Sprint(b.BadMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBadMsgSeqno: ")
-	sb.WriteString(fmt.Sprint(b.BadMsgSeqno))
-	sb.WriteString(",\n")
-	sb.WriteString("\tErrorCode: ")
-	sb.WriteString(fmt.Sprint(b.ErrorCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewServerSalt: ")
-	sb.WriteString(fmt.Sprint(b.NewServerSalt))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BadServerSalt
+	return fmt.Sprintf("BadServerSalt%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -296,13 +269,13 @@ var (
 // BadMsgNotificationClass represents BadMsgNotification generic type.
 //
 // Example:
-//  g, err := DecodeBadMsgNotification(buf)
+//  g, err := mt.DecodeBadMsgNotification(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BadMsgNotification: // bad_msg_notification#a7eff811
-//  case *BadServerSalt: // bad_server_salt#edab447b
+//  case *mt.BadMsgNotification: // bad_msg_notification#a7eff811
+//  case *mt.BadServerSalt: // bad_server_salt#edab447b
 //  default: panic(v)
 //  }
 type BadMsgNotificationClass interface {

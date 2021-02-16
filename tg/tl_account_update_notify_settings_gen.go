@@ -51,17 +51,8 @@ func (u *AccountUpdateNotifySettingsRequest) String() string {
 	if u == nil {
 		return "AccountUpdateNotifySettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateNotifySettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(u.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateNotifySettingsRequest
+	return fmt.Sprintf("AccountUpdateNotifySettingsRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

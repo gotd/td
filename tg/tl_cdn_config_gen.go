@@ -52,16 +52,8 @@ func (c *CdnConfig) String() string {
 	if c == nil {
 		return "CdnConfig(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("CdnConfig")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range c.PublicKeys {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias CdnConfig
+	return fmt.Sprintf("CdnConfig%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

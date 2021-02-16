@@ -56,26 +56,8 @@ func (m *MessagesMessages) String() string {
 	if m == nil {
 		return "MessagesMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesMessages")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesMessages
+	return fmt.Sprintf("MessagesMessages%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -269,42 +251,8 @@ func (m *MessagesMessagesSlice) String() string {
 	if m == nil {
 		return "MessagesMessagesSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesMessagesSlice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(m.Count))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tNextRate: ")
-		sb.WriteString(fmt.Sprint(m.NextRate))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(2) {
-		sb.WriteString("\tOffsetIDOffset: ")
-		sb.WriteString(fmt.Sprint(m.OffsetIDOffset))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range m.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesMessagesSlice
+	return fmt.Sprintf("MessagesMessagesSlice%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -593,40 +541,8 @@ func (c *MessagesChannelMessages) String() string {
 	if c == nil {
 		return "MessagesChannelMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesChannelMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(c.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(c.Count))
-	sb.WriteString(",\n")
-	if c.Flags.Has(2) {
-		sb.WriteString("\tOffsetIDOffset: ")
-		sb.WriteString(fmt.Sprint(c.OffsetIDOffset))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range c.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesChannelMessages
+	return fmt.Sprintf("MessagesChannelMessages%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -857,14 +773,8 @@ func (m *MessagesMessagesNotModified) String() string {
 	if m == nil {
 		return "MessagesMessagesNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesMessagesNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(m.Count))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesMessagesNotModified
+	return fmt.Sprintf("MessagesMessagesNotModified%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -922,15 +832,15 @@ var (
 // See https://core.telegram.org/type/messages.Messages for reference.
 //
 // Example:
-//  g, err := DecodeMessagesMessages(buf)
+//  g, err := tg.DecodeMessagesMessages(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesMessages: // messages.messages#8c718e87
-//  case *MessagesMessagesSlice: // messages.messagesSlice#3a54685e
-//  case *MessagesChannelMessages: // messages.channelMessages#64479808
-//  case *MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
+//  case *tg.MessagesMessages: // messages.messages#8c718e87
+//  case *tg.MessagesMessagesSlice: // messages.messagesSlice#3a54685e
+//  case *tg.MessagesChannelMessages: // messages.channelMessages#64479808
+//  case *tg.MessagesMessagesNotModified: // messages.messagesNotModified#74535f21
 //  default: panic(v)
 //  }
 type MessagesMessagesClass interface {

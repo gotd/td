@@ -45,16 +45,8 @@ func (t *TextEntities) String() string {
 	if t == nil {
 		return "TextEntities(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntities")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range t.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntities
+	return fmt.Sprintf("TextEntities%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

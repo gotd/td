@@ -51,17 +51,8 @@ func (p *PeerBlocked) String() string {
 	if p == nil {
 		return "PeerBlocked(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerBlocked")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeerID: ")
-	sb.WriteString(fmt.Sprint(p.PeerID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerBlocked
+	return fmt.Sprintf("PeerBlocked%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

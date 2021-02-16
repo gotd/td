@@ -81,7 +81,9 @@ type Conn struct {
 	readConcurrency int
 	messages        chan *crypto.EncryptedMessageData
 
-	closed bool
+	dialTimeout     time.Duration
+	exchangeTimeout time.Duration
+	closed          bool
 }
 
 // New creates new unstarted connection.
@@ -113,7 +115,9 @@ func New(addr string, opt Options) *Conn {
 		readConcurrency: opt.ReadConcurrency,
 		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),
 
-		rpc: opt.engine,
+		rpc:             opt.engine,
+		dialTimeout:     opt.DialTimeout,
+		exchangeTimeout: opt.ExchangeTimeout,
 	}
 	if conn.rpc == nil {
 		conn.rpc = rpc.New(conn.write, rpc.Options{
@@ -184,6 +188,9 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 // connect establishes connection using configured transport, creating
 // new auth key if needed.
 func (c *Conn) connect(ctx context.Context) error {
+	ctx, cancel := context.WithTimeout(ctx, c.dialTimeout)
+	defer cancel()
+
 	conn, err := c.transport.DialContext(ctx, "tcp", c.addr)
 	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)

@@ -40,11 +40,8 @@ func (d *TestDummyFunctionRequest) String() string {
 	if d == nil {
 		return "TestDummyFunctionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TestDummyFunctionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TestDummyFunctionRequest
+	return fmt.Sprintf("TestDummyFunctionRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

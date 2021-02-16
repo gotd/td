@@ -61,23 +61,8 @@ func (s *AuthSignUpRequest) String() string {
 	if s == nil {
 		return "AuthSignUpRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSignUpRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(s.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneCodeHash: ")
-	sb.WriteString(fmt.Sprint(s.PhoneCodeHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(s.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(s.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSignUpRequest
+	return fmt.Sprintf("AuthSignUpRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

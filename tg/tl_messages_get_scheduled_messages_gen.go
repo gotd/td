@@ -51,19 +51,8 @@ func (g *MessagesGetScheduledMessagesRequest) String() string {
 	if g == nil {
 		return "MessagesGetScheduledMessagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetScheduledMessagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetScheduledMessagesRequest
+	return fmt.Sprintf("MessagesGetScheduledMessagesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

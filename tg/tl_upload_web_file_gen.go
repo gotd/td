@@ -69,26 +69,8 @@ func (w *UploadWebFile) String() string {
 	if w == nil {
 		return "UploadWebFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadWebFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(w.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(w.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileType: ")
-	sb.WriteString(fmt.Sprint(w.FileType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMtime: ")
-	sb.WriteString(fmt.Sprint(w.Mtime))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(w.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadWebFile
+	return fmt.Sprintf("UploadWebFile%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).

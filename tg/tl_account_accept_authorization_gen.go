@@ -66,28 +66,8 @@ func (a *AccountAcceptAuthorizationRequest) String() string {
 	if a == nil {
 		return "AccountAcceptAuthorizationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountAcceptAuthorizationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBotID: ")
-	sb.WriteString(fmt.Sprint(a.BotID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScope: ")
-	sb.WriteString(fmt.Sprint(a.Scope))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPublicKey: ")
-	sb.WriteString(fmt.Sprint(a.PublicKey))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range a.ValueHashes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCredentials: ")
-	sb.WriteString(fmt.Sprint(a.Credentials))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountAcceptAuthorizationRequest
+	return fmt.Sprintf("AccountAcceptAuthorizationRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

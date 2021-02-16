@@ -38,11 +38,8 @@ func (r *RPCAnswerUnknown) String() string {
 	if r == nil {
 		return "RPCAnswerUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCAnswerUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCAnswerUnknown
+	return fmt.Sprintf("RPCAnswerUnknown%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -102,11 +99,8 @@ func (r *RPCAnswerDroppedRunning) String() string {
 	if r == nil {
 		return "RPCAnswerDroppedRunning(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCAnswerDroppedRunning")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCAnswerDroppedRunning
+	return fmt.Sprintf("RPCAnswerDroppedRunning%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -181,20 +175,8 @@ func (r *RPCAnswerDropped) String() string {
 	if r == nil {
 		return "RPCAnswerDropped(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCAnswerDropped")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(r.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeqNo: ")
-	sb.WriteString(fmt.Sprint(r.SeqNo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(r.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCAnswerDropped
+	return fmt.Sprintf("RPCAnswerDropped%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -276,14 +258,14 @@ var (
 // RpcDropAnswerClass represents RpcDropAnswer generic type.
 //
 // Example:
-//  g, err := DecodeRpcDropAnswer(buf)
+//  g, err := mt.DecodeRpcDropAnswer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *RPCAnswerUnknown: // rpc_answer_unknown#5e2ad36e
-//  case *RPCAnswerDroppedRunning: // rpc_answer_dropped_running#cd78e586
-//  case *RPCAnswerDropped: // rpc_answer_dropped#a43ad8b7
+//  case *mt.RPCAnswerUnknown: // rpc_answer_unknown#5e2ad36e
+//  case *mt.RPCAnswerDroppedRunning: // rpc_answer_dropped_running#cd78e586
+//  case *mt.RPCAnswerDropped: // rpc_answer_dropped#a43ad8b7
 //  default: panic(v)
 //  }
 type RpcDropAnswerClass interface {

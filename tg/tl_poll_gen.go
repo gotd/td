@@ -101,35 +101,8 @@ func (p *Poll) String() string {
 	if p == nil {
 		return "Poll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Poll")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuestion: ")
-	sb.WriteString(fmt.Sprint(p.Question))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Answers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if p.Flags.Has(4) {
-		sb.WriteString("\tClosePeriod: ")
-		sb.WriteString(fmt.Sprint(p.ClosePeriod))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(5) {
-		sb.WriteString("\tCloseDate: ")
-		sb.WriteString(fmt.Sprint(p.CloseDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Poll
+	return fmt.Sprintf("Poll%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

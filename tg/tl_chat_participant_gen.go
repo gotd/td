@@ -56,20 +56,8 @@ func (c *ChatParticipant) String() string {
 	if c == nil {
 		return "ChatParticipant(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatParticipant")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInviterID: ")
-	sb.WriteString(fmt.Sprint(c.InviterID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatParticipant
+	return fmt.Sprintf("ChatParticipant%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -176,14 +164,8 @@ func (c *ChatParticipantCreator) String() string {
 	if c == nil {
 		return "ChatParticipantCreator(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatParticipantCreator")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatParticipantCreator
+	return fmt.Sprintf("ChatParticipantCreator%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -274,20 +256,8 @@ func (c *ChatParticipantAdmin) String() string {
 	if c == nil {
 		return "ChatParticipantAdmin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatParticipantAdmin")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInviterID: ")
-	sb.WriteString(fmt.Sprint(c.InviterID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatParticipantAdmin
+	return fmt.Sprintf("ChatParticipantAdmin%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -371,14 +341,14 @@ var (
 // See https://core.telegram.org/type/ChatParticipant for reference.
 //
 // Example:
-//  g, err := DecodeChatParticipant(buf)
+//  g, err := tg.DecodeChatParticipant(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChatParticipant: // chatParticipant#c8d7493e
-//  case *ChatParticipantCreator: // chatParticipantCreator#da13538a
-//  case *ChatParticipantAdmin: // chatParticipantAdmin#e2d6e436
+//  case *tg.ChatParticipant: // chatParticipant#c8d7493e
+//  case *tg.ChatParticipantCreator: // chatParticipantCreator#da13538a
+//  case *tg.ChatParticipantAdmin: // chatParticipantAdmin#e2d6e436
 //  default: panic(v)
 //  }
 type ChatParticipantClass interface {

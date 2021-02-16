@@ -51,17 +51,8 @@ func (j *JsonObjectValue) String() string {
 	if j == nil {
 		return "JsonObjectValue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonObjectValue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(j.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(j.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonObjectValue
+	return fmt.Sprintf("JsonObjectValue%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -67,22 +67,8 @@ func (l *StatsLoadAsyncGraphRequest) String() string {
 	if l == nil {
 		return "StatsLoadAsyncGraphRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsLoadAsyncGraphRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(l.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(l.Token))
-	sb.WriteString(",\n")
-	if l.Flags.Has(0) {
-		sb.WriteString("\tX: ")
-		sb.WriteString(fmt.Sprint(l.X))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsLoadAsyncGraphRequest
+	return fmt.Sprintf("StatsLoadAsyncGraphRequest%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

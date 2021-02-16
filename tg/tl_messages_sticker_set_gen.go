@@ -56,24 +56,8 @@ func (s *MessagesStickerSet) String() string {
 	if s == nil {
 		return "MessagesStickerSet(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesStickerSet")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSet: ")
-	sb.WriteString(fmt.Sprint(s.Set))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Packs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range s.Documents {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesStickerSet
+	return fmt.Sprintf("MessagesStickerSet%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

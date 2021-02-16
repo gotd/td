@@ -43,14 +43,8 @@ func (g *GetFutureSaltsRequest) String() string {
 	if g == nil {
 		return "GetFutureSaltsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GetFutureSaltsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNum: ")
-	sb.WriteString(fmt.Sprint(g.Num))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GetFutureSaltsRequest
+	return fmt.Sprintf("GetFutureSaltsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

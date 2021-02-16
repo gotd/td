@@ -43,14 +43,8 @@ func (d *DestroySessionRequest) String() string {
 	if d == nil {
 		return "DestroySessionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DestroySessionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSessionID: ")
-	sb.WriteString(fmt.Sprint(d.SessionID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DestroySessionRequest
+	return fmt.Sprintf("DestroySessionRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

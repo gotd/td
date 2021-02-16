@@ -72,23 +72,8 @@ func (a *MessagesAcceptUrlAuthRequest) String() string {
 	if a == nil {
 		return "MessagesAcceptUrlAuthRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAcceptUrlAuthRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(a.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(a.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tButtonID: ")
-	sb.WriteString(fmt.Sprint(a.ButtonID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAcceptUrlAuthRequest
+	return fmt.Sprintf("MessagesAcceptUrlAuthRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

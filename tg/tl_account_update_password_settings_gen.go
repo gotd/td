@@ -57,17 +57,8 @@ func (u *AccountUpdatePasswordSettingsRequest) String() string {
 	if u == nil {
 		return "AccountUpdatePasswordSettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdatePasswordSettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPassword: ")
-	sb.WriteString(fmt.Sprint(u.Password))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewSettings: ")
-	sb.WriteString(fmt.Sprint(u.NewSettings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdatePasswordSettingsRequest
+	return fmt.Sprintf("AccountUpdatePasswordSettingsRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

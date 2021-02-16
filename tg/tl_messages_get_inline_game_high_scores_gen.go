@@ -51,17 +51,8 @@ func (g *MessagesGetInlineGameHighScoresRequest) String() string {
 	if g == nil {
 		return "MessagesGetInlineGameHighScoresRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetInlineGameHighScoresRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(g.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetInlineGameHighScoresRequest
+	return fmt.Sprintf("MessagesGetInlineGameHighScoresRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

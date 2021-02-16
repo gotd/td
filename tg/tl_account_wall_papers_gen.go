@@ -41,11 +41,8 @@ func (w *AccountWallPapersNotModified) String() string {
 	if w == nil {
 		return "AccountWallPapersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountWallPapersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountWallPapersNotModified
+	return fmt.Sprintf("AccountWallPapersNotModified%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,19 +118,8 @@ func (w *AccountWallPapers) String() string {
 	if w == nil {
 		return "AccountWallPapers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountWallPapers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(w.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range w.Wallpapers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountWallPapers
+	return fmt.Sprintf("AccountWallPapers%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -218,13 +204,13 @@ var (
 // See https://core.telegram.org/type/account.WallPapers for reference.
 //
 // Example:
-//  g, err := DecodeAccountWallPapers(buf)
+//  g, err := tg.DecodeAccountWallPapers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
-//  case *AccountWallPapers: // account.wallPapers#702b65a9
+//  case *tg.AccountWallPapersNotModified: // account.wallPapersNotModified#1c199183
+//  case *tg.AccountWallPapers: // account.wallPapers#702b65a9
 //  default: panic(v)
 //  }
 type AccountWallPapersClass interface {

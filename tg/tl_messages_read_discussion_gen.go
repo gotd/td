@@ -59,20 +59,8 @@ func (r *MessagesReadDiscussionRequest) String() string {
 	if r == nil {
 		return "MessagesReadDiscussionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReadDiscussionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(r.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReadMaxID: ")
-	sb.WriteString(fmt.Sprint(r.ReadMaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReadDiscussionRequest
+	return fmt.Sprintf("MessagesReadDiscussionRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

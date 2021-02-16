@@ -41,11 +41,8 @@ func (t *TopPeerCategoryBotsPM) String() string {
 	if t == nil {
 		return "TopPeerCategoryBotsPM(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryBotsPM")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryBotsPM
+	return fmt.Sprintf("TopPeerCategoryBotsPM%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (t *TopPeerCategoryBotsInline) String() string {
 	if t == nil {
 		return "TopPeerCategoryBotsInline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryBotsInline")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryBotsInline
+	return fmt.Sprintf("TopPeerCategoryBotsInline%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (t *TopPeerCategoryCorrespondents) String() string {
 	if t == nil {
 		return "TopPeerCategoryCorrespondents(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryCorrespondents")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryCorrespondents
+	return fmt.Sprintf("TopPeerCategoryCorrespondents%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (t *TopPeerCategoryGroups) String() string {
 	if t == nil {
 		return "TopPeerCategoryGroups(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryGroups")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryGroups
+	return fmt.Sprintf("TopPeerCategoryGroups%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,11 +297,8 @@ func (t *TopPeerCategoryChannels) String() string {
 	if t == nil {
 		return "TopPeerCategoryChannels(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryChannels")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryChannels
+	return fmt.Sprintf("TopPeerCategoryChannels%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -376,11 +361,8 @@ func (t *TopPeerCategoryPhoneCalls) String() string {
 	if t == nil {
 		return "TopPeerCategoryPhoneCalls(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryPhoneCalls")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryPhoneCalls
+	return fmt.Sprintf("TopPeerCategoryPhoneCalls%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -443,11 +425,8 @@ func (t *TopPeerCategoryForwardUsers) String() string {
 	if t == nil {
 		return "TopPeerCategoryForwardUsers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryForwardUsers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryForwardUsers
+	return fmt.Sprintf("TopPeerCategoryForwardUsers%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -510,11 +489,8 @@ func (t *TopPeerCategoryForwardChats) String() string {
 	if t == nil {
 		return "TopPeerCategoryForwardChats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryForwardChats")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryForwardChats
+	return fmt.Sprintf("TopPeerCategoryForwardChats%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -559,19 +535,19 @@ var (
 // See https://core.telegram.org/type/TopPeerCategory for reference.
 //
 // Example:
-//  g, err := DecodeTopPeerCategory(buf)
+//  g, err := tg.DecodeTopPeerCategory(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *TopPeerCategoryBotsPM: // topPeerCategoryBotsPM#ab661b5b
-//  case *TopPeerCategoryBotsInline: // topPeerCategoryBotsInline#148677e2
-//  case *TopPeerCategoryCorrespondents: // topPeerCategoryCorrespondents#637b7ed
-//  case *TopPeerCategoryGroups: // topPeerCategoryGroups#bd17a14a
-//  case *TopPeerCategoryChannels: // topPeerCategoryChannels#161d9628
-//  case *TopPeerCategoryPhoneCalls: // topPeerCategoryPhoneCalls#1e76a78c
-//  case *TopPeerCategoryForwardUsers: // topPeerCategoryForwardUsers#a8406ca9
-//  case *TopPeerCategoryForwardChats: // topPeerCategoryForwardChats#fbeec0f0
+//  case *tg.TopPeerCategoryBotsPM: // topPeerCategoryBotsPM#ab661b5b
+//  case *tg.TopPeerCategoryBotsInline: // topPeerCategoryBotsInline#148677e2
+//  case *tg.TopPeerCategoryCorrespondents: // topPeerCategoryCorrespondents#637b7ed
+//  case *tg.TopPeerCategoryGroups: // topPeerCategoryGroups#bd17a14a
+//  case *tg.TopPeerCategoryChannels: // topPeerCategoryChannels#161d9628
+//  case *tg.TopPeerCategoryPhoneCalls: // topPeerCategoryPhoneCalls#1e76a78c
+//  case *tg.TopPeerCategoryForwardUsers: // topPeerCategoryForwardUsers#a8406ca9
+//  case *tg.TopPeerCategoryForwardChats: // topPeerCategoryForwardChats#fbeec0f0
 //  default: panic(v)
 //  }
 type TopPeerCategoryClass interface {

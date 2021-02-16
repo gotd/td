@@ -62,19 +62,8 @@ func (h *MessagesHistoryImportParsed) String() string {
 	if h == nil {
 		return "MessagesHistoryImportParsed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesHistoryImportParsed")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(h.Flags))
-	sb.WriteString(",\n")
-	if h.Flags.Has(2) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(h.Title))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesHistoryImportParsed
+	return fmt.Sprintf("MessagesHistoryImportParsed%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

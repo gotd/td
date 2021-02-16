@@ -41,11 +41,8 @@ func (i *InputPhotoEmpty) String() string {
 	if i == nil {
 		return "InputPhotoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPhotoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPhotoEmpty
+	return fmt.Sprintf("InputPhotoEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -129,20 +126,8 @@ func (i *InputPhoto) String() string {
 	if i == nil {
 		return "InputPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPhoto
+	return fmt.Sprintf("InputPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -226,13 +211,13 @@ var (
 // See https://core.telegram.org/type/InputPhoto for reference.
 //
 // Example:
-//  g, err := DecodeInputPhoto(buf)
+//  g, err := tg.DecodeInputPhoto(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputPhotoEmpty: // inputPhotoEmpty#1cd7bf0d
-//  case *InputPhoto: // inputPhoto#3bb3b94a
+//  case *tg.InputPhotoEmpty: // inputPhotoEmpty#1cd7bf0d
+//  case *tg.InputPhoto: // inputPhoto#3bb3b94a
 //  default: panic(v)
 //  }
 type InputPhotoClass interface {

@@ -41,11 +41,8 @@ func (p *PageBlockUnsupported) String() string {
 	if p == nil {
 		return "PageBlockUnsupported(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockUnsupported")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockUnsupported
+	return fmt.Sprintf("PageBlockUnsupported%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -113,14 +110,8 @@ func (p *PageBlockTitle) String() string {
 	if p == nil {
 		return "PageBlockTitle(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockTitle")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockTitle
+	return fmt.Sprintf("PageBlockTitle%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -206,14 +197,8 @@ func (p *PageBlockSubtitle) String() string {
 	if p == nil {
 		return "PageBlockSubtitle(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockSubtitle")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockSubtitle
+	return fmt.Sprintf("PageBlockSubtitle%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -304,17 +289,8 @@ func (p *PageBlockAuthorDate) String() string {
 	if p == nil {
 		return "PageBlockAuthorDate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockAuthorDate")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAuthor: ")
-	sb.WriteString(fmt.Sprint(p.Author))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPublishedDate: ")
-	sb.WriteString(fmt.Sprint(p.PublishedDate))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockAuthorDate
+	return fmt.Sprintf("PageBlockAuthorDate%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -413,14 +389,8 @@ func (p *PageBlockHeader) String() string {
 	if p == nil {
 		return "PageBlockHeader(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockHeader")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockHeader
+	return fmt.Sprintf("PageBlockHeader%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -506,14 +476,8 @@ func (p *PageBlockSubheader) String() string {
 	if p == nil {
 		return "PageBlockSubheader(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockSubheader")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockSubheader
+	return fmt.Sprintf("PageBlockSubheader%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -599,14 +563,8 @@ func (p *PageBlockParagraph) String() string {
 	if p == nil {
 		return "PageBlockParagraph(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockParagraph")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockParagraph
+	return fmt.Sprintf("PageBlockParagraph%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -697,17 +655,8 @@ func (p *PageBlockPreformatted) String() string {
 	if p == nil {
 		return "PageBlockPreformatted(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockPreformatted")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLanguage: ")
-	sb.WriteString(fmt.Sprint(p.Language))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockPreformatted
+	return fmt.Sprintf("PageBlockPreformatted%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -806,14 +755,8 @@ func (p *PageBlockFooter) String() string {
 	if p == nil {
 		return "PageBlockFooter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockFooter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockFooter
+	return fmt.Sprintf("PageBlockFooter%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -894,11 +837,8 @@ func (p *PageBlockDivider) String() string {
 	if p == nil {
 		return "PageBlockDivider(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockDivider")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockDivider
+	return fmt.Sprintf("PageBlockDivider%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -966,14 +906,8 @@ func (p *PageBlockAnchor) String() string {
 	if p == nil {
 		return "PageBlockAnchor(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockAnchor")
-	sb.WriteString("{\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(p.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockAnchor
+	return fmt.Sprintf("PageBlockAnchor%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1054,16 +988,8 @@ func (p *PageBlockList) String() string {
 	if p == nil {
 		return "PageBlockList(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockList")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Items {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockList
+	return fmt.Sprintf("PageBlockList%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1163,17 +1089,8 @@ func (p *PageBlockBlockquote) String() string {
 	if p == nil {
 		return "PageBlockBlockquote(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockBlockquote")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockBlockquote
+	return fmt.Sprintf("PageBlockBlockquote%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1282,17 +1199,8 @@ func (p *PageBlockPullquote) String() string {
 	if p == nil {
 		return "PageBlockPullquote(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockPullquote")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockPullquote
+	return fmt.Sprintf("PageBlockPullquote%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1423,30 +1331,8 @@ func (p *PageBlockPhoto) String() string {
 	if p == nil {
 		return "PageBlockPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoID: ")
-	sb.WriteString(fmt.Sprint(p.PhotoID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(p.URL))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(0) {
-		sb.WriteString("\tWebpageID: ")
-		sb.WriteString(fmt.Sprint(p.WebpageID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockPhoto
+	return fmt.Sprintf("PageBlockPhoto%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1627,20 +1513,8 @@ func (p *PageBlockVideo) String() string {
 	if p == nil {
 		return "PageBlockVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVideoID: ")
-	sb.WriteString(fmt.Sprint(p.VideoID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockVideo
+	return fmt.Sprintf("PageBlockVideo%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1782,14 +1656,8 @@ func (p *PageBlockCover) String() string {
 	if p == nil {
 		return "PageBlockCover(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockCover")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCover: ")
-	sb.WriteString(fmt.Sprint(p.Cover))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockCover
+	return fmt.Sprintf("PageBlockCover%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1928,42 +1796,8 @@ func (p *PageBlockEmbed) String() string {
 	if p == nil {
 		return "PageBlockEmbed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockEmbed")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(1) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(p.URL))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tHTML: ")
-		sb.WriteString(fmt.Sprint(p.HTML))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(4) {
-		sb.WriteString("\tPosterPhotoID: ")
-		sb.WriteString(fmt.Sprint(p.PosterPhotoID))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(5) {
-		sb.WriteString("\tW: ")
-		sb.WriteString(fmt.Sprint(p.W))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(5) {
-		sb.WriteString("\tH: ")
-		sb.WriteString(fmt.Sprint(p.H))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockEmbed
+	return fmt.Sprintf("PageBlockEmbed%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2262,34 +2096,8 @@ func (p *PageBlockEmbedPost) String() string {
 	if p == nil {
 		return "PageBlockEmbedPost(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockEmbedPost")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(p.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWebpageID: ")
-	sb.WriteString(fmt.Sprint(p.WebpageID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAuthorPhotoID: ")
-	sb.WriteString(fmt.Sprint(p.AuthorPhotoID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAuthor: ")
-	sb.WriteString(fmt.Sprint(p.Author))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Blocks {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockEmbedPost
+	return fmt.Sprintf("PageBlockEmbedPost%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2467,19 +2275,8 @@ func (p *PageBlockCollage) String() string {
 	if p == nil {
 		return "PageBlockCollage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockCollage")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Items {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockCollage
+	return fmt.Sprintf("PageBlockCollage%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2592,19 +2389,8 @@ func (p *PageBlockSlideshow) String() string {
 	if p == nil {
 		return "PageBlockSlideshow(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockSlideshow")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Items {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockSlideshow
+	return fmt.Sprintf("PageBlockSlideshow%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2712,14 +2498,8 @@ func (p *PageBlockChannel) String() string {
 	if p == nil {
 		return "PageBlockChannel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockChannel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(p.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockChannel
+	return fmt.Sprintf("PageBlockChannel%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2813,17 +2593,8 @@ func (p *PageBlockAudio) String() string {
 	if p == nil {
 		return "PageBlockAudio(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockAudio")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAudioID: ")
-	sb.WriteString(fmt.Sprint(p.AudioID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockAudio
+	return fmt.Sprintf("PageBlockAudio%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2917,14 +2688,8 @@ func (p *PageBlockKicker) String() string {
 	if p == nil {
 		return "PageBlockKicker(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockKicker")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockKicker
+	return fmt.Sprintf("PageBlockKicker%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3033,22 +2798,8 @@ func (p *PageBlockTable) String() string {
 	if p == nil {
 		return "PageBlockTable(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockTable")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(p.Title))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Rows {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockTable
+	return fmt.Sprintf("PageBlockTable%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3206,16 +2957,8 @@ func (p *PageBlockOrderedList) String() string {
 	if p == nil {
 		return "PageBlockOrderedList(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockOrderedList")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Items {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockOrderedList
+	return fmt.Sprintf("PageBlockOrderedList%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3328,22 +3071,8 @@ func (p *PageBlockDetails) String() string {
 	if p == nil {
 		return "PageBlockDetails(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockDetails")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Blocks {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(p.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockDetails
+	return fmt.Sprintf("PageBlockDetails%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3489,19 +3218,8 @@ func (p *PageBlockRelatedArticles) String() string {
 	if p == nil {
 		return "PageBlockRelatedArticles(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockRelatedArticles")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(p.Title))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Articles {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockRelatedArticles
+	return fmt.Sprintf("PageBlockRelatedArticles%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3631,26 +3349,8 @@ func (p *PageBlockMap) String() string {
 	if p == nil {
 		return "PageBlockMap(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageBlockMap")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGeo: ")
-	sb.WriteString(fmt.Sprint(p.Geo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tZoom: ")
-	sb.WriteString(fmt.Sprint(p.Zoom))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(p.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(p.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(p.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageBlockMap
+	return fmt.Sprintf("PageBlockMap%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3765,40 +3465,40 @@ var (
 // See https://core.telegram.org/type/PageBlock for reference.
 //
 // Example:
-//  g, err := DecodePageBlock(buf)
+//  g, err := tg.DecodePageBlock(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PageBlockUnsupported: // pageBlockUnsupported#13567e8a
-//  case *PageBlockTitle: // pageBlockTitle#70abc3fd
-//  case *PageBlockSubtitle: // pageBlockSubtitle#8ffa9a1f
-//  case *PageBlockAuthorDate: // pageBlockAuthorDate#baafe5e0
-//  case *PageBlockHeader: // pageBlockHeader#bfd064ec
-//  case *PageBlockSubheader: // pageBlockSubheader#f12bb6e1
-//  case *PageBlockParagraph: // pageBlockParagraph#467a0766
-//  case *PageBlockPreformatted: // pageBlockPreformatted#c070d93e
-//  case *PageBlockFooter: // pageBlockFooter#48870999
-//  case *PageBlockDivider: // pageBlockDivider#db20b188
-//  case *PageBlockAnchor: // pageBlockAnchor#ce0d37b0
-//  case *PageBlockList: // pageBlockList#e4e88011
-//  case *PageBlockBlockquote: // pageBlockBlockquote#263d7c26
-//  case *PageBlockPullquote: // pageBlockPullquote#4f4456d3
-//  case *PageBlockPhoto: // pageBlockPhoto#1759c560
-//  case *PageBlockVideo: // pageBlockVideo#7c8fe7b6
-//  case *PageBlockCover: // pageBlockCover#39f23300
-//  case *PageBlockEmbed: // pageBlockEmbed#a8718dc5
-//  case *PageBlockEmbedPost: // pageBlockEmbedPost#f259a80b
-//  case *PageBlockCollage: // pageBlockCollage#65a0fa4d
-//  case *PageBlockSlideshow: // pageBlockSlideshow#31f9590
-//  case *PageBlockChannel: // pageBlockChannel#ef1751b5
-//  case *PageBlockAudio: // pageBlockAudio#804361ea
-//  case *PageBlockKicker: // pageBlockKicker#1e148390
-//  case *PageBlockTable: // pageBlockTable#bf4dea82
-//  case *PageBlockOrderedList: // pageBlockOrderedList#9a8ae1e1
-//  case *PageBlockDetails: // pageBlockDetails#76768bed
-//  case *PageBlockRelatedArticles: // pageBlockRelatedArticles#16115a96
-//  case *PageBlockMap: // pageBlockMap#a44f3ef6
+//  case *tg.PageBlockUnsupported: // pageBlockUnsupported#13567e8a
+//  case *tg.PageBlockTitle: // pageBlockTitle#70abc3fd
+//  case *tg.PageBlockSubtitle: // pageBlockSubtitle#8ffa9a1f
+//  case *tg.PageBlockAuthorDate: // pageBlockAuthorDate#baafe5e0
+//  case *tg.PageBlockHeader: // pageBlockHeader#bfd064ec
+//  case *tg.PageBlockSubheader: // pageBlockSubheader#f12bb6e1
+//  case *tg.PageBlockParagraph: // pageBlockParagraph#467a0766
+//  case *tg.PageBlockPreformatted: // pageBlockPreformatted#c070d93e
+//  case *tg.PageBlockFooter: // pageBlockFooter#48870999
+//  case *tg.PageBlockDivider: // pageBlockDivider#db20b188
+//  case *tg.PageBlockAnchor: // pageBlockAnchor#ce0d37b0
+//  case *tg.PageBlockList: // pageBlockList#e4e88011
+//  case *tg.PageBlockBlockquote: // pageBlockBlockquote#263d7c26
+//  case *tg.PageBlockPullquote: // pageBlockPullquote#4f4456d3
+//  case *tg.PageBlockPhoto: // pageBlockPhoto#1759c560
+//  case *tg.PageBlockVideo: // pageBlockVideo#7c8fe7b6
+//  case *tg.PageBlockCover: // pageBlockCover#39f23300
+//  case *tg.PageBlockEmbed: // pageBlockEmbed#a8718dc5
+//  case *tg.PageBlockEmbedPost: // pageBlockEmbedPost#f259a80b
+//  case *tg.PageBlockCollage: // pageBlockCollage#65a0fa4d
+//  case *tg.PageBlockSlideshow: // pageBlockSlideshow#31f9590
+//  case *tg.PageBlockChannel: // pageBlockChannel#ef1751b5
+//  case *tg.PageBlockAudio: // pageBlockAudio#804361ea
+//  case *tg.PageBlockKicker: // pageBlockKicker#1e148390
+//  case *tg.PageBlockTable: // pageBlockTable#bf4dea82
+//  case *tg.PageBlockOrderedList: // pageBlockOrderedList#9a8ae1e1
+//  case *tg.PageBlockDetails: // pageBlockDetails#76768bed
+//  case *tg.PageBlockRelatedArticles: // pageBlockRelatedArticles#16115a96
+//  case *tg.PageBlockMap: // pageBlockMap#a44f3ef6
 //  default: panic(v)
 //  }
 type PageBlockClass interface {

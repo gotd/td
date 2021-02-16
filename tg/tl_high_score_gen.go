@@ -56,20 +56,8 @@ func (h *HighScore) String() string {
 	if h == nil {
 		return "HighScore(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HighScore")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPos: ")
-	sb.WriteString(fmt.Sprint(h.Pos))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(h.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScore: ")
-	sb.WriteString(fmt.Sprint(h.Score))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HighScore
+	return fmt.Sprintf("HighScore%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,17 +51,8 @@ func (i *InputWebFileLocation) String() string {
 	if i == nil {
 		return "InputWebFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWebFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(i.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWebFileLocation
+	return fmt.Sprintf("InputWebFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,29 +171,8 @@ func (i *InputWebFileGeoPointLocation) String() string {
 	if i == nil {
 		return "InputWebFileGeoPointLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputWebFileGeoPointLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(i.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(i.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tZoom: ")
-	sb.WriteString(fmt.Sprint(i.Zoom))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScale: ")
-	sb.WriteString(fmt.Sprint(i.Scale))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputWebFileGeoPointLocation
+	return fmt.Sprintf("InputWebFileGeoPointLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -330,13 +300,13 @@ var (
 // See https://core.telegram.org/type/InputWebFileLocation for reference.
 //
 // Example:
-//  g, err := DecodeInputWebFileLocation(buf)
+//  g, err := tg.DecodeInputWebFileLocation(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputWebFileLocation: // inputWebFileLocation#c239d686
-//  case *InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
+//  case *tg.InputWebFileLocation: // inputWebFileLocation#c239d686
+//  case *tg.InputWebFileGeoPointLocation: // inputWebFileGeoPointLocation#9f2221c9
 //  default: panic(v)
 //  }
 type InputWebFileLocationClass interface {

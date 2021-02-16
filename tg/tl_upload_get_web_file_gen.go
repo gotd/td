@@ -55,20 +55,8 @@ func (g *UploadGetWebFileRequest) String() string {
 	if g == nil {
 		return "UploadGetWebFileRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadGetWebFileRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(g.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadGetWebFileRequest
+	return fmt.Sprintf("UploadGetWebFileRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

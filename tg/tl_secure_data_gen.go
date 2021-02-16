@@ -60,20 +60,8 @@ func (s *SecureData) String() string {
 	if s == nil {
 		return "SecureData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(s.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDataHash: ")
-	sb.WriteString(fmt.Sprint(s.DataHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(s.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureData
+	return fmt.Sprintf("SecureData%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (i *InputMessageID) String() string {
 	if i == nil {
 		return "InputMessageID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessageID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessageID
+	return fmt.Sprintf("InputMessageID%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -134,14 +128,8 @@ func (i *InputMessageReplyTo) String() string {
 	if i == nil {
 		return "InputMessageReplyTo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessageReplyTo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessageReplyTo
+	return fmt.Sprintf("InputMessageReplyTo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -217,11 +205,8 @@ func (i *InputMessagePinned) String() string {
 	if i == nil {
 		return "InputMessagePinned(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagePinned")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagePinned
+	return fmt.Sprintf("InputMessagePinned%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -294,17 +279,8 @@ func (i *InputMessageCallbackQuery) String() string {
 	if i == nil {
 		return "InputMessageCallbackQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessageCallbackQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(i.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessageCallbackQuery
+	return fmt.Sprintf("InputMessageCallbackQuery%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -375,15 +351,15 @@ var (
 // See https://core.telegram.org/type/InputMessage for reference.
 //
 // Example:
-//  g, err := DecodeInputMessage(buf)
+//  g, err := tg.DecodeInputMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputMessageID: // inputMessageID#a676a322
-//  case *InputMessageReplyTo: // inputMessageReplyTo#bad88395
-//  case *InputMessagePinned: // inputMessagePinned#86872538
-//  case *InputMessageCallbackQuery: // inputMessageCallbackQuery#acfa1a7e
+//  case *tg.InputMessageID: // inputMessageID#a676a322
+//  case *tg.InputMessageReplyTo: // inputMessageReplyTo#bad88395
+//  case *tg.InputMessagePinned: // inputMessagePinned#86872538
+//  case *tg.InputMessageCallbackQuery: // inputMessageCallbackQuery#acfa1a7e
 //  default: panic(v)
 //  }
 type InputMessageClass interface {

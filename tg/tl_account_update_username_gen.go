@@ -46,14 +46,8 @@ func (u *AccountUpdateUsernameRequest) String() string {
 	if u == nil {
 		return "AccountUpdateUsernameRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateUsernameRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUsername: ")
-	sb.WriteString(fmt.Sprint(u.Username))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateUsernameRequest
+	return fmt.Sprintf("AccountUpdateUsernameRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

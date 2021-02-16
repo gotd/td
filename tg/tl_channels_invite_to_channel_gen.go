@@ -51,19 +51,8 @@ func (i *ChannelsInviteToChannelRequest) String() string {
 	if i == nil {
 		return "ChannelsInviteToChannelRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsInviteToChannelRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(i.Channel))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range i.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsInviteToChannelRequest
+	return fmt.Sprintf("ChannelsInviteToChannelRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

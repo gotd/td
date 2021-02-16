@@ -41,11 +41,8 @@ func (f *MessagesFoundStickerSetsNotModified) String() string {
 	if f == nil {
 		return "MessagesFoundStickerSetsNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFoundStickerSetsNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFoundStickerSetsNotModified
+	return fmt.Sprintf("MessagesFoundStickerSetsNotModified%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,19 +118,8 @@ func (f *MessagesFoundStickerSets) String() string {
 	if f == nil {
 		return "MessagesFoundStickerSets(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFoundStickerSets")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(f.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.Sets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFoundStickerSets
+	return fmt.Sprintf("MessagesFoundStickerSets%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -218,13 +204,13 @@ var (
 // See https://core.telegram.org/type/messages.FoundStickerSets for reference.
 //
 // Example:
-//  g, err := DecodeMessagesFoundStickerSets(buf)
+//  g, err := tg.DecodeMessagesFoundStickerSets(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesFoundStickerSetsNotModified: // messages.foundStickerSetsNotModified#d54b65d
-//  case *MessagesFoundStickerSets: // messages.foundStickerSets#5108d648
+//  case *tg.MessagesFoundStickerSetsNotModified: // messages.foundStickerSetsNotModified#d54b65d
+//  case *tg.MessagesFoundStickerSets: // messages.foundStickerSets#5108d648
 //  default: panic(v)
 //  }
 type MessagesFoundStickerSetsClass interface {

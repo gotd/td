@@ -61,31 +61,8 @@ func (f *ContactsFound) String() string {
 	if f == nil {
 		return "ContactsFound(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsFound")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range f.MyResults {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.Results {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsFound
+	return fmt.Sprintf("ContactsFound%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

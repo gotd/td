@@ -55,17 +55,8 @@ func (s *StatsPercentValue) String() string {
 	if s == nil {
 		return "StatsPercentValue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsPercentValue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPart: ")
-	sb.WriteString(fmt.Sprint(s.Part))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTotal: ")
-	sb.WriteString(fmt.Sprint(s.Total))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsPercentValue
+	return fmt.Sprintf("StatsPercentValue%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

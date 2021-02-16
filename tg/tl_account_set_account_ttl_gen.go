@@ -46,14 +46,8 @@ func (s *AccountSetAccountTTLRequest) String() string {
 	if s == nil {
 		return "AccountSetAccountTTLRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSetAccountTTLRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTTL: ")
-	sb.WriteString(fmt.Sprint(s.TTL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSetAccountTTLRequest
+	return fmt.Sprintf("AccountSetAccountTTLRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

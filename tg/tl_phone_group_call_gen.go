@@ -60,27 +60,8 @@ func (g *PhoneGroupCall) String() string {
 	if g == nil {
 		return "PhoneGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(g.Call))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.Participants {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tParticipantsNextOffset: ")
-	sb.WriteString(fmt.Sprint(g.ParticipantsNextOffset))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneGroupCall
+	return fmt.Sprintf("PhoneGroupCall%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

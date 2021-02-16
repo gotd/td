@@ -41,11 +41,8 @@ func (g *ChannelsGetInactiveChannelsRequest) String() string {
 	if g == nil {
 		return "ChannelsGetInactiveChannelsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsGetInactiveChannelsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsGetInactiveChannelsRequest
+	return fmt.Sprintf("ChannelsGetInactiveChannelsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

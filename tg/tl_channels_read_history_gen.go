@@ -57,17 +57,8 @@ func (r *ChannelsReadHistoryRequest) String() string {
 	if r == nil {
 		return "ChannelsReadHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsReadHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(r.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(r.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsReadHistoryRequest
+	return fmt.Sprintf("ChannelsReadHistoryRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

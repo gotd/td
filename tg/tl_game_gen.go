@@ -86,37 +86,8 @@ func (g *Game) String() string {
 	if g == nil {
 		return "Game(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Game")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(g.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(g.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(g.ShortName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(g.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDescription: ")
-	sb.WriteString(fmt.Sprint(g.Description))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(g.Photo))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(g.Document))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Game
+	return fmt.Sprintf("Game%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

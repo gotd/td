@@ -65,30 +65,8 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 	if g == nil {
 		return "PhoneGetGroupParticipantsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneGetGroupParticipantsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(g.Call))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.Ids {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range g.Sources {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneGetGroupParticipantsRequest
+	return fmt.Sprintf("PhoneGetGroupParticipantsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -77,26 +77,8 @@ func (r *PhoneRequestCallRequest) String() string {
 	if r == nil {
 		return "PhoneRequestCallRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneRequestCallRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(r.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(r.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGAHash: ")
-	sb.WriteString(fmt.Sprint(r.GAHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(r.Protocol))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneRequestCallRequest
+	return fmt.Sprintf("PhoneRequestCallRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

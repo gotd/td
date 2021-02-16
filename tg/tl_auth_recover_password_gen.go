@@ -50,14 +50,8 @@ func (r *AuthRecoverPasswordRequest) String() string {
 	if r == nil {
 		return "AuthRecoverPasswordRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthRecoverPasswordRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCode: ")
-	sb.WriteString(fmt.Sprint(r.Code))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthRecoverPasswordRequest
+	return fmt.Sprintf("AuthRecoverPasswordRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

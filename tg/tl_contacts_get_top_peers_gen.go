@@ -113,23 +113,8 @@ func (g *ContactsGetTopPeersRequest) String() string {
 	if g == nil {
 		return "ContactsGetTopPeersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsGetTopPeersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsGetTopPeersRequest
+	return fmt.Sprintf("ContactsGetTopPeersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

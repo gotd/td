@@ -59,20 +59,8 @@ func (u *UpdateNewMessage) String() string {
 	if u == nil {
 		return "UpdateNewMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNewMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNewMessage
+	return fmt.Sprintf("UpdateNewMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -192,17 +180,8 @@ func (u *UpdateMessageID) String() string {
 	if u == nil {
 		return "UpdateMessageID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateMessageID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(u.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateMessageID
+	return fmt.Sprintf("UpdateMessageID%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,22 +288,8 @@ func (u *UpdateDeleteMessages) String() string {
 	if u == nil {
 		return "UpdateDeleteMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDeleteMessages")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDeleteMessages
+	return fmt.Sprintf("UpdateDeleteMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -448,17 +413,8 @@ func (u *UpdateUserTyping) String() string {
 	if u == nil {
 		return "UpdateUserTyping(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateUserTyping")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(u.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateUserTyping
+	return fmt.Sprintf("UpdateUserTyping%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -570,20 +526,8 @@ func (u *UpdateChatUserTyping) String() string {
 	if u == nil {
 		return "UpdateChatUserTyping(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatUserTyping")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(u.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatUserTyping
+	return fmt.Sprintf("UpdateChatUserTyping%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -695,14 +639,8 @@ func (u *UpdateChatParticipants) String() string {
 	if u == nil {
 		return "UpdateChatParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatParticipants")
-	sb.WriteString("{\n")
-	sb.WriteString("\tParticipants: ")
-	sb.WriteString(fmt.Sprint(u.Participants))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatParticipants
+	return fmt.Sprintf("UpdateChatParticipants%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -793,17 +731,8 @@ func (u *UpdateUserStatus) String() string {
 	if u == nil {
 		return "UpdateUserStatus(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateUserStatus")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStatus: ")
-	sb.WriteString(fmt.Sprint(u.Status))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateUserStatus
+	return fmt.Sprintf("UpdateUserStatus%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -926,23 +855,8 @@ func (u *UpdateUserName) String() string {
 	if u == nil {
 		return "UpdateUserName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateUserName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(u.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(u.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUsername: ")
-	sb.WriteString(fmt.Sprint(u.Username))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateUserName
+	return fmt.Sprintf("UpdateUserName%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1080,23 +994,8 @@ func (u *UpdateUserPhoto) String() string {
 	if u == nil {
 		return "UpdateUserPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateUserPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(u.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPrevious: ")
-	sb.WriteString(fmt.Sprint(u.Previous))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateUserPhoto
+	return fmt.Sprintf("UpdateUserPhoto%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1226,17 +1125,8 @@ func (u *UpdateNewEncryptedMessage) String() string {
 	if u == nil {
 		return "UpdateNewEncryptedMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNewEncryptedMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQts: ")
-	sb.WriteString(fmt.Sprint(u.Qts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNewEncryptedMessage
+	return fmt.Sprintf("UpdateNewEncryptedMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1335,14 +1225,8 @@ func (u *UpdateEncryptedChatTyping) String() string {
 	if u == nil {
 		return "UpdateEncryptedChatTyping(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateEncryptedChatTyping")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateEncryptedChatTyping
+	return fmt.Sprintf("UpdateEncryptedChatTyping%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1428,17 +1312,8 @@ func (u *UpdateEncryption) String() string {
 	if u == nil {
 		return "UpdateEncryption(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateEncryption")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChat: ")
-	sb.WriteString(fmt.Sprint(u.Chat))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateEncryption
+	return fmt.Sprintf("UpdateEncryption%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1547,20 +1422,8 @@ func (u *UpdateEncryptedMessagesRead) String() string {
 	if u == nil {
 		return "UpdateEncryptedMessagesRead(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateEncryptedMessagesRead")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxDate: ")
-	sb.WriteString(fmt.Sprint(u.MaxDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateEncryptedMessagesRead
+	return fmt.Sprintf("UpdateEncryptedMessagesRead%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1687,26 +1550,8 @@ func (u *UpdateChatParticipantAdd) String() string {
 	if u == nil {
 		return "UpdateChatParticipantAdd(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatParticipantAdd")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInviterID: ")
-	sb.WriteString(fmt.Sprint(u.InviterID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(u.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatParticipantAdd
+	return fmt.Sprintf("UpdateChatParticipantAdd%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1849,20 +1694,8 @@ func (u *UpdateChatParticipantDelete) String() string {
 	if u == nil {
 		return "UpdateChatParticipantDelete(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatParticipantDelete")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(u.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatParticipantDelete
+	return fmt.Sprintf("UpdateChatParticipantDelete%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1969,16 +1802,8 @@ func (u *UpdateDcOptions) String() string {
 	if u == nil {
 		return "UpdateDcOptions(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDcOptions")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.DCOptions {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDcOptions
+	return fmt.Sprintf("UpdateDcOptions%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2075,17 +1900,8 @@ func (u *UpdateNotifySettings) String() string {
 	if u == nil {
 		return "UpdateNotifySettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNotifySettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(fmt.Sprint(u.NotifySettings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNotifySettings
+	return fmt.Sprintf("UpdateNotifySettings%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2226,33 +2042,8 @@ func (u *UpdateServiceNotification) String() string {
 	if u == nil {
 		return "UpdateServiceNotification(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateServiceNotification")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(1) {
-		sb.WriteString("\tInboxDate: ")
-		sb.WriteString(fmt.Sprint(u.InboxDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(u.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(u.Media))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateServiceNotification
+	return fmt.Sprintf("UpdateServiceNotification%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2452,19 +2243,8 @@ func (u *UpdatePrivacy) String() string {
 	if u == nil {
 		return "UpdatePrivacy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePrivacy")
-	sb.WriteString("{\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(u.Key))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Rules {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePrivacy
+	return fmt.Sprintf("UpdatePrivacy%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2582,17 +2362,8 @@ func (u *UpdateUserPhone) String() string {
 	if u == nil {
 		return "UpdateUserPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateUserPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhone: ")
-	sb.WriteString(fmt.Sprint(u.Phone))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateUserPhone
+	return fmt.Sprintf("UpdateUserPhone%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2730,34 +2501,8 @@ func (u *UpdateReadHistoryInbox) String() string {
 	if u == nil {
 		return "UpdateReadHistoryInbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadHistoryInbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(u.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(u.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStillUnreadCount: ")
-	sb.WriteString(fmt.Sprint(u.StillUnreadCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadHistoryInbox
+	return fmt.Sprintf("UpdateReadHistoryInbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2952,23 +2697,8 @@ func (u *UpdateReadHistoryOutbox) String() string {
 	if u == nil {
 		return "UpdateReadHistoryOutbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadHistoryOutbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(u.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadHistoryOutbox
+	return fmt.Sprintf("UpdateReadHistoryOutbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3112,20 +2842,8 @@ func (u *UpdateWebPage) String() string {
 	if u == nil {
 		return "UpdateWebPage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateWebPage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tWebpage: ")
-	sb.WriteString(fmt.Sprint(u.Webpage))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateWebPage
+	return fmt.Sprintf("UpdateWebPage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3256,22 +2974,8 @@ func (u *UpdateReadMessagesContents) String() string {
 	if u == nil {
 		return "UpdateReadMessagesContents(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadMessagesContents")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadMessagesContents
+	return fmt.Sprintf("UpdateReadMessagesContents%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3406,22 +3110,8 @@ func (u *UpdateChannelTooLong) String() string {
 	if u == nil {
 		return "UpdateChannelTooLong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelTooLong")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tPts: ")
-		sb.WriteString(fmt.Sprint(u.Pts))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelTooLong
+	return fmt.Sprintf("UpdateChannelTooLong%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3538,14 +3228,8 @@ func (u *UpdateChannel) String() string {
 	if u == nil {
 		return "UpdateChannel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannel
+	return fmt.Sprintf("UpdateChannel%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3645,20 +3329,8 @@ func (u *UpdateNewChannelMessage) String() string {
 	if u == nil {
 		return "UpdateNewChannelMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNewChannelMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNewChannelMessage
+	return fmt.Sprintf("UpdateNewChannelMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3809,31 +3481,8 @@ func (u *UpdateReadChannelInbox) String() string {
 	if u == nil {
 		return "UpdateReadChannelInbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadChannelInbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(u.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(u.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStillUnreadCount: ")
-	sb.WriteString(fmt.Sprint(u.StillUnreadCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadChannelInbox
+	return fmt.Sprintf("UpdateReadChannelInbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4013,25 +3662,8 @@ func (u *UpdateDeleteChannelMessages) String() string {
 	if u == nil {
 		return "UpdateDeleteChannelMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDeleteChannelMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDeleteChannelMessages
+	return fmt.Sprintf("UpdateDeleteChannelMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4170,20 +3802,8 @@ func (u *UpdateChannelMessageViews) String() string {
 	if u == nil {
 		return "UpdateChannelMessageViews(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelMessageViews")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tViews: ")
-	sb.WriteString(fmt.Sprint(u.Views))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelMessageViews
+	return fmt.Sprintf("UpdateChannelMessageViews%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4308,23 +3928,8 @@ func (u *UpdateChatParticipantAdmin) String() string {
 	if u == nil {
 		return "UpdateChatParticipantAdmin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatParticipantAdmin")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIsAdmin: ")
-	sb.WriteString(fmt.Sprint(u.IsAdmin))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(u.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatParticipantAdmin
+	return fmt.Sprintf("UpdateChatParticipantAdmin%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4444,14 +4049,8 @@ func (u *UpdateNewStickerSet) String() string {
 	if u == nil {
 		return "UpdateNewStickerSet(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNewStickerSet")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(u.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNewStickerSet
+	return fmt.Sprintf("UpdateNewStickerSet%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4545,19 +4144,8 @@ func (u *UpdateStickerSetsOrder) String() string {
 	if u == nil {
 		return "UpdateStickerSetsOrder(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateStickerSetsOrder")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Order {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateStickerSetsOrder
+	return fmt.Sprintf("UpdateStickerSetsOrder%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4673,11 +4261,8 @@ func (u *UpdateStickerSets) String() string {
 	if u == nil {
 		return "UpdateStickerSets(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateStickerSets")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateStickerSets
+	return fmt.Sprintf("UpdateStickerSets%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4743,11 +4328,8 @@ func (u *UpdateSavedGifs) String() string {
 	if u == nil {
 		return "UpdateSavedGifs(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateSavedGifs")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateSavedGifs
+	return fmt.Sprintf("UpdateSavedGifs%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4852,36 +4434,8 @@ func (u *UpdateBotInlineQuery) String() string {
 	if u == nil {
 		return "UpdateBotInlineQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotInlineQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(u.Query))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tGeo: ")
-		sb.WriteString(fmt.Sprint(u.Geo))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tPeerType: ")
-		sb.WriteString(fmt.Sprint(u.PeerType))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(u.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotInlineQuery
+	return fmt.Sprintf("UpdateBotInlineQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5110,33 +4664,8 @@ func (u *UpdateBotInlineSend) String() string {
 	if u == nil {
 		return "UpdateBotInlineSend(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotInlineSend")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(u.Query))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tGeo: ")
-		sb.WriteString(fmt.Sprint(u.Geo))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(1) {
-		sb.WriteString("\tMsgID: ")
-		sb.WriteString(fmt.Sprint(u.MsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotInlineSend
+	return fmt.Sprintf("UpdateBotInlineSend%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5331,20 +4860,8 @@ func (u *UpdateEditChannelMessage) String() string {
 	if u == nil {
 		return "UpdateEditChannelMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateEditChannelMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateEditChannelMessage
+	return fmt.Sprintf("UpdateEditChannelMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5498,39 +5015,8 @@ func (u *UpdateBotCallbackQuery) String() string {
 	if u == nil {
 		return "UpdateBotCallbackQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotCallbackQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(u.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatInstance: ")
-	sb.WriteString(fmt.Sprint(u.ChatInstance))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tData: ")
-		sb.WriteString(fmt.Sprint(u.Data))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tGameShortName: ")
-		sb.WriteString(fmt.Sprint(u.GameShortName))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotCallbackQuery
+	return fmt.Sprintf("UpdateBotCallbackQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5748,20 +5234,8 @@ func (u *UpdateEditMessage) String() string {
 	if u == nil {
 		return "UpdateEditMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateEditMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateEditMessage
+	return fmt.Sprintf("UpdateEditMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5910,36 +5384,8 @@ func (u *UpdateInlineBotCallbackQuery) String() string {
 	if u == nil {
 		return "UpdateInlineBotCallbackQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateInlineBotCallbackQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(u.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatInstance: ")
-	sb.WriteString(fmt.Sprint(u.ChatInstance))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tData: ")
-		sb.WriteString(fmt.Sprint(u.Data))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tGameShortName: ")
-		sb.WriteString(fmt.Sprint(u.GameShortName))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateInlineBotCallbackQuery
+	return fmt.Sprintf("UpdateInlineBotCallbackQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6131,17 +5577,8 @@ func (u *UpdateReadChannelOutbox) String() string {
 	if u == nil {
 		return "UpdateReadChannelOutbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadChannelOutbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(u.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadChannelOutbox
+	return fmt.Sprintf("UpdateReadChannelOutbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6243,17 +5680,8 @@ func (u *UpdateDraftMessage) String() string {
 	if u == nil {
 		return "UpdateDraftMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDraftMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDraft: ")
-	sb.WriteString(fmt.Sprint(u.Draft))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDraftMessage
+	return fmt.Sprintf("UpdateDraftMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6352,11 +5780,8 @@ func (u *UpdateReadFeaturedStickers) String() string {
 	if u == nil {
 		return "UpdateReadFeaturedStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadFeaturedStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadFeaturedStickers
+	return fmt.Sprintf("UpdateReadFeaturedStickers%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6419,11 +5844,8 @@ func (u *UpdateRecentStickers) String() string {
 	if u == nil {
 		return "UpdateRecentStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateRecentStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateRecentStickers
+	return fmt.Sprintf("UpdateRecentStickers%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6489,11 +5911,8 @@ func (u *UpdateConfig) String() string {
 	if u == nil {
 		return "UpdateConfig(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateConfig")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateConfig
+	return fmt.Sprintf("UpdateConfig%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6560,11 +5979,8 @@ func (u *UpdatePtsChanged) String() string {
 	if u == nil {
 		return "UpdatePtsChanged(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePtsChanged")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePtsChanged
+	return fmt.Sprintf("UpdatePtsChanged%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6659,23 +6075,8 @@ func (u *UpdateChannelWebPage) String() string {
 	if u == nil {
 		return "UpdateChannelWebPage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelWebPage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWebpage: ")
-	sb.WriteString(fmt.Sprint(u.Webpage))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelWebPage
+	return fmt.Sprintf("UpdateChannelWebPage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6823,22 +6224,8 @@ func (u *UpdateDialogPinned) String() string {
 	if u == nil {
 		return "UpdateDialogPinned(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDialogPinned")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(1) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(u.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDialogPinned
+	return fmt.Sprintf("UpdateDialogPinned%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7000,26 +6387,8 @@ func (u *UpdatePinnedDialogs) String() string {
 	if u == nil {
 		return "UpdatePinnedDialogs(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePinnedDialogs")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(1) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(u.FolderID))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range u.Order {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePinnedDialogs
+	return fmt.Sprintf("UpdatePinnedDialogs%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7165,14 +6534,8 @@ func (u *UpdateBotWebhookJSON) String() string {
 	if u == nil {
 		return "UpdateBotWebhookJSON(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotWebhookJSON")
-	sb.WriteString("{\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(u.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotWebhookJSON
+	return fmt.Sprintf("UpdateBotWebhookJSON%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7263,20 +6626,8 @@ func (u *UpdateBotWebhookJSONQuery) String() string {
 	if u == nil {
 		return "UpdateBotWebhookJSONQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotWebhookJSONQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(u.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTimeout: ")
-	sb.WriteString(fmt.Sprint(u.Timeout))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotWebhookJSONQuery
+	return fmt.Sprintf("UpdateBotWebhookJSONQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7398,23 +6749,8 @@ func (u *UpdateBotShippingQuery) String() string {
 	if u == nil {
 		return "UpdateBotShippingQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotShippingQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPayload: ")
-	sb.WriteString(fmt.Sprint(u.Payload))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShippingAddress: ")
-	sb.WriteString(fmt.Sprint(u.ShippingAddress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotShippingQuery
+	return fmt.Sprintf("UpdateBotShippingQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7582,39 +6918,8 @@ func (u *UpdateBotPrecheckoutQuery) String() string {
 	if u == nil {
 		return "UpdateBotPrecheckoutQuery(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateBotPrecheckoutQuery")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(u.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPayload: ")
-	sb.WriteString(fmt.Sprint(u.Payload))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tInfo: ")
-		sb.WriteString(fmt.Sprint(u.Info))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tShippingOptionID: ")
-		sb.WriteString(fmt.Sprint(u.ShippingOptionID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCurrency: ")
-	sb.WriteString(fmt.Sprint(u.Currency))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTotalAmount: ")
-	sb.WriteString(fmt.Sprint(u.TotalAmount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateBotPrecheckoutQuery
+	return fmt.Sprintf("UpdateBotPrecheckoutQuery%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7811,14 +7116,8 @@ func (u *UpdatePhoneCall) String() string {
 	if u == nil {
 		return "UpdatePhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneCall: ")
-	sb.WriteString(fmt.Sprint(u.PhoneCall))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePhoneCall
+	return fmt.Sprintf("UpdatePhoneCall%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7907,14 +7206,8 @@ func (u *UpdateLangPackTooLong) String() string {
 	if u == nil {
 		return "UpdateLangPackTooLong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateLangPackTooLong")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(u.LangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateLangPackTooLong
+	return fmt.Sprintf("UpdateLangPackTooLong%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7995,14 +7288,8 @@ func (u *UpdateLangPack) String() string {
 	if u == nil {
 		return "UpdateLangPack(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateLangPack")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDifference: ")
-	sb.WriteString(fmt.Sprint(u.Difference))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateLangPack
+	return fmt.Sprintf("UpdateLangPack%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8081,11 +7368,8 @@ func (u *UpdateFavedStickers) String() string {
 	if u == nil {
 		return "UpdateFavedStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateFavedStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateFavedStickers
+	return fmt.Sprintf("UpdateFavedStickers%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8164,19 +7448,8 @@ func (u *UpdateChannelReadMessagesContents) String() string {
 	if u == nil {
 		return "UpdateChannelReadMessagesContents(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelReadMessagesContents")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelReadMessagesContents
+	return fmt.Sprintf("UpdateChannelReadMessagesContents%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8274,11 +7547,8 @@ func (u *UpdateContactsReset) String() string {
 	if u == nil {
 		return "UpdateContactsReset(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateContactsReset")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateContactsReset
+	return fmt.Sprintf("UpdateContactsReset%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8354,17 +7624,8 @@ func (u *UpdateChannelAvailableMessages) String() string {
 	if u == nil {
 		return "UpdateChannelAvailableMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelAvailableMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAvailableMinID: ")
-	sb.WriteString(fmt.Sprint(u.AvailableMinID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelAvailableMessages
+	return fmt.Sprintf("UpdateChannelAvailableMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8471,17 +7732,8 @@ func (u *UpdateDialogUnreadMark) String() string {
 	if u == nil {
 		return "UpdateDialogUnreadMark(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDialogUnreadMark")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDialogUnreadMark
+	return fmt.Sprintf("UpdateDialogUnreadMark%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8615,25 +7867,8 @@ func (u *UpdateMessagePoll) String() string {
 	if u == nil {
 		return "UpdateMessagePoll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateMessagePoll")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPollID: ")
-	sb.WriteString(fmt.Sprint(u.PollID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tPoll: ")
-		sb.WriteString(fmt.Sprint(u.Poll))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tResults: ")
-	sb.WriteString(fmt.Sprint(u.Results))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateMessagePoll
+	return fmt.Sprintf("UpdateMessagePoll%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8776,20 +8011,8 @@ func (u *UpdateChatDefaultBannedRights) String() string {
 	if u == nil {
 		return "UpdateChatDefaultBannedRights(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChatDefaultBannedRights")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDefaultBannedRights: ")
-	sb.WriteString(fmt.Sprint(u.DefaultBannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(u.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChatDefaultBannedRights
+	return fmt.Sprintf("UpdateChatDefaultBannedRights%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8920,22 +8143,8 @@ func (u *UpdateFolderPeers) String() string {
 	if u == nil {
 		return "UpdateFolderPeers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateFolderPeers")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.FolderPeers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateFolderPeers
+	return fmt.Sprintf("UpdateFolderPeers%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9058,17 +8267,8 @@ func (u *UpdatePeerSettings) String() string {
 	if u == nil {
 		return "UpdatePeerSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePeerSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(u.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePeerSettings
+	return fmt.Sprintf("UpdatePeerSettings%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9167,16 +8367,8 @@ func (u *UpdatePeerLocated) String() string {
 	if u == nil {
 		return "UpdatePeerLocated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePeerLocated")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Peers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePeerLocated
+	return fmt.Sprintf("UpdatePeerLocated%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9274,14 +8466,8 @@ func (u *UpdateNewScheduledMessage) String() string {
 	if u == nil {
 		return "UpdateNewScheduledMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateNewScheduledMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateNewScheduledMessage
+	return fmt.Sprintf("UpdateNewScheduledMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9375,19 +8561,8 @@ func (u *UpdateDeleteScheduledMessages) String() string {
 	if u == nil {
 		return "UpdateDeleteScheduledMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDeleteScheduledMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDeleteScheduledMessages
+	return fmt.Sprintf("UpdateDeleteScheduledMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9495,14 +8670,8 @@ func (u *UpdateTheme) String() string {
 	if u == nil {
 		return "UpdateTheme(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateTheme")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTheme: ")
-	sb.WriteString(fmt.Sprint(u.Theme))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateTheme
+	return fmt.Sprintf("UpdateTheme%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9588,17 +8757,8 @@ func (u *UpdateGeoLiveViewed) String() string {
 	if u == nil {
 		return "UpdateGeoLiveViewed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateGeoLiveViewed")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(u.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateGeoLiveViewed
+	return fmt.Sprintf("UpdateGeoLiveViewed%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9692,11 +8852,8 @@ func (u *UpdateLoginToken) String() string {
 	if u == nil {
 		return "UpdateLoginToken(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateLoginToken")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateLoginToken
+	return fmt.Sprintf("UpdateLoginToken%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9774,22 +8931,8 @@ func (u *UpdateMessagePollVote) String() string {
 	if u == nil {
 		return "UpdateMessagePollVote(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateMessagePollVote")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPollID: ")
-	sb.WriteString(fmt.Sprint(u.PollID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Options {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateMessagePollVote
+	return fmt.Sprintf("UpdateMessagePollVote%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9929,22 +9072,8 @@ func (u *UpdateDialogFilter) String() string {
 	if u == nil {
 		return "UpdateDialogFilter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDialogFilter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFilter: ")
-		sb.WriteString(fmt.Sprint(u.Filter))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDialogFilter
+	return fmt.Sprintf("UpdateDialogFilter%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10067,16 +9196,8 @@ func (u *UpdateDialogFilterOrder) String() string {
 	if u == nil {
 		return "UpdateDialogFilterOrder(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDialogFilterOrder")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Order {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDialogFilterOrder
+	return fmt.Sprintf("UpdateDialogFilterOrder%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10164,11 +9285,8 @@ func (u *UpdateDialogFilters) String() string {
 	if u == nil {
 		return "UpdateDialogFilters(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateDialogFilters")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateDialogFilters
+	return fmt.Sprintf("UpdateDialogFilters%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10241,17 +9359,8 @@ func (u *UpdatePhoneCallSignalingData) String() string {
 	if u == nil {
 		return "UpdatePhoneCallSignalingData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePhoneCallSignalingData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneCallID: ")
-	sb.WriteString(fmt.Sprint(u.PhoneCallID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(u.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePhoneCallSignalingData
+	return fmt.Sprintf("UpdatePhoneCallSignalingData%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10388,36 +9497,8 @@ func (u *UpdateChannelParticipant) String() string {
 	if u == nil {
 		return "UpdateChannelParticipant(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelParticipant")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tPrevParticipant: ")
-		sb.WriteString(fmt.Sprint(u.PrevParticipant))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tNewParticipant: ")
-		sb.WriteString(fmt.Sprint(u.NewParticipant))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tQts: ")
-	sb.WriteString(fmt.Sprint(u.Qts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelParticipant
+	return fmt.Sprintf("UpdateChannelParticipant%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10621,20 +9702,8 @@ func (u *UpdateChannelMessageForwards) String() string {
 	if u == nil {
 		return "UpdateChannelMessageForwards(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelMessageForwards")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tForwards: ")
-	sb.WriteString(fmt.Sprint(u.Forwards))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelMessageForwards
+	return fmt.Sprintf("UpdateChannelMessageForwards%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10792,33 +9861,8 @@ func (u *UpdateReadChannelDiscussionInbox) String() string {
 	if u == nil {
 		return "UpdateReadChannelDiscussionInbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadChannelDiscussionInbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTopMsgID: ")
-	sb.WriteString(fmt.Sprint(u.TopMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReadMaxID: ")
-	sb.WriteString(fmt.Sprint(u.ReadMaxID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tBroadcastID: ")
-		sb.WriteString(fmt.Sprint(u.BroadcastID))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(0) {
-		sb.WriteString("\tBroadcastPost: ")
-		sb.WriteString(fmt.Sprint(u.BroadcastPost))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadChannelDiscussionInbox
+	return fmt.Sprintf("UpdateReadChannelDiscussionInbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11011,20 +10055,8 @@ func (u *UpdateReadChannelDiscussionOutbox) String() string {
 	if u == nil {
 		return "UpdateReadChannelDiscussionOutbox(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateReadChannelDiscussionOutbox")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTopMsgID: ")
-	sb.WriteString(fmt.Sprint(u.TopMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReadMaxID: ")
-	sb.WriteString(fmt.Sprint(u.ReadMaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateReadChannelDiscussionOutbox
+	return fmt.Sprintf("UpdateReadChannelDiscussionOutbox%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11136,17 +10168,8 @@ func (u *UpdatePeerBlocked) String() string {
 	if u == nil {
 		return "UpdatePeerBlocked(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePeerBlocked")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeerID: ")
-	sb.WriteString(fmt.Sprint(u.PeerID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBlocked: ")
-	sb.WriteString(fmt.Sprint(u.Blocked))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePeerBlocked
+	return fmt.Sprintf("UpdatePeerBlocked%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11277,28 +10300,8 @@ func (u *UpdateChannelUserTyping) String() string {
 	if u == nil {
 		return "UpdateChannelUserTyping(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChannelUserTyping")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tTopMsgID: ")
-		sb.WriteString(fmt.Sprint(u.TopMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(u.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChannelUserTyping
+	return fmt.Sprintf("UpdateChannelUserTyping%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11480,28 +10483,8 @@ func (u *UpdatePinnedMessages) String() string {
 	if u == nil {
 		return "UpdatePinnedMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePinnedMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePinnedMessages
+	return fmt.Sprintf("UpdatePinnedMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11700,28 +10683,8 @@ func (u *UpdatePinnedChannelMessages) String() string {
 	if u == nil {
 		return "UpdatePinnedChannelMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatePinnedChannelMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(u.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatePinnedChannelMessages
+	return fmt.Sprintf("UpdatePinnedChannelMessages%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11877,14 +10840,8 @@ func (u *UpdateChat) String() string {
 	if u == nil {
 		return "UpdateChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateChat
+	return fmt.Sprintf("UpdateChat%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11974,22 +10931,8 @@ func (u *UpdateGroupCallParticipants) String() string {
 	if u == nil {
 		return "UpdateGroupCallParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateGroupCallParticipants")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(u.Call))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Participants {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(u.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateGroupCallParticipants
+	return fmt.Sprintf("UpdateGroupCallParticipants%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -12111,17 +11054,8 @@ func (u *UpdateGroupCall) String() string {
 	if u == nil {
 		return "UpdateGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(u.Call))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateGroupCall
+	return fmt.Sprintf("UpdateGroupCall%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -12197,99 +11131,99 @@ var (
 // See https://core.telegram.org/type/Update for reference.
 //
 // Example:
-//  g, err := DecodeUpdate(buf)
+//  g, err := tg.DecodeUpdate(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UpdateNewMessage: // updateNewMessage#1f2b0afd
-//  case *UpdateMessageID: // updateMessageID#4e90bfd6
-//  case *UpdateDeleteMessages: // updateDeleteMessages#a20db0e5
-//  case *UpdateUserTyping: // updateUserTyping#5c486927
-//  case *UpdateChatUserTyping: // updateChatUserTyping#9a65ea1f
-//  case *UpdateChatParticipants: // updateChatParticipants#7761198
-//  case *UpdateUserStatus: // updateUserStatus#1bfbd823
-//  case *UpdateUserName: // updateUserName#a7332b73
-//  case *UpdateUserPhoto: // updateUserPhoto#95313b0c
-//  case *UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
-//  case *UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
-//  case *UpdateEncryption: // updateEncryption#b4a2e88d
-//  case *UpdateEncryptedMessagesRead: // updateEncryptedMessagesRead#38fe25b7
-//  case *UpdateChatParticipantAdd: // updateChatParticipantAdd#ea4b0e5c
-//  case *UpdateChatParticipantDelete: // updateChatParticipantDelete#6e5f8c22
-//  case *UpdateDcOptions: // updateDcOptions#8e5e9873
-//  case *UpdateNotifySettings: // updateNotifySettings#bec268ef
-//  case *UpdateServiceNotification: // updateServiceNotification#ebe46819
-//  case *UpdatePrivacy: // updatePrivacy#ee3b272a
-//  case *UpdateUserPhone: // updateUserPhone#12b9417b
-//  case *UpdateReadHistoryInbox: // updateReadHistoryInbox#9c974fdf
-//  case *UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
-//  case *UpdateWebPage: // updateWebPage#7f891213
-//  case *UpdateReadMessagesContents: // updateReadMessagesContents#68c13933
-//  case *UpdateChannelTooLong: // updateChannelTooLong#eb0467fb
-//  case *UpdateChannel: // updateChannel#b6d45656
-//  case *UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
-//  case *UpdateReadChannelInbox: // updateReadChannelInbox#330b5424
-//  case *UpdateDeleteChannelMessages: // updateDeleteChannelMessages#c37521c9
-//  case *UpdateChannelMessageViews: // updateChannelMessageViews#98a12b4b
-//  case *UpdateChatParticipantAdmin: // updateChatParticipantAdmin#b6901959
-//  case *UpdateNewStickerSet: // updateNewStickerSet#688a30aa
-//  case *UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
-//  case *UpdateStickerSets: // updateStickerSets#43ae3dec
-//  case *UpdateSavedGifs: // updateSavedGifs#9375341e
-//  case *UpdateBotInlineQuery: // updateBotInlineQuery#3f2038db
-//  case *UpdateBotInlineSend: // updateBotInlineSend#e48f964
-//  case *UpdateEditChannelMessage: // updateEditChannelMessage#1b3f4df7
-//  case *UpdateBotCallbackQuery: // updateBotCallbackQuery#e73547e1
-//  case *UpdateEditMessage: // updateEditMessage#e40370a3
-//  case *UpdateInlineBotCallbackQuery: // updateInlineBotCallbackQuery#f9d27a5a
-//  case *UpdateReadChannelOutbox: // updateReadChannelOutbox#25d6c9c7
-//  case *UpdateDraftMessage: // updateDraftMessage#ee2bb969
-//  case *UpdateReadFeaturedStickers: // updateReadFeaturedStickers#571d2742
-//  case *UpdateRecentStickers: // updateRecentStickers#9a422c20
-//  case *UpdateConfig: // updateConfig#a229dd06
-//  case *UpdatePtsChanged: // updatePtsChanged#3354678f
-//  case *UpdateChannelWebPage: // updateChannelWebPage#40771900
-//  case *UpdateDialogPinned: // updateDialogPinned#6e6fe51c
-//  case *UpdatePinnedDialogs: // updatePinnedDialogs#fa0f3ca2
-//  case *UpdateBotWebhookJSON: // updateBotWebhookJSON#8317c0c3
-//  case *UpdateBotWebhookJSONQuery: // updateBotWebhookJSONQuery#9b9240a6
-//  case *UpdateBotShippingQuery: // updateBotShippingQuery#e0cdc940
-//  case *UpdateBotPrecheckoutQuery: // updateBotPrecheckoutQuery#5d2f3aa9
-//  case *UpdatePhoneCall: // updatePhoneCall#ab0f6b1e
-//  case *UpdateLangPackTooLong: // updateLangPackTooLong#46560264
-//  case *UpdateLangPack: // updateLangPack#56022f4d
-//  case *UpdateFavedStickers: // updateFavedStickers#e511996d
-//  case *UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#89893b45
-//  case *UpdateContactsReset: // updateContactsReset#7084a7be
-//  case *UpdateChannelAvailableMessages: // updateChannelAvailableMessages#70db6837
-//  case *UpdateDialogUnreadMark: // updateDialogUnreadMark#e16459c3
-//  case *UpdateMessagePoll: // updateMessagePoll#aca1657b
-//  case *UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
-//  case *UpdateFolderPeers: // updateFolderPeers#19360dc0
-//  case *UpdatePeerSettings: // updatePeerSettings#6a7e7366
-//  case *UpdatePeerLocated: // updatePeerLocated#b4afcfb0
-//  case *UpdateNewScheduledMessage: // updateNewScheduledMessage#39a51dfb
-//  case *UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#90866cee
-//  case *UpdateTheme: // updateTheme#8216fba3
-//  case *UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
-//  case *UpdateLoginToken: // updateLoginToken#564fe691
-//  case *UpdateMessagePollVote: // updateMessagePollVote#42f88f2c
-//  case *UpdateDialogFilter: // updateDialogFilter#26ffde7d
-//  case *UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
-//  case *UpdateDialogFilters: // updateDialogFilters#3504914f
-//  case *UpdatePhoneCallSignalingData: // updatePhoneCallSignalingData#2661bf09
-//  case *UpdateChannelParticipant: // updateChannelParticipant#65d2b464
-//  case *UpdateChannelMessageForwards: // updateChannelMessageForwards#6e8a84df
-//  case *UpdateReadChannelDiscussionInbox: // updateReadChannelDiscussionInbox#1cc7de54
-//  case *UpdateReadChannelDiscussionOutbox: // updateReadChannelDiscussionOutbox#4638a26c
-//  case *UpdatePeerBlocked: // updatePeerBlocked#246a4b22
-//  case *UpdateChannelUserTyping: // updateChannelUserTyping#ff2abe9f
-//  case *UpdatePinnedMessages: // updatePinnedMessages#ed85eab5
-//  case *UpdatePinnedChannelMessages: // updatePinnedChannelMessages#8588878b
-//  case *UpdateChat: // updateChat#1330a196
-//  case *UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
-//  case *UpdateGroupCall: // updateGroupCall#a45eb99b
+//  case *tg.UpdateNewMessage: // updateNewMessage#1f2b0afd
+//  case *tg.UpdateMessageID: // updateMessageID#4e90bfd6
+//  case *tg.UpdateDeleteMessages: // updateDeleteMessages#a20db0e5
+//  case *tg.UpdateUserTyping: // updateUserTyping#5c486927
+//  case *tg.UpdateChatUserTyping: // updateChatUserTyping#9a65ea1f
+//  case *tg.UpdateChatParticipants: // updateChatParticipants#7761198
+//  case *tg.UpdateUserStatus: // updateUserStatus#1bfbd823
+//  case *tg.UpdateUserName: // updateUserName#a7332b73
+//  case *tg.UpdateUserPhoto: // updateUserPhoto#95313b0c
+//  case *tg.UpdateNewEncryptedMessage: // updateNewEncryptedMessage#12bcbd9a
+//  case *tg.UpdateEncryptedChatTyping: // updateEncryptedChatTyping#1710f156
+//  case *tg.UpdateEncryption: // updateEncryption#b4a2e88d
+//  case *tg.UpdateEncryptedMessagesRead: // updateEncryptedMessagesRead#38fe25b7
+//  case *tg.UpdateChatParticipantAdd: // updateChatParticipantAdd#ea4b0e5c
+//  case *tg.UpdateChatParticipantDelete: // updateChatParticipantDelete#6e5f8c22
+//  case *tg.UpdateDcOptions: // updateDcOptions#8e5e9873
+//  case *tg.UpdateNotifySettings: // updateNotifySettings#bec268ef
+//  case *tg.UpdateServiceNotification: // updateServiceNotification#ebe46819
+//  case *tg.UpdatePrivacy: // updatePrivacy#ee3b272a
+//  case *tg.UpdateUserPhone: // updateUserPhone#12b9417b
+//  case *tg.UpdateReadHistoryInbox: // updateReadHistoryInbox#9c974fdf
+//  case *tg.UpdateReadHistoryOutbox: // updateReadHistoryOutbox#2f2f21bf
+//  case *tg.UpdateWebPage: // updateWebPage#7f891213
+//  case *tg.UpdateReadMessagesContents: // updateReadMessagesContents#68c13933
+//  case *tg.UpdateChannelTooLong: // updateChannelTooLong#eb0467fb
+//  case *tg.UpdateChannel: // updateChannel#b6d45656
+//  case *tg.UpdateNewChannelMessage: // updateNewChannelMessage#62ba04d9
+//  case *tg.UpdateReadChannelInbox: // updateReadChannelInbox#330b5424
+//  case *tg.UpdateDeleteChannelMessages: // updateDeleteChannelMessages#c37521c9
+//  case *tg.UpdateChannelMessageViews: // updateChannelMessageViews#98a12b4b
+//  case *tg.UpdateChatParticipantAdmin: // updateChatParticipantAdmin#b6901959
+//  case *tg.UpdateNewStickerSet: // updateNewStickerSet#688a30aa
+//  case *tg.UpdateStickerSetsOrder: // updateStickerSetsOrder#bb2d201
+//  case *tg.UpdateStickerSets: // updateStickerSets#43ae3dec
+//  case *tg.UpdateSavedGifs: // updateSavedGifs#9375341e
+//  case *tg.UpdateBotInlineQuery: // updateBotInlineQuery#3f2038db
+//  case *tg.UpdateBotInlineSend: // updateBotInlineSend#e48f964
+//  case *tg.UpdateEditChannelMessage: // updateEditChannelMessage#1b3f4df7
+//  case *tg.UpdateBotCallbackQuery: // updateBotCallbackQuery#e73547e1
+//  case *tg.UpdateEditMessage: // updateEditMessage#e40370a3
+//  case *tg.UpdateInlineBotCallbackQuery: // updateInlineBotCallbackQuery#f9d27a5a
+//  case *tg.UpdateReadChannelOutbox: // updateReadChannelOutbox#25d6c9c7
+//  case *tg.UpdateDraftMessage: // updateDraftMessage#ee2bb969
+//  case *tg.UpdateReadFeaturedStickers: // updateReadFeaturedStickers#571d2742
+//  case *tg.UpdateRecentStickers: // updateRecentStickers#9a422c20
+//  case *tg.UpdateConfig: // updateConfig#a229dd06
+//  case *tg.UpdatePtsChanged: // updatePtsChanged#3354678f
+//  case *tg.UpdateChannelWebPage: // updateChannelWebPage#40771900
+//  case *tg.UpdateDialogPinned: // updateDialogPinned#6e6fe51c
+//  case *tg.UpdatePinnedDialogs: // updatePinnedDialogs#fa0f3ca2
+//  case *tg.UpdateBotWebhookJSON: // updateBotWebhookJSON#8317c0c3
+//  case *tg.UpdateBotWebhookJSONQuery: // updateBotWebhookJSONQuery#9b9240a6
+//  case *tg.UpdateBotShippingQuery: // updateBotShippingQuery#e0cdc940
+//  case *tg.UpdateBotPrecheckoutQuery: // updateBotPrecheckoutQuery#5d2f3aa9
+//  case *tg.UpdatePhoneCall: // updatePhoneCall#ab0f6b1e
+//  case *tg.UpdateLangPackTooLong: // updateLangPackTooLong#46560264
+//  case *tg.UpdateLangPack: // updateLangPack#56022f4d
+//  case *tg.UpdateFavedStickers: // updateFavedStickers#e511996d
+//  case *tg.UpdateChannelReadMessagesContents: // updateChannelReadMessagesContents#89893b45
+//  case *tg.UpdateContactsReset: // updateContactsReset#7084a7be
+//  case *tg.UpdateChannelAvailableMessages: // updateChannelAvailableMessages#70db6837
+//  case *tg.UpdateDialogUnreadMark: // updateDialogUnreadMark#e16459c3
+//  case *tg.UpdateMessagePoll: // updateMessagePoll#aca1657b
+//  case *tg.UpdateChatDefaultBannedRights: // updateChatDefaultBannedRights#54c01850
+//  case *tg.UpdateFolderPeers: // updateFolderPeers#19360dc0
+//  case *tg.UpdatePeerSettings: // updatePeerSettings#6a7e7366
+//  case *tg.UpdatePeerLocated: // updatePeerLocated#b4afcfb0
+//  case *tg.UpdateNewScheduledMessage: // updateNewScheduledMessage#39a51dfb
+//  case *tg.UpdateDeleteScheduledMessages: // updateDeleteScheduledMessages#90866cee
+//  case *tg.UpdateTheme: // updateTheme#8216fba3
+//  case *tg.UpdateGeoLiveViewed: // updateGeoLiveViewed#871fb939
+//  case *tg.UpdateLoginToken: // updateLoginToken#564fe691
+//  case *tg.UpdateMessagePollVote: // updateMessagePollVote#42f88f2c
+//  case *tg.UpdateDialogFilter: // updateDialogFilter#26ffde7d
+//  case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
+//  case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
+//  case *tg.UpdatePhoneCallSignalingData: // updatePhoneCallSignalingData#2661bf09
+//  case *tg.UpdateChannelParticipant: // updateChannelParticipant#65d2b464
+//  case *tg.UpdateChannelMessageForwards: // updateChannelMessageForwards#6e8a84df
+//  case *tg.UpdateReadChannelDiscussionInbox: // updateReadChannelDiscussionInbox#1cc7de54
+//  case *tg.UpdateReadChannelDiscussionOutbox: // updateReadChannelDiscussionOutbox#4638a26c
+//  case *tg.UpdatePeerBlocked: // updatePeerBlocked#246a4b22
+//  case *tg.UpdateChannelUserTyping: // updateChannelUserTyping#ff2abe9f
+//  case *tg.UpdatePinnedMessages: // updatePinnedMessages#ed85eab5
+//  case *tg.UpdatePinnedChannelMessages: // updatePinnedChannelMessages#8588878b
+//  case *tg.UpdateChat: // updateChat#1330a196
+//  case *tg.UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
+//  case *tg.UpdateGroupCall: // updateGroupCall#a45eb99b
 //  default: panic(v)
 //  }
 type UpdateClass interface {

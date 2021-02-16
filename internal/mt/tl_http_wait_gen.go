@@ -53,20 +53,8 @@ func (h *HTTPWaitRequest) String() string {
 	if h == nil {
 		return "HTTPWaitRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HTTPWaitRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMaxDelay: ")
-	sb.WriteString(fmt.Sprint(h.MaxDelay))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWaitAfter: ")
-	sb.WriteString(fmt.Sprint(h.WaitAfter))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxWait: ")
-	sb.WriteString(fmt.Sprint(h.MaxWait))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HTTPWaitRequest
+	return fmt.Sprintf("HTTPWaitRequest%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

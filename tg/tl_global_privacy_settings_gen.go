@@ -56,19 +56,8 @@ func (g *GlobalPrivacySettings) String() string {
 	if g == nil {
 		return "GlobalPrivacySettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GlobalPrivacySettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tArchiveAndMuteNewNoncontactPeers: ")
-		sb.WriteString(fmt.Sprint(g.ArchiveAndMuteNewNoncontactPeers))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GlobalPrivacySettings
+	return fmt.Sprintf("GlobalPrivacySettings%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

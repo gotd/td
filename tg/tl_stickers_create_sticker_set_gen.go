@@ -86,33 +86,8 @@ func (c *StickersCreateStickerSetRequest) String() string {
 	if c == nil {
 		return "StickersCreateStickerSetRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickersCreateStickerSetRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(c.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(c.ShortName))
-	sb.WriteString(",\n")
-	if c.Flags.Has(2) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(fmt.Sprint(c.Thumb))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range c.Stickers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickersCreateStickerSetRequest
+	return fmt.Sprintf("StickersCreateStickerSetRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

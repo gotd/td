@@ -58,23 +58,8 @@ func (c *ClientDHInnerData) String() string {
 	if c == nil {
 		return "ClientDHInnerData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ClientDHInnerData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(c.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(c.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRetryID: ")
-	sb.WriteString(fmt.Sprint(c.RetryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGB: ")
-	sb.WriteString(fmt.Sprint(c.GB))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ClientDHInnerData
+	return fmt.Sprintf("ClientDHInnerData%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

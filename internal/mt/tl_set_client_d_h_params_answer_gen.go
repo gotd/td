@@ -53,20 +53,8 @@ func (d *DhGenOk) String() string {
 	if d == nil {
 		return "DhGenOk(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DhGenOk")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(d.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(d.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonceHash1: ")
-	sb.WriteString(fmt.Sprint(d.NewNonceHash1))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DhGenOk
+	return fmt.Sprintf("DhGenOk%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,20 +168,8 @@ func (d *DhGenRetry) String() string {
 	if d == nil {
 		return "DhGenRetry(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DhGenRetry")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(d.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(d.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonceHash2: ")
-	sb.WriteString(fmt.Sprint(d.NewNonceHash2))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DhGenRetry
+	return fmt.Sprintf("DhGenRetry%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -307,20 +283,8 @@ func (d *DhGenFail) String() string {
 	if d == nil {
 		return "DhGenFail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DhGenFail")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(d.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(d.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonceHash3: ")
-	sb.WriteString(fmt.Sprint(d.NewNonceHash3))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DhGenFail
+	return fmt.Sprintf("DhGenFail%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -402,14 +366,14 @@ var (
 // SetClientDHParamsAnswerClass represents Set_client_DH_params_answer generic type.
 //
 // Example:
-//  g, err := DecodeSetClientDHParamsAnswer(buf)
+//  g, err := mt.DecodeSetClientDHParamsAnswer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DhGenOk: // dh_gen_ok#3bcbf734
-//  case *DhGenRetry: // dh_gen_retry#46dc1fb9
-//  case *DhGenFail: // dh_gen_fail#a69dae02
+//  case *mt.DhGenOk: // dh_gen_ok#3bcbf734
+//  case *mt.DhGenRetry: // dh_gen_retry#46dc1fb9
+//  case *mt.DhGenFail: // dh_gen_fail#a69dae02
 //  default: panic(v)
 //  }
 type SetClientDHParamsAnswerClass interface {

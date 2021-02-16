@@ -45,14 +45,8 @@ func (a *UserAuth) String() string {
 	if a == nil {
 		return "UserAuth(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserAuth")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFoo: ")
-	sb.WriteString(fmt.Sprint(a.Foo))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserAuth
+	return fmt.Sprintf("UserAuth%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -132,14 +126,8 @@ func (a *UserAuthPassword) String() string {
 	if a == nil {
 		return "UserAuthPassword(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserAuthPassword")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPwd: ")
-	sb.WriteString(fmt.Sprint(a.Pwd))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserAuthPassword
+	return fmt.Sprintf("UserAuthPassword%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -197,13 +185,13 @@ var (
 // See https://localhost:80/doc/type/user.Auth for reference.
 //
 // Example:
-//  g, err := DecodeUserAuth(buf)
+//  g, err := td.DecodeUserAuth(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UserAuth: // user.auth#f4815592
-//  case *UserAuthPassword: // user.authPassword#5981e317
+//  case *td.UserAuth: // user.auth#f4815592
+//  case *td.UserAuthPassword: // user.authPassword#5981e317
 //  default: panic(v)
 //  }
 type UserAuthClass interface {

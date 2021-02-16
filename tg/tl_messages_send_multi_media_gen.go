@@ -94,32 +94,8 @@ func (s *MessagesSendMultiMediaRequest) String() string {
 	if s == nil {
 		return "MessagesSendMultiMediaRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSendMultiMediaRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tReplyToMsgID: ")
-		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range s.MultiMedia {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if s.Flags.Has(10) {
-		sb.WriteString("\tScheduleDate: ")
-		sb.WriteString(fmt.Sprint(s.ScheduleDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSendMultiMediaRequest
+	return fmt.Sprintf("MessagesSendMultiMediaRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

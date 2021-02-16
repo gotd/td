@@ -70,20 +70,8 @@ func (g *MessagesGetArchivedStickersRequest) String() string {
 	if g == nil {
 		return "MessagesGetArchivedStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetArchivedStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(g.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetArchivedStickersRequest
+	return fmt.Sprintf("MessagesGetArchivedStickersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (g *ChannelsGetFullChannelRequest) String() string {
 	if g == nil {
 		return "ChannelsGetFullChannelRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsGetFullChannelRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsGetFullChannelRequest
+	return fmt.Sprintf("ChannelsGetFullChannelRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -69,23 +69,8 @@ func (s *PhoneSetCallRatingRequest) String() string {
 	if s == nil {
 		return "PhoneSetCallRatingRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneSetCallRatingRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRating: ")
-	sb.WriteString(fmt.Sprint(s.Rating))
-	sb.WriteString(",\n")
-	sb.WriteString("\tComment: ")
-	sb.WriteString(fmt.Sprint(s.Comment))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneSetCallRatingRequest
+	return fmt.Sprintf("PhoneSetCallRatingRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

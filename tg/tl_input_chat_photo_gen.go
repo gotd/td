@@ -41,11 +41,8 @@ func (i *InputChatPhotoEmpty) String() string {
 	if i == nil {
 		return "InputChatPhotoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChatPhotoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChatPhotoEmpty
+	return fmt.Sprintf("InputChatPhotoEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -140,29 +137,8 @@ func (i *InputChatUploadedPhoto) String() string {
 	if i == nil {
 		return "InputChatUploadedPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChatUploadedPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tFile: ")
-		sb.WriteString(fmt.Sprint(i.File))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tVideo: ")
-		sb.WriteString(fmt.Sprint(i.Video))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tVideoStartTs: ")
-		sb.WriteString(fmt.Sprint(i.VideoStartTs))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChatUploadedPhoto
+	return fmt.Sprintf("InputChatUploadedPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -332,14 +308,8 @@ func (i *InputChatPhoto) String() string {
 	if i == nil {
 		return "InputChatPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChatPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChatPhoto
+	return fmt.Sprintf("InputChatPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -402,14 +372,14 @@ var (
 // See https://core.telegram.org/type/InputChatPhoto for reference.
 //
 // Example:
-//  g, err := DecodeInputChatPhoto(buf)
+//  g, err := tg.DecodeInputChatPhoto(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputChatPhotoEmpty: // inputChatPhotoEmpty#1ca48f57
-//  case *InputChatUploadedPhoto: // inputChatUploadedPhoto#c642724e
-//  case *InputChatPhoto: // inputChatPhoto#8953ad37
+//  case *tg.InputChatPhotoEmpty: // inputChatPhotoEmpty#1ca48f57
+//  case *tg.InputChatUploadedPhoto: // inputChatUploadedPhoto#c642724e
+//  case *tg.InputChatPhoto: // inputChatPhoto#8953ad37
 //  default: panic(v)
 //  }
 type InputChatPhotoClass interface {

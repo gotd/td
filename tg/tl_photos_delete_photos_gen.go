@@ -46,16 +46,8 @@ func (d *PhotosDeletePhotosRequest) String() string {
 	if d == nil {
 		return "PhotosDeletePhotosRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosDeletePhotosRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosDeletePhotosRequest
+	return fmt.Sprintf("PhotosDeletePhotosRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -143,51 +143,8 @@ func (u *UserFull) String() string {
 	if u == nil {
 		return "UserFull(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserFull")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUser: ")
-	sb.WriteString(fmt.Sprint(u.User))
-	sb.WriteString(",\n")
-	if u.Flags.Has(1) {
-		sb.WriteString("\tAbout: ")
-		sb.WriteString(fmt.Sprint(u.About))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(u.Settings))
-	sb.WriteString(",\n")
-	if u.Flags.Has(2) {
-		sb.WriteString("\tProfilePhoto: ")
-		sb.WriteString(fmt.Sprint(u.ProfilePhoto))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(fmt.Sprint(u.NotifySettings))
-	sb.WriteString(",\n")
-	if u.Flags.Has(3) {
-		sb.WriteString("\tBotInfo: ")
-		sb.WriteString(fmt.Sprint(u.BotInfo))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(6) {
-		sb.WriteString("\tPinnedMsgID: ")
-		sb.WriteString(fmt.Sprint(u.PinnedMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCommonChatsCount: ")
-	sb.WriteString(fmt.Sprint(u.CommonChatsCount))
-	sb.WriteString(",\n")
-	if u.Flags.Has(11) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(u.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserFull
+	return fmt.Sprintf("UserFull%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

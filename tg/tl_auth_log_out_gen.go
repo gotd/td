@@ -41,11 +41,8 @@ func (l *AuthLogOutRequest) String() string {
 	if l == nil {
 		return "AuthLogOutRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthLogOutRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthLogOutRequest
+	return fmt.Sprintf("AuthLogOutRequest%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

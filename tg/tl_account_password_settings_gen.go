@@ -72,24 +72,8 @@ func (p *AccountPasswordSettings) String() string {
 	if p == nil {
 		return "AccountPasswordSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountPasswordSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tEmail: ")
-		sb.WriteString(fmt.Sprint(p.Email))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tSecureSettings: ")
-		sb.WriteString(fmt.Sprint(p.SecureSettings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountPasswordSettings
+	return fmt.Sprintf("AccountPasswordSettings%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (r *StickersRemoveStickerFromSetRequest) String() string {
 	if r == nil {
 		return "StickersRemoveStickerFromSetRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickersRemoveStickerFromSetRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSticker: ")
-	sb.WriteString(fmt.Sprint(r.Sticker))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickersRemoveStickerFromSetRequest
+	return fmt.Sprintf("StickersRemoveStickerFromSetRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

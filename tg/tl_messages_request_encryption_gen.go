@@ -59,20 +59,8 @@ func (r *MessagesRequestEncryptionRequest) String() string {
 	if r == nil {
 		return "MessagesRequestEncryptionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesRequestEncryptionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(r.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(r.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGA: ")
-	sb.WriteString(fmt.Sprint(r.GA))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesRequestEncryptionRequest
+	return fmt.Sprintf("MessagesRequestEncryptionRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

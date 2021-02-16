@@ -56,22 +56,8 @@ func (r *MessagesReportRequest) String() string {
 	if r == nil {
 		return "MessagesReportRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReportRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tReason: ")
-	sb.WriteString(fmt.Sprint(r.Reason))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReportRequest
+	return fmt.Sprintf("MessagesReportRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

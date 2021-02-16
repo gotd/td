@@ -58,23 +58,8 @@ func (m *MsgDetailedInfo) String() string {
 	if m == nil {
 		return "MsgDetailedInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgDetailedInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(m.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAnswerMsgID: ")
-	sb.WriteString(fmt.Sprint(m.AnswerMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(m.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStatus: ")
-	sb.WriteString(fmt.Sprint(m.Status))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgDetailedInfo
+	return fmt.Sprintf("MsgDetailedInfo%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,20 +186,8 @@ func (m *MsgNewDetailedInfo) String() string {
 	if m == nil {
 		return "MsgNewDetailedInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgNewDetailedInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAnswerMsgID: ")
-	sb.WriteString(fmt.Sprint(m.AnswerMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(m.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStatus: ")
-	sb.WriteString(fmt.Sprint(m.Status))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgNewDetailedInfo
+	return fmt.Sprintf("MsgNewDetailedInfo%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -296,13 +269,13 @@ var (
 // MsgDetailedInfoClass represents MsgDetailedInfo generic type.
 //
 // Example:
-//  g, err := DecodeMsgDetailedInfo(buf)
+//  g, err := mt.DecodeMsgDetailedInfo(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MsgDetailedInfo: // msg_detailed_info#276d3ec6
-//  case *MsgNewDetailedInfo: // msg_new_detailed_info#809db6df
+//  case *mt.MsgDetailedInfo: // msg_detailed_info#276d3ec6
+//  case *mt.MsgNewDetailedInfo: // msg_new_detailed_info#809db6df
 //  default: panic(v)
 //  }
 type MsgDetailedInfoClass interface {

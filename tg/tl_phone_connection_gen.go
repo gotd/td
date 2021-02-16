@@ -66,26 +66,8 @@ func (p *PhoneConnection) String() string {
 	if p == nil {
 		return "PhoneConnection(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneConnection")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIP: ")
-	sb.WriteString(fmt.Sprint(p.IP))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIpv6: ")
-	sb.WriteString(fmt.Sprint(p.Ipv6))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPort: ")
-	sb.WriteString(fmt.Sprint(p.Port))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeerTag: ")
-	sb.WriteString(fmt.Sprint(p.PeerTag))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneConnection
+	return fmt.Sprintf("PhoneConnection%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -261,32 +243,8 @@ func (p *PhoneConnectionWebrtc) String() string {
 	if p == nil {
 		return "PhoneConnectionWebrtc(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneConnectionWebrtc")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIP: ")
-	sb.WriteString(fmt.Sprint(p.IP))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIpv6: ")
-	sb.WriteString(fmt.Sprint(p.Ipv6))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPort: ")
-	sb.WriteString(fmt.Sprint(p.Port))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUsername: ")
-	sb.WriteString(fmt.Sprint(p.Username))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPassword: ")
-	sb.WriteString(fmt.Sprint(p.Password))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneConnectionWebrtc
+	return fmt.Sprintf("PhoneConnectionWebrtc%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -457,13 +415,13 @@ var (
 // See https://core.telegram.org/type/PhoneConnection for reference.
 //
 // Example:
-//  g, err := DecodePhoneConnection(buf)
+//  g, err := tg.DecodePhoneConnection(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhoneConnection: // phoneConnection#9d4c17c0
-//  case *PhoneConnectionWebrtc: // phoneConnectionWebrtc#635fe375
+//  case *tg.PhoneConnection: // phoneConnection#9d4c17c0
+//  case *tg.PhoneConnectionWebrtc: // phoneConnectionWebrtc#635fe375
 //  default: panic(v)
 //  }
 type PhoneConnectionClass interface {

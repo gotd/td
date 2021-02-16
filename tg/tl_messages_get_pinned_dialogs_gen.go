@@ -49,14 +49,8 @@ func (g *MessagesGetPinnedDialogsRequest) String() string {
 	if g == nil {
 		return "MessagesGetPinnedDialogsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetPinnedDialogsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(g.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetPinnedDialogsRequest
+	return fmt.Sprintf("MessagesGetPinnedDialogsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

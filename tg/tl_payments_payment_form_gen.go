@@ -116,51 +116,8 @@ func (p *PaymentsPaymentForm) String() string {
 	if p == nil {
 		return "PaymentsPaymentForm(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsPaymentForm")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBotID: ")
-	sb.WriteString(fmt.Sprint(p.BotID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInvoice: ")
-	sb.WriteString(fmt.Sprint(p.Invoice))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProviderID: ")
-	sb.WriteString(fmt.Sprint(p.ProviderID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(p.URL))
-	sb.WriteString(",\n")
-	if p.Flags.Has(4) {
-		sb.WriteString("\tNativeProvider: ")
-		sb.WriteString(fmt.Sprint(p.NativeProvider))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(4) {
-		sb.WriteString("\tNativeParams: ")
-		sb.WriteString(fmt.Sprint(p.NativeParams))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(0) {
-		sb.WriteString("\tSavedInfo: ")
-		sb.WriteString(fmt.Sprint(p.SavedInfo))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tSavedCredentials: ")
-		sb.WriteString(fmt.Sprint(p.SavedCredentials))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsPaymentForm
+	return fmt.Sprintf("PaymentsPaymentForm%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -54,17 +54,8 @@ func (g *MessagesGetDhConfigRequest) String() string {
 	if g == nil {
 		return "MessagesGetDhConfigRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetDhConfigRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(g.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomLength: ")
-	sb.WriteString(fmt.Sprint(g.RandomLength))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetDhConfigRequest
+	return fmt.Sprintf("MessagesGetDhConfigRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

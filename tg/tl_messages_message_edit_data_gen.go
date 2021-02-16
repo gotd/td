@@ -54,14 +54,8 @@ func (m *MessagesMessageEditData) String() string {
 	if m == nil {
 		return "MessagesMessageEditData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesMessageEditData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesMessageEditData
+	return fmt.Sprintf("MessagesMessageEditData%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

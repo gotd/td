@@ -59,19 +59,8 @@ func (r *MessagesReorderStickerSetsRequest) String() string {
 	if r == nil {
 		return "MessagesReorderStickerSetsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReorderStickerSetsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.Order {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReorderStickerSetsRequest
+	return fmt.Sprintf("MessagesReorderStickerSetsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

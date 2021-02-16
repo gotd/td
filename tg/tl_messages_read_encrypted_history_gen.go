@@ -51,17 +51,8 @@ func (r *MessagesReadEncryptedHistoryRequest) String() string {
 	if r == nil {
 		return "MessagesReadEncryptedHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReadEncryptedHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxDate: ")
-	sb.WriteString(fmt.Sprint(r.MaxDate))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReadEncryptedHistoryRequest
+	return fmt.Sprintf("MessagesReadEncryptedHistoryRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

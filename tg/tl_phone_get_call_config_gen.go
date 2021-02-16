@@ -41,11 +41,8 @@ func (g *PhoneGetCallConfigRequest) String() string {
 	if g == nil {
 		return "PhoneGetCallConfigRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneGetCallConfigRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneGetCallConfigRequest
+	return fmt.Sprintf("PhoneGetCallConfigRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (u *HelpUserInfoEmpty) String() string {
 	if u == nil {
 		return "HelpUserInfoEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpUserInfoEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpUserInfoEmpty
+	return fmt.Sprintf("HelpUserInfoEmpty%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -131,25 +128,8 @@ func (u *HelpUserInfo) String() string {
 	if u == nil {
 		return "HelpUserInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpUserInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tAuthor: ")
-	sb.WriteString(fmt.Sprint(u.Author))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpUserInfo
+	return fmt.Sprintf("HelpUserInfo%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -260,13 +240,13 @@ var (
 // See https://core.telegram.org/type/help.UserInfo for reference.
 //
 // Example:
-//  g, err := DecodeHelpUserInfo(buf)
+//  g, err := tg.DecodeHelpUserInfo(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpUserInfoEmpty: // help.userInfoEmpty#f3ae2eed
-//  case *HelpUserInfo: // help.userInfo#1eb3758
+//  case *tg.HelpUserInfoEmpty: // help.userInfoEmpty#f3ae2eed
+//  case *tg.HelpUserInfo: // help.userInfo#1eb3758
 //  default: panic(v)
 //  }
 type HelpUserInfoClass interface {

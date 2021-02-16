@@ -46,14 +46,8 @@ func (g *LangpackGetLanguagesRequest) String() string {
 	if g == nil {
 		return "LangpackGetLanguagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("LangpackGetLanguagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangPack: ")
-	sb.WriteString(fmt.Sprint(g.LangPack))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias LangpackGetLanguagesRequest
+	return fmt.Sprintf("LangpackGetLanguagesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

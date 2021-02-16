@@ -46,16 +46,8 @@ func (d *AuthDropTempAuthKeysRequest) String() string {
 	if d == nil {
 		return "AuthDropTempAuthKeysRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthDropTempAuthKeysRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.ExceptAuthKeys {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthDropTempAuthKeysRequest
+	return fmt.Sprintf("AuthDropTempAuthKeysRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

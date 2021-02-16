@@ -87,34 +87,8 @@ func (w *WallPaperSettings) String() string {
 	if w == nil {
 		return "WallPaperSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WallPaperSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	if w.Flags.Has(0) {
-		sb.WriteString("\tBackgroundColor: ")
-		sb.WriteString(fmt.Sprint(w.BackgroundColor))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(4) {
-		sb.WriteString("\tSecondBackgroundColor: ")
-		sb.WriteString(fmt.Sprint(w.SecondBackgroundColor))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(3) {
-		sb.WriteString("\tIntensity: ")
-		sb.WriteString(fmt.Sprint(w.Intensity))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(4) {
-		sb.WriteString("\tRotation: ")
-		sb.WriteString(fmt.Sprint(w.Rotation))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WallPaperSettings
+	return fmt.Sprintf("WallPaperSettings%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -70,23 +70,8 @@ func (s *StatsGroupTopAdmin) String() string {
 	if s == nil {
 		return "StatsGroupTopAdmin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGroupTopAdmin")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(s.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDeleted: ")
-	sb.WriteString(fmt.Sprint(s.Deleted))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKicked: ")
-	sb.WriteString(fmt.Sprint(s.Kicked))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBanned: ")
-	sb.WriteString(fmt.Sprint(s.Banned))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGroupTopAdmin
+	return fmt.Sprintf("StatsGroupTopAdmin%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (g *HelpGetUserInfoRequest) String() string {
 	if g == nil {
 		return "HelpGetUserInfoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetUserInfoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetUserInfoRequest
+	return fmt.Sprintf("HelpGetUserInfoRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

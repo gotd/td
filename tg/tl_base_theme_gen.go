@@ -41,11 +41,8 @@ func (b *BaseThemeClassic) String() string {
 	if b == nil {
 		return "BaseThemeClassic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BaseThemeClassic")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BaseThemeClassic
+	return fmt.Sprintf("BaseThemeClassic%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (b *BaseThemeDay) String() string {
 	if b == nil {
 		return "BaseThemeDay(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BaseThemeDay")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BaseThemeDay
+	return fmt.Sprintf("BaseThemeDay%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (b *BaseThemeNight) String() string {
 	if b == nil {
 		return "BaseThemeNight(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BaseThemeNight")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BaseThemeNight
+	return fmt.Sprintf("BaseThemeNight%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (b *BaseThemeTinted) String() string {
 	if b == nil {
 		return "BaseThemeTinted(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BaseThemeTinted")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BaseThemeTinted
+	return fmt.Sprintf("BaseThemeTinted%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,11 +297,8 @@ func (b *BaseThemeArctic) String() string {
 	if b == nil {
 		return "BaseThemeArctic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BaseThemeArctic")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BaseThemeArctic
+	return fmt.Sprintf("BaseThemeArctic%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -358,16 +343,16 @@ var (
 // See https://core.telegram.org/type/BaseTheme for reference.
 //
 // Example:
-//  g, err := DecodeBaseTheme(buf)
+//  g, err := tg.DecodeBaseTheme(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BaseThemeClassic: // baseThemeClassic#c3a12462
-//  case *BaseThemeDay: // baseThemeDay#fbd81688
-//  case *BaseThemeNight: // baseThemeNight#b7b31ea8
-//  case *BaseThemeTinted: // baseThemeTinted#6d5f77ee
-//  case *BaseThemeArctic: // baseThemeArctic#5b11125a
+//  case *tg.BaseThemeClassic: // baseThemeClassic#c3a12462
+//  case *tg.BaseThemeDay: // baseThemeDay#fbd81688
+//  case *tg.BaseThemeNight: // baseThemeNight#b7b31ea8
+//  case *tg.BaseThemeTinted: // baseThemeTinted#6d5f77ee
+//  case *tg.BaseThemeArctic: // baseThemeArctic#5b11125a
 //  default: panic(v)
 //  }
 type BaseThemeClass interface {

@@ -51,17 +51,8 @@ func (m *MessageRange) String() string {
 	if m == nil {
 		return "MessageRange(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageRange")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMinID: ")
-	sb.WriteString(fmt.Sprint(m.MinID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(m.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageRange
+	return fmt.Sprintf("MessageRange%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

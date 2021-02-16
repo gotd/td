@@ -124,50 +124,8 @@ func (d *Dialog) String() string {
 	if d == nil {
 		return "Dialog(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Dialog")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(d.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTopMessage: ")
-	sb.WriteString(fmt.Sprint(d.TopMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReadInboxMaxID: ")
-	sb.WriteString(fmt.Sprint(d.ReadInboxMaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReadOutboxMaxID: ")
-	sb.WriteString(fmt.Sprint(d.ReadOutboxMaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadMentionsCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadMentionsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNotifySettings: ")
-	sb.WriteString(fmt.Sprint(d.NotifySettings))
-	sb.WriteString(",\n")
-	if d.Flags.Has(0) {
-		sb.WriteString("\tPts: ")
-		sb.WriteString(fmt.Sprint(d.Pts))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(1) {
-		sb.WriteString("\tDraft: ")
-		sb.WriteString(fmt.Sprint(d.Draft))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(4) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(d.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Dialog
+	return fmt.Sprintf("Dialog%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -511,35 +469,8 @@ func (d *DialogFolder) String() string {
 	if d == nil {
 		return "DialogFolder(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogFolder")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFolder: ")
-	sb.WriteString(fmt.Sprint(d.Folder))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(d.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTopMessage: ")
-	sb.WriteString(fmt.Sprint(d.TopMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadMutedPeersCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadMutedPeersCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadUnmutedPeersCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadUnmutedPeersCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadMutedMessagesCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadMutedMessagesCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadUnmutedMessagesCount: ")
-	sb.WriteString(fmt.Sprint(d.UnreadUnmutedMessagesCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DialogFolder
+	return fmt.Sprintf("DialogFolder%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -708,13 +639,13 @@ var (
 // See https://core.telegram.org/type/Dialog for reference.
 //
 // Example:
-//  g, err := DecodeDialog(buf)
+//  g, err := tg.DecodeDialog(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *Dialog: // dialog#2c171f72
-//  case *DialogFolder: // dialogFolder#71bd134c
+//  case *tg.Dialog: // dialog#2c171f72
+//  case *tg.DialogFolder: // dialogFolder#71bd134c
 //  default: panic(v)
 //  }
 type DialogClass interface {

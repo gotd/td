@@ -58,25 +58,8 @@ func (r *ResPQ) String() string {
 	if r == nil {
 		return "ResPQ(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ResPQ")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(r.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(r.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPq: ")
-	sb.WriteString(fmt.Sprint(r.Pq))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.ServerPublicKeyFingerprints {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ResPQ
+	return fmt.Sprintf("ResPQ%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (c *ChannelLocationEmpty) String() string {
 	if c == nil {
 		return "ChannelLocationEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelLocationEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelLocationEmpty
+	return fmt.Sprintf("ChannelLocationEmpty%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -118,17 +115,8 @@ func (c *ChannelLocation) String() string {
 	if c == nil {
 		return "ChannelLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(c.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(c.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelLocation
+	return fmt.Sprintf("ChannelLocation%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -204,13 +192,13 @@ var (
 // See https://core.telegram.org/type/ChannelLocation for reference.
 //
 // Example:
-//  g, err := DecodeChannelLocation(buf)
+//  g, err := tg.DecodeChannelLocation(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChannelLocationEmpty: // channelLocationEmpty#bfb5ad8b
-//  case *ChannelLocation: // channelLocation#209b82db
+//  case *tg.ChannelLocationEmpty: // channelLocationEmpty#bfb5ad8b
+//  case *tg.ChannelLocation: // channelLocation#209b82db
 //  default: panic(v)
 //  }
 type ChannelLocationClass interface {

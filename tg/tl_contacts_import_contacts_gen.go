@@ -50,16 +50,8 @@ func (i *ContactsImportContactsRequest) String() string {
 	if i == nil {
 		return "ContactsImportContactsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsImportContactsRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Contacts {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsImportContactsRequest
+	return fmt.Sprintf("ContactsImportContactsRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

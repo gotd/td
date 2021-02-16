@@ -41,11 +41,8 @@ func (g *AccountGetContentSettingsRequest) String() string {
 	if g == nil {
 		return "AccountGetContentSettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetContentSettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetContentSettingsRequest
+	return fmt.Sprintf("AccountGetContentSettingsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

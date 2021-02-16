@@ -54,17 +54,8 @@ func (s *StatsGroupTopInviter) String() string {
 	if s == nil {
 		return "StatsGroupTopInviter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGroupTopInviter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(s.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInvitations: ")
-	sb.WriteString(fmt.Sprint(s.Invitations))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGroupTopInviter
+	return fmt.Sprintf("StatsGroupTopInviter%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

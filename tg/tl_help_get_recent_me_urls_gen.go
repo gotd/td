@@ -46,14 +46,8 @@ func (g *HelpGetRecentMeUrlsRequest) String() string {
 	if g == nil {
 		return "HelpGetRecentMeUrlsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetRecentMeUrlsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReferer: ")
-	sb.WriteString(fmt.Sprint(g.Referer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetRecentMeUrlsRequest
+	return fmt.Sprintf("HelpGetRecentMeUrlsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

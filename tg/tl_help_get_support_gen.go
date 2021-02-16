@@ -41,11 +41,8 @@ func (g *HelpGetSupportRequest) String() string {
 	if g == nil {
 		return "HelpGetSupportRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetSupportRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetSupportRequest
+	return fmt.Sprintf("HelpGetSupportRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

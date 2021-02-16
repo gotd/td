@@ -46,16 +46,8 @@ func (c *MessagesChats) String() string {
 	if c == nil {
 		return "MessagesChats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesChats")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesChats
+	return fmt.Sprintf("MessagesChats%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -158,19 +150,8 @@ func (c *MessagesChatsSlice) String() string {
 	if c == nil {
 		return "MessagesChatsSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesChatsSlice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(c.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesChatsSlice
+	return fmt.Sprintf("MessagesChatsSlice%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -255,13 +236,13 @@ var (
 // See https://core.telegram.org/type/messages.Chats for reference.
 //
 // Example:
-//  g, err := DecodeMessagesChats(buf)
+//  g, err := tg.DecodeMessagesChats(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesChats: // messages.chats#64ff9fd5
-//  case *MessagesChatsSlice: // messages.chatsSlice#9cd81144
+//  case *tg.MessagesChats: // messages.chats#64ff9fd5
+//  case *tg.MessagesChatsSlice: // messages.chatsSlice#9cd81144
 //  default: panic(v)
 //  }
 type MessagesChatsClass interface {

@@ -126,14 +126,8 @@ func (c *ChatAdminRights) String() string {
 	if c == nil {
 		return "ChatAdminRights(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatAdminRights")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatAdminRights
+	return fmt.Sprintf("ChatAdminRights%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (e *EncryptedChatEmpty) String() string {
 	if e == nil {
 		return "EncryptedChatEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedChatEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedChatEmpty
+	return fmt.Sprintf("EncryptedChatEmpty%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -154,26 +148,8 @@ func (e *EncryptedChatWaiting) String() string {
 	if e == nil {
 		return "EncryptedChatWaiting(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedChatWaiting")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(e.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(e.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(e.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(e.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedChatWaiting
+	return fmt.Sprintf("EncryptedChatWaiting%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -352,37 +328,8 @@ func (e *EncryptedChatRequested) String() string {
 	if e == nil {
 		return "EncryptedChatRequested(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedChatRequested")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(e.Flags))
-	sb.WriteString(",\n")
-	if e.Flags.Has(0) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(e.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(e.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(e.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(e.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(e.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGA: ")
-	sb.WriteString(fmt.Sprint(e.GA))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedChatRequested
+	return fmt.Sprintf("EncryptedChatRequested%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -597,32 +544,8 @@ func (e *EncryptedChat) String() string {
 	if e == nil {
 		return "EncryptedChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(e.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(e.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(e.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(e.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGAOrB: ")
-	sb.WriteString(fmt.Sprint(e.GAOrB))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(e.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedChat
+	return fmt.Sprintf("EncryptedChat%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -791,17 +714,8 @@ func (e *EncryptedChatDiscarded) String() string {
 	if e == nil {
 		return "EncryptedChatDiscarded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EncryptedChatDiscarded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(e.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EncryptedChatDiscarded
+	return fmt.Sprintf("EncryptedChatDiscarded%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -887,16 +801,16 @@ var (
 // See https://core.telegram.org/type/EncryptedChat for reference.
 //
 // Example:
-//  g, err := DecodeEncryptedChat(buf)
+//  g, err := tg.DecodeEncryptedChat(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *EncryptedChatEmpty: // encryptedChatEmpty#ab7ec0a0
-//  case *EncryptedChatWaiting: // encryptedChatWaiting#3bf703dc
-//  case *EncryptedChatRequested: // encryptedChatRequested#62718a82
-//  case *EncryptedChat: // encryptedChat#fa56ce36
-//  case *EncryptedChatDiscarded: // encryptedChatDiscarded#1e1c7c45
+//  case *tg.EncryptedChatEmpty: // encryptedChatEmpty#ab7ec0a0
+//  case *tg.EncryptedChatWaiting: // encryptedChatWaiting#3bf703dc
+//  case *tg.EncryptedChatRequested: // encryptedChatRequested#62718a82
+//  case *tg.EncryptedChat: // encryptedChat#fa56ce36
+//  case *tg.EncryptedChatDiscarded: // encryptedChatDiscarded#1e1c7c45
 //  default: panic(v)
 //  }
 type EncryptedChatClass interface {

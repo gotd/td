@@ -45,16 +45,8 @@ func (t *TestVectorIntObject) String() string {
 	if t == nil {
 		return "TestVectorIntObject(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TestVectorIntObject")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range t.Value {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TestVectorIntObject
+	return fmt.Sprintf("TestVectorIntObject%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

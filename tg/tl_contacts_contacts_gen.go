@@ -41,11 +41,8 @@ func (c *ContactsContactsNotModified) String() string {
 	if c == nil {
 		return "ContactsContactsNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsContactsNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsContactsNotModified
+	return fmt.Sprintf("ContactsContactsNotModified%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -123,24 +120,8 @@ func (c *ContactsContacts) String() string {
 	if c == nil {
 		return "ContactsContacts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsContacts")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range c.Contacts {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tSavedCount: ")
-	sb.WriteString(fmt.Sprint(c.SavedCount))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsContacts
+	return fmt.Sprintf("ContactsContacts%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -249,13 +230,13 @@ var (
 // See https://core.telegram.org/type/contacts.Contacts for reference.
 //
 // Example:
-//  g, err := DecodeContactsContacts(buf)
+//  g, err := tg.DecodeContactsContacts(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ContactsContactsNotModified: // contacts.contactsNotModified#b74ba9d2
-//  case *ContactsContacts: // contacts.contacts#eae87e42
+//  case *tg.ContactsContactsNotModified: // contacts.contactsNotModified#b74ba9d2
+//  case *tg.ContactsContacts: // contacts.contacts#eae87e42
 //  default: panic(v)
 //  }
 type ContactsContactsClass interface {

@@ -57,17 +57,8 @@ func (r *AuthResendCodeRequest) String() string {
 	if r == nil {
 		return "AuthResendCodeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthResendCodeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(r.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneCodeHash: ")
-	sb.WriteString(fmt.Sprint(r.PhoneCodeHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthResendCodeRequest
+	return fmt.Sprintf("AuthResendCodeRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

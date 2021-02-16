@@ -70,29 +70,8 @@ func (u *AccountUpdateProfileRequest) String() string {
 	if u == nil {
 		return "AccountUpdateProfileRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateProfileRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFirstName: ")
-		sb.WriteString(fmt.Sprint(u.FirstName))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tLastName: ")
-		sb.WriteString(fmt.Sprint(u.LastName))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(2) {
-		sb.WriteString("\tAbout: ")
-		sb.WriteString(fmt.Sprint(u.About))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateProfileRequest
+	return fmt.Sprintf("AccountUpdateProfileRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

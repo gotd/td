@@ -68,24 +68,8 @@ func (i *AccountInstallThemeRequest) String() string {
 	if i == nil {
 		return "AccountInstallThemeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountInstallThemeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteString("\tFormat: ")
-		sb.WriteString(fmt.Sprint(i.Format))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tTheme: ")
-		sb.WriteString(fmt.Sprint(i.Theme))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountInstallThemeRequest
+	return fmt.Sprintf("AccountInstallThemeRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

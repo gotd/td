@@ -46,14 +46,8 @@ func (f *MessagesFeaturedStickersNotModified) String() string {
 	if f == nil {
 		return "MessagesFeaturedStickersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFeaturedStickersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(f.Count))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFeaturedStickersNotModified
+	return fmt.Sprintf("MessagesFeaturedStickersNotModified%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -152,27 +146,8 @@ func (f *MessagesFeaturedStickers) String() string {
 	if f == nil {
 		return "MessagesFeaturedStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFeaturedStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(f.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(f.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.Sets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.Unread {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFeaturedStickers
+	return fmt.Sprintf("MessagesFeaturedStickers%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -292,13 +267,13 @@ var (
 // See https://core.telegram.org/type/messages.FeaturedStickers for reference.
 //
 // Example:
-//  g, err := DecodeMessagesFeaturedStickers(buf)
+//  g, err := tg.DecodeMessagesFeaturedStickers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesFeaturedStickersNotModified: // messages.featuredStickersNotModified#c6dc0c66
-//  case *MessagesFeaturedStickers: // messages.featuredStickers#b6abc341
+//  case *tg.MessagesFeaturedStickersNotModified: // messages.featuredStickersNotModified#c6dc0c66
+//  case *tg.MessagesFeaturedStickers: // messages.featuredStickers#b6abc341
 //  default: panic(v)
 //  }
 type MessagesFeaturedStickersClass interface {

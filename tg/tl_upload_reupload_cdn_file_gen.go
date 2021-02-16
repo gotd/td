@@ -54,17 +54,8 @@ func (r *UploadReuploadCdnFileRequest) String() string {
 	if r == nil {
 		return "UploadReuploadCdnFileRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadReuploadCdnFileRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFileToken: ")
-	sb.WriteString(fmt.Sprint(r.FileToken))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRequestToken: ")
-	sb.WriteString(fmt.Sprint(r.RequestToken))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadReuploadCdnFileRequest
+	return fmt.Sprintf("UploadReuploadCdnFileRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

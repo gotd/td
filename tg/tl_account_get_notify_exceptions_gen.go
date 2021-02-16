@@ -61,19 +61,8 @@ func (g *AccountGetNotifyExceptionsRequest) String() string {
 	if g == nil {
 		return "AccountGetNotifyExceptionsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetNotifyExceptionsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tPeer: ")
-		sb.WriteString(fmt.Sprint(g.Peer))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetNotifyExceptionsRequest
+	return fmt.Sprintf("AccountGetNotifyExceptionsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

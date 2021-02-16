@@ -102,48 +102,8 @@ func (b *BotInlineResult) String() string {
 	if b == nil {
 		return "BotInlineResult(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineResult")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(b.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(b.Type))
-	sb.WriteString(",\n")
-	if b.Flags.Has(1) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(b.Title))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(b.Description))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(3) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(b.URL))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(4) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(fmt.Sprint(b.Thumb))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(5) {
-		sb.WriteString("\tContent: ")
-		sb.WriteString(fmt.Sprint(b.Content))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(b.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineResult
+	return fmt.Sprintf("BotInlineResult%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -465,43 +425,8 @@ func (b *BotInlineMediaResult) String() string {
 	if b == nil {
 		return "BotInlineMediaResult(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMediaResult")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(b.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(b.Type))
-	sb.WriteString(",\n")
-	if b.Flags.Has(0) {
-		sb.WriteString("\tPhoto: ")
-		sb.WriteString(fmt.Sprint(b.Photo))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(1) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(b.Document))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(b.Title))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(3) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(b.Description))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(b.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMediaResult
+	return fmt.Sprintf("BotInlineMediaResult%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -720,13 +645,13 @@ var (
 // See https://core.telegram.org/type/BotInlineResult for reference.
 //
 // Example:
-//  g, err := DecodeBotInlineResult(buf)
+//  g, err := tg.DecodeBotInlineResult(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BotInlineResult: // botInlineResult#11965f3a
-//  case *BotInlineMediaResult: // botInlineMediaResult#17db940b
+//  case *tg.BotInlineResult: // botInlineResult#11965f3a
+//  case *tg.BotInlineMediaResult: // botInlineMediaResult#17db940b
 //  default: panic(v)
 //  }
 type BotInlineResultClass interface {

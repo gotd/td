@@ -80,25 +80,8 @@ func (p *PhoneCallProtocol) String() string {
 	if p == nil {
 		return "PhoneCallProtocol(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallProtocol")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinLayer: ")
-	sb.WriteString(fmt.Sprint(p.MinLayer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxLayer: ")
-	sb.WriteString(fmt.Sprint(p.MaxLayer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.LibraryVersions {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallProtocol
+	return fmt.Sprintf("PhoneCallProtocol%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

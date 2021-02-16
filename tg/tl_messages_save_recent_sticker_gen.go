@@ -64,20 +64,8 @@ func (s *MessagesSaveRecentStickerRequest) String() string {
 	if s == nil {
 		return "MessagesSaveRecentStickerRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSaveRecentStickerRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnsave: ")
-	sb.WriteString(fmt.Sprint(s.Unsave))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSaveRecentStickerRequest
+	return fmt.Sprintf("MessagesSaveRecentStickerRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

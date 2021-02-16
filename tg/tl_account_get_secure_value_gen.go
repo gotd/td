@@ -50,16 +50,8 @@ func (g *AccountGetSecureValueRequest) String() string {
 	if g == nil {
 		return "AccountGetSecureValueRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetSecureValueRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.Types {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetSecureValueRequest
+	return fmt.Sprintf("AccountGetSecureValueRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

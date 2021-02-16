@@ -41,11 +41,8 @@ func (a *MessagesAllStickersNotModified) String() string {
 	if a == nil {
 		return "MessagesAllStickersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAllStickersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAllStickersNotModified
+	return fmt.Sprintf("MessagesAllStickersNotModified%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,19 +118,8 @@ func (a *MessagesAllStickers) String() string {
 	if a == nil {
 		return "MessagesAllStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAllStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(a.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range a.Sets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAllStickers
+	return fmt.Sprintf("MessagesAllStickers%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -215,13 +201,13 @@ var (
 // See https://core.telegram.org/type/messages.AllStickers for reference.
 //
 // Example:
-//  g, err := DecodeMessagesAllStickers(buf)
+//  g, err := tg.DecodeMessagesAllStickers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesAllStickersNotModified: // messages.allStickersNotModified#e86602c3
-//  case *MessagesAllStickers: // messages.allStickers#edfd405f
+//  case *tg.MessagesAllStickersNotModified: // messages.allStickersNotModified#e86602c3
+//  case *tg.MessagesAllStickers: // messages.allStickers#edfd405f
 //  default: panic(v)
 //  }
 type MessagesAllStickersClass interface {

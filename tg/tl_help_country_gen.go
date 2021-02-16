@@ -76,30 +76,8 @@ func (c *HelpCountry) String() string {
 	if c == nil {
 		return "HelpCountry(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpCountry")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIso2: ")
-	sb.WriteString(fmt.Sprint(c.Iso2))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDefaultName: ")
-	sb.WriteString(fmt.Sprint(c.DefaultName))
-	sb.WriteString(",\n")
-	if c.Flags.Has(1) {
-		sb.WriteString("\tName: ")
-		sb.WriteString(fmt.Sprint(c.Name))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range c.CountryCodes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpCountry
+	return fmt.Sprintf("HelpCountry%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

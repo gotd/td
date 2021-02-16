@@ -50,14 +50,8 @@ func (u *AccountUpdateStatusRequest) String() string {
 	if u == nil {
 		return "AccountUpdateStatusRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateStatusRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffline: ")
-	sb.WriteString(fmt.Sprint(u.Offline))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateStatusRequest
+	return fmt.Sprintf("AccountUpdateStatusRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

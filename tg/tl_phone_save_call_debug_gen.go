@@ -51,17 +51,8 @@ func (s *PhoneSaveCallDebugRequest) String() string {
 	if s == nil {
 		return "PhoneSaveCallDebugRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneSaveCallDebugRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDebug: ")
-	sb.WriteString(fmt.Sprint(s.Debug))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneSaveCallDebugRequest
+	return fmt.Sprintf("PhoneSaveCallDebugRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

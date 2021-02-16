@@ -46,16 +46,8 @@ func (k *KeyboardButtonRow) String() string {
 	if k == nil {
 		return "KeyboardButtonRow(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonRow")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range k.Buttons {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonRow
+	return fmt.Sprintf("KeyboardButtonRow%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).

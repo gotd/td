@@ -51,17 +51,8 @@ func (g *MessagesGetPollResultsRequest) String() string {
 	if g == nil {
 		return "MessagesGetPollResultsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetPollResultsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(g.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetPollResultsRequest
+	return fmt.Sprintf("MessagesGetPollResultsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

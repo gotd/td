@@ -166,40 +166,8 @@ func (d *DialogFilter) String() string {
 	if d == nil {
 		return "DialogFilter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogFilter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(d.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(d.Title))
-	sb.WriteString(",\n")
-	if d.Flags.Has(25) {
-		sb.WriteString("\tEmoticon: ")
-		sb.WriteString(fmt.Sprint(d.Emoticon))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range d.PinnedPeers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.IncludePeers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.ExcludePeers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DialogFilter
+	return fmt.Sprintf("DialogFilter%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

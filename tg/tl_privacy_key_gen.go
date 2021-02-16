@@ -41,11 +41,8 @@ func (p *PrivacyKeyStatusTimestamp) String() string {
 	if p == nil {
 		return "PrivacyKeyStatusTimestamp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyStatusTimestamp")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyStatusTimestamp
+	return fmt.Sprintf("PrivacyKeyStatusTimestamp%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (p *PrivacyKeyChatInvite) String() string {
 	if p == nil {
 		return "PrivacyKeyChatInvite(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyChatInvite")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyChatInvite
+	return fmt.Sprintf("PrivacyKeyChatInvite%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (p *PrivacyKeyPhoneCall) String() string {
 	if p == nil {
 		return "PrivacyKeyPhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyPhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyPhoneCall
+	return fmt.Sprintf("PrivacyKeyPhoneCall%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (p *PrivacyKeyPhoneP2P) String() string {
 	if p == nil {
 		return "PrivacyKeyPhoneP2P(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyPhoneP2P")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyPhoneP2P
+	return fmt.Sprintf("PrivacyKeyPhoneP2P%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -312,11 +300,8 @@ func (p *PrivacyKeyForwards) String() string {
 	if p == nil {
 		return "PrivacyKeyForwards(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyForwards")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyForwards
+	return fmt.Sprintf("PrivacyKeyForwards%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -379,11 +364,8 @@ func (p *PrivacyKeyProfilePhoto) String() string {
 	if p == nil {
 		return "PrivacyKeyProfilePhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyProfilePhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyProfilePhoto
+	return fmt.Sprintf("PrivacyKeyProfilePhoto%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -446,11 +428,8 @@ func (p *PrivacyKeyPhoneNumber) String() string {
 	if p == nil {
 		return "PrivacyKeyPhoneNumber(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyPhoneNumber")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyPhoneNumber
+	return fmt.Sprintf("PrivacyKeyPhoneNumber%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -513,11 +492,8 @@ func (p *PrivacyKeyAddedByPhone) String() string {
 	if p == nil {
 		return "PrivacyKeyAddedByPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PrivacyKeyAddedByPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PrivacyKeyAddedByPhone
+	return fmt.Sprintf("PrivacyKeyAddedByPhone%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -562,19 +538,19 @@ var (
 // See https://core.telegram.org/type/PrivacyKey for reference.
 //
 // Example:
-//  g, err := DecodePrivacyKey(buf)
+//  g, err := tg.DecodePrivacyKey(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
-//  case *PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
-//  case *PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
-//  case *PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
-//  case *PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
-//  case *PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
-//  case *PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
-//  case *PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
+//  case *tg.PrivacyKeyStatusTimestamp: // privacyKeyStatusTimestamp#bc2eab30
+//  case *tg.PrivacyKeyChatInvite: // privacyKeyChatInvite#500e6dfa
+//  case *tg.PrivacyKeyPhoneCall: // privacyKeyPhoneCall#3d662b7b
+//  case *tg.PrivacyKeyPhoneP2P: // privacyKeyPhoneP2P#39491cc8
+//  case *tg.PrivacyKeyForwards: // privacyKeyForwards#69ec56a3
+//  case *tg.PrivacyKeyProfilePhoto: // privacyKeyProfilePhoto#96151fed
+//  case *tg.PrivacyKeyPhoneNumber: // privacyKeyPhoneNumber#d19ae46d
+//  case *tg.PrivacyKeyAddedByPhone: // privacyKeyAddedByPhone#42ffd42b
 //  default: panic(v)
 //  }
 type PrivacyKeyClass interface {

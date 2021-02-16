@@ -59,20 +59,8 @@ func (e *ChannelsEditLocationRequest) String() string {
 	if e == nil {
 		return "ChannelsEditLocationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsEditLocationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(e.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(e.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(e.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsEditLocationRequest
+	return fmt.Sprintf("ChannelsEditLocationRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

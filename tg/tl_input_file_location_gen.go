@@ -64,23 +64,8 @@ func (i *InputFileLocation) String() string {
 	if i == nil {
 		return "InputFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(i.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(i.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(i.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputFileLocation
+	return fmt.Sprintf("InputFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -211,17 +196,8 @@ func (i *InputEncryptedFileLocation) String() string {
 	if i == nil {
 		return "InputEncryptedFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputEncryptedFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputEncryptedFileLocation
+	return fmt.Sprintf("InputEncryptedFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -336,23 +312,8 @@ func (i *InputDocumentFileLocation) String() string {
 	if i == nil {
 		return "InputDocumentFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputDocumentFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbSize: ")
-	sb.WriteString(fmt.Sprint(i.ThumbSize))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputDocumentFileLocation
+	return fmt.Sprintf("InputDocumentFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -486,17 +447,8 @@ func (i *InputSecureFileLocation) String() string {
 	if i == nil {
 		return "InputSecureFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputSecureFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputSecureFileLocation
+	return fmt.Sprintf("InputSecureFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -585,11 +537,8 @@ func (i *InputTakeoutFileLocation) String() string {
 	if i == nil {
 		return "InputTakeoutFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputTakeoutFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputTakeoutFileLocation
+	return fmt.Sprintf("InputTakeoutFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -688,23 +637,8 @@ func (i *InputPhotoFileLocation) String() string {
 	if i == nil {
 		return "InputPhotoFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPhotoFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbSize: ")
-	sb.WriteString(fmt.Sprint(i.ThumbSize))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPhotoFileLocation
+	return fmt.Sprintf("InputPhotoFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -849,29 +783,8 @@ func (i *InputPhotoLegacyFileLocation) String() string {
 	if i == nil {
 		return "InputPhotoLegacyFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPhotoLegacyFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileReference: ")
-	sb.WriteString(fmt.Sprint(i.FileReference))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(i.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(i.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(i.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPhotoLegacyFileLocation
+	return fmt.Sprintf("InputPhotoLegacyFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1046,23 +959,8 @@ func (i *InputPeerPhotoFileLocation) String() string {
 	if i == nil {
 		return "InputPeerPhotoFileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerPhotoFileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(i.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(i.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerPhotoFileLocation
+	return fmt.Sprintf("InputPeerPhotoFileLocation%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1215,20 +1113,8 @@ func (i *InputStickerSetThumb) String() string {
 	if i == nil {
 		return "InputStickerSetThumb(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetThumb")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(i.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(i.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(i.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetThumb
+	return fmt.Sprintf("InputStickerSetThumb%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1317,20 +1203,20 @@ var (
 // See https://core.telegram.org/type/InputFileLocation for reference.
 //
 // Example:
-//  g, err := DecodeInputFileLocation(buf)
+//  g, err := tg.DecodeInputFileLocation(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputFileLocation: // inputFileLocation#dfdaabe1
-//  case *InputEncryptedFileLocation: // inputEncryptedFileLocation#f5235d55
-//  case *InputDocumentFileLocation: // inputDocumentFileLocation#bad07584
-//  case *InputSecureFileLocation: // inputSecureFileLocation#cbc7ee28
-//  case *InputTakeoutFileLocation: // inputTakeoutFileLocation#29be5899
-//  case *InputPhotoFileLocation: // inputPhotoFileLocation#40181ffe
-//  case *InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
-//  case *InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#27d69997
-//  case *InputStickerSetThumb: // inputStickerSetThumb#dbaeae9
+//  case *tg.InputFileLocation: // inputFileLocation#dfdaabe1
+//  case *tg.InputEncryptedFileLocation: // inputEncryptedFileLocation#f5235d55
+//  case *tg.InputDocumentFileLocation: // inputDocumentFileLocation#bad07584
+//  case *tg.InputSecureFileLocation: // inputSecureFileLocation#cbc7ee28
+//  case *tg.InputTakeoutFileLocation: // inputTakeoutFileLocation#29be5899
+//  case *tg.InputPhotoFileLocation: // inputPhotoFileLocation#40181ffe
+//  case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
+//  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#27d69997
+//  case *tg.InputStickerSetThumb: // inputStickerSetThumb#dbaeae9
 //  default: panic(v)
 //  }
 type InputFileLocationClass interface {

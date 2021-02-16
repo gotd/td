@@ -41,11 +41,8 @@ func (r *AccountResetNotifySettingsRequest) String() string {
 	if r == nil {
 		return "AccountResetNotifySettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountResetNotifySettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountResetNotifySettingsRequest
+	return fmt.Sprintf("AccountResetNotifySettingsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
