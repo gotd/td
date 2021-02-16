@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -99,7 +98,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 	}
 
 	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")
-	corpus, err := ioutil.ReadDir(corpusDir)
+	corpus, err := os.ReadDir(corpusDir)
 	if os.IsNotExist(err) || testutil.Race {
 		t.Skip("Skipped")
 	}
@@ -111,7 +110,7 @@ func TestConnHandleMessageCorpus(t *testing.T) {
 
 	for _, f := range corpus {
 		t.Run(f.Name(), func(t *testing.T) {
-			data, err := ioutil.ReadFile(filepath.Join(corpusDir, f.Name()))
+			data, err := os.ReadFile(filepath.Join(corpusDir, f.Name()))
 			require.NoError(t, err)
 
 			// Default to 128 bytes per invocation.

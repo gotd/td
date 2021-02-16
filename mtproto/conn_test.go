@@ -4,8 +4,8 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"io/ioutil"
 	"math/rand"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -82,6 +82,6 @@ func newCorpusTracer(t testing.TB) func(b *bin.Buffer) {
 		base := fmt.Sprintf("trace_%x_%s_%x",
 			id, name, h,
 		)
-		assert.NoError(t, ioutil.WriteFile(filepath.Join(dir, base), b.Buf, 0600))
+		assert.NoError(t, os.WriteFile(filepath.Join(dir, base), b.Buf, 0600))
 	}
 }

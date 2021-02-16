@@ -3,7 +3,7 @@ package gen
 import (
 	"bytes"
 	"go/format"
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"golang.org/x/xerrors"
@@ -22,7 +22,7 @@ func (t formattedSource) WriteFile(name string, content []byte) error {
 }
 
 func TestGenerator(t *testing.T) {
-	data, err := ioutil.ReadFile("_testdata/example.tl")
+	data, err := os.ReadFile("_testdata/example.tl")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -40,7 +40,7 @@ func TestGenerator(t *testing.T) {
 }
 
 func TestGeneratorTelegram(t *testing.T) {
-	data, err := ioutil.ReadFile("_testdata/telegram.tl")
+	data, err := os.ReadFile("_testdata/telegram.tl")
 	if err != nil {
 		t.Fatal(err)
 	}

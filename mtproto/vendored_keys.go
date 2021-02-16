@@ -2,25 +2,23 @@ package mtproto
 
 import (
 	"crypto/rsa"
+	// For embedding public keys.
+	_ "embed"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/mtproto/internal"
 )
 
-//go:generate go run github.com/go-bindata/go-bindata/go-bindata -pkg=internal -o=internal/bindata.go -mode=420 -modtime=1 ./_data/...
+//go:embed _data/public_keys.pem
+var publicKeys []byte // nolint:gochecknoglobals
 
 // vendoredKeys parses vendored file _data/public_keys.pem as list of
 // PEM-encoded public RSA keys.
 //
 // Most recent key list can be found on https://my.telegram.org/apps.
 func vendoredKeys() ([]*rsa.PublicKey, error) {
-	pem, err := internal.Asset("_data/public_keys.pem")
-	if err != nil {
-		return nil, xerrors.Errorf("open: %w", err)
-	}
-	keys, err := crypto.ParseRSAPublicKeys(pem)
+	keys, err := crypto.ParseRSAPublicKeys(publicKeys)
 	if err != nil {
 		return nil, xerrors.Errorf("parse: %w", err)
 	}
