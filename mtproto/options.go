@@ -14,6 +14,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/exchange"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tmap"
@@ -135,7 +136,7 @@ func (opt *Options) setDefaults() {
 		opt.DialTimeout = 15 * time.Second
 	}
 	if opt.ExchangeTimeout == 0 {
-		opt.ExchangeTimeout = 15 * time.Second
+		opt.ExchangeTimeout = exchange.DefaultTimeout
 	}
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5

@@ -15,6 +15,9 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+// DefaultTimeout is default WithTimeout parameter value.
+const DefaultTimeout = 1 * time.Minute
+
 // Exchanger is builder for key exchangers.
 type Exchanger struct {
 	conn transport.Conn
@@ -57,7 +60,7 @@ func NewExchanger(conn transport.Conn) Exchanger {
 		clock:   clock.System,
 		rand:    rand.Reader,
 		log:     zap.NewNop(),
-		timeout: 15 * time.Second,
+		timeout: DefaultTimeout,
 	}
 }
 
