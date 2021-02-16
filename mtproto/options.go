@@ -48,6 +48,10 @@ type Options struct {
 	AckInterval time.Duration
 	// RetryInterval is duration between retries.
 	RetryInterval time.Duration
+	// DialTimeout is timeout of creating connection.
+	DialTimeout time.Duration
+	// ExchangeTimeout is timeout of every key exchange request.
+	ExchangeTimeout time.Duration
 	// MaxRetries is max retry count until rpc request failure.
 	MaxRetries int
 	// MessageID is message id source. Share source between connection to
@@ -122,10 +126,16 @@ func (opt *Options) setDefaults() {
 		opt.AckBatchSize = 20
 	}
 	if opt.AckInterval == 0 {
-		opt.AckInterval = time.Second * 15
+		opt.AckInterval = 15 * time.Second
 	}
 	if opt.RetryInterval == 0 {
-		opt.RetryInterval = time.Second * 5
+		opt.RetryInterval = 5 * time.Second
+	}
+	if opt.DialTimeout == 0 {
+		opt.DialTimeout = 15 * time.Second
+	}
+	if opt.ExchangeTimeout == 0 {
+		opt.ExchangeTimeout = 15 * time.Second
 	}
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
