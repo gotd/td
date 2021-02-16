@@ -56,20 +56,8 @@ func (g *AccountGetAuthorizationFormRequest) String() string {
 	if g == nil {
 		return "AccountGetAuthorizationFormRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetAuthorizationFormRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBotID: ")
-	sb.WriteString(fmt.Sprint(g.BotID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScope: ")
-	sb.WriteString(fmt.Sprint(g.Scope))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPublicKey: ")
-	sb.WriteString(fmt.Sprint(g.PublicKey))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetAuthorizationFormRequest
+	return fmt.Sprintf("AccountGetAuthorizationFormRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -56,20 +56,8 @@ func (a *MessagesAffectedHistory) String() string {
 	if a == nil {
 		return "MessagesAffectedHistory(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAffectedHistory")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(a.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(a.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(a.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAffectedHistory
+	return fmt.Sprintf("MessagesAffectedHistory%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

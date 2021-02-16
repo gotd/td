@@ -46,14 +46,8 @@ func (r *MessagesReadMentionsRequest) String() string {
 	if r == nil {
 		return "MessagesReadMentionsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReadMentionsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReadMentionsRequest
+	return fmt.Sprintf("MessagesReadMentionsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -67,23 +67,8 @@ func (e *ChannelsEditAdminRequest) String() string {
 	if e == nil {
 		return "ChannelsEditAdminRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsEditAdminRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(e.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(e.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminRights: ")
-	sb.WriteString(fmt.Sprint(e.AdminRights))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRank: ")
-	sb.WriteString(fmt.Sprint(e.Rank))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsEditAdminRequest
+	return fmt.Sprintf("ChannelsEditAdminRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

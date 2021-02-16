@@ -45,14 +45,8 @@ func (d *DecryptedMessageActionSetMessageTTL) String() string {
 	if d == nil {
 		return "DecryptedMessageActionSetMessageTTL(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionSetMessageTTL")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTTLSeconds: ")
-	sb.WriteString(fmt.Sprint(d.TTLSeconds))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionSetMessageTTL
+	return fmt.Sprintf("DecryptedMessageActionSetMessageTTL%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -132,16 +126,8 @@ func (d *DecryptedMessageActionReadMessages) String() string {
 	if d == nil {
 		return "DecryptedMessageActionReadMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionReadMessages")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.RandomIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionReadMessages
+	return fmt.Sprintf("DecryptedMessageActionReadMessages%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -230,16 +216,8 @@ func (d *DecryptedMessageActionDeleteMessages) String() string {
 	if d == nil {
 		return "DecryptedMessageActionDeleteMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionDeleteMessages")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.RandomIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionDeleteMessages
+	return fmt.Sprintf("DecryptedMessageActionDeleteMessages%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -328,16 +306,8 @@ func (d *DecryptedMessageActionScreenshotMessages) String() string {
 	if d == nil {
 		return "DecryptedMessageActionScreenshotMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionScreenshotMessages")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.RandomIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionScreenshotMessages
+	return fmt.Sprintf("DecryptedMessageActionScreenshotMessages%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -421,11 +391,8 @@ func (d *DecryptedMessageActionFlushHistory) String() string {
 	if d == nil {
 		return "DecryptedMessageActionFlushHistory(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionFlushHistory")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionFlushHistory
+	return fmt.Sprintf("DecryptedMessageActionFlushHistory%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -497,17 +464,8 @@ func (d *DecryptedMessageActionResend) String() string {
 	if d == nil {
 		return "DecryptedMessageActionResend(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionResend")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStartSeqNo: ")
-	sb.WriteString(fmt.Sprint(d.StartSeqNo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEndSeqNo: ")
-	sb.WriteString(fmt.Sprint(d.EndSeqNo))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionResend
+	return fmt.Sprintf("DecryptedMessageActionResend%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -600,14 +558,8 @@ func (d *DecryptedMessageActionNotifyLayer) String() string {
 	if d == nil {
 		return "DecryptedMessageActionNotifyLayer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionNotifyLayer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLayer: ")
-	sb.WriteString(fmt.Sprint(d.Layer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionNotifyLayer
+	return fmt.Sprintf("DecryptedMessageActionNotifyLayer%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -687,14 +639,8 @@ func (d *DecryptedMessageActionTyping) String() string {
 	if d == nil {
 		return "DecryptedMessageActionTyping(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionTyping")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(d.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionTyping
+	return fmt.Sprintf("DecryptedMessageActionTyping%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -784,17 +730,8 @@ func (d *DecryptedMessageActionRequestKey) String() string {
 	if d == nil {
 		return "DecryptedMessageActionRequestKey(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionRequestKey")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExchangeID: ")
-	sb.WriteString(fmt.Sprint(d.ExchangeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGA: ")
-	sb.WriteString(fmt.Sprint(d.GA))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionRequestKey
+	return fmt.Sprintf("DecryptedMessageActionRequestKey%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -897,20 +834,8 @@ func (d *DecryptedMessageActionAcceptKey) String() string {
 	if d == nil {
 		return "DecryptedMessageActionAcceptKey(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionAcceptKey")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExchangeID: ")
-	sb.WriteString(fmt.Sprint(d.ExchangeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGB: ")
-	sb.WriteString(fmt.Sprint(d.GB))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(d.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionAcceptKey
+	return fmt.Sprintf("DecryptedMessageActionAcceptKey%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1016,14 +941,8 @@ func (d *DecryptedMessageActionAbortKey) String() string {
 	if d == nil {
 		return "DecryptedMessageActionAbortKey(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionAbortKey")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExchangeID: ")
-	sb.WriteString(fmt.Sprint(d.ExchangeID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionAbortKey
+	return fmt.Sprintf("DecryptedMessageActionAbortKey%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1108,17 +1027,8 @@ func (d *DecryptedMessageActionCommitKey) String() string {
 	if d == nil {
 		return "DecryptedMessageActionCommitKey(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionCommitKey")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExchangeID: ")
-	sb.WriteString(fmt.Sprint(d.ExchangeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(d.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionCommitKey
+	return fmt.Sprintf("DecryptedMessageActionCommitKey%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1206,11 +1116,8 @@ func (d *DecryptedMessageActionNoop) String() string {
 	if d == nil {
 		return "DecryptedMessageActionNoop(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageActionNoop")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageActionNoop
+	return fmt.Sprintf("DecryptedMessageActionNoop%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1255,24 +1162,24 @@ var (
 // See https://core.telegram.org/type/DecryptedMessageAction for reference.
 //
 // Example:
-//  g, err := DecodeDecryptedMessageAction(buf)
+//  g, err := e2e.DecodeDecryptedMessageAction(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DecryptedMessageActionSetMessageTTL: // decryptedMessageActionSetMessageTTL#a1733aec
-//  case *DecryptedMessageActionReadMessages: // decryptedMessageActionReadMessages#c4f40be
-//  case *DecryptedMessageActionDeleteMessages: // decryptedMessageActionDeleteMessages#65614304
-//  case *DecryptedMessageActionScreenshotMessages: // decryptedMessageActionScreenshotMessages#8ac1f475
-//  case *DecryptedMessageActionFlushHistory: // decryptedMessageActionFlushHistory#6719e45c
-//  case *DecryptedMessageActionResend: // decryptedMessageActionResend#511110b0
-//  case *DecryptedMessageActionNotifyLayer: // decryptedMessageActionNotifyLayer#f3048883
-//  case *DecryptedMessageActionTyping: // decryptedMessageActionTyping#ccb27641
-//  case *DecryptedMessageActionRequestKey: // decryptedMessageActionRequestKey#f3c9611b
-//  case *DecryptedMessageActionAcceptKey: // decryptedMessageActionAcceptKey#6fe1735b
-//  case *DecryptedMessageActionAbortKey: // decryptedMessageActionAbortKey#dd05ec6b
-//  case *DecryptedMessageActionCommitKey: // decryptedMessageActionCommitKey#ec2e0b9b
-//  case *DecryptedMessageActionNoop: // decryptedMessageActionNoop#a82fdd63
+//  case *e2e.DecryptedMessageActionSetMessageTTL: // decryptedMessageActionSetMessageTTL#a1733aec
+//  case *e2e.DecryptedMessageActionReadMessages: // decryptedMessageActionReadMessages#c4f40be
+//  case *e2e.DecryptedMessageActionDeleteMessages: // decryptedMessageActionDeleteMessages#65614304
+//  case *e2e.DecryptedMessageActionScreenshotMessages: // decryptedMessageActionScreenshotMessages#8ac1f475
+//  case *e2e.DecryptedMessageActionFlushHistory: // decryptedMessageActionFlushHistory#6719e45c
+//  case *e2e.DecryptedMessageActionResend: // decryptedMessageActionResend#511110b0
+//  case *e2e.DecryptedMessageActionNotifyLayer: // decryptedMessageActionNotifyLayer#f3048883
+//  case *e2e.DecryptedMessageActionTyping: // decryptedMessageActionTyping#ccb27641
+//  case *e2e.DecryptedMessageActionRequestKey: // decryptedMessageActionRequestKey#f3c9611b
+//  case *e2e.DecryptedMessageActionAcceptKey: // decryptedMessageActionAcceptKey#6fe1735b
+//  case *e2e.DecryptedMessageActionAbortKey: // decryptedMessageActionAbortKey#dd05ec6b
+//  case *e2e.DecryptedMessageActionCommitKey: // decryptedMessageActionCommitKey#ec2e0b9b
+//  case *e2e.DecryptedMessageActionNoop: // decryptedMessageActionNoop#a82fdd63
 //  default: panic(v)
 //  }
 type DecryptedMessageActionClass interface {

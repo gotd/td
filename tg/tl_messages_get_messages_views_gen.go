@@ -59,22 +59,8 @@ func (g *MessagesGetMessagesViewsRequest) String() string {
 	if g == nil {
 		return "MessagesGetMessagesViewsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetMessagesViewsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tIncrement: ")
-	sb.WriteString(fmt.Sprint(g.Increment))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetMessagesViewsRequest
+	return fmt.Sprintf("MessagesGetMessagesViewsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,16 +46,8 @@ func (s *HelpSaveAppLogRequest) String() string {
 	if s == nil {
 		return "HelpSaveAppLogRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpSaveAppLogRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range s.Events {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpSaveAppLogRequest
+	return fmt.Sprintf("HelpSaveAppLogRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

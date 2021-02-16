@@ -51,17 +51,8 @@ func (s *ContactsSearchRequest) String() string {
 	if s == nil {
 		return "ContactsSearchRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsSearchRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(s.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(s.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsSearchRequest
+	return fmt.Sprintf("ContactsSearchRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

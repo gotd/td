@@ -51,17 +51,8 @@ func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
 	if a == nil {
 		return "BotsAnswerWebhookJSONQueryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotsAnswerWebhookJSONQueryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(a.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(a.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotsAnswerWebhookJSONQueryRequest
+	return fmt.Sprintf("BotsAnswerWebhookJSONQueryRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

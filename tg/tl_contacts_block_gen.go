@@ -46,14 +46,8 @@ func (b *ContactsBlockRequest) String() string {
 	if b == nil {
 		return "ContactsBlockRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsBlockRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(b.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsBlockRequest
+	return fmt.Sprintf("ContactsBlockRequest%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -62,20 +62,8 @@ func (g *MessagesGetCommonChatsRequest) String() string {
 	if g == nil {
 		return "MessagesGetCommonChatsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetCommonChatsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(g.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetCommonChatsRequest
+	return fmt.Sprintf("MessagesGetCommonChatsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

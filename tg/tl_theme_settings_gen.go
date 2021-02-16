@@ -80,35 +80,8 @@ func (t *ThemeSettings) String() string {
 	if t == nil {
 		return "ThemeSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ThemeSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBaseTheme: ")
-	sb.WriteString(fmt.Sprint(t.BaseTheme))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccentColor: ")
-	sb.WriteString(fmt.Sprint(t.AccentColor))
-	sb.WriteString(",\n")
-	if t.Flags.Has(0) {
-		sb.WriteString("\tMessageTopColor: ")
-		sb.WriteString(fmt.Sprint(t.MessageTopColor))
-		sb.WriteString(",\n")
-	}
-	if t.Flags.Has(0) {
-		sb.WriteString("\tMessageBottomColor: ")
-		sb.WriteString(fmt.Sprint(t.MessageBottomColor))
-		sb.WriteString(",\n")
-	}
-	if t.Flags.Has(1) {
-		sb.WriteString("\tWallpaper: ")
-		sb.WriteString(fmt.Sprint(t.Wallpaper))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ThemeSettings
+	return fmt.Sprintf("ThemeSettings%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

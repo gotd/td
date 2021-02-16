@@ -56,20 +56,8 @@ func (f *UploadFile) String() string {
 	if f == nil {
 		return "UploadFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(f.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMtime: ")
-	sb.WriteString(fmt.Sprint(f.Mtime))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(f.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadFile
+	return fmt.Sprintf("UploadFile%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -219,28 +207,8 @@ func (f *UploadFileCdnRedirect) String() string {
 	if f == nil {
 		return "UploadFileCdnRedirect(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadFileCdnRedirect")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(f.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileToken: ")
-	sb.WriteString(fmt.Sprint(f.FileToken))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptionKey: ")
-	sb.WriteString(fmt.Sprint(f.EncryptionKey))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptionIv: ")
-	sb.WriteString(fmt.Sprint(f.EncryptionIv))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.FileHashes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadFileCdnRedirect
+	return fmt.Sprintf("UploadFileCdnRedirect%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -361,13 +329,13 @@ var (
 // See https://core.telegram.org/type/upload.File for reference.
 //
 // Example:
-//  g, err := DecodeUploadFile(buf)
+//  g, err := tg.DecodeUploadFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UploadFile: // upload.file#96a18d5
-//  case *UploadFileCdnRedirect: // upload.fileCdnRedirect#f18cda44
+//  case *tg.UploadFile: // upload.file#96a18d5
+//  case *tg.UploadFileCdnRedirect: // upload.fileCdnRedirect#f18cda44
 //  default: panic(v)
 //  }
 type UploadFileClass interface {

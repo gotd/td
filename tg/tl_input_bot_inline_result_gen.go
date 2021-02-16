@@ -102,48 +102,8 @@ func (i *InputBotInlineResult) String() string {
 	if i == nil {
 		return "InputBotInlineResult(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineResult")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(i.Type))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(i.Title))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(i.Description))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(3) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(i.URL))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(4) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(fmt.Sprint(i.Thumb))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(5) {
-		sb.WriteString("\tContent: ")
-		sb.WriteString(fmt.Sprint(i.Content))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(i.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineResult
+	return fmt.Sprintf("InputBotInlineResult%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -421,23 +381,8 @@ func (i *InputBotInlineResultPhoto) String() string {
 	if i == nil {
 		return "InputBotInlineResultPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineResultPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(i.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(i.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(i.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineResultPhoto
+	return fmt.Sprintf("InputBotInlineResultPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -607,36 +552,8 @@ func (i *InputBotInlineResultDocument) String() string {
 	if i == nil {
 		return "InputBotInlineResultDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineResultDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(i.Type))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(i.Title))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(i.Description))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tDocument: ")
-	sb.WriteString(fmt.Sprint(i.Document))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(i.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineResultDocument
+	return fmt.Sprintf("InputBotInlineResultDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -840,20 +757,8 @@ func (i *InputBotInlineResultGame) String() string {
 	if i == nil {
 		return "InputBotInlineResultGame(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineResultGame")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(i.ShortName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSendMessage: ")
-	sb.WriteString(fmt.Sprint(i.SendMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineResultGame
+	return fmt.Sprintf("InputBotInlineResultGame%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -942,15 +847,15 @@ var (
 // See https://core.telegram.org/type/InputBotInlineResult for reference.
 //
 // Example:
-//  g, err := DecodeInputBotInlineResult(buf)
+//  g, err := tg.DecodeInputBotInlineResult(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputBotInlineResult: // inputBotInlineResult#88bf9319
-//  case *InputBotInlineResultPhoto: // inputBotInlineResultPhoto#a8d864a7
-//  case *InputBotInlineResultDocument: // inputBotInlineResultDocument#fff8fdc4
-//  case *InputBotInlineResultGame: // inputBotInlineResultGame#4fa417f2
+//  case *tg.InputBotInlineResult: // inputBotInlineResult#88bf9319
+//  case *tg.InputBotInlineResultPhoto: // inputBotInlineResultPhoto#a8d864a7
+//  case *tg.InputBotInlineResultDocument: // inputBotInlineResultDocument#fff8fdc4
+//  case *tg.InputBotInlineResultGame: // inputBotInlineResultGame#4fa417f2
 //  default: panic(v)
 //  }
 type InputBotInlineResultClass interface {

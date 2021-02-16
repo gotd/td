@@ -51,19 +51,8 @@ func (e *EmojiKeyword) String() string {
 	if e == nil {
 		return "EmojiKeyword(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiKeyword")
-	sb.WriteString("{\n")
-	sb.WriteString("\tKeyword: ")
-	sb.WriteString(fmt.Sprint(e.Keyword))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range e.Emoticons {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EmojiKeyword
+	return fmt.Sprintf("EmojiKeyword%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -171,19 +160,8 @@ func (e *EmojiKeywordDeleted) String() string {
 	if e == nil {
 		return "EmojiKeywordDeleted(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiKeywordDeleted")
-	sb.WriteString("{\n")
-	sb.WriteString("\tKeyword: ")
-	sb.WriteString(fmt.Sprint(e.Keyword))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range e.Emoticons {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EmojiKeywordDeleted
+	return fmt.Sprintf("EmojiKeywordDeleted%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -263,13 +241,13 @@ var (
 // See https://core.telegram.org/type/EmojiKeyword for reference.
 //
 // Example:
-//  g, err := DecodeEmojiKeyword(buf)
+//  g, err := tg.DecodeEmojiKeyword(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *EmojiKeyword: // emojiKeyword#d5b3b9f9
-//  case *EmojiKeywordDeleted: // emojiKeywordDeleted#236df622
+//  case *tg.EmojiKeyword: // emojiKeyword#d5b3b9f9
+//  case *tg.EmojiKeywordDeleted: // emojiKeywordDeleted#236df622
 //  default: panic(v)
 //  }
 type EmojiKeywordClass interface {

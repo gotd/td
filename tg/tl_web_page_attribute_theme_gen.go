@@ -63,26 +63,8 @@ func (w *WebPageAttributeTheme) String() string {
 	if w == nil {
 		return "WebPageAttributeTheme(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebPageAttributeTheme")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	if w.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range w.Documents {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if w.Flags.Has(1) {
-		sb.WriteString("\tSettings: ")
-		sb.WriteString(fmt.Sprint(w.Settings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebPageAttributeTheme
+	return fmt.Sprintf("WebPageAttributeTheme%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).

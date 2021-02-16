@@ -175,14 +175,8 @@ func (c *ChannelAdminLogEventsFilter) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventsFilter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventsFilter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventsFilter
+	return fmt.Sprintf("ChannelAdminLogEventsFilter%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

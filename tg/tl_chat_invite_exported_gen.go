@@ -99,43 +99,8 @@ func (c *ChatInviteExported) String() string {
 	if c == nil {
 		return "ChatInviteExported(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatInviteExported")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLink: ")
-	sb.WriteString(fmt.Sprint(c.Link))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(c.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(c.Date))
-	sb.WriteString(",\n")
-	if c.Flags.Has(4) {
-		sb.WriteString("\tStartDate: ")
-		sb.WriteString(fmt.Sprint(c.StartDate))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(1) {
-		sb.WriteString("\tExpireDate: ")
-		sb.WriteString(fmt.Sprint(c.ExpireDate))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(2) {
-		sb.WriteString("\tUsageLimit: ")
-		sb.WriteString(fmt.Sprint(c.UsageLimit))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(3) {
-		sb.WriteString("\tUsage: ")
-		sb.WriteString(fmt.Sprint(c.Usage))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatInviteExported
+	return fmt.Sprintf("ChatInviteExported%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

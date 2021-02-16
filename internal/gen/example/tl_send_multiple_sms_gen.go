@@ -45,16 +45,8 @@ func (s *SendMultipleSMSRequest) String() string {
 	if s == nil {
 		return "SendMultipleSMSRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMultipleSMSRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range s.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMultipleSMSRequest
+	return fmt.Sprintf("SendMultipleSMSRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

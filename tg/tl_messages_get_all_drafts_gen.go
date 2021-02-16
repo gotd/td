@@ -44,11 +44,8 @@ func (g *MessagesGetAllDraftsRequest) String() string {
 	if g == nil {
 		return "MessagesGetAllDraftsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetAllDraftsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetAllDraftsRequest
+	return fmt.Sprintf("MessagesGetAllDraftsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

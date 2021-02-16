@@ -54,17 +54,8 @@ func (g *HelpGetCountriesListRequest) String() string {
 	if g == nil {
 		return "HelpGetCountriesListRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetCountriesListRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(g.LangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetCountriesListRequest
+	return fmt.Sprintf("HelpGetCountriesListRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

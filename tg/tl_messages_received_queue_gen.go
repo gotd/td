@@ -46,14 +46,8 @@ func (r *MessagesReceivedQueueRequest) String() string {
 	if r == nil {
 		return "MessagesReceivedQueueRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReceivedQueueRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMaxQts: ")
-	sb.WriteString(fmt.Sprint(r.MaxQts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReceivedQueueRequest
+	return fmt.Sprintf("MessagesReceivedQueueRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

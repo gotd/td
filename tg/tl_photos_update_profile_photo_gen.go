@@ -46,14 +46,8 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 	if u == nil {
 		return "PhotosUpdateProfilePhotoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosUpdateProfilePhotoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosUpdateProfilePhotoRequest
+	return fmt.Sprintf("PhotosUpdateProfilePhotoRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

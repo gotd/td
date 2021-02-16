@@ -88,35 +88,8 @@ func (s *MessagesSetInlineBotResultsRequest) String() string {
 	if s == nil {
 		return "MessagesSetInlineBotResultsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetInlineBotResultsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(s.QueryID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Results {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCacheTime: ")
-	sb.WriteString(fmt.Sprint(s.CacheTime))
-	sb.WriteString(",\n")
-	if s.Flags.Has(2) {
-		sb.WriteString("\tNextOffset: ")
-		sb.WriteString(fmt.Sprint(s.NextOffset))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(3) {
-		sb.WriteString("\tSwitchPm: ")
-		sb.WriteString(fmt.Sprint(s.SwitchPm))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetInlineBotResultsRequest
+	return fmt.Sprintf("MessagesSetInlineBotResultsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

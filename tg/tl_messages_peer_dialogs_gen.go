@@ -69,34 +69,8 @@ func (p *MessagesPeerDialogs) String() string {
 	if p == nil {
 		return "MessagesPeerDialogs(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesPeerDialogs")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Dialogs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tState: ")
-	sb.WriteString(fmt.Sprint(p.State))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesPeerDialogs
+	return fmt.Sprintf("MessagesPeerDialogs%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

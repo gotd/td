@@ -43,14 +43,8 @@ func (vec *EmojiLanguageVector) String() string {
 	if vec == nil {
 		return "EmojiLanguageVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiLanguageVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias EmojiLanguageVector
+	return fmt.Sprintf("EmojiLanguageVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

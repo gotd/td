@@ -46,14 +46,8 @@ func (r *PhoneReceivedCallRequest) String() string {
 	if r == nil {
 		return "PhoneReceivedCallRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneReceivedCallRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneReceivedCallRequest
+	return fmt.Sprintf("PhoneReceivedCallRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

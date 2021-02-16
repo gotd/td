@@ -99,19 +99,8 @@ func (p *PeerSettings) String() string {
 	if p == nil {
 		return "PeerSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(6) {
-		sb.WriteString("\tGeoDistance: ")
-		sb.WriteString(fmt.Sprint(p.GeoDistance))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerSettings
+	return fmt.Sprintf("PeerSettings%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

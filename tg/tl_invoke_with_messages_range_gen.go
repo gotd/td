@@ -51,17 +51,8 @@ func (i *InvokeWithMessagesRangeRequest) String() string {
 	if i == nil {
 		return "InvokeWithMessagesRangeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InvokeWithMessagesRangeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRange: ")
-	sb.WriteString(fmt.Sprint(i.Range))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InvokeWithMessagesRangeRequest
+	return fmt.Sprintf("InvokeWithMessagesRangeRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

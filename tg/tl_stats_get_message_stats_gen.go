@@ -67,20 +67,8 @@ func (g *StatsGetMessageStatsRequest) String() string {
 	if g == nil {
 		return "StatsGetMessageStatsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGetMessageStatsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(g.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGetMessageStatsRequest
+	return fmt.Sprintf("StatsGetMessageStatsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

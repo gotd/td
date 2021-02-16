@@ -56,17 +56,8 @@ func (d *MessagesDiscardEncryptionRequest) String() string {
 	if d == nil {
 		return "MessagesDiscardEncryptionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDiscardEncryptionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(d.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDiscardEncryptionRequest
+	return fmt.Sprintf("MessagesDiscardEncryptionRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,19 +51,8 @@ func (i *InvokeAfterMsgsRequest) String() string {
 	if i == nil {
 		return "InvokeAfterMsgsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InvokeAfterMsgsRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.MsgIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InvokeAfterMsgsRequest
+	return fmt.Sprintf("InvokeAfterMsgsRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

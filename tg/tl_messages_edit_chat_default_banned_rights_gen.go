@@ -54,17 +54,8 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) String() string {
 	if e == nil {
 		return "MessagesEditChatDefaultBannedRightsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesEditChatDefaultBannedRightsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(e.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBannedRights: ")
-	sb.WriteString(fmt.Sprint(e.BannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesEditChatDefaultBannedRightsRequest
+	return fmt.Sprintf("MessagesEditChatDefaultBannedRightsRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

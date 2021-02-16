@@ -66,25 +66,8 @@ func (i *InputStickerSetItem) String() string {
 	if i == nil {
 		return "InputStickerSetItem(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetItem")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDocument: ")
-	sb.WriteString(fmt.Sprint(i.Document))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEmoji: ")
-	sb.WriteString(fmt.Sprint(i.Emoji))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tMaskCoords: ")
-		sb.WriteString(fmt.Sprint(i.MaskCoords))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetItem
+	return fmt.Sprintf("InputStickerSetItem%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

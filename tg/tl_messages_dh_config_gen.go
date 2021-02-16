@@ -46,14 +46,8 @@ func (d *MessagesDhConfigNotModified) String() string {
 	if d == nil {
 		return "MessagesDhConfigNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDhConfigNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandom: ")
-	sb.WriteString(fmt.Sprint(d.Random))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDhConfigNotModified
+	return fmt.Sprintf("MessagesDhConfigNotModified%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -155,23 +149,8 @@ func (d *MessagesDhConfig) String() string {
 	if d == nil {
 		return "MessagesDhConfig(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDhConfig")
-	sb.WriteString("{\n")
-	sb.WriteString("\tG: ")
-	sb.WriteString(fmt.Sprint(d.G))
-	sb.WriteString(",\n")
-	sb.WriteString("\tP: ")
-	sb.WriteString(fmt.Sprint(d.P))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(d.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandom: ")
-	sb.WriteString(fmt.Sprint(d.Random))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDhConfig
+	return fmt.Sprintf("MessagesDhConfig%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -268,13 +247,13 @@ var (
 // See https://core.telegram.org/type/messages.DhConfig for reference.
 //
 // Example:
-//  g, err := DecodeMessagesDhConfig(buf)
+//  g, err := tg.DecodeMessagesDhConfig(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesDhConfigNotModified: // messages.dhConfigNotModified#c0e24635
-//  case *MessagesDhConfig: // messages.dhConfig#2c221edd
+//  case *tg.MessagesDhConfigNotModified: // messages.dhConfigNotModified#c0e24635
+//  case *tg.MessagesDhConfig: // messages.dhConfig#2c221edd
 //  default: panic(v)
 //  }
 type MessagesDhConfigClass interface {

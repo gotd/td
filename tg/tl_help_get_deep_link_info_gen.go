@@ -46,14 +46,8 @@ func (g *HelpGetDeepLinkInfoRequest) String() string {
 	if g == nil {
 		return "HelpGetDeepLinkInfoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetDeepLinkInfoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPath: ")
-	sb.WriteString(fmt.Sprint(g.Path))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetDeepLinkInfoRequest
+	return fmt.Sprintf("HelpGetDeepLinkInfoRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

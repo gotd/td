@@ -41,11 +41,8 @@ func (i *InputChannelEmpty) String() string {
 	if i == nil {
 		return "InputChannelEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChannelEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChannelEmpty
+	return fmt.Sprintf("InputChannelEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,17 +118,8 @@ func (i *InputChannel) String() string {
 	if i == nil {
 		return "InputChannel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChannel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(i.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChannel
+	return fmt.Sprintf("InputChannel%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -238,20 +226,8 @@ func (i *InputChannelFromMessage) String() string {
 	if i == nil {
 		return "InputChannelFromMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputChannelFromMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(i.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(i.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputChannelFromMessage
+	return fmt.Sprintf("InputChannelFromMessage%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -340,14 +316,14 @@ var (
 // See https://core.telegram.org/type/InputChannel for reference.
 //
 // Example:
-//  g, err := DecodeInputChannel(buf)
+//  g, err := tg.DecodeInputChannel(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputChannelEmpty: // inputChannelEmpty#ee8c1e86
-//  case *InputChannel: // inputChannel#afeb712e
-//  case *InputChannelFromMessage: // inputChannelFromMessage#2a286531
+//  case *tg.InputChannelEmpty: // inputChannelEmpty#ee8c1e86
+//  case *tg.InputChannel: // inputChannel#afeb712e
+//  case *tg.InputChannelFromMessage: // inputChannelFromMessage#2a286531
 //  default: panic(v)
 //  }
 type InputChannelClass interface {

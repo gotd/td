@@ -59,22 +59,8 @@ func (s *MessagesSendVoteRequest) String() string {
 	if s == nil {
 		return "MessagesSendVoteRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSendVoteRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(s.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Options {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSendVoteRequest
+	return fmt.Sprintf("MessagesSendVoteRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

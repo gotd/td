@@ -41,11 +41,8 @@ func (g *MessagesGetDialogUnreadMarksRequest) String() string {
 	if g == nil {
 		return "MessagesGetDialogUnreadMarksRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetDialogUnreadMarksRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetDialogUnreadMarksRequest
+	return fmt.Sprintf("MessagesGetDialogUnreadMarksRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

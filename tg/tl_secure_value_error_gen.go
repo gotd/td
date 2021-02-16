@@ -69,23 +69,8 @@ func (s *SecureValueErrorData) String() string {
 	if s == nil {
 		return "SecureValueErrorData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDataHash: ")
-	sb.WriteString(fmt.Sprint(s.DataHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tField: ")
-	sb.WriteString(fmt.Sprint(s.Field))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorData
+	return fmt.Sprintf("SecureValueErrorData%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -226,20 +211,8 @@ func (s *SecureValueErrorFrontSide) String() string {
 	if s == nil {
 		return "SecureValueErrorFrontSide(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorFrontSide")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorFrontSide
+	return fmt.Sprintf("SecureValueErrorFrontSide%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -365,20 +338,8 @@ func (s *SecureValueErrorReverseSide) String() string {
 	if s == nil {
 		return "SecureValueErrorReverseSide(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorReverseSide")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorReverseSide
+	return fmt.Sprintf("SecureValueErrorReverseSide%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -506,20 +467,8 @@ func (s *SecureValueErrorSelfie) String() string {
 	if s == nil {
 		return "SecureValueErrorSelfie(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorSelfie")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorSelfie
+	return fmt.Sprintf("SecureValueErrorSelfie%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -648,20 +597,8 @@ func (s *SecureValueErrorFile) String() string {
 	if s == nil {
 		return "SecureValueErrorFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorFile
+	return fmt.Sprintf("SecureValueErrorFile%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -790,22 +727,8 @@ func (s *SecureValueErrorFiles) String() string {
 	if s == nil {
 		return "SecureValueErrorFiles(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorFiles")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.FileHash {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorFiles
+	return fmt.Sprintf("SecureValueErrorFiles%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -936,20 +859,8 @@ func (s *SecureValueError) String() string {
 	if s == nil {
 		return "SecureValueError(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueError")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueError
+	return fmt.Sprintf("SecureValueError%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1083,20 +994,8 @@ func (s *SecureValueErrorTranslationFile) String() string {
 	if s == nil {
 		return "SecureValueErrorTranslationFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorTranslationFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorTranslationFile
+	return fmt.Sprintf("SecureValueErrorTranslationFile%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1230,22 +1129,8 @@ func (s *SecureValueErrorTranslationFiles) String() string {
 	if s == nil {
 		return "SecureValueErrorTranslationFiles(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueErrorTranslationFiles")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.FileHash {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(s.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueErrorTranslationFiles
+	return fmt.Sprintf("SecureValueErrorTranslationFiles%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1343,20 +1228,20 @@ var (
 // See https://core.telegram.org/type/SecureValueError for reference.
 //
 // Example:
-//  g, err := DecodeSecureValueError(buf)
+//  g, err := tg.DecodeSecureValueError(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecureValueErrorData: // secureValueErrorData#e8a40bd9
-//  case *SecureValueErrorFrontSide: // secureValueErrorFrontSide#be3dfa
-//  case *SecureValueErrorReverseSide: // secureValueErrorReverseSide#868a2aa5
-//  case *SecureValueErrorSelfie: // secureValueErrorSelfie#e537ced6
-//  case *SecureValueErrorFile: // secureValueErrorFile#7a700873
-//  case *SecureValueErrorFiles: // secureValueErrorFiles#666220e9
-//  case *SecureValueError: // secureValueError#869d758f
-//  case *SecureValueErrorTranslationFile: // secureValueErrorTranslationFile#a1144770
-//  case *SecureValueErrorTranslationFiles: // secureValueErrorTranslationFiles#34636dd8
+//  case *tg.SecureValueErrorData: // secureValueErrorData#e8a40bd9
+//  case *tg.SecureValueErrorFrontSide: // secureValueErrorFrontSide#be3dfa
+//  case *tg.SecureValueErrorReverseSide: // secureValueErrorReverseSide#868a2aa5
+//  case *tg.SecureValueErrorSelfie: // secureValueErrorSelfie#e537ced6
+//  case *tg.SecureValueErrorFile: // secureValueErrorFile#7a700873
+//  case *tg.SecureValueErrorFiles: // secureValueErrorFiles#666220e9
+//  case *tg.SecureValueError: // secureValueError#869d758f
+//  case *tg.SecureValueErrorTranslationFile: // secureValueErrorTranslationFile#a1144770
+//  case *tg.SecureValueErrorTranslationFiles: // secureValueErrorTranslationFiles#34636dd8
 //  default: panic(v)
 //  }
 type SecureValueErrorClass interface {

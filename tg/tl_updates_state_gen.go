@@ -70,26 +70,8 @@ func (s *UpdatesState) String() string {
 	if s == nil {
 		return "UpdatesState(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesState")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(s.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQts: ")
-	sb.WriteString(fmt.Sprint(s.Qts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(s.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeq: ")
-	sb.WriteString(fmt.Sprint(s.Seq))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnreadCount: ")
-	sb.WriteString(fmt.Sprint(s.UnreadCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesState
+	return fmt.Sprintf("UpdatesState%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

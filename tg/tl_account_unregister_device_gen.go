@@ -59,22 +59,8 @@ func (u *AccountUnregisterDeviceRequest) String() string {
 	if u == nil {
 		return "AccountUnregisterDeviceRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUnregisterDeviceRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTokenType: ")
-	sb.WriteString(fmt.Sprint(u.TokenType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(u.Token))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range u.OtherUids {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUnregisterDeviceRequest
+	return fmt.Sprintf("AccountUnregisterDeviceRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

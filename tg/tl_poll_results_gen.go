@@ -96,45 +96,8 @@ func (p *PollResults) String() string {
 	if p == nil {
 		return "PollResults(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PollResults")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range p.Results {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tTotalVoters: ")
-		sb.WriteString(fmt.Sprint(p.TotalVoters))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(3) {
-		sb.WriteByte('[')
-		for _, v := range p.RecentVoters {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if p.Flags.Has(4) {
-		sb.WriteString("\tSolution: ")
-		sb.WriteString(fmt.Sprint(p.Solution))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(4) {
-		sb.WriteByte('[')
-		for _, v := range p.SolutionEntities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PollResults
+	return fmt.Sprintf("PollResults%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

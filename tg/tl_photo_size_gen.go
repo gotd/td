@@ -49,14 +49,8 @@ func (p *PhotoSizeEmpty) String() string {
 	if p == nil {
 		return "PhotoSizeEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoSizeEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoSizeEmpty
+	return fmt.Sprintf("PhotoSizeEmpty%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -157,26 +151,8 @@ func (p *PhotoSize) String() string {
 	if p == nil {
 		return "PhotoSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(p.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(p.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(p.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(p.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoSize
+	return fmt.Sprintf("PhotoSize%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -329,26 +305,8 @@ func (p *PhotoCachedSize) String() string {
 	if p == nil {
 		return "PhotoCachedSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoCachedSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(p.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(p.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(p.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(p.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoCachedSize
+	return fmt.Sprintf("PhotoCachedSize%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -489,17 +447,8 @@ func (p *PhotoStrippedSize) String() string {
 	if p == nil {
 		return "PhotoStrippedSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoStrippedSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(p.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoStrippedSize
+	return fmt.Sprintf("PhotoStrippedSize%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -613,28 +562,8 @@ func (p *PhotoSizeProgressive) String() string {
 	if p == nil {
 		return "PhotoSizeProgressive(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoSizeProgressive")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(p.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(p.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(p.H))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Sizes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoSizeProgressive
+	return fmt.Sprintf("PhotoSizeProgressive%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -784,17 +713,8 @@ func (p *PhotoPathSize) String() string {
 	if p == nil {
 		return "PhotoPathSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotoPathSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(p.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(p.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotoPathSize
+	return fmt.Sprintf("PhotoPathSize%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -865,17 +785,17 @@ var (
 // See https://core.telegram.org/type/PhotoSize for reference.
 //
 // Example:
-//  g, err := DecodePhotoSize(buf)
+//  g, err := tg.DecodePhotoSize(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhotoSizeEmpty: // photoSizeEmpty#e17e23c
-//  case *PhotoSize: // photoSize#77bfb61b
-//  case *PhotoCachedSize: // photoCachedSize#e9a734fa
-//  case *PhotoStrippedSize: // photoStrippedSize#e0b0bc2e
-//  case *PhotoSizeProgressive: // photoSizeProgressive#5aa86a51
-//  case *PhotoPathSize: // photoPathSize#d8214d41
+//  case *tg.PhotoSizeEmpty: // photoSizeEmpty#e17e23c
+//  case *tg.PhotoSize: // photoSize#77bfb61b
+//  case *tg.PhotoCachedSize: // photoCachedSize#e9a734fa
+//  case *tg.PhotoStrippedSize: // photoStrippedSize#e0b0bc2e
+//  case *tg.PhotoSizeProgressive: // photoSizeProgressive#5aa86a51
+//  case *tg.PhotoPathSize: // photoPathSize#d8214d41
 //  default: panic(v)
 //  }
 type PhotoSizeClass interface {

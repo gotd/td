@@ -45,11 +45,8 @@ func (r *AuthResetAuthorizationsRequest) String() string {
 	if r == nil {
 		return "AuthResetAuthorizationsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthResetAuthorizationsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthResetAuthorizationsRequest
+	return fmt.Sprintf("AuthResetAuthorizationsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -57,17 +57,8 @@ func (d *ChannelsDeleteHistoryRequest) String() string {
 	if d == nil {
 		return "ChannelsDeleteHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsDeleteHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(d.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(d.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsDeleteHistoryRequest
+	return fmt.Sprintf("ChannelsDeleteHistoryRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

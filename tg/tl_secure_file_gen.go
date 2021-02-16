@@ -41,11 +41,8 @@ func (s *SecureFileEmpty) String() string {
 	if s == nil {
 		return "SecureFileEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureFileEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureFileEmpty
+	return fmt.Sprintf("SecureFileEmpty%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -147,32 +144,8 @@ func (s *SecureFile) String() string {
 	if s == nil {
 		return "SecureFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(s.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(s.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(s.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(s.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(s.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(s.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureFile
+	return fmt.Sprintf("SecureFile%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -308,13 +281,13 @@ var (
 // See https://core.telegram.org/type/SecureFile for reference.
 //
 // Example:
-//  g, err := DecodeSecureFile(buf)
+//  g, err := tg.DecodeSecureFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecureFileEmpty: // secureFileEmpty#64199744
-//  case *SecureFile: // secureFile#e0277a62
+//  case *tg.SecureFileEmpty: // secureFileEmpty#64199744
+//  case *tg.SecureFile: // secureFile#e0277a62
 //  default: panic(v)
 //  }
 type SecureFileClass interface {

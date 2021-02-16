@@ -41,11 +41,8 @@ func (c *ChannelMessagesFilterEmpty) String() string {
 	if c == nil {
 		return "ChannelMessagesFilterEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelMessagesFilterEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelMessagesFilterEmpty
+	return fmt.Sprintf("ChannelMessagesFilterEmpty%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -126,19 +123,8 @@ func (c *ChannelMessagesFilter) String() string {
 	if c == nil {
 		return "ChannelMessagesFilter(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelMessagesFilter")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Ranges {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelMessagesFilter
+	return fmt.Sprintf("ChannelMessagesFilter%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -235,13 +221,13 @@ var (
 // See https://core.telegram.org/type/ChannelMessagesFilter for reference.
 //
 // Example:
-//  g, err := DecodeChannelMessagesFilter(buf)
+//  g, err := tg.DecodeChannelMessagesFilter(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChannelMessagesFilterEmpty: // channelMessagesFilterEmpty#94d42ee7
-//  case *ChannelMessagesFilter: // channelMessagesFilter#cd77d957
+//  case *tg.ChannelMessagesFilterEmpty: // channelMessagesFilterEmpty#94d42ee7
+//  case *tg.ChannelMessagesFilter: // channelMessagesFilter#cd77d957
 //  default: panic(v)
 //  }
 type ChannelMessagesFilterClass interface {

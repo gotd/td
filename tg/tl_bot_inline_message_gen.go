@@ -74,29 +74,8 @@ func (b *BotInlineMessageMediaAuto) String() string {
 	if b == nil {
 		return "BotInlineMessageMediaAuto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMessageMediaAuto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(b.Message))
-	sb.WriteString(",\n")
-	if b.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range b.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(b.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMessageMediaAuto
+	return fmt.Sprintf("BotInlineMessageMediaAuto%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -290,29 +269,8 @@ func (b *BotInlineMessageText) String() string {
 	if b == nil {
 		return "BotInlineMessageText(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMessageText")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(b.Message))
-	sb.WriteString(",\n")
-	if b.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range b.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(b.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMessageText
+	return fmt.Sprintf("BotInlineMessageText%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -538,37 +496,8 @@ func (b *BotInlineMessageMediaGeo) String() string {
 	if b == nil {
 		return "BotInlineMessageMediaGeo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMessageMediaGeo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeo: ")
-	sb.WriteString(fmt.Sprint(b.Geo))
-	sb.WriteString(",\n")
-	if b.Flags.Has(0) {
-		sb.WriteString("\tHeading: ")
-		sb.WriteString(fmt.Sprint(b.Heading))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(1) {
-		sb.WriteString("\tPeriod: ")
-		sb.WriteString(fmt.Sprint(b.Period))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(3) {
-		sb.WriteString("\tProximityNotificationRadius: ")
-		sb.WriteString(fmt.Sprint(b.ProximityNotificationRadius))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(b.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMessageMediaGeo
+	return fmt.Sprintf("BotInlineMessageMediaGeo%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -819,37 +748,8 @@ func (b *BotInlineMessageMediaVenue) String() string {
 	if b == nil {
 		return "BotInlineMessageMediaVenue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMessageMediaVenue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeo: ")
-	sb.WriteString(fmt.Sprint(b.Geo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(b.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(b.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProvider: ")
-	sb.WriteString(fmt.Sprint(b.Provider))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueID: ")
-	sb.WriteString(fmt.Sprint(b.VenueID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueType: ")
-	sb.WriteString(fmt.Sprint(b.VenueType))
-	sb.WriteString(",\n")
-	if b.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(b.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMessageMediaVenue
+	return fmt.Sprintf("BotInlineMessageMediaVenue%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1071,31 +971,8 @@ func (b *BotInlineMessageMediaContact) String() string {
 	if b == nil {
 		return "BotInlineMessageMediaContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInlineMessageMediaContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(b.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(b.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(b.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVcard: ")
-	sb.WriteString(fmt.Sprint(b.Vcard))
-	sb.WriteString(",\n")
-	if b.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(b.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInlineMessageMediaContact
+	return fmt.Sprintf("BotInlineMessageMediaContact%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1233,16 +1110,16 @@ var (
 // See https://core.telegram.org/type/BotInlineMessage for reference.
 //
 // Example:
-//  g, err := DecodeBotInlineMessage(buf)
+//  g, err := tg.DecodeBotInlineMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BotInlineMessageMediaAuto: // botInlineMessageMediaAuto#764cf810
-//  case *BotInlineMessageText: // botInlineMessageText#8c7f65e2
-//  case *BotInlineMessageMediaGeo: // botInlineMessageMediaGeo#51846fd
-//  case *BotInlineMessageMediaVenue: // botInlineMessageMediaVenue#8a86659c
-//  case *BotInlineMessageMediaContact: // botInlineMessageMediaContact#18d1cdc2
+//  case *tg.BotInlineMessageMediaAuto: // botInlineMessageMediaAuto#764cf810
+//  case *tg.BotInlineMessageText: // botInlineMessageText#8c7f65e2
+//  case *tg.BotInlineMessageMediaGeo: // botInlineMessageMediaGeo#51846fd
+//  case *tg.BotInlineMessageMediaVenue: // botInlineMessageMediaVenue#8a86659c
+//  case *tg.BotInlineMessageMediaContact: // botInlineMessageMediaContact#18d1cdc2
 //  default: panic(v)
 //  }
 type BotInlineMessageClass interface {

@@ -50,17 +50,8 @@ func (i *InputGroupCall) String() string {
 	if i == nil {
 		return "InputGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputGroupCall
+	return fmt.Sprintf("InputGroupCall%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

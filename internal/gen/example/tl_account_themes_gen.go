@@ -40,11 +40,8 @@ func (t *AccountThemesNotModified) String() string {
 	if t == nil {
 		return "AccountThemesNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountThemesNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountThemesNotModified
+	return fmt.Sprintf("AccountThemesNotModified%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -116,19 +113,8 @@ func (t *AccountThemes) String() string {
 	if t == nil {
 		return "AccountThemes(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountThemes")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(t.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range t.Themes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountThemes
+	return fmt.Sprintf("AccountThemes%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -210,13 +196,13 @@ var (
 // See https://localhost:80/doc/type/account.Themes for reference.
 //
 // Example:
-//  g, err := DecodeAccountThemes(buf)
+//  g, err := td.DecodeAccountThemes(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AccountThemesNotModified: // account.themesNotModified#f41eb622
-//  case *AccountThemes: // account.themes#7f676421
+//  case *td.AccountThemesNotModified: // account.themesNotModified#f41eb622
+//  case *td.AccountThemes: // account.themes#7f676421
 //  default: panic(v)
 //  }
 type AccountThemesClass interface {

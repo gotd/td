@@ -70,23 +70,8 @@ func (i *AuthImportBotAuthorizationRequest) String() string {
 	if i == nil {
 		return "AuthImportBotAuthorizationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthImportBotAuthorizationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAPIID: ")
-	sb.WriteString(fmt.Sprint(i.APIID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAPIHash: ")
-	sb.WriteString(fmt.Sprint(i.APIHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBotAuthToken: ")
-	sb.WriteString(fmt.Sprint(i.BotAuthToken))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthImportBotAuthorizationRequest
+	return fmt.Sprintf("AuthImportBotAuthorizationRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -62,17 +62,8 @@ func (g *MessagesGetRecentStickersRequest) String() string {
 	if g == nil {
 		return "MessagesGetRecentStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetRecentStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetRecentStickersRequest
+	return fmt.Sprintf("MessagesGetRecentStickersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

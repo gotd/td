@@ -54,19 +54,8 @@ func (g *MessagesGetSearchCountersRequest) String() string {
 	if g == nil {
 		return "MessagesGetSearchCountersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetSearchCountersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range g.Filters {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetSearchCountersRequest
+	return fmt.Sprintf("MessagesGetSearchCountersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

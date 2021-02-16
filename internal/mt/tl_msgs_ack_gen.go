@@ -43,16 +43,8 @@ func (m *MsgsAck) String() string {
 	if m == nil {
 		return "MsgsAck(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgsAck")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.MsgIds {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgsAck
+	return fmt.Sprintf("MsgsAck%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

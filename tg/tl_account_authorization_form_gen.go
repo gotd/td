@@ -88,39 +88,8 @@ func (a *AccountAuthorizationForm) String() string {
 	if a == nil {
 		return "AccountAuthorizationForm(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountAuthorizationForm")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range a.RequiredTypes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range a.Values {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range a.Errors {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range a.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if a.Flags.Has(0) {
-		sb.WriteString("\tPrivacyPolicyURL: ")
-		sb.WriteString(fmt.Sprint(a.PrivacyPolicyURL))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountAuthorizationForm
+	return fmt.Sprintf("AccountAuthorizationForm%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

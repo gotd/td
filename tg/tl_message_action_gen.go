@@ -41,11 +41,8 @@ func (m *MessageActionEmpty) String() string {
 	if m == nil {
 		return "MessageActionEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionEmpty
+	return fmt.Sprintf("MessageActionEmpty%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -118,19 +115,8 @@ func (m *MessageActionChatCreate) String() string {
 	if m == nil {
 		return "MessageActionChatCreate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatCreate")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(m.Title))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatCreate
+	return fmt.Sprintf("MessageActionChatCreate%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -233,14 +219,8 @@ func (m *MessageActionChatEditTitle) String() string {
 	if m == nil {
 		return "MessageActionChatEditTitle(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatEditTitle")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(m.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatEditTitle
+	return fmt.Sprintf("MessageActionChatEditTitle%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -321,14 +301,8 @@ func (m *MessageActionChatEditPhoto) String() string {
 	if m == nil {
 		return "MessageActionChatEditPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatEditPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(m.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatEditPhoto
+	return fmt.Sprintf("MessageActionChatEditPhoto%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -409,11 +383,8 @@ func (m *MessageActionChatDeletePhoto) String() string {
 	if m == nil {
 		return "MessageActionChatDeletePhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatDeletePhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatDeletePhoto
+	return fmt.Sprintf("MessageActionChatDeletePhoto%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -481,16 +452,8 @@ func (m *MessageActionChatAddUser) String() string {
 	if m == nil {
 		return "MessageActionChatAddUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatAddUser")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatAddUser
+	return fmt.Sprintf("MessageActionChatAddUser%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -580,14 +543,8 @@ func (m *MessageActionChatDeleteUser) String() string {
 	if m == nil {
 		return "MessageActionChatDeleteUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatDeleteUser")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(m.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatDeleteUser
+	return fmt.Sprintf("MessageActionChatDeleteUser%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -668,14 +625,8 @@ func (m *MessageActionChatJoinedByLink) String() string {
 	if m == nil {
 		return "MessageActionChatJoinedByLink(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatJoinedByLink")
-	sb.WriteString("{\n")
-	sb.WriteString("\tInviterID: ")
-	sb.WriteString(fmt.Sprint(m.InviterID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatJoinedByLink
+	return fmt.Sprintf("MessageActionChatJoinedByLink%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -756,14 +707,8 @@ func (m *MessageActionChannelCreate) String() string {
 	if m == nil {
 		return "MessageActionChannelCreate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChannelCreate")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(m.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChannelCreate
+	return fmt.Sprintf("MessageActionChannelCreate%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -847,14 +792,8 @@ func (m *MessageActionChatMigrateTo) String() string {
 	if m == nil {
 		return "MessageActionChatMigrateTo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChatMigrateTo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(m.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChatMigrateTo
+	return fmt.Sprintf("MessageActionChatMigrateTo%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -943,17 +882,8 @@ func (m *MessageActionChannelMigrateFrom) String() string {
 	if m == nil {
 		return "MessageActionChannelMigrateFrom(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionChannelMigrateFrom")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(m.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(m.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionChannelMigrateFrom
+	return fmt.Sprintf("MessageActionChannelMigrateFrom%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1042,11 +972,8 @@ func (m *MessageActionPinMessage) String() string {
 	if m == nil {
 		return "MessageActionPinMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionPinMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionPinMessage
+	return fmt.Sprintf("MessageActionPinMessage%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1109,11 +1036,8 @@ func (m *MessageActionHistoryClear) String() string {
 	if m == nil {
 		return "MessageActionHistoryClear(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionHistoryClear")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionHistoryClear
+	return fmt.Sprintf("MessageActionHistoryClear%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1186,17 +1110,8 @@ func (m *MessageActionGameScore) String() string {
 	if m == nil {
 		return "MessageActionGameScore(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionGameScore")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGameID: ")
-	sb.WriteString(fmt.Sprint(m.GameID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScore: ")
-	sb.WriteString(fmt.Sprint(m.Score))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionGameScore
+	return fmt.Sprintf("MessageActionGameScore%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1333,36 +1248,8 @@ func (m *MessageActionPaymentSentMe) String() string {
 	if m == nil {
 		return "MessageActionPaymentSentMe(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionPaymentSentMe")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCurrency: ")
-	sb.WriteString(fmt.Sprint(m.Currency))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTotalAmount: ")
-	sb.WriteString(fmt.Sprint(m.TotalAmount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPayload: ")
-	sb.WriteString(fmt.Sprint(m.Payload))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tInfo: ")
-		sb.WriteString(fmt.Sprint(m.Info))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(1) {
-		sb.WriteString("\tShippingOptionID: ")
-		sb.WriteString(fmt.Sprint(m.ShippingOptionID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCharge: ")
-	sb.WriteString(fmt.Sprint(m.Charge))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionPaymentSentMe
+	return fmt.Sprintf("MessageActionPaymentSentMe%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1557,17 +1444,8 @@ func (m *MessageActionPaymentSent) String() string {
 	if m == nil {
 		return "MessageActionPaymentSent(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionPaymentSent")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCurrency: ")
-	sb.WriteString(fmt.Sprint(m.Currency))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTotalAmount: ")
-	sb.WriteString(fmt.Sprint(m.TotalAmount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionPaymentSent
+	return fmt.Sprintf("MessageActionPaymentSent%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1688,27 +1566,8 @@ func (m *MessageActionPhoneCall) String() string {
 	if m == nil {
 		return "MessageActionPhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionPhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCallID: ")
-	sb.WriteString(fmt.Sprint(m.CallID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tReason: ")
-		sb.WriteString(fmt.Sprint(m.Reason))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(1) {
-		sb.WriteString("\tDuration: ")
-		sb.WriteString(fmt.Sprint(m.Duration))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionPhoneCall
+	return fmt.Sprintf("MessageActionPhoneCall%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1873,11 +1732,8 @@ func (m *MessageActionScreenshotTaken) String() string {
 	if m == nil {
 		return "MessageActionScreenshotTaken(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionScreenshotTaken")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionScreenshotTaken
+	return fmt.Sprintf("MessageActionScreenshotTaken%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1945,14 +1801,8 @@ func (m *MessageActionCustomAction) String() string {
 	if m == nil {
 		return "MessageActionCustomAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionCustomAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(m.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionCustomAction
+	return fmt.Sprintf("MessageActionCustomAction%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2036,14 +1886,8 @@ func (m *MessageActionBotAllowed) String() string {
 	if m == nil {
 		return "MessageActionBotAllowed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionBotAllowed")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDomain: ")
-	sb.WriteString(fmt.Sprint(m.Domain))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionBotAllowed
+	return fmt.Sprintf("MessageActionBotAllowed%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2132,19 +1976,8 @@ func (m *MessageActionSecureValuesSentMe) String() string {
 	if m == nil {
 		return "MessageActionSecureValuesSentMe(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionSecureValuesSentMe")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.Values {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCredentials: ")
-	sb.WriteString(fmt.Sprint(m.Credentials))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionSecureValuesSentMe
+	return fmt.Sprintf("MessageActionSecureValuesSentMe%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2252,16 +2085,8 @@ func (m *MessageActionSecureValuesSent) String() string {
 	if m == nil {
 		return "MessageActionSecureValuesSent(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionSecureValuesSent")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range m.Types {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionSecureValuesSent
+	return fmt.Sprintf("MessageActionSecureValuesSent%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2351,11 +2176,8 @@ func (m *MessageActionContactSignUp) String() string {
 	if m == nil {
 		return "MessageActionContactSignUp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionContactSignUp")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionContactSignUp
+	return fmt.Sprintf("MessageActionContactSignUp%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2436,20 +2258,8 @@ func (m *MessageActionGeoProximityReached) String() string {
 	if m == nil {
 		return "MessageActionGeoProximityReached(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionGeoProximityReached")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFromID: ")
-	sb.WriteString(fmt.Sprint(m.FromID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tToID: ")
-	sb.WriteString(fmt.Sprint(m.ToID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDistance: ")
-	sb.WriteString(fmt.Sprint(m.Distance))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionGeoProximityReached
+	return fmt.Sprintf("MessageActionGeoProximityReached%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2577,22 +2387,8 @@ func (m *MessageActionGroupCall) String() string {
 	if m == nil {
 		return "MessageActionGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(m.Call))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tDuration: ")
-		sb.WriteString(fmt.Sprint(m.Duration))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionGroupCall
+	return fmt.Sprintf("MessageActionGroupCall%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2713,19 +2509,8 @@ func (m *MessageActionInviteToGroupCall) String() string {
 	if m == nil {
 		return "MessageActionInviteToGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageActionInviteToGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(m.Call))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range m.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageActionInviteToGroupCall
+	return fmt.Sprintf("MessageActionInviteToGroupCall%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2805,37 +2590,37 @@ var (
 // See https://core.telegram.org/type/MessageAction for reference.
 //
 // Example:
-//  g, err := DecodeMessageAction(buf)
+//  g, err := tg.DecodeMessageAction(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessageActionEmpty: // messageActionEmpty#b6aef7b0
-//  case *MessageActionChatCreate: // messageActionChatCreate#a6638b9a
-//  case *MessageActionChatEditTitle: // messageActionChatEditTitle#b5a1ce5a
-//  case *MessageActionChatEditPhoto: // messageActionChatEditPhoto#7fcb13a8
-//  case *MessageActionChatDeletePhoto: // messageActionChatDeletePhoto#95e3fbef
-//  case *MessageActionChatAddUser: // messageActionChatAddUser#488a7337
-//  case *MessageActionChatDeleteUser: // messageActionChatDeleteUser#b2ae9b0c
-//  case *MessageActionChatJoinedByLink: // messageActionChatJoinedByLink#f89cf5e8
-//  case *MessageActionChannelCreate: // messageActionChannelCreate#95d2ac92
-//  case *MessageActionChatMigrateTo: // messageActionChatMigrateTo#51bdb021
-//  case *MessageActionChannelMigrateFrom: // messageActionChannelMigrateFrom#b055eaee
-//  case *MessageActionPinMessage: // messageActionPinMessage#94bd38ed
-//  case *MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
-//  case *MessageActionGameScore: // messageActionGameScore#92a72876
-//  case *MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
-//  case *MessageActionPaymentSent: // messageActionPaymentSent#40699cd0
-//  case *MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
-//  case *MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
-//  case *MessageActionCustomAction: // messageActionCustomAction#fae69f56
-//  case *MessageActionBotAllowed: // messageActionBotAllowed#abe9affe
-//  case *MessageActionSecureValuesSentMe: // messageActionSecureValuesSentMe#1b287353
-//  case *MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
-//  case *MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
-//  case *MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
-//  case *MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
-//  case *MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
+//  case *tg.MessageActionEmpty: // messageActionEmpty#b6aef7b0
+//  case *tg.MessageActionChatCreate: // messageActionChatCreate#a6638b9a
+//  case *tg.MessageActionChatEditTitle: // messageActionChatEditTitle#b5a1ce5a
+//  case *tg.MessageActionChatEditPhoto: // messageActionChatEditPhoto#7fcb13a8
+//  case *tg.MessageActionChatDeletePhoto: // messageActionChatDeletePhoto#95e3fbef
+//  case *tg.MessageActionChatAddUser: // messageActionChatAddUser#488a7337
+//  case *tg.MessageActionChatDeleteUser: // messageActionChatDeleteUser#b2ae9b0c
+//  case *tg.MessageActionChatJoinedByLink: // messageActionChatJoinedByLink#f89cf5e8
+//  case *tg.MessageActionChannelCreate: // messageActionChannelCreate#95d2ac92
+//  case *tg.MessageActionChatMigrateTo: // messageActionChatMigrateTo#51bdb021
+//  case *tg.MessageActionChannelMigrateFrom: // messageActionChannelMigrateFrom#b055eaee
+//  case *tg.MessageActionPinMessage: // messageActionPinMessage#94bd38ed
+//  case *tg.MessageActionHistoryClear: // messageActionHistoryClear#9fbab604
+//  case *tg.MessageActionGameScore: // messageActionGameScore#92a72876
+//  case *tg.MessageActionPaymentSentMe: // messageActionPaymentSentMe#8f31b327
+//  case *tg.MessageActionPaymentSent: // messageActionPaymentSent#40699cd0
+//  case *tg.MessageActionPhoneCall: // messageActionPhoneCall#80e11a7f
+//  case *tg.MessageActionScreenshotTaken: // messageActionScreenshotTaken#4792929b
+//  case *tg.MessageActionCustomAction: // messageActionCustomAction#fae69f56
+//  case *tg.MessageActionBotAllowed: // messageActionBotAllowed#abe9affe
+//  case *tg.MessageActionSecureValuesSentMe: // messageActionSecureValuesSentMe#1b287353
+//  case *tg.MessageActionSecureValuesSent: // messageActionSecureValuesSent#d95c6154
+//  case *tg.MessageActionContactSignUp: // messageActionContactSignUp#f3f25f76
+//  case *tg.MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
+//  case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
+//  case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
 //  default: panic(v)
 //  }
 type MessageActionClass interface {

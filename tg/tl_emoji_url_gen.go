@@ -46,14 +46,8 @@ func (e *EmojiURL) String() string {
 	if e == nil {
 		return "EmojiURL(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiURL")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(e.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EmojiURL
+	return fmt.Sprintf("EmojiURL%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (i *InputStickeredMediaPhoto) String() string {
 	if i == nil {
 		return "InputStickeredMediaPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickeredMediaPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickeredMediaPhoto
+	return fmt.Sprintf("InputStickeredMediaPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,14 +133,8 @@ func (i *InputStickeredMediaDocument) String() string {
 	if i == nil {
 		return "InputStickeredMediaDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickeredMediaDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickeredMediaDocument
+	return fmt.Sprintf("InputStickeredMediaDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -209,13 +197,13 @@ var (
 // See https://core.telegram.org/type/InputStickeredMedia for reference.
 //
 // Example:
-//  g, err := DecodeInputStickeredMedia(buf)
+//  g, err := tg.DecodeInputStickeredMedia(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputStickeredMediaPhoto: // inputStickeredMediaPhoto#4a992157
-//  case *InputStickeredMediaDocument: // inputStickeredMediaDocument#438865b
+//  case *tg.InputStickeredMediaPhoto: // inputStickeredMediaPhoto#4a992157
+//  case *tg.InputStickeredMediaDocument: // inputStickeredMediaDocument#438865b
 //  default: panic(v)
 //  }
 type InputStickeredMediaClass interface {

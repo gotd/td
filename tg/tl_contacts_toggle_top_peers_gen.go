@@ -49,14 +49,8 @@ func (t *ContactsToggleTopPeersRequest) String() string {
 	if t == nil {
 		return "ContactsToggleTopPeersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsToggleTopPeersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEnabled: ")
-	sb.WriteString(fmt.Sprint(t.Enabled))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsToggleTopPeersRequest
+	return fmt.Sprintf("ContactsToggleTopPeersRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

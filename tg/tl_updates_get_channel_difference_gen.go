@@ -77,26 +77,8 @@ func (g *UpdatesGetChannelDifferenceRequest) String() string {
 	if g == nil {
 		return "UpdatesGetChannelDifferenceRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesGetChannelDifferenceRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFilter: ")
-	sb.WriteString(fmt.Sprint(g.Filter))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(g.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesGetChannelDifferenceRequest
+	return fmt.Sprintf("UpdatesGetChannelDifferenceRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

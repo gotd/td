@@ -41,11 +41,8 @@ func (i *InputUserEmpty) String() string {
 	if i == nil {
 		return "InputUserEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputUserEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputUserEmpty
+	return fmt.Sprintf("InputUserEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputUserSelf) String() string {
 	if i == nil {
 		return "InputUserSelf(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputUserSelf")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputUserSelf
+	return fmt.Sprintf("InputUserSelf%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -188,17 +182,8 @@ func (i *InputUser) String() string {
 	if i == nil {
 		return "InputUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputUser")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(i.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputUser
+	return fmt.Sprintf("InputUser%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -305,20 +290,8 @@ func (i *InputUserFromMessage) String() string {
 	if i == nil {
 		return "InputUserFromMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputUserFromMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(i.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(i.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputUserFromMessage
+	return fmt.Sprintf("InputUserFromMessage%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -407,15 +380,15 @@ var (
 // See https://core.telegram.org/type/InputUser for reference.
 //
 // Example:
-//  g, err := DecodeInputUser(buf)
+//  g, err := tg.DecodeInputUser(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputUserEmpty: // inputUserEmpty#b98886cf
-//  case *InputUserSelf: // inputUserSelf#f7c1b13f
-//  case *InputUser: // inputUser#d8292816
-//  case *InputUserFromMessage: // inputUserFromMessage#2d117597
+//  case *tg.InputUserEmpty: // inputUserEmpty#b98886cf
+//  case *tg.InputUserSelf: // inputUserSelf#f7c1b13f
+//  case *tg.InputUser: // inputUser#d8292816
+//  case *tg.InputUserFromMessage: // inputUserFromMessage#2d117597
 //  default: panic(v)
 //  }
 type InputUserClass interface {

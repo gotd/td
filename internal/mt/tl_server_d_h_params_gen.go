@@ -53,20 +53,8 @@ func (s *ServerDHParamsFail) String() string {
 	if s == nil {
 		return "ServerDHParamsFail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ServerDHParamsFail")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(s.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(s.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonceHash: ")
-	sb.WriteString(fmt.Sprint(s.NewNonceHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ServerDHParamsFail
+	return fmt.Sprintf("ServerDHParamsFail%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,20 +168,8 @@ func (s *ServerDHParamsOk) String() string {
 	if s == nil {
 		return "ServerDHParamsOk(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ServerDHParamsOk")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(s.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(s.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptedAnswer: ")
-	sb.WriteString(fmt.Sprint(s.EncryptedAnswer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ServerDHParamsOk
+	return fmt.Sprintf("ServerDHParamsOk%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -275,13 +251,13 @@ var (
 // ServerDHParamsClass represents Server_DH_Params generic type.
 //
 // Example:
-//  g, err := DecodeServerDHParams(buf)
+//  g, err := mt.DecodeServerDHParams(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ServerDHParamsFail: // server_DH_params_fail#79cb045d
-//  case *ServerDHParamsOk: // server_DH_params_ok#d0e8075c
+//  case *mt.ServerDHParamsFail: // server_DH_params_fail#79cb045d
+//  case *mt.ServerDHParamsOk: // server_DH_params_ok#d0e8075c
 //  default: panic(v)
 //  }
 type ServerDHParamsClass interface {

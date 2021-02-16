@@ -46,16 +46,8 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) String() string {
 	if g == nil {
 		return "MessagesGetEmojiKeywordsLanguagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetEmojiKeywordsLanguagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.LangCodes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetEmojiKeywordsLanguagesRequest
+	return fmt.Sprintf("MessagesGetEmojiKeywordsLanguagesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

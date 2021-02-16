@@ -56,20 +56,8 @@ func (a *AccountAutoDownloadSettings) String() string {
 	if a == nil {
 		return "AccountAutoDownloadSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountAutoDownloadSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLow: ")
-	sb.WriteString(fmt.Sprint(a.Low))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedium: ")
-	sb.WriteString(fmt.Sprint(a.Medium))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHigh: ")
-	sb.WriteString(fmt.Sprint(a.High))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountAutoDownloadSettings
+	return fmt.Sprintf("AccountAutoDownloadSettings%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

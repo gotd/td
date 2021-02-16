@@ -75,25 +75,8 @@ func (s *MessagesSetTypingRequest) String() string {
 	if s == nil {
 		return "MessagesSetTypingRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetTypingRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tTopMsgID: ")
-		sb.WriteString(fmt.Sprint(s.TopMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(s.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetTypingRequest
+	return fmt.Sprintf("MessagesSetTypingRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

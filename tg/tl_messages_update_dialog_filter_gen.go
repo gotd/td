@@ -70,22 +70,8 @@ func (u *MessagesUpdateDialogFilterRequest) String() string {
 	if u == nil {
 		return "MessagesUpdateDialogFilterRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUpdateDialogFilterRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFilter: ")
-		sb.WriteString(fmt.Sprint(u.Filter))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUpdateDialogFilterRequest
+	return fmt.Sprintf("MessagesUpdateDialogFilterRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

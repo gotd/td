@@ -65,26 +65,8 @@ func (b *BigMessage) String() string {
 	if b == nil {
 		return "BigMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BigMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(b.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(b.Count))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTargetId: ")
-	sb.WriteString(fmt.Sprint(b.TargetId))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEscape: ")
-	sb.WriteString(fmt.Sprint(b.Escape))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSummary: ")
-	sb.WriteString(fmt.Sprint(b.Summary))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BigMessage
+	return fmt.Sprintf("BigMessage%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -211,11 +193,8 @@ func (n *NoMessage) String() string {
 	if n == nil {
 		return "NoMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NoMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NoMessage
+	return fmt.Sprintf("NoMessage%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -282,16 +261,8 @@ func (t *TargetsMessage) String() string {
 	if t == nil {
 		return "TargetsMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TargetsMessage")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range t.Targets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TargetsMessage
+	return fmt.Sprintf("TargetsMessage%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -394,24 +365,8 @@ func (f *FieldsMessage) String() string {
 	if f == nil {
 		return "FieldsMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FieldsMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(f.Flags))
-	sb.WriteString(",\n")
-	if f.Flags.Has(0) {
-		sb.WriteString("\tEscape: ")
-		sb.WriteString(fmt.Sprint(f.Escape))
-		sb.WriteString(",\n")
-	}
-	if f.Flags.Has(1) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(f.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FieldsMessage
+	return fmt.Sprintf("FieldsMessage%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -542,14 +497,8 @@ func (b *BytesMessage) String() string {
 	if b == nil {
 		return "BytesMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BytesMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(b.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BytesMessage
+	return fmt.Sprintf("BytesMessage%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -607,16 +556,16 @@ var (
 // See https://localhost:80/doc/type/AbstractMessage for reference.
 //
 // Example:
-//  g, err := DecodeAbstractMessage(buf)
+//  g, err := td.DecodeAbstractMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BigMessage: // bigMessage#7490dcc5
-//  case *NoMessage: // noMessage#ee6324c4
-//  case *TargetsMessage: // targetsMessage#cc6136f1
-//  case *FieldsMessage: // fieldsMessage#947225b5
-//  case *BytesMessage: // bytesMessage#f990a67d
+//  case *td.BigMessage: // bigMessage#7490dcc5
+//  case *td.NoMessage: // noMessage#ee6324c4
+//  case *td.TargetsMessage: // targetsMessage#cc6136f1
+//  case *td.FieldsMessage: // fieldsMessage#947225b5
+//  case *td.BytesMessage: // bytesMessage#f990a67d
 //  default: panic(v)
 //  }
 type AbstractMessageClass interface {

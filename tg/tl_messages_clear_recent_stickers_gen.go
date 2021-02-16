@@ -54,14 +54,8 @@ func (c *MessagesClearRecentStickersRequest) String() string {
 	if c == nil {
 		return "MessagesClearRecentStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesClearRecentStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesClearRecentStickersRequest
+	return fmt.Sprintf("MessagesClearRecentStickersRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

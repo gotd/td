@@ -54,17 +54,8 @@ func (g *UploadGetCdnFileHashesRequest) String() string {
 	if g == nil {
 		return "UploadGetCdnFileHashesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadGetCdnFileHashesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFileToken: ")
-	sb.WriteString(fmt.Sprint(g.FileToken))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadGetCdnFileHashesRequest
+	return fmt.Sprintf("UploadGetCdnFileHashesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

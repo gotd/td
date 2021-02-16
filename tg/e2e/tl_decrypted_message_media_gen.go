@@ -40,11 +40,8 @@ func (d *DecryptedMessageMediaEmpty) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaEmpty
+	return fmt.Sprintf("DecryptedMessageMediaEmpty%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -146,35 +143,8 @@ func (d *DecryptedMessageMediaPhoto23) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaPhoto23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaPhoto23")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaPhoto23
+	return fmt.Sprintf("DecryptedMessageMediaPhoto23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -385,38 +355,8 @@ func (d *DecryptedMessageMediaVideo8) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaVideo8(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaVideo8")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaVideo8
+	return fmt.Sprintf("DecryptedMessageMediaVideo8%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -605,17 +545,8 @@ func (d *DecryptedMessageMediaGeoPoint) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaGeoPoint(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaGeoPoint")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLat: ")
-	sb.WriteString(fmt.Sprint(d.Lat))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLong: ")
-	sb.WriteString(fmt.Sprint(d.Long))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaGeoPoint
+	return fmt.Sprintf("DecryptedMessageMediaGeoPoint%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -723,23 +654,8 @@ func (d *DecryptedMessageMediaContact) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(d.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(d.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(d.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(d.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaContact
+	return fmt.Sprintf("DecryptedMessageMediaContact%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -893,35 +809,8 @@ func (d *DecryptedMessageMediaDocument23) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaDocument23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaDocument23")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileName: ")
-	sb.WriteString(fmt.Sprint(d.FileName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaDocument23
+	return fmt.Sprintf("DecryptedMessageMediaDocument23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1107,23 +996,8 @@ func (d *DecryptedMessageMediaAudio8) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaAudio8(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaAudio8")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaAudio8
+	return fmt.Sprintf("DecryptedMessageMediaAudio8%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1287,41 +1161,8 @@ func (d *DecryptedMessageMediaVideo23) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaVideo23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaVideo23")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaVideo23
+	return fmt.Sprintf("DecryptedMessageMediaVideo23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1538,26 +1379,8 @@ func (d *DecryptedMessageMediaAudio) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaAudio(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaAudio")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaAudio
+	return fmt.Sprintf("DecryptedMessageMediaAudio%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1724,37 +1547,8 @@ func (d *DecryptedMessageMediaExternalDocument) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaExternalDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaExternalDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(d.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(d.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(d.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(d.DCID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaExternalDocument
+	return fmt.Sprintf("DecryptedMessageMediaExternalDocument%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1984,38 +1778,8 @@ func (d *DecryptedMessageMediaPhoto) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(d.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaPhoto
+	return fmt.Sprintf("DecryptedMessageMediaPhoto%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2249,44 +2013,8 @@ func (d *DecryptedMessageMediaVideo) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(d.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaVideo
+	return fmt.Sprintf("DecryptedMessageMediaVideo%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2536,40 +2264,8 @@ func (d *DecryptedMessageMediaDocument) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(d.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbW: ")
-	sb.WriteString(fmt.Sprint(d.ThumbW))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumbH: ")
-	sb.WriteString(fmt.Sprint(d.ThumbH))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(d.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(d.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKey: ")
-	sb.WriteString(fmt.Sprint(d.Key))
-	sb.WriteString(",\n")
-	sb.WriteString("\tIv: ")
-	sb.WriteString(fmt.Sprint(d.Iv))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tCaption: ")
-	sb.WriteString(fmt.Sprint(d.Caption))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaDocument
+	return fmt.Sprintf("DecryptedMessageMediaDocument%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2792,29 +2488,8 @@ func (d *DecryptedMessageMediaVenue) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaVenue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaVenue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLat: ")
-	sb.WriteString(fmt.Sprint(d.Lat))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLong: ")
-	sb.WriteString(fmt.Sprint(d.Long))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(d.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(d.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProvider: ")
-	sb.WriteString(fmt.Sprint(d.Provider))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueID: ")
-	sb.WriteString(fmt.Sprint(d.VenueID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaVenue
+	return fmt.Sprintf("DecryptedMessageMediaVenue%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2959,14 +2634,8 @@ func (d *DecryptedMessageMediaWebPage) String() string {
 	if d == nil {
 		return "DecryptedMessageMediaWebPage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageMediaWebPage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(d.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageMediaWebPage
+	return fmt.Sprintf("DecryptedMessageMediaWebPage%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3024,26 +2693,26 @@ var (
 // See https://core.telegram.org/type/DecryptedMessageMedia for reference.
 //
 // Example:
-//  g, err := DecodeDecryptedMessageMedia(buf)
+//  g, err := e2e.DecodeDecryptedMessageMedia(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DecryptedMessageMediaEmpty: // decryptedMessageMediaEmpty#89f5c4a
-//  case *DecryptedMessageMediaPhoto23: // decryptedMessageMediaPhoto23#32798a8c
-//  case *DecryptedMessageMediaVideo8: // decryptedMessageMediaVideo8#4cee6ef3
-//  case *DecryptedMessageMediaGeoPoint: // decryptedMessageMediaGeoPoint#35480a59
-//  case *DecryptedMessageMediaContact: // decryptedMessageMediaContact#588a0a97
-//  case *DecryptedMessageMediaDocument23: // decryptedMessageMediaDocument23#b095434b
-//  case *DecryptedMessageMediaAudio8: // decryptedMessageMediaAudio8#6080758f
-//  case *DecryptedMessageMediaVideo23: // decryptedMessageMediaVideo23#524a415d
-//  case *DecryptedMessageMediaAudio: // decryptedMessageMediaAudio#57e0a9cb
-//  case *DecryptedMessageMediaExternalDocument: // decryptedMessageMediaExternalDocument#fa95b0dd
-//  case *DecryptedMessageMediaPhoto: // decryptedMessageMediaPhoto#f1fa8d78
-//  case *DecryptedMessageMediaVideo: // decryptedMessageMediaVideo#970c8c0e
-//  case *DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#7afe8ae2
-//  case *DecryptedMessageMediaVenue: // decryptedMessageMediaVenue#8a0df56f
-//  case *DecryptedMessageMediaWebPage: // decryptedMessageMediaWebPage#e50511d8
+//  case *e2e.DecryptedMessageMediaEmpty: // decryptedMessageMediaEmpty#89f5c4a
+//  case *e2e.DecryptedMessageMediaPhoto23: // decryptedMessageMediaPhoto23#32798a8c
+//  case *e2e.DecryptedMessageMediaVideo8: // decryptedMessageMediaVideo8#4cee6ef3
+//  case *e2e.DecryptedMessageMediaGeoPoint: // decryptedMessageMediaGeoPoint#35480a59
+//  case *e2e.DecryptedMessageMediaContact: // decryptedMessageMediaContact#588a0a97
+//  case *e2e.DecryptedMessageMediaDocument23: // decryptedMessageMediaDocument23#b095434b
+//  case *e2e.DecryptedMessageMediaAudio8: // decryptedMessageMediaAudio8#6080758f
+//  case *e2e.DecryptedMessageMediaVideo23: // decryptedMessageMediaVideo23#524a415d
+//  case *e2e.DecryptedMessageMediaAudio: // decryptedMessageMediaAudio#57e0a9cb
+//  case *e2e.DecryptedMessageMediaExternalDocument: // decryptedMessageMediaExternalDocument#fa95b0dd
+//  case *e2e.DecryptedMessageMediaPhoto: // decryptedMessageMediaPhoto#f1fa8d78
+//  case *e2e.DecryptedMessageMediaVideo: // decryptedMessageMediaVideo#970c8c0e
+//  case *e2e.DecryptedMessageMediaDocument: // decryptedMessageMediaDocument#7afe8ae2
+//  case *e2e.DecryptedMessageMediaVenue: // decryptedMessageMediaVenue#8a0df56f
+//  case *e2e.DecryptedMessageMediaWebPage: // decryptedMessageMediaWebPage#e50511d8
 //  default: panic(v)
 //  }
 type DecryptedMessageMediaClass interface {

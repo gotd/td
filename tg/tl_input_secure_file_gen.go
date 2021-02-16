@@ -69,26 +69,8 @@ func (i *InputSecureFileUploaded) String() string {
 	if i == nil {
 		return "InputSecureFileUploaded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputSecureFileUploaded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParts: ")
-	sb.WriteString(fmt.Sprint(i.Parts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMD5Checksum: ")
-	sb.WriteString(fmt.Sprint(i.MD5Checksum))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileHash: ")
-	sb.WriteString(fmt.Sprint(i.FileHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(i.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputSecureFileUploaded
+	return fmt.Sprintf("InputSecureFileUploaded%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -230,17 +212,8 @@ func (i *InputSecureFile) String() string {
 	if i == nil {
 		return "InputSecureFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputSecureFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputSecureFile
+	return fmt.Sprintf("InputSecureFile%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -311,13 +284,13 @@ var (
 // See https://core.telegram.org/type/InputSecureFile for reference.
 //
 // Example:
-//  g, err := DecodeInputSecureFile(buf)
+//  g, err := tg.DecodeInputSecureFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputSecureFileUploaded: // inputSecureFileUploaded#3334b0f0
-//  case *InputSecureFile: // inputSecureFile#5367e5be
+//  case *tg.InputSecureFileUploaded: // inputSecureFileUploaded#3334b0f0
+//  case *tg.InputSecureFile: // inputSecureFile#5367e5be
 //  default: panic(v)
 //  }
 type InputSecureFileClass interface {

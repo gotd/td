@@ -46,14 +46,8 @@ func (e *MessagesExportChatInviteRequest) String() string {
 	if e == nil {
 		return "MessagesExportChatInviteRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesExportChatInviteRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(e.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesExportChatInviteRequest
+	return fmt.Sprintf("MessagesExportChatInviteRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -55,19 +55,8 @@ func (s *StickerPack) String() string {
 	if s == nil {
 		return "StickerPack(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickerPack")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmoticon: ")
-	sb.WriteString(fmt.Sprint(s.Emoticon))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Documents {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickerPack
+	return fmt.Sprintf("StickerPack%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

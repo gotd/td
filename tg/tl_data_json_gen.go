@@ -46,14 +46,8 @@ func (d *DataJSON) String() string {
 	if d == nil {
 		return "DataJSON(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DataJSON")
-	sb.WriteString("{\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(d.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DataJSON
+	return fmt.Sprintf("DataJSON%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

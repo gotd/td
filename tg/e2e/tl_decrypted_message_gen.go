@@ -60,23 +60,8 @@ func (d *DecryptedMessage8) String() string {
 	if d == nil {
 		return "DecryptedMessage8(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessage8")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomBytes: ")
-	sb.WriteString(fmt.Sprint(d.RandomBytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(d.Media))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessage8
+	return fmt.Sprintf("DecryptedMessage8%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -210,20 +195,8 @@ func (d *DecryptedMessageService8) String() string {
 	if d == nil {
 		return "DecryptedMessageService8(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageService8")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomBytes: ")
-	sb.WriteString(fmt.Sprint(d.RandomBytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(d.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageService8
+	return fmt.Sprintf("DecryptedMessageService8%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -349,23 +322,8 @@ func (d *DecryptedMessage23) String() string {
 	if d == nil {
 		return "DecryptedMessage23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessage23")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTTL: ")
-	sb.WriteString(fmt.Sprint(d.TTL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(d.Media))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessage23
+	return fmt.Sprintf("DecryptedMessage23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -494,17 +452,8 @@ func (d *DecryptedMessageService) String() string {
 	if d == nil {
 		return "DecryptedMessageService(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageService")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(d.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageService
+	return fmt.Sprintf("DecryptedMessageService%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -645,45 +594,8 @@ func (d *DecryptedMessage46) String() string {
 	if d == nil {
 		return "DecryptedMessage46(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessage46")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTTL: ")
-	sb.WriteString(fmt.Sprint(d.TTL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	if d.Flags.Has(9) {
-		sb.WriteString("\tMedia: ")
-		sb.WriteString(fmt.Sprint(d.Media))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range d.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if d.Flags.Has(11) {
-		sb.WriteString("\tViaBotName: ")
-		sb.WriteString(fmt.Sprint(d.ViaBotName))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(3) {
-		sb.WriteString("\tReplyToRandomID: ")
-		sb.WriteString(fmt.Sprint(d.ReplyToRandomID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessage46
+	return fmt.Sprintf("DecryptedMessage46%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -983,50 +895,8 @@ func (d *DecryptedMessage) String() string {
 	if d == nil {
 		return "DecryptedMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(d.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTTL: ")
-	sb.WriteString(fmt.Sprint(d.TTL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	if d.Flags.Has(9) {
-		sb.WriteString("\tMedia: ")
-		sb.WriteString(fmt.Sprint(d.Media))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range d.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if d.Flags.Has(11) {
-		sb.WriteString("\tViaBotName: ")
-		sb.WriteString(fmt.Sprint(d.ViaBotName))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(3) {
-		sb.WriteString("\tReplyToRandomID: ")
-		sb.WriteString(fmt.Sprint(d.ReplyToRandomID))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(17) {
-		sb.WriteString("\tGroupedID: ")
-		sb.WriteString(fmt.Sprint(d.GroupedID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessage
+	return fmt.Sprintf("DecryptedMessage%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1297,17 +1167,17 @@ var (
 // See https://core.telegram.org/type/DecryptedMessage for reference.
 //
 // Example:
-//  g, err := DecodeDecryptedMessage(buf)
+//  g, err := e2e.DecodeDecryptedMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DecryptedMessage8: // decryptedMessage8#1f814f1f
-//  case *DecryptedMessageService8: // decryptedMessageService8#aa48327d
-//  case *DecryptedMessage23: // decryptedMessage23#204d3878
-//  case *DecryptedMessageService: // decryptedMessageService#73164160
-//  case *DecryptedMessage46: // decryptedMessage46#36b091de
-//  case *DecryptedMessage: // decryptedMessage#91cc4674
+//  case *e2e.DecryptedMessage8: // decryptedMessage8#1f814f1f
+//  case *e2e.DecryptedMessageService8: // decryptedMessageService8#aa48327d
+//  case *e2e.DecryptedMessage23: // decryptedMessage23#204d3878
+//  case *e2e.DecryptedMessageService: // decryptedMessageService#73164160
+//  case *e2e.DecryptedMessage46: // decryptedMessage46#36b091de
+//  case *e2e.DecryptedMessage: // decryptedMessage#91cc4674
 //  default: panic(v)
 //  }
 type DecryptedMessageClass interface {

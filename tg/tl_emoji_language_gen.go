@@ -46,14 +46,8 @@ func (e *EmojiLanguage) String() string {
 	if e == nil {
 		return "EmojiLanguage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiLanguage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(e.LangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EmojiLanguage
+	return fmt.Sprintf("EmojiLanguage%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

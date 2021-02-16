@@ -79,30 +79,8 @@ func (t *HelpTermsOfService) String() string {
 	if t == nil {
 		return "HelpTermsOfService(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpTermsOfService")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(t.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range t.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if t.Flags.Has(1) {
-		sb.WriteString("\tMinAgeConfirm: ")
-		sb.WriteString(fmt.Sprint(t.MinAgeConfirm))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpTermsOfService
+	return fmt.Sprintf("HelpTermsOfService%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

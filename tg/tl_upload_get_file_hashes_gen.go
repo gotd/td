@@ -51,17 +51,8 @@ func (g *UploadGetFileHashesRequest) String() string {
 	if g == nil {
 		return "UploadGetFileHashesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadGetFileHashesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(g.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadGetFileHashesRequest
+	return fmt.Sprintf("UploadGetFileHashesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

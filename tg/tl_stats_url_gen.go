@@ -46,14 +46,8 @@ func (s *StatsURL) String() string {
 	if s == nil {
 		return "StatsURL(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsURL")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(s.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsURL
+	return fmt.Sprintf("StatsURL%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

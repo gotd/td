@@ -56,22 +56,8 @@ func (t *TopPeerCategoryPeers) String() string {
 	if t == nil {
 		return "TopPeerCategoryPeers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeerCategoryPeers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCategory: ")
-	sb.WriteString(fmt.Sprint(t.Category))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(t.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range t.Peers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeerCategoryPeers
+	return fmt.Sprintf("TopPeerCategoryPeers%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

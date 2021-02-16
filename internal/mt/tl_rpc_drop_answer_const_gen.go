@@ -43,14 +43,8 @@ func (r *RPCDropAnswerRequest) String() string {
 	if r == nil {
 		return "RPCDropAnswerRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCDropAnswerRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReqMsgID: ")
-	sb.WriteString(fmt.Sprint(r.ReqMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCDropAnswerRequest
+	return fmt.Sprintf("RPCDropAnswerRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

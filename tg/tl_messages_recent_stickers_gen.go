@@ -41,11 +41,8 @@ func (r *MessagesRecentStickersNotModified) String() string {
 	if r == nil {
 		return "MessagesRecentStickersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesRecentStickersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesRecentStickersNotModified
+	return fmt.Sprintf("MessagesRecentStickersNotModified%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -131,29 +128,8 @@ func (r *MessagesRecentStickers) String() string {
 	if r == nil {
 		return "MessagesRecentStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesRecentStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(r.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.Packs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range r.Stickers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range r.Dates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesRecentStickers
+	return fmt.Sprintf("MessagesRecentStickers%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -284,13 +260,13 @@ var (
 // See https://core.telegram.org/type/messages.RecentStickers for reference.
 //
 // Example:
-//  g, err := DecodeMessagesRecentStickers(buf)
+//  g, err := tg.DecodeMessagesRecentStickers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesRecentStickersNotModified: // messages.recentStickersNotModified#b17f890
-//  case *MessagesRecentStickers: // messages.recentStickers#22f3afb3
+//  case *tg.MessagesRecentStickersNotModified: // messages.recentStickersNotModified#b17f890
+//  case *tg.MessagesRecentStickers: // messages.recentStickers#22f3afb3
 //  default: panic(v)
 //  }
 type MessagesRecentStickersClass interface {

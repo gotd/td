@@ -45,16 +45,8 @@ func (e *EchoVectorRequest) String() string {
 	if e == nil {
 		return "EchoVectorRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EchoVectorRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range e.Ids {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EchoVectorRequest
+	return fmt.Sprintf("EchoVectorRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

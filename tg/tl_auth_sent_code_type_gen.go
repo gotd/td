@@ -46,14 +46,8 @@ func (s *AuthSentCodeTypeApp) String() string {
 	if s == nil {
 		return "AuthSentCodeTypeApp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSentCodeTypeApp")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(s.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSentCodeTypeApp
+	return fmt.Sprintf("AuthSentCodeTypeApp%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -134,14 +128,8 @@ func (s *AuthSentCodeTypeSms) String() string {
 	if s == nil {
 		return "AuthSentCodeTypeSms(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSentCodeTypeSms")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(s.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSentCodeTypeSms
+	return fmt.Sprintf("AuthSentCodeTypeSms%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -222,14 +210,8 @@ func (s *AuthSentCodeTypeCall) String() string {
 	if s == nil {
 		return "AuthSentCodeTypeCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSentCodeTypeCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(s.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSentCodeTypeCall
+	return fmt.Sprintf("AuthSentCodeTypeCall%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -313,14 +295,8 @@ func (s *AuthSentCodeTypeFlashCall) String() string {
 	if s == nil {
 		return "AuthSentCodeTypeFlashCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSentCodeTypeFlashCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPattern: ")
-	sb.WriteString(fmt.Sprint(s.Pattern))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSentCodeTypeFlashCall
+	return fmt.Sprintf("AuthSentCodeTypeFlashCall%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -378,15 +354,15 @@ var (
 // See https://core.telegram.org/type/auth.SentCodeType for reference.
 //
 // Example:
-//  g, err := DecodeAuthSentCodeType(buf)
+//  g, err := tg.DecodeAuthSentCodeType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
-//  case *AuthSentCodeTypeSms: // auth.sentCodeTypeSms#c000bba2
-//  case *AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
-//  case *AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
+//  case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
+//  case *tg.AuthSentCodeTypeSms: // auth.sentCodeTypeSms#c000bba2
+//  case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
+//  case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
 //  default: panic(v)
 //  }
 type AuthSentCodeTypeClass interface {

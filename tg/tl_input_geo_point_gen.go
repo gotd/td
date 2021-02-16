@@ -41,11 +41,8 @@ func (i *InputGeoPointEmpty) String() string {
 	if i == nil {
 		return "InputGeoPointEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputGeoPointEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputGeoPointEmpty
+	return fmt.Sprintf("InputGeoPointEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -133,25 +130,8 @@ func (i *InputGeoPoint) String() string {
 	if i == nil {
 		return "InputGeoPoint(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputGeoPoint")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLat: ")
-	sb.WriteString(fmt.Sprint(i.Lat))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLong: ")
-	sb.WriteString(fmt.Sprint(i.Long))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tAccuracyRadius: ")
-		sb.WriteString(fmt.Sprint(i.AccuracyRadius))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputGeoPoint
+	return fmt.Sprintf("InputGeoPoint%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -258,13 +238,13 @@ var (
 // See https://core.telegram.org/type/InputGeoPoint for reference.
 //
 // Example:
-//  g, err := DecodeInputGeoPoint(buf)
+//  g, err := tg.DecodeInputGeoPoint(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputGeoPointEmpty: // inputGeoPointEmpty#e4c123d6
-//  case *InputGeoPoint: // inputGeoPoint#48222faf
+//  case *tg.InputGeoPointEmpty: // inputGeoPointEmpty#e4c123d6
+//  case *tg.InputGeoPoint: // inputGeoPoint#48222faf
 //  default: panic(v)
 //  }
 type InputGeoPointClass interface {

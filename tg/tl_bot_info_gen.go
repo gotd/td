@@ -56,22 +56,8 @@ func (b *BotInfo) String() string {
 	if b == nil {
 		return "BotInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(b.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDescription: ")
-	sb.WriteString(fmt.Sprint(b.Description))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range b.Commands {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotInfo
+	return fmt.Sprintf("BotInfo%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

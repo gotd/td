@@ -51,17 +51,8 @@ func (i *InlineBotSwitchPM) String() string {
 	if i == nil {
 		return "InlineBotSwitchPM(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InlineBotSwitchPM")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(i.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStartParam: ")
-	sb.WriteString(fmt.Sprint(i.StartParam))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InlineBotSwitchPM
+	return fmt.Sprintf("InlineBotSwitchPM%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

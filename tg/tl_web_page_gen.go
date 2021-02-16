@@ -46,14 +46,8 @@ func (w *WebPageEmpty) String() string {
 	if w == nil {
 		return "WebPageEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebPageEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(w.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebPageEmpty
+	return fmt.Sprintf("WebPageEmpty%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,17 +133,8 @@ func (w *WebPagePending) String() string {
 	if w == nil {
 		return "WebPagePending(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebPagePending")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(w.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(w.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebPagePending
+	return fmt.Sprintf("WebPagePending%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -370,98 +355,8 @@ func (w *WebPage) String() string {
 	if w == nil {
 		return "WebPage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebPage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(w.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(w.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDisplayURL: ")
-	sb.WriteString(fmt.Sprint(w.DisplayURL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(w.Hash))
-	sb.WriteString(",\n")
-	if w.Flags.Has(0) {
-		sb.WriteString("\tType: ")
-		sb.WriteString(fmt.Sprint(w.Type))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(1) {
-		sb.WriteString("\tSiteName: ")
-		sb.WriteString(fmt.Sprint(w.SiteName))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(2) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(w.Title))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(3) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(w.Description))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(4) {
-		sb.WriteString("\tPhoto: ")
-		sb.WriteString(fmt.Sprint(w.Photo))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(5) {
-		sb.WriteString("\tEmbedURL: ")
-		sb.WriteString(fmt.Sprint(w.EmbedURL))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(5) {
-		sb.WriteString("\tEmbedType: ")
-		sb.WriteString(fmt.Sprint(w.EmbedType))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(6) {
-		sb.WriteString("\tEmbedWidth: ")
-		sb.WriteString(fmt.Sprint(w.EmbedWidth))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(6) {
-		sb.WriteString("\tEmbedHeight: ")
-		sb.WriteString(fmt.Sprint(w.EmbedHeight))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(7) {
-		sb.WriteString("\tDuration: ")
-		sb.WriteString(fmt.Sprint(w.Duration))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(8) {
-		sb.WriteString("\tAuthor: ")
-		sb.WriteString(fmt.Sprint(w.Author))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(9) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(w.Document))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(10) {
-		sb.WriteString("\tCachedPage: ")
-		sb.WriteString(fmt.Sprint(w.CachedPage))
-		sb.WriteString(",\n")
-	}
-	if w.Flags.Has(12) {
-		sb.WriteByte('[')
-		for _, v := range w.Attributes {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebPage
+	return fmt.Sprintf("WebPage%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1012,19 +907,8 @@ func (w *WebPageNotModified) String() string {
 	if w == nil {
 		return "WebPageNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("WebPageNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(w.Flags))
-	sb.WriteString(",\n")
-	if w.Flags.Has(0) {
-		sb.WriteString("\tCachedPageViews: ")
-		sb.WriteString(fmt.Sprint(w.CachedPageViews))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias WebPageNotModified
+	return fmt.Sprintf("WebPageNotModified%+v", Alias(*w))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1105,15 +989,15 @@ var (
 // See https://core.telegram.org/type/WebPage for reference.
 //
 // Example:
-//  g, err := DecodeWebPage(buf)
+//  g, err := tg.DecodeWebPage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *WebPageEmpty: // webPageEmpty#eb1477e8
-//  case *WebPagePending: // webPagePending#c586da1c
-//  case *WebPage: // webPage#e89c45b2
-//  case *WebPageNotModified: // webPageNotModified#7311ca11
+//  case *tg.WebPageEmpty: // webPageEmpty#eb1477e8
+//  case *tg.WebPagePending: // webPagePending#c586da1c
+//  case *tg.WebPage: // webPage#e89c45b2
+//  case *tg.WebPageNotModified: // webPageNotModified#7311ca11
 //  default: panic(v)
 //  }
 type WebPageClass interface {

@@ -50,14 +50,8 @@ func (d *MessagesDeletePhoneCallHistoryRequest) String() string {
 	if d == nil {
 		return "MessagesDeletePhoneCallHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDeletePhoneCallHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDeletePhoneCallHistoryRequest
+	return fmt.Sprintf("MessagesDeletePhoneCallHistoryRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (k *KeyboardButton) String() string {
 	if k == nil {
 		return "KeyboardButton(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButton")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButton
+	return fmt.Sprintf("KeyboardButton%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,17 +133,8 @@ func (k *KeyboardButtonUrl) String() string {
 	if k == nil {
 		return "KeyboardButtonUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(k.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonUrl
+	return fmt.Sprintf("KeyboardButtonUrl%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -267,20 +252,8 @@ func (k *KeyboardButtonCallback) String() string {
 	if k == nil {
 		return "KeyboardButtonCallback(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonCallback")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(k.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(k.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonCallback
+	return fmt.Sprintf("KeyboardButtonCallback%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -402,14 +375,8 @@ func (k *KeyboardButtonRequestPhone) String() string {
 	if k == nil {
 		return "KeyboardButtonRequestPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonRequestPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonRequestPhone
+	return fmt.Sprintf("KeyboardButtonRequestPhone%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -490,14 +457,8 @@ func (k *KeyboardButtonRequestGeoLocation) String() string {
 	if k == nil {
 		return "KeyboardButtonRequestGeoLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonRequestGeoLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonRequestGeoLocation
+	return fmt.Sprintf("KeyboardButtonRequestGeoLocation%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -596,20 +557,8 @@ func (k *KeyboardButtonSwitchInline) String() string {
 	if k == nil {
 		return "KeyboardButtonSwitchInline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonSwitchInline")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(k.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(k.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonSwitchInline
+	return fmt.Sprintf("KeyboardButtonSwitchInline%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -731,14 +680,8 @@ func (k *KeyboardButtonGame) String() string {
 	if k == nil {
 		return "KeyboardButtonGame(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonGame")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonGame
+	return fmt.Sprintf("KeyboardButtonGame%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -819,14 +762,8 @@ func (k *KeyboardButtonBuy) String() string {
 	if k == nil {
 		return "KeyboardButtonBuy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonBuy")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonBuy
+	return fmt.Sprintf("KeyboardButtonBuy%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -947,28 +884,8 @@ func (k *KeyboardButtonUrlAuth) String() string {
 	if k == nil {
 		return "KeyboardButtonUrlAuth(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonUrlAuth")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(k.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	if k.Flags.Has(0) {
-		sb.WriteString("\tFwdText: ")
-		sb.WriteString(fmt.Sprint(k.FwdText))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(k.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tButtonID: ")
-	sb.WriteString(fmt.Sprint(k.ButtonID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonUrlAuth
+	return fmt.Sprintf("KeyboardButtonUrlAuth%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1153,28 +1070,8 @@ func (i *InputKeyboardButtonUrlAuth) String() string {
 	if i == nil {
 		return "InputKeyboardButtonUrlAuth(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputKeyboardButtonUrlAuth")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(i.Text))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteString("\tFwdText: ")
-		sb.WriteString(fmt.Sprint(i.FwdText))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(i.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBot: ")
-	sb.WriteString(fmt.Sprint(i.Bot))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputKeyboardButtonUrlAuth
+	return fmt.Sprintf("InputKeyboardButtonUrlAuth%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1357,22 +1254,8 @@ func (k *KeyboardButtonRequestPoll) String() string {
 	if k == nil {
 		return "KeyboardButtonRequestPoll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("KeyboardButtonRequestPoll")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(k.Flags))
-	sb.WriteString(",\n")
-	if k.Flags.Has(0) {
-		sb.WriteString("\tQuiz: ")
-		sb.WriteString(fmt.Sprint(k.Quiz))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(k.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias KeyboardButtonRequestPoll
+	return fmt.Sprintf("KeyboardButtonRequestPoll%+v", Alias(*k))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1466,22 +1349,22 @@ var (
 // See https://core.telegram.org/type/KeyboardButton for reference.
 //
 // Example:
-//  g, err := DecodeKeyboardButton(buf)
+//  g, err := tg.DecodeKeyboardButton(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *KeyboardButton: // keyboardButton#a2fa4880
-//  case *KeyboardButtonUrl: // keyboardButtonUrl#258aff05
-//  case *KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
-//  case *KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
-//  case *KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
-//  case *KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
-//  case *KeyboardButtonGame: // keyboardButtonGame#50f41ccf
-//  case *KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
-//  case *KeyboardButtonUrlAuth: // keyboardButtonUrlAuth#10b78d29
-//  case *InputKeyboardButtonUrlAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
-//  case *KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
+//  case *tg.KeyboardButton: // keyboardButton#a2fa4880
+//  case *tg.KeyboardButtonUrl: // keyboardButtonUrl#258aff05
+//  case *tg.KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
+//  case *tg.KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
+//  case *tg.KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
+//  case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
+//  case *tg.KeyboardButtonGame: // keyboardButtonGame#50f41ccf
+//  case *tg.KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
+//  case *tg.KeyboardButtonUrlAuth: // keyboardButtonUrlAuth#10b78d29
+//  case *tg.InputKeyboardButtonUrlAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
+//  case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
 //  default: panic(v)
 //  }
 type KeyboardButtonClass interface {

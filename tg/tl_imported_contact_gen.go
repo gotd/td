@@ -54,17 +54,8 @@ func (i *ImportedContact) String() string {
 	if i == nil {
 		return "ImportedContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ImportedContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(i.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tClientID: ")
-	sb.WriteString(fmt.Sprint(i.ClientID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ImportedContact
+	return fmt.Sprintf("ImportedContact%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

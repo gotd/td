@@ -93,39 +93,8 @@ func (p *AccountPasswordInputSettings) String() string {
 	if p == nil {
 		return "AccountPasswordInputSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountPasswordInputSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tNewAlgo: ")
-		sb.WriteString(fmt.Sprint(p.NewAlgo))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(0) {
-		sb.WriteString("\tNewPasswordHash: ")
-		sb.WriteString(fmt.Sprint(p.NewPasswordHash))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(0) {
-		sb.WriteString("\tHint: ")
-		sb.WriteString(fmt.Sprint(p.Hint))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tEmail: ")
-		sb.WriteString(fmt.Sprint(p.Email))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tNewSecureSettings: ")
-		sb.WriteString(fmt.Sprint(p.NewSecureSettings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountPasswordInputSettings
+	return fmt.Sprintf("AccountPasswordInputSettings%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

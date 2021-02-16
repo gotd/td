@@ -46,14 +46,8 @@ func (s *AccountSetContactSignUpNotificationRequest) String() string {
 	if s == nil {
 		return "AccountSetContactSignUpNotificationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSetContactSignUpNotificationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSilent: ")
-	sb.WriteString(fmt.Sprint(s.Silent))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSetContactSignUpNotificationRequest
+	return fmt.Sprintf("AccountSetContactSignUpNotificationRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (r *MessagesReportEncryptedSpamRequest) String() string {
 	if r == nil {
 		return "MessagesReportEncryptedSpamRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReportEncryptedSpamRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReportEncryptedSpamRequest
+	return fmt.Sprintf("MessagesReportEncryptedSpamRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

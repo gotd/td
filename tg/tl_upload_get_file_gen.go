@@ -77,23 +77,8 @@ func (g *UploadGetFileRequest) String() string {
 	if g == nil {
 		return "UploadGetFileRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadGetFileRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(g.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadGetFileRequest
+	return fmt.Sprintf("UploadGetFileRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

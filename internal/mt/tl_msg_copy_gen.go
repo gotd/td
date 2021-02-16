@@ -43,14 +43,8 @@ func (m *MsgCopy) String() string {
 	if m == nil {
 		return "MsgCopy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgCopy")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOrigMessage: ")
-	sb.WriteString(fmt.Sprint(m.OrigMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgCopy
+	return fmt.Sprintf("MsgCopy%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (r *AccountResetWallPapersRequest) String() string {
 	if r == nil {
 		return "AccountResetWallPapersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountResetWallPapersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountResetWallPapersRequest
+	return fmt.Sprintf("AccountResetWallPapersRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

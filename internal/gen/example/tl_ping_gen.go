@@ -45,14 +45,8 @@ func (p *PingRequest) String() string {
 	if p == nil {
 		return "PingRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PingRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PingRequest
+	return fmt.Sprintf("PingRequest%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

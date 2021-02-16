@@ -51,17 +51,8 @@ func (r *MessagesReadHistoryRequest) String() string {
 	if r == nil {
 		return "MessagesReadHistoryRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesReadHistoryRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(r.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesReadHistoryRequest
+	return fmt.Sprintf("MessagesReadHistoryRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

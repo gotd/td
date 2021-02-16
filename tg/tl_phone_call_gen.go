@@ -46,14 +46,8 @@ func (p *PhoneCallEmpty) String() string {
 	if p == nil {
 		return "PhoneCallEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallEmpty
+	return fmt.Sprintf("PhoneCallEmpty%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -179,37 +173,8 @@ func (p *PhoneCallWaiting) String() string {
 	if p == nil {
 		return "PhoneCallWaiting(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallWaiting")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(p.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(p.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(p.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(p.Protocol))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tReceiveDate: ")
-		sb.WriteString(fmt.Sprint(p.ReceiveDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallWaiting
+	return fmt.Sprintf("PhoneCallWaiting%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -457,35 +422,8 @@ func (p *PhoneCallRequested) String() string {
 	if p == nil {
 		return "PhoneCallRequested(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallRequested")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(p.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(p.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(p.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGAHash: ")
-	sb.WriteString(fmt.Sprint(p.GAHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(p.Protocol))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallRequested
+	return fmt.Sprintf("PhoneCallRequested%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -718,35 +656,8 @@ func (p *PhoneCallAccepted) String() string {
 	if p == nil {
 		return "PhoneCallAccepted(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallAccepted")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(p.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(p.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(p.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGB: ")
-	sb.WriteString(fmt.Sprint(p.GB))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(p.Protocol))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallAccepted
+	return fmt.Sprintf("PhoneCallAccepted%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1002,46 +913,8 @@ func (p *PhoneCall) String() string {
 	if p == nil {
 		return "PhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(p.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(p.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAdminID: ")
-	sb.WriteString(fmt.Sprint(p.AdminID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantID: ")
-	sb.WriteString(fmt.Sprint(p.ParticipantID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGAOrB: ")
-	sb.WriteString(fmt.Sprint(p.GAOrB))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(p.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(p.Protocol))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Connections {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tStartDate: ")
-	sb.WriteString(fmt.Sprint(p.StartDate))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCall
+	return fmt.Sprintf("PhoneCall%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1344,27 +1217,8 @@ func (p *PhoneCallDiscarded) String() string {
 	if p == nil {
 		return "PhoneCallDiscarded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallDiscarded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(p.ID))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tReason: ")
-		sb.WriteString(fmt.Sprint(p.Reason))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tDuration: ")
-		sb.WriteString(fmt.Sprint(p.Duration))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallDiscarded
+	return fmt.Sprintf("PhoneCallDiscarded%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1551,17 +1405,17 @@ var (
 // See https://core.telegram.org/type/PhoneCall for reference.
 //
 // Example:
-//  g, err := DecodePhoneCall(buf)
+//  g, err := tg.DecodePhoneCall(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhoneCallEmpty: // phoneCallEmpty#5366c915
-//  case *PhoneCallWaiting: // phoneCallWaiting#1b8f4ad1
-//  case *PhoneCallRequested: // phoneCallRequested#87eabb53
-//  case *PhoneCallAccepted: // phoneCallAccepted#997c454a
-//  case *PhoneCall: // phoneCall#8742ae7f
-//  case *PhoneCallDiscarded: // phoneCallDiscarded#50ca4de1
+//  case *tg.PhoneCallEmpty: // phoneCallEmpty#5366c915
+//  case *tg.PhoneCallWaiting: // phoneCallWaiting#1b8f4ad1
+//  case *tg.PhoneCallRequested: // phoneCallRequested#87eabb53
+//  case *tg.PhoneCallAccepted: // phoneCallAccepted#997c454a
+//  case *tg.PhoneCall: // phoneCall#8742ae7f
+//  case *tg.PhoneCallDiscarded: // phoneCallDiscarded#50ca4de1
 //  default: panic(v)
 //  }
 type PhoneCallClass interface {

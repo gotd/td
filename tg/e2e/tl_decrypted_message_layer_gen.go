@@ -65,26 +65,8 @@ func (d *DecryptedMessageLayer) String() string {
 	if d == nil {
 		return "DecryptedMessageLayer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DecryptedMessageLayer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRandomBytes: ")
-	sb.WriteString(fmt.Sprint(d.RandomBytes))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLayer: ")
-	sb.WriteString(fmt.Sprint(d.Layer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInSeqNo: ")
-	sb.WriteString(fmt.Sprint(d.InSeqNo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOutSeqNo: ")
-	sb.WriteString(fmt.Sprint(d.OutSeqNo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DecryptedMessageLayer
+	return fmt.Sprintf("DecryptedMessageLayer%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -84,34 +84,8 @@ func (v *VideoSize) String() string {
 	if v == nil {
 		return "VideoSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("VideoSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(v.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(v.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocation: ")
-	sb.WriteString(fmt.Sprint(v.Location))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(v.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(v.H))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(v.Size))
-	sb.WriteString(",\n")
-	if v.Flags.Has(0) {
-		sb.WriteString("\tVideoStartTs: ")
-		sb.WriteString(fmt.Sprint(v.VideoStartTs))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias VideoSize
+	return fmt.Sprintf("VideoSize%+v", Alias(*v))
 }
 
 // TypeID returns MTProto type id (CRC code).

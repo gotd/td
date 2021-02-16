@@ -40,11 +40,8 @@ func (t *TextEntityTypeMention) String() string {
 	if t == nil {
 		return "TextEntityTypeMention(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeMention")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeMention
+	return fmt.Sprintf("TextEntityTypeMention%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -106,11 +103,8 @@ func (t *TextEntityTypeHashtag) String() string {
 	if t == nil {
 		return "TextEntityTypeHashtag(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeHashtag")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeHashtag
+	return fmt.Sprintf("TextEntityTypeHashtag%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -172,11 +166,8 @@ func (t *TextEntityTypeCashtag) String() string {
 	if t == nil {
 		return "TextEntityTypeCashtag(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeCashtag")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeCashtag
+	return fmt.Sprintf("TextEntityTypeCashtag%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -238,11 +229,8 @@ func (t *TextEntityTypeBotCommand) String() string {
 	if t == nil {
 		return "TextEntityTypeBotCommand(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeBotCommand")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeBotCommand
+	return fmt.Sprintf("TextEntityTypeBotCommand%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -304,11 +292,8 @@ func (t *TextEntityTypeUrl) String() string {
 	if t == nil {
 		return "TextEntityTypeUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeUrl
+	return fmt.Sprintf("TextEntityTypeUrl%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -370,11 +355,8 @@ func (t *TextEntityTypeEmailAddress) String() string {
 	if t == nil {
 		return "TextEntityTypeEmailAddress(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeEmailAddress")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeEmailAddress
+	return fmt.Sprintf("TextEntityTypeEmailAddress%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -436,11 +418,8 @@ func (t *TextEntityTypePhoneNumber) String() string {
 	if t == nil {
 		return "TextEntityTypePhoneNumber(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypePhoneNumber")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypePhoneNumber
+	return fmt.Sprintf("TextEntityTypePhoneNumber%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -502,11 +481,8 @@ func (t *TextEntityTypeBankCardNumber) String() string {
 	if t == nil {
 		return "TextEntityTypeBankCardNumber(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeBankCardNumber")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeBankCardNumber
+	return fmt.Sprintf("TextEntityTypeBankCardNumber%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -568,11 +544,8 @@ func (t *TextEntityTypeBold) String() string {
 	if t == nil {
 		return "TextEntityTypeBold(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeBold")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeBold
+	return fmt.Sprintf("TextEntityTypeBold%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -634,11 +607,8 @@ func (t *TextEntityTypeItalic) String() string {
 	if t == nil {
 		return "TextEntityTypeItalic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeItalic")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeItalic
+	return fmt.Sprintf("TextEntityTypeItalic%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -700,11 +670,8 @@ func (t *TextEntityTypeUnderline) String() string {
 	if t == nil {
 		return "TextEntityTypeUnderline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeUnderline")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeUnderline
+	return fmt.Sprintf("TextEntityTypeUnderline%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -766,11 +733,8 @@ func (t *TextEntityTypeStrikethrough) String() string {
 	if t == nil {
 		return "TextEntityTypeStrikethrough(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeStrikethrough")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeStrikethrough
+	return fmt.Sprintf("TextEntityTypeStrikethrough%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -832,11 +796,8 @@ func (t *TextEntityTypeCode) String() string {
 	if t == nil {
 		return "TextEntityTypeCode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeCode")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeCode
+	return fmt.Sprintf("TextEntityTypeCode%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -898,11 +859,8 @@ func (t *TextEntityTypePre) String() string {
 	if t == nil {
 		return "TextEntityTypePre(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypePre")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypePre
+	return fmt.Sprintf("TextEntityTypePre%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -969,14 +927,8 @@ func (t *TextEntityTypePreCode) String() string {
 	if t == nil {
 		return "TextEntityTypePreCode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypePreCode")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLanguage: ")
-	sb.WriteString(fmt.Sprint(t.Language))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypePreCode
+	return fmt.Sprintf("TextEntityTypePreCode%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1056,14 +1008,8 @@ func (t *TextEntityTypeTextUrl) String() string {
 	if t == nil {
 		return "TextEntityTypeTextUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeTextUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(t.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeTextUrl
+	return fmt.Sprintf("TextEntityTypeTextUrl%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1143,14 +1089,8 @@ func (t *TextEntityTypeMentionName) String() string {
 	if t == nil {
 		return "TextEntityTypeMentionName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntityTypeMentionName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(t.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntityTypeMentionName
+	return fmt.Sprintf("TextEntityTypeMentionName%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1208,28 +1148,28 @@ var (
 // See https://localhost:80/doc/type/TextEntityType for reference.
 //
 // Example:
-//  g, err := DecodeTextEntityType(buf)
+//  g, err := td.DecodeTextEntityType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *TextEntityTypeMention: // textEntityTypeMention#37b3df65
-//  case *TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
-//  case *TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
-//  case *TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
-//  case *TextEntityTypeUrl: // textEntityTypeUrl#b1c0d47c
-//  case *TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
-//  case *TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
-//  case *TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
-//  case *TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
-//  case *TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
-//  case *TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
-//  case *TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
-//  case *TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
-//  case *TextEntityTypePre: // textEntityTypePre#62491c8e
-//  case *TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
-//  case *TextEntityTypeTextUrl: // textEntityTypeTextUrl#1a912463
-//  case *TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
+//  case *td.TextEntityTypeMention: // textEntityTypeMention#37b3df65
+//  case *td.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
+//  case *td.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
+//  case *td.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
+//  case *td.TextEntityTypeUrl: // textEntityTypeUrl#b1c0d47c
+//  case *td.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
+//  case *td.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
+//  case *td.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
+//  case *td.TextEntityTypeBold: // textEntityTypeBold#bcc0e1b0
+//  case *td.TextEntityTypeItalic: // textEntityTypeItalic#f8f3965d
+//  case *td.TextEntityTypeUnderline: // textEntityTypeUnderline#2f39cf92
+//  case *td.TextEntityTypeStrikethrough: // textEntityTypeStrikethrough#394fc4fa
+//  case *td.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
+//  case *td.TextEntityTypePre: // textEntityTypePre#62491c8e
+//  case *td.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
+//  case *td.TextEntityTypeTextUrl: // textEntityTypeTextUrl#1a912463
+//  case *td.TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
 //  default: panic(v)
 //  }
 type TextEntityTypeClass interface {

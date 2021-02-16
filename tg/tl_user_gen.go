@@ -46,14 +46,8 @@ func (u *UserEmpty) String() string {
 	if u == nil {
 		return "UserEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserEmpty
+	return fmt.Sprintf("UserEmpty%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -300,74 +294,8 @@ func (u *User) String() string {
 	if u == nil {
 		return "User(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("User")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tAccessHash: ")
-		sb.WriteString(fmt.Sprint(u.AccessHash))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tFirstName: ")
-		sb.WriteString(fmt.Sprint(u.FirstName))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(2) {
-		sb.WriteString("\tLastName: ")
-		sb.WriteString(fmt.Sprint(u.LastName))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(3) {
-		sb.WriteString("\tUsername: ")
-		sb.WriteString(fmt.Sprint(u.Username))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(4) {
-		sb.WriteString("\tPhone: ")
-		sb.WriteString(fmt.Sprint(u.Phone))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(5) {
-		sb.WriteString("\tPhoto: ")
-		sb.WriteString(fmt.Sprint(u.Photo))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(6) {
-		sb.WriteString("\tStatus: ")
-		sb.WriteString(fmt.Sprint(u.Status))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(14) {
-		sb.WriteString("\tBotInfoVersion: ")
-		sb.WriteString(fmt.Sprint(u.BotInfoVersion))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(18) {
-		sb.WriteByte('[')
-		for _, v := range u.RestrictionReason {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if u.Flags.Has(19) {
-		sb.WriteString("\tBotInlinePlaceholder: ")
-		sb.WriteString(fmt.Sprint(u.BotInlinePlaceholder))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(22) {
-		sb.WriteString("\tLangCode: ")
-		sb.WriteString(fmt.Sprint(u.LangCode))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias User
+	return fmt.Sprintf("User%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1062,13 +990,13 @@ var (
 // See https://core.telegram.org/type/User for reference.
 //
 // Example:
-//  g, err := DecodeUser(buf)
+//  g, err := tg.DecodeUser(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UserEmpty: // userEmpty#200250ba
-//  case *User: // user#938458c1
+//  case *tg.UserEmpty: // userEmpty#200250ba
+//  case *tg.User: // user#938458c1
 //  default: panic(v)
 //  }
 type UserClass interface {

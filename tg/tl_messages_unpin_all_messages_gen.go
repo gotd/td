@@ -49,14 +49,8 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 	if u == nil {
 		return "MessagesUnpinAllMessagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUnpinAllMessagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUnpinAllMessagesRequest
+	return fmt.Sprintf("MessagesUnpinAllMessagesRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

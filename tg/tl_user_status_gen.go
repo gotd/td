@@ -41,11 +41,8 @@ func (u *UserStatusEmpty) String() string {
 	if u == nil {
 		return "UserStatusEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusEmpty
+	return fmt.Sprintf("UserStatusEmpty%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -113,14 +110,8 @@ func (u *UserStatusOnline) String() string {
 	if u == nil {
 		return "UserStatusOnline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusOnline")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(u.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusOnline
+	return fmt.Sprintf("UserStatusOnline%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,14 +192,8 @@ func (u *UserStatusOffline) String() string {
 	if u == nil {
 		return "UserStatusOffline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusOffline")
-	sb.WriteString("{\n")
-	sb.WriteString("\tWasOnline: ")
-	sb.WriteString(fmt.Sprint(u.WasOnline))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusOffline
+	return fmt.Sprintf("UserStatusOffline%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -284,11 +269,8 @@ func (u *UserStatusRecently) String() string {
 	if u == nil {
 		return "UserStatusRecently(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusRecently")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusRecently
+	return fmt.Sprintf("UserStatusRecently%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -351,11 +333,8 @@ func (u *UserStatusLastWeek) String() string {
 	if u == nil {
 		return "UserStatusLastWeek(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusLastWeek")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusLastWeek
+	return fmt.Sprintf("UserStatusLastWeek%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -418,11 +397,8 @@ func (u *UserStatusLastMonth) String() string {
 	if u == nil {
 		return "UserStatusLastMonth(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserStatusLastMonth")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UserStatusLastMonth
+	return fmt.Sprintf("UserStatusLastMonth%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -467,17 +443,17 @@ var (
 // See https://core.telegram.org/type/UserStatus for reference.
 //
 // Example:
-//  g, err := DecodeUserStatus(buf)
+//  g, err := tg.DecodeUserStatus(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UserStatusEmpty: // userStatusEmpty#9d05049
-//  case *UserStatusOnline: // userStatusOnline#edb93949
-//  case *UserStatusOffline: // userStatusOffline#8c703f
-//  case *UserStatusRecently: // userStatusRecently#e26f42f1
-//  case *UserStatusLastWeek: // userStatusLastWeek#7bf09fc
-//  case *UserStatusLastMonth: // userStatusLastMonth#77ebc742
+//  case *tg.UserStatusEmpty: // userStatusEmpty#9d05049
+//  case *tg.UserStatusOnline: // userStatusOnline#edb93949
+//  case *tg.UserStatusOffline: // userStatusOffline#8c703f
+//  case *tg.UserStatusRecently: // userStatusRecently#e26f42f1
+//  case *tg.UserStatusLastWeek: // userStatusLastWeek#7bf09fc
+//  case *tg.UserStatusLastMonth: // userStatusLastMonth#77ebc742
 //  default: panic(v)
 //  }
 type UserStatusClass interface {

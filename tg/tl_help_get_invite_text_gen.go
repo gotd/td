@@ -41,11 +41,8 @@ func (g *HelpGetInviteTextRequest) String() string {
 	if g == nil {
 		return "HelpGetInviteTextRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetInviteTextRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetInviteTextRequest
+	return fmt.Sprintf("HelpGetInviteTextRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

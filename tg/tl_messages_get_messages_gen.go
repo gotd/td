@@ -46,16 +46,8 @@ func (g *MessagesGetMessagesRequest) String() string {
 	if g == nil {
 		return "MessagesGetMessagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetMessagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetMessagesRequest
+	return fmt.Sprintf("MessagesGetMessagesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

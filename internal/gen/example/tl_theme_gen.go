@@ -45,14 +45,8 @@ func (t *Theme) String() string {
 	if t == nil {
 		return "Theme(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Theme")
-	sb.WriteString("{\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(t.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Theme
+	return fmt.Sprintf("Theme%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

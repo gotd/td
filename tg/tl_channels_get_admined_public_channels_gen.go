@@ -70,14 +70,8 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 	if g == nil {
 		return "ChannelsGetAdminedPublicChannelsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsGetAdminedPublicChannelsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsGetAdminedPublicChannelsRequest
+	return fmt.Sprintf("ChannelsGetAdminedPublicChannelsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

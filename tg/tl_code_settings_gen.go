@@ -75,14 +75,8 @@ func (c *CodeSettings) String() string {
 	if c == nil {
 		return "CodeSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("CodeSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias CodeSettings
+	return fmt.Sprintf("CodeSettings%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

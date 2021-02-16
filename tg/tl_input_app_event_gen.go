@@ -61,23 +61,8 @@ func (i *InputAppEvent) String() string {
 	if i == nil {
 		return "InputAppEvent(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputAppEvent")
-	sb.WriteString("{\n")
-	sb.WriteString("\tTime: ")
-	sb.WriteString(fmt.Sprint(i.Time))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(i.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(i.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputAppEvent
+	return fmt.Sprintf("InputAppEvent%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

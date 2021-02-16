@@ -59,17 +59,8 @@ func (t *MessagesToggleDialogPinRequest) String() string {
 	if t == nil {
 		return "MessagesToggleDialogPinRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesToggleDialogPinRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(t.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesToggleDialogPinRequest
+	return fmt.Sprintf("MessagesToggleDialogPinRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,16 +46,8 @@ func (g *MessagesGetPeerDialogsRequest) String() string {
 	if g == nil {
 		return "MessagesGetPeerDialogsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetPeerDialogsRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range g.Peers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetPeerDialogsRequest
+	return fmt.Sprintf("MessagesGetPeerDialogsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -55,19 +55,8 @@ func (s *UsersSetSecureValueErrorsRequest) String() string {
 	if s == nil {
 		return "UsersSetSecureValueErrorsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UsersSetSecureValueErrorsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range s.Errors {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UsersSetSecureValueErrorsRequest
+	return fmt.Sprintf("UsersSetSecureValueErrorsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

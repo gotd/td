@@ -61,23 +61,8 @@ func (g *PhotosGetUserPhotosRequest) String() string {
 	if g == nil {
 		return "PhotosGetUserPhotosRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosGetUserPhotosRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(g.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosGetUserPhotosRequest
+	return fmt.Sprintf("PhotosGetUserPhotosRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

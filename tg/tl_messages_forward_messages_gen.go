@@ -91,35 +91,8 @@ func (f *MessagesForwardMessagesRequest) String() string {
 	if f == nil {
 		return "MessagesForwardMessagesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesForwardMessagesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(f.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFromPeer: ")
-	sb.WriteString(fmt.Sprint(f.FromPeer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.ID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.RandomID {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tToPeer: ")
-	sb.WriteString(fmt.Sprint(f.ToPeer))
-	sb.WriteString(",\n")
-	if f.Flags.Has(10) {
-		sb.WriteString("\tScheduleDate: ")
-		sb.WriteString(fmt.Sprint(f.ScheduleDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesForwardMessagesRequest
+	return fmt.Sprintf("MessagesForwardMessagesRequest%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

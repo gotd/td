@@ -41,11 +41,8 @@ func (g *AccountGetAutoDownloadSettingsRequest) String() string {
 	if g == nil {
 		return "AccountGetAutoDownloadSettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetAutoDownloadSettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetAutoDownloadSettingsRequest
+	return fmt.Sprintf("AccountGetAutoDownloadSettingsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

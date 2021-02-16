@@ -46,14 +46,8 @@ func (d *HelpDismissSuggestionRequest) String() string {
 	if d == nil {
 		return "HelpDismissSuggestionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpDismissSuggestionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSuggestion: ")
-	sb.WriteString(fmt.Sprint(d.Suggestion))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpDismissSuggestionRequest
+	return fmt.Sprintf("HelpDismissSuggestionRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -45,14 +45,8 @@ func (t *TestString) String() string {
 	if t == nil {
 		return "TestString(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TestString")
-	sb.WriteString("{\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(t.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TestString
+	return fmt.Sprintf("TestString%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

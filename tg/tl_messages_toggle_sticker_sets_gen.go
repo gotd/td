@@ -69,19 +69,8 @@ func (t *MessagesToggleStickerSetsRequest) String() string {
 	if t == nil {
 		return "MessagesToggleStickerSetsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesToggleStickerSetsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range t.Stickersets {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesToggleStickerSetsRequest
+	return fmt.Sprintf("MessagesToggleStickerSetsRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -139,57 +139,8 @@ func (s *MessagesSearchRequest) String() string {
 	if s == nil {
 		return "MessagesSearchRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSearchRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(s.Q))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tFromID: ")
-		sb.WriteString(fmt.Sprint(s.FromID))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(1) {
-		sb.WriteString("\tTopMsgID: ")
-		sb.WriteString(fmt.Sprint(s.TopMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tFilter: ")
-	sb.WriteString(fmt.Sprint(s.Filter))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinDate: ")
-	sb.WriteString(fmt.Sprint(s.MinDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxDate: ")
-	sb.WriteString(fmt.Sprint(s.MaxDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(s.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddOffset: ")
-	sb.WriteString(fmt.Sprint(s.AddOffset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(s.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(s.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinID: ")
-	sb.WriteString(fmt.Sprint(s.MinID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSearchRequest
+	return fmt.Sprintf("MessagesSearchRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

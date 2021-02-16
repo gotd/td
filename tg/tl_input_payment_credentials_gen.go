@@ -51,17 +51,8 @@ func (i *InputPaymentCredentialsSaved) String() string {
 	if i == nil {
 		return "InputPaymentCredentialsSaved(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPaymentCredentialsSaved")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTmpPassword: ")
-	sb.WriteString(fmt.Sprint(i.TmpPassword))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPaymentCredentialsSaved
+	return fmt.Sprintf("InputPaymentCredentialsSaved%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -168,17 +159,8 @@ func (i *InputPaymentCredentials) String() string {
 	if i == nil {
 		return "InputPaymentCredentials(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPaymentCredentials")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(i.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPaymentCredentials
+	return fmt.Sprintf("InputPaymentCredentials%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -287,14 +269,8 @@ func (i *InputPaymentCredentialsApplePay) String() string {
 	if i == nil {
 		return "InputPaymentCredentialsApplePay(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPaymentCredentialsApplePay")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPaymentData: ")
-	sb.WriteString(fmt.Sprint(i.PaymentData))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPaymentCredentialsApplePay
+	return fmt.Sprintf("InputPaymentCredentialsApplePay%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -374,14 +350,8 @@ func (i *InputPaymentCredentialsGooglePay) String() string {
 	if i == nil {
 		return "InputPaymentCredentialsGooglePay(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPaymentCredentialsGooglePay")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPaymentToken: ")
-	sb.WriteString(fmt.Sprint(i.PaymentToken))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPaymentCredentialsGooglePay
+	return fmt.Sprintf("InputPaymentCredentialsGooglePay%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -439,15 +409,15 @@ var (
 // See https://core.telegram.org/type/InputPaymentCredentials for reference.
 //
 // Example:
-//  g, err := DecodeInputPaymentCredentials(buf)
+//  g, err := tg.DecodeInputPaymentCredentials(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputPaymentCredentialsSaved: // inputPaymentCredentialsSaved#c10eb2cf
-//  case *InputPaymentCredentials: // inputPaymentCredentials#3417d728
-//  case *InputPaymentCredentialsApplePay: // inputPaymentCredentialsApplePay#aa1c39f
-//  case *InputPaymentCredentialsGooglePay: // inputPaymentCredentialsGooglePay#8ac32801
+//  case *tg.InputPaymentCredentialsSaved: // inputPaymentCredentialsSaved#c10eb2cf
+//  case *tg.InputPaymentCredentials: // inputPaymentCredentials#3417d728
+//  case *tg.InputPaymentCredentialsApplePay: // inputPaymentCredentialsApplePay#aa1c39f
+//  case *tg.InputPaymentCredentialsGooglePay: // inputPaymentCredentialsGooglePay#8ac32801
 //  default: panic(v)
 //  }
 type InputPaymentCredentialsClass interface {

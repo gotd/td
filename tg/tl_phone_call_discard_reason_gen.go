@@ -41,11 +41,8 @@ func (p *PhoneCallDiscardReasonMissed) String() string {
 	if p == nil {
 		return "PhoneCallDiscardReasonMissed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallDiscardReasonMissed")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallDiscardReasonMissed
+	return fmt.Sprintf("PhoneCallDiscardReasonMissed%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (p *PhoneCallDiscardReasonDisconnect) String() string {
 	if p == nil {
 		return "PhoneCallDiscardReasonDisconnect(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallDiscardReasonDisconnect")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallDiscardReasonDisconnect
+	return fmt.Sprintf("PhoneCallDiscardReasonDisconnect%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (p *PhoneCallDiscardReasonHangup) String() string {
 	if p == nil {
 		return "PhoneCallDiscardReasonHangup(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallDiscardReasonHangup")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallDiscardReasonHangup
+	return fmt.Sprintf("PhoneCallDiscardReasonHangup%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (p *PhoneCallDiscardReasonBusy) String() string {
 	if p == nil {
 		return "PhoneCallDiscardReasonBusy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCallDiscardReasonBusy")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCallDiscardReasonBusy
+	return fmt.Sprintf("PhoneCallDiscardReasonBusy%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -291,15 +279,15 @@ var (
 // See https://core.telegram.org/type/PhoneCallDiscardReason for reference.
 //
 // Example:
-//  g, err := DecodePhoneCallDiscardReason(buf)
+//  g, err := tg.DecodePhoneCallDiscardReason(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PhoneCallDiscardReasonMissed: // phoneCallDiscardReasonMissed#85e42301
-//  case *PhoneCallDiscardReasonDisconnect: // phoneCallDiscardReasonDisconnect#e095c1a0
-//  case *PhoneCallDiscardReasonHangup: // phoneCallDiscardReasonHangup#57adc690
-//  case *PhoneCallDiscardReasonBusy: // phoneCallDiscardReasonBusy#faf7e8c9
+//  case *tg.PhoneCallDiscardReasonMissed: // phoneCallDiscardReasonMissed#85e42301
+//  case *tg.PhoneCallDiscardReasonDisconnect: // phoneCallDiscardReasonDisconnect#e095c1a0
+//  case *tg.PhoneCallDiscardReasonHangup: // phoneCallDiscardReasonHangup#57adc690
+//  case *tg.PhoneCallDiscardReasonBusy: // phoneCallDiscardReasonBusy#faf7e8c9
 //  default: panic(v)
 //  }
 type PhoneCallDiscardReasonClass interface {

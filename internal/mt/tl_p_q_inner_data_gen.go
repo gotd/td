@@ -68,29 +68,8 @@ func (p *PQInnerData) String() string {
 	if p == nil {
 		return "PQInnerData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PQInnerData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPq: ")
-	sb.WriteString(fmt.Sprint(p.Pq))
-	sb.WriteString(",\n")
-	sb.WriteString("\tP: ")
-	sb.WriteString(fmt.Sprint(p.P))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(p.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(p.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(p.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewNonce: ")
-	sb.WriteString(fmt.Sprint(p.NewNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PQInnerData
+	return fmt.Sprintf("PQInnerData%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

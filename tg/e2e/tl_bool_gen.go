@@ -41,11 +41,8 @@ func (b *BoolFalse) String() string {
 	if b == nil {
 		return "BoolFalse(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BoolFalse")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BoolFalse
+	return fmt.Sprintf("BoolFalse%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (b *BoolTrue) String() string {
 	if b == nil {
 		return "BoolTrue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BoolTrue")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BoolTrue
+	return fmt.Sprintf("BoolTrue%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -157,13 +151,13 @@ var (
 // See https://core.telegram.org/type/Bool for reference.
 //
 // Example:
-//  g, err := DecodeBool(buf)
+//  g, err := e2e.DecodeBool(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *BoolFalse: // boolFalse#bc799737
-//  case *BoolTrue: // boolTrue#997275b5
+//  case *e2e.BoolFalse: // boolFalse#bc799737
+//  case *e2e.BoolTrue: // boolTrue#997275b5
 //  default: panic(v)
 //  }
 type BoolClass interface {

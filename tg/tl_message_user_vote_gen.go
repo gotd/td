@@ -56,20 +56,8 @@ func (m *MessageUserVote) String() string {
 	if m == nil {
 		return "MessageUserVote(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageUserVote")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(m.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOption: ")
-	sb.WriteString(fmt.Sprint(m.Option))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(m.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageUserVote
+	return fmt.Sprintf("MessageUserVote%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -184,17 +172,8 @@ func (m *MessageUserVoteInputOption) String() string {
 	if m == nil {
 		return "MessageUserVoteInputOption(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageUserVoteInputOption")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(m.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(m.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageUserVoteInputOption
+	return fmt.Sprintf("MessageUserVoteInputOption%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -298,22 +277,8 @@ func (m *MessageUserVoteMultiple) String() string {
 	if m == nil {
 		return "MessageUserVoteMultiple(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageUserVoteMultiple")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(m.UserID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range m.Options {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(m.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageUserVoteMultiple
+	return fmt.Sprintf("MessageUserVoteMultiple%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -406,14 +371,14 @@ var (
 // See https://core.telegram.org/type/MessageUserVote for reference.
 //
 // Example:
-//  g, err := DecodeMessageUserVote(buf)
+//  g, err := tg.DecodeMessageUserVote(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessageUserVote: // messageUserVote#a28e5559
-//  case *MessageUserVoteInputOption: // messageUserVoteInputOption#36377430
-//  case *MessageUserVoteMultiple: // messageUserVoteMultiple#e8fe0de
+//  case *tg.MessageUserVote: // messageUserVote#a28e5559
+//  case *tg.MessageUserVoteInputOption: // messageUserVoteInputOption#36377430
+//  case *tg.MessageUserVoteMultiple: // messageUserVoteMultiple#e8fe0de
 //  default: panic(v)
 //  }
 type MessageUserVoteClass interface {

@@ -91,38 +91,8 @@ func (a *HelpAppUpdate) String() string {
 	if a == nil {
 		return "HelpAppUpdate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpAppUpdate")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(a.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(a.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(a.Text))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range a.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if a.Flags.Has(1) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(a.Document))
-		sb.WriteString(",\n")
-	}
-	if a.Flags.Has(2) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(a.URL))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpAppUpdate
+	return fmt.Sprintf("HelpAppUpdate%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -340,11 +310,8 @@ func (n *HelpNoAppUpdate) String() string {
 	if n == nil {
 		return "HelpNoAppUpdate(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpNoAppUpdate")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpNoAppUpdate
+	return fmt.Sprintf("HelpNoAppUpdate%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -389,13 +356,13 @@ var (
 // See https://core.telegram.org/type/help.AppUpdate for reference.
 //
 // Example:
-//  g, err := DecodeHelpAppUpdate(buf)
+//  g, err := tg.DecodeHelpAppUpdate(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpAppUpdate: // help.appUpdate#1da7158f
-//  case *HelpNoAppUpdate: // help.noAppUpdate#c45a6536
+//  case *tg.HelpAppUpdate: // help.appUpdate#1da7158f
+//  case *tg.HelpNoAppUpdate: // help.noAppUpdate#c45a6536
 //  default: panic(v)
 //  }
 type HelpAppUpdateClass interface {

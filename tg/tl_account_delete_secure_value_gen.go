@@ -50,16 +50,8 @@ func (d *AccountDeleteSecureValueRequest) String() string {
 	if d == nil {
 		return "AccountDeleteSecureValueRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountDeleteSecureValueRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.Types {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountDeleteSecureValueRequest
+	return fmt.Sprintf("AccountDeleteSecureValueRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

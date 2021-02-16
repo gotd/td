@@ -56,19 +56,8 @@ func (d *DraftMessageEmpty) String() string {
 	if d == nil {
 		return "DraftMessageEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DraftMessageEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	if d.Flags.Has(0) {
-		sb.WriteString("\tDate: ")
-		sb.WriteString(fmt.Sprint(d.Date))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DraftMessageEmpty
+	return fmt.Sprintf("DraftMessageEmpty%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -210,32 +199,8 @@ func (d *DraftMessage) String() string {
 	if d == nil {
 		return "DraftMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DraftMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	if d.Flags.Has(0) {
-		sb.WriteString("\tReplyToMsgID: ")
-		sb.WriteString(fmt.Sprint(d.ReplyToMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(d.Message))
-	sb.WriteString(",\n")
-	if d.Flags.Has(3) {
-		sb.WriteByte('[')
-		for _, v := range d.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(d.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DraftMessage
+	return fmt.Sprintf("DraftMessage%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -404,13 +369,13 @@ var (
 // See https://core.telegram.org/type/DraftMessage for reference.
 //
 // Example:
-//  g, err := DecodeDraftMessage(buf)
+//  g, err := tg.DecodeDraftMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DraftMessageEmpty: // draftMessageEmpty#1b0c841a
-//  case *DraftMessage: // draftMessage#fd8e711f
+//  case *tg.DraftMessageEmpty: // draftMessageEmpty#1b0c841a
+//  case *tg.DraftMessage: // draftMessage#fd8e711f
 //  default: panic(v)
 //  }
 type DraftMessageClass interface {

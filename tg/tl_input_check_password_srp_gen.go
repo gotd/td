@@ -41,11 +41,8 @@ func (i *InputCheckPasswordEmpty) String() string {
 	if i == nil {
 		return "InputCheckPasswordEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputCheckPasswordEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputCheckPasswordEmpty
+	return fmt.Sprintf("InputCheckPasswordEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -135,20 +132,8 @@ func (i *InputCheckPasswordSRP) String() string {
 	if i == nil {
 		return "InputCheckPasswordSRP(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputCheckPasswordSRP")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSRPID: ")
-	sb.WriteString(fmt.Sprint(i.SRPID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tA: ")
-	sb.WriteString(fmt.Sprint(i.A))
-	sb.WriteString(",\n")
-	sb.WriteString("\tM1: ")
-	sb.WriteString(fmt.Sprint(i.M1))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputCheckPasswordSRP
+	return fmt.Sprintf("InputCheckPasswordSRP%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -232,13 +217,13 @@ var (
 // See https://core.telegram.org/type/InputCheckPasswordSRP for reference.
 //
 // Example:
-//  g, err := DecodeInputCheckPasswordSRP(buf)
+//  g, err := tg.DecodeInputCheckPasswordSRP(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputCheckPasswordEmpty: // inputCheckPasswordEmpty#9880f658
-//  case *InputCheckPasswordSRP: // inputCheckPasswordSRP#d27ff082
+//  case *tg.InputCheckPasswordEmpty: // inputCheckPasswordEmpty#9880f658
+//  case *tg.InputCheckPasswordSRP: // inputCheckPasswordSRP#d27ff082
 //  default: panic(v)
 //  }
 type InputCheckPasswordSRPClass interface {

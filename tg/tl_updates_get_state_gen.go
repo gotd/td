@@ -41,11 +41,8 @@ func (g *UpdatesGetStateRequest) String() string {
 	if g == nil {
 		return "UpdatesGetStateRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesGetStateRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesGetStateRequest
+	return fmt.Sprintf("UpdatesGetStateRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

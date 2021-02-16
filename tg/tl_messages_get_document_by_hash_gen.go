@@ -56,20 +56,8 @@ func (g *MessagesGetDocumentByHashRequest) String() string {
 	if g == nil {
 		return "MessagesGetDocumentByHashRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetDocumentByHashRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSHA256: ")
-	sb.WriteString(fmt.Sprint(g.SHA256))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSize: ")
-	sb.WriteString(fmt.Sprint(g.Size))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(g.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetDocumentByHashRequest
+	return fmt.Sprintf("MessagesGetDocumentByHashRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

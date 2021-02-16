@@ -102,22 +102,8 @@ func (i *Invoice) String() string {
 	if i == nil {
 		return "Invoice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Invoice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCurrency: ")
-	sb.WriteString(fmt.Sprint(i.Currency))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range i.Prices {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Invoice
+	return fmt.Sprintf("Invoice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

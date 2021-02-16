@@ -41,11 +41,8 @@ func (c *HelpCountriesListNotModified) String() string {
 	if c == nil {
 		return "HelpCountriesListNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpCountriesListNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpCountriesListNotModified
+	return fmt.Sprintf("HelpCountriesListNotModified%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -121,19 +118,8 @@ func (c *HelpCountriesList) String() string {
 	if c == nil {
 		return "HelpCountriesList(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpCountriesList")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range c.Countries {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(c.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpCountriesList
+	return fmt.Sprintf("HelpCountriesList%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -215,13 +201,13 @@ var (
 // See https://core.telegram.org/type/help.CountriesList for reference.
 //
 // Example:
-//  g, err := DecodeHelpCountriesList(buf)
+//  g, err := tg.DecodeHelpCountriesList(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpCountriesListNotModified: // help.countriesListNotModified#93cc1f32
-//  case *HelpCountriesList: // help.countriesList#87d0759e
+//  case *tg.HelpCountriesListNotModified: // help.countriesListNotModified#93cc1f32
+//  case *tg.HelpCountriesList: // help.countriesList#87d0759e
 //  default: panic(v)
 //  }
 type HelpCountriesListClass interface {

@@ -43,14 +43,8 @@ func (vec *SavedPhoneContactVector) String() string {
 	if vec == nil {
 		return "SavedPhoneContactVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SavedPhoneContactVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias SavedPhoneContactVector
+	return fmt.Sprintf("SavedPhoneContactVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

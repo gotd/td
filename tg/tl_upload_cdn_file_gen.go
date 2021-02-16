@@ -52,14 +52,8 @@ func (c *UploadCdnFileReuploadNeeded) String() string {
 	if c == nil {
 		return "UploadCdnFileReuploadNeeded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadCdnFileReuploadNeeded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tRequestToken: ")
-	sb.WriteString(fmt.Sprint(c.RequestToken))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadCdnFileReuploadNeeded
+	return fmt.Sprintf("UploadCdnFileReuploadNeeded%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -143,14 +137,8 @@ func (c *UploadCdnFile) String() string {
 	if c == nil {
 		return "UploadCdnFile(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadCdnFile")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(c.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadCdnFile
+	return fmt.Sprintf("UploadCdnFile%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -208,13 +196,13 @@ var (
 // See https://core.telegram.org/type/upload.CdnFile for reference.
 //
 // Example:
-//  g, err := DecodeUploadCdnFile(buf)
+//  g, err := tg.DecodeUploadCdnFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UploadCdnFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
-//  case *UploadCdnFile: // upload.cdnFile#a99fca4f
+//  case *tg.UploadCdnFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
+//  case *tg.UploadCdnFile: // upload.cdnFile#a99fca4f
 //  default: panic(v)
 //  }
 type UploadCdnFileClass interface {

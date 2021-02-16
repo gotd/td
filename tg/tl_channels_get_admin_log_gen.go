@@ -100,41 +100,8 @@ func (g *ChannelsGetAdminLogRequest) String() string {
 	if g == nil {
 		return "ChannelsGetAdminLogRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsGetAdminLogRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(g.Q))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tEventsFilter: ")
-		sb.WriteString(fmt.Sprint(g.EventsFilter))
-		sb.WriteString(",\n")
-	}
-	if g.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range g.Admins {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(g.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinID: ")
-	sb.WriteString(fmt.Sprint(g.MinID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsGetAdminLogRequest
+	return fmt.Sprintf("ChannelsGetAdminLogRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

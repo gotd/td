@@ -94,45 +94,8 @@ func (p *PageRelatedArticle) String() string {
 	if p == nil {
 		return "PageRelatedArticle(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageRelatedArticle")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(p.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWebpageID: ")
-	sb.WriteString(fmt.Sprint(p.WebpageID))
-	sb.WriteString(",\n")
-	if p.Flags.Has(0) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(p.Title))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(1) {
-		sb.WriteString("\tDescription: ")
-		sb.WriteString(fmt.Sprint(p.Description))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tPhotoID: ")
-		sb.WriteString(fmt.Sprint(p.PhotoID))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(3) {
-		sb.WriteString("\tAuthor: ")
-		sb.WriteString(fmt.Sprint(p.Author))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(4) {
-		sb.WriteString("\tPublishedDate: ")
-		sb.WriteString(fmt.Sprint(p.PublishedDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageRelatedArticle
+	return fmt.Sprintf("PageRelatedArticle%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -46,14 +46,8 @@ func (c *ChatInviteAlready) String() string {
 	if c == nil {
 		return "ChatInviteAlready(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatInviteAlready")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChat: ")
-	sb.WriteString(fmt.Sprint(c.Chat))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatInviteAlready
+	return fmt.Sprintf("ChatInviteAlready%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -197,30 +191,8 @@ func (c *ChatInvite) String() string {
 	if c == nil {
 		return "ChatInvite(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatInvite")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoto: ")
-	sb.WriteString(fmt.Sprint(c.Photo))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParticipantsCount: ")
-	sb.WriteString(fmt.Sprint(c.ParticipantsCount))
-	sb.WriteString(",\n")
-	if c.Flags.Has(4) {
-		sb.WriteByte('[')
-		for _, v := range c.Participants {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatInvite
+	return fmt.Sprintf("ChatInvite%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -467,17 +439,8 @@ func (c *ChatInvitePeek) String() string {
 	if c == nil {
 		return "ChatInvitePeek(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatInvitePeek")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChat: ")
-	sb.WriteString(fmt.Sprint(c.Chat))
-	sb.WriteString(",\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(c.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatInvitePeek
+	return fmt.Sprintf("ChatInvitePeek%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -553,14 +516,14 @@ var (
 // See https://core.telegram.org/type/ChatInvite for reference.
 //
 // Example:
-//  g, err := DecodeChatInvite(buf)
+//  g, err := tg.DecodeChatInvite(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChatInviteAlready: // chatInviteAlready#5a686d7c
-//  case *ChatInvite: // chatInvite#dfc2f58e
-//  case *ChatInvitePeek: // chatInvitePeek#61695cb0
+//  case *tg.ChatInviteAlready: // chatInviteAlready#5a686d7c
+//  case *tg.ChatInvite: // chatInvite#dfc2f58e
+//  case *tg.ChatInvitePeek: // chatInvitePeek#61695cb0
 //  default: panic(v)
 //  }
 type ChatInviteClass interface {

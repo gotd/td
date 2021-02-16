@@ -59,22 +59,8 @@ func (e *HelpEditUserInfoRequest) String() string {
 	if e == nil {
 		return "HelpEditUserInfoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpEditUserInfoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(e.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(e.Message))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range e.Entities {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpEditUserInfoRequest
+	return fmt.Sprintf("HelpEditUserInfoRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

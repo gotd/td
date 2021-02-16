@@ -46,14 +46,8 @@ func (r *RecentMeUrlUnknown) String() string {
 	if r == nil {
 		return "RecentMeUrlUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RecentMeUrlUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(r.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RecentMeUrlUnknown
+	return fmt.Sprintf("RecentMeUrlUnknown%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,17 +133,8 @@ func (r *RecentMeUrlUser) String() string {
 	if r == nil {
 		return "RecentMeUrlUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RecentMeUrlUser")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(r.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(r.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RecentMeUrlUser
+	return fmt.Sprintf("RecentMeUrlUser%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -248,17 +233,8 @@ func (r *RecentMeUrlChat) String() string {
 	if r == nil {
 		return "RecentMeUrlChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RecentMeUrlChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(r.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(r.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RecentMeUrlChat
+	return fmt.Sprintf("RecentMeUrlChat%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -357,17 +333,8 @@ func (r *RecentMeUrlChatInvite) String() string {
 	if r == nil {
 		return "RecentMeUrlChatInvite(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RecentMeUrlChatInvite")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(r.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatInvite: ")
-	sb.WriteString(fmt.Sprint(r.ChatInvite))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RecentMeUrlChatInvite
+	return fmt.Sprintf("RecentMeUrlChatInvite%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -471,17 +438,8 @@ func (r *RecentMeUrlStickerSet) String() string {
 	if r == nil {
 		return "RecentMeUrlStickerSet(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RecentMeUrlStickerSet")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(r.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSet: ")
-	sb.WriteString(fmt.Sprint(r.Set))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RecentMeUrlStickerSet
+	return fmt.Sprintf("RecentMeUrlStickerSet%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -557,16 +515,16 @@ var (
 // See https://core.telegram.org/type/RecentMeUrl for reference.
 //
 // Example:
-//  g, err := DecodeRecentMeUrl(buf)
+//  g, err := tg.DecodeRecentMeUrl(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *RecentMeUrlUnknown: // recentMeUrlUnknown#46e1d13d
-//  case *RecentMeUrlUser: // recentMeUrlUser#8dbc3336
-//  case *RecentMeUrlChat: // recentMeUrlChat#a01b22f9
-//  case *RecentMeUrlChatInvite: // recentMeUrlChatInvite#eb49081d
-//  case *RecentMeUrlStickerSet: // recentMeUrlStickerSet#bc0a57dc
+//  case *tg.RecentMeUrlUnknown: // recentMeUrlUnknown#46e1d13d
+//  case *tg.RecentMeUrlUser: // recentMeUrlUser#8dbc3336
+//  case *tg.RecentMeUrlChat: // recentMeUrlChat#a01b22f9
+//  case *tg.RecentMeUrlChatInvite: // recentMeUrlChatInvite#eb49081d
+//  case *tg.RecentMeUrlStickerSet: // recentMeUrlStickerSet#bc0a57dc
 //  default: panic(v)
 //  }
 type RecentMeUrlClass interface {

@@ -51,17 +51,8 @@ func (s *BotsSendCustomRequestRequest) String() string {
 	if s == nil {
 		return "BotsSendCustomRequestRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotsSendCustomRequestRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCustomMethod: ")
-	sb.WriteString(fmt.Sprint(s.CustomMethod))
-	sb.WriteString(",\n")
-	sb.WriteString("\tParams: ")
-	sb.WriteString(fmt.Sprint(s.Params))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotsSendCustomRequestRequest
+	return fmt.Sprintf("BotsSendCustomRequestRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

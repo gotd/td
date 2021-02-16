@@ -89,26 +89,8 @@ func (a *AutoDownloadSettings) String() string {
 	if a == nil {
 		return "AutoDownloadSettings(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AutoDownloadSettings")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhotoSizeMax: ")
-	sb.WriteString(fmt.Sprint(a.PhotoSizeMax))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVideoSizeMax: ")
-	sb.WriteString(fmt.Sprint(a.VideoSizeMax))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileSizeMax: ")
-	sb.WriteString(fmt.Sprint(a.FileSizeMax))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVideoUploadMaxbitrate: ")
-	sb.WriteString(fmt.Sprint(a.VideoUploadMaxbitrate))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AutoDownloadSettings
+	return fmt.Sprintf("AutoDownloadSettings%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

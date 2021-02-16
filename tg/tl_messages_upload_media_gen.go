@@ -57,17 +57,8 @@ func (u *MessagesUploadMediaRequest) String() string {
 	if u == nil {
 		return "MessagesUploadMediaRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUploadMediaRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(u.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(u.Media))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUploadMediaRequest
+	return fmt.Sprintf("MessagesUploadMediaRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

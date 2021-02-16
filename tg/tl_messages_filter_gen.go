@@ -41,11 +41,8 @@ func (i *InputMessagesFilterEmpty) String() string {
 	if i == nil {
 		return "InputMessagesFilterEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterEmpty
+	return fmt.Sprintf("InputMessagesFilterEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputMessagesFilterPhotos) String() string {
 	if i == nil {
 		return "InputMessagesFilterPhotos(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterPhotos")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterPhotos
+	return fmt.Sprintf("InputMessagesFilterPhotos%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (i *InputMessagesFilterVideo) String() string {
 	if i == nil {
 		return "InputMessagesFilterVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterVideo
+	return fmt.Sprintf("InputMessagesFilterVideo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (i *InputMessagesFilterPhotoVideo) String() string {
 	if i == nil {
 		return "InputMessagesFilterPhotoVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterPhotoVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterPhotoVideo
+	return fmt.Sprintf("InputMessagesFilterPhotoVideo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,11 +297,8 @@ func (i *InputMessagesFilterDocument) String() string {
 	if i == nil {
 		return "InputMessagesFilterDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterDocument
+	return fmt.Sprintf("InputMessagesFilterDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -376,11 +361,8 @@ func (i *InputMessagesFilterUrl) String() string {
 	if i == nil {
 		return "InputMessagesFilterUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterUrl
+	return fmt.Sprintf("InputMessagesFilterUrl%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -443,11 +425,8 @@ func (i *InputMessagesFilterGif) String() string {
 	if i == nil {
 		return "InputMessagesFilterGif(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterGif")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterGif
+	return fmt.Sprintf("InputMessagesFilterGif%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -510,11 +489,8 @@ func (i *InputMessagesFilterVoice) String() string {
 	if i == nil {
 		return "InputMessagesFilterVoice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterVoice")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterVoice
+	return fmt.Sprintf("InputMessagesFilterVoice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -577,11 +553,8 @@ func (i *InputMessagesFilterMusic) String() string {
 	if i == nil {
 		return "InputMessagesFilterMusic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterMusic")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterMusic
+	return fmt.Sprintf("InputMessagesFilterMusic%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -644,11 +617,8 @@ func (i *InputMessagesFilterChatPhotos) String() string {
 	if i == nil {
 		return "InputMessagesFilterChatPhotos(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterChatPhotos")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterChatPhotos
+	return fmt.Sprintf("InputMessagesFilterChatPhotos%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -724,14 +694,8 @@ func (i *InputMessagesFilterPhoneCalls) String() string {
 	if i == nil {
 		return "InputMessagesFilterPhoneCalls(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterPhoneCalls")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterPhoneCalls
+	return fmt.Sprintf("InputMessagesFilterPhoneCalls%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -822,11 +786,8 @@ func (i *InputMessagesFilterRoundVoice) String() string {
 	if i == nil {
 		return "InputMessagesFilterRoundVoice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterRoundVoice")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterRoundVoice
+	return fmt.Sprintf("InputMessagesFilterRoundVoice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -889,11 +850,8 @@ func (i *InputMessagesFilterRoundVideo) String() string {
 	if i == nil {
 		return "InputMessagesFilterRoundVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterRoundVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterRoundVideo
+	return fmt.Sprintf("InputMessagesFilterRoundVideo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -959,11 +917,8 @@ func (i *InputMessagesFilterMyMentions) String() string {
 	if i == nil {
 		return "InputMessagesFilterMyMentions(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterMyMentions")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterMyMentions
+	return fmt.Sprintf("InputMessagesFilterMyMentions%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1026,11 +981,8 @@ func (i *InputMessagesFilterGeo) String() string {
 	if i == nil {
 		return "InputMessagesFilterGeo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterGeo")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterGeo
+	return fmt.Sprintf("InputMessagesFilterGeo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1093,11 +1045,8 @@ func (i *InputMessagesFilterContacts) String() string {
 	if i == nil {
 		return "InputMessagesFilterContacts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterContacts")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterContacts
+	return fmt.Sprintf("InputMessagesFilterContacts%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1160,11 +1109,8 @@ func (i *InputMessagesFilterPinned) String() string {
 	if i == nil {
 		return "InputMessagesFilterPinned(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMessagesFilterPinned")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMessagesFilterPinned
+	return fmt.Sprintf("InputMessagesFilterPinned%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1209,28 +1155,28 @@ var (
 // See https://core.telegram.org/type/MessagesFilter for reference.
 //
 // Example:
-//  g, err := DecodeMessagesFilter(buf)
+//  g, err := tg.DecodeMessagesFilter(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputMessagesFilterEmpty: // inputMessagesFilterEmpty#57e2f66c
-//  case *InputMessagesFilterPhotos: // inputMessagesFilterPhotos#9609a51c
-//  case *InputMessagesFilterVideo: // inputMessagesFilterVideo#9fc00e65
-//  case *InputMessagesFilterPhotoVideo: // inputMessagesFilterPhotoVideo#56e9f0e4
-//  case *InputMessagesFilterDocument: // inputMessagesFilterDocument#9eddf188
-//  case *InputMessagesFilterUrl: // inputMessagesFilterUrl#7ef0dd87
-//  case *InputMessagesFilterGif: // inputMessagesFilterGif#ffc86587
-//  case *InputMessagesFilterVoice: // inputMessagesFilterVoice#50f5c392
-//  case *InputMessagesFilterMusic: // inputMessagesFilterMusic#3751b49e
-//  case *InputMessagesFilterChatPhotos: // inputMessagesFilterChatPhotos#3a20ecb8
-//  case *InputMessagesFilterPhoneCalls: // inputMessagesFilterPhoneCalls#80c99768
-//  case *InputMessagesFilterRoundVoice: // inputMessagesFilterRoundVoice#7a7c17a4
-//  case *InputMessagesFilterRoundVideo: // inputMessagesFilterRoundVideo#b549da53
-//  case *InputMessagesFilterMyMentions: // inputMessagesFilterMyMentions#c1f8e69a
-//  case *InputMessagesFilterGeo: // inputMessagesFilterGeo#e7026d0d
-//  case *InputMessagesFilterContacts: // inputMessagesFilterContacts#e062db83
-//  case *InputMessagesFilterPinned: // inputMessagesFilterPinned#1bb00451
+//  case *tg.InputMessagesFilterEmpty: // inputMessagesFilterEmpty#57e2f66c
+//  case *tg.InputMessagesFilterPhotos: // inputMessagesFilterPhotos#9609a51c
+//  case *tg.InputMessagesFilterVideo: // inputMessagesFilterVideo#9fc00e65
+//  case *tg.InputMessagesFilterPhotoVideo: // inputMessagesFilterPhotoVideo#56e9f0e4
+//  case *tg.InputMessagesFilterDocument: // inputMessagesFilterDocument#9eddf188
+//  case *tg.InputMessagesFilterUrl: // inputMessagesFilterUrl#7ef0dd87
+//  case *tg.InputMessagesFilterGif: // inputMessagesFilterGif#ffc86587
+//  case *tg.InputMessagesFilterVoice: // inputMessagesFilterVoice#50f5c392
+//  case *tg.InputMessagesFilterMusic: // inputMessagesFilterMusic#3751b49e
+//  case *tg.InputMessagesFilterChatPhotos: // inputMessagesFilterChatPhotos#3a20ecb8
+//  case *tg.InputMessagesFilterPhoneCalls: // inputMessagesFilterPhoneCalls#80c99768
+//  case *tg.InputMessagesFilterRoundVoice: // inputMessagesFilterRoundVoice#7a7c17a4
+//  case *tg.InputMessagesFilterRoundVideo: // inputMessagesFilterRoundVideo#b549da53
+//  case *tg.InputMessagesFilterMyMentions: // inputMessagesFilterMyMentions#c1f8e69a
+//  case *tg.InputMessagesFilterGeo: // inputMessagesFilterGeo#e7026d0d
+//  case *tg.InputMessagesFilterContacts: // inputMessagesFilterContacts#e062db83
+//  case *tg.InputMessagesFilterPinned: // inputMessagesFilterPinned#1bb00451
 //  default: panic(v)
 //  }
 type MessagesFilterClass interface {

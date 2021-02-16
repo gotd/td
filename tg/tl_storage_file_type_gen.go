@@ -41,11 +41,8 @@ func (f *StorageFileUnknown) String() string {
 	if f == nil {
 		return "StorageFileUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileUnknown
+	return fmt.Sprintf("StorageFileUnknown%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (f *StorageFilePartial) String() string {
 	if f == nil {
 		return "StorageFilePartial(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFilePartial")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFilePartial
+	return fmt.Sprintf("StorageFilePartial%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (f *StorageFileJpeg) String() string {
 	if f == nil {
 		return "StorageFileJpeg(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileJpeg")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileJpeg
+	return fmt.Sprintf("StorageFileJpeg%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (f *StorageFileGif) String() string {
 	if f == nil {
 		return "StorageFileGif(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileGif")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileGif
+	return fmt.Sprintf("StorageFileGif%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,11 +297,8 @@ func (f *StorageFilePng) String() string {
 	if f == nil {
 		return "StorageFilePng(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFilePng")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFilePng
+	return fmt.Sprintf("StorageFilePng%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -376,11 +361,8 @@ func (f *StorageFilePdf) String() string {
 	if f == nil {
 		return "StorageFilePdf(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFilePdf")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFilePdf
+	return fmt.Sprintf("StorageFilePdf%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -443,11 +425,8 @@ func (f *StorageFileMp3) String() string {
 	if f == nil {
 		return "StorageFileMp3(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileMp3")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileMp3
+	return fmt.Sprintf("StorageFileMp3%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -510,11 +489,8 @@ func (f *StorageFileMov) String() string {
 	if f == nil {
 		return "StorageFileMov(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileMov")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileMov
+	return fmt.Sprintf("StorageFileMov%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -577,11 +553,8 @@ func (f *StorageFileMp4) String() string {
 	if f == nil {
 		return "StorageFileMp4(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileMp4")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileMp4
+	return fmt.Sprintf("StorageFileMp4%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -644,11 +617,8 @@ func (f *StorageFileWebp) String() string {
 	if f == nil {
 		return "StorageFileWebp(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StorageFileWebp")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StorageFileWebp
+	return fmt.Sprintf("StorageFileWebp%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -693,21 +663,21 @@ var (
 // See https://core.telegram.org/type/storage.FileType for reference.
 //
 // Example:
-//  g, err := DecodeStorageFileType(buf)
+//  g, err := tg.DecodeStorageFileType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *StorageFileUnknown: // storage.fileUnknown#aa963b05
-//  case *StorageFilePartial: // storage.filePartial#40bc6f52
-//  case *StorageFileJpeg: // storage.fileJpeg#7efe0e
-//  case *StorageFileGif: // storage.fileGif#cae1aadf
-//  case *StorageFilePng: // storage.filePng#a4f63c0
-//  case *StorageFilePdf: // storage.filePdf#ae1e508d
-//  case *StorageFileMp3: // storage.fileMp3#528a0677
-//  case *StorageFileMov: // storage.fileMov#4b09ebbc
-//  case *StorageFileMp4: // storage.fileMp4#b3cea0e4
-//  case *StorageFileWebp: // storage.fileWebp#1081464c
+//  case *tg.StorageFileUnknown: // storage.fileUnknown#aa963b05
+//  case *tg.StorageFilePartial: // storage.filePartial#40bc6f52
+//  case *tg.StorageFileJpeg: // storage.fileJpeg#7efe0e
+//  case *tg.StorageFileGif: // storage.fileGif#cae1aadf
+//  case *tg.StorageFilePng: // storage.filePng#a4f63c0
+//  case *tg.StorageFilePdf: // storage.filePdf#ae1e508d
+//  case *tg.StorageFileMp3: // storage.fileMp3#528a0677
+//  case *tg.StorageFileMov: // storage.fileMov#4b09ebbc
+//  case *tg.StorageFileMp4: // storage.fileMp4#b3cea0e4
+//  case *tg.StorageFileWebp: // storage.fileWebp#1081464c
 //  default: panic(v)
 //  }
 type StorageFileTypeClass interface {

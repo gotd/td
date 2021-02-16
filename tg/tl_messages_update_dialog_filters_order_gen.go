@@ -52,16 +52,8 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) String() string {
 	if u == nil {
 		return "MessagesUpdateDialogFiltersOrderRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesUpdateDialogFiltersOrderRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Order {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesUpdateDialogFiltersOrderRequest
+	return fmt.Sprintf("MessagesUpdateDialogFiltersOrderRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -73,29 +73,8 @@ func (m *MessageViews) String() string {
 	if m == nil {
 		return "MessageViews(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageViews")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tViews: ")
-		sb.WriteString(fmt.Sprint(m.Views))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(1) {
-		sb.WriteString("\tForwards: ")
-		sb.WriteString(fmt.Sprint(m.Forwards))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(2) {
-		sb.WriteString("\tReplies: ")
-		sb.WriteString(fmt.Sprint(m.Replies))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageViews
+	return fmt.Sprintf("MessageViews%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

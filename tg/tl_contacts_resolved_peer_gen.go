@@ -56,24 +56,8 @@ func (r *ContactsResolvedPeer) String() string {
 	if r == nil {
 		return "ContactsResolvedPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsResolvedPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(r.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range r.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsResolvedPeer
+	return fmt.Sprintf("ContactsResolvedPeer%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

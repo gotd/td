@@ -54,17 +54,8 @@ func (t *TopPeer) String() string {
 	if t == nil {
 		return "TopPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TopPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(t.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRating: ")
-	sb.WriteString(fmt.Sprint(t.Rating))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TopPeer
+	return fmt.Sprintf("TopPeer%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

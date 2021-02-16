@@ -118,45 +118,8 @@ func (s *MessagesSendMessageRequest) String() string {
 	if s == nil {
 		return "MessagesSendMessageRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSendMessageRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tReplyToMsgID: ")
-		sb.WriteString(fmt.Sprint(s.ReplyToMsgID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(s.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(s.RandomID))
-	sb.WriteString(",\n")
-	if s.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(s.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(3) {
-		sb.WriteByte('[')
-		for _, v := range s.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if s.Flags.Has(10) {
-		sb.WriteString("\tScheduleDate: ")
-		sb.WriteString(fmt.Sprint(s.ScheduleDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSendMessageRequest
+	return fmt.Sprintf("MessagesSendMessageRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

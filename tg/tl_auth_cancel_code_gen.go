@@ -54,17 +54,8 @@ func (c *AuthCancelCodeRequest) String() string {
 	if c == nil {
 		return "AuthCancelCodeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthCancelCodeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(c.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneCodeHash: ")
-	sb.WriteString(fmt.Sprint(c.PhoneCodeHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthCancelCodeRequest
+	return fmt.Sprintf("AuthCancelCodeRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

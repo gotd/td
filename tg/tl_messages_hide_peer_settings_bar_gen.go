@@ -49,14 +49,8 @@ func (h *MessagesHidePeerSettingsBarRequest) String() string {
 	if h == nil {
 		return "MessagesHidePeerSettingsBarRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesHidePeerSettingsBarRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(h.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesHidePeerSettingsBarRequest
+	return fmt.Sprintf("MessagesHidePeerSettingsBarRequest%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

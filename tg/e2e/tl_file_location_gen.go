@@ -55,20 +55,8 @@ func (f *FileLocationUnavailable) String() string {
 	if f == nil {
 		return "FileLocationUnavailable(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FileLocationUnavailable")
-	sb.WriteString("{\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(f.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(f.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(f.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FileLocationUnavailable
+	return fmt.Sprintf("FileLocationUnavailable%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -189,23 +177,8 @@ func (f *FileLocation) String() string {
 	if f == nil {
 		return "FileLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FileLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(f.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(f.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(f.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSecret: ")
-	sb.WriteString(fmt.Sprint(f.Secret))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FileLocation
+	return fmt.Sprintf("FileLocation%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -302,13 +275,13 @@ var (
 // See https://core.telegram.org/type/FileLocation for reference.
 //
 // Example:
-//  g, err := DecodeFileLocation(buf)
+//  g, err := e2e.DecodeFileLocation(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *FileLocationUnavailable: // fileLocationUnavailable#7c596b46
-//  case *FileLocation: // fileLocation#53d69076
+//  case *e2e.FileLocationUnavailable: // fileLocationUnavailable#7c596b46
+//  case *e2e.FileLocation: // fileLocation#53d69076
 //  default: panic(v)
 //  }
 type FileLocationClass interface {

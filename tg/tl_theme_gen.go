@@ -98,39 +98,8 @@ func (t *Theme) String() string {
 	if t == nil {
 		return "Theme(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Theme")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(t.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(t.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSlug: ")
-	sb.WriteString(fmt.Sprint(t.Slug))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(t.Title))
-	sb.WriteString(",\n")
-	if t.Flags.Has(2) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(t.Document))
-		sb.WriteString(",\n")
-	}
-	if t.Flags.Has(3) {
-		sb.WriteString("\tSettings: ")
-		sb.WriteString(fmt.Sprint(t.Settings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tInstallsCount: ")
-	sb.WriteString(fmt.Sprint(t.InstallsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Theme
+	return fmt.Sprintf("Theme%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

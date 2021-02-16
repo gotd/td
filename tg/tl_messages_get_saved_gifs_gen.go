@@ -49,14 +49,8 @@ func (g *MessagesGetSavedGifsRequest) String() string {
 	if g == nil {
 		return "MessagesGetSavedGifsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetSavedGifsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetSavedGifsRequest
+	return fmt.Sprintf("MessagesGetSavedGifsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

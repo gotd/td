@@ -43,14 +43,8 @@ func (d *DestroySessionOk) String() string {
 	if d == nil {
 		return "DestroySessionOk(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DestroySessionOk")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSessionID: ")
-	sb.WriteString(fmt.Sprint(d.SessionID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DestroySessionOk
+	return fmt.Sprintf("DestroySessionOk%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -128,14 +122,8 @@ func (d *DestroySessionNone) String() string {
 	if d == nil {
 		return "DestroySessionNone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DestroySessionNone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSessionID: ")
-	sb.WriteString(fmt.Sprint(d.SessionID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DestroySessionNone
+	return fmt.Sprintf("DestroySessionNone%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -191,13 +179,13 @@ var (
 // DestroySessionResClass represents DestroySessionRes generic type.
 //
 // Example:
-//  g, err := DecodeDestroySessionRes(buf)
+//  g, err := mt.DecodeDestroySessionRes(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DestroySessionOk: // destroy_session_ok#e22045fc
-//  case *DestroySessionNone: // destroy_session_none#62d350c9
+//  case *mt.DestroySessionOk: // destroy_session_ok#e22045fc
+//  case *mt.DestroySessionNone: // destroy_session_none#62d350c9
 //  default: panic(v)
 //  }
 type DestroySessionResClass interface {

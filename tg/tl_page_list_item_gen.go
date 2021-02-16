@@ -46,14 +46,8 @@ func (p *PageListItemText) String() string {
 	if p == nil {
 		return "PageListItemText(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageListItemText")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageListItemText
+	return fmt.Sprintf("PageListItemText%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,16 +133,8 @@ func (p *PageListItemBlocks) String() string {
 	if p == nil {
 		return "PageListItemBlocks(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageListItemBlocks")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Blocks {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageListItemBlocks
+	return fmt.Sprintf("PageListItemBlocks%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -220,13 +206,13 @@ var (
 // See https://core.telegram.org/type/PageListItem for reference.
 //
 // Example:
-//  g, err := DecodePageListItem(buf)
+//  g, err := tg.DecodePageListItem(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PageListItemText: // pageListItemText#b92fb6cd
-//  case *PageListItemBlocks: // pageListItemBlocks#25e073fc
+//  case *tg.PageListItemText: // pageListItemText#b92fb6cd
+//  case *tg.PageListItemBlocks: // pageListItemBlocks#25e073fc
 //  default: panic(v)
 //  }
 type PageListItemClass interface {

@@ -90,39 +90,8 @@ func (e *MessagesEditInlineBotMessageRequest) String() string {
 	if e == nil {
 		return "MessagesEditInlineBotMessageRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesEditInlineBotMessageRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(e.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(e.ID))
-	sb.WriteString(",\n")
-	if e.Flags.Has(11) {
-		sb.WriteString("\tMessage: ")
-		sb.WriteString(fmt.Sprint(e.Message))
-		sb.WriteString(",\n")
-	}
-	if e.Flags.Has(14) {
-		sb.WriteString("\tMedia: ")
-		sb.WriteString(fmt.Sprint(e.Media))
-		sb.WriteString(",\n")
-	}
-	if e.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(e.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	if e.Flags.Has(3) {
-		sb.WriteByte('[')
-		for _, v := range e.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesEditInlineBotMessageRequest
+	return fmt.Sprintf("MessagesEditInlineBotMessageRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

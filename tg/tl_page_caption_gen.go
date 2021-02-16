@@ -51,17 +51,8 @@ func (p *PageCaption) String() string {
 	if p == nil {
 		return "PageCaption(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageCaption")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCredit: ")
-	sb.WriteString(fmt.Sprint(p.Credit))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageCaption
+	return fmt.Sprintf("PageCaption%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

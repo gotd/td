@@ -46,14 +46,8 @@ func (a *HelpAcceptTermsOfServiceRequest) String() string {
 	if a == nil {
 		return "HelpAcceptTermsOfServiceRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpAcceptTermsOfServiceRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(a.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpAcceptTermsOfServiceRequest
+	return fmt.Sprintf("HelpAcceptTermsOfServiceRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

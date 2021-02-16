@@ -51,14 +51,8 @@ func (i *AuthImportLoginTokenRequest) String() string {
 	if i == nil {
 		return "AuthImportLoginTokenRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthImportLoginTokenRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(i.Token))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthImportLoginTokenRequest
+	return fmt.Sprintf("AuthImportLoginTokenRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

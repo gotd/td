@@ -51,17 +51,8 @@ func (s *StatsAbsValueAndPrev) String() string {
 	if s == nil {
 		return "StatsAbsValueAndPrev(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsAbsValueAndPrev")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCurrent: ")
-	sb.WriteString(fmt.Sprint(s.Current))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPrevious: ")
-	sb.WriteString(fmt.Sprint(s.Previous))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsAbsValueAndPrev
+	return fmt.Sprintf("StatsAbsValueAndPrev%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

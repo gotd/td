@@ -52,14 +52,8 @@ func (d *FoldersDeleteFolderRequest) String() string {
 	if d == nil {
 		return "FoldersDeleteFolderRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FoldersDeleteFolderRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(d.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FoldersDeleteFolderRequest
+	return fmt.Sprintf("FoldersDeleteFolderRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

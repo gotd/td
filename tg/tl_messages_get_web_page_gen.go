@@ -57,17 +57,8 @@ func (g *MessagesGetWebPageRequest) String() string {
 	if g == nil {
 		return "MessagesGetWebPageRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetWebPageRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(g.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetWebPageRequest
+	return fmt.Sprintf("MessagesGetWebPageRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

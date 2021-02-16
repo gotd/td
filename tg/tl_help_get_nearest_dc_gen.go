@@ -41,11 +41,8 @@ func (g *HelpGetNearestDcRequest) String() string {
 	if g == nil {
 		return "HelpGetNearestDcRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetNearestDcRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetNearestDcRequest
+	return fmt.Sprintf("HelpGetNearestDcRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

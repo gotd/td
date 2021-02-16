@@ -100,37 +100,8 @@ func (p *Page) String() string {
 	if p == nil {
 		return "Page(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Page")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(p.URL))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Blocks {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Photos {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Documents {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if p.Flags.Has(3) {
-		sb.WriteString("\tViews: ")
-		sb.WriteString(fmt.Sprint(p.Views))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Page
+	return fmt.Sprintf("Page%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

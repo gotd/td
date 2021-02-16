@@ -62,17 +62,8 @@ func (g *StatsGetBroadcastStatsRequest) String() string {
 	if g == nil {
 		return "StatsGetBroadcastStatsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGetBroadcastStatsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(g.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGetBroadcastStatsRequest
+	return fmt.Sprintf("StatsGetBroadcastStatsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

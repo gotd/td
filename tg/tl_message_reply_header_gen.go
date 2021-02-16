@@ -77,27 +77,8 @@ func (m *MessageReplyHeader) String() string {
 	if m == nil {
 		return "MessageReplyHeader(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageReplyHeader")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tReplyToMsgID: ")
-	sb.WriteString(fmt.Sprint(m.ReplyToMsgID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tReplyToPeerID: ")
-		sb.WriteString(fmt.Sprint(m.ReplyToPeerID))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(1) {
-		sb.WriteString("\tReplyToTopID: ")
-		sb.WriteString(fmt.Sprint(m.ReplyToTopID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageReplyHeader
+	return fmt.Sprintf("MessageReplyHeader%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

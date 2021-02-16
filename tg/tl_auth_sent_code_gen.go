@@ -79,30 +79,8 @@ func (s *AuthSentCode) String() string {
 	if s == nil {
 		return "AuthSentCode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthSentCode")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneCodeHash: ")
-	sb.WriteString(fmt.Sprint(s.PhoneCodeHash))
-	sb.WriteString(",\n")
-	if s.Flags.Has(1) {
-		sb.WriteString("\tNextType: ")
-		sb.WriteString(fmt.Sprint(s.NextType))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(2) {
-		sb.WriteString("\tTimeout: ")
-		sb.WriteString(fmt.Sprint(s.Timeout))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthSentCode
+	return fmt.Sprintf("AuthSentCode%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

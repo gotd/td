@@ -71,29 +71,8 @@ func (i *InputBotInlineMessageMediaAuto) String() string {
 	if i == nil {
 		return "InputBotInlineMessageMediaAuto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageMediaAuto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(i.Message))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range i.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageMediaAuto
+	return fmt.Sprintf("InputBotInlineMessageMediaAuto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -287,29 +266,8 @@ func (i *InputBotInlineMessageText) String() string {
 	if i == nil {
 		return "InputBotInlineMessageText(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageText")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(i.Message))
-	sb.WriteString(",\n")
-	if i.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range i.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageText
+	return fmt.Sprintf("InputBotInlineMessageText%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -535,37 +493,8 @@ func (i *InputBotInlineMessageMediaGeo) String() string {
 	if i == nil {
 		return "InputBotInlineMessageMediaGeo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageMediaGeo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tHeading: ")
-		sb.WriteString(fmt.Sprint(i.Heading))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tPeriod: ")
-		sb.WriteString(fmt.Sprint(i.Period))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(3) {
-		sb.WriteString("\tProximityNotificationRadius: ")
-		sb.WriteString(fmt.Sprint(i.ProximityNotificationRadius))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageMediaGeo
+	return fmt.Sprintf("InputBotInlineMessageMediaGeo%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -816,37 +745,8 @@ func (i *InputBotInlineMessageMediaVenue) String() string {
 	if i == nil {
 		return "InputBotInlineMessageMediaVenue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageMediaVenue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(i.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(i.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProvider: ")
-	sb.WriteString(fmt.Sprint(i.Provider))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueID: ")
-	sb.WriteString(fmt.Sprint(i.VenueID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueType: ")
-	sb.WriteString(fmt.Sprint(i.VenueType))
-	sb.WriteString(",\n")
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageMediaVenue
+	return fmt.Sprintf("InputBotInlineMessageMediaVenue%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1068,31 +968,8 @@ func (i *InputBotInlineMessageMediaContact) String() string {
 	if i == nil {
 		return "InputBotInlineMessageMediaContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageMediaContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(i.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(i.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(i.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVcard: ")
-	sb.WriteString(fmt.Sprint(i.Vcard))
-	sb.WriteString(",\n")
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageMediaContact
+	return fmt.Sprintf("InputBotInlineMessageMediaContact%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1263,19 +1140,8 @@ func (i *InputBotInlineMessageGame) String() string {
 	if i == nil {
 		return "InputBotInlineMessageGame(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageGame")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	if i.Flags.Has(2) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(i.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageGame
+	return fmt.Sprintf("InputBotInlineMessageGame%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1361,17 +1227,17 @@ var (
 // See https://core.telegram.org/type/InputBotInlineMessage for reference.
 //
 // Example:
-//  g, err := DecodeInputBotInlineMessage(buf)
+//  g, err := tg.DecodeInputBotInlineMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputBotInlineMessageMediaAuto: // inputBotInlineMessageMediaAuto#3380c786
-//  case *InputBotInlineMessageText: // inputBotInlineMessageText#3dcd7a87
-//  case *InputBotInlineMessageMediaGeo: // inputBotInlineMessageMediaGeo#96929a85
-//  case *InputBotInlineMessageMediaVenue: // inputBotInlineMessageMediaVenue#417bbf11
-//  case *InputBotInlineMessageMediaContact: // inputBotInlineMessageMediaContact#a6edbffd
-//  case *InputBotInlineMessageGame: // inputBotInlineMessageGame#4b425864
+//  case *tg.InputBotInlineMessageMediaAuto: // inputBotInlineMessageMediaAuto#3380c786
+//  case *tg.InputBotInlineMessageText: // inputBotInlineMessageText#3dcd7a87
+//  case *tg.InputBotInlineMessageMediaGeo: // inputBotInlineMessageMediaGeo#96929a85
+//  case *tg.InputBotInlineMessageMediaVenue: // inputBotInlineMessageMediaVenue#417bbf11
+//  case *tg.InputBotInlineMessageMediaContact: // inputBotInlineMessageMediaContact#a6edbffd
+//  case *tg.InputBotInlineMessageGame: // inputBotInlineMessageGame#4b425864
 //  default: panic(v)
 //  }
 type InputBotInlineMessageClass interface {

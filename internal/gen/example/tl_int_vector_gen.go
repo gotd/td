@@ -43,14 +43,8 @@ func (vec *IntVector) String() string {
 	if vec == nil {
 		return "IntVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("IntVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias IntVector
+	return fmt.Sprintf("IntVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

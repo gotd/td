@@ -41,11 +41,8 @@ func (i *InputStickerSetEmpty) String() string {
 	if i == nil {
 		return "InputStickerSetEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetEmpty
+	return fmt.Sprintf("InputStickerSetEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -118,17 +115,8 @@ func (i *InputStickerSetID) String() string {
 	if i == nil {
 		return "InputStickerSetID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetID
+	return fmt.Sprintf("InputStickerSetID%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -222,14 +210,8 @@ func (i *InputStickerSetShortName) String() string {
 	if i == nil {
 		return "InputStickerSetShortName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetShortName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(i.ShortName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetShortName
+	return fmt.Sprintf("InputStickerSetShortName%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -305,11 +287,8 @@ func (i *InputStickerSetAnimatedEmoji) String() string {
 	if i == nil {
 		return "InputStickerSetAnimatedEmoji(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetAnimatedEmoji")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetAnimatedEmoji
+	return fmt.Sprintf("InputStickerSetAnimatedEmoji%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -380,14 +359,8 @@ func (i *InputStickerSetDice) String() string {
 	if i == nil {
 		return "InputStickerSetDice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetDice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmoticon: ")
-	sb.WriteString(fmt.Sprint(i.Emoticon))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetDice
+	return fmt.Sprintf("InputStickerSetDice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -445,16 +418,16 @@ var (
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
 // Example:
-//  g, err := DecodeInputStickerSet(buf)
+//  g, err := tg.DecodeInputStickerSet(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
-//  case *InputStickerSetID: // inputStickerSetID#9de7a269
-//  case *InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
-//  case *InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
-//  case *InputStickerSetDice: // inputStickerSetDice#e67f520e
+//  case *tg.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
+//  case *tg.InputStickerSetID: // inputStickerSetID#9de7a269
+//  case *tg.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
+//  case *tg.InputStickerSetAnimatedEmoji: // inputStickerSetAnimatedEmoji#28703c8
+//  case *tg.InputStickerSetDice: // inputStickerSetDice#e67f520e
 //  default: panic(v)
 //  }
 type InputStickerSetClass interface {

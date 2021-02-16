@@ -56,26 +56,8 @@ func (r *HelpRecentMeUrls) String() string {
 	if r == nil {
 		return "HelpRecentMeUrls(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpRecentMeUrls")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range r.Urls {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range r.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range r.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpRecentMeUrls
+	return fmt.Sprintf("HelpRecentMeUrls%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

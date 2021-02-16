@@ -41,11 +41,8 @@ func (s *SecureValueTypePersonalDetails) String() string {
 	if s == nil {
 		return "SecureValueTypePersonalDetails(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypePersonalDetails")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypePersonalDetails
+	return fmt.Sprintf("SecureValueTypePersonalDetails%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (s *SecureValueTypePassport) String() string {
 	if s == nil {
 		return "SecureValueTypePassport(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypePassport")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypePassport
+	return fmt.Sprintf("SecureValueTypePassport%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (s *SecureValueTypeDriverLicense) String() string {
 	if s == nil {
 		return "SecureValueTypeDriverLicense(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeDriverLicense")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeDriverLicense
+	return fmt.Sprintf("SecureValueTypeDriverLicense%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -242,11 +233,8 @@ func (s *SecureValueTypeIdentityCard) String() string {
 	if s == nil {
 		return "SecureValueTypeIdentityCard(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeIdentityCard")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeIdentityCard
+	return fmt.Sprintf("SecureValueTypeIdentityCard%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -312,11 +300,8 @@ func (s *SecureValueTypeInternalPassport) String() string {
 	if s == nil {
 		return "SecureValueTypeInternalPassport(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeInternalPassport")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeInternalPassport
+	return fmt.Sprintf("SecureValueTypeInternalPassport%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -379,11 +364,8 @@ func (s *SecureValueTypeAddress) String() string {
 	if s == nil {
 		return "SecureValueTypeAddress(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeAddress")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeAddress
+	return fmt.Sprintf("SecureValueTypeAddress%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -446,11 +428,8 @@ func (s *SecureValueTypeUtilityBill) String() string {
 	if s == nil {
 		return "SecureValueTypeUtilityBill(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeUtilityBill")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeUtilityBill
+	return fmt.Sprintf("SecureValueTypeUtilityBill%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -513,11 +492,8 @@ func (s *SecureValueTypeBankStatement) String() string {
 	if s == nil {
 		return "SecureValueTypeBankStatement(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeBankStatement")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeBankStatement
+	return fmt.Sprintf("SecureValueTypeBankStatement%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -580,11 +556,8 @@ func (s *SecureValueTypeRentalAgreement) String() string {
 	if s == nil {
 		return "SecureValueTypeRentalAgreement(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeRentalAgreement")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeRentalAgreement
+	return fmt.Sprintf("SecureValueTypeRentalAgreement%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -650,11 +623,8 @@ func (s *SecureValueTypePassportRegistration) String() string {
 	if s == nil {
 		return "SecureValueTypePassportRegistration(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypePassportRegistration")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypePassportRegistration
+	return fmt.Sprintf("SecureValueTypePassportRegistration%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -717,11 +687,8 @@ func (s *SecureValueTypeTemporaryRegistration) String() string {
 	if s == nil {
 		return "SecureValueTypeTemporaryRegistration(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeTemporaryRegistration")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeTemporaryRegistration
+	return fmt.Sprintf("SecureValueTypeTemporaryRegistration%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -784,11 +751,8 @@ func (s *SecureValueTypePhone) String() string {
 	if s == nil {
 		return "SecureValueTypePhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypePhone")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypePhone
+	return fmt.Sprintf("SecureValueTypePhone%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -851,11 +815,8 @@ func (s *SecureValueTypeEmail) String() string {
 	if s == nil {
 		return "SecureValueTypeEmail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueTypeEmail")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueTypeEmail
+	return fmt.Sprintf("SecureValueTypeEmail%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -900,24 +861,24 @@ var (
 // See https://core.telegram.org/type/SecureValueType for reference.
 //
 // Example:
-//  g, err := DecodeSecureValueType(buf)
+//  g, err := tg.DecodeSecureValueType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecureValueTypePersonalDetails: // secureValueTypePersonalDetails#9d2a81e3
-//  case *SecureValueTypePassport: // secureValueTypePassport#3dac6a00
-//  case *SecureValueTypeDriverLicense: // secureValueTypeDriverLicense#6e425c4
-//  case *SecureValueTypeIdentityCard: // secureValueTypeIdentityCard#a0d0744b
-//  case *SecureValueTypeInternalPassport: // secureValueTypeInternalPassport#99a48f23
-//  case *SecureValueTypeAddress: // secureValueTypeAddress#cbe31e26
-//  case *SecureValueTypeUtilityBill: // secureValueTypeUtilityBill#fc36954e
-//  case *SecureValueTypeBankStatement: // secureValueTypeBankStatement#89137c0d
-//  case *SecureValueTypeRentalAgreement: // secureValueTypeRentalAgreement#8b883488
-//  case *SecureValueTypePassportRegistration: // secureValueTypePassportRegistration#99e3806a
-//  case *SecureValueTypeTemporaryRegistration: // secureValueTypeTemporaryRegistration#ea02ec33
-//  case *SecureValueTypePhone: // secureValueTypePhone#b320aadb
-//  case *SecureValueTypeEmail: // secureValueTypeEmail#8e3ca7ee
+//  case *tg.SecureValueTypePersonalDetails: // secureValueTypePersonalDetails#9d2a81e3
+//  case *tg.SecureValueTypePassport: // secureValueTypePassport#3dac6a00
+//  case *tg.SecureValueTypeDriverLicense: // secureValueTypeDriverLicense#6e425c4
+//  case *tg.SecureValueTypeIdentityCard: // secureValueTypeIdentityCard#a0d0744b
+//  case *tg.SecureValueTypeInternalPassport: // secureValueTypeInternalPassport#99a48f23
+//  case *tg.SecureValueTypeAddress: // secureValueTypeAddress#cbe31e26
+//  case *tg.SecureValueTypeUtilityBill: // secureValueTypeUtilityBill#fc36954e
+//  case *tg.SecureValueTypeBankStatement: // secureValueTypeBankStatement#89137c0d
+//  case *tg.SecureValueTypeRentalAgreement: // secureValueTypeRentalAgreement#8b883488
+//  case *tg.SecureValueTypePassportRegistration: // secureValueTypePassportRegistration#99e3806a
+//  case *tg.SecureValueTypeTemporaryRegistration: // secureValueTypeTemporaryRegistration#ea02ec33
+//  case *tg.SecureValueTypePhone: // secureValueTypePhone#b320aadb
+//  case *tg.SecureValueTypeEmail: // secureValueTypeEmail#8e3ca7ee
 //  default: panic(v)
 //  }
 type SecureValueTypeClass interface {

@@ -51,17 +51,8 @@ func (c *StickersChangeStickerPositionRequest) String() string {
 	if c == nil {
 		return "StickersChangeStickerPositionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickersChangeStickerPositionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSticker: ")
-	sb.WriteString(fmt.Sprint(c.Sticker))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPosition: ")
-	sb.WriteString(fmt.Sprint(c.Position))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickersChangeStickerPositionRequest
+	return fmt.Sprintf("StickersChangeStickerPositionRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (f *MessagesFavedStickersNotModified) String() string {
 	if f == nil {
 		return "MessagesFavedStickersNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFavedStickersNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFavedStickersNotModified
+	return fmt.Sprintf("MessagesFavedStickersNotModified%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -126,24 +123,8 @@ func (f *MessagesFavedStickers) String() string {
 	if f == nil {
 		return "MessagesFavedStickers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesFavedStickers")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(f.Hash))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range f.Packs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range f.Stickers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesFavedStickers
+	return fmt.Sprintf("MessagesFavedStickers%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -252,13 +233,13 @@ var (
 // See https://core.telegram.org/type/messages.FavedStickers for reference.
 //
 // Example:
-//  g, err := DecodeMessagesFavedStickers(buf)
+//  g, err := tg.DecodeMessagesFavedStickers(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesFavedStickersNotModified: // messages.favedStickersNotModified#9e8fa6d3
-//  case *MessagesFavedStickers: // messages.favedStickers#f37f2f16
+//  case *tg.MessagesFavedStickersNotModified: // messages.favedStickersNotModified#9e8fa6d3
+//  case *tg.MessagesFavedStickers: // messages.favedStickers#f37f2f16
 //  default: panic(v)
 //  }
 type MessagesFavedStickersClass interface {

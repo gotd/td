@@ -51,17 +51,8 @@ func (p *PageListOrderedItemText) String() string {
 	if p == nil {
 		return "PageListOrderedItemText(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageListOrderedItemText")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNum: ")
-	sb.WriteString(fmt.Sprint(p.Num))
-	sb.WriteString(",\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(p.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageListOrderedItemText
+	return fmt.Sprintf("PageListOrderedItemText%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -168,19 +159,8 @@ func (p *PageListOrderedItemBlocks) String() string {
 	if p == nil {
 		return "PageListOrderedItemBlocks(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageListOrderedItemBlocks")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNum: ")
-	sb.WriteString(fmt.Sprint(p.Num))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Blocks {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageListOrderedItemBlocks
+	return fmt.Sprintf("PageListOrderedItemBlocks%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -265,13 +245,13 @@ var (
 // See https://core.telegram.org/type/PageListOrderedItem for reference.
 //
 // Example:
-//  g, err := DecodePageListOrderedItem(buf)
+//  g, err := tg.DecodePageListOrderedItem(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PageListOrderedItemText: // pageListOrderedItemText#5e068047
-//  case *PageListOrderedItemBlocks: // pageListOrderedItemBlocks#98dd8936
+//  case *tg.PageListOrderedItemText: // pageListOrderedItemText#5e068047
+//  case *tg.PageListOrderedItemBlocks: // pageListOrderedItemBlocks#98dd8936
 //  default: panic(v)
 //  }
 type PageListOrderedItemClass interface {

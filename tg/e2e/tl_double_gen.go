@@ -40,11 +40,8 @@ func (d *Double) String() string {
 	if d == nil {
 		return "Double(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Double")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Double
+	return fmt.Sprintf("Double%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

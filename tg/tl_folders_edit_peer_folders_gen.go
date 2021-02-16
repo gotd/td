@@ -49,16 +49,8 @@ func (e *FoldersEditPeerFoldersRequest) String() string {
 	if e == nil {
 		return "FoldersEditPeerFoldersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FoldersEditPeerFoldersRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range e.FolderPeers {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FoldersEditPeerFoldersRequest
+	return fmt.Sprintf("FoldersEditPeerFoldersRequest%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

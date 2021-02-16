@@ -41,11 +41,8 @@ func (g *HelpGetTermsOfServiceUpdateRequest) String() string {
 	if g == nil {
 		return "HelpGetTermsOfServiceUpdateRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetTermsOfServiceUpdateRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetTermsOfServiceUpdateRequest
+	return fmt.Sprintf("HelpGetTermsOfServiceUpdateRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

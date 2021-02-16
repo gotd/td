@@ -51,17 +51,8 @@ func (p *PopularContact) String() string {
 	if p == nil {
 		return "PopularContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PopularContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tClientID: ")
-	sb.WriteString(fmt.Sprint(p.ClientID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tImporters: ")
-	sb.WriteString(fmt.Sprint(p.Importers))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PopularContact
+	return fmt.Sprintf("PopularContact%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

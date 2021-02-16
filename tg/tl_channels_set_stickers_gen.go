@@ -51,17 +51,8 @@ func (s *ChannelsSetStickersRequest) String() string {
 	if s == nil {
 		return "ChannelsSetStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsSetStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(s.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(s.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsSetStickersRequest
+	return fmt.Sprintf("ChannelsSetStickersRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

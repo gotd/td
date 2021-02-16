@@ -41,11 +41,8 @@ func (i *InputPeerEmpty) String() string {
 	if i == nil {
 		return "InputPeerEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerEmpty
+	return fmt.Sprintf("InputPeerEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (i *InputPeerSelf) String() string {
 	if i == nil {
 		return "InputPeerSelf(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerSelf")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerSelf
+	return fmt.Sprintf("InputPeerSelf%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,14 +174,8 @@ func (i *InputPeerChat) String() string {
 	if i == nil {
 		return "InputPeerChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(i.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerChat
+	return fmt.Sprintf("InputPeerChat%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -276,17 +264,8 @@ func (i *InputPeerUser) String() string {
 	if i == nil {
 		return "InputPeerUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerUser")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(i.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerUser
+	return fmt.Sprintf("InputPeerUser%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -388,17 +367,8 @@ func (i *InputPeerChannel) String() string {
 	if i == nil {
 		return "InputPeerChannel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerChannel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(i.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerChannel
+	return fmt.Sprintf("InputPeerChannel%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -505,20 +475,8 @@ func (i *InputPeerUserFromMessage) String() string {
 	if i == nil {
 		return "InputPeerUserFromMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerUserFromMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(i.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(i.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerUserFromMessage
+	return fmt.Sprintf("InputPeerUserFromMessage%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -643,20 +601,8 @@ func (i *InputPeerChannelFromMessage) String() string {
 	if i == nil {
 		return "InputPeerChannelFromMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputPeerChannelFromMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(i.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(i.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(i.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputPeerChannelFromMessage
+	return fmt.Sprintf("InputPeerChannelFromMessage%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -745,18 +691,18 @@ var (
 // See https://core.telegram.org/type/InputPeer for reference.
 //
 // Example:
-//  g, err := DecodeInputPeer(buf)
+//  g, err := tg.DecodeInputPeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputPeerEmpty: // inputPeerEmpty#7f3b18ea
-//  case *InputPeerSelf: // inputPeerSelf#7da07ec9
-//  case *InputPeerChat: // inputPeerChat#179be863
-//  case *InputPeerUser: // inputPeerUser#7b8e7de6
-//  case *InputPeerChannel: // inputPeerChannel#20adaef8
-//  case *InputPeerUserFromMessage: // inputPeerUserFromMessage#17bae2e6
-//  case *InputPeerChannelFromMessage: // inputPeerChannelFromMessage#9c95f7bb
+//  case *tg.InputPeerEmpty: // inputPeerEmpty#7f3b18ea
+//  case *tg.InputPeerSelf: // inputPeerSelf#7da07ec9
+//  case *tg.InputPeerChat: // inputPeerChat#179be863
+//  case *tg.InputPeerUser: // inputPeerUser#7b8e7de6
+//  case *tg.InputPeerChannel: // inputPeerChannel#20adaef8
+//  case *tg.InputPeerUserFromMessage: // inputPeerUserFromMessage#17bae2e6
+//  case *tg.InputPeerChannelFromMessage: // inputPeerChannelFromMessage#9c95f7bb
 //  default: panic(v)
 //  }
 type InputPeerClass interface {

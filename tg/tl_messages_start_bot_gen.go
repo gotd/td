@@ -67,23 +67,8 @@ func (s *MessagesStartBotRequest) String() string {
 	if s == nil {
 		return "MessagesStartBotRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesStartBotRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBot: ")
-	sb.WriteString(fmt.Sprint(s.Bot))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tRandomID: ")
-	sb.WriteString(fmt.Sprint(s.RandomID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStartParam: ")
-	sb.WriteString(fmt.Sprint(s.StartParam))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesStartBotRequest
+	return fmt.Sprintf("MessagesStartBotRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

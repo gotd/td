@@ -43,14 +43,8 @@ func (r *ReqPqMultiRequest) String() string {
 	if r == nil {
 		return "ReqPqMultiRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReqPqMultiRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(r.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReqPqMultiRequest
+	return fmt.Sprintf("ReqPqMultiRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

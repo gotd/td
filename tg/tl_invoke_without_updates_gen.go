@@ -50,14 +50,8 @@ func (i *InvokeWithoutUpdatesRequest) String() string {
 	if i == nil {
 		return "InvokeWithoutUpdatesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InvokeWithoutUpdatesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(i.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InvokeWithoutUpdatesRequest
+	return fmt.Sprintf("InvokeWithoutUpdatesRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

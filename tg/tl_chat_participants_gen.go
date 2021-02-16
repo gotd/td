@@ -61,22 +61,8 @@ func (c *ChatParticipantsForbidden) String() string {
 	if c == nil {
 		return "ChatParticipantsForbidden(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatParticipantsForbidden")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(c.ChatID))
-	sb.WriteString(",\n")
-	if c.Flags.Has(0) {
-		sb.WriteString("\tSelfParticipant: ")
-		sb.WriteString(fmt.Sprint(c.SelfParticipant))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatParticipantsForbidden
+	return fmt.Sprintf("ChatParticipantsForbidden%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -208,22 +194,8 @@ func (c *ChatParticipants) String() string {
 	if c == nil {
 		return "ChatParticipants(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChatParticipants")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(c.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range c.Participants {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(c.Version))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChatParticipants
+	return fmt.Sprintf("ChatParticipants%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -321,13 +293,13 @@ var (
 // See https://core.telegram.org/type/ChatParticipants for reference.
 //
 // Example:
-//  g, err := DecodeChatParticipants(buf)
+//  g, err := tg.DecodeChatParticipants(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChatParticipantsForbidden: // chatParticipantsForbidden#fc900c2b
-//  case *ChatParticipants: // chatParticipants#3f460fed
+//  case *tg.ChatParticipantsForbidden: // chatParticipantsForbidden#fc900c2b
+//  case *tg.ChatParticipants: // chatParticipants#3f460fed
 //  default: panic(v)
 //  }
 type ChatParticipantsClass interface {

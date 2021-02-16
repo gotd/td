@@ -97,44 +97,8 @@ func (d *MessagesDiscussionMessage) String() string {
 	if d == nil {
 		return "MessagesDiscussionMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDiscussionMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if d.Flags.Has(0) {
-		sb.WriteString("\tMaxID: ")
-		sb.WriteString(fmt.Sprint(d.MaxID))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(1) {
-		sb.WriteString("\tReadInboxMaxID: ")
-		sb.WriteString(fmt.Sprint(d.ReadInboxMaxID))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(2) {
-		sb.WriteString("\tReadOutboxMaxID: ")
-		sb.WriteString(fmt.Sprint(d.ReadOutboxMaxID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteByte('[')
-	for _, v := range d.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDiscussionMessage
+	return fmt.Sprintf("MessagesDiscussionMessage%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

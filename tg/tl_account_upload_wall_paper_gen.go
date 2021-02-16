@@ -56,20 +56,8 @@ func (u *AccountUploadWallPaperRequest) String() string {
 	if u == nil {
 		return "AccountUploadWallPaperRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUploadWallPaperRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(u.File))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(u.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(u.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUploadWallPaperRequest
+	return fmt.Sprintf("AccountUploadWallPaperRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

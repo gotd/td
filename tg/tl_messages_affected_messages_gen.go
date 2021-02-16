@@ -57,17 +57,8 @@ func (a *MessagesAffectedMessages) String() string {
 	if a == nil {
 		return "MessagesAffectedMessages(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesAffectedMessages")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(a.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(a.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesAffectedMessages
+	return fmt.Sprintf("MessagesAffectedMessages%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

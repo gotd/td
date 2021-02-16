@@ -49,14 +49,8 @@ func (d *AccountDeleteAccountRequest) String() string {
 	if d == nil {
 		return "AccountDeleteAccountRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountDeleteAccountRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReason: ")
-	sb.WriteString(fmt.Sprint(d.Reason))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountDeleteAccountRequest
+	return fmt.Sprintf("AccountDeleteAccountRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

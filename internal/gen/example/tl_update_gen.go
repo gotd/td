@@ -50,17 +50,8 @@ func (u *Update) String() string {
 	if u == nil {
 		return "Update(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Update")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsg: ")
-	sb.WriteString(fmt.Sprint(u.Msg))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDelay: ")
-	sb.WriteString(fmt.Sprint(u.Delay))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Update
+	return fmt.Sprintf("Update%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

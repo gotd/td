@@ -61,25 +61,8 @@ func (e *EmojiKeywordsDifference) String() string {
 	if e == nil {
 		return "EmojiKeywordsDifference(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("EmojiKeywordsDifference")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(e.LangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFromVersion: ")
-	sb.WriteString(fmt.Sprint(e.FromVersion))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(e.Version))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range e.Keywords {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias EmojiKeywordsDifference
+	return fmt.Sprintf("EmojiKeywordsDifference%+v", Alias(*e))
 }
 
 // TypeID returns MTProto type id (CRC code).

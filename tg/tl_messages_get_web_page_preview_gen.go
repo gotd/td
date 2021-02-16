@@ -64,24 +64,8 @@ func (g *MessagesGetWebPagePreviewRequest) String() string {
 	if g == nil {
 		return "MessagesGetWebPagePreviewRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetWebPagePreviewRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(g.Message))
-	sb.WriteString(",\n")
-	if g.Flags.Has(3) {
-		sb.WriteByte('[')
-		for _, v := range g.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetWebPagePreviewRequest
+	return fmt.Sprintf("MessagesGetWebPagePreviewRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

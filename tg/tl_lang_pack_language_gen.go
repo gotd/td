@@ -109,40 +109,8 @@ func (l *LangPackLanguage) String() string {
 	if l == nil {
 		return "LangPackLanguage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("LangPackLanguage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(l.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(l.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNativeName: ")
-	sb.WriteString(fmt.Sprint(l.NativeName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(l.LangCode))
-	sb.WriteString(",\n")
-	if l.Flags.Has(1) {
-		sb.WriteString("\tBaseLangCode: ")
-		sb.WriteString(fmt.Sprint(l.BaseLangCode))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPluralCode: ")
-	sb.WriteString(fmt.Sprint(l.PluralCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStringsCount: ")
-	sb.WriteString(fmt.Sprint(l.StringsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTranslatedCount: ")
-	sb.WriteString(fmt.Sprint(l.TranslatedCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTranslationsURL: ")
-	sb.WriteString(fmt.Sprint(l.TranslationsURL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias LangPackLanguage
+	return fmt.Sprintf("LangPackLanguage%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

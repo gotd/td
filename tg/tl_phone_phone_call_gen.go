@@ -51,19 +51,8 @@ func (p *PhonePhoneCall) String() string {
 	if p == nil {
 		return "PhonePhoneCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhonePhoneCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneCall: ")
-	sb.WriteString(fmt.Sprint(p.PhoneCall))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhonePhoneCall
+	return fmt.Sprintf("PhonePhoneCall%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (g *MessagesGetSplitRangesRequest) String() string {
 	if g == nil {
 		return "MessagesGetSplitRangesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetSplitRangesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetSplitRangesRequest
+	return fmt.Sprintf("MessagesGetSplitRangesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

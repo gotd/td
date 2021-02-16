@@ -41,11 +41,8 @@ func (i *InputMediaEmpty) String() string {
 	if i == nil {
 		return "InputMediaEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaEmpty
+	return fmt.Sprintf("InputMediaEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -138,29 +135,8 @@ func (i *InputMediaUploadedPhoto) String() string {
 	if i == nil {
 		return "InputMediaUploadedPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaUploadedPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(i.File))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range i.Stickers {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaUploadedPhoto
+	return fmt.Sprintf("InputMediaUploadedPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -339,22 +315,8 @@ func (i *InputMediaPhoto) String() string {
 	if i == nil {
 		return "InputMediaPhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaPhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaPhoto
+	return fmt.Sprintf("InputMediaPhoto%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -476,14 +438,8 @@ func (i *InputMediaGeoPoint) String() string {
 	if i == nil {
 		return "InputMediaGeoPoint(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaGeoPoint")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaGeoPoint
+	return fmt.Sprintf("InputMediaGeoPoint%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -584,23 +540,8 @@ func (i *InputMediaContact) String() string {
 	if i == nil {
 		return "InputMediaContact(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaContact")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPhoneNumber: ")
-	sb.WriteString(fmt.Sprint(i.PhoneNumber))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(i.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(i.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVcard: ")
-	sb.WriteString(fmt.Sprint(i.Vcard))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaContact
+	return fmt.Sprintf("InputMediaContact%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -772,42 +713,8 @@ func (i *InputMediaUploadedDocument) String() string {
 	if i == nil {
 		return "InputMediaUploadedDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaUploadedDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFile: ")
-	sb.WriteString(fmt.Sprint(i.File))
-	sb.WriteString(",\n")
-	if i.Flags.Has(2) {
-		sb.WriteString("\tThumb: ")
-		sb.WriteString(fmt.Sprint(i.Thumb))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tMimeType: ")
-	sb.WriteString(fmt.Sprint(i.MimeType))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range i.Attributes {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if i.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range i.Stickers {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaUploadedDocument
+	return fmt.Sprintf("InputMediaUploadedDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1106,27 +1013,8 @@ func (i *InputMediaDocument) String() string {
 	if i == nil {
 		return "InputMediaDocument(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaDocument")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tQuery: ")
-		sb.WriteString(fmt.Sprint(i.Query))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaDocument
+	return fmt.Sprintf("InputMediaDocument%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1301,29 +1189,8 @@ func (i *InputMediaVenue) String() string {
 	if i == nil {
 		return "InputMediaVenue(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaVenue")
-	sb.WriteString("{\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(i.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(i.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProvider: ")
-	sb.WriteString(fmt.Sprint(i.Provider))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueID: ")
-	sb.WriteString(fmt.Sprint(i.VenueID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVenueType: ")
-	sb.WriteString(fmt.Sprint(i.VenueType))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaVenue
+	return fmt.Sprintf("InputMediaVenue%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1489,22 +1356,8 @@ func (i *InputMediaPhotoExternal) String() string {
 	if i == nil {
 		return "InputMediaPhotoExternal(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaPhotoExternal")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(i.URL))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaPhotoExternal
+	return fmt.Sprintf("InputMediaPhotoExternal%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1636,22 +1489,8 @@ func (i *InputMediaDocumentExternal) String() string {
 	if i == nil {
 		return "InputMediaDocumentExternal(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaDocumentExternal")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(i.URL))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tTTLSeconds: ")
-		sb.WriteString(fmt.Sprint(i.TTLSeconds))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaDocumentExternal
+	return fmt.Sprintf("InputMediaDocumentExternal%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1768,14 +1607,8 @@ func (i *InputMediaGame) String() string {
 	if i == nil {
 		return "InputMediaGame(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaGame")
-	sb.WriteString("{\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaGame
+	return fmt.Sprintf("InputMediaGame%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1912,40 +1745,8 @@ func (i *InputMediaInvoice) String() string {
 	if i == nil {
 		return "InputMediaInvoice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaInvoice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(i.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDescription: ")
-	sb.WriteString(fmt.Sprint(i.Description))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteString("\tPhoto: ")
-		sb.WriteString(fmt.Sprint(i.Photo))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tInvoice: ")
-	sb.WriteString(fmt.Sprint(i.Invoice))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPayload: ")
-	sb.WriteString(fmt.Sprint(i.Payload))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProvider: ")
-	sb.WriteString(fmt.Sprint(i.Provider))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProviderData: ")
-	sb.WriteString(fmt.Sprint(i.ProviderData))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStartParam: ")
-	sb.WriteString(fmt.Sprint(i.StartParam))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaInvoice
+	return fmt.Sprintf("InputMediaInvoice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2183,32 +1984,8 @@ func (i *InputMediaGeoLive) String() string {
 	if i == nil {
 		return "InputMediaGeoLive(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaGeoLive")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGeoPoint: ")
-	sb.WriteString(fmt.Sprint(i.GeoPoint))
-	sb.WriteString(",\n")
-	if i.Flags.Has(2) {
-		sb.WriteString("\tHeading: ")
-		sb.WriteString(fmt.Sprint(i.Heading))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tPeriod: ")
-		sb.WriteString(fmt.Sprint(i.Period))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(3) {
-		sb.WriteString("\tProximityNotificationRadius: ")
-		sb.WriteString(fmt.Sprint(i.ProximityNotificationRadius))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaGeoLive
+	return fmt.Sprintf("InputMediaGeoLive%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2438,36 +2215,8 @@ func (i *InputMediaPoll) String() string {
 	if i == nil {
 		return "InputMediaPoll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaPoll")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPoll: ")
-	sb.WriteString(fmt.Sprint(i.Poll))
-	sb.WriteString(",\n")
-	if i.Flags.Has(0) {
-		sb.WriteByte('[')
-		for _, v := range i.CorrectAnswers {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if i.Flags.Has(1) {
-		sb.WriteString("\tSolution: ")
-		sb.WriteString(fmt.Sprint(i.Solution))
-		sb.WriteString(",\n")
-	}
-	if i.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range i.SolutionEntities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaPoll
+	return fmt.Sprintf("InputMediaPoll%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2666,14 +2415,8 @@ func (i *InputMediaDice) String() string {
 	if i == nil {
 		return "InputMediaDice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputMediaDice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmoticon: ")
-	sb.WriteString(fmt.Sprint(i.Emoticon))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputMediaDice
+	return fmt.Sprintf("InputMediaDice%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2731,26 +2474,26 @@ var (
 // See https://core.telegram.org/type/InputMedia for reference.
 //
 // Example:
-//  g, err := DecodeInputMedia(buf)
+//  g, err := tg.DecodeInputMedia(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputMediaEmpty: // inputMediaEmpty#9664f57f
-//  case *InputMediaUploadedPhoto: // inputMediaUploadedPhoto#1e287d04
-//  case *InputMediaPhoto: // inputMediaPhoto#b3ba0635
-//  case *InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
-//  case *InputMediaContact: // inputMediaContact#f8ab7dfb
-//  case *InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
-//  case *InputMediaDocument: // inputMediaDocument#33473058
-//  case *InputMediaVenue: // inputMediaVenue#c13d1c11
-//  case *InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
-//  case *InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
-//  case *InputMediaGame: // inputMediaGame#d33f43f3
-//  case *InputMediaInvoice: // inputMediaInvoice#f4e096c3
-//  case *InputMediaGeoLive: // inputMediaGeoLive#971fa843
-//  case *InputMediaPoll: // inputMediaPoll#f94e5f1
-//  case *InputMediaDice: // inputMediaDice#e66fbf7b
+//  case *tg.InputMediaEmpty: // inputMediaEmpty#9664f57f
+//  case *tg.InputMediaUploadedPhoto: // inputMediaUploadedPhoto#1e287d04
+//  case *tg.InputMediaPhoto: // inputMediaPhoto#b3ba0635
+//  case *tg.InputMediaGeoPoint: // inputMediaGeoPoint#f9c44144
+//  case *tg.InputMediaContact: // inputMediaContact#f8ab7dfb
+//  case *tg.InputMediaUploadedDocument: // inputMediaUploadedDocument#5b38c6c1
+//  case *tg.InputMediaDocument: // inputMediaDocument#33473058
+//  case *tg.InputMediaVenue: // inputMediaVenue#c13d1c11
+//  case *tg.InputMediaPhotoExternal: // inputMediaPhotoExternal#e5bbfe1a
+//  case *tg.InputMediaDocumentExternal: // inputMediaDocumentExternal#fb52dc99
+//  case *tg.InputMediaGame: // inputMediaGame#d33f43f3
+//  case *tg.InputMediaInvoice: // inputMediaInvoice#f4e096c3
+//  case *tg.InputMediaGeoLive: // inputMediaGeoLive#971fa843
+//  case *tg.InputMediaPoll: // inputMediaPoll#f94e5f1
+//  case *tg.InputMediaDice: // inputMediaDice#e66fbf7b
 //  default: panic(v)
 //  }
 type InputMediaClass interface {

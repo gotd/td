@@ -41,11 +41,8 @@ func (p *PasswordKdfAlgoUnknown) String() string {
 	if p == nil {
 		return "PasswordKdfAlgoUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PasswordKdfAlgoUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PasswordKdfAlgoUnknown
+	return fmt.Sprintf("PasswordKdfAlgoUnknown%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -143,23 +140,8 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Stri
 	if p == nil {
 		return "PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSalt1: ")
-	sb.WriteString(fmt.Sprint(p.Salt1))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSalt2: ")
-	sb.WriteString(fmt.Sprint(p.Salt2))
-	sb.WriteString(",\n")
-	sb.WriteString("\tG: ")
-	sb.WriteString(fmt.Sprint(p.G))
-	sb.WriteString(",\n")
-	sb.WriteString("\tP: ")
-	sb.WriteString(fmt.Sprint(p.P))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow
+	return fmt.Sprintf("PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -258,13 +240,13 @@ var (
 // See https://core.telegram.org/type/PasswordKdfAlgo for reference.
 //
 // Example:
-//  g, err := DecodePasswordKdfAlgo(buf)
+//  g, err := tg.DecodePasswordKdfAlgo(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PasswordKdfAlgoUnknown: // passwordKdfAlgoUnknown#d45ab096
-//  case *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow: // passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a
+//  case *tg.PasswordKdfAlgoUnknown: // passwordKdfAlgoUnknown#d45ab096
+//  case *tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow: // passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a
 //  default: panic(v)
 //  }
 type PasswordKdfAlgoClass interface {

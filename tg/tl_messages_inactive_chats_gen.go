@@ -56,26 +56,8 @@ func (i *MessagesInactiveChats) String() string {
 	if i == nil {
 		return "MessagesInactiveChats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesInactiveChats")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range i.Dates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range i.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range i.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesInactiveChats
+	return fmt.Sprintf("MessagesInactiveChats%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

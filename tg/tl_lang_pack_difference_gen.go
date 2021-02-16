@@ -61,25 +61,8 @@ func (l *LangPackDifference) String() string {
 	if l == nil {
 		return "LangPackDifference(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("LangPackDifference")
-	sb.WriteString("{\n")
-	sb.WriteString("\tLangCode: ")
-	sb.WriteString(fmt.Sprint(l.LangCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFromVersion: ")
-	sb.WriteString(fmt.Sprint(l.FromVersion))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVersion: ")
-	sb.WriteString(fmt.Sprint(l.Version))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range l.Strings {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias LangPackDifference
+	return fmt.Sprintf("LangPackDifference%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

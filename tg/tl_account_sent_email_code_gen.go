@@ -54,17 +54,8 @@ func (s *AccountSentEmailCode) String() string {
 	if s == nil {
 		return "AccountSentEmailCode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSentEmailCode")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmailPattern: ")
-	sb.WriteString(fmt.Sprint(s.EmailPattern))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(s.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSentEmailCode
+	return fmt.Sprintf("AccountSentEmailCode%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

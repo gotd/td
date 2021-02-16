@@ -95,19 +95,8 @@ func (i *AccountInitTakeoutSessionRequest) String() string {
 	if i == nil {
 		return "AccountInitTakeoutSessionRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountInitTakeoutSessionRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(i.Flags))
-	sb.WriteString(",\n")
-	if i.Flags.Has(5) {
-		sb.WriteString("\tFileMaxSize: ")
-		sb.WriteString(fmt.Sprint(i.FileMaxSize))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountInitTakeoutSessionRequest
+	return fmt.Sprintf("AccountInitTakeoutSessionRequest%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

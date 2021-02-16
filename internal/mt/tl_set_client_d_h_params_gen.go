@@ -53,20 +53,8 @@ func (s *SetClientDHParamsRequest) String() string {
 	if s == nil {
 		return "SetClientDHParamsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SetClientDHParamsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(s.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(s.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptedData: ")
-	sb.WriteString(fmt.Sprint(s.EncryptedData))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SetClientDHParamsRequest
+	return fmt.Sprintf("SetClientDHParamsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

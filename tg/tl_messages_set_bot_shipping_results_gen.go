@@ -71,29 +71,8 @@ func (s *MessagesSetBotShippingResultsRequest) String() string {
 	if s == nil {
 		return "MessagesSetBotShippingResultsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetBotShippingResultsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQueryID: ")
-	sb.WriteString(fmt.Sprint(s.QueryID))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tError: ")
-		sb.WriteString(fmt.Sprint(s.Error))
-		sb.WriteString(",\n")
-	}
-	if s.Flags.Has(1) {
-		sb.WriteByte('[')
-		for _, v := range s.ShippingOptions {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetBotShippingResultsRequest
+	return fmt.Sprintf("MessagesSetBotShippingResultsRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -87,40 +87,8 @@ func (u *AccountUpdateThemeRequest) String() string {
 	if u == nil {
 		return "AccountUpdateThemeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateThemeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFormat: ")
-	sb.WriteString(fmt.Sprint(u.Format))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTheme: ")
-	sb.WriteString(fmt.Sprint(u.Theme))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tSlug: ")
-		sb.WriteString(fmt.Sprint(u.Slug))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(u.Title))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(2) {
-		sb.WriteString("\tDocument: ")
-		sb.WriteString(fmt.Sprint(u.Document))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(3) {
-		sb.WriteString("\tSettings: ")
-		sb.WriteString(fmt.Sprint(u.Settings))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateThemeRequest
+	return fmt.Sprintf("AccountUpdateThemeRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

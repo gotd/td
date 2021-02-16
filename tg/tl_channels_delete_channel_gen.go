@@ -52,14 +52,8 @@ func (d *ChannelsDeleteChannelRequest) String() string {
 	if d == nil {
 		return "ChannelsDeleteChannelRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsDeleteChannelRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(d.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsDeleteChannelRequest
+	return fmt.Sprintf("ChannelsDeleteChannelRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

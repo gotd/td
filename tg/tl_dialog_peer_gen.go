@@ -46,14 +46,8 @@ func (d *DialogPeer) String() string {
 	if d == nil {
 		return "DialogPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(d.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DialogPeer
+	return fmt.Sprintf("DialogPeer%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -145,14 +139,8 @@ func (d *DialogPeerFolder) String() string {
 	if d == nil {
 		return "DialogPeerFolder(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogPeerFolder")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFolderID: ")
-	sb.WriteString(fmt.Sprint(d.FolderID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DialogPeerFolder
+	return fmt.Sprintf("DialogPeerFolder%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -210,13 +198,13 @@ var (
 // See https://core.telegram.org/type/DialogPeer for reference.
 //
 // Example:
-//  g, err := DecodeDialogPeer(buf)
+//  g, err := tg.DecodeDialogPeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DialogPeer: // dialogPeer#e56dbf05
-//  case *DialogPeerFolder: // dialogPeerFolder#514519e2
+//  case *tg.DialogPeer: // dialogPeer#e56dbf05
+//  case *tg.DialogPeerFolder: // dialogPeerFolder#514519e2
 //  default: panic(v)
 //  }
 type DialogPeerClass interface {

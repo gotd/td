@@ -57,17 +57,8 @@ func (s *ChannelsSetDiscussionGroupRequest) String() string {
 	if s == nil {
 		return "ChannelsSetDiscussionGroupRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsSetDiscussionGroupRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tBroadcast: ")
-	sb.WriteString(fmt.Sprint(s.Broadcast))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGroup: ")
-	sb.WriteString(fmt.Sprint(s.Group))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsSetDiscussionGroupRequest
+	return fmt.Sprintf("ChannelsSetDiscussionGroupRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

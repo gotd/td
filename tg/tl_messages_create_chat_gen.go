@@ -51,19 +51,8 @@ func (c *MessagesCreateChatRequest) String() string {
 	if c == nil {
 		return "MessagesCreateChatRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesCreateChatRequest")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range c.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesCreateChatRequest
+	return fmt.Sprintf("MessagesCreateChatRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

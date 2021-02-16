@@ -51,17 +51,8 @@ func (f *FileLocationToBeDeprecated) String() string {
 	if f == nil {
 		return "FileLocationToBeDeprecated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FileLocationToBeDeprecated")
-	sb.WriteString("{\n")
-	sb.WriteString("\tVolumeID: ")
-	sb.WriteString(fmt.Sprint(f.VolumeID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLocalID: ")
-	sb.WriteString(fmt.Sprint(f.LocalID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FileLocationToBeDeprecated
+	return fmt.Sprintf("FileLocationToBeDeprecated%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -109,33 +109,8 @@ func (g *GroupCallParticipant) String() string {
 	if g == nil {
 		return "GroupCallParticipant(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("GroupCallParticipant")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(g.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(g.Date))
-	sb.WriteString(",\n")
-	if g.Flags.Has(3) {
-		sb.WriteString("\tActiveDate: ")
-		sb.WriteString(fmt.Sprint(g.ActiveDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tSource: ")
-	sb.WriteString(fmt.Sprint(g.Source))
-	sb.WriteString(",\n")
-	if g.Flags.Has(7) {
-		sb.WriteString("\tVolume: ")
-		sb.WriteString(fmt.Sprint(g.Volume))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias GroupCallParticipant
+	return fmt.Sprintf("GroupCallParticipant%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -51,17 +51,8 @@ func (d *DocumentAttributeImageSize) String() string {
 	if d == nil {
 		return "DocumentAttributeImageSize(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeImageSize")
-	sb.WriteString("{\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeImageSize
+	return fmt.Sprintf("DocumentAttributeImageSize%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -150,11 +141,8 @@ func (d *DocumentAttributeAnimated) String() string {
 	if d == nil {
 		return "DocumentAttributeAnimated(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeAnimated")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeAnimated
+	return fmt.Sprintf("DocumentAttributeAnimated%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -216,11 +204,8 @@ func (d *DocumentAttributeSticker23) String() string {
 	if d == nil {
 		return "DocumentAttributeSticker23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeSticker23")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeSticker23
+	return fmt.Sprintf("DocumentAttributeSticker23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -298,20 +283,8 @@ func (d *DocumentAttributeVideo) String() string {
 	if d == nil {
 		return "DocumentAttributeVideo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeVideo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeVideo
+	return fmt.Sprintf("DocumentAttributeVideo%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -417,14 +390,8 @@ func (d *DocumentAttributeAudio23) String() string {
 	if d == nil {
 		return "DocumentAttributeAudio23(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeAudio23")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeAudio23
+	return fmt.Sprintf("DocumentAttributeAudio23%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -505,14 +472,8 @@ func (d *DocumentAttributeFilename) String() string {
 	if d == nil {
 		return "DocumentAttributeFilename(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeFilename")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFileName: ")
-	sb.WriteString(fmt.Sprint(d.FileName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeFilename
+	return fmt.Sprintf("DocumentAttributeFilename%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -602,20 +563,8 @@ func (d *DocumentAttributeAudio45) String() string {
 	if d == nil {
 		return "DocumentAttributeAudio45(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeAudio45")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(d.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPerformer: ")
-	sb.WriteString(fmt.Sprint(d.Performer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeAudio45
+	return fmt.Sprintf("DocumentAttributeAudio45%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -727,17 +676,8 @@ func (d *DocumentAttributeSticker) String() string {
 	if d == nil {
 		return "DocumentAttributeSticker(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeSticker")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAlt: ")
-	sb.WriteString(fmt.Sprint(d.Alt))
-	sb.WriteString(",\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(d.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeSticker
+	return fmt.Sprintf("DocumentAttributeSticker%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -870,32 +810,8 @@ func (d *DocumentAttributeAudio) String() string {
 	if d == nil {
 		return "DocumentAttributeAudio(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeAudio")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	if d.Flags.Has(0) {
-		sb.WriteString("\tTitle: ")
-		sb.WriteString(fmt.Sprint(d.Title))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(1) {
-		sb.WriteString("\tPerformer: ")
-		sb.WriteString(fmt.Sprint(d.Performer))
-		sb.WriteString(",\n")
-	}
-	if d.Flags.Has(2) {
-		sb.WriteString("\tWaveform: ")
-		sb.WriteString(fmt.Sprint(d.Waveform))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeAudio
+	return fmt.Sprintf("DocumentAttributeAudio%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1107,23 +1023,8 @@ func (d *DocumentAttributeVideo66) String() string {
 	if d == nil {
 		return "DocumentAttributeVideo66(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DocumentAttributeVideo66")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(d.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDuration: ")
-	sb.WriteString(fmt.Sprint(d.Duration))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(d.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(d.H))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DocumentAttributeVideo66
+	return fmt.Sprintf("DocumentAttributeVideo66%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1235,21 +1136,21 @@ var (
 // See https://core.telegram.org/type/DocumentAttribute for reference.
 //
 // Example:
-//  g, err := DecodeDocumentAttribute(buf)
+//  g, err := e2e.DecodeDocumentAttribute(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
-//  case *DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
-//  case *DocumentAttributeSticker23: // documentAttributeSticker23#fb0a5727
-//  case *DocumentAttributeVideo: // documentAttributeVideo#5910cccb
-//  case *DocumentAttributeAudio23: // documentAttributeAudio23#51448e5
-//  case *DocumentAttributeFilename: // documentAttributeFilename#15590068
-//  case *DocumentAttributeAudio45: // documentAttributeAudio45#ded218e0
-//  case *DocumentAttributeSticker: // documentAttributeSticker#3a556302
-//  case *DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
-//  case *DocumentAttributeVideo66: // documentAttributeVideo66#ef02ce6
+//  case *e2e.DocumentAttributeImageSize: // documentAttributeImageSize#6c37c15c
+//  case *e2e.DocumentAttributeAnimated: // documentAttributeAnimated#11b58939
+//  case *e2e.DocumentAttributeSticker23: // documentAttributeSticker23#fb0a5727
+//  case *e2e.DocumentAttributeVideo: // documentAttributeVideo#5910cccb
+//  case *e2e.DocumentAttributeAudio23: // documentAttributeAudio23#51448e5
+//  case *e2e.DocumentAttributeFilename: // documentAttributeFilename#15590068
+//  case *e2e.DocumentAttributeAudio45: // documentAttributeAudio45#ded218e0
+//  case *e2e.DocumentAttributeSticker: // documentAttributeSticker#3a556302
+//  case *e2e.DocumentAttributeAudio: // documentAttributeAudio#9852f9c6
+//  case *e2e.DocumentAttributeVideo66: // documentAttributeVideo66#ef02ce6
 //  default: panic(v)
 //  }
 type DocumentAttributeClass interface {

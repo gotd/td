@@ -55,20 +55,8 @@ func (f *FileHash) String() string {
 	if f == nil {
 		return "FileHash(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FileHash")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(f.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(f.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(f.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias FileHash
+	return fmt.Sprintf("FileHash%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).

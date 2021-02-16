@@ -46,14 +46,8 @@ func (p *PaymentsPaymentResult) String() string {
 	if p == nil {
 		return "PaymentsPaymentResult(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsPaymentResult")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUpdates: ")
-	sb.WriteString(fmt.Sprint(p.Updates))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsPaymentResult
+	return fmt.Sprintf("PaymentsPaymentResult%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -139,14 +133,8 @@ func (p *PaymentsPaymentVerificationNeeded) String() string {
 	if p == nil {
 		return "PaymentsPaymentVerificationNeeded(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsPaymentVerificationNeeded")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(p.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsPaymentVerificationNeeded
+	return fmt.Sprintf("PaymentsPaymentVerificationNeeded%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -204,13 +192,13 @@ var (
 // See https://core.telegram.org/type/payments.PaymentResult for reference.
 //
 // Example:
-//  g, err := DecodePaymentsPaymentResult(buf)
+//  g, err := tg.DecodePaymentsPaymentResult(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PaymentsPaymentResult: // payments.paymentResult#4e5f810d
-//  case *PaymentsPaymentVerificationNeeded: // payments.paymentVerificationNeeded#d8411139
+//  case *tg.PaymentsPaymentResult: // payments.paymentResult#4e5f810d
+//  case *tg.PaymentsPaymentVerificationNeeded: // payments.paymentVerificationNeeded#d8411139
 //  default: panic(v)
 //  }
 type PaymentsPaymentResultClass interface {

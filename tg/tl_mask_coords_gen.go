@@ -62,23 +62,8 @@ func (m *MaskCoords) String() string {
 	if m == nil {
 		return "MaskCoords(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MaskCoords")
-	sb.WriteString("{\n")
-	sb.WriteString("\tN: ")
-	sb.WriteString(fmt.Sprint(m.N))
-	sb.WriteString(",\n")
-	sb.WriteString("\tX: ")
-	sb.WriteString(fmt.Sprint(m.X))
-	sb.WriteString(",\n")
-	sb.WriteString("\tY: ")
-	sb.WriteString(fmt.Sprint(m.Y))
-	sb.WriteString(",\n")
-	sb.WriteString("\tZoom: ")
-	sb.WriteString(fmt.Sprint(m.Zoom))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MaskCoords
+	return fmt.Sprintf("MaskCoords%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

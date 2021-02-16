@@ -46,14 +46,8 @@ func (g *MessagesGetAttachedStickersRequest) String() string {
 	if g == nil {
 		return "MessagesGetAttachedStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetAttachedStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMedia: ")
-	sb.WriteString(fmt.Sprint(g.Media))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetAttachedStickersRequest
+	return fmt.Sprintf("MessagesGetAttachedStickersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

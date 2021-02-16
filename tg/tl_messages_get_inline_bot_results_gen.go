@@ -76,31 +76,8 @@ func (g *MessagesGetInlineBotResultsRequest) String() string {
 	if g == nil {
 		return "MessagesGetInlineBotResultsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetInlineBotResultsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBot: ")
-	sb.WriteString(fmt.Sprint(g.Bot))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tGeoPoint: ")
-		sb.WriteString(fmt.Sprint(g.GeoPoint))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tQuery: ")
-	sb.WriteString(fmt.Sprint(g.Query))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(g.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetInlineBotResultsRequest
+	return fmt.Sprintf("MessagesGetInlineBotResultsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

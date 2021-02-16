@@ -54,17 +54,8 @@ func (t *ChannelsToggleSlowModeRequest) String() string {
 	if t == nil {
 		return "ChannelsToggleSlowModeRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsToggleSlowModeRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannel: ")
-	sb.WriteString(fmt.Sprint(t.Channel))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeconds: ")
-	sb.WriteString(fmt.Sprint(t.Seconds))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsToggleSlowModeRequest
+	return fmt.Sprintf("ChannelsToggleSlowModeRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

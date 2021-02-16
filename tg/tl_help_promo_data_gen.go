@@ -46,14 +46,8 @@ func (p *HelpPromoDataEmpty) String() string {
 	if p == nil {
 		return "HelpPromoDataEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpPromoDataEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(p.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpPromoDataEmpty
+	return fmt.Sprintf("HelpPromoDataEmpty%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -176,40 +170,8 @@ func (p *HelpPromoData) String() string {
 	if p == nil {
 		return "HelpPromoData(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpPromoData")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tExpires: ")
-	sb.WriteString(fmt.Sprint(p.Expires))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(p.Peer))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range p.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range p.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	if p.Flags.Has(1) {
-		sb.WriteString("\tPsaType: ")
-		sb.WriteString(fmt.Sprint(p.PsaType))
-		sb.WriteString(",\n")
-	}
-	if p.Flags.Has(2) {
-		sb.WriteString("\tPsaMessage: ")
-		sb.WriteString(fmt.Sprint(p.PsaMessage))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpPromoData
+	return fmt.Sprintf("HelpPromoData%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -423,13 +385,13 @@ var (
 // See https://core.telegram.org/type/help.PromoData for reference.
 //
 // Example:
-//  g, err := DecodeHelpPromoData(buf)
+//  g, err := tg.DecodeHelpPromoData(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *HelpPromoDataEmpty: // help.promoDataEmpty#98f6ac75
-//  case *HelpPromoData: // help.promoData#8c39793f
+//  case *tg.HelpPromoDataEmpty: // help.promoDataEmpty#98f6ac75
+//  case *tg.HelpPromoData: // help.promoData#8c39793f
 //  default: panic(v)
 //  }
 type HelpPromoDataClass interface {

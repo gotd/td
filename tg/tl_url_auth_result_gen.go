@@ -70,20 +70,8 @@ func (u *UrlAuthResultRequest) String() string {
 	if u == nil {
 		return "UrlAuthResultRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UrlAuthResultRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBot: ")
-	sb.WriteString(fmt.Sprint(u.Bot))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDomain: ")
-	sb.WriteString(fmt.Sprint(u.Domain))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UrlAuthResultRequest
+	return fmt.Sprintf("UrlAuthResultRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -213,14 +201,8 @@ func (u *UrlAuthResultAccepted) String() string {
 	if u == nil {
 		return "UrlAuthResultAccepted(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UrlAuthResultAccepted")
-	sb.WriteString("{\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(u.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UrlAuthResultAccepted
+	return fmt.Sprintf("UrlAuthResultAccepted%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -299,11 +281,8 @@ func (u *UrlAuthResultDefault) String() string {
 	if u == nil {
 		return "UrlAuthResultDefault(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UrlAuthResultDefault")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UrlAuthResultDefault
+	return fmt.Sprintf("UrlAuthResultDefault%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -348,14 +327,14 @@ var (
 // See https://core.telegram.org/type/UrlAuthResult for reference.
 //
 // Example:
-//  g, err := DecodeUrlAuthResult(buf)
+//  g, err := tg.DecodeUrlAuthResult(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UrlAuthResultRequest: // urlAuthResultRequest#92d33a0e
-//  case *UrlAuthResultAccepted: // urlAuthResultAccepted#8f8c0e4e
-//  case *UrlAuthResultDefault: // urlAuthResultDefault#a9d6db1f
+//  case *tg.UrlAuthResultRequest: // urlAuthResultRequest#92d33a0e
+//  case *tg.UrlAuthResultAccepted: // urlAuthResultAccepted#8f8c0e4e
+//  case *tg.UrlAuthResultDefault: // urlAuthResultDefault#a9d6db1f
 //  default: panic(v)
 //  }
 type UrlAuthResultClass interface {

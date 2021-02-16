@@ -46,14 +46,8 @@ func (g *MessagesGetFullChatRequest) String() string {
 	if g == nil {
 		return "MessagesGetFullChatRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetFullChatRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(g.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetFullChatRequest
+	return fmt.Sprintf("MessagesGetFullChatRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

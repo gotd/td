@@ -57,22 +57,8 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	if t == nil {
 		return "PhoneToggleGroupCallSettingsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneToggleGroupCallSettingsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(t.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(t.Call))
-	sb.WriteString(",\n")
-	if t.Flags.Has(0) {
-		sb.WriteString("\tJoinMuted: ")
-		sb.WriteString(fmt.Sprint(t.JoinMuted))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneToggleGroupCallSettingsRequest
+	return fmt.Sprintf("PhoneToggleGroupCallSettingsRequest%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

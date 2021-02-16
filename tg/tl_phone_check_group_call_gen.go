@@ -50,17 +50,8 @@ func (c *PhoneCheckGroupCallRequest) String() string {
 	if c == nil {
 		return "PhoneCheckGroupCallRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneCheckGroupCallRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(c.Call))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSource: ")
-	sb.WriteString(fmt.Sprint(c.Source))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneCheckGroupCallRequest
+	return fmt.Sprintf("PhoneCheckGroupCallRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

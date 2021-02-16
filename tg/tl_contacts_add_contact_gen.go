@@ -78,26 +78,8 @@ func (a *ContactsAddContactRequest) String() string {
 	if a == nil {
 		return "ContactsAddContactRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ContactsAddContactRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(a.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(a.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFirstName: ")
-	sb.WriteString(fmt.Sprint(a.FirstName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLastName: ")
-	sb.WriteString(fmt.Sprint(a.LastName))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhone: ")
-	sb.WriteString(fmt.Sprint(a.Phone))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ContactsAddContactRequest
+	return fmt.Sprintf("ContactsAddContactRequest%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

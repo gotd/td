@@ -72,20 +72,8 @@ func (p *PollAnswerVoters) String() string {
 	if p == nil {
 		return "PollAnswerVoters(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PollAnswerVoters")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(p.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOption: ")
-	sb.WriteString(fmt.Sprint(p.Option))
-	sb.WriteString(",\n")
-	sb.WriteString("\tVoters: ")
-	sb.WriteString(fmt.Sprint(p.Voters))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PollAnswerVoters
+	return fmt.Sprintf("PollAnswerVoters%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

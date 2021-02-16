@@ -56,20 +56,8 @@ func (m *MessageInteractionCounters) String() string {
 	if m == nil {
 		return "MessageInteractionCounters(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageInteractionCounters")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(m.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tViews: ")
-	sb.WriteString(fmt.Sprint(m.Views))
-	sb.WriteString(",\n")
-	sb.WriteString("\tForwards: ")
-	sb.WriteString(fmt.Sprint(m.Forwards))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageInteractionCounters
+	return fmt.Sprintf("MessageInteractionCounters%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

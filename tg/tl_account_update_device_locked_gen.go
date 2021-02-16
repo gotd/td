@@ -52,14 +52,8 @@ func (u *AccountUpdateDeviceLockedRequest) String() string {
 	if u == nil {
 		return "AccountUpdateDeviceLockedRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountUpdateDeviceLockedRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeriod: ")
-	sb.WriteString(fmt.Sprint(u.Period))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountUpdateDeviceLockedRequest
+	return fmt.Sprintf("AccountUpdateDeviceLockedRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -54,14 +54,8 @@ func (r *ReplyKeyboardHide) String() string {
 	if r == nil {
 		return "ReplyKeyboardHide(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReplyKeyboardHide")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReplyKeyboardHide
+	return fmt.Sprintf("ReplyKeyboardHide%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -170,14 +164,8 @@ func (r *ReplyKeyboardForceReply) String() string {
 	if r == nil {
 		return "ReplyKeyboardForceReply(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReplyKeyboardForceReply")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReplyKeyboardForceReply
+	return fmt.Sprintf("ReplyKeyboardForceReply%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -316,19 +304,8 @@ func (r *ReplyKeyboardMarkup) String() string {
 	if r == nil {
 		return "ReplyKeyboardMarkup(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReplyKeyboardMarkup")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(r.Flags))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range r.Rows {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReplyKeyboardMarkup
+	return fmt.Sprintf("ReplyKeyboardMarkup%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -488,16 +465,8 @@ func (r *ReplyInlineMarkup) String() string {
 	if r == nil {
 		return "ReplyInlineMarkup(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReplyInlineMarkup")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range r.Rows {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReplyInlineMarkup
+	return fmt.Sprintf("ReplyInlineMarkup%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -566,15 +535,15 @@ var (
 // See https://core.telegram.org/type/ReplyMarkup for reference.
 //
 // Example:
-//  g, err := DecodeReplyMarkup(buf)
+//  g, err := tg.DecodeReplyMarkup(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ReplyKeyboardHide: // replyKeyboardHide#a03e5b85
-//  case *ReplyKeyboardForceReply: // replyKeyboardForceReply#f4108aa0
-//  case *ReplyKeyboardMarkup: // replyKeyboardMarkup#3502758c
-//  case *ReplyInlineMarkup: // replyInlineMarkup#48a30254
+//  case *tg.ReplyKeyboardHide: // replyKeyboardHide#a03e5b85
+//  case *tg.ReplyKeyboardForceReply: // replyKeyboardForceReply#f4108aa0
+//  case *tg.ReplyKeyboardMarkup: // replyKeyboardMarkup#3502758c
+//  case *tg.ReplyInlineMarkup: // replyInlineMarkup#48a30254
 //  default: panic(v)
 //  }
 type ReplyMarkupClass interface {

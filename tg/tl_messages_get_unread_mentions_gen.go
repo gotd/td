@@ -86,29 +86,8 @@ func (g *MessagesGetUnreadMentionsRequest) String() string {
 	if g == nil {
 		return "MessagesGetUnreadMentionsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetUnreadMentionsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(g.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAddOffset: ")
-	sb.WriteString(fmt.Sprint(g.AddOffset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxID: ")
-	sb.WriteString(fmt.Sprint(g.MaxID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMinID: ")
-	sb.WriteString(fmt.Sprint(g.MinID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetUnreadMentionsRequest
+	return fmt.Sprintf("MessagesGetUnreadMentionsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -43,14 +43,8 @@ func (vec *LangPackStringClassVector) String() string {
 	if vec == nil {
 		return "LangPackStringClassVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("LangPackStringClassVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias LangPackStringClassVector
+	return fmt.Sprintf("LangPackStringClassVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

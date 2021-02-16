@@ -58,22 +58,8 @@ func (m *MessageEmpty) String() string {
 	if m == nil {
 		return "MessageEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(m.ID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(0) {
-		sb.WriteString("\tPeerID: ")
-		sb.WriteString(fmt.Sprint(m.PeerID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageEmpty
+	return fmt.Sprintf("MessageEmpty%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -380,100 +366,8 @@ func (m *Message) String() string {
 	if m == nil {
 		return "Message(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Message")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(m.ID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(8) {
-		sb.WriteString("\tFromID: ")
-		sb.WriteString(fmt.Sprint(m.FromID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPeerID: ")
-	sb.WriteString(fmt.Sprint(m.PeerID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(2) {
-		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(fmt.Sprint(m.FwdFrom))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(11) {
-		sb.WriteString("\tViaBotID: ")
-		sb.WriteString(fmt.Sprint(m.ViaBotID))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(3) {
-		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(fmt.Sprint(m.ReplyTo))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(m.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(m.Message))
-	sb.WriteString(",\n")
-	if m.Flags.Has(9) {
-		sb.WriteString("\tMedia: ")
-		sb.WriteString(fmt.Sprint(m.Media))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(6) {
-		sb.WriteString("\tReplyMarkup: ")
-		sb.WriteString(fmt.Sprint(m.ReplyMarkup))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range m.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if m.Flags.Has(10) {
-		sb.WriteString("\tViews: ")
-		sb.WriteString(fmt.Sprint(m.Views))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(10) {
-		sb.WriteString("\tForwards: ")
-		sb.WriteString(fmt.Sprint(m.Forwards))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(23) {
-		sb.WriteString("\tReplies: ")
-		sb.WriteString(fmt.Sprint(m.Replies))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(15) {
-		sb.WriteString("\tEditDate: ")
-		sb.WriteString(fmt.Sprint(m.EditDate))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(16) {
-		sb.WriteString("\tPostAuthor: ")
-		sb.WriteString(fmt.Sprint(m.PostAuthor))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(17) {
-		sb.WriteString("\tGroupedID: ")
-		sb.WriteString(fmt.Sprint(m.GroupedID))
-		sb.WriteString(",\n")
-	}
-	if m.Flags.Has(22) {
-		sb.WriteByte('[')
-		for _, v := range m.RestrictionReason {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Message
+	return fmt.Sprintf("Message%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1285,36 +1179,8 @@ func (m *MessageService) String() string {
 	if m == nil {
 		return "MessageService(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessageService")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(m.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(m.ID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(8) {
-		sb.WriteString("\tFromID: ")
-		sb.WriteString(fmt.Sprint(m.FromID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tPeerID: ")
-	sb.WriteString(fmt.Sprint(m.PeerID))
-	sb.WriteString(",\n")
-	if m.Flags.Has(3) {
-		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(fmt.Sprint(m.ReplyTo))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(m.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAction: ")
-	sb.WriteString(fmt.Sprint(m.Action))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessageService
+	return fmt.Sprintf("MessageService%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1610,14 +1476,14 @@ var (
 // See https://core.telegram.org/type/Message for reference.
 //
 // Example:
-//  g, err := DecodeMessage(buf)
+//  g, err := tg.DecodeMessage(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessageEmpty: // messageEmpty#90a6ca84
-//  case *Message: // message#58ae39c9
-//  case *MessageService: // messageService#286fa604
+//  case *tg.MessageEmpty: // messageEmpty#90a6ca84
+//  case *tg.Message: // message#58ae39c9
+//  case *tg.MessageService: // messageService#286fa604
 //  default: panic(v)
 //  }
 type MessageClass interface {

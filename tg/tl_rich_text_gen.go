@@ -41,11 +41,8 @@ func (t *TextEmpty) String() string {
 	if t == nil {
 		return "TextEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEmpty
+	return fmt.Sprintf("TextEmpty%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -113,14 +110,8 @@ func (t *TextPlain) String() string {
 	if t == nil {
 		return "TextPlain(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextPlain")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextPlain
+	return fmt.Sprintf("TextPlain%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,14 +192,8 @@ func (t *TextBold) String() string {
 	if t == nil {
 		return "TextBold(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextBold")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextBold
+	return fmt.Sprintf("TextBold%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -294,14 +279,8 @@ func (t *TextItalic) String() string {
 	if t == nil {
 		return "TextItalic(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextItalic")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextItalic
+	return fmt.Sprintf("TextItalic%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -387,14 +366,8 @@ func (t *TextUnderline) String() string {
 	if t == nil {
 		return "TextUnderline(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextUnderline")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextUnderline
+	return fmt.Sprintf("TextUnderline%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -480,14 +453,8 @@ func (t *TextStrike) String() string {
 	if t == nil {
 		return "TextStrike(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextStrike")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextStrike
+	return fmt.Sprintf("TextStrike%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -573,14 +540,8 @@ func (t *TextFixed) String() string {
 	if t == nil {
 		return "TextFixed(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextFixed")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextFixed
+	return fmt.Sprintf("TextFixed%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -676,20 +637,8 @@ func (t *TextUrl) String() string {
 	if t == nil {
 		return "TextUrl(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextUrl")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tURL: ")
-	sb.WriteString(fmt.Sprint(t.URL))
-	sb.WriteString(",\n")
-	sb.WriteString("\tWebpageID: ")
-	sb.WriteString(fmt.Sprint(t.WebpageID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextUrl
+	return fmt.Sprintf("TextUrl%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -806,17 +755,8 @@ func (t *TextEmail) String() string {
 	if t == nil {
 		return "TextEmail(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEmail")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEmail: ")
-	sb.WriteString(fmt.Sprint(t.Email))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEmail
+	return fmt.Sprintf("TextEmail%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -915,16 +855,8 @@ func (t *TextConcat) String() string {
 	if t == nil {
 		return "TextConcat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextConcat")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range t.Texts {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextConcat
+	return fmt.Sprintf("TextConcat%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1019,14 +951,8 @@ func (t *TextSubscript) String() string {
 	if t == nil {
 		return "TextSubscript(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextSubscript")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextSubscript
+	return fmt.Sprintf("TextSubscript%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1112,14 +1038,8 @@ func (t *TextSuperscript) String() string {
 	if t == nil {
 		return "TextSuperscript(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextSuperscript")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextSuperscript
+	return fmt.Sprintf("TextSuperscript%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1205,14 +1125,8 @@ func (t *TextMarked) String() string {
 	if t == nil {
 		return "TextMarked(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextMarked")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextMarked
+	return fmt.Sprintf("TextMarked%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1303,17 +1217,8 @@ func (t *TextPhone) String() string {
 	if t == nil {
 		return "TextPhone(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextPhone")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPhone: ")
-	sb.WriteString(fmt.Sprint(t.Phone))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextPhone
+	return fmt.Sprintf("TextPhone%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1422,20 +1327,8 @@ func (t *TextImage) String() string {
 	if t == nil {
 		return "TextImage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextImage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDocumentID: ")
-	sb.WriteString(fmt.Sprint(t.DocumentID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tW: ")
-	sb.WriteString(fmt.Sprint(t.W))
-	sb.WriteString(",\n")
-	sb.WriteString("\tH: ")
-	sb.WriteString(fmt.Sprint(t.H))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextImage
+	return fmt.Sprintf("TextImage%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1547,17 +1440,8 @@ func (t *TextAnchor) String() string {
 	if t == nil {
 		return "TextAnchor(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextAnchor")
-	sb.WriteString("{\n")
-	sb.WriteString("\tText: ")
-	sb.WriteString(fmt.Sprint(t.Text))
-	sb.WriteString(",\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(t.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextAnchor
+	return fmt.Sprintf("TextAnchor%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1633,27 +1517,27 @@ var (
 // See https://core.telegram.org/type/RichText for reference.
 //
 // Example:
-//  g, err := DecodeRichText(buf)
+//  g, err := tg.DecodeRichText(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *TextEmpty: // textEmpty#dc3d824f
-//  case *TextPlain: // textPlain#744694e0
-//  case *TextBold: // textBold#6724abc4
-//  case *TextItalic: // textItalic#d912a59c
-//  case *TextUnderline: // textUnderline#c12622c4
-//  case *TextStrike: // textStrike#9bf8bb95
-//  case *TextFixed: // textFixed#6c3f19b9
-//  case *TextUrl: // textUrl#3c2884c1
-//  case *TextEmail: // textEmail#de5a0dd6
-//  case *TextConcat: // textConcat#7e6260d7
-//  case *TextSubscript: // textSubscript#ed6a8504
-//  case *TextSuperscript: // textSuperscript#c7fb5e01
-//  case *TextMarked: // textMarked#34b8621
-//  case *TextPhone: // textPhone#1ccb966a
-//  case *TextImage: // textImage#81ccf4f
-//  case *TextAnchor: // textAnchor#35553762
+//  case *tg.TextEmpty: // textEmpty#dc3d824f
+//  case *tg.TextPlain: // textPlain#744694e0
+//  case *tg.TextBold: // textBold#6724abc4
+//  case *tg.TextItalic: // textItalic#d912a59c
+//  case *tg.TextUnderline: // textUnderline#c12622c4
+//  case *tg.TextStrike: // textStrike#9bf8bb95
+//  case *tg.TextFixed: // textFixed#6c3f19b9
+//  case *tg.TextUrl: // textUrl#3c2884c1
+//  case *tg.TextEmail: // textEmail#de5a0dd6
+//  case *tg.TextConcat: // textConcat#7e6260d7
+//  case *tg.TextSubscript: // textSubscript#ed6a8504
+//  case *tg.TextSuperscript: // textSuperscript#c7fb5e01
+//  case *tg.TextMarked: // textMarked#34b8621
+//  case *tg.TextPhone: // textPhone#1ccb966a
+//  case *tg.TextImage: // textImage#81ccf4f
+//  case *tg.TextAnchor: // textAnchor#35553762
 //  default: panic(v)
 //  }
 type RichTextClass interface {

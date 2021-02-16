@@ -62,20 +62,8 @@ func (g *MessagesGetRecentLocationsRequest) String() string {
 	if g == nil {
 		return "MessagesGetRecentLocationsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetRecentLocationsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(g.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetRecentLocationsRequest
+	return fmt.Sprintf("MessagesGetRecentLocationsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

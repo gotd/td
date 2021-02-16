@@ -46,14 +46,8 @@ func (a *AccountDaysTTL) String() string {
 	if a == nil {
 		return "AccountDaysTTL(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountDaysTTL")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDays: ")
-	sb.WriteString(fmt.Sprint(a.Days))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountDaysTTL
+	return fmt.Sprintf("AccountDaysTTL%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).

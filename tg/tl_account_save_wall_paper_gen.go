@@ -56,20 +56,8 @@ func (s *AccountSaveWallPaperRequest) String() string {
 	if s == nil {
 		return "AccountSaveWallPaperRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountSaveWallPaperRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tWallpaper: ")
-	sb.WriteString(fmt.Sprint(s.Wallpaper))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUnsave: ")
-	sb.WriteString(fmt.Sprint(s.Unsave))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSettings: ")
-	sb.WriteString(fmt.Sprint(s.Settings))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountSaveWallPaperRequest
+	return fmt.Sprintf("AccountSaveWallPaperRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

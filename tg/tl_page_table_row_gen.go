@@ -46,16 +46,8 @@ func (p *PageTableRow) String() string {
 	if p == nil {
 		return "PageTableRow(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PageTableRow")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range p.Cells {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PageTableRow
+	return fmt.Sprintf("PageTableRow%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

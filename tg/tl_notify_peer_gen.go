@@ -46,14 +46,8 @@ func (n *NotifyPeer) String() string {
 	if n == nil {
 		return "NotifyPeer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NotifyPeer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(n.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NotifyPeer
+	return fmt.Sprintf("NotifyPeer%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -134,11 +128,8 @@ func (n *NotifyUsers) String() string {
 	if n == nil {
 		return "NotifyUsers(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NotifyUsers")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NotifyUsers
+	return fmt.Sprintf("NotifyUsers%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,11 +192,8 @@ func (n *NotifyChats) String() string {
 	if n == nil {
 		return "NotifyChats(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NotifyChats")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NotifyChats
+	return fmt.Sprintf("NotifyChats%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -268,11 +256,8 @@ func (n *NotifyBroadcasts) String() string {
 	if n == nil {
 		return "NotifyBroadcasts(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NotifyBroadcasts")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NotifyBroadcasts
+	return fmt.Sprintf("NotifyBroadcasts%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -317,15 +302,15 @@ var (
 // See https://core.telegram.org/type/NotifyPeer for reference.
 //
 // Example:
-//  g, err := DecodeNotifyPeer(buf)
+//  g, err := tg.DecodeNotifyPeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *NotifyPeer: // notifyPeer#9fd40bd8
-//  case *NotifyUsers: // notifyUsers#b4c83b4c
-//  case *NotifyChats: // notifyChats#c007cec3
-//  case *NotifyBroadcasts: // notifyBroadcasts#d612e8ef
+//  case *tg.NotifyPeer: // notifyPeer#9fd40bd8
+//  case *tg.NotifyUsers: // notifyUsers#b4c83b4c
+//  case *tg.NotifyChats: // notifyChats#c007cec3
+//  case *tg.NotifyBroadcasts: // notifyBroadcasts#d612e8ef
 //  default: panic(v)
 //  }
 type NotifyPeerClass interface {

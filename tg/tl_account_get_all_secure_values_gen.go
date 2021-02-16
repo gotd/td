@@ -45,11 +45,8 @@ func (g *AccountGetAllSecureValuesRequest) String() string {
 	if g == nil {
 		return "AccountGetAllSecureValuesRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetAllSecureValuesRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetAllSecureValuesRequest
+	return fmt.Sprintf("AccountGetAllSecureValuesRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -45,14 +45,8 @@ func (a *Auth) String() string {
 	if a == nil {
 		return "Auth(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Auth")
-	sb.WriteString("{\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(a.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Auth
+	return fmt.Sprintf("Auth%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -137,17 +131,8 @@ func (a *AuthPassword) String() string {
 	if a == nil {
 		return "AuthPassword(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AuthPassword")
-	sb.WriteString("{\n")
-	sb.WriteString("\tName: ")
-	sb.WriteString(fmt.Sprint(a.Name))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPassword: ")
-	sb.WriteString(fmt.Sprint(a.Password))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AuthPassword
+	return fmt.Sprintf("AuthPassword%+v", Alias(*a))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -218,13 +203,13 @@ var (
 // See https://localhost:80/doc/type/Auth for reference.
 //
 // Example:
-//  g, err := DecodeAuth(buf)
+//  g, err := td.DecodeAuth(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *Auth: // auth#f8bb4a38
-//  case *AuthPassword: // authPassword#29bacabb
+//  case *td.Auth: // auth#f8bb4a38
+//  case *td.AuthPassword: // authPassword#29bacabb
 //  default: panic(v)
 //  }
 type AuthClass interface {

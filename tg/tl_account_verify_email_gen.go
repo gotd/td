@@ -54,17 +54,8 @@ func (v *AccountVerifyEmailRequest) String() string {
 	if v == nil {
 		return "AccountVerifyEmailRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountVerifyEmailRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tEmail: ")
-	sb.WriteString(fmt.Sprint(v.Email))
-	sb.WriteString(",\n")
-	sb.WriteString("\tCode: ")
-	sb.WriteString(fmt.Sprint(v.Code))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountVerifyEmailRequest
+	return fmt.Sprintf("AccountVerifyEmailRequest%+v", Alias(*v))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -76,29 +76,8 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 	if u == nil {
 		return "PhotosUploadProfilePhotoRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhotosUploadProfilePhotoRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	if u.Flags.Has(0) {
-		sb.WriteString("\tFile: ")
-		sb.WriteString(fmt.Sprint(u.File))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(1) {
-		sb.WriteString("\tVideo: ")
-		sb.WriteString(fmt.Sprint(u.Video))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(2) {
-		sb.WriteString("\tVideoStartTs: ")
-		sb.WriteString(fmt.Sprint(u.VideoStartTs))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhotosUploadProfilePhotoRequest
+	return fmt.Sprintf("PhotosUploadProfilePhotoRequest%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).

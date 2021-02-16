@@ -68,29 +68,8 @@ func (r *ReqDHParamsRequest) String() string {
 	if r == nil {
 		return "ReqDHParamsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ReqDHParamsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNonce: ")
-	sb.WriteString(fmt.Sprint(r.Nonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tServerNonce: ")
-	sb.WriteString(fmt.Sprint(r.ServerNonce))
-	sb.WriteString(",\n")
-	sb.WriteString("\tP: ")
-	sb.WriteString(fmt.Sprint(r.P))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQ: ")
-	sb.WriteString(fmt.Sprint(r.Q))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPublicKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(r.PublicKeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tEncryptedData: ")
-	sb.WriteString(fmt.Sprint(r.EncryptedData))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ReqDHParamsRequest
+	return fmt.Sprintf("ReqDHParamsRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

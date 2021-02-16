@@ -40,11 +40,8 @@ func (d *DoAuthRequest) String() string {
 	if d == nil {
 		return "DoAuthRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DoAuthRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DoAuthRequest
+	return fmt.Sprintf("DoAuthRequest%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

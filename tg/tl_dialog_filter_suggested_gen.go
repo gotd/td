@@ -60,17 +60,8 @@ func (d *DialogFilterSuggested) String() string {
 	if d == nil {
 		return "DialogFilterSuggested(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("DialogFilterSuggested")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFilter: ")
-	sb.WriteString(fmt.Sprint(d.Filter))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDescription: ")
-	sb.WriteString(fmt.Sprint(d.Description))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias DialogFilterSuggested
+	return fmt.Sprintf("DialogFilterSuggested%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).

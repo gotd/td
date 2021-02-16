@@ -46,14 +46,8 @@ func (i *InputStickerSetShortName) String() string {
 	if i == nil {
 		return "InputStickerSetShortName(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetShortName")
-	sb.WriteString("{\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(i.ShortName))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetShortName
+	return fmt.Sprintf("InputStickerSetShortName%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -129,11 +123,8 @@ func (i *InputStickerSetEmpty) String() string {
 	if i == nil {
 		return "InputStickerSetEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputStickerSetEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputStickerSetEmpty
+	return fmt.Sprintf("InputStickerSetEmpty%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -178,13 +169,13 @@ var (
 // See https://core.telegram.org/type/InputStickerSet for reference.
 //
 // Example:
-//  g, err := DecodeInputStickerSet(buf)
+//  g, err := e2e.DecodeInputStickerSet(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
-//  case *InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
+//  case *e2e.InputStickerSetShortName: // inputStickerSetShortName#861cc8a0
+//  case *e2e.InputStickerSetEmpty: // inputStickerSetEmpty#ffb62b95
 //  default: panic(v)
 //  }
 type InputStickerSetClass interface {

@@ -101,34 +101,8 @@ func (g *MessagesGetDialogsRequest) String() string {
 	if g == nil {
 		return "MessagesGetDialogsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetDialogsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	if g.Flags.Has(1) {
-		sb.WriteString("\tFolderID: ")
-		sb.WriteString(fmt.Sprint(g.FolderID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tOffsetDate: ")
-	sb.WriteString(fmt.Sprint(g.OffsetDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetID: ")
-	sb.WriteString(fmt.Sprint(g.OffsetID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tOffsetPeer: ")
-	sb.WriteString(fmt.Sprint(g.OffsetPeer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLimit: ")
-	sb.WriteString(fmt.Sprint(g.Limit))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetDialogsRequest
+	return fmt.Sprintf("MessagesGetDialogsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

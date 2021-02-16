@@ -41,11 +41,8 @@ func (s *SecurePasswordKdfAlgoUnknown) String() string {
 	if s == nil {
 		return "SecurePasswordKdfAlgoUnknown(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecurePasswordKdfAlgoUnknown")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecurePasswordKdfAlgoUnknown
+	return fmt.Sprintf("SecurePasswordKdfAlgoUnknown%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -113,14 +110,8 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) String() string {
 	if s == nil {
 		return "SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSalt: ")
-	sb.WriteString(fmt.Sprint(s.Salt))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000
+	return fmt.Sprintf("SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -203,14 +194,8 @@ func (s *SecurePasswordKdfAlgoSHA512) String() string {
 	if s == nil {
 		return "SecurePasswordKdfAlgoSHA512(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecurePasswordKdfAlgoSHA512")
-	sb.WriteString("{\n")
-	sb.WriteString("\tSalt: ")
-	sb.WriteString(fmt.Sprint(s.Salt))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecurePasswordKdfAlgoSHA512
+	return fmt.Sprintf("SecurePasswordKdfAlgoSHA512%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -268,14 +253,14 @@ var (
 // See https://core.telegram.org/type/SecurePasswordKdfAlgo for reference.
 //
 // Example:
-//  g, err := DecodeSecurePasswordKdfAlgo(buf)
+//  g, err := tg.DecodeSecurePasswordKdfAlgo(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecurePasswordKdfAlgoUnknown: // securePasswordKdfAlgoUnknown#4a8537
-//  case *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000: // securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0
-//  case *SecurePasswordKdfAlgoSHA512: // securePasswordKdfAlgoSHA512#86471d92
+//  case *tg.SecurePasswordKdfAlgoUnknown: // securePasswordKdfAlgoUnknown#4a8537
+//  case *tg.SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000: // securePasswordKdfAlgoPBKDF2HMACSHA512iter100000#bbf2dda0
+//  case *tg.SecurePasswordKdfAlgoSHA512: // securePasswordKdfAlgoSHA512#86471d92
 //  default: panic(v)
 //  }
 type SecurePasswordKdfAlgoClass interface {

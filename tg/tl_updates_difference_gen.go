@@ -51,17 +51,8 @@ func (d *UpdatesDifferenceEmpty) String() string {
 	if d == nil {
 		return "UpdatesDifferenceEmpty(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesDifferenceEmpty")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(d.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeq: ")
-	sb.WriteString(fmt.Sprint(d.Seq))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesDifferenceEmpty
+	return fmt.Sprintf("UpdatesDifferenceEmpty%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -180,39 +171,8 @@ func (d *UpdatesDifference) String() string {
 	if d == nil {
 		return "UpdatesDifference(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesDifference")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.NewMessages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.NewEncryptedMessages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.OtherUpdates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tState: ")
-	sb.WriteString(fmt.Sprint(d.State))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesDifference
+	return fmt.Sprintf("UpdatesDifference%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -456,39 +416,8 @@ func (d *UpdatesDifferenceSlice) String() string {
 	if d == nil {
 		return "UpdatesDifferenceSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesDifferenceSlice")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.NewMessages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.NewEncryptedMessages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.OtherUpdates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tIntermediateState: ")
-	sb.WriteString(fmt.Sprint(d.IntermediateState))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesDifferenceSlice
+	return fmt.Sprintf("UpdatesDifferenceSlice%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -707,14 +636,8 @@ func (d *UpdatesDifferenceTooLong) String() string {
 	if d == nil {
 		return "UpdatesDifferenceTooLong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesDifferenceTooLong")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(d.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesDifferenceTooLong
+	return fmt.Sprintf("UpdatesDifferenceTooLong%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -772,15 +695,15 @@ var (
 // See https://core.telegram.org/type/updates.Difference for reference.
 //
 // Example:
-//  g, err := DecodeUpdatesDifference(buf)
+//  g, err := tg.DecodeUpdatesDifference(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UpdatesDifferenceEmpty: // updates.differenceEmpty#5d75a138
-//  case *UpdatesDifference: // updates.difference#f49ca0
-//  case *UpdatesDifferenceSlice: // updates.differenceSlice#a8fb1981
-//  case *UpdatesDifferenceTooLong: // updates.differenceTooLong#4afe8f6d
+//  case *tg.UpdatesDifferenceEmpty: // updates.differenceEmpty#5d75a138
+//  case *tg.UpdatesDifference: // updates.difference#f49ca0
+//  case *tg.UpdatesDifferenceSlice: // updates.differenceSlice#a8fb1981
+//  case *tg.UpdatesDifferenceTooLong: // updates.differenceTooLong#4afe8f6d
 //  default: panic(v)
 //  }
 type UpdatesDifferenceClass interface {

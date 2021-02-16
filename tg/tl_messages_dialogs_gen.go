@@ -61,31 +61,8 @@ func (d *MessagesDialogs) String() string {
 	if d == nil {
 		return "MessagesDialogs(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDialogs")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range d.Dialogs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDialogs
+	return fmt.Sprintf("MessagesDialogs%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -281,34 +258,8 @@ func (d *MessagesDialogsSlice) String() string {
 	if d == nil {
 		return "MessagesDialogsSlice(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDialogsSlice")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(d.Count))
-	sb.WriteString(",\n")
-	sb.WriteByte('[')
-	for _, v := range d.Dialogs {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Messages {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range d.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDialogsSlice
+	return fmt.Sprintf("MessagesDialogsSlice%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -497,14 +448,8 @@ func (d *MessagesDialogsNotModified) String() string {
 	if d == nil {
 		return "MessagesDialogsNotModified(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesDialogsNotModified")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(d.Count))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesDialogsNotModified
+	return fmt.Sprintf("MessagesDialogsNotModified%+v", Alias(*d))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -562,14 +507,14 @@ var (
 // See https://core.telegram.org/type/messages.Dialogs for reference.
 //
 // Example:
-//  g, err := DecodeMessagesDialogs(buf)
+//  g, err := tg.DecodeMessagesDialogs(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *MessagesDialogs: // messages.dialogs#15ba6c40
-//  case *MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
-//  case *MessagesDialogsNotModified: // messages.dialogsNotModified#f0e3e596
+//  case *tg.MessagesDialogs: // messages.dialogs#15ba6c40
+//  case *tg.MessagesDialogsSlice: // messages.dialogsSlice#71e094f3
+//  case *tg.MessagesDialogsNotModified: // messages.dialogsNotModified#f0e3e596
 //  default: panic(v)
 //  }
 type MessagesDialogsClass interface {

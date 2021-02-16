@@ -49,14 +49,8 @@ func (g *MessagesGetAllStickersRequest) String() string {
 	if g == nil {
 		return "MessagesGetAllStickersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesGetAllStickersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesGetAllStickersRequest
+	return fmt.Sprintf("MessagesGetAllStickersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

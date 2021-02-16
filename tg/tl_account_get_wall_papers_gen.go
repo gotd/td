@@ -49,14 +49,8 @@ func (g *AccountGetWallPapersRequest) String() string {
 	if g == nil {
 		return "AccountGetWallPapersRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetWallPapersRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetWallPapersRequest
+	return fmt.Sprintf("AccountGetWallPapersRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

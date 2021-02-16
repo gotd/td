@@ -51,17 +51,8 @@ func (c *ChannelAdminLogEventActionChangeTitle) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeTitle(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeTitle")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeTitle
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeTitle%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -160,17 +151,8 @@ func (c *ChannelAdminLogEventActionChangeAbout) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeAbout(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeAbout")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeAbout
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeAbout%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -269,17 +251,8 @@ func (c *ChannelAdminLogEventActionChangeUsername) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeUsername(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeUsername")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeUsername
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeUsername%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -380,17 +353,8 @@ func (c *ChannelAdminLogEventActionChangePhoto) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangePhoto(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangePhoto")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevPhoto: ")
-	sb.WriteString(fmt.Sprint(c.PrevPhoto))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewPhoto: ")
-	sb.WriteString(fmt.Sprint(c.NewPhoto))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangePhoto
+	return fmt.Sprintf("ChannelAdminLogEventActionChangePhoto%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -494,14 +458,8 @@ func (c *ChannelAdminLogEventActionToggleInvites) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionToggleInvites(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionToggleInvites")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionToggleInvites
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleInvites%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -584,14 +542,8 @@ func (c *ChannelAdminLogEventActionToggleSignatures) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionToggleSignatures(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionToggleSignatures")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionToggleSignatures
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleSignatures%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -674,14 +626,8 @@ func (c *ChannelAdminLogEventActionUpdatePinned) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionUpdatePinned(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionUpdatePinned")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(c.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionUpdatePinned
+	return fmt.Sprintf("ChannelAdminLogEventActionUpdatePinned%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -774,17 +720,8 @@ func (c *ChannelAdminLogEventActionEditMessage) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionEditMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionEditMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevMessage: ")
-	sb.WriteString(fmt.Sprint(c.PrevMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewMessage: ")
-	sb.WriteString(fmt.Sprint(c.NewMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionEditMessage
+	return fmt.Sprintf("ChannelAdminLogEventActionEditMessage%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -888,14 +825,8 @@ func (c *ChannelAdminLogEventActionDeleteMessage) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionDeleteMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionDeleteMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(c.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionDeleteMessage
+	return fmt.Sprintf("ChannelAdminLogEventActionDeleteMessage%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -978,11 +909,8 @@ func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantJoin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantJoin")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantJoin
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantJoin%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1047,11 +975,8 @@ func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantLeave(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantLeave")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantLeave
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantLeave%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1121,14 +1046,8 @@ func (c *ChannelAdminLogEventActionParticipantInvite) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantInvite(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantInvite")
-	sb.WriteString("{\n")
-	sb.WriteString("\tParticipant: ")
-	sb.WriteString(fmt.Sprint(c.Participant))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantInvite
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantInvite%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1224,17 +1143,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantToggleBan(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantToggleBan")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevParticipant: ")
-	sb.WriteString(fmt.Sprint(c.PrevParticipant))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewParticipant: ")
-	sb.WriteString(fmt.Sprint(c.NewParticipant))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantToggleBan
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantToggleBan%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1348,17 +1258,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantToggleAdmin(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantToggleAdmin")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevParticipant: ")
-	sb.WriteString(fmt.Sprint(c.PrevParticipant))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewParticipant: ")
-	sb.WriteString(fmt.Sprint(c.NewParticipant))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantToggleAdmin
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantToggleAdmin%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1469,17 +1370,8 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeStickerSet(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeStickerSet")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevStickerset: ")
-	sb.WriteString(fmt.Sprint(c.PrevStickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewStickerset: ")
-	sb.WriteString(fmt.Sprint(c.NewStickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeStickerSet
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeStickerSet%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1588,14 +1480,8 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionTogglePreHistoryHidden(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionTogglePreHistoryHidden")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionTogglePreHistoryHidden
+	return fmt.Sprintf("ChannelAdminLogEventActionTogglePreHistoryHidden%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1689,17 +1575,8 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionDefaultBannedRights(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionDefaultBannedRights")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevBannedRights: ")
-	sb.WriteString(fmt.Sprint(c.PrevBannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewBannedRights: ")
-	sb.WriteString(fmt.Sprint(c.NewBannedRights))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionDefaultBannedRights
+	return fmt.Sprintf("ChannelAdminLogEventActionDefaultBannedRights%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1795,14 +1672,8 @@ func (c *ChannelAdminLogEventActionStopPoll) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionStopPoll(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionStopPoll")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(c.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionStopPoll
+	return fmt.Sprintf("ChannelAdminLogEventActionStopPoll%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1893,17 +1764,8 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeLinkedChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeLinkedChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeLinkedChat
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeLinkedChat%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2004,17 +1866,8 @@ func (c *ChannelAdminLogEventActionChangeLocation) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionChangeLocation(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionChangeLocation")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionChangeLocation
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeLocation%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2128,17 +1981,8 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionToggleSlowMode(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionToggleSlowMode")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPrevValue: ")
-	sb.WriteString(fmt.Sprint(c.PrevValue))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNewValue: ")
-	sb.WriteString(fmt.Sprint(c.NewValue))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionToggleSlowMode
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleSlowMode%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2233,14 +2077,8 @@ func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionStartGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionStartGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(c.Call))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionStartGroupCall
+	return fmt.Sprintf("ChannelAdminLogEventActionStartGroupCall%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2322,14 +2160,8 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionDiscardGroupCall(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionDiscardGroupCall")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCall: ")
-	sb.WriteString(fmt.Sprint(c.Call))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionDiscardGroupCall
+	return fmt.Sprintf("ChannelAdminLogEventActionDiscardGroupCall%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2411,14 +2243,8 @@ func (c *ChannelAdminLogEventActionParticipantMute) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantMute(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantMute")
-	sb.WriteString("{\n")
-	sb.WriteString("\tParticipant: ")
-	sb.WriteString(fmt.Sprint(c.Participant))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantMute
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantMute%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2500,14 +2326,8 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionParticipantUnmute(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionParticipantUnmute")
-	sb.WriteString("{\n")
-	sb.WriteString("\tParticipant: ")
-	sb.WriteString(fmt.Sprint(c.Participant))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionParticipantUnmute
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantUnmute%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2589,14 +2409,8 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) String() string {
 	if c == nil {
 		return "ChannelAdminLogEventActionToggleGroupCallSetting(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelAdminLogEventActionToggleGroupCallSetting")
-	sb.WriteString("{\n")
-	sb.WriteString("\tJoinMuted: ")
-	sb.WriteString(fmt.Sprint(c.JoinMuted))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelAdminLogEventActionToggleGroupCallSetting
+	return fmt.Sprintf("ChannelAdminLogEventActionToggleGroupCallSetting%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2656,37 +2470,37 @@ var (
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
 //
 // Example:
-//  g, err := DecodeChannelAdminLogEventAction(buf)
+//  g, err := tg.DecodeChannelAdminLogEventAction(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *ChannelAdminLogEventActionChangeTitle: // channelAdminLogEventActionChangeTitle#e6dfb825
-//  case *ChannelAdminLogEventActionChangeAbout: // channelAdminLogEventActionChangeAbout#55188a2e
-//  case *ChannelAdminLogEventActionChangeUsername: // channelAdminLogEventActionChangeUsername#6a4afc38
-//  case *ChannelAdminLogEventActionChangePhoto: // channelAdminLogEventActionChangePhoto#434bd2af
-//  case *ChannelAdminLogEventActionToggleInvites: // channelAdminLogEventActionToggleInvites#1b7907ae
-//  case *ChannelAdminLogEventActionToggleSignatures: // channelAdminLogEventActionToggleSignatures#26ae0971
-//  case *ChannelAdminLogEventActionUpdatePinned: // channelAdminLogEventActionUpdatePinned#e9e82c18
-//  case *ChannelAdminLogEventActionEditMessage: // channelAdminLogEventActionEditMessage#709b2405
-//  case *ChannelAdminLogEventActionDeleteMessage: // channelAdminLogEventActionDeleteMessage#42e047bb
-//  case *ChannelAdminLogEventActionParticipantJoin: // channelAdminLogEventActionParticipantJoin#183040d3
-//  case *ChannelAdminLogEventActionParticipantLeave: // channelAdminLogEventActionParticipantLeave#f89777f2
-//  case *ChannelAdminLogEventActionParticipantInvite: // channelAdminLogEventActionParticipantInvite#e31c34d8
-//  case *ChannelAdminLogEventActionParticipantToggleBan: // channelAdminLogEventActionParticipantToggleBan#e6d83d7e
-//  case *ChannelAdminLogEventActionParticipantToggleAdmin: // channelAdminLogEventActionParticipantToggleAdmin#d5676710
-//  case *ChannelAdminLogEventActionChangeStickerSet: // channelAdminLogEventActionChangeStickerSet#b1c3caa7
-//  case *ChannelAdminLogEventActionTogglePreHistoryHidden: // channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1
-//  case *ChannelAdminLogEventActionDefaultBannedRights: // channelAdminLogEventActionDefaultBannedRights#2df5fc0a
-//  case *ChannelAdminLogEventActionStopPoll: // channelAdminLogEventActionStopPoll#8f079643
-//  case *ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#a26f881b
-//  case *ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
-//  case *ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
-//  case *ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
-//  case *ChannelAdminLogEventActionDiscardGroupCall: // channelAdminLogEventActionDiscardGroupCall#db9f9140
-//  case *ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
-//  case *ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
-//  case *ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
+//  case *tg.ChannelAdminLogEventActionChangeTitle: // channelAdminLogEventActionChangeTitle#e6dfb825
+//  case *tg.ChannelAdminLogEventActionChangeAbout: // channelAdminLogEventActionChangeAbout#55188a2e
+//  case *tg.ChannelAdminLogEventActionChangeUsername: // channelAdminLogEventActionChangeUsername#6a4afc38
+//  case *tg.ChannelAdminLogEventActionChangePhoto: // channelAdminLogEventActionChangePhoto#434bd2af
+//  case *tg.ChannelAdminLogEventActionToggleInvites: // channelAdminLogEventActionToggleInvites#1b7907ae
+//  case *tg.ChannelAdminLogEventActionToggleSignatures: // channelAdminLogEventActionToggleSignatures#26ae0971
+//  case *tg.ChannelAdminLogEventActionUpdatePinned: // channelAdminLogEventActionUpdatePinned#e9e82c18
+//  case *tg.ChannelAdminLogEventActionEditMessage: // channelAdminLogEventActionEditMessage#709b2405
+//  case *tg.ChannelAdminLogEventActionDeleteMessage: // channelAdminLogEventActionDeleteMessage#42e047bb
+//  case *tg.ChannelAdminLogEventActionParticipantJoin: // channelAdminLogEventActionParticipantJoin#183040d3
+//  case *tg.ChannelAdminLogEventActionParticipantLeave: // channelAdminLogEventActionParticipantLeave#f89777f2
+//  case *tg.ChannelAdminLogEventActionParticipantInvite: // channelAdminLogEventActionParticipantInvite#e31c34d8
+//  case *tg.ChannelAdminLogEventActionParticipantToggleBan: // channelAdminLogEventActionParticipantToggleBan#e6d83d7e
+//  case *tg.ChannelAdminLogEventActionParticipantToggleAdmin: // channelAdminLogEventActionParticipantToggleAdmin#d5676710
+//  case *tg.ChannelAdminLogEventActionChangeStickerSet: // channelAdminLogEventActionChangeStickerSet#b1c3caa7
+//  case *tg.ChannelAdminLogEventActionTogglePreHistoryHidden: // channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1
+//  case *tg.ChannelAdminLogEventActionDefaultBannedRights: // channelAdminLogEventActionDefaultBannedRights#2df5fc0a
+//  case *tg.ChannelAdminLogEventActionStopPoll: // channelAdminLogEventActionStopPoll#8f079643
+//  case *tg.ChannelAdminLogEventActionChangeLinkedChat: // channelAdminLogEventActionChangeLinkedChat#a26f881b
+//  case *tg.ChannelAdminLogEventActionChangeLocation: // channelAdminLogEventActionChangeLocation#e6b76ae
+//  case *tg.ChannelAdminLogEventActionToggleSlowMode: // channelAdminLogEventActionToggleSlowMode#53909779
+//  case *tg.ChannelAdminLogEventActionStartGroupCall: // channelAdminLogEventActionStartGroupCall#23209745
+//  case *tg.ChannelAdminLogEventActionDiscardGroupCall: // channelAdminLogEventActionDiscardGroupCall#db9f9140
+//  case *tg.ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
+//  case *tg.ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
+//  case *tg.ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {

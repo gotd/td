@@ -97,30 +97,8 @@ func (c *ChannelsCreateChannelRequest) String() string {
 	if c == nil {
 		return "ChannelsCreateChannelRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("ChannelsCreateChannelRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(c.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(c.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAbout: ")
-	sb.WriteString(fmt.Sprint(c.About))
-	sb.WriteString(",\n")
-	if c.Flags.Has(2) {
-		sb.WriteString("\tGeoPoint: ")
-		sb.WriteString(fmt.Sprint(c.GeoPoint))
-		sb.WriteString(",\n")
-	}
-	if c.Flags.Has(2) {
-		sb.WriteString("\tAddress: ")
-		sb.WriteString(fmt.Sprint(c.Address))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias ChannelsCreateChannelRequest
+	return fmt.Sprintf("ChannelsCreateChannelRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

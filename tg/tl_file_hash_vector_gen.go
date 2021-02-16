@@ -43,14 +43,8 @@ func (vec *FileHashVector) String() string {
 	if vec == nil {
 		return "FileHashVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("FileHashVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias FileHashVector
+	return fmt.Sprintf("FileHashVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

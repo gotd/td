@@ -56,20 +56,8 @@ func (n *NearestDc) String() string {
 	if n == nil {
 		return "NearestDc(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("NearestDc")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCountry: ")
-	sb.WriteString(fmt.Sprint(n.Country))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThisDC: ")
-	sb.WriteString(fmt.Sprint(n.ThisDC))
-	sb.WriteString(",\n")
-	sb.WriteString("\tNearestDC: ")
-	sb.WriteString(fmt.Sprint(n.NearestDC))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias NearestDc
+	return fmt.Sprintf("NearestDc%+v", Alias(*n))
 }
 
 // TypeID returns MTProto type id (CRC code).

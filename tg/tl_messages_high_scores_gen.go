@@ -51,21 +51,8 @@ func (h *MessagesHighScores) String() string {
 	if h == nil {
 		return "MessagesHighScores(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesHighScores")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range h.Scores {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range h.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesHighScores
+	return fmt.Sprintf("MessagesHighScores%+v", Alias(*h))
 }
 
 // TypeID returns MTProto type id (CRC code).

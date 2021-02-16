@@ -83,27 +83,8 @@ func (b *MessagesBotCallbackAnswer) String() string {
 	if b == nil {
 		return "MessagesBotCallbackAnswer(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesBotCallbackAnswer")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(b.Flags))
-	sb.WriteString(",\n")
-	if b.Flags.Has(0) {
-		sb.WriteString("\tMessage: ")
-		sb.WriteString(fmt.Sprint(b.Message))
-		sb.WriteString(",\n")
-	}
-	if b.Flags.Has(2) {
-		sb.WriteString("\tURL: ")
-		sb.WriteString(fmt.Sprint(b.URL))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCacheTime: ")
-	sb.WriteString(fmt.Sprint(b.CacheTime))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesBotCallbackAnswer
+	return fmt.Sprintf("MessagesBotCallbackAnswer%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

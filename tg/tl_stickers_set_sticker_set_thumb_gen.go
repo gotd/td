@@ -51,17 +51,8 @@ func (s *StickersSetStickerSetThumbRequest) String() string {
 	if s == nil {
 		return "StickersSetStickerSetThumbRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickersSetStickerSetThumbRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tStickerset: ")
-	sb.WriteString(fmt.Sprint(s.Stickerset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tThumb: ")
-	sb.WriteString(fmt.Sprint(s.Thumb))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickersSetStickerSetThumbRequest
+	return fmt.Sprintf("StickersSetStickerSetThumbRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

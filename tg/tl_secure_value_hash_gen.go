@@ -51,17 +51,8 @@ func (s *SecureValueHash) String() string {
 	if s == nil {
 		return "SecureValueHash(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureValueHash")
-	sb.WriteString("{\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureValueHash
+	return fmt.Sprintf("SecureValueHash%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

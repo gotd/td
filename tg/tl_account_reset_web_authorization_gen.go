@@ -52,14 +52,8 @@ func (r *AccountResetWebAuthorizationRequest) String() string {
 	if r == nil {
 		return "AccountResetWebAuthorizationRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountResetWebAuthorizationRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(r.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountResetWebAuthorizationRequest
+	return fmt.Sprintf("AccountResetWebAuthorizationRequest%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -41,11 +41,8 @@ func (s *SendMessageTypingAction) String() string {
 	if s == nil {
 		return "SendMessageTypingAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageTypingAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageTypingAction
+	return fmt.Sprintf("SendMessageTypingAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -108,11 +105,8 @@ func (s *SendMessageCancelAction) String() string {
 	if s == nil {
 		return "SendMessageCancelAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageCancelAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageCancelAction
+	return fmt.Sprintf("SendMessageCancelAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -175,11 +169,8 @@ func (s *SendMessageRecordVideoAction) String() string {
 	if s == nil {
 		return "SendMessageRecordVideoAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageRecordVideoAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageRecordVideoAction
+	return fmt.Sprintf("SendMessageRecordVideoAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -247,14 +238,8 @@ func (s *SendMessageUploadVideoAction) String() string {
 	if s == nil {
 		return "SendMessageUploadVideoAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageUploadVideoAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageUploadVideoAction
+	return fmt.Sprintf("SendMessageUploadVideoAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -330,11 +315,8 @@ func (s *SendMessageRecordAudioAction) String() string {
 	if s == nil {
 		return "SendMessageRecordAudioAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageRecordAudioAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageRecordAudioAction
+	return fmt.Sprintf("SendMessageRecordAudioAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -402,14 +384,8 @@ func (s *SendMessageUploadAudioAction) String() string {
 	if s == nil {
 		return "SendMessageUploadAudioAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageUploadAudioAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageUploadAudioAction
+	return fmt.Sprintf("SendMessageUploadAudioAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -490,14 +466,8 @@ func (s *SendMessageUploadPhotoAction) String() string {
 	if s == nil {
 		return "SendMessageUploadPhotoAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageUploadPhotoAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageUploadPhotoAction
+	return fmt.Sprintf("SendMessageUploadPhotoAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -578,14 +548,8 @@ func (s *SendMessageUploadDocumentAction) String() string {
 	if s == nil {
 		return "SendMessageUploadDocumentAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageUploadDocumentAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageUploadDocumentAction
+	return fmt.Sprintf("SendMessageUploadDocumentAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -661,11 +625,8 @@ func (s *SendMessageGeoLocationAction) String() string {
 	if s == nil {
 		return "SendMessageGeoLocationAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageGeoLocationAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageGeoLocationAction
+	return fmt.Sprintf("SendMessageGeoLocationAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -728,11 +689,8 @@ func (s *SendMessageChooseContactAction) String() string {
 	if s == nil {
 		return "SendMessageChooseContactAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageChooseContactAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageChooseContactAction
+	return fmt.Sprintf("SendMessageChooseContactAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -795,11 +753,8 @@ func (s *SendMessageGamePlayAction) String() string {
 	if s == nil {
 		return "SendMessageGamePlayAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageGamePlayAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageGamePlayAction
+	return fmt.Sprintf("SendMessageGamePlayAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -862,11 +817,8 @@ func (s *SendMessageRecordRoundAction) String() string {
 	if s == nil {
 		return "SendMessageRecordRoundAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageRecordRoundAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageRecordRoundAction
+	return fmt.Sprintf("SendMessageRecordRoundAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -934,14 +886,8 @@ func (s *SendMessageUploadRoundAction) String() string {
 	if s == nil {
 		return "SendMessageUploadRoundAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageUploadRoundAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageUploadRoundAction
+	return fmt.Sprintf("SendMessageUploadRoundAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1016,11 +962,8 @@ func (s *SpeakingInGroupCallAction) String() string {
 	if s == nil {
 		return "SpeakingInGroupCallAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SpeakingInGroupCallAction")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SpeakingInGroupCallAction
+	return fmt.Sprintf("SpeakingInGroupCallAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1087,14 +1030,8 @@ func (s *SendMessageHistoryImportAction) String() string {
 	if s == nil {
 		return "SendMessageHistoryImportAction(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendMessageHistoryImportAction")
-	sb.WriteString("{\n")
-	sb.WriteString("\tProgress: ")
-	sb.WriteString(fmt.Sprint(s.Progress))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendMessageHistoryImportAction
+	return fmt.Sprintf("SendMessageHistoryImportAction%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1152,26 +1089,26 @@ var (
 // See https://core.telegram.org/type/SendMessageAction for reference.
 //
 // Example:
-//  g, err := DecodeSendMessageAction(buf)
+//  g, err := tg.DecodeSendMessageAction(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SendMessageTypingAction: // sendMessageTypingAction#16bf744e
-//  case *SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
-//  case *SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
-//  case *SendMessageUploadVideoAction: // sendMessageUploadVideoAction#e9763aec
-//  case *SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
-//  case *SendMessageUploadAudioAction: // sendMessageUploadAudioAction#f351d7ab
-//  case *SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#d1d34a26
-//  case *SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#aa0cd9e4
-//  case *SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
-//  case *SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
-//  case *SendMessageGamePlayAction: // sendMessageGamePlayAction#dd6a8f48
-//  case *SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
-//  case *SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
-//  case *SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
-//  case *SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
+//  case *tg.SendMessageTypingAction: // sendMessageTypingAction#16bf744e
+//  case *tg.SendMessageCancelAction: // sendMessageCancelAction#fd5ec8f5
+//  case *tg.SendMessageRecordVideoAction: // sendMessageRecordVideoAction#a187d66f
+//  case *tg.SendMessageUploadVideoAction: // sendMessageUploadVideoAction#e9763aec
+//  case *tg.SendMessageRecordAudioAction: // sendMessageRecordAudioAction#d52f73f7
+//  case *tg.SendMessageUploadAudioAction: // sendMessageUploadAudioAction#f351d7ab
+//  case *tg.SendMessageUploadPhotoAction: // sendMessageUploadPhotoAction#d1d34a26
+//  case *tg.SendMessageUploadDocumentAction: // sendMessageUploadDocumentAction#aa0cd9e4
+//  case *tg.SendMessageGeoLocationAction: // sendMessageGeoLocationAction#176f8ba1
+//  case *tg.SendMessageChooseContactAction: // sendMessageChooseContactAction#628cbc6f
+//  case *tg.SendMessageGamePlayAction: // sendMessageGamePlayAction#dd6a8f48
+//  case *tg.SendMessageRecordRoundAction: // sendMessageRecordRoundAction#88f27fbc
+//  case *tg.SendMessageUploadRoundAction: // sendMessageUploadRoundAction#243e1c66
+//  case *tg.SpeakingInGroupCallAction: // speakingInGroupCallAction#d92c2285
+//  case *tg.SendMessageHistoryImportAction: // sendMessageHistoryImportAction#dbda9246
 //  default: panic(v)
 //  }
 type SendMessageActionClass interface {

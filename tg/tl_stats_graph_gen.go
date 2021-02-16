@@ -50,14 +50,8 @@ func (s *StatsGraphAsync) String() string {
 	if s == nil {
 		return "StatsGraphAsync(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGraphAsync")
-	sb.WriteString("{\n")
-	sb.WriteString("\tToken: ")
-	sb.WriteString(fmt.Sprint(s.Token))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGraphAsync
+	return fmt.Sprintf("StatsGraphAsync%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -141,14 +135,8 @@ func (s *StatsGraphError) String() string {
 	if s == nil {
 		return "StatsGraphError(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGraphError")
-	sb.WriteString("{\n")
-	sb.WriteString("\tError: ")
-	sb.WriteString(fmt.Sprint(s.Error))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGraphError
+	return fmt.Sprintf("StatsGraphError%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -247,22 +235,8 @@ func (s *StatsGraph) String() string {
 	if s == nil {
 		return "StatsGraph(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGraph")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tJSON: ")
-	sb.WriteString(fmt.Sprint(s.JSON))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tZoomToken: ")
-		sb.WriteString(fmt.Sprint(s.ZoomToken))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGraph
+	return fmt.Sprintf("StatsGraph%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -356,14 +330,14 @@ var (
 // See https://core.telegram.org/type/StatsGraph for reference.
 //
 // Example:
-//  g, err := DecodeStatsGraph(buf)
+//  g, err := tg.DecodeStatsGraph(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *StatsGraphAsync: // statsGraphAsync#4a27eb2d
-//  case *StatsGraphError: // statsGraphError#bedc9822
-//  case *StatsGraph: // statsGraph#8ea464b6
+//  case *tg.StatsGraphAsync: // statsGraphAsync#4a27eb2d
+//  case *tg.StatsGraphError: // statsGraphError#bedc9822
+//  case *tg.StatsGraph: // statsGraph#8ea464b6
 //  default: panic(v)
 //  }
 type StatsGraphClass interface {

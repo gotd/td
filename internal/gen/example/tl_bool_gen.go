@@ -40,11 +40,8 @@ func (f *False) String() string {
 	if f == nil {
 		return "False(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("False")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias False
+	return fmt.Sprintf("False%+v", Alias(*f))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -106,11 +103,8 @@ func (t *True) String() string {
 	if t == nil {
 		return "True(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("True")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias True
+	return fmt.Sprintf("True%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -155,13 +149,13 @@ var (
 // See https://localhost:80/doc/type/Bool for reference.
 //
 // Example:
-//  g, err := DecodeBool(buf)
+//  g, err := td.DecodeBool(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *False: // false#bc799737
-//  case *True: // true#997275b5
+//  case *td.False: // false#bc799737
+//  case *td.True: // true#997275b5
 //  default: panic(v)
 //  }
 type BoolClass interface {

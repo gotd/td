@@ -41,11 +41,8 @@ func (j *JsonNull) String() string {
 	if j == nil {
 		return "JsonNull(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonNull")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonNull
+	return fmt.Sprintf("JsonNull%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -113,14 +110,8 @@ func (j *JsonBool) String() string {
 	if j == nil {
 		return "JsonBool(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonBool")
-	sb.WriteString("{\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(j.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonBool
+	return fmt.Sprintf("JsonBool%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,14 +192,8 @@ func (j *JsonNumber) String() string {
 	if j == nil {
 		return "JsonNumber(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonNumber")
-	sb.WriteString("{\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(j.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonNumber
+	return fmt.Sprintf("JsonNumber%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -289,14 +274,8 @@ func (j *JsonString) String() string {
 	if j == nil {
 		return "JsonString(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonString")
-	sb.WriteString("{\n")
-	sb.WriteString("\tValue: ")
-	sb.WriteString(fmt.Sprint(j.Value))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonString
+	return fmt.Sprintf("JsonString%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -377,16 +356,8 @@ func (j *JsonArray) String() string {
 	if j == nil {
 		return "JsonArray(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonArray")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range j.Value {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonArray
+	return fmt.Sprintf("JsonArray%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -481,16 +452,8 @@ func (j *JsonObject) String() string {
 	if j == nil {
 		return "JsonObject(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("JsonObject")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range j.Value {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias JsonObject
+	return fmt.Sprintf("JsonObject%+v", Alias(*j))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -559,17 +522,17 @@ var (
 // See https://core.telegram.org/type/JSONValue for reference.
 //
 // Example:
-//  g, err := DecodeJSONValue(buf)
+//  g, err := tg.DecodeJSONValue(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *JsonNull: // jsonNull#3f6d7b68
-//  case *JsonBool: // jsonBool#c7345e6a
-//  case *JsonNumber: // jsonNumber#2be0dfa4
-//  case *JsonString: // jsonString#b71e767a
-//  case *JsonArray: // jsonArray#f7444763
-//  case *JsonObject: // jsonObject#99c1d49d
+//  case *tg.JsonNull: // jsonNull#3f6d7b68
+//  case *tg.JsonBool: // jsonBool#c7345e6a
+//  case *tg.JsonNumber: // jsonNumber#2be0dfa4
+//  case *tg.JsonString: // jsonString#b71e767a
+//  case *tg.JsonArray: // jsonArray#f7444763
+//  case *tg.JsonObject: // jsonObject#99c1d49d
 //  default: panic(v)
 //  }
 type JSONValueClass interface {

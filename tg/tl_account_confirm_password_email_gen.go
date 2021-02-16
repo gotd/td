@@ -52,14 +52,8 @@ func (c *AccountConfirmPasswordEmailRequest) String() string {
 	if c == nil {
 		return "AccountConfirmPasswordEmailRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountConfirmPasswordEmailRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCode: ")
-	sb.WriteString(fmt.Sprint(c.Code))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountConfirmPasswordEmailRequest
+	return fmt.Sprintf("AccountConfirmPasswordEmailRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).

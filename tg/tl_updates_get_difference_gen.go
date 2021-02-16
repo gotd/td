@@ -86,28 +86,8 @@ func (g *UpdatesGetDifferenceRequest) String() string {
 	if g == nil {
 		return "UpdatesGetDifferenceRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesGetDifferenceRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(g.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(g.Pts))
-	sb.WriteString(",\n")
-	if g.Flags.Has(0) {
-		sb.WriteString("\tPtsTotalLimit: ")
-		sb.WriteString(fmt.Sprint(g.PtsTotalLimit))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(g.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tQts: ")
-	sb.WriteString(fmt.Sprint(g.Qts))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesGetDifferenceRequest
+	return fmt.Sprintf("UpdatesGetDifferenceRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

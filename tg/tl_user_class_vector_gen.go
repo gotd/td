@@ -43,14 +43,8 @@ func (vec *UserClassVector) String() string {
 	if vec == nil {
 		return "UserClassVector(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UserClassVector")
-	sb.WriteByte('[')
-	for _, e := range vec.Elems {
-		sb.WriteString(fmt.Sprint(e) + ",\n")
-	}
-	sb.WriteByte(']')
-	return sb.String()
+	type Alias UserClassVector
+	return fmt.Sprintf("UserClassVector%+v", Alias(*vec))
 }
 
 // TypeID returns MTProto type id (CRC code).

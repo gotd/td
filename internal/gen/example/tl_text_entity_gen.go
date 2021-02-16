@@ -55,20 +55,8 @@ func (t *TextEntity) String() string {
 	if t == nil {
 		return "TextEntity(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("TextEntity")
-	sb.WriteString("{\n")
-	sb.WriteString("\tOffset: ")
-	sb.WriteString(fmt.Sprint(t.Offset))
-	sb.WriteString(",\n")
-	sb.WriteString("\tLength: ")
-	sb.WriteString(fmt.Sprint(t.Length))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(t.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias TextEntity
+	return fmt.Sprintf("TextEntity%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

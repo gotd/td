@@ -48,17 +48,8 @@ func (m *MsgsStateInfo) String() string {
 	if m == nil {
 		return "MsgsStateInfo(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MsgsStateInfo")
-	sb.WriteString("{\n")
-	sb.WriteString("\tReqMsgID: ")
-	sb.WriteString(fmt.Sprint(m.ReqMsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tInfo: ")
-	sb.WriteString(fmt.Sprint(m.Info))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MsgsStateInfo
+	return fmt.Sprintf("MsgsStateInfo%+v", Alias(*m))
 }
 
 // TypeID returns MTProto type id (CRC code).

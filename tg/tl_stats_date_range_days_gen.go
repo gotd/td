@@ -54,17 +54,8 @@ func (s *StatsDateRangeDays) String() string {
 	if s == nil {
 		return "StatsDateRangeDays(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsDateRangeDays")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMinDate: ")
-	sb.WriteString(fmt.Sprint(s.MinDate))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMaxDate: ")
-	sb.WriteString(fmt.Sprint(s.MaxDate))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsDateRangeDays
+	return fmt.Sprintf("StatsDateRangeDays%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

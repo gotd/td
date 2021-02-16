@@ -79,26 +79,8 @@ func (s *MessagesSetGameScoreRequest) String() string {
 	if s == nil {
 		return "MessagesSetGameScoreRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("MessagesSetGameScoreRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(s.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tScore: ")
-	sb.WriteString(fmt.Sprint(s.Score))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias MessagesSetGameScoreRequest
+	return fmt.Sprintf("MessagesSetGameScoreRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

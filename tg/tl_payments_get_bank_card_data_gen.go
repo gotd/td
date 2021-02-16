@@ -46,14 +46,8 @@ func (g *PaymentsGetBankCardDataRequest) String() string {
 	if g == nil {
 		return "PaymentsGetBankCardDataRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PaymentsGetBankCardDataRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tNumber: ")
-	sb.WriteString(fmt.Sprint(g.Number))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PaymentsGetBankCardDataRequest
+	return fmt.Sprintf("PaymentsGetBankCardDataRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

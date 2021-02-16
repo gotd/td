@@ -46,14 +46,8 @@ func (p *PeerUser) String() string {
 	if p == nil {
 		return "PeerUser(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerUser")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(p.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerUser
+	return fmt.Sprintf("PeerUser%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -134,14 +128,8 @@ func (p *PeerChat) String() string {
 	if p == nil {
 		return "PeerChat(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerChat")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(p.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerChat
+	return fmt.Sprintf("PeerChat%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -222,14 +210,8 @@ func (p *PeerChannel) String() string {
 	if p == nil {
 		return "PeerChannel(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PeerChannel")
-	sb.WriteString("{\n")
-	sb.WriteString("\tChannelID: ")
-	sb.WriteString(fmt.Sprint(p.ChannelID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PeerChannel
+	return fmt.Sprintf("PeerChannel%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -287,14 +269,14 @@ var (
 // See https://core.telegram.org/type/Peer for reference.
 //
 // Example:
-//  g, err := DecodePeer(buf)
+//  g, err := tg.DecodePeer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *PeerUser: // peerUser#9db1bc6d
-//  case *PeerChat: // peerChat#bad0e5bb
-//  case *PeerChannel: // peerChannel#bddde532
+//  case *tg.PeerUser: // peerUser#9db1bc6d
+//  case *tg.PeerChat: // peerChat#bad0e5bb
+//  case *tg.PeerChannel: // peerChannel#bddde532
 //  default: panic(v)
 //  }
 type PeerClass interface {

@@ -51,17 +51,8 @@ func (s *PhoneSendSignalingDataRequest) String() string {
 	if s == nil {
 		return "PhoneSendSignalingDataRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneSendSignalingDataRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(s.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tData: ")
-	sb.WriteString(fmt.Sprint(s.Data))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneSendSignalingDataRequest
+	return fmt.Sprintf("PhoneSendSignalingDataRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

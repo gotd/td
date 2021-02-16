@@ -48,17 +48,8 @@ func (r *RPCError) String() string {
 	if r == nil {
 		return "RPCError(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("RPCError")
-	sb.WriteString("{\n")
-	sb.WriteString("\tErrorCode: ")
-	sb.WriteString(fmt.Sprint(r.ErrorCode))
-	sb.WriteString(",\n")
-	sb.WriteString("\tErrorMessage: ")
-	sb.WriteString(fmt.Sprint(r.ErrorMessage))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias RPCError
+	return fmt.Sprintf("RPCError%+v", Alias(*r))
 }
 
 // TypeID returns MTProto type id (CRC code).

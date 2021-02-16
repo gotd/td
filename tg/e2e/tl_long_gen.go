@@ -40,11 +40,8 @@ func (l *Long) String() string {
 	if l == nil {
 		return "Long(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Long")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Long
+	return fmt.Sprintf("Long%+v", Alias(*l))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -61,23 +61,8 @@ func (s *UploadSaveBigFilePartRequest) String() string {
 	if s == nil {
 		return "UploadSaveBigFilePartRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UploadSaveBigFilePartRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFileID: ")
-	sb.WriteString(fmt.Sprint(s.FileID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFilePart: ")
-	sb.WriteString(fmt.Sprint(s.FilePart))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFileTotalParts: ")
-	sb.WriteString(fmt.Sprint(s.FileTotalParts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tBytes: ")
-	sb.WriteString(fmt.Sprint(s.Bytes))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UploadSaveBigFilePartRequest
+	return fmt.Sprintf("UploadSaveBigFilePartRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

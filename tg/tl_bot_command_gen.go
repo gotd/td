@@ -51,17 +51,8 @@ func (b *BotCommand) String() string {
 	if b == nil {
 		return "BotCommand(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("BotCommand")
-	sb.WriteString("{\n")
-	sb.WriteString("\tCommand: ")
-	sb.WriteString(fmt.Sprint(b.Command))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDescription: ")
-	sb.WriteString(fmt.Sprint(b.Description))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias BotCommand
+	return fmt.Sprintf("BotCommand%+v", Alias(*b))
 }
 
 // TypeID returns MTProto type id (CRC code).

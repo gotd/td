@@ -41,11 +41,8 @@ func (g *AccountGetAuthorizationsRequest) String() string {
 	if g == nil {
 		return "AccountGetAuthorizationsRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("AccountGetAuthorizationsRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias AccountGetAuthorizationsRequest
+	return fmt.Sprintf("AccountGetAuthorizationsRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

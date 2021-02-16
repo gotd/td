@@ -44,11 +44,8 @@ func (u *UpdatesTooLong) String() string {
 	if u == nil {
 		return "UpdatesTooLong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesTooLong")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesTooLong
+	return fmt.Sprintf("UpdatesTooLong%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -212,54 +209,8 @@ func (u *UpdateShortMessage) String() string {
 	if u == nil {
 		return "UpdateShortMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateShortMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(u.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	if u.Flags.Has(2) {
-		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(fmt.Sprint(u.FwdFrom))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(11) {
-		sb.WriteString("\tViaBotID: ")
-		sb.WriteString(fmt.Sprint(u.ViaBotID))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(3) {
-		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(fmt.Sprint(u.ReplyTo))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range u.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateShortMessage
+	return fmt.Sprintf("UpdateShortMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -717,57 +668,8 @@ func (u *UpdateShortChatMessage) String() string {
 	if u == nil {
 		return "UpdateShortChatMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateShortChatMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tFromID: ")
-	sb.WriteString(fmt.Sprint(u.FromID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tChatID: ")
-	sb.WriteString(fmt.Sprint(u.ChatID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessage: ")
-	sb.WriteString(fmt.Sprint(u.Message))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	if u.Flags.Has(2) {
-		sb.WriteString("\tFwdFrom: ")
-		sb.WriteString(fmt.Sprint(u.FwdFrom))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(11) {
-		sb.WriteString("\tViaBotID: ")
-		sb.WriteString(fmt.Sprint(u.ViaBotID))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(3) {
-		sb.WriteString("\tReplyTo: ")
-		sb.WriteString(fmt.Sprint(u.ReplyTo))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range u.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateShortChatMessage
+	return fmt.Sprintf("UpdateShortChatMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1145,17 +1047,8 @@ func (u *UpdateShort) String() string {
 	if u == nil {
 		return "UpdateShort(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateShort")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUpdate: ")
-	sb.WriteString(fmt.Sprint(u.Update))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateShort
+	return fmt.Sprintf("UpdateShort%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1279,35 +1172,8 @@ func (u *UpdatesCombined) String() string {
 	if u == nil {
 		return "UpdatesCombined(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdatesCombined")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Updates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range u.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range u.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeqStart: ")
-	sb.WriteString(fmt.Sprint(u.SeqStart))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeq: ")
-	sb.WriteString(fmt.Sprint(u.Seq))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdatesCombined
+	return fmt.Sprintf("UpdatesCombined%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1514,32 +1380,8 @@ func (u *Updates) String() string {
 	if u == nil {
 		return "Updates(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Updates")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range u.Updates {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range u.Users {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteByte('[')
-	for _, v := range u.Chats {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	sb.WriteString("\tSeq: ")
-	sb.WriteString(fmt.Sprint(u.Seq))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Updates
+	return fmt.Sprintf("Updates%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1768,38 +1610,8 @@ func (u *UpdateShortSentMessage) String() string {
 	if u == nil {
 		return "UpdateShortSentMessage(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("UpdateShortSentMessage")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(u.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(u.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPts: ")
-	sb.WriteString(fmt.Sprint(u.Pts))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPtsCount: ")
-	sb.WriteString(fmt.Sprint(u.PtsCount))
-	sb.WriteString(",\n")
-	sb.WriteString("\tDate: ")
-	sb.WriteString(fmt.Sprint(u.Date))
-	sb.WriteString(",\n")
-	if u.Flags.Has(9) {
-		sb.WriteString("\tMedia: ")
-		sb.WriteString(fmt.Sprint(u.Media))
-		sb.WriteString(",\n")
-	}
-	if u.Flags.Has(7) {
-		sb.WriteByte('[')
-		for _, v := range u.Entities {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	sb.WriteString("}")
-	return sb.String()
+	type Alias UpdateShortSentMessage
+	return fmt.Sprintf("UpdateShortSentMessage%+v", Alias(*u))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1999,18 +1811,18 @@ var (
 // See https://core.telegram.org/type/Updates for reference.
 //
 // Example:
-//  g, err := DecodeUpdates(buf)
+//  g, err := tg.DecodeUpdates(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *UpdatesTooLong: // updatesTooLong#e317af7e
-//  case *UpdateShortMessage: // updateShortMessage#2296d2c8
-//  case *UpdateShortChatMessage: // updateShortChatMessage#402d5dbb
-//  case *UpdateShort: // updateShort#78d4dec1
-//  case *UpdatesCombined: // updatesCombined#725b04c3
-//  case *Updates: // updates#74ae4240
-//  case *UpdateShortSentMessage: // updateShortSentMessage#11f1331c
+//  case *tg.UpdatesTooLong: // updatesTooLong#e317af7e
+//  case *tg.UpdateShortMessage: // updateShortMessage#2296d2c8
+//  case *tg.UpdateShortChatMessage: // updateShortChatMessage#402d5dbb
+//  case *tg.UpdateShort: // updateShort#78d4dec1
+//  case *tg.UpdatesCombined: // updatesCombined#725b04c3
+//  case *tg.Updates: // updates#74ae4240
+//  case *tg.UpdateShortSentMessage: // updateShortSentMessage#11f1331c
 //  default: panic(v)
 //  }
 type UpdatesClass interface {

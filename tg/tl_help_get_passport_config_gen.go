@@ -52,14 +52,8 @@ func (g *HelpGetPassportConfigRequest) String() string {
 	if g == nil {
 		return "HelpGetPassportConfigRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("HelpGetPassportConfigRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(g.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias HelpGetPassportConfigRequest
+	return fmt.Sprintf("HelpGetPassportConfigRequest%+v", Alias(*g))
 }
 
 // TypeID returns MTProto type id (CRC code).

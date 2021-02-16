@@ -69,17 +69,8 @@ func (s *SecureRequiredType) String() string {
 	if s == nil {
 		return "SecureRequiredType(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureRequiredType")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	sb.WriteString("\tType: ")
-	sb.WriteString(fmt.Sprint(s.Type))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureRequiredType
+	return fmt.Sprintf("SecureRequiredType%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -233,16 +224,8 @@ func (s *SecureRequiredTypeOneOf) String() string {
 	if s == nil {
 		return "SecureRequiredTypeOneOf(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SecureRequiredTypeOneOf")
-	sb.WriteString("{\n")
-	sb.WriteByte('[')
-	for _, v := range s.Types {
-		sb.WriteString(fmt.Sprint(v))
-	}
-	sb.WriteByte(']')
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SecureRequiredTypeOneOf
+	return fmt.Sprintf("SecureRequiredTypeOneOf%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -314,13 +297,13 @@ var (
 // See https://core.telegram.org/type/SecureRequiredType for reference.
 //
 // Example:
-//  g, err := DecodeSecureRequiredType(buf)
+//  g, err := tg.DecodeSecureRequiredType(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *SecureRequiredType: // secureRequiredType#829d99da
-//  case *SecureRequiredTypeOneOf: // secureRequiredTypeOneOf#27477b4
+//  case *tg.SecureRequiredType: // secureRequiredType#829d99da
+//  case *tg.SecureRequiredTypeOneOf: // secureRequiredTypeOneOf#27477b4
 //  default: panic(v)
 //  }
 type SecureRequiredTypeClass interface {

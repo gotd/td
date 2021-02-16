@@ -54,17 +54,8 @@ func (i *InputClientProxy) String() string {
 	if i == nil {
 		return "InputClientProxy(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputClientProxy")
-	sb.WriteString("{\n")
-	sb.WriteString("\tAddress: ")
-	sb.WriteString(fmt.Sprint(i.Address))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPort: ")
-	sb.WriteString(fmt.Sprint(i.Port))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputClientProxy
+	return fmt.Sprintf("InputClientProxy%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -40,11 +40,8 @@ func (i *Int32) String() string {
 	if i == nil {
 		return "Int32(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Int32")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Int32
+	return fmt.Sprintf("Int32%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

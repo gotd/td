@@ -59,20 +59,8 @@ func (s *StatsGroupTopPoster) String() string {
 	if s == nil {
 		return "StatsGroupTopPoster(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StatsGroupTopPoster")
-	sb.WriteString("{\n")
-	sb.WriteString("\tUserID: ")
-	sb.WriteString(fmt.Sprint(s.UserID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tMessages: ")
-	sb.WriteString(fmt.Sprint(s.Messages))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAvgChars: ")
-	sb.WriteString(fmt.Sprint(s.AvgChars))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StatsGroupTopPoster
+	return fmt.Sprintf("StatsGroupTopPoster%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

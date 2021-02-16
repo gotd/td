@@ -44,11 +44,8 @@ func (t *True) String() string {
 	if t == nil {
 		return "True(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("True")
-	sb.WriteString("{\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias True
+	return fmt.Sprintf("True%+v", Alias(*t))
 }
 
 // TypeID returns MTProto type id (CRC code).

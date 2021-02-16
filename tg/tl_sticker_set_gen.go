@@ -120,49 +120,8 @@ func (s *StickerSet) String() string {
 	if s == nil {
 		return "StickerSet(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("StickerSet")
-	sb.WriteString("{\n")
-	sb.WriteString("\tFlags: ")
-	sb.WriteString(fmt.Sprint(s.Flags))
-	sb.WriteString(",\n")
-	if s.Flags.Has(0) {
-		sb.WriteString("\tInstalledDate: ")
-		sb.WriteString(fmt.Sprint(s.InstalledDate))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(s.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(s.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("\tTitle: ")
-	sb.WriteString(fmt.Sprint(s.Title))
-	sb.WriteString(",\n")
-	sb.WriteString("\tShortName: ")
-	sb.WriteString(fmt.Sprint(s.ShortName))
-	sb.WriteString(",\n")
-	if s.Flags.Has(4) {
-		sb.WriteByte('[')
-		for _, v := range s.Thumbs {
-			sb.WriteString(fmt.Sprint(v))
-		}
-		sb.WriteByte(']')
-	}
-	if s.Flags.Has(4) {
-		sb.WriteString("\tThumbDCID: ")
-		sb.WriteString(fmt.Sprint(s.ThumbDCID))
-		sb.WriteString(",\n")
-	}
-	sb.WriteString("\tCount: ")
-	sb.WriteString(fmt.Sprint(s.Count))
-	sb.WriteString(",\n")
-	sb.WriteString("\tHash: ")
-	sb.WriteString(fmt.Sprint(s.Hash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias StickerSet
+	return fmt.Sprintf("StickerSet%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

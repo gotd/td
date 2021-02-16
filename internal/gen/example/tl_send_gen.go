@@ -45,14 +45,8 @@ func (s *SendRequest) String() string {
 	if s == nil {
 		return "SendRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("SendRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsg: ")
-	sb.WriteString(fmt.Sprint(s.Msg))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias SendRequest
+	return fmt.Sprintf("SendRequest%+v", Alias(*s))
 }
 
 // TypeID returns MTProto type id (CRC code).

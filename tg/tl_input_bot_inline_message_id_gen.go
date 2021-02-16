@@ -56,20 +56,8 @@ func (i *InputBotInlineMessageID) String() string {
 	if i == nil {
 		return "InputBotInlineMessageID(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("InputBotInlineMessageID")
-	sb.WriteString("{\n")
-	sb.WriteString("\tDCID: ")
-	sb.WriteString(fmt.Sprint(i.DCID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tID: ")
-	sb.WriteString(fmt.Sprint(i.ID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tAccessHash: ")
-	sb.WriteString(fmt.Sprint(i.AccessHash))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias InputBotInlineMessageID
+	return fmt.Sprintf("InputBotInlineMessageID%+v", Alias(*i))
 }
 
 // TypeID returns MTProto type id (CRC code).

@@ -48,17 +48,8 @@ func (p *Pong) String() string {
 	if p == nil {
 		return "Pong(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("Pong")
-	sb.WriteString("{\n")
-	sb.WriteString("\tMsgID: ")
-	sb.WriteString(fmt.Sprint(p.MsgID))
-	sb.WriteString(",\n")
-	sb.WriteString("\tPingID: ")
-	sb.WriteString(fmt.Sprint(p.PingID))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias Pong
+	return fmt.Sprintf("Pong%+v", Alias(*p))
 }
 
 // TypeID returns MTProto type id (CRC code).

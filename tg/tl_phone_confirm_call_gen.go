@@ -67,23 +67,8 @@ func (c *PhoneConfirmCallRequest) String() string {
 	if c == nil {
 		return "PhoneConfirmCallRequest(nil)"
 	}
-	var sb strings.Builder
-	sb.WriteString("PhoneConfirmCallRequest")
-	sb.WriteString("{\n")
-	sb.WriteString("\tPeer: ")
-	sb.WriteString(fmt.Sprint(c.Peer))
-	sb.WriteString(",\n")
-	sb.WriteString("\tGA: ")
-	sb.WriteString(fmt.Sprint(c.GA))
-	sb.WriteString(",\n")
-	sb.WriteString("\tKeyFingerprint: ")
-	sb.WriteString(fmt.Sprint(c.KeyFingerprint))
-	sb.WriteString(",\n")
-	sb.WriteString("\tProtocol: ")
-	sb.WriteString(fmt.Sprint(c.Protocol))
-	sb.WriteString(",\n")
-	sb.WriteString("}")
-	return sb.String()
+	type Alias PhoneConfirmCallRequest
+	return fmt.Sprintf("PhoneConfirmCallRequest%+v", Alias(*c))
 }
 
 // TypeID returns MTProto type id (CRC code).
