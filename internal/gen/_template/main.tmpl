@@ -318,13 +318,13 @@ func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) error {
 //
 {{- end }}
 // Example:
-//  g, err := Decode{{ $f.Func }}(buf)
+//  g, err := {{ $.Package }}.Decode{{ $f.Func }}(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
 {{ range $c := $f.Constructors -}}
-//  case *{{ $c.Name }}: // {{ $c.RawType }}
+//  case *{{ $.Package }}.{{ $c.Name }}: // {{ $c.RawType }}
 {{ end -}}
 //  default: panic(v)
 //  }
