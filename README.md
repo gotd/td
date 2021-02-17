@@ -36,6 +36,8 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * MTProxy support
 * Connection pooling
 * Helpers for uploads and downloads
+* CDN support
+* Automatic DC migration and redirect handling
 
 ## Example
 
