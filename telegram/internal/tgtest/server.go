@@ -5,9 +5,11 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/rsa"
+	"io"
 	"net"
 
 	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
@@ -105,6 +107,13 @@ func (s *Server) serve() error {
 	return s.server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
 		err := s.serveConn(ctx, conn)
 		if err != nil {
+			// Client disconnected.
+			var syscallErr *net.OpError
+			if xerrors.Is(err, io.EOF) ||
+				xerrors.As(err, &syscallErr) && syscallErr.Op == "write" ||
+				syscallErr.Op == "read" {
+				return nil
+			}
 			s.log.Info("Serving handler error", zap.Error(err))
 		}
 		return err

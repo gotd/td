@@ -43,7 +43,13 @@ func (c Cipher) Decrypt(k AuthKey, encrypted *EncryptedMessage) (*EncryptedMessa
 		const maxPadding = 1024
 		n := int(msg.MessageDataLen)
 		paddingLen := len(msg.MessageDataWithPadding) - n
-		if paddingLen > maxPadding {
+
+		switch {
+		case n < 0:
+			return nil, xerrors.Errorf("message length is invalid: %d less than zero", n)
+		case n%4 != 0:
+			return nil, xerrors.Errorf("message length is invalid: %d is not divisible by 4", n)
+		case paddingLen > maxPadding:
 			return nil, xerrors.Errorf("padding %d of message is too big", paddingLen)
 		}
 	}

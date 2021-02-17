@@ -2,9 +2,13 @@ package crypto
 
 import (
 	"bytes"
+	"io"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/testutil"
 )
 
 type Zero struct{}
@@ -44,5 +48,44 @@ func TestDecrypt(t *testing.T) {
 	}
 	if !bytes.Equal(expectedPlaintext, plaintext) {
 		t.Error("mismatch")
+	}
+}
+
+func TestCipher_Decrypt(t *testing.T) {
+	var key AuthKey
+	if _, err := io.ReadFull(testutil.Rand([]byte{10}), key.Value[:]); err != nil {
+		t.Fatal(err)
+	}
+
+	c := NewClientCipher(Zero{})
+	s := NewServerCipher(Zero{})
+	tests := []struct {
+		name      string
+		data      []byte
+		dataLen   int
+		expectErr bool
+	}{
+		{"NegativeLength", []byte{1, 2, 3, 4}, -1, true},
+		{"NoPadBy4", []byte{1, 2, 3}, 3, true},
+		{"Good", bytes.Repeat([]byte{1, 2, 3, 4}, 4), 16, false},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			a := require.New(t)
+			b := bin.Buffer{}
+			data := EncryptedMessageData{
+				MessageDataLen:         int32(test.dataLen),
+				MessageDataWithPadding: test.data,
+			}
+			a.NoError(s.Encrypt(key, data, &b))
+
+			_, err := c.DecryptFromBuffer(key, &b)
+			if test.expectErr {
+				a.Error(err)
+				return
+			}
+			a.NoError(err)
+		})
 	}
 }
