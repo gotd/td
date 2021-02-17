@@ -3,16 +3,12 @@ package tgtest
 import (
 	"context"
 	"encoding/binary"
-	"io"
-	"net"
 
-	"go.uber.org/zap"
 	"golang.org/x/xerrors"
-
-	"github.com/gotd/td/internal/mt"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/transport"
 )
 
@@ -23,19 +19,9 @@ type Session struct {
 
 func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 	var b bin.Buffer
-	var key crypto.AuthKey
 	for {
 		b.Reset()
 		if err := conn.Recv(ctx, &b); err != nil {
-			var syscallErr *net.OpError
-			// TODO(tdakkota): Find a better way to detect forcibly closed connection.
-			if xerrors.Is(err, io.EOF) || (xerrors.As(err, &syscallErr) && syscallErr.Op == "read") {
-				// Client disconnected.
-				s.users.deleteConnection(key)
-				s.log.Info("Read failed, closing loop.", zap.Error(err))
-				return nil
-			}
-
 			return err
 		}
 
@@ -101,11 +87,6 @@ func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
 	}
 
 	if err := s.handler.OnMessage(session, msgID, in); err != nil {
-		// Client disconnected during write.
-		var syscallErr *net.OpError
-		if xerrors.As(err, &syscallErr) && syscallErr.Op == "write" {
-			return nil
-		}
 		return xerrors.Errorf("failed to call handler: %w", err)
 	}
 
