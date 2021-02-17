@@ -12,7 +12,7 @@ Before using this library, read [How Not To Get Banned](https://github.com/gotd/
 
 ## Status
 
-Work in progress. Only go1.15 is supported and no backward compatibility is provided.
+Work in progress. Only go1.16 is supported and no backward compatibility is provided.
 
 Goal of this project is to implement Telegram client while
 providing building blocks for the other client or even server
