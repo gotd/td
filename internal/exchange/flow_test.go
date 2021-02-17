@@ -5,7 +5,6 @@ import (
 	"crypto/rsa"
 	"fmt"
 	"math/rand"
-	"net"
 	"testing"
 	"time"
 
@@ -51,37 +50,6 @@ func TestExchange(t *testing.T) {
 	})
 
 	require.NoError(t, grp.Wait())
-}
-
-func TestExchangeTimeout(t *testing.T) {
-	a := require.New(t)
-
-	reader := rand.New(rand.NewSource(1))
-	key, err := rsa.GenerateKey(reader, 2048)
-	a.NoError(err)
-	log := zaptest.NewLogger(t)
-
-	i := transport.Intermediate(nil)
-	client, _ := i.Pipe()
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-	defer cancel()
-
-	grp := tdsync.NewCancellableGroup(ctx)
-	grp.Go(func(groupCtx context.Context) error {
-		_, err := NewExchanger(client).
-			WithLogger(log.Named("client")).
-			WithRand(reader).
-			WithTimeout(1 * time.Second).
-			Client([]*rsa.PublicKey{&key.PublicKey}).
-			Run(groupCtx)
-		return err
-	})
-
-	err = grp.Wait()
-	if err, ok := err.(net.Error); !ok || !err.Timeout() {
-		require.NoError(t, err)
-	}
 }
 
 func TestExchangeCorpus(t *testing.T) {

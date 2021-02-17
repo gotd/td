@@ -7,14 +7,12 @@ import (
 	"math/big"
 
 	"go.uber.org/zap"
-
-	"github.com/gotd/td/internal/proto"
-
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/proto"
 )
 
 // Run runs client-side flow.
@@ -41,6 +39,7 @@ func (c ClientExchange) Run(ctx context.Context) (ClientExchangeResult, error) {
 	if res.Nonce != nonce {
 		return ClientExchangeResult{}, xerrors.New("ResPQ nonce mismatch")
 	}
+	serverNonce := res.ServerNonce
 
 	// Selecting first public key that match fingerprint.
 	var selectedPubKey *rsa.PublicKey
@@ -89,7 +88,7 @@ Loop:
 		Pq:          res.Pq,
 		Nonce:       nonce,
 		NewNonce:    newNonce,
-		ServerNonce: res.ServerNonce,
+		ServerNonce: serverNonce,
 		P:           pBytes,
 		Q:           qBytes,
 	}
@@ -105,7 +104,7 @@ Loop:
 	}
 	reqDHParams := &mt.ReqDHParamsRequest{
 		Nonce:                nonce,
-		ServerNonce:          res.ServerNonce,
+		ServerNonce:          serverNonce,
 		P:                    pBytes,
 		Q:                    qBytes,
 		PublicKeyFingerprint: crypto.RSAFingerprint(selectedPubKey),
@@ -138,8 +137,11 @@ Loop:
 		if p.Nonce != nonce {
 			return ClientExchangeResult{}, xerrors.New("ServerDHParamsOk nonce mismatch")
 		}
+		if p.ServerNonce != serverNonce {
+			return ClientExchangeResult{}, xerrors.New("ServerDHParamsOk server nonce mismatch")
+		}
 
-		key, iv := crypto.TempAESKeys(newNonce.BigInt(), res.ServerNonce.BigInt())
+		key, iv := crypto.TempAESKeys(newNonce.BigInt(), serverNonce.BigInt())
 		// Decrypting inner data.
 		data, err := crypto.DecryptExchangeAnswer(p.EncryptedAnswer, key, iv)
 		if err != nil {
@@ -150,6 +152,12 @@ Loop:
 		innerData := mt.ServerDHInnerData{}
 		if err := innerData.Decode(b); err != nil {
 			return ClientExchangeResult{}, err
+		}
+		if innerData.Nonce != nonce {
+			return ClientExchangeResult{}, xerrors.New("ServerDHInnerData nonce mismatch")
+		}
+		if innerData.ServerNonce != serverNonce {
+			return ClientExchangeResult{}, xerrors.New("ServerDHInnerData server nonce mismatch")
 		}
 
 		dhPrime := big.NewInt(0).SetBytes(innerData.DhPrime)
@@ -215,6 +223,13 @@ Loop:
 		}
 		switch v := dhSetRes.(type) {
 		case *mt.DhGenOk: // dh_gen_ok#3bcbf734
+			if v.Nonce != nonce {
+				return ClientExchangeResult{}, xerrors.New("DhGenOk nonce mismatch")
+			}
+			if v.ServerNonce != serverNonce {
+				return ClientExchangeResult{}, xerrors.New("DhGenOk server nonce mismatch")
+			}
+
 			var key crypto.Key
 			authKey.FillBytes(key[:])
 			authKeyID := key.ID()
