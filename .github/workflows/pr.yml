@@ -101,7 +101,7 @@ jobs:
       - name: Get mtg proxy
         env:
           GO111MODULES: on
-        run: go get github.com/gotd/mtg@master
+        run: go get github.com/gotd/mtg@master && go mod tidy
 
       - name: Run tests
         env:
