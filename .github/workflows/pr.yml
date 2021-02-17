@@ -98,17 +98,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-${{ matrix.golang }}-
 
-      - name: Get mtg proxy
-        env:
-          GO111MODULES: on
-        run: go get github.com/gotd/mtg@master
-
       - name: Run tests
         env:
           GOTD_TEST_EXTERNAL: 1
           GOTD_MTPROXY_ADDR: "localhost:3128"
         # Run all tests that starts with "TestExternalE2E".
         run: go test -v -run ^TestExternalE2E ./...
+
   coverage:
     runs-on: ubuntu-latest
     strategy:
