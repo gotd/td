@@ -15,7 +15,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Check go mod
@@ -27,11 +27,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
       - name: lint
         uses: golangci/golangci-lint-action@v2.3.0
         with:
           version: latest
           args: --timeout 5m
+          skip-go-installation: true
 
   tests-on-windows:
     runs-on: windows-latest
@@ -40,7 +45,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
       - name: Run tests
         run: go test --timeout 5m ./...
         continue-on-error: true
@@ -51,7 +56,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
       - name: Run tests
         run: make test
   tests-on-unix:
@@ -59,7 +64,7 @@ jobs:
     strategy:
       matrix:
         golang:
-          - 1.15
+          - 1.16
     steps:
       - uses: actions/checkout@v2
       - name: Install Go
@@ -79,7 +84,7 @@ jobs:
     strategy:
       matrix:
         golang:
-          - 1.15
+          - 1.16
     steps:
       - uses: actions/checkout@v2
       - name: Install Go
@@ -109,7 +114,7 @@ jobs:
     strategy:
       matrix:
         golang:
-          - 1.15
+          - 1.16
     steps:
       - uses: actions/checkout@v2
         with:
@@ -141,6 +146,6 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.15
+          go-version: 1.16
       - name: Check that go generate does not make changes
         run: make check_generated

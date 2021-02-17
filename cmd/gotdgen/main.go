@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"go/format"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -28,7 +27,7 @@ func (t formattedSource) WriteFile(name string, content []byte) error {
 		}
 		out = buf
 	}
-	return ioutil.WriteFile(filepath.Join(t.Root, name), out, 0600)
+	return os.WriteFile(filepath.Join(t.Root, name), out, 0600)
 }
 
 func main() {
@@ -52,7 +51,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	files, err := ioutil.ReadDir(*targetDir)
+	files, err := os.ReadDir(*targetDir)
 	if err != nil && !os.IsNotExist(err) {
 		panic(err)
 	}

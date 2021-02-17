@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"compress/gzip"
 	"io"
-	"io/ioutil"
 
 	"golang.org/x/xerrors"
 
@@ -62,7 +61,7 @@ func (g *GZIP) Decode(b *bin.Buffer) error {
 	const maxUncompressedSize = 1024 * 1024 * 10 // 10 mb
 	// TODO(ernado): fail explicitly if limit is reached
 	// Currently we just return nil, but it is better than failing with OOM.
-	if g.Data, err = ioutil.ReadAll(io.LimitReader(r, maxUncompressedSize)); err != nil {
+	if g.Data, err = io.ReadAll(io.LimitReader(r, maxUncompressedSize)); err != nil {
 		return xerrors.Errorf("decompress: %w", err)
 	}
 

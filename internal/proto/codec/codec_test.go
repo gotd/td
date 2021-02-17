@@ -3,7 +3,7 @@ package codec
 import (
 	"bytes"
 	"encoding/binary"
-	"io/ioutil"
+	"io"
 	"strings"
 	"testing"
 
@@ -95,7 +95,7 @@ func testBad(c codecTest, p payload) func(t *testing.T) {
 			t.Run("Write", func(t *testing.T) {
 				a := require.New(t)
 				payload := &bin.Buffer{Buf: []byte(p.testData)}
-				a.Error(c.create().Write(ioutil.Discard, payload))
+				a.Error(c.create().Write(io.Discard, payload))
 			})
 		}
 
