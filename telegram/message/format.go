@@ -38,9 +38,9 @@ func AppendBotCommand(entities []tg.MessageEntityClass, s string) []tg.MessageEn
 	})
 }
 
-// AppendUrl formats message as Url message entity.
+// AppendURL formats message as Url message entity.
 // See https://core.telegram.org/constructor/messageEntityUrl.
-func AppendUrl(entities []tg.MessageEntityClass, s string) []tg.MessageEntityClass {
+func AppendURL(entities []tg.MessageEntityClass, s string) []tg.MessageEntityClass {
 	return appendMessage(entities, s, func(offset, limit int) tg.MessageEntityClass {
 		return &tg.MessageEntityUrl{Offset: offset, Length: limit}
 	})
@@ -86,9 +86,9 @@ func AppendPre(entities []tg.MessageEntityClass, s, lang string) []tg.MessageEnt
 	})
 }
 
-// AppendTextUrl formats message as TextUrl message entity.
+// AppendTextURL formats message as TextUrl message entity.
 // See https://core.telegram.org/constructor/messageEntityTextUrl.
-func AppendTextUrl(entities []tg.MessageEntityClass, s, url string) []tg.MessageEntityClass {
+func AppendTextURL(entities []tg.MessageEntityClass, s, url string) []tg.MessageEntityClass {
 	return appendMessage(entities, s, func(offset, limit int) tg.MessageEntityClass {
 		return &tg.MessageEntityTextUrl{Offset: offset, Length: limit, URL: url}
 	})
@@ -174,9 +174,9 @@ func FormatBotCommand(s string) []tg.MessageEntityClass {
 	})
 }
 
-// FormatUrl formats message as Url message entity.
+// FormatURL formats message as Url message entity.
 // See https://core.telegram.org/constructor/messageEntityUrl.
-func FormatUrl(s string) []tg.MessageEntityClass {
+func FormatURL(s string) []tg.MessageEntityClass {
 	return appendMessage(nil, s, func(offset, limit int) tg.MessageEntityClass {
 		return &tg.MessageEntityUrl{Offset: offset, Length: limit}
 	})
@@ -222,9 +222,9 @@ func FormatPre(s, lang string) []tg.MessageEntityClass {
 	})
 }
 
-// FormatTextUrl formats message as TextUrl message entity.
+// FormatTextURL formats message as TextUrl message entity.
 // See https://core.telegram.org/constructor/messageEntityTextUrl.
-func FormatTextUrl(s, url string) []tg.MessageEntityClass {
+func FormatTextURL(s, url string) []tg.MessageEntityClass {
 	return appendMessage(nil, s, func(offset, limit int) tg.MessageEntityClass {
 		return &tg.MessageEntityTextUrl{Offset: offset, Length: limit, URL: url}
 	})
