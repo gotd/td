@@ -32,7 +32,45 @@ Generated packages:
 5) Templates are executed with (4) in context
 6) Source code is formatted and written to `tl_*_gen.go` files.
 
-## Binary protocol
+
+## Layers of abstraction
+
+### Telegram
+
+High level API with helpers, like `downloader` or `uploader`.
+Ideally, every telegram functionality should have sugared helper
+that is convenient to use.
+
+Can handle reconnects, DC migration, connection pooling, session management.
+
+Also, it is possible to call methods directly using `tg.Client`, because
+`telegram.Client` implements `Invoker` interface:
+
+```go
+// Invoker can invoke raw MTProto rpc calls.
+type Invoker interface {
+	InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error
+}
+```
+
+### MTProto
+
+Low level API, abstracts out single MTProto connection and handles it life cycle.
+Implements background pings with keepalive.
+
+Uses `internal/mt` (MTProto schema),  `internal/proto` (MTProto-related implementation)
+and `internal/rpc` (request-response handling, retries, acknowledgements) internally.
+
+Also, use `internal/exchange` for key exchange process and `internal/crypto` for encryption.
+
+### Crypto
+
+All cryptographical primitives that are used in key exchange or encryption
+are implemented in `internal/crypto` package.
+
+Also, the `internal/crypto/srp` implements Secure Remote Password (2FA).
+
+### Binary protocol
 
 See `bin` package for implementation of MTProto basic types (de-)serialization.
 
