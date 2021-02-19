@@ -71,6 +71,19 @@ func (s *MessagesStartBotRequest) String() string {
 	return fmt.Sprintf("MessagesStartBotRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesStartBotRequest from given interface.
+func (s *MessagesStartBotRequest) FillFrom(from interface {
+	GetBot() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
+	GetRandomID() (value int64)
+	GetStartParam() (value string)
+}) {
+	s.Bot = from.GetBot()
+	s.Peer = from.GetPeer()
+	s.RandomID = from.GetRandomID()
+	s.StartParam = from.GetStartParam()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStartBotRequest) TypeID() uint32 {

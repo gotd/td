@@ -61,6 +61,15 @@ func (u *MessagesUploadMediaRequest) String() string {
 	return fmt.Sprintf("MessagesUploadMediaRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUploadMediaRequest from given interface.
+func (u *MessagesUploadMediaRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMedia() (value InputMediaClass)
+}) {
+	u.Peer = from.GetPeer()
+	u.Media = from.GetMedia()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUploadMediaRequest) TypeID() uint32 {

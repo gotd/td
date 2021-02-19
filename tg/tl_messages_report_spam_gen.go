@@ -53,6 +53,13 @@ func (r *MessagesReportSpamRequest) String() string {
 	return fmt.Sprintf("MessagesReportSpamRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReportSpamRequest from given interface.
+func (r *MessagesReportSpamRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	r.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReportSpamRequest) TypeID() uint32 {

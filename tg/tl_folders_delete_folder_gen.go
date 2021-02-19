@@ -56,6 +56,13 @@ func (d *FoldersDeleteFolderRequest) String() string {
 	return fmt.Sprintf("FoldersDeleteFolderRequest%+v", Alias(*d))
 }
 
+// FillFrom fills FoldersDeleteFolderRequest from given interface.
+func (d *FoldersDeleteFolderRequest) FillFrom(from interface {
+	GetFolderID() (value int)
+}) {
+	d.FolderID = from.GetFolderID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *FoldersDeleteFolderRequest) TypeID() uint32 {

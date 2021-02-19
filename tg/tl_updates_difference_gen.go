@@ -55,6 +55,15 @@ func (d *UpdatesDifferenceEmpty) String() string {
 	return fmt.Sprintf("UpdatesDifferenceEmpty%+v", Alias(*d))
 }
 
+// FillFrom fills UpdatesDifferenceEmpty from given interface.
+func (d *UpdatesDifferenceEmpty) FillFrom(from interface {
+	GetDate() (value int)
+	GetSeq() (value int)
+}) {
+	d.Date = from.GetDate()
+	d.Seq = from.GetSeq()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
@@ -175,6 +184,23 @@ func (d *UpdatesDifference) String() string {
 	return fmt.Sprintf("UpdatesDifference%+v", Alias(*d))
 }
 
+// FillFrom fills UpdatesDifference from given interface.
+func (d *UpdatesDifference) FillFrom(from interface {
+	GetNewMessages() (value []MessageClass)
+	GetNewEncryptedMessages() (value []EncryptedMessageClass)
+	GetOtherUpdates() (value []UpdateClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+	GetState() (value UpdatesState)
+}) {
+	d.NewMessages = from.GetNewMessages()
+	d.NewEncryptedMessages = from.GetNewEncryptedMessages()
+	d.OtherUpdates = from.GetOtherUpdates()
+	d.Chats = from.GetChats()
+	d.Users = from.GetUsers()
+	d.State = from.GetState()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifference) TypeID() uint32 {
@@ -243,9 +269,19 @@ func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
 	return d.NewMessages
 }
 
+// MapNewMessages returns field NewMessages wrapped in MessageClassSlice helper.
+func (d *UpdatesDifference) MapNewMessages() (value MessageClassSlice) {
+	return MessageClassSlice(d.NewMessages)
+}
+
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
 func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
 	return d.NewEncryptedMessages
+}
+
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassSlice helper.
+func (d *UpdatesDifference) MapNewEncryptedMessages() (value EncryptedMessageClassSlice) {
+	return EncryptedMessageClassSlice(d.NewEncryptedMessages)
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
@@ -253,14 +289,29 @@ func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
 	return d.OtherUpdates
 }
 
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassSlice helper.
+func (d *UpdatesDifference) MapOtherUpdates() (value UpdateClassSlice) {
+	return UpdateClassSlice(d.OtherUpdates)
+}
+
 // GetChats returns value of Chats field.
 func (d *UpdatesDifference) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (d *UpdatesDifference) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(d.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (d *UpdatesDifference) GetUsers() (value []UserClass) {
 	return d.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (d *UpdatesDifference) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(d.Users)
 }
 
 // GetState returns value of State field.
@@ -420,6 +471,23 @@ func (d *UpdatesDifferenceSlice) String() string {
 	return fmt.Sprintf("UpdatesDifferenceSlice%+v", Alias(*d))
 }
 
+// FillFrom fills UpdatesDifferenceSlice from given interface.
+func (d *UpdatesDifferenceSlice) FillFrom(from interface {
+	GetNewMessages() (value []MessageClass)
+	GetNewEncryptedMessages() (value []EncryptedMessageClass)
+	GetOtherUpdates() (value []UpdateClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+	GetIntermediateState() (value UpdatesState)
+}) {
+	d.NewMessages = from.GetNewMessages()
+	d.NewEncryptedMessages = from.GetNewEncryptedMessages()
+	d.OtherUpdates = from.GetOtherUpdates()
+	d.Chats = from.GetChats()
+	d.Users = from.GetUsers()
+	d.IntermediateState = from.GetIntermediateState()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceSlice) TypeID() uint32 {
@@ -488,9 +556,19 @@ func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
 	return d.NewMessages
 }
 
+// MapNewMessages returns field NewMessages wrapped in MessageClassSlice helper.
+func (d *UpdatesDifferenceSlice) MapNewMessages() (value MessageClassSlice) {
+	return MessageClassSlice(d.NewMessages)
+}
+
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
 func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMessageClass) {
 	return d.NewEncryptedMessages
+}
+
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassSlice helper.
+func (d *UpdatesDifferenceSlice) MapNewEncryptedMessages() (value EncryptedMessageClassSlice) {
+	return EncryptedMessageClassSlice(d.NewEncryptedMessages)
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
@@ -498,14 +576,29 @@ func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
 	return d.OtherUpdates
 }
 
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassSlice helper.
+func (d *UpdatesDifferenceSlice) MapOtherUpdates() (value UpdateClassSlice) {
+	return UpdateClassSlice(d.OtherUpdates)
+}
+
 // GetChats returns value of Chats field.
 func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (d *UpdatesDifferenceSlice) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(d.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
 	return d.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(d.Users)
 }
 
 // GetIntermediateState returns value of IntermediateState field.
@@ -638,6 +731,13 @@ func (d *UpdatesDifferenceTooLong) String() string {
 	}
 	type Alias UpdatesDifferenceTooLong
 	return fmt.Sprintf("UpdatesDifferenceTooLong%+v", Alias(*d))
+}
+
+// FillFrom fills UpdatesDifferenceTooLong from given interface.
+func (d *UpdatesDifferenceTooLong) FillFrom(from interface {
+	GetPts() (value int)
+}) {
+	d.Pts = from.GetPts()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -784,4 +884,55 @@ func (b *UpdatesDifferenceBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdatesDifferenceClass as nil")
 	}
 	return b.Difference.Encode(buf)
+}
+
+// UpdatesDifferenceClassSlice is adapter for slice of UpdatesDifferenceClass.
+type UpdatesDifferenceClassSlice []UpdatesDifferenceClass
+
+// First returns first element of slice (if exists).
+func (s UpdatesDifferenceClassSlice) First() (v UpdatesDifferenceClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesDifferenceClassSlice) Last() (v UpdatesDifferenceClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceClassSlice) PopFirst() (v UpdatesDifferenceClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceClassSlice) Pop() (v UpdatesDifferenceClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

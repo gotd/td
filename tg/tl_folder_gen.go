@@ -85,6 +85,22 @@ func (f *Folder) String() string {
 	return fmt.Sprintf("Folder%+v", Alias(*f))
 }
 
+// FillFrom fills Folder from given interface.
+func (f *Folder) FillFrom(from interface {
+	GetAutofillNewBroadcasts() (value bool)
+	GetAutofillPublicGroups() (value bool)
+	GetAutofillNewCorrespondents() (value bool)
+	GetID() (value int)
+	GetTitle() (value string)
+	GetPhoto() (value ChatPhotoClass, ok bool)
+}) {
+	f.ID = from.GetID()
+	f.Title = from.GetTitle()
+	if val, ok := from.GetPhoto(); ok {
+		f.Photo = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *Folder) TypeID() uint32 {
@@ -196,6 +212,15 @@ func (f *Folder) GetPhoto() (value ChatPhotoClass, ok bool) {
 		return value, false
 	}
 	return f.Photo, true
+}
+
+// GetPhotoAsNotEmpty returns mapped value of Photo conditional field and
+// boolean which is true if field was set.
+func (f *Folder) GetPhotoAsNotEmpty() (*ChatPhoto, bool) {
+	if value, ok := f.GetPhoto(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // Decode implements bin.Decoder.

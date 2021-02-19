@@ -127,6 +127,17 @@ func (f *MessagesFavedStickers) String() string {
 	return fmt.Sprintf("MessagesFavedStickers%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesFavedStickers from given interface.
+func (f *MessagesFavedStickers) FillFrom(from interface {
+	GetHash() (value int)
+	GetPacks() (value []StickerPack)
+	GetStickers() (value []DocumentClass)
+}) {
+	f.Hash = from.GetHash()
+	f.Packs = from.GetPacks()
+	f.Stickers = from.GetStickers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFavedStickers) TypeID() uint32 {
@@ -171,6 +182,11 @@ func (f *MessagesFavedStickers) GetPacks() (value []StickerPack) {
 // GetStickers returns value of Stickers field.
 func (f *MessagesFavedStickers) GetStickers() (value []DocumentClass) {
 	return f.Stickers
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassSlice helper.
+func (f *MessagesFavedStickers) MapStickers() (value DocumentClassSlice) {
+	return DocumentClassSlice(f.Stickers)
 }
 
 // Decode implements bin.Decoder.
@@ -247,6 +263,9 @@ type MessagesFavedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFavedStickersClass
 
+	// AsModified tries to map MessagesFavedStickersClass to MessagesFavedStickers.
+	AsModified() (*MessagesFavedStickers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -254,6 +273,16 @@ type MessagesFavedStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesFavedStickersClass to MessagesFavedStickers.
+func (f *MessagesFavedStickersNotModified) AsModified() (*MessagesFavedStickers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesFavedStickersClass to MessagesFavedStickers.
+func (f *MessagesFavedStickers) AsModified() (*MessagesFavedStickers, bool) {
+	return f, true
 }
 
 // DecodeMessagesFavedStickers implements binary de-serialization for MessagesFavedStickersClass.
@@ -306,4 +335,92 @@ func (b *MessagesFavedStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFavedStickersClass as nil")
 	}
 	return b.FavedStickers.Encode(buf)
+}
+
+// MessagesFavedStickersClassSlice is adapter for slice of MessagesFavedStickersClass.
+type MessagesFavedStickersClassSlice []MessagesFavedStickersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesFavedStickersClassSlice) AppendOnlyModified(to []*MessagesFavedStickers) []*MessagesFavedStickers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesFavedStickersClassSlice) AsModified() (to []*MessagesFavedStickers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesFavedStickersClassSlice) FirstAsModified() (v *MessagesFavedStickers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesFavedStickersClassSlice) LastAsModified() (v *MessagesFavedStickers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesFavedStickersClassSlice) First() (v MessagesFavedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFavedStickersClassSlice) Last() (v MessagesFavedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFavedStickersClassSlice) PopFirst() (v MessagesFavedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFavedStickersClassSlice) Pop() (v MessagesFavedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

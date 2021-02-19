@@ -47,6 +47,13 @@ func (vec *ContactStatusVector) String() string {
 	return fmt.Sprintf("ContactStatusVector%+v", Alias(*vec))
 }
 
+// FillFrom fills ContactStatusVector from given interface.
+func (vec *ContactStatusVector) FillFrom(from interface {
+	GetElems() (value []ContactStatus)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *ContactStatusVector) TypeID() uint32 {

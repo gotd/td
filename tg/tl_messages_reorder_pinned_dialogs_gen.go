@@ -71,6 +71,16 @@ func (r *MessagesReorderPinnedDialogsRequest) String() string {
 	return fmt.Sprintf("MessagesReorderPinnedDialogsRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReorderPinnedDialogsRequest from given interface.
+func (r *MessagesReorderPinnedDialogsRequest) FillFrom(from interface {
+	GetForce() (value bool)
+	GetFolderID() (value int)
+	GetOrder() (value []InputDialogPeerClass)
+}) {
+	r.FolderID = from.GetFolderID()
+	r.Order = from.GetOrder()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReorderPinnedDialogsRequest) TypeID() uint32 {
@@ -126,6 +136,11 @@ func (r *MessagesReorderPinnedDialogsRequest) GetFolderID() (value int) {
 // GetOrder returns value of Order field.
 func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPeerClass) {
 	return r.Order
+}
+
+// MapOrder returns field Order wrapped in InputDialogPeerClassSlice helper.
+func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerClassSlice) {
+	return InputDialogPeerClassSlice(r.Order)
 }
 
 // Decode implements bin.Decoder.

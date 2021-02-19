@@ -52,6 +52,15 @@ func (r *RPCResult) String() string {
 	return fmt.Sprintf("RPCResult%+v", Alias(*r))
 }
 
+// FillFrom fills RPCResult from given interface.
+func (r *RPCResult) FillFrom(from interface {
+	GetReqMsgID() (value int64)
+	GetResult() (value GzipPacked)
+}) {
+	r.ReqMsgID = from.GetReqMsgID()
+	r.Result = from.GetResult()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCResult) TypeID() uint32 {

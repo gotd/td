@@ -134,6 +134,41 @@ func (i *InputSecureValue) String() string {
 	return fmt.Sprintf("InputSecureValue%+v", Alias(*i))
 }
 
+// FillFrom fills InputSecureValue from given interface.
+func (i *InputSecureValue) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetData() (value SecureData, ok bool)
+	GetFrontSide() (value InputSecureFileClass, ok bool)
+	GetReverseSide() (value InputSecureFileClass, ok bool)
+	GetSelfie() (value InputSecureFileClass, ok bool)
+	GetTranslation() (value []InputSecureFileClass, ok bool)
+	GetFiles() (value []InputSecureFileClass, ok bool)
+	GetPlainData() (value SecurePlainDataClass, ok bool)
+}) {
+	i.Type = from.GetType()
+	if val, ok := from.GetData(); ok {
+		i.Data = val
+	}
+	if val, ok := from.GetFrontSide(); ok {
+		i.FrontSide = val
+	}
+	if val, ok := from.GetReverseSide(); ok {
+		i.ReverseSide = val
+	}
+	if val, ok := from.GetSelfie(); ok {
+		i.Selfie = val
+	}
+	if val, ok := from.GetTranslation(); ok {
+		i.Translation = val
+	}
+	if val, ok := from.GetFiles(); ok {
+		i.Files = val
+	}
+	if val, ok := from.GetPlainData(); ok {
+		i.PlainData = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureValue) TypeID() uint32 {
@@ -318,6 +353,14 @@ func (i *InputSecureValue) GetTranslation() (value []InputSecureFileClass, ok bo
 	return i.Translation, true
 }
 
+// MapTranslation returns field Translation wrapped in InputSecureFileClassSlice helper.
+func (i *InputSecureValue) MapTranslation() (value InputSecureFileClassSlice, ok bool) {
+	if !i.Flags.Has(6) {
+		return value, false
+	}
+	return InputSecureFileClassSlice(i.Translation), true
+}
+
 // SetFiles sets value of Files conditional field.
 func (i *InputSecureValue) SetFiles(value []InputSecureFileClass) {
 	i.Flags.Set(4)
@@ -331,6 +374,14 @@ func (i *InputSecureValue) GetFiles() (value []InputSecureFileClass, ok bool) {
 		return value, false
 	}
 	return i.Files, true
+}
+
+// MapFiles returns field Files wrapped in InputSecureFileClassSlice helper.
+func (i *InputSecureValue) MapFiles() (value InputSecureFileClassSlice, ok bool) {
+	if !i.Flags.Has(4) {
+		return value, false
+	}
+	return InputSecureFileClassSlice(i.Files), true
 }
 
 // SetPlainData sets value of PlainData conditional field.

@@ -50,6 +50,13 @@ func (d *MessagesDhConfigNotModified) String() string {
 	return fmt.Sprintf("MessagesDhConfigNotModified%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDhConfigNotModified from given interface.
+func (d *MessagesDhConfigNotModified) FillFrom(from interface {
+	GetRandom() (value []byte)
+}) {
+	d.Random = from.GetRandom()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDhConfigNotModified) TypeID() uint32 {
@@ -151,6 +158,19 @@ func (d *MessagesDhConfig) String() string {
 	}
 	type Alias MessagesDhConfig
 	return fmt.Sprintf("MessagesDhConfig%+v", Alias(*d))
+}
+
+// FillFrom fills MessagesDhConfig from given interface.
+func (d *MessagesDhConfig) FillFrom(from interface {
+	GetG() (value int)
+	GetP() (value []byte)
+	GetVersion() (value int)
+	GetRandom() (value []byte)
+}) {
+	d.G = from.GetG()
+	d.P = from.GetP()
+	d.Version = from.GetVersion()
+	d.Random = from.GetRandom()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -264,6 +284,9 @@ type MessagesDhConfigClass interface {
 	// Random sequence of bytes of assigned length
 	GetRandom() (value []byte)
 
+	// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+	AsModified() (*MessagesDhConfig, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -271,6 +294,16 @@ type MessagesDhConfigClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+func (d *MessagesDhConfigNotModified) AsModified() (*MessagesDhConfig, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+func (d *MessagesDhConfig) AsModified() (*MessagesDhConfig, bool) {
+	return d, true
 }
 
 // DecodeMessagesDhConfig implements binary de-serialization for MessagesDhConfigClass.
@@ -323,4 +356,92 @@ func (b *MessagesDhConfigBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesDhConfigClass as nil")
 	}
 	return b.DhConfig.Encode(buf)
+}
+
+// MessagesDhConfigClassSlice is adapter for slice of MessagesDhConfigClass.
+type MessagesDhConfigClassSlice []MessagesDhConfigClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesDhConfigClassSlice) AppendOnlyModified(to []*MessagesDhConfig) []*MessagesDhConfig {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesDhConfigClassSlice) AsModified() (to []*MessagesDhConfig) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesDhConfigClassSlice) FirstAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesDhConfigClassSlice) LastAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesDhConfigClassSlice) First() (v MessagesDhConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesDhConfigClassSlice) Last() (v MessagesDhConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigClassSlice) PopFirst() (v MessagesDhConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigClassSlice) Pop() (v MessagesDhConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

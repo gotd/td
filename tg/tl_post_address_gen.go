@@ -75,6 +75,23 @@ func (p *PostAddress) String() string {
 	return fmt.Sprintf("PostAddress%+v", Alias(*p))
 }
 
+// FillFrom fills PostAddress from given interface.
+func (p *PostAddress) FillFrom(from interface {
+	GetStreetLine1() (value string)
+	GetStreetLine2() (value string)
+	GetCity() (value string)
+	GetState() (value string)
+	GetCountryIso2() (value string)
+	GetPostCode() (value string)
+}) {
+	p.StreetLine1 = from.GetStreetLine1()
+	p.StreetLine2 = from.GetStreetLine2()
+	p.City = from.GetCity()
+	p.State = from.GetState()
+	p.CountryIso2 = from.GetCountryIso2()
+	p.PostCode = from.GetPostCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PostAddress) TypeID() uint32 {

@@ -369,3 +369,54 @@ func (b *PhoneCallDiscardReasonBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.PhoneCallDiscardReason.Encode(buf)
 }
+
+// PhoneCallDiscardReasonClassSlice is adapter for slice of PhoneCallDiscardReasonClass.
+type PhoneCallDiscardReasonClassSlice []PhoneCallDiscardReasonClass
+
+// First returns first element of slice (if exists).
+func (s PhoneCallDiscardReasonClassSlice) First() (v PhoneCallDiscardReasonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallDiscardReasonClassSlice) Last() (v PhoneCallDiscardReasonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallDiscardReasonClassSlice) PopFirst() (v PhoneCallDiscardReasonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallDiscardReasonClassSlice) Pop() (v PhoneCallDiscardReasonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

@@ -58,6 +58,15 @@ func (l *AuthLoginToken) String() string {
 	return fmt.Sprintf("AuthLoginToken%+v", Alias(*l))
 }
 
+// FillFrom fills AuthLoginToken from given interface.
+func (l *AuthLoginToken) FillFrom(from interface {
+	GetExpires() (value int)
+	GetToken() (value []byte)
+}) {
+	l.Expires = from.GetExpires()
+	l.Token = from.GetToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLoginToken) TypeID() uint32 {
@@ -158,6 +167,15 @@ func (l *AuthLoginTokenMigrateTo) String() string {
 	return fmt.Sprintf("AuthLoginTokenMigrateTo%+v", Alias(*l))
 }
 
+// FillFrom fills AuthLoginTokenMigrateTo from given interface.
+func (l *AuthLoginTokenMigrateTo) FillFrom(from interface {
+	GetDCID() (value int)
+	GetToken() (value []byte)
+}) {
+	l.DCID = from.GetDCID()
+	l.Token = from.GetToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLoginTokenMigrateTo) TypeID() uint32 {
@@ -251,6 +269,13 @@ func (l *AuthLoginTokenSuccess) String() string {
 	}
 	type Alias AuthLoginTokenSuccess
 	return fmt.Sprintf("AuthLoginTokenSuccess%+v", Alias(*l))
+}
+
+// FillFrom fills AuthLoginTokenSuccess from given interface.
+func (l *AuthLoginTokenSuccess) FillFrom(from interface {
+	GetAuthorization() (value AuthAuthorizationClass)
+}) {
+	l.Authorization = from.GetAuthorization()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -394,4 +419,55 @@ func (b *AuthLoginTokenBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthLoginTokenClass as nil")
 	}
 	return b.LoginToken.Encode(buf)
+}
+
+// AuthLoginTokenClassSlice is adapter for slice of AuthLoginTokenClass.
+type AuthLoginTokenClassSlice []AuthLoginTokenClass
+
+// First returns first element of slice (if exists).
+func (s AuthLoginTokenClassSlice) First() (v AuthLoginTokenClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthLoginTokenClassSlice) Last() (v AuthLoginTokenClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthLoginTokenClassSlice) PopFirst() (v AuthLoginTokenClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthLoginTokenClassSlice) Pop() (v AuthLoginTokenClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

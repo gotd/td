@@ -47,6 +47,13 @@ func (vec *DialogPeerClassVector) String() string {
 	return fmt.Sprintf("DialogPeerClassVector%+v", Alias(*vec))
 }
 
+// FillFrom fills DialogPeerClassVector from given interface.
+func (vec *DialogPeerClassVector) FillFrom(from interface {
+	GetElems() (value []DialogPeerClass)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *DialogPeerClassVector) TypeID() uint32 {
@@ -73,6 +80,11 @@ func (vec *DialogPeerClassVector) Encode(b *bin.Buffer) error {
 // GetElems returns value of Elems field.
 func (vec *DialogPeerClassVector) GetElems() (value []DialogPeerClass) {
 	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in DialogPeerClassSlice helper.
+func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassSlice) {
+	return DialogPeerClassSlice(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

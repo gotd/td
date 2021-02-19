@@ -134,6 +134,45 @@ func (c *ChatFull) String() string {
 	return fmt.Sprintf("ChatFull%+v", Alias(*c))
 }
 
+// FillFrom fills ChatFull from given interface.
+func (c *ChatFull) FillFrom(from interface {
+	GetCanSetUsername() (value bool)
+	GetHasScheduled() (value bool)
+	GetID() (value int)
+	GetAbout() (value string)
+	GetParticipants() (value ChatParticipantsClass)
+	GetChatPhoto() (value PhotoClass, ok bool)
+	GetNotifySettings() (value PeerNotifySettings)
+	GetExportedInvite() (value ChatInviteExported, ok bool)
+	GetBotInfo() (value []BotInfo, ok bool)
+	GetPinnedMsgID() (value int, ok bool)
+	GetFolderID() (value int, ok bool)
+	GetCall() (value InputGroupCall, ok bool)
+}) {
+	c.ID = from.GetID()
+	c.About = from.GetAbout()
+	c.Participants = from.GetParticipants()
+	if val, ok := from.GetChatPhoto(); ok {
+		c.ChatPhoto = val
+	}
+	c.NotifySettings = from.GetNotifySettings()
+	if val, ok := from.GetExportedInvite(); ok {
+		c.ExportedInvite = val
+	}
+	if val, ok := from.GetBotInfo(); ok {
+		c.BotInfo = val
+	}
+	if val, ok := from.GetPinnedMsgID(); ok {
+		c.PinnedMsgID = val
+	}
+	if val, ok := from.GetFolderID(); ok {
+		c.FolderID = val
+	}
+	if val, ok := from.GetCall(); ok {
+		c.Call = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatFull) TypeID() uint32 {
@@ -740,6 +779,109 @@ func (c *ChannelFull) String() string {
 	}
 	type Alias ChannelFull
 	return fmt.Sprintf("ChannelFull%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelFull from given interface.
+func (c *ChannelFull) FillFrom(from interface {
+	GetCanViewParticipants() (value bool)
+	GetCanSetUsername() (value bool)
+	GetCanSetStickers() (value bool)
+	GetHiddenPrehistory() (value bool)
+	GetCanSetLocation() (value bool)
+	GetHasScheduled() (value bool)
+	GetCanViewStats() (value bool)
+	GetBlocked() (value bool)
+	GetID() (value int)
+	GetAbout() (value string)
+	GetParticipantsCount() (value int, ok bool)
+	GetAdminsCount() (value int, ok bool)
+	GetKickedCount() (value int, ok bool)
+	GetBannedCount() (value int, ok bool)
+	GetOnlineCount() (value int, ok bool)
+	GetReadInboxMaxID() (value int)
+	GetReadOutboxMaxID() (value int)
+	GetUnreadCount() (value int)
+	GetChatPhoto() (value PhotoClass)
+	GetNotifySettings() (value PeerNotifySettings)
+	GetExportedInvite() (value ChatInviteExported, ok bool)
+	GetBotInfo() (value []BotInfo)
+	GetMigratedFromChatID() (value int, ok bool)
+	GetMigratedFromMaxID() (value int, ok bool)
+	GetPinnedMsgID() (value int, ok bool)
+	GetStickerset() (value StickerSet, ok bool)
+	GetAvailableMinID() (value int, ok bool)
+	GetFolderID() (value int, ok bool)
+	GetLinkedChatID() (value int, ok bool)
+	GetLocation() (value ChannelLocationClass, ok bool)
+	GetSlowmodeSeconds() (value int, ok bool)
+	GetSlowmodeNextSendDate() (value int, ok bool)
+	GetStatsDC() (value int, ok bool)
+	GetPts() (value int)
+	GetCall() (value InputGroupCall, ok bool)
+}) {
+	c.ID = from.GetID()
+	c.About = from.GetAbout()
+	if val, ok := from.GetParticipantsCount(); ok {
+		c.ParticipantsCount = val
+	}
+	if val, ok := from.GetAdminsCount(); ok {
+		c.AdminsCount = val
+	}
+	if val, ok := from.GetKickedCount(); ok {
+		c.KickedCount = val
+	}
+	if val, ok := from.GetBannedCount(); ok {
+		c.BannedCount = val
+	}
+	if val, ok := from.GetOnlineCount(); ok {
+		c.OnlineCount = val
+	}
+	c.ReadInboxMaxID = from.GetReadInboxMaxID()
+	c.ReadOutboxMaxID = from.GetReadOutboxMaxID()
+	c.UnreadCount = from.GetUnreadCount()
+	c.ChatPhoto = from.GetChatPhoto()
+	c.NotifySettings = from.GetNotifySettings()
+	if val, ok := from.GetExportedInvite(); ok {
+		c.ExportedInvite = val
+	}
+	c.BotInfo = from.GetBotInfo()
+	if val, ok := from.GetMigratedFromChatID(); ok {
+		c.MigratedFromChatID = val
+	}
+	if val, ok := from.GetMigratedFromMaxID(); ok {
+		c.MigratedFromMaxID = val
+	}
+	if val, ok := from.GetPinnedMsgID(); ok {
+		c.PinnedMsgID = val
+	}
+	if val, ok := from.GetStickerset(); ok {
+		c.Stickerset = val
+	}
+	if val, ok := from.GetAvailableMinID(); ok {
+		c.AvailableMinID = val
+	}
+	if val, ok := from.GetFolderID(); ok {
+		c.FolderID = val
+	}
+	if val, ok := from.GetLinkedChatID(); ok {
+		c.LinkedChatID = val
+	}
+	if val, ok := from.GetLocation(); ok {
+		c.Location = val
+	}
+	if val, ok := from.GetSlowmodeSeconds(); ok {
+		c.SlowmodeSeconds = val
+	}
+	if val, ok := from.GetSlowmodeNextSendDate(); ok {
+		c.SlowmodeNextSendDate = val
+	}
+	if val, ok := from.GetStatsDC(); ok {
+		c.StatsDC = val
+	}
+	c.Pts = from.GetPts()
+	if val, ok := from.GetCall(); ok {
+		c.Call = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1695,4 +1837,91 @@ func (b *ChatFullBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatFullClass as nil")
 	}
 	return b.ChatFull.Encode(buf)
+}
+
+// ChatFullClassSlice is adapter for slice of ChatFullClass.
+type ChatFullClassSlice []ChatFullClass
+
+// FillChatFullMap fills only ChatFull constructors to given map.
+func (s ChatFullClassSlice) FillChatFullMap(to map[int]*ChatFull) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatFull)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChatFullToMap collects only ChatFull constructors to map.
+func (s ChatFullClassSlice) ChatFullToMap() map[int]*ChatFull {
+	r := make(map[int]*ChatFull, len(s))
+	s.FillChatFullMap(r)
+	return r
+}
+
+// FillChannelFullMap fills only ChannelFull constructors to given map.
+func (s ChatFullClassSlice) FillChannelFullMap(to map[int]*ChannelFull) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelFull)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChannelFullToMap collects only ChannelFull constructors to map.
+func (s ChatFullClassSlice) ChannelFullToMap() map[int]*ChannelFull {
+	r := make(map[int]*ChannelFull, len(s))
+	s.FillChannelFullMap(r)
+	return r
+}
+
+// First returns first element of slice (if exists).
+func (s ChatFullClassSlice) First() (v ChatFullClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatFullClassSlice) Last() (v ChatFullClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatFullClassSlice) PopFirst() (v ChatFullClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatFullClassSlice) Pop() (v ChatFullClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

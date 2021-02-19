@@ -90,6 +90,27 @@ func (g *Game) String() string {
 	return fmt.Sprintf("Game%+v", Alias(*g))
 }
 
+// FillFrom fills Game from given interface.
+func (g *Game) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetShortName() (value string)
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value PhotoClass)
+	GetDocument() (value DocumentClass, ok bool)
+}) {
+	g.ID = from.GetID()
+	g.AccessHash = from.GetAccessHash()
+	g.ShortName = from.GetShortName()
+	g.Title = from.GetTitle()
+	g.Description = from.GetDescription()
+	g.Photo = from.GetPhoto()
+	if val, ok := from.GetDocument(); ok {
+		g.Document = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *Game) TypeID() uint32 {
@@ -160,6 +181,11 @@ func (g *Game) GetPhoto() (value PhotoClass) {
 	return g.Photo
 }
 
+// GetPhotoAsNotEmpty returns mapped value of Photo field.
+func (g *Game) GetPhotoAsNotEmpty() (*Photo, bool) {
+	return g.Photo.AsNotEmpty()
+}
+
 // SetDocument sets value of Document conditional field.
 func (g *Game) SetDocument(value DocumentClass) {
 	g.Flags.Set(0)
@@ -173,6 +199,15 @@ func (g *Game) GetDocument() (value DocumentClass, ok bool) {
 		return value, false
 	}
 	return g.Document, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (g *Game) GetDocumentAsNotEmpty() (*Document, bool) {
+	if value, ok := g.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // Decode implements bin.Decoder.

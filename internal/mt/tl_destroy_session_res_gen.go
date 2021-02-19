@@ -47,6 +47,13 @@ func (d *DestroySessionOk) String() string {
 	return fmt.Sprintf("DestroySessionOk%+v", Alias(*d))
 }
 
+// FillFrom fills DestroySessionOk from given interface.
+func (d *DestroySessionOk) FillFrom(from interface {
+	GetSessionID() (value int64)
+}) {
+	d.SessionID = from.GetSessionID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionOk) TypeID() uint32 {
@@ -124,6 +131,13 @@ func (d *DestroySessionNone) String() string {
 	}
 	type Alias DestroySessionNone
 	return fmt.Sprintf("DestroySessionNone%+v", Alias(*d))
+}
+
+// FillFrom fills DestroySessionNone from given interface.
+func (d *DestroySessionNone) FillFrom(from interface {
+	GetSessionID() (value int64)
+}) {
+	d.SessionID = from.GetSessionID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -255,4 +269,55 @@ func (b *DestroySessionResBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DestroySessionResClass as nil")
 	}
 	return b.DestroySessionRes.Encode(buf)
+}
+
+// DestroySessionResClassSlice is adapter for slice of DestroySessionResClass.
+type DestroySessionResClassSlice []DestroySessionResClass
+
+// First returns first element of slice (if exists).
+func (s DestroySessionResClassSlice) First() (v DestroySessionResClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DestroySessionResClassSlice) Last() (v DestroySessionResClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DestroySessionResClassSlice) PopFirst() (v DestroySessionResClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DestroySessionResClassSlice) Pop() (v DestroySessionResClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

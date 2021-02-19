@@ -67,6 +67,19 @@ func (w *WebPageAttributeTheme) String() string {
 	return fmt.Sprintf("WebPageAttributeTheme%+v", Alias(*w))
 }
 
+// FillFrom fills WebPageAttributeTheme from given interface.
+func (w *WebPageAttributeTheme) FillFrom(from interface {
+	GetDocuments() (value []DocumentClass, ok bool)
+	GetSettings() (value ThemeSettings, ok bool)
+}) {
+	if val, ok := from.GetDocuments(); ok {
+		w.Documents = val
+	}
+	if val, ok := from.GetSettings(); ok {
+		w.Settings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageAttributeTheme) TypeID() uint32 {
@@ -120,6 +133,14 @@ func (w *WebPageAttributeTheme) GetDocuments() (value []DocumentClass, ok bool) 
 		return value, false
 	}
 	return w.Documents, true
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
+func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassSlice, ok bool) {
+	if !w.Flags.Has(0) {
+		return value, false
+	}
+	return DocumentClassSlice(w.Documents), true
 }
 
 // SetSettings sets value of Settings conditional field.

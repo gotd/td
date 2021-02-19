@@ -58,6 +58,15 @@ func (r *ContactsResetTopPeerRatingRequest) String() string {
 	return fmt.Sprintf("ContactsResetTopPeerRatingRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ContactsResetTopPeerRatingRequest from given interface.
+func (r *ContactsResetTopPeerRatingRequest) FillFrom(from interface {
+	GetCategory() (value TopPeerCategoryClass)
+	GetPeer() (value InputPeerClass)
+}) {
+	r.Category = from.GetCategory()
+	r.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ContactsResetTopPeerRatingRequest) TypeID() uint32 {

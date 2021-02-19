@@ -68,6 +68,16 @@ func (g *MessagesGetStatsURLRequest) String() string {
 	return fmt.Sprintf("MessagesGetStatsURLRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetStatsURLRequest from given interface.
+func (g *MessagesGetStatsURLRequest) FillFrom(from interface {
+	GetDark() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetParams() (value string)
+}) {
+	g.Peer = from.GetPeer()
+	g.Params = from.GetParams()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetStatsURLRequest) TypeID() uint32 {

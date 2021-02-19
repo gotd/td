@@ -71,6 +71,17 @@ func (l *StatsLoadAsyncGraphRequest) String() string {
 	return fmt.Sprintf("StatsLoadAsyncGraphRequest%+v", Alias(*l))
 }
 
+// FillFrom fills StatsLoadAsyncGraphRequest from given interface.
+func (l *StatsLoadAsyncGraphRequest) FillFrom(from interface {
+	GetToken() (value string)
+	GetX() (value int64, ok bool)
+}) {
+	l.Token = from.GetToken()
+	if val, ok := from.GetX(); ok {
+		l.X = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *StatsLoadAsyncGraphRequest) TypeID() uint32 {

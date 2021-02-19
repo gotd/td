@@ -50,6 +50,13 @@ func (d *ContactsDeleteContactsRequest) String() string {
 	return fmt.Sprintf("ContactsDeleteContactsRequest%+v", Alias(*d))
 }
 
+// FillFrom fills ContactsDeleteContactsRequest from given interface.
+func (d *ContactsDeleteContactsRequest) FillFrom(from interface {
+	GetID() (value []InputUserClass)
+}) {
+	d.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ContactsDeleteContactsRequest) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (d *ContactsDeleteContactsRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (d *ContactsDeleteContactsRequest) GetID() (value []InputUserClass) {
 	return d.ID
+}
+
+// MapID returns field ID wrapped in InputUserClassSlice helper.
+func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassSlice) {
+	return InputUserClassSlice(d.ID)
 }
 
 // Decode implements bin.Decoder.

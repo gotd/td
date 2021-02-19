@@ -79,6 +79,16 @@ func (b *ContactsBlockFromRepliesRequest) String() string {
 	return fmt.Sprintf("ContactsBlockFromRepliesRequest%+v", Alias(*b))
 }
 
+// FillFrom fills ContactsBlockFromRepliesRequest from given interface.
+func (b *ContactsBlockFromRepliesRequest) FillFrom(from interface {
+	GetDeleteMessage() (value bool)
+	GetDeleteHistory() (value bool)
+	GetReportSpam() (value bool)
+	GetMsgID() (value int)
+}) {
+	b.MsgID = from.GetMsgID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockFromRepliesRequest) TypeID() uint32 {

@@ -57,6 +57,17 @@ func (s *SetClientDHParamsRequest) String() string {
 	return fmt.Sprintf("SetClientDHParamsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills SetClientDHParamsRequest from given interface.
+func (s *SetClientDHParamsRequest) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetEncryptedData() (value []byte)
+}) {
+	s.Nonce = from.GetNonce()
+	s.ServerNonce = from.GetServerNonce()
+	s.EncryptedData = from.GetEncryptedData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SetClientDHParamsRequest) TypeID() uint32 {

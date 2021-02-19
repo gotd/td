@@ -92,6 +92,22 @@ func (r *AccountRegisterDeviceRequest) String() string {
 	return fmt.Sprintf("AccountRegisterDeviceRequest%+v", Alias(*r))
 }
 
+// FillFrom fills AccountRegisterDeviceRequest from given interface.
+func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
+	GetNoMuted() (value bool)
+	GetTokenType() (value int)
+	GetToken() (value string)
+	GetAppSandbox() (value bool)
+	GetSecret() (value []byte)
+	GetOtherUids() (value []int)
+}) {
+	r.TokenType = from.GetTokenType()
+	r.Token = from.GetToken()
+	r.AppSandbox = from.GetAppSandbox()
+	r.Secret = from.GetSecret()
+	r.OtherUids = from.GetOtherUids()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountRegisterDeviceRequest) TypeID() uint32 {

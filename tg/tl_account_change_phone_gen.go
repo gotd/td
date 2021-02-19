@@ -66,6 +66,17 @@ func (c *AccountChangePhoneRequest) String() string {
 	return fmt.Sprintf("AccountChangePhoneRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AccountChangePhoneRequest from given interface.
+func (c *AccountChangePhoneRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetPhoneCodeHash() (value string)
+	GetPhoneCode() (value string)
+}) {
+	c.PhoneNumber = from.GetPhoneNumber()
+	c.PhoneCodeHash = from.GetPhoneCodeHash()
+	c.PhoneCode = from.GetPhoneCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountChangePhoneRequest) TypeID() uint32 {

@@ -84,6 +84,19 @@ func (p *PhoneCallProtocol) String() string {
 	return fmt.Sprintf("PhoneCallProtocol%+v", Alias(*p))
 }
 
+// FillFrom fills PhoneCallProtocol from given interface.
+func (p *PhoneCallProtocol) FillFrom(from interface {
+	GetUDPP2P() (value bool)
+	GetUDPReflector() (value bool)
+	GetMinLayer() (value int)
+	GetMaxLayer() (value int)
+	GetLibraryVersions() (value []string)
+}) {
+	p.MinLayer = from.GetMinLayer()
+	p.MaxLayer = from.GetMaxLayer()
+	p.LibraryVersions = from.GetLibraryVersions()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallProtocol) TypeID() uint32 {

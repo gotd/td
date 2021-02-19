@@ -49,6 +49,13 @@ func (a *UserAuth) String() string {
 	return fmt.Sprintf("UserAuth%+v", Alias(*a))
 }
 
+// FillFrom fills UserAuth from given interface.
+func (a *UserAuth) FillFrom(from interface {
+	GetFoo() (value string)
+}) {
+	a.Foo = from.GetFoo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *UserAuth) TypeID() uint32 {
@@ -128,6 +135,13 @@ func (a *UserAuthPassword) String() string {
 	}
 	type Alias UserAuthPassword
 	return fmt.Sprintf("UserAuthPassword%+v", Alias(*a))
+}
+
+// FillFrom fills UserAuthPassword from given interface.
+func (a *UserAuthPassword) FillFrom(from interface {
+	GetPwd() (value string)
+}) {
+	a.Pwd = from.GetPwd()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -258,4 +272,55 @@ func (b *UserAuthBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserAuthClass as nil")
 	}
 	return b.Auth.Encode(buf)
+}
+
+// UserAuthClassSlice is adapter for slice of UserAuthClass.
+type UserAuthClassSlice []UserAuthClass
+
+// First returns first element of slice (if exists).
+func (s UserAuthClassSlice) First() (v UserAuthClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserAuthClassSlice) Last() (v UserAuthClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserAuthClassSlice) PopFirst() (v UserAuthClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserAuthClassSlice) Pop() (v UserAuthClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

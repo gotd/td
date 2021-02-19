@@ -50,6 +50,13 @@ func (d *HelpDismissSuggestionRequest) String() string {
 	return fmt.Sprintf("HelpDismissSuggestionRequest%+v", Alias(*d))
 }
 
+// FillFrom fills HelpDismissSuggestionRequest from given interface.
+func (d *HelpDismissSuggestionRequest) FillFrom(from interface {
+	GetSuggestion() (value string)
+}) {
+	d.Suggestion = from.GetSuggestion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDismissSuggestionRequest) TypeID() uint32 {

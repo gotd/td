@@ -55,6 +55,15 @@ func (r *MessagesReadEncryptedHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesReadEncryptedHistoryRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReadEncryptedHistoryRequest from given interface.
+func (r *MessagesReadEncryptedHistoryRequest) FillFrom(from interface {
+	GetPeer() (value InputEncryptedChat)
+	GetMaxDate() (value int)
+}) {
+	r.Peer = from.GetPeer()
+	r.MaxDate = from.GetMaxDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadEncryptedHistoryRequest) TypeID() uint32 {

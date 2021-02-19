@@ -50,6 +50,13 @@ func (s *MessagesSentEncryptedMessage) String() string {
 	return fmt.Sprintf("MessagesSentEncryptedMessage%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSentEncryptedMessage from given interface.
+func (s *MessagesSentEncryptedMessage) FillFrom(from interface {
+	GetDate() (value int)
+}) {
+	s.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSentEncryptedMessage) TypeID() uint32 {
@@ -135,6 +142,15 @@ func (s *MessagesSentEncryptedFile) String() string {
 	}
 	type Alias MessagesSentEncryptedFile
 	return fmt.Sprintf("MessagesSentEncryptedFile%+v", Alias(*s))
+}
+
+// FillFrom fills MessagesSentEncryptedFile from given interface.
+func (s *MessagesSentEncryptedFile) FillFrom(from interface {
+	GetDate() (value int)
+	GetFile() (value EncryptedFileClass)
+}) {
+	s.Date = from.GetDate()
+	s.File = from.GetFile()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -286,4 +302,55 @@ func (b *MessagesSentEncryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesSentEncryptedMessageClass as nil")
 	}
 	return b.SentEncryptedMessage.Encode(buf)
+}
+
+// MessagesSentEncryptedMessageClassSlice is adapter for slice of MessagesSentEncryptedMessageClass.
+type MessagesSentEncryptedMessageClassSlice []MessagesSentEncryptedMessageClass
+
+// First returns first element of slice (if exists).
+func (s MessagesSentEncryptedMessageClassSlice) First() (v MessagesSentEncryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesSentEncryptedMessageClassSlice) Last() (v MessagesSentEncryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesSentEncryptedMessageClassSlice) PopFirst() (v MessagesSentEncryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesSentEncryptedMessageClassSlice) Pop() (v MessagesSentEncryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

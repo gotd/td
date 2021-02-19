@@ -65,6 +65,19 @@ func (s *SavedPhoneContact) String() string {
 	return fmt.Sprintf("SavedPhoneContact%+v", Alias(*s))
 }
 
+// FillFrom fills SavedPhoneContact from given interface.
+func (s *SavedPhoneContact) FillFrom(from interface {
+	GetPhone() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetDate() (value int)
+}) {
+	s.Phone = from.GetPhone()
+	s.FirstName = from.GetFirstName()
+	s.LastName = from.GetLastName()
+	s.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SavedPhoneContact) TypeID() uint32 {

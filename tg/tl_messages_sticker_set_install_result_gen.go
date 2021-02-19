@@ -116,6 +116,13 @@ func (s *MessagesStickerSetInstallResultArchive) String() string {
 	return fmt.Sprintf("MessagesStickerSetInstallResultArchive%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesStickerSetInstallResultArchive from given interface.
+func (s *MessagesStickerSetInstallResultArchive) FillFrom(from interface {
+	GetSets() (value []StickerSetCoveredClass)
+}) {
+	s.Sets = from.GetSets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSetInstallResultArchive) TypeID() uint32 {
@@ -143,6 +150,11 @@ func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 // GetSets returns value of Sets field.
 func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCoveredClass) {
 	return s.Sets
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
+func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassSlice) {
+	return StickerSetCoveredClassSlice(s.Sets)
 }
 
 // Decode implements bin.Decoder.
@@ -260,4 +272,55 @@ func (b *MessagesStickerSetInstallResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesStickerSetInstallResultClass as nil")
 	}
 	return b.StickerSetInstallResult.Encode(buf)
+}
+
+// MessagesStickerSetInstallResultClassSlice is adapter for slice of MessagesStickerSetInstallResultClass.
+type MessagesStickerSetInstallResultClassSlice []MessagesStickerSetInstallResultClass
+
+// First returns first element of slice (if exists).
+func (s MessagesStickerSetInstallResultClassSlice) First() (v MessagesStickerSetInstallResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesStickerSetInstallResultClassSlice) Last() (v MessagesStickerSetInstallResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesStickerSetInstallResultClassSlice) PopFirst() (v MessagesStickerSetInstallResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesStickerSetInstallResultClassSlice) Pop() (v MessagesStickerSetInstallResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

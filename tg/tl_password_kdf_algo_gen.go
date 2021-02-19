@@ -144,6 +144,19 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Stri
 	return fmt.Sprintf("PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow%+v", Alias(*p))
 }
 
+// FillFrom fills PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow from given interface.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) FillFrom(from interface {
+	GetSalt1() (value []byte)
+	GetSalt2() (value []byte)
+	GetG() (value int)
+	GetP() (value []byte)
+}) {
+	p.Salt1 = from.GetSalt1()
+	p.Salt2 = from.GetSalt2()
+	p.G = from.GetG()
+	p.P = from.GetP()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
@@ -313,4 +326,55 @@ func (b *PasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PasswordKdfAlgoClass as nil")
 	}
 	return b.PasswordKdfAlgo.Encode(buf)
+}
+
+// PasswordKdfAlgoClassSlice is adapter for slice of PasswordKdfAlgoClass.
+type PasswordKdfAlgoClassSlice []PasswordKdfAlgoClass
+
+// First returns first element of slice (if exists).
+func (s PasswordKdfAlgoClassSlice) First() (v PasswordKdfAlgoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PasswordKdfAlgoClassSlice) Last() (v PasswordKdfAlgoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PasswordKdfAlgoClassSlice) PopFirst() (v PasswordKdfAlgoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PasswordKdfAlgoClassSlice) Pop() (v PasswordKdfAlgoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

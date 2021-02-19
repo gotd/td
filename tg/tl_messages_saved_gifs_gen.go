@@ -122,6 +122,15 @@ func (s *MessagesSavedGifs) String() string {
 	return fmt.Sprintf("MessagesSavedGifs%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSavedGifs from given interface.
+func (s *MessagesSavedGifs) FillFrom(from interface {
+	GetHash() (value int)
+	GetGifs() (value []DocumentClass)
+}) {
+	s.Hash = from.GetHash()
+	s.Gifs = from.GetGifs()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSavedGifs) TypeID() uint32 {
@@ -155,6 +164,11 @@ func (s *MessagesSavedGifs) GetHash() (value int) {
 // GetGifs returns value of Gifs field.
 func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
 	return s.Gifs
+}
+
+// MapGifs returns field Gifs wrapped in DocumentClassSlice helper.
+func (s *MessagesSavedGifs) MapGifs() (value DocumentClassSlice) {
+	return DocumentClassSlice(s.Gifs)
 }
 
 // Decode implements bin.Decoder.
@@ -218,6 +232,9 @@ type MessagesSavedGifsClass interface {
 	bin.Decoder
 	construct() MessagesSavedGifsClass
 
+	// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+	AsModified() (*MessagesSavedGifs, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -225,6 +242,16 @@ type MessagesSavedGifsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+func (s *MessagesSavedGifsNotModified) AsModified() (*MessagesSavedGifs, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+func (s *MessagesSavedGifs) AsModified() (*MessagesSavedGifs, bool) {
+	return s, true
 }
 
 // DecodeMessagesSavedGifs implements binary de-serialization for MessagesSavedGifsClass.
@@ -277,4 +304,92 @@ func (b *MessagesSavedGifsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesSavedGifsClass as nil")
 	}
 	return b.SavedGifs.Encode(buf)
+}
+
+// MessagesSavedGifsClassSlice is adapter for slice of MessagesSavedGifsClass.
+type MessagesSavedGifsClassSlice []MessagesSavedGifsClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesSavedGifsClassSlice) AppendOnlyModified(to []*MessagesSavedGifs) []*MessagesSavedGifs {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesSavedGifsClassSlice) AsModified() (to []*MessagesSavedGifs) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesSavedGifsClassSlice) FirstAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesSavedGifsClassSlice) LastAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesSavedGifsClassSlice) First() (v MessagesSavedGifsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesSavedGifsClassSlice) Last() (v MessagesSavedGifsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesSavedGifsClassSlice) PopFirst() (v MessagesSavedGifsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesSavedGifsClassSlice) Pop() (v MessagesSavedGifsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

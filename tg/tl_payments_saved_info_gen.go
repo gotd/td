@@ -65,6 +65,16 @@ func (s *PaymentsSavedInfo) String() string {
 	return fmt.Sprintf("PaymentsSavedInfo%+v", Alias(*s))
 }
 
+// FillFrom fills PaymentsSavedInfo from given interface.
+func (s *PaymentsSavedInfo) FillFrom(from interface {
+	GetHasSavedCredentials() (value bool)
+	GetSavedInfo() (value PaymentRequestedInfo, ok bool)
+}) {
+	if val, ok := from.GetSavedInfo(); ok {
+		s.SavedInfo = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PaymentsSavedInfo) TypeID() uint32 {

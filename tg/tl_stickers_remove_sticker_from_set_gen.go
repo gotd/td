@@ -50,6 +50,13 @@ func (r *StickersRemoveStickerFromSetRequest) String() string {
 	return fmt.Sprintf("StickersRemoveStickerFromSetRequest%+v", Alias(*r))
 }
 
+// FillFrom fills StickersRemoveStickerFromSetRequest from given interface.
+func (r *StickersRemoveStickerFromSetRequest) FillFrom(from interface {
+	GetSticker() (value InputDocumentClass)
+}) {
+	r.Sticker = from.GetSticker()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *StickersRemoveStickerFromSetRequest) TypeID() uint32 {
@@ -74,6 +81,11 @@ func (r *StickersRemoveStickerFromSetRequest) Encode(b *bin.Buffer) error {
 // GetSticker returns value of Sticker field.
 func (r *StickersRemoveStickerFromSetRequest) GetSticker() (value InputDocumentClass) {
 	return r.Sticker
+}
+
+// GetStickerAsNotEmpty returns mapped value of Sticker field.
+func (r *StickersRemoveStickerFromSetRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
+	return r.Sticker.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

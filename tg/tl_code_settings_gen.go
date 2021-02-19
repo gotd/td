@@ -79,6 +79,14 @@ func (c *CodeSettings) String() string {
 	return fmt.Sprintf("CodeSettings%+v", Alias(*c))
 }
 
+// FillFrom fills CodeSettings from given interface.
+func (c *CodeSettings) FillFrom(from interface {
+	GetAllowFlashcall() (value bool)
+	GetCurrentNumber() (value bool)
+	GetAllowAppHash() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *CodeSettings) TypeID() uint32 {

@@ -92,6 +92,27 @@ func (s *MessagesSetInlineBotResultsRequest) String() string {
 	return fmt.Sprintf("MessagesSetInlineBotResultsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetInlineBotResultsRequest from given interface.
+func (s *MessagesSetInlineBotResultsRequest) FillFrom(from interface {
+	GetGallery() (value bool)
+	GetPrivate() (value bool)
+	GetQueryID() (value int64)
+	GetResults() (value []InputBotInlineResultClass)
+	GetCacheTime() (value int)
+	GetNextOffset() (value string, ok bool)
+	GetSwitchPm() (value InlineBotSwitchPM, ok bool)
+}) {
+	s.QueryID = from.GetQueryID()
+	s.Results = from.GetResults()
+	s.CacheTime = from.GetCacheTime()
+	if val, ok := from.GetNextOffset(); ok {
+		s.NextOffset = val
+	}
+	if val, ok := from.GetSwitchPm(); ok {
+		s.SwitchPm = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetInlineBotResultsRequest) TypeID() uint32 {
@@ -181,6 +202,11 @@ func (s *MessagesSetInlineBotResultsRequest) GetQueryID() (value int64) {
 // GetResults returns value of Results field.
 func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlineResultClass) {
 	return s.Results
+}
+
+// MapResults returns field Results wrapped in InputBotInlineResultClassSlice helper.
+func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassSlice) {
+	return InputBotInlineResultClassSlice(s.Results)
 }
 
 // GetCacheTime returns value of CacheTime field.

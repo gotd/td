@@ -59,6 +59,17 @@ func (f *FileHash) String() string {
 	return fmt.Sprintf("FileHash%+v", Alias(*f))
 }
 
+// FillFrom fills FileHash from given interface.
+func (f *FileHash) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLimit() (value int)
+	GetHash() (value []byte)
+}) {
+	f.Offset = from.GetOffset()
+	f.Limit = from.GetLimit()
+	f.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileHash) TypeID() uint32 {

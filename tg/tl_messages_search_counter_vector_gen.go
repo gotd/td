@@ -47,6 +47,13 @@ func (vec *MessagesSearchCounterVector) String() string {
 	return fmt.Sprintf("MessagesSearchCounterVector%+v", Alias(*vec))
 }
 
+// FillFrom fills MessagesSearchCounterVector from given interface.
+func (vec *MessagesSearchCounterVector) FillFrom(from interface {
+	GetElems() (value []MessagesSearchCounter)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *MessagesSearchCounterVector) TypeID() uint32 {

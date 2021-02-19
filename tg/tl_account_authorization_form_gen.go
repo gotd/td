@@ -92,6 +92,23 @@ func (a *AccountAuthorizationForm) String() string {
 	return fmt.Sprintf("AccountAuthorizationForm%+v", Alias(*a))
 }
 
+// FillFrom fills AccountAuthorizationForm from given interface.
+func (a *AccountAuthorizationForm) FillFrom(from interface {
+	GetRequiredTypes() (value []SecureRequiredTypeClass)
+	GetValues() (value []SecureValue)
+	GetErrors() (value []SecureValueErrorClass)
+	GetUsers() (value []UserClass)
+	GetPrivacyPolicyURL() (value string, ok bool)
+}) {
+	a.RequiredTypes = from.GetRequiredTypes()
+	a.Values = from.GetValues()
+	a.Errors = from.GetErrors()
+	a.Users = from.GetUsers()
+	if val, ok := from.GetPrivacyPolicyURL(); ok {
+		a.PrivacyPolicyURL = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountAuthorizationForm) TypeID() uint32 {
@@ -154,6 +171,11 @@ func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTyp
 	return a.RequiredTypes
 }
 
+// MapRequiredTypes returns field RequiredTypes wrapped in SecureRequiredTypeClassSlice helper.
+func (a *AccountAuthorizationForm) MapRequiredTypes() (value SecureRequiredTypeClassSlice) {
+	return SecureRequiredTypeClassSlice(a.RequiredTypes)
+}
+
 // GetValues returns value of Values field.
 func (a *AccountAuthorizationForm) GetValues() (value []SecureValue) {
 	return a.Values
@@ -164,9 +186,19 @@ func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
 	return a.Errors
 }
 
+// MapErrors returns field Errors wrapped in SecureValueErrorClassSlice helper.
+func (a *AccountAuthorizationForm) MapErrors() (value SecureValueErrorClassSlice) {
+	return SecureValueErrorClassSlice(a.Errors)
+}
+
 // GetUsers returns value of Users field.
 func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
 	return a.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (a *AccountAuthorizationForm) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(a.Users)
 }
 
 // SetPrivacyPolicyURL sets value of PrivacyPolicyURL conditional field.

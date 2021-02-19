@@ -54,6 +54,13 @@ func (g *AccountGetSecureValueRequest) String() string {
 	return fmt.Sprintf("AccountGetSecureValueRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetSecureValueRequest from given interface.
+func (g *AccountGetSecureValueRequest) FillFrom(from interface {
+	GetTypes() (value []SecureValueTypeClass)
+}) {
+	g.Types = from.GetTypes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetSecureValueRequest) TypeID() uint32 {
@@ -81,6 +88,11 @@ func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 // GetTypes returns value of Types field.
 func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
 	return g.Types
+}
+
+// MapTypes returns field Types wrapped in SecureValueTypeClassSlice helper.
+func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassSlice) {
+	return SecureValueTypeClassSlice(g.Types)
 }
 
 // Decode implements bin.Decoder.

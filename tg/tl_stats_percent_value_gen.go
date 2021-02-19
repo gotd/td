@@ -59,6 +59,15 @@ func (s *StatsPercentValue) String() string {
 	return fmt.Sprintf("StatsPercentValue%+v", Alias(*s))
 }
 
+// FillFrom fills StatsPercentValue from given interface.
+func (s *StatsPercentValue) FillFrom(from interface {
+	GetPart() (value float64)
+	GetTotal() (value float64)
+}) {
+	s.Part = from.GetPart()
+	s.Total = from.GetTotal()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsPercentValue) TypeID() uint32 {

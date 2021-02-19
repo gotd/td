@@ -55,6 +55,15 @@ func (m *MessageEntityUnknown) String() string {
 	return fmt.Sprintf("MessageEntityUnknown%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityUnknown from given interface.
+func (m *MessageEntityUnknown) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnknown) TypeID() uint32 {
@@ -158,6 +167,15 @@ func (m *MessageEntityMention) String() string {
 	return fmt.Sprintf("MessageEntityMention%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityMention from given interface.
+func (m *MessageEntityMention) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityMention) TypeID() uint32 {
@@ -258,6 +276,15 @@ func (m *MessageEntityHashtag) String() string {
 	return fmt.Sprintf("MessageEntityHashtag%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityHashtag from given interface.
+func (m *MessageEntityHashtag) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityHashtag) TypeID() uint32 {
@@ -356,6 +383,15 @@ func (m *MessageEntityBotCommand) String() string {
 	}
 	type Alias MessageEntityBotCommand
 	return fmt.Sprintf("MessageEntityBotCommand%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityBotCommand from given interface.
+func (m *MessageEntityBotCommand) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -463,6 +499,15 @@ func (m *MessageEntityUrl) String() string {
 	return fmt.Sprintf("MessageEntityUrl%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityUrl from given interface.
+func (m *MessageEntityUrl) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUrl) TypeID() uint32 {
@@ -566,6 +611,15 @@ func (m *MessageEntityEmail) String() string {
 	return fmt.Sprintf("MessageEntityEmail%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityEmail from given interface.
+func (m *MessageEntityEmail) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityEmail) TypeID() uint32 {
@@ -664,6 +718,15 @@ func (m *MessageEntityBold) String() string {
 	}
 	type Alias MessageEntityBold
 	return fmt.Sprintf("MessageEntityBold%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityBold from given interface.
+func (m *MessageEntityBold) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -766,6 +829,15 @@ func (m *MessageEntityItalic) String() string {
 	return fmt.Sprintf("MessageEntityItalic%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityItalic from given interface.
+func (m *MessageEntityItalic) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityItalic) TypeID() uint32 {
@@ -864,6 +936,15 @@ func (m *MessageEntityCode) String() string {
 	}
 	type Alias MessageEntityCode
 	return fmt.Sprintf("MessageEntityCode%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityCode from given interface.
+func (m *MessageEntityCode) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -969,6 +1050,17 @@ func (m *MessageEntityPre) String() string {
 	}
 	type Alias MessageEntityPre
 	return fmt.Sprintf("MessageEntityPre%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityPre from given interface.
+func (m *MessageEntityPre) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetLanguage() (value string)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+	m.Language = from.GetLanguage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1094,6 +1186,17 @@ func (m *MessageEntityTextUrl) String() string {
 	return fmt.Sprintf("MessageEntityTextUrl%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityTextUrl from given interface.
+func (m *MessageEntityTextUrl) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetURL() (value string)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+	m.URL = from.GetURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityTextUrl) TypeID() uint32 {
@@ -1214,6 +1317,17 @@ func (m *MessageEntityMentionName) String() string {
 	}
 	type Alias MessageEntityMentionName
 	return fmt.Sprintf("MessageEntityMentionName%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityMentionName from given interface.
+func (m *MessageEntityMentionName) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetUserID() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+	m.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1338,6 +1452,17 @@ func (i *InputMessageEntityMentionName) String() string {
 	return fmt.Sprintf("InputMessageEntityMentionName%+v", Alias(*i))
 }
 
+// FillFrom fills InputMessageEntityMentionName from given interface.
+func (i *InputMessageEntityMentionName) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+	GetUserID() (value InputUserClass)
+}) {
+	i.Offset = from.GetOffset()
+	i.Length = from.GetLength()
+	i.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageEntityMentionName) TypeID() uint32 {
@@ -1456,6 +1581,15 @@ func (m *MessageEntityPhone) String() string {
 	return fmt.Sprintf("MessageEntityPhone%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityPhone from given interface.
+func (m *MessageEntityPhone) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityPhone) TypeID() uint32 {
@@ -1554,6 +1688,15 @@ func (m *MessageEntityCashtag) String() string {
 	}
 	type Alias MessageEntityCashtag
 	return fmt.Sprintf("MessageEntityCashtag%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityCashtag from given interface.
+func (m *MessageEntityCashtag) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1656,6 +1799,15 @@ func (m *MessageEntityUnderline) String() string {
 	return fmt.Sprintf("MessageEntityUnderline%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityUnderline from given interface.
+func (m *MessageEntityUnderline) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnderline) TypeID() uint32 {
@@ -1754,6 +1906,15 @@ func (m *MessageEntityStrike) String() string {
 	}
 	type Alias MessageEntityStrike
 	return fmt.Sprintf("MessageEntityStrike%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityStrike from given interface.
+func (m *MessageEntityStrike) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1856,6 +2017,15 @@ func (m *MessageEntityBlockquote) String() string {
 	return fmt.Sprintf("MessageEntityBlockquote%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEntityBlockquote from given interface.
+func (m *MessageEntityBlockquote) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBlockquote) TypeID() uint32 {
@@ -1954,6 +2124,15 @@ func (m *MessageEntityBankCard) String() string {
 	}
 	type Alias MessageEntityBankCard
 	return fmt.Sprintf("MessageEntityBankCard%+v", Alias(*m))
+}
+
+// FillFrom fills MessageEntityBankCard from given interface.
+func (m *MessageEntityBankCard) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLength() (value int)
+}) {
+	m.Offset = from.GetOffset()
+	m.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2238,4 +2417,55 @@ func (b *MessageEntityBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageEntityClass as nil")
 	}
 	return b.MessageEntity.Encode(buf)
+}
+
+// MessageEntityClassSlice is adapter for slice of MessageEntityClass.
+type MessageEntityClassSlice []MessageEntityClass
+
+// First returns first element of slice (if exists).
+func (s MessageEntityClassSlice) First() (v MessageEntityClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageEntityClassSlice) Last() (v MessageEntityClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageEntityClassSlice) PopFirst() (v MessageEntityClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageEntityClassSlice) Pop() (v MessageEntityClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

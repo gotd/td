@@ -55,6 +55,15 @@ func (u *MessagesUploadEncryptedFileRequest) String() string {
 	return fmt.Sprintf("MessagesUploadEncryptedFileRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUploadEncryptedFileRequest from given interface.
+func (u *MessagesUploadEncryptedFileRequest) FillFrom(from interface {
+	GetPeer() (value InputEncryptedChat)
+	GetFile() (value InputEncryptedFileClass)
+}) {
+	u.Peer = from.GetPeer()
+	u.File = from.GetFile()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUploadEncryptedFileRequest) TypeID() uint32 {
@@ -87,6 +96,11 @@ func (u *MessagesUploadEncryptedFileRequest) GetPeer() (value InputEncryptedChat
 // GetFile returns value of File field.
 func (u *MessagesUploadEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
 	return u.File
+}
+
+// GetFileAsNotEmpty returns mapped value of File field.
+func (u *MessagesUploadEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
+	return u.File.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

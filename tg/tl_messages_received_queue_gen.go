@@ -50,6 +50,13 @@ func (r *MessagesReceivedQueueRequest) String() string {
 	return fmt.Sprintf("MessagesReceivedQueueRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReceivedQueueRequest from given interface.
+func (r *MessagesReceivedQueueRequest) FillFrom(from interface {
+	GetMaxQts() (value int)
+}) {
+	r.MaxQts = from.GetMaxQts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReceivedQueueRequest) TypeID() uint32 {

@@ -72,6 +72,20 @@ func (i *AccountInstallThemeRequest) String() string {
 	return fmt.Sprintf("AccountInstallThemeRequest%+v", Alias(*i))
 }
 
+// FillFrom fills AccountInstallThemeRequest from given interface.
+func (i *AccountInstallThemeRequest) FillFrom(from interface {
+	GetDark() (value bool)
+	GetFormat() (value string, ok bool)
+	GetTheme() (value InputThemeClass, ok bool)
+}) {
+	if val, ok := from.GetFormat(); ok {
+		i.Format = val
+	}
+	if val, ok := from.GetTheme(); ok {
+		i.Theme = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AccountInstallThemeRequest) TypeID() uint32 {

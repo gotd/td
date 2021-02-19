@@ -141,6 +141,23 @@ func (i *InputChatUploadedPhoto) String() string {
 	return fmt.Sprintf("InputChatUploadedPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputChatUploadedPhoto from given interface.
+func (i *InputChatUploadedPhoto) FillFrom(from interface {
+	GetFile() (value InputFileClass, ok bool)
+	GetVideo() (value InputFileClass, ok bool)
+	GetVideoStartTs() (value float64, ok bool)
+}) {
+	if val, ok := from.GetFile(); ok {
+		i.File = val
+	}
+	if val, ok := from.GetVideo(); ok {
+		i.Video = val
+	}
+	if val, ok := from.GetVideoStartTs(); ok {
+		i.VideoStartTs = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChatUploadedPhoto) TypeID() uint32 {
@@ -312,6 +329,13 @@ func (i *InputChatPhoto) String() string {
 	return fmt.Sprintf("InputChatPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputChatPhoto from given interface.
+func (i *InputChatPhoto) FillFrom(from interface {
+	GetID() (value InputPhotoClass)
+}) {
+	i.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChatPhoto) TypeID() uint32 {
@@ -453,4 +477,55 @@ func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputChatPhotoClass as nil")
 	}
 	return b.InputChatPhoto.Encode(buf)
+}
+
+// InputChatPhotoClassSlice is adapter for slice of InputChatPhotoClass.
+type InputChatPhotoClassSlice []InputChatPhotoClass
+
+// First returns first element of slice (if exists).
+func (s InputChatPhotoClassSlice) First() (v InputChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputChatPhotoClassSlice) Last() (v InputChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputChatPhotoClassSlice) PopFirst() (v InputChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputChatPhotoClassSlice) Pop() (v InputChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

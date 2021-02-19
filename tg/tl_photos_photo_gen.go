@@ -55,6 +55,15 @@ func (p *PhotosPhoto) String() string {
 	return fmt.Sprintf("PhotosPhoto%+v", Alias(*p))
 }
 
+// FillFrom fills PhotosPhoto from given interface.
+func (p *PhotosPhoto) FillFrom(from interface {
+	GetPhoto() (value PhotoClass)
+	GetUsers() (value []UserClass)
+}) {
+	p.Photo = from.GetPhoto()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhoto) TypeID() uint32 {
@@ -90,9 +99,19 @@ func (p *PhotosPhoto) GetPhoto() (value PhotoClass) {
 	return p.Photo
 }
 
+// GetPhotoAsNotEmpty returns mapped value of Photo field.
+func (p *PhotosPhoto) GetPhotoAsNotEmpty() (*Photo, bool) {
+	return p.Photo.AsNotEmpty()
+}
+
 // GetUsers returns value of Users field.
 func (p *PhotosPhoto) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PhotosPhoto) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.

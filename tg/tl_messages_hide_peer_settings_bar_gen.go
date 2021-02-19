@@ -53,6 +53,13 @@ func (h *MessagesHidePeerSettingsBarRequest) String() string {
 	return fmt.Sprintf("MessagesHidePeerSettingsBarRequest%+v", Alias(*h))
 }
 
+// FillFrom fills MessagesHidePeerSettingsBarRequest from given interface.
+func (h *MessagesHidePeerSettingsBarRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	h.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *MessagesHidePeerSettingsBarRequest) TypeID() uint32 {

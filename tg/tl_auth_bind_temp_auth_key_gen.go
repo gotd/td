@@ -78,6 +78,19 @@ func (b *AuthBindTempAuthKeyRequest) String() string {
 	return fmt.Sprintf("AuthBindTempAuthKeyRequest%+v", Alias(*b))
 }
 
+// FillFrom fills AuthBindTempAuthKeyRequest from given interface.
+func (b *AuthBindTempAuthKeyRequest) FillFrom(from interface {
+	GetPermAuthKeyID() (value int64)
+	GetNonce() (value int64)
+	GetExpiresAt() (value int)
+	GetEncryptedMessage() (value []byte)
+}) {
+	b.PermAuthKeyID = from.GetPermAuthKeyID()
+	b.Nonce = from.GetNonce()
+	b.ExpiresAt = from.GetExpiresAt()
+	b.EncryptedMessage = from.GetEncryptedMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *AuthBindTempAuthKeyRequest) TypeID() uint32 {

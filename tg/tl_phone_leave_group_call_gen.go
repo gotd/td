@@ -54,6 +54,15 @@ func (l *PhoneLeaveGroupCallRequest) String() string {
 	return fmt.Sprintf("PhoneLeaveGroupCallRequest%+v", Alias(*l))
 }
 
+// FillFrom fills PhoneLeaveGroupCallRequest from given interface.
+func (l *PhoneLeaveGroupCallRequest) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetSource() (value int)
+}) {
+	l.Call = from.GetCall()
+	l.Source = from.GetSource()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *PhoneLeaveGroupCallRequest) TypeID() uint32 {

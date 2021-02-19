@@ -60,6 +60,17 @@ func (b *ContactsBlocked) String() string {
 	return fmt.Sprintf("ContactsBlocked%+v", Alias(*b))
 }
 
+// FillFrom fills ContactsBlocked from given interface.
+func (b *ContactsBlocked) FillFrom(from interface {
+	GetBlocked() (value []PeerBlocked)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	b.Blocked = from.GetBlocked()
+	b.Chats = from.GetChats()
+	b.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlocked) TypeID() uint32 {
@@ -109,9 +120,19 @@ func (b *ContactsBlocked) GetChats() (value []ChatClass) {
 	return b.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (b *ContactsBlocked) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(b.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (b *ContactsBlocked) GetUsers() (value []UserClass) {
 	return b.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (b *ContactsBlocked) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(b.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -222,6 +243,19 @@ func (b *ContactsBlockedSlice) String() string {
 	return fmt.Sprintf("ContactsBlockedSlice%+v", Alias(*b))
 }
 
+// FillFrom fills ContactsBlockedSlice from given interface.
+func (b *ContactsBlockedSlice) FillFrom(from interface {
+	GetCount() (value int)
+	GetBlocked() (value []PeerBlocked)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	b.Count = from.GetCount()
+	b.Blocked = from.GetBlocked()
+	b.Chats = from.GetChats()
+	b.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockedSlice) TypeID() uint32 {
@@ -277,9 +311,19 @@ func (b *ContactsBlockedSlice) GetChats() (value []ChatClass) {
 	return b.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (b *ContactsBlockedSlice) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(b.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (b *ContactsBlockedSlice) GetUsers() (value []UserClass) {
 	return b.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (b *ContactsBlockedSlice) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(b.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -435,4 +479,55 @@ func (b *ContactsBlockedBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ContactsBlockedClass as nil")
 	}
 	return b.Blocked.Encode(buf)
+}
+
+// ContactsBlockedClassSlice is adapter for slice of ContactsBlockedClass.
+type ContactsBlockedClassSlice []ContactsBlockedClass
+
+// First returns first element of slice (if exists).
+func (s ContactsBlockedClassSlice) First() (v ContactsBlockedClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ContactsBlockedClassSlice) Last() (v ContactsBlockedClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ContactsBlockedClassSlice) PopFirst() (v ContactsBlockedClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ContactsBlockedClassSlice) Pop() (v ContactsBlockedClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

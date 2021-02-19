@@ -53,6 +53,13 @@ func (g *MessagesGetPinnedDialogsRequest) String() string {
 	return fmt.Sprintf("MessagesGetPinnedDialogsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetPinnedDialogsRequest from given interface.
+func (g *MessagesGetPinnedDialogsRequest) FillFrom(from interface {
+	GetFolderID() (value int)
+}) {
+	g.FolderID = from.GetFolderID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPinnedDialogsRequest) TypeID() uint32 {

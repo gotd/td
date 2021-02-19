@@ -47,6 +47,13 @@ func (m *MsgCopy) String() string {
 	return fmt.Sprintf("MsgCopy%+v", Alias(*m))
 }
 
+// FillFrom fills MsgCopy from given interface.
+func (m *MsgCopy) FillFrom(from interface {
+	GetOrigMessage() (value Message)
+}) {
+	m.OrigMessage = from.GetOrigMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgCopy) TypeID() uint32 {

@@ -58,6 +58,15 @@ func (s *StatsDateRangeDays) String() string {
 	return fmt.Sprintf("StatsDateRangeDays%+v", Alias(*s))
 }
 
+// FillFrom fills StatsDateRangeDays from given interface.
+func (s *StatsDateRangeDays) FillFrom(from interface {
+	GetMinDate() (value int)
+	GetMaxDate() (value int)
+}) {
+	s.MinDate = from.GetMinDate()
+	s.MaxDate = from.GetMaxDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsDateRangeDays) TypeID() uint32 {

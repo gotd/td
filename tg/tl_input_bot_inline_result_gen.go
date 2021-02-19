@@ -106,6 +106,37 @@ func (i *InputBotInlineResult) String() string {
 	return fmt.Sprintf("InputBotInlineResult%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineResult from given interface.
+func (i *InputBotInlineResult) FillFrom(from interface {
+	GetID() (value string)
+	GetType() (value string)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetURL() (value string, ok bool)
+	GetThumb() (value InputWebDocument, ok bool)
+	GetContent() (value InputWebDocument, ok bool)
+	GetSendMessage() (value InputBotInlineMessageClass)
+}) {
+	i.ID = from.GetID()
+	i.Type = from.GetType()
+	if val, ok := from.GetTitle(); ok {
+		i.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		i.Description = val
+	}
+	if val, ok := from.GetURL(); ok {
+		i.URL = val
+	}
+	if val, ok := from.GetThumb(); ok {
+		i.Thumb = val
+	}
+	if val, ok := from.GetContent(); ok {
+		i.Content = val
+	}
+	i.SendMessage = from.GetSendMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineResult) TypeID() uint32 {
@@ -385,6 +416,19 @@ func (i *InputBotInlineResultPhoto) String() string {
 	return fmt.Sprintf("InputBotInlineResultPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineResultPhoto from given interface.
+func (i *InputBotInlineResultPhoto) FillFrom(from interface {
+	GetID() (value string)
+	GetType() (value string)
+	GetPhoto() (value InputPhotoClass)
+	GetSendMessage() (value InputBotInlineMessageClass)
+}) {
+	i.ID = from.GetID()
+	i.Type = from.GetType()
+	i.Photo = from.GetPhoto()
+	i.SendMessage = from.GetSendMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineResultPhoto) TypeID() uint32 {
@@ -554,6 +598,27 @@ func (i *InputBotInlineResultDocument) String() string {
 	}
 	type Alias InputBotInlineResultDocument
 	return fmt.Sprintf("InputBotInlineResultDocument%+v", Alias(*i))
+}
+
+// FillFrom fills InputBotInlineResultDocument from given interface.
+func (i *InputBotInlineResultDocument) FillFrom(from interface {
+	GetID() (value string)
+	GetType() (value string)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetDocument() (value InputDocumentClass)
+	GetSendMessage() (value InputBotInlineMessageClass)
+}) {
+	i.ID = from.GetID()
+	i.Type = from.GetType()
+	if val, ok := from.GetTitle(); ok {
+		i.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		i.Description = val
+	}
+	i.Document = from.GetDocument()
+	i.SendMessage = from.GetSendMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -761,6 +826,17 @@ func (i *InputBotInlineResultGame) String() string {
 	return fmt.Sprintf("InputBotInlineResultGame%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineResultGame from given interface.
+func (i *InputBotInlineResultGame) FillFrom(from interface {
+	GetID() (value string)
+	GetShortName() (value string)
+	GetSendMessage() (value InputBotInlineMessageClass)
+}) {
+	i.ID = from.GetID()
+	i.ShortName = from.GetShortName()
+	i.SendMessage = from.GetSendMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineResultGame) TypeID() uint32 {
@@ -941,4 +1017,55 @@ func (b *InputBotInlineResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputBotInlineResultClass as nil")
 	}
 	return b.InputBotInlineResult.Encode(buf)
+}
+
+// InputBotInlineResultClassSlice is adapter for slice of InputBotInlineResultClass.
+type InputBotInlineResultClassSlice []InputBotInlineResultClass
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineResultClassSlice) First() (v InputBotInlineResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineResultClassSlice) Last() (v InputBotInlineResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultClassSlice) PopFirst() (v InputBotInlineResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultClassSlice) Pop() (v InputBotInlineResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

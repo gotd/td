@@ -55,6 +55,15 @@ func (i *InputWallPaper) String() string {
 	return fmt.Sprintf("InputWallPaper%+v", Alias(*i))
 }
 
+// FillFrom fills InputWallPaper from given interface.
+func (i *InputWallPaper) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaper) TypeID() uint32 {
@@ -148,6 +157,13 @@ func (i *InputWallPaperSlug) String() string {
 	}
 	type Alias InputWallPaperSlug
 	return fmt.Sprintf("InputWallPaperSlug%+v", Alias(*i))
+}
+
+// FillFrom fills InputWallPaperSlug from given interface.
+func (i *InputWallPaperSlug) FillFrom(from interface {
+	GetSlug() (value string)
+}) {
+	i.Slug = from.GetSlug()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -350,4 +366,55 @@ func (b *InputWallPaperBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputWallPaperClass as nil")
 	}
 	return b.InputWallPaper.Encode(buf)
+}
+
+// InputWallPaperClassSlice is adapter for slice of InputWallPaperClass.
+type InputWallPaperClassSlice []InputWallPaperClass
+
+// First returns first element of slice (if exists).
+func (s InputWallPaperClassSlice) First() (v InputWallPaperClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWallPaperClassSlice) Last() (v InputWallPaperClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWallPaperClassSlice) PopFirst() (v InputWallPaperClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWallPaperClassSlice) Pop() (v InputWallPaperClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

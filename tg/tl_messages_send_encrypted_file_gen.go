@@ -81,6 +81,20 @@ func (s *MessagesSendEncryptedFileRequest) String() string {
 	return fmt.Sprintf("MessagesSendEncryptedFileRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSendEncryptedFileRequest from given interface.
+func (s *MessagesSendEncryptedFileRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetPeer() (value InputEncryptedChat)
+	GetRandomID() (value int64)
+	GetData() (value []byte)
+	GetFile() (value InputEncryptedFileClass)
+}) {
+	s.Peer = from.GetPeer()
+	s.RandomID = from.GetRandomID()
+	s.Data = from.GetData()
+	s.File = from.GetFile()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendEncryptedFileRequest) TypeID() uint32 {
@@ -147,6 +161,11 @@ func (s *MessagesSendEncryptedFileRequest) GetData() (value []byte) {
 // GetFile returns value of File field.
 func (s *MessagesSendEncryptedFileRequest) GetFile() (value InputEncryptedFileClass) {
 	return s.File
+}
+
+// GetFileAsNotEmpty returns mapped value of File field.
+func (s *MessagesSendEncryptedFileRequest) GetFileAsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
+	return s.File.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

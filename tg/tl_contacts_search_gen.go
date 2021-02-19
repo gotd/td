@@ -55,6 +55,15 @@ func (s *ContactsSearchRequest) String() string {
 	return fmt.Sprintf("ContactsSearchRequest%+v", Alias(*s))
 }
 
+// FillFrom fills ContactsSearchRequest from given interface.
+func (s *ContactsSearchRequest) FillFrom(from interface {
+	GetQ() (value string)
+	GetLimit() (value int)
+}) {
+	s.Q = from.GetQ()
+	s.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ContactsSearchRequest) TypeID() uint32 {

@@ -65,6 +65,15 @@ func (s *AccountSaveSecureValueRequest) String() string {
 	return fmt.Sprintf("AccountSaveSecureValueRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSaveSecureValueRequest from given interface.
+func (s *AccountSaveSecureValueRequest) FillFrom(from interface {
+	GetValue() (value InputSecureValue)
+	GetSecureSecretID() (value int64)
+}) {
+	s.Value = from.GetValue()
+	s.SecureSecretID = from.GetSecureSecretID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveSecureValueRequest) TypeID() uint32 {

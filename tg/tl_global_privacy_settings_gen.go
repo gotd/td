@@ -60,6 +60,15 @@ func (g *GlobalPrivacySettings) String() string {
 	return fmt.Sprintf("GlobalPrivacySettings%+v", Alias(*g))
 }
 
+// FillFrom fills GlobalPrivacySettings from given interface.
+func (g *GlobalPrivacySettings) FillFrom(from interface {
+	GetArchiveAndMuteNewNoncontactPeers() (value bool, ok bool)
+}) {
+	if val, ok := from.GetArchiveAndMuteNewNoncontactPeers(); ok {
+		g.ArchiveAndMuteNewNoncontactPeers = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GlobalPrivacySettings) TypeID() uint32 {

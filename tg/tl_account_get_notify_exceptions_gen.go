@@ -65,6 +65,16 @@ func (g *AccountGetNotifyExceptionsRequest) String() string {
 	return fmt.Sprintf("AccountGetNotifyExceptionsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetNotifyExceptionsRequest from given interface.
+func (g *AccountGetNotifyExceptionsRequest) FillFrom(from interface {
+	GetCompareSound() (value bool)
+	GetPeer() (value InputNotifyPeerClass, ok bool)
+}) {
+	if val, ok := from.GetPeer(); ok {
+		g.Peer = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetNotifyExceptionsRequest) TypeID() uint32 {

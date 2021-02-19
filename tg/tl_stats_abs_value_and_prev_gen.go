@@ -55,6 +55,15 @@ func (s *StatsAbsValueAndPrev) String() string {
 	return fmt.Sprintf("StatsAbsValueAndPrev%+v", Alias(*s))
 }
 
+// FillFrom fills StatsAbsValueAndPrev from given interface.
+func (s *StatsAbsValueAndPrev) FillFrom(from interface {
+	GetCurrent() (value float64)
+	GetPrevious() (value float64)
+}) {
+	s.Current = from.GetCurrent()
+	s.Previous = from.GetPrevious()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsAbsValueAndPrev) TypeID() uint32 {

@@ -63,6 +63,14 @@ func (m *MessagesMarkDialogUnreadRequest) String() string {
 	return fmt.Sprintf("MessagesMarkDialogUnreadRequest%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMarkDialogUnreadRequest from given interface.
+func (m *MessagesMarkDialogUnreadRequest) FillFrom(from interface {
+	GetUnread() (value bool)
+	GetPeer() (value InputDialogPeerClass)
+}) {
+	m.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMarkDialogUnreadRequest) TypeID() uint32 {

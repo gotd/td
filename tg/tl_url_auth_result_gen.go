@@ -74,6 +74,16 @@ func (u *UrlAuthResultRequest) String() string {
 	return fmt.Sprintf("UrlAuthResultRequest%+v", Alias(*u))
 }
 
+// FillFrom fills UrlAuthResultRequest from given interface.
+func (u *UrlAuthResultRequest) FillFrom(from interface {
+	GetRequestWriteAccess() (value bool)
+	GetBot() (value UserClass)
+	GetDomain() (value string)
+}) {
+	u.Bot = from.GetBot()
+	u.Domain = from.GetDomain()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultRequest) TypeID() uint32 {
@@ -203,6 +213,13 @@ func (u *UrlAuthResultAccepted) String() string {
 	}
 	type Alias UrlAuthResultAccepted
 	return fmt.Sprintf("UrlAuthResultAccepted%+v", Alias(*u))
+}
+
+// FillFrom fills UrlAuthResultAccepted from given interface.
+func (u *UrlAuthResultAccepted) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	u.URL = from.GetURL()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -408,4 +425,55 @@ func (b *UrlAuthResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UrlAuthResultClass as nil")
 	}
 	return b.UrlAuthResult.Encode(buf)
+}
+
+// UrlAuthResultClassSlice is adapter for slice of UrlAuthResultClass.
+type UrlAuthResultClassSlice []UrlAuthResultClass
+
+// First returns first element of slice (if exists).
+func (s UrlAuthResultClassSlice) First() (v UrlAuthResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UrlAuthResultClassSlice) Last() (v UrlAuthResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UrlAuthResultClassSlice) PopFirst() (v UrlAuthResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UrlAuthResultClassSlice) Pop() (v UrlAuthResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

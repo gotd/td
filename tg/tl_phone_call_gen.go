@@ -50,6 +50,13 @@ func (p *PhoneCallEmpty) String() string {
 	return fmt.Sprintf("PhoneCallEmpty%+v", Alias(*p))
 }
 
+// FillFrom fills PhoneCallEmpty from given interface.
+func (p *PhoneCallEmpty) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	p.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallEmpty) TypeID() uint32 {
@@ -175,6 +182,28 @@ func (p *PhoneCallWaiting) String() string {
 	}
 	type Alias PhoneCallWaiting
 	return fmt.Sprintf("PhoneCallWaiting%+v", Alias(*p))
+}
+
+// FillFrom fills PhoneCallWaiting from given interface.
+func (p *PhoneCallWaiting) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetProtocol() (value PhoneCallProtocol)
+	GetReceiveDate() (value int, ok bool)
+}) {
+	p.ID = from.GetID()
+	p.AccessHash = from.GetAccessHash()
+	p.Date = from.GetDate()
+	p.AdminID = from.GetAdminID()
+	p.ParticipantID = from.GetParticipantID()
+	p.Protocol = from.GetProtocol()
+	if val, ok := from.GetReceiveDate(); ok {
+		p.ReceiveDate = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -426,6 +455,26 @@ func (p *PhoneCallRequested) String() string {
 	return fmt.Sprintf("PhoneCallRequested%+v", Alias(*p))
 }
 
+// FillFrom fills PhoneCallRequested from given interface.
+func (p *PhoneCallRequested) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetGAHash() (value []byte)
+	GetProtocol() (value PhoneCallProtocol)
+}) {
+	p.ID = from.GetID()
+	p.AccessHash = from.GetAccessHash()
+	p.Date = from.GetDate()
+	p.AdminID = from.GetAdminID()
+	p.ParticipantID = from.GetParticipantID()
+	p.GAHash = from.GetGAHash()
+	p.Protocol = from.GetProtocol()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallRequested) TypeID() uint32 {
@@ -658,6 +707,26 @@ func (p *PhoneCallAccepted) String() string {
 	}
 	type Alias PhoneCallAccepted
 	return fmt.Sprintf("PhoneCallAccepted%+v", Alias(*p))
+}
+
+// FillFrom fills PhoneCallAccepted from given interface.
+func (p *PhoneCallAccepted) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetGB() (value []byte)
+	GetProtocol() (value PhoneCallProtocol)
+}) {
+	p.ID = from.GetID()
+	p.AccessHash = from.GetAccessHash()
+	p.Date = from.GetDate()
+	p.AdminID = from.GetAdminID()
+	p.ParticipantID = from.GetParticipantID()
+	p.GB = from.GetGB()
+	p.Protocol = from.GetProtocol()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -917,6 +986,33 @@ func (p *PhoneCall) String() string {
 	return fmt.Sprintf("PhoneCall%+v", Alias(*p))
 }
 
+// FillFrom fills PhoneCall from given interface.
+func (p *PhoneCall) FillFrom(from interface {
+	GetP2PAllowed() (value bool)
+	GetVideo() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetGAOrB() (value []byte)
+	GetKeyFingerprint() (value int64)
+	GetProtocol() (value PhoneCallProtocol)
+	GetConnections() (value []PhoneConnectionClass)
+	GetStartDate() (value int)
+}) {
+	p.ID = from.GetID()
+	p.AccessHash = from.GetAccessHash()
+	p.Date = from.GetDate()
+	p.AdminID = from.GetAdminID()
+	p.ParticipantID = from.GetParticipantID()
+	p.GAOrB = from.GetGAOrB()
+	p.KeyFingerprint = from.GetKeyFingerprint()
+	p.Protocol = from.GetProtocol()
+	p.Connections = from.GetConnections()
+	p.StartDate = from.GetStartDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCall) TypeID() uint32 {
@@ -1036,6 +1132,11 @@ func (p *PhoneCall) GetProtocol() (value PhoneCallProtocol) {
 // GetConnections returns value of Connections field.
 func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
 	return p.Connections
+}
+
+// MapConnections returns field Connections wrapped in PhoneConnectionClassSlice helper.
+func (p *PhoneCall) MapConnections() (value PhoneConnectionClassSlice) {
+	return PhoneConnectionClassSlice(p.Connections)
 }
 
 // GetStartDate returns value of StartDate field.
@@ -1219,6 +1320,24 @@ func (p *PhoneCallDiscarded) String() string {
 	}
 	type Alias PhoneCallDiscarded
 	return fmt.Sprintf("PhoneCallDiscarded%+v", Alias(*p))
+}
+
+// FillFrom fills PhoneCallDiscarded from given interface.
+func (p *PhoneCallDiscarded) FillFrom(from interface {
+	GetNeedRating() (value bool)
+	GetNeedDebug() (value bool)
+	GetVideo() (value bool)
+	GetID() (value int64)
+	GetReason() (value PhoneCallDiscardReasonClass, ok bool)
+	GetDuration() (value int, ok bool)
+}) {
+	p.ID = from.GetID()
+	if val, ok := from.GetReason(); ok {
+		p.Reason = val
+	}
+	if val, ok := from.GetDuration(); ok {
+		p.Duration = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1426,6 +1545,9 @@ type PhoneCallClass interface {
 	// Call ID
 	GetID() (value int64)
 
+	// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+	AsNotEmpty() (NotEmptyPhoneCall, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -1433,6 +1555,62 @@ type PhoneCallClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyPhoneCall represents NotEmpty subset of PhoneCallClass.
+type NotEmptyPhoneCall interface {
+	bin.Encoder
+	bin.Decoder
+	construct() PhoneCallClass
+
+	// Is this a video call
+	GetVideo() (value bool)
+	// Call ID
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCallEmpty) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCallWaiting) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCallRequested) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCallAccepted) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCall) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+func (p *PhoneCallDiscarded) AsNotEmpty() (NotEmptyPhoneCall, bool) {
+	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
+	return value, ok
 }
 
 // DecodePhoneCall implements binary de-serialization for PhoneCallClass.
@@ -1513,4 +1691,92 @@ func (b *PhoneCallBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhoneCallClass as nil")
 	}
 	return b.PhoneCall.Encode(buf)
+}
+
+// PhoneCallClassSlice is adapter for slice of PhoneCallClass.
+type PhoneCallClassSlice []PhoneCallClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s PhoneCallClassSlice) AppendOnlyNotEmpty(to []NotEmptyPhoneCall) []NotEmptyPhoneCall {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s PhoneCallClassSlice) AsNotEmpty() (to []NotEmptyPhoneCall) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s PhoneCallClassSlice) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s PhoneCallClassSlice) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallClassSlice) First() (v PhoneCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallClassSlice) Last() (v PhoneCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallClassSlice) PopFirst() (v PhoneCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallClassSlice) Pop() (v PhoneCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

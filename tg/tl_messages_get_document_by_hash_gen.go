@@ -60,6 +60,17 @@ func (g *MessagesGetDocumentByHashRequest) String() string {
 	return fmt.Sprintf("MessagesGetDocumentByHashRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetDocumentByHashRequest from given interface.
+func (g *MessagesGetDocumentByHashRequest) FillFrom(from interface {
+	GetSHA256() (value []byte)
+	GetSize() (value int)
+	GetMimeType() (value string)
+}) {
+	g.SHA256 = from.GetSHA256()
+	g.Size = from.GetSize()
+	g.MimeType = from.GetMimeType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDocumentByHashRequest) TypeID() uint32 {

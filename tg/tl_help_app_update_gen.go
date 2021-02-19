@@ -95,6 +95,28 @@ func (a *HelpAppUpdate) String() string {
 	return fmt.Sprintf("HelpAppUpdate%+v", Alias(*a))
 }
 
+// FillFrom fills HelpAppUpdate from given interface.
+func (a *HelpAppUpdate) FillFrom(from interface {
+	GetCanNotSkip() (value bool)
+	GetID() (value int)
+	GetVersion() (value string)
+	GetText() (value string)
+	GetEntities() (value []MessageEntityClass)
+	GetDocument() (value DocumentClass, ok bool)
+	GetURL() (value string, ok bool)
+}) {
+	a.ID = from.GetID()
+	a.Version = from.GetVersion()
+	a.Text = from.GetText()
+	a.Entities = from.GetEntities()
+	if val, ok := from.GetDocument(); ok {
+		a.Document = val
+	}
+	if val, ok := from.GetURL(); ok {
+		a.URL = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *HelpAppUpdate) TypeID() uint32 {
@@ -179,6 +201,11 @@ func (a *HelpAppUpdate) GetText() (value string) {
 // GetEntities returns value of Entities field.
 func (a *HelpAppUpdate) GetEntities() (value []MessageEntityClass) {
 	return a.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (a *HelpAppUpdate) MapEntities() (value MessageEntityClassSlice) {
+	return MessageEntityClassSlice(a.Entities)
 }
 
 // SetDocument sets value of Document conditional field.
@@ -429,4 +456,55 @@ func (b *HelpAppUpdateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpAppUpdateClass as nil")
 	}
 	return b.AppUpdate.Encode(buf)
+}
+
+// HelpAppUpdateClassSlice is adapter for slice of HelpAppUpdateClass.
+type HelpAppUpdateClassSlice []HelpAppUpdateClass
+
+// First returns first element of slice (if exists).
+func (s HelpAppUpdateClassSlice) First() (v HelpAppUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpAppUpdateClassSlice) Last() (v HelpAppUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpAppUpdateClassSlice) PopFirst() (v HelpAppUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpAppUpdateClassSlice) Pop() (v HelpAppUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

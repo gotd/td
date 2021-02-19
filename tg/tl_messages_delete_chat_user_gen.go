@@ -65,6 +65,16 @@ func (d *MessagesDeleteChatUserRequest) String() string {
 	return fmt.Sprintf("MessagesDeleteChatUserRequest%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDeleteChatUserRequest from given interface.
+func (d *MessagesDeleteChatUserRequest) FillFrom(from interface {
+	GetRevokeHistory() (value bool)
+	GetChatID() (value int)
+	GetUserID() (value InputUserClass)
+}) {
+	d.ChatID = from.GetChatID()
+	d.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteChatUserRequest) TypeID() uint32 {

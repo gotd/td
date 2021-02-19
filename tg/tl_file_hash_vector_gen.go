@@ -47,6 +47,13 @@ func (vec *FileHashVector) String() string {
 	return fmt.Sprintf("FileHashVector%+v", Alias(*vec))
 }
 
+// FillFrom fills FileHashVector from given interface.
+func (vec *FileHashVector) FillFrom(from interface {
+	GetElems() (value []FileHash)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *FileHashVector) TypeID() uint32 {

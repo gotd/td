@@ -70,6 +70,21 @@ func (a *AccountAcceptAuthorizationRequest) String() string {
 	return fmt.Sprintf("AccountAcceptAuthorizationRequest%+v", Alias(*a))
 }
 
+// FillFrom fills AccountAcceptAuthorizationRequest from given interface.
+func (a *AccountAcceptAuthorizationRequest) FillFrom(from interface {
+	GetBotID() (value int)
+	GetScope() (value string)
+	GetPublicKey() (value string)
+	GetValueHashes() (value []SecureValueHash)
+	GetCredentials() (value SecureCredentialsEncrypted)
+}) {
+	a.BotID = from.GetBotID()
+	a.Scope = from.GetScope()
+	a.PublicKey = from.GetPublicKey()
+	a.ValueHashes = from.GetValueHashes()
+	a.Credentials = from.GetCredentials()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountAcceptAuthorizationRequest) TypeID() uint32 {

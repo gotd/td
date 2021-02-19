@@ -54,6 +54,13 @@ func (s *StatsGraphAsync) String() string {
 	return fmt.Sprintf("StatsGraphAsync%+v", Alias(*s))
 }
 
+// FillFrom fills StatsGraphAsync from given interface.
+func (s *StatsGraphAsync) FillFrom(from interface {
+	GetToken() (value string)
+}) {
+	s.Token = from.GetToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraphAsync) TypeID() uint32 {
@@ -137,6 +144,13 @@ func (s *StatsGraphError) String() string {
 	}
 	type Alias StatsGraphError
 	return fmt.Sprintf("StatsGraphError%+v", Alias(*s))
+}
+
+// FillFrom fills StatsGraphError from given interface.
+func (s *StatsGraphError) FillFrom(from interface {
+	GetError() (value string)
+}) {
+	s.Error = from.GetError()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -237,6 +251,17 @@ func (s *StatsGraph) String() string {
 	}
 	type Alias StatsGraph
 	return fmt.Sprintf("StatsGraph%+v", Alias(*s))
+}
+
+// FillFrom fills StatsGraph from given interface.
+func (s *StatsGraph) FillFrom(from interface {
+	GetJSON() (value DataJSON)
+	GetZoomToken() (value string, ok bool)
+}) {
+	s.JSON = from.GetJSON()
+	if val, ok := from.GetZoomToken(); ok {
+		s.ZoomToken = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -411,4 +436,55 @@ func (b *StatsGraphBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StatsGraphClass as nil")
 	}
 	return b.StatsGraph.Encode(buf)
+}
+
+// StatsGraphClassSlice is adapter for slice of StatsGraphClass.
+type StatsGraphClassSlice []StatsGraphClass
+
+// First returns first element of slice (if exists).
+func (s StatsGraphClassSlice) First() (v StatsGraphClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StatsGraphClassSlice) Last() (v StatsGraphClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StatsGraphClassSlice) PopFirst() (v StatsGraphClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StatsGraphClassSlice) Pop() (v StatsGraphClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

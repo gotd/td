@@ -60,6 +60,17 @@ func (i *MessagesInactiveChats) String() string {
 	return fmt.Sprintf("MessagesInactiveChats%+v", Alias(*i))
 }
 
+// FillFrom fills MessagesInactiveChats from given interface.
+func (i *MessagesInactiveChats) FillFrom(from interface {
+	GetDates() (value []int)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	i.Dates = from.GetDates()
+	i.Chats = from.GetChats()
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *MessagesInactiveChats) TypeID() uint32 {
@@ -107,9 +118,19 @@ func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
 	return i.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (i *MessagesInactiveChats) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(i.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (i *MessagesInactiveChats) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.

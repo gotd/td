@@ -76,6 +76,17 @@ func (p *PollAnswerVoters) String() string {
 	return fmt.Sprintf("PollAnswerVoters%+v", Alias(*p))
 }
 
+// FillFrom fills PollAnswerVoters from given interface.
+func (p *PollAnswerVoters) FillFrom(from interface {
+	GetChosen() (value bool)
+	GetCorrect() (value bool)
+	GetOption() (value []byte)
+	GetVoters() (value int)
+}) {
+	p.Option = from.GetOption()
+	p.Voters = from.GetVoters()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollAnswerVoters) TypeID() uint32 {

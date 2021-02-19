@@ -124,6 +124,39 @@ func (s *StickerSet) String() string {
 	return fmt.Sprintf("StickerSet%+v", Alias(*s))
 }
 
+// FillFrom fills StickerSet from given interface.
+func (s *StickerSet) FillFrom(from interface {
+	GetArchived() (value bool)
+	GetOfficial() (value bool)
+	GetMasks() (value bool)
+	GetAnimated() (value bool)
+	GetInstalledDate() (value int, ok bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetTitle() (value string)
+	GetShortName() (value string)
+	GetThumbs() (value []PhotoSizeClass, ok bool)
+	GetThumbDCID() (value int, ok bool)
+	GetCount() (value int)
+	GetHash() (value int)
+}) {
+	if val, ok := from.GetInstalledDate(); ok {
+		s.InstalledDate = val
+	}
+	s.ID = from.GetID()
+	s.AccessHash = from.GetAccessHash()
+	s.Title = from.GetTitle()
+	s.ShortName = from.GetShortName()
+	if val, ok := from.GetThumbs(); ok {
+		s.Thumbs = val
+	}
+	if val, ok := from.GetThumbDCID(); ok {
+		s.ThumbDCID = val
+	}
+	s.Count = from.GetCount()
+	s.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSet) TypeID() uint32 {
@@ -298,6 +331,14 @@ func (s *StickerSet) GetThumbs() (value []PhotoSizeClass, ok bool) {
 		return value, false
 	}
 	return s.Thumbs, true
+}
+
+// MapThumbs returns field Thumbs wrapped in PhotoSizeClassSlice helper.
+func (s *StickerSet) MapThumbs() (value PhotoSizeClassSlice, ok bool) {
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return PhotoSizeClassSlice(s.Thumbs), true
 }
 
 // SetThumbDCID sets value of ThumbDCID conditional field.

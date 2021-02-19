@@ -63,6 +63,17 @@ func (s *StatsGroupTopPoster) String() string {
 	return fmt.Sprintf("StatsGroupTopPoster%+v", Alias(*s))
 }
 
+// FillFrom fills StatsGroupTopPoster from given interface.
+func (s *StatsGroupTopPoster) FillFrom(from interface {
+	GetUserID() (value int)
+	GetMessages() (value int)
+	GetAvgChars() (value int)
+}) {
+	s.UserID = from.GetUserID()
+	s.Messages = from.GetMessages()
+	s.AvgChars = from.GetAvgChars()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopPoster) TypeID() uint32 {

@@ -130,6 +130,17 @@ func (i *InputPhoto) String() string {
 	return fmt.Sprintf("InputPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputPhoto from given interface.
+func (i *InputPhoto) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+	i.FileReference = from.GetFileReference()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoto) TypeID() uint32 {
@@ -225,6 +236,9 @@ type InputPhotoClass interface {
 	bin.Decoder
 	construct() InputPhotoClass
 
+	// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+	AsNotEmpty() (*InputPhoto, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -232,6 +246,16 @@ type InputPhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+func (i *InputPhotoEmpty) AsNotEmpty() (*InputPhoto, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+func (i *InputPhoto) AsNotEmpty() (*InputPhoto, bool) {
+	return i, true
 }
 
 // DecodeInputPhoto implements binary de-serialization for InputPhotoClass.
@@ -284,4 +308,92 @@ func (b *InputPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPhotoClass as nil")
 	}
 	return b.InputPhoto.Encode(buf)
+}
+
+// InputPhotoClassSlice is adapter for slice of InputPhotoClass.
+type InputPhotoClassSlice []InputPhotoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s InputPhotoClassSlice) AppendOnlyNotEmpty(to []*InputPhoto) []*InputPhoto {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s InputPhotoClassSlice) AsNotEmpty() (to []*InputPhoto) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s InputPhotoClassSlice) FirstAsNotEmpty() (v *InputPhoto, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s InputPhotoClassSlice) LastAsNotEmpty() (v *InputPhoto, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s InputPhotoClassSlice) First() (v InputPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPhotoClassSlice) Last() (v InputPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPhotoClassSlice) PopFirst() (v InputPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPhotoClassSlice) Pop() (v InputPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

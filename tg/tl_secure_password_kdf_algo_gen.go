@@ -114,6 +114,13 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) String() string {
 	return fmt.Sprintf("SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000%+v", Alias(*s))
 }
 
+// FillFrom fills SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 from given interface.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) FillFrom(from interface {
+	GetSalt() (value []byte)
+}) {
+	s.Salt = from.GetSalt()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
@@ -196,6 +203,13 @@ func (s *SecurePasswordKdfAlgoSHA512) String() string {
 	}
 	type Alias SecurePasswordKdfAlgoSHA512
 	return fmt.Sprintf("SecurePasswordKdfAlgoSHA512%+v", Alias(*s))
+}
+
+// FillFrom fills SecurePasswordKdfAlgoSHA512 from given interface.
+func (s *SecurePasswordKdfAlgoSHA512) FillFrom(from interface {
+	GetSalt() (value []byte)
+}) {
+	s.Salt = from.GetSalt()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -334,4 +348,55 @@ func (b *SecurePasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecurePasswordKdfAlgoClass as nil")
 	}
 	return b.SecurePasswordKdfAlgo.Encode(buf)
+}
+
+// SecurePasswordKdfAlgoClassSlice is adapter for slice of SecurePasswordKdfAlgoClass.
+type SecurePasswordKdfAlgoClassSlice []SecurePasswordKdfAlgoClass
+
+// First returns first element of slice (if exists).
+func (s SecurePasswordKdfAlgoClassSlice) First() (v SecurePasswordKdfAlgoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecurePasswordKdfAlgoClassSlice) Last() (v SecurePasswordKdfAlgoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoClassSlice) PopFirst() (v SecurePasswordKdfAlgoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoClassSlice) Pop() (v SecurePasswordKdfAlgoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -81,6 +81,27 @@ func (p *PeerNotifySettings) String() string {
 	return fmt.Sprintf("PeerNotifySettings%+v", Alias(*p))
 }
 
+// FillFrom fills PeerNotifySettings from given interface.
+func (p *PeerNotifySettings) FillFrom(from interface {
+	GetShowPreviews() (value bool, ok bool)
+	GetSilent() (value bool, ok bool)
+	GetMuteUntil() (value int, ok bool)
+	GetSound() (value string, ok bool)
+}) {
+	if val, ok := from.GetShowPreviews(); ok {
+		p.ShowPreviews = val
+	}
+	if val, ok := from.GetSilent(); ok {
+		p.Silent = val
+	}
+	if val, ok := from.GetMuteUntil(); ok {
+		p.MuteUntil = val
+	}
+	if val, ok := from.GetSound(); ok {
+		p.Sound = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerNotifySettings) TypeID() uint32 {

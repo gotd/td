@@ -58,6 +58,12 @@ func (c *MessagesClearRecentStickersRequest) String() string {
 	return fmt.Sprintf("MessagesClearRecentStickersRequest%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesClearRecentStickersRequest from given interface.
+func (c *MessagesClearRecentStickersRequest) FillFrom(from interface {
+	GetAttached() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesClearRecentStickersRequest) TypeID() uint32 {

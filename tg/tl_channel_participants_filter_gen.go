@@ -178,6 +178,13 @@ func (c *ChannelParticipantsKicked) String() string {
 	return fmt.Sprintf("ChannelParticipantsKicked%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelParticipantsKicked from given interface.
+func (c *ChannelParticipantsKicked) FillFrom(from interface {
+	GetQ() (value string)
+}) {
+	c.Q = from.GetQ()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsKicked) TypeID() uint32 {
@@ -324,6 +331,13 @@ func (c *ChannelParticipantsBanned) String() string {
 	return fmt.Sprintf("ChannelParticipantsBanned%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelParticipantsBanned from given interface.
+func (c *ChannelParticipantsBanned) FillFrom(from interface {
+	GetQ() (value string)
+}) {
+	c.Q = from.GetQ()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsBanned) TypeID() uint32 {
@@ -406,6 +420,13 @@ func (c *ChannelParticipantsSearch) String() string {
 	return fmt.Sprintf("ChannelParticipantsSearch%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelParticipantsSearch from given interface.
+func (c *ChannelParticipantsSearch) FillFrom(from interface {
+	GetQ() (value string)
+}) {
+	c.Q = from.GetQ()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsSearch) TypeID() uint32 {
@@ -486,6 +507,13 @@ func (c *ChannelParticipantsContacts) String() string {
 	}
 	type Alias ChannelParticipantsContacts
 	return fmt.Sprintf("ChannelParticipantsContacts%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantsContacts from given interface.
+func (c *ChannelParticipantsContacts) FillFrom(from interface {
+	GetQ() (value string)
+}) {
+	c.Q = from.GetQ()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -593,6 +621,19 @@ func (c *ChannelParticipantsMentions) String() string {
 	}
 	type Alias ChannelParticipantsMentions
 	return fmt.Sprintf("ChannelParticipantsMentions%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantsMentions from given interface.
+func (c *ChannelParticipantsMentions) FillFrom(from interface {
+	GetQ() (value string, ok bool)
+	GetTopMsgID() (value int, ok bool)
+}) {
+	if val, ok := from.GetQ(); ok {
+		c.Q = val
+	}
+	if val, ok := from.GetTopMsgID(); ok {
+		c.TopMsgID = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -822,4 +863,55 @@ func (b *ChannelParticipantsFilterBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelParticipantsFilterClass as nil")
 	}
 	return b.ChannelParticipantsFilter.Encode(buf)
+}
+
+// ChannelParticipantsFilterClassSlice is adapter for slice of ChannelParticipantsFilterClass.
+type ChannelParticipantsFilterClassSlice []ChannelParticipantsFilterClass
+
+// First returns first element of slice (if exists).
+func (s ChannelParticipantsFilterClassSlice) First() (v ChannelParticipantsFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelParticipantsFilterClassSlice) Last() (v ChannelParticipantsFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelParticipantsFilterClassSlice) PopFirst() (v ChannelParticipantsFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelParticipantsFilterClassSlice) Pop() (v ChannelParticipantsFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

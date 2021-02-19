@@ -47,6 +47,13 @@ func (vec *EmojiLanguageVector) String() string {
 	return fmt.Sprintf("EmojiLanguageVector%+v", Alias(*vec))
 }
 
+// FillFrom fills EmojiLanguageVector from given interface.
+func (vec *EmojiLanguageVector) FillFrom(from interface {
+	GetElems() (value []EmojiLanguage)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *EmojiLanguageVector) TypeID() uint32 {

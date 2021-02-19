@@ -62,6 +62,17 @@ func (m *MessageEmpty) String() string {
 	return fmt.Sprintf("MessageEmpty%+v", Alias(*m))
 }
 
+// FillFrom fills MessageEmpty from given interface.
+func (m *MessageEmpty) FillFrom(from interface {
+	GetID() (value int)
+	GetPeerID() (value PeerClass, ok bool)
+}) {
+	m.ID = from.GetID()
+	if val, ok := from.GetPeerID(); ok {
+		m.PeerID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEmpty) TypeID() uint32 {
@@ -368,6 +379,84 @@ func (m *Message) String() string {
 	}
 	type Alias Message
 	return fmt.Sprintf("Message%+v", Alias(*m))
+}
+
+// FillFrom fills Message from given interface.
+func (m *Message) FillFrom(from interface {
+	GetOut() (value bool)
+	GetMentioned() (value bool)
+	GetMediaUnread() (value bool)
+	GetSilent() (value bool)
+	GetPost() (value bool)
+	GetFromScheduled() (value bool)
+	GetLegacy() (value bool)
+	GetEditHide() (value bool)
+	GetPinned() (value bool)
+	GetID() (value int)
+	GetFromID() (value PeerClass, ok bool)
+	GetPeerID() (value PeerClass)
+	GetFwdFrom() (value MessageFwdHeader, ok bool)
+	GetViaBotID() (value int, ok bool)
+	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetDate() (value int)
+	GetMessage() (value string)
+	GetMedia() (value MessageMediaClass, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetViews() (value int, ok bool)
+	GetForwards() (value int, ok bool)
+	GetReplies() (value MessageReplies, ok bool)
+	GetEditDate() (value int, ok bool)
+	GetPostAuthor() (value string, ok bool)
+	GetGroupedID() (value int64, ok bool)
+	GetRestrictionReason() (value []RestrictionReason, ok bool)
+}) {
+	m.ID = from.GetID()
+	if val, ok := from.GetFromID(); ok {
+		m.FromID = val
+	}
+	m.PeerID = from.GetPeerID()
+	if val, ok := from.GetFwdFrom(); ok {
+		m.FwdFrom = val
+	}
+	if val, ok := from.GetViaBotID(); ok {
+		m.ViaBotID = val
+	}
+	if val, ok := from.GetReplyTo(); ok {
+		m.ReplyTo = val
+	}
+	m.Date = from.GetDate()
+	m.Message = from.GetMessage()
+	if val, ok := from.GetMedia(); ok {
+		m.Media = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		m.ReplyMarkup = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		m.Entities = val
+	}
+	if val, ok := from.GetViews(); ok {
+		m.Views = val
+	}
+	if val, ok := from.GetForwards(); ok {
+		m.Forwards = val
+	}
+	if val, ok := from.GetReplies(); ok {
+		m.Replies = val
+	}
+	if val, ok := from.GetEditDate(); ok {
+		m.EditDate = val
+	}
+	if val, ok := from.GetPostAuthor(); ok {
+		m.PostAuthor = val
+	}
+	if val, ok := from.GetGroupedID(); ok {
+		m.GroupedID = val
+	}
+	if val, ok := from.GetRestrictionReason(); ok {
+		m.RestrictionReason = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -811,6 +900,14 @@ func (m *Message) GetEntities() (value []MessageEntityClass, ok bool) {
 	return m.Entities, true
 }
 
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (m *Message) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !m.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(m.Entities), true
+}
+
 // SetViews sets value of Views conditional field.
 func (m *Message) SetViews(value int) {
 	m.Flags.Set(10)
@@ -1183,6 +1280,33 @@ func (m *MessageService) String() string {
 	return fmt.Sprintf("MessageService%+v", Alias(*m))
 }
 
+// FillFrom fills MessageService from given interface.
+func (m *MessageService) FillFrom(from interface {
+	GetOut() (value bool)
+	GetMentioned() (value bool)
+	GetMediaUnread() (value bool)
+	GetSilent() (value bool)
+	GetPost() (value bool)
+	GetLegacy() (value bool)
+	GetID() (value int)
+	GetFromID() (value PeerClass, ok bool)
+	GetPeerID() (value PeerClass)
+	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetDate() (value int)
+	GetAction() (value MessageActionClass)
+}) {
+	m.ID = from.GetID()
+	if val, ok := from.GetFromID(); ok {
+		m.FromID = val
+	}
+	m.PeerID = from.GetPeerID()
+	if val, ok := from.GetReplyTo(); ok {
+		m.ReplyTo = val
+	}
+	m.Date = from.GetDate()
+	m.Action = from.GetAction()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageService) TypeID() uint32 {
@@ -1494,6 +1618,9 @@ type MessageClass interface {
 	// Message identifier
 	GetID() (value int)
 
+	// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+	AsNotEmpty() (NotEmptyMessage, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -1501,6 +1628,65 @@ type MessageClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyMessage represents NotEmpty subset of MessageClass.
+type NotEmptyMessage interface {
+	bin.Encoder
+	bin.Decoder
+	construct() MessageClass
+
+	// Is this an outgoing message
+	GetOut() (value bool)
+	// Whether we were mentioned¹ in this message
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/mentions
+	GetMentioned() (value bool)
+	// Whether there are unread media attachments in this message
+	GetMediaUnread() (value bool)
+	// Whether this is a silent message (no notification triggered)
+	GetSilent() (value bool)
+	// Whether this is a channel post
+	GetPost() (value bool)
+	// This is a legacy message: it has to be refetched with the new layer
+	GetLegacy() (value bool)
+	// ID of the message
+	GetID() (value int)
+	// ID of the sender of the message
+	GetFromID() (value PeerClass, ok bool)
+	// Peer ID, the chat where this message was sent
+	GetPeerID() (value PeerClass)
+	// Reply information
+	GetReplyTo() (value MessageReplyHeader, ok bool)
+	// Date of the message
+	GetDate() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+func (m *MessageEmpty) AsNotEmpty() (NotEmptyMessage, bool) {
+	value, ok := (MessageClass(m)).(NotEmptyMessage)
+	return value, ok
+}
+
+// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+func (m *Message) AsNotEmpty() (NotEmptyMessage, bool) {
+	value, ok := (MessageClass(m)).(NotEmptyMessage)
+	return value, ok
+}
+
+// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+func (m *MessageService) AsNotEmpty() (NotEmptyMessage, bool) {
+	value, ok := (MessageClass(m)).(NotEmptyMessage)
+	return value, ok
 }
 
 // DecodeMessage implements binary de-serialization for MessageClass.
@@ -1560,4 +1746,164 @@ func (b *MessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageClass as nil")
 	}
 	return b.Message.Encode(buf)
+}
+
+// MessageClassSlice is adapter for slice of MessageClass.
+type MessageClassSlice []MessageClass
+
+// FillMessageEmptyMap fills only MessageEmpty constructors to given map.
+func (s MessageClassSlice) FillMessageEmptyMap(to map[int]*MessageEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// MessageEmptyToMap collects only MessageEmpty constructors to map.
+func (s MessageClassSlice) MessageEmptyToMap() map[int]*MessageEmpty {
+	r := make(map[int]*MessageEmpty, len(s))
+	s.FillMessageEmptyMap(r)
+	return r
+}
+
+// FillMessageMap fills only Message constructors to given map.
+func (s MessageClassSlice) FillMessageMap(to map[int]*Message) {
+	for _, elem := range s {
+		value, ok := elem.(*Message)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// MessageToMap collects only Message constructors to map.
+func (s MessageClassSlice) MessageToMap() map[int]*Message {
+	r := make(map[int]*Message, len(s))
+	s.FillMessageMap(r)
+	return r
+}
+
+// FillMessageServiceMap fills only MessageService constructors to given map.
+func (s MessageClassSlice) FillMessageServiceMap(to map[int]*MessageService) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageService)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// MessageServiceToMap collects only MessageService constructors to map.
+func (s MessageClassSlice) MessageServiceToMap() map[int]*MessageService {
+	r := make(map[int]*MessageService, len(s))
+	s.FillMessageServiceMap(r)
+	return r
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s MessageClassSlice) FillNotEmptyMap(to map[int]NotEmptyMessage) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s MessageClassSlice) NotEmptyToMap() map[int]NotEmptyMessage {
+	r := make(map[int]NotEmptyMessage, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s MessageClassSlice) AppendOnlyNotEmpty(to []NotEmptyMessage) []NotEmptyMessage {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s MessageClassSlice) AsNotEmpty() (to []NotEmptyMessage) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s MessageClassSlice) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s MessageClassSlice) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s MessageClassSlice) First() (v MessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageClassSlice) Last() (v MessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageClassSlice) PopFirst() (v MessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageClassSlice) Pop() (v MessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

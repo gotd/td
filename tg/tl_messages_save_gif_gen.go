@@ -55,6 +55,15 @@ func (s *MessagesSaveGifRequest) String() string {
 	return fmt.Sprintf("MessagesSaveGifRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSaveGifRequest from given interface.
+func (s *MessagesSaveGifRequest) FillFrom(from interface {
+	GetID() (value InputDocumentClass)
+	GetUnsave() (value bool)
+}) {
+	s.ID = from.GetID()
+	s.Unsave = from.GetUnsave()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSaveGifRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (s *MessagesSaveGifRequest) GetID() (value InputDocumentClass) {
 	return s.ID
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (s *MessagesSaveGifRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return s.ID.AsNotEmpty()
 }
 
 // GetUnsave returns value of Unsave field.

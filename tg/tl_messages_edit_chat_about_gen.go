@@ -61,6 +61,15 @@ func (e *MessagesEditChatAboutRequest) String() string {
 	return fmt.Sprintf("MessagesEditChatAboutRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditChatAboutRequest from given interface.
+func (e *MessagesEditChatAboutRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetAbout() (value string)
+}) {
+	e.Peer = from.GetPeer()
+	e.About = from.GetAbout()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatAboutRequest) TypeID() uint32 {

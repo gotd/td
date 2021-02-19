@@ -50,6 +50,13 @@ func (g *MessagesGetPeerSettingsRequest) String() string {
 	return fmt.Sprintf("MessagesGetPeerSettingsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetPeerSettingsRequest from given interface.
+func (g *MessagesGetPeerSettingsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	g.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPeerSettingsRequest) TypeID() uint32 {

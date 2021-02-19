@@ -47,6 +47,13 @@ func (m *MsgsAck) String() string {
 	return fmt.Sprintf("MsgsAck%+v", Alias(*m))
 }
 
+// FillFrom fills MsgsAck from given interface.
+func (m *MsgsAck) FillFrom(from interface {
+	GetMsgIds() (value []int64)
+}) {
+	m.MsgIds = from.GetMsgIds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsAck) TypeID() uint32 {

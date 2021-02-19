@@ -50,6 +50,13 @@ func (u *PhotosUpdateProfilePhotoRequest) String() string {
 	return fmt.Sprintf("PhotosUpdateProfilePhotoRequest%+v", Alias(*u))
 }
 
+// FillFrom fills PhotosUpdateProfilePhotoRequest from given interface.
+func (u *PhotosUpdateProfilePhotoRequest) FillFrom(from interface {
+	GetID() (value InputPhotoClass)
+}) {
+	u.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *PhotosUpdateProfilePhotoRequest) TypeID() uint32 {
@@ -74,6 +81,11 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (u *PhotosUpdateProfilePhotoRequest) GetID() (value InputPhotoClass) {
 	return u.ID
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (u *PhotosUpdateProfilePhotoRequest) GetIDAsNotEmpty() (*InputPhoto, bool) {
+	return u.ID.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

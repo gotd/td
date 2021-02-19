@@ -68,6 +68,19 @@ func (i *InputFileLocation) String() string {
 	return fmt.Sprintf("InputFileLocation%+v", Alias(*i))
 }
 
+// FillFrom fills InputFileLocation from given interface.
+func (i *InputFileLocation) FillFrom(from interface {
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+	GetSecret() (value int64)
+	GetFileReference() (value []byte)
+}) {
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
+	i.Secret = from.GetSecret()
+	i.FileReference = from.GetFileReference()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFileLocation) TypeID() uint32 {
@@ -200,6 +213,15 @@ func (i *InputEncryptedFileLocation) String() string {
 	return fmt.Sprintf("InputEncryptedFileLocation%+v", Alias(*i))
 }
 
+// FillFrom fills InputEncryptedFileLocation from given interface.
+func (i *InputEncryptedFileLocation) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileLocation) TypeID() uint32 {
@@ -314,6 +336,19 @@ func (i *InputDocumentFileLocation) String() string {
 	}
 	type Alias InputDocumentFileLocation
 	return fmt.Sprintf("InputDocumentFileLocation%+v", Alias(*i))
+}
+
+// FillFrom fills InputDocumentFileLocation from given interface.
+func (i *InputDocumentFileLocation) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+	GetThumbSize() (value string)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+	i.FileReference = from.GetFileReference()
+	i.ThumbSize = from.GetThumbSize()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -449,6 +484,15 @@ func (i *InputSecureFileLocation) String() string {
 	}
 	type Alias InputSecureFileLocation
 	return fmt.Sprintf("InputSecureFileLocation%+v", Alias(*i))
+}
+
+// FillFrom fills InputSecureFileLocation from given interface.
+func (i *InputSecureFileLocation) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -641,6 +685,19 @@ func (i *InputPhotoFileLocation) String() string {
 	return fmt.Sprintf("InputPhotoFileLocation%+v", Alias(*i))
 }
 
+// FillFrom fills InputPhotoFileLocation from given interface.
+func (i *InputPhotoFileLocation) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+	GetThumbSize() (value string)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+	i.FileReference = from.GetFileReference()
+	i.ThumbSize = from.GetThumbSize()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoFileLocation) TypeID() uint32 {
@@ -785,6 +842,23 @@ func (i *InputPhotoLegacyFileLocation) String() string {
 	}
 	type Alias InputPhotoLegacyFileLocation
 	return fmt.Sprintf("InputPhotoLegacyFileLocation%+v", Alias(*i))
+}
+
+// FillFrom fills InputPhotoLegacyFileLocation from given interface.
+func (i *InputPhotoLegacyFileLocation) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+	GetSecret() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+	i.FileReference = from.GetFileReference()
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
+	i.Secret = from.GetSecret()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -963,6 +1037,18 @@ func (i *InputPeerPhotoFileLocation) String() string {
 	return fmt.Sprintf("InputPeerPhotoFileLocation%+v", Alias(*i))
 }
 
+// FillFrom fills InputPeerPhotoFileLocation from given interface.
+func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
+	GetBig() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerPhotoFileLocation) TypeID() uint32 {
@@ -1115,6 +1201,17 @@ func (i *InputStickerSetThumb) String() string {
 	}
 	type Alias InputStickerSetThumb
 	return fmt.Sprintf("InputStickerSetThumb%+v", Alias(*i))
+}
+
+// FillFrom fills InputStickerSetThumb from given interface.
+func (i *InputStickerSetThumb) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+}) {
+	i.Stickerset = from.GetStickerset()
+	i.VolumeID = from.GetVolumeID()
+	i.LocalID = from.GetLocalID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1332,4 +1429,55 @@ func (b *InputFileLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputFileLocationClass as nil")
 	}
 	return b.InputFileLocation.Encode(buf)
+}
+
+// InputFileLocationClassSlice is adapter for slice of InputFileLocationClass.
+type InputFileLocationClassSlice []InputFileLocationClass
+
+// First returns first element of slice (if exists).
+func (s InputFileLocationClassSlice) First() (v InputFileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileLocationClassSlice) Last() (v InputFileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileLocationClassSlice) PopFirst() (v InputFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileLocationClassSlice) Pop() (v InputFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

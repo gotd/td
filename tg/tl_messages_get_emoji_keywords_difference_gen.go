@@ -55,6 +55,15 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) String() string {
 	return fmt.Sprintf("MessagesGetEmojiKeywordsDifferenceRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetEmojiKeywordsDifferenceRequest from given interface.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) FillFrom(from interface {
+	GetLangCode() (value string)
+	GetFromVersion() (value int)
+}) {
+	g.LangCode = from.GetLangCode()
+	g.FromVersion = from.GetFromVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetEmojiKeywordsDifferenceRequest) TypeID() uint32 {

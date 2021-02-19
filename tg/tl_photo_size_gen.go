@@ -53,6 +53,13 @@ func (p *PhotoSizeEmpty) String() string {
 	return fmt.Sprintf("PhotoSizeEmpty%+v", Alias(*p))
 }
 
+// FillFrom fills PhotoSizeEmpty from given interface.
+func (p *PhotoSizeEmpty) FillFrom(from interface {
+	GetType() (value string)
+}) {
+	p.Type = from.GetType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoSizeEmpty) TypeID() uint32 {
@@ -153,6 +160,21 @@ func (p *PhotoSize) String() string {
 	}
 	type Alias PhotoSize
 	return fmt.Sprintf("PhotoSize%+v", Alias(*p))
+}
+
+// FillFrom fills PhotoSize from given interface.
+func (p *PhotoSize) FillFrom(from interface {
+	GetType() (value string)
+	GetLocation() (value FileLocationToBeDeprecated)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+}) {
+	p.Type = from.GetType()
+	p.Location = from.GetLocation()
+	p.W = from.GetW()
+	p.H = from.GetH()
+	p.Size = from.GetSize()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -309,6 +331,21 @@ func (p *PhotoCachedSize) String() string {
 	return fmt.Sprintf("PhotoCachedSize%+v", Alias(*p))
 }
 
+// FillFrom fills PhotoCachedSize from given interface.
+func (p *PhotoCachedSize) FillFrom(from interface {
+	GetType() (value string)
+	GetLocation() (value FileLocationToBeDeprecated)
+	GetW() (value int)
+	GetH() (value int)
+	GetBytes() (value []byte)
+}) {
+	p.Type = from.GetType()
+	p.Location = from.GetLocation()
+	p.W = from.GetW()
+	p.H = from.GetH()
+	p.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoCachedSize) TypeID() uint32 {
@@ -451,6 +488,15 @@ func (p *PhotoStrippedSize) String() string {
 	return fmt.Sprintf("PhotoStrippedSize%+v", Alias(*p))
 }
 
+// FillFrom fills PhotoStrippedSize from given interface.
+func (p *PhotoStrippedSize) FillFrom(from interface {
+	GetType() (value string)
+	GetBytes() (value []byte)
+}) {
+	p.Type = from.GetType()
+	p.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoStrippedSize) TypeID() uint32 {
@@ -564,6 +610,21 @@ func (p *PhotoSizeProgressive) String() string {
 	}
 	type Alias PhotoSizeProgressive
 	return fmt.Sprintf("PhotoSizeProgressive%+v", Alias(*p))
+}
+
+// FillFrom fills PhotoSizeProgressive from given interface.
+func (p *PhotoSizeProgressive) FillFrom(from interface {
+	GetType() (value string)
+	GetLocation() (value FileLocationToBeDeprecated)
+	GetW() (value int)
+	GetH() (value int)
+	GetSizes() (value []int)
+}) {
+	p.Type = from.GetType()
+	p.Location = from.GetLocation()
+	p.W = from.GetW()
+	p.H = from.GetH()
+	p.Sizes = from.GetSizes()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -717,6 +778,15 @@ func (p *PhotoPathSize) String() string {
 	return fmt.Sprintf("PhotoPathSize%+v", Alias(*p))
 }
 
+// FillFrom fills PhotoPathSize from given interface.
+func (p *PhotoPathSize) FillFrom(from interface {
+	GetType() (value string)
+	GetBytes() (value []byte)
+}) {
+	p.Type = from.GetType()
+	p.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoPathSize) TypeID() uint32 {
@@ -809,6 +879,9 @@ type PhotoSizeClass interface {
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
 
+	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+	AsNotEmpty() (NotEmptyPhotoSize, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -816,6 +889,60 @@ type PhotoSizeClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyPhotoSize represents NotEmpty subset of PhotoSizeClass.
+type NotEmptyPhotoSize interface {
+	bin.Encoder
+	bin.Decoder
+	construct() PhotoSizeClass
+
+	// Thumbnail type
+	GetType() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoSizeEmpty) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoCachedSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoStrippedSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoSizeProgressive) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
+}
+
+// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+func (p *PhotoPathSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
+	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
+	return value, ok
 }
 
 // DecodePhotoSize implements binary de-serialization for PhotoSizeClass.
@@ -896,4 +1023,92 @@ func (b *PhotoSizeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhotoSizeClass as nil")
 	}
 	return b.PhotoSize.Encode(buf)
+}
+
+// PhotoSizeClassSlice is adapter for slice of PhotoSizeClass.
+type PhotoSizeClassSlice []PhotoSizeClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s PhotoSizeClassSlice) AppendOnlyNotEmpty(to []NotEmptyPhotoSize) []NotEmptyPhotoSize {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s PhotoSizeClassSlice) AsNotEmpty() (to []NotEmptyPhotoSize) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s PhotoSizeClassSlice) FirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s PhotoSizeClassSlice) LastAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s PhotoSizeClassSlice) First() (v PhotoSizeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhotoSizeClassSlice) Last() (v PhotoSizeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhotoSizeClassSlice) PopFirst() (v PhotoSizeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhotoSizeClassSlice) Pop() (v PhotoSizeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

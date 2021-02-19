@@ -71,6 +71,19 @@ func (e *ChannelsEditAdminRequest) String() string {
 	return fmt.Sprintf("ChannelsEditAdminRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditAdminRequest from given interface.
+func (e *ChannelsEditAdminRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUserID() (value InputUserClass)
+	GetAdminRights() (value ChatAdminRights)
+	GetRank() (value string)
+}) {
+	e.Channel = from.GetChannel()
+	e.UserID = from.GetUserID()
+	e.AdminRights = from.GetAdminRights()
+	e.Rank = from.GetRank()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditAdminRequest) TypeID() uint32 {
@@ -105,6 +118,11 @@ func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditAdminRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditAdminRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
 }
 
 // GetUserID returns value of UserID field.

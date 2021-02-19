@@ -50,6 +50,13 @@ func (d *DocumentEmpty) String() string {
 	return fmt.Sprintf("DocumentEmpty%+v", Alias(*d))
 }
 
+// FillFrom fills DocumentEmpty from given interface.
+func (d *DocumentEmpty) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	d.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentEmpty) TypeID() uint32 {
@@ -192,6 +199,35 @@ func (d *Document) String() string {
 	return fmt.Sprintf("Document%+v", Alias(*d))
 }
 
+// FillFrom fills Document from given interface.
+func (d *Document) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+	GetDate() (value int)
+	GetMimeType() (value string)
+	GetSize() (value int)
+	GetThumbs() (value []PhotoSizeClass, ok bool)
+	GetVideoThumbs() (value []VideoSize, ok bool)
+	GetDCID() (value int)
+	GetAttributes() (value []DocumentAttributeClass)
+}) {
+	d.ID = from.GetID()
+	d.AccessHash = from.GetAccessHash()
+	d.FileReference = from.GetFileReference()
+	d.Date = from.GetDate()
+	d.MimeType = from.GetMimeType()
+	d.Size = from.GetSize()
+	if val, ok := from.GetThumbs(); ok {
+		d.Thumbs = val
+	}
+	if val, ok := from.GetVideoThumbs(); ok {
+		d.VideoThumbs = val
+	}
+	d.DCID = from.GetDCID()
+	d.Attributes = from.GetAttributes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Document) TypeID() uint32 {
@@ -296,6 +332,14 @@ func (d *Document) GetThumbs() (value []PhotoSizeClass, ok bool) {
 	return d.Thumbs, true
 }
 
+// MapThumbs returns field Thumbs wrapped in PhotoSizeClassSlice helper.
+func (d *Document) MapThumbs() (value PhotoSizeClassSlice, ok bool) {
+	if !d.Flags.Has(0) {
+		return value, false
+	}
+	return PhotoSizeClassSlice(d.Thumbs), true
+}
+
 // SetVideoThumbs sets value of VideoThumbs conditional field.
 func (d *Document) SetVideoThumbs(value []VideoSize) {
 	d.Flags.Set(1)
@@ -319,6 +363,11 @@ func (d *Document) GetDCID() (value int) {
 // GetAttributes returns value of Attributes field.
 func (d *Document) GetAttributes() (value []DocumentAttributeClass) {
 	return d.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (d *Document) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(d.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -458,6 +507,9 @@ type DocumentClass interface {
 	// Document ID or 0
 	GetID() (value int64)
 
+	// AsNotEmpty tries to map DocumentClass to Document.
+	AsNotEmpty() (*Document, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -465,6 +517,16 @@ type DocumentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map DocumentClass to Document.
+func (d *DocumentEmpty) AsNotEmpty() (*Document, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map DocumentClass to Document.
+func (d *Document) AsNotEmpty() (*Document, bool) {
+	return d, true
 }
 
 // DecodeDocument implements binary de-serialization for DocumentClass.
@@ -517,4 +579,92 @@ func (b *DocumentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DocumentClass as nil")
 	}
 	return b.Document.Encode(buf)
+}
+
+// DocumentClassSlice is adapter for slice of DocumentClass.
+type DocumentClassSlice []DocumentClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s DocumentClassSlice) AppendOnlyNotEmpty(to []*Document) []*Document {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s DocumentClassSlice) AsNotEmpty() (to []*Document) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s DocumentClassSlice) FirstAsNotEmpty() (v *Document, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s DocumentClassSlice) LastAsNotEmpty() (v *Document, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentClassSlice) First() (v DocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentClassSlice) Last() (v DocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentClassSlice) PopFirst() (v DocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentClassSlice) Pop() (v DocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

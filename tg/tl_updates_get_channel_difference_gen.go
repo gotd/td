@@ -81,6 +81,20 @@ func (g *UpdatesGetChannelDifferenceRequest) String() string {
 	return fmt.Sprintf("UpdatesGetChannelDifferenceRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UpdatesGetChannelDifferenceRequest from given interface.
+func (g *UpdatesGetChannelDifferenceRequest) FillFrom(from interface {
+	GetForce() (value bool)
+	GetChannel() (value InputChannelClass)
+	GetFilter() (value ChannelMessagesFilterClass)
+	GetPts() (value int)
+	GetLimit() (value int)
+}) {
+	g.Channel = from.GetChannel()
+	g.Filter = from.GetFilter()
+	g.Pts = from.GetPts()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UpdatesGetChannelDifferenceRequest) TypeID() uint32 {
@@ -137,9 +151,19 @@ func (g *UpdatesGetChannelDifferenceRequest) GetChannel() (value InputChannelCla
 	return g.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *UpdatesGetChannelDifferenceRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
 // GetFilter returns value of Filter field.
 func (g *UpdatesGetChannelDifferenceRequest) GetFilter() (value ChannelMessagesFilterClass) {
 	return g.Filter
+}
+
+// GetFilterAsNotEmpty returns mapped value of Filter field.
+func (g *UpdatesGetChannelDifferenceRequest) GetFilterAsNotEmpty() (*ChannelMessagesFilter, bool) {
+	return g.Filter.AsNotEmpty()
 }
 
 // GetPts returns value of Pts field.

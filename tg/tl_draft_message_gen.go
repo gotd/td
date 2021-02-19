@@ -60,6 +60,15 @@ func (d *DraftMessageEmpty) String() string {
 	return fmt.Sprintf("DraftMessageEmpty%+v", Alias(*d))
 }
 
+// FillFrom fills DraftMessageEmpty from given interface.
+func (d *DraftMessageEmpty) FillFrom(from interface {
+	GetDate() (value int, ok bool)
+}) {
+	if val, ok := from.GetDate(); ok {
+		d.Date = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessageEmpty) TypeID() uint32 {
@@ -203,6 +212,24 @@ func (d *DraftMessage) String() string {
 	return fmt.Sprintf("DraftMessage%+v", Alias(*d))
 }
 
+// FillFrom fills DraftMessage from given interface.
+func (d *DraftMessage) FillFrom(from interface {
+	GetNoWebpage() (value bool)
+	GetReplyToMsgID() (value int, ok bool)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetDate() (value int)
+}) {
+	if val, ok := from.GetReplyToMsgID(); ok {
+		d.ReplyToMsgID = val
+	}
+	d.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		d.Entities = val
+	}
+	d.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessage) TypeID() uint32 {
@@ -297,6 +324,14 @@ func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 	return d.Entities, true
 }
 
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (d *DraftMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !d.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassSlice(d.Entities), true
+}
+
 // GetDate returns value of Date field.
 func (d *DraftMessage) GetDate() (value int) {
 	return d.Date
@@ -383,6 +418,9 @@ type DraftMessageClass interface {
 	bin.Decoder
 	construct() DraftMessageClass
 
+	// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+	AsNotEmpty() (*DraftMessage, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -390,6 +428,16 @@ type DraftMessageClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+func (d *DraftMessageEmpty) AsNotEmpty() (*DraftMessage, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+func (d *DraftMessage) AsNotEmpty() (*DraftMessage, bool) {
+	return d, true
 }
 
 // DecodeDraftMessage implements binary de-serialization for DraftMessageClass.
@@ -442,4 +490,92 @@ func (b *DraftMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DraftMessageClass as nil")
 	}
 	return b.DraftMessage.Encode(buf)
+}
+
+// DraftMessageClassSlice is adapter for slice of DraftMessageClass.
+type DraftMessageClassSlice []DraftMessageClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s DraftMessageClassSlice) AppendOnlyNotEmpty(to []*DraftMessage) []*DraftMessage {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s DraftMessageClassSlice) AsNotEmpty() (to []*DraftMessage) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s DraftMessageClassSlice) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s DraftMessageClassSlice) LastAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s DraftMessageClassSlice) First() (v DraftMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DraftMessageClassSlice) Last() (v DraftMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DraftMessageClassSlice) PopFirst() (v DraftMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DraftMessageClassSlice) Pop() (v DraftMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

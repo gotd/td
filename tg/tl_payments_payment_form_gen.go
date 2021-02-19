@@ -120,6 +120,39 @@ func (p *PaymentsPaymentForm) String() string {
 	return fmt.Sprintf("PaymentsPaymentForm%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentsPaymentForm from given interface.
+func (p *PaymentsPaymentForm) FillFrom(from interface {
+	GetCanSaveCredentials() (value bool)
+	GetPasswordMissing() (value bool)
+	GetBotID() (value int)
+	GetInvoice() (value Invoice)
+	GetProviderID() (value int)
+	GetURL() (value string)
+	GetNativeProvider() (value string, ok bool)
+	GetNativeParams() (value DataJSON, ok bool)
+	GetSavedInfo() (value PaymentRequestedInfo, ok bool)
+	GetSavedCredentials() (value PaymentSavedCredentialsCard, ok bool)
+	GetUsers() (value []UserClass)
+}) {
+	p.BotID = from.GetBotID()
+	p.Invoice = from.GetInvoice()
+	p.ProviderID = from.GetProviderID()
+	p.URL = from.GetURL()
+	if val, ok := from.GetNativeProvider(); ok {
+		p.NativeProvider = val
+	}
+	if val, ok := from.GetNativeParams(); ok {
+		p.NativeParams = val
+	}
+	if val, ok := from.GetSavedInfo(); ok {
+		p.SavedInfo = val
+	}
+	if val, ok := from.GetSavedCredentials(); ok {
+		p.SavedCredentials = val
+	}
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentForm) TypeID() uint32 {
@@ -304,6 +337,11 @@ func (p *PaymentsPaymentForm) GetSavedCredentials() (value PaymentSavedCredentia
 // GetUsers returns value of Users field.
 func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PaymentsPaymentForm) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.

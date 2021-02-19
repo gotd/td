@@ -55,6 +55,15 @@ func (r *AccountReportPeerRequest) String() string {
 	return fmt.Sprintf("AccountReportPeerRequest%+v", Alias(*r))
 }
 
+// FillFrom fills AccountReportPeerRequest from given interface.
+func (r *AccountReportPeerRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetReason() (value ReportReasonClass)
+}) {
+	r.Peer = from.GetPeer()
+	r.Reason = from.GetReason()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountReportPeerRequest) TypeID() uint32 {

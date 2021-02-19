@@ -61,6 +61,17 @@ func (r *RestrictionReason) String() string {
 	return fmt.Sprintf("RestrictionReason%+v", Alias(*r))
 }
 
+// FillFrom fills RestrictionReason from given interface.
+func (r *RestrictionReason) FillFrom(from interface {
+	GetPlatform() (value string)
+	GetReason() (value string)
+	GetText() (value string)
+}) {
+	r.Platform = from.GetPlatform()
+	r.Reason = from.GetReason()
+	r.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RestrictionReason) TypeID() uint32 {

@@ -47,6 +47,13 @@ func (vec *LangPackStringClassVector) String() string {
 	return fmt.Sprintf("LangPackStringClassVector%+v", Alias(*vec))
 }
 
+// FillFrom fills LangPackStringClassVector from given interface.
+func (vec *LangPackStringClassVector) FillFrom(from interface {
+	GetElems() (value []LangPackStringClass)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *LangPackStringClassVector) TypeID() uint32 {
@@ -73,6 +80,11 @@ func (vec *LangPackStringClassVector) Encode(b *bin.Buffer) error {
 // GetElems returns value of Elems field.
 func (vec *LangPackStringClassVector) GetElems() (value []LangPackStringClass) {
 	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in LangPackStringClassSlice helper.
+func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassSlice) {
+	return LangPackStringClassSlice(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

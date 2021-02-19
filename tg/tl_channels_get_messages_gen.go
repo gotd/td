@@ -58,6 +58,15 @@ func (g *ChannelsGetMessagesRequest) String() string {
 	return fmt.Sprintf("ChannelsGetMessagesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ChannelsGetMessagesRequest from given interface.
+func (g *ChannelsGetMessagesRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetID() (value []InputMessageClass)
+}) {
+	g.Channel = from.GetChannel()
+	g.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetMessagesRequest) TypeID() uint32 {
@@ -93,9 +102,19 @@ func (g *ChannelsGetMessagesRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetMessagesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
 // GetID returns value of ID field.
 func (g *ChannelsGetMessagesRequest) GetID() (value []InputMessageClass) {
 	return g.ID
+}
+
+// MapID returns field ID wrapped in InputMessageClassSlice helper.
+func (g *ChannelsGetMessagesRequest) MapID() (value InputMessageClassSlice) {
+	return InputMessageClassSlice(g.ID)
 }
 
 // Decode implements bin.Decoder.

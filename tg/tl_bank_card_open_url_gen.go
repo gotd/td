@@ -55,6 +55,15 @@ func (b *BankCardOpenUrl) String() string {
 	return fmt.Sprintf("BankCardOpenUrl%+v", Alias(*b))
 }
 
+// FillFrom fills BankCardOpenUrl from given interface.
+func (b *BankCardOpenUrl) FillFrom(from interface {
+	GetURL() (value string)
+	GetName() (value string)
+}) {
+	b.URL = from.GetURL()
+	b.Name = from.GetName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BankCardOpenUrl) TypeID() uint32 {

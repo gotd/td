@@ -50,6 +50,13 @@ func (b *ContactsBlockRequest) String() string {
 	return fmt.Sprintf("ContactsBlockRequest%+v", Alias(*b))
 }
 
+// FillFrom fills ContactsBlockRequest from given interface.
+func (b *ContactsBlockRequest) FillFrom(from interface {
+	GetID() (value InputPeerClass)
+}) {
+	b.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockRequest) TypeID() uint32 {

@@ -58,6 +58,15 @@ func (g *MessagesGetSearchCountersRequest) String() string {
 	return fmt.Sprintf("MessagesGetSearchCountersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetSearchCountersRequest from given interface.
+func (g *MessagesGetSearchCountersRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetFilters() (value []MessagesFilterClass)
+}) {
+	g.Peer = from.GetPeer()
+	g.Filters = from.GetFilters()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetSearchCountersRequest) TypeID() uint32 {
@@ -96,6 +105,11 @@ func (g *MessagesGetSearchCountersRequest) GetPeer() (value InputPeerClass) {
 // GetFilters returns value of Filters field.
 func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterClass) {
 	return g.Filters
+}
+
+// MapFilters returns field Filters wrapped in MessagesFilterClassSlice helper.
+func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterClassSlice) {
+	return MessagesFilterClassSlice(g.Filters)
 }
 
 // Decode implements bin.Decoder.

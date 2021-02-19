@@ -137,6 +137,18 @@ func (d *HelpDeepLinkInfo) String() string {
 	return fmt.Sprintf("HelpDeepLinkInfo%+v", Alias(*d))
 }
 
+// FillFrom fills HelpDeepLinkInfo from given interface.
+func (d *HelpDeepLinkInfo) FillFrom(from interface {
+	GetUpdateApp() (value bool)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	d.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		d.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDeepLinkInfo) TypeID() uint32 {
@@ -209,6 +221,14 @@ func (d *HelpDeepLinkInfo) GetEntities() (value []MessageEntityClass, ok bool) {
 	return d.Entities, true
 }
 
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !d.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassSlice(d.Entities), true
+}
+
 // Decode implements bin.Decoder.
 func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 	if d == nil {
@@ -276,6 +296,9 @@ type HelpDeepLinkInfoClass interface {
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
 
+	// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+	AsNotEmpty() (*HelpDeepLinkInfo, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -283,6 +306,16 @@ type HelpDeepLinkInfoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+func (d *HelpDeepLinkInfoEmpty) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+func (d *HelpDeepLinkInfo) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
+	return d, true
 }
 
 // DecodeHelpDeepLinkInfo implements binary de-serialization for HelpDeepLinkInfoClass.
@@ -335,4 +368,92 @@ func (b *HelpDeepLinkInfoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpDeepLinkInfoClass as nil")
 	}
 	return b.DeepLinkInfo.Encode(buf)
+}
+
+// HelpDeepLinkInfoClassSlice is adapter for slice of HelpDeepLinkInfoClass.
+type HelpDeepLinkInfoClassSlice []HelpDeepLinkInfoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s HelpDeepLinkInfoClassSlice) AppendOnlyNotEmpty(to []*HelpDeepLinkInfo) []*HelpDeepLinkInfo {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s HelpDeepLinkInfoClassSlice) AsNotEmpty() (to []*HelpDeepLinkInfo) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s HelpDeepLinkInfoClassSlice) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s HelpDeepLinkInfoClassSlice) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpDeepLinkInfoClassSlice) First() (v HelpDeepLinkInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpDeepLinkInfoClassSlice) Last() (v HelpDeepLinkInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpDeepLinkInfoClassSlice) PopFirst() (v HelpDeepLinkInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpDeepLinkInfoClassSlice) Pop() (v HelpDeepLinkInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

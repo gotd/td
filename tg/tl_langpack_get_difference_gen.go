@@ -60,6 +60,17 @@ func (g *LangpackGetDifferenceRequest) String() string {
 	return fmt.Sprintf("LangpackGetDifferenceRequest%+v", Alias(*g))
 }
 
+// FillFrom fills LangpackGetDifferenceRequest from given interface.
+func (g *LangpackGetDifferenceRequest) FillFrom(from interface {
+	GetLangPack() (value string)
+	GetLangCode() (value string)
+	GetFromVersion() (value int)
+}) {
+	g.LangPack = from.GetLangPack()
+	g.LangCode = from.GetLangCode()
+	g.FromVersion = from.GetFromVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *LangpackGetDifferenceRequest) TypeID() uint32 {

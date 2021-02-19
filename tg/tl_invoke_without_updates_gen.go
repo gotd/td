@@ -54,6 +54,13 @@ func (i *InvokeWithoutUpdatesRequest) String() string {
 	return fmt.Sprintf("InvokeWithoutUpdatesRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InvokeWithoutUpdatesRequest from given interface.
+func (i *InvokeWithoutUpdatesRequest) FillFrom(from interface {
+	GetQuery() (value bin.Object)
+}) {
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeWithoutUpdatesRequest) TypeID() uint32 {

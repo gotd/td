@@ -50,6 +50,13 @@ func (d *PhotosDeletePhotosRequest) String() string {
 	return fmt.Sprintf("PhotosDeletePhotosRequest%+v", Alias(*d))
 }
 
+// FillFrom fills PhotosDeletePhotosRequest from given interface.
+func (d *PhotosDeletePhotosRequest) FillFrom(from interface {
+	GetID() (value []InputPhotoClass)
+}) {
+	d.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *PhotosDeletePhotosRequest) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
 	return d.ID
+}
+
+// MapID returns field ID wrapped in InputPhotoClassSlice helper.
+func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassSlice) {
+	return InputPhotoClassSlice(d.ID)
 }
 
 // Decode implements bin.Decoder.

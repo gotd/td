@@ -55,6 +55,15 @@ func (c *MessagesCreateChatRequest) String() string {
 	return fmt.Sprintf("MessagesCreateChatRequest%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesCreateChatRequest from given interface.
+func (c *MessagesCreateChatRequest) FillFrom(from interface {
+	GetUsers() (value []InputUserClass)
+	GetTitle() (value string)
+}) {
+	c.Users = from.GetUsers()
+	c.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesCreateChatRequest) TypeID() uint32 {
@@ -83,6 +92,11 @@ func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 // GetUsers returns value of Users field.
 func (c *MessagesCreateChatRequest) GetUsers() (value []InputUserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassSlice helper.
+func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassSlice) {
+	return InputUserClassSlice(c.Users)
 }
 
 // GetTitle returns value of Title field.

@@ -60,6 +60,17 @@ func (c *ChatParticipant) String() string {
 	return fmt.Sprintf("ChatParticipant%+v", Alias(*c))
 }
 
+// FillFrom fills ChatParticipant from given interface.
+func (c *ChatParticipant) FillFrom(from interface {
+	GetUserID() (value int)
+	GetInviterID() (value int)
+	GetDate() (value int)
+}) {
+	c.UserID = from.GetUserID()
+	c.InviterID = from.GetInviterID()
+	c.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipant) TypeID() uint32 {
@@ -168,6 +179,13 @@ func (c *ChatParticipantCreator) String() string {
 	return fmt.Sprintf("ChatParticipantCreator%+v", Alias(*c))
 }
 
+// FillFrom fills ChatParticipantCreator from given interface.
+func (c *ChatParticipantCreator) FillFrom(from interface {
+	GetUserID() (value int)
+}) {
+	c.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantCreator) TypeID() uint32 {
@@ -258,6 +276,17 @@ func (c *ChatParticipantAdmin) String() string {
 	}
 	type Alias ChatParticipantAdmin
 	return fmt.Sprintf("ChatParticipantAdmin%+v", Alias(*c))
+}
+
+// FillFrom fills ChatParticipantAdmin from given interface.
+func (c *ChatParticipantAdmin) FillFrom(from interface {
+	GetUserID() (value int)
+	GetInviterID() (value int)
+	GetDate() (value int)
+}) {
+	c.UserID = from.GetUserID()
+	c.InviterID = from.GetInviterID()
+	c.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -425,4 +454,55 @@ func (b *ChatParticipantBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatParticipantClass as nil")
 	}
 	return b.ChatParticipant.Encode(buf)
+}
+
+// ChatParticipantClassSlice is adapter for slice of ChatParticipantClass.
+type ChatParticipantClassSlice []ChatParticipantClass
+
+// First returns first element of slice (if exists).
+func (s ChatParticipantClassSlice) First() (v ChatParticipantClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatParticipantClassSlice) Last() (v ChatParticipantClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatParticipantClassSlice) PopFirst() (v ChatParticipantClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatParticipantClassSlice) Pop() (v ChatParticipantClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -53,6 +53,13 @@ func (t *HelpTermsOfServiceUpdateEmpty) String() string {
 	return fmt.Sprintf("HelpTermsOfServiceUpdateEmpty%+v", Alias(*t))
 }
 
+// FillFrom fills HelpTermsOfServiceUpdateEmpty from given interface.
+func (t *HelpTermsOfServiceUpdateEmpty) FillFrom(from interface {
+	GetExpires() (value int)
+}) {
+	t.Expires = from.GetExpires()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
@@ -146,6 +153,15 @@ func (t *HelpTermsOfServiceUpdate) String() string {
 	return fmt.Sprintf("HelpTermsOfServiceUpdate%+v", Alias(*t))
 }
 
+// FillFrom fills HelpTermsOfServiceUpdate from given interface.
+func (t *HelpTermsOfServiceUpdate) FillFrom(from interface {
+	GetExpires() (value int)
+	GetTermsOfService() (value HelpTermsOfService)
+}) {
+	t.Expires = from.GetExpires()
+	t.TermsOfService = from.GetTermsOfService()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
@@ -234,6 +250,9 @@ type HelpTermsOfServiceUpdateClass interface {
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
 	GetExpires() (value int)
 
+	// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
+	AsNotEmpty() (*HelpTermsOfServiceUpdate, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -241,6 +260,16 @@ type HelpTermsOfServiceUpdateClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
+func (t *HelpTermsOfServiceUpdateEmpty) AsNotEmpty() (*HelpTermsOfServiceUpdate, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
+func (t *HelpTermsOfServiceUpdate) AsNotEmpty() (*HelpTermsOfServiceUpdate, bool) {
+	return t, true
 }
 
 // DecodeHelpTermsOfServiceUpdate implements binary de-serialization for HelpTermsOfServiceUpdateClass.
@@ -293,4 +322,92 @@ func (b *HelpTermsOfServiceUpdateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpTermsOfServiceUpdateClass as nil")
 	}
 	return b.TermsOfServiceUpdate.Encode(buf)
+}
+
+// HelpTermsOfServiceUpdateClassSlice is adapter for slice of HelpTermsOfServiceUpdateClass.
+type HelpTermsOfServiceUpdateClassSlice []HelpTermsOfServiceUpdateClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s HelpTermsOfServiceUpdateClassSlice) AppendOnlyNotEmpty(to []*HelpTermsOfServiceUpdate) []*HelpTermsOfServiceUpdate {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s HelpTermsOfServiceUpdateClassSlice) AsNotEmpty() (to []*HelpTermsOfServiceUpdate) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassSlice) FirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassSlice) LastAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassSlice) First() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassSlice) Last() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateClassSlice) PopFirst() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateClassSlice) Pop() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

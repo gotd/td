@@ -58,6 +58,15 @@ func (g *HelpGetCountriesListRequest) String() string {
 	return fmt.Sprintf("HelpGetCountriesListRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetCountriesListRequest from given interface.
+func (g *HelpGetCountriesListRequest) FillFrom(from interface {
+	GetLangCode() (value string)
+	GetHash() (value int)
+}) {
+	g.LangCode = from.GetLangCode()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetCountriesListRequest) TypeID() uint32 {

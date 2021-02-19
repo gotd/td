@@ -64,6 +64,19 @@ func (d *DecryptedMessage8) String() string {
 	return fmt.Sprintf("DecryptedMessage8%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessage8 from given interface.
+func (d *DecryptedMessage8) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetRandomBytes() (value []byte)
+	GetMessage() (value string)
+	GetMedia() (value DecryptedMessageMediaClass)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.RandomBytes = from.GetRandomBytes()
+	d.Message = from.GetMessage()
+	d.Media = from.GetMedia()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage8) TypeID() uint32 {
@@ -199,6 +212,17 @@ func (d *DecryptedMessageService8) String() string {
 	return fmt.Sprintf("DecryptedMessageService8%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageService8 from given interface.
+func (d *DecryptedMessageService8) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetRandomBytes() (value []byte)
+	GetAction() (value DecryptedMessageActionClass)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.RandomBytes = from.GetRandomBytes()
+	d.Action = from.GetAction()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageService8) TypeID() uint32 {
@@ -324,6 +348,19 @@ func (d *DecryptedMessage23) String() string {
 	}
 	type Alias DecryptedMessage23
 	return fmt.Sprintf("DecryptedMessage23%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessage23 from given interface.
+func (d *DecryptedMessage23) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetTTL() (value int)
+	GetMessage() (value string)
+	GetMedia() (value DecryptedMessageMediaClass)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.TTL = from.GetTTL()
+	d.Message = from.GetMessage()
+	d.Media = from.GetMedia()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -454,6 +491,15 @@ func (d *DecryptedMessageService) String() string {
 	}
 	type Alias DecryptedMessageService
 	return fmt.Sprintf("DecryptedMessageService%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageService from given interface.
+func (d *DecryptedMessageService) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetAction() (value DecryptedMessageActionClass)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.Action = from.GetAction()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -598,6 +644,33 @@ func (d *DecryptedMessage46) String() string {
 	return fmt.Sprintf("DecryptedMessage46%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessage46 from given interface.
+func (d *DecryptedMessage46) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetTTL() (value int)
+	GetMessage() (value string)
+	GetMedia() (value DecryptedMessageMediaClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetViaBotName() (value string, ok bool)
+	GetReplyToRandomID() (value int64, ok bool)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.TTL = from.GetTTL()
+	d.Message = from.GetMessage()
+	if val, ok := from.GetMedia(); ok {
+		d.Media = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		d.Entities = val
+	}
+	if val, ok := from.GetViaBotName(); ok {
+		d.ViaBotName = val
+	}
+	if val, ok := from.GetReplyToRandomID(); ok {
+		d.ReplyToRandomID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage46) TypeID() uint32 {
@@ -699,6 +772,14 @@ func (d *DecryptedMessage46) GetEntities() (value []MessageEntityClass, ok bool)
 		return value, false
 	}
 	return d.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (d *DecryptedMessage46) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !d.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(d.Entities), true
 }
 
 // SetViaBotName sets value of ViaBotName conditional field.
@@ -899,6 +980,38 @@ func (d *DecryptedMessage) String() string {
 	return fmt.Sprintf("DecryptedMessage%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessage from given interface.
+func (d *DecryptedMessage) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetRandomID() (value int64)
+	GetTTL() (value int)
+	GetMessage() (value string)
+	GetMedia() (value DecryptedMessageMediaClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetViaBotName() (value string, ok bool)
+	GetReplyToRandomID() (value int64, ok bool)
+	GetGroupedID() (value int64, ok bool)
+}) {
+	d.RandomID = from.GetRandomID()
+	d.TTL = from.GetTTL()
+	d.Message = from.GetMessage()
+	if val, ok := from.GetMedia(); ok {
+		d.Media = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		d.Entities = val
+	}
+	if val, ok := from.GetViaBotName(); ok {
+		d.ViaBotName = val
+	}
+	if val, ok := from.GetReplyToRandomID(); ok {
+		d.ReplyToRandomID = val
+	}
+	if val, ok := from.GetGroupedID(); ok {
+		d.GroupedID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage) TypeID() uint32 {
@@ -1025,6 +1138,14 @@ func (d *DecryptedMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 		return value, false
 	}
 	return d.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (d *DecryptedMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !d.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(d.Entities), true
 }
 
 // SetViaBotName sets value of ViaBotName conditional field.
@@ -1275,4 +1396,55 @@ func (b *DecryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageClass as nil")
 	}
 	return b.DecryptedMessage.Encode(buf)
+}
+
+// DecryptedMessageClassSlice is adapter for slice of DecryptedMessageClass.
+type DecryptedMessageClassSlice []DecryptedMessageClass
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageClassSlice) First() (v DecryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageClassSlice) Last() (v DecryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageClassSlice) PopFirst() (v DecryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageClassSlice) Pop() (v DecryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -50,6 +50,13 @@ func (g *MessagesGetChatsRequest) String() string {
 	return fmt.Sprintf("MessagesGetChatsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetChatsRequest from given interface.
+func (g *MessagesGetChatsRequest) FillFrom(from interface {
+	GetID() (value []int)
+}) {
+	g.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetChatsRequest) TypeID() uint32 {

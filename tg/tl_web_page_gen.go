@@ -50,6 +50,13 @@ func (w *WebPageEmpty) String() string {
 	return fmt.Sprintf("WebPageEmpty%+v", Alias(*w))
 }
 
+// FillFrom fills WebPageEmpty from given interface.
+func (w *WebPageEmpty) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	w.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageEmpty) TypeID() uint32 {
@@ -135,6 +142,15 @@ func (w *WebPagePending) String() string {
 	}
 	type Alias WebPagePending
 	return fmt.Sprintf("WebPagePending%+v", Alias(*w))
+}
+
+// FillFrom fills WebPagePending from given interface.
+func (w *WebPagePending) FillFrom(from interface {
+	GetID() (value int64)
+	GetDate() (value int)
+}) {
+	w.ID = from.GetID()
+	w.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -357,6 +373,75 @@ func (w *WebPage) String() string {
 	}
 	type Alias WebPage
 	return fmt.Sprintf("WebPage%+v", Alias(*w))
+}
+
+// FillFrom fills WebPage from given interface.
+func (w *WebPage) FillFrom(from interface {
+	GetID() (value int64)
+	GetURL() (value string)
+	GetDisplayURL() (value string)
+	GetHash() (value int)
+	GetType() (value string, ok bool)
+	GetSiteName() (value string, ok bool)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetPhoto() (value PhotoClass, ok bool)
+	GetEmbedURL() (value string, ok bool)
+	GetEmbedType() (value string, ok bool)
+	GetEmbedWidth() (value int, ok bool)
+	GetEmbedHeight() (value int, ok bool)
+	GetDuration() (value int, ok bool)
+	GetAuthor() (value string, ok bool)
+	GetDocument() (value DocumentClass, ok bool)
+	GetCachedPage() (value Page, ok bool)
+	GetAttributes() (value []WebPageAttributeTheme, ok bool)
+}) {
+	w.ID = from.GetID()
+	w.URL = from.GetURL()
+	w.DisplayURL = from.GetDisplayURL()
+	w.Hash = from.GetHash()
+	if val, ok := from.GetType(); ok {
+		w.Type = val
+	}
+	if val, ok := from.GetSiteName(); ok {
+		w.SiteName = val
+	}
+	if val, ok := from.GetTitle(); ok {
+		w.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		w.Description = val
+	}
+	if val, ok := from.GetPhoto(); ok {
+		w.Photo = val
+	}
+	if val, ok := from.GetEmbedURL(); ok {
+		w.EmbedURL = val
+	}
+	if val, ok := from.GetEmbedType(); ok {
+		w.EmbedType = val
+	}
+	if val, ok := from.GetEmbedWidth(); ok {
+		w.EmbedWidth = val
+	}
+	if val, ok := from.GetEmbedHeight(); ok {
+		w.EmbedHeight = val
+	}
+	if val, ok := from.GetDuration(); ok {
+		w.Duration = val
+	}
+	if val, ok := from.GetAuthor(); ok {
+		w.Author = val
+	}
+	if val, ok := from.GetDocument(); ok {
+		w.Document = val
+	}
+	if val, ok := from.GetCachedPage(); ok {
+		w.CachedPage = val
+	}
+	if val, ok := from.GetAttributes(); ok {
+		w.Attributes = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -911,6 +996,15 @@ func (w *WebPageNotModified) String() string {
 	return fmt.Sprintf("WebPageNotModified%+v", Alias(*w))
 }
 
+// FillFrom fills WebPageNotModified from given interface.
+func (w *WebPageNotModified) FillFrom(from interface {
+	GetCachedPageViews() (value int, ok bool)
+}) {
+	if val, ok := from.GetCachedPageViews(); ok {
+		w.CachedPageViews = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageNotModified) TypeID() uint32 {
@@ -1005,6 +1099,9 @@ type WebPageClass interface {
 	bin.Decoder
 	construct() WebPageClass
 
+	// AsModified tries to map WebPageClass to ModifiedWebPage.
+	AsModified() (ModifiedWebPage, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -1012,6 +1109,48 @@ type WebPageClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// ModifiedWebPage represents Modified subset of WebPageClass.
+type ModifiedWebPage interface {
+	bin.Encoder
+	bin.Decoder
+	construct() WebPageClass
+
+	// Preview ID
+	GetID() (value int64)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsModified tries to map WebPageClass to ModifiedWebPage.
+func (w *WebPageEmpty) AsModified() (ModifiedWebPage, bool) {
+	value, ok := (WebPageClass(w)).(ModifiedWebPage)
+	return value, ok
+}
+
+// AsModified tries to map WebPageClass to ModifiedWebPage.
+func (w *WebPagePending) AsModified() (ModifiedWebPage, bool) {
+	value, ok := (WebPageClass(w)).(ModifiedWebPage)
+	return value, ok
+}
+
+// AsModified tries to map WebPageClass to ModifiedWebPage.
+func (w *WebPage) AsModified() (ModifiedWebPage, bool) {
+	value, ok := (WebPageClass(w)).(ModifiedWebPage)
+	return value, ok
+}
+
+// AsModified tries to map WebPageClass to ModifiedWebPage.
+func (w *WebPageNotModified) AsModified() (ModifiedWebPage, bool) {
+	value, ok := (WebPageClass(w)).(ModifiedWebPage)
+	return value, ok
 }
 
 // DecodeWebPage implements binary de-serialization for WebPageClass.
@@ -1078,4 +1217,92 @@ func (b *WebPageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode WebPageClass as nil")
 	}
 	return b.WebPage.Encode(buf)
+}
+
+// WebPageClassSlice is adapter for slice of WebPageClass.
+type WebPageClassSlice []WebPageClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s WebPageClassSlice) AppendOnlyModified(to []ModifiedWebPage) []ModifiedWebPage {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s WebPageClassSlice) AsModified() (to []ModifiedWebPage) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s WebPageClassSlice) FirstAsModified() (v ModifiedWebPage, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s WebPageClassSlice) LastAsModified() (v ModifiedWebPage, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s WebPageClassSlice) First() (v WebPageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebPageClassSlice) Last() (v WebPageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebPageClassSlice) PopFirst() (v WebPageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebPageClassSlice) Pop() (v WebPageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

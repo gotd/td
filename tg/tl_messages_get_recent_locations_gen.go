@@ -66,6 +66,17 @@ func (g *MessagesGetRecentLocationsRequest) String() string {
 	return fmt.Sprintf("MessagesGetRecentLocationsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetRecentLocationsRequest from given interface.
+func (g *MessagesGetRecentLocationsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetLimit() (value int)
+	GetHash() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.Limit = from.GetLimit()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetRecentLocationsRequest) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (c *ChannelAdminLogEventActionChangeTitle) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeTitle%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionChangeTitle from given interface.
+func (c *ChannelAdminLogEventActionChangeTitle) FillFrom(from interface {
+	GetPrevValue() (value string)
+	GetNewValue() (value string)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
@@ -153,6 +162,15 @@ func (c *ChannelAdminLogEventActionChangeAbout) String() string {
 	}
 	type Alias ChannelAdminLogEventActionChangeAbout
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeAbout%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeAbout from given interface.
+func (c *ChannelAdminLogEventActionChangeAbout) FillFrom(from interface {
+	GetPrevValue() (value string)
+	GetNewValue() (value string)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -255,6 +273,15 @@ func (c *ChannelAdminLogEventActionChangeUsername) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeUsername%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionChangeUsername from given interface.
+func (c *ChannelAdminLogEventActionChangeUsername) FillFrom(from interface {
+	GetPrevValue() (value string)
+	GetNewValue() (value string)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
@@ -355,6 +382,15 @@ func (c *ChannelAdminLogEventActionChangePhoto) String() string {
 	}
 	type Alias ChannelAdminLogEventActionChangePhoto
 	return fmt.Sprintf("ChannelAdminLogEventActionChangePhoto%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangePhoto from given interface.
+func (c *ChannelAdminLogEventActionChangePhoto) FillFrom(from interface {
+	GetPrevPhoto() (value PhotoClass)
+	GetNewPhoto() (value PhotoClass)
+}) {
+	c.PrevPhoto = from.GetPrevPhoto()
+	c.NewPhoto = from.GetNewPhoto()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -462,6 +498,13 @@ func (c *ChannelAdminLogEventActionToggleInvites) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionToggleInvites%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionToggleInvites from given interface.
+func (c *ChannelAdminLogEventActionToggleInvites) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
@@ -546,6 +589,13 @@ func (c *ChannelAdminLogEventActionToggleSignatures) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionToggleSignatures%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionToggleSignatures from given interface.
+func (c *ChannelAdminLogEventActionToggleSignatures) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
@@ -628,6 +678,13 @@ func (c *ChannelAdminLogEventActionUpdatePinned) String() string {
 	}
 	type Alias ChannelAdminLogEventActionUpdatePinned
 	return fmt.Sprintf("ChannelAdminLogEventActionUpdatePinned%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionUpdatePinned from given interface.
+func (c *ChannelAdminLogEventActionUpdatePinned) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	c.Message = from.GetMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -722,6 +779,15 @@ func (c *ChannelAdminLogEventActionEditMessage) String() string {
 	}
 	type Alias ChannelAdminLogEventActionEditMessage
 	return fmt.Sprintf("ChannelAdminLogEventActionEditMessage%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionEditMessage from given interface.
+func (c *ChannelAdminLogEventActionEditMessage) FillFrom(from interface {
+	GetPrevMessage() (value MessageClass)
+	GetNewMessage() (value MessageClass)
+}) {
+	c.PrevMessage = from.GetPrevMessage()
+	c.NewMessage = from.GetNewMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -827,6 +893,13 @@ func (c *ChannelAdminLogEventActionDeleteMessage) String() string {
 	}
 	type Alias ChannelAdminLogEventActionDeleteMessage
 	return fmt.Sprintf("ChannelAdminLogEventActionDeleteMessage%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionDeleteMessage from given interface.
+func (c *ChannelAdminLogEventActionDeleteMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	c.Message = from.GetMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1050,6 +1123,13 @@ func (c *ChannelAdminLogEventActionParticipantInvite) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantInvite%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionParticipantInvite from given interface.
+func (c *ChannelAdminLogEventActionParticipantInvite) FillFrom(from interface {
+	GetParticipant() (value ChannelParticipantClass)
+}) {
+	c.Participant = from.GetParticipant()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
@@ -1145,6 +1225,15 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) String() string {
 	}
 	type Alias ChannelAdminLogEventActionParticipantToggleBan
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantToggleBan%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionParticipantToggleBan from given interface.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) FillFrom(from interface {
+	GetPrevParticipant() (value ChannelParticipantClass)
+	GetNewParticipant() (value ChannelParticipantClass)
+}) {
+	c.PrevParticipant = from.GetPrevParticipant()
+	c.NewParticipant = from.GetNewParticipant()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1262,6 +1351,15 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantToggleAdmin%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionParticipantToggleAdmin from given interface.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) FillFrom(from interface {
+	GetPrevParticipant() (value ChannelParticipantClass)
+	GetNewParticipant() (value ChannelParticipantClass)
+}) {
+	c.PrevParticipant = from.GetPrevParticipant()
+	c.NewParticipant = from.GetNewParticipant()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
@@ -1374,6 +1472,15 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeStickerSet%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionChangeStickerSet from given interface.
+func (c *ChannelAdminLogEventActionChangeStickerSet) FillFrom(from interface {
+	GetPrevStickerset() (value InputStickerSetClass)
+	GetNewStickerset() (value InputStickerSetClass)
+}) {
+	c.PrevStickerset = from.GetPrevStickerset()
+	c.NewStickerset = from.GetNewStickerset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
@@ -1484,6 +1591,13 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionTogglePreHistoryHidden%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionTogglePreHistoryHidden from given interface.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) FillFrom(from interface {
+	GetNewValue() (value bool)
+}) {
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
@@ -1577,6 +1691,15 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) String() string {
 	}
 	type Alias ChannelAdminLogEventActionDefaultBannedRights
 	return fmt.Sprintf("ChannelAdminLogEventActionDefaultBannedRights%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionDefaultBannedRights from given interface.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) FillFrom(from interface {
+	GetPrevBannedRights() (value ChatBannedRights)
+	GetNewBannedRights() (value ChatBannedRights)
+}) {
+	c.PrevBannedRights = from.GetPrevBannedRights()
+	c.NewBannedRights = from.GetNewBannedRights()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1676,6 +1799,13 @@ func (c *ChannelAdminLogEventActionStopPoll) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionStopPoll%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionStopPoll from given interface.
+func (c *ChannelAdminLogEventActionStopPoll) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	c.Message = from.GetMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
@@ -1766,6 +1896,15 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) String() string {
 	}
 	type Alias ChannelAdminLogEventActionChangeLinkedChat
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeLinkedChat%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeLinkedChat from given interface.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) FillFrom(from interface {
+	GetPrevValue() (value int)
+	GetNewValue() (value int)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1868,6 +2007,15 @@ func (c *ChannelAdminLogEventActionChangeLocation) String() string {
 	}
 	type Alias ChannelAdminLogEventActionChangeLocation
 	return fmt.Sprintf("ChannelAdminLogEventActionChangeLocation%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeLocation from given interface.
+func (c *ChannelAdminLogEventActionChangeLocation) FillFrom(from interface {
+	GetPrevValue() (value ChannelLocationClass)
+	GetNewValue() (value ChannelLocationClass)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1985,6 +2133,15 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionToggleSlowMode%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionToggleSlowMode from given interface.
+func (c *ChannelAdminLogEventActionToggleSlowMode) FillFrom(from interface {
+	GetPrevValue() (value int)
+	GetNewValue() (value int)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
@@ -2081,6 +2238,13 @@ func (c *ChannelAdminLogEventActionStartGroupCall) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionStartGroupCall%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionStartGroupCall from given interface.
+func (c *ChannelAdminLogEventActionStartGroupCall) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+}) {
+	c.Call = from.GetCall()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
@@ -2162,6 +2326,13 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) String() string {
 	}
 	type Alias ChannelAdminLogEventActionDiscardGroupCall
 	return fmt.Sprintf("ChannelAdminLogEventActionDiscardGroupCall%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionDiscardGroupCall from given interface.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+}) {
+	c.Call = from.GetCall()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2247,6 +2418,13 @@ func (c *ChannelAdminLogEventActionParticipantMute) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantMute%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionParticipantMute from given interface.
+func (c *ChannelAdminLogEventActionParticipantMute) FillFrom(from interface {
+	GetParticipant() (value GroupCallParticipant)
+}) {
+	c.Participant = from.GetParticipant()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
@@ -2330,6 +2508,13 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantUnmute%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventActionParticipantUnmute from given interface.
+func (c *ChannelAdminLogEventActionParticipantUnmute) FillFrom(from interface {
+	GetParticipant() (value GroupCallParticipant)
+}) {
+	c.Participant = from.GetParticipant()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
@@ -2411,6 +2596,13 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) String() string {
 	}
 	type Alias ChannelAdminLogEventActionToggleGroupCallSetting
 	return fmt.Sprintf("ChannelAdminLogEventActionToggleGroupCallSetting%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionToggleGroupCallSetting from given interface.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) FillFrom(from interface {
+	GetJoinMuted() (value bool)
+}) {
+	c.JoinMuted = from.GetJoinMuted()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2735,4 +2927,55 @@ func (b *ChannelAdminLogEventActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelAdminLogEventActionClass as nil")
 	}
 	return b.ChannelAdminLogEventAction.Encode(buf)
+}
+
+// ChannelAdminLogEventActionClassSlice is adapter for slice of ChannelAdminLogEventActionClass.
+type ChannelAdminLogEventActionClassSlice []ChannelAdminLogEventActionClass
+
+// First returns first element of slice (if exists).
+func (s ChannelAdminLogEventActionClassSlice) First() (v ChannelAdminLogEventActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelAdminLogEventActionClassSlice) Last() (v ChannelAdminLogEventActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionClassSlice) PopFirst() (v ChannelAdminLogEventActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelAdminLogEventActionClassSlice) Pop() (v ChannelAdminLogEventActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

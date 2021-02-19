@@ -55,6 +55,15 @@ func (d *DocumentAttributeImageSize) String() string {
 	return fmt.Sprintf("DocumentAttributeImageSize%+v", Alias(*d))
 }
 
+// FillFrom fills DocumentAttributeImageSize from given interface.
+func (d *DocumentAttributeImageSize) FillFrom(from interface {
+	GetW() (value int)
+	GetH() (value int)
+}) {
+	d.W = from.GetW()
+	d.H = from.GetH()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeImageSize) TypeID() uint32 {
@@ -287,6 +296,17 @@ func (d *DocumentAttributeVideo) String() string {
 	return fmt.Sprintf("DocumentAttributeVideo%+v", Alias(*d))
 }
 
+// FillFrom fills DocumentAttributeVideo from given interface.
+func (d *DocumentAttributeVideo) FillFrom(from interface {
+	GetDuration() (value int)
+	GetW() (value int)
+	GetH() (value int)
+}) {
+	d.Duration = from.GetDuration()
+	d.W = from.GetW()
+	d.H = from.GetH()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeVideo) TypeID() uint32 {
@@ -394,6 +414,13 @@ func (d *DocumentAttributeAudio23) String() string {
 	return fmt.Sprintf("DocumentAttributeAudio23%+v", Alias(*d))
 }
 
+// FillFrom fills DocumentAttributeAudio23 from given interface.
+func (d *DocumentAttributeAudio23) FillFrom(from interface {
+	GetDuration() (value int)
+}) {
+	d.Duration = from.GetDuration()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAudio23) TypeID() uint32 {
@@ -474,6 +501,13 @@ func (d *DocumentAttributeFilename) String() string {
 	}
 	type Alias DocumentAttributeFilename
 	return fmt.Sprintf("DocumentAttributeFilename%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeFilename from given interface.
+func (d *DocumentAttributeFilename) FillFrom(from interface {
+	GetFileName() (value string)
+}) {
+	d.FileName = from.GetFileName()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -565,6 +599,17 @@ func (d *DocumentAttributeAudio45) String() string {
 	}
 	type Alias DocumentAttributeAudio45
 	return fmt.Sprintf("DocumentAttributeAudio45%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeAudio45 from given interface.
+func (d *DocumentAttributeAudio45) FillFrom(from interface {
+	GetDuration() (value int)
+	GetTitle() (value string)
+	GetPerformer() (value string)
+}) {
+	d.Duration = from.GetDuration()
+	d.Title = from.GetTitle()
+	d.Performer = from.GetPerformer()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -678,6 +723,15 @@ func (d *DocumentAttributeSticker) String() string {
 	}
 	type Alias DocumentAttributeSticker
 	return fmt.Sprintf("DocumentAttributeSticker%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeSticker from given interface.
+func (d *DocumentAttributeSticker) FillFrom(from interface {
+	GetAlt() (value string)
+	GetStickerset() (value InputStickerSetClass)
+}) {
+	d.Alt = from.GetAlt()
+	d.Stickerset = from.GetStickerset()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -812,6 +866,26 @@ func (d *DocumentAttributeAudio) String() string {
 	}
 	type Alias DocumentAttributeAudio
 	return fmt.Sprintf("DocumentAttributeAudio%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeAudio from given interface.
+func (d *DocumentAttributeAudio) FillFrom(from interface {
+	GetVoice() (value bool)
+	GetDuration() (value int)
+	GetTitle() (value string, ok bool)
+	GetPerformer() (value string, ok bool)
+	GetWaveform() (value []byte, ok bool)
+}) {
+	d.Duration = from.GetDuration()
+	if val, ok := from.GetTitle(); ok {
+		d.Title = val
+	}
+	if val, ok := from.GetPerformer(); ok {
+		d.Performer = val
+	}
+	if val, ok := from.GetWaveform(); ok {
+		d.Waveform = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1025,6 +1099,18 @@ func (d *DocumentAttributeVideo66) String() string {
 	}
 	type Alias DocumentAttributeVideo66
 	return fmt.Sprintf("DocumentAttributeVideo66%+v", Alias(*d))
+}
+
+// FillFrom fills DocumentAttributeVideo66 from given interface.
+func (d *DocumentAttributeVideo66) FillFrom(from interface {
+	GetRoundMessage() (value bool)
+	GetDuration() (value int)
+	GetW() (value int)
+	GetH() (value int)
+}) {
+	d.Duration = from.GetDuration()
+	d.W = from.GetW()
+	d.H = from.GetH()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1273,4 +1359,55 @@ func (b *DocumentAttributeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DocumentAttributeClass as nil")
 	}
 	return b.DocumentAttribute.Encode(buf)
+}
+
+// DocumentAttributeClassSlice is adapter for slice of DocumentAttributeClass.
+type DocumentAttributeClassSlice []DocumentAttributeClass
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeClassSlice) First() (v DocumentAttributeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeClassSlice) Last() (v DocumentAttributeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeClassSlice) PopFirst() (v DocumentAttributeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeClassSlice) Pop() (v DocumentAttributeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

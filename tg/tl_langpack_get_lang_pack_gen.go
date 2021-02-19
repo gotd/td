@@ -55,6 +55,15 @@ func (g *LangpackGetLangPackRequest) String() string {
 	return fmt.Sprintf("LangpackGetLangPackRequest%+v", Alias(*g))
 }
 
+// FillFrom fills LangpackGetLangPackRequest from given interface.
+func (g *LangpackGetLangPackRequest) FillFrom(from interface {
+	GetLangPack() (value string)
+	GetLangCode() (value string)
+}) {
+	g.LangPack = from.GetLangPack()
+	g.LangCode = from.GetLangCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *LangpackGetLangPackRequest) TypeID() uint32 {

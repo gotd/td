@@ -136,6 +136,43 @@ func (s *SecureValue) String() string {
 	return fmt.Sprintf("SecureValue%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValue from given interface.
+func (s *SecureValue) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetData() (value SecureData, ok bool)
+	GetFrontSide() (value SecureFileClass, ok bool)
+	GetReverseSide() (value SecureFileClass, ok bool)
+	GetSelfie() (value SecureFileClass, ok bool)
+	GetTranslation() (value []SecureFileClass, ok bool)
+	GetFiles() (value []SecureFileClass, ok bool)
+	GetPlainData() (value SecurePlainDataClass, ok bool)
+	GetHash() (value []byte)
+}) {
+	s.Type = from.GetType()
+	if val, ok := from.GetData(); ok {
+		s.Data = val
+	}
+	if val, ok := from.GetFrontSide(); ok {
+		s.FrontSide = val
+	}
+	if val, ok := from.GetReverseSide(); ok {
+		s.ReverseSide = val
+	}
+	if val, ok := from.GetSelfie(); ok {
+		s.Selfie = val
+	}
+	if val, ok := from.GetTranslation(); ok {
+		s.Translation = val
+	}
+	if val, ok := from.GetFiles(); ok {
+		s.Files = val
+	}
+	if val, ok := from.GetPlainData(); ok {
+		s.PlainData = val
+	}
+	s.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValue) TypeID() uint32 {
@@ -276,6 +313,15 @@ func (s *SecureValue) GetFrontSide() (value SecureFileClass, ok bool) {
 	return s.FrontSide, true
 }
 
+// GetFrontSideAsNotEmpty returns mapped value of FrontSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetFrontSideAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetFrontSide(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
 // SetReverseSide sets value of ReverseSide conditional field.
 func (s *SecureValue) SetReverseSide(value SecureFileClass) {
 	s.Flags.Set(2)
@@ -289,6 +335,15 @@ func (s *SecureValue) GetReverseSide() (value SecureFileClass, ok bool) {
 		return value, false
 	}
 	return s.ReverseSide, true
+}
+
+// GetReverseSideAsNotEmpty returns mapped value of ReverseSide conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetReverseSideAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetReverseSide(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // SetSelfie sets value of Selfie conditional field.
@@ -306,6 +361,15 @@ func (s *SecureValue) GetSelfie() (value SecureFileClass, ok bool) {
 	return s.Selfie, true
 }
 
+// GetSelfieAsNotEmpty returns mapped value of Selfie conditional field and
+// boolean which is true if field was set.
+func (s *SecureValue) GetSelfieAsNotEmpty() (*SecureFile, bool) {
+	if value, ok := s.GetSelfie(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
+}
+
 // SetTranslation sets value of Translation conditional field.
 func (s *SecureValue) SetTranslation(value []SecureFileClass) {
 	s.Flags.Set(6)
@@ -321,6 +385,14 @@ func (s *SecureValue) GetTranslation() (value []SecureFileClass, ok bool) {
 	return s.Translation, true
 }
 
+// MapTranslation returns field Translation wrapped in SecureFileClassSlice helper.
+func (s *SecureValue) MapTranslation() (value SecureFileClassSlice, ok bool) {
+	if !s.Flags.Has(6) {
+		return value, false
+	}
+	return SecureFileClassSlice(s.Translation), true
+}
+
 // SetFiles sets value of Files conditional field.
 func (s *SecureValue) SetFiles(value []SecureFileClass) {
 	s.Flags.Set(4)
@@ -334,6 +406,14 @@ func (s *SecureValue) GetFiles() (value []SecureFileClass, ok bool) {
 		return value, false
 	}
 	return s.Files, true
+}
+
+// MapFiles returns field Files wrapped in SecureFileClassSlice helper.
+func (s *SecureValue) MapFiles() (value SecureFileClassSlice, ok bool) {
+	if !s.Flags.Has(4) {
+		return value, false
+	}
+	return SecureFileClassSlice(s.Files), true
 }
 
 // SetPlainData sets value of PlainData conditional field.

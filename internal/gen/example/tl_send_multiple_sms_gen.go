@@ -49,6 +49,13 @@ func (s *SendMultipleSMSRequest) String() string {
 	return fmt.Sprintf("SendMultipleSMSRequest%+v", Alias(*s))
 }
 
+// FillFrom fills SendMultipleSMSRequest from given interface.
+func (s *SendMultipleSMSRequest) FillFrom(from interface {
+	GetMessages() (value []SMS)
+}) {
+	s.Messages = from.GetMessages()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMultipleSMSRequest) TypeID() uint32 {

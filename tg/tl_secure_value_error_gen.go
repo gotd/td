@@ -73,6 +73,19 @@ func (s *SecureValueErrorData) String() string {
 	return fmt.Sprintf("SecureValueErrorData%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValueErrorData from given interface.
+func (s *SecureValueErrorData) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetDataHash() (value []byte)
+	GetField() (value string)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.DataHash = from.GetDataHash()
+	s.Field = from.GetField()
+	s.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorData) TypeID() uint32 {
@@ -215,6 +228,17 @@ func (s *SecureValueErrorFrontSide) String() string {
 	return fmt.Sprintf("SecureValueErrorFrontSide%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValueErrorFrontSide from given interface.
+func (s *SecureValueErrorFrontSide) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFrontSide) TypeID() uint32 {
@@ -340,6 +364,17 @@ func (s *SecureValueErrorReverseSide) String() string {
 	}
 	type Alias SecureValueErrorReverseSide
 	return fmt.Sprintf("SecureValueErrorReverseSide%+v", Alias(*s))
+}
+
+// FillFrom fills SecureValueErrorReverseSide from given interface.
+func (s *SecureValueErrorReverseSide) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -469,6 +504,17 @@ func (s *SecureValueErrorSelfie) String() string {
 	}
 	type Alias SecureValueErrorSelfie
 	return fmt.Sprintf("SecureValueErrorSelfie%+v", Alias(*s))
+}
+
+// FillFrom fills SecureValueErrorSelfie from given interface.
+func (s *SecureValueErrorSelfie) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -601,6 +647,17 @@ func (s *SecureValueErrorFile) String() string {
 	return fmt.Sprintf("SecureValueErrorFile%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValueErrorFile from given interface.
+func (s *SecureValueErrorFile) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFile) TypeID() uint32 {
@@ -729,6 +786,17 @@ func (s *SecureValueErrorFiles) String() string {
 	}
 	type Alias SecureValueErrorFiles
 	return fmt.Sprintf("SecureValueErrorFiles%+v", Alias(*s))
+}
+
+// FillFrom fills SecureValueErrorFiles from given interface.
+func (s *SecureValueErrorFiles) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value [][]byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -861,6 +929,17 @@ func (s *SecureValueError) String() string {
 	}
 	type Alias SecureValueError
 	return fmt.Sprintf("SecureValueError%+v", Alias(*s))
+}
+
+// FillFrom fills SecureValueError from given interface.
+func (s *SecureValueError) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.Hash = from.GetHash()
+	s.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -998,6 +1077,17 @@ func (s *SecureValueErrorTranslationFile) String() string {
 	return fmt.Sprintf("SecureValueErrorTranslationFile%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValueErrorTranslationFile from given interface.
+func (s *SecureValueErrorTranslationFile) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value []byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorTranslationFile) TypeID() uint32 {
@@ -1131,6 +1221,17 @@ func (s *SecureValueErrorTranslationFiles) String() string {
 	}
 	type Alias SecureValueErrorTranslationFiles
 	return fmt.Sprintf("SecureValueErrorTranslationFiles%+v", Alias(*s))
+}
+
+// FillFrom fills SecureValueErrorTranslationFiles from given interface.
+func (s *SecureValueErrorTranslationFiles) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetFileHash() (value [][]byte)
+	GetText() (value string)
+}) {
+	s.Type = from.GetType()
+	s.FileHash = from.GetFileHash()
+	s.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1370,4 +1471,55 @@ func (b *SecureValueErrorBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureValueErrorClass as nil")
 	}
 	return b.SecureValueError.Encode(buf)
+}
+
+// SecureValueErrorClassSlice is adapter for slice of SecureValueErrorClass.
+type SecureValueErrorClassSlice []SecureValueErrorClass
+
+// First returns first element of slice (if exists).
+func (s SecureValueErrorClassSlice) First() (v SecureValueErrorClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureValueErrorClassSlice) Last() (v SecureValueErrorClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureValueErrorClassSlice) PopFirst() (v SecureValueErrorClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureValueErrorClassSlice) Pop() (v SecureValueErrorClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

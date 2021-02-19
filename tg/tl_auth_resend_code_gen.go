@@ -61,6 +61,15 @@ func (r *AuthResendCodeRequest) String() string {
 	return fmt.Sprintf("AuthResendCodeRequest%+v", Alias(*r))
 }
 
+// FillFrom fills AuthResendCodeRequest from given interface.
+func (r *AuthResendCodeRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetPhoneCodeHash() (value string)
+}) {
+	r.PhoneNumber = from.GetPhoneNumber()
+	r.PhoneCodeHash = from.GetPhoneCodeHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AuthResendCodeRequest) TypeID() uint32 {

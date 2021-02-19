@@ -50,6 +50,13 @@ func (s *AccountSetContactSignUpNotificationRequest) String() string {
 	return fmt.Sprintf("AccountSetContactSignUpNotificationRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSetContactSignUpNotificationRequest from given interface.
+func (s *AccountSetContactSignUpNotificationRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+}) {
+	s.Silent = from.GetSilent()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetContactSignUpNotificationRequest) TypeID() uint32 {

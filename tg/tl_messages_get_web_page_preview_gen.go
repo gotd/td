@@ -68,6 +68,17 @@ func (g *MessagesGetWebPagePreviewRequest) String() string {
 	return fmt.Sprintf("MessagesGetWebPagePreviewRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetWebPagePreviewRequest from given interface.
+func (g *MessagesGetWebPagePreviewRequest) FillFrom(from interface {
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	g.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		g.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetWebPagePreviewRequest) TypeID() uint32 {
@@ -119,6 +130,14 @@ func (g *MessagesGetWebPagePreviewRequest) GetEntities() (value []MessageEntityC
 		return value, false
 	}
 	return g.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !g.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassSlice(g.Entities), true
 }
 
 // Decode implements bin.Decoder.

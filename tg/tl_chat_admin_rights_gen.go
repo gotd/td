@@ -130,6 +130,21 @@ func (c *ChatAdminRights) String() string {
 	return fmt.Sprintf("ChatAdminRights%+v", Alias(*c))
 }
 
+// FillFrom fills ChatAdminRights from given interface.
+func (c *ChatAdminRights) FillFrom(from interface {
+	GetChangeInfo() (value bool)
+	GetPostMessages() (value bool)
+	GetEditMessages() (value bool)
+	GetDeleteMessages() (value bool)
+	GetBanUsers() (value bool)
+	GetInviteUsers() (value bool)
+	GetPinMessages() (value bool)
+	GetAddAdmins() (value bool)
+	GetAnonymous() (value bool)
+	GetManageCall() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatAdminRights) TypeID() uint32 {

@@ -63,6 +63,14 @@ func (t *MessagesToggleDialogPinRequest) String() string {
 	return fmt.Sprintf("MessagesToggleDialogPinRequest%+v", Alias(*t))
 }
 
+// FillFrom fills MessagesToggleDialogPinRequest from given interface.
+func (t *MessagesToggleDialogPinRequest) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetPeer() (value InputDialogPeerClass)
+}) {
+	t.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *MessagesToggleDialogPinRequest) TypeID() uint32 {

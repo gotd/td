@@ -50,6 +50,13 @@ func (i *HelpInviteText) String() string {
 	return fmt.Sprintf("HelpInviteText%+v", Alias(*i))
 }
 
+// FillFrom fills HelpInviteText from given interface.
+func (i *HelpInviteText) FillFrom(from interface {
+	GetMessage() (value string)
+}) {
+	i.Message = from.GetMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *HelpInviteText) TypeID() uint32 {

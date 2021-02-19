@@ -108,6 +108,32 @@ func (m *MessageReplies) String() string {
 	return fmt.Sprintf("MessageReplies%+v", Alias(*m))
 }
 
+// FillFrom fills MessageReplies from given interface.
+func (m *MessageReplies) FillFrom(from interface {
+	GetComments() (value bool)
+	GetReplies() (value int)
+	GetRepliesPts() (value int)
+	GetRecentRepliers() (value []PeerClass, ok bool)
+	GetChannelID() (value int, ok bool)
+	GetMaxID() (value int, ok bool)
+	GetReadMaxID() (value int, ok bool)
+}) {
+	m.Replies = from.GetReplies()
+	m.RepliesPts = from.GetRepliesPts()
+	if val, ok := from.GetRecentRepliers(); ok {
+		m.RecentRepliers = val
+	}
+	if val, ok := from.GetChannelID(); ok {
+		m.ChannelID = val
+	}
+	if val, ok := from.GetMaxID(); ok {
+		m.MaxID = val
+	}
+	if val, ok := from.GetReadMaxID(); ok {
+		m.ReadMaxID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageReplies) TypeID() uint32 {
@@ -202,6 +228,14 @@ func (m *MessageReplies) GetRecentRepliers() (value []PeerClass, ok bool) {
 		return value, false
 	}
 	return m.RecentRepliers, true
+}
+
+// MapRecentRepliers returns field RecentRepliers wrapped in PeerClassSlice helper.
+func (m *MessageReplies) MapRecentRepliers() (value PeerClassSlice, ok bool) {
+	if !m.Flags.Has(1) {
+		return value, false
+	}
+	return PeerClassSlice(m.RecentRepliers), true
 }
 
 // SetChannelID sets value of ChannelID conditional field.

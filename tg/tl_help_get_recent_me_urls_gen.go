@@ -50,6 +50,13 @@ func (g *HelpGetRecentMeUrlsRequest) String() string {
 	return fmt.Sprintf("HelpGetRecentMeUrlsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetRecentMeUrlsRequest from given interface.
+func (g *HelpGetRecentMeUrlsRequest) FillFrom(from interface {
+	GetReferer() (value string)
+}) {
+	g.Referer = from.GetReferer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetRecentMeUrlsRequest) TypeID() uint32 {

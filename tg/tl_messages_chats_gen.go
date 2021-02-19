@@ -50,6 +50,13 @@ func (c *MessagesChats) String() string {
 	return fmt.Sprintf("MessagesChats%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesChats from given interface.
+func (c *MessagesChats) FillFrom(from interface {
+	GetChats() (value []ChatClass)
+}) {
+	c.Chats = from.GetChats()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChats) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (c *MessagesChats) Encode(b *bin.Buffer) error {
 // GetChats returns value of Chats field.
 func (c *MessagesChats) GetChats() (value []ChatClass) {
 	return c.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (c *MessagesChats) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(c.Chats)
 }
 
 // Decode implements bin.Decoder.
@@ -154,6 +166,15 @@ func (c *MessagesChatsSlice) String() string {
 	return fmt.Sprintf("MessagesChatsSlice%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesChatsSlice from given interface.
+func (c *MessagesChatsSlice) FillFrom(from interface {
+	GetCount() (value int)
+	GetChats() (value []ChatClass)
+}) {
+	c.Count = from.GetCount()
+	c.Chats = from.GetChats()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChatsSlice) TypeID() uint32 {
@@ -187,6 +208,11 @@ func (c *MessagesChatsSlice) GetCount() (value int) {
 // GetChats returns value of Chats field.
 func (c *MessagesChatsSlice) GetChats() (value []ChatClass) {
 	return c.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (c *MessagesChatsSlice) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(c.Chats)
 }
 
 // Decode implements bin.Decoder.
@@ -312,4 +338,55 @@ func (b *MessagesChatsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesChatsClass as nil")
 	}
 	return b.Chats.Encode(buf)
+}
+
+// MessagesChatsClassSlice is adapter for slice of MessagesChatsClass.
+type MessagesChatsClassSlice []MessagesChatsClass
+
+// First returns first element of slice (if exists).
+func (s MessagesChatsClassSlice) First() (v MessagesChatsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesChatsClassSlice) Last() (v MessagesChatsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesChatsClassSlice) PopFirst() (v MessagesChatsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesChatsClassSlice) Pop() (v MessagesChatsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

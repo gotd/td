@@ -55,6 +55,15 @@ func (r *MessagesReadHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesReadHistoryRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReadHistoryRequest from given interface.
+func (r *MessagesReadHistoryRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMaxID() (value int)
+}) {
+	r.Peer = from.GetPeer()
+	r.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadHistoryRequest) TypeID() uint32 {

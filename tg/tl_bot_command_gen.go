@@ -55,6 +55,15 @@ func (b *BotCommand) String() string {
 	return fmt.Sprintf("BotCommand%+v", Alias(*b))
 }
 
+// FillFrom fills BotCommand from given interface.
+func (b *BotCommand) FillFrom(from interface {
+	GetCommand() (value string)
+	GetDescription() (value string)
+}) {
+	b.Command = from.GetCommand()
+	b.Description = from.GetDescription()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotCommand) TypeID() uint32 {

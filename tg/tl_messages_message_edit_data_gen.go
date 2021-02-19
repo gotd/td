@@ -58,6 +58,12 @@ func (m *MessagesMessageEditData) String() string {
 	return fmt.Sprintf("MessagesMessageEditData%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMessageEditData from given interface.
+func (m *MessagesMessageEditData) FillFrom(from interface {
+	GetCaption() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessageEditData) TypeID() uint32 {

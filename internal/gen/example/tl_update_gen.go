@@ -54,6 +54,15 @@ func (u *Update) String() string {
 	return fmt.Sprintf("Update%+v", Alias(*u))
 }
 
+// FillFrom fills Update from given interface.
+func (u *Update) FillFrom(from interface {
+	GetMsg() (value AbstractMessageClass)
+	GetDelay() (value int32)
+}) {
+	u.Msg = from.GetMsg()
+	u.Delay = from.GetDelay()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *Update) TypeID() uint32 {

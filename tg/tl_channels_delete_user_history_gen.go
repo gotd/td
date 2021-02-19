@@ -61,6 +61,15 @@ func (d *ChannelsDeleteUserHistoryRequest) String() string {
 	return fmt.Sprintf("ChannelsDeleteUserHistoryRequest%+v", Alias(*d))
 }
 
+// FillFrom fills ChannelsDeleteUserHistoryRequest from given interface.
+func (d *ChannelsDeleteUserHistoryRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUserID() (value InputUserClass)
+}) {
+	d.Channel = from.GetChannel()
+	d.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ChannelsDeleteUserHistoryRequest) TypeID() uint32 {
@@ -91,6 +100,11 @@ func (d *ChannelsDeleteUserHistoryRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (d *ChannelsDeleteUserHistoryRequest) GetChannel() (value InputChannelClass) {
 	return d.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (d *ChannelsDeleteUserHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return d.Channel.AsNotEmpty()
 }
 
 // GetUserID returns value of UserID field.

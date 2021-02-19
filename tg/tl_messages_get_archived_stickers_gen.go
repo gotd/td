@@ -74,6 +74,16 @@ func (g *MessagesGetArchivedStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetArchivedStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetArchivedStickersRequest from given interface.
+func (g *MessagesGetArchivedStickersRequest) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetOffsetID() (value int64)
+	GetLimit() (value int)
+}) {
+	g.OffsetID = from.GetOffsetID()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetArchivedStickersRequest) TypeID() uint32 {

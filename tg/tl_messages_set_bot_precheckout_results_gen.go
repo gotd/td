@@ -75,6 +75,18 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) String() string {
 	return fmt.Sprintf("MessagesSetBotPrecheckoutResultsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetBotPrecheckoutResultsRequest from given interface.
+func (s *MessagesSetBotPrecheckoutResultsRequest) FillFrom(from interface {
+	GetSuccess() (value bool)
+	GetQueryID() (value int64)
+	GetError() (value string, ok bool)
+}) {
+	s.QueryID = from.GetQueryID()
+	if val, ok := from.GetError(); ok {
+		s.Error = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetBotPrecheckoutResultsRequest) TypeID() uint32 {

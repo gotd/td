@@ -47,6 +47,13 @@ func (p *PingRequest) String() string {
 	return fmt.Sprintf("PingRequest%+v", Alias(*p))
 }
 
+// FillFrom fills PingRequest from given interface.
+func (p *PingRequest) FillFrom(from interface {
+	GetPingID() (value int64)
+}) {
+	p.PingID = from.GetPingID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingRequest) TypeID() uint32 {

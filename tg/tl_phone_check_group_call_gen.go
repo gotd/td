@@ -54,6 +54,15 @@ func (c *PhoneCheckGroupCallRequest) String() string {
 	return fmt.Sprintf("PhoneCheckGroupCallRequest%+v", Alias(*c))
 }
 
+// FillFrom fills PhoneCheckGroupCallRequest from given interface.
+func (c *PhoneCheckGroupCallRequest) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetSource() (value int)
+}) {
+	c.Call = from.GetCall()
+	c.Source = from.GetSource()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *PhoneCheckGroupCallRequest) TypeID() uint32 {

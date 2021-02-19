@@ -71,6 +71,20 @@ func (e *PhoneEditGroupCallMemberRequest) String() string {
 	return fmt.Sprintf("PhoneEditGroupCallMemberRequest%+v", Alias(*e))
 }
 
+// FillFrom fills PhoneEditGroupCallMemberRequest from given interface.
+func (e *PhoneEditGroupCallMemberRequest) FillFrom(from interface {
+	GetMuted() (value bool)
+	GetCall() (value InputGroupCall)
+	GetUserID() (value InputUserClass)
+	GetVolume() (value int, ok bool)
+}) {
+	e.Call = from.GetCall()
+	e.UserID = from.GetUserID()
+	if val, ok := from.GetVolume(); ok {
+		e.Volume = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {

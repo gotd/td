@@ -55,6 +55,15 @@ func (c *StickersChangeStickerPositionRequest) String() string {
 	return fmt.Sprintf("StickersChangeStickerPositionRequest%+v", Alias(*c))
 }
 
+// FillFrom fills StickersChangeStickerPositionRequest from given interface.
+func (c *StickersChangeStickerPositionRequest) FillFrom(from interface {
+	GetSticker() (value InputDocumentClass)
+	GetPosition() (value int)
+}) {
+	c.Sticker = from.GetSticker()
+	c.Position = from.GetPosition()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersChangeStickerPositionRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 // GetSticker returns value of Sticker field.
 func (c *StickersChangeStickerPositionRequest) GetSticker() (value InputDocumentClass) {
 	return c.Sticker
+}
+
+// GetStickerAsNotEmpty returns mapped value of Sticker field.
+func (c *StickersChangeStickerPositionRequest) GetStickerAsNotEmpty() (*InputDocument, bool) {
+	return c.Sticker.AsNotEmpty()
 }
 
 // GetPosition returns value of Position field.

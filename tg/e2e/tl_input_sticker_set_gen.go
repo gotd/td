@@ -50,6 +50,13 @@ func (i *InputStickerSetShortName) String() string {
 	return fmt.Sprintf("InputStickerSetShortName%+v", Alias(*i))
 }
 
+// FillFrom fills InputStickerSetShortName from given interface.
+func (i *InputStickerSetShortName) FillFrom(from interface {
+	GetShortName() (value string)
+}) {
+	i.ShortName = from.GetShortName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetShortName) TypeID() uint32 {
@@ -183,6 +190,9 @@ type InputStickerSetClass interface {
 	bin.Decoder
 	construct() InputStickerSetClass
 
+	// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+	AsNotEmpty() (*InputStickerSetShortName, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -190,6 +200,16 @@ type InputStickerSetClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+func (i *InputStickerSetShortName) AsNotEmpty() (*InputStickerSetShortName, bool) {
+	return i, true
+}
+
+// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+func (i *InputStickerSetEmpty) AsNotEmpty() (*InputStickerSetShortName, bool) {
+	return nil, false
 }
 
 // DecodeInputStickerSet implements binary de-serialization for InputStickerSetClass.
@@ -242,4 +262,92 @@ func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputStickerSetClass as nil")
 	}
 	return b.InputStickerSet.Encode(buf)
+}
+
+// InputStickerSetClassSlice is adapter for slice of InputStickerSetClass.
+type InputStickerSetClassSlice []InputStickerSetClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s InputStickerSetClassSlice) AppendOnlyNotEmpty(to []*InputStickerSetShortName) []*InputStickerSetShortName {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s InputStickerSetClassSlice) AsNotEmpty() (to []*InputStickerSetShortName) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s InputStickerSetClassSlice) FirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s InputStickerSetClassSlice) LastAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s InputStickerSetClassSlice) First() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickerSetClassSlice) Last() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassSlice) PopFirst() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassSlice) Pop() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

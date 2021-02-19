@@ -97,6 +97,31 @@ func (p *AccountPasswordInputSettings) String() string {
 	return fmt.Sprintf("AccountPasswordInputSettings%+v", Alias(*p))
 }
 
+// FillFrom fills AccountPasswordInputSettings from given interface.
+func (p *AccountPasswordInputSettings) FillFrom(from interface {
+	GetNewAlgo() (value PasswordKdfAlgoClass, ok bool)
+	GetNewPasswordHash() (value []byte, ok bool)
+	GetHint() (value string, ok bool)
+	GetEmail() (value string, ok bool)
+	GetNewSecureSettings() (value SecureSecretSettings, ok bool)
+}) {
+	if val, ok := from.GetNewAlgo(); ok {
+		p.NewAlgo = val
+	}
+	if val, ok := from.GetNewPasswordHash(); ok {
+		p.NewPasswordHash = val
+	}
+	if val, ok := from.GetHint(); ok {
+		p.Hint = val
+	}
+	if val, ok := from.GetEmail(); ok {
+		p.Email = val
+	}
+	if val, ok := from.GetNewSecureSettings(); ok {
+		p.NewSecureSettings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AccountPasswordInputSettings) TypeID() uint32 {

@@ -178,6 +178,13 @@ func (i *InputPeerChat) String() string {
 	return fmt.Sprintf("InputPeerChat%+v", Alias(*i))
 }
 
+// FillFrom fills InputPeerChat from given interface.
+func (i *InputPeerChat) FillFrom(from interface {
+	GetChatID() (value int)
+}) {
+	i.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerChat) TypeID() uint32 {
@@ -266,6 +273,15 @@ func (i *InputPeerUser) String() string {
 	}
 	type Alias InputPeerUser
 	return fmt.Sprintf("InputPeerUser%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerUser from given interface.
+func (i *InputPeerUser) FillFrom(from interface {
+	GetUserID() (value int)
+	GetAccessHash() (value int64)
+}) {
+	i.UserID = from.GetUserID()
+	i.AccessHash = from.GetAccessHash()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -369,6 +385,15 @@ func (i *InputPeerChannel) String() string {
 	}
 	type Alias InputPeerChannel
 	return fmt.Sprintf("InputPeerChannel%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerChannel from given interface.
+func (i *InputPeerChannel) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetAccessHash() (value int64)
+}) {
+	i.ChannelID = from.GetChannelID()
+	i.AccessHash = from.GetAccessHash()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -477,6 +502,17 @@ func (i *InputPeerUserFromMessage) String() string {
 	}
 	type Alias InputPeerUserFromMessage
 	return fmt.Sprintf("InputPeerUserFromMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerUserFromMessage from given interface.
+func (i *InputPeerUserFromMessage) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetUserID() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.MsgID = from.GetMsgID()
+	i.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -603,6 +639,17 @@ func (i *InputPeerChannelFromMessage) String() string {
 	}
 	type Alias InputPeerChannelFromMessage
 	return fmt.Sprintf("InputPeerChannelFromMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputPeerChannelFromMessage from given interface.
+func (i *InputPeerChannelFromMessage) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetChannelID() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.MsgID = from.GetMsgID()
+	i.ChannelID = from.GetChannelID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -804,4 +851,55 @@ func (b *InputPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPeerClass as nil")
 	}
 	return b.InputPeer.Encode(buf)
+}
+
+// InputPeerClassSlice is adapter for slice of InputPeerClass.
+type InputPeerClassSlice []InputPeerClass
+
+// First returns first element of slice (if exists).
+func (s InputPeerClassSlice) First() (v InputPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPeerClassSlice) Last() (v InputPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPeerClassSlice) PopFirst() (v InputPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPeerClassSlice) Pop() (v InputPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

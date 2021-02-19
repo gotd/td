@@ -63,6 +63,17 @@ func (e *ChannelsEditLocationRequest) String() string {
 	return fmt.Sprintf("ChannelsEditLocationRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditLocationRequest from given interface.
+func (e *ChannelsEditLocationRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetGeoPoint() (value InputGeoPointClass)
+	GetAddress() (value string)
+}) {
+	e.Channel = from.GetChannel()
+	e.GeoPoint = from.GetGeoPoint()
+	e.Address = from.GetAddress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditLocationRequest) TypeID() uint32 {
@@ -96,9 +107,19 @@ func (e *ChannelsEditLocationRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditLocationRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
+
 // GetGeoPoint returns value of GeoPoint field.
 func (e *ChannelsEditLocationRequest) GetGeoPoint() (value InputGeoPointClass) {
 	return e.GeoPoint
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
+func (e *ChannelsEditLocationRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	return e.GeoPoint.AsNotEmpty()
 }
 
 // GetAddress returns value of Address field.

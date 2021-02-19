@@ -63,6 +63,14 @@ func (r *MessagesReorderStickerSetsRequest) String() string {
 	return fmt.Sprintf("MessagesReorderStickerSetsRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReorderStickerSetsRequest from given interface.
+func (r *MessagesReorderStickerSetsRequest) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetOrder() (value []int64)
+}) {
+	r.Order = from.GetOrder()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReorderStickerSetsRequest) TypeID() uint32 {

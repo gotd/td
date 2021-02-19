@@ -52,6 +52,15 @@ func (m *MsgsAllInfo) String() string {
 	return fmt.Sprintf("MsgsAllInfo%+v", Alias(*m))
 }
 
+// FillFrom fills MsgsAllInfo from given interface.
+func (m *MsgsAllInfo) FillFrom(from interface {
+	GetMsgIds() (value []int64)
+	GetInfo() (value []byte)
+}) {
+	m.MsgIds = from.GetMsgIds()
+	m.Info = from.GetInfo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsAllInfo) TypeID() uint32 {

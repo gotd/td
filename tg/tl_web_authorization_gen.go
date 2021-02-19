@@ -93,6 +93,29 @@ func (w *WebAuthorization) String() string {
 	return fmt.Sprintf("WebAuthorization%+v", Alias(*w))
 }
 
+// FillFrom fills WebAuthorization from given interface.
+func (w *WebAuthorization) FillFrom(from interface {
+	GetHash() (value int64)
+	GetBotID() (value int)
+	GetDomain() (value string)
+	GetBrowser() (value string)
+	GetPlatform() (value string)
+	GetDateCreated() (value int)
+	GetDateActive() (value int)
+	GetIP() (value string)
+	GetRegion() (value string)
+}) {
+	w.Hash = from.GetHash()
+	w.BotID = from.GetBotID()
+	w.Domain = from.GetDomain()
+	w.Browser = from.GetBrowser()
+	w.Platform = from.GetPlatform()
+	w.DateCreated = from.GetDateCreated()
+	w.DateActive = from.GetDateActive()
+	w.IP = from.GetIP()
+	w.Region = from.GetRegion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebAuthorization) TypeID() uint32 {

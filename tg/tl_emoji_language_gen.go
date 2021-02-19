@@ -50,6 +50,13 @@ func (e *EmojiLanguage) String() string {
 	return fmt.Sprintf("EmojiLanguage%+v", Alias(*e))
 }
 
+// FillFrom fills EmojiLanguage from given interface.
+func (e *EmojiLanguage) FillFrom(from interface {
+	GetLangCode() (value string)
+}) {
+	e.LangCode = from.GetLangCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiLanguage) TypeID() uint32 {

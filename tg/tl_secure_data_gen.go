@@ -64,6 +64,17 @@ func (s *SecureData) String() string {
 	return fmt.Sprintf("SecureData%+v", Alias(*s))
 }
 
+// FillFrom fills SecureData from given interface.
+func (s *SecureData) FillFrom(from interface {
+	GetData() (value []byte)
+	GetDataHash() (value []byte)
+	GetSecret() (value []byte)
+}) {
+	s.Data = from.GetData()
+	s.DataHash = from.GetDataHash()
+	s.Secret = from.GetSecret()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureData) TypeID() uint32 {

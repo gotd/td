@@ -60,6 +60,17 @@ func (g *MessagesGetGameHighScoresRequest) String() string {
 	return fmt.Sprintf("MessagesGetGameHighScoresRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetGameHighScoresRequest from given interface.
+func (g *MessagesGetGameHighScoresRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetID() (value int)
+	GetUserID() (value InputUserClass)
+}) {
+	g.Peer = from.GetPeer()
+	g.ID = from.GetID()
+	g.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetGameHighScoresRequest) TypeID() uint32 {

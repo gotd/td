@@ -69,6 +69,17 @@ func (v *AccountVerifyPhoneRequest) String() string {
 	return fmt.Sprintf("AccountVerifyPhoneRequest%+v", Alias(*v))
 }
 
+// FillFrom fills AccountVerifyPhoneRequest from given interface.
+func (v *AccountVerifyPhoneRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetPhoneCodeHash() (value string)
+	GetPhoneCode() (value string)
+}) {
+	v.PhoneNumber = from.GetPhoneNumber()
+	v.PhoneCodeHash = from.GetPhoneCodeHash()
+	v.PhoneCode = from.GetPhoneCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *AccountVerifyPhoneRequest) TypeID() uint32 {

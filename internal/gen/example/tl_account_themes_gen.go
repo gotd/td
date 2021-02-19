@@ -117,6 +117,15 @@ func (t *AccountThemes) String() string {
 	return fmt.Sprintf("AccountThemes%+v", Alias(*t))
 }
 
+// FillFrom fills AccountThemes from given interface.
+func (t *AccountThemes) FillFrom(from interface {
+	GetHash() (value int)
+	GetThemes() (value []Theme)
+}) {
+	t.Hash = from.GetHash()
+	t.Themes = from.GetThemes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountThemes) TypeID() uint32 {
@@ -210,6 +219,9 @@ type AccountThemesClass interface {
 	bin.Decoder
 	construct() AccountThemesClass
 
+	// AsModified tries to map AccountThemesClass to AccountThemes.
+	AsModified() (*AccountThemes, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -217,6 +229,16 @@ type AccountThemesClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map AccountThemesClass to AccountThemes.
+func (t *AccountThemesNotModified) AsModified() (*AccountThemes, bool) {
+	return nil, false
+}
+
+// AsModified tries to map AccountThemesClass to AccountThemes.
+func (t *AccountThemes) AsModified() (*AccountThemes, bool) {
+	return t, true
 }
 
 // DecodeAccountThemes implements binary de-serialization for AccountThemesClass.
@@ -269,4 +291,92 @@ func (b *AccountThemesBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AccountThemesClass as nil")
 	}
 	return b.Themes.Encode(buf)
+}
+
+// AccountThemesClassSlice is adapter for slice of AccountThemesClass.
+type AccountThemesClassSlice []AccountThemesClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s AccountThemesClassSlice) AppendOnlyModified(to []*AccountThemes) []*AccountThemes {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s AccountThemesClassSlice) AsModified() (to []*AccountThemes) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s AccountThemesClassSlice) FirstAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s AccountThemesClassSlice) LastAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s AccountThemesClassSlice) First() (v AccountThemesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AccountThemesClassSlice) Last() (v AccountThemesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AccountThemesClassSlice) PopFirst() (v AccountThemesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AccountThemesClassSlice) Pop() (v AccountThemesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

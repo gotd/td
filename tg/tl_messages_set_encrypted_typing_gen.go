@@ -59,6 +59,15 @@ func (s *MessagesSetEncryptedTypingRequest) String() string {
 	return fmt.Sprintf("MessagesSetEncryptedTypingRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetEncryptedTypingRequest from given interface.
+func (s *MessagesSetEncryptedTypingRequest) FillFrom(from interface {
+	GetPeer() (value InputEncryptedChat)
+	GetTyping() (value bool)
+}) {
+	s.Peer = from.GetPeer()
+	s.Typing = from.GetTyping()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetEncryptedTypingRequest) TypeID() uint32 {

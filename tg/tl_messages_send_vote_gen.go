@@ -63,6 +63,17 @@ func (s *MessagesSendVoteRequest) String() string {
 	return fmt.Sprintf("MessagesSendVoteRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSendVoteRequest from given interface.
+func (s *MessagesSendVoteRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetOptions() (value [][]byte)
+}) {
+	s.Peer = from.GetPeer()
+	s.MsgID = from.GetMsgID()
+	s.Options = from.GetOptions()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendVoteRequest) TypeID() uint32 {

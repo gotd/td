@@ -90,6 +90,25 @@ func (c *StickersCreateStickerSetRequest) String() string {
 	return fmt.Sprintf("StickersCreateStickerSetRequest%+v", Alias(*c))
 }
 
+// FillFrom fills StickersCreateStickerSetRequest from given interface.
+func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetAnimated() (value bool)
+	GetUserID() (value InputUserClass)
+	GetTitle() (value string)
+	GetShortName() (value string)
+	GetThumb() (value InputDocumentClass, ok bool)
+	GetStickers() (value []InputStickerSetItem)
+}) {
+	c.UserID = from.GetUserID()
+	c.Title = from.GetTitle()
+	c.ShortName = from.GetShortName()
+	if val, ok := from.GetThumb(); ok {
+		c.Thumb = val
+	}
+	c.Stickers = from.GetStickers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
@@ -199,6 +218,15 @@ func (c *StickersCreateStickerSetRequest) GetThumb() (value InputDocumentClass, 
 		return value, false
 	}
 	return c.Thumb, true
+}
+
+// GetThumbAsNotEmpty returns mapped value of Thumb conditional field and
+// boolean which is true if field was set.
+func (c *StickersCreateStickerSetRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := c.GetThumb(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // GetStickers returns value of Stickers field.

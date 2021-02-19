@@ -47,6 +47,13 @@ func (vec *UserClassVector) String() string {
 	return fmt.Sprintf("UserClassVector%+v", Alias(*vec))
 }
 
+// FillFrom fills UserClassVector from given interface.
+func (vec *UserClassVector) FillFrom(from interface {
+	GetElems() (value []UserClass)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *UserClassVector) TypeID() uint32 {
@@ -73,6 +80,11 @@ func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 // GetElems returns value of Elems field.
 func (vec *UserClassVector) GetElems() (value []UserClass) {
 	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in UserClassSlice helper.
+func (vec *UserClassVector) MapElems() (value UserClassSlice) {
+	return UserClassSlice(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

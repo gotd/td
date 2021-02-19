@@ -55,6 +55,15 @@ func (h *MessagesHighScores) String() string {
 	return fmt.Sprintf("MessagesHighScores%+v", Alias(*h))
 }
 
+// FillFrom fills MessagesHighScores from given interface.
+func (h *MessagesHighScores) FillFrom(from interface {
+	GetScores() (value []HighScore)
+	GetUsers() (value []UserClass)
+}) {
+	h.Scores = from.GetScores()
+	h.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *MessagesHighScores) TypeID() uint32 {
@@ -93,6 +102,11 @@ func (h *MessagesHighScores) GetScores() (value []HighScore) {
 // GetUsers returns value of Users field.
 func (h *MessagesHighScores) GetUsers() (value []UserClass) {
 	return h.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (h *MessagesHighScores) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(h.Users)
 }
 
 // Decode implements bin.Decoder.

@@ -73,6 +73,21 @@ func (p *MessagesPeerDialogs) String() string {
 	return fmt.Sprintf("MessagesPeerDialogs%+v", Alias(*p))
 }
 
+// FillFrom fills MessagesPeerDialogs from given interface.
+func (p *MessagesPeerDialogs) FillFrom(from interface {
+	GetDialogs() (value []DialogClass)
+	GetMessages() (value []MessageClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+	GetState() (value UpdatesState)
+}) {
+	p.Dialogs = from.GetDialogs()
+	p.Messages = from.GetMessages()
+	p.Chats = from.GetChats()
+	p.Users = from.GetUsers()
+	p.State = from.GetState()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *MessagesPeerDialogs) TypeID() uint32 {
@@ -132,9 +147,19 @@ func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
 	return p.Dialogs
 }
 
+// MapDialogs returns field Dialogs wrapped in DialogClassSlice helper.
+func (p *MessagesPeerDialogs) MapDialogs() (value DialogClassSlice) {
+	return DialogClassSlice(p.Dialogs)
+}
+
 // GetMessages returns value of Messages field.
 func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
 	return p.Messages
+}
+
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (p *MessagesPeerDialogs) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(p.Messages)
 }
 
 // GetChats returns value of Chats field.
@@ -142,9 +167,19 @@ func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
 	return p.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (p *MessagesPeerDialogs) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(p.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *MessagesPeerDialogs) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // GetState returns value of State field.

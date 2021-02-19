@@ -55,6 +55,15 @@ func (a *StickersAddStickerToSetRequest) String() string {
 	return fmt.Sprintf("StickersAddStickerToSetRequest%+v", Alias(*a))
 }
 
+// FillFrom fills StickersAddStickerToSetRequest from given interface.
+func (a *StickersAddStickerToSetRequest) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+	GetSticker() (value InputStickerSetItem)
+}) {
+	a.Stickerset = from.GetStickerset()
+	a.Sticker = from.GetSticker()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *StickersAddStickerToSetRequest) TypeID() uint32 {

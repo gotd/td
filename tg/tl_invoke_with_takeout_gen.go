@@ -55,6 +55,15 @@ func (i *InvokeWithTakeoutRequest) String() string {
 	return fmt.Sprintf("InvokeWithTakeoutRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InvokeWithTakeoutRequest from given interface.
+func (i *InvokeWithTakeoutRequest) FillFrom(from interface {
+	GetTakeoutID() (value int64)
+	GetQuery() (value bin.Object)
+}) {
+	i.TakeoutID = from.GetTakeoutID()
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeWithTakeoutRequest) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (s *AccountSetPrivacyRequest) String() string {
 	return fmt.Sprintf("AccountSetPrivacyRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSetPrivacyRequest from given interface.
+func (s *AccountSetPrivacyRequest) FillFrom(from interface {
+	GetKey() (value InputPrivacyKeyClass)
+	GetRules() (value []InputPrivacyRuleClass)
+}) {
+	s.Key = from.GetKey()
+	s.Rules = from.GetRules()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetPrivacyRequest) TypeID() uint32 {
@@ -93,6 +102,11 @@ func (s *AccountSetPrivacyRequest) GetKey() (value InputPrivacyKeyClass) {
 // GetRules returns value of Rules field.
 func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
 	return s.Rules
+}
+
+// MapRules returns field Rules wrapped in InputPrivacyRuleClassSlice helper.
+func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassSlice) {
+	return InputPrivacyRuleClassSlice(s.Rules)
 }
 
 // Decode implements bin.Decoder.

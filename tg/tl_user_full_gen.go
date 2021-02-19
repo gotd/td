@@ -147,6 +147,45 @@ func (u *UserFull) String() string {
 	return fmt.Sprintf("UserFull%+v", Alias(*u))
 }
 
+// FillFrom fills UserFull from given interface.
+func (u *UserFull) FillFrom(from interface {
+	GetBlocked() (value bool)
+	GetPhoneCallsAvailable() (value bool)
+	GetPhoneCallsPrivate() (value bool)
+	GetCanPinMessage() (value bool)
+	GetHasScheduled() (value bool)
+	GetVideoCallsAvailable() (value bool)
+	GetUser() (value UserClass)
+	GetAbout() (value string, ok bool)
+	GetSettings() (value PeerSettings)
+	GetProfilePhoto() (value PhotoClass, ok bool)
+	GetNotifySettings() (value PeerNotifySettings)
+	GetBotInfo() (value BotInfo, ok bool)
+	GetPinnedMsgID() (value int, ok bool)
+	GetCommonChatsCount() (value int)
+	GetFolderID() (value int, ok bool)
+}) {
+	u.User = from.GetUser()
+	if val, ok := from.GetAbout(); ok {
+		u.About = val
+	}
+	u.Settings = from.GetSettings()
+	if val, ok := from.GetProfilePhoto(); ok {
+		u.ProfilePhoto = val
+	}
+	u.NotifySettings = from.GetNotifySettings()
+	if val, ok := from.GetBotInfo(); ok {
+		u.BotInfo = val
+	}
+	if val, ok := from.GetPinnedMsgID(); ok {
+		u.PinnedMsgID = val
+	}
+	u.CommonChatsCount = from.GetCommonChatsCount()
+	if val, ok := from.GetFolderID(); ok {
+		u.FolderID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserFull) TypeID() uint32 {
@@ -334,6 +373,11 @@ func (u *UserFull) GetUser() (value UserClass) {
 	return u.User
 }
 
+// GetUserAsNotEmpty returns mapped value of User field.
+func (u *UserFull) GetUserAsNotEmpty() (*User, bool) {
+	return u.User.AsNotEmpty()
+}
+
 // SetAbout sets value of About conditional field.
 func (u *UserFull) SetAbout(value string) {
 	u.Flags.Set(1)
@@ -367,6 +411,15 @@ func (u *UserFull) GetProfilePhoto() (value PhotoClass, ok bool) {
 		return value, false
 	}
 	return u.ProfilePhoto, true
+}
+
+// GetProfilePhotoAsNotEmpty returns mapped value of ProfilePhoto conditional field and
+// boolean which is true if field was set.
+func (u *UserFull) GetProfilePhotoAsNotEmpty() (*Photo, bool) {
+	if value, ok := u.GetProfilePhoto(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // GetNotifySettings returns value of NotifySettings field.

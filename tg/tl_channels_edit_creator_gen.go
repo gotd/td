@@ -63,6 +63,17 @@ func (e *ChannelsEditCreatorRequest) String() string {
 	return fmt.Sprintf("ChannelsEditCreatorRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditCreatorRequest from given interface.
+func (e *ChannelsEditCreatorRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUserID() (value InputUserClass)
+	GetPassword() (value InputCheckPasswordSRPClass)
+}) {
+	e.Channel = from.GetChannel()
+	e.UserID = from.GetUserID()
+	e.Password = from.GetPassword()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditCreatorRequest) TypeID() uint32 {
@@ -101,6 +112,11 @@ func (e *ChannelsEditCreatorRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditCreatorRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
+}
+
 // GetUserID returns value of UserID field.
 func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
 	return e.UserID
@@ -109,6 +125,11 @@ func (e *ChannelsEditCreatorRequest) GetUserID() (value InputUserClass) {
 // GetPassword returns value of Password field.
 func (e *ChannelsEditCreatorRequest) GetPassword() (value InputCheckPasswordSRPClass) {
 	return e.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (e *ChannelsEditCreatorRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return e.Password.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

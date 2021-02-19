@@ -119,6 +119,15 @@ func (i *InputStickerSetID) String() string {
 	return fmt.Sprintf("InputStickerSetID%+v", Alias(*i))
 }
 
+// FillFrom fills InputStickerSetID from given interface.
+func (i *InputStickerSetID) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetID) TypeID() uint32 {
@@ -212,6 +221,13 @@ func (i *InputStickerSetShortName) String() string {
 	}
 	type Alias InputStickerSetShortName
 	return fmt.Sprintf("InputStickerSetShortName%+v", Alias(*i))
+}
+
+// FillFrom fills InputStickerSetShortName from given interface.
+func (i *InputStickerSetShortName) FillFrom(from interface {
+	GetShortName() (value string)
+}) {
+	i.ShortName = from.GetShortName()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -361,6 +377,13 @@ func (i *InputStickerSetDice) String() string {
 	}
 	type Alias InputStickerSetDice
 	return fmt.Sprintf("InputStickerSetDice%+v", Alias(*i))
+}
+
+// FillFrom fills InputStickerSetDice from given interface.
+func (i *InputStickerSetDice) FillFrom(from interface {
+	GetEmoticon() (value string)
+}) {
+	i.Emoticon = from.GetEmoticon()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -515,4 +538,55 @@ func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputStickerSetClass as nil")
 	}
 	return b.InputStickerSet.Encode(buf)
+}
+
+// InputStickerSetClassSlice is adapter for slice of InputStickerSetClass.
+type InputStickerSetClassSlice []InputStickerSetClass
+
+// First returns first element of slice (if exists).
+func (s InputStickerSetClassSlice) First() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickerSetClassSlice) Last() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassSlice) PopFirst() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassSlice) Pop() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -93,6 +93,23 @@ func (a *AutoDownloadSettings) String() string {
 	return fmt.Sprintf("AutoDownloadSettings%+v", Alias(*a))
 }
 
+// FillFrom fills AutoDownloadSettings from given interface.
+func (a *AutoDownloadSettings) FillFrom(from interface {
+	GetDisabled() (value bool)
+	GetVideoPreloadLarge() (value bool)
+	GetAudioPreloadNext() (value bool)
+	GetPhonecallsLessData() (value bool)
+	GetPhotoSizeMax() (value int)
+	GetVideoSizeMax() (value int)
+	GetFileSizeMax() (value int)
+	GetVideoUploadMaxbitrate() (value int)
+}) {
+	a.PhotoSizeMax = from.GetPhotoSizeMax()
+	a.VideoSizeMax = from.GetVideoSizeMax()
+	a.FileSizeMax = from.GetFileSizeMax()
+	a.VideoUploadMaxbitrate = from.GetVideoUploadMaxbitrate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AutoDownloadSettings) TypeID() uint32 {

@@ -47,6 +47,13 @@ func (vec *SecureValueVector) String() string {
 	return fmt.Sprintf("SecureValueVector%+v", Alias(*vec))
 }
 
+// FillFrom fills SecureValueVector from given interface.
+func (vec *SecureValueVector) FillFrom(from interface {
+	GetElems() (value []SecureValue)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *SecureValueVector) TypeID() uint32 {

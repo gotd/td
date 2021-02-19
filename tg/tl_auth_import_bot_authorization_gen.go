@@ -74,6 +74,19 @@ func (i *AuthImportBotAuthorizationRequest) String() string {
 	return fmt.Sprintf("AuthImportBotAuthorizationRequest%+v", Alias(*i))
 }
 
+// FillFrom fills AuthImportBotAuthorizationRequest from given interface.
+func (i *AuthImportBotAuthorizationRequest) FillFrom(from interface {
+	GetFlags() (value int)
+	GetAPIID() (value int)
+	GetAPIHash() (value string)
+	GetBotAuthToken() (value string)
+}) {
+	i.Flags = from.GetFlags()
+	i.APIID = from.GetAPIID()
+	i.APIHash = from.GetAPIHash()
+	i.BotAuthToken = from.GetBotAuthToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AuthImportBotAuthorizationRequest) TypeID() uint32 {

@@ -124,6 +124,17 @@ func (c *ContactsContacts) String() string {
 	return fmt.Sprintf("ContactsContacts%+v", Alias(*c))
 }
 
+// FillFrom fills ContactsContacts from given interface.
+func (c *ContactsContacts) FillFrom(from interface {
+	GetContacts() (value []Contact)
+	GetSavedCount() (value int)
+	GetUsers() (value []UserClass)
+}) {
+	c.Contacts = from.GetContacts()
+	c.SavedCount = from.GetSavedCount()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactsContacts) TypeID() uint32 {
@@ -168,6 +179,11 @@ func (c *ContactsContacts) GetSavedCount() (value int) {
 // GetUsers returns value of Users field.
 func (c *ContactsContacts) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *ContactsContacts) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -244,6 +260,9 @@ type ContactsContactsClass interface {
 	bin.Decoder
 	construct() ContactsContactsClass
 
+	// AsModified tries to map ContactsContactsClass to ContactsContacts.
+	AsModified() (*ContactsContacts, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -251,6 +270,16 @@ type ContactsContactsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map ContactsContactsClass to ContactsContacts.
+func (c *ContactsContactsNotModified) AsModified() (*ContactsContacts, bool) {
+	return nil, false
+}
+
+// AsModified tries to map ContactsContactsClass to ContactsContacts.
+func (c *ContactsContacts) AsModified() (*ContactsContacts, bool) {
+	return c, true
 }
 
 // DecodeContactsContacts implements binary de-serialization for ContactsContactsClass.
@@ -303,4 +332,92 @@ func (b *ContactsContactsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ContactsContactsClass as nil")
 	}
 	return b.Contacts.Encode(buf)
+}
+
+// ContactsContactsClassSlice is adapter for slice of ContactsContactsClass.
+type ContactsContactsClassSlice []ContactsContactsClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s ContactsContactsClassSlice) AppendOnlyModified(to []*ContactsContacts) []*ContactsContacts {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s ContactsContactsClassSlice) AsModified() (to []*ContactsContacts) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s ContactsContactsClassSlice) FirstAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s ContactsContactsClassSlice) LastAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s ContactsContactsClassSlice) First() (v ContactsContactsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ContactsContactsClassSlice) Last() (v ContactsContactsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ContactsContactsClassSlice) PopFirst() (v ContactsContactsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ContactsContactsClassSlice) Pop() (v ContactsContactsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

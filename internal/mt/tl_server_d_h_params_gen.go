@@ -57,6 +57,17 @@ func (s *ServerDHParamsFail) String() string {
 	return fmt.Sprintf("ServerDHParamsFail%+v", Alias(*s))
 }
 
+// FillFrom fills ServerDHParamsFail from given interface.
+func (s *ServerDHParamsFail) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetNewNonceHash() (value bin.Int128)
+}) {
+	s.Nonce = from.GetNonce()
+	s.ServerNonce = from.GetServerNonce()
+	s.NewNonceHash = from.GetNewNonceHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ServerDHParamsFail) TypeID() uint32 {
@@ -170,6 +181,17 @@ func (s *ServerDHParamsOk) String() string {
 	}
 	type Alias ServerDHParamsOk
 	return fmt.Sprintf("ServerDHParamsOk%+v", Alias(*s))
+}
+
+// FillFrom fills ServerDHParamsOk from given interface.
+func (s *ServerDHParamsOk) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetEncryptedAnswer() (value []byte)
+}) {
+	s.Nonce = from.GetNonce()
+	s.ServerNonce = from.GetServerNonce()
+	s.EncryptedAnswer = from.GetEncryptedAnswer()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -329,4 +351,55 @@ func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ServerDHParamsClass as nil")
 	}
 	return b.Server_DH_Params.Encode(buf)
+}
+
+// ServerDHParamsClassSlice is adapter for slice of ServerDHParamsClass.
+type ServerDHParamsClassSlice []ServerDHParamsClass
+
+// First returns first element of slice (if exists).
+func (s ServerDHParamsClassSlice) First() (v ServerDHParamsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ServerDHParamsClassSlice) Last() (v ServerDHParamsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ServerDHParamsClassSlice) PopFirst() (v ServerDHParamsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ServerDHParamsClassSlice) Pop() (v ServerDHParamsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

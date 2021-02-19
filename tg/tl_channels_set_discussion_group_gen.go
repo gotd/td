@@ -61,6 +61,15 @@ func (s *ChannelsSetDiscussionGroupRequest) String() string {
 	return fmt.Sprintf("ChannelsSetDiscussionGroupRequest%+v", Alias(*s))
 }
 
+// FillFrom fills ChannelsSetDiscussionGroupRequest from given interface.
+func (s *ChannelsSetDiscussionGroupRequest) FillFrom(from interface {
+	GetBroadcast() (value InputChannelClass)
+	GetGroup() (value InputChannelClass)
+}) {
+	s.Broadcast = from.GetBroadcast()
+	s.Group = from.GetGroup()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
@@ -93,9 +102,19 @@ func (s *ChannelsSetDiscussionGroupRequest) GetBroadcast() (value InputChannelCl
 	return s.Broadcast
 }
 
+// GetBroadcastAsNotEmpty returns mapped value of Broadcast field.
+func (s *ChannelsSetDiscussionGroupRequest) GetBroadcastAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Broadcast.AsNotEmpty()
+}
+
 // GetGroup returns value of Group field.
 func (s *ChannelsSetDiscussionGroupRequest) GetGroup() (value InputChannelClass) {
 	return s.Group
+}
+
+// GetGroupAsNotEmpty returns mapped value of Group field.
+func (s *ChannelsSetDiscussionGroupRequest) GetGroupAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Group.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

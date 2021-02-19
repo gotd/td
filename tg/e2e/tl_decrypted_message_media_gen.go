@@ -147,6 +147,27 @@ func (d *DecryptedMessageMediaPhoto23) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaPhoto23%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaPhoto23 from given interface.
+func (d *DecryptedMessageMediaPhoto23) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.W = from.GetW()
+	d.H = from.GetH()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaPhoto23) TypeID() uint32 {
@@ -359,6 +380,29 @@ func (d *DecryptedMessageMediaVideo8) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaVideo8%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaVideo8 from given interface.
+func (d *DecryptedMessageMediaVideo8) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetDuration() (value int)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.Duration = from.GetDuration()
+	d.W = from.GetW()
+	d.H = from.GetH()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo8) TypeID() uint32 {
@@ -549,6 +593,15 @@ func (d *DecryptedMessageMediaGeoPoint) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaGeoPoint%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaGeoPoint from given interface.
+func (d *DecryptedMessageMediaGeoPoint) FillFrom(from interface {
+	GetLat() (value float64)
+	GetLong() (value float64)
+}) {
+	d.Lat = from.GetLat()
+	d.Long = from.GetLong()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaGeoPoint) TypeID() uint32 {
@@ -656,6 +709,19 @@ func (d *DecryptedMessageMediaContact) String() string {
 	}
 	type Alias DecryptedMessageMediaContact
 	return fmt.Sprintf("DecryptedMessageMediaContact%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaContact from given interface.
+func (d *DecryptedMessageMediaContact) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetUserID() (value int)
+}) {
+	d.PhoneNumber = from.GetPhoneNumber()
+	d.FirstName = from.GetFirstName()
+	d.LastName = from.GetLastName()
+	d.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -811,6 +877,27 @@ func (d *DecryptedMessageMediaDocument23) String() string {
 	}
 	type Alias DecryptedMessageMediaDocument23
 	return fmt.Sprintf("DecryptedMessageMediaDocument23%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaDocument23 from given interface.
+func (d *DecryptedMessageMediaDocument23) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetFileName() (value string)
+	GetMimeType() (value string)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.FileName = from.GetFileName()
+	d.MimeType = from.GetMimeType()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1000,6 +1087,19 @@ func (d *DecryptedMessageMediaAudio8) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaAudio8%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaAudio8 from given interface.
+func (d *DecryptedMessageMediaAudio8) FillFrom(from interface {
+	GetDuration() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Duration = from.GetDuration()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio8) TypeID() uint32 {
@@ -1163,6 +1263,31 @@ func (d *DecryptedMessageMediaVideo23) String() string {
 	}
 	type Alias DecryptedMessageMediaVideo23
 	return fmt.Sprintf("DecryptedMessageMediaVideo23%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaVideo23 from given interface.
+func (d *DecryptedMessageMediaVideo23) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetDuration() (value int)
+	GetMimeType() (value string)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.Duration = from.GetDuration()
+	d.MimeType = from.GetMimeType()
+	d.W = from.GetW()
+	d.H = from.GetH()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1383,6 +1508,21 @@ func (d *DecryptedMessageMediaAudio) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaAudio%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaAudio from given interface.
+func (d *DecryptedMessageMediaAudio) FillFrom(from interface {
+	GetDuration() (value int)
+	GetMimeType() (value string)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+}) {
+	d.Duration = from.GetDuration()
+	d.MimeType = from.GetMimeType()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio) TypeID() uint32 {
@@ -1551,6 +1691,27 @@ func (d *DecryptedMessageMediaExternalDocument) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaExternalDocument%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaExternalDocument from given interface.
+func (d *DecryptedMessageMediaExternalDocument) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetMimeType() (value string)
+	GetSize() (value int)
+	GetThumb() (value PhotoSizeClass)
+	GetDCID() (value int)
+	GetAttributes() (value []DocumentAttributeClass)
+}) {
+	d.ID = from.GetID()
+	d.AccessHash = from.GetAccessHash()
+	d.Date = from.GetDate()
+	d.MimeType = from.GetMimeType()
+	d.Size = from.GetSize()
+	d.Thumb = from.GetThumb()
+	d.DCID = from.GetDCID()
+	d.Attributes = from.GetAttributes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaExternalDocument) TypeID() uint32 {
@@ -1625,6 +1786,11 @@ func (d *DecryptedMessageMediaExternalDocument) GetDCID() (value int) {
 // GetAttributes returns value of Attributes field.
 func (d *DecryptedMessageMediaExternalDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return d.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (d *DecryptedMessageMediaExternalDocument) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(d.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -1780,6 +1946,29 @@ func (d *DecryptedMessageMediaPhoto) String() string {
 	}
 	type Alias DecryptedMessageMediaPhoto
 	return fmt.Sprintf("DecryptedMessageMediaPhoto%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaPhoto from given interface.
+func (d *DecryptedMessageMediaPhoto) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+	GetCaption() (value string)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.W = from.GetW()
+	d.H = from.GetH()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+	d.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2015,6 +2204,33 @@ func (d *DecryptedMessageMediaVideo) String() string {
 	}
 	type Alias DecryptedMessageMediaVideo
 	return fmt.Sprintf("DecryptedMessageMediaVideo%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaVideo from given interface.
+func (d *DecryptedMessageMediaVideo) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetDuration() (value int)
+	GetMimeType() (value string)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+	GetCaption() (value string)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.Duration = from.GetDuration()
+	d.MimeType = from.GetMimeType()
+	d.W = from.GetW()
+	d.H = from.GetH()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+	d.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2268,6 +2484,29 @@ func (d *DecryptedMessageMediaDocument) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaDocument%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaDocument from given interface.
+func (d *DecryptedMessageMediaDocument) FillFrom(from interface {
+	GetThumb() (value []byte)
+	GetThumbW() (value int)
+	GetThumbH() (value int)
+	GetMimeType() (value string)
+	GetSize() (value int)
+	GetKey() (value []byte)
+	GetIv() (value []byte)
+	GetAttributes() (value []DocumentAttributeClass)
+	GetCaption() (value string)
+}) {
+	d.Thumb = from.GetThumb()
+	d.ThumbW = from.GetThumbW()
+	d.ThumbH = from.GetThumbH()
+	d.MimeType = from.GetMimeType()
+	d.Size = from.GetSize()
+	d.Key = from.GetKey()
+	d.Iv = from.GetIv()
+	d.Attributes = from.GetAttributes()
+	d.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaDocument) TypeID() uint32 {
@@ -2338,6 +2577,11 @@ func (d *DecryptedMessageMediaDocument) GetIv() (value []byte) {
 // GetAttributes returns value of Attributes field.
 func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return d.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (d *DecryptedMessageMediaDocument) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(d.Attributes)
 }
 
 // GetCaption returns value of Caption field.
@@ -2492,6 +2736,23 @@ func (d *DecryptedMessageMediaVenue) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaVenue%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageMediaVenue from given interface.
+func (d *DecryptedMessageMediaVenue) FillFrom(from interface {
+	GetLat() (value float64)
+	GetLong() (value float64)
+	GetTitle() (value string)
+	GetAddress() (value string)
+	GetProvider() (value string)
+	GetVenueID() (value string)
+}) {
+	d.Lat = from.GetLat()
+	d.Long = from.GetLong()
+	d.Title = from.GetTitle()
+	d.Address = from.GetAddress()
+	d.Provider = from.GetProvider()
+	d.VenueID = from.GetVenueID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVenue) TypeID() uint32 {
@@ -2636,6 +2897,13 @@ func (d *DecryptedMessageMediaWebPage) String() string {
 	}
 	type Alias DecryptedMessageMediaWebPage
 	return fmt.Sprintf("DecryptedMessageMediaWebPage%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageMediaWebPage from given interface.
+func (d *DecryptedMessageMediaWebPage) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	d.URL = from.GetURL()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2870,4 +3138,55 @@ func (b *DecryptedMessageMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageMediaClass as nil")
 	}
 	return b.DecryptedMessageMedia.Encode(buf)
+}
+
+// DecryptedMessageMediaClassSlice is adapter for slice of DecryptedMessageMediaClass.
+type DecryptedMessageMediaClassSlice []DecryptedMessageMediaClass
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaClassSlice) First() (v DecryptedMessageMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaClassSlice) Last() (v DecryptedMessageMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaClassSlice) PopFirst() (v DecryptedMessageMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaClassSlice) Pop() (v DecryptedMessageMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

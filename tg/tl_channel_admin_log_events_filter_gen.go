@@ -179,6 +179,26 @@ func (c *ChannelAdminLogEventsFilter) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventsFilter%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEventsFilter from given interface.
+func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
+	GetJoin() (value bool)
+	GetLeave() (value bool)
+	GetInvite() (value bool)
+	GetBan() (value bool)
+	GetUnban() (value bool)
+	GetKick() (value bool)
+	GetUnkick() (value bool)
+	GetPromote() (value bool)
+	GetDemote() (value bool)
+	GetInfo() (value bool)
+	GetSettings() (value bool)
+	GetPinned() (value bool)
+	GetEdit() (value bool)
+	GetDelete() (value bool)
+	GetGroupCall() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {

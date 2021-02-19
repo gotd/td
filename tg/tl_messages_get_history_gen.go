@@ -88,6 +88,27 @@ func (g *MessagesGetHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesGetHistoryRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetHistoryRequest from given interface.
+func (g *MessagesGetHistoryRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetOffsetID() (value int)
+	GetOffsetDate() (value int)
+	GetAddOffset() (value int)
+	GetLimit() (value int)
+	GetMaxID() (value int)
+	GetMinID() (value int)
+	GetHash() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.OffsetID = from.GetOffsetID()
+	g.OffsetDate = from.GetOffsetDate()
+	g.AddOffset = from.GetAddOffset()
+	g.Limit = from.GetLimit()
+	g.MaxID = from.GetMaxID()
+	g.MinID = from.GetMinID()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetHistoryRequest) TypeID() uint32 {

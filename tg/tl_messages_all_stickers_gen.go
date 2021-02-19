@@ -122,6 +122,15 @@ func (a *MessagesAllStickers) String() string {
 	return fmt.Sprintf("MessagesAllStickers%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAllStickers from given interface.
+func (a *MessagesAllStickers) FillFrom(from interface {
+	GetHash() (value int)
+	GetSets() (value []StickerSet)
+}) {
+	a.Hash = from.GetHash()
+	a.Sets = from.GetSets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAllStickers) TypeID() uint32 {
@@ -215,6 +224,9 @@ type MessagesAllStickersClass interface {
 	bin.Decoder
 	construct() MessagesAllStickersClass
 
+	// AsModified tries to map MessagesAllStickersClass to MessagesAllStickers.
+	AsModified() (*MessagesAllStickers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -222,6 +234,16 @@ type MessagesAllStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesAllStickersClass to MessagesAllStickers.
+func (a *MessagesAllStickersNotModified) AsModified() (*MessagesAllStickers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesAllStickersClass to MessagesAllStickers.
+func (a *MessagesAllStickers) AsModified() (*MessagesAllStickers, bool) {
+	return a, true
 }
 
 // DecodeMessagesAllStickers implements binary de-serialization for MessagesAllStickersClass.
@@ -274,4 +296,92 @@ func (b *MessagesAllStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesAllStickersClass as nil")
 	}
 	return b.AllStickers.Encode(buf)
+}
+
+// MessagesAllStickersClassSlice is adapter for slice of MessagesAllStickersClass.
+type MessagesAllStickersClassSlice []MessagesAllStickersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesAllStickersClassSlice) AppendOnlyModified(to []*MessagesAllStickers) []*MessagesAllStickers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesAllStickersClassSlice) AsModified() (to []*MessagesAllStickers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesAllStickersClassSlice) FirstAsModified() (v *MessagesAllStickers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesAllStickersClassSlice) LastAsModified() (v *MessagesAllStickers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesAllStickersClassSlice) First() (v MessagesAllStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesAllStickersClassSlice) Last() (v MessagesAllStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesAllStickersClassSlice) PopFirst() (v MessagesAllStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesAllStickersClassSlice) Pop() (v MessagesAllStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

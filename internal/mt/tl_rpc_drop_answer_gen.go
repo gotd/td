@@ -179,6 +179,17 @@ func (r *RPCAnswerDropped) String() string {
 	return fmt.Sprintf("RPCAnswerDropped%+v", Alias(*r))
 }
 
+// FillFrom fills RPCAnswerDropped from given interface.
+func (r *RPCAnswerDropped) FillFrom(from interface {
+	GetMsgID() (value int64)
+	GetSeqNo() (value int)
+	GetBytes() (value int)
+}) {
+	r.MsgID = from.GetMsgID()
+	r.SeqNo = from.GetSeqNo()
+	r.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCAnswerDropped) TypeID() uint32 {
@@ -339,4 +350,55 @@ func (b *RpcDropAnswerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode RpcDropAnswerClass as nil")
 	}
 	return b.RpcDropAnswer.Encode(buf)
+}
+
+// RpcDropAnswerClassSlice is adapter for slice of RpcDropAnswerClass.
+type RpcDropAnswerClassSlice []RpcDropAnswerClass
+
+// First returns first element of slice (if exists).
+func (s RpcDropAnswerClassSlice) First() (v RpcDropAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RpcDropAnswerClassSlice) Last() (v RpcDropAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RpcDropAnswerClassSlice) PopFirst() (v RpcDropAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RpcDropAnswerClassSlice) Pop() (v RpcDropAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

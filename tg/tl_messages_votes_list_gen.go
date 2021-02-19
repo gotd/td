@@ -81,6 +81,21 @@ func (v *MessagesVotesList) String() string {
 	return fmt.Sprintf("MessagesVotesList%+v", Alias(*v))
 }
 
+// FillFrom fills MessagesVotesList from given interface.
+func (v *MessagesVotesList) FillFrom(from interface {
+	GetCount() (value int)
+	GetVotes() (value []MessageUserVoteClass)
+	GetUsers() (value []UserClass)
+	GetNextOffset() (value string, ok bool)
+}) {
+	v.Count = from.GetCount()
+	v.Votes = from.GetVotes()
+	v.Users = from.GetUsers()
+	if val, ok := from.GetNextOffset(); ok {
+		v.NextOffset = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *MessagesVotesList) TypeID() uint32 {
@@ -134,9 +149,19 @@ func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
 	return v.Votes
 }
 
+// MapVotes returns field Votes wrapped in MessageUserVoteClassSlice helper.
+func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassSlice) {
+	return MessageUserVoteClassSlice(v.Votes)
+}
+
 // GetUsers returns value of Users field.
 func (v *MessagesVotesList) GetUsers() (value []UserClass) {
 	return v.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (v *MessagesVotesList) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(v.Users)
 }
 
 // SetNextOffset sets value of NextOffset conditional field.

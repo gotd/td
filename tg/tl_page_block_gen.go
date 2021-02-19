@@ -114,6 +114,13 @@ func (p *PageBlockTitle) String() string {
 	return fmt.Sprintf("PageBlockTitle%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockTitle from given interface.
+func (p *PageBlockTitle) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockTitle) TypeID() uint32 {
@@ -199,6 +206,13 @@ func (p *PageBlockSubtitle) String() string {
 	}
 	type Alias PageBlockSubtitle
 	return fmt.Sprintf("PageBlockSubtitle%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockSubtitle from given interface.
+func (p *PageBlockSubtitle) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -291,6 +305,15 @@ func (p *PageBlockAuthorDate) String() string {
 	}
 	type Alias PageBlockAuthorDate
 	return fmt.Sprintf("PageBlockAuthorDate%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockAuthorDate from given interface.
+func (p *PageBlockAuthorDate) FillFrom(from interface {
+	GetAuthor() (value RichTextClass)
+	GetPublishedDate() (value int)
+}) {
+	p.Author = from.GetAuthor()
+	p.PublishedDate = from.GetPublishedDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -393,6 +416,13 @@ func (p *PageBlockHeader) String() string {
 	return fmt.Sprintf("PageBlockHeader%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockHeader from given interface.
+func (p *PageBlockHeader) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockHeader) TypeID() uint32 {
@@ -480,6 +510,13 @@ func (p *PageBlockSubheader) String() string {
 	return fmt.Sprintf("PageBlockSubheader%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockSubheader from given interface.
+func (p *PageBlockSubheader) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSubheader) TypeID() uint32 {
@@ -565,6 +602,13 @@ func (p *PageBlockParagraph) String() string {
 	}
 	type Alias PageBlockParagraph
 	return fmt.Sprintf("PageBlockParagraph%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockParagraph from given interface.
+func (p *PageBlockParagraph) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -657,6 +701,15 @@ func (p *PageBlockPreformatted) String() string {
 	}
 	type Alias PageBlockPreformatted
 	return fmt.Sprintf("PageBlockPreformatted%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockPreformatted from given interface.
+func (p *PageBlockPreformatted) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetLanguage() (value string)
+}) {
+	p.Text = from.GetText()
+	p.Language = from.GetLanguage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -757,6 +810,13 @@ func (p *PageBlockFooter) String() string {
 	}
 	type Alias PageBlockFooter
 	return fmt.Sprintf("PageBlockFooter%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockFooter from given interface.
+func (p *PageBlockFooter) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -910,6 +970,13 @@ func (p *PageBlockAnchor) String() string {
 	return fmt.Sprintf("PageBlockAnchor%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockAnchor from given interface.
+func (p *PageBlockAnchor) FillFrom(from interface {
+	GetName() (value string)
+}) {
+	p.Name = from.GetName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAnchor) TypeID() uint32 {
@@ -992,6 +1059,13 @@ func (p *PageBlockList) String() string {
 	return fmt.Sprintf("PageBlockList%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockList from given interface.
+func (p *PageBlockList) FillFrom(from interface {
+	GetItems() (value []PageListItemClass)
+}) {
+	p.Items = from.GetItems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockList) TypeID() uint32 {
@@ -1019,6 +1093,11 @@ func (p *PageBlockList) Encode(b *bin.Buffer) error {
 // GetItems returns value of Items field.
 func (p *PageBlockList) GetItems() (value []PageListItemClass) {
 	return p.Items
+}
+
+// MapItems returns field Items wrapped in PageListItemClassSlice helper.
+func (p *PageBlockList) MapItems() (value PageListItemClassSlice) {
+	return PageListItemClassSlice(p.Items)
 }
 
 // Decode implements bin.Decoder.
@@ -1091,6 +1170,15 @@ func (p *PageBlockBlockquote) String() string {
 	}
 	type Alias PageBlockBlockquote
 	return fmt.Sprintf("PageBlockBlockquote%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockBlockquote from given interface.
+func (p *PageBlockBlockquote) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetCaption() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+	p.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1201,6 +1289,15 @@ func (p *PageBlockPullquote) String() string {
 	}
 	type Alias PageBlockPullquote
 	return fmt.Sprintf("PageBlockPullquote%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockPullquote from given interface.
+func (p *PageBlockPullquote) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetCaption() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+	p.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1333,6 +1430,23 @@ func (p *PageBlockPhoto) String() string {
 	}
 	type Alias PageBlockPhoto
 	return fmt.Sprintf("PageBlockPhoto%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockPhoto from given interface.
+func (p *PageBlockPhoto) FillFrom(from interface {
+	GetPhotoID() (value int64)
+	GetCaption() (value PageCaption)
+	GetURL() (value string, ok bool)
+	GetWebpageID() (value int64, ok bool)
+}) {
+	p.PhotoID = from.GetPhotoID()
+	p.Caption = from.GetCaption()
+	if val, ok := from.GetURL(); ok {
+		p.URL = val
+	}
+	if val, ok := from.GetWebpageID(); ok {
+		p.WebpageID = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1517,6 +1631,17 @@ func (p *PageBlockVideo) String() string {
 	return fmt.Sprintf("PageBlockVideo%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockVideo from given interface.
+func (p *PageBlockVideo) FillFrom(from interface {
+	GetAutoplay() (value bool)
+	GetLoop() (value bool)
+	GetVideoID() (value int64)
+	GetCaption() (value PageCaption)
+}) {
+	p.VideoID = from.GetVideoID()
+	p.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockVideo) TypeID() uint32 {
@@ -1660,6 +1785,13 @@ func (p *PageBlockCover) String() string {
 	return fmt.Sprintf("PageBlockCover%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockCover from given interface.
+func (p *PageBlockCover) FillFrom(from interface {
+	GetCover() (value PageBlockClass)
+}) {
+	p.Cover = from.GetCover()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCover) TypeID() uint32 {
@@ -1798,6 +1930,35 @@ func (p *PageBlockEmbed) String() string {
 	}
 	type Alias PageBlockEmbed
 	return fmt.Sprintf("PageBlockEmbed%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockEmbed from given interface.
+func (p *PageBlockEmbed) FillFrom(from interface {
+	GetFullWidth() (value bool)
+	GetAllowScrolling() (value bool)
+	GetURL() (value string, ok bool)
+	GetHTML() (value string, ok bool)
+	GetPosterPhotoID() (value int64, ok bool)
+	GetW() (value int, ok bool)
+	GetH() (value int, ok bool)
+	GetCaption() (value PageCaption)
+}) {
+	if val, ok := from.GetURL(); ok {
+		p.URL = val
+	}
+	if val, ok := from.GetHTML(); ok {
+		p.HTML = val
+	}
+	if val, ok := from.GetPosterPhotoID(); ok {
+		p.PosterPhotoID = val
+	}
+	if val, ok := from.GetW(); ok {
+		p.W = val
+	}
+	if val, ok := from.GetH(); ok {
+		p.H = val
+	}
+	p.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2100,6 +2261,25 @@ func (p *PageBlockEmbedPost) String() string {
 	return fmt.Sprintf("PageBlockEmbedPost%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockEmbedPost from given interface.
+func (p *PageBlockEmbedPost) FillFrom(from interface {
+	GetURL() (value string)
+	GetWebpageID() (value int64)
+	GetAuthorPhotoID() (value int64)
+	GetAuthor() (value string)
+	GetDate() (value int)
+	GetBlocks() (value []PageBlockClass)
+	GetCaption() (value PageCaption)
+}) {
+	p.URL = from.GetURL()
+	p.WebpageID = from.GetWebpageID()
+	p.AuthorPhotoID = from.GetAuthorPhotoID()
+	p.Author = from.GetAuthor()
+	p.Date = from.GetDate()
+	p.Blocks = from.GetBlocks()
+	p.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockEmbedPost) TypeID() uint32 {
@@ -2160,6 +2340,11 @@ func (p *PageBlockEmbedPost) GetDate() (value int) {
 // GetBlocks returns value of Blocks field.
 func (p *PageBlockEmbedPost) GetBlocks() (value []PageBlockClass) {
 	return p.Blocks
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassSlice helper.
+func (p *PageBlockEmbedPost) MapBlocks() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Blocks)
 }
 
 // GetCaption returns value of Caption field.
@@ -2279,6 +2464,15 @@ func (p *PageBlockCollage) String() string {
 	return fmt.Sprintf("PageBlockCollage%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockCollage from given interface.
+func (p *PageBlockCollage) FillFrom(from interface {
+	GetItems() (value []PageBlockClass)
+	GetCaption() (value PageCaption)
+}) {
+	p.Items = from.GetItems()
+	p.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCollage) TypeID() uint32 {
@@ -2309,6 +2503,11 @@ func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 // GetItems returns value of Items field.
 func (p *PageBlockCollage) GetItems() (value []PageBlockClass) {
 	return p.Items
+}
+
+// MapItems returns field Items wrapped in PageBlockClassSlice helper.
+func (p *PageBlockCollage) MapItems() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Items)
 }
 
 // GetCaption returns value of Caption field.
@@ -2393,6 +2592,15 @@ func (p *PageBlockSlideshow) String() string {
 	return fmt.Sprintf("PageBlockSlideshow%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockSlideshow from given interface.
+func (p *PageBlockSlideshow) FillFrom(from interface {
+	GetItems() (value []PageBlockClass)
+	GetCaption() (value PageCaption)
+}) {
+	p.Items = from.GetItems()
+	p.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSlideshow) TypeID() uint32 {
@@ -2423,6 +2631,11 @@ func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 // GetItems returns value of Items field.
 func (p *PageBlockSlideshow) GetItems() (value []PageBlockClass) {
 	return p.Items
+}
+
+// MapItems returns field Items wrapped in PageBlockClassSlice helper.
+func (p *PageBlockSlideshow) MapItems() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Items)
 }
 
 // GetCaption returns value of Caption field.
@@ -2500,6 +2713,13 @@ func (p *PageBlockChannel) String() string {
 	}
 	type Alias PageBlockChannel
 	return fmt.Sprintf("PageBlockChannel%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockChannel from given interface.
+func (p *PageBlockChannel) FillFrom(from interface {
+	GetChannel() (value ChatClass)
+}) {
+	p.Channel = from.GetChannel()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2597,6 +2817,15 @@ func (p *PageBlockAudio) String() string {
 	return fmt.Sprintf("PageBlockAudio%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockAudio from given interface.
+func (p *PageBlockAudio) FillFrom(from interface {
+	GetAudioID() (value int64)
+	GetCaption() (value PageCaption)
+}) {
+	p.AudioID = from.GetAudioID()
+	p.Caption = from.GetCaption()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAudio) TypeID() uint32 {
@@ -2690,6 +2919,13 @@ func (p *PageBlockKicker) String() string {
 	}
 	type Alias PageBlockKicker
 	return fmt.Sprintf("PageBlockKicker%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockKicker from given interface.
+func (p *PageBlockKicker) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2800,6 +3036,17 @@ func (p *PageBlockTable) String() string {
 	}
 	type Alias PageBlockTable
 	return fmt.Sprintf("PageBlockTable%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockTable from given interface.
+func (p *PageBlockTable) FillFrom(from interface {
+	GetBordered() (value bool)
+	GetStriped() (value bool)
+	GetTitle() (value RichTextClass)
+	GetRows() (value []PageTableRow)
+}) {
+	p.Title = from.GetTitle()
+	p.Rows = from.GetRows()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2961,6 +3208,13 @@ func (p *PageBlockOrderedList) String() string {
 	return fmt.Sprintf("PageBlockOrderedList%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockOrderedList from given interface.
+func (p *PageBlockOrderedList) FillFrom(from interface {
+	GetItems() (value []PageListOrderedItemClass)
+}) {
+	p.Items = from.GetItems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockOrderedList) TypeID() uint32 {
@@ -2988,6 +3242,11 @@ func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 // GetItems returns value of Items field.
 func (p *PageBlockOrderedList) GetItems() (value []PageListOrderedItemClass) {
 	return p.Items
+}
+
+// MapItems returns field Items wrapped in PageListOrderedItemClassSlice helper.
+func (p *PageBlockOrderedList) MapItems() (value PageListOrderedItemClassSlice) {
+	return PageListOrderedItemClassSlice(p.Items)
 }
 
 // Decode implements bin.Decoder.
@@ -3075,6 +3334,16 @@ func (p *PageBlockDetails) String() string {
 	return fmt.Sprintf("PageBlockDetails%+v", Alias(*p))
 }
 
+// FillFrom fills PageBlockDetails from given interface.
+func (p *PageBlockDetails) FillFrom(from interface {
+	GetOpen() (value bool)
+	GetBlocks() (value []PageBlockClass)
+	GetTitle() (value RichTextClass)
+}) {
+	p.Blocks = from.GetBlocks()
+	p.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockDetails) TypeID() uint32 {
@@ -3130,6 +3399,11 @@ func (p *PageBlockDetails) GetOpen() (value bool) {
 // GetBlocks returns value of Blocks field.
 func (p *PageBlockDetails) GetBlocks() (value []PageBlockClass) {
 	return p.Blocks
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassSlice helper.
+func (p *PageBlockDetails) MapBlocks() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Blocks)
 }
 
 // GetTitle returns value of Title field.
@@ -3220,6 +3494,15 @@ func (p *PageBlockRelatedArticles) String() string {
 	}
 	type Alias PageBlockRelatedArticles
 	return fmt.Sprintf("PageBlockRelatedArticles%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockRelatedArticles from given interface.
+func (p *PageBlockRelatedArticles) FillFrom(from interface {
+	GetTitle() (value RichTextClass)
+	GetArticles() (value []PageRelatedArticle)
+}) {
+	p.Title = from.GetTitle()
+	p.Articles = from.GetArticles()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3351,6 +3634,21 @@ func (p *PageBlockMap) String() string {
 	}
 	type Alias PageBlockMap
 	return fmt.Sprintf("PageBlockMap%+v", Alias(*p))
+}
+
+// FillFrom fills PageBlockMap from given interface.
+func (p *PageBlockMap) FillFrom(from interface {
+	GetGeo() (value GeoPointClass)
+	GetZoom() (value int)
+	GetW() (value int)
+	GetH() (value int)
+	GetCaption() (value PageCaption)
+}) {
+	p.Geo = from.GetGeo()
+	p.Zoom = from.GetZoom()
+	p.W = from.GetW()
+	p.H = from.GetH()
+	p.Caption = from.GetCaption()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3754,4 +4052,55 @@ func (b *PageBlockBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PageBlockClass as nil")
 	}
 	return b.PageBlock.Encode(buf)
+}
+
+// PageBlockClassSlice is adapter for slice of PageBlockClass.
+type PageBlockClassSlice []PageBlockClass
+
+// First returns first element of slice (if exists).
+func (s PageBlockClassSlice) First() (v PageBlockClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PageBlockClassSlice) Last() (v PageBlockClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PageBlockClassSlice) PopFirst() (v PageBlockClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PageBlockClassSlice) Pop() (v PageBlockClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -55,6 +55,15 @@ func (i *InlineBotSwitchPM) String() string {
 	return fmt.Sprintf("InlineBotSwitchPM%+v", Alias(*i))
 }
 
+// FillFrom fills InlineBotSwitchPM from given interface.
+func (i *InlineBotSwitchPM) FillFrom(from interface {
+	GetText() (value string)
+	GetStartParam() (value string)
+}) {
+	i.Text = from.GetText()
+	i.StartParam = from.GetStartParam()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineBotSwitchPM) TypeID() uint32 {

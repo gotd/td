@@ -55,6 +55,15 @@ func (i *InvokeAfterMsgsRequest) String() string {
 	return fmt.Sprintf("InvokeAfterMsgsRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InvokeAfterMsgsRequest from given interface.
+func (i *InvokeAfterMsgsRequest) FillFrom(from interface {
+	GetMsgIds() (value []int64)
+	GetQuery() (value bin.Object)
+}) {
+	i.MsgIds = from.GetMsgIds()
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeAfterMsgsRequest) TypeID() uint32 {

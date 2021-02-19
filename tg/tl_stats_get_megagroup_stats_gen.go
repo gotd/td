@@ -69,6 +69,14 @@ func (g *StatsGetMegagroupStatsRequest) String() string {
 	return fmt.Sprintf("StatsGetMegagroupStatsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills StatsGetMegagroupStatsRequest from given interface.
+func (g *StatsGetMegagroupStatsRequest) FillFrom(from interface {
+	GetDark() (value bool)
+	GetChannel() (value InputChannelClass)
+}) {
+	g.Channel = from.GetChannel()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *StatsGetMegagroupStatsRequest) TypeID() uint32 {
@@ -115,6 +123,11 @@ func (g *StatsGetMegagroupStatsRequest) GetDark() (value bool) {
 // GetChannel returns value of Channel field.
 func (g *StatsGetMegagroupStatsRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetMegagroupStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

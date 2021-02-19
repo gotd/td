@@ -140,6 +140,40 @@ func (p *AccountPassword) String() string {
 	return fmt.Sprintf("AccountPassword%+v", Alias(*p))
 }
 
+// FillFrom fills AccountPassword from given interface.
+func (p *AccountPassword) FillFrom(from interface {
+	GetHasRecovery() (value bool)
+	GetHasSecureValues() (value bool)
+	GetHasPassword() (value bool)
+	GetCurrentAlgo() (value PasswordKdfAlgoClass, ok bool)
+	GetSRPB() (value []byte, ok bool)
+	GetSRPID() (value int64, ok bool)
+	GetHint() (value string, ok bool)
+	GetEmailUnconfirmedPattern() (value string, ok bool)
+	GetNewAlgo() (value PasswordKdfAlgoClass)
+	GetNewSecureAlgo() (value SecurePasswordKdfAlgoClass)
+	GetSecureRandom() (value []byte)
+}) {
+	if val, ok := from.GetCurrentAlgo(); ok {
+		p.CurrentAlgo = val
+	}
+	if val, ok := from.GetSRPB(); ok {
+		p.SRPB = val
+	}
+	if val, ok := from.GetSRPID(); ok {
+		p.SRPID = val
+	}
+	if val, ok := from.GetHint(); ok {
+		p.Hint = val
+	}
+	if val, ok := from.GetEmailUnconfirmedPattern(); ok {
+		p.EmailUnconfirmedPattern = val
+	}
+	p.NewAlgo = from.GetNewAlgo()
+	p.NewSecureAlgo = from.GetNewSecureAlgo()
+	p.SecureRandom = from.GetSecureRandom()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AccountPassword) TypeID() uint32 {

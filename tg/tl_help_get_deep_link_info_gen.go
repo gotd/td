@@ -50,6 +50,13 @@ func (g *HelpGetDeepLinkInfoRequest) String() string {
 	return fmt.Sprintf("HelpGetDeepLinkInfoRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetDeepLinkInfoRequest from given interface.
+func (g *HelpGetDeepLinkInfoRequest) FillFrom(from interface {
+	GetPath() (value string)
+}) {
+	g.Path = from.GetPath()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetDeepLinkInfoRequest) TypeID() uint32 {

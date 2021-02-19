@@ -50,6 +50,13 @@ func (g *MessagesGetAttachedStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetAttachedStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetAttachedStickersRequest from given interface.
+func (g *MessagesGetAttachedStickersRequest) FillFrom(from interface {
+	GetMedia() (value InputStickeredMediaClass)
+}) {
+	g.Media = from.GetMedia()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAttachedStickersRequest) TypeID() uint32 {

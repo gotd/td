@@ -73,6 +73,21 @@ func (w *UploadWebFile) String() string {
 	return fmt.Sprintf("UploadWebFile%+v", Alias(*w))
 }
 
+// FillFrom fills UploadWebFile from given interface.
+func (w *UploadWebFile) FillFrom(from interface {
+	GetSize() (value int)
+	GetMimeType() (value string)
+	GetFileType() (value StorageFileTypeClass)
+	GetMtime() (value int)
+	GetBytes() (value []byte)
+}) {
+	w.Size = from.GetSize()
+	w.MimeType = from.GetMimeType()
+	w.FileType = from.GetFileType()
+	w.Mtime = from.GetMtime()
+	w.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *UploadWebFile) TypeID() uint32 {

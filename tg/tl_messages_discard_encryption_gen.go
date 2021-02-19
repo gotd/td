@@ -60,6 +60,14 @@ func (d *MessagesDiscardEncryptionRequest) String() string {
 	return fmt.Sprintf("MessagesDiscardEncryptionRequest%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDiscardEncryptionRequest from given interface.
+func (d *MessagesDiscardEncryptionRequest) FillFrom(from interface {
+	GetDeleteHistory() (value bool)
+	GetChatID() (value int)
+}) {
+	d.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDiscardEncryptionRequest) TypeID() uint32 {

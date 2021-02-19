@@ -58,6 +58,15 @@ func (s *AccountSendVerifyPhoneCodeRequest) String() string {
 	return fmt.Sprintf("AccountSendVerifyPhoneCodeRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSendVerifyPhoneCodeRequest from given interface.
+func (s *AccountSendVerifyPhoneCodeRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetSettings() (value CodeSettings)
+}) {
+	s.PhoneNumber = from.GetPhoneNumber()
+	s.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendVerifyPhoneCodeRequest) TypeID() uint32 {

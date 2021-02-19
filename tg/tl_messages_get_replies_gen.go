@@ -105,6 +105,29 @@ func (g *MessagesGetRepliesRequest) String() string {
 	return fmt.Sprintf("MessagesGetRepliesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetRepliesRequest from given interface.
+func (g *MessagesGetRepliesRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetOffsetID() (value int)
+	GetOffsetDate() (value int)
+	GetAddOffset() (value int)
+	GetLimit() (value int)
+	GetMaxID() (value int)
+	GetMinID() (value int)
+	GetHash() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.MsgID = from.GetMsgID()
+	g.OffsetID = from.GetOffsetID()
+	g.OffsetDate = from.GetOffsetDate()
+	g.AddOffset = from.GetAddOffset()
+	g.Limit = from.GetLimit()
+	g.MaxID = from.GetMaxID()
+	g.MinID = from.GetMinID()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetRepliesRequest) TypeID() uint32 {

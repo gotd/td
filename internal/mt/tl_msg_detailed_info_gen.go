@@ -62,6 +62,19 @@ func (m *MsgDetailedInfo) String() string {
 	return fmt.Sprintf("MsgDetailedInfo%+v", Alias(*m))
 }
 
+// FillFrom fills MsgDetailedInfo from given interface.
+func (m *MsgDetailedInfo) FillFrom(from interface {
+	GetMsgID() (value int64)
+	GetAnswerMsgID() (value int64)
+	GetBytes() (value int)
+	GetStatus() (value int)
+}) {
+	m.MsgID = from.GetMsgID()
+	m.AnswerMsgID = from.GetAnswerMsgID()
+	m.Bytes = from.GetBytes()
+	m.Status = from.GetStatus()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgDetailedInfo) TypeID() uint32 {
@@ -188,6 +201,17 @@ func (m *MsgNewDetailedInfo) String() string {
 	}
 	type Alias MsgNewDetailedInfo
 	return fmt.Sprintf("MsgNewDetailedInfo%+v", Alias(*m))
+}
+
+// FillFrom fills MsgNewDetailedInfo from given interface.
+func (m *MsgNewDetailedInfo) FillFrom(from interface {
+	GetAnswerMsgID() (value int64)
+	GetBytes() (value int)
+	GetStatus() (value int)
+}) {
+	m.AnswerMsgID = from.GetAnswerMsgID()
+	m.Bytes = from.GetBytes()
+	m.Status = from.GetStatus()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -349,4 +373,55 @@ func (b *MsgDetailedInfoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MsgDetailedInfoClass as nil")
 	}
 	return b.MsgDetailedInfo.Encode(buf)
+}
+
+// MsgDetailedInfoClassSlice is adapter for slice of MsgDetailedInfoClass.
+type MsgDetailedInfoClassSlice []MsgDetailedInfoClass
+
+// First returns first element of slice (if exists).
+func (s MsgDetailedInfoClassSlice) First() (v MsgDetailedInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MsgDetailedInfoClassSlice) Last() (v MsgDetailedInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MsgDetailedInfoClassSlice) PopFirst() (v MsgDetailedInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MsgDetailedInfoClassSlice) Pop() (v MsgDetailedInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

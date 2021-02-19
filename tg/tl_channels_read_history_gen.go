@@ -61,6 +61,15 @@ func (r *ChannelsReadHistoryRequest) String() string {
 	return fmt.Sprintf("ChannelsReadHistoryRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ChannelsReadHistoryRequest from given interface.
+func (r *ChannelsReadHistoryRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetMaxID() (value int)
+}) {
+	r.Channel = from.GetChannel()
+	r.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ChannelsReadHistoryRequest) TypeID() uint32 {
@@ -86,6 +95,11 @@ func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (r *ChannelsReadHistoryRequest) GetChannel() (value InputChannelClass) {
 	return r.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReadHistoryRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
 }
 
 // GetMaxID returns value of MaxID field.

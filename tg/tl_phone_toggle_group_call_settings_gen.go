@@ -61,6 +61,17 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 	return fmt.Sprintf("PhoneToggleGroupCallSettingsRequest%+v", Alias(*t))
 }
 
+// FillFrom fills PhoneToggleGroupCallSettingsRequest from given interface.
+func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetJoinMuted() (value bool, ok bool)
+}) {
+	t.Call = from.GetCall()
+	if val, ok := from.GetJoinMuted(); ok {
+		t.JoinMuted = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *PhoneToggleGroupCallSettingsRequest) TypeID() uint32 {

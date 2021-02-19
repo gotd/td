@@ -50,6 +50,13 @@ func (g *UsersGetFullUserRequest) String() string {
 	return fmt.Sprintf("UsersGetFullUserRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UsersGetFullUserRequest from given interface.
+func (g *UsersGetFullUserRequest) FillFrom(from interface {
+	GetID() (value InputUserClass)
+}) {
+	g.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UsersGetFullUserRequest) TypeID() uint32 {

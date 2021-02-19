@@ -55,6 +55,15 @@ func (t *AccountTmpPassword) String() string {
 	return fmt.Sprintf("AccountTmpPassword%+v", Alias(*t))
 }
 
+// FillFrom fills AccountTmpPassword from given interface.
+func (t *AccountTmpPassword) FillFrom(from interface {
+	GetTmpPassword() (value []byte)
+	GetValidUntil() (value int)
+}) {
+	t.TmpPassword = from.GetTmpPassword()
+	t.ValidUntil = from.GetValidUntil()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountTmpPassword) TypeID() uint32 {

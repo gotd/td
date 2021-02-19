@@ -74,6 +74,19 @@ func (s *StatsGroupTopAdmin) String() string {
 	return fmt.Sprintf("StatsGroupTopAdmin%+v", Alias(*s))
 }
 
+// FillFrom fills StatsGroupTopAdmin from given interface.
+func (s *StatsGroupTopAdmin) FillFrom(from interface {
+	GetUserID() (value int)
+	GetDeleted() (value int)
+	GetKicked() (value int)
+	GetBanned() (value int)
+}) {
+	s.UserID = from.GetUserID()
+	s.Deleted = from.GetDeleted()
+	s.Kicked = from.GetKicked()
+	s.Banned = from.GetBanned()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopAdmin) TypeID() uint32 {

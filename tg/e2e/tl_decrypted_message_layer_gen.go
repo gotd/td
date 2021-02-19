@@ -69,6 +69,21 @@ func (d *DecryptedMessageLayer) String() string {
 	return fmt.Sprintf("DecryptedMessageLayer%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageLayer from given interface.
+func (d *DecryptedMessageLayer) FillFrom(from interface {
+	GetRandomBytes() (value []byte)
+	GetLayer() (value int)
+	GetInSeqNo() (value int)
+	GetOutSeqNo() (value int)
+	GetMessage() (value DecryptedMessageClass)
+}) {
+	d.RandomBytes = from.GetRandomBytes()
+	d.Layer = from.GetLayer()
+	d.InSeqNo = from.GetInSeqNo()
+	d.OutSeqNo = from.GetOutSeqNo()
+	d.Message = from.GetMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageLayer) TypeID() uint32 {

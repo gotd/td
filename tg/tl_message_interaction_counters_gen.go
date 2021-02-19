@@ -60,6 +60,17 @@ func (m *MessageInteractionCounters) String() string {
 	return fmt.Sprintf("MessageInteractionCounters%+v", Alias(*m))
 }
 
+// FillFrom fills MessageInteractionCounters from given interface.
+func (m *MessageInteractionCounters) FillFrom(from interface {
+	GetMsgID() (value int)
+	GetViews() (value int)
+	GetForwards() (value int)
+}) {
+	m.MsgID = from.GetMsgID()
+	m.Views = from.GetViews()
+	m.Forwards = from.GetForwards()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageInteractionCounters) TypeID() uint32 {

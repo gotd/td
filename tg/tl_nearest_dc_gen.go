@@ -60,6 +60,17 @@ func (n *NearestDc) String() string {
 	return fmt.Sprintf("NearestDc%+v", Alias(*n))
 }
 
+// FillFrom fills NearestDc from given interface.
+func (n *NearestDc) FillFrom(from interface {
+	GetCountry() (value string)
+	GetThisDC() (value int)
+	GetNearestDC() (value int)
+}) {
+	n.Country = from.GetCountry()
+	n.ThisDC = from.GetThisDC()
+	n.NearestDC = from.GetNearestDC()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NearestDc) TypeID() uint32 {

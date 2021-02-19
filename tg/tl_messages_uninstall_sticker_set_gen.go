@@ -50,6 +50,13 @@ func (u *MessagesUninstallStickerSetRequest) String() string {
 	return fmt.Sprintf("MessagesUninstallStickerSetRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUninstallStickerSetRequest from given interface.
+func (u *MessagesUninstallStickerSetRequest) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+}) {
+	u.Stickerset = from.GetStickerset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUninstallStickerSetRequest) TypeID() uint32 {

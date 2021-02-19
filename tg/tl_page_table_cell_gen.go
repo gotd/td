@@ -99,6 +99,28 @@ func (p *PageTableCell) String() string {
 	return fmt.Sprintf("PageTableCell%+v", Alias(*p))
 }
 
+// FillFrom fills PageTableCell from given interface.
+func (p *PageTableCell) FillFrom(from interface {
+	GetHeader() (value bool)
+	GetAlignCenter() (value bool)
+	GetAlignRight() (value bool)
+	GetValignMiddle() (value bool)
+	GetValignBottom() (value bool)
+	GetText() (value RichTextClass, ok bool)
+	GetColspan() (value int, ok bool)
+	GetRowspan() (value int, ok bool)
+}) {
+	if val, ok := from.GetText(); ok {
+		p.Text = val
+	}
+	if val, ok := from.GetColspan(); ok {
+		p.Colspan = val
+	}
+	if val, ok := from.GetRowspan(); ok {
+		p.Rowspan = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageTableCell) TypeID() uint32 {

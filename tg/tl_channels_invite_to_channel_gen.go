@@ -55,6 +55,15 @@ func (i *ChannelsInviteToChannelRequest) String() string {
 	return fmt.Sprintf("ChannelsInviteToChannelRequest%+v", Alias(*i))
 }
 
+// FillFrom fills ChannelsInviteToChannelRequest from given interface.
+func (i *ChannelsInviteToChannelRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUsers() (value []InputUserClass)
+}) {
+	i.Channel = from.GetChannel()
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ChannelsInviteToChannelRequest) TypeID() uint32 {
@@ -90,9 +99,19 @@ func (i *ChannelsInviteToChannelRequest) GetChannel() (value InputChannelClass) 
 	return i.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (i *ChannelsInviteToChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return i.Channel.AsNotEmpty()
+}
+
 // GetUsers returns value of Users field.
 func (i *ChannelsInviteToChannelRequest) GetUsers() (value []InputUserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassSlice helper.
+func (i *ChannelsInviteToChannelRequest) MapUsers() (value InputUserClassSlice) {
+	return InputUserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.

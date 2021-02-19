@@ -55,6 +55,15 @@ func (c *Contact) String() string {
 	return fmt.Sprintf("Contact%+v", Alias(*c))
 }
 
+// FillFrom fills Contact from given interface.
+func (c *Contact) FillFrom(from interface {
+	GetUserID() (value int)
+	GetMutual() (value bool)
+}) {
+	c.UserID = from.GetUserID()
+	c.Mutual = from.GetMutual()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Contact) TypeID() uint32 {

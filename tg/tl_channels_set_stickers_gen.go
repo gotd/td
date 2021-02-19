@@ -55,6 +55,15 @@ func (s *ChannelsSetStickersRequest) String() string {
 	return fmt.Sprintf("ChannelsSetStickersRequest%+v", Alias(*s))
 }
 
+// FillFrom fills ChannelsSetStickersRequest from given interface.
+func (s *ChannelsSetStickersRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetStickerset() (value InputStickerSetClass)
+}) {
+	s.Channel = from.GetChannel()
+	s.Stickerset = from.GetStickerset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ChannelsSetStickersRequest) TypeID() uint32 {
@@ -85,6 +94,11 @@ func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (s *ChannelsSetStickersRequest) GetChannel() (value InputChannelClass) {
 	return s.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (s *ChannelsSetStickersRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return s.Channel.AsNotEmpty()
 }
 
 // GetStickerset returns value of Stickerset field.

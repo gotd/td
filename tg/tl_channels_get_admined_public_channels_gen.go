@@ -74,6 +74,13 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 	return fmt.Sprintf("ChannelsGetAdminedPublicChannelsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ChannelsGetAdminedPublicChannelsRequest from given interface.
+func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
+	GetByLocation() (value bool)
+	GetCheckLimit() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetAdminedPublicChannelsRequest) TypeID() uint32 {

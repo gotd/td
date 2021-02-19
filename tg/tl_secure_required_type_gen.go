@@ -73,6 +73,16 @@ func (s *SecureRequiredType) String() string {
 	return fmt.Sprintf("SecureRequiredType%+v", Alias(*s))
 }
 
+// FillFrom fills SecureRequiredType from given interface.
+func (s *SecureRequiredType) FillFrom(from interface {
+	GetNativeNames() (value bool)
+	GetSelfieRequired() (value bool)
+	GetTranslationRequired() (value bool)
+	GetType() (value SecureValueTypeClass)
+}) {
+	s.Type = from.GetType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredType) TypeID() uint32 {
@@ -228,6 +238,13 @@ func (s *SecureRequiredTypeOneOf) String() string {
 	return fmt.Sprintf("SecureRequiredTypeOneOf%+v", Alias(*s))
 }
 
+// FillFrom fills SecureRequiredTypeOneOf from given interface.
+func (s *SecureRequiredTypeOneOf) FillFrom(from interface {
+	GetTypes() (value []SecureRequiredTypeClass)
+}) {
+	s.Types = from.GetTypes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
@@ -255,6 +272,11 @@ func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 // GetTypes returns value of Types field.
 func (s *SecureRequiredTypeOneOf) GetTypes() (value []SecureRequiredTypeClass) {
 	return s.Types
+}
+
+// MapTypes returns field Types wrapped in SecureRequiredTypeClassSlice helper.
+func (s *SecureRequiredTypeOneOf) MapTypes() (value SecureRequiredTypeClassSlice) {
+	return SecureRequiredTypeClassSlice(s.Types)
 }
 
 // Decode implements bin.Decoder.
@@ -370,4 +392,55 @@ func (b *SecureRequiredTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureRequiredTypeClass as nil")
 	}
 	return b.SecureRequiredType.Encode(buf)
+}
+
+// SecureRequiredTypeClassSlice is adapter for slice of SecureRequiredTypeClass.
+type SecureRequiredTypeClassSlice []SecureRequiredTypeClass
+
+// First returns first element of slice (if exists).
+func (s SecureRequiredTypeClassSlice) First() (v SecureRequiredTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureRequiredTypeClassSlice) Last() (v SecureRequiredTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeClassSlice) PopFirst() (v SecureRequiredTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeClassSlice) Pop() (v SecureRequiredTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

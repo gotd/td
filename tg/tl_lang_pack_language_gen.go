@@ -113,6 +113,32 @@ func (l *LangPackLanguage) String() string {
 	return fmt.Sprintf("LangPackLanguage%+v", Alias(*l))
 }
 
+// FillFrom fills LangPackLanguage from given interface.
+func (l *LangPackLanguage) FillFrom(from interface {
+	GetOfficial() (value bool)
+	GetRtl() (value bool)
+	GetBeta() (value bool)
+	GetName() (value string)
+	GetNativeName() (value string)
+	GetLangCode() (value string)
+	GetBaseLangCode() (value string, ok bool)
+	GetPluralCode() (value string)
+	GetStringsCount() (value int)
+	GetTranslatedCount() (value int)
+	GetTranslationsURL() (value string)
+}) {
+	l.Name = from.GetName()
+	l.NativeName = from.GetNativeName()
+	l.LangCode = from.GetLangCode()
+	if val, ok := from.GetBaseLangCode(); ok {
+		l.BaseLangCode = val
+	}
+	l.PluralCode = from.GetPluralCode()
+	l.StringsCount = from.GetStringsCount()
+	l.TranslatedCount = from.GetTranslatedCount()
+	l.TranslationsURL = from.GetTranslationsURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackLanguage) TypeID() uint32 {

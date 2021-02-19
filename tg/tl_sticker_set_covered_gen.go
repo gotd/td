@@ -55,6 +55,15 @@ func (s *StickerSetCovered) String() string {
 	return fmt.Sprintf("StickerSetCovered%+v", Alias(*s))
 }
 
+// FillFrom fills StickerSetCovered from given interface.
+func (s *StickerSetCovered) FillFrom(from interface {
+	GetSet() (value StickerSet)
+	GetCover() (value DocumentClass)
+}) {
+	s.Set = from.GetSet()
+	s.Cover = from.GetCover()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetCovered) TypeID() uint32 {
@@ -160,6 +169,15 @@ func (s *StickerSetMultiCovered) String() string {
 	return fmt.Sprintf("StickerSetMultiCovered%+v", Alias(*s))
 }
 
+// FillFrom fills StickerSetMultiCovered from given interface.
+func (s *StickerSetMultiCovered) FillFrom(from interface {
+	GetSet() (value StickerSet)
+	GetCovers() (value []DocumentClass)
+}) {
+	s.Set = from.GetSet()
+	s.Covers = from.GetCovers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetMultiCovered) TypeID() uint32 {
@@ -195,6 +213,11 @@ func (s *StickerSetMultiCovered) GetSet() (value StickerSet) {
 // GetCovers returns value of Covers field.
 func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
 	return s.Covers
+}
+
+// MapCovers returns field Covers wrapped in DocumentClassSlice helper.
+func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassSlice) {
+	return DocumentClassSlice(s.Covers)
 }
 
 // Decode implements bin.Decoder.
@@ -318,4 +341,55 @@ func (b *StickerSetCoveredBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode StickerSetCoveredClass as nil")
 	}
 	return b.StickerSetCovered.Encode(buf)
+}
+
+// StickerSetCoveredClassSlice is adapter for slice of StickerSetCoveredClass.
+type StickerSetCoveredClassSlice []StickerSetCoveredClass
+
+// First returns first element of slice (if exists).
+func (s StickerSetCoveredClassSlice) First() (v StickerSetCoveredClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StickerSetCoveredClassSlice) Last() (v StickerSetCoveredClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StickerSetCoveredClassSlice) PopFirst() (v StickerSetCoveredClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StickerSetCoveredClassSlice) Pop() (v StickerSetCoveredClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -50,6 +50,13 @@ func (g *MessagesGetPeerDialogsRequest) String() string {
 	return fmt.Sprintf("MessagesGetPeerDialogsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetPeerDialogsRequest from given interface.
+func (g *MessagesGetPeerDialogsRequest) FillFrom(from interface {
+	GetPeers() (value []InputDialogPeerClass)
+}) {
+	g.Peers = from.GetPeers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPeerDialogsRequest) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (g *MessagesGetPeerDialogsRequest) Encode(b *bin.Buffer) error {
 // GetPeers returns value of Peers field.
 func (g *MessagesGetPeerDialogsRequest) GetPeers() (value []InputDialogPeerClass) {
 	return g.Peers
+}
+
+// MapPeers returns field Peers wrapped in InputDialogPeerClassSlice helper.
+func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassSlice) {
+	return InputDialogPeerClassSlice(g.Peers)
 }
 
 // Decode implements bin.Decoder.

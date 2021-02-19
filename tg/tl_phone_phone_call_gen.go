@@ -55,6 +55,15 @@ func (p *PhonePhoneCall) String() string {
 	return fmt.Sprintf("PhonePhoneCall%+v", Alias(*p))
 }
 
+// FillFrom fills PhonePhoneCall from given interface.
+func (p *PhonePhoneCall) FillFrom(from interface {
+	GetPhoneCall() (value PhoneCallClass)
+	GetUsers() (value []UserClass)
+}) {
+	p.PhoneCall = from.GetPhoneCall()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhonePhoneCall) TypeID() uint32 {
@@ -90,9 +99,19 @@ func (p *PhonePhoneCall) GetPhoneCall() (value PhoneCallClass) {
 	return p.PhoneCall
 }
 
+// GetPhoneCallAsNotEmpty returns mapped value of PhoneCall field.
+func (p *PhonePhoneCall) GetPhoneCallAsNotEmpty() (NotEmptyPhoneCall, bool) {
+	return p.PhoneCall.AsNotEmpty()
+}
+
 // GetUsers returns value of Users field.
 func (p *PhonePhoneCall) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PhonePhoneCall) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.

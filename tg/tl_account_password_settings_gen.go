@@ -76,6 +76,19 @@ func (p *AccountPasswordSettings) String() string {
 	return fmt.Sprintf("AccountPasswordSettings%+v", Alias(*p))
 }
 
+// FillFrom fills AccountPasswordSettings from given interface.
+func (p *AccountPasswordSettings) FillFrom(from interface {
+	GetEmail() (value string, ok bool)
+	GetSecureSettings() (value SecureSecretSettings, ok bool)
+}) {
+	if val, ok := from.GetEmail(); ok {
+		p.Email = val
+	}
+	if val, ok := from.GetSecureSettings(); ok {
+		p.SecureSettings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AccountPasswordSettings) TypeID() uint32 {

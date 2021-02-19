@@ -50,6 +50,13 @@ func (s *HelpSupportName) String() string {
 	return fmt.Sprintf("HelpSupportName%+v", Alias(*s))
 }
 
+// FillFrom fills HelpSupportName from given interface.
+func (s *HelpSupportName) FillFrom(from interface {
+	GetName() (value string)
+}) {
+	s.Name = from.GetName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSupportName) TypeID() uint32 {

@@ -64,6 +64,19 @@ func (c *ClientDHInnerData) String() string {
 	return fmt.Sprintf("ClientDHInnerData%+v", Alias(*c))
 }
 
+// FillFrom fills ClientDHInnerData from given interface.
+func (c *ClientDHInnerData) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetRetryID() (value int64)
+	GetGB() (value string)
+}) {
+	c.Nonce = from.GetNonce()
+	c.ServerNonce = from.GetServerNonce()
+	c.RetryID = from.GetRetryID()
+	c.GB = from.GetGB()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ClientDHInnerData) TypeID() uint32 {

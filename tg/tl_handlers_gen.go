@@ -46,25 +46,10 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
 	}
 
 	u.init = true
-	u.Users = make(map[int]*User, len(updates.Users))
-	for _, class := range updates.Users {
-		user, ok := class.(*User)
-		if !ok {
-			continue
-		}
-		u.Users[user.ID] = user
-	}
-
-	u.Chats = make(map[int]*Chat, len(updates.Chats))
-	u.Channels = make(map[int]*Channel, len(updates.Chats))
-	for _, class := range updates.Chats {
-		switch chat := class.(type) {
-		case *Chat:
-			u.Chats[chat.ID] = chat
-		case *Channel:
-			u.Channels[chat.ID] = chat
-		}
-	}
+	u.Users = updates.MapUsers().NotEmptyToMap()
+	chats := updates.MapChats()
+	u.Chats = chats.ChatToMap()
+	u.Channels = chats.ChannelToMap()
 }
 
 func (u *UpdateContext) short(ctx context.Context) {

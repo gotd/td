@@ -47,6 +47,13 @@ func (m *MsgResendReq) String() string {
 	return fmt.Sprintf("MsgResendReq%+v", Alias(*m))
 }
 
+// FillFrom fills MsgResendReq from given interface.
+func (m *MsgResendReq) FillFrom(from interface {
+	GetMsgIds() (value []int64)
+}) {
+	m.MsgIds = from.GetMsgIds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgResendReq) TypeID() uint32 {

@@ -60,6 +60,17 @@ func (g *AccountGetAuthorizationFormRequest) String() string {
 	return fmt.Sprintf("AccountGetAuthorizationFormRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetAuthorizationFormRequest from given interface.
+func (g *AccountGetAuthorizationFormRequest) FillFrom(from interface {
+	GetBotID() (value int)
+	GetScope() (value string)
+	GetPublicKey() (value string)
+}) {
+	g.BotID = from.GetBotID()
+	g.Scope = from.GetScope()
+	g.PublicKey = from.GetPublicKey()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetAuthorizationFormRequest) TypeID() uint32 {

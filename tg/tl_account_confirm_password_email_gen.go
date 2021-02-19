@@ -56,6 +56,13 @@ func (c *AccountConfirmPasswordEmailRequest) String() string {
 	return fmt.Sprintf("AccountConfirmPasswordEmailRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AccountConfirmPasswordEmailRequest from given interface.
+func (c *AccountConfirmPasswordEmailRequest) FillFrom(from interface {
+	GetCode() (value string)
+}) {
+	c.Code = from.GetCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountConfirmPasswordEmailRequest) TypeID() uint32 {

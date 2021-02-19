@@ -60,6 +60,17 @@ func (h *HighScore) String() string {
 	return fmt.Sprintf("HighScore%+v", Alias(*h))
 }
 
+// FillFrom fills HighScore from given interface.
+func (h *HighScore) FillFrom(from interface {
+	GetPos() (value int)
+	GetUserID() (value int)
+	GetScore() (value int)
+}) {
+	h.Pos = from.GetPos()
+	h.UserID = from.GetUserID()
+	h.Score = from.GetScore()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HighScore) TypeID() uint32 {

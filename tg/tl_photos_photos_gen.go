@@ -55,6 +55,15 @@ func (p *PhotosPhotos) String() string {
 	return fmt.Sprintf("PhotosPhotos%+v", Alias(*p))
 }
 
+// FillFrom fills PhotosPhotos from given interface.
+func (p *PhotosPhotos) FillFrom(from interface {
+	GetPhotos() (value []PhotoClass)
+	GetUsers() (value []UserClass)
+}) {
+	p.Photos = from.GetPhotos()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotos) TypeID() uint32 {
@@ -93,9 +102,19 @@ func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
+// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
+func (p *PhotosPhotos) MapPhotos() (value PhotoClassSlice) {
+	return PhotoClassSlice(p.Photos)
+}
+
 // GetUsers returns value of Users field.
 func (p *PhotosPhotos) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PhotosPhotos) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -188,6 +207,17 @@ func (p *PhotosPhotosSlice) String() string {
 	return fmt.Sprintf("PhotosPhotosSlice%+v", Alias(*p))
 }
 
+// FillFrom fills PhotosPhotosSlice from given interface.
+func (p *PhotosPhotosSlice) FillFrom(from interface {
+	GetCount() (value int)
+	GetPhotos() (value []PhotoClass)
+	GetUsers() (value []UserClass)
+}) {
+	p.Count = from.GetCount()
+	p.Photos = from.GetPhotos()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotosSlice) TypeID() uint32 {
@@ -232,9 +262,19 @@ func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
+// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
+func (p *PhotosPhotosSlice) MapPhotos() (value PhotoClassSlice) {
+	return PhotoClassSlice(p.Photos)
+}
+
 // GetUsers returns value of Users field.
 func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PhotosPhotosSlice) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -375,4 +415,55 @@ func (b *PhotosPhotosBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhotosPhotosClass as nil")
 	}
 	return b.Photos.Encode(buf)
+}
+
+// PhotosPhotosClassSlice is adapter for slice of PhotosPhotosClass.
+type PhotosPhotosClassSlice []PhotosPhotosClass
+
+// First returns first element of slice (if exists).
+func (s PhotosPhotosClassSlice) First() (v PhotosPhotosClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhotosPhotosClassSlice) Last() (v PhotosPhotosClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhotosPhotosClassSlice) PopFirst() (v PhotosPhotosClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhotosPhotosClassSlice) Pop() (v PhotosPhotosClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

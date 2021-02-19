@@ -60,6 +60,15 @@ func (i *InputEncryptedChat) String() string {
 	return fmt.Sprintf("InputEncryptedChat%+v", Alias(*i))
 }
 
+// FillFrom fills InputEncryptedChat from given interface.
+func (i *InputEncryptedChat) FillFrom(from interface {
+	GetChatID() (value int)
+	GetAccessHash() (value int64)
+}) {
+	i.ChatID = from.GetChatID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedChat) TypeID() uint32 {

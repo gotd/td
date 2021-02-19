@@ -58,6 +58,15 @@ func (e *ChannelsEditPhotoRequest) String() string {
 	return fmt.Sprintf("ChannelsEditPhotoRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditPhotoRequest from given interface.
+func (e *ChannelsEditPhotoRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetPhoto() (value InputChatPhotoClass)
+}) {
+	e.Channel = from.GetChannel()
+	e.Photo = from.GetPhoto()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditPhotoRequest) TypeID() uint32 {
@@ -88,6 +97,11 @@ func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditPhotoRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditPhotoRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
 }
 
 // GetPhoto returns value of Photo field.

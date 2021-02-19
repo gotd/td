@@ -139,6 +139,21 @@ func (i *InputMediaUploadedPhoto) String() string {
 	return fmt.Sprintf("InputMediaUploadedPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaUploadedPhoto from given interface.
+func (i *InputMediaUploadedPhoto) FillFrom(from interface {
+	GetFile() (value InputFileClass)
+	GetStickers() (value []InputDocumentClass, ok bool)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	i.File = from.GetFile()
+	if val, ok := from.GetStickers(); ok {
+		i.Stickers = val
+	}
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaUploadedPhoto) TypeID() uint32 {
@@ -201,6 +216,14 @@ func (i *InputMediaUploadedPhoto) GetStickers() (value []InputDocumentClass, ok 
 		return value, false
 	}
 	return i.Stickers, true
+}
+
+// MapStickers returns field Stickers wrapped in InputDocumentClassSlice helper.
+func (i *InputMediaUploadedPhoto) MapStickers() (value InputDocumentClassSlice, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return InputDocumentClassSlice(i.Stickers), true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -317,6 +340,17 @@ func (i *InputMediaPhoto) String() string {
 	}
 	type Alias InputMediaPhoto
 	return fmt.Sprintf("InputMediaPhoto%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaPhoto from given interface.
+func (i *InputMediaPhoto) FillFrom(from interface {
+	GetID() (value InputPhotoClass)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	i.ID = from.GetID()
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -442,6 +476,13 @@ func (i *InputMediaGeoPoint) String() string {
 	return fmt.Sprintf("InputMediaGeoPoint%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaGeoPoint from given interface.
+func (i *InputMediaGeoPoint) FillFrom(from interface {
+	GetGeoPoint() (value InputGeoPointClass)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaGeoPoint) TypeID() uint32 {
@@ -542,6 +583,19 @@ func (i *InputMediaContact) String() string {
 	}
 	type Alias InputMediaContact
 	return fmt.Sprintf("InputMediaContact%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaContact from given interface.
+func (i *InputMediaContact) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetVcard() (value string)
+}) {
+	i.PhoneNumber = from.GetPhoneNumber()
+	i.FirstName = from.GetFirstName()
+	i.LastName = from.GetLastName()
+	i.Vcard = from.GetVcard()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -717,6 +771,31 @@ func (i *InputMediaUploadedDocument) String() string {
 	return fmt.Sprintf("InputMediaUploadedDocument%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaUploadedDocument from given interface.
+func (i *InputMediaUploadedDocument) FillFrom(from interface {
+	GetNosoundVideo() (value bool)
+	GetForceFile() (value bool)
+	GetFile() (value InputFileClass)
+	GetThumb() (value InputFileClass, ok bool)
+	GetMimeType() (value string)
+	GetAttributes() (value []DocumentAttributeClass)
+	GetStickers() (value []InputDocumentClass, ok bool)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	i.File = from.GetFile()
+	if val, ok := from.GetThumb(); ok {
+		i.Thumb = val
+	}
+	i.MimeType = from.GetMimeType()
+	i.Attributes = from.GetAttributes()
+	if val, ok := from.GetStickers(); ok {
+		i.Stickers = val
+	}
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaUploadedDocument) TypeID() uint32 {
@@ -850,6 +929,11 @@ func (i *InputMediaUploadedDocument) GetAttributes() (value []DocumentAttributeC
 	return i.Attributes
 }
 
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (i *InputMediaUploadedDocument) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(i.Attributes)
+}
+
 // SetStickers sets value of Stickers conditional field.
 func (i *InputMediaUploadedDocument) SetStickers(value []InputDocumentClass) {
 	i.Flags.Set(0)
@@ -863,6 +947,14 @@ func (i *InputMediaUploadedDocument) GetStickers() (value []InputDocumentClass, 
 		return value, false
 	}
 	return i.Stickers, true
+}
+
+// MapStickers returns field Stickers wrapped in InputDocumentClassSlice helper.
+func (i *InputMediaUploadedDocument) MapStickers() (value InputDocumentClassSlice, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return InputDocumentClassSlice(i.Stickers), true
 }
 
 // SetTTLSeconds sets value of TTLSeconds conditional field.
@@ -1015,6 +1107,21 @@ func (i *InputMediaDocument) String() string {
 	}
 	type Alias InputMediaDocument
 	return fmt.Sprintf("InputMediaDocument%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaDocument from given interface.
+func (i *InputMediaDocument) FillFrom(from interface {
+	GetID() (value InputDocumentClass)
+	GetTTLSeconds() (value int, ok bool)
+	GetQuery() (value string, ok bool)
+}) {
+	i.ID = from.GetID()
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
+	if val, ok := from.GetQuery(); ok {
+		i.Query = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1193,6 +1300,23 @@ func (i *InputMediaVenue) String() string {
 	return fmt.Sprintf("InputMediaVenue%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaVenue from given interface.
+func (i *InputMediaVenue) FillFrom(from interface {
+	GetGeoPoint() (value InputGeoPointClass)
+	GetTitle() (value string)
+	GetAddress() (value string)
+	GetProvider() (value string)
+	GetVenueID() (value string)
+	GetVenueType() (value string)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+	i.Title = from.GetTitle()
+	i.Address = from.GetAddress()
+	i.Provider = from.GetProvider()
+	i.VenueID = from.GetVenueID()
+	i.VenueType = from.GetVenueType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaVenue) TypeID() uint32 {
@@ -1360,6 +1484,17 @@ func (i *InputMediaPhotoExternal) String() string {
 	return fmt.Sprintf("InputMediaPhotoExternal%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaPhotoExternal from given interface.
+func (i *InputMediaPhotoExternal) FillFrom(from interface {
+	GetURL() (value string)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	i.URL = from.GetURL()
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaPhotoExternal) TypeID() uint32 {
@@ -1493,6 +1628,17 @@ func (i *InputMediaDocumentExternal) String() string {
 	return fmt.Sprintf("InputMediaDocumentExternal%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaDocumentExternal from given interface.
+func (i *InputMediaDocumentExternal) FillFrom(from interface {
+	GetURL() (value string)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	i.URL = from.GetURL()
+	if val, ok := from.GetTTLSeconds(); ok {
+		i.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaDocumentExternal) TypeID() uint32 {
@@ -1609,6 +1755,13 @@ func (i *InputMediaGame) String() string {
 	}
 	type Alias InputMediaGame
 	return fmt.Sprintf("InputMediaGame%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaGame from given interface.
+func (i *InputMediaGame) FillFrom(from interface {
+	GetID() (value InputGameClass)
+}) {
+	i.ID = from.GetID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1747,6 +1900,29 @@ func (i *InputMediaInvoice) String() string {
 	}
 	type Alias InputMediaInvoice
 	return fmt.Sprintf("InputMediaInvoice%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaInvoice from given interface.
+func (i *InputMediaInvoice) FillFrom(from interface {
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value InputWebDocument, ok bool)
+	GetInvoice() (value Invoice)
+	GetPayload() (value []byte)
+	GetProvider() (value string)
+	GetProviderData() (value DataJSON)
+	GetStartParam() (value string)
+}) {
+	i.Title = from.GetTitle()
+	i.Description = from.GetDescription()
+	if val, ok := from.GetPhoto(); ok {
+		i.Photo = val
+	}
+	i.Invoice = from.GetInvoice()
+	i.Payload = from.GetPayload()
+	i.Provider = from.GetProvider()
+	i.ProviderData = from.GetProviderData()
+	i.StartParam = from.GetStartParam()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1988,6 +2164,26 @@ func (i *InputMediaGeoLive) String() string {
 	return fmt.Sprintf("InputMediaGeoLive%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaGeoLive from given interface.
+func (i *InputMediaGeoLive) FillFrom(from interface {
+	GetStopped() (value bool)
+	GetGeoPoint() (value InputGeoPointClass)
+	GetHeading() (value int, ok bool)
+	GetPeriod() (value int, ok bool)
+	GetProximityNotificationRadius() (value int, ok bool)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+	if val, ok := from.GetHeading(); ok {
+		i.Heading = val
+	}
+	if val, ok := from.GetPeriod(); ok {
+		i.Period = val
+	}
+	if val, ok := from.GetProximityNotificationRadius(); ok {
+		i.ProximityNotificationRadius = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaGeoLive) TypeID() uint32 {
@@ -2219,6 +2415,25 @@ func (i *InputMediaPoll) String() string {
 	return fmt.Sprintf("InputMediaPoll%+v", Alias(*i))
 }
 
+// FillFrom fills InputMediaPoll from given interface.
+func (i *InputMediaPoll) FillFrom(from interface {
+	GetPoll() (value Poll)
+	GetCorrectAnswers() (value [][]byte, ok bool)
+	GetSolution() (value string, ok bool)
+	GetSolutionEntities() (value []MessageEntityClass, ok bool)
+}) {
+	i.Poll = from.GetPoll()
+	if val, ok := from.GetCorrectAnswers(); ok {
+		i.CorrectAnswers = val
+	}
+	if val, ok := from.GetSolution(); ok {
+		i.Solution = val
+	}
+	if val, ok := from.GetSolutionEntities(); ok {
+		i.SolutionEntities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaPoll) TypeID() uint32 {
@@ -2319,6 +2534,14 @@ func (i *InputMediaPoll) GetSolutionEntities() (value []MessageEntityClass, ok b
 	return i.SolutionEntities, true
 }
 
+// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassSlice helper.
+func (i *InputMediaPoll) MapSolutionEntities() (value MessageEntityClassSlice, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassSlice(i.SolutionEntities), true
+}
+
 // Decode implements bin.Decoder.
 func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 	if i == nil {
@@ -2417,6 +2640,13 @@ func (i *InputMediaDice) String() string {
 	}
 	type Alias InputMediaDice
 	return fmt.Sprintf("InputMediaDice%+v", Alias(*i))
+}
+
+// FillFrom fills InputMediaDice from given interface.
+func (i *InputMediaDice) FillFrom(from interface {
+	GetEmoticon() (value string)
+}) {
+	i.Emoticon = from.GetEmoticon()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2651,4 +2881,55 @@ func (b *InputMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputMediaClass as nil")
 	}
 	return b.InputMedia.Encode(buf)
+}
+
+// InputMediaClassSlice is adapter for slice of InputMediaClass.
+type InputMediaClassSlice []InputMediaClass
+
+// First returns first element of slice (if exists).
+func (s InputMediaClassSlice) First() (v InputMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputMediaClassSlice) Last() (v InputMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputMediaClassSlice) PopFirst() (v InputMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputMediaClassSlice) Pop() (v InputMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

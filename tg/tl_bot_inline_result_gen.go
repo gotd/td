@@ -106,6 +106,37 @@ func (b *BotInlineResult) String() string {
 	return fmt.Sprintf("BotInlineResult%+v", Alias(*b))
 }
 
+// FillFrom fills BotInlineResult from given interface.
+func (b *BotInlineResult) FillFrom(from interface {
+	GetID() (value string)
+	GetType() (value string)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetURL() (value string, ok bool)
+	GetThumb() (value WebDocumentClass, ok bool)
+	GetContent() (value WebDocumentClass, ok bool)
+	GetSendMessage() (value BotInlineMessageClass)
+}) {
+	b.ID = from.GetID()
+	b.Type = from.GetType()
+	if val, ok := from.GetTitle(); ok {
+		b.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		b.Description = val
+	}
+	if val, ok := from.GetURL(); ok {
+		b.URL = val
+	}
+	if val, ok := from.GetThumb(); ok {
+		b.Thumb = val
+	}
+	if val, ok := from.GetContent(); ok {
+		b.Content = val
+	}
+	b.SendMessage = from.GetSendMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotInlineResult) TypeID() uint32 {
@@ -429,6 +460,33 @@ func (b *BotInlineMediaResult) String() string {
 	return fmt.Sprintf("BotInlineMediaResult%+v", Alias(*b))
 }
 
+// FillFrom fills BotInlineMediaResult from given interface.
+func (b *BotInlineMediaResult) FillFrom(from interface {
+	GetID() (value string)
+	GetType() (value string)
+	GetPhoto() (value PhotoClass, ok bool)
+	GetDocument() (value DocumentClass, ok bool)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetSendMessage() (value BotInlineMessageClass)
+}) {
+	b.ID = from.GetID()
+	b.Type = from.GetType()
+	if val, ok := from.GetPhoto(); ok {
+		b.Photo = val
+	}
+	if val, ok := from.GetDocument(); ok {
+		b.Document = val
+	}
+	if val, ok := from.GetTitle(); ok {
+		b.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		b.Description = val
+	}
+	b.SendMessage = from.GetSendMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotInlineMediaResult) TypeID() uint32 {
@@ -732,4 +790,55 @@ func (b *BotInlineResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BotInlineResultClass as nil")
 	}
 	return b.BotInlineResult.Encode(buf)
+}
+
+// BotInlineResultClassSlice is adapter for slice of BotInlineResultClass.
+type BotInlineResultClassSlice []BotInlineResultClass
+
+// First returns first element of slice (if exists).
+func (s BotInlineResultClassSlice) First() (v BotInlineResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BotInlineResultClassSlice) Last() (v BotInlineResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BotInlineResultClassSlice) PopFirst() (v BotInlineResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BotInlineResultClassSlice) Pop() (v BotInlineResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

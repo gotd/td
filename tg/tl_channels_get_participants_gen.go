@@ -82,6 +82,21 @@ func (g *ChannelsGetParticipantsRequest) String() string {
 	return fmt.Sprintf("ChannelsGetParticipantsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ChannelsGetParticipantsRequest from given interface.
+func (g *ChannelsGetParticipantsRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetFilter() (value ChannelParticipantsFilterClass)
+	GetOffset() (value int)
+	GetLimit() (value int)
+	GetHash() (value int)
+}) {
+	g.Channel = from.GetChannel()
+	g.Filter = from.GetFilter()
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetParticipantsRequest) TypeID() uint32 {
@@ -115,6 +130,11 @@ func (g *ChannelsGetParticipantsRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (g *ChannelsGetParticipantsRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetParticipantsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
 }
 
 // GetFilter returns value of Filter field.

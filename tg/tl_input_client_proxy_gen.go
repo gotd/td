@@ -58,6 +58,15 @@ func (i *InputClientProxy) String() string {
 	return fmt.Sprintf("InputClientProxy%+v", Alias(*i))
 }
 
+// FillFrom fills InputClientProxy from given interface.
+func (i *InputClientProxy) FillFrom(from interface {
+	GetAddress() (value string)
+	GetPort() (value int)
+}) {
+	i.Address = from.GetAddress()
+	i.Port = from.GetPort()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputClientProxy) TypeID() uint32 {

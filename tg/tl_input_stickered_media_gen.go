@@ -50,6 +50,13 @@ func (i *InputStickeredMediaPhoto) String() string {
 	return fmt.Sprintf("InputStickeredMediaPhoto%+v", Alias(*i))
 }
 
+// FillFrom fills InputStickeredMediaPhoto from given interface.
+func (i *InputStickeredMediaPhoto) FillFrom(from interface {
+	GetID() (value InputPhotoClass)
+}) {
+	i.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickeredMediaPhoto) TypeID() uint32 {
@@ -135,6 +142,13 @@ func (i *InputStickeredMediaDocument) String() string {
 	}
 	type Alias InputStickeredMediaDocument
 	return fmt.Sprintf("InputStickeredMediaDocument%+v", Alias(*i))
+}
+
+// FillFrom fills InputStickeredMediaDocument from given interface.
+func (i *InputStickeredMediaDocument) FillFrom(from interface {
+	GetID() (value InputDocumentClass)
+}) {
+	i.ID = from.GetID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -270,4 +284,55 @@ func (b *InputStickeredMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputStickeredMediaClass as nil")
 	}
 	return b.InputStickeredMedia.Encode(buf)
+}
+
+// InputStickeredMediaClassSlice is adapter for slice of InputStickeredMediaClass.
+type InputStickeredMediaClassSlice []InputStickeredMediaClass
+
+// First returns first element of slice (if exists).
+func (s InputStickeredMediaClassSlice) First() (v InputStickeredMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickeredMediaClassSlice) Last() (v InputStickeredMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickeredMediaClassSlice) PopFirst() (v InputStickeredMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickeredMediaClassSlice) Pop() (v InputStickeredMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

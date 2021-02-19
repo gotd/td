@@ -50,6 +50,13 @@ func (g *HelpGetAppUpdateRequest) String() string {
 	return fmt.Sprintf("HelpGetAppUpdateRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetAppUpdateRequest from given interface.
+func (g *HelpGetAppUpdateRequest) FillFrom(from interface {
+	GetSource() (value string)
+}) {
+	g.Source = from.GetSource()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetAppUpdateRequest) TypeID() uint32 {

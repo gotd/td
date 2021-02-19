@@ -47,6 +47,13 @@ func (vec *WallPaperClassVector) String() string {
 	return fmt.Sprintf("WallPaperClassVector%+v", Alias(*vec))
 }
 
+// FillFrom fills WallPaperClassVector from given interface.
+func (vec *WallPaperClassVector) FillFrom(from interface {
+	GetElems() (value []WallPaperClass)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *WallPaperClassVector) TypeID() uint32 {
@@ -73,6 +80,11 @@ func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 // GetElems returns value of Elems field.
 func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
 	return vec.Elems
+}
+
+// MapElems returns field Elems wrapped in WallPaperClassSlice helper.
+func (vec *WallPaperClassVector) MapElems() (value WallPaperClassSlice) {
+	return WallPaperClassSlice(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

@@ -50,6 +50,13 @@ func (s *AccountSetGlobalPrivacySettingsRequest) String() string {
 	return fmt.Sprintf("AccountSetGlobalPrivacySettingsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSetGlobalPrivacySettingsRequest from given interface.
+func (s *AccountSetGlobalPrivacySettingsRequest) FillFrom(from interface {
+	GetSettings() (value GlobalPrivacySettings)
+}) {
+	s.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetGlobalPrivacySettingsRequest) TypeID() uint32 {

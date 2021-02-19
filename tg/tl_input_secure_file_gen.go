@@ -73,6 +73,21 @@ func (i *InputSecureFileUploaded) String() string {
 	return fmt.Sprintf("InputSecureFileUploaded%+v", Alias(*i))
 }
 
+// FillFrom fills InputSecureFileUploaded from given interface.
+func (i *InputSecureFileUploaded) FillFrom(from interface {
+	GetID() (value int64)
+	GetParts() (value int)
+	GetMD5Checksum() (value string)
+	GetFileHash() (value []byte)
+	GetSecret() (value []byte)
+}) {
+	i.ID = from.GetID()
+	i.Parts = from.GetParts()
+	i.MD5Checksum = from.GetMD5Checksum()
+	i.FileHash = from.GetFileHash()
+	i.Secret = from.GetSecret()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFileUploaded) TypeID() uint32 {
@@ -214,6 +229,15 @@ func (i *InputSecureFile) String() string {
 	}
 	type Alias InputSecureFile
 	return fmt.Sprintf("InputSecureFile%+v", Alias(*i))
+}
+
+// FillFrom fills InputSecureFile from given interface.
+func (i *InputSecureFile) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -360,4 +384,55 @@ func (b *InputSecureFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputSecureFileClass as nil")
 	}
 	return b.InputSecureFile.Encode(buf)
+}
+
+// InputSecureFileClassSlice is adapter for slice of InputSecureFileClass.
+type InputSecureFileClassSlice []InputSecureFileClass
+
+// First returns first element of slice (if exists).
+func (s InputSecureFileClassSlice) First() (v InputSecureFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSecureFileClassSlice) Last() (v InputSecureFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSecureFileClassSlice) PopFirst() (v InputSecureFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSecureFileClassSlice) Pop() (v InputSecureFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

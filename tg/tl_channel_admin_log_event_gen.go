@@ -65,6 +65,19 @@ func (c *ChannelAdminLogEvent) String() string {
 	return fmt.Sprintf("ChannelAdminLogEvent%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelAdminLogEvent from given interface.
+func (c *ChannelAdminLogEvent) FillFrom(from interface {
+	GetID() (value int64)
+	GetDate() (value int)
+	GetUserID() (value int)
+	GetAction() (value ChannelAdminLogEventActionClass)
+}) {
+	c.ID = from.GetID()
+	c.Date = from.GetDate()
+	c.UserID = from.GetUserID()
+	c.Action = from.GetAction()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEvent) TypeID() uint32 {

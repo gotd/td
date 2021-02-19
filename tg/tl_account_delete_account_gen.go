@@ -53,6 +53,13 @@ func (d *AccountDeleteAccountRequest) String() string {
 	return fmt.Sprintf("AccountDeleteAccountRequest%+v", Alias(*d))
 }
 
+// FillFrom fills AccountDeleteAccountRequest from given interface.
+func (d *AccountDeleteAccountRequest) FillFrom(from interface {
+	GetReason() (value string)
+}) {
+	d.Reason = from.GetReason()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AccountDeleteAccountRequest) TypeID() uint32 {

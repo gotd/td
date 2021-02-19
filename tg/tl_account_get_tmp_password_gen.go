@@ -55,6 +55,15 @@ func (g *AccountGetTmpPasswordRequest) String() string {
 	return fmt.Sprintf("AccountGetTmpPasswordRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetTmpPasswordRequest from given interface.
+func (g *AccountGetTmpPasswordRequest) FillFrom(from interface {
+	GetPassword() (value InputCheckPasswordSRPClass)
+	GetPeriod() (value int)
+}) {
+	g.Password = from.GetPassword()
+	g.Period = from.GetPeriod()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetTmpPasswordRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (g *AccountGetTmpPasswordRequest) Encode(b *bin.Buffer) error {
 // GetPassword returns value of Password field.
 func (g *AccountGetTmpPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
 	return g.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (g *AccountGetTmpPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return g.Password.AsNotEmpty()
 }
 
 // GetPeriod returns value of Period field.

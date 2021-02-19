@@ -53,6 +53,13 @@ func (r *AccountResetAuthorizationRequest) String() string {
 	return fmt.Sprintf("AccountResetAuthorizationRequest%+v", Alias(*r))
 }
 
+// FillFrom fills AccountResetAuthorizationRequest from given interface.
+func (r *AccountResetAuthorizationRequest) FillFrom(from interface {
+	GetHash() (value int64)
+}) {
+	r.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetAuthorizationRequest) TypeID() uint32 {

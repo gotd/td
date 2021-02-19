@@ -55,6 +55,15 @@ func (t *ChannelsToggleSignaturesRequest) String() string {
 	return fmt.Sprintf("ChannelsToggleSignaturesRequest%+v", Alias(*t))
 }
 
+// FillFrom fills ChannelsToggleSignaturesRequest from given interface.
+func (t *ChannelsToggleSignaturesRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetEnabled() (value bool)
+}) {
+	t.Channel = from.GetChannel()
+	t.Enabled = from.GetEnabled()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsToggleSignaturesRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (t *ChannelsToggleSignaturesRequest) GetChannel() (value InputChannelClass) {
 	return t.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsToggleSignaturesRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
 }
 
 // GetEnabled returns value of Enabled field.

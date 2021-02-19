@@ -60,6 +60,17 @@ func (s *MessagesStickerSet) String() string {
 	return fmt.Sprintf("MessagesStickerSet%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesStickerSet from given interface.
+func (s *MessagesStickerSet) FillFrom(from interface {
+	GetSet() (value StickerSet)
+	GetPacks() (value []StickerPack)
+	GetDocuments() (value []DocumentClass)
+}) {
+	s.Set = from.GetSet()
+	s.Packs = from.GetPacks()
+	s.Documents = from.GetDocuments()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSet) TypeID() uint32 {
@@ -106,6 +117,11 @@ func (s *MessagesStickerSet) GetPacks() (value []StickerPack) {
 // GetDocuments returns value of Documents field.
 func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
 	return s.Documents
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
+func (s *MessagesStickerSet) MapDocuments() (value DocumentClassSlice) {
+	return DocumentClassSlice(s.Documents)
 }
 
 // Decode implements bin.Decoder.

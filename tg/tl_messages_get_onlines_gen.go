@@ -50,6 +50,13 @@ func (g *MessagesGetOnlinesRequest) String() string {
 	return fmt.Sprintf("MessagesGetOnlinesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetOnlinesRequest from given interface.
+func (g *MessagesGetOnlinesRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	g.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetOnlinesRequest) TypeID() uint32 {

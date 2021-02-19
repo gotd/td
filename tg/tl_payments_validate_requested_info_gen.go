@@ -68,6 +68,16 @@ func (v *PaymentsValidateRequestedInfoRequest) String() string {
 	return fmt.Sprintf("PaymentsValidateRequestedInfoRequest%+v", Alias(*v))
 }
 
+// FillFrom fills PaymentsValidateRequestedInfoRequest from given interface.
+func (v *PaymentsValidateRequestedInfoRequest) FillFrom(from interface {
+	GetSave() (value bool)
+	GetMsgID() (value int)
+	GetInfo() (value PaymentRequestedInfo)
+}) {
+	v.MsgID = from.GetMsgID()
+	v.Info = from.GetInfo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *PaymentsValidateRequestedInfoRequest) TypeID() uint32 {

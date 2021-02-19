@@ -55,6 +55,15 @@ func (s *SecureValueHash) String() string {
 	return fmt.Sprintf("SecureValueHash%+v", Alias(*s))
 }
 
+// FillFrom fills SecureValueHash from given interface.
+func (s *SecureValueHash) FillFrom(from interface {
+	GetType() (value SecureValueTypeClass)
+	GetHash() (value []byte)
+}) {
+	s.Type = from.GetType()
+	s.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueHash) TypeID() uint32 {

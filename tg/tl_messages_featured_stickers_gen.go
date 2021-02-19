@@ -50,6 +50,13 @@ func (f *MessagesFeaturedStickersNotModified) String() string {
 	return fmt.Sprintf("MessagesFeaturedStickersNotModified%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesFeaturedStickersNotModified from given interface.
+func (f *MessagesFeaturedStickersNotModified) FillFrom(from interface {
+	GetCount() (value int)
+}) {
+	f.Count = from.GetCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
@@ -150,6 +157,19 @@ func (f *MessagesFeaturedStickers) String() string {
 	return fmt.Sprintf("MessagesFeaturedStickers%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesFeaturedStickers from given interface.
+func (f *MessagesFeaturedStickers) FillFrom(from interface {
+	GetHash() (value int)
+	GetCount() (value int)
+	GetSets() (value []StickerSetCoveredClass)
+	GetUnread() (value []int64)
+}) {
+	f.Hash = from.GetHash()
+	f.Count = from.GetCount()
+	f.Sets = from.GetSets()
+	f.Unread = from.GetUnread()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickers) TypeID() uint32 {
@@ -193,6 +213,11 @@ func (f *MessagesFeaturedStickers) GetCount() (value int) {
 // GetSets returns value of Sets field.
 func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
 	return f.Sets
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
+func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassSlice) {
+	return StickerSetCoveredClassSlice(f.Sets)
 }
 
 // GetUnread returns value of Unread field.
@@ -284,6 +309,9 @@ type MessagesFeaturedStickersClass interface {
 	// Total number of featured stickers
 	GetCount() (value int)
 
+	// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+	AsModified() (*MessagesFeaturedStickers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -291,6 +319,16 @@ type MessagesFeaturedStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+func (f *MessagesFeaturedStickersNotModified) AsModified() (*MessagesFeaturedStickers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+func (f *MessagesFeaturedStickers) AsModified() (*MessagesFeaturedStickers, bool) {
+	return f, true
 }
 
 // DecodeMessagesFeaturedStickers implements binary de-serialization for MessagesFeaturedStickersClass.
@@ -343,4 +381,92 @@ func (b *MessagesFeaturedStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFeaturedStickersClass as nil")
 	}
 	return b.FeaturedStickers.Encode(buf)
+}
+
+// MessagesFeaturedStickersClassSlice is adapter for slice of MessagesFeaturedStickersClass.
+type MessagesFeaturedStickersClassSlice []MessagesFeaturedStickersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesFeaturedStickersClassSlice) AppendOnlyModified(to []*MessagesFeaturedStickers) []*MessagesFeaturedStickers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesFeaturedStickersClassSlice) AsModified() (to []*MessagesFeaturedStickers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesFeaturedStickersClassSlice) FirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesFeaturedStickersClassSlice) LastAsModified() (v *MessagesFeaturedStickers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesFeaturedStickersClassSlice) First() (v MessagesFeaturedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFeaturedStickersClassSlice) Last() (v MessagesFeaturedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersClassSlice) PopFirst() (v MessagesFeaturedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersClassSlice) Pop() (v MessagesFeaturedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

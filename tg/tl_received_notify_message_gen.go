@@ -55,6 +55,15 @@ func (r *ReceivedNotifyMessage) String() string {
 	return fmt.Sprintf("ReceivedNotifyMessage%+v", Alias(*r))
 }
 
+// FillFrom fills ReceivedNotifyMessage from given interface.
+func (r *ReceivedNotifyMessage) FillFrom(from interface {
+	GetID() (value int)
+	GetFlags() (value int)
+}) {
+	r.ID = from.GetID()
+	r.Flags = from.GetFlags()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReceivedNotifyMessage) TypeID() uint32 {

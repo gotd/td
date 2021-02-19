@@ -65,6 +65,19 @@ func (e *EmojiKeywordsDifference) String() string {
 	return fmt.Sprintf("EmojiKeywordsDifference%+v", Alias(*e))
 }
 
+// FillFrom fills EmojiKeywordsDifference from given interface.
+func (e *EmojiKeywordsDifference) FillFrom(from interface {
+	GetLangCode() (value string)
+	GetFromVersion() (value int)
+	GetVersion() (value int)
+	GetKeywords() (value []EmojiKeywordClass)
+}) {
+	e.LangCode = from.GetLangCode()
+	e.FromVersion = from.GetFromVersion()
+	e.Version = from.GetVersion()
+	e.Keywords = from.GetKeywords()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeywordsDifference) TypeID() uint32 {
@@ -110,6 +123,11 @@ func (e *EmojiKeywordsDifference) GetVersion() (value int) {
 // GetKeywords returns value of Keywords field.
 func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
 	return e.Keywords
+}
+
+// MapKeywords returns field Keywords wrapped in EmojiKeywordClassSlice helper.
+func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassSlice) {
+	return EmojiKeywordClassSlice(e.Keywords)
 }
 
 // Decode implements bin.Decoder.

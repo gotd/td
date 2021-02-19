@@ -242,6 +242,13 @@ func (s *SendMessageUploadVideoAction) String() string {
 	return fmt.Sprintf("SendMessageUploadVideoAction%+v", Alias(*s))
 }
 
+// FillFrom fills SendMessageUploadVideoAction from given interface.
+func (s *SendMessageUploadVideoAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadVideoAction) TypeID() uint32 {
@@ -388,6 +395,13 @@ func (s *SendMessageUploadAudioAction) String() string {
 	return fmt.Sprintf("SendMessageUploadAudioAction%+v", Alias(*s))
 }
 
+// FillFrom fills SendMessageUploadAudioAction from given interface.
+func (s *SendMessageUploadAudioAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadAudioAction) TypeID() uint32 {
@@ -470,6 +484,13 @@ func (s *SendMessageUploadPhotoAction) String() string {
 	return fmt.Sprintf("SendMessageUploadPhotoAction%+v", Alias(*s))
 }
 
+// FillFrom fills SendMessageUploadPhotoAction from given interface.
+func (s *SendMessageUploadPhotoAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
@@ -550,6 +571,13 @@ func (s *SendMessageUploadDocumentAction) String() string {
 	}
 	type Alias SendMessageUploadDocumentAction
 	return fmt.Sprintf("SendMessageUploadDocumentAction%+v", Alias(*s))
+}
+
+// FillFrom fills SendMessageUploadDocumentAction from given interface.
+func (s *SendMessageUploadDocumentAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -890,6 +918,13 @@ func (s *SendMessageUploadRoundAction) String() string {
 	return fmt.Sprintf("SendMessageUploadRoundAction%+v", Alias(*s))
 }
 
+// FillFrom fills SendMessageUploadRoundAction from given interface.
+func (s *SendMessageUploadRoundAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadRoundAction) TypeID() uint32 {
@@ -1032,6 +1067,13 @@ func (s *SendMessageHistoryImportAction) String() string {
 	}
 	type Alias SendMessageHistoryImportAction
 	return fmt.Sprintf("SendMessageHistoryImportAction%+v", Alias(*s))
+}
+
+// FillFrom fills SendMessageHistoryImportAction from given interface.
+func (s *SendMessageHistoryImportAction) FillFrom(from interface {
+	GetProgress() (value int)
+}) {
+	s.Progress = from.GetProgress()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1266,4 +1308,55 @@ func (b *SendMessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SendMessageActionClass as nil")
 	}
 	return b.SendMessageAction.Encode(buf)
+}
+
+// SendMessageActionClassSlice is adapter for slice of SendMessageActionClass.
+type SendMessageActionClassSlice []SendMessageActionClass
+
+// First returns first element of slice (if exists).
+func (s SendMessageActionClassSlice) First() (v SendMessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SendMessageActionClassSlice) Last() (v SendMessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SendMessageActionClassSlice) PopFirst() (v SendMessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SendMessageActionClassSlice) Pop() (v SendMessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

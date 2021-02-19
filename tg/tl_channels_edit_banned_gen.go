@@ -66,6 +66,17 @@ func (e *ChannelsEditBannedRequest) String() string {
 	return fmt.Sprintf("ChannelsEditBannedRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditBannedRequest from given interface.
+func (e *ChannelsEditBannedRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUserID() (value InputUserClass)
+	GetBannedRights() (value ChatBannedRights)
+}) {
+	e.Channel = from.GetChannel()
+	e.UserID = from.GetUserID()
+	e.BannedRights = from.GetBannedRights()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditBannedRequest) TypeID() uint32 {
@@ -99,6 +110,11 @@ func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditBannedRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
 }
 
 // GetUserID returns value of UserID field.

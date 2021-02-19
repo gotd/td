@@ -49,6 +49,13 @@ func (s *SMS) String() string {
 	return fmt.Sprintf("SMS%+v", Alias(*s))
 }
 
+// FillFrom fills SMS from given interface.
+func (s *SMS) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	s.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SMS) TypeID() uint32 {

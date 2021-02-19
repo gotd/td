@@ -60,6 +60,17 @@ func (m *MessageUserVote) String() string {
 	return fmt.Sprintf("MessageUserVote%+v", Alias(*m))
 }
 
+// FillFrom fills MessageUserVote from given interface.
+func (m *MessageUserVote) FillFrom(from interface {
+	GetUserID() (value int)
+	GetOption() (value []byte)
+	GetDate() (value int)
+}) {
+	m.UserID = from.GetUserID()
+	m.Option = from.GetOption()
+	m.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVote) TypeID() uint32 {
@@ -176,6 +187,15 @@ func (m *MessageUserVoteInputOption) String() string {
 	return fmt.Sprintf("MessageUserVoteInputOption%+v", Alias(*m))
 }
 
+// FillFrom fills MessageUserVoteInputOption from given interface.
+func (m *MessageUserVoteInputOption) FillFrom(from interface {
+	GetUserID() (value int)
+	GetDate() (value int)
+}) {
+	m.UserID = from.GetUserID()
+	m.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVoteInputOption) TypeID() uint32 {
@@ -279,6 +299,17 @@ func (m *MessageUserVoteMultiple) String() string {
 	}
 	type Alias MessageUserVoteMultiple
 	return fmt.Sprintf("MessageUserVoteMultiple%+v", Alias(*m))
+}
+
+// FillFrom fills MessageUserVoteMultiple from given interface.
+func (m *MessageUserVoteMultiple) FillFrom(from interface {
+	GetUserID() (value int)
+	GetOptions() (value [][]byte)
+	GetDate() (value int)
+}) {
+	m.UserID = from.GetUserID()
+	m.Options = from.GetOptions()
+	m.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -457,4 +488,55 @@ func (b *MessageUserVoteBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageUserVoteClass as nil")
 	}
 	return b.MessageUserVote.Encode(buf)
+}
+
+// MessageUserVoteClassSlice is adapter for slice of MessageUserVoteClass.
+type MessageUserVoteClassSlice []MessageUserVoteClass
+
+// First returns first element of slice (if exists).
+func (s MessageUserVoteClassSlice) First() (v MessageUserVoteClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageUserVoteClassSlice) Last() (v MessageUserVoteClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageUserVoteClassSlice) PopFirst() (v MessageUserVoteClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageUserVoteClassSlice) Pop() (v MessageUserVoteClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

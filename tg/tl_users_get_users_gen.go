@@ -50,6 +50,13 @@ func (g *UsersGetUsersRequest) String() string {
 	return fmt.Sprintf("UsersGetUsersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UsersGetUsersRequest from given interface.
+func (g *UsersGetUsersRequest) FillFrom(from interface {
+	GetID() (value []InputUserClass)
+}) {
+	g.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UsersGetUsersRequest) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (g *UsersGetUsersRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (g *UsersGetUsersRequest) GetID() (value []InputUserClass) {
 	return g.ID
+}
+
+// MapID returns field ID wrapped in InputUserClassSlice helper.
+func (g *UsersGetUsersRequest) MapID() (value InputUserClassSlice) {
+	return InputUserClassSlice(g.ID)
 }
 
 // Decode implements bin.Decoder.

@@ -104,6 +104,29 @@ func (g *ChannelsGetAdminLogRequest) String() string {
 	return fmt.Sprintf("ChannelsGetAdminLogRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ChannelsGetAdminLogRequest from given interface.
+func (g *ChannelsGetAdminLogRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetQ() (value string)
+	GetEventsFilter() (value ChannelAdminLogEventsFilter, ok bool)
+	GetAdmins() (value []InputUserClass, ok bool)
+	GetMaxID() (value int64)
+	GetMinID() (value int64)
+	GetLimit() (value int)
+}) {
+	g.Channel = from.GetChannel()
+	g.Q = from.GetQ()
+	if val, ok := from.GetEventsFilter(); ok {
+		g.EventsFilter = val
+	}
+	if val, ok := from.GetAdmins(); ok {
+		g.Admins = val
+	}
+	g.MaxID = from.GetMaxID()
+	g.MinID = from.GetMinID()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetAdminLogRequest) TypeID() uint32 {
@@ -159,6 +182,11 @@ func (g *ChannelsGetAdminLogRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
 }
 
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *ChannelsGetAdminLogRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
+}
+
 // GetQ returns value of Q field.
 func (g *ChannelsGetAdminLogRequest) GetQ() (value string) {
 	return g.Q
@@ -192,6 +220,14 @@ func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok boo
 		return value, false
 	}
 	return g.Admins, true
+}
+
+// MapAdmins returns field Admins wrapped in InputUserClassSlice helper.
+func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassSlice, ok bool) {
+	if !g.Flags.Has(1) {
+		return value, false
+	}
+	return InputUserClassSlice(g.Admins), true
 }
 
 // GetMaxID returns value of MaxID field.

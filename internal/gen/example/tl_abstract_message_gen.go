@@ -69,6 +69,21 @@ func (b *BigMessage) String() string {
 	return fmt.Sprintf("BigMessage%+v", Alias(*b))
 }
 
+// FillFrom fills BigMessage from given interface.
+func (b *BigMessage) FillFrom(from interface {
+	GetID() (value int32)
+	GetCount() (value int32)
+	GetTargetId() (value int32)
+	GetEscape() (value bool)
+	GetSummary() (value bool)
+}) {
+	b.ID = from.GetID()
+	b.Count = from.GetCount()
+	b.TargetId = from.GetTargetId()
+	b.Escape = from.GetEscape()
+	b.Summary = from.GetSummary()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BigMessage) TypeID() uint32 {
@@ -265,6 +280,13 @@ func (t *TargetsMessage) String() string {
 	return fmt.Sprintf("TargetsMessage%+v", Alias(*t))
 }
 
+// FillFrom fills TargetsMessage from given interface.
+func (t *TargetsMessage) FillFrom(from interface {
+	GetTargets() (value []int32)
+}) {
+	t.Targets = from.GetTargets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TargetsMessage) TypeID() uint32 {
@@ -367,6 +389,19 @@ func (f *FieldsMessage) String() string {
 	}
 	type Alias FieldsMessage
 	return fmt.Sprintf("FieldsMessage%+v", Alias(*f))
+}
+
+// FillFrom fills FieldsMessage from given interface.
+func (f *FieldsMessage) FillFrom(from interface {
+	GetEscape() (value bool, ok bool)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	if val, ok := from.GetEscape(); ok {
+		f.Escape = val
+	}
+	if val, ok := from.GetTTLSeconds(); ok {
+		f.TTLSeconds = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -499,6 +534,13 @@ func (b *BytesMessage) String() string {
 	}
 	type Alias BytesMessage
 	return fmt.Sprintf("BytesMessage%+v", Alias(*b))
+}
+
+// FillFrom fills BytesMessage from given interface.
+func (b *BytesMessage) FillFrom(from interface {
+	GetData() (value []byte)
+}) {
+	b.Data = from.GetData()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -653,4 +695,55 @@ func (b *AbstractMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AbstractMessageClass as nil")
 	}
 	return b.AbstractMessage.Encode(buf)
+}
+
+// AbstractMessageClassSlice is adapter for slice of AbstractMessageClass.
+type AbstractMessageClassSlice []AbstractMessageClass
+
+// First returns first element of slice (if exists).
+func (s AbstractMessageClassSlice) First() (v AbstractMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AbstractMessageClassSlice) Last() (v AbstractMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AbstractMessageClassSlice) PopFirst() (v AbstractMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AbstractMessageClassSlice) Pop() (v AbstractMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

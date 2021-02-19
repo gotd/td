@@ -63,6 +63,17 @@ func (e *HelpEditUserInfoRequest) String() string {
 	return fmt.Sprintf("HelpEditUserInfoRequest%+v", Alias(*e))
 }
 
+// FillFrom fills HelpEditUserInfoRequest from given interface.
+func (e *HelpEditUserInfoRequest) FillFrom(from interface {
+	GetUserID() (value InputUserClass)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass)
+}) {
+	e.UserID = from.GetUserID()
+	e.Message = from.GetMessage()
+	e.Entities = from.GetEntities()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *HelpEditUserInfoRequest) TypeID() uint32 {
@@ -107,6 +118,11 @@ func (e *HelpEditUserInfoRequest) GetMessage() (value string) {
 // GetEntities returns value of Entities field.
 func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
 	return e.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassSlice) {
+	return MessageEntityClassSlice(e.Entities)
 }
 
 // Decode implements bin.Decoder.

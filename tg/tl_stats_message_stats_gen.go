@@ -50,6 +50,13 @@ func (m *StatsMessageStats) String() string {
 	return fmt.Sprintf("StatsMessageStats%+v", Alias(*m))
 }
 
+// FillFrom fills StatsMessageStats from given interface.
+func (m *StatsMessageStats) FillFrom(from interface {
+	GetViewsGraph() (value StatsGraphClass)
+}) {
+	m.ViewsGraph = from.GetViewsGraph()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *StatsMessageStats) TypeID() uint32 {

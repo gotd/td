@@ -50,6 +50,13 @@ func (s *AuthSentCodeTypeApp) String() string {
 	return fmt.Sprintf("AuthSentCodeTypeApp%+v", Alias(*s))
 }
 
+// FillFrom fills AuthSentCodeTypeApp from given interface.
+func (s *AuthSentCodeTypeApp) FillFrom(from interface {
+	GetLength() (value int)
+}) {
+	s.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeApp) TypeID() uint32 {
@@ -132,6 +139,13 @@ func (s *AuthSentCodeTypeSms) String() string {
 	return fmt.Sprintf("AuthSentCodeTypeSms%+v", Alias(*s))
 }
 
+// FillFrom fills AuthSentCodeTypeSms from given interface.
+func (s *AuthSentCodeTypeSms) FillFrom(from interface {
+	GetLength() (value int)
+}) {
+	s.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeSms) TypeID() uint32 {
@@ -212,6 +226,13 @@ func (s *AuthSentCodeTypeCall) String() string {
 	}
 	type Alias AuthSentCodeTypeCall
 	return fmt.Sprintf("AuthSentCodeTypeCall%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeCall from given interface.
+func (s *AuthSentCodeTypeCall) FillFrom(from interface {
+	GetLength() (value int)
+}) {
+	s.Length = from.GetLength()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -297,6 +318,13 @@ func (s *AuthSentCodeTypeFlashCall) String() string {
 	}
 	type Alias AuthSentCodeTypeFlashCall
 	return fmt.Sprintf("AuthSentCodeTypeFlashCall%+v", Alias(*s))
+}
+
+// FillFrom fills AuthSentCodeTypeFlashCall from given interface.
+func (s *AuthSentCodeTypeFlashCall) FillFrom(from interface {
+	GetPattern() (value string)
+}) {
+	s.Pattern = from.GetPattern()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -443,4 +471,55 @@ func (b *AuthSentCodeTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthSentCodeTypeClass as nil")
 	}
 	return b.SentCodeType.Encode(buf)
+}
+
+// AuthSentCodeTypeClassSlice is adapter for slice of AuthSentCodeTypeClass.
+type AuthSentCodeTypeClassSlice []AuthSentCodeTypeClass
+
+// First returns first element of slice (if exists).
+func (s AuthSentCodeTypeClassSlice) First() (v AuthSentCodeTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthSentCodeTypeClassSlice) Last() (v AuthSentCodeTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeClassSlice) PopFirst() (v AuthSentCodeTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthSentCodeTypeClassSlice) Pop() (v AuthSentCodeTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

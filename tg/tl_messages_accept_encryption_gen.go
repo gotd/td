@@ -63,6 +63,17 @@ func (a *MessagesAcceptEncryptionRequest) String() string {
 	return fmt.Sprintf("MessagesAcceptEncryptionRequest%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAcceptEncryptionRequest from given interface.
+func (a *MessagesAcceptEncryptionRequest) FillFrom(from interface {
+	GetPeer() (value InputEncryptedChat)
+	GetGB() (value []byte)
+	GetKeyFingerprint() (value int64)
+}) {
+	a.Peer = from.GetPeer()
+	a.GB = from.GetGB()
+	a.KeyFingerprint = from.GetKeyFingerprint()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAcceptEncryptionRequest) TypeID() uint32 {

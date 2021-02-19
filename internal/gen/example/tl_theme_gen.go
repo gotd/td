@@ -49,6 +49,13 @@ func (t *Theme) String() string {
 	return fmt.Sprintf("Theme%+v", Alias(*t))
 }
 
+// FillFrom fills Theme from given interface.
+func (t *Theme) FillFrom(from interface {
+	GetName() (value string)
+}) {
+	t.Name = from.GetName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *Theme) TypeID() uint32 {

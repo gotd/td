@@ -136,6 +136,17 @@ func (i *InputCheckPasswordSRP) String() string {
 	return fmt.Sprintf("InputCheckPasswordSRP%+v", Alias(*i))
 }
 
+// FillFrom fills InputCheckPasswordSRP from given interface.
+func (i *InputCheckPasswordSRP) FillFrom(from interface {
+	GetSRPID() (value int64)
+	GetA() (value []byte)
+	GetM1() (value []byte)
+}) {
+	i.SRPID = from.GetSRPID()
+	i.A = from.GetA()
+	i.M1 = from.GetM1()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputCheckPasswordSRP) TypeID() uint32 {
@@ -231,6 +242,9 @@ type InputCheckPasswordSRPClass interface {
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
 
+	// AsNotEmpty tries to map InputCheckPasswordSRPClass to InputCheckPasswordSRP.
+	AsNotEmpty() (*InputCheckPasswordSRP, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -238,6 +252,16 @@ type InputCheckPasswordSRPClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map InputCheckPasswordSRPClass to InputCheckPasswordSRP.
+func (i *InputCheckPasswordEmpty) AsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map InputCheckPasswordSRPClass to InputCheckPasswordSRP.
+func (i *InputCheckPasswordSRP) AsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return i, true
 }
 
 // DecodeInputCheckPasswordSRP implements binary de-serialization for InputCheckPasswordSRPClass.
@@ -290,4 +314,92 @@ func (b *InputCheckPasswordSRPBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputCheckPasswordSRPClass as nil")
 	}
 	return b.InputCheckPasswordSRP.Encode(buf)
+}
+
+// InputCheckPasswordSRPClassSlice is adapter for slice of InputCheckPasswordSRPClass.
+type InputCheckPasswordSRPClassSlice []InputCheckPasswordSRPClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s InputCheckPasswordSRPClassSlice) AppendOnlyNotEmpty(to []*InputCheckPasswordSRP) []*InputCheckPasswordSRP {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s InputCheckPasswordSRPClassSlice) AsNotEmpty() (to []*InputCheckPasswordSRP) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s InputCheckPasswordSRPClassSlice) FirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s InputCheckPasswordSRPClassSlice) LastAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s InputCheckPasswordSRPClassSlice) First() (v InputCheckPasswordSRPClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputCheckPasswordSRPClassSlice) Last() (v InputCheckPasswordSRPClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputCheckPasswordSRPClassSlice) PopFirst() (v InputCheckPasswordSRPClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputCheckPasswordSRPClassSlice) Pop() (v InputCheckPasswordSRPClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

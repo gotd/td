@@ -78,6 +78,21 @@ func (u *AccountUploadThemeRequest) String() string {
 	return fmt.Sprintf("AccountUploadThemeRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUploadThemeRequest from given interface.
+func (u *AccountUploadThemeRequest) FillFrom(from interface {
+	GetFile() (value InputFileClass)
+	GetThumb() (value InputFileClass, ok bool)
+	GetFileName() (value string)
+	GetMimeType() (value string)
+}) {
+	u.File = from.GetFile()
+	if val, ok := from.GetThumb(); ok {
+		u.Thumb = val
+	}
+	u.FileName = from.GetFileName()
+	u.MimeType = from.GetMimeType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUploadThemeRequest) TypeID() uint32 {

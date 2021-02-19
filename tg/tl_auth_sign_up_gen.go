@@ -65,6 +65,19 @@ func (s *AuthSignUpRequest) String() string {
 	return fmt.Sprintf("AuthSignUpRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AuthSignUpRequest from given interface.
+func (s *AuthSignUpRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetPhoneCodeHash() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+}) {
+	s.PhoneNumber = from.GetPhoneNumber()
+	s.PhoneCodeHash = from.GetPhoneCodeHash()
+	s.FirstName = from.GetFirstName()
+	s.LastName = from.GetLastName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSignUpRequest) TypeID() uint32 {

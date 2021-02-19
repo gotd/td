@@ -63,6 +63,14 @@ func (d *MessagesDeleteMessagesRequest) String() string {
 	return fmt.Sprintf("MessagesDeleteMessagesRequest%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDeleteMessagesRequest from given interface.
+func (d *MessagesDeleteMessagesRequest) FillFrom(from interface {
+	GetRevoke() (value bool)
+	GetID() (value []int)
+}) {
+	d.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteMessagesRequest) TypeID() uint32 {

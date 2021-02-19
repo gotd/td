@@ -54,6 +54,15 @@ func (i *InputGroupCall) String() string {
 	return fmt.Sprintf("InputGroupCall%+v", Alias(*i))
 }
 
+// FillFrom fills InputGroupCall from given interface.
+func (i *InputGroupCall) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGroupCall) TypeID() uint32 {

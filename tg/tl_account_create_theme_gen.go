@@ -77,6 +77,23 @@ func (c *AccountCreateThemeRequest) String() string {
 	return fmt.Sprintf("AccountCreateThemeRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AccountCreateThemeRequest from given interface.
+func (c *AccountCreateThemeRequest) FillFrom(from interface {
+	GetSlug() (value string)
+	GetTitle() (value string)
+	GetDocument() (value InputDocumentClass, ok bool)
+	GetSettings() (value InputThemeSettings, ok bool)
+}) {
+	c.Slug = from.GetSlug()
+	c.Title = from.GetTitle()
+	if val, ok := from.GetDocument(); ok {
+		c.Document = val
+	}
+	if val, ok := from.GetSettings(); ok {
+		c.Settings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountCreateThemeRequest) TypeID() uint32 {
@@ -139,6 +156,15 @@ func (c *AccountCreateThemeRequest) GetDocument() (value InputDocumentClass, ok 
 		return value, false
 	}
 	return c.Document, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (c *AccountCreateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := c.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // SetSettings sets value of Settings conditional field.

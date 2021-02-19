@@ -53,6 +53,13 @@ func (g *MessagesGetAllStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetAllStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetAllStickersRequest from given interface.
+func (g *MessagesGetAllStickersRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAllStickersRequest) TypeID() uint32 {

@@ -50,6 +50,13 @@ func (g *AccountGetNotifySettingsRequest) String() string {
 	return fmt.Sprintf("AccountGetNotifySettingsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetNotifySettingsRequest from given interface.
+func (g *AccountGetNotifySettingsRequest) FillFrom(from interface {
+	GetPeer() (value InputNotifyPeerClass)
+}) {
+	g.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetNotifySettingsRequest) TypeID() uint32 {

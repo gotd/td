@@ -49,6 +49,13 @@ func (s *SendRequest) String() string {
 	return fmt.Sprintf("SendRequest%+v", Alias(*s))
 }
 
+// FillFrom fills SendRequest from given interface.
+func (s *SendRequest) FillFrom(from interface {
+	GetMsg() (value SMS)
+}) {
+	s.Msg = from.GetMsg()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendRequest) TypeID() uint32 {
