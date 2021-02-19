@@ -4,3 +4,5 @@ Use [Full Disclosure](https://en.wikipedia.org/wiki/Full_disclosure_(computer_se
 strategy and open public issue.
 
 Project is in early development stage so "Coordinated vulnerability disclosure" is redundant.
+
+No formal security audit were performed.

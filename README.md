@@ -184,11 +184,11 @@ Special thanks:
 
 The MTProto protocol description is [hosted](https://core.telegram.org/mtproto#general-description) by Telegram.
 
-Most important parts for client impelemtations:
+Most important parts for client implementations:
 * [Security guidelines](https://core.telegram.org/mtproto/security_guidelines) for client software developers
 
-Current implementation does not conform to security guidelines and should be used only
-as reference or for testing.
+Current implementation [mostly conforms](https://github.com/gotd/td/issues/155) to security guidelines, but no
+formal security audit were performed.
 
 ## Prior art
 
