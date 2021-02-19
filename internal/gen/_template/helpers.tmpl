@@ -1,0 +1,27 @@
+{{ define "generate_helpers" }}{{ $s := . }}
+{{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
+{{ template "zero_derive" $s }}
+{{ template "string_derive" $s }}
+{{ template "fill_from" $s }}
+{{ end }}
+
+{{ define "fill_from" }}{{ $s := . }}{{ if $s.Fields }}
+{{- /*gotype: github.com/gotd/td/internal/gen.structDef*/ -}}
+// FillFrom fills {{ $s.Name }} from given interface.
+func ({{ $s.Receiver }} *{{ $s.Name }}) FillFrom(from interface{
+{{- range $f := $s.Fields }}{{ if ne ($f.Type) ("bin.Fields") }}
+    {{ template "getter_func_type" $f }}
+{{- end }}{{- end }}
+}) {
+{{- range $f := $s.Fields }}{{ if ne ($f.Type) ("bin.Fields") }}
+    {{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+    {{- if $f.Conditional }}{{ if not ($f.ConditionalBool) }}
+    if val, ok := from.Get{{ $f.Name }}(); ok {
+        {{ $s.Receiver }}.{{ $f.Name }} = val
+    }
+    {{- end }}{{ else }}
+    {{ $s.Receiver }}.{{ $f.Name }} = from.Get{{ $f.Name }}()
+    {{- end }}
+{{- end }}{{- end }}
+}
+{{ end }}{{ end }}

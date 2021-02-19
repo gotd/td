@@ -14,6 +14,18 @@ func Funcs() template.FuncMap {
 		"trimPrefix": strings.TrimPrefix,
 		"hasPrefix":  strings.HasPrefix,
 		"hasSuffix":  strings.HasSuffix,
+		"hasField": func(fields []fieldDef, name, typ string) bool {
+			for _, f := range fields {
+				if f.Name == name && f.Type == typ {
+					return true
+				}
+			}
+
+			return false
+		},
+		"concat": func(args ...interface{}) []interface{} {
+			return args
+		},
 		"add": func(x, y int) int {
 			return x + y
 		},

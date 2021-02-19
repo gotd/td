@@ -1,0 +1,132 @@
+{{- /*gotype: github.com/gotd/td/internal/gen.config*/ -}}
+{{ define "slices" }}
+{{- range $f := $.Interfaces }}
+// {{ $f.Name }}Slice is adapter for slice of {{ $f.Name }}.
+type {{ $f.Name }}Slice []{{ $f.Name }}
+
+{{- range $s := $f.Constructors }}
+{{- if hasField ($f.SharedFields.Common) ("ID") ("int") }}
+// Fill{{ $s.Name }}Map fills only {{ $s.Name }} constructors to given map.
+func (s {{ $f.Name }}Slice) Fill{{ $s.Name }}Map(to map[int]*{{ $s.Name }} ) {
+    for _, elem := range s {
+        value, ok := elem.(*{{ $s.Name }})
+        if !ok {
+            continue
+        }
+        to[value.GetID()] = value
+    }
+}
+
+// {{ $s.Name }}ToMap collects only {{ $s.Name }} constructors to map.
+func (s {{ $f.Name }}Slice) {{ $s.Name }}ToMap() map[int]*{{ $s.Name }} {
+    r := make(map[int]*{{ $s.Name }}, len(s))
+    s.Fill{{ $s.Name }}Map(r)
+    return r
+}
+{{ end }}
+
+{{- end }}
+
+{{- range $mapping := $f.Mappings }}
+{{- if hasField (index ($f.SharedFields) ($mapping.MapperName)) ("ID") ("int") }}
+// Fill{{ $mapping.MapperName }}Map fills only {{ $mapping.MapperName }} constructors to given map.
+func (s {{ $f.Name }}Slice) Fill{{ $mapping.MapperName }}Map(to map[int]{{ template "print_mapper_type" $mapping }}) {
+    for _, elem := range s {
+        value, ok := elem.As{{ $mapping.MapperName }}()
+        if !ok {
+            continue
+        }
+        to[value.GetID()] = value
+    }
+}
+
+// {{ $mapping.MapperName }}ToMap collects only {{ $mapping.MapperName }} constructors to map.
+func (s {{ $f.Name }}Slice) {{ $mapping.MapperName }}ToMap() map[int]{{ template "print_mapper_type" $mapping }} {
+    r := make(map[int]{{ template "print_mapper_type" $mapping }}, len(s))
+    s.Fill{{ $mapping.MapperName }}Map(r)
+    return r
+}
+{{ end }}
+
+// AppendOnly{{ $mapping.MapperName }} appends only {{ $mapping.MapperName }} constructors to
+// given slice.
+func (s {{ $f.Name }}Slice) AppendOnly{{ $mapping.MapperName }}(to []{{ template "print_mapper_type" $mapping }}) []{{ template "print_mapper_type" $mapping }} {
+    for _, elem := range s {
+        value, ok := elem.As{{ $mapping.MapperName }}()
+        if !ok {
+            continue
+        }
+        to = append(to, value)
+    }
+
+    return to
+}
+
+// As{{ $mapping.MapperName }} returns copy with only {{ $mapping.MapperName }} constructors.
+func (s {{ $f.Name }}Slice) As{{ $mapping.MapperName }}() (to []{{ template "print_mapper_type" $mapping }}) {
+    return s.AppendOnly{{ $mapping.MapperName }}(to)
+}
+
+{{- range $method := concat ("First") ("Last") }}
+// {{ $method }}As{{ $mapping.MapperName }} returns {{ lower $method }} element of slice (if exists).
+func (s {{ $f.Name }}Slice) {{ $method }}As{{ $mapping.MapperName }}() (v {{ template "print_mapper_type" $mapping }}, ok bool) {
+    value, ok := s.{{ $method }}()
+    if !ok {
+        return
+    }
+    return value.As{{ $mapping.MapperName }}()
+}
+{{- end }}
+{{- end }}
+
+// First returns first element of slice (if exists).
+func (s {{ $f.Name }}Slice) First() (v {{ $f.Name }}, ok bool) {
+    if len(s) < 1 {
+        return
+    }
+    return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s {{ $f.Name }}Slice) Last() (v {{ $f.Name }}, ok bool) {
+    if len(s) < 1 {
+        return
+    }
+    return s[len(s)-1], true
+}
+
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *{{ $f.Name }}Slice) PopFirst() (v {{ $f.Name }}, ok bool) {
+    if s == nil || len(*s) < 1 {
+        return
+    }
+
+    a := *s
+    v = a[0]
+
+    // Delete by index from SliceTricks.
+    copy(a[0:], a[1:])
+    a[len(a)-1] = nil
+    a = a[:len(a)-1]
+    *s = a
+
+    return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *{{ $f.Name }}Slice) Pop() (v {{ $f.Name }}, ok bool) {
+    if s == nil || len(*s) < 1 {
+        return
+    }
+
+    a := *s
+    v = a[len(a)-1]
+    a = a[:len(a)-1]
+    *s = a
+
+    return v, true
+}
+
+{{- end }}
+{{ end }}
