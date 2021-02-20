@@ -68,6 +68,17 @@ func (a *AuthAuthorization) String() string {
 	return fmt.Sprintf("AuthAuthorization%+v", Alias(*a))
 }
 
+// FillFrom fills AuthAuthorization from given interface.
+func (a *AuthAuthorization) FillFrom(from interface {
+	GetTmpSessions() (value int, ok bool)
+	GetUser() (value UserClass)
+}) {
+	if val, ok := from.GetTmpSessions(); ok {
+		a.TmpSessions = val
+	}
+	a.User = from.GetUser()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AuthAuthorization) TypeID() uint32 {
@@ -202,6 +213,15 @@ func (a *AuthAuthorizationSignUpRequired) String() string {
 	}
 	type Alias AuthAuthorizationSignUpRequired
 	return fmt.Sprintf("AuthAuthorizationSignUpRequired%+v", Alias(*a))
+}
+
+// FillFrom fills AuthAuthorizationSignUpRequired from given interface.
+func (a *AuthAuthorizationSignUpRequired) FillFrom(from interface {
+	GetTermsOfService() (value HelpTermsOfService, ok bool)
+}) {
+	if val, ok := from.GetTermsOfService(); ok {
+		a.TermsOfService = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -355,4 +375,55 @@ func (b *AuthAuthorizationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AuthAuthorizationClass as nil")
 	}
 	return b.Authorization.Encode(buf)
+}
+
+// AuthAuthorizationClassSlice is adapter for slice of AuthAuthorizationClass.
+type AuthAuthorizationClassSlice []AuthAuthorizationClass
+
+// First returns first element of slice (if exists).
+func (s AuthAuthorizationClassSlice) First() (v AuthAuthorizationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthAuthorizationClassSlice) Last() (v AuthAuthorizationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthAuthorizationClassSlice) PopFirst() (v AuthAuthorizationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthAuthorizationClassSlice) Pop() (v AuthAuthorizationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

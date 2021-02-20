@@ -698,6 +698,12 @@ func (i *InputMessagesFilterPhoneCalls) String() string {
 	return fmt.Sprintf("InputMessagesFilterPhoneCalls%+v", Alias(*i))
 }
 
+// FillFrom fills InputMessagesFilterPhoneCalls from given interface.
+func (i *InputMessagesFilterPhoneCalls) FillFrom(from interface {
+	GetMissed() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhoneCalls) TypeID() uint32 {
@@ -1348,4 +1354,55 @@ func (b *MessagesFilterBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFilterClass as nil")
 	}
 	return b.MessagesFilter.Encode(buf)
+}
+
+// MessagesFilterClassSlice is adapter for slice of MessagesFilterClass.
+type MessagesFilterClassSlice []MessagesFilterClass
+
+// First returns first element of slice (if exists).
+func (s MessagesFilterClassSlice) First() (v MessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFilterClassSlice) Last() (v MessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFilterClassSlice) PopFirst() (v MessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFilterClassSlice) Pop() (v MessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -60,6 +60,17 @@ func (c *ChannelsChannelParticipants) String() string {
 	return fmt.Sprintf("ChannelsChannelParticipants%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelsChannelParticipants from given interface.
+func (c *ChannelsChannelParticipants) FillFrom(from interface {
+	GetCount() (value int)
+	GetParticipants() (value []ChannelParticipantClass)
+	GetUsers() (value []UserClass)
+}) {
+	c.Count = from.GetCount()
+	c.Participants = from.GetParticipants()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipants) TypeID() uint32 {
@@ -104,9 +115,19 @@ func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticip
 	return c.Participants
 }
 
+// MapParticipants returns field Participants wrapped in ChannelParticipantClassSlice helper.
+func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassSlice) {
+	return ChannelParticipantClassSlice(c.Participants)
+}
+
 // GetUsers returns value of Users field.
 func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *ChannelsChannelParticipants) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -249,6 +270,9 @@ type ChannelsChannelParticipantsClass interface {
 	bin.Decoder
 	construct() ChannelsChannelParticipantsClass
 
+	// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+	AsModified() (*ChannelsChannelParticipants, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -256,6 +280,16 @@ type ChannelsChannelParticipantsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+func (c *ChannelsChannelParticipants) AsModified() (*ChannelsChannelParticipants, bool) {
+	return c, true
+}
+
+// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+func (c *ChannelsChannelParticipantsNotModified) AsModified() (*ChannelsChannelParticipants, bool) {
+	return nil, false
 }
 
 // DecodeChannelsChannelParticipants implements binary de-serialization for ChannelsChannelParticipantsClass.
@@ -308,4 +342,92 @@ func (b *ChannelsChannelParticipantsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelsChannelParticipantsClass as nil")
 	}
 	return b.ChannelParticipants.Encode(buf)
+}
+
+// ChannelsChannelParticipantsClassSlice is adapter for slice of ChannelsChannelParticipantsClass.
+type ChannelsChannelParticipantsClassSlice []ChannelsChannelParticipantsClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s ChannelsChannelParticipantsClassSlice) AppendOnlyModified(to []*ChannelsChannelParticipants) []*ChannelsChannelParticipants {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s ChannelsChannelParticipantsClassSlice) AsModified() (to []*ChannelsChannelParticipants) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s ChannelsChannelParticipantsClassSlice) FirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s ChannelsChannelParticipantsClassSlice) LastAsModified() (v *ChannelsChannelParticipants, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelsChannelParticipantsClassSlice) First() (v ChannelsChannelParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelsChannelParticipantsClassSlice) Last() (v ChannelsChannelParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelsChannelParticipantsClassSlice) PopFirst() (v ChannelsChannelParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelsChannelParticipantsClassSlice) Pop() (v ChannelsChannelParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

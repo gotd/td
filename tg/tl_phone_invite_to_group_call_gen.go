@@ -54,6 +54,15 @@ func (i *PhoneInviteToGroupCallRequest) String() string {
 	return fmt.Sprintf("PhoneInviteToGroupCallRequest%+v", Alias(*i))
 }
 
+// FillFrom fills PhoneInviteToGroupCallRequest from given interface.
+func (i *PhoneInviteToGroupCallRequest) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetUsers() (value []InputUserClass)
+}) {
+	i.Call = from.GetCall()
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *PhoneInviteToGroupCallRequest) TypeID() uint32 {
@@ -89,6 +98,11 @@ func (i *PhoneInviteToGroupCallRequest) GetCall() (value InputGroupCall) {
 // GetUsers returns value of Users field.
 func (i *PhoneInviteToGroupCallRequest) GetUsers() (value []InputUserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassSlice helper.
+func (i *PhoneInviteToGroupCallRequest) MapUsers() (value InputUserClassSlice) {
+	return InputUserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.

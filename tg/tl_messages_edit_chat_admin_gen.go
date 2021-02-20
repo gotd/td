@@ -63,6 +63,17 @@ func (e *MessagesEditChatAdminRequest) String() string {
 	return fmt.Sprintf("MessagesEditChatAdminRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditChatAdminRequest from given interface.
+func (e *MessagesEditChatAdminRequest) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value InputUserClass)
+	GetIsAdmin() (value bool)
+}) {
+	e.ChatID = from.GetChatID()
+	e.UserID = from.GetUserID()
+	e.IsAdmin = from.GetIsAdmin()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatAdminRequest) TypeID() uint32 {

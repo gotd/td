@@ -56,6 +56,13 @@ func (c *CdnConfig) String() string {
 	return fmt.Sprintf("CdnConfig%+v", Alias(*c))
 }
 
+// FillFrom fills CdnConfig from given interface.
+func (c *CdnConfig) FillFrom(from interface {
+	GetPublicKeys() (value []CdnPublicKey)
+}) {
+	c.PublicKeys = from.GetPublicKeys()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *CdnConfig) TypeID() uint32 {

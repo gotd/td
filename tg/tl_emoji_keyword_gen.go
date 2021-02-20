@@ -55,6 +55,15 @@ func (e *EmojiKeyword) String() string {
 	return fmt.Sprintf("EmojiKeyword%+v", Alias(*e))
 }
 
+// FillFrom fills EmojiKeyword from given interface.
+func (e *EmojiKeyword) FillFrom(from interface {
+	GetKeyword() (value string)
+	GetEmoticons() (value []string)
+}) {
+	e.Keyword = from.GetKeyword()
+	e.Emoticons = from.GetEmoticons()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeyword) TypeID() uint32 {
@@ -162,6 +171,15 @@ func (e *EmojiKeywordDeleted) String() string {
 	}
 	type Alias EmojiKeywordDeleted
 	return fmt.Sprintf("EmojiKeywordDeleted%+v", Alias(*e))
+}
+
+// FillFrom fills EmojiKeywordDeleted from given interface.
+func (e *EmojiKeywordDeleted) FillFrom(from interface {
+	GetKeyword() (value string)
+	GetEmoticons() (value []string)
+}) {
+	e.Keyword = from.GetKeyword()
+	e.Emoticons = from.GetEmoticons()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -319,4 +337,55 @@ func (b *EmojiKeywordBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EmojiKeywordClass as nil")
 	}
 	return b.EmojiKeyword.Encode(buf)
+}
+
+// EmojiKeywordClassSlice is adapter for slice of EmojiKeywordClass.
+type EmojiKeywordClassSlice []EmojiKeywordClass
+
+// First returns first element of slice (if exists).
+func (s EmojiKeywordClassSlice) First() (v EmojiKeywordClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiKeywordClassSlice) Last() (v EmojiKeywordClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiKeywordClassSlice) PopFirst() (v EmojiKeywordClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiKeywordClassSlice) Pop() (v EmojiKeywordClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -78,6 +78,20 @@ func (d *PhoneDiscardCallRequest) String() string {
 	return fmt.Sprintf("PhoneDiscardCallRequest%+v", Alias(*d))
 }
 
+// FillFrom fills PhoneDiscardCallRequest from given interface.
+func (d *PhoneDiscardCallRequest) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetPeer() (value InputPhoneCall)
+	GetDuration() (value int)
+	GetReason() (value PhoneCallDiscardReasonClass)
+	GetConnectionID() (value int64)
+}) {
+	d.Peer = from.GetPeer()
+	d.Duration = from.GetDuration()
+	d.Reason = from.GetReason()
+	d.ConnectionID = from.GetConnectionID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *PhoneDiscardCallRequest) TypeID() uint32 {

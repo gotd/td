@@ -55,6 +55,15 @@ func (s *PhoneSendSignalingDataRequest) String() string {
 	return fmt.Sprintf("PhoneSendSignalingDataRequest%+v", Alias(*s))
 }
 
+// FillFrom fills PhoneSendSignalingDataRequest from given interface.
+func (s *PhoneSendSignalingDataRequest) FillFrom(from interface {
+	GetPeer() (value InputPhoneCall)
+	GetData() (value []byte)
+}) {
+	s.Peer = from.GetPeer()
+	s.Data = from.GetData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSendSignalingDataRequest) TypeID() uint32 {

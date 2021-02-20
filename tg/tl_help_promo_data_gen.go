@@ -50,6 +50,13 @@ func (p *HelpPromoDataEmpty) String() string {
 	return fmt.Sprintf("HelpPromoDataEmpty%+v", Alias(*p))
 }
 
+// FillFrom fills HelpPromoDataEmpty from given interface.
+func (p *HelpPromoDataEmpty) FillFrom(from interface {
+	GetExpires() (value int)
+}) {
+	p.Expires = from.GetExpires()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoDataEmpty) TypeID() uint32 {
@@ -174,6 +181,28 @@ func (p *HelpPromoData) String() string {
 	return fmt.Sprintf("HelpPromoData%+v", Alias(*p))
 }
 
+// FillFrom fills HelpPromoData from given interface.
+func (p *HelpPromoData) FillFrom(from interface {
+	GetProxy() (value bool)
+	GetExpires() (value int)
+	GetPeer() (value PeerClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+	GetPsaType() (value string, ok bool)
+	GetPsaMessage() (value string, ok bool)
+}) {
+	p.Expires = from.GetExpires()
+	p.Peer = from.GetPeer()
+	p.Chats = from.GetChats()
+	p.Users = from.GetUsers()
+	if val, ok := from.GetPsaType(); ok {
+		p.PsaType = val
+	}
+	if val, ok := from.GetPsaMessage(); ok {
+		p.PsaMessage = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoData) TypeID() uint32 {
@@ -263,9 +292,19 @@ func (p *HelpPromoData) GetChats() (value []ChatClass) {
 	return p.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (p *HelpPromoData) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(p.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (p *HelpPromoData) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *HelpPromoData) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // SetPsaType sets value of PsaType conditional field.
@@ -402,6 +441,9 @@ type HelpPromoDataClass interface {
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
 	GetExpires() (value int)
 
+	// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+	AsNotEmpty() (*HelpPromoData, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -409,6 +451,16 @@ type HelpPromoDataClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+func (p *HelpPromoDataEmpty) AsNotEmpty() (*HelpPromoData, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+func (p *HelpPromoData) AsNotEmpty() (*HelpPromoData, bool) {
+	return p, true
 }
 
 // DecodeHelpPromoData implements binary de-serialization for HelpPromoDataClass.
@@ -461,4 +513,92 @@ func (b *HelpPromoDataBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpPromoDataClass as nil")
 	}
 	return b.PromoData.Encode(buf)
+}
+
+// HelpPromoDataClassSlice is adapter for slice of HelpPromoDataClass.
+type HelpPromoDataClassSlice []HelpPromoDataClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s HelpPromoDataClassSlice) AppendOnlyNotEmpty(to []*HelpPromoData) []*HelpPromoData {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s HelpPromoDataClassSlice) AsNotEmpty() (to []*HelpPromoData) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s HelpPromoDataClassSlice) FirstAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s HelpPromoDataClassSlice) LastAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpPromoDataClassSlice) First() (v HelpPromoDataClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpPromoDataClassSlice) Last() (v HelpPromoDataClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpPromoDataClassSlice) PopFirst() (v HelpPromoDataClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpPromoDataClassSlice) Pop() (v HelpPromoDataClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

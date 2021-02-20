@@ -75,6 +75,21 @@ func (i *InputBotInlineMessageMediaAuto) String() string {
 	return fmt.Sprintf("InputBotInlineMessageMediaAuto%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineMessageMediaAuto from given interface.
+func (i *InputBotInlineMessageMediaAuto) FillFrom(from interface {
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		i.Entities = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaAuto) TypeID() uint32 {
@@ -137,6 +152,14 @@ func (i *InputBotInlineMessageMediaAuto) GetEntities() (value []MessageEntityCla
 		return value, false
 	}
 	return i.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (i *InputBotInlineMessageMediaAuto) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassSlice(i.Entities), true
 }
 
 // SetReplyMarkup sets value of ReplyMarkup conditional field.
@@ -270,6 +293,22 @@ func (i *InputBotInlineMessageText) String() string {
 	return fmt.Sprintf("InputBotInlineMessageText%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineMessageText from given interface.
+func (i *InputBotInlineMessageText) FillFrom(from interface {
+	GetNoWebpage() (value bool)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		i.Entities = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageText) TypeID() uint32 {
@@ -351,6 +390,14 @@ func (i *InputBotInlineMessageText) GetEntities() (value []MessageEntityClass, o
 		return value, false
 	}
 	return i.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (i *InputBotInlineMessageText) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !i.Flags.Has(1) {
+		return value, false
+	}
+	return MessageEntityClassSlice(i.Entities), true
 }
 
 // SetReplyMarkup sets value of ReplyMarkup conditional field.
@@ -495,6 +542,29 @@ func (i *InputBotInlineMessageMediaGeo) String() string {
 	}
 	type Alias InputBotInlineMessageMediaGeo
 	return fmt.Sprintf("InputBotInlineMessageMediaGeo%+v", Alias(*i))
+}
+
+// FillFrom fills InputBotInlineMessageMediaGeo from given interface.
+func (i *InputBotInlineMessageMediaGeo) FillFrom(from interface {
+	GetGeoPoint() (value InputGeoPointClass)
+	GetHeading() (value int, ok bool)
+	GetPeriod() (value int, ok bool)
+	GetProximityNotificationRadius() (value int, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+	if val, ok := from.GetHeading(); ok {
+		i.Heading = val
+	}
+	if val, ok := from.GetPeriod(); ok {
+		i.Period = val
+	}
+	if val, ok := from.GetProximityNotificationRadius(); ok {
+		i.ProximityNotificationRadius = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -749,6 +819,27 @@ func (i *InputBotInlineMessageMediaVenue) String() string {
 	return fmt.Sprintf("InputBotInlineMessageMediaVenue%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineMessageMediaVenue from given interface.
+func (i *InputBotInlineMessageMediaVenue) FillFrom(from interface {
+	GetGeoPoint() (value InputGeoPointClass)
+	GetTitle() (value string)
+	GetAddress() (value string)
+	GetProvider() (value string)
+	GetVenueID() (value string)
+	GetVenueType() (value string)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+	i.Title = from.GetTitle()
+	i.Address = from.GetAddress()
+	i.Provider = from.GetProvider()
+	i.VenueID = from.GetVenueID()
+	i.VenueType = from.GetVenueType()
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaVenue) TypeID() uint32 {
@@ -972,6 +1063,23 @@ func (i *InputBotInlineMessageMediaContact) String() string {
 	return fmt.Sprintf("InputBotInlineMessageMediaContact%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineMessageMediaContact from given interface.
+func (i *InputBotInlineMessageMediaContact) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetVcard() (value string)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.PhoneNumber = from.GetPhoneNumber()
+	i.FirstName = from.GetFirstName()
+	i.LastName = from.GetLastName()
+	i.Vcard = from.GetVcard()
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaContact) TypeID() uint32 {
@@ -1142,6 +1250,15 @@ func (i *InputBotInlineMessageGame) String() string {
 	}
 	type Alias InputBotInlineMessageGame
 	return fmt.Sprintf("InputBotInlineMessageGame%+v", Alias(*i))
+}
+
+// FillFrom fills InputBotInlineMessageGame from given interface.
+func (i *InputBotInlineMessageGame) FillFrom(from interface {
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1335,4 +1452,55 @@ func (b *InputBotInlineMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputBotInlineMessageClass as nil")
 	}
 	return b.InputBotInlineMessage.Encode(buf)
+}
+
+// InputBotInlineMessageClassSlice is adapter for slice of InputBotInlineMessageClass.
+type InputBotInlineMessageClassSlice []InputBotInlineMessageClass
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineMessageClassSlice) First() (v InputBotInlineMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineMessageClassSlice) Last() (v InputBotInlineMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageClassSlice) PopFirst() (v InputBotInlineMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageClassSlice) Pop() (v InputBotInlineMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

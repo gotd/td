@@ -60,6 +60,17 @@ func (m *MessagesMessageViews) String() string {
 	return fmt.Sprintf("MessagesMessageViews%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMessageViews from given interface.
+func (m *MessagesMessageViews) FillFrom(from interface {
+	GetViews() (value []MessageViews)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	m.Views = from.GetViews()
+	m.Chats = from.GetChats()
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessageViews) TypeID() uint32 {
@@ -109,9 +120,19 @@ func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (m *MessagesMessageViews) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(m.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
 	return m.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (m *MessagesMessageViews) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(m.Users)
 }
 
 // Decode implements bin.Decoder.

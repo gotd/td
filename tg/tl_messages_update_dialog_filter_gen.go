@@ -74,6 +74,17 @@ func (u *MessagesUpdateDialogFilterRequest) String() string {
 	return fmt.Sprintf("MessagesUpdateDialogFilterRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUpdateDialogFilterRequest from given interface.
+func (u *MessagesUpdateDialogFilterRequest) FillFrom(from interface {
+	GetID() (value int)
+	GetFilter() (value DialogFilter, ok bool)
+}) {
+	u.ID = from.GetID()
+	if val, ok := from.GetFilter(); ok {
+		u.Filter = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdateDialogFilterRequest) TypeID() uint32 {

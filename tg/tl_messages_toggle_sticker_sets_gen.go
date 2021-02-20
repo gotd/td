@@ -73,6 +73,16 @@ func (t *MessagesToggleStickerSetsRequest) String() string {
 	return fmt.Sprintf("MessagesToggleStickerSetsRequest%+v", Alias(*t))
 }
 
+// FillFrom fills MessagesToggleStickerSetsRequest from given interface.
+func (t *MessagesToggleStickerSetsRequest) FillFrom(from interface {
+	GetUninstall() (value bool)
+	GetArchive() (value bool)
+	GetUnarchive() (value bool)
+	GetStickersets() (value []InputStickerSetClass)
+}) {
+	t.Stickersets = from.GetStickersets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *MessagesToggleStickerSetsRequest) TypeID() uint32 {
@@ -160,6 +170,11 @@ func (t *MessagesToggleStickerSetsRequest) GetUnarchive() (value bool) {
 // GetStickersets returns value of Stickersets field.
 func (t *MessagesToggleStickerSetsRequest) GetStickersets() (value []InputStickerSetClass) {
 	return t.Stickersets
+}
+
+// MapStickersets returns field Stickersets wrapped in InputStickerSetClassSlice helper.
+func (t *MessagesToggleStickerSetsRequest) MapStickersets() (value InputStickerSetClassSlice) {
+	return InputStickerSetClassSlice(t.Stickersets)
 }
 
 // Decode implements bin.Decoder.

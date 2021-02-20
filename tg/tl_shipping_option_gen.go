@@ -60,6 +60,17 @@ func (s *ShippingOption) String() string {
 	return fmt.Sprintf("ShippingOption%+v", Alias(*s))
 }
 
+// FillFrom fills ShippingOption from given interface.
+func (s *ShippingOption) FillFrom(from interface {
+	GetID() (value string)
+	GetTitle() (value string)
+	GetPrices() (value []LabeledPrice)
+}) {
+	s.ID = from.GetID()
+	s.Title = from.GetTitle()
+	s.Prices = from.GetPrices()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ShippingOption) TypeID() uint32 {

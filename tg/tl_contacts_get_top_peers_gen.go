@@ -117,6 +117,25 @@ func (g *ContactsGetTopPeersRequest) String() string {
 	return fmt.Sprintf("ContactsGetTopPeersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ContactsGetTopPeersRequest from given interface.
+func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
+	GetCorrespondents() (value bool)
+	GetBotsPm() (value bool)
+	GetBotsInline() (value bool)
+	GetPhoneCalls() (value bool)
+	GetForwardUsers() (value bool)
+	GetForwardChats() (value bool)
+	GetGroups() (value bool)
+	GetChannels() (value bool)
+	GetOffset() (value int)
+	GetLimit() (value int)
+	GetHash() (value int)
+}) {
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetTopPeersRequest) TypeID() uint32 {

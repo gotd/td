@@ -109,6 +109,36 @@ func (e *MessagesEditMessageRequest) String() string {
 	return fmt.Sprintf("MessagesEditMessageRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditMessageRequest from given interface.
+func (e *MessagesEditMessageRequest) FillFrom(from interface {
+	GetNoWebpage() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetID() (value int)
+	GetMessage() (value string, ok bool)
+	GetMedia() (value InputMediaClass, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+	GetScheduleDate() (value int, ok bool)
+}) {
+	e.Peer = from.GetPeer()
+	e.ID = from.GetID()
+	if val, ok := from.GetMessage(); ok {
+		e.Message = val
+	}
+	if val, ok := from.GetMedia(); ok {
+		e.Media = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		e.ReplyMarkup = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		e.Entities = val
+	}
+	if val, ok := from.GetScheduleDate(); ok {
+		e.ScheduleDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditMessageRequest) TypeID() uint32 {
@@ -269,6 +299,14 @@ func (e *MessagesEditMessageRequest) GetEntities() (value []MessageEntityClass, 
 		return value, false
 	}
 	return e.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassSlice(e.Entities), true
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

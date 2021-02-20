@@ -133,6 +133,45 @@ func (m *StatsMegagroupStats) String() string {
 	return fmt.Sprintf("StatsMegagroupStats%+v", Alias(*m))
 }
 
+// FillFrom fills StatsMegagroupStats from given interface.
+func (m *StatsMegagroupStats) FillFrom(from interface {
+	GetPeriod() (value StatsDateRangeDays)
+	GetMembers() (value StatsAbsValueAndPrev)
+	GetMessages() (value StatsAbsValueAndPrev)
+	GetViewers() (value StatsAbsValueAndPrev)
+	GetPosters() (value StatsAbsValueAndPrev)
+	GetGrowthGraph() (value StatsGraphClass)
+	GetMembersGraph() (value StatsGraphClass)
+	GetNewMembersBySourceGraph() (value StatsGraphClass)
+	GetLanguagesGraph() (value StatsGraphClass)
+	GetMessagesGraph() (value StatsGraphClass)
+	GetActionsGraph() (value StatsGraphClass)
+	GetTopHoursGraph() (value StatsGraphClass)
+	GetWeekdaysGraph() (value StatsGraphClass)
+	GetTopPosters() (value []StatsGroupTopPoster)
+	GetTopAdmins() (value []StatsGroupTopAdmin)
+	GetTopInviters() (value []StatsGroupTopInviter)
+	GetUsers() (value []UserClass)
+}) {
+	m.Period = from.GetPeriod()
+	m.Members = from.GetMembers()
+	m.Messages = from.GetMessages()
+	m.Viewers = from.GetViewers()
+	m.Posters = from.GetPosters()
+	m.GrowthGraph = from.GetGrowthGraph()
+	m.MembersGraph = from.GetMembersGraph()
+	m.NewMembersBySourceGraph = from.GetNewMembersBySourceGraph()
+	m.LanguagesGraph = from.GetLanguagesGraph()
+	m.MessagesGraph = from.GetMessagesGraph()
+	m.ActionsGraph = from.GetActionsGraph()
+	m.TopHoursGraph = from.GetTopHoursGraph()
+	m.WeekdaysGraph = from.GetWeekdaysGraph()
+	m.TopPosters = from.GetTopPosters()
+	m.TopAdmins = from.GetTopAdmins()
+	m.TopInviters = from.GetTopInviters()
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *StatsMegagroupStats) TypeID() uint32 {
@@ -321,6 +360,11 @@ func (m *StatsMegagroupStats) GetTopInviters() (value []StatsGroupTopInviter) {
 // GetUsers returns value of Users field.
 func (m *StatsMegagroupStats) GetUsers() (value []UserClass) {
 	return m.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (m *StatsMegagroupStats) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(m.Users)
 }
 
 // Decode implements bin.Decoder.

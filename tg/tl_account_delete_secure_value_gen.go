@@ -54,6 +54,13 @@ func (d *AccountDeleteSecureValueRequest) String() string {
 	return fmt.Sprintf("AccountDeleteSecureValueRequest%+v", Alias(*d))
 }
 
+// FillFrom fills AccountDeleteSecureValueRequest from given interface.
+func (d *AccountDeleteSecureValueRequest) FillFrom(from interface {
+	GetTypes() (value []SecureValueTypeClass)
+}) {
+	d.Types = from.GetTypes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AccountDeleteSecureValueRequest) TypeID() uint32 {
@@ -81,6 +88,11 @@ func (d *AccountDeleteSecureValueRequest) Encode(b *bin.Buffer) error {
 // GetTypes returns value of Types field.
 func (d *AccountDeleteSecureValueRequest) GetTypes() (value []SecureValueTypeClass) {
 	return d.Types
+}
+
+// MapTypes returns field Types wrapped in SecureValueTypeClassSlice helper.
+func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClassSlice) {
+	return SecureValueTypeClassSlice(d.Types)
 }
 
 // Decode implements bin.Decoder.

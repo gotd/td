@@ -63,6 +63,17 @@ func (u *UpdateNewMessage) String() string {
 	return fmt.Sprintf("UpdateNewMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateNewMessage from given interface.
+func (u *UpdateNewMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewMessage) TypeID() uint32 {
@@ -184,6 +195,15 @@ func (u *UpdateMessageID) String() string {
 	return fmt.Sprintf("UpdateMessageID%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateMessageID from given interface.
+func (u *UpdateMessageID) FillFrom(from interface {
+	GetID() (value int)
+	GetRandomID() (value int64)
+}) {
+	u.ID = from.GetID()
+	u.RandomID = from.GetRandomID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessageID) TypeID() uint32 {
@@ -290,6 +310,17 @@ func (u *UpdateDeleteMessages) String() string {
 	}
 	type Alias UpdateDeleteMessages
 	return fmt.Sprintf("UpdateDeleteMessages%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDeleteMessages from given interface.
+func (u *UpdateDeleteMessages) FillFrom(from interface {
+	GetMessages() (value []int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Messages = from.GetMessages()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -417,6 +448,15 @@ func (u *UpdateUserTyping) String() string {
 	return fmt.Sprintf("UpdateUserTyping%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateUserTyping from given interface.
+func (u *UpdateUserTyping) FillFrom(from interface {
+	GetUserID() (value int)
+	GetAction() (value SendMessageActionClass)
+}) {
+	u.UserID = from.GetUserID()
+	u.Action = from.GetAction()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserTyping) TypeID() uint32 {
@@ -528,6 +568,17 @@ func (u *UpdateChatUserTyping) String() string {
 	}
 	type Alias UpdateChatUserTyping
 	return fmt.Sprintf("UpdateChatUserTyping%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChatUserTyping from given interface.
+func (u *UpdateChatUserTyping) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value int)
+	GetAction() (value SendMessageActionClass)
+}) {
+	u.ChatID = from.GetChatID()
+	u.UserID = from.GetUserID()
+	u.Action = from.GetAction()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -643,6 +694,13 @@ func (u *UpdateChatParticipants) String() string {
 	return fmt.Sprintf("UpdateChatParticipants%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChatParticipants from given interface.
+func (u *UpdateChatParticipants) FillFrom(from interface {
+	GetParticipants() (value ChatParticipantsClass)
+}) {
+	u.Participants = from.GetParticipants()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipants) TypeID() uint32 {
@@ -733,6 +791,15 @@ func (u *UpdateUserStatus) String() string {
 	}
 	type Alias UpdateUserStatus
 	return fmt.Sprintf("UpdateUserStatus%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateUserStatus from given interface.
+func (u *UpdateUserStatus) FillFrom(from interface {
+	GetUserID() (value int)
+	GetStatus() (value UserStatusClass)
+}) {
+	u.UserID = from.GetUserID()
+	u.Status = from.GetStatus()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -857,6 +924,19 @@ func (u *UpdateUserName) String() string {
 	}
 	type Alias UpdateUserName
 	return fmt.Sprintf("UpdateUserName%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateUserName from given interface.
+func (u *UpdateUserName) FillFrom(from interface {
+	GetUserID() (value int)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetUsername() (value string)
+}) {
+	u.UserID = from.GetUserID()
+	u.FirstName = from.GetFirstName()
+	u.LastName = from.GetLastName()
+	u.Username = from.GetUsername()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -998,6 +1078,19 @@ func (u *UpdateUserPhoto) String() string {
 	return fmt.Sprintf("UpdateUserPhoto%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateUserPhoto from given interface.
+func (u *UpdateUserPhoto) FillFrom(from interface {
+	GetUserID() (value int)
+	GetDate() (value int)
+	GetPhoto() (value UserProfilePhotoClass)
+	GetPrevious() (value bool)
+}) {
+	u.UserID = from.GetUserID()
+	u.Date = from.GetDate()
+	u.Photo = from.GetPhoto()
+	u.Previous = from.GetPrevious()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserPhoto) TypeID() uint32 {
@@ -1129,6 +1222,15 @@ func (u *UpdateNewEncryptedMessage) String() string {
 	return fmt.Sprintf("UpdateNewEncryptedMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateNewEncryptedMessage from given interface.
+func (u *UpdateNewEncryptedMessage) FillFrom(from interface {
+	GetMessage() (value EncryptedMessageClass)
+	GetQts() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Qts = from.GetQts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewEncryptedMessage) TypeID() uint32 {
@@ -1229,6 +1331,13 @@ func (u *UpdateEncryptedChatTyping) String() string {
 	return fmt.Sprintf("UpdateEncryptedChatTyping%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateEncryptedChatTyping from given interface.
+func (u *UpdateEncryptedChatTyping) FillFrom(from interface {
+	GetChatID() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryptedChatTyping) TypeID() uint32 {
@@ -1314,6 +1423,15 @@ func (u *UpdateEncryption) String() string {
 	}
 	type Alias UpdateEncryption
 	return fmt.Sprintf("UpdateEncryption%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateEncryption from given interface.
+func (u *UpdateEncryption) FillFrom(from interface {
+	GetChat() (value EncryptedChatClass)
+	GetDate() (value int)
+}) {
+	u.Chat = from.GetChat()
+	u.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1424,6 +1542,17 @@ func (u *UpdateEncryptedMessagesRead) String() string {
 	}
 	type Alias UpdateEncryptedMessagesRead
 	return fmt.Sprintf("UpdateEncryptedMessagesRead%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateEncryptedMessagesRead from given interface.
+func (u *UpdateEncryptedMessagesRead) FillFrom(from interface {
+	GetChatID() (value int)
+	GetMaxDate() (value int)
+	GetDate() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.MaxDate = from.GetMaxDate()
+	u.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1552,6 +1681,21 @@ func (u *UpdateChatParticipantAdd) String() string {
 	}
 	type Alias UpdateChatParticipantAdd
 	return fmt.Sprintf("UpdateChatParticipantAdd%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChatParticipantAdd from given interface.
+func (u *UpdateChatParticipantAdd) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value int)
+	GetInviterID() (value int)
+	GetDate() (value int)
+	GetVersion() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.UserID = from.GetUserID()
+	u.InviterID = from.GetInviterID()
+	u.Date = from.GetDate()
+	u.Version = from.GetVersion()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1698,6 +1842,17 @@ func (u *UpdateChatParticipantDelete) String() string {
 	return fmt.Sprintf("UpdateChatParticipantDelete%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChatParticipantDelete from given interface.
+func (u *UpdateChatParticipantDelete) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value int)
+	GetVersion() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.UserID = from.GetUserID()
+	u.Version = from.GetVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantDelete) TypeID() uint32 {
@@ -1806,6 +1961,13 @@ func (u *UpdateDcOptions) String() string {
 	return fmt.Sprintf("UpdateDcOptions%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateDcOptions from given interface.
+func (u *UpdateDcOptions) FillFrom(from interface {
+	GetDCOptions() (value []DcOption)
+}) {
+	u.DCOptions = from.GetDCOptions()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDcOptions) TypeID() uint32 {
@@ -1902,6 +2064,15 @@ func (u *UpdateNotifySettings) String() string {
 	}
 	type Alias UpdateNotifySettings
 	return fmt.Sprintf("UpdateNotifySettings%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNotifySettings from given interface.
+func (u *UpdateNotifySettings) FillFrom(from interface {
+	GetPeer() (value NotifyPeerClass)
+	GetNotifySettings() (value PeerNotifySettings)
+}) {
+	u.Peer = from.GetPeer()
+	u.NotifySettings = from.GetNotifySettings()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2046,6 +2217,24 @@ func (u *UpdateServiceNotification) String() string {
 	return fmt.Sprintf("UpdateServiceNotification%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateServiceNotification from given interface.
+func (u *UpdateServiceNotification) FillFrom(from interface {
+	GetPopup() (value bool)
+	GetInboxDate() (value int, ok bool)
+	GetType() (value string)
+	GetMessage() (value string)
+	GetMedia() (value MessageMediaClass)
+	GetEntities() (value []MessageEntityClass)
+}) {
+	if val, ok := from.GetInboxDate(); ok {
+		u.InboxDate = val
+	}
+	u.Type = from.GetType()
+	u.Message = from.GetMessage()
+	u.Media = from.GetMedia()
+	u.Entities = from.GetEntities()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateServiceNotification) TypeID() uint32 {
@@ -2139,6 +2328,11 @@ func (u *UpdateServiceNotification) GetMedia() (value MessageMediaClass) {
 // GetEntities returns value of Entities field.
 func (u *UpdateServiceNotification) GetEntities() (value []MessageEntityClass) {
 	return u.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (u *UpdateServiceNotification) MapEntities() (value MessageEntityClassSlice) {
+	return MessageEntityClassSlice(u.Entities)
 }
 
 // Decode implements bin.Decoder.
@@ -2247,6 +2441,15 @@ func (u *UpdatePrivacy) String() string {
 	return fmt.Sprintf("UpdatePrivacy%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePrivacy from given interface.
+func (u *UpdatePrivacy) FillFrom(from interface {
+	GetKey() (value PrivacyKeyClass)
+	GetRules() (value []PrivacyRuleClass)
+}) {
+	u.Key = from.GetKey()
+	u.Rules = from.GetRules()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePrivacy) TypeID() uint32 {
@@ -2285,6 +2488,11 @@ func (u *UpdatePrivacy) GetKey() (value PrivacyKeyClass) {
 // GetRules returns value of Rules field.
 func (u *UpdatePrivacy) GetRules() (value []PrivacyRuleClass) {
 	return u.Rules
+}
+
+// MapRules returns field Rules wrapped in PrivacyRuleClassSlice helper.
+func (u *UpdatePrivacy) MapRules() (value PrivacyRuleClassSlice) {
+	return PrivacyRuleClassSlice(u.Rules)
 }
 
 // Decode implements bin.Decoder.
@@ -2364,6 +2572,15 @@ func (u *UpdateUserPhone) String() string {
 	}
 	type Alias UpdateUserPhone
 	return fmt.Sprintf("UpdateUserPhone%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateUserPhone from given interface.
+func (u *UpdateUserPhone) FillFrom(from interface {
+	GetUserID() (value int)
+	GetPhone() (value string)
+}) {
+	u.UserID = from.GetUserID()
+	u.Phone = from.GetPhone()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2503,6 +2720,25 @@ func (u *UpdateReadHistoryInbox) String() string {
 	}
 	type Alias UpdateReadHistoryInbox
 	return fmt.Sprintf("UpdateReadHistoryInbox%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadHistoryInbox from given interface.
+func (u *UpdateReadHistoryInbox) FillFrom(from interface {
+	GetFolderID() (value int, ok bool)
+	GetPeer() (value PeerClass)
+	GetMaxID() (value int)
+	GetStillUnreadCount() (value int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		u.FolderID = val
+	}
+	u.Peer = from.GetPeer()
+	u.MaxID = from.GetMaxID()
+	u.StillUnreadCount = from.GetStillUnreadCount()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2701,6 +2937,19 @@ func (u *UpdateReadHistoryOutbox) String() string {
 	return fmt.Sprintf("UpdateReadHistoryOutbox%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateReadHistoryOutbox from given interface.
+func (u *UpdateReadHistoryOutbox) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetMaxID() (value int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.MaxID = from.GetMaxID()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadHistoryOutbox) TypeID() uint32 {
@@ -2846,6 +3095,17 @@ func (u *UpdateWebPage) String() string {
 	return fmt.Sprintf("UpdateWebPage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateWebPage from given interface.
+func (u *UpdateWebPage) FillFrom(from interface {
+	GetWebpage() (value WebPageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Webpage = from.GetWebpage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateWebPage) TypeID() uint32 {
@@ -2976,6 +3236,17 @@ func (u *UpdateReadMessagesContents) String() string {
 	}
 	type Alias UpdateReadMessagesContents
 	return fmt.Sprintf("UpdateReadMessagesContents%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadMessagesContents from given interface.
+func (u *UpdateReadMessagesContents) FillFrom(from interface {
+	GetMessages() (value []int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Messages = from.GetMessages()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3114,6 +3385,17 @@ func (u *UpdateChannelTooLong) String() string {
 	return fmt.Sprintf("UpdateChannelTooLong%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannelTooLong from given interface.
+func (u *UpdateChannelTooLong) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetPts() (value int, ok bool)
+}) {
+	u.ChannelID = from.GetChannelID()
+	if val, ok := from.GetPts(); ok {
+		u.Pts = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelTooLong) TypeID() uint32 {
@@ -3232,6 +3514,13 @@ func (u *UpdateChannel) String() string {
 	return fmt.Sprintf("UpdateChannel%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannel from given interface.
+func (u *UpdateChannel) FillFrom(from interface {
+	GetChannelID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannel) TypeID() uint32 {
@@ -3331,6 +3620,17 @@ func (u *UpdateNewChannelMessage) String() string {
 	}
 	type Alias UpdateNewChannelMessage
 	return fmt.Sprintf("UpdateNewChannelMessage%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewChannelMessage from given interface.
+func (u *UpdateNewChannelMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3483,6 +3783,23 @@ func (u *UpdateReadChannelInbox) String() string {
 	}
 	type Alias UpdateReadChannelInbox
 	return fmt.Sprintf("UpdateReadChannelInbox%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadChannelInbox from given interface.
+func (u *UpdateReadChannelInbox) FillFrom(from interface {
+	GetFolderID() (value int, ok bool)
+	GetChannelID() (value int)
+	GetMaxID() (value int)
+	GetStillUnreadCount() (value int)
+	GetPts() (value int)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		u.FolderID = val
+	}
+	u.ChannelID = from.GetChannelID()
+	u.MaxID = from.GetMaxID()
+	u.StillUnreadCount = from.GetStillUnreadCount()
+	u.Pts = from.GetPts()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -3666,6 +3983,19 @@ func (u *UpdateDeleteChannelMessages) String() string {
 	return fmt.Sprintf("UpdateDeleteChannelMessages%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateDeleteChannelMessages from given interface.
+func (u *UpdateDeleteChannelMessages) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetMessages() (value []int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Messages = from.GetMessages()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteChannelMessages) TypeID() uint32 {
@@ -3806,6 +4136,17 @@ func (u *UpdateChannelMessageViews) String() string {
 	return fmt.Sprintf("UpdateChannelMessageViews%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannelMessageViews from given interface.
+func (u *UpdateChannelMessageViews) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetID() (value int)
+	GetViews() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.ID = from.GetID()
+	u.Views = from.GetViews()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageViews) TypeID() uint32 {
@@ -3932,6 +4273,19 @@ func (u *UpdateChatParticipantAdmin) String() string {
 	return fmt.Sprintf("UpdateChatParticipantAdmin%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChatParticipantAdmin from given interface.
+func (u *UpdateChatParticipantAdmin) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value int)
+	GetIsAdmin() (value bool)
+	GetVersion() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.UserID = from.GetUserID()
+	u.IsAdmin = from.GetIsAdmin()
+	u.Version = from.GetVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantAdmin) TypeID() uint32 {
@@ -4053,6 +4407,13 @@ func (u *UpdateNewStickerSet) String() string {
 	return fmt.Sprintf("UpdateNewStickerSet%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateNewStickerSet from given interface.
+func (u *UpdateNewStickerSet) FillFrom(from interface {
+	GetStickerset() (value MessagesStickerSet)
+}) {
+	u.Stickerset = from.GetStickerset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewStickerSet) TypeID() uint32 {
@@ -4146,6 +4507,14 @@ func (u *UpdateStickerSetsOrder) String() string {
 	}
 	type Alias UpdateStickerSetsOrder
 	return fmt.Sprintf("UpdateStickerSetsOrder%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateStickerSetsOrder from given interface.
+func (u *UpdateStickerSetsOrder) FillFrom(from interface {
+	GetMasks() (value bool)
+	GetOrder() (value []int64)
+}) {
+	u.Order = from.GetOrder()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -4438,6 +4807,27 @@ func (u *UpdateBotInlineQuery) String() string {
 	return fmt.Sprintf("UpdateBotInlineQuery%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateBotInlineQuery from given interface.
+func (u *UpdateBotInlineQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int)
+	GetQuery() (value string)
+	GetGeo() (value GeoPointClass, ok bool)
+	GetPeerType() (value InlineQueryPeerTypeClass, ok bool)
+	GetOffset() (value string)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	u.Query = from.GetQuery()
+	if val, ok := from.GetGeo(); ok {
+		u.Geo = val
+	}
+	if val, ok := from.GetPeerType(); ok {
+		u.PeerType = val
+	}
+	u.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineQuery) TypeID() uint32 {
@@ -4668,6 +5058,25 @@ func (u *UpdateBotInlineSend) String() string {
 	return fmt.Sprintf("UpdateBotInlineSend%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateBotInlineSend from given interface.
+func (u *UpdateBotInlineSend) FillFrom(from interface {
+	GetUserID() (value int)
+	GetQuery() (value string)
+	GetGeo() (value GeoPointClass, ok bool)
+	GetID() (value string)
+	GetMsgID() (value InputBotInlineMessageID, ok bool)
+}) {
+	u.UserID = from.GetUserID()
+	u.Query = from.GetQuery()
+	if val, ok := from.GetGeo(); ok {
+		u.Geo = val
+	}
+	u.ID = from.GetID()
+	if val, ok := from.GetMsgID(); ok {
+		u.MsgID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineSend) TypeID() uint32 {
@@ -4864,6 +5273,17 @@ func (u *UpdateEditChannelMessage) String() string {
 	return fmt.Sprintf("UpdateEditChannelMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateEditChannelMessage from given interface.
+func (u *UpdateEditChannelMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditChannelMessage) TypeID() uint32 {
@@ -5017,6 +5437,29 @@ func (u *UpdateBotCallbackQuery) String() string {
 	}
 	type Alias UpdateBotCallbackQuery
 	return fmt.Sprintf("UpdateBotCallbackQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotCallbackQuery from given interface.
+func (u *UpdateBotCallbackQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int)
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+	GetChatInstance() (value int64)
+	GetData() (value []byte, ok bool)
+	GetGameShortName() (value string, ok bool)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
+	u.ChatInstance = from.GetChatInstance()
+	if val, ok := from.GetData(); ok {
+		u.Data = val
+	}
+	if val, ok := from.GetGameShortName(); ok {
+		u.GameShortName = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5238,6 +5681,17 @@ func (u *UpdateEditMessage) String() string {
 	return fmt.Sprintf("UpdateEditMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateEditMessage from given interface.
+func (u *UpdateEditMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditMessage) TypeID() uint32 {
@@ -5386,6 +5840,27 @@ func (u *UpdateInlineBotCallbackQuery) String() string {
 	}
 	type Alias UpdateInlineBotCallbackQuery
 	return fmt.Sprintf("UpdateInlineBotCallbackQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateInlineBotCallbackQuery from given interface.
+func (u *UpdateInlineBotCallbackQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int)
+	GetMsgID() (value InputBotInlineMessageID)
+	GetChatInstance() (value int64)
+	GetData() (value []byte, ok bool)
+	GetGameShortName() (value string, ok bool)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	u.MsgID = from.GetMsgID()
+	u.ChatInstance = from.GetChatInstance()
+	if val, ok := from.GetData(); ok {
+		u.Data = val
+	}
+	if val, ok := from.GetGameShortName(); ok {
+		u.GameShortName = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -5581,6 +6056,15 @@ func (u *UpdateReadChannelOutbox) String() string {
 	return fmt.Sprintf("UpdateReadChannelOutbox%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateReadChannelOutbox from given interface.
+func (u *UpdateReadChannelOutbox) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetMaxID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelOutbox) TypeID() uint32 {
@@ -5682,6 +6166,15 @@ func (u *UpdateDraftMessage) String() string {
 	}
 	type Alias UpdateDraftMessage
 	return fmt.Sprintf("UpdateDraftMessage%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDraftMessage from given interface.
+func (u *UpdateDraftMessage) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetDraft() (value DraftMessageClass)
+}) {
+	u.Peer = from.GetPeer()
+	u.Draft = from.GetDraft()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6079,6 +6572,19 @@ func (u *UpdateChannelWebPage) String() string {
 	return fmt.Sprintf("UpdateChannelWebPage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannelWebPage from given interface.
+func (u *UpdateChannelWebPage) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetWebpage() (value WebPageClass)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Webpage = from.GetWebpage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelWebPage) TypeID() uint32 {
@@ -6226,6 +6732,18 @@ func (u *UpdateDialogPinned) String() string {
 	}
 	type Alias UpdateDialogPinned
 	return fmt.Sprintf("UpdateDialogPinned%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDialogPinned from given interface.
+func (u *UpdateDialogPinned) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetFolderID() (value int, ok bool)
+	GetPeer() (value DialogPeerClass)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		u.FolderID = val
+	}
+	u.Peer = from.GetPeer()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6391,6 +6909,19 @@ func (u *UpdatePinnedDialogs) String() string {
 	return fmt.Sprintf("UpdatePinnedDialogs%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePinnedDialogs from given interface.
+func (u *UpdatePinnedDialogs) FillFrom(from interface {
+	GetFolderID() (value int, ok bool)
+	GetOrder() (value []DialogPeerClass, ok bool)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		u.FolderID = val
+	}
+	if val, ok := from.GetOrder(); ok {
+		u.Order = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedDialogs) TypeID() uint32 {
@@ -6457,6 +6988,14 @@ func (u *UpdatePinnedDialogs) GetOrder() (value []DialogPeerClass, ok bool) {
 		return value, false
 	}
 	return u.Order, true
+}
+
+// MapOrder returns field Order wrapped in DialogPeerClassSlice helper.
+func (u *UpdatePinnedDialogs) MapOrder() (value DialogPeerClassSlice, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return DialogPeerClassSlice(u.Order), true
 }
 
 // Decode implements bin.Decoder.
@@ -6536,6 +7075,13 @@ func (u *UpdateBotWebhookJSON) String() string {
 	}
 	type Alias UpdateBotWebhookJSON
 	return fmt.Sprintf("UpdateBotWebhookJSON%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotWebhookJSON from given interface.
+func (u *UpdateBotWebhookJSON) FillFrom(from interface {
+	GetData() (value DataJSON)
+}) {
+	u.Data = from.GetData()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6628,6 +7174,17 @@ func (u *UpdateBotWebhookJSONQuery) String() string {
 	}
 	type Alias UpdateBotWebhookJSONQuery
 	return fmt.Sprintf("UpdateBotWebhookJSONQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotWebhookJSONQuery from given interface.
+func (u *UpdateBotWebhookJSONQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetData() (value DataJSON)
+	GetTimeout() (value int)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.Data = from.GetData()
+	u.Timeout = from.GetTimeout()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6751,6 +7308,19 @@ func (u *UpdateBotShippingQuery) String() string {
 	}
 	type Alias UpdateBotShippingQuery
 	return fmt.Sprintf("UpdateBotShippingQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotShippingQuery from given interface.
+func (u *UpdateBotShippingQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int)
+	GetPayload() (value []byte)
+	GetShippingAddress() (value PostAddress)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	u.Payload = from.GetPayload()
+	u.ShippingAddress = from.GetShippingAddress()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -6920,6 +7490,29 @@ func (u *UpdateBotPrecheckoutQuery) String() string {
 	}
 	type Alias UpdateBotPrecheckoutQuery
 	return fmt.Sprintf("UpdateBotPrecheckoutQuery%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotPrecheckoutQuery from given interface.
+func (u *UpdateBotPrecheckoutQuery) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetUserID() (value int)
+	GetPayload() (value []byte)
+	GetInfo() (value PaymentRequestedInfo, ok bool)
+	GetShippingOptionID() (value string, ok bool)
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+}) {
+	u.QueryID = from.GetQueryID()
+	u.UserID = from.GetUserID()
+	u.Payload = from.GetPayload()
+	if val, ok := from.GetInfo(); ok {
+		u.Info = val
+	}
+	if val, ok := from.GetShippingOptionID(); ok {
+		u.ShippingOptionID = val
+	}
+	u.Currency = from.GetCurrency()
+	u.TotalAmount = from.GetTotalAmount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7120,6 +7713,13 @@ func (u *UpdatePhoneCall) String() string {
 	return fmt.Sprintf("UpdatePhoneCall%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePhoneCall from given interface.
+func (u *UpdatePhoneCall) FillFrom(from interface {
+	GetPhoneCall() (value PhoneCallClass)
+}) {
+	u.PhoneCall = from.GetPhoneCall()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCall) TypeID() uint32 {
@@ -7210,6 +7810,13 @@ func (u *UpdateLangPackTooLong) String() string {
 	return fmt.Sprintf("UpdateLangPackTooLong%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateLangPackTooLong from given interface.
+func (u *UpdateLangPackTooLong) FillFrom(from interface {
+	GetLangCode() (value string)
+}) {
+	u.LangCode = from.GetLangCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLangPackTooLong) TypeID() uint32 {
@@ -7290,6 +7897,13 @@ func (u *UpdateLangPack) String() string {
 	}
 	type Alias UpdateLangPack
 	return fmt.Sprintf("UpdateLangPack%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateLangPack from given interface.
+func (u *UpdateLangPack) FillFrom(from interface {
+	GetDifference() (value LangPackDifference)
+}) {
+	u.Difference = from.GetDifference()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7450,6 +8064,15 @@ func (u *UpdateChannelReadMessagesContents) String() string {
 	}
 	type Alias UpdateChannelReadMessagesContents
 	return fmt.Sprintf("UpdateChannelReadMessagesContents%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChannelReadMessagesContents from given interface.
+func (u *UpdateChannelReadMessagesContents) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetMessages() (value []int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Messages = from.GetMessages()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7628,6 +8251,15 @@ func (u *UpdateChannelAvailableMessages) String() string {
 	return fmt.Sprintf("UpdateChannelAvailableMessages%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannelAvailableMessages from given interface.
+func (u *UpdateChannelAvailableMessages) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetAvailableMinID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.AvailableMinID = from.GetAvailableMinID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelAvailableMessages) TypeID() uint32 {
@@ -7734,6 +8366,14 @@ func (u *UpdateDialogUnreadMark) String() string {
 	}
 	type Alias UpdateDialogUnreadMark
 	return fmt.Sprintf("UpdateDialogUnreadMark%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDialogUnreadMark from given interface.
+func (u *UpdateDialogUnreadMark) FillFrom(from interface {
+	GetUnread() (value bool)
+	GetPeer() (value DialogPeerClass)
+}) {
+	u.Peer = from.GetPeer()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -7869,6 +8509,19 @@ func (u *UpdateMessagePoll) String() string {
 	}
 	type Alias UpdateMessagePoll
 	return fmt.Sprintf("UpdateMessagePoll%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateMessagePoll from given interface.
+func (u *UpdateMessagePoll) FillFrom(from interface {
+	GetPollID() (value int64)
+	GetPoll() (value Poll, ok bool)
+	GetResults() (value PollResults)
+}) {
+	u.PollID = from.GetPollID()
+	if val, ok := from.GetPoll(); ok {
+		u.Poll = val
+	}
+	u.Results = from.GetResults()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8015,6 +8668,17 @@ func (u *UpdateChatDefaultBannedRights) String() string {
 	return fmt.Sprintf("UpdateChatDefaultBannedRights%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChatDefaultBannedRights from given interface.
+func (u *UpdateChatDefaultBannedRights) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetDefaultBannedRights() (value ChatBannedRights)
+	GetVersion() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.DefaultBannedRights = from.GetDefaultBannedRights()
+	u.Version = from.GetVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatDefaultBannedRights) TypeID() uint32 {
@@ -8147,6 +8811,17 @@ func (u *UpdateFolderPeers) String() string {
 	return fmt.Sprintf("UpdateFolderPeers%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateFolderPeers from given interface.
+func (u *UpdateFolderPeers) FillFrom(from interface {
+	GetFolderPeers() (value []FolderPeer)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.FolderPeers = from.GetFolderPeers()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateFolderPeers) TypeID() uint32 {
@@ -8271,6 +8946,15 @@ func (u *UpdatePeerSettings) String() string {
 	return fmt.Sprintf("UpdatePeerSettings%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePeerSettings from given interface.
+func (u *UpdatePeerSettings) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetSettings() (value PeerSettings)
+}) {
+	u.Peer = from.GetPeer()
+	u.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerSettings) TypeID() uint32 {
@@ -8371,6 +9055,13 @@ func (u *UpdatePeerLocated) String() string {
 	return fmt.Sprintf("UpdatePeerLocated%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePeerLocated from given interface.
+func (u *UpdatePeerLocated) FillFrom(from interface {
+	GetPeers() (value []PeerLocatedClass)
+}) {
+	u.Peers = from.GetPeers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerLocated) TypeID() uint32 {
@@ -8398,6 +9089,11 @@ func (u *UpdatePeerLocated) Encode(b *bin.Buffer) error {
 // GetPeers returns value of Peers field.
 func (u *UpdatePeerLocated) GetPeers() (value []PeerLocatedClass) {
 	return u.Peers
+}
+
+// MapPeers returns field Peers wrapped in PeerLocatedClassSlice helper.
+func (u *UpdatePeerLocated) MapPeers() (value PeerLocatedClassSlice) {
+	return PeerLocatedClassSlice(u.Peers)
 }
 
 // Decode implements bin.Decoder.
@@ -8468,6 +9164,13 @@ func (u *UpdateNewScheduledMessage) String() string {
 	}
 	type Alias UpdateNewScheduledMessage
 	return fmt.Sprintf("UpdateNewScheduledMessage%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateNewScheduledMessage from given interface.
+func (u *UpdateNewScheduledMessage) FillFrom(from interface {
+	GetMessage() (value MessageClass)
+}) {
+	u.Message = from.GetMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8563,6 +9266,15 @@ func (u *UpdateDeleteScheduledMessages) String() string {
 	}
 	type Alias UpdateDeleteScheduledMessages
 	return fmt.Sprintf("UpdateDeleteScheduledMessages%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDeleteScheduledMessages from given interface.
+func (u *UpdateDeleteScheduledMessages) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetMessages() (value []int)
+}) {
+	u.Peer = from.GetPeer()
+	u.Messages = from.GetMessages()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8674,6 +9386,13 @@ func (u *UpdateTheme) String() string {
 	return fmt.Sprintf("UpdateTheme%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateTheme from given interface.
+func (u *UpdateTheme) FillFrom(from interface {
+	GetTheme() (value Theme)
+}) {
+	u.Theme = from.GetTheme()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateTheme) TypeID() uint32 {
@@ -8759,6 +9478,15 @@ func (u *UpdateGeoLiveViewed) String() string {
 	}
 	type Alias UpdateGeoLiveViewed
 	return fmt.Sprintf("UpdateGeoLiveViewed%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGeoLiveViewed from given interface.
+func (u *UpdateGeoLiveViewed) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetMsgID() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.MsgID = from.GetMsgID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -8935,6 +9663,17 @@ func (u *UpdateMessagePollVote) String() string {
 	return fmt.Sprintf("UpdateMessagePollVote%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateMessagePollVote from given interface.
+func (u *UpdateMessagePollVote) FillFrom(from interface {
+	GetPollID() (value int64)
+	GetUserID() (value int)
+	GetOptions() (value [][]byte)
+}) {
+	u.PollID = from.GetPollID()
+	u.UserID = from.GetUserID()
+	u.Options = from.GetOptions()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessagePollVote) TypeID() uint32 {
@@ -9076,6 +9815,17 @@ func (u *UpdateDialogFilter) String() string {
 	return fmt.Sprintf("UpdateDialogFilter%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateDialogFilter from given interface.
+func (u *UpdateDialogFilter) FillFrom(from interface {
+	GetID() (value int)
+	GetFilter() (value DialogFilter, ok bool)
+}) {
+	u.ID = from.GetID()
+	if val, ok := from.GetFilter(); ok {
+		u.Filter = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilter) TypeID() uint32 {
@@ -9198,6 +9948,13 @@ func (u *UpdateDialogFilterOrder) String() string {
 	}
 	type Alias UpdateDialogFilterOrder
 	return fmt.Sprintf("UpdateDialogFilterOrder%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateDialogFilterOrder from given interface.
+func (u *UpdateDialogFilterOrder) FillFrom(from interface {
+	GetOrder() (value []int)
+}) {
+	u.Order = from.GetOrder()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9363,6 +10120,15 @@ func (u *UpdatePhoneCallSignalingData) String() string {
 	return fmt.Sprintf("UpdatePhoneCallSignalingData%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePhoneCallSignalingData from given interface.
+func (u *UpdatePhoneCallSignalingData) FillFrom(from interface {
+	GetPhoneCallID() (value int64)
+	GetData() (value []byte)
+}) {
+	u.PhoneCallID = from.GetPhoneCallID()
+	u.Data = from.GetData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCallSignalingData) TypeID() uint32 {
@@ -9499,6 +10265,27 @@ func (u *UpdateChannelParticipant) String() string {
 	}
 	type Alias UpdateChannelParticipant
 	return fmt.Sprintf("UpdateChannelParticipant%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChannelParticipant from given interface.
+func (u *UpdateChannelParticipant) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetDate() (value int)
+	GetUserID() (value int)
+	GetPrevParticipant() (value ChannelParticipantClass, ok bool)
+	GetNewParticipant() (value ChannelParticipantClass, ok bool)
+	GetQts() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Date = from.GetDate()
+	u.UserID = from.GetUserID()
+	if val, ok := from.GetPrevParticipant(); ok {
+		u.PrevParticipant = val
+	}
+	if val, ok := from.GetNewParticipant(); ok {
+		u.NewParticipant = val
+	}
+	u.Qts = from.GetQts()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -9706,6 +10493,17 @@ func (u *UpdateChannelMessageForwards) String() string {
 	return fmt.Sprintf("UpdateChannelMessageForwards%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChannelMessageForwards from given interface.
+func (u *UpdateChannelMessageForwards) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetID() (value int)
+	GetForwards() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.ID = from.GetID()
+	u.Forwards = from.GetForwards()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageForwards) TypeID() uint32 {
@@ -9863,6 +10661,25 @@ func (u *UpdateReadChannelDiscussionInbox) String() string {
 	}
 	type Alias UpdateReadChannelDiscussionInbox
 	return fmt.Sprintf("UpdateReadChannelDiscussionInbox%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateReadChannelDiscussionInbox from given interface.
+func (u *UpdateReadChannelDiscussionInbox) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetTopMsgID() (value int)
+	GetReadMaxID() (value int)
+	GetBroadcastID() (value int, ok bool)
+	GetBroadcastPost() (value int, ok bool)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.TopMsgID = from.GetTopMsgID()
+	u.ReadMaxID = from.GetReadMaxID()
+	if val, ok := from.GetBroadcastID(); ok {
+		u.BroadcastID = val
+	}
+	if val, ok := from.GetBroadcastPost(); ok {
+		u.BroadcastPost = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10059,6 +10876,17 @@ func (u *UpdateReadChannelDiscussionOutbox) String() string {
 	return fmt.Sprintf("UpdateReadChannelDiscussionOutbox%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateReadChannelDiscussionOutbox from given interface.
+func (u *UpdateReadChannelDiscussionOutbox) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetTopMsgID() (value int)
+	GetReadMaxID() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.TopMsgID = from.GetTopMsgID()
+	u.ReadMaxID = from.GetReadMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
@@ -10170,6 +10998,15 @@ func (u *UpdatePeerBlocked) String() string {
 	}
 	type Alias UpdatePeerBlocked
 	return fmt.Sprintf("UpdatePeerBlocked%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePeerBlocked from given interface.
+func (u *UpdatePeerBlocked) FillFrom(from interface {
+	GetPeerID() (value PeerClass)
+	GetBlocked() (value bool)
+}) {
+	u.PeerID = from.GetPeerID()
+	u.Blocked = from.GetBlocked()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10302,6 +11139,21 @@ func (u *UpdateChannelUserTyping) String() string {
 	}
 	type Alias UpdateChannelUserTyping
 	return fmt.Sprintf("UpdateChannelUserTyping%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChannelUserTyping from given interface.
+func (u *UpdateChannelUserTyping) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetTopMsgID() (value int, ok bool)
+	GetUserID() (value int)
+	GetAction() (value SendMessageActionClass)
+}) {
+	u.ChannelID = from.GetChannelID()
+	if val, ok := from.GetTopMsgID(); ok {
+		u.TopMsgID = val
+	}
+	u.UserID = from.GetUserID()
+	u.Action = from.GetAction()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10485,6 +11337,20 @@ func (u *UpdatePinnedMessages) String() string {
 	}
 	type Alias UpdatePinnedMessages
 	return fmt.Sprintf("UpdatePinnedMessages%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePinnedMessages from given interface.
+func (u *UpdatePinnedMessages) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetPeer() (value PeerClass)
+	GetMessages() (value []int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.Messages = from.GetMessages()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -10687,6 +11553,20 @@ func (u *UpdatePinnedChannelMessages) String() string {
 	return fmt.Sprintf("UpdatePinnedChannelMessages%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatePinnedChannelMessages from given interface.
+func (u *UpdatePinnedChannelMessages) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetChannelID() (value int)
+	GetMessages() (value []int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Messages = from.GetMessages()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedChannelMessages) TypeID() uint32 {
@@ -10844,6 +11724,13 @@ func (u *UpdateChat) String() string {
 	return fmt.Sprintf("UpdateChat%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateChat from given interface.
+func (u *UpdateChat) FillFrom(from interface {
+	GetChatID() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChat) TypeID() uint32 {
@@ -10933,6 +11820,17 @@ func (u *UpdateGroupCallParticipants) String() string {
 	}
 	type Alias UpdateGroupCallParticipants
 	return fmt.Sprintf("UpdateGroupCallParticipants%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGroupCallParticipants from given interface.
+func (u *UpdateGroupCallParticipants) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetParticipants() (value []GroupCallParticipant)
+	GetVersion() (value int)
+}) {
+	u.Call = from.GetCall()
+	u.Participants = from.GetParticipants()
+	u.Version = from.GetVersion()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11056,6 +11954,15 @@ func (u *UpdateGroupCall) String() string {
 	}
 	type Alias UpdateGroupCall
 	return fmt.Sprintf("UpdateGroupCall%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateGroupCall from given interface.
+func (u *UpdateGroupCall) FillFrom(from interface {
+	GetChatID() (value int)
+	GetCall() (value GroupCallClass)
+}) {
+	u.ChatID = from.GetChatID()
+	u.Call = from.GetCall()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -11892,4 +12799,55 @@ func (b *UpdateBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdateClass as nil")
 	}
 	return b.Update.Encode(buf)
+}
+
+// UpdateClassSlice is adapter for slice of UpdateClass.
+type UpdateClassSlice []UpdateClass
+
+// First returns first element of slice (if exists).
+func (s UpdateClassSlice) First() (v UpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateClassSlice) Last() (v UpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateClassSlice) PopFirst() (v UpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateClassSlice) Pop() (v UpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

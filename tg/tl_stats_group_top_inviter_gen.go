@@ -58,6 +58,15 @@ func (s *StatsGroupTopInviter) String() string {
 	return fmt.Sprintf("StatsGroupTopInviter%+v", Alias(*s))
 }
 
+// FillFrom fills StatsGroupTopInviter from given interface.
+func (s *StatsGroupTopInviter) FillFrom(from interface {
+	GetUserID() (value int)
+	GetInvitations() (value int)
+}) {
+	s.UserID = from.GetUserID()
+	s.Invitations = from.GetInvitations()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopInviter) TypeID() uint32 {

@@ -47,6 +47,13 @@ func (g *GzipPacked) String() string {
 	return fmt.Sprintf("GzipPacked%+v", Alias(*g))
 }
 
+// FillFrom fills GzipPacked from given interface.
+func (g *GzipPacked) FillFrom(from interface {
+	GetPackedData() (value []byte)
+}) {
+	g.PackedData = from.GetPackedData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GzipPacked) TypeID() uint32 {

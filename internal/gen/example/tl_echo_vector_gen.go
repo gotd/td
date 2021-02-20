@@ -49,6 +49,13 @@ func (e *EchoVectorRequest) String() string {
 	return fmt.Sprintf("EchoVectorRequest%+v", Alias(*e))
 }
 
+// FillFrom fills EchoVectorRequest from given interface.
+func (e *EchoVectorRequest) FillFrom(from interface {
+	GetIds() (value []int)
+}) {
+	e.Ids = from.GetIds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EchoVectorRequest) TypeID() uint32 {

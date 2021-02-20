@@ -50,6 +50,13 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) String() string {
 	return fmt.Sprintf("MessagesGetEmojiKeywordsLanguagesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetEmojiKeywordsLanguagesRequest from given interface.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) FillFrom(from interface {
+	GetLangCodes() (value []string)
+}) {
+	g.LangCodes = from.GetLangCodes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {

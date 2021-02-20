@@ -50,6 +50,13 @@ func (k *KeyboardButtonRow) String() string {
 	return fmt.Sprintf("KeyboardButtonRow%+v", Alias(*k))
 }
 
+// FillFrom fills KeyboardButtonRow from given interface.
+func (k *KeyboardButtonRow) FillFrom(from interface {
+	GetButtons() (value []KeyboardButtonClass)
+}) {
+	k.Buttons = from.GetButtons()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRow) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 // GetButtons returns value of Buttons field.
 func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
 	return k.Buttons
+}
+
+// MapButtons returns field Buttons wrapped in KeyboardButtonClassSlice helper.
+func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassSlice) {
+	return KeyboardButtonClassSlice(k.Buttons)
 }
 
 // Decode implements bin.Decoder.

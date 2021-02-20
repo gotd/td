@@ -95,6 +95,26 @@ func (f *MessagesForwardMessagesRequest) String() string {
 	return fmt.Sprintf("MessagesForwardMessagesRequest%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesForwardMessagesRequest from given interface.
+func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetBackground() (value bool)
+	GetWithMyScore() (value bool)
+	GetFromPeer() (value InputPeerClass)
+	GetID() (value []int)
+	GetRandomID() (value []int64)
+	GetToPeer() (value InputPeerClass)
+	GetScheduleDate() (value int, ok bool)
+}) {
+	f.FromPeer = from.GetFromPeer()
+	f.ID = from.GetID()
+	f.RandomID = from.GetRandomID()
+	f.ToPeer = from.GetToPeer()
+	if val, ok := from.GetScheduleDate(); ok {
+		f.ScheduleDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesForwardMessagesRequest) TypeID() uint32 {

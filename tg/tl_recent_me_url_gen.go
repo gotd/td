@@ -50,6 +50,13 @@ func (r *RecentMeUrlUnknown) String() string {
 	return fmt.Sprintf("RecentMeUrlUnknown%+v", Alias(*r))
 }
 
+// FillFrom fills RecentMeUrlUnknown from given interface.
+func (r *RecentMeUrlUnknown) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	r.URL = from.GetURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlUnknown) TypeID() uint32 {
@@ -135,6 +142,15 @@ func (r *RecentMeUrlUser) String() string {
 	}
 	type Alias RecentMeUrlUser
 	return fmt.Sprintf("RecentMeUrlUser%+v", Alias(*r))
+}
+
+// FillFrom fills RecentMeUrlUser from given interface.
+func (r *RecentMeUrlUser) FillFrom(from interface {
+	GetURL() (value string)
+	GetUserID() (value int)
+}) {
+	r.URL = from.GetURL()
+	r.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -237,6 +253,15 @@ func (r *RecentMeUrlChat) String() string {
 	return fmt.Sprintf("RecentMeUrlChat%+v", Alias(*r))
 }
 
+// FillFrom fills RecentMeUrlChat from given interface.
+func (r *RecentMeUrlChat) FillFrom(from interface {
+	GetURL() (value string)
+	GetChatID() (value int)
+}) {
+	r.URL = from.GetURL()
+	r.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlChat) TypeID() uint32 {
@@ -335,6 +360,15 @@ func (r *RecentMeUrlChatInvite) String() string {
 	}
 	type Alias RecentMeUrlChatInvite
 	return fmt.Sprintf("RecentMeUrlChatInvite%+v", Alias(*r))
+}
+
+// FillFrom fills RecentMeUrlChatInvite from given interface.
+func (r *RecentMeUrlChatInvite) FillFrom(from interface {
+	GetURL() (value string)
+	GetChatInvite() (value ChatInviteClass)
+}) {
+	r.URL = from.GetURL()
+	r.ChatInvite = from.GetChatInvite()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -440,6 +474,15 @@ func (r *RecentMeUrlStickerSet) String() string {
 	}
 	type Alias RecentMeUrlStickerSet
 	return fmt.Sprintf("RecentMeUrlStickerSet%+v", Alias(*r))
+}
+
+// FillFrom fills RecentMeUrlStickerSet from given interface.
+func (r *RecentMeUrlStickerSet) FillFrom(from interface {
+	GetURL() (value string)
+	GetSet() (value StickerSetCoveredClass)
+}) {
+	r.URL = from.GetURL()
+	r.Set = from.GetSet()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -615,4 +658,55 @@ func (b *RecentMeUrlBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode RecentMeUrlClass as nil")
 	}
 	return b.RecentMeUrl.Encode(buf)
+}
+
+// RecentMeUrlClassSlice is adapter for slice of RecentMeUrlClass.
+type RecentMeUrlClassSlice []RecentMeUrlClass
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlClassSlice) First() (v RecentMeUrlClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlClassSlice) Last() (v RecentMeUrlClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlClassSlice) PopFirst() (v RecentMeUrlClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlClassSlice) Pop() (v RecentMeUrlClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

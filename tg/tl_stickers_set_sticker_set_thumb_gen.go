@@ -55,6 +55,15 @@ func (s *StickersSetStickerSetThumbRequest) String() string {
 	return fmt.Sprintf("StickersSetStickerSetThumbRequest%+v", Alias(*s))
 }
 
+// FillFrom fills StickersSetStickerSetThumbRequest from given interface.
+func (s *StickersSetStickerSetThumbRequest) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+	GetThumb() (value InputDocumentClass)
+}) {
+	s.Stickerset = from.GetStickerset()
+	s.Thumb = from.GetThumb()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickersSetStickerSetThumbRequest) TypeID() uint32 {
@@ -90,6 +99,11 @@ func (s *StickersSetStickerSetThumbRequest) GetStickerset() (value InputStickerS
 // GetThumb returns value of Thumb field.
 func (s *StickersSetStickerSetThumbRequest) GetThumb() (value InputDocumentClass) {
 	return s.Thumb
+}
+
+// GetThumbAsNotEmpty returns mapped value of Thumb field.
+func (s *StickersSetStickerSetThumbRequest) GetThumbAsNotEmpty() (*InputDocument, bool) {
+	return s.Thumb.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

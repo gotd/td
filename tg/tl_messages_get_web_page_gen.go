@@ -61,6 +61,15 @@ func (g *MessagesGetWebPageRequest) String() string {
 	return fmt.Sprintf("MessagesGetWebPageRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetWebPageRequest from given interface.
+func (g *MessagesGetWebPageRequest) FillFrom(from interface {
+	GetURL() (value string)
+	GetHash() (value int)
+}) {
+	g.URL = from.GetURL()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetWebPageRequest) TypeID() uint32 {

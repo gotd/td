@@ -73,6 +73,18 @@ func (c *UpdatesChannelDifferenceEmpty) String() string {
 	return fmt.Sprintf("UpdatesChannelDifferenceEmpty%+v", Alias(*c))
 }
 
+// FillFrom fills UpdatesChannelDifferenceEmpty from given interface.
+func (c *UpdatesChannelDifferenceEmpty) FillFrom(from interface {
+	GetFinal() (value bool)
+	GetPts() (value int)
+	GetTimeout() (value int, ok bool)
+}) {
+	c.Pts = from.GetPts()
+	if val, ok := from.GetTimeout(); ok {
+		c.Timeout = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
@@ -249,6 +261,24 @@ func (c *UpdatesChannelDifferenceTooLong) String() string {
 	return fmt.Sprintf("UpdatesChannelDifferenceTooLong%+v", Alias(*c))
 }
 
+// FillFrom fills UpdatesChannelDifferenceTooLong from given interface.
+func (c *UpdatesChannelDifferenceTooLong) FillFrom(from interface {
+	GetFinal() (value bool)
+	GetTimeout() (value int, ok bool)
+	GetDialog() (value DialogClass)
+	GetMessages() (value []MessageClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	if val, ok := from.GetTimeout(); ok {
+		c.Timeout = val
+	}
+	c.Dialog = from.GetDialog()
+	c.Messages = from.GetMessages()
+	c.Chats = from.GetChats()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
@@ -350,14 +380,29 @@ func (c *UpdatesChannelDifferenceTooLong) GetMessages() (value []MessageClass) {
 	return c.Messages
 }
 
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (c *UpdatesChannelDifferenceTooLong) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(c.Messages)
+}
+
 // GetChats returns value of Chats field.
 func (c *UpdatesChannelDifferenceTooLong) GetChats() (value []ChatClass) {
 	return c.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (c *UpdatesChannelDifferenceTooLong) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(c.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (c *UpdatesChannelDifferenceTooLong) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *UpdatesChannelDifferenceTooLong) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -516,6 +561,26 @@ func (c *UpdatesChannelDifference) String() string {
 	return fmt.Sprintf("UpdatesChannelDifference%+v", Alias(*c))
 }
 
+// FillFrom fills UpdatesChannelDifference from given interface.
+func (c *UpdatesChannelDifference) FillFrom(from interface {
+	GetFinal() (value bool)
+	GetPts() (value int)
+	GetTimeout() (value int, ok bool)
+	GetNewMessages() (value []MessageClass)
+	GetOtherUpdates() (value []UpdateClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	c.Pts = from.GetPts()
+	if val, ok := from.GetTimeout(); ok {
+		c.Timeout = val
+	}
+	c.NewMessages = from.GetNewMessages()
+	c.OtherUpdates = from.GetOtherUpdates()
+	c.Chats = from.GetChats()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifference) TypeID() uint32 {
@@ -621,9 +686,19 @@ func (c *UpdatesChannelDifference) GetNewMessages() (value []MessageClass) {
 	return c.NewMessages
 }
 
+// MapNewMessages returns field NewMessages wrapped in MessageClassSlice helper.
+func (c *UpdatesChannelDifference) MapNewMessages() (value MessageClassSlice) {
+	return MessageClassSlice(c.NewMessages)
+}
+
 // GetOtherUpdates returns value of OtherUpdates field.
 func (c *UpdatesChannelDifference) GetOtherUpdates() (value []UpdateClass) {
 	return c.OtherUpdates
+}
+
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassSlice helper.
+func (c *UpdatesChannelDifference) MapOtherUpdates() (value UpdateClassSlice) {
+	return UpdateClassSlice(c.OtherUpdates)
 }
 
 // GetChats returns value of Chats field.
@@ -631,9 +706,19 @@ func (c *UpdatesChannelDifference) GetChats() (value []ChatClass) {
 	return c.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (c *UpdatesChannelDifference) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(c.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (c *UpdatesChannelDifference) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *UpdatesChannelDifference) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -755,6 +840,9 @@ type UpdatesChannelDifferenceClass interface {
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	GetTimeout() (value int, ok bool)
 
+	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+	AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -762,6 +850,48 @@ type UpdatesChannelDifferenceClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyUpdatesChannelDifference represents NotEmpty subset of UpdatesChannelDifferenceClass.
+type NotEmptyUpdatesChannelDifference interface {
+	bin.Encoder
+	bin.Decoder
+	construct() UpdatesChannelDifferenceClass
+
+	// Whether there are more updates that must be fetched (always false)
+	GetFinal() (value bool)
+	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	GetTimeout() (value int, ok bool)
+	// Chats from messages
+	GetChats() (value []ChatClass)
+	// Users from messages
+	GetUsers() (value []UserClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+func (c *UpdatesChannelDifferenceEmpty) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
+	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
+	return value, ok
+}
+
+// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+func (c *UpdatesChannelDifferenceTooLong) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
+	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
+	return value, ok
+}
+
+// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+func (c *UpdatesChannelDifference) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
+	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
+	return value, ok
 }
 
 // DecodeUpdatesChannelDifference implements binary de-serialization for UpdatesChannelDifferenceClass.
@@ -821,4 +951,92 @@ func (b *UpdatesChannelDifferenceBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdatesChannelDifferenceClass as nil")
 	}
 	return b.ChannelDifference.Encode(buf)
+}
+
+// UpdatesChannelDifferenceClassSlice is adapter for slice of UpdatesChannelDifferenceClass.
+type UpdatesChannelDifferenceClassSlice []UpdatesChannelDifferenceClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s UpdatesChannelDifferenceClassSlice) AppendOnlyNotEmpty(to []NotEmptyUpdatesChannelDifference) []NotEmptyUpdatesChannelDifference {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s UpdatesChannelDifferenceClassSlice) AsNotEmpty() (to []NotEmptyUpdatesChannelDifference) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s UpdatesChannelDifferenceClassSlice) FirstAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s UpdatesChannelDifferenceClassSlice) LastAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesChannelDifferenceClassSlice) First() (v UpdatesChannelDifferenceClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesChannelDifferenceClassSlice) Last() (v UpdatesChannelDifferenceClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesChannelDifferenceClassSlice) PopFirst() (v UpdatesChannelDifferenceClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesChannelDifferenceClassSlice) Pop() (v UpdatesChannelDifferenceClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

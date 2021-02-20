@@ -60,6 +60,17 @@ func (a *MessagesAddChatUserRequest) String() string {
 	return fmt.Sprintf("MessagesAddChatUserRequest%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAddChatUserRequest from given interface.
+func (a *MessagesAddChatUserRequest) FillFrom(from interface {
+	GetChatID() (value int)
+	GetUserID() (value InputUserClass)
+	GetFwdLimit() (value int)
+}) {
+	a.ChatID = from.GetChatID()
+	a.UserID = from.GetUserID()
+	a.FwdLimit = from.GetFwdLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAddChatUserRequest) TypeID() uint32 {

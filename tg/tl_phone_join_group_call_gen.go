@@ -64,6 +64,16 @@ func (j *PhoneJoinGroupCallRequest) String() string {
 	return fmt.Sprintf("PhoneJoinGroupCallRequest%+v", Alias(*j))
 }
 
+// FillFrom fills PhoneJoinGroupCallRequest from given interface.
+func (j *PhoneJoinGroupCallRequest) FillFrom(from interface {
+	GetMuted() (value bool)
+	GetCall() (value InputGroupCall)
+	GetParams() (value DataJSON)
+}) {
+	j.Call = from.GetCall()
+	j.Params = from.GetParams()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *PhoneJoinGroupCallRequest) TypeID() uint32 {

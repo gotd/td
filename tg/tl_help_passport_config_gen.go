@@ -125,6 +125,15 @@ func (p *HelpPassportConfig) String() string {
 	return fmt.Sprintf("HelpPassportConfig%+v", Alias(*p))
 }
 
+// FillFrom fills HelpPassportConfig from given interface.
+func (p *HelpPassportConfig) FillFrom(from interface {
+	GetHash() (value int)
+	GetCountriesLangs() (value DataJSON)
+}) {
+	p.Hash = from.GetHash()
+	p.CountriesLangs = from.GetCountriesLangs()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPassportConfig) TypeID() uint32 {
@@ -207,6 +216,9 @@ type HelpPassportConfigClass interface {
 	bin.Decoder
 	construct() HelpPassportConfigClass
 
+	// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+	AsModified() (*HelpPassportConfig, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -214,6 +226,16 @@ type HelpPassportConfigClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+func (p *HelpPassportConfigNotModified) AsModified() (*HelpPassportConfig, bool) {
+	return nil, false
+}
+
+// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+func (p *HelpPassportConfig) AsModified() (*HelpPassportConfig, bool) {
+	return p, true
 }
 
 // DecodeHelpPassportConfig implements binary de-serialization for HelpPassportConfigClass.
@@ -266,4 +288,92 @@ func (b *HelpPassportConfigBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpPassportConfigClass as nil")
 	}
 	return b.PassportConfig.Encode(buf)
+}
+
+// HelpPassportConfigClassSlice is adapter for slice of HelpPassportConfigClass.
+type HelpPassportConfigClassSlice []HelpPassportConfigClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s HelpPassportConfigClassSlice) AppendOnlyModified(to []*HelpPassportConfig) []*HelpPassportConfig {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s HelpPassportConfigClassSlice) AsModified() (to []*HelpPassportConfig) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s HelpPassportConfigClassSlice) FirstAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s HelpPassportConfigClassSlice) LastAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpPassportConfigClassSlice) First() (v HelpPassportConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpPassportConfigClassSlice) Last() (v HelpPassportConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpPassportConfigClassSlice) PopFirst() (v HelpPassportConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpPassportConfigClassSlice) Pop() (v HelpPassportConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

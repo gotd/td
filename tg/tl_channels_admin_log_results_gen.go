@@ -60,6 +60,17 @@ func (a *ChannelsAdminLogResults) String() string {
 	return fmt.Sprintf("ChannelsAdminLogResults%+v", Alias(*a))
 }
 
+// FillFrom fills ChannelsAdminLogResults from given interface.
+func (a *ChannelsAdminLogResults) FillFrom(from interface {
+	GetEvents() (value []ChannelAdminLogEvent)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	a.Events = from.GetEvents()
+	a.Chats = from.GetChats()
+	a.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *ChannelsAdminLogResults) TypeID() uint32 {
@@ -109,9 +120,19 @@ func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
 	return a.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (a *ChannelsAdminLogResults) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(a.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
 	return a.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (a *ChannelsAdminLogResults) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(a.Users)
 }
 
 // Decode implements bin.Decoder.

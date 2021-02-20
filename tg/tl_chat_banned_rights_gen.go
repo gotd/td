@@ -157,6 +157,25 @@ func (c *ChatBannedRights) String() string {
 	return fmt.Sprintf("ChatBannedRights%+v", Alias(*c))
 }
 
+// FillFrom fills ChatBannedRights from given interface.
+func (c *ChatBannedRights) FillFrom(from interface {
+	GetViewMessages() (value bool)
+	GetSendMessages() (value bool)
+	GetSendMedia() (value bool)
+	GetSendStickers() (value bool)
+	GetSendGifs() (value bool)
+	GetSendGames() (value bool)
+	GetSendInline() (value bool)
+	GetEmbedLinks() (value bool)
+	GetSendPolls() (value bool)
+	GetChangeInfo() (value bool)
+	GetInviteUsers() (value bool)
+	GetPinMessages() (value bool)
+	GetUntilDate() (value int)
+}) {
+	c.UntilDate = from.GetUntilDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatBannedRights) TypeID() uint32 {

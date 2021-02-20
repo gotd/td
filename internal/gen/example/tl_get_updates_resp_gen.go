@@ -49,6 +49,13 @@ func (g *GetUpdatesResp) String() string {
 	return fmt.Sprintf("GetUpdatesResp%+v", Alias(*g))
 }
 
+// FillFrom fills GetUpdatesResp from given interface.
+func (g *GetUpdatesResp) FillFrom(from interface {
+	GetUpdates() (value []AbstractMessageClass)
+}) {
+	g.Updates = from.GetUpdates()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GetUpdatesResp) TypeID() uint32 {
@@ -76,6 +83,11 @@ func (g *GetUpdatesResp) Encode(b *bin.Buffer) error {
 // GetUpdates returns value of Updates field.
 func (g *GetUpdatesResp) GetUpdates() (value []AbstractMessageClass) {
 	return g.Updates
+}
+
+// MapUpdates returns field Updates wrapped in AbstractMessageClassSlice helper.
+func (g *GetUpdatesResp) MapUpdates() (value AbstractMessageClassSlice) {
+	return AbstractMessageClassSlice(g.Updates)
 }
 
 // Decode implements bin.Decoder.

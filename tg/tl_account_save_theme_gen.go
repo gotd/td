@@ -55,6 +55,15 @@ func (s *AccountSaveThemeRequest) String() string {
 	return fmt.Sprintf("AccountSaveThemeRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSaveThemeRequest from given interface.
+func (s *AccountSaveThemeRequest) FillFrom(from interface {
+	GetTheme() (value InputThemeClass)
+	GetUnsave() (value bool)
+}) {
+	s.Theme = from.GetTheme()
+	s.Unsave = from.GetUnsave()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveThemeRequest) TypeID() uint32 {

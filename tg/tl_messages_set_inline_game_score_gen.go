@@ -78,6 +78,19 @@ func (s *MessagesSetInlineGameScoreRequest) String() string {
 	return fmt.Sprintf("MessagesSetInlineGameScoreRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetInlineGameScoreRequest from given interface.
+func (s *MessagesSetInlineGameScoreRequest) FillFrom(from interface {
+	GetEditMessage() (value bool)
+	GetForce() (value bool)
+	GetID() (value InputBotInlineMessageID)
+	GetUserID() (value InputUserClass)
+	GetScore() (value int)
+}) {
+	s.ID = from.GetID()
+	s.UserID = from.GetUserID()
+	s.Score = from.GetScore()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetInlineGameScoreRequest) TypeID() uint32 {

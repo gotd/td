@@ -114,6 +114,13 @@ func (u *UserStatusOnline) String() string {
 	return fmt.Sprintf("UserStatusOnline%+v", Alias(*u))
 }
 
+// FillFrom fills UserStatusOnline from given interface.
+func (u *UserStatusOnline) FillFrom(from interface {
+	GetExpires() (value int)
+}) {
+	u.Expires = from.GetExpires()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusOnline) TypeID() uint32 {
@@ -194,6 +201,13 @@ func (u *UserStatusOffline) String() string {
 	}
 	type Alias UserStatusOffline
 	return fmt.Sprintf("UserStatusOffline%+v", Alias(*u))
+}
+
+// FillFrom fills UserStatusOffline from given interface.
+func (u *UserStatusOffline) FillFrom(from interface {
+	GetWasOnline() (value int)
+}) {
+	u.WasOnline = from.GetWasOnline()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -548,4 +562,55 @@ func (b *UserStatusBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserStatusClass as nil")
 	}
 	return b.UserStatus.Encode(buf)
+}
+
+// UserStatusClassSlice is adapter for slice of UserStatusClass.
+type UserStatusClassSlice []UserStatusClass
+
+// First returns first element of slice (if exists).
+func (s UserStatusClassSlice) First() (v UserStatusClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserStatusClassSlice) Last() (v UserStatusClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserStatusClassSlice) PopFirst() (v UserStatusClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserStatusClassSlice) Pop() (v UserStatusClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

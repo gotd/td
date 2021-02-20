@@ -13,6 +13,7 @@
 {{- end }}{{- end }}
 
 {{ define "print_type" }}
+{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
 {{- if $.DoubleSlice }}[][]{{ $.Type }}
 {{- else if $.Slice }}[]{{ $.Type }}
 {{- else }}{{ $.Type }}
@@ -21,6 +22,16 @@
 {{ define "getter_func_type" }}
 {{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
 Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (not $.ConditionalBool) }}, ok bool{{ end }})
+{{- end }}
+
+{{ define "print_mapper_type" }}{{ $mapping := . -}}
+{{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
+{{- if not ($mapping.Concrete) }}{{ $mapping.Name }}{{- else }}*{{ $mapping.Name }}{{- end -}}
+{{ end }}
+
+{{ define "mapper_func_type" }}{{ $mapping := . -}}
+{{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
+As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
 {{- end }}
 
 {{ define "print_links" }}

@@ -90,6 +90,23 @@ func (g *MessagesGetUnreadMentionsRequest) String() string {
 	return fmt.Sprintf("MessagesGetUnreadMentionsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetUnreadMentionsRequest from given interface.
+func (g *MessagesGetUnreadMentionsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetOffsetID() (value int)
+	GetAddOffset() (value int)
+	GetLimit() (value int)
+	GetMaxID() (value int)
+	GetMinID() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.OffsetID = from.GetOffsetID()
+	g.AddOffset = from.GetAddOffset()
+	g.Limit = from.GetLimit()
+	g.MaxID = from.GetMaxID()
+	g.MinID = from.GetMinID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetUnreadMentionsRequest) TypeID() uint32 {

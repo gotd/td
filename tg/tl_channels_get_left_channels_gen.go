@@ -56,6 +56,13 @@ func (g *ChannelsGetLeftChannelsRequest) String() string {
 	return fmt.Sprintf("ChannelsGetLeftChannelsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ChannelsGetLeftChannelsRequest from given interface.
+func (g *ChannelsGetLeftChannelsRequest) FillFrom(from interface {
+	GetOffset() (value int)
+}) {
+	g.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetLeftChannelsRequest) TypeID() uint32 {

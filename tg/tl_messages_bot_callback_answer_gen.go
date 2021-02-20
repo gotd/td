@@ -87,6 +87,24 @@ func (b *MessagesBotCallbackAnswer) String() string {
 	return fmt.Sprintf("MessagesBotCallbackAnswer%+v", Alias(*b))
 }
 
+// FillFrom fills MessagesBotCallbackAnswer from given interface.
+func (b *MessagesBotCallbackAnswer) FillFrom(from interface {
+	GetAlert() (value bool)
+	GetHasURL() (value bool)
+	GetNativeUI() (value bool)
+	GetMessage() (value string, ok bool)
+	GetURL() (value string, ok bool)
+	GetCacheTime() (value int)
+}) {
+	if val, ok := from.GetMessage(); ok {
+		b.Message = val
+	}
+	if val, ok := from.GetURL(); ok {
+		b.URL = val
+	}
+	b.CacheTime = from.GetCacheTime()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *MessagesBotCallbackAnswer) TypeID() uint32 {

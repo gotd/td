@@ -84,6 +84,27 @@ func (t *ThemeSettings) String() string {
 	return fmt.Sprintf("ThemeSettings%+v", Alias(*t))
 }
 
+// FillFrom fills ThemeSettings from given interface.
+func (t *ThemeSettings) FillFrom(from interface {
+	GetBaseTheme() (value BaseThemeClass)
+	GetAccentColor() (value int)
+	GetMessageTopColor() (value int, ok bool)
+	GetMessageBottomColor() (value int, ok bool)
+	GetWallpaper() (value WallPaperClass, ok bool)
+}) {
+	t.BaseTheme = from.GetBaseTheme()
+	t.AccentColor = from.GetAccentColor()
+	if val, ok := from.GetMessageTopColor(); ok {
+		t.MessageTopColor = val
+	}
+	if val, ok := from.GetMessageBottomColor(); ok {
+		t.MessageBottomColor = val
+	}
+	if val, ok := from.GetWallpaper(); ok {
+		t.Wallpaper = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ThemeSettings) TypeID() uint32 {

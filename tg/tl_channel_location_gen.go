@@ -119,6 +119,15 @@ func (c *ChannelLocation) String() string {
 	return fmt.Sprintf("ChannelLocation%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelLocation from given interface.
+func (c *ChannelLocation) FillFrom(from interface {
+	GetGeoPoint() (value GeoPointClass)
+	GetAddress() (value string)
+}) {
+	c.GeoPoint = from.GetGeoPoint()
+	c.Address = from.GetAddress()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelLocation) TypeID() uint32 {
@@ -206,6 +215,9 @@ type ChannelLocationClass interface {
 	bin.Decoder
 	construct() ChannelLocationClass
 
+	// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+	AsNotEmpty() (*ChannelLocation, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -213,6 +225,16 @@ type ChannelLocationClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+func (c *ChannelLocationEmpty) AsNotEmpty() (*ChannelLocation, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+func (c *ChannelLocation) AsNotEmpty() (*ChannelLocation, bool) {
+	return c, true
 }
 
 // DecodeChannelLocation implements binary de-serialization for ChannelLocationClass.
@@ -265,4 +287,92 @@ func (b *ChannelLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelLocationClass as nil")
 	}
 	return b.ChannelLocation.Encode(buf)
+}
+
+// ChannelLocationClassSlice is adapter for slice of ChannelLocationClass.
+type ChannelLocationClassSlice []ChannelLocationClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s ChannelLocationClassSlice) AppendOnlyNotEmpty(to []*ChannelLocation) []*ChannelLocation {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s ChannelLocationClassSlice) AsNotEmpty() (to []*ChannelLocation) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s ChannelLocationClassSlice) FirstAsNotEmpty() (v *ChannelLocation, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s ChannelLocationClassSlice) LastAsNotEmpty() (v *ChannelLocation, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelLocationClassSlice) First() (v ChannelLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelLocationClassSlice) Last() (v ChannelLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelLocationClassSlice) PopFirst() (v ChannelLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelLocationClassSlice) Pop() (v ChannelLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

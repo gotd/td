@@ -101,6 +101,26 @@ func (c *ChannelsCreateChannelRequest) String() string {
 	return fmt.Sprintf("ChannelsCreateChannelRequest%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelsCreateChannelRequest from given interface.
+func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
+	GetBroadcast() (value bool)
+	GetMegagroup() (value bool)
+	GetForImport() (value bool)
+	GetTitle() (value string)
+	GetAbout() (value string)
+	GetGeoPoint() (value InputGeoPointClass, ok bool)
+	GetAddress() (value string, ok bool)
+}) {
+	c.Title = from.GetTitle()
+	c.About = from.GetAbout()
+	if val, ok := from.GetGeoPoint(); ok {
+		c.GeoPoint = val
+	}
+	if val, ok := from.GetAddress(); ok {
+		c.Address = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsCreateChannelRequest) TypeID() uint32 {
@@ -218,6 +238,15 @@ func (c *ChannelsCreateChannelRequest) GetGeoPoint() (value InputGeoPointClass, 
 		return value, false
 	}
 	return c.GeoPoint, true
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint conditional field and
+// boolean which is true if field was set.
+func (c *ChannelsCreateChannelRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	if value, ok := c.GetGeoPoint(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // SetAddress sets value of Address conditional field.

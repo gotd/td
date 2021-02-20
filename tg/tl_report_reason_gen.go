@@ -306,6 +306,13 @@ func (i *InputReportReasonOther) String() string {
 	return fmt.Sprintf("InputReportReasonOther%+v", Alias(*i))
 }
 
+// FillFrom fills InputReportReasonOther from given interface.
+func (i *InputReportReasonOther) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	i.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonOther) TypeID() uint32 {
@@ -673,4 +680,55 @@ func (b *ReportReasonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ReportReasonClass as nil")
 	}
 	return b.ReportReason.Encode(buf)
+}
+
+// ReportReasonClassSlice is adapter for slice of ReportReasonClass.
+type ReportReasonClassSlice []ReportReasonClass
+
+// First returns first element of slice (if exists).
+func (s ReportReasonClassSlice) First() (v ReportReasonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ReportReasonClassSlice) Last() (v ReportReasonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ReportReasonClassSlice) PopFirst() (v ReportReasonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ReportReasonClassSlice) Pop() (v ReportReasonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

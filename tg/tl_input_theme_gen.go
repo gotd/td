@@ -55,6 +55,15 @@ func (i *InputTheme) String() string {
 	return fmt.Sprintf("InputTheme%+v", Alias(*i))
 }
 
+// FillFrom fills InputTheme from given interface.
+func (i *InputTheme) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputTheme) TypeID() uint32 {
@@ -148,6 +157,13 @@ func (i *InputThemeSlug) String() string {
 	}
 	type Alias InputThemeSlug
 	return fmt.Sprintf("InputThemeSlug%+v", Alias(*i))
+}
+
+// FillFrom fills InputThemeSlug from given interface.
+func (i *InputThemeSlug) FillFrom(from interface {
+	GetSlug() (value string)
+}) {
+	i.Slug = from.GetSlug()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -278,4 +294,55 @@ func (b *InputThemeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputThemeClass as nil")
 	}
 	return b.InputTheme.Encode(buf)
+}
+
+// InputThemeClassSlice is adapter for slice of InputThemeClass.
+type InputThemeClassSlice []InputThemeClass
+
+// First returns first element of slice (if exists).
+func (s InputThemeClassSlice) First() (v InputThemeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputThemeClassSlice) Last() (v InputThemeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputThemeClassSlice) PopFirst() (v InputThemeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputThemeClassSlice) Pop() (v InputThemeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

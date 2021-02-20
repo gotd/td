@@ -90,6 +90,21 @@ func (g *UpdatesGetDifferenceRequest) String() string {
 	return fmt.Sprintf("UpdatesGetDifferenceRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UpdatesGetDifferenceRequest from given interface.
+func (g *UpdatesGetDifferenceRequest) FillFrom(from interface {
+	GetPts() (value int)
+	GetPtsTotalLimit() (value int, ok bool)
+	GetDate() (value int)
+	GetQts() (value int)
+}) {
+	g.Pts = from.GetPts()
+	if val, ok := from.GetPtsTotalLimit(); ok {
+		g.PtsTotalLimit = val
+	}
+	g.Date = from.GetDate()
+	g.Qts = from.GetQts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UpdatesGetDifferenceRequest) TypeID() uint32 {

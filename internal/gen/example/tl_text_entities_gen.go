@@ -49,6 +49,13 @@ func (t *TextEntities) String() string {
 	return fmt.Sprintf("TextEntities%+v", Alias(*t))
 }
 
+// FillFrom fills TextEntities from given interface.
+func (t *TextEntities) FillFrom(from interface {
+	GetEntities() (value []TextEntity)
+}) {
+	t.Entities = from.GetEntities()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntities) TypeID() uint32 {

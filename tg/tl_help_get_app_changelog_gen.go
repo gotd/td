@@ -55,6 +55,13 @@ func (g *HelpGetAppChangelogRequest) String() string {
 	return fmt.Sprintf("HelpGetAppChangelogRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetAppChangelogRequest from given interface.
+func (g *HelpGetAppChangelogRequest) FillFrom(from interface {
+	GetPrevAppVersion() (value string)
+}) {
+	g.PrevAppVersion = from.GetPrevAppVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetAppChangelogRequest) TypeID() uint32 {

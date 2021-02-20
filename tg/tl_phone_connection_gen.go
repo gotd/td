@@ -70,6 +70,21 @@ func (p *PhoneConnection) String() string {
 	return fmt.Sprintf("PhoneConnection%+v", Alias(*p))
 }
 
+// FillFrom fills PhoneConnection from given interface.
+func (p *PhoneConnection) FillFrom(from interface {
+	GetID() (value int64)
+	GetIP() (value string)
+	GetIpv6() (value string)
+	GetPort() (value int)
+	GetPeerTag() (value []byte)
+}) {
+	p.ID = from.GetID()
+	p.IP = from.GetIP()
+	p.Ipv6 = from.GetIpv6()
+	p.Port = from.GetPort()
+	p.PeerTag = from.GetPeerTag()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneConnection) TypeID() uint32 {
@@ -245,6 +260,25 @@ func (p *PhoneConnectionWebrtc) String() string {
 	}
 	type Alias PhoneConnectionWebrtc
 	return fmt.Sprintf("PhoneConnectionWebrtc%+v", Alias(*p))
+}
+
+// FillFrom fills PhoneConnectionWebrtc from given interface.
+func (p *PhoneConnectionWebrtc) FillFrom(from interface {
+	GetTurn() (value bool)
+	GetStun() (value bool)
+	GetID() (value int64)
+	GetIP() (value string)
+	GetIpv6() (value string)
+	GetPort() (value int)
+	GetUsername() (value string)
+	GetPassword() (value string)
+}) {
+	p.ID = from.GetID()
+	p.IP = from.GetIP()
+	p.Ipv6 = from.GetIpv6()
+	p.Port = from.GetPort()
+	p.Username = from.GetUsername()
+	p.Password = from.GetPassword()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -497,4 +531,55 @@ func (b *PhoneConnectionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhoneConnectionClass as nil")
 	}
 	return b.PhoneConnection.Encode(buf)
+}
+
+// PhoneConnectionClassSlice is adapter for slice of PhoneConnectionClass.
+type PhoneConnectionClassSlice []PhoneConnectionClass
+
+// First returns first element of slice (if exists).
+func (s PhoneConnectionClassSlice) First() (v PhoneConnectionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneConnectionClassSlice) Last() (v PhoneConnectionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneConnectionClassSlice) PopFirst() (v PhoneConnectionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneConnectionClassSlice) Pop() (v PhoneConnectionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

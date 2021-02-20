@@ -99,6 +99,21 @@ func (i *AccountInitTakeoutSessionRequest) String() string {
 	return fmt.Sprintf("AccountInitTakeoutSessionRequest%+v", Alias(*i))
 }
 
+// FillFrom fills AccountInitTakeoutSessionRequest from given interface.
+func (i *AccountInitTakeoutSessionRequest) FillFrom(from interface {
+	GetContacts() (value bool)
+	GetMessageUsers() (value bool)
+	GetMessageChats() (value bool)
+	GetMessageMegagroups() (value bool)
+	GetMessageChannels() (value bool)
+	GetFiles() (value bool)
+	GetFileMaxSize() (value int, ok bool)
+}) {
+	if val, ok := from.GetFileMaxSize(); ok {
+		i.FileMaxSize = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AccountInitTakeoutSessionRequest) TypeID() uint32 {

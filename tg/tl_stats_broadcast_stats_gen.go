@@ -123,6 +123,41 @@ func (b *StatsBroadcastStats) String() string {
 	return fmt.Sprintf("StatsBroadcastStats%+v", Alias(*b))
 }
 
+// FillFrom fills StatsBroadcastStats from given interface.
+func (b *StatsBroadcastStats) FillFrom(from interface {
+	GetPeriod() (value StatsDateRangeDays)
+	GetFollowers() (value StatsAbsValueAndPrev)
+	GetViewsPerPost() (value StatsAbsValueAndPrev)
+	GetSharesPerPost() (value StatsAbsValueAndPrev)
+	GetEnabledNotifications() (value StatsPercentValue)
+	GetGrowthGraph() (value StatsGraphClass)
+	GetFollowersGraph() (value StatsGraphClass)
+	GetMuteGraph() (value StatsGraphClass)
+	GetTopHoursGraph() (value StatsGraphClass)
+	GetInteractionsGraph() (value StatsGraphClass)
+	GetIvInteractionsGraph() (value StatsGraphClass)
+	GetViewsBySourceGraph() (value StatsGraphClass)
+	GetNewFollowersBySourceGraph() (value StatsGraphClass)
+	GetLanguagesGraph() (value StatsGraphClass)
+	GetRecentMessageInteractions() (value []MessageInteractionCounters)
+}) {
+	b.Period = from.GetPeriod()
+	b.Followers = from.GetFollowers()
+	b.ViewsPerPost = from.GetViewsPerPost()
+	b.SharesPerPost = from.GetSharesPerPost()
+	b.EnabledNotifications = from.GetEnabledNotifications()
+	b.GrowthGraph = from.GetGrowthGraph()
+	b.FollowersGraph = from.GetFollowersGraph()
+	b.MuteGraph = from.GetMuteGraph()
+	b.TopHoursGraph = from.GetTopHoursGraph()
+	b.InteractionsGraph = from.GetInteractionsGraph()
+	b.IvInteractionsGraph = from.GetIvInteractionsGraph()
+	b.ViewsBySourceGraph = from.GetViewsBySourceGraph()
+	b.NewFollowersBySourceGraph = from.GetNewFollowersBySourceGraph()
+	b.LanguagesGraph = from.GetLanguagesGraph()
+	b.RecentMessageInteractions = from.GetRecentMessageInteractions()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *StatsBroadcastStats) TypeID() uint32 {

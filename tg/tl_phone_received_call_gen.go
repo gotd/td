@@ -50,6 +50,13 @@ func (r *PhoneReceivedCallRequest) String() string {
 	return fmt.Sprintf("PhoneReceivedCallRequest%+v", Alias(*r))
 }
 
+// FillFrom fills PhoneReceivedCallRequest from given interface.
+func (r *PhoneReceivedCallRequest) FillFrom(from interface {
+	GetPeer() (value InputPhoneCall)
+}) {
+	r.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *PhoneReceivedCallRequest) TypeID() uint32 {

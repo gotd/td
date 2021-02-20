@@ -148,6 +148,25 @@ func (s *SecureFile) String() string {
 	return fmt.Sprintf("SecureFile%+v", Alias(*s))
 }
 
+// FillFrom fills SecureFile from given interface.
+func (s *SecureFile) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetSize() (value int)
+	GetDCID() (value int)
+	GetDate() (value int)
+	GetFileHash() (value []byte)
+	GetSecret() (value []byte)
+}) {
+	s.ID = from.GetID()
+	s.AccessHash = from.GetAccessHash()
+	s.Size = from.GetSize()
+	s.DCID = from.GetDCID()
+	s.Date = from.GetDate()
+	s.FileHash = from.GetFileHash()
+	s.Secret = from.GetSecret()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureFile) TypeID() uint32 {
@@ -295,6 +314,9 @@ type SecureFileClass interface {
 	bin.Decoder
 	construct() SecureFileClass
 
+	// AsNotEmpty tries to map SecureFileClass to SecureFile.
+	AsNotEmpty() (*SecureFile, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -302,6 +324,16 @@ type SecureFileClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map SecureFileClass to SecureFile.
+func (s *SecureFileEmpty) AsNotEmpty() (*SecureFile, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map SecureFileClass to SecureFile.
+func (s *SecureFile) AsNotEmpty() (*SecureFile, bool) {
+	return s, true
 }
 
 // DecodeSecureFile implements binary de-serialization for SecureFileClass.
@@ -354,4 +386,92 @@ func (b *SecureFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecureFileClass as nil")
 	}
 	return b.SecureFile.Encode(buf)
+}
+
+// SecureFileClassSlice is adapter for slice of SecureFileClass.
+type SecureFileClassSlice []SecureFileClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s SecureFileClassSlice) AppendOnlyNotEmpty(to []*SecureFile) []*SecureFile {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s SecureFileClassSlice) AsNotEmpty() (to []*SecureFile) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s SecureFileClassSlice) FirstAsNotEmpty() (v *SecureFile, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s SecureFileClassSlice) LastAsNotEmpty() (v *SecureFile, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s SecureFileClassSlice) First() (v SecureFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureFileClassSlice) Last() (v SecureFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureFileClassSlice) PopFirst() (v SecureFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureFileClassSlice) Pop() (v SecureFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

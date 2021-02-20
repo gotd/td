@@ -59,6 +59,17 @@ func (t *TextEntity) String() string {
 	return fmt.Sprintf("TextEntity%+v", Alias(*t))
 }
 
+// FillFrom fills TextEntity from given interface.
+func (t *TextEntity) FillFrom(from interface {
+	GetOffset() (value int32)
+	GetLength() (value int32)
+	GetType() (value TextEntityTypeClass)
+}) {
+	t.Offset = from.GetOffset()
+	t.Length = from.GetLength()
+	t.Type = from.GetType()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntity) TypeID() uint32 {

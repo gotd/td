@@ -58,6 +58,15 @@ func (v *AccountVerifyEmailRequest) String() string {
 	return fmt.Sprintf("AccountVerifyEmailRequest%+v", Alias(*v))
 }
 
+// FillFrom fills AccountVerifyEmailRequest from given interface.
+func (v *AccountVerifyEmailRequest) FillFrom(from interface {
+	GetEmail() (value string)
+	GetCode() (value string)
+}) {
+	v.Email = from.GetEmail()
+	v.Code = from.GetCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *AccountVerifyEmailRequest) TypeID() uint32 {

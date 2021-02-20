@@ -81,6 +81,27 @@ func (p *PaymentRequestedInfo) String() string {
 	return fmt.Sprintf("PaymentRequestedInfo%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentRequestedInfo from given interface.
+func (p *PaymentRequestedInfo) FillFrom(from interface {
+	GetName() (value string, ok bool)
+	GetPhone() (value string, ok bool)
+	GetEmail() (value string, ok bool)
+	GetShippingAddress() (value PostAddress, ok bool)
+}) {
+	if val, ok := from.GetName(); ok {
+		p.Name = val
+	}
+	if val, ok := from.GetPhone(); ok {
+		p.Phone = val
+	}
+	if val, ok := from.GetEmail(); ok {
+		p.Email = val
+	}
+	if val, ok := from.GetShippingAddress(); ok {
+		p.ShippingAddress = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentRequestedInfo) TypeID() uint32 {

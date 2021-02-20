@@ -65,6 +65,19 @@ func (i *InputAppEvent) String() string {
 	return fmt.Sprintf("InputAppEvent%+v", Alias(*i))
 }
 
+// FillFrom fills InputAppEvent from given interface.
+func (i *InputAppEvent) FillFrom(from interface {
+	GetTime() (value float64)
+	GetType() (value string)
+	GetPeer() (value int64)
+	GetData() (value JSONValueClass)
+}) {
+	i.Time = from.GetTime()
+	i.Type = from.GetType()
+	i.Peer = from.GetPeer()
+	i.Data = from.GetData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputAppEvent) TypeID() uint32 {

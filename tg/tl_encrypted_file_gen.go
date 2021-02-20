@@ -134,6 +134,21 @@ func (e *EncryptedFile) String() string {
 	return fmt.Sprintf("EncryptedFile%+v", Alias(*e))
 }
 
+// FillFrom fills EncryptedFile from given interface.
+func (e *EncryptedFile) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetSize() (value int)
+	GetDCID() (value int)
+	GetKeyFingerprint() (value int)
+}) {
+	e.ID = from.GetID()
+	e.AccessHash = from.GetAccessHash()
+	e.Size = from.GetSize()
+	e.DCID = from.GetDCID()
+	e.KeyFingerprint = from.GetKeyFingerprint()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedFile) TypeID() uint32 {
@@ -255,6 +270,9 @@ type EncryptedFileClass interface {
 	bin.Decoder
 	construct() EncryptedFileClass
 
+	// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+	AsNotEmpty() (*EncryptedFile, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -262,6 +280,16 @@ type EncryptedFileClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+func (e *EncryptedFileEmpty) AsNotEmpty() (*EncryptedFile, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+func (e *EncryptedFile) AsNotEmpty() (*EncryptedFile, bool) {
+	return e, true
 }
 
 // DecodeEncryptedFile implements binary de-serialization for EncryptedFileClass.
@@ -314,4 +342,92 @@ func (b *EncryptedFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedFileClass as nil")
 	}
 	return b.EncryptedFile.Encode(buf)
+}
+
+// EncryptedFileClassSlice is adapter for slice of EncryptedFileClass.
+type EncryptedFileClassSlice []EncryptedFileClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s EncryptedFileClassSlice) AppendOnlyNotEmpty(to []*EncryptedFile) []*EncryptedFile {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s EncryptedFileClassSlice) AsNotEmpty() (to []*EncryptedFile) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s EncryptedFileClassSlice) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s EncryptedFileClassSlice) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedFileClassSlice) First() (v EncryptedFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedFileClassSlice) Last() (v EncryptedFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedFileClassSlice) PopFirst() (v EncryptedFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedFileClassSlice) Pop() (v EncryptedFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

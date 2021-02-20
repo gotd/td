@@ -50,6 +50,13 @@ func (e *MessagesExportChatInviteRequest) String() string {
 	return fmt.Sprintf("MessagesExportChatInviteRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesExportChatInviteRequest from given interface.
+func (e *MessagesExportChatInviteRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	e.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesExportChatInviteRequest) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (e *MessagesEditChatTitleRequest) String() string {
 	return fmt.Sprintf("MessagesEditChatTitleRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditChatTitleRequest from given interface.
+func (e *MessagesEditChatTitleRequest) FillFrom(from interface {
+	GetChatID() (value int)
+	GetTitle() (value string)
+}) {
+	e.ChatID = from.GetChatID()
+	e.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatTitleRequest) TypeID() uint32 {

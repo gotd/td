@@ -50,6 +50,13 @@ func (t *AccountTakeout) String() string {
 	return fmt.Sprintf("AccountTakeout%+v", Alias(*t))
 }
 
+// FillFrom fills AccountTakeout from given interface.
+func (t *AccountTakeout) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	t.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountTakeout) TypeID() uint32 {

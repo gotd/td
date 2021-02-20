@@ -70,6 +70,18 @@ func (g *ContactsGetLocatedRequest) String() string {
 	return fmt.Sprintf("ContactsGetLocatedRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ContactsGetLocatedRequest from given interface.
+func (g *ContactsGetLocatedRequest) FillFrom(from interface {
+	GetBackground() (value bool)
+	GetGeoPoint() (value InputGeoPointClass)
+	GetSelfExpires() (value int, ok bool)
+}) {
+	g.GeoPoint = from.GetGeoPoint()
+	if val, ok := from.GetSelfExpires(); ok {
+		g.SelfExpires = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetLocatedRequest) TypeID() uint32 {
@@ -122,6 +134,11 @@ func (g *ContactsGetLocatedRequest) GetBackground() (value bool) {
 // GetGeoPoint returns value of GeoPoint field.
 func (g *ContactsGetLocatedRequest) GetGeoPoint() (value InputGeoPointClass) {
 	return g.GeoPoint
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint field.
+func (g *ContactsGetLocatedRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	return g.GeoPoint.AsNotEmpty()
 }
 
 // SetSelfExpires sets value of SelfExpires conditional field.

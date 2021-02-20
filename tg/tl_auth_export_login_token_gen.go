@@ -72,6 +72,17 @@ func (e *AuthExportLoginTokenRequest) String() string {
 	return fmt.Sprintf("AuthExportLoginTokenRequest%+v", Alias(*e))
 }
 
+// FillFrom fills AuthExportLoginTokenRequest from given interface.
+func (e *AuthExportLoginTokenRequest) FillFrom(from interface {
+	GetAPIID() (value int)
+	GetAPIHash() (value string)
+	GetExceptIds() (value []int)
+}) {
+	e.APIID = from.GetAPIID()
+	e.APIHash = from.GetAPIHash()
+	e.ExceptIds = from.GetExceptIds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *AuthExportLoginTokenRequest) TypeID() uint32 {

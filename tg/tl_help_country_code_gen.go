@@ -72,6 +72,21 @@ func (c *HelpCountryCode) String() string {
 	return fmt.Sprintf("HelpCountryCode%+v", Alias(*c))
 }
 
+// FillFrom fills HelpCountryCode from given interface.
+func (c *HelpCountryCode) FillFrom(from interface {
+	GetCountryCode() (value string)
+	GetPrefixes() (value []string, ok bool)
+	GetPatterns() (value []string, ok bool)
+}) {
+	c.CountryCode = from.GetCountryCode()
+	if val, ok := from.GetPrefixes(); ok {
+		c.Prefixes = val
+	}
+	if val, ok := from.GetPatterns(); ok {
+		c.Patterns = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *HelpCountryCode) TypeID() uint32 {

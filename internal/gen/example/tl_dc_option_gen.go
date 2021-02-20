@@ -96,6 +96,26 @@ func (d *DcOption) String() string {
 	return fmt.Sprintf("DcOption%+v", Alias(*d))
 }
 
+// FillFrom fills DcOption from given interface.
+func (d *DcOption) FillFrom(from interface {
+	GetIpv6() (value bool)
+	GetMediaOnly() (value bool)
+	GetTcpoOnly() (value bool)
+	GetCDN() (value bool)
+	GetStatic() (value bool)
+	GetID() (value int)
+	GetIPAddress() (value string)
+	GetPort() (value int)
+	GetSecret() (value []byte, ok bool)
+}) {
+	d.ID = from.GetID()
+	d.IPAddress = from.GetIPAddress()
+	d.Port = from.GetPort()
+	if val, ok := from.GetSecret(); ok {
+		d.Secret = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DcOption) TypeID() uint32 {

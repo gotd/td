@@ -50,6 +50,13 @@ func (s *HelpSaveAppLogRequest) String() string {
 	return fmt.Sprintf("HelpSaveAppLogRequest%+v", Alias(*s))
 }
 
+// FillFrom fills HelpSaveAppLogRequest from given interface.
+func (s *HelpSaveAppLogRequest) FillFrom(from interface {
+	GetEvents() (value []InputAppEvent)
+}) {
+	s.Events = from.GetEvents()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSaveAppLogRequest) TypeID() uint32 {

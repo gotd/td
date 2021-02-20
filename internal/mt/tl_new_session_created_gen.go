@@ -57,6 +57,17 @@ func (n *NewSessionCreated) String() string {
 	return fmt.Sprintf("NewSessionCreated%+v", Alias(*n))
 }
 
+// FillFrom fills NewSessionCreated from given interface.
+func (n *NewSessionCreated) FillFrom(from interface {
+	GetFirstMsgID() (value int64)
+	GetUniqueID() (value int64)
+	GetServerSalt() (value int64)
+}) {
+	n.FirstMsgID = from.GetFirstMsgID()
+	n.UniqueID = from.GetUniqueID()
+	n.ServerSalt = from.GetServerSalt()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NewSessionCreated) TypeID() uint32 {

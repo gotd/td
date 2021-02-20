@@ -61,6 +61,15 @@ func (u *AccountUpdatePasswordSettingsRequest) String() string {
 	return fmt.Sprintf("AccountUpdatePasswordSettingsRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUpdatePasswordSettingsRequest from given interface.
+func (u *AccountUpdatePasswordSettingsRequest) FillFrom(from interface {
+	GetPassword() (value InputCheckPasswordSRPClass)
+	GetNewSettings() (value AccountPasswordInputSettings)
+}) {
+	u.Password = from.GetPassword()
+	u.NewSettings = from.GetNewSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdatePasswordSettingsRequest) TypeID() uint32 {
@@ -88,6 +97,11 @@ func (u *AccountUpdatePasswordSettingsRequest) Encode(b *bin.Buffer) error {
 // GetPassword returns value of Password field.
 func (u *AccountUpdatePasswordSettingsRequest) GetPassword() (value InputCheckPasswordSRPClass) {
 	return u.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (u *AccountUpdatePasswordSettingsRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return u.Password.AsNotEmpty()
 }
 
 // GetNewSettings returns value of NewSettings field.

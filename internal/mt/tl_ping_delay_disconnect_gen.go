@@ -52,6 +52,15 @@ func (p *PingDelayDisconnectRequest) String() string {
 	return fmt.Sprintf("PingDelayDisconnectRequest%+v", Alias(*p))
 }
 
+// FillFrom fills PingDelayDisconnectRequest from given interface.
+func (p *PingDelayDisconnectRequest) FillFrom(from interface {
+	GetPingID() (value int64)
+	GetDisconnectDelay() (value int)
+}) {
+	p.PingID = from.GetPingID()
+	p.DisconnectDelay = from.GetDisconnectDelay()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingDelayDisconnectRequest) TypeID() uint32 {

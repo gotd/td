@@ -56,6 +56,13 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) String() string {
 	return fmt.Sprintf("MessagesUpdateDialogFiltersOrderRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUpdateDialogFiltersOrderRequest from given interface.
+func (u *MessagesUpdateDialogFiltersOrderRequest) FillFrom(from interface {
+	GetOrder() (value []int)
+}) {
+	u.Order = from.GetOrder()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {

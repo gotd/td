@@ -68,6 +68,15 @@ func (s *AccountSaveAutoDownloadSettingsRequest) String() string {
 	return fmt.Sprintf("AccountSaveAutoDownloadSettingsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSaveAutoDownloadSettingsRequest from given interface.
+func (s *AccountSaveAutoDownloadSettingsRequest) FillFrom(from interface {
+	GetLow() (value bool)
+	GetHigh() (value bool)
+	GetSettings() (value AutoDownloadSettings)
+}) {
+	s.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {

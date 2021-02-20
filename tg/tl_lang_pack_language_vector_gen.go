@@ -47,6 +47,13 @@ func (vec *LangPackLanguageVector) String() string {
 	return fmt.Sprintf("LangPackLanguageVector%+v", Alias(*vec))
 }
 
+// FillFrom fills LangPackLanguageVector from given interface.
+func (vec *LangPackLanguageVector) FillFrom(from interface {
+	GetElems() (value []LangPackLanguage)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *LangPackLanguageVector) TypeID() uint32 {

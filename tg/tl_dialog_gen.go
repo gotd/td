@@ -128,6 +128,39 @@ func (d *Dialog) String() string {
 	return fmt.Sprintf("Dialog%+v", Alias(*d))
 }
 
+// FillFrom fills Dialog from given interface.
+func (d *Dialog) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetUnreadMark() (value bool)
+	GetPeer() (value PeerClass)
+	GetTopMessage() (value int)
+	GetReadInboxMaxID() (value int)
+	GetReadOutboxMaxID() (value int)
+	GetUnreadCount() (value int)
+	GetUnreadMentionsCount() (value int)
+	GetNotifySettings() (value PeerNotifySettings)
+	GetPts() (value int, ok bool)
+	GetDraft() (value DraftMessageClass, ok bool)
+	GetFolderID() (value int, ok bool)
+}) {
+	d.Peer = from.GetPeer()
+	d.TopMessage = from.GetTopMessage()
+	d.ReadInboxMaxID = from.GetReadInboxMaxID()
+	d.ReadOutboxMaxID = from.GetReadOutboxMaxID()
+	d.UnreadCount = from.GetUnreadCount()
+	d.UnreadMentionsCount = from.GetUnreadMentionsCount()
+	d.NotifySettings = from.GetNotifySettings()
+	if val, ok := from.GetPts(); ok {
+		d.Pts = val
+	}
+	if val, ok := from.GetDraft(); ok {
+		d.Draft = val
+	}
+	if val, ok := from.GetFolderID(); ok {
+		d.FolderID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Dialog) TypeID() uint32 {
@@ -473,6 +506,26 @@ func (d *DialogFolder) String() string {
 	return fmt.Sprintf("DialogFolder%+v", Alias(*d))
 }
 
+// FillFrom fills DialogFolder from given interface.
+func (d *DialogFolder) FillFrom(from interface {
+	GetPinned() (value bool)
+	GetFolder() (value Folder)
+	GetPeer() (value PeerClass)
+	GetTopMessage() (value int)
+	GetUnreadMutedPeersCount() (value int)
+	GetUnreadUnmutedPeersCount() (value int)
+	GetUnreadMutedMessagesCount() (value int)
+	GetUnreadUnmutedMessagesCount() (value int)
+}) {
+	d.Folder = from.GetFolder()
+	d.Peer = from.GetPeer()
+	d.TopMessage = from.GetTopMessage()
+	d.UnreadMutedPeersCount = from.GetUnreadMutedPeersCount()
+	d.UnreadUnmutedPeersCount = from.GetUnreadUnmutedPeersCount()
+	d.UnreadMutedMessagesCount = from.GetUnreadMutedMessagesCount()
+	d.UnreadUnmutedMessagesCount = from.GetUnreadUnmutedMessagesCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFolder) TypeID() uint32 {
@@ -719,4 +772,55 @@ func (b *DialogBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DialogClass as nil")
 	}
 	return b.Dialog.Encode(buf)
+}
+
+// DialogClassSlice is adapter for slice of DialogClass.
+type DialogClassSlice []DialogClass
+
+// First returns first element of slice (if exists).
+func (s DialogClassSlice) First() (v DialogClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogClassSlice) Last() (v DialogClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogClassSlice) PopFirst() (v DialogClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogClassSlice) Pop() (v DialogClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -78,6 +78,18 @@ func (u *MessagesUpdatePinnedMessageRequest) String() string {
 	return fmt.Sprintf("MessagesUpdatePinnedMessageRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUpdatePinnedMessageRequest from given interface.
+func (u *MessagesUpdatePinnedMessageRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetUnpin() (value bool)
+	GetPmOneside() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetID() (value int)
+}) {
+	u.Peer = from.GetPeer()
+	u.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdatePinnedMessageRequest) TypeID() uint32 {

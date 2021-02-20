@@ -55,6 +55,15 @@ func (c *ChannelParticipant) String() string {
 	return fmt.Sprintf("ChannelParticipant%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelParticipant from given interface.
+func (c *ChannelParticipant) FillFrom(from interface {
+	GetUserID() (value int)
+	GetDate() (value int)
+}) {
+	c.UserID = from.GetUserID()
+	c.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipant) TypeID() uint32 {
@@ -158,6 +167,17 @@ func (c *ChannelParticipantSelf) String() string {
 	}
 	type Alias ChannelParticipantSelf
 	return fmt.Sprintf("ChannelParticipantSelf%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantSelf from given interface.
+func (c *ChannelParticipantSelf) FillFrom(from interface {
+	GetUserID() (value int)
+	GetInviterID() (value int)
+	GetDate() (value int)
+}) {
+	c.UserID = from.GetUserID()
+	c.InviterID = from.GetInviterID()
+	c.Date = from.GetDate()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -286,6 +306,19 @@ func (c *ChannelParticipantCreator) String() string {
 	}
 	type Alias ChannelParticipantCreator
 	return fmt.Sprintf("ChannelParticipantCreator%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantCreator from given interface.
+func (c *ChannelParticipantCreator) FillFrom(from interface {
+	GetUserID() (value int)
+	GetAdminRights() (value ChatAdminRights)
+	GetRank() (value string, ok bool)
+}) {
+	c.UserID = from.GetUserID()
+	c.AdminRights = from.GetAdminRights()
+	if val, ok := from.GetRank(); ok {
+		c.Rank = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -467,6 +500,29 @@ func (c *ChannelParticipantAdmin) String() string {
 	}
 	type Alias ChannelParticipantAdmin
 	return fmt.Sprintf("ChannelParticipantAdmin%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantAdmin from given interface.
+func (c *ChannelParticipantAdmin) FillFrom(from interface {
+	GetCanEdit() (value bool)
+	GetSelf() (value bool)
+	GetUserID() (value int)
+	GetInviterID() (value int, ok bool)
+	GetPromotedBy() (value int)
+	GetDate() (value int)
+	GetAdminRights() (value ChatAdminRights)
+	GetRank() (value string, ok bool)
+}) {
+	c.UserID = from.GetUserID()
+	if val, ok := from.GetInviterID(); ok {
+		c.InviterID = val
+	}
+	c.PromotedBy = from.GetPromotedBy()
+	c.Date = from.GetDate()
+	c.AdminRights = from.GetAdminRights()
+	if val, ok := from.GetRank(); ok {
+		c.Rank = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -725,6 +781,20 @@ func (c *ChannelParticipantBanned) String() string {
 	return fmt.Sprintf("ChannelParticipantBanned%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelParticipantBanned from given interface.
+func (c *ChannelParticipantBanned) FillFrom(from interface {
+	GetLeft() (value bool)
+	GetUserID() (value int)
+	GetKickedBy() (value int)
+	GetDate() (value int)
+	GetBannedRights() (value ChatBannedRights)
+}) {
+	c.UserID = from.GetUserID()
+	c.KickedBy = from.GetKickedBy()
+	c.Date = from.GetDate()
+	c.BannedRights = from.GetBannedRights()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantBanned) TypeID() uint32 {
@@ -872,6 +942,13 @@ func (c *ChannelParticipantLeft) String() string {
 	}
 	type Alias ChannelParticipantLeft
 	return fmt.Sprintf("ChannelParticipantLeft%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelParticipantLeft from given interface.
+func (c *ChannelParticipantLeft) FillFrom(from interface {
+	GetUserID() (value int)
+}) {
+	c.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1037,4 +1114,55 @@ func (b *ChannelParticipantBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelParticipantClass as nil")
 	}
 	return b.ChannelParticipant.Encode(buf)
+}
+
+// ChannelParticipantClassSlice is adapter for slice of ChannelParticipantClass.
+type ChannelParticipantClassSlice []ChannelParticipantClass
+
+// First returns first element of slice (if exists).
+func (s ChannelParticipantClassSlice) First() (v ChannelParticipantClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelParticipantClassSlice) Last() (v ChannelParticipantClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelParticipantClassSlice) PopFirst() (v ChannelParticipantClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelParticipantClassSlice) Pop() (v ChannelParticipantClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

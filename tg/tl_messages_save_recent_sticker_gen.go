@@ -68,6 +68,16 @@ func (s *MessagesSaveRecentStickerRequest) String() string {
 	return fmt.Sprintf("MessagesSaveRecentStickerRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSaveRecentStickerRequest from given interface.
+func (s *MessagesSaveRecentStickerRequest) FillFrom(from interface {
+	GetAttached() (value bool)
+	GetID() (value InputDocumentClass)
+	GetUnsave() (value bool)
+}) {
+	s.ID = from.GetID()
+	s.Unsave = from.GetUnsave()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSaveRecentStickerRequest) TypeID() uint32 {
@@ -115,6 +125,11 @@ func (s *MessagesSaveRecentStickerRequest) GetAttached() (value bool) {
 // GetID returns value of ID field.
 func (s *MessagesSaveRecentStickerRequest) GetID() (value InputDocumentClass) {
 	return s.ID
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (s *MessagesSaveRecentStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return s.ID.AsNotEmpty()
 }
 
 // GetUnsave returns value of Unsave field.

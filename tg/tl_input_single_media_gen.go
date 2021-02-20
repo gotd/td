@@ -82,6 +82,21 @@ func (i *InputSingleMedia) String() string {
 	return fmt.Sprintf("InputSingleMedia%+v", Alias(*i))
 }
 
+// FillFrom fills InputSingleMedia from given interface.
+func (i *InputSingleMedia) FillFrom(from interface {
+	GetMedia() (value InputMediaClass)
+	GetRandomID() (value int64)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	i.Media = from.GetMedia()
+	i.RandomID = from.GetRandomID()
+	i.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		i.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSingleMedia) TypeID() uint32 {
@@ -150,6 +165,14 @@ func (i *InputSingleMedia) GetEntities() (value []MessageEntityClass, ok bool) {
 		return value, false
 	}
 	return i.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (i *InputSingleMedia) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return MessageEntityClassSlice(i.Entities), true
 }
 
 // Decode implements bin.Decoder.

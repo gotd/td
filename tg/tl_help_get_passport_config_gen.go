@@ -56,6 +56,13 @@ func (g *HelpGetPassportConfigRequest) String() string {
 	return fmt.Sprintf("HelpGetPassportConfigRequest%+v", Alias(*g))
 }
 
+// FillFrom fills HelpGetPassportConfigRequest from given interface.
+func (g *HelpGetPassportConfigRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetPassportConfigRequest) TypeID() uint32 {

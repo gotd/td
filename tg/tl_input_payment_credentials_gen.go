@@ -55,6 +55,15 @@ func (i *InputPaymentCredentialsSaved) String() string {
 	return fmt.Sprintf("InputPaymentCredentialsSaved%+v", Alias(*i))
 }
 
+// FillFrom fills InputPaymentCredentialsSaved from given interface.
+func (i *InputPaymentCredentialsSaved) FillFrom(from interface {
+	GetID() (value string)
+	GetTmpPassword() (value []byte)
+}) {
+	i.ID = from.GetID()
+	i.TmpPassword = from.GetTmpPassword()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsSaved) TypeID() uint32 {
@@ -161,6 +170,14 @@ func (i *InputPaymentCredentials) String() string {
 	}
 	type Alias InputPaymentCredentials
 	return fmt.Sprintf("InputPaymentCredentials%+v", Alias(*i))
+}
+
+// FillFrom fills InputPaymentCredentials from given interface.
+func (i *InputPaymentCredentials) FillFrom(from interface {
+	GetSave() (value bool)
+	GetData() (value DataJSON)
+}) {
+	i.Data = from.GetData()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -273,6 +290,13 @@ func (i *InputPaymentCredentialsApplePay) String() string {
 	return fmt.Sprintf("InputPaymentCredentialsApplePay%+v", Alias(*i))
 }
 
+// FillFrom fills InputPaymentCredentialsApplePay from given interface.
+func (i *InputPaymentCredentialsApplePay) FillFrom(from interface {
+	GetPaymentData() (value DataJSON)
+}) {
+	i.PaymentData = from.GetPaymentData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsApplePay) TypeID() uint32 {
@@ -352,6 +376,13 @@ func (i *InputPaymentCredentialsGooglePay) String() string {
 	}
 	type Alias InputPaymentCredentialsGooglePay
 	return fmt.Sprintf("InputPaymentCredentialsGooglePay%+v", Alias(*i))
+}
+
+// FillFrom fills InputPaymentCredentialsGooglePay from given interface.
+func (i *InputPaymentCredentialsGooglePay) FillFrom(from interface {
+	GetPaymentToken() (value DataJSON)
+}) {
+	i.PaymentToken = from.GetPaymentToken()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -498,4 +529,55 @@ func (b *InputPaymentCredentialsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPaymentCredentialsClass as nil")
 	}
 	return b.InputPaymentCredentials.Encode(buf)
+}
+
+// InputPaymentCredentialsClassSlice is adapter for slice of InputPaymentCredentialsClass.
+type InputPaymentCredentialsClassSlice []InputPaymentCredentialsClass
+
+// First returns first element of slice (if exists).
+func (s InputPaymentCredentialsClassSlice) First() (v InputPaymentCredentialsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPaymentCredentialsClassSlice) Last() (v InputPaymentCredentialsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsClassSlice) PopFirst() (v InputPaymentCredentialsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsClassSlice) Pop() (v InputPaymentCredentialsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

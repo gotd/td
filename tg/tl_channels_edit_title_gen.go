@@ -58,6 +58,15 @@ func (e *ChannelsEditTitleRequest) String() string {
 	return fmt.Sprintf("ChannelsEditTitleRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsEditTitleRequest from given interface.
+func (e *ChannelsEditTitleRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetTitle() (value string)
+}) {
+	e.Channel = from.GetChannel()
+	e.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditTitleRequest) TypeID() uint32 {
@@ -83,6 +92,11 @@ func (e *ChannelsEditTitleRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (e *ChannelsEditTitleRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsEditTitleRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
 }
 
 // GetTitle returns value of Title field.

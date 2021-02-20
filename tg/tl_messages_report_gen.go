@@ -60,6 +60,17 @@ func (r *MessagesReportRequest) String() string {
 	return fmt.Sprintf("MessagesReportRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReportRequest from given interface.
+func (r *MessagesReportRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetID() (value []int)
+	GetReason() (value ReportReasonClass)
+}) {
+	r.Peer = from.GetPeer()
+	r.ID = from.GetID()
+	r.Reason = from.GetReason()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReportRequest) TypeID() uint32 {

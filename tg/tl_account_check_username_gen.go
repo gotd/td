@@ -50,6 +50,13 @@ func (c *AccountCheckUsernameRequest) String() string {
 	return fmt.Sprintf("AccountCheckUsernameRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AccountCheckUsernameRequest from given interface.
+func (c *AccountCheckUsernameRequest) FillFrom(from interface {
+	GetUsername() (value string)
+}) {
+	c.Username = from.GetUsername()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountCheckUsernameRequest) TypeID() uint32 {

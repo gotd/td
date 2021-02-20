@@ -73,6 +73,18 @@ func (s *PhoneSetCallRatingRequest) String() string {
 	return fmt.Sprintf("PhoneSetCallRatingRequest%+v", Alias(*s))
 }
 
+// FillFrom fills PhoneSetCallRatingRequest from given interface.
+func (s *PhoneSetCallRatingRequest) FillFrom(from interface {
+	GetUserInitiative() (value bool)
+	GetPeer() (value InputPhoneCall)
+	GetRating() (value int)
+	GetComment() (value string)
+}) {
+	s.Peer = from.GetPeer()
+	s.Rating = from.GetRating()
+	s.Comment = from.GetComment()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSetCallRatingRequest) TypeID() uint32 {

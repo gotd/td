@@ -58,6 +58,12 @@ func (f *AccountFinishTakeoutSessionRequest) String() string {
 	return fmt.Sprintf("AccountFinishTakeoutSessionRequest%+v", Alias(*f))
 }
 
+// FillFrom fills AccountFinishTakeoutSessionRequest from given interface.
+func (f *AccountFinishTakeoutSessionRequest) FillFrom(from interface {
+	GetSuccess() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *AccountFinishTakeoutSessionRequest) TypeID() uint32 {

@@ -50,6 +50,13 @@ func (c *ChatEmpty) String() string {
 	return fmt.Sprintf("ChatEmpty%+v", Alias(*c))
 }
 
+// FillFrom fills ChatEmpty from given interface.
+func (c *ChatEmpty) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	c.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatEmpty) TypeID() uint32 {
@@ -226,6 +233,41 @@ func (c *Chat) String() string {
 	}
 	type Alias Chat
 	return fmt.Sprintf("Chat%+v", Alias(*c))
+}
+
+// FillFrom fills Chat from given interface.
+func (c *Chat) FillFrom(from interface {
+	GetCreator() (value bool)
+	GetKicked() (value bool)
+	GetLeft() (value bool)
+	GetDeactivated() (value bool)
+	GetCallActive() (value bool)
+	GetCallNotEmpty() (value bool)
+	GetID() (value int)
+	GetTitle() (value string)
+	GetPhoto() (value ChatPhotoClass)
+	GetParticipantsCount() (value int)
+	GetDate() (value int)
+	GetVersion() (value int)
+	GetMigratedTo() (value InputChannelClass, ok bool)
+	GetAdminRights() (value ChatAdminRights, ok bool)
+	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
+}) {
+	c.ID = from.GetID()
+	c.Title = from.GetTitle()
+	c.Photo = from.GetPhoto()
+	c.ParticipantsCount = from.GetParticipantsCount()
+	c.Date = from.GetDate()
+	c.Version = from.GetVersion()
+	if val, ok := from.GetMigratedTo(); ok {
+		c.MigratedTo = val
+	}
+	if val, ok := from.GetAdminRights(); ok {
+		c.AdminRights = val
+	}
+	if val, ok := from.GetDefaultBannedRights(); ok {
+		c.DefaultBannedRights = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -602,6 +644,15 @@ func (c *ChatForbidden) String() string {
 	return fmt.Sprintf("ChatForbidden%+v", Alias(*c))
 }
 
+// FillFrom fills ChatForbidden from given interface.
+func (c *ChatForbidden) FillFrom(from interface {
+	GetID() (value int)
+	GetTitle() (value string)
+}) {
+	c.ID = from.GetID()
+	c.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatForbidden) TypeID() uint32 {
@@ -859,6 +910,64 @@ func (c *Channel) String() string {
 	}
 	type Alias Channel
 	return fmt.Sprintf("Channel%+v", Alias(*c))
+}
+
+// FillFrom fills Channel from given interface.
+func (c *Channel) FillFrom(from interface {
+	GetCreator() (value bool)
+	GetLeft() (value bool)
+	GetBroadcast() (value bool)
+	GetVerified() (value bool)
+	GetMegagroup() (value bool)
+	GetRestricted() (value bool)
+	GetSignatures() (value bool)
+	GetMin() (value bool)
+	GetScam() (value bool)
+	GetHasLink() (value bool)
+	GetHasGeo() (value bool)
+	GetSlowmodeEnabled() (value bool)
+	GetCallActive() (value bool)
+	GetCallNotEmpty() (value bool)
+	GetFake() (value bool)
+	GetID() (value int)
+	GetAccessHash() (value int64, ok bool)
+	GetTitle() (value string)
+	GetUsername() (value string, ok bool)
+	GetPhoto() (value ChatPhotoClass)
+	GetDate() (value int)
+	GetVersion() (value int)
+	GetRestrictionReason() (value []RestrictionReason, ok bool)
+	GetAdminRights() (value ChatAdminRights, ok bool)
+	GetBannedRights() (value ChatBannedRights, ok bool)
+	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
+	GetParticipantsCount() (value int, ok bool)
+}) {
+	c.ID = from.GetID()
+	if val, ok := from.GetAccessHash(); ok {
+		c.AccessHash = val
+	}
+	c.Title = from.GetTitle()
+	if val, ok := from.GetUsername(); ok {
+		c.Username = val
+	}
+	c.Photo = from.GetPhoto()
+	c.Date = from.GetDate()
+	c.Version = from.GetVersion()
+	if val, ok := from.GetRestrictionReason(); ok {
+		c.RestrictionReason = val
+	}
+	if val, ok := from.GetAdminRights(); ok {
+		c.AdminRights = val
+	}
+	if val, ok := from.GetBannedRights(); ok {
+		c.BannedRights = val
+	}
+	if val, ok := from.GetDefaultBannedRights(); ok {
+		c.DefaultBannedRights = val
+	}
+	if val, ok := from.GetParticipantsCount(); ok {
+		c.ParticipantsCount = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1550,6 +1659,23 @@ func (c *ChannelForbidden) String() string {
 	return fmt.Sprintf("ChannelForbidden%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelForbidden from given interface.
+func (c *ChannelForbidden) FillFrom(from interface {
+	GetBroadcast() (value bool)
+	GetMegagroup() (value bool)
+	GetID() (value int)
+	GetAccessHash() (value int64)
+	GetTitle() (value string)
+	GetUntilDate() (value int, ok bool)
+}) {
+	c.ID = from.GetID()
+	c.AccessHash = from.GetAccessHash()
+	c.Title = from.GetTitle()
+	if val, ok := from.GetUntilDate(); ok {
+		c.UntilDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelForbidden) TypeID() uint32 {
@@ -1727,6 +1853,13 @@ type ChatClass interface {
 	// Group identifier
 	GetID() (value int)
 
+	// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+	AsNotEmpty() (NotEmptyChat, bool)
+	// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+	AsNotForbidden() (NotForbiddenChat, bool)
+	// AsFull tries to map ChatClass to FullChat.
+	AsFull() (FullChat, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -1734,6 +1867,178 @@ type ChatClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyChat represents NotEmpty subset of ChatClass.
+type NotEmptyChat interface {
+	bin.Encoder
+	bin.Decoder
+	construct() ChatClass
+
+	// ID of the group
+	GetID() (value int)
+	// Title
+	GetTitle() (value string)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+func (c *ChatEmpty) AsNotEmpty() (NotEmptyChat, bool) {
+	value, ok := (ChatClass(c)).(NotEmptyChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+func (c *Chat) AsNotEmpty() (NotEmptyChat, bool) {
+	value, ok := (ChatClass(c)).(NotEmptyChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+func (c *ChatForbidden) AsNotEmpty() (NotEmptyChat, bool) {
+	value, ok := (ChatClass(c)).(NotEmptyChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+func (c *Channel) AsNotEmpty() (NotEmptyChat, bool) {
+	value, ok := (ChatClass(c)).(NotEmptyChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+func (c *ChannelForbidden) AsNotEmpty() (NotEmptyChat, bool) {
+	value, ok := (ChatClass(c)).(NotEmptyChat)
+	return value, ok
+}
+
+// NotForbiddenChat represents NotForbidden subset of ChatClass.
+type NotForbiddenChat interface {
+	bin.Encoder
+	bin.Decoder
+	construct() ChatClass
+
+	// Group identifier
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+func (c *ChatEmpty) AsNotForbidden() (NotForbiddenChat, bool) {
+	value, ok := (ChatClass(c)).(NotForbiddenChat)
+	return value, ok
+}
+
+// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+func (c *Chat) AsNotForbidden() (NotForbiddenChat, bool) {
+	value, ok := (ChatClass(c)).(NotForbiddenChat)
+	return value, ok
+}
+
+// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+func (c *ChatForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
+	value, ok := (ChatClass(c)).(NotForbiddenChat)
+	return value, ok
+}
+
+// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+func (c *Channel) AsNotForbidden() (NotForbiddenChat, bool) {
+	value, ok := (ChatClass(c)).(NotForbiddenChat)
+	return value, ok
+}
+
+// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+func (c *ChannelForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
+	value, ok := (ChatClass(c)).(NotForbiddenChat)
+	return value, ok
+}
+
+// FullChat represents Full subset of ChatClass.
+type FullChat interface {
+	bin.Encoder
+	bin.Decoder
+	construct() ChatClass
+
+	// Whether the current user is the creator of the group
+	GetCreator() (value bool)
+	// Whether the current user has left the group
+	GetLeft() (value bool)
+	// CallActive field of Chat.
+	GetCallActive() (value bool)
+	// CallNotEmpty field of Chat.
+	GetCallNotEmpty() (value bool)
+	// ID of the group
+	GetID() (value int)
+	// Title
+	GetTitle() (value string)
+	// Chat photo
+	GetPhoto() (value ChatPhotoClass)
+	// Date of creation of the group
+	GetDate() (value int)
+	// Used in basic groups to reorder updates and make sure that all of them were received.
+	GetVersion() (value int)
+	// Admin rights¹ of the user in the group
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
+	GetAdminRights() (value ChatAdminRights, ok bool)
+	// Default banned rights¹ of all users in the group
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/rights
+	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsFull tries to map ChatClass to FullChat.
+func (c *ChatEmpty) AsFull() (FullChat, bool) {
+	value, ok := (ChatClass(c)).(FullChat)
+	return value, ok
+}
+
+// AsFull tries to map ChatClass to FullChat.
+func (c *Chat) AsFull() (FullChat, bool) {
+	value, ok := (ChatClass(c)).(FullChat)
+	return value, ok
+}
+
+// AsFull tries to map ChatClass to FullChat.
+func (c *ChatForbidden) AsFull() (FullChat, bool) {
+	value, ok := (ChatClass(c)).(FullChat)
+	return value, ok
+}
+
+// AsFull tries to map ChatClass to FullChat.
+func (c *Channel) AsFull() (FullChat, bool) {
+	value, ok := (ChatClass(c)).(FullChat)
+	return value, ok
+}
+
+// AsFull tries to map ChatClass to FullChat.
+func (c *ChannelForbidden) AsFull() (FullChat, bool) {
+	value, ok := (ChatClass(c)).(FullChat)
+	return value, ok
 }
 
 // DecodeChat implements binary de-serialization for ChatClass.
@@ -1807,4 +2112,310 @@ func (b *ChatBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatClass as nil")
 	}
 	return b.Chat.Encode(buf)
+}
+
+// ChatClassSlice is adapter for slice of ChatClass.
+type ChatClassSlice []ChatClass
+
+// FillChatEmptyMap fills only ChatEmpty constructors to given map.
+func (s ChatClassSlice) FillChatEmptyMap(to map[int]*ChatEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChatEmptyToMap collects only ChatEmpty constructors to map.
+func (s ChatClassSlice) ChatEmptyToMap() map[int]*ChatEmpty {
+	r := make(map[int]*ChatEmpty, len(s))
+	s.FillChatEmptyMap(r)
+	return r
+}
+
+// FillChatMap fills only Chat constructors to given map.
+func (s ChatClassSlice) FillChatMap(to map[int]*Chat) {
+	for _, elem := range s {
+		value, ok := elem.(*Chat)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChatToMap collects only Chat constructors to map.
+func (s ChatClassSlice) ChatToMap() map[int]*Chat {
+	r := make(map[int]*Chat, len(s))
+	s.FillChatMap(r)
+	return r
+}
+
+// FillChatForbiddenMap fills only ChatForbidden constructors to given map.
+func (s ChatClassSlice) FillChatForbiddenMap(to map[int]*ChatForbidden) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatForbidden)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChatForbiddenToMap collects only ChatForbidden constructors to map.
+func (s ChatClassSlice) ChatForbiddenToMap() map[int]*ChatForbidden {
+	r := make(map[int]*ChatForbidden, len(s))
+	s.FillChatForbiddenMap(r)
+	return r
+}
+
+// FillChannelMap fills only Channel constructors to given map.
+func (s ChatClassSlice) FillChannelMap(to map[int]*Channel) {
+	for _, elem := range s {
+		value, ok := elem.(*Channel)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChannelToMap collects only Channel constructors to map.
+func (s ChatClassSlice) ChannelToMap() map[int]*Channel {
+	r := make(map[int]*Channel, len(s))
+	s.FillChannelMap(r)
+	return r
+}
+
+// FillChannelForbiddenMap fills only ChannelForbidden constructors to given map.
+func (s ChatClassSlice) FillChannelForbiddenMap(to map[int]*ChannelForbidden) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelForbidden)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// ChannelForbiddenToMap collects only ChannelForbidden constructors to map.
+func (s ChatClassSlice) ChannelForbiddenToMap() map[int]*ChannelForbidden {
+	r := make(map[int]*ChannelForbidden, len(s))
+	s.FillChannelForbiddenMap(r)
+	return r
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s ChatClassSlice) FillNotEmptyMap(to map[int]NotEmptyChat) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s ChatClassSlice) NotEmptyToMap() map[int]NotEmptyChat {
+	r := make(map[int]NotEmptyChat, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s ChatClassSlice) AppendOnlyNotEmpty(to []NotEmptyChat) []NotEmptyChat {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s ChatClassSlice) AsNotEmpty() (to []NotEmptyChat) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s ChatClassSlice) FirstAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s ChatClassSlice) LastAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// FillNotForbiddenMap fills only NotForbidden constructors to given map.
+func (s ChatClassSlice) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
+	for _, elem := range s {
+		value, ok := elem.AsNotForbidden()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotForbiddenToMap collects only NotForbidden constructors to map.
+func (s ChatClassSlice) NotForbiddenToMap() map[int]NotForbiddenChat {
+	r := make(map[int]NotForbiddenChat, len(s))
+	s.FillNotForbiddenMap(r)
+	return r
+}
+
+// AppendOnlyNotForbidden appends only NotForbidden constructors to
+// given slice.
+func (s ChatClassSlice) AppendOnlyNotForbidden(to []NotForbiddenChat) []NotForbiddenChat {
+	for _, elem := range s {
+		value, ok := elem.AsNotForbidden()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotForbidden returns copy with only NotForbidden constructors.
+func (s ChatClassSlice) AsNotForbidden() (to []NotForbiddenChat) {
+	return s.AppendOnlyNotForbidden(to)
+}
+
+// FirstAsNotForbidden returns first element of slice (if exists).
+func (s ChatClassSlice) FirstAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// LastAsNotForbidden returns last element of slice (if exists).
+func (s ChatClassSlice) LastAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// FillFullMap fills only Full constructors to given map.
+func (s ChatClassSlice) FillFullMap(to map[int]FullChat) {
+	for _, elem := range s {
+		value, ok := elem.AsFull()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// FullToMap collects only Full constructors to map.
+func (s ChatClassSlice) FullToMap() map[int]FullChat {
+	r := make(map[int]FullChat, len(s))
+	s.FillFullMap(r)
+	return r
+}
+
+// AppendOnlyFull appends only Full constructors to
+// given slice.
+func (s ChatClassSlice) AppendOnlyFull(to []FullChat) []FullChat {
+	for _, elem := range s {
+		value, ok := elem.AsFull()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsFull returns copy with only Full constructors.
+func (s ChatClassSlice) AsFull() (to []FullChat) {
+	return s.AppendOnlyFull(to)
+}
+
+// FirstAsFull returns first element of slice (if exists).
+func (s ChatClassSlice) FirstAsFull() (v FullChat, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// LastAsFull returns last element of slice (if exists).
+func (s ChatClassSlice) LastAsFull() (v FullChat, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// First returns first element of slice (if exists).
+func (s ChatClassSlice) First() (v ChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatClassSlice) Last() (v ChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatClassSlice) PopFirst() (v ChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatClassSlice) Pop() (v ChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

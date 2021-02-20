@@ -63,6 +63,13 @@ func (c *PaymentsClearSavedInfoRequest) String() string {
 	return fmt.Sprintf("PaymentsClearSavedInfoRequest%+v", Alias(*c))
 }
 
+// FillFrom fills PaymentsClearSavedInfoRequest from given interface.
+func (c *PaymentsClearSavedInfoRequest) FillFrom(from interface {
+	GetCredentials() (value bool)
+	GetInfo() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *PaymentsClearSavedInfoRequest) TypeID() uint32 {

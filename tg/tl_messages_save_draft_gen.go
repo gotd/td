@@ -88,6 +88,24 @@ func (s *MessagesSaveDraftRequest) String() string {
 	return fmt.Sprintf("MessagesSaveDraftRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSaveDraftRequest from given interface.
+func (s *MessagesSaveDraftRequest) FillFrom(from interface {
+	GetNoWebpage() (value bool)
+	GetReplyToMsgID() (value int, ok bool)
+	GetPeer() (value InputPeerClass)
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	if val, ok := from.GetReplyToMsgID(); ok {
+		s.ReplyToMsgID = val
+	}
+	s.Peer = from.GetPeer()
+	s.Message = from.GetMessage()
+	if val, ok := from.GetEntities(); ok {
+		s.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSaveDraftRequest) TypeID() uint32 {
@@ -190,6 +208,14 @@ func (s *MessagesSaveDraftRequest) GetEntities() (value []MessageEntityClass, ok
 		return value, false
 	}
 	return s.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !s.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassSlice(s.Entities), true
 }
 
 // Decode implements bin.Decoder.

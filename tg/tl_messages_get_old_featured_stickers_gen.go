@@ -66,6 +66,17 @@ func (g *MessagesGetOldFeaturedStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetOldFeaturedStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetOldFeaturedStickersRequest from given interface.
+func (g *MessagesGetOldFeaturedStickersRequest) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLimit() (value int)
+	GetHash() (value int)
+}) {
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetOldFeaturedStickersRequest) TypeID() uint32 {

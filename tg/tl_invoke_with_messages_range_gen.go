@@ -55,6 +55,15 @@ func (i *InvokeWithMessagesRangeRequest) String() string {
 	return fmt.Sprintf("InvokeWithMessagesRangeRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InvokeWithMessagesRangeRequest from given interface.
+func (i *InvokeWithMessagesRangeRequest) FillFrom(from interface {
+	GetRange() (value MessageRange)
+	GetQuery() (value bin.Object)
+}) {
+	i.Range = from.GetRange()
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeWithMessagesRangeRequest) TypeID() uint32 {

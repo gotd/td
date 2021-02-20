@@ -55,6 +55,15 @@ func (i *MessagesInstallStickerSetRequest) String() string {
 	return fmt.Sprintf("MessagesInstallStickerSetRequest%+v", Alias(*i))
 }
 
+// FillFrom fills MessagesInstallStickerSetRequest from given interface.
+func (i *MessagesInstallStickerSetRequest) FillFrom(from interface {
+	GetStickerset() (value InputStickerSetClass)
+	GetArchived() (value bool)
+}) {
+	i.Stickerset = from.GetStickerset()
+	i.Archived = from.GetArchived()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *MessagesInstallStickerSetRequest) TypeID() uint32 {

@@ -113,6 +113,35 @@ func (p *PaymentsPaymentReceipt) String() string {
 	return fmt.Sprintf("PaymentsPaymentReceipt%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentsPaymentReceipt from given interface.
+func (p *PaymentsPaymentReceipt) FillFrom(from interface {
+	GetDate() (value int)
+	GetBotID() (value int)
+	GetInvoice() (value Invoice)
+	GetProviderID() (value int)
+	GetInfo() (value PaymentRequestedInfo, ok bool)
+	GetShipping() (value ShippingOption, ok bool)
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+	GetCredentialsTitle() (value string)
+	GetUsers() (value []UserClass)
+}) {
+	p.Date = from.GetDate()
+	p.BotID = from.GetBotID()
+	p.Invoice = from.GetInvoice()
+	p.ProviderID = from.GetProviderID()
+	if val, ok := from.GetInfo(); ok {
+		p.Info = val
+	}
+	if val, ok := from.GetShipping(); ok {
+		p.Shipping = val
+	}
+	p.Currency = from.GetCurrency()
+	p.TotalAmount = from.GetTotalAmount()
+	p.CredentialsTitle = from.GetCredentialsTitle()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentReceipt) TypeID() uint32 {
@@ -233,6 +262,11 @@ func (p *PaymentsPaymentReceipt) GetCredentialsTitle() (value string) {
 // GetUsers returns value of Users field.
 func (p *PaymentsPaymentReceipt) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *PaymentsPaymentReceipt) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.

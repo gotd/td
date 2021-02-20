@@ -54,6 +54,13 @@ func (s *SecurePlainPhone) String() string {
 	return fmt.Sprintf("SecurePlainPhone%+v", Alias(*s))
 }
 
+// FillFrom fills SecurePlainPhone from given interface.
+func (s *SecurePlainPhone) FillFrom(from interface {
+	GetPhone() (value string)
+}) {
+	s.Phone = from.GetPhone()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePlainPhone) TypeID() uint32 {
@@ -138,6 +145,13 @@ func (s *SecurePlainEmail) String() string {
 	}
 	type Alias SecurePlainEmail
 	return fmt.Sprintf("SecurePlainEmail%+v", Alias(*s))
+}
+
+// FillFrom fills SecurePlainEmail from given interface.
+func (s *SecurePlainEmail) FillFrom(from interface {
+	GetEmail() (value string)
+}) {
+	s.Email = from.GetEmail()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -268,4 +282,55 @@ func (b *SecurePlainDataBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SecurePlainDataClass as nil")
 	}
 	return b.SecurePlainData.Encode(buf)
+}
+
+// SecurePlainDataClassSlice is adapter for slice of SecurePlainDataClass.
+type SecurePlainDataClassSlice []SecurePlainDataClass
+
+// First returns first element of slice (if exists).
+func (s SecurePlainDataClassSlice) First() (v SecurePlainDataClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecurePlainDataClassSlice) Last() (v SecurePlainDataClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecurePlainDataClassSlice) PopFirst() (v SecurePlainDataClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecurePlainDataClassSlice) Pop() (v SecurePlainDataClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -57,6 +57,17 @@ func (f *FutureSalts) String() string {
 	return fmt.Sprintf("FutureSalts%+v", Alias(*f))
 }
 
+// FillFrom fills FutureSalts from given interface.
+func (f *FutureSalts) FillFrom(from interface {
+	GetReqMsgID() (value int64)
+	GetNow() (value int)
+	GetSalts() (value []FutureSalt)
+}) {
+	f.ReqMsgID = from.GetReqMsgID()
+	f.Now = from.GetNow()
+	f.Salts = from.GetSalts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FutureSalts) TypeID() uint32 {

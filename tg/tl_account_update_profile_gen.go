@@ -74,6 +74,23 @@ func (u *AccountUpdateProfileRequest) String() string {
 	return fmt.Sprintf("AccountUpdateProfileRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUpdateProfileRequest from given interface.
+func (u *AccountUpdateProfileRequest) FillFrom(from interface {
+	GetFirstName() (value string, ok bool)
+	GetLastName() (value string, ok bool)
+	GetAbout() (value string, ok bool)
+}) {
+	if val, ok := from.GetFirstName(); ok {
+		u.FirstName = val
+	}
+	if val, ok := from.GetLastName(); ok {
+		u.LastName = val
+	}
+	if val, ok := from.GetAbout(); ok {
+		u.About = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateProfileRequest) TypeID() uint32 {

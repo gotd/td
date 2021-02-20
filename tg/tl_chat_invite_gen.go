@@ -50,6 +50,13 @@ func (c *ChatInviteAlready) String() string {
 	return fmt.Sprintf("ChatInviteAlready%+v", Alias(*c))
 }
 
+// FillFrom fills ChatInviteAlready from given interface.
+func (c *ChatInviteAlready) FillFrom(from interface {
+	GetChat() (value ChatClass)
+}) {
+	c.Chat = from.GetChat()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteAlready) TypeID() uint32 {
@@ -193,6 +200,25 @@ func (c *ChatInvite) String() string {
 	}
 	type Alias ChatInvite
 	return fmt.Sprintf("ChatInvite%+v", Alias(*c))
+}
+
+// FillFrom fills ChatInvite from given interface.
+func (c *ChatInvite) FillFrom(from interface {
+	GetChannel() (value bool)
+	GetBroadcast() (value bool)
+	GetPublic() (value bool)
+	GetMegagroup() (value bool)
+	GetTitle() (value string)
+	GetPhoto() (value PhotoClass)
+	GetParticipantsCount() (value int)
+	GetParticipants() (value []UserClass, ok bool)
+}) {
+	c.Title = from.GetTitle()
+	c.Photo = from.GetPhoto()
+	c.ParticipantsCount = from.GetParticipantsCount()
+	if val, ok := from.GetParticipants(); ok {
+		c.Participants = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -341,6 +367,14 @@ func (c *ChatInvite) GetParticipants() (value []UserClass, ok bool) {
 	return c.Participants, true
 }
 
+// MapParticipants returns field Participants wrapped in UserClassSlice helper.
+func (c *ChatInvite) MapParticipants() (value UserClassSlice, ok bool) {
+	if !c.Flags.Has(4) {
+		return value, false
+	}
+	return UserClassSlice(c.Participants), true
+}
+
 // Decode implements bin.Decoder.
 func (c *ChatInvite) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -441,6 +475,15 @@ func (c *ChatInvitePeek) String() string {
 	}
 	type Alias ChatInvitePeek
 	return fmt.Sprintf("ChatInvitePeek%+v", Alias(*c))
+}
+
+// FillFrom fills ChatInvitePeek from given interface.
+func (c *ChatInvitePeek) FillFrom(from interface {
+	GetChat() (value ChatClass)
+	GetExpires() (value int)
+}) {
+	c.Chat = from.GetChat()
+	c.Expires = from.GetExpires()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -597,4 +640,55 @@ func (b *ChatInviteBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatInviteClass as nil")
 	}
 	return b.ChatInvite.Encode(buf)
+}
+
+// ChatInviteClassSlice is adapter for slice of ChatInviteClass.
+type ChatInviteClassSlice []ChatInviteClass
+
+// First returns first element of slice (if exists).
+func (s ChatInviteClassSlice) First() (v ChatInviteClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatInviteClassSlice) Last() (v ChatInviteClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatInviteClassSlice) PopFirst() (v ChatInviteClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatInviteClassSlice) Pop() (v ChatInviteClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

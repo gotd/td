@@ -55,6 +55,15 @@ func (a *MessagesArchivedStickers) String() string {
 	return fmt.Sprintf("MessagesArchivedStickers%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesArchivedStickers from given interface.
+func (a *MessagesArchivedStickers) FillFrom(from interface {
+	GetCount() (value int)
+	GetSets() (value []StickerSetCoveredClass)
+}) {
+	a.Count = from.GetCount()
+	a.Sets = from.GetSets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesArchivedStickers) TypeID() uint32 {
@@ -88,6 +97,11 @@ func (a *MessagesArchivedStickers) GetCount() (value int) {
 // GetSets returns value of Sets field.
 func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
 	return a.Sets
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
+func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassSlice) {
+	return StickerSetCoveredClassSlice(a.Sets)
 }
 
 // Decode implements bin.Decoder.

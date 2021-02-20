@@ -88,6 +88,25 @@ func (v *VideoSize) String() string {
 	return fmt.Sprintf("VideoSize%+v", Alias(*v))
 }
 
+// FillFrom fills VideoSize from given interface.
+func (v *VideoSize) FillFrom(from interface {
+	GetType() (value string)
+	GetLocation() (value FileLocationToBeDeprecated)
+	GetW() (value int)
+	GetH() (value int)
+	GetSize() (value int)
+	GetVideoStartTs() (value float64, ok bool)
+}) {
+	v.Type = from.GetType()
+	v.Location = from.GetLocation()
+	v.W = from.GetW()
+	v.H = from.GetH()
+	v.Size = from.GetSize()
+	if val, ok := from.GetVideoStartTs(); ok {
+		v.VideoStartTs = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *VideoSize) TypeID() uint32 {

@@ -127,6 +127,14 @@ func (c *ChannelMessagesFilter) String() string {
 	return fmt.Sprintf("ChannelMessagesFilter%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelMessagesFilter from given interface.
+func (c *ChannelMessagesFilter) FillFrom(from interface {
+	GetExcludeNewMessages() (value bool)
+	GetRanges() (value []MessageRange)
+}) {
+	c.Ranges = from.GetRanges()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelMessagesFilter) TypeID() uint32 {
@@ -235,6 +243,9 @@ type ChannelMessagesFilterClass interface {
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
 
+	// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+	AsNotEmpty() (*ChannelMessagesFilter, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -242,6 +253,16 @@ type ChannelMessagesFilterClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+func (c *ChannelMessagesFilterEmpty) AsNotEmpty() (*ChannelMessagesFilter, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+func (c *ChannelMessagesFilter) AsNotEmpty() (*ChannelMessagesFilter, bool) {
+	return c, true
 }
 
 // DecodeChannelMessagesFilter implements binary de-serialization for ChannelMessagesFilterClass.
@@ -294,4 +315,92 @@ func (b *ChannelMessagesFilterBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChannelMessagesFilterClass as nil")
 	}
 	return b.ChannelMessagesFilter.Encode(buf)
+}
+
+// ChannelMessagesFilterClassSlice is adapter for slice of ChannelMessagesFilterClass.
+type ChannelMessagesFilterClassSlice []ChannelMessagesFilterClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s ChannelMessagesFilterClassSlice) AppendOnlyNotEmpty(to []*ChannelMessagesFilter) []*ChannelMessagesFilter {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s ChannelMessagesFilterClassSlice) AsNotEmpty() (to []*ChannelMessagesFilter) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s ChannelMessagesFilterClassSlice) FirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s ChannelMessagesFilterClassSlice) LastAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelMessagesFilterClassSlice) First() (v ChannelMessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelMessagesFilterClassSlice) Last() (v ChannelMessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelMessagesFilterClassSlice) PopFirst() (v ChannelMessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelMessagesFilterClassSlice) Pop() (v ChannelMessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -72,6 +72,23 @@ func (r *ReqDHParamsRequest) String() string {
 	return fmt.Sprintf("ReqDHParamsRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ReqDHParamsRequest from given interface.
+func (r *ReqDHParamsRequest) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetP() (value []byte)
+	GetQ() (value []byte)
+	GetPublicKeyFingerprint() (value int64)
+	GetEncryptedData() (value []byte)
+}) {
+	r.Nonce = from.GetNonce()
+	r.ServerNonce = from.GetServerNonce()
+	r.P = from.GetP()
+	r.Q = from.GetQ()
+	r.PublicKeyFingerprint = from.GetPublicKeyFingerprint()
+	r.EncryptedData = from.GetEncryptedData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqDHParamsRequest) TypeID() uint32 {

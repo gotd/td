@@ -55,6 +55,15 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) String() string {
 	return fmt.Sprintf("ChannelsTogglePreHistoryHiddenRequest%+v", Alias(*t))
 }
 
+// FillFrom fills ChannelsTogglePreHistoryHiddenRequest from given interface.
+func (t *ChannelsTogglePreHistoryHiddenRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetEnabled() (value bool)
+}) {
+	t.Channel = from.GetChannel()
+	t.Enabled = from.GetEnabled()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsTogglePreHistoryHiddenRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannel() (value InputChannelClass) {
 	return t.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsTogglePreHistoryHiddenRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
 }
 
 // GetEnabled returns value of Enabled field.

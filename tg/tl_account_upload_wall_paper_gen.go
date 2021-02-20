@@ -60,6 +60,17 @@ func (u *AccountUploadWallPaperRequest) String() string {
 	return fmt.Sprintf("AccountUploadWallPaperRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUploadWallPaperRequest from given interface.
+func (u *AccountUploadWallPaperRequest) FillFrom(from interface {
+	GetFile() (value InputFileClass)
+	GetMimeType() (value string)
+	GetSettings() (value WallPaperSettings)
+}) {
+	u.File = from.GetFile()
+	u.MimeType = from.GetMimeType()
+	u.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUploadWallPaperRequest) TypeID() uint32 {

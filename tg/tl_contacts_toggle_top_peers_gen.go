@@ -53,6 +53,13 @@ func (t *ContactsToggleTopPeersRequest) String() string {
 	return fmt.Sprintf("ContactsToggleTopPeersRequest%+v", Alias(*t))
 }
 
+// FillFrom fills ContactsToggleTopPeersRequest from given interface.
+func (t *ContactsToggleTopPeersRequest) FillFrom(from interface {
+	GetEnabled() (value bool)
+}) {
+	t.Enabled = from.GetEnabled()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsToggleTopPeersRequest) TypeID() uint32 {

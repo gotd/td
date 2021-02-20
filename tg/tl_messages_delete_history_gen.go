@@ -73,6 +73,17 @@ func (d *MessagesDeleteHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesDeleteHistoryRequest%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDeleteHistoryRequest from given interface.
+func (d *MessagesDeleteHistoryRequest) FillFrom(from interface {
+	GetJustClear() (value bool)
+	GetRevoke() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetMaxID() (value int)
+}) {
+	d.Peer = from.GetPeer()
+	d.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteHistoryRequest) TypeID() uint32 {

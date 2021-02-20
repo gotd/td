@@ -83,6 +83,22 @@ func (t *HelpTermsOfService) String() string {
 	return fmt.Sprintf("HelpTermsOfService%+v", Alias(*t))
 }
 
+// FillFrom fills HelpTermsOfService from given interface.
+func (t *HelpTermsOfService) FillFrom(from interface {
+	GetPopup() (value bool)
+	GetID() (value DataJSON)
+	GetText() (value string)
+	GetEntities() (value []MessageEntityClass)
+	GetMinAgeConfirm() (value int, ok bool)
+}) {
+	t.ID = from.GetID()
+	t.Text = from.GetText()
+	t.Entities = from.GetEntities()
+	if val, ok := from.GetMinAgeConfirm(); ok {
+		t.MinAgeConfirm = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfService) TypeID() uint32 {
@@ -152,6 +168,11 @@ func (t *HelpTermsOfService) GetText() (value string) {
 // GetEntities returns value of Entities field.
 func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
 	return t.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (t *HelpTermsOfService) MapEntities() (value MessageEntityClassSlice) {
+	return MessageEntityClassSlice(t.Entities)
 }
 
 // SetMinAgeConfirm sets value of MinAgeConfirm conditional field.

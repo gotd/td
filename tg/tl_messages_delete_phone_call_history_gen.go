@@ -54,6 +54,12 @@ func (d *MessagesDeletePhoneCallHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesDeletePhoneCallHistoryRequest%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDeletePhoneCallHistoryRequest from given interface.
+func (d *MessagesDeletePhoneCallHistoryRequest) FillFrom(from interface {
+	GetRevoke() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeletePhoneCallHistoryRequest) TypeID() uint32 {

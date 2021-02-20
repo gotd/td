@@ -50,6 +50,13 @@ func (s *AccountSetAccountTTLRequest) String() string {
 	return fmt.Sprintf("AccountSetAccountTTLRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSetAccountTTLRequest from given interface.
+func (s *AccountSetAccountTTLRequest) FillFrom(from interface {
+	GetTTL() (value AccountDaysTTL)
+}) {
+	s.TTL = from.GetTTL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetAccountTTLRequest) TypeID() uint32 {

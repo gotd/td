@@ -137,6 +137,18 @@ func (c *ChatPhoto) String() string {
 	return fmt.Sprintf("ChatPhoto%+v", Alias(*c))
 }
 
+// FillFrom fills ChatPhoto from given interface.
+func (c *ChatPhoto) FillFrom(from interface {
+	GetHasVideo() (value bool)
+	GetPhotoSmall() (value FileLocationToBeDeprecated)
+	GetPhotoBig() (value FileLocationToBeDeprecated)
+	GetDCID() (value int)
+}) {
+	c.PhotoSmall = from.GetPhotoSmall()
+	c.PhotoBig = from.GetPhotoBig()
+	c.DCID = from.GetDCID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatPhoto) TypeID() uint32 {
@@ -260,6 +272,9 @@ type ChatPhotoClass interface {
 	bin.Decoder
 	construct() ChatPhotoClass
 
+	// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+	AsNotEmpty() (*ChatPhoto, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -267,6 +282,16 @@ type ChatPhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+func (c *ChatPhotoEmpty) AsNotEmpty() (*ChatPhoto, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+func (c *ChatPhoto) AsNotEmpty() (*ChatPhoto, bool) {
+	return c, true
 }
 
 // DecodeChatPhoto implements binary de-serialization for ChatPhotoClass.
@@ -319,4 +344,92 @@ func (b *ChatPhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatPhotoClass as nil")
 	}
 	return b.ChatPhoto.Encode(buf)
+}
+
+// ChatPhotoClassSlice is adapter for slice of ChatPhotoClass.
+type ChatPhotoClassSlice []ChatPhotoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s ChatPhotoClassSlice) AppendOnlyNotEmpty(to []*ChatPhoto) []*ChatPhoto {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s ChatPhotoClassSlice) AsNotEmpty() (to []*ChatPhoto) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s ChatPhotoClassSlice) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s ChatPhotoClassSlice) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s ChatPhotoClassSlice) First() (v ChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatPhotoClassSlice) Last() (v ChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatPhotoClassSlice) PopFirst() (v ChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatPhotoClassSlice) Pop() (v ChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

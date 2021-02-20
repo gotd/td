@@ -66,6 +66,19 @@ func (m *MaskCoords) String() string {
 	return fmt.Sprintf("MaskCoords%+v", Alias(*m))
 }
 
+// FillFrom fills MaskCoords from given interface.
+func (m *MaskCoords) FillFrom(from interface {
+	GetN() (value int)
+	GetX() (value float64)
+	GetY() (value float64)
+	GetZoom() (value float64)
+}) {
+	m.N = from.GetN()
+	m.X = from.GetX()
+	m.Y = from.GetY()
+	m.Zoom = from.GetZoom()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MaskCoords) TypeID() uint32 {

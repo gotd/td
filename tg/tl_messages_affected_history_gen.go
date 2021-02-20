@@ -60,6 +60,17 @@ func (a *MessagesAffectedHistory) String() string {
 	return fmt.Sprintf("MessagesAffectedHistory%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAffectedHistory from given interface.
+func (a *MessagesAffectedHistory) FillFrom(from interface {
+	GetPts() (value int)
+	GetPtsCount() (value int)
+	GetOffset() (value int)
+}) {
+	a.Pts = from.GetPts()
+	a.PtsCount = from.GetPtsCount()
+	a.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAffectedHistory) TypeID() uint32 {

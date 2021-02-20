@@ -55,6 +55,15 @@ func (m *MessageRange) String() string {
 	return fmt.Sprintf("MessageRange%+v", Alias(*m))
 }
 
+// FillFrom fills MessageRange from given interface.
+func (m *MessageRange) FillFrom(from interface {
+	GetMinID() (value int)
+	GetMaxID() (value int)
+}) {
+	m.MinID = from.GetMinID()
+	m.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageRange) TypeID() uint32 {

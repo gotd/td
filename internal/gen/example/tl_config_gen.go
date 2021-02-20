@@ -322,6 +322,124 @@ func (c *Config) String() string {
 	return fmt.Sprintf("Config%+v", Alias(*c))
 }
 
+// FillFrom fills Config from given interface.
+func (c *Config) FillFrom(from interface {
+	GetPhonecallsEnabled() (value bool)
+	GetDefaultP2PContacts() (value bool)
+	GetPreloadFeaturedStickers() (value bool)
+	GetIgnorePhoneEntities() (value bool)
+	GetRevokePmInbox() (value bool)
+	GetBlockedMode() (value bool)
+	GetPFSEnabled() (value bool)
+	GetDate() (value int)
+	GetExpires() (value int)
+	GetTestMode() (value bool)
+	GetThisDC() (value int)
+	GetDCOptions() (value []DcOption)
+	GetDCTxtDomainName() (value string)
+	GetChatSizeMax() (value int)
+	GetMegagroupSizeMax() (value int)
+	GetForwardedCountMax() (value int)
+	GetOnlineUpdatePeriodMs() (value int)
+	GetOfflineBlurTimeoutMs() (value int)
+	GetOfflineIdleTimeoutMs() (value int)
+	GetOnlineCloudTimeoutMs() (value int)
+	GetNotifyCloudDelayMs() (value int)
+	GetNotifyDefaultDelayMs() (value int)
+	GetPushChatPeriodMs() (value int)
+	GetPushChatLimit() (value int)
+	GetSavedGifsLimit() (value int)
+	GetEditTimeLimit() (value int)
+	GetRevokeTimeLimit() (value int)
+	GetRevokePmTimeLimit() (value int)
+	GetRatingEDecay() (value int)
+	GetStickersRecentLimit() (value int)
+	GetStickersFavedLimit() (value int)
+	GetChannelsReadMediaPeriod() (value int)
+	GetTmpSessions() (value int, ok bool)
+	GetPinnedDialogsCountMax() (value int)
+	GetPinnedInfolderCountMax() (value int)
+	GetCallReceiveTimeoutMs() (value int)
+	GetCallRingTimeoutMs() (value int)
+	GetCallConnectTimeoutMs() (value int)
+	GetCallPacketTimeoutMs() (value int)
+	GetMeURLPrefix() (value string)
+	GetAutoupdateURLPrefix() (value string, ok bool)
+	GetGifSearchUsername() (value string, ok bool)
+	GetVenueSearchUsername() (value string, ok bool)
+	GetImgSearchUsername() (value string, ok bool)
+	GetStaticMapsProvider() (value string, ok bool)
+	GetCaptionLengthMax() (value int)
+	GetMessageLengthMax() (value int)
+	GetWebfileDCID() (value int)
+	GetSuggestedLangCode() (value string, ok bool)
+	GetLangPackVersion() (value int, ok bool)
+	GetBaseLangPackVersion() (value int, ok bool)
+}) {
+	c.Date = from.GetDate()
+	c.Expires = from.GetExpires()
+	c.TestMode = from.GetTestMode()
+	c.ThisDC = from.GetThisDC()
+	c.DCOptions = from.GetDCOptions()
+	c.DCTxtDomainName = from.GetDCTxtDomainName()
+	c.ChatSizeMax = from.GetChatSizeMax()
+	c.MegagroupSizeMax = from.GetMegagroupSizeMax()
+	c.ForwardedCountMax = from.GetForwardedCountMax()
+	c.OnlineUpdatePeriodMs = from.GetOnlineUpdatePeriodMs()
+	c.OfflineBlurTimeoutMs = from.GetOfflineBlurTimeoutMs()
+	c.OfflineIdleTimeoutMs = from.GetOfflineIdleTimeoutMs()
+	c.OnlineCloudTimeoutMs = from.GetOnlineCloudTimeoutMs()
+	c.NotifyCloudDelayMs = from.GetNotifyCloudDelayMs()
+	c.NotifyDefaultDelayMs = from.GetNotifyDefaultDelayMs()
+	c.PushChatPeriodMs = from.GetPushChatPeriodMs()
+	c.PushChatLimit = from.GetPushChatLimit()
+	c.SavedGifsLimit = from.GetSavedGifsLimit()
+	c.EditTimeLimit = from.GetEditTimeLimit()
+	c.RevokeTimeLimit = from.GetRevokeTimeLimit()
+	c.RevokePmTimeLimit = from.GetRevokePmTimeLimit()
+	c.RatingEDecay = from.GetRatingEDecay()
+	c.StickersRecentLimit = from.GetStickersRecentLimit()
+	c.StickersFavedLimit = from.GetStickersFavedLimit()
+	c.ChannelsReadMediaPeriod = from.GetChannelsReadMediaPeriod()
+	if val, ok := from.GetTmpSessions(); ok {
+		c.TmpSessions = val
+	}
+	c.PinnedDialogsCountMax = from.GetPinnedDialogsCountMax()
+	c.PinnedInfolderCountMax = from.GetPinnedInfolderCountMax()
+	c.CallReceiveTimeoutMs = from.GetCallReceiveTimeoutMs()
+	c.CallRingTimeoutMs = from.GetCallRingTimeoutMs()
+	c.CallConnectTimeoutMs = from.GetCallConnectTimeoutMs()
+	c.CallPacketTimeoutMs = from.GetCallPacketTimeoutMs()
+	c.MeURLPrefix = from.GetMeURLPrefix()
+	if val, ok := from.GetAutoupdateURLPrefix(); ok {
+		c.AutoupdateURLPrefix = val
+	}
+	if val, ok := from.GetGifSearchUsername(); ok {
+		c.GifSearchUsername = val
+	}
+	if val, ok := from.GetVenueSearchUsername(); ok {
+		c.VenueSearchUsername = val
+	}
+	if val, ok := from.GetImgSearchUsername(); ok {
+		c.ImgSearchUsername = val
+	}
+	if val, ok := from.GetStaticMapsProvider(); ok {
+		c.StaticMapsProvider = val
+	}
+	c.CaptionLengthMax = from.GetCaptionLengthMax()
+	c.MessageLengthMax = from.GetMessageLengthMax()
+	c.WebfileDCID = from.GetWebfileDCID()
+	if val, ok := from.GetSuggestedLangCode(); ok {
+		c.SuggestedLangCode = val
+	}
+	if val, ok := from.GetLangPackVersion(); ok {
+		c.LangPackVersion = val
+	}
+	if val, ok := from.GetBaseLangPackVersion(); ok {
+		c.BaseLangPackVersion = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Config) TypeID() uint32 {

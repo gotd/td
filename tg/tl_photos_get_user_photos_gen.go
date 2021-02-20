@@ -65,6 +65,19 @@ func (g *PhotosGetUserPhotosRequest) String() string {
 	return fmt.Sprintf("PhotosGetUserPhotosRequest%+v", Alias(*g))
 }
 
+// FillFrom fills PhotosGetUserPhotosRequest from given interface.
+func (g *PhotosGetUserPhotosRequest) FillFrom(from interface {
+	GetUserID() (value InputUserClass)
+	GetOffset() (value int)
+	GetMaxID() (value int64)
+	GetLimit() (value int)
+}) {
+	g.UserID = from.GetUserID()
+	g.Offset = from.GetOffset()
+	g.MaxID = from.GetMaxID()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PhotosGetUserPhotosRequest) TypeID() uint32 {

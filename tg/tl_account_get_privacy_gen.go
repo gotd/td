@@ -50,6 +50,13 @@ func (g *AccountGetPrivacyRequest) String() string {
 	return fmt.Sprintf("AccountGetPrivacyRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetPrivacyRequest from given interface.
+func (g *AccountGetPrivacyRequest) FillFrom(from interface {
+	GetKey() (value InputPrivacyKeyClass)
+}) {
+	g.Key = from.GetKey()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetPrivacyRequest) TypeID() uint32 {

@@ -115,6 +115,31 @@ func (s *MessagesSearchGlobalRequest) String() string {
 	return fmt.Sprintf("MessagesSearchGlobalRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSearchGlobalRequest from given interface.
+func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
+	GetFolderID() (value int, ok bool)
+	GetQ() (value string)
+	GetFilter() (value MessagesFilterClass)
+	GetMinDate() (value int)
+	GetMaxDate() (value int)
+	GetOffsetRate() (value int)
+	GetOffsetPeer() (value InputPeerClass)
+	GetOffsetID() (value int)
+	GetLimit() (value int)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		s.FolderID = val
+	}
+	s.Q = from.GetQ()
+	s.Filter = from.GetFilter()
+	s.MinDate = from.GetMinDate()
+	s.MaxDate = from.GetMaxDate()
+	s.OffsetRate = from.GetOffsetRate()
+	s.OffsetPeer = from.GetOffsetPeer()
+	s.OffsetID = from.GetOffsetID()
+	s.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchGlobalRequest) TypeID() uint32 {

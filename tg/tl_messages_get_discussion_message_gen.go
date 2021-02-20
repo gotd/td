@@ -62,6 +62,15 @@ func (g *MessagesGetDiscussionMessageRequest) String() string {
 	return fmt.Sprintf("MessagesGetDiscussionMessageRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetDiscussionMessageRequest from given interface.
+func (g *MessagesGetDiscussionMessageRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.MsgID = from.GetMsgID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDiscussionMessageRequest) TypeID() uint32 {

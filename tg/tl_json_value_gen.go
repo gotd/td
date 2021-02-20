@@ -114,6 +114,13 @@ func (j *JsonBool) String() string {
 	return fmt.Sprintf("JsonBool%+v", Alias(*j))
 }
 
+// FillFrom fills JsonBool from given interface.
+func (j *JsonBool) FillFrom(from interface {
+	GetValue() (value bool)
+}) {
+	j.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonBool) TypeID() uint32 {
@@ -194,6 +201,13 @@ func (j *JsonNumber) String() string {
 	}
 	type Alias JsonNumber
 	return fmt.Sprintf("JsonNumber%+v", Alias(*j))
+}
+
+// FillFrom fills JsonNumber from given interface.
+func (j *JsonNumber) FillFrom(from interface {
+	GetValue() (value float64)
+}) {
+	j.Value = from.GetValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -278,6 +292,13 @@ func (j *JsonString) String() string {
 	return fmt.Sprintf("JsonString%+v", Alias(*j))
 }
 
+// FillFrom fills JsonString from given interface.
+func (j *JsonString) FillFrom(from interface {
+	GetValue() (value string)
+}) {
+	j.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonString) TypeID() uint32 {
@@ -360,6 +381,13 @@ func (j *JsonArray) String() string {
 	return fmt.Sprintf("JsonArray%+v", Alias(*j))
 }
 
+// FillFrom fills JsonArray from given interface.
+func (j *JsonArray) FillFrom(from interface {
+	GetValue() (value []JSONValueClass)
+}) {
+	j.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonArray) TypeID() uint32 {
@@ -387,6 +415,11 @@ func (j *JsonArray) Encode(b *bin.Buffer) error {
 // GetValue returns value of Value field.
 func (j *JsonArray) GetValue() (value []JSONValueClass) {
 	return j.Value
+}
+
+// MapValue returns field Value wrapped in JSONValueClassSlice helper.
+func (j *JsonArray) MapValue() (value JSONValueClassSlice) {
+	return JSONValueClassSlice(j.Value)
 }
 
 // Decode implements bin.Decoder.
@@ -454,6 +487,13 @@ func (j *JsonObject) String() string {
 	}
 	type Alias JsonObject
 	return fmt.Sprintf("JsonObject%+v", Alias(*j))
+}
+
+// FillFrom fills JsonObject from given interface.
+func (j *JsonObject) FillFrom(from interface {
+	GetValue() (value []JsonObjectValue)
+}) {
+	j.Value = from.GetValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -627,4 +667,55 @@ func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode JSONValueClass as nil")
 	}
 	return b.JSONValue.Encode(buf)
+}
+
+// JSONValueClassSlice is adapter for slice of JSONValueClass.
+type JSONValueClassSlice []JSONValueClass
+
+// First returns first element of slice (if exists).
+func (s JSONValueClassSlice) First() (v JSONValueClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JSONValueClassSlice) Last() (v JSONValueClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JSONValueClassSlice) PopFirst() (v JSONValueClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JSONValueClassSlice) Pop() (v JSONValueClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

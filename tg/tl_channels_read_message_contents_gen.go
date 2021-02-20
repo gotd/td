@@ -61,6 +61,15 @@ func (r *ChannelsReadMessageContentsRequest) String() string {
 	return fmt.Sprintf("ChannelsReadMessageContentsRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ChannelsReadMessageContentsRequest from given interface.
+func (r *ChannelsReadMessageContentsRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetID() (value []int)
+}) {
+	r.Channel = from.GetChannel()
+	r.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ChannelsReadMessageContentsRequest) TypeID() uint32 {
@@ -89,6 +98,11 @@ func (r *ChannelsReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (r *ChannelsReadMessageContentsRequest) GetChannel() (value InputChannelClass) {
 	return r.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReadMessageContentsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
 }
 
 // GetID returns value of ID field.

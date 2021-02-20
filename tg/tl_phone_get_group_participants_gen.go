@@ -69,6 +69,21 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 	return fmt.Sprintf("PhoneGetGroupParticipantsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills PhoneGetGroupParticipantsRequest from given interface.
+func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetIds() (value []int)
+	GetSources() (value []int)
+	GetOffset() (value string)
+	GetLimit() (value int)
+}) {
+	g.Call = from.GetCall()
+	g.Ids = from.GetIds()
+	g.Sources = from.GetSources()
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PhoneGetGroupParticipantsRequest) TypeID() uint32 {

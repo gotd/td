@@ -49,6 +49,13 @@ func (r *ResponseID) String() string {
 	return fmt.Sprintf("ResponseID%+v", Alias(*r))
 }
 
+// FillFrom fills ResponseID from given interface.
+func (r *ResponseID) FillFrom(from interface {
+	GetID() (value int32)
+}) {
+	r.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResponseID) TypeID() uint32 {
@@ -128,6 +135,13 @@ func (r *ResponseText) String() string {
 	}
 	type Alias ResponseText
 	return fmt.Sprintf("ResponseText%+v", Alias(*r))
+}
+
+// FillFrom fills ResponseText from given interface.
+func (r *ResponseText) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	r.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -258,4 +272,55 @@ func (b *ResponseBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ResponseClass as nil")
 	}
 	return b.Response.Encode(buf)
+}
+
+// ResponseClassSlice is adapter for slice of ResponseClass.
+type ResponseClassSlice []ResponseClass
+
+// First returns first element of slice (if exists).
+func (s ResponseClassSlice) First() (v ResponseClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ResponseClassSlice) Last() (v ResponseClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ResponseClassSlice) PopFirst() (v ResponseClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ResponseClassSlice) Pop() (v ResponseClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

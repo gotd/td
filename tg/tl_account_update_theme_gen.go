@@ -91,6 +91,31 @@ func (u *AccountUpdateThemeRequest) String() string {
 	return fmt.Sprintf("AccountUpdateThemeRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUpdateThemeRequest from given interface.
+func (u *AccountUpdateThemeRequest) FillFrom(from interface {
+	GetFormat() (value string)
+	GetTheme() (value InputThemeClass)
+	GetSlug() (value string, ok bool)
+	GetTitle() (value string, ok bool)
+	GetDocument() (value InputDocumentClass, ok bool)
+	GetSettings() (value InputThemeSettings, ok bool)
+}) {
+	u.Format = from.GetFormat()
+	u.Theme = from.GetTheme()
+	if val, ok := from.GetSlug(); ok {
+		u.Slug = val
+	}
+	if val, ok := from.GetTitle(); ok {
+		u.Title = val
+	}
+	if val, ok := from.GetDocument(); ok {
+		u.Document = val
+	}
+	if val, ok := from.GetSettings(); ok {
+		u.Settings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateThemeRequest) TypeID() uint32 {
@@ -200,6 +225,15 @@ func (u *AccountUpdateThemeRequest) GetDocument() (value InputDocumentClass, ok 
 		return value, false
 	}
 	return u.Document, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (u *AccountUpdateThemeRequest) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	if value, ok := u.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // SetSettings sets value of Settings conditional field.

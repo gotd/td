@@ -80,6 +80,23 @@ func (g *MessagesGetInlineBotResultsRequest) String() string {
 	return fmt.Sprintf("MessagesGetInlineBotResultsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetInlineBotResultsRequest from given interface.
+func (g *MessagesGetInlineBotResultsRequest) FillFrom(from interface {
+	GetBot() (value InputUserClass)
+	GetPeer() (value InputPeerClass)
+	GetGeoPoint() (value InputGeoPointClass, ok bool)
+	GetQuery() (value string)
+	GetOffset() (value string)
+}) {
+	g.Bot = from.GetBot()
+	g.Peer = from.GetPeer()
+	if val, ok := from.GetGeoPoint(); ok {
+		g.GeoPoint = val
+	}
+	g.Query = from.GetQuery()
+	g.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetInlineBotResultsRequest) TypeID() uint32 {
@@ -146,6 +163,15 @@ func (g *MessagesGetInlineBotResultsRequest) GetGeoPoint() (value InputGeoPointC
 		return value, false
 	}
 	return g.GeoPoint, true
+}
+
+// GetGeoPointAsNotEmpty returns mapped value of GeoPoint conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetInlineBotResultsRequest) GetGeoPointAsNotEmpty() (*InputGeoPoint, bool) {
+	if value, ok := g.GetGeoPoint(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // GetQuery returns value of Query field.

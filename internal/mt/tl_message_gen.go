@@ -62,6 +62,19 @@ func (m *Message) String() string {
 	return fmt.Sprintf("Message%+v", Alias(*m))
 }
 
+// FillFrom fills Message from given interface.
+func (m *Message) FillFrom(from interface {
+	GetMsgID() (value int64)
+	GetSeqno() (value int)
+	GetBytes() (value int)
+	GetBody() (value GzipPacked)
+}) {
+	m.MsgID = from.GetMsgID()
+	m.Seqno = from.GetSeqno()
+	m.Bytes = from.GetBytes()
+	m.Body = from.GetBody()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *Message) TypeID() uint32 {

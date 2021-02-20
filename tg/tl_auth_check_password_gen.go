@@ -56,6 +56,13 @@ func (c *AuthCheckPasswordRequest) String() string {
 	return fmt.Sprintf("AuthCheckPasswordRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AuthCheckPasswordRequest from given interface.
+func (c *AuthCheckPasswordRequest) FillFrom(from interface {
+	GetPassword() (value InputCheckPasswordSRPClass)
+}) {
+	c.Password = from.GetPassword()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCheckPasswordRequest) TypeID() uint32 {
@@ -80,6 +87,11 @@ func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 // GetPassword returns value of Password field.
 func (c *AuthCheckPasswordRequest) GetPassword() (value InputCheckPasswordSRPClass) {
 	return c.Password
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password field.
+func (c *AuthCheckPasswordRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	return c.Password.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

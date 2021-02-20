@@ -186,6 +186,15 @@ func (i *InputUser) String() string {
 	return fmt.Sprintf("InputUser%+v", Alias(*i))
 }
 
+// FillFrom fills InputUser from given interface.
+func (i *InputUser) FillFrom(from interface {
+	GetUserID() (value int)
+	GetAccessHash() (value int64)
+}) {
+	i.UserID = from.GetUserID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputUser) TypeID() uint32 {
@@ -292,6 +301,17 @@ func (i *InputUserFromMessage) String() string {
 	}
 	type Alias InputUserFromMessage
 	return fmt.Sprintf("InputUserFromMessage%+v", Alias(*i))
+}
+
+// FillFrom fills InputUserFromMessage from given interface.
+func (i *InputUserFromMessage) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetUserID() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.MsgID = from.GetMsgID()
+	i.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -469,4 +489,55 @@ func (b *InputUserBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputUserClass as nil")
 	}
 	return b.InputUser.Encode(buf)
+}
+
+// InputUserClassSlice is adapter for slice of InputUserClass.
+type InputUserClassSlice []InputUserClass
+
+// First returns first element of slice (if exists).
+func (s InputUserClassSlice) First() (v InputUserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputUserClassSlice) Last() (v InputUserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputUserClassSlice) PopFirst() (v InputUserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputUserClassSlice) Pop() (v InputUserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

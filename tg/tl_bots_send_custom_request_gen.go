@@ -55,6 +55,15 @@ func (s *BotsSendCustomRequestRequest) String() string {
 	return fmt.Sprintf("BotsSendCustomRequestRequest%+v", Alias(*s))
 }
 
+// FillFrom fills BotsSendCustomRequestRequest from given interface.
+func (s *BotsSendCustomRequestRequest) FillFrom(from interface {
+	GetCustomMethod() (value string)
+	GetParams() (value DataJSON)
+}) {
+	s.CustomMethod = from.GetCustomMethod()
+	s.Params = from.GetParams()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *BotsSendCustomRequestRequest) TypeID() uint32 {

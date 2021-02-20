@@ -64,6 +64,19 @@ func (a *MessagesAffectedFoundMessages) String() string {
 	return fmt.Sprintf("MessagesAffectedFoundMessages%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAffectedFoundMessages from given interface.
+func (a *MessagesAffectedFoundMessages) FillFrom(from interface {
+	GetPts() (value int)
+	GetPtsCount() (value int)
+	GetOffset() (value int)
+	GetMessages() (value []int)
+}) {
+	a.Pts = from.GetPts()
+	a.PtsCount = from.GetPtsCount()
+	a.Offset = from.GetOffset()
+	a.Messages = from.GetMessages()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAffectedFoundMessages) TypeID() uint32 {

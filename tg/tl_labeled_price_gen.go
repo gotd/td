@@ -58,6 +58,15 @@ func (l *LabeledPrice) String() string {
 	return fmt.Sprintf("LabeledPrice%+v", Alias(*l))
 }
 
+// FillFrom fills LabeledPrice from given interface.
+func (l *LabeledPrice) FillFrom(from interface {
+	GetLabel() (value string)
+	GetAmount() (value int64)
+}) {
+	l.Label = from.GetLabel()
+	l.Amount = from.GetAmount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LabeledPrice) TypeID() uint32 {

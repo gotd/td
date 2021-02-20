@@ -50,6 +50,13 @@ func (a *AccountDaysTTL) String() string {
 	return fmt.Sprintf("AccountDaysTTL%+v", Alias(*a))
 }
 
+// FillFrom fills AccountDaysTTL from given interface.
+func (a *AccountDaysTTL) FillFrom(from interface {
+	GetDays() (value int)
+}) {
+	a.Days = from.GetDays()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountDaysTTL) TypeID() uint32 {

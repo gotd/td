@@ -16,6 +16,7 @@ type config struct {
 	Package    string
 	Structs    []structDef
 	Interfaces []interfaceDef
+	Mappings   map[string][]constructorMapping
 	Registry   []bindingDef
 	Errors     []errCheckDef
 }
@@ -85,8 +86,8 @@ func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 	for _, class := range interfaces {
 		cfg := config{
 			Package:    w.pkg,
-			Interfaces: []interfaceDef{class},
 			Structs:    class.Constructors,
+			Interfaces: []interfaceDef{class},
 		}
 		for _, s := range cfg.Structs {
 			w.wroteConstructors[s.Name] = struct{}{}
@@ -101,14 +102,15 @@ func (w *writer) WriteInterfaces(interfaces []interfaceDef) error {
 }
 
 // WriteStructs writes structure definitions to corresponding files.
-func (w *writer) WriteStructs(structs []structDef) error {
+func (w *writer) WriteStructs(structs []structDef, mappings map[string][]constructorMapping) error {
 	for _, s := range structs {
 		if _, ok := w.wroteConstructors[s.Name]; ok {
 			continue
 		}
 		cfg := config{
-			Package: w.pkg,
-			Structs: []structDef{s},
+			Package:  w.pkg,
+			Structs:  []structDef{s},
+			Mappings: mappings,
 		}
 		name := outFileName(s.BaseName, s.Namespace)
 		if w.wrote[name] {
@@ -138,7 +140,7 @@ func (g *Generator) WriteSource(fs FileSystem, pkgName string, t *template.Templ
 	if err := w.WriteInterfaces(g.interfaces); err != nil {
 		return xerrors.Errorf("interfaces: %w", err)
 	}
-	if err := w.WriteStructs(g.structs); err != nil {
+	if err := w.WriteStructs(g.structs, g.mappings); err != nil {
 		return xerrors.Errorf("structs: %w", err)
 	}
 

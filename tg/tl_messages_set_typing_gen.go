@@ -79,6 +79,19 @@ func (s *MessagesSetTypingRequest) String() string {
 	return fmt.Sprintf("MessagesSetTypingRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetTypingRequest from given interface.
+func (s *MessagesSetTypingRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetTopMsgID() (value int, ok bool)
+	GetAction() (value SendMessageActionClass)
+}) {
+	s.Peer = from.GetPeer()
+	if val, ok := from.GetTopMsgID(); ok {
+		s.TopMsgID = val
+	}
+	s.Action = from.GetAction()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetTypingRequest) TypeID() uint32 {

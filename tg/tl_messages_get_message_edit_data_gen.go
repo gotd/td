@@ -55,6 +55,15 @@ func (g *MessagesGetMessageEditDataRequest) String() string {
 	return fmt.Sprintf("MessagesGetMessageEditDataRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetMessageEditDataRequest from given interface.
+func (g *MessagesGetMessageEditDataRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetID() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetMessageEditDataRequest) TypeID() uint32 {

@@ -52,6 +52,15 @@ func (r *RPCError) String() string {
 	return fmt.Sprintf("RPCError%+v", Alias(*r))
 }
 
+// FillFrom fills RPCError from given interface.
+func (r *RPCError) FillFrom(from interface {
+	GetErrorCode() (value int)
+	GetErrorMessage() (value string)
+}) {
+	r.ErrorCode = from.GetErrorCode()
+	r.ErrorMessage = from.GetErrorMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCError) TypeID() uint32 {

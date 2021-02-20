@@ -50,6 +50,13 @@ func (p *PageTableRow) String() string {
 	return fmt.Sprintf("PageTableRow%+v", Alias(*p))
 }
 
+// FillFrom fills PageTableRow from given interface.
+func (p *PageTableRow) FillFrom(from interface {
+	GetCells() (value []PageTableCell)
+}) {
+	p.Cells = from.GetCells()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageTableRow) TypeID() uint32 {

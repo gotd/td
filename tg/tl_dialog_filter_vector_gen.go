@@ -47,6 +47,13 @@ func (vec *DialogFilterVector) String() string {
 	return fmt.Sprintf("DialogFilterVector%+v", Alias(*vec))
 }
 
+// FillFrom fills DialogFilterVector from given interface.
+func (vec *DialogFilterVector) FillFrom(from interface {
+	GetElems() (value []DialogFilter)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *DialogFilterVector) TypeID() uint32 {

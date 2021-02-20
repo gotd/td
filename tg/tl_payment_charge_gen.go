@@ -55,6 +55,15 @@ func (p *PaymentCharge) String() string {
 	return fmt.Sprintf("PaymentCharge%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentCharge from given interface.
+func (p *PaymentCharge) FillFrom(from interface {
+	GetID() (value string)
+	GetProviderChargeID() (value string)
+}) {
+	p.ID = from.GetID()
+	p.ProviderChargeID = from.GetProviderChargeID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentCharge) TypeID() uint32 {

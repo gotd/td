@@ -53,6 +53,13 @@ func (e *FoldersEditPeerFoldersRequest) String() string {
 	return fmt.Sprintf("FoldersEditPeerFoldersRequest%+v", Alias(*e))
 }
 
+// FillFrom fills FoldersEditPeerFoldersRequest from given interface.
+func (e *FoldersEditPeerFoldersRequest) FillFrom(from interface {
+	GetFolderPeers() (value []InputFolderPeer)
+}) {
+	e.FolderPeers = from.GetFolderPeers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *FoldersEditPeerFoldersRequest) TypeID() uint32 {

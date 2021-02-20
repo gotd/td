@@ -50,6 +50,13 @@ func (g *AccountGetMultiWallPapersRequest) String() string {
 	return fmt.Sprintf("AccountGetMultiWallPapersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetMultiWallPapersRequest from given interface.
+func (g *AccountGetMultiWallPapersRequest) FillFrom(from interface {
+	GetWallpapers() (value []InputWallPaperClass)
+}) {
+	g.Wallpapers = from.GetWallpapers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetMultiWallPapersRequest) TypeID() uint32 {
@@ -77,6 +84,11 @@ func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 // GetWallpapers returns value of Wallpapers field.
 func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPaperClass) {
 	return g.Wallpapers
+}
+
+// MapWallpapers returns field Wallpapers wrapped in InputWallPaperClassSlice helper.
+func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaperClassSlice) {
+	return InputWallPaperClassSlice(g.Wallpapers)
 }
 
 // Decode implements bin.Decoder.

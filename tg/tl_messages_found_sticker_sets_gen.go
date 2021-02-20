@@ -122,6 +122,15 @@ func (f *MessagesFoundStickerSets) String() string {
 	return fmt.Sprintf("MessagesFoundStickerSets%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesFoundStickerSets from given interface.
+func (f *MessagesFoundStickerSets) FillFrom(from interface {
+	GetHash() (value int)
+	GetSets() (value []StickerSetCoveredClass)
+}) {
+	f.Hash = from.GetHash()
+	f.Sets = from.GetSets()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFoundStickerSets) TypeID() uint32 {
@@ -155,6 +164,11 @@ func (f *MessagesFoundStickerSets) GetHash() (value int) {
 // GetSets returns value of Sets field.
 func (f *MessagesFoundStickerSets) GetSets() (value []StickerSetCoveredClass) {
 	return f.Sets
+}
+
+// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
+func (f *MessagesFoundStickerSets) MapSets() (value StickerSetCoveredClassSlice) {
+	return StickerSetCoveredClassSlice(f.Sets)
 }
 
 // Decode implements bin.Decoder.
@@ -218,6 +232,9 @@ type MessagesFoundStickerSetsClass interface {
 	bin.Decoder
 	construct() MessagesFoundStickerSetsClass
 
+	// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+	AsModified() (*MessagesFoundStickerSets, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -225,6 +242,16 @@ type MessagesFoundStickerSetsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+func (f *MessagesFoundStickerSetsNotModified) AsModified() (*MessagesFoundStickerSets, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+func (f *MessagesFoundStickerSets) AsModified() (*MessagesFoundStickerSets, bool) {
+	return f, true
 }
 
 // DecodeMessagesFoundStickerSets implements binary de-serialization for MessagesFoundStickerSetsClass.
@@ -277,4 +304,92 @@ func (b *MessagesFoundStickerSetsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesFoundStickerSetsClass as nil")
 	}
 	return b.FoundStickerSets.Encode(buf)
+}
+
+// MessagesFoundStickerSetsClassSlice is adapter for slice of MessagesFoundStickerSetsClass.
+type MessagesFoundStickerSetsClassSlice []MessagesFoundStickerSetsClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesFoundStickerSetsClassSlice) AppendOnlyModified(to []*MessagesFoundStickerSets) []*MessagesFoundStickerSets {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesFoundStickerSetsClassSlice) AsModified() (to []*MessagesFoundStickerSets) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesFoundStickerSetsClassSlice) FirstAsModified() (v *MessagesFoundStickerSets, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesFoundStickerSetsClassSlice) LastAsModified() (v *MessagesFoundStickerSets, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesFoundStickerSetsClassSlice) First() (v MessagesFoundStickerSetsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFoundStickerSetsClassSlice) Last() (v MessagesFoundStickerSetsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFoundStickerSetsClassSlice) PopFirst() (v MessagesFoundStickerSetsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFoundStickerSetsClassSlice) Pop() (v MessagesFoundStickerSetsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

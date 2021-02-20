@@ -50,6 +50,13 @@ func (j *ChannelsJoinChannelRequest) String() string {
 	return fmt.Sprintf("ChannelsJoinChannelRequest%+v", Alias(*j))
 }
 
+// FillFrom fills ChannelsJoinChannelRequest from given interface.
+func (j *ChannelsJoinChannelRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+}) {
+	j.Channel = from.GetChannel()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *ChannelsJoinChannelRequest) TypeID() uint32 {
@@ -74,6 +81,11 @@ func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (j *ChannelsJoinChannelRequest) GetChannel() (value InputChannelClass) {
 	return j.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (j *ChannelsJoinChannelRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return j.Channel.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

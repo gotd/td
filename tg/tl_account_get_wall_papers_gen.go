@@ -53,6 +53,13 @@ func (g *AccountGetWallPapersRequest) String() string {
 	return fmt.Sprintf("AccountGetWallPapersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetWallPapersRequest from given interface.
+func (g *AccountGetWallPapersRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetWallPapersRequest) TypeID() uint32 {

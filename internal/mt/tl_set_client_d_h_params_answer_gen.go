@@ -57,6 +57,17 @@ func (d *DhGenOk) String() string {
 	return fmt.Sprintf("DhGenOk%+v", Alias(*d))
 }
 
+// FillFrom fills DhGenOk from given interface.
+func (d *DhGenOk) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetNewNonceHash1() (value bin.Int128)
+}) {
+	d.Nonce = from.GetNonce()
+	d.ServerNonce = from.GetServerNonce()
+	d.NewNonceHash1 = from.GetNewNonceHash1()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DhGenOk) TypeID() uint32 {
@@ -172,6 +183,17 @@ func (d *DhGenRetry) String() string {
 	return fmt.Sprintf("DhGenRetry%+v", Alias(*d))
 }
 
+// FillFrom fills DhGenRetry from given interface.
+func (d *DhGenRetry) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetNewNonceHash2() (value bin.Int128)
+}) {
+	d.Nonce = from.GetNonce()
+	d.ServerNonce = from.GetServerNonce()
+	d.NewNonceHash2 = from.GetNewNonceHash2()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DhGenRetry) TypeID() uint32 {
@@ -285,6 +307,17 @@ func (d *DhGenFail) String() string {
 	}
 	type Alias DhGenFail
 	return fmt.Sprintf("DhGenFail%+v", Alias(*d))
+}
+
+// FillFrom fills DhGenFail from given interface.
+func (d *DhGenFail) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetNewNonceHash3() (value bin.Int128)
+}) {
+	d.Nonce = from.GetNonce()
+	d.ServerNonce = from.GetServerNonce()
+	d.NewNonceHash3 = from.GetNewNonceHash3()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -452,4 +485,55 @@ func (b *SetClientDHParamsAnswerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode SetClientDHParamsAnswerClass as nil")
 	}
 	return b.Set_client_DH_params_answer.Encode(buf)
+}
+
+// SetClientDHParamsAnswerClassSlice is adapter for slice of SetClientDHParamsAnswerClass.
+type SetClientDHParamsAnswerClassSlice []SetClientDHParamsAnswerClass
+
+// First returns first element of slice (if exists).
+func (s SetClientDHParamsAnswerClassSlice) First() (v SetClientDHParamsAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SetClientDHParamsAnswerClassSlice) Last() (v SetClientDHParamsAnswerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SetClientDHParamsAnswerClassSlice) PopFirst() (v SetClientDHParamsAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SetClientDHParamsAnswerClassSlice) Pop() (v SetClientDHParamsAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

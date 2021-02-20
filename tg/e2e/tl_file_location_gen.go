@@ -59,6 +59,17 @@ func (f *FileLocationUnavailable) String() string {
 	return fmt.Sprintf("FileLocationUnavailable%+v", Alias(*f))
 }
 
+// FillFrom fills FileLocationUnavailable from given interface.
+func (f *FileLocationUnavailable) FillFrom(from interface {
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+	GetSecret() (value int64)
+}) {
+	f.VolumeID = from.GetVolumeID()
+	f.LocalID = from.GetLocalID()
+	f.Secret = from.GetSecret()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocationUnavailable) TypeID() uint32 {
@@ -179,6 +190,19 @@ func (f *FileLocation) String() string {
 	}
 	type Alias FileLocation
 	return fmt.Sprintf("FileLocation%+v", Alias(*f))
+}
+
+// FillFrom fills FileLocation from given interface.
+func (f *FileLocation) FillFrom(from interface {
+	GetDCID() (value int)
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+	GetSecret() (value int64)
+}) {
+	f.DCID = from.GetDCID()
+	f.VolumeID = from.GetVolumeID()
+	f.LocalID = from.GetLocalID()
+	f.Secret = from.GetSecret()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -355,4 +379,55 @@ func (b *FileLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode FileLocationClass as nil")
 	}
 	return b.FileLocation.Encode(buf)
+}
+
+// FileLocationClassSlice is adapter for slice of FileLocationClass.
+type FileLocationClassSlice []FileLocationClass
+
+// First returns first element of slice (if exists).
+func (s FileLocationClassSlice) First() (v FileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s FileLocationClassSlice) Last() (v FileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *FileLocationClassSlice) PopFirst() (v FileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *FileLocationClassSlice) Pop() (v FileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

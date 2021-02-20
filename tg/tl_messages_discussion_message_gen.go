@@ -101,6 +101,29 @@ func (d *MessagesDiscussionMessage) String() string {
 	return fmt.Sprintf("MessagesDiscussionMessage%+v", Alias(*d))
 }
 
+// FillFrom fills MessagesDiscussionMessage from given interface.
+func (d *MessagesDiscussionMessage) FillFrom(from interface {
+	GetMessages() (value []MessageClass)
+	GetMaxID() (value int, ok bool)
+	GetReadInboxMaxID() (value int, ok bool)
+	GetReadOutboxMaxID() (value int, ok bool)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	d.Messages = from.GetMessages()
+	if val, ok := from.GetMaxID(); ok {
+		d.MaxID = val
+	}
+	if val, ok := from.GetReadInboxMaxID(); ok {
+		d.ReadInboxMaxID = val
+	}
+	if val, ok := from.GetReadOutboxMaxID(); ok {
+		d.ReadOutboxMaxID = val
+	}
+	d.Chats = from.GetChats()
+	d.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDiscussionMessage) TypeID() uint32 {
@@ -169,6 +192,11 @@ func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
 	return d.Messages
 }
 
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (d *MessagesDiscussionMessage) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(d.Messages)
+}
+
 // SetMaxID sets value of MaxID conditional field.
 func (d *MessagesDiscussionMessage) SetMaxID(value int) {
 	d.Flags.Set(0)
@@ -219,9 +247,19 @@ func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (d *MessagesDiscussionMessage) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(d.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
 	return d.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (d *MessagesDiscussionMessage) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(d.Users)
 }
 
 // Decode implements bin.Decoder.

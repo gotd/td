@@ -178,6 +178,13 @@ func (i *InputPrivacyValueAllowUsers) String() string {
 	return fmt.Sprintf("InputPrivacyValueAllowUsers%+v", Alias(*i))
 }
 
+// FillFrom fills InputPrivacyValueAllowUsers from given interface.
+func (i *InputPrivacyValueAllowUsers) FillFrom(from interface {
+	GetUsers() (value []InputUserClass)
+}) {
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowUsers) TypeID() uint32 {
@@ -205,6 +212,11 @@ func (i *InputPrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 // GetUsers returns value of Users field.
 func (i *InputPrivacyValueAllowUsers) GetUsers() (value []InputUserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassSlice helper.
+func (i *InputPrivacyValueAllowUsers) MapUsers() (value InputUserClassSlice) {
+	return InputUserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -402,6 +414,13 @@ func (i *InputPrivacyValueDisallowUsers) String() string {
 	return fmt.Sprintf("InputPrivacyValueDisallowUsers%+v", Alias(*i))
 }
 
+// FillFrom fills InputPrivacyValueDisallowUsers from given interface.
+func (i *InputPrivacyValueDisallowUsers) FillFrom(from interface {
+	GetUsers() (value []InputUserClass)
+}) {
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowUsers) TypeID() uint32 {
@@ -429,6 +448,11 @@ func (i *InputPrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 // GetUsers returns value of Users field.
 func (i *InputPrivacyValueDisallowUsers) GetUsers() (value []InputUserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in InputUserClassSlice helper.
+func (i *InputPrivacyValueDisallowUsers) MapUsers() (value InputUserClassSlice) {
+	return InputUserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -496,6 +520,13 @@ func (i *InputPrivacyValueAllowChatParticipants) String() string {
 	}
 	type Alias InputPrivacyValueAllowChatParticipants
 	return fmt.Sprintf("InputPrivacyValueAllowChatParticipants%+v", Alias(*i))
+}
+
+// FillFrom fills InputPrivacyValueAllowChatParticipants from given interface.
+func (i *InputPrivacyValueAllowChatParticipants) FillFrom(from interface {
+	GetChats() (value []int)
+}) {
+	i.Chats = from.GetChats()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -587,6 +618,13 @@ func (i *InputPrivacyValueDisallowChatParticipants) String() string {
 	}
 	type Alias InputPrivacyValueDisallowChatParticipants
 	return fmt.Sprintf("InputPrivacyValueDisallowChatParticipants%+v", Alias(*i))
+}
+
+// FillFrom fills InputPrivacyValueDisallowChatParticipants from given interface.
+func (i *InputPrivacyValueDisallowChatParticipants) FillFrom(from interface {
+	GetChats() (value []int)
+}) {
+	i.Chats = from.GetChats()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -774,4 +812,55 @@ func (b *InputPrivacyRuleBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputPrivacyRuleClass as nil")
 	}
 	return b.InputPrivacyRule.Encode(buf)
+}
+
+// InputPrivacyRuleClassSlice is adapter for slice of InputPrivacyRuleClass.
+type InputPrivacyRuleClassSlice []InputPrivacyRuleClass
+
+// First returns first element of slice (if exists).
+func (s InputPrivacyRuleClassSlice) First() (v InputPrivacyRuleClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPrivacyRuleClassSlice) Last() (v InputPrivacyRuleClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPrivacyRuleClassSlice) PopFirst() (v InputPrivacyRuleClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPrivacyRuleClassSlice) Pop() (v InputPrivacyRuleClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -143,6 +143,41 @@ func (s *MessagesSearchRequest) String() string {
 	return fmt.Sprintf("MessagesSearchRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSearchRequest from given interface.
+func (s *MessagesSearchRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetQ() (value string)
+	GetFromID() (value InputPeerClass, ok bool)
+	GetTopMsgID() (value int, ok bool)
+	GetFilter() (value MessagesFilterClass)
+	GetMinDate() (value int)
+	GetMaxDate() (value int)
+	GetOffsetID() (value int)
+	GetAddOffset() (value int)
+	GetLimit() (value int)
+	GetMaxID() (value int)
+	GetMinID() (value int)
+	GetHash() (value int)
+}) {
+	s.Peer = from.GetPeer()
+	s.Q = from.GetQ()
+	if val, ok := from.GetFromID(); ok {
+		s.FromID = val
+	}
+	if val, ok := from.GetTopMsgID(); ok {
+		s.TopMsgID = val
+	}
+	s.Filter = from.GetFilter()
+	s.MinDate = from.GetMinDate()
+	s.MaxDate = from.GetMaxDate()
+	s.OffsetID = from.GetOffsetID()
+	s.AddOffset = from.GetAddOffset()
+	s.Limit = from.GetLimit()
+	s.MaxID = from.GetMaxID()
+	s.MinID = from.GetMinID()
+	s.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchRequest) TypeID() uint32 {

@@ -657,3 +657,54 @@ func (b *TopPeerCategoryBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.TopPeerCategory.Encode(buf)
 }
+
+// TopPeerCategoryClassSlice is adapter for slice of TopPeerCategoryClass.
+type TopPeerCategoryClassSlice []TopPeerCategoryClass
+
+// First returns first element of slice (if exists).
+func (s TopPeerCategoryClassSlice) First() (v TopPeerCategoryClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TopPeerCategoryClassSlice) Last() (v TopPeerCategoryClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TopPeerCategoryClassSlice) PopFirst() (v TopPeerCategoryClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TopPeerCategoryClassSlice) Pop() (v TopPeerCategoryClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

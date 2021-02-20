@@ -60,6 +60,17 @@ func (s *MessagesSendScreenshotNotificationRequest) String() string {
 	return fmt.Sprintf("MessagesSendScreenshotNotificationRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSendScreenshotNotificationRequest from given interface.
+func (s *MessagesSendScreenshotNotificationRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetReplyToMsgID() (value int)
+	GetRandomID() (value int64)
+}) {
+	s.Peer = from.GetPeer()
+	s.ReplyToMsgID = from.GetReplyToMsgID()
+	s.RandomID = from.GetRandomID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendScreenshotNotificationRequest) TypeID() uint32 {

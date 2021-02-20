@@ -49,6 +49,13 @@ func (t *TestVectorBytes) String() string {
 	return fmt.Sprintf("TestVectorBytes%+v", Alias(*t))
 }
 
+// FillFrom fills TestVectorBytes from given interface.
+func (t *TestVectorBytes) FillFrom(from interface {
+	GetValue() (value [][]byte)
+}) {
+	t.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TestVectorBytes) TypeID() uint32 {

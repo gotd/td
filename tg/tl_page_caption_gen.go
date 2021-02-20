@@ -55,6 +55,15 @@ func (p *PageCaption) String() string {
 	return fmt.Sprintf("PageCaption%+v", Alias(*p))
 }
 
+// FillFrom fills PageCaption from given interface.
+func (p *PageCaption) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetCredit() (value RichTextClass)
+}) {
+	p.Text = from.GetText()
+	p.Credit = from.GetCredit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageCaption) TypeID() uint32 {

@@ -74,6 +74,21 @@ func (s *UpdatesState) String() string {
 	return fmt.Sprintf("UpdatesState%+v", Alias(*s))
 }
 
+// FillFrom fills UpdatesState from given interface.
+func (s *UpdatesState) FillFrom(from interface {
+	GetPts() (value int)
+	GetQts() (value int)
+	GetDate() (value int)
+	GetSeq() (value int)
+	GetUnreadCount() (value int)
+}) {
+	s.Pts = from.GetPts()
+	s.Qts = from.GetQts()
+	s.Date = from.GetDate()
+	s.Seq = from.GetSeq()
+	s.UnreadCount = from.GetUnreadCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UpdatesState) TypeID() uint32 {

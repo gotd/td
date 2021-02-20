@@ -56,6 +56,13 @@ func (c *UploadCdnFileReuploadNeeded) String() string {
 	return fmt.Sprintf("UploadCdnFileReuploadNeeded%+v", Alias(*c))
 }
 
+// FillFrom fills UploadCdnFileReuploadNeeded from given interface.
+func (c *UploadCdnFileReuploadNeeded) FillFrom(from interface {
+	GetRequestToken() (value []byte)
+}) {
+	c.RequestToken = from.GetRequestToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UploadCdnFileReuploadNeeded) TypeID() uint32 {
@@ -139,6 +146,13 @@ func (c *UploadCdnFile) String() string {
 	}
 	type Alias UploadCdnFile
 	return fmt.Sprintf("UploadCdnFile%+v", Alias(*c))
+}
+
+// FillFrom fills UploadCdnFile from given interface.
+func (c *UploadCdnFile) FillFrom(from interface {
+	GetBytes() (value []byte)
+}) {
+	c.Bytes = from.GetBytes()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -269,4 +283,55 @@ func (b *UploadCdnFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UploadCdnFileClass as nil")
 	}
 	return b.CdnFile.Encode(buf)
+}
+
+// UploadCdnFileClassSlice is adapter for slice of UploadCdnFileClass.
+type UploadCdnFileClassSlice []UploadCdnFileClass
+
+// First returns first element of slice (if exists).
+func (s UploadCdnFileClassSlice) First() (v UploadCdnFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UploadCdnFileClassSlice) Last() (v UploadCdnFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UploadCdnFileClassSlice) PopFirst() (v UploadCdnFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UploadCdnFileClassSlice) Pop() (v UploadCdnFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

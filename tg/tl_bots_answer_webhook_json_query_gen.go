@@ -55,6 +55,15 @@ func (a *BotsAnswerWebhookJSONQueryRequest) String() string {
 	return fmt.Sprintf("BotsAnswerWebhookJSONQueryRequest%+v", Alias(*a))
 }
 
+// FillFrom fills BotsAnswerWebhookJSONQueryRequest from given interface.
+func (a *BotsAnswerWebhookJSONQueryRequest) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetData() (value DataJSON)
+}) {
+	a.QueryID = from.GetQueryID()
+	a.Data = from.GetData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *BotsAnswerWebhookJSONQueryRequest) TypeID() uint32 {

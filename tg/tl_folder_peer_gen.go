@@ -58,6 +58,15 @@ func (f *FolderPeer) String() string {
 	return fmt.Sprintf("FolderPeer%+v", Alias(*f))
 }
 
+// FillFrom fills FolderPeer from given interface.
+func (f *FolderPeer) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetFolderID() (value int)
+}) {
+	f.Peer = from.GetPeer()
+	f.FolderID = from.GetFolderID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FolderPeer) TypeID() uint32 {

@@ -50,6 +50,13 @@ func (c *ChatOnlines) String() string {
 	return fmt.Sprintf("ChatOnlines%+v", Alias(*c))
 }
 
+// FillFrom fills ChatOnlines from given interface.
+func (c *ChatOnlines) FillFrom(from interface {
+	GetOnlines() (value int)
+}) {
+	c.Onlines = from.GetOnlines()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatOnlines) TypeID() uint32 {

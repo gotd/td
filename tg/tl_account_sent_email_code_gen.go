@@ -58,6 +58,15 @@ func (s *AccountSentEmailCode) String() string {
 	return fmt.Sprintf("AccountSentEmailCode%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSentEmailCode from given interface.
+func (s *AccountSentEmailCode) FillFrom(from interface {
+	GetEmailPattern() (value string)
+	GetLength() (value int)
+}) {
+	s.EmailPattern = from.GetEmailPattern()
+	s.Length = from.GetLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSentEmailCode) TypeID() uint32 {

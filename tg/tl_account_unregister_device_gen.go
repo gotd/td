@@ -63,6 +63,17 @@ func (u *AccountUnregisterDeviceRequest) String() string {
 	return fmt.Sprintf("AccountUnregisterDeviceRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUnregisterDeviceRequest from given interface.
+func (u *AccountUnregisterDeviceRequest) FillFrom(from interface {
+	GetTokenType() (value int)
+	GetToken() (value string)
+	GetOtherUids() (value []int)
+}) {
+	u.TokenType = from.GetTokenType()
+	u.Token = from.GetToken()
+	u.OtherUids = from.GetOtherUids()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUnregisterDeviceRequest) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (p *PopularContact) String() string {
 	return fmt.Sprintf("PopularContact%+v", Alias(*p))
 }
 
+// FillFrom fills PopularContact from given interface.
+func (p *PopularContact) FillFrom(from interface {
+	GetClientID() (value int64)
+	GetImporters() (value int)
+}) {
+	p.ClientID = from.GetClientID()
+	p.Importers = from.GetImporters()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PopularContact) TypeID() uint32 {

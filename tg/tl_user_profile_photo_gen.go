@@ -148,6 +148,20 @@ func (u *UserProfilePhoto) String() string {
 	return fmt.Sprintf("UserProfilePhoto%+v", Alias(*u))
 }
 
+// FillFrom fills UserProfilePhoto from given interface.
+func (u *UserProfilePhoto) FillFrom(from interface {
+	GetHasVideo() (value bool)
+	GetPhotoID() (value int64)
+	GetPhotoSmall() (value FileLocationToBeDeprecated)
+	GetPhotoBig() (value FileLocationToBeDeprecated)
+	GetDCID() (value int)
+}) {
+	u.PhotoID = from.GetPhotoID()
+	u.PhotoSmall = from.GetPhotoSmall()
+	u.PhotoBig = from.GetPhotoBig()
+	u.DCID = from.GetDCID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserProfilePhoto) TypeID() uint32 {
@@ -284,6 +298,9 @@ type UserProfilePhotoClass interface {
 	bin.Decoder
 	construct() UserProfilePhotoClass
 
+	// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+	AsNotEmpty() (*UserProfilePhoto, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -291,6 +308,16 @@ type UserProfilePhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+func (u *UserProfilePhotoEmpty) AsNotEmpty() (*UserProfilePhoto, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+func (u *UserProfilePhoto) AsNotEmpty() (*UserProfilePhoto, bool) {
+	return u, true
 }
 
 // DecodeUserProfilePhoto implements binary de-serialization for UserProfilePhotoClass.
@@ -343,4 +370,92 @@ func (b *UserProfilePhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserProfilePhotoClass as nil")
 	}
 	return b.UserProfilePhoto.Encode(buf)
+}
+
+// UserProfilePhotoClassSlice is adapter for slice of UserProfilePhotoClass.
+type UserProfilePhotoClassSlice []UserProfilePhotoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s UserProfilePhotoClassSlice) AppendOnlyNotEmpty(to []*UserProfilePhoto) []*UserProfilePhoto {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s UserProfilePhotoClassSlice) AsNotEmpty() (to []*UserProfilePhoto) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s UserProfilePhotoClassSlice) FirstAsNotEmpty() (v *UserProfilePhoto, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s UserProfilePhotoClassSlice) LastAsNotEmpty() (v *UserProfilePhoto, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s UserProfilePhotoClassSlice) First() (v UserProfilePhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserProfilePhotoClassSlice) Last() (v UserProfilePhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserProfilePhotoClassSlice) PopFirst() (v UserProfilePhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserProfilePhotoClassSlice) Pop() (v UserProfilePhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

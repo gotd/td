@@ -931,6 +931,13 @@ func (t *TextEntityTypePreCode) String() string {
 	return fmt.Sprintf("TextEntityTypePreCode%+v", Alias(*t))
 }
 
+// FillFrom fills TextEntityTypePreCode from given interface.
+func (t *TextEntityTypePreCode) FillFrom(from interface {
+	GetLanguage() (value string)
+}) {
+	t.Language = from.GetLanguage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypePreCode) TypeID() uint32 {
@@ -1012,6 +1019,13 @@ func (t *TextEntityTypeTextUrl) String() string {
 	return fmt.Sprintf("TextEntityTypeTextUrl%+v", Alias(*t))
 }
 
+// FillFrom fills TextEntityTypeTextUrl from given interface.
+func (t *TextEntityTypeTextUrl) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	t.URL = from.GetURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeTextUrl) TypeID() uint32 {
@@ -1091,6 +1105,13 @@ func (t *TextEntityTypeMentionName) String() string {
 	}
 	type Alias TextEntityTypeMentionName
 	return fmt.Sprintf("TextEntityTypeMentionName%+v", Alias(*t))
+}
+
+// FillFrom fills TextEntityTypeMentionName from given interface.
+func (t *TextEntityTypeMentionName) FillFrom(from interface {
+	GetUserID() (value int32)
+}) {
+	t.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1341,4 +1362,55 @@ func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode TextEntityTypeClass as nil")
 	}
 	return b.TextEntityType.Encode(buf)
+}
+
+// TextEntityTypeClassSlice is adapter for slice of TextEntityTypeClass.
+type TextEntityTypeClassSlice []TextEntityTypeClass
+
+// First returns first element of slice (if exists).
+func (s TextEntityTypeClassSlice) First() (v TextEntityTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextEntityTypeClassSlice) Last() (v TextEntityTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextEntityTypeClassSlice) PopFirst() (v TextEntityTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextEntityTypeClassSlice) Pop() (v TextEntityTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

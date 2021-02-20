@@ -91,6 +91,29 @@ func (w *WallPaperSettings) String() string {
 	return fmt.Sprintf("WallPaperSettings%+v", Alias(*w))
 }
 
+// FillFrom fills WallPaperSettings from given interface.
+func (w *WallPaperSettings) FillFrom(from interface {
+	GetBlur() (value bool)
+	GetMotion() (value bool)
+	GetBackgroundColor() (value int, ok bool)
+	GetSecondBackgroundColor() (value int, ok bool)
+	GetIntensity() (value int, ok bool)
+	GetRotation() (value int, ok bool)
+}) {
+	if val, ok := from.GetBackgroundColor(); ok {
+		w.BackgroundColor = val
+	}
+	if val, ok := from.GetSecondBackgroundColor(); ok {
+		w.SecondBackgroundColor = val
+	}
+	if val, ok := from.GetIntensity(); ok {
+		w.Intensity = val
+	}
+	if val, ok := from.GetRotation(); ok {
+		w.Rotation = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaperSettings) TypeID() uint32 {

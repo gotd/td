@@ -76,6 +76,18 @@ func (a *MessagesAcceptUrlAuthRequest) String() string {
 	return fmt.Sprintf("MessagesAcceptUrlAuthRequest%+v", Alias(*a))
 }
 
+// FillFrom fills MessagesAcceptUrlAuthRequest from given interface.
+func (a *MessagesAcceptUrlAuthRequest) FillFrom(from interface {
+	GetWriteAllowed() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetButtonID() (value int)
+}) {
+	a.Peer = from.GetPeer()
+	a.MsgID = from.GetMsgID()
+	a.ButtonID = from.GetButtonID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAcceptUrlAuthRequest) TypeID() uint32 {

@@ -98,6 +98,26 @@ func (s *MessagesSendMultiMediaRequest) String() string {
 	return fmt.Sprintf("MessagesSendMultiMediaRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSendMultiMediaRequest from given interface.
+func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetBackground() (value bool)
+	GetClearDraft() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetReplyToMsgID() (value int, ok bool)
+	GetMultiMedia() (value []InputSingleMedia)
+	GetScheduleDate() (value int, ok bool)
+}) {
+	s.Peer = from.GetPeer()
+	if val, ok := from.GetReplyToMsgID(); ok {
+		s.ReplyToMsgID = val
+	}
+	s.MultiMedia = from.GetMultiMedia()
+	if val, ok := from.GetScheduleDate(); ok {
+		s.ScheduleDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendMultiMediaRequest) TypeID() uint32 {

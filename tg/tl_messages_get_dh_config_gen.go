@@ -58,6 +58,15 @@ func (g *MessagesGetDhConfigRequest) String() string {
 	return fmt.Sprintf("MessagesGetDhConfigRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetDhConfigRequest from given interface.
+func (g *MessagesGetDhConfigRequest) FillFrom(from interface {
+	GetVersion() (value int)
+	GetRandomLength() (value int)
+}) {
+	g.Version = from.GetVersion()
+	g.RandomLength = from.GetRandomLength()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDhConfigRequest) TypeID() uint32 {

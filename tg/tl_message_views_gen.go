@@ -77,6 +77,23 @@ func (m *MessageViews) String() string {
 	return fmt.Sprintf("MessageViews%+v", Alias(*m))
 }
 
+// FillFrom fills MessageViews from given interface.
+func (m *MessageViews) FillFrom(from interface {
+	GetViews() (value int, ok bool)
+	GetForwards() (value int, ok bool)
+	GetReplies() (value MessageReplies, ok bool)
+}) {
+	if val, ok := from.GetViews(); ok {
+		m.Views = val
+	}
+	if val, ok := from.GetForwards(); ok {
+		m.Forwards = val
+	}
+	if val, ok := from.GetReplies(); ok {
+		m.Replies = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageViews) TypeID() uint32 {

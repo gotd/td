@@ -436,3 +436,54 @@ func (b *InlineQueryPeerTypeBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.InlineQueryPeerType.Encode(buf)
 }
+
+// InlineQueryPeerTypeClassSlice is adapter for slice of InlineQueryPeerTypeClass.
+type InlineQueryPeerTypeClassSlice []InlineQueryPeerTypeClass
+
+// First returns first element of slice (if exists).
+func (s InlineQueryPeerTypeClassSlice) First() (v InlineQueryPeerTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InlineQueryPeerTypeClassSlice) Last() (v InlineQueryPeerTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InlineQueryPeerTypeClassSlice) PopFirst() (v InlineQueryPeerTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InlineQueryPeerTypeClassSlice) Pop() (v InlineQueryPeerTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

@@ -58,6 +58,15 @@ func (g *AccountGetThemesRequest) String() string {
 	return fmt.Sprintf("AccountGetThemesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills AccountGetThemesRequest from given interface.
+func (g *AccountGetThemesRequest) FillFrom(from interface {
+	GetFormat() (value string)
+	GetHash() (value int)
+}) {
+	g.Format = from.GetFormat()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetThemesRequest) TypeID() uint32 {

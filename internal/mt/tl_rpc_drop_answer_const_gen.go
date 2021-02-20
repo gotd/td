@@ -47,6 +47,13 @@ func (r *RPCDropAnswerRequest) String() string {
 	return fmt.Sprintf("RPCDropAnswerRequest%+v", Alias(*r))
 }
 
+// FillFrom fills RPCDropAnswerRequest from given interface.
+func (r *RPCDropAnswerRequest) FillFrom(from interface {
+	GetReqMsgID() (value int64)
+}) {
+	r.ReqMsgID = from.GetReqMsgID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCDropAnswerRequest) TypeID() uint32 {

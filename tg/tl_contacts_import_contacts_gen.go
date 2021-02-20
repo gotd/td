@@ -54,6 +54,13 @@ func (i *ContactsImportContactsRequest) String() string {
 	return fmt.Sprintf("ContactsImportContactsRequest%+v", Alias(*i))
 }
 
+// FillFrom fills ContactsImportContactsRequest from given interface.
+func (i *ContactsImportContactsRequest) FillFrom(from interface {
+	GetContacts() (value []InputPhoneContact)
+}) {
+	i.Contacts = from.GetContacts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ContactsImportContactsRequest) TypeID() uint32 {

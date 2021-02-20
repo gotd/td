@@ -58,6 +58,15 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) String() string {
 	return fmt.Sprintf("MessagesEditChatDefaultBannedRightsRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditChatDefaultBannedRightsRequest from given interface.
+func (e *MessagesEditChatDefaultBannedRightsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetBannedRights() (value ChatBannedRights)
+}) {
+	e.Peer = from.GetPeer()
+	e.BannedRights = from.GetBannedRights()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatDefaultBannedRightsRequest) TypeID() uint32 {

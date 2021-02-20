@@ -50,6 +50,13 @@ func (e *EmojiURL) String() string {
 	return fmt.Sprintf("EmojiURL%+v", Alias(*e))
 }
 
+// FillFrom fills EmojiURL from given interface.
+func (e *EmojiURL) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	e.URL = from.GetURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiURL) TypeID() uint32 {

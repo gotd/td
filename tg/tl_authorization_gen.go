@@ -131,6 +131,38 @@ func (a *Authorization) String() string {
 	return fmt.Sprintf("Authorization%+v", Alias(*a))
 }
 
+// FillFrom fills Authorization from given interface.
+func (a *Authorization) FillFrom(from interface {
+	GetCurrent() (value bool)
+	GetOfficialApp() (value bool)
+	GetPasswordPending() (value bool)
+	GetHash() (value int64)
+	GetDeviceModel() (value string)
+	GetPlatform() (value string)
+	GetSystemVersion() (value string)
+	GetAPIID() (value int)
+	GetAppName() (value string)
+	GetAppVersion() (value string)
+	GetDateCreated() (value int)
+	GetDateActive() (value int)
+	GetIP() (value string)
+	GetCountry() (value string)
+	GetRegion() (value string)
+}) {
+	a.Hash = from.GetHash()
+	a.DeviceModel = from.GetDeviceModel()
+	a.Platform = from.GetPlatform()
+	a.SystemVersion = from.GetSystemVersion()
+	a.APIID = from.GetAPIID()
+	a.AppName = from.GetAppName()
+	a.AppVersion = from.GetAppVersion()
+	a.DateCreated = from.GetDateCreated()
+	a.DateActive = from.GetDateActive()
+	a.IP = from.GetIP()
+	a.Country = from.GetCountry()
+	a.Region = from.GetRegion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *Authorization) TypeID() uint32 {

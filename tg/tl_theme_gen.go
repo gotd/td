@@ -102,6 +102,31 @@ func (t *Theme) String() string {
 	return fmt.Sprintf("Theme%+v", Alias(*t))
 }
 
+// FillFrom fills Theme from given interface.
+func (t *Theme) FillFrom(from interface {
+	GetCreator() (value bool)
+	GetDefault() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetSlug() (value string)
+	GetTitle() (value string)
+	GetDocument() (value DocumentClass, ok bool)
+	GetSettings() (value ThemeSettings, ok bool)
+	GetInstallsCount() (value int)
+}) {
+	t.ID = from.GetID()
+	t.AccessHash = from.GetAccessHash()
+	t.Slug = from.GetSlug()
+	t.Title = from.GetTitle()
+	if val, ok := from.GetDocument(); ok {
+		t.Document = val
+	}
+	if val, ok := from.GetSettings(); ok {
+		t.Settings = val
+	}
+	t.InstallsCount = from.GetInstallsCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *Theme) TypeID() uint32 {
@@ -215,6 +240,15 @@ func (t *Theme) GetDocument() (value DocumentClass, ok bool) {
 		return value, false
 	}
 	return t.Document, true
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document conditional field and
+// boolean which is true if field was set.
+func (t *Theme) GetDocumentAsNotEmpty() (*Document, bool) {
+	if value, ok := t.GetDocument(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // SetSettings sets value of Settings conditional field.

@@ -58,6 +58,12 @@ func (r *ReplyKeyboardHide) String() string {
 	return fmt.Sprintf("ReplyKeyboardHide%+v", Alias(*r))
 }
 
+// FillFrom fills ReplyKeyboardHide from given interface.
+func (r *ReplyKeyboardHide) FillFrom(from interface {
+	GetSelective() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardHide) TypeID() uint32 {
@@ -166,6 +172,13 @@ func (r *ReplyKeyboardForceReply) String() string {
 	}
 	type Alias ReplyKeyboardForceReply
 	return fmt.Sprintf("ReplyKeyboardForceReply%+v", Alias(*r))
+}
+
+// FillFrom fills ReplyKeyboardForceReply from given interface.
+func (r *ReplyKeyboardForceReply) FillFrom(from interface {
+	GetSingleUse() (value bool)
+	GetSelective() (value bool)
+}) {
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -306,6 +319,16 @@ func (r *ReplyKeyboardMarkup) String() string {
 	}
 	type Alias ReplyKeyboardMarkup
 	return fmt.Sprintf("ReplyKeyboardMarkup%+v", Alias(*r))
+}
+
+// FillFrom fills ReplyKeyboardMarkup from given interface.
+func (r *ReplyKeyboardMarkup) FillFrom(from interface {
+	GetResize() (value bool)
+	GetSingleUse() (value bool)
+	GetSelective() (value bool)
+	GetRows() (value []KeyboardButtonRow)
+}) {
+	r.Rows = from.GetRows()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -469,6 +492,13 @@ func (r *ReplyInlineMarkup) String() string {
 	return fmt.Sprintf("ReplyInlineMarkup%+v", Alias(*r))
 }
 
+// FillFrom fills ReplyInlineMarkup from given interface.
+func (r *ReplyInlineMarkup) FillFrom(from interface {
+	GetRows() (value []KeyboardButtonRow)
+}) {
+	r.Rows = from.GetRows()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyInlineMarkup) TypeID() uint32 {
@@ -624,4 +654,55 @@ func (b *ReplyMarkupBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ReplyMarkupClass as nil")
 	}
 	return b.ReplyMarkup.Encode(buf)
+}
+
+// ReplyMarkupClassSlice is adapter for slice of ReplyMarkupClass.
+type ReplyMarkupClassSlice []ReplyMarkupClass
+
+// First returns first element of slice (if exists).
+func (s ReplyMarkupClassSlice) First() (v ReplyMarkupClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ReplyMarkupClassSlice) Last() (v ReplyMarkupClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ReplyMarkupClassSlice) PopFirst() (v ReplyMarkupClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ReplyMarkupClassSlice) Pop() (v ReplyMarkupClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

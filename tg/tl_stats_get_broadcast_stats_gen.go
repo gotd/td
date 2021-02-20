@@ -66,6 +66,14 @@ func (g *StatsGetBroadcastStatsRequest) String() string {
 	return fmt.Sprintf("StatsGetBroadcastStatsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills StatsGetBroadcastStatsRequest from given interface.
+func (g *StatsGetBroadcastStatsRequest) FillFrom(from interface {
+	GetDark() (value bool)
+	GetChannel() (value InputChannelClass)
+}) {
+	g.Channel = from.GetChannel()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *StatsGetBroadcastStatsRequest) TypeID() uint32 {
@@ -112,6 +120,11 @@ func (g *StatsGetBroadcastStatsRequest) GetDark() (value bool) {
 // GetChannel returns value of Channel field.
 func (g *StatsGetBroadcastStatsRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetBroadcastStatsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

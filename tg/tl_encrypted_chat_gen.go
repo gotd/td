@@ -50,6 +50,13 @@ func (e *EncryptedChatEmpty) String() string {
 	return fmt.Sprintf("EncryptedChatEmpty%+v", Alias(*e))
 }
 
+// FillFrom fills EncryptedChatEmpty from given interface.
+func (e *EncryptedChatEmpty) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	e.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatEmpty) TypeID() uint32 {
@@ -150,6 +157,21 @@ func (e *EncryptedChatWaiting) String() string {
 	}
 	type Alias EncryptedChatWaiting
 	return fmt.Sprintf("EncryptedChatWaiting%+v", Alias(*e))
+}
+
+// FillFrom fills EncryptedChatWaiting from given interface.
+func (e *EncryptedChatWaiting) FillFrom(from interface {
+	GetID() (value int)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+}) {
+	e.ID = from.GetID()
+	e.AccessHash = from.GetAccessHash()
+	e.Date = from.GetDate()
+	e.AdminID = from.GetAdminID()
+	e.ParticipantID = from.GetParticipantID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -330,6 +352,27 @@ func (e *EncryptedChatRequested) String() string {
 	}
 	type Alias EncryptedChatRequested
 	return fmt.Sprintf("EncryptedChatRequested%+v", Alias(*e))
+}
+
+// FillFrom fills EncryptedChatRequested from given interface.
+func (e *EncryptedChatRequested) FillFrom(from interface {
+	GetFolderID() (value int, ok bool)
+	GetID() (value int)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetGA() (value []byte)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		e.FolderID = val
+	}
+	e.ID = from.GetID()
+	e.AccessHash = from.GetAccessHash()
+	e.Date = from.GetDate()
+	e.AdminID = from.GetAdminID()
+	e.ParticipantID = from.GetParticipantID()
+	e.GA = from.GetGA()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -548,6 +591,25 @@ func (e *EncryptedChat) String() string {
 	return fmt.Sprintf("EncryptedChat%+v", Alias(*e))
 }
 
+// FillFrom fills EncryptedChat from given interface.
+func (e *EncryptedChat) FillFrom(from interface {
+	GetID() (value int)
+	GetAccessHash() (value int64)
+	GetDate() (value int)
+	GetAdminID() (value int)
+	GetParticipantID() (value int)
+	GetGAOrB() (value []byte)
+	GetKeyFingerprint() (value int64)
+}) {
+	e.ID = from.GetID()
+	e.AccessHash = from.GetAccessHash()
+	e.Date = from.GetDate()
+	e.AdminID = from.GetAdminID()
+	e.ParticipantID = from.GetParticipantID()
+	e.GAOrB = from.GetGAOrB()
+	e.KeyFingerprint = from.GetKeyFingerprint()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChat) TypeID() uint32 {
@@ -718,6 +780,14 @@ func (e *EncryptedChatDiscarded) String() string {
 	return fmt.Sprintf("EncryptedChatDiscarded%+v", Alias(*e))
 }
 
+// FillFrom fills EncryptedChatDiscarded from given interface.
+func (e *EncryptedChatDiscarded) FillFrom(from interface {
+	GetHistoryDeleted() (value bool)
+	GetID() (value int)
+}) {
+	e.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatDiscarded) TypeID() uint32 {
@@ -821,6 +891,9 @@ type EncryptedChatClass interface {
 	// Chat ID
 	GetID() (value int)
 
+	// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+	AsNotEmpty() (NotEmptyEncryptedChat, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -828,6 +901,54 @@ type EncryptedChatClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyEncryptedChat represents NotEmpty subset of EncryptedChatClass.
+type NotEmptyEncryptedChat interface {
+	bin.Encoder
+	bin.Decoder
+	construct() EncryptedChatClass
+
+	// Chat ID
+	GetID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+func (e *EncryptedChatEmpty) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
+	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+func (e *EncryptedChatWaiting) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
+	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+func (e *EncryptedChatRequested) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
+	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+func (e *EncryptedChat) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
+	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
+	return value, ok
+}
+
+// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+func (e *EncryptedChatDiscarded) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
+	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
+	return value, ok
 }
 
 // DecodeEncryptedChat implements binary de-serialization for EncryptedChatClass.
@@ -901,4 +1022,200 @@ func (b *EncryptedChatBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedChatClass as nil")
 	}
 	return b.EncryptedChat.Encode(buf)
+}
+
+// EncryptedChatClassSlice is adapter for slice of EncryptedChatClass.
+type EncryptedChatClassSlice []EncryptedChatClass
+
+// FillEncryptedChatEmptyMap fills only EncryptedChatEmpty constructors to given map.
+func (s EncryptedChatClassSlice) FillEncryptedChatEmptyMap(to map[int]*EncryptedChatEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// EncryptedChatEmptyToMap collects only EncryptedChatEmpty constructors to map.
+func (s EncryptedChatClassSlice) EncryptedChatEmptyToMap() map[int]*EncryptedChatEmpty {
+	r := make(map[int]*EncryptedChatEmpty, len(s))
+	s.FillEncryptedChatEmptyMap(r)
+	return r
+}
+
+// FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
+func (s EncryptedChatClassSlice) FillEncryptedChatWaitingMap(to map[int]*EncryptedChatWaiting) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatWaiting)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// EncryptedChatWaitingToMap collects only EncryptedChatWaiting constructors to map.
+func (s EncryptedChatClassSlice) EncryptedChatWaitingToMap() map[int]*EncryptedChatWaiting {
+	r := make(map[int]*EncryptedChatWaiting, len(s))
+	s.FillEncryptedChatWaitingMap(r)
+	return r
+}
+
+// FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
+func (s EncryptedChatClassSlice) FillEncryptedChatRequestedMap(to map[int]*EncryptedChatRequested) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatRequested)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// EncryptedChatRequestedToMap collects only EncryptedChatRequested constructors to map.
+func (s EncryptedChatClassSlice) EncryptedChatRequestedToMap() map[int]*EncryptedChatRequested {
+	r := make(map[int]*EncryptedChatRequested, len(s))
+	s.FillEncryptedChatRequestedMap(r)
+	return r
+}
+
+// FillEncryptedChatMap fills only EncryptedChat constructors to given map.
+func (s EncryptedChatClassSlice) FillEncryptedChatMap(to map[int]*EncryptedChat) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChat)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// EncryptedChatToMap collects only EncryptedChat constructors to map.
+func (s EncryptedChatClassSlice) EncryptedChatToMap() map[int]*EncryptedChat {
+	r := make(map[int]*EncryptedChat, len(s))
+	s.FillEncryptedChatMap(r)
+	return r
+}
+
+// FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
+func (s EncryptedChatClassSlice) FillEncryptedChatDiscardedMap(to map[int]*EncryptedChatDiscarded) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatDiscarded)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// EncryptedChatDiscardedToMap collects only EncryptedChatDiscarded constructors to map.
+func (s EncryptedChatClassSlice) EncryptedChatDiscardedToMap() map[int]*EncryptedChatDiscarded {
+	r := make(map[int]*EncryptedChatDiscarded, len(s))
+	s.FillEncryptedChatDiscardedMap(r)
+	return r
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s EncryptedChatClassSlice) FillNotEmptyMap(to map[int]NotEmptyEncryptedChat) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s EncryptedChatClassSlice) NotEmptyToMap() map[int]NotEmptyEncryptedChat {
+	r := make(map[int]NotEmptyEncryptedChat, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s EncryptedChatClassSlice) AppendOnlyNotEmpty(to []NotEmptyEncryptedChat) []NotEmptyEncryptedChat {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s EncryptedChatClassSlice) AsNotEmpty() (to []NotEmptyEncryptedChat) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s EncryptedChatClassSlice) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s EncryptedChatClassSlice) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatClassSlice) First() (v EncryptedChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatClassSlice) Last() (v EncryptedChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatClassSlice) PopFirst() (v EncryptedChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatClassSlice) Pop() (v EncryptedChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

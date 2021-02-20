@@ -55,6 +55,15 @@ func (g *UploadGetFileHashesRequest) String() string {
 	return fmt.Sprintf("UploadGetFileHashesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UploadGetFileHashesRequest from given interface.
+func (g *UploadGetFileHashesRequest) FillFrom(from interface {
+	GetLocation() (value InputFileLocationClass)
+	GetOffset() (value int)
+}) {
+	g.Location = from.GetLocation()
+	g.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetFileHashesRequest) TypeID() uint32 {

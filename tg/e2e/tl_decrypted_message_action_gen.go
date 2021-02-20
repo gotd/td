@@ -49,6 +49,13 @@ func (d *DecryptedMessageActionSetMessageTTL) String() string {
 	return fmt.Sprintf("DecryptedMessageActionSetMessageTTL%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageActionSetMessageTTL from given interface.
+func (d *DecryptedMessageActionSetMessageTTL) FillFrom(from interface {
+	GetTTLSeconds() (value int)
+}) {
+	d.TTLSeconds = from.GetTTLSeconds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
@@ -128,6 +135,13 @@ func (d *DecryptedMessageActionReadMessages) String() string {
 	}
 	type Alias DecryptedMessageActionReadMessages
 	return fmt.Sprintf("DecryptedMessageActionReadMessages%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionReadMessages from given interface.
+func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
+	GetRandomIds() (value []int64)
+}) {
+	d.RandomIds = from.GetRandomIds()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -220,6 +234,13 @@ func (d *DecryptedMessageActionDeleteMessages) String() string {
 	return fmt.Sprintf("DecryptedMessageActionDeleteMessages%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageActionDeleteMessages from given interface.
+func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
+	GetRandomIds() (value []int64)
+}) {
+	d.RandomIds = from.GetRandomIds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionDeleteMessages) TypeID() uint32 {
@@ -308,6 +329,13 @@ func (d *DecryptedMessageActionScreenshotMessages) String() string {
 	}
 	type Alias DecryptedMessageActionScreenshotMessages
 	return fmt.Sprintf("DecryptedMessageActionScreenshotMessages%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionScreenshotMessages from given interface.
+func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
+	GetRandomIds() (value []int64)
+}) {
+	d.RandomIds = from.GetRandomIds()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -468,6 +496,15 @@ func (d *DecryptedMessageActionResend) String() string {
 	return fmt.Sprintf("DecryptedMessageActionResend%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageActionResend from given interface.
+func (d *DecryptedMessageActionResend) FillFrom(from interface {
+	GetStartSeqNo() (value int)
+	GetEndSeqNo() (value int)
+}) {
+	d.StartSeqNo = from.GetStartSeqNo()
+	d.EndSeqNo = from.GetEndSeqNo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionResend) TypeID() uint32 {
@@ -562,6 +599,13 @@ func (d *DecryptedMessageActionNotifyLayer) String() string {
 	return fmt.Sprintf("DecryptedMessageActionNotifyLayer%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageActionNotifyLayer from given interface.
+func (d *DecryptedMessageActionNotifyLayer) FillFrom(from interface {
+	GetLayer() (value int)
+}) {
+	d.Layer = from.GetLayer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionNotifyLayer) TypeID() uint32 {
@@ -641,6 +685,13 @@ func (d *DecryptedMessageActionTyping) String() string {
 	}
 	type Alias DecryptedMessageActionTyping
 	return fmt.Sprintf("DecryptedMessageActionTyping%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionTyping from given interface.
+func (d *DecryptedMessageActionTyping) FillFrom(from interface {
+	GetAction() (value SendMessageActionClass)
+}) {
+	d.Action = from.GetAction()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -732,6 +783,15 @@ func (d *DecryptedMessageActionRequestKey) String() string {
 	}
 	type Alias DecryptedMessageActionRequestKey
 	return fmt.Sprintf("DecryptedMessageActionRequestKey%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionRequestKey from given interface.
+func (d *DecryptedMessageActionRequestKey) FillFrom(from interface {
+	GetExchangeID() (value int64)
+	GetGA() (value []byte)
+}) {
+	d.ExchangeID = from.GetExchangeID()
+	d.GA = from.GetGA()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -836,6 +896,17 @@ func (d *DecryptedMessageActionAcceptKey) String() string {
 	}
 	type Alias DecryptedMessageActionAcceptKey
 	return fmt.Sprintf("DecryptedMessageActionAcceptKey%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionAcceptKey from given interface.
+func (d *DecryptedMessageActionAcceptKey) FillFrom(from interface {
+	GetExchangeID() (value int64)
+	GetGB() (value []byte)
+	GetKeyFingerprint() (value int64)
+}) {
+	d.ExchangeID = from.GetExchangeID()
+	d.GB = from.GetGB()
+	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -945,6 +1016,13 @@ func (d *DecryptedMessageActionAbortKey) String() string {
 	return fmt.Sprintf("DecryptedMessageActionAbortKey%+v", Alias(*d))
 }
 
+// FillFrom fills DecryptedMessageActionAbortKey from given interface.
+func (d *DecryptedMessageActionAbortKey) FillFrom(from interface {
+	GetExchangeID() (value int64)
+}) {
+	d.ExchangeID = from.GetExchangeID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionAbortKey) TypeID() uint32 {
@@ -1029,6 +1107,15 @@ func (d *DecryptedMessageActionCommitKey) String() string {
 	}
 	type Alias DecryptedMessageActionCommitKey
 	return fmt.Sprintf("DecryptedMessageActionCommitKey%+v", Alias(*d))
+}
+
+// FillFrom fills DecryptedMessageActionCommitKey from given interface.
+func (d *DecryptedMessageActionCommitKey) FillFrom(from interface {
+	GetExchangeID() (value int64)
+	GetKeyFingerprint() (value int64)
+}) {
+	d.ExchangeID = from.GetExchangeID()
+	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1323,4 +1410,55 @@ func (b *DecryptedMessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DecryptedMessageActionClass as nil")
 	}
 	return b.DecryptedMessageAction.Encode(buf)
+}
+
+// DecryptedMessageActionClassSlice is adapter for slice of DecryptedMessageActionClass.
+type DecryptedMessageActionClassSlice []DecryptedMessageActionClass
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionClassSlice) First() (v DecryptedMessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionClassSlice) Last() (v DecryptedMessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionClassSlice) PopFirst() (v DecryptedMessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionClassSlice) Pop() (v DecryptedMessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

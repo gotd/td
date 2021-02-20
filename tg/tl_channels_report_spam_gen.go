@@ -60,6 +60,17 @@ func (r *ChannelsReportSpamRequest) String() string {
 	return fmt.Sprintf("ChannelsReportSpamRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ChannelsReportSpamRequest from given interface.
+func (r *ChannelsReportSpamRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUserID() (value InputUserClass)
+	GetID() (value []int)
+}) {
+	r.Channel = from.GetChannel()
+	r.UserID = from.GetUserID()
+	r.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ChannelsReportSpamRequest) TypeID() uint32 {
@@ -94,6 +105,11 @@ func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (r *ChannelsReportSpamRequest) GetChannel() (value InputChannelClass) {
 	return r.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (r *ChannelsReportSpamRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return r.Channel.AsNotEmpty()
 }
 
 // GetUserID returns value of UserID field.

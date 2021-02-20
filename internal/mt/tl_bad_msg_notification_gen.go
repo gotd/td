@@ -57,6 +57,17 @@ func (b *BadMsgNotification) String() string {
 	return fmt.Sprintf("BadMsgNotification%+v", Alias(*b))
 }
 
+// FillFrom fills BadMsgNotification from given interface.
+func (b *BadMsgNotification) FillFrom(from interface {
+	GetBadMsgID() (value int64)
+	GetBadMsgSeqno() (value int)
+	GetErrorCode() (value int)
+}) {
+	b.BadMsgID = from.GetBadMsgID()
+	b.BadMsgSeqno = from.GetBadMsgSeqno()
+	b.ErrorCode = from.GetErrorCode()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BadMsgNotification) TypeID() uint32 {
@@ -175,6 +186,19 @@ func (b *BadServerSalt) String() string {
 	}
 	type Alias BadServerSalt
 	return fmt.Sprintf("BadServerSalt%+v", Alias(*b))
+}
+
+// FillFrom fills BadServerSalt from given interface.
+func (b *BadServerSalt) FillFrom(from interface {
+	GetBadMsgID() (value int64)
+	GetBadMsgSeqno() (value int)
+	GetErrorCode() (value int)
+	GetNewServerSalt() (value int64)
+}) {
+	b.BadMsgID = from.GetBadMsgID()
+	b.BadMsgSeqno = from.GetBadMsgSeqno()
+	b.ErrorCode = from.GetErrorCode()
+	b.NewServerSalt = from.GetNewServerSalt()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -349,4 +373,55 @@ func (b *BadMsgNotificationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode BadMsgNotificationClass as nil")
 	}
 	return b.BadMsgNotification.Encode(buf)
+}
+
+// BadMsgNotificationClassSlice is adapter for slice of BadMsgNotificationClass.
+type BadMsgNotificationClassSlice []BadMsgNotificationClass
+
+// First returns first element of slice (if exists).
+func (s BadMsgNotificationClassSlice) First() (v BadMsgNotificationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BadMsgNotificationClassSlice) Last() (v BadMsgNotificationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BadMsgNotificationClassSlice) PopFirst() (v BadMsgNotificationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BadMsgNotificationClassSlice) Pop() (v BadMsgNotificationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

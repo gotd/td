@@ -50,6 +50,13 @@ func (a *HelpAcceptTermsOfServiceRequest) String() string {
 	return fmt.Sprintf("HelpAcceptTermsOfServiceRequest%+v", Alias(*a))
 }
 
+// FillFrom fills HelpAcceptTermsOfServiceRequest from given interface.
+func (a *HelpAcceptTermsOfServiceRequest) FillFrom(from interface {
+	GetID() (value DataJSON)
+}) {
+	a.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *HelpAcceptTermsOfServiceRequest) TypeID() uint32 {

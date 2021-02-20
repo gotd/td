@@ -60,6 +60,17 @@ func (f *UploadFile) String() string {
 	return fmt.Sprintf("UploadFile%+v", Alias(*f))
 }
 
+// FillFrom fills UploadFile from given interface.
+func (f *UploadFile) FillFrom(from interface {
+	GetType() (value StorageFileTypeClass)
+	GetMtime() (value int)
+	GetBytes() (value []byte)
+}) {
+	f.Type = from.GetType()
+	f.Mtime = from.GetMtime()
+	f.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *UploadFile) TypeID() uint32 {
@@ -209,6 +220,21 @@ func (f *UploadFileCdnRedirect) String() string {
 	}
 	type Alias UploadFileCdnRedirect
 	return fmt.Sprintf("UploadFileCdnRedirect%+v", Alias(*f))
+}
+
+// FillFrom fills UploadFileCdnRedirect from given interface.
+func (f *UploadFileCdnRedirect) FillFrom(from interface {
+	GetDCID() (value int)
+	GetFileToken() (value []byte)
+	GetEncryptionKey() (value []byte)
+	GetEncryptionIv() (value []byte)
+	GetFileHashes() (value []FileHash)
+}) {
+	f.DCID = from.GetDCID()
+	f.FileToken = from.GetFileToken()
+	f.EncryptionKey = from.GetEncryptionKey()
+	f.EncryptionIv = from.GetEncryptionIv()
+	f.FileHashes = from.GetFileHashes()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -402,4 +428,55 @@ func (b *UploadFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UploadFileClass as nil")
 	}
 	return b.File.Encode(buf)
+}
+
+// UploadFileClassSlice is adapter for slice of UploadFileClass.
+type UploadFileClassSlice []UploadFileClass
+
+// First returns first element of slice (if exists).
+func (s UploadFileClassSlice) First() (v UploadFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UploadFileClassSlice) Last() (v UploadFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UploadFileClassSlice) PopFirst() (v UploadFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UploadFileClassSlice) Pop() (v UploadFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

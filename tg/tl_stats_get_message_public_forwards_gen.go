@@ -91,6 +91,23 @@ func (g *StatsGetMessagePublicForwardsRequest) String() string {
 	return fmt.Sprintf("StatsGetMessagePublicForwardsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills StatsGetMessagePublicForwardsRequest from given interface.
+func (g *StatsGetMessagePublicForwardsRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetMsgID() (value int)
+	GetOffsetRate() (value int)
+	GetOffsetPeer() (value InputPeerClass)
+	GetOffsetID() (value int)
+	GetLimit() (value int)
+}) {
+	g.Channel = from.GetChannel()
+	g.MsgID = from.GetMsgID()
+	g.OffsetRate = from.GetOffsetRate()
+	g.OffsetPeer = from.GetOffsetPeer()
+	g.OffsetID = from.GetOffsetID()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *StatsGetMessagePublicForwardsRequest) TypeID() uint32 {
@@ -125,6 +142,11 @@ func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (g *StatsGetMessagePublicForwardsRequest) GetChannel() (value InputChannelClass) {
 	return g.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (g *StatsGetMessagePublicForwardsRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return g.Channel.AsNotEmpty()
 }
 
 // GetMsgID returns value of MsgID field.

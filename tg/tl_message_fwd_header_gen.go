@@ -112,6 +112,42 @@ func (m *MessageFwdHeader) String() string {
 	return fmt.Sprintf("MessageFwdHeader%+v", Alias(*m))
 }
 
+// FillFrom fills MessageFwdHeader from given interface.
+func (m *MessageFwdHeader) FillFrom(from interface {
+	GetImported() (value bool)
+	GetFromID() (value PeerClass, ok bool)
+	GetFromName() (value string, ok bool)
+	GetDate() (value int)
+	GetChannelPost() (value int, ok bool)
+	GetPostAuthor() (value string, ok bool)
+	GetSavedFromPeer() (value PeerClass, ok bool)
+	GetSavedFromMsgID() (value int, ok bool)
+	GetPsaType() (value string, ok bool)
+}) {
+	if val, ok := from.GetFromID(); ok {
+		m.FromID = val
+	}
+	if val, ok := from.GetFromName(); ok {
+		m.FromName = val
+	}
+	m.Date = from.GetDate()
+	if val, ok := from.GetChannelPost(); ok {
+		m.ChannelPost = val
+	}
+	if val, ok := from.GetPostAuthor(); ok {
+		m.PostAuthor = val
+	}
+	if val, ok := from.GetSavedFromPeer(); ok {
+		m.SavedFromPeer = val
+	}
+	if val, ok := from.GetSavedFromMsgID(); ok {
+		m.SavedFromMsgID = val
+	}
+	if val, ok := from.GetPsaType(); ok {
+		m.PsaType = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageFwdHeader) TypeID() uint32 {

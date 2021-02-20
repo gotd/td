@@ -55,6 +55,13 @@ func (i *AuthImportLoginTokenRequest) String() string {
 	return fmt.Sprintf("AuthImportLoginTokenRequest%+v", Alias(*i))
 }
 
+// FillFrom fills AuthImportLoginTokenRequest from given interface.
+func (i *AuthImportLoginTokenRequest) FillFrom(from interface {
+	GetToken() (value []byte)
+}) {
+	i.Token = from.GetToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AuthImportLoginTokenRequest) TypeID() uint32 {

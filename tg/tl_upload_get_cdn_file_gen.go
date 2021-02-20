@@ -63,6 +63,17 @@ func (g *UploadGetCdnFileRequest) String() string {
 	return fmt.Sprintf("UploadGetCdnFileRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UploadGetCdnFileRequest from given interface.
+func (g *UploadGetCdnFileRequest) FillFrom(from interface {
+	GetFileToken() (value []byte)
+	GetOffset() (value int)
+	GetLimit() (value int)
+}) {
+	g.FileToken = from.GetFileToken()
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetCdnFileRequest) TypeID() uint32 {

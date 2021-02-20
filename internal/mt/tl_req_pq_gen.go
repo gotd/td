@@ -47,6 +47,13 @@ func (r *ReqPqRequest) String() string {
 	return fmt.Sprintf("ReqPqRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ReqPqRequest from given interface.
+func (r *ReqPqRequest) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+}) {
+	r.Nonce = from.GetNonce()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqPqRequest) TypeID() uint32 {

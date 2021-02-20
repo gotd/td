@@ -62,6 +62,19 @@ func (r *ResPQ) String() string {
 	return fmt.Sprintf("ResPQ%+v", Alias(*r))
 }
 
+// FillFrom fills ResPQ from given interface.
+func (r *ResPQ) FillFrom(from interface {
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetPq() (value []byte)
+	GetServerPublicKeyFingerprints() (value []int64)
+}) {
+	r.Nonce = from.GetNonce()
+	r.ServerNonce = from.GetServerNonce()
+	r.Pq = from.GetPq()
+	r.ServerPublicKeyFingerprints = from.GetServerPublicKeyFingerprints()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResPQ) TypeID() uint32 {

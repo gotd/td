@@ -441,3 +441,54 @@ func (b *BaseThemeBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.BaseTheme.Encode(buf)
 }
+
+// BaseThemeClassSlice is adapter for slice of BaseThemeClass.
+type BaseThemeClassSlice []BaseThemeClass
+
+// First returns first element of slice (if exists).
+func (s BaseThemeClassSlice) First() (v BaseThemeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BaseThemeClassSlice) Last() (v BaseThemeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BaseThemeClassSlice) PopFirst() (v BaseThemeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BaseThemeClassSlice) Pop() (v BaseThemeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

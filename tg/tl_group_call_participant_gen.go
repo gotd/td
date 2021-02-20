@@ -118,6 +118,33 @@ func (g *GroupCallParticipant) String() string {
 	return fmt.Sprintf("GroupCallParticipant%+v", Alias(*g))
 }
 
+// FillFrom fills GroupCallParticipant from given interface.
+func (g *GroupCallParticipant) FillFrom(from interface {
+	GetMuted() (value bool)
+	GetLeft() (value bool)
+	GetCanSelfUnmute() (value bool)
+	GetJustJoined() (value bool)
+	GetVersioned() (value bool)
+	GetMin() (value bool)
+	GetMutedByYou() (value bool)
+	GetVolumeByAdmin() (value bool)
+	GetUserID() (value int)
+	GetDate() (value int)
+	GetActiveDate() (value int, ok bool)
+	GetSource() (value int)
+	GetVolume() (value int, ok bool)
+}) {
+	g.UserID = from.GetUserID()
+	g.Date = from.GetDate()
+	if val, ok := from.GetActiveDate(); ok {
+		g.ActiveDate = val
+	}
+	g.Source = from.GetSource()
+	if val, ok := from.GetVolume(); ok {
+		g.Volume = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCallParticipant) TypeID() uint32 {

@@ -104,6 +104,26 @@ func (p *Page) String() string {
 	return fmt.Sprintf("Page%+v", Alias(*p))
 }
 
+// FillFrom fills Page from given interface.
+func (p *Page) FillFrom(from interface {
+	GetPart() (value bool)
+	GetRtl() (value bool)
+	GetV2() (value bool)
+	GetURL() (value string)
+	GetBlocks() (value []PageBlockClass)
+	GetPhotos() (value []PhotoClass)
+	GetDocuments() (value []DocumentClass)
+	GetViews() (value int, ok bool)
+}) {
+	p.URL = from.GetURL()
+	p.Blocks = from.GetBlocks()
+	p.Photos = from.GetPhotos()
+	p.Documents = from.GetDocuments()
+	if val, ok := from.GetViews(); ok {
+		p.Views = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Page) TypeID() uint32 {
@@ -223,14 +243,29 @@ func (p *Page) GetBlocks() (value []PageBlockClass) {
 	return p.Blocks
 }
 
+// MapBlocks returns field Blocks wrapped in PageBlockClassSlice helper.
+func (p *Page) MapBlocks() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Blocks)
+}
+
 // GetPhotos returns value of Photos field.
 func (p *Page) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
+// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
+func (p *Page) MapPhotos() (value PhotoClassSlice) {
+	return PhotoClassSlice(p.Photos)
+}
+
 // GetDocuments returns value of Documents field.
 func (p *Page) GetDocuments() (value []DocumentClass) {
 	return p.Documents
+}
+
+// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
+func (p *Page) MapDocuments() (value DocumentClassSlice) {
+	return DocumentClassSlice(p.Documents)
 }
 
 // SetViews sets value of Views conditional field.

@@ -110,6 +110,35 @@ func (i *InitConnectionRequest) String() string {
 	return fmt.Sprintf("InitConnectionRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InitConnectionRequest from given interface.
+func (i *InitConnectionRequest) FillFrom(from interface {
+	GetAPIID() (value int)
+	GetDeviceModel() (value string)
+	GetSystemVersion() (value string)
+	GetAppVersion() (value string)
+	GetSystemLangCode() (value string)
+	GetLangPack() (value string)
+	GetLangCode() (value string)
+	GetProxy() (value InputClientProxy, ok bool)
+	GetParams() (value JSONValueClass, ok bool)
+	GetQuery() (value bin.Object)
+}) {
+	i.APIID = from.GetAPIID()
+	i.DeviceModel = from.GetDeviceModel()
+	i.SystemVersion = from.GetSystemVersion()
+	i.AppVersion = from.GetAppVersion()
+	i.SystemLangCode = from.GetSystemLangCode()
+	i.LangPack = from.GetLangPack()
+	i.LangCode = from.GetLangCode()
+	if val, ok := from.GetProxy(); ok {
+		i.Proxy = val
+	}
+	if val, ok := from.GetParams(); ok {
+		i.Params = val
+	}
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InitConnectionRequest) TypeID() uint32 {

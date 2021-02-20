@@ -122,6 +122,15 @@ func (i *InputChannel) String() string {
 	return fmt.Sprintf("InputChannel%+v", Alias(*i))
 }
 
+// FillFrom fills InputChannel from given interface.
+func (i *InputChannel) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetAccessHash() (value int64)
+}) {
+	i.ChannelID = from.GetChannelID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannel) TypeID() uint32 {
@@ -230,6 +239,17 @@ func (i *InputChannelFromMessage) String() string {
 	return fmt.Sprintf("InputChannelFromMessage%+v", Alias(*i))
 }
 
+// FillFrom fills InputChannelFromMessage from given interface.
+func (i *InputChannelFromMessage) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetChannelID() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.MsgID = from.GetMsgID()
+	i.ChannelID = from.GetChannelID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannelFromMessage) TypeID() uint32 {
@@ -331,6 +351,9 @@ type InputChannelClass interface {
 	bin.Decoder
 	construct() InputChannelClass
 
+	// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+	AsNotEmpty() (NotEmptyInputChannel, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -338,6 +361,42 @@ type InputChannelClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// NotEmptyInputChannel represents NotEmpty subset of InputChannelClass.
+type NotEmptyInputChannel interface {
+	bin.Encoder
+	bin.Decoder
+	construct() InputChannelClass
+
+	// Channel ID
+	GetChannelID() (value int)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+func (i *InputChannelEmpty) AsNotEmpty() (NotEmptyInputChannel, bool) {
+	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
+	return value, ok
+}
+
+// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+func (i *InputChannel) AsNotEmpty() (NotEmptyInputChannel, bool) {
+	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
+	return value, ok
+}
+
+// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+func (i *InputChannelFromMessage) AsNotEmpty() (NotEmptyInputChannel, bool) {
+	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
+	return value, ok
 }
 
 // DecodeInputChannel implements binary de-serialization for InputChannelClass.
@@ -397,4 +456,92 @@ func (b *InputChannelBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputChannelClass as nil")
 	}
 	return b.InputChannel.Encode(buf)
+}
+
+// InputChannelClassSlice is adapter for slice of InputChannelClass.
+type InputChannelClassSlice []InputChannelClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s InputChannelClassSlice) AppendOnlyNotEmpty(to []NotEmptyInputChannel) []NotEmptyInputChannel {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s InputChannelClassSlice) AsNotEmpty() (to []NotEmptyInputChannel) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s InputChannelClassSlice) FirstAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s InputChannelClassSlice) LastAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s InputChannelClassSlice) First() (v InputChannelClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputChannelClassSlice) Last() (v InputChannelClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputChannelClassSlice) PopFirst() (v InputChannelClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputChannelClassSlice) Pop() (v InputChannelClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

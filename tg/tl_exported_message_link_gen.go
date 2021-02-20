@@ -55,6 +55,15 @@ func (e *ExportedMessageLink) String() string {
 	return fmt.Sprintf("ExportedMessageLink%+v", Alias(*e))
 }
 
+// FillFrom fills ExportedMessageLink from given interface.
+func (e *ExportedMessageLink) FillFrom(from interface {
+	GetLink() (value string)
+	GetHTML() (value string)
+}) {
+	e.Link = from.GetLink()
+	e.HTML = from.GetHTML()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ExportedMessageLink) TypeID() uint32 {

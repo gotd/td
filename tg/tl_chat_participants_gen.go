@@ -65,6 +65,17 @@ func (c *ChatParticipantsForbidden) String() string {
 	return fmt.Sprintf("ChatParticipantsForbidden%+v", Alias(*c))
 }
 
+// FillFrom fills ChatParticipantsForbidden from given interface.
+func (c *ChatParticipantsForbidden) FillFrom(from interface {
+	GetChatID() (value int)
+	GetSelfParticipant() (value ChatParticipantClass, ok bool)
+}) {
+	c.ChatID = from.GetChatID()
+	if val, ok := from.GetSelfParticipant(); ok {
+		c.SelfParticipant = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantsForbidden) TypeID() uint32 {
@@ -198,6 +209,17 @@ func (c *ChatParticipants) String() string {
 	return fmt.Sprintf("ChatParticipants%+v", Alias(*c))
 }
 
+// FillFrom fills ChatParticipants from given interface.
+func (c *ChatParticipants) FillFrom(from interface {
+	GetChatID() (value int)
+	GetParticipants() (value []ChatParticipantClass)
+	GetVersion() (value int)
+}) {
+	c.ChatID = from.GetChatID()
+	c.Participants = from.GetParticipants()
+	c.Version = from.GetVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipants) TypeID() uint32 {
@@ -232,6 +254,11 @@ func (c *ChatParticipants) GetChatID() (value int) {
 // GetParticipants returns value of Participants field.
 func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
 	return c.Participants
+}
+
+// MapParticipants returns field Participants wrapped in ChatParticipantClassSlice helper.
+func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassSlice) {
+	return ChatParticipantClassSlice(c.Participants)
 }
 
 // GetVersion returns value of Version field.
@@ -310,6 +337,9 @@ type ChatParticipantsClass interface {
 	// Group ID
 	GetChatID() (value int)
 
+	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+	AsNotForbidden() (*ChatParticipants, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -317,6 +347,16 @@ type ChatParticipantsClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+func (c *ChatParticipantsForbidden) AsNotForbidden() (*ChatParticipants, bool) {
+	return nil, false
+}
+
+// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+func (c *ChatParticipants) AsNotForbidden() (*ChatParticipants, bool) {
+	return c, true
 }
 
 // DecodeChatParticipants implements binary de-serialization for ChatParticipantsClass.
@@ -369,4 +409,92 @@ func (b *ChatParticipantsBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ChatParticipantsClass as nil")
 	}
 	return b.ChatParticipants.Encode(buf)
+}
+
+// ChatParticipantsClassSlice is adapter for slice of ChatParticipantsClass.
+type ChatParticipantsClassSlice []ChatParticipantsClass
+
+// AppendOnlyNotForbidden appends only NotForbidden constructors to
+// given slice.
+func (s ChatParticipantsClassSlice) AppendOnlyNotForbidden(to []*ChatParticipants) []*ChatParticipants {
+	for _, elem := range s {
+		value, ok := elem.AsNotForbidden()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotForbidden returns copy with only NotForbidden constructors.
+func (s ChatParticipantsClassSlice) AsNotForbidden() (to []*ChatParticipants) {
+	return s.AppendOnlyNotForbidden(to)
+}
+
+// FirstAsNotForbidden returns first element of slice (if exists).
+func (s ChatParticipantsClassSlice) FirstAsNotForbidden() (v *ChatParticipants, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// LastAsNotForbidden returns last element of slice (if exists).
+func (s ChatParticipantsClassSlice) LastAsNotForbidden() (v *ChatParticipants, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// First returns first element of slice (if exists).
+func (s ChatParticipantsClassSlice) First() (v ChatParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatParticipantsClassSlice) Last() (v ChatParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatParticipantsClassSlice) PopFirst() (v ChatParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatParticipantsClassSlice) Pop() (v ChatParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

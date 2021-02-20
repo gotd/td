@@ -55,6 +55,15 @@ func (p *PeerBlocked) String() string {
 	return fmt.Sprintf("PeerBlocked%+v", Alias(*p))
 }
 
+// FillFrom fills PeerBlocked from given interface.
+func (p *PeerBlocked) FillFrom(from interface {
+	GetPeerID() (value PeerClass)
+	GetDate() (value int)
+}) {
+	p.PeerID = from.GetPeerID()
+	p.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerBlocked) TypeID() uint32 {

@@ -103,6 +103,23 @@ func (p *PeerSettings) String() string {
 	return fmt.Sprintf("PeerSettings%+v", Alias(*p))
 }
 
+// FillFrom fills PeerSettings from given interface.
+func (p *PeerSettings) FillFrom(from interface {
+	GetReportSpam() (value bool)
+	GetAddContact() (value bool)
+	GetBlockContact() (value bool)
+	GetShareContact() (value bool)
+	GetNeedContactsException() (value bool)
+	GetReportGeo() (value bool)
+	GetAutoarchived() (value bool)
+	GetInviteMembers() (value bool)
+	GetGeoDistance() (value int, ok bool)
+}) {
+	if val, ok := from.GetGeoDistance(); ok {
+		p.GeoDistance = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerSettings) TypeID() uint32 {

@@ -82,6 +82,20 @@ func (a *ContactsAddContactRequest) String() string {
 	return fmt.Sprintf("ContactsAddContactRequest%+v", Alias(*a))
 }
 
+// FillFrom fills ContactsAddContactRequest from given interface.
+func (a *ContactsAddContactRequest) FillFrom(from interface {
+	GetAddPhonePrivacyException() (value bool)
+	GetID() (value InputUserClass)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetPhone() (value string)
+}) {
+	a.ID = from.GetID()
+	a.FirstName = from.GetFirstName()
+	a.LastName = from.GetLastName()
+	a.Phone = from.GetPhone()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *ContactsAddContactRequest) TypeID() uint32 {

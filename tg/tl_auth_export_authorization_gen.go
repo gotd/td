@@ -50,6 +50,13 @@ func (e *AuthExportAuthorizationRequest) String() string {
 	return fmt.Sprintf("AuthExportAuthorizationRequest%+v", Alias(*e))
 }
 
+// FillFrom fills AuthExportAuthorizationRequest from given interface.
+func (e *AuthExportAuthorizationRequest) FillFrom(from interface {
+	GetDCID() (value int)
+}) {
+	e.DCID = from.GetDCID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *AuthExportAuthorizationRequest) TypeID() uint32 {

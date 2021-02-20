@@ -50,6 +50,13 @@ func (r *MessagesReadMentionsRequest) String() string {
 	return fmt.Sprintf("MessagesReadMentionsRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReadMentionsRequest from given interface.
+func (r *MessagesReadMentionsRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	r.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadMentionsRequest) TypeID() uint32 {

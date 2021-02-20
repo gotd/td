@@ -58,6 +58,15 @@ func (i *InvokeWithLayerRequest) String() string {
 	return fmt.Sprintf("InvokeWithLayerRequest%+v", Alias(*i))
 }
 
+// FillFrom fills InvokeWithLayerRequest from given interface.
+func (i *InvokeWithLayerRequest) FillFrom(from interface {
+	GetLayer() (value int)
+	GetQuery() (value bin.Object)
+}) {
+	i.Layer = from.GetLayer()
+	i.Query = from.GetQuery()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeWithLayerRequest) TypeID() uint32 {

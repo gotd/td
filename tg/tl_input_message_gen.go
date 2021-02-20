@@ -50,6 +50,13 @@ func (i *InputMessageID) String() string {
 	return fmt.Sprintf("InputMessageID%+v", Alias(*i))
 }
 
+// FillFrom fills InputMessageID from given interface.
+func (i *InputMessageID) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	i.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageID) TypeID() uint32 {
@@ -130,6 +137,13 @@ func (i *InputMessageReplyTo) String() string {
 	}
 	type Alias InputMessageReplyTo
 	return fmt.Sprintf("InputMessageReplyTo%+v", Alias(*i))
+}
+
+// FillFrom fills InputMessageReplyTo from given interface.
+func (i *InputMessageReplyTo) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	i.ID = from.GetID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -281,6 +295,15 @@ func (i *InputMessageCallbackQuery) String() string {
 	}
 	type Alias InputMessageCallbackQuery
 	return fmt.Sprintf("InputMessageCallbackQuery%+v", Alias(*i))
+}
+
+// FillFrom fills InputMessageCallbackQuery from given interface.
+func (i *InputMessageCallbackQuery) FillFrom(from interface {
+	GetID() (value int)
+	GetQueryID() (value int64)
+}) {
+	i.ID = from.GetID()
+	i.QueryID = from.GetQueryID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -440,4 +463,55 @@ func (b *InputMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputMessageClass as nil")
 	}
 	return b.InputMessage.Encode(buf)
+}
+
+// InputMessageClassSlice is adapter for slice of InputMessageClass.
+type InputMessageClassSlice []InputMessageClass
+
+// First returns first element of slice (if exists).
+func (s InputMessageClassSlice) First() (v InputMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputMessageClassSlice) Last() (v InputMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputMessageClassSlice) PopFirst() (v InputMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputMessageClassSlice) Pop() (v InputMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

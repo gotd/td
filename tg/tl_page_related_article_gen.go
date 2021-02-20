@@ -98,6 +98,35 @@ func (p *PageRelatedArticle) String() string {
 	return fmt.Sprintf("PageRelatedArticle%+v", Alias(*p))
 }
 
+// FillFrom fills PageRelatedArticle from given interface.
+func (p *PageRelatedArticle) FillFrom(from interface {
+	GetURL() (value string)
+	GetWebpageID() (value int64)
+	GetTitle() (value string, ok bool)
+	GetDescription() (value string, ok bool)
+	GetPhotoID() (value int64, ok bool)
+	GetAuthor() (value string, ok bool)
+	GetPublishedDate() (value int, ok bool)
+}) {
+	p.URL = from.GetURL()
+	p.WebpageID = from.GetWebpageID()
+	if val, ok := from.GetTitle(); ok {
+		p.Title = val
+	}
+	if val, ok := from.GetDescription(); ok {
+		p.Description = val
+	}
+	if val, ok := from.GetPhotoID(); ok {
+		p.PhotoID = val
+	}
+	if val, ok := from.GetAuthor(); ok {
+		p.Author = val
+	}
+	if val, ok := from.GetPublishedDate(); ok {
+		p.PublishedDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageRelatedArticle) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (w *AccountWebAuthorizations) String() string {
 	return fmt.Sprintf("AccountWebAuthorizations%+v", Alias(*w))
 }
 
+// FillFrom fills AccountWebAuthorizations from given interface.
+func (w *AccountWebAuthorizations) FillFrom(from interface {
+	GetAuthorizations() (value []WebAuthorization)
+	GetUsers() (value []UserClass)
+}) {
+	w.Authorizations = from.GetAuthorizations()
+	w.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWebAuthorizations) TypeID() uint32 {
@@ -93,6 +102,11 @@ func (w *AccountWebAuthorizations) GetAuthorizations() (value []WebAuthorization
 // GetUsers returns value of Users field.
 func (w *AccountWebAuthorizations) GetUsers() (value []UserClass) {
 	return w.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (w *AccountWebAuthorizations) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(w.Users)
 }
 
 // Decode implements bin.Decoder.

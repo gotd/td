@@ -55,6 +55,15 @@ func (j *JsonObjectValue) String() string {
 	return fmt.Sprintf("JsonObjectValue%+v", Alias(*j))
 }
 
+// FillFrom fills JsonObjectValue from given interface.
+func (j *JsonObjectValue) FillFrom(from interface {
+	GetKey() (value string)
+	GetValue() (value JSONValueClass)
+}) {
+	j.Key = from.GetKey()
+	j.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonObjectValue) TypeID() uint32 {

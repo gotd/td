@@ -68,6 +68,19 @@ func (i *ContactsImportedContacts) String() string {
 	return fmt.Sprintf("ContactsImportedContacts%+v", Alias(*i))
 }
 
+// FillFrom fills ContactsImportedContacts from given interface.
+func (i *ContactsImportedContacts) FillFrom(from interface {
+	GetImported() (value []ImportedContact)
+	GetPopularInvites() (value []PopularContact)
+	GetRetryContacts() (value []int64)
+	GetUsers() (value []UserClass)
+}) {
+	i.Imported = from.GetImported()
+	i.PopularInvites = from.GetPopularInvites()
+	i.RetryContacts = from.GetRetryContacts()
+	i.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ContactsImportedContacts) TypeID() uint32 {
@@ -126,6 +139,11 @@ func (i *ContactsImportedContacts) GetRetryContacts() (value []int64) {
 // GetUsers returns value of Users field.
 func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
 	return i.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (i *ContactsImportedContacts) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(i.Users)
 }
 
 // Decode implements bin.Decoder.

@@ -57,6 +57,13 @@ func (p *AuthPasswordRecovery) String() string {
 	return fmt.Sprintf("AuthPasswordRecovery%+v", Alias(*p))
 }
 
+// FillFrom fills AuthPasswordRecovery from given interface.
+func (p *AuthPasswordRecovery) FillFrom(from interface {
+	GetEmailPattern() (value string)
+}) {
+	p.EmailPattern = from.GetEmailPattern()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AuthPasswordRecovery) TypeID() uint32 {

@@ -58,6 +58,15 @@ func (g *MessagesGetScheduledHistoryRequest) String() string {
 	return fmt.Sprintf("MessagesGetScheduledHistoryRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetScheduledHistoryRequest from given interface.
+func (g *MessagesGetScheduledHistoryRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetHash() (value int)
+}) {
+	g.Peer = from.GetPeer()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetScheduledHistoryRequest) TypeID() uint32 {

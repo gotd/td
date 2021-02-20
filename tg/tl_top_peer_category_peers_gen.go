@@ -60,6 +60,17 @@ func (t *TopPeerCategoryPeers) String() string {
 	return fmt.Sprintf("TopPeerCategoryPeers%+v", Alias(*t))
 }
 
+// FillFrom fills TopPeerCategoryPeers from given interface.
+func (t *TopPeerCategoryPeers) FillFrom(from interface {
+	GetCategory() (value TopPeerCategoryClass)
+	GetCount() (value int)
+	GetPeers() (value []TopPeer)
+}) {
+	t.Category = from.GetCategory()
+	t.Count = from.GetCount()
+	t.Peers = from.GetPeers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryPeers) TypeID() uint32 {

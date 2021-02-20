@@ -55,6 +55,15 @@ func (l *LangPackString) String() string {
 	return fmt.Sprintf("LangPackString%+v", Alias(*l))
 }
 
+// FillFrom fills LangPackString from given interface.
+func (l *LangPackString) FillFrom(from interface {
+	GetKey() (value string)
+	GetValue() (value string)
+}) {
+	l.Key = from.GetKey()
+	l.Value = from.GetValue()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackString) TypeID() uint32 {
@@ -199,6 +208,35 @@ func (l *LangPackStringPluralized) String() string {
 	}
 	type Alias LangPackStringPluralized
 	return fmt.Sprintf("LangPackStringPluralized%+v", Alias(*l))
+}
+
+// FillFrom fills LangPackStringPluralized from given interface.
+func (l *LangPackStringPluralized) FillFrom(from interface {
+	GetKey() (value string)
+	GetZeroValue() (value string, ok bool)
+	GetOneValue() (value string, ok bool)
+	GetTwoValue() (value string, ok bool)
+	GetFewValue() (value string, ok bool)
+	GetManyValue() (value string, ok bool)
+	GetOtherValue() (value string)
+}) {
+	l.Key = from.GetKey()
+	if val, ok := from.GetZeroValue(); ok {
+		l.ZeroValue = val
+	}
+	if val, ok := from.GetOneValue(); ok {
+		l.OneValue = val
+	}
+	if val, ok := from.GetTwoValue(); ok {
+		l.TwoValue = val
+	}
+	if val, ok := from.GetFewValue(); ok {
+		l.FewValue = val
+	}
+	if val, ok := from.GetManyValue(); ok {
+		l.ManyValue = val
+	}
+	l.OtherValue = from.GetOtherValue()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -444,6 +482,13 @@ func (l *LangPackStringDeleted) String() string {
 	return fmt.Sprintf("LangPackStringDeleted%+v", Alias(*l))
 }
 
+// FillFrom fills LangPackStringDeleted from given interface.
+func (l *LangPackStringDeleted) FillFrom(from interface {
+	GetKey() (value string)
+}) {
+	l.Key = from.GetKey()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackStringDeleted) TypeID() uint32 {
@@ -583,4 +628,55 @@ func (b *LangPackStringBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode LangPackStringClass as nil")
 	}
 	return b.LangPackString.Encode(buf)
+}
+
+// LangPackStringClassSlice is adapter for slice of LangPackStringClass.
+type LangPackStringClassSlice []LangPackStringClass
+
+// First returns first element of slice (if exists).
+func (s LangPackStringClassSlice) First() (v LangPackStringClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s LangPackStringClassSlice) Last() (v LangPackStringClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *LangPackStringClassSlice) PopFirst() (v LangPackStringClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *LangPackStringClassSlice) Pop() (v LangPackStringClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

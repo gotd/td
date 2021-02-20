@@ -50,6 +50,13 @@ func (n *NotifyPeer) String() string {
 	return fmt.Sprintf("NotifyPeer%+v", Alias(*n))
 }
 
+// FillFrom fills NotifyPeer from given interface.
+func (n *NotifyPeer) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+}) {
+	n.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NotifyPeer) TypeID() uint32 {
@@ -391,4 +398,55 @@ func (b *NotifyPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode NotifyPeerClass as nil")
 	}
 	return b.NotifyPeer.Encode(buf)
+}
+
+// NotifyPeerClassSlice is adapter for slice of NotifyPeerClass.
+type NotifyPeerClassSlice []NotifyPeerClass
+
+// First returns first element of slice (if exists).
+func (s NotifyPeerClassSlice) First() (v NotifyPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s NotifyPeerClassSlice) Last() (v NotifyPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *NotifyPeerClassSlice) PopFirst() (v NotifyPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *NotifyPeerClassSlice) Pop() (v NotifyPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

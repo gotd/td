@@ -94,6 +94,30 @@ func (e *MessagesEditInlineBotMessageRequest) String() string {
 	return fmt.Sprintf("MessagesEditInlineBotMessageRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditInlineBotMessageRequest from given interface.
+func (e *MessagesEditInlineBotMessageRequest) FillFrom(from interface {
+	GetNoWebpage() (value bool)
+	GetID() (value InputBotInlineMessageID)
+	GetMessage() (value string, ok bool)
+	GetMedia() (value InputMediaClass, ok bool)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	e.ID = from.GetID()
+	if val, ok := from.GetMessage(); ok {
+		e.Message = val
+	}
+	if val, ok := from.GetMedia(); ok {
+		e.Media = val
+	}
+	if val, ok := from.GetReplyMarkup(); ok {
+		e.ReplyMarkup = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		e.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditInlineBotMessageRequest) TypeID() uint32 {
@@ -239,6 +263,14 @@ func (e *MessagesEditInlineBotMessageRequest) GetEntities() (value []MessageEnti
 		return value, false
 	}
 	return e.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !e.Flags.Has(3) {
+		return value, false
+	}
+	return MessageEntityClassSlice(e.Entities), true
 }
 
 // Decode implements bin.Decoder.

@@ -50,6 +50,13 @@ func (r *ContactsResolveUsernameRequest) String() string {
 	return fmt.Sprintf("ContactsResolveUsernameRequest%+v", Alias(*r))
 }
 
+// FillFrom fills ContactsResolveUsernameRequest from given interface.
+func (r *ContactsResolveUsernameRequest) FillFrom(from interface {
+	GetUsername() (value string)
+}) {
+	r.Username = from.GetUsername()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ContactsResolveUsernameRequest) TypeID() uint32 {

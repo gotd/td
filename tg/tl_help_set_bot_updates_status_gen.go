@@ -55,6 +55,15 @@ func (s *HelpSetBotUpdatesStatusRequest) String() string {
 	return fmt.Sprintf("HelpSetBotUpdatesStatusRequest%+v", Alias(*s))
 }
 
+// FillFrom fills HelpSetBotUpdatesStatusRequest from given interface.
+func (s *HelpSetBotUpdatesStatusRequest) FillFrom(from interface {
+	GetPendingUpdatesCount() (value int)
+	GetMessage() (value string)
+}) {
+	s.PendingUpdatesCount = from.GetPendingUpdatesCount()
+	s.Message = from.GetMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSetBotUpdatesStatusRequest) TypeID() uint32 {

@@ -56,6 +56,13 @@ func (r *AccountResetWebAuthorizationRequest) String() string {
 	return fmt.Sprintf("AccountResetWebAuthorizationRequest%+v", Alias(*r))
 }
 
+// FillFrom fills AccountResetWebAuthorizationRequest from given interface.
+func (r *AccountResetWebAuthorizationRequest) FillFrom(from interface {
+	GetHash() (value int64)
+}) {
+	r.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetWebAuthorizationRequest) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (i *InputWebFileLocation) String() string {
 	return fmt.Sprintf("InputWebFileLocation%+v", Alias(*i))
 }
 
+// FillFrom fills InputWebFileLocation from given interface.
+func (i *InputWebFileLocation) FillFrom(from interface {
+	GetURL() (value string)
+	GetAccessHash() (value int64)
+}) {
+	i.URL = from.GetURL()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebFileLocation) TypeID() uint32 {
@@ -173,6 +182,23 @@ func (i *InputWebFileGeoPointLocation) String() string {
 	}
 	type Alias InputWebFileGeoPointLocation
 	return fmt.Sprintf("InputWebFileGeoPointLocation%+v", Alias(*i))
+}
+
+// FillFrom fills InputWebFileGeoPointLocation from given interface.
+func (i *InputWebFileGeoPointLocation) FillFrom(from interface {
+	GetGeoPoint() (value InputGeoPointClass)
+	GetAccessHash() (value int64)
+	GetW() (value int)
+	GetH() (value int)
+	GetZoom() (value int)
+	GetScale() (value int)
+}) {
+	i.GeoPoint = from.GetGeoPoint()
+	i.AccessHash = from.GetAccessHash()
+	i.W = from.GetW()
+	i.H = from.GetH()
+	i.Zoom = from.GetZoom()
+	i.Scale = from.GetScale()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -376,4 +402,55 @@ func (b *InputWebFileLocationBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputWebFileLocationClass as nil")
 	}
 	return b.InputWebFileLocation.Encode(buf)
+}
+
+// InputWebFileLocationClassSlice is adapter for slice of InputWebFileLocationClass.
+type InputWebFileLocationClassSlice []InputWebFileLocationClass
+
+// First returns first element of slice (if exists).
+func (s InputWebFileLocationClassSlice) First() (v InputWebFileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWebFileLocationClassSlice) Last() (v InputWebFileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWebFileLocationClassSlice) PopFirst() (v InputWebFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWebFileLocationClassSlice) Pop() (v InputWebFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

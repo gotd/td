@@ -50,6 +50,13 @@ func (p *PeerUser) String() string {
 	return fmt.Sprintf("PeerUser%+v", Alias(*p))
 }
 
+// FillFrom fills PeerUser from given interface.
+func (p *PeerUser) FillFrom(from interface {
+	GetUserID() (value int)
+}) {
+	p.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerUser) TypeID() uint32 {
@@ -132,6 +139,13 @@ func (p *PeerChat) String() string {
 	return fmt.Sprintf("PeerChat%+v", Alias(*p))
 }
 
+// FillFrom fills PeerChat from given interface.
+func (p *PeerChat) FillFrom(from interface {
+	GetChatID() (value int)
+}) {
+	p.ChatID = from.GetChatID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerChat) TypeID() uint32 {
@@ -212,6 +226,13 @@ func (p *PeerChannel) String() string {
 	}
 	type Alias PeerChannel
 	return fmt.Sprintf("PeerChannel%+v", Alias(*p))
+}
+
+// FillFrom fills PeerChannel from given interface.
+func (p *PeerChannel) FillFrom(from interface {
+	GetChannelID() (value int)
+}) {
+	p.ChannelID = from.GetChannelID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -350,4 +371,55 @@ func (b *PeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PeerClass as nil")
 	}
 	return b.Peer.Encode(buf)
+}
+
+// PeerClassSlice is adapter for slice of PeerClass.
+type PeerClassSlice []PeerClass
+
+// First returns first element of slice (if exists).
+func (s PeerClassSlice) First() (v PeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerClassSlice) Last() (v PeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerClassSlice) PopFirst() (v PeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerClassSlice) Pop() (v PeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

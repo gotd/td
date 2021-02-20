@@ -50,6 +50,13 @@ func (d *ContactsDeleteByPhonesRequest) String() string {
 	return fmt.Sprintf("ContactsDeleteByPhonesRequest%+v", Alias(*d))
 }
 
+// FillFrom fills ContactsDeleteByPhonesRequest from given interface.
+func (d *ContactsDeleteByPhonesRequest) FillFrom(from interface {
+	GetPhones() (value []string)
+}) {
+	d.Phones = from.GetPhones()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ContactsDeleteByPhonesRequest) TypeID() uint32 {

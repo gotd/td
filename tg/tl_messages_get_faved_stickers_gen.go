@@ -53,6 +53,13 @@ func (g *MessagesGetFavedStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetFavedStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetFavedStickersRequest from given interface.
+func (g *MessagesGetFavedStickersRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetFavedStickersRequest) TypeID() uint32 {

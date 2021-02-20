@@ -49,6 +49,13 @@ func (h *MessagesHistoryImport) String() string {
 	return fmt.Sprintf("MessagesHistoryImport%+v", Alias(*h))
 }
 
+// FillFrom fills MessagesHistoryImport from given interface.
+func (h *MessagesHistoryImport) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	h.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *MessagesHistoryImport) TypeID() uint32 {

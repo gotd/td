@@ -47,6 +47,13 @@ func (vec *LongVector) String() string {
 	return fmt.Sprintf("LongVector%+v", Alias(*vec))
 }
 
+// FillFrom fills LongVector from given interface.
+func (vec *LongVector) FillFrom(from interface {
+	GetElems() (value []int64)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *LongVector) TypeID() uint32 {

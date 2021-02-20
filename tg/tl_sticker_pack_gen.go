@@ -59,6 +59,15 @@ func (s *StickerPack) String() string {
 	return fmt.Sprintf("StickerPack%+v", Alias(*s))
 }
 
+// FillFrom fills StickerPack from given interface.
+func (s *StickerPack) FillFrom(from interface {
+	GetEmoticon() (value string)
+	GetDocuments() (value []int64)
+}) {
+	s.Emoticon = from.GetEmoticon()
+	s.Documents = from.GetDocuments()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerPack) TypeID() uint32 {

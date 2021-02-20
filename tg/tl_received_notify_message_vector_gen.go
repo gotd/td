@@ -47,6 +47,13 @@ func (vec *ReceivedNotifyMessageVector) String() string {
 	return fmt.Sprintf("ReceivedNotifyMessageVector%+v", Alias(*vec))
 }
 
+// FillFrom fills ReceivedNotifyMessageVector from given interface.
+func (vec *ReceivedNotifyMessageVector) FillFrom(from interface {
+	GetElems() (value []ReceivedNotifyMessage)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *ReceivedNotifyMessageVector) TypeID() uint32 {

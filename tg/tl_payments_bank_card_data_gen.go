@@ -55,6 +55,15 @@ func (b *PaymentsBankCardData) String() string {
 	return fmt.Sprintf("PaymentsBankCardData%+v", Alias(*b))
 }
 
+// FillFrom fills PaymentsBankCardData from given interface.
+func (b *PaymentsBankCardData) FillFrom(from interface {
+	GetTitle() (value string)
+	GetOpenUrls() (value []BankCardOpenUrl)
+}) {
+	b.Title = from.GetTitle()
+	b.OpenUrls = from.GetOpenUrls()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *PaymentsBankCardData) TypeID() uint32 {

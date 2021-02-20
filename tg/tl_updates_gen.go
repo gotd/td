@@ -213,6 +213,43 @@ func (u *UpdateShortMessage) String() string {
 	return fmt.Sprintf("UpdateShortMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateShortMessage from given interface.
+func (u *UpdateShortMessage) FillFrom(from interface {
+	GetOut() (value bool)
+	GetMentioned() (value bool)
+	GetMediaUnread() (value bool)
+	GetSilent() (value bool)
+	GetID() (value int)
+	GetUserID() (value int)
+	GetMessage() (value string)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+	GetDate() (value int)
+	GetFwdFrom() (value MessageFwdHeader, ok bool)
+	GetViaBotID() (value int, ok bool)
+	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	u.ID = from.GetID()
+	u.UserID = from.GetUserID()
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+	u.Date = from.GetDate()
+	if val, ok := from.GetFwdFrom(); ok {
+		u.FwdFrom = val
+	}
+	if val, ok := from.GetViaBotID(); ok {
+		u.ViaBotID = val
+	}
+	if val, ok := from.GetReplyTo(); ok {
+		u.ReplyTo = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		u.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortMessage) TypeID() uint32 {
@@ -437,6 +474,14 @@ func (u *UpdateShortMessage) GetEntities() (value []MessageEntityClass, ok bool)
 		return value, false
 	}
 	return u.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(u.Entities), true
 }
 
 // Decode implements bin.Decoder.
@@ -672,6 +717,45 @@ func (u *UpdateShortChatMessage) String() string {
 	return fmt.Sprintf("UpdateShortChatMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateShortChatMessage from given interface.
+func (u *UpdateShortChatMessage) FillFrom(from interface {
+	GetOut() (value bool)
+	GetMentioned() (value bool)
+	GetMediaUnread() (value bool)
+	GetSilent() (value bool)
+	GetID() (value int)
+	GetFromID() (value int)
+	GetChatID() (value int)
+	GetMessage() (value string)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+	GetDate() (value int)
+	GetFwdFrom() (value MessageFwdHeader, ok bool)
+	GetViaBotID() (value int, ok bool)
+	GetReplyTo() (value MessageReplyHeader, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	u.ID = from.GetID()
+	u.FromID = from.GetFromID()
+	u.ChatID = from.GetChatID()
+	u.Message = from.GetMessage()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+	u.Date = from.GetDate()
+	if val, ok := from.GetFwdFrom(); ok {
+		u.FwdFrom = val
+	}
+	if val, ok := from.GetViaBotID(); ok {
+		u.ViaBotID = val
+	}
+	if val, ok := from.GetReplyTo(); ok {
+		u.ReplyTo = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		u.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortChatMessage) TypeID() uint32 {
@@ -904,6 +988,14 @@ func (u *UpdateShortChatMessage) GetEntities() (value []MessageEntityClass, ok b
 	return u.Entities, true
 }
 
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(u.Entities), true
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
@@ -1051,6 +1143,15 @@ func (u *UpdateShort) String() string {
 	return fmt.Sprintf("UpdateShort%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateShort from given interface.
+func (u *UpdateShort) FillFrom(from interface {
+	GetUpdate() (value UpdateClass)
+	GetDate() (value int)
+}) {
+	u.Update = from.GetUpdate()
+	u.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShort) TypeID() uint32 {
@@ -1176,6 +1277,23 @@ func (u *UpdatesCombined) String() string {
 	return fmt.Sprintf("UpdatesCombined%+v", Alias(*u))
 }
 
+// FillFrom fills UpdatesCombined from given interface.
+func (u *UpdatesCombined) FillFrom(from interface {
+	GetUpdates() (value []UpdateClass)
+	GetUsers() (value []UserClass)
+	GetChats() (value []ChatClass)
+	GetDate() (value int)
+	GetSeqStart() (value int)
+	GetSeq() (value int)
+}) {
+	u.Updates = from.GetUpdates()
+	u.Users = from.GetUsers()
+	u.Chats = from.GetChats()
+	u.Date = from.GetDate()
+	u.SeqStart = from.GetSeqStart()
+	u.Seq = from.GetSeq()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatesCombined) TypeID() uint32 {
@@ -1226,14 +1344,29 @@ func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
 	return u.Updates
 }
 
+// MapUpdates returns field Updates wrapped in UpdateClassSlice helper.
+func (u *UpdatesCombined) MapUpdates() (value UpdateClassSlice) {
+	return UpdateClassSlice(u.Updates)
+}
+
 // GetUsers returns value of Users field.
 func (u *UpdatesCombined) GetUsers() (value []UserClass) {
 	return u.Users
 }
 
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (u *UpdatesCombined) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(u.Users)
+}
+
 // GetChats returns value of Chats field.
 func (u *UpdatesCombined) GetChats() (value []ChatClass) {
 	return u.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (u *UpdatesCombined) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(u.Chats)
 }
 
 // GetDate returns value of Date field.
@@ -1384,6 +1517,21 @@ func (u *Updates) String() string {
 	return fmt.Sprintf("Updates%+v", Alias(*u))
 }
 
+// FillFrom fills Updates from given interface.
+func (u *Updates) FillFrom(from interface {
+	GetUpdates() (value []UpdateClass)
+	GetUsers() (value []UserClass)
+	GetChats() (value []ChatClass)
+	GetDate() (value int)
+	GetSeq() (value int)
+}) {
+	u.Updates = from.GetUpdates()
+	u.Users = from.GetUsers()
+	u.Chats = from.GetChats()
+	u.Date = from.GetDate()
+	u.Seq = from.GetSeq()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *Updates) TypeID() uint32 {
@@ -1433,14 +1581,29 @@ func (u *Updates) GetUpdates() (value []UpdateClass) {
 	return u.Updates
 }
 
+// MapUpdates returns field Updates wrapped in UpdateClassSlice helper.
+func (u *Updates) MapUpdates() (value UpdateClassSlice) {
+	return UpdateClassSlice(u.Updates)
+}
+
 // GetUsers returns value of Users field.
 func (u *Updates) GetUsers() (value []UserClass) {
 	return u.Users
 }
 
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (u *Updates) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(u.Users)
+}
+
 // GetChats returns value of Chats field.
 func (u *Updates) GetChats() (value []ChatClass) {
 	return u.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (u *Updates) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(u.Chats)
 }
 
 // GetDate returns value of Date field.
@@ -1614,6 +1777,28 @@ func (u *UpdateShortSentMessage) String() string {
 	return fmt.Sprintf("UpdateShortSentMessage%+v", Alias(*u))
 }
 
+// FillFrom fills UpdateShortSentMessage from given interface.
+func (u *UpdateShortSentMessage) FillFrom(from interface {
+	GetOut() (value bool)
+	GetID() (value int)
+	GetPts() (value int)
+	GetPtsCount() (value int)
+	GetDate() (value int)
+	GetMedia() (value MessageMediaClass, ok bool)
+	GetEntities() (value []MessageEntityClass, ok bool)
+}) {
+	u.ID = from.GetID()
+	u.Pts = from.GetPts()
+	u.PtsCount = from.GetPtsCount()
+	u.Date = from.GetDate()
+	if val, ok := from.GetMedia(); ok {
+		u.Media = val
+	}
+	if val, ok := from.GetEntities(); ok {
+		u.Entities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortSentMessage) TypeID() uint32 {
@@ -1728,6 +1913,14 @@ func (u *UpdateShortSentMessage) GetEntities() (value []MessageEntityClass, ok b
 		return value, false
 	}
 	return u.Entities, true
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+	if !u.Flags.Has(7) {
+		return value, false
+	}
+	return MessageEntityClassSlice(u.Entities), true
 }
 
 // Decode implements bin.Decoder.
@@ -1924,4 +2117,55 @@ func (b *UpdatesBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UpdatesClass as nil")
 	}
 	return b.Updates.Encode(buf)
+}
+
+// UpdatesClassSlice is adapter for slice of UpdatesClass.
+type UpdatesClassSlice []UpdatesClass
+
+// First returns first element of slice (if exists).
+func (s UpdatesClassSlice) First() (v UpdatesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesClassSlice) Last() (v UpdatesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesClassSlice) PopFirst() (v UpdatesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesClassSlice) Pop() (v UpdatesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -59,6 +59,17 @@ func (i *MessagesInitHistoryImportRequest) String() string {
 	return fmt.Sprintf("MessagesInitHistoryImportRequest%+v", Alias(*i))
 }
 
+// FillFrom fills MessagesInitHistoryImportRequest from given interface.
+func (i *MessagesInitHistoryImportRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+	GetFile() (value InputFileClass)
+	GetMediaCount() (value int)
+}) {
+	i.Peer = from.GetPeer()
+	i.File = from.GetFile()
+	i.MediaCount = from.GetMediaCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *MessagesInitHistoryImportRequest) TypeID() uint32 {

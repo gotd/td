@@ -50,6 +50,13 @@ func (u *UserEmpty) String() string {
 	return fmt.Sprintf("UserEmpty%+v", Alias(*u))
 }
 
+// FillFrom fills UserEmpty from given interface.
+func (u *UserEmpty) FillFrom(from interface {
+	GetID() (value int)
+}) {
+	u.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserEmpty) TypeID() uint32 {
@@ -296,6 +303,72 @@ func (u *User) String() string {
 	}
 	type Alias User
 	return fmt.Sprintf("User%+v", Alias(*u))
+}
+
+// FillFrom fills User from given interface.
+func (u *User) FillFrom(from interface {
+	GetSelf() (value bool)
+	GetContact() (value bool)
+	GetMutualContact() (value bool)
+	GetDeleted() (value bool)
+	GetBot() (value bool)
+	GetBotChatHistory() (value bool)
+	GetBotNochats() (value bool)
+	GetVerified() (value bool)
+	GetRestricted() (value bool)
+	GetMin() (value bool)
+	GetBotInlineGeo() (value bool)
+	GetSupport() (value bool)
+	GetScam() (value bool)
+	GetApplyMinPhoto() (value bool)
+	GetFake() (value bool)
+	GetID() (value int)
+	GetAccessHash() (value int64, ok bool)
+	GetFirstName() (value string, ok bool)
+	GetLastName() (value string, ok bool)
+	GetUsername() (value string, ok bool)
+	GetPhone() (value string, ok bool)
+	GetPhoto() (value UserProfilePhotoClass, ok bool)
+	GetStatus() (value UserStatusClass, ok bool)
+	GetBotInfoVersion() (value int, ok bool)
+	GetRestrictionReason() (value []RestrictionReason, ok bool)
+	GetBotInlinePlaceholder() (value string, ok bool)
+	GetLangCode() (value string, ok bool)
+}) {
+	u.ID = from.GetID()
+	if val, ok := from.GetAccessHash(); ok {
+		u.AccessHash = val
+	}
+	if val, ok := from.GetFirstName(); ok {
+		u.FirstName = val
+	}
+	if val, ok := from.GetLastName(); ok {
+		u.LastName = val
+	}
+	if val, ok := from.GetUsername(); ok {
+		u.Username = val
+	}
+	if val, ok := from.GetPhone(); ok {
+		u.Phone = val
+	}
+	if val, ok := from.GetPhoto(); ok {
+		u.Photo = val
+	}
+	if val, ok := from.GetStatus(); ok {
+		u.Status = val
+	}
+	if val, ok := from.GetBotInfoVersion(); ok {
+		u.BotInfoVersion = val
+	}
+	if val, ok := from.GetRestrictionReason(); ok {
+		u.RestrictionReason = val
+	}
+	if val, ok := from.GetBotInlinePlaceholder(); ok {
+		u.BotInlinePlaceholder = val
+	}
+	if val, ok := from.GetLangCode(); ok {
+		u.LangCode = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1007,6 +1080,9 @@ type UserClass interface {
 	// User identifier or 0
 	GetID() (value int)
 
+	// AsNotEmpty tries to map UserClass to User.
+	AsNotEmpty() (*User, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -1014,6 +1090,16 @@ type UserClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map UserClass to User.
+func (u *UserEmpty) AsNotEmpty() (*User, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map UserClass to User.
+func (u *User) AsNotEmpty() (*User, bool) {
+	return u, true
 }
 
 // DecodeUser implements binary de-serialization for UserClass.
@@ -1066,4 +1152,146 @@ func (b *UserBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode UserClass as nil")
 	}
 	return b.User.Encode(buf)
+}
+
+// UserClassSlice is adapter for slice of UserClass.
+type UserClassSlice []UserClass
+
+// FillUserEmptyMap fills only UserEmpty constructors to given map.
+func (s UserClassSlice) FillUserEmptyMap(to map[int]*UserEmpty) {
+	for _, elem := range s {
+		value, ok := elem.(*UserEmpty)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// UserEmptyToMap collects only UserEmpty constructors to map.
+func (s UserClassSlice) UserEmptyToMap() map[int]*UserEmpty {
+	r := make(map[int]*UserEmpty, len(s))
+	s.FillUserEmptyMap(r)
+	return r
+}
+
+// FillUserMap fills only User constructors to given map.
+func (s UserClassSlice) FillUserMap(to map[int]*User) {
+	for _, elem := range s {
+		value, ok := elem.(*User)
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// UserToMap collects only User constructors to map.
+func (s UserClassSlice) UserToMap() map[int]*User {
+	r := make(map[int]*User, len(s))
+	s.FillUserMap(r)
+	return r
+}
+
+// FillNotEmptyMap fills only NotEmpty constructors to given map.
+func (s UserClassSlice) FillNotEmptyMap(to map[int]*User) {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to[value.GetID()] = value
+	}
+}
+
+// NotEmptyToMap collects only NotEmpty constructors to map.
+func (s UserClassSlice) NotEmptyToMap() map[int]*User {
+	r := make(map[int]*User, len(s))
+	s.FillNotEmptyMap(r)
+	return r
+}
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s UserClassSlice) AppendOnlyNotEmpty(to []*User) []*User {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s UserClassSlice) AsNotEmpty() (to []*User) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s UserClassSlice) FirstAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s UserClassSlice) LastAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s UserClassSlice) First() (v UserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserClassSlice) Last() (v UserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserClassSlice) PopFirst() (v UserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserClassSlice) Pop() (v UserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

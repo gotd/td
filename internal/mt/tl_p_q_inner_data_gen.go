@@ -72,6 +72,23 @@ func (p *PQInnerData) String() string {
 	return fmt.Sprintf("PQInnerData%+v", Alias(*p))
 }
 
+// FillFrom fills PQInnerData from given interface.
+func (p *PQInnerData) FillFrom(from interface {
+	GetPq() (value []byte)
+	GetP() (value []byte)
+	GetQ() (value []byte)
+	GetNonce() (value bin.Int128)
+	GetServerNonce() (value bin.Int128)
+	GetNewNonce() (value bin.Int256)
+}) {
+	p.Pq = from.GetPq()
+	p.P = from.GetP()
+	p.Q = from.GetQ()
+	p.Nonce = from.GetNonce()
+	p.ServerNonce = from.GetServerNonce()
+	p.NewNonce = from.GetNewNonce()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PQInnerData) TypeID() uint32 {

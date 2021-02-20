@@ -58,6 +58,15 @@ func (c *ChannelsCheckUsernameRequest) String() string {
 	return fmt.Sprintf("ChannelsCheckUsernameRequest%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelsCheckUsernameRequest from given interface.
+func (c *ChannelsCheckUsernameRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetUsername() (value string)
+}) {
+	c.Channel = from.GetChannel()
+	c.Username = from.GetUsername()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsCheckUsernameRequest) TypeID() uint32 {
@@ -83,6 +92,11 @@ func (c *ChannelsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (c *ChannelsCheckUsernameRequest) GetChannel() (value InputChannelClass) {
 	return c.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (c *ChannelsCheckUsernameRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return c.Channel.AsNotEmpty()
 }
 
 // GetUsername returns value of Username field.

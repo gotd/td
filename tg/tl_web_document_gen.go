@@ -70,6 +70,21 @@ func (w *WebDocument) String() string {
 	return fmt.Sprintf("WebDocument%+v", Alias(*w))
 }
 
+// FillFrom fills WebDocument from given interface.
+func (w *WebDocument) FillFrom(from interface {
+	GetURL() (value string)
+	GetAccessHash() (value int64)
+	GetSize() (value int)
+	GetMimeType() (value string)
+	GetAttributes() (value []DocumentAttributeClass)
+}) {
+	w.URL = from.GetURL()
+	w.AccessHash = from.GetAccessHash()
+	w.Size = from.GetSize()
+	w.MimeType = from.GetMimeType()
+	w.Attributes = from.GetAttributes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebDocument) TypeID() uint32 {
@@ -121,6 +136,11 @@ func (w *WebDocument) GetMimeType() (value string) {
 // GetAttributes returns value of Attributes field.
 func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (w *WebDocument) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(w.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -236,6 +256,19 @@ func (w *WebDocumentNoProxy) String() string {
 	return fmt.Sprintf("WebDocumentNoProxy%+v", Alias(*w))
 }
 
+// FillFrom fills WebDocumentNoProxy from given interface.
+func (w *WebDocumentNoProxy) FillFrom(from interface {
+	GetURL() (value string)
+	GetSize() (value int)
+	GetMimeType() (value string)
+	GetAttributes() (value []DocumentAttributeClass)
+}) {
+	w.URL = from.GetURL()
+	w.Size = from.GetSize()
+	w.MimeType = from.GetMimeType()
+	w.Attributes = from.GetAttributes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebDocumentNoProxy) TypeID() uint32 {
@@ -281,6 +314,11 @@ func (w *WebDocumentNoProxy) GetMimeType() (value string) {
 // GetAttributes returns value of Attributes field.
 func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
 	return w.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(w.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -426,4 +464,55 @@ func (b *WebDocumentBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode WebDocumentClass as nil")
 	}
 	return b.WebDocument.Encode(buf)
+}
+
+// WebDocumentClassSlice is adapter for slice of WebDocumentClass.
+type WebDocumentClassSlice []WebDocumentClass
+
+// First returns first element of slice (if exists).
+func (s WebDocumentClassSlice) First() (v WebDocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebDocumentClassSlice) Last() (v WebDocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebDocumentClassSlice) PopFirst() (v WebDocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebDocumentClassSlice) Pop() (v WebDocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

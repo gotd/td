@@ -65,6 +65,19 @@ func (l *LangPackDifference) String() string {
 	return fmt.Sprintf("LangPackDifference%+v", Alias(*l))
 }
 
+// FillFrom fills LangPackDifference from given interface.
+func (l *LangPackDifference) FillFrom(from interface {
+	GetLangCode() (value string)
+	GetFromVersion() (value int)
+	GetVersion() (value int)
+	GetStrings() (value []LangPackStringClass)
+}) {
+	l.LangCode = from.GetLangCode()
+	l.FromVersion = from.GetFromVersion()
+	l.Version = from.GetVersion()
+	l.Strings = from.GetStrings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackDifference) TypeID() uint32 {
@@ -110,6 +123,11 @@ func (l *LangPackDifference) GetVersion() (value int) {
 // GetStrings returns value of Strings field.
 func (l *LangPackDifference) GetStrings() (value []LangPackStringClass) {
 	return l.Strings
+}
+
+// MapStrings returns field Strings wrapped in LangPackStringClassSlice helper.
+func (l *LangPackDifference) MapStrings() (value LangPackStringClassSlice) {
+	return LangPackStringClassSlice(l.Strings)
 }
 
 // Decode implements bin.Decoder.

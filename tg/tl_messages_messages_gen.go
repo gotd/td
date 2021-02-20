@@ -60,6 +60,17 @@ func (m *MessagesMessages) String() string {
 	return fmt.Sprintf("MessagesMessages%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMessages from given interface.
+func (m *MessagesMessages) FillFrom(from interface {
+	GetMessages() (value []MessageClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	m.Messages = from.GetMessages()
+	m.Chats = from.GetChats()
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessages) TypeID() uint32 {
@@ -107,14 +118,29 @@ func (m *MessagesMessages) GetMessages() (value []MessageClass) {
 	return m.Messages
 }
 
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (m *MessagesMessages) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(m.Messages)
+}
+
 // GetChats returns value of Chats field.
 func (m *MessagesMessages) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (m *MessagesMessages) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(m.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (m *MessagesMessages) GetUsers() (value []UserClass) {
 	return m.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (m *MessagesMessages) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(m.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -255,6 +281,28 @@ func (m *MessagesMessagesSlice) String() string {
 	return fmt.Sprintf("MessagesMessagesSlice%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMessagesSlice from given interface.
+func (m *MessagesMessagesSlice) FillFrom(from interface {
+	GetInexact() (value bool)
+	GetCount() (value int)
+	GetNextRate() (value int, ok bool)
+	GetOffsetIDOffset() (value int, ok bool)
+	GetMessages() (value []MessageClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	m.Count = from.GetCount()
+	if val, ok := from.GetNextRate(); ok {
+		m.NextRate = val
+	}
+	if val, ok := from.GetOffsetIDOffset(); ok {
+		m.OffsetIDOffset = val
+	}
+	m.Messages = from.GetMessages()
+	m.Chats = from.GetChats()
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessagesSlice) TypeID() uint32 {
@@ -372,14 +420,29 @@ func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
 	return m.Messages
 }
 
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (m *MessagesMessagesSlice) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(m.Messages)
+}
+
 // GetChats returns value of Chats field.
 func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (m *MessagesMessagesSlice) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(m.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
 	return m.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (m *MessagesMessagesSlice) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(m.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -545,6 +608,26 @@ func (c *MessagesChannelMessages) String() string {
 	return fmt.Sprintf("MessagesChannelMessages%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesChannelMessages from given interface.
+func (c *MessagesChannelMessages) FillFrom(from interface {
+	GetInexact() (value bool)
+	GetPts() (value int)
+	GetCount() (value int)
+	GetOffsetIDOffset() (value int, ok bool)
+	GetMessages() (value []MessageClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	c.Pts = from.GetPts()
+	c.Count = from.GetCount()
+	if val, ok := from.GetOffsetIDOffset(); ok {
+		c.OffsetIDOffset = val
+	}
+	c.Messages = from.GetMessages()
+	c.Chats = from.GetChats()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChannelMessages) TypeID() uint32 {
@@ -647,14 +730,29 @@ func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
 	return c.Messages
 }
 
+// MapMessages returns field Messages wrapped in MessageClassSlice helper.
+func (c *MessagesChannelMessages) MapMessages() (value MessageClassSlice) {
+	return MessageClassSlice(c.Messages)
+}
+
 // GetChats returns value of Chats field.
 func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
 	return c.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (c *MessagesChannelMessages) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(c.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *MessagesChannelMessages) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -777,6 +875,13 @@ func (m *MessagesMessagesNotModified) String() string {
 	return fmt.Sprintf("MessagesMessagesNotModified%+v", Alias(*m))
 }
 
+// FillFrom fills MessagesMessagesNotModified from given interface.
+func (m *MessagesMessagesNotModified) FillFrom(from interface {
+	GetCount() (value int)
+}) {
+	m.Count = from.GetCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessagesNotModified) TypeID() uint32 {
@@ -848,6 +953,9 @@ type MessagesMessagesClass interface {
 	bin.Decoder
 	construct() MessagesMessagesClass
 
+	// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+	AsModified() (ModifiedMessagesMessages, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -855,6 +963,52 @@ type MessagesMessagesClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// ModifiedMessagesMessages represents Modified subset of MessagesMessagesClass.
+type ModifiedMessagesMessages interface {
+	bin.Encoder
+	bin.Decoder
+	construct() MessagesMessagesClass
+
+	// List of messages
+	GetMessages() (value []MessageClass)
+	// List of chats mentioned in dialogs
+	GetChats() (value []ChatClass)
+	// List of users mentioned in messages and chats
+	GetUsers() (value []UserClass)
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+}
+
+// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+func (m *MessagesMessages) AsModified() (ModifiedMessagesMessages, bool) {
+	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
+	return value, ok
+}
+
+// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+func (m *MessagesMessagesSlice) AsModified() (ModifiedMessagesMessages, bool) {
+	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
+	return value, ok
+}
+
+// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+func (c *MessagesChannelMessages) AsModified() (ModifiedMessagesMessages, bool) {
+	value, ok := (MessagesMessagesClass(c)).(ModifiedMessagesMessages)
+	return value, ok
+}
+
+// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+func (m *MessagesMessagesNotModified) AsModified() (ModifiedMessagesMessages, bool) {
+	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
+	return value, ok
 }
 
 // DecodeMessagesMessages implements binary de-serialization for MessagesMessagesClass.
@@ -921,4 +1075,92 @@ func (b *MessagesMessagesBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesMessagesClass as nil")
 	}
 	return b.Messages.Encode(buf)
+}
+
+// MessagesMessagesClassSlice is adapter for slice of MessagesMessagesClass.
+type MessagesMessagesClassSlice []MessagesMessagesClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesMessagesClassSlice) AppendOnlyModified(to []ModifiedMessagesMessages) []ModifiedMessagesMessages {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesMessagesClassSlice) AsModified() (to []ModifiedMessagesMessages) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesMessagesClassSlice) FirstAsModified() (v ModifiedMessagesMessages, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesMessagesClassSlice) LastAsModified() (v ModifiedMessagesMessages, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesMessagesClassSlice) First() (v MessagesMessagesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesMessagesClassSlice) Last() (v MessagesMessagesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesMessagesClassSlice) PopFirst() (v MessagesMessagesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesMessagesClassSlice) Pop() (v MessagesMessagesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

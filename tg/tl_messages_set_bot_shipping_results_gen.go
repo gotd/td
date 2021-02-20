@@ -75,6 +75,21 @@ func (s *MessagesSetBotShippingResultsRequest) String() string {
 	return fmt.Sprintf("MessagesSetBotShippingResultsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSetBotShippingResultsRequest from given interface.
+func (s *MessagesSetBotShippingResultsRequest) FillFrom(from interface {
+	GetQueryID() (value int64)
+	GetError() (value string, ok bool)
+	GetShippingOptions() (value []ShippingOption, ok bool)
+}) {
+	s.QueryID = from.GetQueryID()
+	if val, ok := from.GetError(); ok {
+		s.Error = val
+	}
+	if val, ok := from.GetShippingOptions(); ok {
+		s.ShippingOptions = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetBotShippingResultsRequest) TypeID() uint32 {

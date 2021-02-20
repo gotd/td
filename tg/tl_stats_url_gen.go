@@ -50,6 +50,13 @@ func (s *StatsURL) String() string {
 	return fmt.Sprintf("StatsURL%+v", Alias(*s))
 }
 
+// FillFrom fills StatsURL from given interface.
+func (s *StatsURL) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	s.URL = from.GetURL()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsURL) TypeID() uint32 {

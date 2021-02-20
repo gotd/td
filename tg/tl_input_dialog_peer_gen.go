@@ -50,6 +50,13 @@ func (i *InputDialogPeer) String() string {
 	return fmt.Sprintf("InputDialogPeer%+v", Alias(*i))
 }
 
+// FillFrom fills InputDialogPeer from given interface.
+func (i *InputDialogPeer) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	i.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDialogPeer) TypeID() uint32 {
@@ -141,6 +148,13 @@ func (i *InputDialogPeerFolder) String() string {
 	}
 	type Alias InputDialogPeerFolder
 	return fmt.Sprintf("InputDialogPeerFolder%+v", Alias(*i))
+}
+
+// FillFrom fills InputDialogPeerFolder from given interface.
+func (i *InputDialogPeerFolder) FillFrom(from interface {
+	GetFolderID() (value int)
+}) {
+	i.FolderID = from.GetFolderID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -271,4 +285,55 @@ func (b *InputDialogPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputDialogPeerClass as nil")
 	}
 	return b.InputDialogPeer.Encode(buf)
+}
+
+// InputDialogPeerClassSlice is adapter for slice of InputDialogPeerClass.
+type InputDialogPeerClassSlice []InputDialogPeerClass
+
+// First returns first element of slice (if exists).
+func (s InputDialogPeerClassSlice) First() (v InputDialogPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputDialogPeerClassSlice) Last() (v InputDialogPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputDialogPeerClassSlice) PopFirst() (v InputDialogPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputDialogPeerClassSlice) Pop() (v InputDialogPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

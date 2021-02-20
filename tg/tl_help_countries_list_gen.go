@@ -122,6 +122,15 @@ func (c *HelpCountriesList) String() string {
 	return fmt.Sprintf("HelpCountriesList%+v", Alias(*c))
 }
 
+// FillFrom fills HelpCountriesList from given interface.
+func (c *HelpCountriesList) FillFrom(from interface {
+	GetCountries() (value []HelpCountry)
+	GetHash() (value int)
+}) {
+	c.Countries = from.GetCountries()
+	c.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *HelpCountriesList) TypeID() uint32 {
@@ -215,6 +224,9 @@ type HelpCountriesListClass interface {
 	bin.Decoder
 	construct() HelpCountriesListClass
 
+	// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+	AsModified() (*HelpCountriesList, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -222,6 +234,16 @@ type HelpCountriesListClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+func (c *HelpCountriesListNotModified) AsModified() (*HelpCountriesList, bool) {
+	return nil, false
+}
+
+// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+func (c *HelpCountriesList) AsModified() (*HelpCountriesList, bool) {
+	return c, true
 }
 
 // DecodeHelpCountriesList implements binary de-serialization for HelpCountriesListClass.
@@ -274,4 +296,92 @@ func (b *HelpCountriesListBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpCountriesListClass as nil")
 	}
 	return b.CountriesList.Encode(buf)
+}
+
+// HelpCountriesListClassSlice is adapter for slice of HelpCountriesListClass.
+type HelpCountriesListClassSlice []HelpCountriesListClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s HelpCountriesListClassSlice) AppendOnlyModified(to []*HelpCountriesList) []*HelpCountriesList {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s HelpCountriesListClassSlice) AsModified() (to []*HelpCountriesList) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s HelpCountriesListClassSlice) FirstAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s HelpCountriesListClassSlice) LastAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpCountriesListClassSlice) First() (v HelpCountriesListClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpCountriesListClassSlice) Last() (v HelpCountriesListClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpCountriesListClassSlice) PopFirst() (v HelpCountriesListClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpCountriesListClassSlice) Pop() (v HelpCountriesListClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

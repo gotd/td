@@ -34,6 +34,9 @@ type Generator struct {
 	// errorChecks definitions.
 	errorChecks []errCheckDef
 
+	// constructor mappings.
+	mappings map[string][]constructorMapping
+
 	// registry of type ids.
 	registry []bindingDef
 
@@ -49,9 +52,10 @@ type Generator struct {
 // If blank string provided, no documentation links are generated.
 func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 	g := &Generator{
-		schema:  s,
-		classes: map[string]classBinding{},
-		types:   map[string]typeBinding{},
+		schema:   s,
+		classes:  map[string]classBinding{},
+		types:    map[string]typeBinding{},
+		mappings: map[string][]constructorMapping{},
 	}
 	if docBase != "" {
 		u, err := url.Parse(docBase)

@@ -100,6 +100,27 @@ func (w *WallPaper) String() string {
 	return fmt.Sprintf("WallPaper%+v", Alias(*w))
 }
 
+// FillFrom fills WallPaper from given interface.
+func (w *WallPaper) FillFrom(from interface {
+	GetID() (value int64)
+	GetCreator() (value bool)
+	GetDefault() (value bool)
+	GetPattern() (value bool)
+	GetDark() (value bool)
+	GetAccessHash() (value int64)
+	GetSlug() (value string)
+	GetDocument() (value DocumentClass)
+	GetSettings() (value WallPaperSettings, ok bool)
+}) {
+	w.ID = from.GetID()
+	w.AccessHash = from.GetAccessHash()
+	w.Slug = from.GetSlug()
+	w.Document = from.GetDocument()
+	if val, ok := from.GetSettings(); ok {
+		w.Settings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaper) TypeID() uint32 {
@@ -362,6 +383,17 @@ func (w *WallPaperNoFile) String() string {
 	return fmt.Sprintf("WallPaperNoFile%+v", Alias(*w))
 }
 
+// FillFrom fills WallPaperNoFile from given interface.
+func (w *WallPaperNoFile) FillFrom(from interface {
+	GetDefault() (value bool)
+	GetDark() (value bool)
+	GetSettings() (value WallPaperSettings, ok bool)
+}) {
+	if val, ok := from.GetSettings(); ok {
+		w.Settings = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaperNoFile) TypeID() uint32 {
@@ -560,4 +592,55 @@ func (b *WallPaperBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode WallPaperClass as nil")
 	}
 	return b.WallPaper.Encode(buf)
+}
+
+// WallPaperClassSlice is adapter for slice of WallPaperClass.
+type WallPaperClassSlice []WallPaperClass
+
+// First returns first element of slice (if exists).
+func (s WallPaperClassSlice) First() (v WallPaperClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WallPaperClassSlice) Last() (v WallPaperClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WallPaperClassSlice) PopFirst() (v WallPaperClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WallPaperClassSlice) Pop() (v WallPaperClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

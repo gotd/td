@@ -124,6 +124,17 @@ func (t *ContactsTopPeers) String() string {
 	return fmt.Sprintf("ContactsTopPeers%+v", Alias(*t))
 }
 
+// FillFrom fills ContactsTopPeers from given interface.
+func (t *ContactsTopPeers) FillFrom(from interface {
+	GetCategories() (value []TopPeerCategoryPeers)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	t.Categories = from.GetCategories()
+	t.Chats = from.GetChats()
+	t.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsTopPeers) TypeID() uint32 {
@@ -173,9 +184,19 @@ func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
 	return t.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (t *ContactsTopPeers) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(t.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
 	return t.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (t *ContactsTopPeers) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(t.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -389,4 +410,55 @@ func (b *ContactsTopPeersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode ContactsTopPeersClass as nil")
 	}
 	return b.TopPeers.Encode(buf)
+}
+
+// ContactsTopPeersClassSlice is adapter for slice of ContactsTopPeersClass.
+type ContactsTopPeersClassSlice []ContactsTopPeersClass
+
+// First returns first element of slice (if exists).
+func (s ContactsTopPeersClassSlice) First() (v ContactsTopPeersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ContactsTopPeersClassSlice) Last() (v ContactsTopPeersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ContactsTopPeersClassSlice) PopFirst() (v ContactsTopPeersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ContactsTopPeersClassSlice) Pop() (v ContactsTopPeersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

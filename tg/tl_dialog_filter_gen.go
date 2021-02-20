@@ -170,6 +170,33 @@ func (d *DialogFilter) String() string {
 	return fmt.Sprintf("DialogFilter%+v", Alias(*d))
 }
 
+// FillFrom fills DialogFilter from given interface.
+func (d *DialogFilter) FillFrom(from interface {
+	GetContacts() (value bool)
+	GetNonContacts() (value bool)
+	GetGroups() (value bool)
+	GetBroadcasts() (value bool)
+	GetBots() (value bool)
+	GetExcludeMuted() (value bool)
+	GetExcludeRead() (value bool)
+	GetExcludeArchived() (value bool)
+	GetID() (value int)
+	GetTitle() (value string)
+	GetEmoticon() (value string, ok bool)
+	GetPinnedPeers() (value []InputPeerClass)
+	GetIncludePeers() (value []InputPeerClass)
+	GetExcludePeers() (value []InputPeerClass)
+}) {
+	d.ID = from.GetID()
+	d.Title = from.GetTitle()
+	if val, ok := from.GetEmoticon(); ok {
+		d.Emoticon = val
+	}
+	d.PinnedPeers = from.GetPinnedPeers()
+	d.IncludePeers = from.GetIncludePeers()
+	d.ExcludePeers = from.GetExcludePeers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFilter) TypeID() uint32 {
@@ -405,14 +432,29 @@ func (d *DialogFilter) GetPinnedPeers() (value []InputPeerClass) {
 	return d.PinnedPeers
 }
 
+// MapPinnedPeers returns field PinnedPeers wrapped in InputPeerClassSlice helper.
+func (d *DialogFilter) MapPinnedPeers() (value InputPeerClassSlice) {
+	return InputPeerClassSlice(d.PinnedPeers)
+}
+
 // GetIncludePeers returns value of IncludePeers field.
 func (d *DialogFilter) GetIncludePeers() (value []InputPeerClass) {
 	return d.IncludePeers
 }
 
+// MapIncludePeers returns field IncludePeers wrapped in InputPeerClassSlice helper.
+func (d *DialogFilter) MapIncludePeers() (value InputPeerClassSlice) {
+	return InputPeerClassSlice(d.IncludePeers)
+}
+
 // GetExcludePeers returns value of ExcludePeers field.
 func (d *DialogFilter) GetExcludePeers() (value []InputPeerClass) {
 	return d.ExcludePeers
+}
+
+// MapExcludePeers returns field ExcludePeers wrapped in InputPeerClassSlice helper.
+func (d *DialogFilter) MapExcludePeers() (value InputPeerClassSlice) {
+	return InputPeerClassSlice(d.ExcludePeers)
 }
 
 // Decode implements bin.Decoder.

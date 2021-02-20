@@ -55,6 +55,15 @@ func (f *FileLocationToBeDeprecated) String() string {
 	return fmt.Sprintf("FileLocationToBeDeprecated%+v", Alias(*f))
 }
 
+// FillFrom fills FileLocationToBeDeprecated from given interface.
+func (f *FileLocationToBeDeprecated) FillFrom(from interface {
+	GetVolumeID() (value int64)
+	GetLocalID() (value int)
+}) {
+	f.VolumeID = from.GetVolumeID()
+	f.LocalID = from.GetLocalID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocationToBeDeprecated) TypeID() uint32 {

@@ -60,6 +60,17 @@ func (p *AccountPrivacyRules) String() string {
 	return fmt.Sprintf("AccountPrivacyRules%+v", Alias(*p))
 }
 
+// FillFrom fills AccountPrivacyRules from given interface.
+func (p *AccountPrivacyRules) FillFrom(from interface {
+	GetRules() (value []PrivacyRuleClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	p.Rules = from.GetRules()
+	p.Chats = from.GetChats()
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AccountPrivacyRules) TypeID() uint32 {
@@ -107,14 +118,29 @@ func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
 	return p.Rules
 }
 
+// MapRules returns field Rules wrapped in PrivacyRuleClassSlice helper.
+func (p *AccountPrivacyRules) MapRules() (value PrivacyRuleClassSlice) {
+	return PrivacyRuleClassSlice(p.Rules)
+}
+
 // GetChats returns value of Chats field.
 func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
 	return p.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (p *AccountPrivacyRules) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(p.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
 	return p.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (p *AccountPrivacyRules) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(p.Users)
 }
 
 // Decode implements bin.Decoder.

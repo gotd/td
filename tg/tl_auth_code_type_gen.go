@@ -297,3 +297,54 @@ func (b *AuthCodeTypeBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.CodeType.Encode(buf)
 }
+
+// AuthCodeTypeClassSlice is adapter for slice of AuthCodeTypeClass.
+type AuthCodeTypeClassSlice []AuthCodeTypeClass
+
+// First returns first element of slice (if exists).
+func (s AuthCodeTypeClassSlice) First() (v AuthCodeTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthCodeTypeClassSlice) Last() (v AuthCodeTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthCodeTypeClassSlice) PopFirst() (v AuthCodeTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthCodeTypeClassSlice) Pop() (v AuthCodeTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

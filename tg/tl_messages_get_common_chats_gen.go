@@ -66,6 +66,17 @@ func (g *MessagesGetCommonChatsRequest) String() string {
 	return fmt.Sprintf("MessagesGetCommonChatsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetCommonChatsRequest from given interface.
+func (g *MessagesGetCommonChatsRequest) FillFrom(from interface {
+	GetUserID() (value InputUserClass)
+	GetMaxID() (value int)
+	GetLimit() (value int)
+}) {
+	g.UserID = from.GetUserID()
+	g.MaxID = from.GetMaxID()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetCommonChatsRequest) TypeID() uint32 {

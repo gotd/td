@@ -71,6 +71,16 @@ func (s *MessagesSearchStickerSetsRequest) String() string {
 	return fmt.Sprintf("MessagesSearchStickerSetsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSearchStickerSetsRequest from given interface.
+func (s *MessagesSearchStickerSetsRequest) FillFrom(from interface {
+	GetExcludeFeatured() (value bool)
+	GetQ() (value string)
+	GetHash() (value int)
+}) {
+	s.Q = from.GetQ()
+	s.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchStickerSetsRequest) TypeID() uint32 {

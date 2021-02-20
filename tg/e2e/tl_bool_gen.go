@@ -225,3 +225,54 @@ func (b *BoolBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.Bool.Encode(buf)
 }
+
+// BoolClassSlice is adapter for slice of BoolClass.
+type BoolClassSlice []BoolClass
+
+// First returns first element of slice (if exists).
+func (s BoolClassSlice) First() (v BoolClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BoolClassSlice) Last() (v BoolClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BoolClassSlice) PopFirst() (v BoolClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BoolClassSlice) Pop() (v BoolClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

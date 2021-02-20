@@ -58,6 +58,15 @@ func (g *UploadGetCdnFileHashesRequest) String() string {
 	return fmt.Sprintf("UploadGetCdnFileHashesRequest%+v", Alias(*g))
 }
 
+// FillFrom fills UploadGetCdnFileHashesRequest from given interface.
+func (g *UploadGetCdnFileHashesRequest) FillFrom(from interface {
+	GetFileToken() (value []byte)
+	GetOffset() (value int)
+}) {
+	g.FileToken = from.GetFileToken()
+	g.Offset = from.GetOffset()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetCdnFileHashesRequest) TypeID() uint32 {

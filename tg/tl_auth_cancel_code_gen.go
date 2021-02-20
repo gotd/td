@@ -58,6 +58,15 @@ func (c *AuthCancelCodeRequest) String() string {
 	return fmt.Sprintf("AuthCancelCodeRequest%+v", Alias(*c))
 }
 
+// FillFrom fills AuthCancelCodeRequest from given interface.
+func (c *AuthCancelCodeRequest) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetPhoneCodeHash() (value string)
+}) {
+	c.PhoneNumber = from.GetPhoneNumber()
+	c.PhoneCodeHash = from.GetPhoneCodeHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCancelCodeRequest) TypeID() uint32 {

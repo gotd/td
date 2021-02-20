@@ -134,6 +134,19 @@ func (i *InputGeoPoint) String() string {
 	return fmt.Sprintf("InputGeoPoint%+v", Alias(*i))
 }
 
+// FillFrom fills InputGeoPoint from given interface.
+func (i *InputGeoPoint) FillFrom(from interface {
+	GetLat() (value float64)
+	GetLong() (value float64)
+	GetAccuracyRadius() (value int, ok bool)
+}) {
+	i.Lat = from.GetLat()
+	i.Long = from.GetLong()
+	if val, ok := from.GetAccuracyRadius(); ok {
+		i.AccuracyRadius = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGeoPoint) TypeID() uint32 {
@@ -252,6 +265,9 @@ type InputGeoPointClass interface {
 	bin.Decoder
 	construct() InputGeoPointClass
 
+	// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+	AsNotEmpty() (*InputGeoPoint, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -259,6 +275,16 @@ type InputGeoPointClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+func (i *InputGeoPointEmpty) AsNotEmpty() (*InputGeoPoint, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+func (i *InputGeoPoint) AsNotEmpty() (*InputGeoPoint, bool) {
+	return i, true
 }
 
 // DecodeInputGeoPoint implements binary de-serialization for InputGeoPointClass.
@@ -311,4 +337,92 @@ func (b *InputGeoPointBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputGeoPointClass as nil")
 	}
 	return b.InputGeoPoint.Encode(buf)
+}
+
+// InputGeoPointClassSlice is adapter for slice of InputGeoPointClass.
+type InputGeoPointClassSlice []InputGeoPointClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s InputGeoPointClassSlice) AppendOnlyNotEmpty(to []*InputGeoPoint) []*InputGeoPoint {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s InputGeoPointClassSlice) AsNotEmpty() (to []*InputGeoPoint) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s InputGeoPointClassSlice) FirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s InputGeoPointClassSlice) LastAsNotEmpty() (v *InputGeoPoint, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s InputGeoPointClassSlice) First() (v InputGeoPointClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGeoPointClassSlice) Last() (v InputGeoPointClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGeoPointClassSlice) PopFirst() (v InputGeoPointClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGeoPointClassSlice) Pop() (v InputGeoPointClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

@@ -60,6 +60,17 @@ func (i *InputBotInlineMessageID) String() string {
 	return fmt.Sprintf("InputBotInlineMessageID%+v", Alias(*i))
 }
 
+// FillFrom fills InputBotInlineMessageID from given interface.
+func (i *InputBotInlineMessageID) FillFrom(from interface {
+	GetDCID() (value int)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+}) {
+	i.DCID = from.GetDCID()
+	i.ID = from.GetID()
+	i.AccessHash = from.GetAccessHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageID) TypeID() uint32 {

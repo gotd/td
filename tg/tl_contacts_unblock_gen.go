@@ -50,6 +50,13 @@ func (u *ContactsUnblockRequest) String() string {
 	return fmt.Sprintf("ContactsUnblockRequest%+v", Alias(*u))
 }
 
+// FillFrom fills ContactsUnblockRequest from given interface.
+func (u *ContactsUnblockRequest) FillFrom(from interface {
+	GetID() (value InputPeerClass)
+}) {
+	u.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *ContactsUnblockRequest) TypeID() uint32 {

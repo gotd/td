@@ -81,6 +81,21 @@ func (m *MessageReplyHeader) String() string {
 	return fmt.Sprintf("MessageReplyHeader%+v", Alias(*m))
 }
 
+// FillFrom fills MessageReplyHeader from given interface.
+func (m *MessageReplyHeader) FillFrom(from interface {
+	GetReplyToMsgID() (value int)
+	GetReplyToPeerID() (value PeerClass, ok bool)
+	GetReplyToTopID() (value int, ok bool)
+}) {
+	m.ReplyToMsgID = from.GetReplyToMsgID()
+	if val, ok := from.GetReplyToPeerID(); ok {
+		m.ReplyToPeerID = val
+	}
+	if val, ok := from.GetReplyToTopID(); ok {
+		m.ReplyToTopID = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageReplyHeader) TypeID() uint32 {

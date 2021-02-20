@@ -55,6 +55,15 @@ func (p *PageListOrderedItemText) String() string {
 	return fmt.Sprintf("PageListOrderedItemText%+v", Alias(*p))
 }
 
+// FillFrom fills PageListOrderedItemText from given interface.
+func (p *PageListOrderedItemText) FillFrom(from interface {
+	GetNum() (value string)
+	GetText() (value RichTextClass)
+}) {
+	p.Num = from.GetNum()
+	p.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemText) TypeID() uint32 {
@@ -163,6 +172,15 @@ func (p *PageListOrderedItemBlocks) String() string {
 	return fmt.Sprintf("PageListOrderedItemBlocks%+v", Alias(*p))
 }
 
+// FillFrom fills PageListOrderedItemBlocks from given interface.
+func (p *PageListOrderedItemBlocks) FillFrom(from interface {
+	GetNum() (value string)
+	GetBlocks() (value []PageBlockClass)
+}) {
+	p.Num = from.GetNum()
+	p.Blocks = from.GetBlocks()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemBlocks) TypeID() uint32 {
@@ -196,6 +214,11 @@ func (p *PageListOrderedItemBlocks) GetNum() (value string) {
 // GetBlocks returns value of Blocks field.
 func (p *PageListOrderedItemBlocks) GetBlocks() (value []PageBlockClass) {
 	return p.Blocks
+}
+
+// MapBlocks returns field Blocks wrapped in PageBlockClassSlice helper.
+func (p *PageListOrderedItemBlocks) MapBlocks() (value PageBlockClassSlice) {
+	return PageBlockClassSlice(p.Blocks)
 }
 
 // Decode implements bin.Decoder.
@@ -321,4 +344,55 @@ func (b *PageListOrderedItemBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PageListOrderedItemClass as nil")
 	}
 	return b.PageListOrderedItem.Encode(buf)
+}
+
+// PageListOrderedItemClassSlice is adapter for slice of PageListOrderedItemClass.
+type PageListOrderedItemClassSlice []PageListOrderedItemClass
+
+// First returns first element of slice (if exists).
+func (s PageListOrderedItemClassSlice) First() (v PageListOrderedItemClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PageListOrderedItemClassSlice) Last() (v PageListOrderedItemClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PageListOrderedItemClassSlice) PopFirst() (v PageListOrderedItemClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PageListOrderedItemClassSlice) Pop() (v PageListOrderedItemClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

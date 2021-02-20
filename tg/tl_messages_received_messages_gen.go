@@ -50,6 +50,13 @@ func (r *MessagesReceivedMessagesRequest) String() string {
 	return fmt.Sprintf("MessagesReceivedMessagesRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReceivedMessagesRequest from given interface.
+func (r *MessagesReceivedMessagesRequest) FillFrom(from interface {
+	GetMaxID() (value int)
+}) {
+	r.MaxID = from.GetMaxID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReceivedMessagesRequest) TypeID() uint32 {

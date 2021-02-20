@@ -50,6 +50,13 @@ func (p *PaymentsPaymentResult) String() string {
 	return fmt.Sprintf("PaymentsPaymentResult%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentsPaymentResult from given interface.
+func (p *PaymentsPaymentResult) FillFrom(from interface {
+	GetUpdates() (value UpdatesClass)
+}) {
+	p.Updates = from.GetUpdates()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentResult) TypeID() uint32 {
@@ -135,6 +142,13 @@ func (p *PaymentsPaymentVerificationNeeded) String() string {
 	}
 	type Alias PaymentsPaymentVerificationNeeded
 	return fmt.Sprintf("PaymentsPaymentVerificationNeeded%+v", Alias(*p))
+}
+
+// FillFrom fills PaymentsPaymentVerificationNeeded from given interface.
+func (p *PaymentsPaymentVerificationNeeded) FillFrom(from interface {
+	GetURL() (value string)
+}) {
+	p.URL = from.GetURL()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -265,4 +279,55 @@ func (b *PaymentsPaymentResultBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PaymentsPaymentResultClass as nil")
 	}
 	return b.PaymentResult.Encode(buf)
+}
+
+// PaymentsPaymentResultClassSlice is adapter for slice of PaymentsPaymentResultClass.
+type PaymentsPaymentResultClassSlice []PaymentsPaymentResultClass
+
+// First returns first element of slice (if exists).
+func (s PaymentsPaymentResultClassSlice) First() (v PaymentsPaymentResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PaymentsPaymentResultClassSlice) Last() (v PaymentsPaymentResultClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentResultClassSlice) PopFirst() (v PaymentsPaymentResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PaymentsPaymentResultClassSlice) Pop() (v PaymentsPaymentResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

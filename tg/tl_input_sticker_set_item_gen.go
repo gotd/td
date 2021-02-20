@@ -70,6 +70,19 @@ func (i *InputStickerSetItem) String() string {
 	return fmt.Sprintf("InputStickerSetItem%+v", Alias(*i))
 }
 
+// FillFrom fills InputStickerSetItem from given interface.
+func (i *InputStickerSetItem) FillFrom(from interface {
+	GetDocument() (value InputDocumentClass)
+	GetEmoji() (value string)
+	GetMaskCoords() (value MaskCoords, ok bool)
+}) {
+	i.Document = from.GetDocument()
+	i.Emoji = from.GetEmoji()
+	if val, ok := from.GetMaskCoords(); ok {
+		i.MaskCoords = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetItem) TypeID() uint32 {
@@ -106,6 +119,11 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 // GetDocument returns value of Document field.
 func (i *InputStickerSetItem) GetDocument() (value InputDocumentClass) {
 	return i.Document
+}
+
+// GetDocumentAsNotEmpty returns mapped value of Document field.
+func (i *InputStickerSetItem) GetDocumentAsNotEmpty() (*InputDocument, bool) {
+	return i.Document.AsNotEmpty()
 }
 
 // GetEmoji returns value of Emoji field.

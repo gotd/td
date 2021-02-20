@@ -80,6 +80,23 @@ func (u *PhotosUploadProfilePhotoRequest) String() string {
 	return fmt.Sprintf("PhotosUploadProfilePhotoRequest%+v", Alias(*u))
 }
 
+// FillFrom fills PhotosUploadProfilePhotoRequest from given interface.
+func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
+	GetFile() (value InputFileClass, ok bool)
+	GetVideo() (value InputFileClass, ok bool)
+	GetVideoStartTs() (value float64, ok bool)
+}) {
+	if val, ok := from.GetFile(); ok {
+		u.File = val
+	}
+	if val, ok := from.GetVideo(); ok {
+		u.Video = val
+	}
+	if val, ok := from.GetVideoStartTs(); ok {
+		u.VideoStartTs = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *PhotosUploadProfilePhotoRequest) TypeID() uint32 {

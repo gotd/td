@@ -53,6 +53,13 @@ func (g *MessagesGetSavedGifsRequest) String() string {
 	return fmt.Sprintf("MessagesGetSavedGifsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetSavedGifsRequest from given interface.
+func (g *MessagesGetSavedGifsRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetSavedGifsRequest) TypeID() uint32 {

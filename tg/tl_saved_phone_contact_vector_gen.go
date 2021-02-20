@@ -47,6 +47,13 @@ func (vec *SavedPhoneContactVector) String() string {
 	return fmt.Sprintf("SavedPhoneContactVector%+v", Alias(*vec))
 }
 
+// FillFrom fills SavedPhoneContactVector from given interface.
+func (vec *SavedPhoneContactVector) FillFrom(from interface {
+	GetElems() (value []SavedPhoneContact)
+}) {
+	vec.Elems = from.GetElems()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *SavedPhoneContactVector) TypeID() uint32 {

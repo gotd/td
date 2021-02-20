@@ -68,6 +68,19 @@ func (i *InputPhoneContact) String() string {
 	return fmt.Sprintf("InputPhoneContact%+v", Alias(*i))
 }
 
+// FillFrom fills InputPhoneContact from given interface.
+func (i *InputPhoneContact) FillFrom(from interface {
+	GetClientID() (value int64)
+	GetPhone() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+}) {
+	i.ClientID = from.GetClientID()
+	i.Phone = from.GetPhone()
+	i.FirstName = from.GetFirstName()
+	i.LastName = from.GetLastName()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoneContact) TypeID() uint32 {

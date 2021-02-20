@@ -71,6 +71,16 @@ func (s *MessagesSearchCounter) String() string {
 	return fmt.Sprintf("MessagesSearchCounter%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSearchCounter from given interface.
+func (s *MessagesSearchCounter) FillFrom(from interface {
+	GetInexact() (value bool)
+	GetFilter() (value MessagesFilterClass)
+	GetCount() (value int)
+}) {
+	s.Filter = from.GetFilter()
+	s.Count = from.GetCount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchCounter) TypeID() uint32 {

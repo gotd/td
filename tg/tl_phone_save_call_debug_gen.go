@@ -55,6 +55,15 @@ func (s *PhoneSaveCallDebugRequest) String() string {
 	return fmt.Sprintf("PhoneSaveCallDebugRequest%+v", Alias(*s))
 }
 
+// FillFrom fills PhoneSaveCallDebugRequest from given interface.
+func (s *PhoneSaveCallDebugRequest) FillFrom(from interface {
+	GetPeer() (value InputPhoneCall)
+	GetDebug() (value DataJSON)
+}) {
+	s.Peer = from.GetPeer()
+	s.Debug = from.GetDebug()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSaveCallDebugRequest) TypeID() uint32 {

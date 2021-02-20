@@ -71,6 +71,19 @@ func (i *InputFile) String() string {
 	return fmt.Sprintf("InputFile%+v", Alias(*i))
 }
 
+// FillFrom fills InputFile from given interface.
+func (i *InputFile) FillFrom(from interface {
+	GetID() (value int64)
+	GetParts() (value int)
+	GetName() (value string)
+	GetMD5Checksum() (value string)
+}) {
+	i.ID = from.GetID()
+	i.Parts = from.GetParts()
+	i.Name = from.GetName()
+	i.MD5Checksum = from.GetMD5Checksum()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFile) TypeID() uint32 {
@@ -203,6 +216,17 @@ func (i *InputFileBig) String() string {
 	}
 	type Alias InputFileBig
 	return fmt.Sprintf("InputFileBig%+v", Alias(*i))
+}
+
+// FillFrom fills InputFileBig from given interface.
+func (i *InputFileBig) FillFrom(from interface {
+	GetID() (value int64)
+	GetParts() (value int)
+	GetName() (value string)
+}) {
+	i.ID = from.GetID()
+	i.Parts = from.GetParts()
+	i.Name = from.GetName()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -366,4 +390,55 @@ func (b *InputFileBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode InputFileClass as nil")
 	}
 	return b.InputFile.Encode(buf)
+}
+
+// InputFileClassSlice is adapter for slice of InputFileClass.
+type InputFileClassSlice []InputFileClass
+
+// First returns first element of slice (if exists).
+func (s InputFileClassSlice) First() (v InputFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileClassSlice) Last() (v InputFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileClassSlice) PopFirst() (v InputFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileClassSlice) Pop() (v InputFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

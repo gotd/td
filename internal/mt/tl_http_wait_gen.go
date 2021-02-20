@@ -57,6 +57,17 @@ func (h *HTTPWaitRequest) String() string {
 	return fmt.Sprintf("HTTPWaitRequest%+v", Alias(*h))
 }
 
+// FillFrom fills HTTPWaitRequest from given interface.
+func (h *HTTPWaitRequest) FillFrom(from interface {
+	GetMaxDelay() (value int)
+	GetWaitAfter() (value int)
+	GetMaxWait() (value int)
+}) {
+	h.MaxDelay = from.GetMaxDelay()
+	h.WaitAfter = from.GetWaitAfter()
+	h.MaxWait = from.GetMaxWait()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HTTPWaitRequest) TypeID() uint32 {

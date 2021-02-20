@@ -68,6 +68,19 @@ func (i *InputWebDocument) String() string {
 	return fmt.Sprintf("InputWebDocument%+v", Alias(*i))
 }
 
+// FillFrom fills InputWebDocument from given interface.
+func (i *InputWebDocument) FillFrom(from interface {
+	GetURL() (value string)
+	GetSize() (value int)
+	GetMimeType() (value string)
+	GetAttributes() (value []DocumentAttributeClass)
+}) {
+	i.URL = from.GetURL()
+	i.Size = from.GetSize()
+	i.MimeType = from.GetMimeType()
+	i.Attributes = from.GetAttributes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebDocument) TypeID() uint32 {
@@ -113,6 +126,11 @@ func (i *InputWebDocument) GetMimeType() (value string) {
 // GetAttributes returns value of Attributes field.
 func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return i.Attributes
+}
+
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
+func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassSlice) {
+	return DocumentAttributeClassSlice(i.Attributes)
 }
 
 // Decode implements bin.Decoder.

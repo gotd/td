@@ -58,6 +58,15 @@ func (r *UploadReuploadCdnFileRequest) String() string {
 	return fmt.Sprintf("UploadReuploadCdnFileRequest%+v", Alias(*r))
 }
 
+// FillFrom fills UploadReuploadCdnFileRequest from given interface.
+func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
+	GetFileToken() (value []byte)
+	GetRequestToken() (value []byte)
+}) {
+	r.FileToken = from.GetFileToken()
+	r.RequestToken = from.GetRequestToken()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *UploadReuploadCdnFileRequest) TypeID() uint32 {

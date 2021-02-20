@@ -53,6 +53,13 @@ func (g *MessagesGetMaskStickersRequest) String() string {
 	return fmt.Sprintf("MessagesGetMaskStickersRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetMaskStickersRequest from given interface.
+func (g *MessagesGetMaskStickersRequest) FillFrom(from interface {
+	GetHash() (value int)
+}) {
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetMaskStickersRequest) TypeID() uint32 {

@@ -178,6 +178,13 @@ func (p *PrivacyValueAllowUsers) String() string {
 	return fmt.Sprintf("PrivacyValueAllowUsers%+v", Alias(*p))
 }
 
+// FillFrom fills PrivacyValueAllowUsers from given interface.
+func (p *PrivacyValueAllowUsers) FillFrom(from interface {
+	GetUsers() (value []int)
+}) {
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueAllowUsers) TypeID() uint32 {
@@ -397,6 +404,13 @@ func (p *PrivacyValueDisallowUsers) String() string {
 	return fmt.Sprintf("PrivacyValueDisallowUsers%+v", Alias(*p))
 }
 
+// FillFrom fills PrivacyValueDisallowUsers from given interface.
+func (p *PrivacyValueDisallowUsers) FillFrom(from interface {
+	GetUsers() (value []int)
+}) {
+	p.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueDisallowUsers) TypeID() uint32 {
@@ -488,6 +502,13 @@ func (p *PrivacyValueAllowChatParticipants) String() string {
 	return fmt.Sprintf("PrivacyValueAllowChatParticipants%+v", Alias(*p))
 }
 
+// FillFrom fills PrivacyValueAllowChatParticipants from given interface.
+func (p *PrivacyValueAllowChatParticipants) FillFrom(from interface {
+	GetChats() (value []int)
+}) {
+	p.Chats = from.GetChats()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueAllowChatParticipants) TypeID() uint32 {
@@ -577,6 +598,13 @@ func (p *PrivacyValueDisallowChatParticipants) String() string {
 	}
 	type Alias PrivacyValueDisallowChatParticipants
 	return fmt.Sprintf("PrivacyValueDisallowChatParticipants%+v", Alias(*p))
+}
+
+// FillFrom fills PrivacyValueDisallowChatParticipants from given interface.
+func (p *PrivacyValueDisallowChatParticipants) FillFrom(from interface {
+	GetChats() (value []int)
+}) {
+	p.Chats = from.GetChats()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -764,4 +792,55 @@ func (b *PrivacyRuleBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PrivacyRuleClass as nil")
 	}
 	return b.PrivacyRule.Encode(buf)
+}
+
+// PrivacyRuleClassSlice is adapter for slice of PrivacyRuleClass.
+type PrivacyRuleClassSlice []PrivacyRuleClass
+
+// First returns first element of slice (if exists).
+func (s PrivacyRuleClassSlice) First() (v PrivacyRuleClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrivacyRuleClassSlice) Last() (v PrivacyRuleClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrivacyRuleClassSlice) PopFirst() (v PrivacyRuleClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrivacyRuleClassSlice) Pop() (v PrivacyRuleClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

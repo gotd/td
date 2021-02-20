@@ -50,6 +50,13 @@ func (c *MessagesCheckChatInviteRequest) String() string {
 	return fmt.Sprintf("MessagesCheckChatInviteRequest%+v", Alias(*c))
 }
 
+// FillFrom fills MessagesCheckChatInviteRequest from given interface.
+func (c *MessagesCheckChatInviteRequest) FillFrom(from interface {
+	GetHash() (value string)
+}) {
+	c.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesCheckChatInviteRequest) TypeID() uint32 {

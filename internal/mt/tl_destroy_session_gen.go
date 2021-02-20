@@ -47,6 +47,13 @@ func (d *DestroySessionRequest) String() string {
 	return fmt.Sprintf("DestroySessionRequest%+v", Alias(*d))
 }
 
+// FillFrom fills DestroySessionRequest from given interface.
+func (d *DestroySessionRequest) FillFrom(from interface {
+	GetSessionID() (value int64)
+}) {
+	d.SessionID = from.GetSessionID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionRequest) TypeID() uint32 {

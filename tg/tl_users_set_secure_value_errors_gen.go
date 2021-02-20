@@ -59,6 +59,15 @@ func (s *UsersSetSecureValueErrorsRequest) String() string {
 	return fmt.Sprintf("UsersSetSecureValueErrorsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills UsersSetSecureValueErrorsRequest from given interface.
+func (s *UsersSetSecureValueErrorsRequest) FillFrom(from interface {
+	GetID() (value InputUserClass)
+	GetErrors() (value []SecureValueErrorClass)
+}) {
+	s.ID = from.GetID()
+	s.Errors = from.GetErrors()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UsersSetSecureValueErrorsRequest) TypeID() uint32 {
@@ -97,6 +106,11 @@ func (s *UsersSetSecureValueErrorsRequest) GetID() (value InputUserClass) {
 // GetErrors returns value of Errors field.
 func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueErrorClass) {
 	return s.Errors
+}
+
+// MapErrors returns field Errors wrapped in SecureValueErrorClassSlice helper.
+func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorClassSlice) {
+	return SecureValueErrorClassSlice(s.Errors)
 }
 
 // Decode implements bin.Decoder.

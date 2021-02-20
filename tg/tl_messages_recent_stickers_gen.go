@@ -132,6 +132,19 @@ func (r *MessagesRecentStickers) String() string {
 	return fmt.Sprintf("MessagesRecentStickers%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesRecentStickers from given interface.
+func (r *MessagesRecentStickers) FillFrom(from interface {
+	GetHash() (value int)
+	GetPacks() (value []StickerPack)
+	GetStickers() (value []DocumentClass)
+	GetDates() (value []int)
+}) {
+	r.Hash = from.GetHash()
+	r.Packs = from.GetPacks()
+	r.Stickers = from.GetStickers()
+	r.Dates = from.GetDates()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesRecentStickers) TypeID() uint32 {
@@ -180,6 +193,11 @@ func (r *MessagesRecentStickers) GetPacks() (value []StickerPack) {
 // GetStickers returns value of Stickers field.
 func (r *MessagesRecentStickers) GetStickers() (value []DocumentClass) {
 	return r.Stickers
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassSlice helper.
+func (r *MessagesRecentStickers) MapStickers() (value DocumentClassSlice) {
+	return DocumentClassSlice(r.Stickers)
 }
 
 // GetDates returns value of Dates field.
@@ -274,6 +292,9 @@ type MessagesRecentStickersClass interface {
 	bin.Decoder
 	construct() MessagesRecentStickersClass
 
+	// AsModified tries to map MessagesRecentStickersClass to MessagesRecentStickers.
+	AsModified() (*MessagesRecentStickers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -281,6 +302,16 @@ type MessagesRecentStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesRecentStickersClass to MessagesRecentStickers.
+func (r *MessagesRecentStickersNotModified) AsModified() (*MessagesRecentStickers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesRecentStickersClass to MessagesRecentStickers.
+func (r *MessagesRecentStickers) AsModified() (*MessagesRecentStickers, bool) {
+	return r, true
 }
 
 // DecodeMessagesRecentStickers implements binary de-serialization for MessagesRecentStickersClass.
@@ -333,4 +364,92 @@ func (b *MessagesRecentStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesRecentStickersClass as nil")
 	}
 	return b.RecentStickers.Encode(buf)
+}
+
+// MessagesRecentStickersClassSlice is adapter for slice of MessagesRecentStickersClass.
+type MessagesRecentStickersClassSlice []MessagesRecentStickersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesRecentStickersClassSlice) AppendOnlyModified(to []*MessagesRecentStickers) []*MessagesRecentStickers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesRecentStickersClassSlice) AsModified() (to []*MessagesRecentStickers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesRecentStickersClassSlice) FirstAsModified() (v *MessagesRecentStickers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesRecentStickersClassSlice) LastAsModified() (v *MessagesRecentStickers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesRecentStickersClassSlice) First() (v MessagesRecentStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesRecentStickersClassSlice) Last() (v MessagesRecentStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesRecentStickersClassSlice) PopFirst() (v MessagesRecentStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesRecentStickersClassSlice) Pop() (v MessagesRecentStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

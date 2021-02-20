@@ -69,6 +69,21 @@ func (g *PhoneGroupParticipants) String() string {
 	return fmt.Sprintf("PhoneGroupParticipants%+v", Alias(*g))
 }
 
+// FillFrom fills PhoneGroupParticipants from given interface.
+func (g *PhoneGroupParticipants) FillFrom(from interface {
+	GetCount() (value int)
+	GetParticipants() (value []GroupCallParticipant)
+	GetNextOffset() (value string)
+	GetUsers() (value []UserClass)
+	GetVersion() (value int)
+}) {
+	g.Count = from.GetCount()
+	g.Participants = from.GetParticipants()
+	g.NextOffset = from.GetNextOffset()
+	g.Users = from.GetUsers()
+	g.Version = from.GetVersion()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PhoneGroupParticipants) TypeID() uint32 {
@@ -120,6 +135,11 @@ func (g *PhoneGroupParticipants) GetNextOffset() (value string) {
 // GetUsers returns value of Users field.
 func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
 	return g.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (g *PhoneGroupParticipants) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(g.Users)
 }
 
 // GetVersion returns value of Version field.

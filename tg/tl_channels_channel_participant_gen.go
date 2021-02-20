@@ -55,6 +55,15 @@ func (c *ChannelsChannelParticipant) String() string {
 	return fmt.Sprintf("ChannelsChannelParticipant%+v", Alias(*c))
 }
 
+// FillFrom fills ChannelsChannelParticipant from given interface.
+func (c *ChannelsChannelParticipant) FillFrom(from interface {
+	GetParticipant() (value ChannelParticipantClass)
+	GetUsers() (value []UserClass)
+}) {
+	c.Participant = from.GetParticipant()
+	c.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipant) TypeID() uint32 {
@@ -93,6 +102,11 @@ func (c *ChannelsChannelParticipant) GetParticipant() (value ChannelParticipantC
 // GetUsers returns value of Users field.
 func (c *ChannelsChannelParticipant) GetUsers() (value []UserClass) {
 	return c.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (c *ChannelsChannelParticipant) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(c.Users)
 }
 
 // Decode implements bin.Decoder.

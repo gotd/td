@@ -58,6 +58,12 @@ func (s *AccountSetContentSettingsRequest) String() string {
 	return fmt.Sprintf("AccountSetContentSettingsRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSetContentSettingsRequest from given interface.
+func (s *AccountSetContentSettingsRequest) FillFrom(from interface {
+	GetSensitiveEnabled() (value bool)
+}) {
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetContentSettingsRequest) TypeID() uint32 {

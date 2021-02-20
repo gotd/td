@@ -100,6 +100,32 @@ func (p *PollResults) String() string {
 	return fmt.Sprintf("PollResults%+v", Alias(*p))
 }
 
+// FillFrom fills PollResults from given interface.
+func (p *PollResults) FillFrom(from interface {
+	GetMin() (value bool)
+	GetResults() (value []PollAnswerVoters, ok bool)
+	GetTotalVoters() (value int, ok bool)
+	GetRecentVoters() (value []int, ok bool)
+	GetSolution() (value string, ok bool)
+	GetSolutionEntities() (value []MessageEntityClass, ok bool)
+}) {
+	if val, ok := from.GetResults(); ok {
+		p.Results = val
+	}
+	if val, ok := from.GetTotalVoters(); ok {
+		p.TotalVoters = val
+	}
+	if val, ok := from.GetRecentVoters(); ok {
+		p.RecentVoters = val
+	}
+	if val, ok := from.GetSolution(); ok {
+		p.Solution = val
+	}
+	if val, ok := from.GetSolutionEntities(); ok {
+		p.SolutionEntities = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollResults) TypeID() uint32 {
@@ -256,6 +282,14 @@ func (p *PollResults) GetSolutionEntities() (value []MessageEntityClass, ok bool
 		return value, false
 	}
 	return p.SolutionEntities, true
+}
+
+// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassSlice helper.
+func (p *PollResults) MapSolutionEntities() (value MessageEntityClassSlice, ok bool) {
+	if !p.Flags.Has(4) {
+		return value, false
+	}
+	return MessageEntityClassSlice(p.SolutionEntities), true
 }
 
 // Decode implements bin.Decoder.

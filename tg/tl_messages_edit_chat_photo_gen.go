@@ -55,6 +55,15 @@ func (e *MessagesEditChatPhotoRequest) String() string {
 	return fmt.Sprintf("MessagesEditChatPhotoRequest%+v", Alias(*e))
 }
 
+// FillFrom fills MessagesEditChatPhotoRequest from given interface.
+func (e *MessagesEditChatPhotoRequest) FillFrom(from interface {
+	GetChatID() (value int)
+	GetPhoto() (value InputChatPhotoClass)
+}) {
+	e.ChatID = from.GetChatID()
+	e.Photo = from.GetPhoto()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatPhotoRequest) TypeID() uint32 {

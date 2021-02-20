@@ -71,6 +71,19 @@ func (c *PhoneConfirmCallRequest) String() string {
 	return fmt.Sprintf("PhoneConfirmCallRequest%+v", Alias(*c))
 }
 
+// FillFrom fills PhoneConfirmCallRequest from given interface.
+func (c *PhoneConfirmCallRequest) FillFrom(from interface {
+	GetPeer() (value InputPhoneCall)
+	GetGA() (value []byte)
+	GetKeyFingerprint() (value int64)
+	GetProtocol() (value PhoneCallProtocol)
+}) {
+	c.Peer = from.GetPeer()
+	c.GA = from.GetGA()
+	c.KeyFingerprint = from.GetKeyFingerprint()
+	c.Protocol = from.GetProtocol()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *PhoneConfirmCallRequest) TypeID() uint32 {

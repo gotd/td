@@ -72,6 +72,17 @@ func (s *SecureCredentialsEncrypted) String() string {
 	return fmt.Sprintf("SecureCredentialsEncrypted%+v", Alias(*s))
 }
 
+// FillFrom fills SecureCredentialsEncrypted from given interface.
+func (s *SecureCredentialsEncrypted) FillFrom(from interface {
+	GetData() (value []byte)
+	GetHash() (value []byte)
+	GetSecret() (value []byte)
+}) {
+	s.Data = from.GetData()
+	s.Hash = from.GetHash()
+	s.Secret = from.GetSecret()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureCredentialsEncrypted) TypeID() uint32 {

@@ -55,6 +55,15 @@ func (f *MessagesFaveStickerRequest) String() string {
 	return fmt.Sprintf("MessagesFaveStickerRequest%+v", Alias(*f))
 }
 
+// FillFrom fills MessagesFaveStickerRequest from given interface.
+func (f *MessagesFaveStickerRequest) FillFrom(from interface {
+	GetID() (value InputDocumentClass)
+	GetUnfave() (value bool)
+}) {
+	f.ID = from.GetID()
+	f.Unfave = from.GetUnfave()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFaveStickerRequest) TypeID() uint32 {
@@ -80,6 +89,11 @@ func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 // GetID returns value of ID field.
 func (f *MessagesFaveStickerRequest) GetID() (value InputDocumentClass) {
 	return f.ID
+}
+
+// GetIDAsNotEmpty returns mapped value of ID field.
+func (f *MessagesFaveStickerRequest) GetIDAsNotEmpty() (*InputDocument, bool) {
+	return f.ID.AsNotEmpty()
 }
 
 // GetUnfave returns value of Unfave field.

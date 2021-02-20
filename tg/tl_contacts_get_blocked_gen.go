@@ -55,6 +55,15 @@ func (g *ContactsGetBlockedRequest) String() string {
 	return fmt.Sprintf("ContactsGetBlockedRequest%+v", Alias(*g))
 }
 
+// FillFrom fills ContactsGetBlockedRequest from given interface.
+func (g *ContactsGetBlockedRequest) FillFrom(from interface {
+	GetOffset() (value int)
+	GetLimit() (value int)
+}) {
+	g.Offset = from.GetOffset()
+	g.Limit = from.GetLimit()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetBlockedRequest) TypeID() uint32 {

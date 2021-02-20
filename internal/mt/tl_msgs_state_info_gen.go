@@ -52,6 +52,15 @@ func (m *MsgsStateInfo) String() string {
 	return fmt.Sprintf("MsgsStateInfo%+v", Alias(*m))
 }
 
+// FillFrom fills MsgsStateInfo from given interface.
+func (m *MsgsStateInfo) FillFrom(from interface {
+	GetReqMsgID() (value int64)
+	GetInfo() (value []byte)
+}) {
+	m.ReqMsgID = from.GetReqMsgID()
+	m.Info = from.GetInfo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsStateInfo) TypeID() uint32 {

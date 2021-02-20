@@ -56,6 +56,13 @@ func (u *AccountUpdateDeviceLockedRequest) String() string {
 	return fmt.Sprintf("AccountUpdateDeviceLockedRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUpdateDeviceLockedRequest from given interface.
+func (u *AccountUpdateDeviceLockedRequest) FillFrom(from interface {
+	GetPeriod() (value int)
+}) {
+	u.Period = from.GetPeriod()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateDeviceLockedRequest) TypeID() uint32 {

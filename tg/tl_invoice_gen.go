@@ -106,6 +106,23 @@ func (i *Invoice) String() string {
 	return fmt.Sprintf("Invoice%+v", Alias(*i))
 }
 
+// FillFrom fills Invoice from given interface.
+func (i *Invoice) FillFrom(from interface {
+	GetTest() (value bool)
+	GetNameRequested() (value bool)
+	GetPhoneRequested() (value bool)
+	GetEmailRequested() (value bool)
+	GetShippingAddressRequested() (value bool)
+	GetFlexible() (value bool)
+	GetPhoneToProvider() (value bool)
+	GetEmailToProvider() (value bool)
+	GetCurrency() (value string)
+	GetPrices() (value []LabeledPrice)
+}) {
+	i.Currency = from.GetCurrency()
+	i.Prices = from.GetPrices()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *Invoice) TypeID() uint32 {

@@ -50,6 +50,13 @@ func (d *AuthDropTempAuthKeysRequest) String() string {
 	return fmt.Sprintf("AuthDropTempAuthKeysRequest%+v", Alias(*d))
 }
 
+// FillFrom fills AuthDropTempAuthKeysRequest from given interface.
+func (d *AuthDropTempAuthKeysRequest) FillFrom(from interface {
+	GetExceptAuthKeys() (value []int64)
+}) {
+	d.ExceptAuthKeys = from.GetExceptAuthKeys()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AuthDropTempAuthKeysRequest) TypeID() uint32 {

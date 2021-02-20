@@ -105,6 +105,26 @@ func (g *MessagesGetDialogsRequest) String() string {
 	return fmt.Sprintf("MessagesGetDialogsRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetDialogsRequest from given interface.
+func (g *MessagesGetDialogsRequest) FillFrom(from interface {
+	GetExcludePinned() (value bool)
+	GetFolderID() (value int, ok bool)
+	GetOffsetDate() (value int)
+	GetOffsetID() (value int)
+	GetOffsetPeer() (value InputPeerClass)
+	GetLimit() (value int)
+	GetHash() (value int)
+}) {
+	if val, ok := from.GetFolderID(); ok {
+		g.FolderID = val
+	}
+	g.OffsetDate = from.GetOffsetDate()
+	g.OffsetID = from.GetOffsetID()
+	g.OffsetPeer = from.GetOffsetPeer()
+	g.Limit = from.GetLimit()
+	g.Hash = from.GetHash()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDialogsRequest) TypeID() uint32 {

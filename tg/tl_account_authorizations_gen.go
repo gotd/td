@@ -50,6 +50,13 @@ func (a *AccountAuthorizations) String() string {
 	return fmt.Sprintf("AccountAuthorizations%+v", Alias(*a))
 }
 
+// FillFrom fills AccountAuthorizations from given interface.
+func (a *AccountAuthorizations) FillFrom(from interface {
+	GetAuthorizations() (value []Authorization)
+}) {
+	a.Authorizations = from.GetAuthorizations()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountAuthorizations) TypeID() uint32 {

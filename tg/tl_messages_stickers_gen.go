@@ -122,6 +122,15 @@ func (s *MessagesStickers) String() string {
 	return fmt.Sprintf("MessagesStickers%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesStickers from given interface.
+func (s *MessagesStickers) FillFrom(from interface {
+	GetHash() (value int)
+	GetStickers() (value []DocumentClass)
+}) {
+	s.Hash = from.GetHash()
+	s.Stickers = from.GetStickers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickers) TypeID() uint32 {
@@ -155,6 +164,11 @@ func (s *MessagesStickers) GetHash() (value int) {
 // GetStickers returns value of Stickers field.
 func (s *MessagesStickers) GetStickers() (value []DocumentClass) {
 	return s.Stickers
+}
+
+// MapStickers returns field Stickers wrapped in DocumentClassSlice helper.
+func (s *MessagesStickers) MapStickers() (value DocumentClassSlice) {
+	return DocumentClassSlice(s.Stickers)
 }
 
 // Decode implements bin.Decoder.
@@ -218,6 +232,9 @@ type MessagesStickersClass interface {
 	bin.Decoder
 	construct() MessagesStickersClass
 
+	// AsModified tries to map MessagesStickersClass to MessagesStickers.
+	AsModified() (*MessagesStickers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -225,6 +242,16 @@ type MessagesStickersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map MessagesStickersClass to MessagesStickers.
+func (s *MessagesStickersNotModified) AsModified() (*MessagesStickers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map MessagesStickersClass to MessagesStickers.
+func (s *MessagesStickers) AsModified() (*MessagesStickers, bool) {
+	return s, true
 }
 
 // DecodeMessagesStickers implements binary de-serialization for MessagesStickersClass.
@@ -277,4 +304,92 @@ func (b *MessagesStickersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessagesStickersClass as nil")
 	}
 	return b.Stickers.Encode(buf)
+}
+
+// MessagesStickersClassSlice is adapter for slice of MessagesStickersClass.
+type MessagesStickersClassSlice []MessagesStickersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s MessagesStickersClassSlice) AppendOnlyModified(to []*MessagesStickers) []*MessagesStickers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s MessagesStickersClassSlice) AsModified() (to []*MessagesStickers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s MessagesStickersClassSlice) FirstAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s MessagesStickersClassSlice) LastAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesStickersClassSlice) First() (v MessagesStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesStickersClassSlice) Last() (v MessagesStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesStickersClassSlice) PopFirst() (v MessagesStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesStickersClassSlice) Pop() (v MessagesStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

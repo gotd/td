@@ -81,6 +81,20 @@ func (r *PhoneRequestCallRequest) String() string {
 	return fmt.Sprintf("PhoneRequestCallRequest%+v", Alias(*r))
 }
 
+// FillFrom fills PhoneRequestCallRequest from given interface.
+func (r *PhoneRequestCallRequest) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetUserID() (value InputUserClass)
+	GetRandomID() (value int)
+	GetGAHash() (value []byte)
+	GetProtocol() (value PhoneCallProtocol)
+}) {
+	r.UserID = from.GetUserID()
+	r.RandomID = from.GetRandomID()
+	r.GAHash = from.GetGAHash()
+	r.Protocol = from.GetProtocol()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *PhoneRequestCallRequest) TypeID() uint32 {

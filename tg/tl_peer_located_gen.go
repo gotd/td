@@ -60,6 +60,17 @@ func (p *PeerLocated) String() string {
 	return fmt.Sprintf("PeerLocated%+v", Alias(*p))
 }
 
+// FillFrom fills PeerLocated from given interface.
+func (p *PeerLocated) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetExpires() (value int)
+	GetDistance() (value int)
+}) {
+	p.Peer = from.GetPeer()
+	p.Expires = from.GetExpires()
+	p.Distance = from.GetDistance()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerLocated) TypeID() uint32 {
@@ -171,6 +182,13 @@ func (p *PeerSelfLocated) String() string {
 	}
 	type Alias PeerSelfLocated
 	return fmt.Sprintf("PeerSelfLocated%+v", Alias(*p))
+}
+
+// FillFrom fills PeerSelfLocated from given interface.
+func (p *PeerSelfLocated) FillFrom(from interface {
+	GetExpires() (value int)
+}) {
+	p.Expires = from.GetExpires()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -304,4 +322,55 @@ func (b *PeerLocatedBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PeerLocatedClass as nil")
 	}
 	return b.PeerLocated.Encode(buf)
+}
+
+// PeerLocatedClassSlice is adapter for slice of PeerLocatedClass.
+type PeerLocatedClassSlice []PeerLocatedClass
+
+// First returns first element of slice (if exists).
+func (s PeerLocatedClassSlice) First() (v PeerLocatedClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerLocatedClassSlice) Last() (v PeerLocatedClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerLocatedClassSlice) PopFirst() (v PeerLocatedClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerLocatedClassSlice) Pop() (v PeerLocatedClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

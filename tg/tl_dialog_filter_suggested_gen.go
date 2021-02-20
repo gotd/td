@@ -64,6 +64,15 @@ func (d *DialogFilterSuggested) String() string {
 	return fmt.Sprintf("DialogFilterSuggested%+v", Alias(*d))
 }
 
+// FillFrom fills DialogFilterSuggested from given interface.
+func (d *DialogFilterSuggested) FillFrom(from interface {
+	GetFilter() (value DialogFilter)
+	GetDescription() (value string)
+}) {
+	d.Filter = from.GetFilter()
+	d.Description = from.GetDescription()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFilterSuggested) TypeID() uint32 {

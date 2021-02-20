@@ -61,6 +61,15 @@ func (s *AccountSendConfirmPhoneCodeRequest) String() string {
 	return fmt.Sprintf("AccountSendConfirmPhoneCodeRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSendConfirmPhoneCodeRequest from given interface.
+func (s *AccountSendConfirmPhoneCodeRequest) FillFrom(from interface {
+	GetHash() (value string)
+	GetSettings() (value CodeSettings)
+}) {
+	s.Hash = from.GetHash()
+	s.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendConfirmPhoneCodeRequest) TypeID() uint32 {

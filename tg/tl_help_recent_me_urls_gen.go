@@ -60,6 +60,17 @@ func (r *HelpRecentMeUrls) String() string {
 	return fmt.Sprintf("HelpRecentMeUrls%+v", Alias(*r))
 }
 
+// FillFrom fills HelpRecentMeUrls from given interface.
+func (r *HelpRecentMeUrls) FillFrom(from interface {
+	GetUrls() (value []RecentMeUrlClass)
+	GetChats() (value []ChatClass)
+	GetUsers() (value []UserClass)
+}) {
+	r.Urls = from.GetUrls()
+	r.Chats = from.GetChats()
+	r.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *HelpRecentMeUrls) TypeID() uint32 {
@@ -107,14 +118,29 @@ func (r *HelpRecentMeUrls) GetUrls() (value []RecentMeUrlClass) {
 	return r.Urls
 }
 
+// MapUrls returns field Urls wrapped in RecentMeUrlClassSlice helper.
+func (r *HelpRecentMeUrls) MapUrls() (value RecentMeUrlClassSlice) {
+	return RecentMeUrlClassSlice(r.Urls)
+}
+
 // GetChats returns value of Chats field.
 func (r *HelpRecentMeUrls) GetChats() (value []ChatClass) {
 	return r.Chats
 }
 
+// MapChats returns field Chats wrapped in ChatClassSlice helper.
+func (r *HelpRecentMeUrls) MapChats() (value ChatClassSlice) {
+	return ChatClassSlice(r.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (r *HelpRecentMeUrls) GetUsers() (value []UserClass) {
 	return r.Users
+}
+
+// MapUsers returns field Users wrapped in UserClassSlice helper.
+func (r *HelpRecentMeUrls) MapUsers() (value UserClassSlice) {
+	return UserClassSlice(r.Users)
 }
 
 // Decode implements bin.Decoder.

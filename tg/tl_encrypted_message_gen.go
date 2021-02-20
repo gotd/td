@@ -73,6 +73,21 @@ func (e *EncryptedMessage) String() string {
 	return fmt.Sprintf("EncryptedMessage%+v", Alias(*e))
 }
 
+// FillFrom fills EncryptedMessage from given interface.
+func (e *EncryptedMessage) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetChatID() (value int)
+	GetDate() (value int)
+	GetBytes() (value []byte)
+	GetFile() (value EncryptedFileClass)
+}) {
+	e.RandomID = from.GetRandomID()
+	e.ChatID = from.GetChatID()
+	e.Date = from.GetDate()
+	e.Bytes = from.GetBytes()
+	e.File = from.GetFile()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedMessage) TypeID() uint32 {
@@ -228,6 +243,19 @@ func (e *EncryptedMessageService) String() string {
 	}
 	type Alias EncryptedMessageService
 	return fmt.Sprintf("EncryptedMessageService%+v", Alias(*e))
+}
+
+// FillFrom fills EncryptedMessageService from given interface.
+func (e *EncryptedMessageService) FillFrom(from interface {
+	GetRandomID() (value int64)
+	GetChatID() (value int)
+	GetDate() (value int)
+	GetBytes() (value []byte)
+}) {
+	e.RandomID = from.GetRandomID()
+	e.ChatID = from.GetChatID()
+	e.Date = from.GetDate()
+	e.Bytes = from.GetBytes()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -409,4 +437,55 @@ func (b *EncryptedMessageBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode EncryptedMessageClass as nil")
 	}
 	return b.EncryptedMessage.Encode(buf)
+}
+
+// EncryptedMessageClassSlice is adapter for slice of EncryptedMessageClass.
+type EncryptedMessageClassSlice []EncryptedMessageClass
+
+// First returns first element of slice (if exists).
+func (s EncryptedMessageClassSlice) First() (v EncryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedMessageClassSlice) Last() (v EncryptedMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedMessageClassSlice) PopFirst() (v EncryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedMessageClassSlice) Pop() (v EncryptedMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

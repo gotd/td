@@ -86,6 +86,24 @@ func (g *MessagesGetBotCallbackAnswerRequest) String() string {
 	return fmt.Sprintf("MessagesGetBotCallbackAnswerRequest%+v", Alias(*g))
 }
 
+// FillFrom fills MessagesGetBotCallbackAnswerRequest from given interface.
+func (g *MessagesGetBotCallbackAnswerRequest) FillFrom(from interface {
+	GetGame() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetMsgID() (value int)
+	GetData() (value []byte, ok bool)
+	GetPassword() (value InputCheckPasswordSRPClass, ok bool)
+}) {
+	g.Peer = from.GetPeer()
+	g.MsgID = from.GetMsgID()
+	if val, ok := from.GetData(); ok {
+		g.Data = val
+	}
+	if val, ok := from.GetPassword(); ok {
+		g.Password = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
@@ -185,6 +203,15 @@ func (g *MessagesGetBotCallbackAnswerRequest) GetPassword() (value InputCheckPas
 		return value, false
 	}
 	return g.Password, true
+}
+
+// GetPasswordAsNotEmpty returns mapped value of Password conditional field and
+// boolean which is true if field was set.
+func (g *MessagesGetBotCallbackAnswerRequest) GetPasswordAsNotEmpty() (*InputCheckPasswordSRP, bool) {
+	if value, ok := g.GetPassword(); ok {
+		return value.AsNotEmpty()
+	}
+	return nil, false
 }
 
 // Decode implements bin.Decoder.

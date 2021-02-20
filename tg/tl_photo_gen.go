@@ -50,6 +50,13 @@ func (p *PhotoEmpty) String() string {
 	return fmt.Sprintf("PhotoEmpty%+v", Alias(*p))
 }
 
+// FillFrom fills PhotoEmpty from given interface.
+func (p *PhotoEmpty) FillFrom(from interface {
+	GetID() (value int64)
+}) {
+	p.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoEmpty) TypeID() uint32 {
@@ -183,6 +190,28 @@ func (p *Photo) String() string {
 	return fmt.Sprintf("Photo%+v", Alias(*p))
 }
 
+// FillFrom fills Photo from given interface.
+func (p *Photo) FillFrom(from interface {
+	GetHasStickers() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetFileReference() (value []byte)
+	GetDate() (value int)
+	GetSizes() (value []PhotoSizeClass)
+	GetVideoSizes() (value []VideoSize, ok bool)
+	GetDCID() (value int)
+}) {
+	p.ID = from.GetID()
+	p.AccessHash = from.GetAccessHash()
+	p.FileReference = from.GetFileReference()
+	p.Date = from.GetDate()
+	p.Sizes = from.GetSizes()
+	if val, ok := from.GetVideoSizes(); ok {
+		p.VideoSizes = val
+	}
+	p.DCID = from.GetDCID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Photo) TypeID() uint32 {
@@ -268,6 +297,11 @@ func (p *Photo) GetDate() (value int) {
 // GetSizes returns value of Sizes field.
 func (p *Photo) GetSizes() (value []PhotoSizeClass) {
 	return p.Sizes
+}
+
+// MapSizes returns field Sizes wrapped in PhotoSizeClassSlice helper.
+func (p *Photo) MapSizes() (value PhotoSizeClassSlice) {
+	return PhotoSizeClassSlice(p.Sizes)
 }
 
 // SetVideoSizes sets value of VideoSizes conditional field.
@@ -401,6 +435,9 @@ type PhotoClass interface {
 	// Photo identifier
 	GetID() (value int64)
 
+	// AsNotEmpty tries to map PhotoClass to Photo.
+	AsNotEmpty() (*Photo, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -408,6 +445,16 @@ type PhotoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map PhotoClass to Photo.
+func (p *PhotoEmpty) AsNotEmpty() (*Photo, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map PhotoClass to Photo.
+func (p *Photo) AsNotEmpty() (*Photo, bool) {
+	return p, true
 }
 
 // DecodePhoto implements binary de-serialization for PhotoClass.
@@ -460,4 +507,92 @@ func (b *PhotoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode PhotoClass as nil")
 	}
 	return b.Photo.Encode(buf)
+}
+
+// PhotoClassSlice is adapter for slice of PhotoClass.
+type PhotoClassSlice []PhotoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s PhotoClassSlice) AppendOnlyNotEmpty(to []*Photo) []*Photo {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s PhotoClassSlice) AsNotEmpty() (to []*Photo) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s PhotoClassSlice) FirstAsNotEmpty() (v *Photo, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s PhotoClassSlice) LastAsNotEmpty() (v *Photo, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s PhotoClassSlice) First() (v PhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhotoClassSlice) Last() (v PhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhotoClassSlice) PopFirst() (v PhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhotoClassSlice) Pop() (v PhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

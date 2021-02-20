@@ -60,6 +60,17 @@ func (s *UploadSaveFilePartRequest) String() string {
 	return fmt.Sprintf("UploadSaveFilePartRequest%+v", Alias(*s))
 }
 
+// FillFrom fills UploadSaveFilePartRequest from given interface.
+func (s *UploadSaveFilePartRequest) FillFrom(from interface {
+	GetFileID() (value int64)
+	GetFilePart() (value int)
+	GetBytes() (value []byte)
+}) {
+	s.FileID = from.GetFileID()
+	s.FilePart = from.GetFilePart()
+	s.Bytes = from.GetBytes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UploadSaveFilePartRequest) TypeID() uint32 {

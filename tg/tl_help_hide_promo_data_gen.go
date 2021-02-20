@@ -50,6 +50,13 @@ func (h *HelpHidePromoDataRequest) String() string {
 	return fmt.Sprintf("HelpHidePromoDataRequest%+v", Alias(*h))
 }
 
+// FillFrom fills HelpHidePromoDataRequest from given interface.
+func (h *HelpHidePromoDataRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	h.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HelpHidePromoDataRequest) TypeID() uint32 {

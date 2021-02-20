@@ -53,6 +53,13 @@ func (u *MessagesUnpinAllMessagesRequest) String() string {
 	return fmt.Sprintf("MessagesUnpinAllMessagesRequest%+v", Alias(*u))
 }
 
+// FillFrom fills MessagesUnpinAllMessagesRequest from given interface.
+func (u *MessagesUnpinAllMessagesRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
+}) {
+	u.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUnpinAllMessagesRequest) TypeID() uint32 {

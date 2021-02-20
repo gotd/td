@@ -50,6 +50,13 @@ func (k *KeyboardButton) String() string {
 	return fmt.Sprintf("KeyboardButton%+v", Alias(*k))
 }
 
+// FillFrom fills KeyboardButton from given interface.
+func (k *KeyboardButton) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	k.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButton) TypeID() uint32 {
@@ -135,6 +142,15 @@ func (k *KeyboardButtonUrl) String() string {
 	}
 	type Alias KeyboardButtonUrl
 	return fmt.Sprintf("KeyboardButtonUrl%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonUrl from given interface.
+func (k *KeyboardButtonUrl) FillFrom(from interface {
+	GetText() (value string)
+	GetURL() (value string)
+}) {
+	k.Text = from.GetText()
+	k.URL = from.GetURL()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -254,6 +270,16 @@ func (k *KeyboardButtonCallback) String() string {
 	}
 	type Alias KeyboardButtonCallback
 	return fmt.Sprintf("KeyboardButtonCallback%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonCallback from given interface.
+func (k *KeyboardButtonCallback) FillFrom(from interface {
+	GetRequiresPassword() (value bool)
+	GetText() (value string)
+	GetData() (value []byte)
+}) {
+	k.Text = from.GetText()
+	k.Data = from.GetData()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -379,6 +405,13 @@ func (k *KeyboardButtonRequestPhone) String() string {
 	return fmt.Sprintf("KeyboardButtonRequestPhone%+v", Alias(*k))
 }
 
+// FillFrom fills KeyboardButtonRequestPhone from given interface.
+func (k *KeyboardButtonRequestPhone) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	k.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRequestPhone) TypeID() uint32 {
@@ -459,6 +492,13 @@ func (k *KeyboardButtonRequestGeoLocation) String() string {
 	}
 	type Alias KeyboardButtonRequestGeoLocation
 	return fmt.Sprintf("KeyboardButtonRequestGeoLocation%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonRequestGeoLocation from given interface.
+func (k *KeyboardButtonRequestGeoLocation) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	k.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -559,6 +599,16 @@ func (k *KeyboardButtonSwitchInline) String() string {
 	}
 	type Alias KeyboardButtonSwitchInline
 	return fmt.Sprintf("KeyboardButtonSwitchInline%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonSwitchInline from given interface.
+func (k *KeyboardButtonSwitchInline) FillFrom(from interface {
+	GetSamePeer() (value bool)
+	GetText() (value string)
+	GetQuery() (value string)
+}) {
+	k.Text = from.GetText()
+	k.Query = from.GetQuery()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -684,6 +734,13 @@ func (k *KeyboardButtonGame) String() string {
 	return fmt.Sprintf("KeyboardButtonGame%+v", Alias(*k))
 }
 
+// FillFrom fills KeyboardButtonGame from given interface.
+func (k *KeyboardButtonGame) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	k.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonGame) TypeID() uint32 {
@@ -764,6 +821,13 @@ func (k *KeyboardButtonBuy) String() string {
 	}
 	type Alias KeyboardButtonBuy
 	return fmt.Sprintf("KeyboardButtonBuy%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonBuy from given interface.
+func (k *KeyboardButtonBuy) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	k.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -886,6 +950,21 @@ func (k *KeyboardButtonUrlAuth) String() string {
 	}
 	type Alias KeyboardButtonUrlAuth
 	return fmt.Sprintf("KeyboardButtonUrlAuth%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonUrlAuth from given interface.
+func (k *KeyboardButtonUrlAuth) FillFrom(from interface {
+	GetText() (value string)
+	GetFwdText() (value string, ok bool)
+	GetURL() (value string)
+	GetButtonID() (value int)
+}) {
+	k.Text = from.GetText()
+	if val, ok := from.GetFwdText(); ok {
+		k.FwdText = val
+	}
+	k.URL = from.GetURL()
+	k.ButtonID = from.GetButtonID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1074,6 +1153,22 @@ func (i *InputKeyboardButtonUrlAuth) String() string {
 	return fmt.Sprintf("InputKeyboardButtonUrlAuth%+v", Alias(*i))
 }
 
+// FillFrom fills InputKeyboardButtonUrlAuth from given interface.
+func (i *InputKeyboardButtonUrlAuth) FillFrom(from interface {
+	GetRequestWriteAccess() (value bool)
+	GetText() (value string)
+	GetFwdText() (value string, ok bool)
+	GetURL() (value string)
+	GetBot() (value InputUserClass)
+}) {
+	i.Text = from.GetText()
+	if val, ok := from.GetFwdText(); ok {
+		i.FwdText = val
+	}
+	i.URL = from.GetURL()
+	i.Bot = from.GetBot()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputKeyboardButtonUrlAuth) TypeID() uint32 {
@@ -1256,6 +1351,17 @@ func (k *KeyboardButtonRequestPoll) String() string {
 	}
 	type Alias KeyboardButtonRequestPoll
 	return fmt.Sprintf("KeyboardButtonRequestPoll%+v", Alias(*k))
+}
+
+// FillFrom fills KeyboardButtonRequestPoll from given interface.
+func (k *KeyboardButtonRequestPoll) FillFrom(from interface {
+	GetQuiz() (value bool, ok bool)
+	GetText() (value string)
+}) {
+	if val, ok := from.GetQuiz(); ok {
+		k.Quiz = val
+	}
+	k.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1497,4 +1603,55 @@ func (b *KeyboardButtonBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode KeyboardButtonClass as nil")
 	}
 	return b.KeyboardButton.Encode(buf)
+}
+
+// KeyboardButtonClassSlice is adapter for slice of KeyboardButtonClass.
+type KeyboardButtonClassSlice []KeyboardButtonClass
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonClassSlice) First() (v KeyboardButtonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonClassSlice) Last() (v KeyboardButtonClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonClassSlice) PopFirst() (v KeyboardButtonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonClassSlice) Pop() (v KeyboardButtonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

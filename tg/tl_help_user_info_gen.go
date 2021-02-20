@@ -132,6 +132,19 @@ func (u *HelpUserInfo) String() string {
 	return fmt.Sprintf("HelpUserInfo%+v", Alias(*u))
 }
 
+// FillFrom fills HelpUserInfo from given interface.
+func (u *HelpUserInfo) FillFrom(from interface {
+	GetMessage() (value string)
+	GetEntities() (value []MessageEntityClass)
+	GetAuthor() (value string)
+	GetDate() (value int)
+}) {
+	u.Message = from.GetMessage()
+	u.Entities = from.GetEntities()
+	u.Author = from.GetAuthor()
+	u.Date = from.GetDate()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *HelpUserInfo) TypeID() uint32 {
@@ -167,6 +180,11 @@ func (u *HelpUserInfo) GetMessage() (value string) {
 // GetEntities returns value of Entities field.
 func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
 	return u.Entities
+}
+
+// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
+func (u *HelpUserInfo) MapEntities() (value MessageEntityClassSlice) {
+	return MessageEntityClassSlice(u.Entities)
 }
 
 // GetAuthor returns value of Author field.
@@ -254,6 +272,9 @@ type HelpUserInfoClass interface {
 	bin.Decoder
 	construct() HelpUserInfoClass
 
+	// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+	AsNotEmpty() (*HelpUserInfo, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -261,6 +282,16 @@ type HelpUserInfoClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+func (u *HelpUserInfoEmpty) AsNotEmpty() (*HelpUserInfo, bool) {
+	return nil, false
+}
+
+// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+func (u *HelpUserInfo) AsNotEmpty() (*HelpUserInfo, bool) {
+	return u, true
 }
 
 // DecodeHelpUserInfo implements binary de-serialization for HelpUserInfoClass.
@@ -313,4 +344,92 @@ func (b *HelpUserInfoBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode HelpUserInfoClass as nil")
 	}
 	return b.UserInfo.Encode(buf)
+}
+
+// HelpUserInfoClassSlice is adapter for slice of HelpUserInfoClass.
+type HelpUserInfoClassSlice []HelpUserInfoClass
+
+// AppendOnlyNotEmpty appends only NotEmpty constructors to
+// given slice.
+func (s HelpUserInfoClassSlice) AppendOnlyNotEmpty(to []*HelpUserInfo) []*HelpUserInfo {
+	for _, elem := range s {
+		value, ok := elem.AsNotEmpty()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsNotEmpty returns copy with only NotEmpty constructors.
+func (s HelpUserInfoClassSlice) AsNotEmpty() (to []*HelpUserInfo) {
+	return s.AppendOnlyNotEmpty(to)
+}
+
+// FirstAsNotEmpty returns first element of slice (if exists).
+func (s HelpUserInfoClassSlice) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// LastAsNotEmpty returns last element of slice (if exists).
+func (s HelpUserInfoClassSlice) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// First returns first element of slice (if exists).
+func (s HelpUserInfoClassSlice) First() (v HelpUserInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpUserInfoClassSlice) Last() (v HelpUserInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpUserInfoClassSlice) PopFirst() (v HelpUserInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpUserInfoClassSlice) Pop() (v HelpUserInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

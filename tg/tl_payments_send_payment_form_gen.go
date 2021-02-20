@@ -80,6 +80,23 @@ func (s *PaymentsSendPaymentFormRequest) String() string {
 	return fmt.Sprintf("PaymentsSendPaymentFormRequest%+v", Alias(*s))
 }
 
+// FillFrom fills PaymentsSendPaymentFormRequest from given interface.
+func (s *PaymentsSendPaymentFormRequest) FillFrom(from interface {
+	GetMsgID() (value int)
+	GetRequestedInfoID() (value string, ok bool)
+	GetShippingOptionID() (value string, ok bool)
+	GetCredentials() (value InputPaymentCredentialsClass)
+}) {
+	s.MsgID = from.GetMsgID()
+	if val, ok := from.GetRequestedInfoID(); ok {
+		s.RequestedInfoID = val
+	}
+	if val, ok := from.GetShippingOptionID(); ok {
+		s.ShippingOptionID = val
+	}
+	s.Credentials = from.GetCredentials()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PaymentsSendPaymentFormRequest) TypeID() uint32 {

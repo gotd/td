@@ -59,6 +59,17 @@ func (g *GroupCallDiscarded) String() string {
 	return fmt.Sprintf("GroupCallDiscarded%+v", Alias(*g))
 }
 
+// FillFrom fills GroupCallDiscarded from given interface.
+func (g *GroupCallDiscarded) FillFrom(from interface {
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetDuration() (value int)
+}) {
+	g.ID = from.GetID()
+	g.AccessHash = from.GetAccessHash()
+	g.Duration = from.GetDuration()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCallDiscarded) TypeID() uint32 {
@@ -201,6 +212,25 @@ func (g *GroupCall) String() string {
 	}
 	type Alias GroupCall
 	return fmt.Sprintf("GroupCall%+v", Alias(*g))
+}
+
+// FillFrom fills GroupCall from given interface.
+func (g *GroupCall) FillFrom(from interface {
+	GetJoinMuted() (value bool)
+	GetCanChangeJoinMuted() (value bool)
+	GetID() (value int64)
+	GetAccessHash() (value int64)
+	GetParticipantsCount() (value int)
+	GetParams() (value DataJSON, ok bool)
+	GetVersion() (value int)
+}) {
+	g.ID = from.GetID()
+	g.AccessHash = from.GetAccessHash()
+	g.ParticipantsCount = from.GetParticipantsCount()
+	if val, ok := from.GetParams(); ok {
+		g.Params = val
+	}
+	g.Version = from.GetVersion()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -451,4 +481,55 @@ func (b *GroupCallBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode GroupCallClass as nil")
 	}
 	return b.GroupCall.Encode(buf)
+}
+
+// GroupCallClassSlice is adapter for slice of GroupCallClass.
+type GroupCallClassSlice []GroupCallClass
+
+// First returns first element of slice (if exists).
+func (s GroupCallClassSlice) First() (v GroupCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s GroupCallClassSlice) Last() (v GroupCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *GroupCallClassSlice) PopFirst() (v GroupCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *GroupCallClassSlice) Pop() (v GroupCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

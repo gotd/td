@@ -58,6 +58,15 @@ func (t *ChannelsToggleSlowModeRequest) String() string {
 	return fmt.Sprintf("ChannelsToggleSlowModeRequest%+v", Alias(*t))
 }
 
+// FillFrom fills ChannelsToggleSlowModeRequest from given interface.
+func (t *ChannelsToggleSlowModeRequest) FillFrom(from interface {
+	GetChannel() (value InputChannelClass)
+	GetSeconds() (value int)
+}) {
+	t.Channel = from.GetChannel()
+	t.Seconds = from.GetSeconds()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsToggleSlowModeRequest) TypeID() uint32 {
@@ -83,6 +92,11 @@ func (t *ChannelsToggleSlowModeRequest) Encode(b *bin.Buffer) error {
 // GetChannel returns value of Channel field.
 func (t *ChannelsToggleSlowModeRequest) GetChannel() (value InputChannelClass) {
 	return t.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (t *ChannelsToggleSlowModeRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return t.Channel.AsNotEmpty()
 }
 
 // GetSeconds returns value of Seconds field.

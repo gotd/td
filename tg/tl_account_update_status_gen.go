@@ -54,6 +54,13 @@ func (u *AccountUpdateStatusRequest) String() string {
 	return fmt.Sprintf("AccountUpdateStatusRequest%+v", Alias(*u))
 }
 
+// FillFrom fills AccountUpdateStatusRequest from given interface.
+func (u *AccountUpdateStatusRequest) FillFrom(from interface {
+	GetOffline() (value bool)
+}) {
+	u.Offline = from.GetOffline()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateStatusRequest) TypeID() uint32 {

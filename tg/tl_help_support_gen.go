@@ -55,6 +55,15 @@ func (s *HelpSupport) String() string {
 	return fmt.Sprintf("HelpSupport%+v", Alias(*s))
 }
 
+// FillFrom fills HelpSupport from given interface.
+func (s *HelpSupport) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetUser() (value UserClass)
+}) {
+	s.PhoneNumber = from.GetPhoneNumber()
+	s.User = from.GetUser()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSupport) TypeID() uint32 {
@@ -85,6 +94,11 @@ func (s *HelpSupport) GetPhoneNumber() (value string) {
 // GetUser returns value of User field.
 func (s *HelpSupport) GetUser() (value UserClass) {
 	return s.User
+}
+
+// GetUserAsNotEmpty returns mapped value of User field.
+func (s *HelpSupport) GetUserAsNotEmpty() (*User, bool) {
+	return s.User.AsNotEmpty()
 }
 
 // Decode implements bin.Decoder.

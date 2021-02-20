@@ -114,6 +114,13 @@ func (t *TextPlain) String() string {
 	return fmt.Sprintf("TextPlain%+v", Alias(*t))
 }
 
+// FillFrom fills TextPlain from given interface.
+func (t *TextPlain) FillFrom(from interface {
+	GetText() (value string)
+}) {
+	t.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextPlain) TypeID() uint32 {
@@ -194,6 +201,13 @@ func (t *TextBold) String() string {
 	}
 	type Alias TextBold
 	return fmt.Sprintf("TextBold%+v", Alias(*t))
+}
+
+// FillFrom fills TextBold from given interface.
+func (t *TextBold) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -283,6 +297,13 @@ func (t *TextItalic) String() string {
 	return fmt.Sprintf("TextItalic%+v", Alias(*t))
 }
 
+// FillFrom fills TextItalic from given interface.
+func (t *TextItalic) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextItalic) TypeID() uint32 {
@@ -368,6 +389,13 @@ func (t *TextUnderline) String() string {
 	}
 	type Alias TextUnderline
 	return fmt.Sprintf("TextUnderline%+v", Alias(*t))
+}
+
+// FillFrom fills TextUnderline from given interface.
+func (t *TextUnderline) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -457,6 +485,13 @@ func (t *TextStrike) String() string {
 	return fmt.Sprintf("TextStrike%+v", Alias(*t))
 }
 
+// FillFrom fills TextStrike from given interface.
+func (t *TextStrike) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextStrike) TypeID() uint32 {
@@ -542,6 +577,13 @@ func (t *TextFixed) String() string {
 	}
 	type Alias TextFixed
 	return fmt.Sprintf("TextFixed%+v", Alias(*t))
+}
+
+// FillFrom fills TextFixed from given interface.
+func (t *TextFixed) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -639,6 +681,17 @@ func (t *TextUrl) String() string {
 	}
 	type Alias TextUrl
 	return fmt.Sprintf("TextUrl%+v", Alias(*t))
+}
+
+// FillFrom fills TextUrl from given interface.
+func (t *TextUrl) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetURL() (value string)
+	GetWebpageID() (value int64)
+}) {
+	t.Text = from.GetText()
+	t.URL = from.GetURL()
+	t.WebpageID = from.GetWebpageID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -759,6 +812,15 @@ func (t *TextEmail) String() string {
 	return fmt.Sprintf("TextEmail%+v", Alias(*t))
 }
 
+// FillFrom fills TextEmail from given interface.
+func (t *TextEmail) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetEmail() (value string)
+}) {
+	t.Text = from.GetText()
+	t.Email = from.GetEmail()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEmail) TypeID() uint32 {
@@ -859,6 +921,13 @@ func (t *TextConcat) String() string {
 	return fmt.Sprintf("TextConcat%+v", Alias(*t))
 }
 
+// FillFrom fills TextConcat from given interface.
+func (t *TextConcat) FillFrom(from interface {
+	GetTexts() (value []RichTextClass)
+}) {
+	t.Texts = from.GetTexts()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextConcat) TypeID() uint32 {
@@ -886,6 +955,11 @@ func (t *TextConcat) Encode(b *bin.Buffer) error {
 // GetTexts returns value of Texts field.
 func (t *TextConcat) GetTexts() (value []RichTextClass) {
 	return t.Texts
+}
+
+// MapTexts returns field Texts wrapped in RichTextClassSlice helper.
+func (t *TextConcat) MapTexts() (value RichTextClassSlice) {
+	return RichTextClassSlice(t.Texts)
 }
 
 // Decode implements bin.Decoder.
@@ -953,6 +1027,13 @@ func (t *TextSubscript) String() string {
 	}
 	type Alias TextSubscript
 	return fmt.Sprintf("TextSubscript%+v", Alias(*t))
+}
+
+// FillFrom fills TextSubscript from given interface.
+func (t *TextSubscript) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1042,6 +1123,13 @@ func (t *TextSuperscript) String() string {
 	return fmt.Sprintf("TextSuperscript%+v", Alias(*t))
 }
 
+// FillFrom fills TextSuperscript from given interface.
+func (t *TextSuperscript) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextSuperscript) TypeID() uint32 {
@@ -1127,6 +1215,13 @@ func (t *TextMarked) String() string {
 	}
 	type Alias TextMarked
 	return fmt.Sprintf("TextMarked%+v", Alias(*t))
+}
+
+// FillFrom fills TextMarked from given interface.
+func (t *TextMarked) FillFrom(from interface {
+	GetText() (value RichTextClass)
+}) {
+	t.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1219,6 +1314,15 @@ func (t *TextPhone) String() string {
 	}
 	type Alias TextPhone
 	return fmt.Sprintf("TextPhone%+v", Alias(*t))
+}
+
+// FillFrom fills TextPhone from given interface.
+func (t *TextPhone) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetPhone() (value string)
+}) {
+	t.Text = from.GetText()
+	t.Phone = from.GetPhone()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1329,6 +1433,17 @@ func (t *TextImage) String() string {
 	}
 	type Alias TextImage
 	return fmt.Sprintf("TextImage%+v", Alias(*t))
+}
+
+// FillFrom fills TextImage from given interface.
+func (t *TextImage) FillFrom(from interface {
+	GetDocumentID() (value int64)
+	GetW() (value int)
+	GetH() (value int)
+}) {
+	t.DocumentID = from.GetDocumentID()
+	t.W = from.GetW()
+	t.H = from.GetH()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1442,6 +1557,15 @@ func (t *TextAnchor) String() string {
 	}
 	type Alias TextAnchor
 	return fmt.Sprintf("TextAnchor%+v", Alias(*t))
+}
+
+// FillFrom fills TextAnchor from given interface.
+func (t *TextAnchor) FillFrom(from interface {
+	GetText() (value RichTextClass)
+	GetName() (value string)
+}) {
+	t.Text = from.GetText()
+	t.Name = from.GetName()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1702,4 +1826,55 @@ func (b *RichTextBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode RichTextClass as nil")
 	}
 	return b.RichText.Encode(buf)
+}
+
+// RichTextClassSlice is adapter for slice of RichTextClass.
+type RichTextClassSlice []RichTextClass
+
+// First returns first element of slice (if exists).
+func (s RichTextClassSlice) First() (v RichTextClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RichTextClassSlice) Last() (v RichTextClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RichTextClassSlice) PopFirst() (v RichTextClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RichTextClassSlice) Pop() (v RichTextClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

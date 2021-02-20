@@ -131,6 +131,19 @@ func (m *MessageMediaPhoto) String() string {
 	return fmt.Sprintf("MessageMediaPhoto%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaPhoto from given interface.
+func (m *MessageMediaPhoto) FillFrom(from interface {
+	GetPhoto() (value PhotoClass, ok bool)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	if val, ok := from.GetPhoto(); ok {
+		m.Photo = val
+	}
+	if val, ok := from.GetTTLSeconds(); ok {
+		m.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaPhoto) TypeID() uint32 {
@@ -269,6 +282,13 @@ func (m *MessageMediaGeo) String() string {
 	return fmt.Sprintf("MessageMediaGeo%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaGeo from given interface.
+func (m *MessageMediaGeo) FillFrom(from interface {
+	GetGeo() (value GeoPointClass)
+}) {
+	m.Geo = from.GetGeo()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaGeo) TypeID() uint32 {
@@ -374,6 +394,21 @@ func (m *MessageMediaContact) String() string {
 	}
 	type Alias MessageMediaContact
 	return fmt.Sprintf("MessageMediaContact%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaContact from given interface.
+func (m *MessageMediaContact) FillFrom(from interface {
+	GetPhoneNumber() (value string)
+	GetFirstName() (value string)
+	GetLastName() (value string)
+	GetVcard() (value string)
+	GetUserID() (value int)
+}) {
+	m.PhoneNumber = from.GetPhoneNumber()
+	m.FirstName = from.GetFirstName()
+	m.LastName = from.GetLastName()
+	m.Vcard = from.GetVcard()
+	m.UserID = from.GetUserID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -591,6 +626,19 @@ func (m *MessageMediaDocument) String() string {
 	return fmt.Sprintf("MessageMediaDocument%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaDocument from given interface.
+func (m *MessageMediaDocument) FillFrom(from interface {
+	GetDocument() (value DocumentClass, ok bool)
+	GetTTLSeconds() (value int, ok bool)
+}) {
+	if val, ok := from.GetDocument(); ok {
+		m.Document = val
+	}
+	if val, ok := from.GetTTLSeconds(); ok {
+		m.TTLSeconds = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaDocument) TypeID() uint32 {
@@ -729,6 +777,13 @@ func (m *MessageMediaWebPage) String() string {
 	return fmt.Sprintf("MessageMediaWebPage%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaWebPage from given interface.
+func (m *MessageMediaWebPage) FillFrom(from interface {
+	GetWebpage() (value WebPageClass)
+}) {
+	m.Webpage = from.GetWebpage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaWebPage) TypeID() uint32 {
@@ -839,6 +894,23 @@ func (m *MessageMediaVenue) String() string {
 	}
 	type Alias MessageMediaVenue
 	return fmt.Sprintf("MessageMediaVenue%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaVenue from given interface.
+func (m *MessageMediaVenue) FillFrom(from interface {
+	GetGeo() (value GeoPointClass)
+	GetTitle() (value string)
+	GetAddress() (value string)
+	GetProvider() (value string)
+	GetVenueID() (value string)
+	GetVenueType() (value string)
+}) {
+	m.Geo = from.GetGeo()
+	m.Title = from.GetTitle()
+	m.Address = from.GetAddress()
+	m.Provider = from.GetProvider()
+	m.VenueID = from.GetVenueID()
+	m.VenueType = from.GetVenueType()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -993,6 +1065,13 @@ func (m *MessageMediaGame) String() string {
 	return fmt.Sprintf("MessageMediaGame%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaGame from given interface.
+func (m *MessageMediaGame) FillFrom(from interface {
+	GetGame() (value Game)
+}) {
+	m.Game = from.GetGame()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaGame) TypeID() uint32 {
@@ -1135,6 +1214,31 @@ func (m *MessageMediaInvoice) String() string {
 	}
 	type Alias MessageMediaInvoice
 	return fmt.Sprintf("MessageMediaInvoice%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaInvoice from given interface.
+func (m *MessageMediaInvoice) FillFrom(from interface {
+	GetShippingAddressRequested() (value bool)
+	GetTest() (value bool)
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value WebDocumentClass, ok bool)
+	GetReceiptMsgID() (value int, ok bool)
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+	GetStartParam() (value string)
+}) {
+	m.Title = from.GetTitle()
+	m.Description = from.GetDescription()
+	if val, ok := from.GetPhoto(); ok {
+		m.Photo = val
+	}
+	if val, ok := from.GetReceiptMsgID(); ok {
+		m.ReceiptMsgID = val
+	}
+	m.Currency = from.GetCurrency()
+	m.TotalAmount = from.GetTotalAmount()
+	m.StartParam = from.GetStartParam()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1416,6 +1520,23 @@ func (m *MessageMediaGeoLive) String() string {
 	return fmt.Sprintf("MessageMediaGeoLive%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaGeoLive from given interface.
+func (m *MessageMediaGeoLive) FillFrom(from interface {
+	GetGeo() (value GeoPointClass)
+	GetHeading() (value int, ok bool)
+	GetPeriod() (value int)
+	GetProximityNotificationRadius() (value int, ok bool)
+}) {
+	m.Geo = from.GetGeo()
+	if val, ok := from.GetHeading(); ok {
+		m.Heading = val
+	}
+	m.Period = from.GetPeriod()
+	if val, ok := from.GetProximityNotificationRadius(); ok {
+		m.ProximityNotificationRadius = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaGeoLive) TypeID() uint32 {
@@ -1585,6 +1706,15 @@ func (m *MessageMediaPoll) String() string {
 	return fmt.Sprintf("MessageMediaPoll%+v", Alias(*m))
 }
 
+// FillFrom fills MessageMediaPoll from given interface.
+func (m *MessageMediaPoll) FillFrom(from interface {
+	GetPoll() (value Poll)
+	GetResults() (value PollResults)
+}) {
+	m.Poll = from.GetPoll()
+	m.Results = from.GetResults()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageMediaPoll) TypeID() uint32 {
@@ -1689,6 +1819,15 @@ func (m *MessageMediaDice) String() string {
 	}
 	type Alias MessageMediaDice
 	return fmt.Sprintf("MessageMediaDice%+v", Alias(*m))
+}
+
+// FillFrom fills MessageMediaDice from given interface.
+func (m *MessageMediaDice) FillFrom(from interface {
+	GetValue() (value int)
+	GetEmoticon() (value string)
+}) {
+	m.Value = from.GetValue()
+	m.Emoticon = from.GetEmoticon()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1920,4 +2059,55 @@ func (b *MessageMediaBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageMediaClass as nil")
 	}
 	return b.MessageMedia.Encode(buf)
+}
+
+// MessageMediaClassSlice is adapter for slice of MessageMediaClass.
+type MessageMediaClassSlice []MessageMediaClass
+
+// First returns first element of slice (if exists).
+func (s MessageMediaClassSlice) First() (v MessageMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageMediaClassSlice) Last() (v MessageMediaClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageMediaClassSlice) PopFirst() (v MessageMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageMediaClassSlice) Pop() (v MessageMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

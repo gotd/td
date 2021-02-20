@@ -1023,3 +1023,54 @@ func (b *SecureValueTypeBox) Encode(buf *bin.Buffer) error {
 	}
 	return b.SecureValueType.Encode(buf)
 }
+
+// SecureValueTypeClassSlice is adapter for slice of SecureValueTypeClass.
+type SecureValueTypeClassSlice []SecureValueTypeClass
+
+// First returns first element of slice (if exists).
+func (s SecureValueTypeClassSlice) First() (v SecureValueTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureValueTypeClassSlice) Last() (v SecureValueTypeClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureValueTypeClassSlice) PopFirst() (v SecureValueTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureValueTypeClassSlice) Pop() (v SecureValueTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}

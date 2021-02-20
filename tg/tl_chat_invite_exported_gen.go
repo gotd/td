@@ -103,6 +103,35 @@ func (c *ChatInviteExported) String() string {
 	return fmt.Sprintf("ChatInviteExported%+v", Alias(*c))
 }
 
+// FillFrom fills ChatInviteExported from given interface.
+func (c *ChatInviteExported) FillFrom(from interface {
+	GetRevoked() (value bool)
+	GetPermanent() (value bool)
+	GetLink() (value string)
+	GetAdminID() (value int)
+	GetDate() (value int)
+	GetStartDate() (value int, ok bool)
+	GetExpireDate() (value int, ok bool)
+	GetUsageLimit() (value int, ok bool)
+	GetUsage() (value int, ok bool)
+}) {
+	c.Link = from.GetLink()
+	c.AdminID = from.GetAdminID()
+	c.Date = from.GetDate()
+	if val, ok := from.GetStartDate(); ok {
+		c.StartDate = val
+	}
+	if val, ok := from.GetExpireDate(); ok {
+		c.ExpireDate = val
+	}
+	if val, ok := from.GetUsageLimit(); ok {
+		c.UsageLimit = val
+	}
+	if val, ok := from.GetUsage(); ok {
+		c.Usage = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteExported) TypeID() uint32 {

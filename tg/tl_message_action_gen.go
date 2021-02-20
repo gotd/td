@@ -119,6 +119,15 @@ func (m *MessageActionChatCreate) String() string {
 	return fmt.Sprintf("MessageActionChatCreate%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionChatCreate from given interface.
+func (m *MessageActionChatCreate) FillFrom(from interface {
+	GetTitle() (value string)
+	GetUsers() (value []int)
+}) {
+	m.Title = from.GetTitle()
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatCreate) TypeID() uint32 {
@@ -223,6 +232,13 @@ func (m *MessageActionChatEditTitle) String() string {
 	return fmt.Sprintf("MessageActionChatEditTitle%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionChatEditTitle from given interface.
+func (m *MessageActionChatEditTitle) FillFrom(from interface {
+	GetTitle() (value string)
+}) {
+	m.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatEditTitle) TypeID() uint32 {
@@ -303,6 +319,13 @@ func (m *MessageActionChatEditPhoto) String() string {
 	}
 	type Alias MessageActionChatEditPhoto
 	return fmt.Sprintf("MessageActionChatEditPhoto%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChatEditPhoto from given interface.
+func (m *MessageActionChatEditPhoto) FillFrom(from interface {
+	GetPhoto() (value PhotoClass)
+}) {
+	m.Photo = from.GetPhoto()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -456,6 +479,13 @@ func (m *MessageActionChatAddUser) String() string {
 	return fmt.Sprintf("MessageActionChatAddUser%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionChatAddUser from given interface.
+func (m *MessageActionChatAddUser) FillFrom(from interface {
+	GetUsers() (value []int)
+}) {
+	m.Users = from.GetUsers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatAddUser) TypeID() uint32 {
@@ -547,6 +577,13 @@ func (m *MessageActionChatDeleteUser) String() string {
 	return fmt.Sprintf("MessageActionChatDeleteUser%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionChatDeleteUser from given interface.
+func (m *MessageActionChatDeleteUser) FillFrom(from interface {
+	GetUserID() (value int)
+}) {
+	m.UserID = from.GetUserID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatDeleteUser) TypeID() uint32 {
@@ -629,6 +666,13 @@ func (m *MessageActionChatJoinedByLink) String() string {
 	return fmt.Sprintf("MessageActionChatJoinedByLink%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionChatJoinedByLink from given interface.
+func (m *MessageActionChatJoinedByLink) FillFrom(from interface {
+	GetInviterID() (value int)
+}) {
+	m.InviterID = from.GetInviterID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatJoinedByLink) TypeID() uint32 {
@@ -709,6 +753,13 @@ func (m *MessageActionChannelCreate) String() string {
 	}
 	type Alias MessageActionChannelCreate
 	return fmt.Sprintf("MessageActionChannelCreate%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChannelCreate from given interface.
+func (m *MessageActionChannelCreate) FillFrom(from interface {
+	GetTitle() (value string)
+}) {
+	m.Title = from.GetTitle()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -794,6 +845,13 @@ func (m *MessageActionChatMigrateTo) String() string {
 	}
 	type Alias MessageActionChatMigrateTo
 	return fmt.Sprintf("MessageActionChatMigrateTo%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChatMigrateTo from given interface.
+func (m *MessageActionChatMigrateTo) FillFrom(from interface {
+	GetChannelID() (value int)
+}) {
+	m.ChannelID = from.GetChannelID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -884,6 +942,15 @@ func (m *MessageActionChannelMigrateFrom) String() string {
 	}
 	type Alias MessageActionChannelMigrateFrom
 	return fmt.Sprintf("MessageActionChannelMigrateFrom%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionChannelMigrateFrom from given interface.
+func (m *MessageActionChannelMigrateFrom) FillFrom(from interface {
+	GetTitle() (value string)
+	GetChatID() (value int)
+}) {
+	m.Title = from.GetTitle()
+	m.ChatID = from.GetChatID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1114,6 +1181,15 @@ func (m *MessageActionGameScore) String() string {
 	return fmt.Sprintf("MessageActionGameScore%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionGameScore from given interface.
+func (m *MessageActionGameScore) FillFrom(from interface {
+	GetGameID() (value int64)
+	GetScore() (value int)
+}) {
+	m.GameID = from.GetGameID()
+	m.Score = from.GetScore()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGameScore) TypeID() uint32 {
@@ -1250,6 +1326,27 @@ func (m *MessageActionPaymentSentMe) String() string {
 	}
 	type Alias MessageActionPaymentSentMe
 	return fmt.Sprintf("MessageActionPaymentSentMe%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPaymentSentMe from given interface.
+func (m *MessageActionPaymentSentMe) FillFrom(from interface {
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+	GetPayload() (value []byte)
+	GetInfo() (value PaymentRequestedInfo, ok bool)
+	GetShippingOptionID() (value string, ok bool)
+	GetCharge() (value PaymentCharge)
+}) {
+	m.Currency = from.GetCurrency()
+	m.TotalAmount = from.GetTotalAmount()
+	m.Payload = from.GetPayload()
+	if val, ok := from.GetInfo(); ok {
+		m.Info = val
+	}
+	if val, ok := from.GetShippingOptionID(); ok {
+		m.ShippingOptionID = val
+	}
+	m.Charge = from.GetCharge()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1448,6 +1545,15 @@ func (m *MessageActionPaymentSent) String() string {
 	return fmt.Sprintf("MessageActionPaymentSent%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionPaymentSent from given interface.
+func (m *MessageActionPaymentSent) FillFrom(from interface {
+	GetCurrency() (value string)
+	GetTotalAmount() (value int64)
+}) {
+	m.Currency = from.GetCurrency()
+	m.TotalAmount = from.GetTotalAmount()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionPaymentSent) TypeID() uint32 {
@@ -1568,6 +1674,22 @@ func (m *MessageActionPhoneCall) String() string {
 	}
 	type Alias MessageActionPhoneCall
 	return fmt.Sprintf("MessageActionPhoneCall%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionPhoneCall from given interface.
+func (m *MessageActionPhoneCall) FillFrom(from interface {
+	GetVideo() (value bool)
+	GetCallID() (value int64)
+	GetReason() (value PhoneCallDiscardReasonClass, ok bool)
+	GetDuration() (value int, ok bool)
+}) {
+	m.CallID = from.GetCallID()
+	if val, ok := from.GetReason(); ok {
+		m.Reason = val
+	}
+	if val, ok := from.GetDuration(); ok {
+		m.Duration = val
+	}
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1805,6 +1927,13 @@ func (m *MessageActionCustomAction) String() string {
 	return fmt.Sprintf("MessageActionCustomAction%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionCustomAction from given interface.
+func (m *MessageActionCustomAction) FillFrom(from interface {
+	GetMessage() (value string)
+}) {
+	m.Message = from.GetMessage()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionCustomAction) TypeID() uint32 {
@@ -1888,6 +2017,13 @@ func (m *MessageActionBotAllowed) String() string {
 	}
 	type Alias MessageActionBotAllowed
 	return fmt.Sprintf("MessageActionBotAllowed%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionBotAllowed from given interface.
+func (m *MessageActionBotAllowed) FillFrom(from interface {
+	GetDomain() (value string)
+}) {
+	m.Domain = from.GetDomain()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1978,6 +2114,15 @@ func (m *MessageActionSecureValuesSentMe) String() string {
 	}
 	type Alias MessageActionSecureValuesSentMe
 	return fmt.Sprintf("MessageActionSecureValuesSentMe%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSecureValuesSentMe from given interface.
+func (m *MessageActionSecureValuesSentMe) FillFrom(from interface {
+	GetValues() (value []SecureValue)
+	GetCredentials() (value SecureCredentialsEncrypted)
+}) {
+	m.Values = from.GetValues()
+	m.Credentials = from.GetCredentials()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2089,6 +2234,13 @@ func (m *MessageActionSecureValuesSent) String() string {
 	return fmt.Sprintf("MessageActionSecureValuesSent%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionSecureValuesSent from given interface.
+func (m *MessageActionSecureValuesSent) FillFrom(from interface {
+	GetTypes() (value []SecureValueTypeClass)
+}) {
+	m.Types = from.GetTypes()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionSecureValuesSent) TypeID() uint32 {
@@ -2116,6 +2268,11 @@ func (m *MessageActionSecureValuesSent) Encode(b *bin.Buffer) error {
 // GetTypes returns value of Types field.
 func (m *MessageActionSecureValuesSent) GetTypes() (value []SecureValueTypeClass) {
 	return m.Types
+}
+
+// MapTypes returns field Types wrapped in SecureValueTypeClassSlice helper.
+func (m *MessageActionSecureValuesSent) MapTypes() (value SecureValueTypeClassSlice) {
+	return SecureValueTypeClassSlice(m.Types)
 }
 
 // Decode implements bin.Decoder.
@@ -2262,6 +2419,17 @@ func (m *MessageActionGeoProximityReached) String() string {
 	return fmt.Sprintf("MessageActionGeoProximityReached%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionGeoProximityReached from given interface.
+func (m *MessageActionGeoProximityReached) FillFrom(from interface {
+	GetFromID() (value PeerClass)
+	GetToID() (value PeerClass)
+	GetDistance() (value int)
+}) {
+	m.FromID = from.GetFromID()
+	m.ToID = from.GetToID()
+	m.Distance = from.GetDistance()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGeoProximityReached) TypeID() uint32 {
@@ -2391,6 +2559,17 @@ func (m *MessageActionGroupCall) String() string {
 	return fmt.Sprintf("MessageActionGroupCall%+v", Alias(*m))
 }
 
+// FillFrom fills MessageActionGroupCall from given interface.
+func (m *MessageActionGroupCall) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetDuration() (value int, ok bool)
+}) {
+	m.Call = from.GetCall()
+	if val, ok := from.GetDuration(); ok {
+		m.Duration = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGroupCall) TypeID() uint32 {
@@ -2511,6 +2690,15 @@ func (m *MessageActionInviteToGroupCall) String() string {
 	}
 	type Alias MessageActionInviteToGroupCall
 	return fmt.Sprintf("MessageActionInviteToGroupCall%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionInviteToGroupCall from given interface.
+func (m *MessageActionInviteToGroupCall) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetUsers() (value []int)
+}) {
+	m.Call = from.GetCall()
+	m.Users = from.GetUsers()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -2855,4 +3043,55 @@ func (b *MessageActionBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode MessageActionClass as nil")
 	}
 	return b.MessageAction.Encode(buf)
+}
+
+// MessageActionClassSlice is adapter for slice of MessageActionClass.
+type MessageActionClassSlice []MessageActionClass
+
+// First returns first element of slice (if exists).
+func (s MessageActionClassSlice) First() (v MessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionClassSlice) Last() (v MessageActionClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionClassSlice) PopFirst() (v MessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionClassSlice) Pop() (v MessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

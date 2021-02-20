@@ -55,6 +55,15 @@ func (p *PaymentSavedCredentialsCard) String() string {
 	return fmt.Sprintf("PaymentSavedCredentialsCard%+v", Alias(*p))
 }
 
+// FillFrom fills PaymentSavedCredentialsCard from given interface.
+func (p *PaymentSavedCredentialsCard) FillFrom(from interface {
+	GetID() (value string)
+	GetTitle() (value string)
+}) {
+	p.ID = from.GetID()
+	p.Title = from.GetTitle()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentSavedCredentialsCard) TypeID() uint32 {

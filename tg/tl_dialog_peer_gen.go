@@ -50,6 +50,13 @@ func (d *DialogPeer) String() string {
 	return fmt.Sprintf("DialogPeer%+v", Alias(*d))
 }
 
+// FillFrom fills DialogPeer from given interface.
+func (d *DialogPeer) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+}) {
+	d.Peer = from.GetPeer()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogPeer) TypeID() uint32 {
@@ -141,6 +148,13 @@ func (d *DialogPeerFolder) String() string {
 	}
 	type Alias DialogPeerFolder
 	return fmt.Sprintf("DialogPeerFolder%+v", Alias(*d))
+}
+
+// FillFrom fills DialogPeerFolder from given interface.
+func (d *DialogPeerFolder) FillFrom(from interface {
+	GetFolderID() (value int)
+}) {
+	d.FolderID = from.GetFolderID()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -271,4 +285,55 @@ func (b *DialogPeerBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode DialogPeerClass as nil")
 	}
 	return b.DialogPeer.Encode(buf)
+}
+
+// DialogPeerClassSlice is adapter for slice of DialogPeerClass.
+type DialogPeerClassSlice []DialogPeerClass
+
+// First returns first element of slice (if exists).
+func (s DialogPeerClassSlice) First() (v DialogPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DialogPeerClassSlice) Last() (v DialogPeerClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DialogPeerClassSlice) PopFirst() (v DialogPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DialogPeerClassSlice) Pop() (v DialogPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

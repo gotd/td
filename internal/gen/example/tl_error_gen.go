@@ -59,6 +59,17 @@ func (e *Error) String() string {
 	return fmt.Sprintf("Error%+v", Alias(*e))
 }
 
+// FillFrom fills Error from given interface.
+func (e *Error) FillFrom(from interface {
+	GetCode() (value int32)
+	GetMessage() (value string)
+	GetTemporary() (value bool)
+}) {
+	e.Code = from.GetCode()
+	e.Message = from.GetMessage()
+	e.Temporary = from.GetTemporary()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *Error) TypeID() uint32 {

@@ -122,6 +122,15 @@ func (w *AccountWallPapers) String() string {
 	return fmt.Sprintf("AccountWallPapers%+v", Alias(*w))
 }
 
+// FillFrom fills AccountWallPapers from given interface.
+func (w *AccountWallPapers) FillFrom(from interface {
+	GetHash() (value int)
+	GetWallpapers() (value []WallPaperClass)
+}) {
+	w.Hash = from.GetHash()
+	w.Wallpapers = from.GetWallpapers()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWallPapers) TypeID() uint32 {
@@ -155,6 +164,11 @@ func (w *AccountWallPapers) GetHash() (value int) {
 // GetWallpapers returns value of Wallpapers field.
 func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
 	return w.Wallpapers
+}
+
+// MapWallpapers returns field Wallpapers wrapped in WallPaperClassSlice helper.
+func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassSlice) {
+	return WallPaperClassSlice(w.Wallpapers)
 }
 
 // Decode implements bin.Decoder.
@@ -218,6 +232,9 @@ type AccountWallPapersClass interface {
 	bin.Decoder
 	construct() AccountWallPapersClass
 
+	// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+	AsModified() (*AccountWallPapers, bool)
+
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
@@ -225,6 +242,16 @@ type AccountWallPapersClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+func (w *AccountWallPapersNotModified) AsModified() (*AccountWallPapers, bool) {
+	return nil, false
+}
+
+// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+func (w *AccountWallPapers) AsModified() (*AccountWallPapers, bool) {
+	return w, true
 }
 
 // DecodeAccountWallPapers implements binary de-serialization for AccountWallPapersClass.
@@ -277,4 +304,92 @@ func (b *AccountWallPapersBox) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("unable to encode AccountWallPapersClass as nil")
 	}
 	return b.WallPapers.Encode(buf)
+}
+
+// AccountWallPapersClassSlice is adapter for slice of AccountWallPapersClass.
+type AccountWallPapersClassSlice []AccountWallPapersClass
+
+// AppendOnlyModified appends only Modified constructors to
+// given slice.
+func (s AccountWallPapersClassSlice) AppendOnlyModified(to []*AccountWallPapers) []*AccountWallPapers {
+	for _, elem := range s {
+		value, ok := elem.AsModified()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsModified returns copy with only Modified constructors.
+func (s AccountWallPapersClassSlice) AsModified() (to []*AccountWallPapers) {
+	return s.AppendOnlyModified(to)
+}
+
+// FirstAsModified returns first element of slice (if exists).
+func (s AccountWallPapersClassSlice) FirstAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// LastAsModified returns last element of slice (if exists).
+func (s AccountWallPapersClassSlice) LastAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// First returns first element of slice (if exists).
+func (s AccountWallPapersClassSlice) First() (v AccountWallPapersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AccountWallPapersClassSlice) Last() (v AccountWallPapersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AccountWallPapersClassSlice) PopFirst() (v AccountWallPapersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	a[len(a)-1] = nil
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AccountWallPapersClassSlice) Pop() (v AccountWallPapersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
 }

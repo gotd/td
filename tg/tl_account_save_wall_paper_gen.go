@@ -60,6 +60,17 @@ func (s *AccountSaveWallPaperRequest) String() string {
 	return fmt.Sprintf("AccountSaveWallPaperRequest%+v", Alias(*s))
 }
 
+// FillFrom fills AccountSaveWallPaperRequest from given interface.
+func (s *AccountSaveWallPaperRequest) FillFrom(from interface {
+	GetWallpaper() (value InputWallPaperClass)
+	GetUnsave() (value bool)
+	GetSettings() (value WallPaperSettings)
+}) {
+	s.Wallpaper = from.GetWallpaper()
+	s.Unsave = from.GetUnsave()
+	s.Settings = from.GetSettings()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveWallPaperRequest) TypeID() uint32 {

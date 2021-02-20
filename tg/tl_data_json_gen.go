@@ -50,6 +50,13 @@ func (d *DataJSON) String() string {
 	return fmt.Sprintf("DataJSON%+v", Alias(*d))
 }
 
+// FillFrom fills DataJSON from given interface.
+func (d *DataJSON) FillFrom(from interface {
+	GetData() (value string)
+}) {
+	d.Data = from.GetData()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DataJSON) TypeID() uint32 {

@@ -50,6 +50,13 @@ func (r *MessagesReadFeaturedStickersRequest) String() string {
 	return fmt.Sprintf("MessagesReadFeaturedStickersRequest%+v", Alias(*r))
 }
 
+// FillFrom fills MessagesReadFeaturedStickersRequest from given interface.
+func (r *MessagesReadFeaturedStickersRequest) FillFrom(from interface {
+	GetID() (value []int64)
+}) {
+	r.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadFeaturedStickersRequest) TypeID() uint32 {

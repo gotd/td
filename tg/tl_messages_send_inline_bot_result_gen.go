@@ -122,6 +122,31 @@ func (s *MessagesSendInlineBotResultRequest) String() string {
 	return fmt.Sprintf("MessagesSendInlineBotResultRequest%+v", Alias(*s))
 }
 
+// FillFrom fills MessagesSendInlineBotResultRequest from given interface.
+func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
+	GetSilent() (value bool)
+	GetBackground() (value bool)
+	GetClearDraft() (value bool)
+	GetHideVia() (value bool)
+	GetPeer() (value InputPeerClass)
+	GetReplyToMsgID() (value int, ok bool)
+	GetRandomID() (value int64)
+	GetQueryID() (value int64)
+	GetID() (value string)
+	GetScheduleDate() (value int, ok bool)
+}) {
+	s.Peer = from.GetPeer()
+	if val, ok := from.GetReplyToMsgID(); ok {
+		s.ReplyToMsgID = val
+	}
+	s.RandomID = from.GetRandomID()
+	s.QueryID = from.GetQueryID()
+	s.ID = from.GetID()
+	if val, ok := from.GetScheduleDate(); ok {
+		s.ScheduleDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendInlineBotResultRequest) TypeID() uint32 {

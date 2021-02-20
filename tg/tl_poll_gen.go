@@ -105,6 +105,29 @@ func (p *Poll) String() string {
 	return fmt.Sprintf("Poll%+v", Alias(*p))
 }
 
+// FillFrom fills Poll from given interface.
+func (p *Poll) FillFrom(from interface {
+	GetID() (value int64)
+	GetClosed() (value bool)
+	GetPublicVoters() (value bool)
+	GetMultipleChoice() (value bool)
+	GetQuiz() (value bool)
+	GetQuestion() (value string)
+	GetAnswers() (value []PollAnswer)
+	GetClosePeriod() (value int, ok bool)
+	GetCloseDate() (value int, ok bool)
+}) {
+	p.ID = from.GetID()
+	p.Question = from.GetQuestion()
+	p.Answers = from.GetAnswers()
+	if val, ok := from.GetClosePeriod(); ok {
+		p.ClosePeriod = val
+	}
+	if val, ok := from.GetCloseDate(); ok {
+		p.CloseDate = val
+	}
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Poll) TypeID() uint32 {

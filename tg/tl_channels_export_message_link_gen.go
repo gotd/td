@@ -76,6 +76,17 @@ func (e *ChannelsExportMessageLinkRequest) String() string {
 	return fmt.Sprintf("ChannelsExportMessageLinkRequest%+v", Alias(*e))
 }
 
+// FillFrom fills ChannelsExportMessageLinkRequest from given interface.
+func (e *ChannelsExportMessageLinkRequest) FillFrom(from interface {
+	GetGrouped() (value bool)
+	GetThread() (value bool)
+	GetChannel() (value InputChannelClass)
+	GetID() (value int)
+}) {
+	e.Channel = from.GetChannel()
+	e.ID = from.GetID()
+}
+
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsExportMessageLinkRequest) TypeID() uint32 {
@@ -142,6 +153,11 @@ func (e *ChannelsExportMessageLinkRequest) GetThread() (value bool) {
 // GetChannel returns value of Channel field.
 func (e *ChannelsExportMessageLinkRequest) GetChannel() (value InputChannelClass) {
 	return e.Channel
+}
+
+// GetChannelAsNotEmpty returns mapped value of Channel field.
+func (e *ChannelsExportMessageLinkRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel, bool) {
+	return e.Channel.AsNotEmpty()
 }
 
 // GetID returns value of ID field.
