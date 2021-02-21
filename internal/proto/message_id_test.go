@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/neo"
@@ -87,5 +88,33 @@ func BenchmarkMsgIDGen_New(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_ = gen.New(MessageFromServer)
+	}
+}
+
+func TestNewMessageIDBuf(t *testing.T) {
+	t.Run("Zero", func(t *testing.T) {
+		buf := NewMessageIDBuf(10)
+
+		assert.False(t, buf.Consume(0))
+	})
+	t.Run("Ok", func(t *testing.T) {
+		buf := NewMessageIDBuf(10)
+
+		assert.True(t, buf.Consume(1))
+		assert.False(t, buf.Consume(1))
+
+		t.Run("Sequence", func(t *testing.T) {
+			for i := 2; i <= 20; i++ {
+				assert.True(t, buf.Consume(int64(i)))
+			}
+			assert.False(t, buf.Consume(-1))
+		})
+	})
+}
+
+func BenchmarkMessageIDBuf(b *testing.B) {
+	buf := NewMessageIDBuf(100)
+	for i := 0; i < b.N; i++ {
+		buf.Consume(int64(i))
 	}
 }
