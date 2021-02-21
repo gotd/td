@@ -187,3 +187,55 @@ func NewMessageIDGen(now func() time.Time, n int) *MessageIDGen {
 		now: now,
 	}
 }
+
+// MessageIDBuf stores last N message ids and is used in replay attack mitigation.
+type MessageIDBuf struct {
+	mux sync.Mutex
+	buf []int64
+}
+
+// NewMessageIDBuf initializes new message id buffer for last N stored values.
+func NewMessageIDBuf(n int) *MessageIDBuf {
+	return &MessageIDBuf{
+		buf: make([]int64, n),
+	}
+}
+
+// Consume returns false if message should be discarded.
+func (b *MessageIDBuf) Consume(newID int64) bool {
+	// In addition, the identifiers (msg_id) of the last N messages received
+	// from the other side must be stored, and if a message comes in with an
+	// msg_id lower than all or equal to any of the stored values, that message
+	// is to be ignored. Otherwise, the new message msg_id is added to the set,
+	// and, if the number of stored msg_id values is greater than N, the oldest
+	// (i. e. the lowest) is discarded.
+	//
+	// https://core.telegram.org/mtproto/security_guidelines#checking-msg-id
+
+	b.mux.Lock()
+	defer b.mux.Unlock()
+
+	var (
+		minIDx int
+		minID  int64
+	)
+	for i, id := range b.buf {
+		if id == newID {
+			// Equal to stored value.
+			return false
+		}
+		// Searching for minimum value.
+		if id < minID {
+			minIDx = i
+			minID = id
+		}
+	}
+	if newID < minID {
+		// Lower than all stored values.
+		return false
+	}
+
+	// Message is accepted. Replacing lowest message id with new id.
+	b.buf[minIDx] = newID
+	return true
+}
